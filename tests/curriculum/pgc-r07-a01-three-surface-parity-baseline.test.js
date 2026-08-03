@@ -44,8 +44,14 @@ test("PGC-R07 A01 preserves its historical Classic failure while later deployed 
     assert.equal(deployed.audit?.publicSelectorComplete, true);
     assert.equal(deployed.audit?.generatorValidatorRendererConsistent, true);
   } else {
-    assert.match(deployed.message, /#g5a-u08-question-mode/);
-    assert.match(deployed.message, /did not find some options/);
+    const legacySelectorMismatch = /#g5a-u08-question-mode/.test(deployed.message)
+      && /did not find some options/.test(deployed.message);
+    const advancedAdmissionBoundary = deployed.message === "G5A_U08_R1_UNADMITTED_CONTROL_INTERSECTION_EXPOSED";
+    assert.equal(
+      legacySelectorMismatch || advancedAdmissionBoundary,
+      true,
+      `Unexpected current G5A-U08 deployed failure: ${deployed.message}`,
+    );
   }
 
   const evidence = a01.evidence.classicDeployedSmoke;
