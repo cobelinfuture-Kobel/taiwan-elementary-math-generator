@@ -2,7 +2,7 @@
   "claimId": "P03F-W3-SLICE018-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice018Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_D0_CLOSED",
   "goalDistance": "D0",
   "scope": "Slice018 only: g4a_u09_4a09 two-decimal compose/decompose.",
   "authority": {
@@ -22,7 +22,7 @@
       "finalHeadSha": "6f23ff4310b5ffe17df8560d0397f8c4372d3201",
       "mergeSha": "34282b6282365b1f8b5b4bb8d8e2088523bbdce3",
       "nodeWorkflowRunId": 30790392563,
-      "nodeWorkflowJobId": 91612642473,
+      "nodeWorkflowJobId": 91612479885,
       "nodeConclusion": "success"
     },
     "currentSurface": {
@@ -36,8 +36,9 @@
       "cancelledStuckJobId": 91615127731,
       "recoveryJobId": 91618448152,
       "recoveryJobConclusion": "success",
-      "aggregateJobId": 91618525072,
-      "aggregateConclusion": "success"
+      "aggregateJobId": 91618633999,
+      "aggregateConclusion": "success",
+      "scenarioCount": 90
     },
     "pixelRepair": {
       "prNumber": 525,
@@ -52,9 +53,9 @@
     "acceptancePrNumber": 524,
     "acceptanceEvidenceHeadSha": "48f10912139874e2e1814063d13850cb8cfbdf0b",
     "chromiumWorkflowRunId": 30793658443,
-    "chromiumWorkflowJobId": 91622347441,
+    "chromiumWorkflowJobId": 91622334211,
     "artifactId": 8848015560,
-    "artifactDigest": "sha256:593412ae73ab6b21258293be93ad3908540c7406c4dbacd85e78da758352d15f",
+    "artifactDigest": "sha256:0d0b33c26615acbe06cc636f23019ab0af9bc9d379a97dadae2bfbe9eae46f21",
     "pdfPageCount": 4,
     "pdfByteLength": 21678,
     "screenshotCount": 4,
@@ -63,6 +64,8 @@
     "patternSpecWitnessCounts": {
       "ps_g4a_u09_decimal_compose_decompose_decimal_numeric": 18
     },
+    "htmlSha256": "f2cf43cc0d9c6920e7aa36ea12f115cc147bc0d27e96a19c41370c8892ee1c67",
+    "pdfSha256": "f490a7375d09a033ce3ccecc2290fb0466f6b39cc0f579fc9e306ee648edd045",
     "duplicatePromptFindingCount": 0,
     "overflowFindingCount": 0,
     "consoleErrorCount": 0,
@@ -71,7 +74,12 @@
     "visualReview": "PASS",
     "semanticReview": "PASS",
     "answerKeyReview": "PASS",
-    "acceptanceMergeSha": "cd5d9290bf076824297584381bafae35fff2560c"
+    "temporaryAcceptanceWorkflowRetired": true,
+    "cleanupHeadSha": "6171f8be0c2677beb4b1c4b06a2abaaea47bf205",
+    "cleanupNodeWorkflowRunId": 30793875184,
+    "cleanupNodeWorkflowJobId": 91622995068,
+    "cleanupNodeConclusion": "success",
+    "acceptanceMergeSha": "cd5d9290366bdad3471aa3d3cd8c3018bb8e4c8d"
   },
   "finalExactHeadEvidence": {
     "headSha": "e1823675162c1a3c62ecea4a8be9432efde7b11f",
@@ -80,6 +88,15 @@
     "nodeConclusion": "success",
     "temporaryAcceptanceWorkflowRetired": true
   },
+  "closeoutEvidence": {
+    "prNumber": 526,
+    "headSha": "dce2d5a28ccaab6b2f1ee49c30cc3bffe3e7b17b",
+    "nodeWorkflowRunId": 30795972050,
+    "nodeWorkflowJobId": 91629520667,
+    "nodeConclusion": "success",
+    "mergeSha": "b5419c77f10eb0a3422f1f51dcdeaad7abc722d3",
+    "mainReadback": "PASS"
+  },
   "productResult": {
     "knowledgePointCount": 1,
     "patternGroupCount": 1,
@@ -87,6 +104,7 @@
     "questionWitnessCount": 18,
     "answerKeyWitnessCount": 18,
     "newProductAdmissionCount": 1,
+    "newPublicSourceCount": 0,
     "classicPublicSurface": "PASS",
     "pixelPublicSurface": "PASS",
     "worksheetPrintable": "PASS",
