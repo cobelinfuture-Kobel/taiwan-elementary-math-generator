@@ -1,0 +1,57 @@
+name: P03F17 One-Shot Authority Materialization
+
+on:
+  push:
+    branches:
+      - p03f-w3-slice017
+    paths:
+      - ".github/workflows/p03f17-one-shot-authority-materialization.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p03f17-one-shot-authority-materialization
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact slice branch
+        uses: actions/checkout@v4
+        with:
+          ref: p03f-w3-slice017
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Materialize the already-validated deterministic authority
+        run: node tools/curriculum/materialize-p03f17-current-authority-remediation.mjs
+
+      - name: Remove bootstrap and restore canonical pretest
+        run: |
+          git fetch origin main
+          git show origin/main:package.json > package.json
+          git rm tools/curriculum/materialize-p03f17-current-authority-remediation.mjs
+          git rm .github/workflows/p03f17-one-shot-authority-materialization.yml
+
+      - name: Prove clean workspace without bootstrap
+        run: npm test
+
+      - name: Commit deterministic authority as the final clean PR head
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git status --short
+          if git diff --cached --quiet; then
+            echo "P03F17_ONE_SHOT_NO_CHANGES"
+            exit 1
+          fi
+          git commit -m "chore(p03f17): materialize current authority and remove bootstrap"
+          git push origin HEAD:p03f-w3-slice017
