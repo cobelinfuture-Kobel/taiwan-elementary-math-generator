@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice017Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
   "expectedCounts": {
     "queuePosition": 17,
     "sourceNodeCount": 1,
@@ -65,7 +65,13 @@
     "finalNodeWorkflowHeadSha": "22e2894986d00650bea442de0dad59eb36c9e561",
     "finalNodeWorkflowRunId": 30776663657,
     "finalNodeWorkflowJobId": 91573365966,
-    "finalNodeWorkflowConclusion": "success"
+    "finalNodeWorkflowConclusion": "success",
+    "closeoutPrNumber": 520,
+    "closeoutHeadSha": "3a9681acdbb7772131d06455293c2b1d8c90a589",
+    "closeoutNodeWorkflowRunId": 30778675804,
+    "closeoutNodeWorkflowJobId": 91578953665,
+    "closeoutNodeConclusion": "success",
+    "closeoutMergeSha": "05c3e28f5116bc0d263da03931adcd5bfa647314"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice017-fraction-type-classification-authority.json",
   "chromiumAcceptancePath": "tools/curriculum/render-p03f-slice017-product-acceptance.mjs",

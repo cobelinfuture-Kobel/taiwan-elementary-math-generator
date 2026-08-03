@@ -2,7 +2,7 @@
   "claimId": "P03F-W3-SLICE017-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice017Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_D0_CLOSED",
   "goalDistance": "D0",
   "scope": "Slice017 only: g4a_u06_4a06 proper, improper and mixed-number classification.",
   "authority": {
@@ -56,6 +56,15 @@
     "nodeWorkflowJobId": 91573365966,
     "nodeConclusion": "success",
     "temporaryAcceptanceWorkflowRetired": true
+  },
+  "closeoutEvidence": {
+    "prNumber": 520,
+    "headSha": "3a9681acdbb7772131d06455293c2b1d8c90a589",
+    "nodeWorkflowRunId": 30778675804,
+    "nodeWorkflowJobId": 91578953665,
+    "nodeConclusion": "success",
+    "mergeSha": "05c3e28f5116bc0d263da03931adcd5bfa647314",
+    "mainReadback": "PASS"
   },
   "productResult": {
     "knowledgePointCount": 1,
