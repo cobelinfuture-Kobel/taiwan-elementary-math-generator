@@ -205,9 +205,42 @@ const LEGACY_MATRIX_LOOP = `    await setControls(page, controls);
       controlMatrixResults.push({ ...row, actual: "blocked", status: output.status });
     }`;
 const CAPACITY_MATRIX_LOOP = `    const label = \`\${row.questionMode}/\${row.depthMode}/\${row.contextMode}\`;
+    const rowSeed = \`g5a-u08-r1-\${row.questionMode}-\${row.depthMode}-\${row.contextMode}\`;
+    const rowUrl = new URL(page.url());
+    rowUrl.searchParams.set("sourceId", SOURCE_ID);
+    rowUrl.searchParams.set("selectionMode", "mixedKnowledgePointsSameUnit");
+    rowUrl.searchParams.delete("kp");
+    for (const knowledgePointId of G5A_U08_PROMOTED_KNOWLEDGE_POINT_IDS) rowUrl.searchParams.append("kp", knowledgePointId);
+    rowUrl.searchParams.delete("pg");
+    for (const patternGroupId of G5A_U08_PROMOTED_PATTERN_GROUP_IDS) rowUrl.searchParams.append("pg", patternGroupId);
+    rowUrl.searchParams.set("questionCount", String(PER_COMBINATION_QUESTION_COUNT));
+    rowUrl.searchParams.set("ordering", "groupedByPattern");
+    rowUrl.searchParams.set("answerKey", "1");
+    rowUrl.searchParams.set("generationSeed", rowSeed);
+    rowUrl.searchParams.set("questionMode", row.questionMode);
+    rowUrl.searchParams.set("depthMode", row.depthMode);
+    rowUrl.searchParams.set("contextMode", row.contextMode);
+    await page.goto(rowUrl.href, { waitUntil: "networkidle", timeout: 120000 });
+    await page.waitForFunction(
+      (sourceId) => document.querySelector("#g5a-u08-public-controls")?.dataset.sourceId === sourceId,
+      SOURCE_ID,
+      { timeout: 120000 },
+    );
+    const isolatedUrl = new URL(page.url());
+    if (
+      isolatedUrl.searchParams.get("selectionMode") !== "mixedKnowledgePointsSameUnit"
+      || new Set(isolatedUrl.searchParams.getAll("kp")).size !== EXPECTED_KP_COUNT
+      || new Set(isolatedUrl.searchParams.getAll("pg")).size !== EXPECTED_PATTERN_GROUP_COUNT
+    ) {
+      fail("G5A_U08_R1_MATRIX_ROW_STATE_NOT_ISOLATED", {
+        label,
+        url: isolatedUrl.href,
+        knowledgePointCount: new Set(isolatedUrl.searchParams.getAll("kp")).size,
+        patternGroupCount: new Set(isolatedUrl.searchParams.getAll("pg")).size,
+      });
+    }
     if (row.expected === "generate") {
       await setControls(page, controls, row);
-      await page.fill("#generation-seed-input", \`g5a-u08-r1-\${row.questionMode}-\${row.depthMode}-\${row.contextMode}\`);
       const output = await assertGenerated(page, PER_COMBINATION_QUESTION_COUNT, true, label);
       controlMatrixResults.push({ ...row, actual: "generated", previewMeta: output.previewMeta });
     } else {
@@ -237,6 +270,9 @@ export function patchG5AU08DeployedSmokeHarness(source) {
     || !patched.includes("preferredReplayControls")
     || !patched.includes("assertNotExposed")
     || !patched.includes('actual: "not_exposed"')
+    || !patched.includes("G5A_U08_R1_MATRIX_ROW_STATE_NOT_ISOLATED")
+    || !patched.includes('rowUrl.searchParams.delete("kp")')
+    || !patched.includes('rowUrl.searchParams.delete("pg")')
     || !patched.includes("requiredSegments")
     || patched.includes("endsWith(expectedSuffix)")
     || patched.includes(LEGACY_SINGLE_KP_MIXED_CONTROL)
