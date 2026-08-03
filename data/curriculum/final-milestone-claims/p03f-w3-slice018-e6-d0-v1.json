@@ -2,7 +2,7 @@
   "claimId": "P03F-W3-SLICE018-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice018Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_D0_CLOSED",
   "goalDistance": "D0",
   "scope": "Slice018 only: g4a_u09_4a09 two-decimal compose/decompose.",
   "authority": {
@@ -79,6 +79,15 @@
     "nodeWorkflowJobId": 91627566495,
     "nodeConclusion": "success",
     "temporaryAcceptanceWorkflowRetired": true
+  },
+  "closeoutEvidence": {
+    "prNumber": 526,
+    "headSha": "dce2d5a28ccaab6b2f1ee49c30cc3bffe3e7b17b",
+    "nodeWorkflowRunId": 30795972050,
+    "nodeWorkflowJobId": 91629520667,
+    "nodeConclusion": "success",
+    "mergeSha": "b5419c77f10eb0a3422f1f51dcdeaad7abc722d3",
+    "mainReadback": "PASS"
   },
   "productResult": {
     "knowledgePointCount": 1,

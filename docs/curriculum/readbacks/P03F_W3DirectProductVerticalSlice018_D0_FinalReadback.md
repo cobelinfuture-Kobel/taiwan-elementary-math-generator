@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice018Implementation
-STATUS     = PASS_D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -62,6 +62,13 @@ D0 preflight detected Pixel still importing the P03F17 selector. This was not ac
 - Node run/job: `30795336068 / 91627566495` = `success`
 - Merge: `9d10f8bd07c8eddc93806242811d3e1c19c902c8`
 
+## Formal closeout — PR #526
+
+- Exact head: `dce2d5a28ccaab6b2f1ee49c30cc3bffe3e7b17b`
+- Node run/job: `30795972050 / 91629520667` = `success`
+- Merge: `b5419c77f10eb0a3422f1f51dcdeaad7abc722d3`
+- Main readback: `PASS`
+
 ## Product result
 
 ```text
@@ -81,12 +88,12 @@ Application expansion   = NO
 
 Slice019 has not started. Slice018 did not add decimal comparison, decimal sequence, missing-digit reasoning, decimal arithmetic, application/Global Context expansion, a new public source, or a parallel runtime pipeline.
 
-## Candidate closeout
+## Final closeout
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE018_PIXEL_CURRENT_SURFACE_REPAIR_PENDING
-GOAL_DISTANCE_AFTER  = D0_SLICE018_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = Pixel current surface repaired; core/current-surface/E6 evidence reconciled into one D0 authority candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_EXACT_HEAD_CI_AND_MERGE]
-NEXT_SHORTEST_STEP   = Run exact-head closeout CI, merge, then reconcile post-merge metadata before Slice019.
+GOAL_DISTANCE_BEFORE = D1_SLICE018_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE018_CLOSED
+DISTANCE_REDUCED     = Exact closeout CI and merge evidence reconciled into canonical main authority.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice019Implementation
 ```
