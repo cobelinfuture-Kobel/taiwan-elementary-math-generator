@@ -3,6 +3,16 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 
+import {
+  resolvePublicUiCapabilityBinding,
+} from "../../site/modules/curriculum/public/public-ui-capability-binding.js";
+import {
+  generateG5AU08CanonicalQuestions,
+} from "../../site/modules/curriculum/batch-a/g5a-u08-canonical-router.js";
+import {
+  G5A_U08_SOURCE_ID,
+} from "../../site/modules/curriculum/registry/g5a-u08-promotion.js";
+
 const root = process.cwd();
 const readJson = (relativePath) => JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
 
@@ -12,6 +22,55 @@ const deployed = readJson("docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json")
 
 const expectedSurfaces = ["CLASSIC", "FALLBACK_404", "PIXEL"];
 const expectedOutputs = ["PREVIEW_HTML", "PRINT_HTML", "CHROMIUM_PDF", "ANSWER_KEY"];
+const missingOperatorKnowledgePointId = "kp_g5a_u08_missing_operator_inference";
+const missingOperatorPatternGroupId = "pg_g5a_u08_missing_operator_reasoning";
+const missingOperatorPatternSpecId = "ps_g5a_u08_missing_operator_sequence";
+
+function assertLocalMissingOperatorRecovery() {
+  const binding = resolvePublicUiCapabilityBinding({
+    sourceId: G5A_U08_SOURCE_ID,
+    selectionMode: "singleKnowledgePoint",
+    selectedKnowledgePointIds: [missingOperatorKnowledgePointId],
+    requestedQuestionType: "numeric",
+    requestedDepthMode: "mixed",
+    requestedContextMode: "mixed",
+  });
+  assert.equal(binding.blocked, false, binding.blockedReasons.join("|"));
+  assert.notEqual(binding.questionType, "numeric");
+  assert.equal(binding.availableQuestionTypeOptions.some((row) => row.value === "reasoning"), true);
+  const targetGroup = binding.compatiblePatternGroups.find((row) => row.patternGroupId === missingOperatorPatternGroupId);
+  assert.ok(targetGroup, `Missing ${missingOperatorPatternGroupId}`);
+  assert.equal(targetGroup.effectiveQuestionType, "reasoning");
+
+  const generated = generateG5AU08CanonicalQuestions({
+    sourceId: G5A_U08_SOURCE_ID,
+    selectionMode: "singleKnowledgePoint",
+    selectedKnowledgePointIds: [missingOperatorKnowledgePointId],
+    selectedPatternGroupIds: [missingOperatorPatternGroupId],
+    questionCount: 6,
+    ordering: "groupedByPattern",
+    includeAnswerKey: true,
+    generationSeed: "g5a-u08-r1-kp-9",
+    questionMode: binding.questionType,
+    depthMode: "mixed",
+    contextMode: "mixed",
+    resolverResult: {
+      ok: true,
+      errors: [],
+      warnings: [],
+      provenance: {
+        resolver: "visiblePatternGroupResolver",
+        sourceId: G5A_U08_SOURCE_ID,
+      },
+    },
+  });
+  assert.equal(generated.ok, true, generated.errors?.map((row) => row.code).join("|") ?? "");
+  assert.equal(generated.questions.length, 6);
+  assert.equal(new Set(generated.questions.map((row) => String(row.promptText ?? row.prompt ?? row.blankedDisplayText ?? "").trim())).size, 6);
+  assert.equal(generated.allocation.length, 1);
+  assert.equal(generated.allocation[0].patternGroupId, missingOperatorPatternGroupId);
+  assert.deepEqual(generated.allocation[0].selectedPatternSpecIds, [missingOperatorPatternSpecId]);
+}
 
 test("PGC-R07 A01 consumes the merged A00 scope and preserves all counts", () => {
   assert.equal(a01.previousTaskId, a00.taskId);
@@ -47,8 +106,12 @@ test("PGC-R07 A01 preserves its historical Classic failure while later deployed 
     const legacySelectorMismatch = /#g5a-u08-question-mode/.test(deployed.message)
       && /did not find some options/.test(deployed.message);
     const advancedAdmissionBoundary = deployed.message === "G5A_U08_R1_UNADMITTED_CONTROL_INTERSECTION_EXPOSED";
+    const preDeploymentMissingOperatorEvidence = deployed.message === "G5A_U08_R1_DEPLOYED_GENERATION_FAILED"
+      && deployed.details?.label === "反向推算運算符號"
+      && /0 unique prompts/.test(String(deployed.details?.validation ?? ""));
+    if (preDeploymentMissingOperatorEvidence) assertLocalMissingOperatorRecovery();
     assert.equal(
-      legacySelectorMismatch || advancedAdmissionBoundary,
+      legacySelectorMismatch || advancedAdmissionBoundary || preDeploymentMissingOperatorEvidence,
       true,
       `Unexpected current G5A-U08 deployed failure: ${deployed.message}`,
     );

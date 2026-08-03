@@ -28,6 +28,7 @@ const SOURCE_UNIT_MODE = "sourceUnit";
 const SINGLE_KP_MODE = "singleKnowledgePoint";
 const SAME_UNIT_MIXED_MODE = "mixedKnowledgePointsSameUnit";
 const MIXED_MODE = "mixed";
+const G5A_U08_SOURCE_ID = "g5a_u08_5a08";
 const CAPACITY_BLOCK_REASONS = new Set([
   "PUBLIC_CAPACITY_ROUTE_UNAVAILABLE",
   "COMPATIBLE_QUESTION_TYPE_MISSING",
@@ -122,7 +123,20 @@ function sourceUnitFallbackInput(input) {
 
 function inferGroupMode(group = {}) {
   const mode = String(group.publicQuestionMode ?? group.questionMode ?? group.mode ?? "numeric").toLowerCase();
+  if (group.sourceId === G5A_U08_SOURCE_ID && mode.includes("reasoning")) return "reasoning";
   return mode.includes("application") || mode.includes("word_problem") ? "application" : "numeric";
+}
+
+function fallbackQuestionTypeValues(input, fallbackModes) {
+  if (input.sourceId !== G5A_U08_SOURCE_ID || fallbackModes.length < 2) return fallbackModes;
+  return uniqueStrings([MIXED_MODE, ...fallbackModes]);
+}
+
+function fallbackQuestionTypeLabel(value) {
+  if (value === MIXED_MODE) return "混合題";
+  if (value === "application") return "應用題";
+  if (value === "reasoning") return "推理題";
+  return "數字題";
 }
 
 function requestedKnowledgePointFallbackGroups(requestedKnowledgePointIds) {
@@ -159,6 +173,7 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
   const requestedKnowledgePointIds = uniqueStrings(input.selectedKnowledgePointIds);
   const compatiblePatternGroupIds = uniqueStrings(fallbackGroups.map((group) => group.patternGroupId));
   const fallbackModes = uniqueStrings(fallbackGroups.map(inferGroupMode));
+  const availableFallbackQuestionTypeValues = fallbackQuestionTypeValues(input, fallbackModes);
   const requestedMode = String(input.requestedQuestionType ?? "");
   const fallbackQuestionType = fallbackModes.includes(requestedMode)
     ? requestedMode
@@ -178,7 +193,10 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
     selectedKnowledgePointCount: requestedKnowledgePointIds.length > 0
       ? requestedKnowledgePointIds.length
       : sourceBinding.selectedKnowledgePointCount,
-    availableQuestionTypeOptions: Object.freeze(fallbackModes.map((value) => Object.freeze({ value, label: value === "application" ? "應用題" : "數字題" }))),
+    availableQuestionTypeOptions: Object.freeze(availableFallbackQuestionTypeValues.map((value) => Object.freeze({
+      value,
+      label: fallbackQuestionTypeLabel(value),
+    }))),
     questionType: fallbackQuestionType,
     compatiblePatternGroups: Object.freeze(fallbackGroups.map(Object.freeze)),
     compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
