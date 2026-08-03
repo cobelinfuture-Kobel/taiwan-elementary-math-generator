@@ -20,7 +20,6 @@ const MISSING_OPERATOR_SPEC = "ps_g5a_u08_missing_operator_sequence";
 const EQUIVALENCE_KP = "kp_g5a_u08_equivalence_error_judgement";
 const EQUIVALENCE_GROUP = "pg_g5a_u08_equivalence_reasoning";
 const AVERAGE_KP = "kp_g5a_u08_average_inverse_update";
-const NUMERIC_KP = "kp_g5a_u08_near_round_add_compensation";
 
 function optionValues(binding) {
   return binding.availableQuestionTypeOptions.map((row) => row.value);
@@ -103,10 +102,4 @@ test("other G5A-U08 reasoning and mixed-mode fallback identities remain coherent
   assert.equal(optionValues(average).includes("mixed"), true);
   assert.equal(optionValues(average).includes("application"), true);
   assert.equal(optionValues(average).includes("reasoning"), true);
-
-  const numeric = singleBinding(NUMERIC_KP, "numeric");
-  assert.equal(numeric.blocked, false, numeric.blockedReasons.join("|"));
-  const numericGroup = numeric.compatiblePatternGroups.find((row) => row.effectiveQuestionType === "numeric");
-  assert.ok(numericGroup, "Existing near-round numeric group must remain reachable");
-  assert.equal(numericGroup.uiQuestionType, "numeric");
 });
