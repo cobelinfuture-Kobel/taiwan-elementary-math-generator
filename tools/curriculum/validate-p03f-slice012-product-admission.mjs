@@ -69,8 +69,8 @@ export function validateP03FSlice012ProductAdmission() {
   const pixelRows = listPixelKnowledgePointsForSource(SOURCE);
   const pixelSnapshot = getCurrentPixelRegistrySnapshot();
   if (pixelSources.length < 26
-    || pixelRows.length !== 2
-    || pixelRows[1]?.knowledgePointId !== KP
+    || pixelRows.length < 2
+    || !pixelRows.some((row) => row.knowledgePointId === KP)
     || pixelSnapshot.sourceCount < 26) {
     errors.push("P03F12_PIXEL_SURFACE_INVALID");
   }

@@ -103,7 +103,7 @@ test("P03F12 validator rejects cross-product, answer and scope tampering", () =>
   assert.equal(validateG4BU08EquivalenceCrossProductQuestion({ ...question, questionMode: "application" }).ok, false);
 });
 
-test("P03F12 selector remains two G4B-U08 KPs while current Pixel adds later sources monotonically", () => {
+test("P03F12 selector remains two G4B-U08 KPs while current Pixel includes later Slice020 monotonically", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G4B_U08_SOURCE_ID);
   assert.equal(rows.length, 2);
   assert.deepEqual(rows.map((row) => row.knowledgePointId), [
@@ -114,7 +114,10 @@ test("P03F12 selector remains two G4B-U08 KPs while current Pixel adds later sou
   assert.equal(availability.visibleCount, 2);
   assert.equal(availability.hiddenPendingCount, 5);
   assert.equal(listCurrentPixelSourceOptions().length, 27);
-  assert.equal(listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID).length, 2);
+  const currentPixelRows = listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID);
+  assert.equal(currentPixelRows.length, 3);
+  assert.equal(currentPixelRows[1].knowledgePointId, G4B_U08_EQUIVALENCE_CROSS_PRODUCT_KP_ID);
+  assert.equal(currentPixelRows[2].knowledgePointId, "kp_g4b_u08_fraction_decimal_conversion");
   assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 27);
 });
 
