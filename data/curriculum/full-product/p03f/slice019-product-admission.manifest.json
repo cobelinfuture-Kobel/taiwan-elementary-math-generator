@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice019Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
   "expectedCounts": {
     "queuePosition": 19,
     "sourceNodeCount": 1,
@@ -93,7 +93,17 @@
     "pagesDeploymentWorkflowRunId": 30865129429,
     "pagesDeploymentConclusion": "success",
     "deployedSiteHttpStatus": 200,
-    "deployedContentMatchesMergeSha": true
+    "deployedContentMatchesMergeSha": true,
+    "closeoutPrNumber": 535,
+    "closeoutHeadSha": "b694b5d1edea772666098b3d348209c21d282e6d",
+    "closeoutNodeWorkflowRunId": 30885490353,
+    "closeoutNodeWorkflowJobId": 91915658886,
+    "closeoutNodeConclusion": "success",
+    "closeoutFullRegressionTests": 2884,
+    "closeoutFullRegressionPass": 2884,
+    "closeoutFullRegressionFail": 0,
+    "closeoutMergeSha": "eb4106b50afb03eff3a4165d392c17824ac4d9f4",
+    "closeoutMainReadback": "PASS"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice019-two-decimal-rate-authority.json",
   "chromiumAcceptancePath": "tools/curriculum/render-p03f-slice019-product-acceptance.mjs",
