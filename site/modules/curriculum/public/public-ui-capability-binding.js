@@ -10,7 +10,7 @@ import {
 import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
-} from "../registry/batch-a-selector-p03f21-extension.js";
+} from "../registry/batch-a-selector-p03f22-extension.js";
 import {
   G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
   G4A_U06_FRACTION_CLASSIFICATION_KP_ID,

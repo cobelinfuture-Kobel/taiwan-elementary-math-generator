@@ -12,7 +12,7 @@ import {
 } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f21-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f22-extension.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const jsonPath = path.join(repoRoot, "data/curriculum/public-generation/public_generation_capability_matrix.json");

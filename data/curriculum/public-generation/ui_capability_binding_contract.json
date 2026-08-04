@@ -5,7 +5,7 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f21-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f22-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
   "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding.js",
   "adapters": {
@@ -26,19 +26,19 @@
   ],
   "summary": {
     "publicSourceCount": 28,
-    "visibleKnowledgePointCount": 204,
+    "visibleKnowledgePointCount": 206,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 258,
-    "surfaceCaseCount": 774,
-    "questionTypeBindingRowCount": 1140,
-    "parityCaseCount": 258,
-    "auditCaseCount": 774,
+    "baseCaseCount": 260,
+    "surfaceCaseCount": 780,
+    "questionTypeBindingRowCount": 1143,
+    "parityCaseCount": 260,
+    "auditCaseCount": 780,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
-    "limitedCapacityBindingCount": 1083,
-    "structuralFallbackBindingCount": 57,
+    "limitedCapacityBindingCount": 1077,
+    "structuralFallbackBindingCount": 66,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -46045,24 +46045,36 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
+        "kp_g5a_u04_quotient_as_fraction_context",
+        "kp_g5a_u04_common_denominator",
+        "kp_g5a_u04_divisibility_supported_reduction"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 4,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g5a_u04_expand_reduce_simplest_numeric",
-        "pg_g5a_u04_quotient_as_fraction_context_numeric"
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
+        "pg_g5a_u04_common_denominator_numeric",
+        "pg_g5a_u04_divisibility_supported_reduction_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u04_expand_reduce_simplest_common_factor_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_numerator_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_denominator_numeric",
-        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric"
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
+        "ps_g5a_u04_common_denominator_common_denominator_numeric",
+        "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+        "ps_g5a_u04_common_denominator_right_equivalent_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
       ],
       "questionFormLabels": [
         "擴分、約分與最簡分數",
-        "整數相除的分數商｜數字題"
+        "整數相除的分數商｜數字題",
+        "通分",
+        "利用整除規則約分"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -46083,9 +46095,11 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
+        "kp_g5a_u04_quotient_as_fraction_context",
+        "kp_g5a_u04_common_denominator",
+        "kp_g5a_u04_divisibility_supported_reduction"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 4,
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
@@ -46118,24 +46132,36 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
+        "kp_g5a_u04_quotient_as_fraction_context",
+        "kp_g5a_u04_common_denominator",
+        "kp_g5a_u04_divisibility_supported_reduction"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 4,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g5a_u04_expand_reduce_simplest_numeric",
-        "pg_g5a_u04_quotient_as_fraction_context_numeric"
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
+        "pg_g5a_u04_common_denominator_numeric",
+        "pg_g5a_u04_divisibility_supported_reduction_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u04_expand_reduce_simplest_common_factor_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_numerator_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_denominator_numeric",
-        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric"
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
+        "ps_g5a_u04_common_denominator_common_denominator_numeric",
+        "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+        "ps_g5a_u04_common_denominator_right_equivalent_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
       ],
       "questionFormLabels": [
         "擴分、約分與最簡分數",
-        "整數相除的分數商｜數字題"
+        "整數相除的分數商｜數字題",
+        "通分",
+        "利用整除規則約分"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -46156,9 +46182,11 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
+        "kp_g5a_u04_quotient_as_fraction_context",
+        "kp_g5a_u04_common_denominator",
+        "kp_g5a_u04_divisibility_supported_reduction"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 4,
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
@@ -46191,24 +46219,36 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
+        "kp_g5a_u04_quotient_as_fraction_context",
+        "kp_g5a_u04_common_denominator",
+        "kp_g5a_u04_divisibility_supported_reduction"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 4,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g5a_u04_expand_reduce_simplest_numeric",
-        "pg_g5a_u04_quotient_as_fraction_context_numeric"
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
+        "pg_g5a_u04_common_denominator_numeric",
+        "pg_g5a_u04_divisibility_supported_reduction_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u04_expand_reduce_simplest_common_factor_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_numerator_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_denominator_numeric",
-        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric"
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
+        "ps_g5a_u04_common_denominator_common_denominator_numeric",
+        "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+        "ps_g5a_u04_common_denominator_right_equivalent_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
       ],
       "questionFormLabels": [
         "擴分、約分與最簡分數",
-        "整數相除的分數商｜數字題"
+        "整數相除的分數商｜數字題",
+        "通分",
+        "利用整除規則約分"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -46229,9 +46269,11 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
+        "kp_g5a_u04_quotient_as_fraction_context",
+        "kp_g5a_u04_common_denominator",
+        "kp_g5a_u04_divisibility_supported_reduction"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 4,
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
@@ -46557,6 +46599,210 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g5a_u04_5a04::single::kp_g5a_u04_common_denominator::CLASSIC::numeric",
+      "caseId": "g5a_u04_5a04::single::kp_g5a_u04_common_denominator",
+      "sourceId": "g5a_u04_5a04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u04_common_denominator"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u04_common_denominator_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u04_common_denominator_common_denominator_numeric",
+        "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+        "ps_g5a_u04_common_denominator_right_equivalent_numeric"
+      ],
+      "questionFormLabels": [
+        "通分"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u04_5a04::single::kp_g5a_u04_common_denominator::FALLBACK_404::numeric",
+      "caseId": "g5a_u04_5a04::single::kp_g5a_u04_common_denominator",
+      "sourceId": "g5a_u04_5a04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u04_common_denominator"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u04_common_denominator_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u04_common_denominator_common_denominator_numeric",
+        "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+        "ps_g5a_u04_common_denominator_right_equivalent_numeric"
+      ],
+      "questionFormLabels": [
+        "通分"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u04_5a04::single::kp_g5a_u04_common_denominator::PIXEL::numeric",
+      "caseId": "g5a_u04_5a04::single::kp_g5a_u04_common_denominator",
+      "sourceId": "g5a_u04_5a04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u04_common_denominator"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u04_common_denominator_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u04_common_denominator_common_denominator_numeric",
+        "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+        "ps_g5a_u04_common_denominator_right_equivalent_numeric"
+      ],
+      "questionFormLabels": [
+        "通分"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u04_5a04::single::kp_g5a_u04_divisibility_supported_reduction::CLASSIC::numeric",
+      "caseId": "g5a_u04_5a04::single::kp_g5a_u04_divisibility_supported_reduction",
+      "sourceId": "g5a_u04_5a04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u04_divisibility_supported_reduction"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u04_divisibility_supported_reduction_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
+      ],
+      "questionFormLabels": [
+        "利用整除規則約分"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u04_5a04::single::kp_g5a_u04_divisibility_supported_reduction::FALLBACK_404::numeric",
+      "caseId": "g5a_u04_5a04::single::kp_g5a_u04_divisibility_supported_reduction",
+      "sourceId": "g5a_u04_5a04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u04_divisibility_supported_reduction"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u04_divisibility_supported_reduction_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
+      ],
+      "questionFormLabels": [
+        "利用整除規則約分"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u04_5a04::single::kp_g5a_u04_divisibility_supported_reduction::PIXEL::numeric",
+      "caseId": "g5a_u04_5a04::single::kp_g5a_u04_divisibility_supported_reduction",
+      "sourceId": "g5a_u04_5a04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u04_divisibility_supported_reduction"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u04_divisibility_supported_reduction_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
+      ],
+      "questionFormLabels": [
+        "利用整除規則約分"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g5a_u04_5a04::mixedSameUnit::CLASSIC::numeric",
       "caseId": "g5a_u04_5a04::mixedSameUnit",
       "sourceId": "g5a_u04_5a04",
@@ -46564,66 +46810,43 @@
       "selectionMode": "mixedKnowledgePointsSameUnit",
       "selectedKnowledgePointIds": [
         "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
+        "kp_g5a_u04_quotient_as_fraction_context",
+        "kp_g5a_u04_common_denominator",
+        "kp_g5a_u04_divisibility_supported_reduction"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 4,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g5a_u04_expand_reduce_simplest_numeric",
-        "pg_g5a_u04_quotient_as_fraction_context_numeric"
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
+        "pg_g5a_u04_common_denominator_numeric",
+        "pg_g5a_u04_divisibility_supported_reduction_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u04_expand_reduce_simplest_common_factor_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_numerator_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_denominator_numeric",
-        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric"
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
+        "ps_g5a_u04_common_denominator_common_denominator_numeric",
+        "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+        "ps_g5a_u04_common_denominator_right_equivalent_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
       ],
       "questionFormLabels": [
         "擴分、約分與最簡分數",
-        "整數相除的分數商｜數字題"
+        "整數相除的分數商｜數字題",
+        "通分",
+        "利用整除規則約分"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "blocked": false,
-      "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
-    },
-    {
-      "bindingId": "g5a_u04_5a04::mixedSameUnit::CLASSIC::application",
-      "caseId": "g5a_u04_5a04::mixedSameUnit",
-      "sourceId": "g5a_u04_5a04",
-      "surfaceId": "CLASSIC",
-      "selectionMode": "mixedKnowledgePointsSameUnit",
-      "selectedKnowledgePointIds": [
-        "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
-      ],
-      "selectedKnowledgePointCount": 2,
-      "questionType": "application",
-      "questionTypeLabel": "應用題",
-      "compatiblePatternGroupIds": [
-        "pg_g5a_u04_quotient_as_fraction_context_application"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
-      ],
-      "questionFormLabels": [
-        "平均分配的分數商｜應用題"
-      ],
-      "depthModes": [],
-      "contextModes": [
-        "global_primary"
-      ],
-      "questionCountMin": 1,
-      "questionCountDefault": 20,
-      "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -46637,66 +46860,43 @@
       "selectionMode": "mixedKnowledgePointsSameUnit",
       "selectedKnowledgePointIds": [
         "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
+        "kp_g5a_u04_quotient_as_fraction_context",
+        "kp_g5a_u04_common_denominator",
+        "kp_g5a_u04_divisibility_supported_reduction"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 4,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g5a_u04_expand_reduce_simplest_numeric",
-        "pg_g5a_u04_quotient_as_fraction_context_numeric"
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
+        "pg_g5a_u04_common_denominator_numeric",
+        "pg_g5a_u04_divisibility_supported_reduction_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u04_expand_reduce_simplest_common_factor_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_numerator_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_denominator_numeric",
-        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric"
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
+        "ps_g5a_u04_common_denominator_common_denominator_numeric",
+        "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+        "ps_g5a_u04_common_denominator_right_equivalent_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
       ],
       "questionFormLabels": [
         "擴分、約分與最簡分數",
-        "整數相除的分數商｜數字題"
+        "整數相除的分數商｜數字題",
+        "通分",
+        "利用整除規則約分"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "blocked": false,
-      "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
-    },
-    {
-      "bindingId": "g5a_u04_5a04::mixedSameUnit::FALLBACK_404::application",
-      "caseId": "g5a_u04_5a04::mixedSameUnit",
-      "sourceId": "g5a_u04_5a04",
-      "surfaceId": "FALLBACK_404",
-      "selectionMode": "mixedKnowledgePointsSameUnit",
-      "selectedKnowledgePointIds": [
-        "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
-      ],
-      "selectedKnowledgePointCount": 2,
-      "questionType": "application",
-      "questionTypeLabel": "應用題",
-      "compatiblePatternGroupIds": [
-        "pg_g5a_u04_quotient_as_fraction_context_application"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
-      ],
-      "questionFormLabels": [
-        "平均分配的分數商｜應用題"
-      ],
-      "depthModes": [],
-      "contextModes": [
-        "global_primary"
-      ],
-      "questionCountMin": 1,
-      "questionCountDefault": 20,
-      "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -46710,66 +46910,43 @@
       "selectionMode": "mixedKnowledgePointsSameUnit",
       "selectedKnowledgePointIds": [
         "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
+        "kp_g5a_u04_quotient_as_fraction_context",
+        "kp_g5a_u04_common_denominator",
+        "kp_g5a_u04_divisibility_supported_reduction"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 4,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g5a_u04_expand_reduce_simplest_numeric",
-        "pg_g5a_u04_quotient_as_fraction_context_numeric"
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
+        "pg_g5a_u04_common_denominator_numeric",
+        "pg_g5a_u04_divisibility_supported_reduction_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u04_expand_reduce_simplest_common_factor_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_numerator_numeric",
         "ps_g5a_u04_expand_reduce_simplest_simplest_denominator_numeric",
-        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric"
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
+        "ps_g5a_u04_common_denominator_common_denominator_numeric",
+        "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+        "ps_g5a_u04_common_denominator_right_equivalent_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+        "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
       ],
       "questionFormLabels": [
         "擴分、約分與最簡分數",
-        "整數相除的分數商｜數字題"
+        "整數相除的分數商｜數字題",
+        "通分",
+        "利用整除規則約分"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
-      "blocked": false,
-      "blockedReasons": [],
-      "capacityRouteIds": [],
-      "capacityQualityStatuses": []
-    },
-    {
-      "bindingId": "g5a_u04_5a04::mixedSameUnit::PIXEL::application",
-      "caseId": "g5a_u04_5a04::mixedSameUnit",
-      "sourceId": "g5a_u04_5a04",
-      "surfaceId": "PIXEL",
-      "selectionMode": "mixedKnowledgePointsSameUnit",
-      "selectedKnowledgePointIds": [
-        "kp_g5a_u04_expand_reduce_simplest",
-        "kp_g5a_u04_quotient_as_fraction_context"
-      ],
-      "selectedKnowledgePointCount": 2,
-      "questionType": "application",
-      "questionTypeLabel": "應用題",
-      "compatiblePatternGroupIds": [
-        "pg_g5a_u04_quotient_as_fraction_context_application"
-      ],
-      "compatiblePatternSpecIds": [
-        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
-      ],
-      "questionFormLabels": [
-        "平均分配的分數商｜應用題"
-      ],
-      "depthModes": [],
-      "contextModes": [
-        "global_primary"
-      ],
-      "questionCountMin": 1,
-      "questionCountDefault": 20,
-      "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
