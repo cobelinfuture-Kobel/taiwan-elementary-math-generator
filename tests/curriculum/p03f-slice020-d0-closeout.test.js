@@ -5,8 +5,10 @@ import { readFileSync } from "node:fs";
 const manifest = JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p03f/slice020-product-admission.manifest.json", import.meta.url), "utf8"));
 const claim = JSON.parse(readFileSync(new URL("../../data/curriculum/final-milestone-claims/p03f-w3-slice020-e6-d0-v1.json", import.meta.url), "utf8"));
 
-test("P03F20 D0 closeout candidate binds exact GitHub evidence and preserves Slice021 boundary", () => {
-  assert.equal(manifest.status, "READY_FOR_CLOSEOUT_CI");
+test("P03F20 D0 closeout is main-reconciled with exact GitHub evidence and preserves Slice021 boundary", () => {
+  assert.equal(manifest.status, "PASS_CI_SYNCED_AND_MERGED");
+  assert.equal(manifest.admissionState, "E6_ARTIFACT_ACCEPTED_D0");
+  assert.equal(manifest.admissionDecision.status, "ADMITTED_D0");
   assert.equal(manifest.expectedCounts.queuePosition, 20);
   assert.equal(manifest.expectedCounts.knowledgePointCount, 1);
   assert.equal(manifest.expectedCounts.patternGroupCount, 1);
@@ -48,10 +50,22 @@ test("P03F20 D0 closeout candidate binds exact GitHub evidence and preserves Sli
   assert.equal(manifest.mainlineBoundary.globalContextExpanded, false);
   assert.equal(manifest.mainlineBoundary.parallelRuntimePipelineAdded, false);
 
-  assert.equal(claim.status, "PASS_D0_CLOSEOUT_CANDIDATE");
-  assert.equal(claim.goalDistance, "D1_CLOSEOUT_CI_PENDING");
-  assert.equal(claim.productResult.d0Complete, false);
+  assert.equal(evidence.closeoutPrNumber, 538);
+  assert.equal(evidence.closeoutHeadSha, "1395a1fbae95dd2447349ea3f92dc10db4482491");
+  assert.equal(evidence.closeoutNodeWorkflowRunId, 30906605404);
+  assert.equal(evidence.closeoutNodeWorkflowJobId, 91983038877);
+  assert.deepEqual([evidence.closeoutFullRegressionTests, evidence.closeoutFullRegressionPass, evidence.closeoutFullRegressionFail], [2894, 2894, 0]);
+  assert.equal(evidence.closeoutMergeSha, "1900ba0676a175f52b5c2c592664c68dc843c7e8");
+  assert.equal(evidence.closeoutMainReadback, "PASS");
+
+  assert.equal(claim.status, "PASS_D0_CLOSED");
+  assert.equal(claim.goalDistance, "D0");
+  assert.equal(claim.productResult.d0Complete, true);
   assert.equal(claim.boundaries.slice021Started, false);
-  assert.equal(claim.closeoutEvidence.mainReadback, "PENDING");
+  assert.equal(claim.closeoutEvidence.prNumber, 538);
+  assert.equal(claim.closeoutEvidence.nodeWorkflowRunId, 30906605404);
+  assert.deepEqual(claim.closeoutEvidence.fullRegression, {tests: 2894, pass: 2894, fail: 0});
+  assert.equal(claim.closeoutEvidence.mergeSha, "1900ba0676a175f52b5c2c592664c68dc843c7e8");
+  assert.equal(claim.closeoutEvidence.mainReadback, "PASS");
   assert.equal(claim.nextResumeTask, "P03F_W3DirectProductVerticalSlice021Implementation");
 });
