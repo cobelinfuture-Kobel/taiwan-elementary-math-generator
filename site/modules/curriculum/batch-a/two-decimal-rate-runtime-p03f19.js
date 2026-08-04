@@ -213,8 +213,8 @@ function buildQuestion(patternSpecId, fixture, ordinal) {
 export function canGenerateG4BU06Slice019Questions(plan = {}) {
   return plan.sourceId === G4B_U06_SLICE019_SOURCE_ID
     && Array.isArray(plan.patternSpecIds)
-    && plan.patternSpecIds.length === 1
-    && G4B_U06_SLICE019_PATTERN_SPEC_IDS.includes(plan.patternSpecIds[0]);
+    && plan.patternSpecIds.length > 0
+    && plan.patternSpecIds.every((id) => G4B_U06_SLICE019_PATTERN_SPEC_IDS.includes(id));
 }
 
 export function validateG4BU06Slice019Question(question = {}) {
@@ -268,10 +268,20 @@ export function generateG4BU06Slice019Questions(options = {}) {
   if (!Number.isInteger(questionCount) || questionCount <= 0 || questionCount > CASES.length) {
     return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f19_question_count_invalid", severity: "error", path: "questionCount", message: "Question count must be between 1 and 24." }], warnings: [] };
   }
-  const patternSpecId = plan.patternSpecIds[0];
-  const offset = hashSeed(generationSeed) % CASES.length;
-  const questions = Array.from({ length: questionCount }, (_, index) => buildQuestion(patternSpecId, CASES[(offset + index) % CASES.length], index + 1));
+  const patternSpecIds = [...new Set(plan.patternSpecIds)];
+  const perPatternOrdinal = new Map(patternSpecIds.map((id) => [id, 0]));
+  const questions = Array.from({ length: questionCount }, (_, index) => {
+    const patternSpecId = patternSpecIds[index % patternSpecIds.length];
+    const ordinal = perPatternOrdinal.get(patternSpecId) + 1;
+    perPatternOrdinal.set(patternSpecId, ordinal);
+    const offset = hashSeed(`${generationSeed}:${patternSpecId}`) % CASES.length;
+    return buildQuestion(patternSpecId, CASES[(offset + ordinal - 1) % CASES.length], index + 1);
+  });
   const errors = questions.flatMap((question) => validateG4BU06Slice019Question(question).errors);
   if (new Set(questions.map((row) => row.blankedDisplayText)).size !== questions.length) errors.push({ code: "p03f19_duplicate_prompt_detected", severity: "error", path: "questions", message: "Duplicate prompts are forbidden." });
-  return { ok: errors.length === 0, plan, questions, allocation: [{ patternSpecId, questionCount }], errors, warnings: [] };
+  const allocation = patternSpecIds.map((patternSpecId) => ({
+    patternSpecId,
+    questionCount: questions.filter((row) => row.patternSpecId === patternSpecId).length,
+  }));
+  return { ok: errors.length === 0, plan, questions, allocation, errors, warnings: [] };
 }
