@@ -70,6 +70,9 @@ jobs:
       - name: Run P03F slice019 Chromium product acceptance
         if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f19-g4b-u06-rank7-core'
         run: node tools/curriculum/render-p03f-slice019-product-acceptance.mjs
+      - name: Run P03F slice020 Chromium product acceptance
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f20-g4b-u08-rank7'
+        run: node tools/curriculum/render-p03f-slice020-product-acceptance.mjs
       - name: Run PGC-R07 A03 Chromium print and answer-key matrix
         if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'pgc-r07-a03-chromium-print-answer-matrix'
         run: node tools/curriculum/run-pgc-r07-a03-chromium-print-answer-matrix-r1.mjs
@@ -178,6 +181,14 @@ jobs:
         with:
           name: p03f-slice019-product-acceptance
           path: tmp/p03f-slice019-product-acceptance
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload P03F slice020 product artifacts
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f20-g4b-u08-rank7'
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice020-product-acceptance
+          path: tmp/p03f-slice020-product-acceptance
           if-no-files-found: error
           retention-days: 30
       - name: Upload PGC-R07 A03 Chromium print artifacts

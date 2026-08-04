@@ -1,0 +1,29 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { chromium } from "playwright";
+import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
+import { G4B_U08_SOURCE_ID } from "../../site/modules/curriculum/registry/g4b-u08-equivalent-fraction-selector-projection.js";
+import { G4B_U08_FRACTION_DECIMAL_KP_ID,G4B_U08_FRACTION_DECIMAL_GROUP_ID,G4B_U08_FRACTION_DECIMAL_SPEC_IDS } from "../../site/modules/curriculum/registry/g4b-u08-fraction-decimal-conversion-selector-projection.js";
+
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"../..");
+const OUTPUT=path.join(ROOT,"tmp/p03f-slice020-product-acceptance"); fs.mkdirSync(OUTPUT,{recursive:true});
+const printStyles=fs.readFileSync(path.join(ROOT,"src/renderer/print-styles.css"),"utf8");
+const fontRoot=path.join(ROOT,"node_modules/@fontsource/noto-sans-tc");
+const embeddedFontStyles=fs.readFileSync(path.join(fontRoot,"400.css"),"utf8").replace(/url\(\.\/files\/([^)]*\.woff2)\) format\('woff2'\), url\(\.\/files\/[^)]*\.woff\) format\('woff'\)/g,(_,f)=>`url(data:font/woff2;base64,${fs.readFileSync(path.join(fontRoot,"files",f)).toString("base64")}) format('woff2')`);
+const sha256=p=>crypto.createHash("sha256").update(fs.readFileSync(p)).digest("hex");
+const physicalPages=p=>(fs.readFileSync(p).toString("latin1").match(/\/Type\s*\/Page(?!s)\b/g)??[]).length;
+const result=buildBatchABrowserWorksheetDocument({sourceId:G4B_U08_SOURCE_ID,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[G4B_U08_FRACTION_DECIMAL_KP_ID],selectedPatternGroupIds:[G4B_U08_FRACTION_DECIMAL_GROUP_ID],questionMode:"numeric",questionCount:20,generationSeed:"p03f20-acceptance",includeAnswerKey:true});
+if(!result.ok||!result.worksheetDocument)throw new Error(`P03F20_WORKSHEET_FAILED:${JSON.stringify(result.errors)}`);
+const document=result.worksheetDocument;
+const html=renderWorksheetDocumentToHtml(document,{stylesheetHref:""}).replace("</head>",`<style>${embeddedFontStyles}\nbody { font-family: 'Noto Sans TC', sans-serif !important; }</style><style>${printStyles}</style></head>`);
+const htmlPath=path.join(OUTPUT,"fraction-decimal-numeric.html"); const pdfPath=path.join(OUTPUT,"fraction-decimal-numeric.pdf"); fs.writeFileSync(htmlPath,html);
+const browser=await chromium.launch({headless:true}); const consoleErrors=[]; const pageErrors=[]; let pageMetrics=[];
+try{const page=await browser.newPage({viewport:{width:1280,height:960},deviceScaleFactor:1});page.on("console",m=>{if(m.type()==="error")consoleErrors.push(m.text());});page.on("pageerror",e=>pageErrors.push(String(e)));await page.setContent(html,{waitUntil:"networkidle"});await page.emulateMedia({media:"print"});pageMetrics=await page.$$eval(".worksheet-page",nodes=>nodes.map((n,index)=>({index,clientHeight:n.clientHeight,scrollHeight:n.scrollHeight,clientWidth:n.clientWidth,scrollWidth:n.scrollWidth,overflowY:n.scrollHeight>n.clientHeight+1,overflowX:n.scrollWidth>n.clientWidth+1})));const pages=page.locator(".worksheet-page");for(let i=0;i<await pages.count();i+=1)await pages.nth(i).screenshot({path:path.join(OUTPUT,`fraction-decimal-page-${String(i+1).padStart(2,"0")}.png`)});await page.pdf({path:pdfPath,format:"A4",printBackground:true,preferCSSPageSize:true,margin:{top:"0",right:"0",bottom:"0",left:"0"}});await page.close();}finally{await browser.close();}
+const questions=result.generation.questions; const witnessCounts=Object.fromEntries(G4B_U08_FRACTION_DECIMAL_SPEC_IDS.map(id=>[id,questions.filter(q=>q.patternSpecId===id).length]));
+const report={schemaName:"P03FSlice020ChromiumProductAcceptanceReportV1",taskId:"P03F_W3DirectProductVerticalSlice020ChromiumAcceptance",status:"PASS_AUTOMATED_PENDING_VISUAL_REVIEW",sourceId:G4B_U08_SOURCE_ID,caseCount:1,totalQuestionCount:questions.length,totalAnswerKeyItemCount:document.answerKeyItems.length,totalPhysicalPdfPageCount:physicalPages(pdfPath),screenshotCount:pageMetrics.length,observedPatternSpecIds:Object.keys(witnessCounts).filter(id=>witnessCounts[id]>0).sort(),expectedPatternSpecIds:[...G4B_U08_FRACTION_DECIMAL_SPEC_IDS].sort(),patternSpecWitnessCounts:witnessCounts,htmlSha256:sha256(htmlPath),pdfSha256:sha256(pdfPath),pdfByteLength:fs.statSync(pdfPath).size,duplicatePromptFindingCount:questions.length-new Set(questions.map(q=>q.blankedDisplayText)).size,overflowFindingCount:pageMetrics.filter(r=>r.overflowX||r.overflowY).length,consoleErrorCount:consoleErrors.length,pageErrorCount:pageErrors.length,semanticScopeFindingCount:questions.filter(q=>q.sourceId!==G4B_U08_SOURCE_ID||q.questionMode!=="numeric"||q.finalAnswer?.exact!==true||q.metadata?.contextAuthority!==null||q.metadata?.productAdmissionTask!=="P03F_W3DirectProductVerticalSlice020Implementation").length,pageMetrics,visualReview:{status:"PENDING",allPagesReviewed:false,clippedTextFindingCount:null,overlapFindingCount:null,brokenGlyphFindingCount:null}};
+if(report.totalQuestionCount!==20||report.totalAnswerKeyItemCount!==20||report.totalPhysicalPdfPageCount!==document.questionPages.length+document.answerKeyPages.length||report.screenshotCount!==report.totalPhysicalPdfPageCount||Object.values(witnessCounts).some(n=>n!==10)||JSON.stringify(report.observedPatternSpecIds)!==JSON.stringify(report.expectedPatternSpecIds)||report.duplicatePromptFindingCount||report.overflowFindingCount||report.consoleErrorCount||report.pageErrorCount||report.semanticScopeFindingCount)throw new Error(`P03F20_CHROMIUM_FAILED:${JSON.stringify(report)}`);
+fs.writeFileSync(path.join(OUTPUT,"p03f-slice020-product-acceptance-report.json"),`${JSON.stringify(report,null,2)}\n`);
+console.log(`P03F20_CHROMIUM_ACCEPTANCE=${JSON.stringify(report)}`);
