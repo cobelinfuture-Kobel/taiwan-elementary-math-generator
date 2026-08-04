@@ -1,0 +1,51 @@
+{
+  "schemaName": "P03FSlice020FractionDecimalConversionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice020Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 20,
+    "sliceId": "p03e_q020_r7_g4b_u08_4b08_profile_fraction_c1",
+    "previousSliceId": "p03e_q019_r7_g4b_u06_4b06_profile_decimal_c1",
+    "previousSliceD0Complete": true,
+    "previousSliceClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice019-e6-d0-v1.json",
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "path": "data/curriculum/knowledge/units/g4b_u08_4b08.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g4b_u08_4b08.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g4b_u08_4b08.hidden-pattern-spec.json",
+    "sourceNodeId": "g4b_u08_4b08",
+    "sourceTitle": "等值分數",
+    "reviewedPages": [1, 2]
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g4b_u08_fraction_decimal_conversion",
+    "canonicalNameZh": "分數與有限小數互換",
+    "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+    "operationModelId": "op_g4b_u08_fraction_decimal_conversion",
+    "operationFamilyId": "fraction_decimal_conversion"
+  },
+  "requiredCapabilityIds": ["cap_fraction_domain_validator", "cap_fraction_number_system"],
+  "patternSurfaces": [
+    {"patternGroupId":"pg_g4b_u08_fraction_decimal_conversion_numeric","patternSpecId":"ps_g4b_u08_fraction_decimal_conversion_decimal_numeric","mode":"NUMERIC","requestedUnknownRole":"decimal","givenRoles":["numerator","denominator"]},
+    {"patternGroupId":"pg_g4b_u08_fraction_decimal_conversion_numeric","patternSpecId":"ps_g4b_u08_fraction_decimal_conversion_numerator_numeric","mode":"NUMERIC","requestedUnknownRole":"numerator","givenRoles":["denominator","decimal"]}
+  ],
+  "formalMappingBoundary": {
+    "canonicalExpressions": ["decimal = numerator / denominator", "numerator = decimal * denominator"],
+    "allowedDenominators": [10, 20, 25, 50, 100],
+    "exactRationalIdentityRequired": true,
+    "applicationContextRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "applicationContextCandidateExpansionAllowed": false,
+    "globalContextOntologyExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "sharedWorksheetRendererRequired": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}
