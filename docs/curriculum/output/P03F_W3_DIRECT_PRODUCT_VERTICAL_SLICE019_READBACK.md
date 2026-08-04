@@ -5,7 +5,7 @@ PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice019Implementation
 SLICE      = 019
 SOURCE_REF = g4b_u06_4b06
-STATUS     = PASS_D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -83,14 +83,26 @@ The candidate D0 state is `E6_ARTIFACT_ACCEPTED_D0` / `ADMITTED_D0`.
 
 Slice020 has not started. Slice019 did not add a public source, context candidate, Global Context ontology, decimal scale transformation, decimal number line, division, a parallel runtime pipeline, or a new worksheet/renderer pipeline.
 
+## Formal closeout
+
+```text
+CLOSEOUT_PR                = #535
+CLOSEOUT_HEAD              = b694b5d1edea772666098b3d348209c21d282e6d
+CLOSEOUT_NODE_RUN          = 30885490353
+CLOSEOUT_NODE_JOB          = 91915658886
+CLOSEOUT_REGRESSION        = 2884 / 2884 PASS
+CLOSEOUT_MERGE_SHA         = eb4106b50afb03eff3a4165d392c17824ac4d9f4
+MAIN_READBACK              = PASS
+```
+
 ## Distance closeout
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE019_CURRENT_SURFACE_MERGED_DEPLOYED_CLOSEOUT_ONLY
-GOAL_DISTANCE_AFTER  = D0_SLICE019_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE019_PRODUCT_CLOSED
 DISTANCE_REDUCED     = Core, current selectors, shared consumer, 6/6 PatternSpecs, Chromium, main CI, Pages and deployed parity are bound into one D0 authority candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_EXACT_HEAD_CI_AND_MERGE]
-NEXT_SHORTEST_STEP   = Run exact-head closeout CI, merge, reconcile main metadata, then resume Slice020.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice020Implementation
 ```
 
-Final D0 becomes authoritative only after this closeout branch passes exact-head CI, merges to `main`, and the claim/manifest/readback are reconciled from main.
+Slice019 is authoritative at D0. Slice020 remains unstarted and is the next frozen queue entry.
