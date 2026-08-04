@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice021 — D0 Closeout Candidate
+# P03F W3 Direct Product Vertical Slice021 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice021Implementation
 SLICE      = 021
 SOURCE_REF = g5a_u01_5a01
-STATUS     = PASS_D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -39,14 +39,30 @@ DEPLOYED_CONTENT_PARITY    = PASS
 
 Automated browser acceptance found zero duplicate prompts, overflow, console errors, page errors, or semantic-scope findings. All six physical pages were visually reviewed with no clipping, overlap, broken glyphs, or blank pages.
 
-## Boundary and candidate state
+## Formal closeout
+
+```text
+CLOSEOUT_PR                 = #541
+CLOSEOUT_HEAD               = 499ac0c2a05be229d7dd85c1e06a9bc0c75196dc
+CLOSEOUT_NODE_RUN           = 30912296930
+CLOSEOUT_NODE_JOB           = 92001742449
+CLOSEOUT_REGRESSION         = 2905 / 2905 PASS
+CLOSEOUT_MERGE_SHA          = e517aad4a50d8599816b1176f6ccfdd0283bda78
+CLOSEOUT_MAIN_READBACK_RUN  = 30912609079
+CLOSEOUT_MAIN_READBACK_JOB  = 92002775688
+CLOSEOUT_MAIN_READBACK_SHA  = e8af3bfa83e45186422219a19a77d13851f6a7e6
+CLOSEOUT_MAIN_READBACK      = PASS_CI_SYNCED_AND_CLEAN
+CLOSEOUT_MAIN_WORKING_TREE  = clean
+```
+
+## Boundary and final state
 
 Slice022 has not started. Slice021 adds the existing curriculum source `g5a_u01_5a01` to the public product surface, but does not add application context candidates, Global Context ontology, a parallel runtime pipeline, or a worksheet/renderer pipeline.
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE021_MERGED_DEPLOYED_CLOSEOUT_ONLY
-GOAL_DISTANCE_AFTER  = D1_SLICE021_D0_CLOSEOUT_CANDIDATE_CI_PENDING
-DISTANCE_REDUCED     = Implementation, exact-head Chromium, main CI, Pages and deployed parity are bound into one fail-closed closeout candidate.
-REMAINING_BLOCKERS   = [SLICE021_CLOSEOUT_CI_AND_MAIN_RECONCILIATION_PENDING]
-NEXT_SHORTEST_STEP   = P03F21_CloseoutPRCIAndMainReconciliation
+GOAL_DISTANCE_AFTER  = D0_SLICE021_PRODUCT_CLOSED
+DISTANCE_REDUCED     = Implementation, exact-head Chromium, main CI, Pages, deployed parity, closeout CI and clean-main readback are bound into one fail-closed D0 authority.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice022Implementation
 ```
