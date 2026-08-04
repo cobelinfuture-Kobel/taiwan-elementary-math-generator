@@ -2,7 +2,7 @@
   "claimId": "P03F-W3-SLICE019-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice019Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "status": "PASS_D0_CLOSED",
   "goalDistance": "D0",
   "scope": "Slice019 only: g4b_u06_4b06 two-decimal times integer and decimal rate/total contexts.",
   "authority": {
@@ -115,5 +115,19 @@
     "parallelRuntimePipelineAdded": false,
     "sharedWorksheetRendererBehaviorChanged": false
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice020Implementation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice020Implementation",
+  "closeoutEvidence": {
+    "prNumber": 535,
+    "headSha": "b694b5d1edea772666098b3d348209c21d282e6d",
+    "nodeWorkflowRunId": 30885490353,
+    "nodeWorkflowJobId": 91915658886,
+    "nodeConclusion": "success",
+    "fullRegression": {
+      "tests": 2884,
+      "pass": 2884,
+      "fail": 0
+    },
+    "mergeSha": "eb4106b50afb03eff3a4165d392c17824ac4d9f4",
+    "mainReadback": "PASS"
+  }
 }
