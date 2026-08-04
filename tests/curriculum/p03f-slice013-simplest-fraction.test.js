@@ -101,9 +101,9 @@ test("P03F13 selector and current Pixel expose two KPs on one new source", () =>
   const availability = listBatchAKnowledgePointAvailabilityBySource(G5A_U04_SOURCE_ID);
   assert.equal(availability.visibleCount, 2);
   assert.equal(availability.hiddenPendingCount, 5);
-  assert.equal(listCurrentPixelSourceOptions().length, 27);
+  assert.equal(listCurrentPixelSourceOptions().length, 28);
   assert.equal(listPixelKnowledgePointsForSource(G5A_U04_SOURCE_ID).length, 2);
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 27);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 28);
 });
 
 test("P03F13 shared worksheets render all three public paths", () => {

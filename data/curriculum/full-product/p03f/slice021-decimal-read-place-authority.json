@@ -1,0 +1,58 @@
+{
+  "schemaName": "P03FSlice021DecimalReadPlaceAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice021Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 21,
+    "sliceId": "p03e_q021_r7_g5a_u01_5a01_profile_decimal_c1",
+    "previousSliceId": "p03e_q020_r7_g4b_u08_4b08_profile_fraction_c1",
+    "previousSliceD0Complete": true,
+    "previousSliceClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice020-e6-d0-v1.json",
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "path": "data/curriculum/knowledge/units/g5a_u01_5a01.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g5a_u01_5a01.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g5a_u01_5a01.hidden-pattern-spec.json",
+    "sourceNodeId": "g5a_u01_5a01",
+    "sourceTitle": "多位小數與加減",
+    "reviewedPages": [1]
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g5a_u01_decimal_read_place",
+    "canonicalNameZh": "多位小數讀法與位名",
+    "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+    "operationModelId": "op_g5a_u01_decimal_read_place",
+    "operationFamilyId": "decimal_representation"
+  },
+  "requiredCapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g5a_u01_decimal_read_place_numeric",
+      "patternSpecId": "ps_g5a_u01_decimal_read_place_decimal_numeric",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "decimal",
+      "givenRoles": ["whole", "fractionalUnits", "placeUnit"]
+    }
+  ],
+  "formalMappingBoundary": {
+    "canonicalExpressions": ["decimal = whole + fractionalUnits * placeUnit"],
+    "allowedDecimalScales": [3, 4, 5, 6],
+    "placeValueExpansionMustRecombineExactly": true,
+    "trailingAndInternalZeroDigitsMustBePreserved": true,
+    "applicationContextRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": false,
+    "newPublicSourceAllowed": true,
+    "otherG5AU01KnowledgePointsExcluded": true,
+    "applicationContextCandidateExpansionAllowed": false,
+    "globalContextOntologyExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "sharedWorksheetRendererRequired": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}
