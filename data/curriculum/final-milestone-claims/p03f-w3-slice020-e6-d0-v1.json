@@ -1,0 +1,95 @@
+{
+  "claimId": "P03F-W3-SLICE020-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice020Implementation",
+  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D1_CLOSEOUT_CI_PENDING",
+  "scope": "Slice020 only: g4b_u08_4b08 exact fraction and terminating-decimal conversion.",
+  "authority": {
+    "queuePosition": 20,
+    "queueEntryId": "p03e_q020_r7_g4b_u08_4b08_profile_fraction_c1",
+    "sourceRef": "g4b_u08_4b08",
+    "knowledgePointIds": ["kp_g4b_u08_fraction_decimal_conversion"],
+    "patternSpecIds": [
+      "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+      "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+    ],
+    "requiredCapabilityIds": ["cap_fraction_domain_validator", "cap_fraction_number_system"]
+  },
+  "implementationEvidence": {
+    "prNumber": 537,
+    "finalHeadSha": "2fe3f5d4d338d6335e5aa933e760a186fb2b5252",
+    "mergeSha": "760fb5060f094828831a0d302e383c01a1c71ee7",
+    "nodeWorkflowRunId": 30905471695,
+    "nodeWorkflowJobId": 91979418276,
+    "fullRegression": {"tests": 2893, "pass": 2893, "fail": 0},
+    "mainNodeWorkflowRunId": 30905856582,
+    "mainCiReadbackWorkflowRunId": 30905856642,
+    "mainCiReadback": "PASS_CI_SYNCED_AND_CLEAN",
+    "pagesDeploymentWorkflowRunId": 30905856537,
+    "pagesDeploymentConclusion": "success"
+  },
+  "artifactEvidence": {
+    "artifactId": 8890938314,
+    "artifactDigest": "sha256:a119548a03294d919225e0c55d9b206117948880460245b81ff7f46c8ae9138b",
+    "caseCount": 1,
+    "pdfPageCount": 4,
+    "pdfByteLength": 50747,
+    "screenshotCount": 4,
+    "questionCount": 20,
+    "answerKeyCount": 20,
+    "patternSpecWitnessCounts": {
+      "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric": 10,
+      "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric": 10
+    },
+    "htmlSha256": "9c4fb64afa4a1f2499f29b56e3fa587cc995394197d762b4e1564330235d4d6b",
+    "pdfSha256": "f1bf66f38f7b78016945a972386fd29ac42dabe67c7e2bb0a0522e7eae141045",
+    "duplicatePromptFindingCount": 0,
+    "overflowFindingCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "semanticScopeFindingCount": 0,
+    "visualReview": "PASS",
+    "semanticReview": "PASS",
+    "answerKeyReview": "PASS"
+  },
+  "productResult": {
+    "knowledgePointCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 2,
+    "numericPatternSpecCount": 2,
+    "applicationPatternSpecCount": 0,
+    "existingContextBindingCount": 0,
+    "questionWitnessCount": 20,
+    "answerKeyWitnessCount": 20,
+    "newProductAdmissionCount": 1,
+    "newPublicSourceCount": 0,
+    "classicPublicSurface": "PASS",
+    "pixelPublicSurface": "PASS",
+    "worksheetPrintable": "PASS",
+    "answerKey": "PASS",
+    "chromiumPdf": "PASS",
+    "deployedSite": "PASS",
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0_CANDIDATE",
+    "d0Complete": false
+  },
+  "boundaries": {
+    "slice021Started": false,
+    "newPublicSourceAdded": false,
+    "applicationContextCandidateAdded": false,
+    "globalContextExpanded": false,
+    "parallelRuntimePipelineAdded": false,
+    "sharedWorksheetRendererBehaviorChanged": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice021Implementation",
+  "closeoutEvidence": {
+    "prNumber": null,
+    "headSha": null,
+    "nodeWorkflowRunId": null,
+    "nodeWorkflowJobId": null,
+    "nodeConclusion": null,
+    "fullRegression": null,
+    "mergeSha": null,
+    "mainReadback": "PENDING"
+  }
+}
