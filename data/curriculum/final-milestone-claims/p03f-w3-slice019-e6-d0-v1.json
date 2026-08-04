@@ -1,0 +1,119 @@
+{
+  "claimId": "P03F-W3-SLICE019-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice019Implementation",
+  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D0",
+  "scope": "Slice019 only: g4b_u06_4b06 two-decimal times integer and decimal rate/total contexts.",
+  "authority": {
+    "queuePosition": 19,
+    "queueEntryId": "p03e_q019_r7_g4b_u06_4b06_profile_decimal_c1",
+    "sourceRef": "g4b_u06_4b06",
+    "knowledgePointIds": [
+      "kp_g4b_u06_rate_distance_context",
+      "kp_g4b_u06_two_decimal_times_integer"
+    ],
+    "patternSpecIds": [
+      "ps_g4b_u06_two_decimal_times_integer_product_numeric",
+      "ps_g4b_u06_two_decimal_times_integer_product_application",
+      "ps_g4b_u06_rate_distance_context_total_numeric",
+      "ps_g4b_u06_rate_distance_context_combined_numeric",
+      "ps_g4b_u06_rate_distance_context_total_application",
+      "ps_g4b_u06_rate_distance_context_combined_application"
+    ],
+    "requiredCapabilityIds": [
+      "cap_decimal_arithmetic",
+      "cap_decimal_domain_validator",
+      "cap_decimal_number_system"
+    ]
+  },
+  "implementationEvidence": {
+    "prNumber": 534,
+    "finalHeadSha": "b1512f0ace37e3e15ca725f440e859381a4da6be",
+    "mergeSha": "400f60a39eb614079073d594d30faf2cd56a3f76",
+    "nodeWorkflowRunId": 30864843856,
+    "nodeWorkflowJobId": 91854342539,
+    "nodeConclusion": "success",
+    "fullRegression": {
+      "tests": 2883,
+      "pass": 2883,
+      "fail": 0
+    },
+    "mainNodeWorkflowRunId": 30865129414,
+    "mainCiReadbackWorkflowRunId": 30865129411,
+    "mainCiReadback": "PASS_CI_SYNCED_AND_CLEAN",
+    "pagesDeploymentWorkflowRunId": 30865129429,
+    "pagesDeploymentConclusion": "success"
+  },
+  "artifactEvidence": {
+    "acceptancePrNumber": 534,
+    "acceptanceEvidenceHeadSha": "b1512f0ace37e3e15ca725f440e859381a4da6be",
+    "chromiumWorkflowRunId": 30864843856,
+    "chromiumWorkflowJobId": 91854342539,
+    "artifactId": 8875763563,
+    "artifactDigest": "sha256:6d0f4d08f9eebd2ca754a39c9f56064a2c7badc5780b5f76c3873fc454e3ac60",
+    "caseCount": 4,
+    "pdfPageCount": 20,
+    "pdfByteLength": 273884,
+    "screenshotCount": 20,
+    "questionCount": 80,
+    "answerKeyCount": 80,
+    "patternSpecWitnessCounts": {
+      "ps_g4b_u06_two_decimal_times_integer_product_numeric": 20,
+      "ps_g4b_u06_two_decimal_times_integer_product_application": 20,
+      "ps_g4b_u06_rate_distance_context_total_numeric": 10,
+      "ps_g4b_u06_rate_distance_context_combined_numeric": 10,
+      "ps_g4b_u06_rate_distance_context_total_application": 10,
+      "ps_g4b_u06_rate_distance_context_combined_application": 10
+    },
+    "duplicatePromptFindingCount": 0,
+    "overflowFindingCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "semanticScopeFindingCount": 0,
+    "visualReview": "PASS",
+    "semanticReview": "PASS",
+    "answerKeyReview": "PASS",
+    "implementationMergeSha": "400f60a39eb614079073d594d30faf2cd56a3f76"
+  },
+  "finalExactHeadEvidence": {
+    "headSha": "b1512f0ace37e3e15ca725f440e859381a4da6be",
+    "nodeWorkflowRunId": 30864843856,
+    "nodeWorkflowJobId": 91854342539,
+    "nodeConclusion": "success",
+    "sharedNodeWorkflowAcceptanceRoute": true,
+    "separatePerSliceWorkflowAdded": false
+  },
+  "productResult": {
+    "knowledgePointCount": 2,
+    "patternGroupCount": 4,
+    "patternSpecCount": 6,
+    "numericPatternSpecCount": 3,
+    "applicationPatternSpecCount": 3,
+    "existingContextBindingCount": 3,
+    "questionWitnessCount": 80,
+    "answerKeyWitnessCount": 80,
+    "newProductAdmissionCount": 2,
+    "newPublicSourceCount": 0,
+    "classicPublicSurface": "PASS",
+    "pixelPublicSurface": "PASS",
+    "worksheetPrintable": "PASS",
+    "answerKey": "PASS",
+    "chromiumPdf": "PASS",
+    "deployedSite": "PASS",
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
+  },
+  "boundaries": {
+    "slice020Started": false,
+    "newPublicSourceAdded": false,
+    "decimalScaleTransformationAdded": false,
+    "decimalNumberLineAdded": false,
+    "divisionAdded": false,
+    "applicationContextCandidateAdded": false,
+    "globalContextExpanded": false,
+    "parallelRuntimePipelineAdded": false,
+    "sharedWorksheetRendererBehaviorChanged": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice020Implementation"
+}
