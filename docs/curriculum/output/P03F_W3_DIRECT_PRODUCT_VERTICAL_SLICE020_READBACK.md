@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice020 — D0 Closeout Candidate
+# P03F W3 Direct Product Vertical Slice020 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice020Implementation
 SLICE      = 020
 SOURCE_REF = g4b_u08_4b08
-STATUS     = PASS_D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -39,14 +39,29 @@ DEPLOYED_CONTENT_PARITY    = PASS
 
 Automated browser acceptance found zero duplicate prompts, overflow, console errors, page errors, or semantic-scope findings. All four physical pages were visually reviewed with no clipping, overlap, broken glyphs, or blank pages.
 
-## Boundary and candidate state
+## Boundary
 
 Slice021 has not started. Slice020 did not add a public source, application context candidate, Global Context ontology, parallel runtime pipeline, or worksheet/renderer pipeline.
 
+## Formal closeout
+
+```text
+CLOSEOUT_PR                = #538
+CLOSEOUT_HEAD              = 1395a1fbae95dd2447349ea3f92dc10db4482491
+CLOSEOUT_NODE_RUN          = 30906605404
+CLOSEOUT_NODE_JOB          = 91983038877
+CLOSEOUT_REGRESSION        = 2894 / 2894 PASS
+CLOSEOUT_MERGE_SHA         = 1900ba0676a175f52b5c2c592664c68dc843c7e8
+CLOSEOUT_MAIN_NODE_RUN     = 30906873914
+CLOSEOUT_MAIN_READBACK_RUN = 30906873867
+CLOSEOUT_MAIN_PAGES_RUN    = 30906873846
+MAIN_READBACK              = PASS
+```
+
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE020_MERGED_DEPLOYED_CLOSEOUT_ONLY
-GOAL_DISTANCE_AFTER  = D1_SLICE020_D0_CLOSEOUT_CANDIDATE_CI_PENDING
-DISTANCE_REDUCED     = Implementation, exact-head Chromium, main CI, Pages and deployed parity are bound into one fail-closed closeout candidate.
-REMAINING_BLOCKERS   = [SLICE020_CLOSEOUT_CI_AND_MAIN_RECONCILIATION_PENDING]
-NEXT_SHORTEST_STEP   = P03F20_CloseoutPRCIAndMainReconciliation
+GOAL_DISTANCE_AFTER  = D0_SLICE020_PRODUCT_CLOSED
+DISTANCE_REDUCED     = Authority, runtime, current selectors, shared consumer, 2/2 PatternSpecs, Chromium, main CI, Pages and deployed parity are bound into the final D0 authority.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice021Implementation
 ```
