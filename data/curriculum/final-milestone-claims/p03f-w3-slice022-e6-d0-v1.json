@@ -2,8 +2,8 @@
   "claimId": "P03F-W3-SLICE022-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice022Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1_CLOSEOUT_CANDIDATE",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice022 only: g5a_u04_5a04 common-denominator and divisibility-supported fraction reduction.",
   "authority": {
     "queuePosition": 22,
@@ -89,8 +89,8 @@
     "answerKey": "PASS",
     "chromiumPdf": "PASS",
     "deployedSite": "PASS",
-    "productAdmissionState": "PRODUCTION_ADMITTED_CLOSEOUT_CANDIDATE",
-    "d0Complete": false
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
   },
   "boundaries": {
     "slice023Started": false,
@@ -100,5 +100,24 @@
     "parallelRuntimePipelineAdded": false,
     "sharedWorksheetRendererBehaviorChanged": false
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice022Implementation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice023Implementation",
+  "closeoutEvidence": {
+    "prNumber": 544,
+    "headSha": "3aa17dc70933b39f8e2e5e500cd956609ac936c7",
+    "nodeWorkflowRunId": 30920034105,
+    "nodeWorkflowJobId": 92027921649,
+    "nodeConclusion": "success",
+    "fullRegression": {"tests": 2916, "pass": 2916, "fail": 0},
+    "mergeSha": "4de52051799b483acfa5b517d3492b3d38112e86",
+    "mainNodeWorkflowRunId": 30920396179,
+    "mainNodeWorkflowJobId": 92029176254,
+    "mainCiReadbackWorkflowRunId": 30920396645,
+    "mainCiReadbackWorkflowJobId": 92029179909,
+    "mainReadbackCommitSha": "420c52f2de460837e2f3ff4aaddc2777138e66cd",
+    "mainReadback": "PASS_CI_SYNCED_AND_CLEAN",
+    "mainWorkingTree": "clean",
+    "pagesDeploymentWorkflowRunId": 30920396080,
+    "pagesDeploymentWorkflowJobId": 92030328935,
+    "pagesDeploymentConclusion": "success"
+  }
 }

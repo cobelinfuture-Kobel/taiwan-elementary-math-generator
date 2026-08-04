@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice022 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice022 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice022Implementation
 SLICE      = 022
 SOURCE_REF = g5a_u04_5a04
-STATUS     = PASS_D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -39,14 +39,35 @@ DEPLOYED_CONTENT_PARITY    = PASS
 
 Automated browser acceptance found zero duplicate prompts, overflow, console errors, page errors, or semantic-scope findings. All six physical pages were visually reviewed with no clipping, overlap, broken glyphs, or blank pages. The deployed runtime, selector projection, and Pixel bridge SHA-256 values match the implementation merge tree.
 
-## Candidate boundary
+## Formal closeout
 
-Slice023 has not started. This candidate adds no application context candidates, Global Context ontology, parallel runtime pipeline, new workflow, or worksheet/renderer pipeline. Formal D0 requires this four-file candidate to pass exact-head CI, merge, and receive a clean main readback before reconciliation.
+```text
+CLOSEOUT_PR                 = #544
+CLOSEOUT_HEAD               = 3aa17dc70933b39f8e2e5e500cd956609ac936c7
+CLOSEOUT_NODE_RUN           = 30920034105
+CLOSEOUT_NODE_JOB           = 92027921649
+CLOSEOUT_REGRESSION         = 2916 / 2916 PASS
+CLOSEOUT_MERGE_SHA          = 4de52051799b483acfa5b517d3492b3d38112e86
+CLOSEOUT_MAIN_NODE_RUN      = 30920396179
+CLOSEOUT_MAIN_NODE_JOB      = 92029176254
+CLOSEOUT_MAIN_READBACK_RUN  = 30920396645
+CLOSEOUT_MAIN_READBACK_JOB  = 92029179909
+CLOSEOUT_MAIN_READBACK_SHA  = 420c52f2de460837e2f3ff4aaddc2777138e66cd
+CLOSEOUT_MAIN_READBACK      = PASS_CI_SYNCED_AND_CLEAN
+CLOSEOUT_MAIN_WORKING_TREE  = clean
+CLOSEOUT_PAGES_RUN          = 30920396080
+CLOSEOUT_PAGES_JOB          = 92030328935
+CLOSEOUT_PAGES              = success
+```
+
+## Boundary and final state
+
+Slice023 has not started. Slice022 adds no application context candidates, Global Context ontology, parallel runtime pipeline, new workflow, or worksheet/renderer pipeline. The candidate passed exact-head CI, merged, and received clean main Node, CI readback, and Pages evidence before this reconciliation.
 
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE022_MERGED_DEPLOYED_CLOSEOUT_ONLY
-GOAL_DISTANCE_AFTER  = D1_SLICE022_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = Implementation, exact-head Chromium, main CI, Pages and deployed parity are bound into a fail-closed closeout candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_EXACT_HEAD_CI, CLOSEOUT_MERGE, CLOSEOUT_MAIN_READBACK]
-NEXT_SHORTEST_STEP   = Validate and merge the Slice022 closeout candidate; do not start Slice023.
+GOAL_DISTANCE_AFTER  = D0_SLICE022_PRODUCT_CLOSED
+DISTANCE_REDUCED     = Implementation, exact-head Chromium, main CI, Pages, deployed parity, closeout CI and clean-main readback are bound into one fail-closed D0 authority.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice023Implementation
 ```
