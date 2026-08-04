@@ -11,7 +11,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f17-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f21-extension.js";
 import {
   getFullProductPublicControlProfile,
 } from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
@@ -384,7 +384,7 @@ export function buildPublicGenerationCapabilityMatrix() {
     status: blockingGaps.length === 0 ? "PASS_WITH_DOWNSTREAM_GAPS" : "FAIL_CLOSED_BLOCKING_GAPS",
     generatedAt: "DETERMINISTIC",
     sourceAuthority: "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-    selectorAuthority: "batch-a-selector-p03f17-extension.js",
+    selectorAuthority: "batch-a-selector-p03f21-extension.js",
     scopeRef: "data/curriculum/public-generation/public_generation_scope.json",
     defaultQuestionCount: DEFAULT_QUESTION_COUNT,
     declaredUiMaxQuestionCount: DECLARED_UI_MAX,

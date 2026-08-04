@@ -9,18 +9,18 @@ STATUS     = PASS_WITH_DOWNSTREAM_GAPS
 ## Matrix summary
 
 ```text
-PUBLIC_SOURCES                    = 27
-VISIBLE_KNOWLEDGE_POINTS          = 199
-VISIBLE_KP_SURFACE_ACCOUNTED      = 597 / 597
-VISIBLE_KP_SURFACE_CAPABILITY     = 563
+PUBLIC_SOURCES                    = 28
+VISIBLE_KNOWLEDGE_POINTS          = 204
+VISIBLE_KP_SURFACE_ACCOUNTED      = 612 / 612
+VISIBLE_KP_SURFACE_CAPABILITY     = 578
 VISIBLE_KP_SURFACE_EXPLICIT_GAP   = 34
-CAPABILITY_ROWS                   = 1258
-UNIQUE_PATTERN_GROUPS             = 252
-UNIQUE_PATTERN_SPECS              = 362
-UI_OPTIONS_ACCOUNTED              = 159 / 159
+CAPABILITY_ROWS                   = 1285
+UNIQUE_PATTERN_GROUPS             = 259
+UNIQUE_PATTERN_SPECS              = 372
+UI_OPTIONS_ACCOUNTED              = 162 / 162
 BLOCKING_R01_GAPS                 = 0
 R02_UI_BINDING_GAPS               = 56
-R03_CAPACITY_UNVERIFIED           = 1258
+R03_CAPACITY_UNVERIFIED           = 1285
 ```
 
 R01 does not fabricate a capability for the deprecated 404 surface. Application-only and reasoning-only KnowledgePoints that are selector-visible but cannot be configured there are recorded as explicit fail-closed R02 gaps.
@@ -34,7 +34,7 @@ R01 does not fabricate a capability for the deprecated 404 surface. Application-
 
 ## Accepted findings
 
-1. All 27 public sources and all 199 visible KnowledgePoints are accounted across all three public surfaces.
+1. All 28 public sources and all 204 visible KnowledgePoints are accounted across all three public surfaces.
 2. All 156 visible question-type UI options map to at least one capability row.
 3. 404-only absence is explicit and fail-closed; it is not counted as a working capability.
 4. Concept, representation, estimation and reasoning PatternGroup subtypes remain visible through their actual parent UI option.

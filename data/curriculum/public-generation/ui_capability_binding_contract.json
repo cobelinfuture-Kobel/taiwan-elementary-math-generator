@@ -5,7 +5,7 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f17-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f21-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
   "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding.js",
   "adapters": {
@@ -25,20 +25,20 @@
     "PIXEL"
   ],
   "summary": {
-    "publicSourceCount": 27,
-    "visibleKnowledgePointCount": 199,
+    "publicSourceCount": 28,
+    "visibleKnowledgePointCount": 204,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 250,
-    "surfaceCaseCount": 750,
-    "questionTypeBindingRowCount": 1116,
-    "parityCaseCount": 250,
-    "auditCaseCount": 750,
+    "baseCaseCount": 258,
+    "surfaceCaseCount": 774,
+    "questionTypeBindingRowCount": 1140,
+    "parityCaseCount": 258,
+    "auditCaseCount": 774,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
-    "limitedCapacityBindingCount": 1086,
-    "structuralFallbackBindingCount": 30,
+    "limitedCapacityBindingCount": 1083,
+    "structuralFallbackBindingCount": 57,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -44314,24 +44314,29 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
-        "kp_g4b_u08_equivalence_cross_product"
+        "kp_g4b_u08_equivalence_cross_product",
+        "kp_g4b_u08_fraction_decimal_conversion"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 3,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
-        "pg_g4b_u08_equivalence_cross_product_numeric"
+        "pg_g4b_u08_equivalence_cross_product_numeric",
+        "pg_g4b_u08_fraction_decimal_conversion_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_numerator_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
-        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric"
+        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
-        "交叉乘積判定等值"
+        "交叉乘積判定等值",
+        "分數與有限小數互換"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -44352,24 +44357,29 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
-        "kp_g4b_u08_equivalence_cross_product"
+        "kp_g4b_u08_equivalence_cross_product",
+        "kp_g4b_u08_fraction_decimal_conversion"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 3,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
-        "pg_g4b_u08_equivalence_cross_product_numeric"
+        "pg_g4b_u08_equivalence_cross_product_numeric",
+        "pg_g4b_u08_fraction_decimal_conversion_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_numerator_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
-        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric"
+        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
-        "交叉乘積判定等值"
+        "交叉乘積判定等值",
+        "分數與有限小數互換"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -44390,24 +44400,29 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
-        "kp_g4b_u08_equivalence_cross_product"
+        "kp_g4b_u08_equivalence_cross_product",
+        "kp_g4b_u08_fraction_decimal_conversion"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 3,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
-        "pg_g4b_u08_equivalence_cross_product_numeric"
+        "pg_g4b_u08_equivalence_cross_product_numeric",
+        "pg_g4b_u08_fraction_decimal_conversion_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_numerator_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
-        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric"
+        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
-        "交叉乘積判定等值"
+        "交叉乘積判定等值",
+        "分數與有限小數互換"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -44619,6 +44634,105 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_decimal_conversion::CLASSIC::numeric",
+      "caseId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_decimal_conversion",
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u08_fraction_decimal_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u08_fraction_decimal_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+      ],
+      "questionFormLabels": [
+        "分數與有限小數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_decimal_conversion::FALLBACK_404::numeric",
+      "caseId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_decimal_conversion",
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u08_fraction_decimal_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u08_fraction_decimal_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+      ],
+      "questionFormLabels": [
+        "分數與有限小數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_decimal_conversion::PIXEL::numeric",
+      "caseId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_decimal_conversion",
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u08_fraction_decimal_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u08_fraction_decimal_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+      ],
+      "questionFormLabels": [
+        "分數與有限小數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u08_4b08::mixedSameUnit::CLASSIC::numeric",
       "caseId": "g4b_u08_4b08::mixedSameUnit",
       "sourceId": "g4b_u08_4b08",
@@ -44626,31 +44740,36 @@
       "selectionMode": "mixedKnowledgePointsSameUnit",
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
-        "kp_g4b_u08_equivalence_cross_product"
+        "kp_g4b_u08_equivalence_cross_product",
+        "kp_g4b_u08_fraction_decimal_conversion"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 3,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
-        "pg_g4b_u08_equivalence_cross_product_numeric"
+        "pg_g4b_u08_equivalence_cross_product_numeric",
+        "pg_g4b_u08_fraction_decimal_conversion_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_numerator_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
-        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric"
+        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
-        "交叉乘積判定等值"
+        "交叉乘積判定等值",
+        "分數與有限小數互換"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -44664,31 +44783,36 @@
       "selectionMode": "mixedKnowledgePointsSameUnit",
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
-        "kp_g4b_u08_equivalence_cross_product"
+        "kp_g4b_u08_equivalence_cross_product",
+        "kp_g4b_u08_fraction_decimal_conversion"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 3,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
-        "pg_g4b_u08_equivalence_cross_product_numeric"
+        "pg_g4b_u08_equivalence_cross_product_numeric",
+        "pg_g4b_u08_fraction_decimal_conversion_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_numerator_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
-        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric"
+        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
-        "交叉乘積判定等值"
+        "交叉乘積判定等值",
+        "分數與有限小數互換"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -44702,31 +44826,36 @@
       "selectionMode": "mixedKnowledgePointsSameUnit",
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
-        "kp_g4b_u08_equivalence_cross_product"
+        "kp_g4b_u08_equivalence_cross_product",
+        "kp_g4b_u08_fraction_decimal_conversion"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 3,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
-        "pg_g4b_u08_equivalence_cross_product_numeric"
+        "pg_g4b_u08_equivalence_cross_product_numeric",
+        "pg_g4b_u08_fraction_decimal_conversion_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_numerator_numeric",
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
-        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric"
+        "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
-        "交叉乘積判定等值"
+        "交叉乘積判定等值",
+        "分數與有限小數互換"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -44739,19 +44868,23 @@
       "surfaceId": "CLASSIC",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g4a_u09_hundredth_representation"
+        "kp_g4a_u09_hundredth_representation",
+        "kp_g4a_u09_decimal_compose_decompose"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 2,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g4a_u09_hundredth_representation_numeric"
+        "pg_g4a_u09_hundredth_representation_numeric",
+        "pg_g4a_u09_decimal_compose_decompose_numeric"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g4a_u09_hundredth_representation_decimal_numeric"
+        "ps_g4a_u09_hundredth_representation_decimal_numeric",
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
       ],
       "questionFormLabels": [
-        "百分位與 0.01"
+        "百分位與 0.01",
+        "二位小數組成分解"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -44771,19 +44904,23 @@
       "surfaceId": "FALLBACK_404",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g4a_u09_hundredth_representation"
+        "kp_g4a_u09_hundredth_representation",
+        "kp_g4a_u09_decimal_compose_decompose"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 2,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g4a_u09_hundredth_representation_numeric"
+        "pg_g4a_u09_hundredth_representation_numeric",
+        "pg_g4a_u09_decimal_compose_decompose_numeric"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g4a_u09_hundredth_representation_decimal_numeric"
+        "ps_g4a_u09_hundredth_representation_decimal_numeric",
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
       ],
       "questionFormLabels": [
-        "百分位與 0.01"
+        "百分位與 0.01",
+        "二位小數組成分解"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -44803,19 +44940,23 @@
       "surfaceId": "PIXEL",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g4a_u09_hundredth_representation"
+        "kp_g4a_u09_hundredth_representation",
+        "kp_g4a_u09_decimal_compose_decompose"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 2,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g4a_u09_hundredth_representation_numeric"
+        "pg_g4a_u09_hundredth_representation_numeric",
+        "pg_g4a_u09_decimal_compose_decompose_numeric"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g4a_u09_hundredth_representation_decimal_numeric"
+        "ps_g4a_u09_hundredth_representation_decimal_numeric",
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
       ],
       "questionFormLabels": [
-        "百分位與 0.01"
+        "百分位與 0.01",
+        "二位小數組成分解"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -44925,25 +45066,238 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compose_decompose::CLASSIC::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compose_decompose",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "二位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compose_decompose::FALLBACK_404::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compose_decompose",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "二位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compose_decompose::PIXEL::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compose_decompose",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "二位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::mixedSameUnit::CLASSIC::numeric",
+      "caseId": "g4a_u09_4a09::mixedSameUnit",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_hundredth_representation",
+        "kp_g4a_u09_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 2,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_hundredth_representation_numeric",
+        "pg_g4a_u09_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_hundredth_representation_decimal_numeric",
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "百分位與 0.01",
+        "二位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::mixedSameUnit::FALLBACK_404::numeric",
+      "caseId": "g4a_u09_4a09::mixedSameUnit",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_hundredth_representation",
+        "kp_g4a_u09_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 2,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_hundredth_representation_numeric",
+        "pg_g4a_u09_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_hundredth_representation_decimal_numeric",
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "百分位與 0.01",
+        "二位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::mixedSameUnit::PIXEL::numeric",
+      "caseId": "g4a_u09_4a09::mixedSameUnit",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "PIXEL",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_hundredth_representation",
+        "kp_g4a_u09_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 2,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_hundredth_representation_numeric",
+        "pg_g4a_u09_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_hundredth_representation_decimal_numeric",
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "百分位與 0.01",
+        "二位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u06_4b06::sourceUnit::CLASSIC::numeric",
       "caseId": "g4b_u06_4b06::sourceUnit",
       "sourceId": "g4b_u06_4b06",
       "surfaceId": "CLASSIC",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g4b_u06_one_decimal_times_integer"
+        "kp_g4b_u06_one_decimal_times_integer",
+        "kp_g4b_u06_rate_distance_context",
+        "kp_g4b_u06_two_decimal_times_integer"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 3,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g4b_u06_one_decimal_times_integer_numeric"
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
+        "pg_g4b_u06_rate_distance_context_numeric",
+        "pg_g4b_u06_two_decimal_times_integer_numeric"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g4b_u06_one_decimal_times_integer_product_numeric"
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric",
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric"
       ],
       "questionFormLabels": [
-        "一位小數乘整數｜數字題"
+        "一位小數乘整數｜數字題",
+        "小數單位率與總量｜數字題",
+        "二位小數乘整數｜數字題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -44963,19 +45317,28 @@
       "surfaceId": "CLASSIC",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g4b_u06_one_decimal_times_integer"
+        "kp_g4b_u06_one_decimal_times_integer",
+        "kp_g4b_u06_rate_distance_context",
+        "kp_g4b_u06_two_decimal_times_integer"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 3,
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
-        "pg_g4b_u06_one_decimal_times_integer_application"
+        "pg_g4b_u06_one_decimal_times_integer_application",
+        "pg_g4b_u06_rate_distance_context_application",
+        "pg_g4b_u06_two_decimal_times_integer_application"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g4b_u06_one_decimal_times_integer_product_application"
+        "ps_g4b_u06_one_decimal_times_integer_product_application",
+        "ps_g4b_u06_rate_distance_context_total_application",
+        "ps_g4b_u06_rate_distance_context_combined_application",
+        "ps_g4b_u06_two_decimal_times_integer_product_application"
       ],
       "questionFormLabels": [
-        "一位小數乘整數｜應用題"
+        "一位小數乘整數｜應用題",
+        "小數單位率與總量｜應用題",
+        "二位小數乘整數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -44997,19 +45360,28 @@
       "surfaceId": "FALLBACK_404",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g4b_u06_one_decimal_times_integer"
+        "kp_g4b_u06_one_decimal_times_integer",
+        "kp_g4b_u06_rate_distance_context",
+        "kp_g4b_u06_two_decimal_times_integer"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 3,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g4b_u06_one_decimal_times_integer_numeric"
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
+        "pg_g4b_u06_rate_distance_context_numeric",
+        "pg_g4b_u06_two_decimal_times_integer_numeric"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g4b_u06_one_decimal_times_integer_product_numeric"
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric",
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric"
       ],
       "questionFormLabels": [
-        "一位小數乘整數｜數字題"
+        "一位小數乘整數｜數字題",
+        "小數單位率與總量｜數字題",
+        "二位小數乘整數｜數字題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -45029,19 +45401,28 @@
       "surfaceId": "FALLBACK_404",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g4b_u06_one_decimal_times_integer"
+        "kp_g4b_u06_one_decimal_times_integer",
+        "kp_g4b_u06_rate_distance_context",
+        "kp_g4b_u06_two_decimal_times_integer"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 3,
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
-        "pg_g4b_u06_one_decimal_times_integer_application"
+        "pg_g4b_u06_one_decimal_times_integer_application",
+        "pg_g4b_u06_rate_distance_context_application",
+        "pg_g4b_u06_two_decimal_times_integer_application"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g4b_u06_one_decimal_times_integer_product_application"
+        "ps_g4b_u06_one_decimal_times_integer_product_application",
+        "ps_g4b_u06_rate_distance_context_total_application",
+        "ps_g4b_u06_rate_distance_context_combined_application",
+        "ps_g4b_u06_two_decimal_times_integer_product_application"
       ],
       "questionFormLabels": [
-        "一位小數乘整數｜應用題"
+        "一位小數乘整數｜應用題",
+        "小數單位率與總量｜應用題",
+        "二位小數乘整數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -45063,19 +45444,28 @@
       "surfaceId": "PIXEL",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g4b_u06_one_decimal_times_integer"
+        "kp_g4b_u06_one_decimal_times_integer",
+        "kp_g4b_u06_rate_distance_context",
+        "kp_g4b_u06_two_decimal_times_integer"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 3,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g4b_u06_one_decimal_times_integer_numeric"
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
+        "pg_g4b_u06_rate_distance_context_numeric",
+        "pg_g4b_u06_two_decimal_times_integer_numeric"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g4b_u06_one_decimal_times_integer_product_numeric"
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric",
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric"
       ],
       "questionFormLabels": [
-        "一位小數乘整數｜數字題"
+        "一位小數乘整數｜數字題",
+        "小數單位率與總量｜數字題",
+        "二位小數乘整數｜數字題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -45095,19 +45485,28 @@
       "surfaceId": "PIXEL",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g4b_u06_one_decimal_times_integer"
+        "kp_g4b_u06_one_decimal_times_integer",
+        "kp_g4b_u06_rate_distance_context",
+        "kp_g4b_u06_two_decimal_times_integer"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 3,
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
-        "pg_g4b_u06_one_decimal_times_integer_application"
+        "pg_g4b_u06_one_decimal_times_integer_application",
+        "pg_g4b_u06_rate_distance_context_application",
+        "pg_g4b_u06_two_decimal_times_integer_application"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g4b_u06_one_decimal_times_integer_product_application"
+        "ps_g4b_u06_one_decimal_times_integer_product_application",
+        "ps_g4b_u06_rate_distance_context_total_application",
+        "ps_g4b_u06_rate_distance_context_combined_application",
+        "ps_g4b_u06_two_decimal_times_integer_product_application"
       ],
       "questionFormLabels": [
-        "一位小數乘整數｜應用題"
+        "一位小數乘整數｜應用題",
+        "小數單位率與總量｜應用題",
+        "二位小數乘整數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -45315,6 +45714,324 @@
       "questionCountDefault": 20,
       "questionCountMax": 240,
       "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u06_4b06::single::kp_g4b_u06_rate_distance_context::CLASSIC::numeric",
+      "caseId": "g4b_u06_4b06::single::kp_g4b_u06_rate_distance_context",
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u06_rate_distance_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u06_rate_distance_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric"
+      ],
+      "questionFormLabels": [
+        "小數單位率與總量｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u06_4b06::single::kp_g4b_u06_rate_distance_context::FALLBACK_404::numeric",
+      "caseId": "g4b_u06_4b06::single::kp_g4b_u06_rate_distance_context",
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u06_rate_distance_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u06_rate_distance_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric"
+      ],
+      "questionFormLabels": [
+        "小數單位率與總量｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u06_4b06::single::kp_g4b_u06_rate_distance_context::PIXEL::numeric",
+      "caseId": "g4b_u06_4b06::single::kp_g4b_u06_rate_distance_context",
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u06_rate_distance_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u06_rate_distance_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric"
+      ],
+      "questionFormLabels": [
+        "小數單位率與總量｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u06_4b06::single::kp_g4b_u06_two_decimal_times_integer::CLASSIC::numeric",
+      "caseId": "g4b_u06_4b06::single::kp_g4b_u06_two_decimal_times_integer",
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u06_two_decimal_times_integer"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u06_two_decimal_times_integer_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric"
+      ],
+      "questionFormLabels": [
+        "二位小數乘整數｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u06_4b06::single::kp_g4b_u06_two_decimal_times_integer::FALLBACK_404::numeric",
+      "caseId": "g4b_u06_4b06::single::kp_g4b_u06_two_decimal_times_integer",
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u06_two_decimal_times_integer"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u06_two_decimal_times_integer_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric"
+      ],
+      "questionFormLabels": [
+        "二位小數乘整數｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u06_4b06::single::kp_g4b_u06_two_decimal_times_integer::PIXEL::numeric",
+      "caseId": "g4b_u06_4b06::single::kp_g4b_u06_two_decimal_times_integer",
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u06_two_decimal_times_integer"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u06_two_decimal_times_integer_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric"
+      ],
+      "questionFormLabels": [
+        "二位小數乘整數｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u06_4b06::mixedSameUnit::CLASSIC::numeric",
+      "caseId": "g4b_u06_4b06::mixedSameUnit",
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u06_one_decimal_times_integer",
+        "kp_g4b_u06_rate_distance_context",
+        "kp_g4b_u06_two_decimal_times_integer"
+      ],
+      "selectedKnowledgePointCount": 3,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
+        "pg_g4b_u06_rate_distance_context_numeric",
+        "pg_g4b_u06_two_decimal_times_integer_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric",
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric"
+      ],
+      "questionFormLabels": [
+        "一位小數乘整數｜數字題",
+        "小數單位率與總量｜數字題",
+        "二位小數乘整數｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u06_4b06::mixedSameUnit::FALLBACK_404::numeric",
+      "caseId": "g4b_u06_4b06::mixedSameUnit",
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u06_one_decimal_times_integer",
+        "kp_g4b_u06_rate_distance_context",
+        "kp_g4b_u06_two_decimal_times_integer"
+      ],
+      "selectedKnowledgePointCount": 3,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
+        "pg_g4b_u06_rate_distance_context_numeric",
+        "pg_g4b_u06_two_decimal_times_integer_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric",
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric"
+      ],
+      "questionFormLabels": [
+        "一位小數乘整數｜數字題",
+        "小數單位率與總量｜數字題",
+        "二位小數乘整數｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u06_4b06::mixedSameUnit::PIXEL::numeric",
+      "caseId": "g4b_u06_4b06::mixedSameUnit",
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u06_one_decimal_times_integer",
+        "kp_g4b_u06_rate_distance_context",
+        "kp_g4b_u06_two_decimal_times_integer"
+      ],
+      "selectedKnowledgePointCount": 3,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
+        "pg_g4b_u06_rate_distance_context_numeric",
+        "pg_g4b_u06_two_decimal_times_integer_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric",
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric"
+      ],
+      "questionFormLabels": [
+        "一位小數乘整數｜數字題",
+        "小數單位率與總量｜數字題",
+        "二位小數乘整數｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -46261,9 +46978,202 @@
       "blockedReasons": [],
       "capacityRouteIds": [],
       "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::sourceUnit::CLASSIC::numeric",
+      "caseId": "g5a_u01_5a01::sourceUnit",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_read_place"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_read_place_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_read_place_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數讀法與位名"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::sourceUnit::FALLBACK_404::numeric",
+      "caseId": "g5a_u01_5a01::sourceUnit",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_read_place"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_read_place_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_read_place_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數讀法與位名"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::sourceUnit::PIXEL::numeric",
+      "caseId": "g5a_u01_5a01::sourceUnit",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "PIXEL",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_read_place"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_read_place_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_read_place_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數讀法與位名"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_read_place::CLASSIC::numeric",
+      "caseId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_read_place",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_read_place"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_read_place_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_read_place_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數讀法與位名"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_read_place::FALLBACK_404::numeric",
+      "caseId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_read_place",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_read_place"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_read_place_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_read_place_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數讀法與位名"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_read_place::PIXEL::numeric",
+      "caseId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_read_place",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_read_place"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_read_place_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_read_place_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數讀法與位名"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
     }
   ],
   "capacityAuthority": "site/modules/curriculum/public/public-generator-capacity-registry.js",
+  "runtimeCapacityPolicy": "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING",
   "lastReconciliation": {
     "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
     "sourceId": "g5a_u02_5a02",
@@ -46298,6 +47208,5 @@
     "repairQueueCount": 0,
     "status": "PASS_R06_A07_GLOBAL_LIVE_RUNTIME_RECONCILED_AND_D0_CLOSED"
   },
-  "r06TerminalStatus": "D0_CLOSED",
-  "runtimeCapacityPolicy": "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING"
+  "r06TerminalStatus": "D0_CLOSED"
 }
