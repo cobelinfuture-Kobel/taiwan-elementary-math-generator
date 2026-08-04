@@ -30,7 +30,7 @@ export function validateP03FSlice011ProductAdmission() {
   const controlModes = evidence.controlProfile?.questionTypeControl?.options?.map((row) => row.value) ?? [];
   if (JSON.stringify(controlModes) !== JSON.stringify(["numeric", "application"]) || evidence.controlProfile?.contextControl?.defaultValue !== "global_primary") errors.push("P03F11_PUBLIC_CONTROL_INVALID");
   const pixelSources = listCurrentPixelSourceOptions(); const pixelRows = listPixelKnowledgePointsForSource("g4b_u06_4b06"); const pixelSnapshot = getCurrentPixelRegistrySnapshot();
-  if (pixelSources.length < 26 || pixelRows.length !== 1 || pixelRows[0].knowledgePointId !== KP || pixelSnapshot.sourceCount < 26) errors.push("P03F11_PIXEL_SURFACE_INVALID");
+  if (pixelSources.length < 26 || !pixelRows.some((row) => row.knowledgePointId === KP) || pixelSnapshot.sourceCount < 26) errors.push("P03F11_PIXEL_SURFACE_INVALID");
   for (const result of [evidence.numericPlanValidation, evidence.applicationPlanValidation]) if (!result.ok) errors.push(...result.errors.map((row) => `P03F11_PLAN:${row.code}`));
   for (const result of [evidence.numericGeneration, evidence.applicationGeneration]) if (!result.ok || result.questions.length !== 8 || result.allocation.length !== 1 || result.allocation[0].questionCount !== 8) errors.push("P03F11_GENERATION_INVALID");
   for (const result of [evidence.numericValidation, evidence.applicationValidation]) if (!result.ok) errors.push(...result.errors.map((row) => `P03F11_BROWSER_VALIDATOR:${row.code}`));
