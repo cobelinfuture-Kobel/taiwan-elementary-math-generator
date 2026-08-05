@@ -57,7 +57,7 @@ export function validateP03FSlice013ProductAdmission() {
   const pixelSources = listCurrentPixelSourceOptions();
   const pixelRows = listPixelKnowledgePointsForSource(SOURCE);
   const pixelSnapshot = getCurrentPixelRegistrySnapshot();
-  if (pixelSources.length < 26 || pixelRows.length !== 2 || !equal(pixelRows.map((row) => row.knowledgePointId), KPS) || pixelSnapshot.sourceCount < 26) errors.push("P03F13_PIXEL_SURFACE_INVALID");
+  if (pixelSources.length < 26 || pixelRows.length < 2 || !equal(pixelRows.slice(0, 2).map((row) => row.knowledgePointId), KPS) || pixelSnapshot.sourceCount < 26) errors.push("P03F13_PIXEL_SURFACE_INVALID");
 
   for (const [modeName, mode] of Object.entries(evidence.modes)) {
     if (!mode.planValidation.ok) errors.push(...mode.planValidation.errors.map((row) => `P03F13_${modeName}_PLAN:${row.code}`));

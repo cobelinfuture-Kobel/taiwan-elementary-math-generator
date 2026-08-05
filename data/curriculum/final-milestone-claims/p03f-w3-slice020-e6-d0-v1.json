@@ -2,8 +2,8 @@
   "claimId": "P03F-W3-SLICE020-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice020Implementation",
-  "status": "PASS_D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1_CLOSEOUT_CI_PENDING",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice020 only: g4b_u08_4b08 exact fraction and terminating-decimal conversion.",
   "authority": {
     "queuePosition": 20,
@@ -70,8 +70,8 @@
     "answerKey": "PASS",
     "chromiumPdf": "PASS",
     "deployedSite": "PASS",
-    "productAdmissionState": "PRODUCTION_ADMITTED_D0_CANDIDATE",
-    "d0Complete": false
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
   },
   "boundaries": {
     "slice021Started": false,
@@ -83,13 +83,17 @@
   },
   "nextResumeTask": "P03F_W3DirectProductVerticalSlice021Implementation",
   "closeoutEvidence": {
-    "prNumber": null,
-    "headSha": null,
-    "nodeWorkflowRunId": null,
-    "nodeWorkflowJobId": null,
-    "nodeConclusion": null,
-    "fullRegression": null,
-    "mergeSha": null,
-    "mainReadback": "PENDING"
+    "prNumber": 538,
+    "headSha": "1395a1fbae95dd2447349ea3f92dc10db4482491",
+    "nodeWorkflowRunId": 30906605404,
+    "nodeWorkflowJobId": 91983038877,
+    "nodeConclusion": "success",
+    "fullRegression": {"tests": 2894, "pass": 2894, "fail": 0},
+    "mergeSha": "1900ba0676a175f52b5c2c592664c68dc843c7e8",
+    "mainNodeWorkflowRunId": 30906873914,
+    "mainNodeWorkflowJobId": 91983895658,
+    "mainCiReadbackWorkflowRunId": 30906873867,
+    "mainPagesWorkflowRunId": 30906873846,
+    "mainReadback": "PASS"
   }
 }

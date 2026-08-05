@@ -1,0 +1,85 @@
+{
+  "schemaName": "P03FSlice022CommonDenominatorReductionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice022Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 22,
+    "sliceId": "p03e_q022_r7_g5a_u04_5a04_profile_fraction_c1",
+    "previousSliceId": "p03e_q021_r7_g5a_u01_5a01_profile_decimal_c1",
+    "previousSliceD0Complete": true,
+    "previousSliceClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice021-e6-d0-v1.json",
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "path": "data/curriculum/knowledge/units/g5a_u04_5a04.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g5a_u04_5a04.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g5a_u04_5a04.hidden-pattern-spec.json",
+    "sourceNodeId": "g5a_u04_5a04",
+    "sourceTitle": "擴分約分通分",
+    "reviewedPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u04_common_denominator",
+      "canonicalNameZh": "通分",
+      "scope": "將異分母分數化為同分母等值分數。",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u04_common_denominator",
+      "operationFamilyId": "common_denominator",
+      "tagIds": ["grade_5", "domain_fraction", "concept_fraction_equivalence", "operation_common_denominator", "relation_least_common_multiple", "representation_fraction_pair", "answer_fraction_pair", "exact_rational_identity"]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u04_divisibility_supported_reduction",
+      "canonicalNameZh": "利用整除規則約分",
+      "scope": "用整除特徵選擇共同因數並連續約分。",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u04_divisibility_supported_reduction",
+      "operationFamilyId": "simplify_fraction",
+      "tagIds": ["grade_5", "domain_fraction", "concept_fraction_equivalence", "operation_fraction_reduction", "relation_divisibility", "representation_fraction", "answer_missing_integer", "exact_rational_identity"]
+    }
+  ],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g5a_u04_common_denominator",
+      "knowledgePointId": "kp_g5a_u04_common_denominator",
+      "canonicalExpressions": ["commonDenominator = lcm(leftDenominator, rightDenominator)", "leftEquivalent = leftNumerator*(commonDenominator/leftDenominator)/commonDenominator", "rightEquivalent = rightNumerator*(commonDenominator/rightDenominator)/commonDenominator"],
+      "validationInvariants": ["both fraction values are preserved", "resulting denominators are equal", "least common denominator is used"]
+    },
+    {
+      "formalMappingId": "fm_g5a_u04_divisibility_supported_reduction",
+      "knowledgePointId": "kp_g5a_u04_divisibility_supported_reduction",
+      "canonicalExpressions": ["commonFactor = gcd(numerator, denominator)", "simplestNumerator = numerator/commonFactor", "simplestDenominator = denominator/commonFactor"],
+      "validationInvariants": ["fraction value is preserved", "final numerator and denominator are coprime", "common factor divides both original terms"]
+    }
+  ],
+  "requiredCapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+  "patternSurface": {
+    "patternGroupIds": ["pg_g5a_u04_common_denominator_numeric", "pg_g5a_u04_divisibility_supported_reduction_numeric"],
+    "patternSpecIds": [
+      "ps_g5a_u04_common_denominator_common_denominator_numeric",
+      "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+      "ps_g5a_u04_common_denominator_right_equivalent_numeric",
+      "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+      "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+      "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
+    ],
+    "numericPatternSpecCount": 6,
+    "applicationPatternSpecCount": 0,
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "otherG5AU04KnowledgePointsExcluded": true,
+    "applicationContextCandidateExpansionAllowed": false,
+    "globalContextOntologyExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "sharedWorksheetRendererRequired": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

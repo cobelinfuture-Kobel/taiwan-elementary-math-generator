@@ -2,7 +2,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints,
-} from "../registry/batch-a-selector-p03f17-extension.js";
+} from "../registry/batch-a-selector-p03f22-extension.js";
 import { getFullProductPublicControlProfile } from "../registry/full-product-public-control-profiles.js";
 import { listW01PublicApplicationGroupsForKnowledgePoint } from "../registry/w01-public-application-groups.js";
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../registry/fifteen-unit-public-application-groups.js";
@@ -29,6 +29,8 @@ export const PUBLIC_UI_SAFE_QUESTION_COUNT = Object.freeze({
 const SOURCE_UNIT_MODE = "sourceUnit";
 const SINGLE_KP_MODE = "singleKnowledgePoint";
 const SAME_UNIT_MIXED_MODE = "mixedKnowledgePointsSameUnit";
+const P03F21_SOURCE_ID = "g5a_u01_5a01";
+const P03F21_KP_ID = "kp_g5a_u01_decimal_read_place";
 const CAPACITY_REGISTRY_READY = PUBLIC_GENERATOR_CAPACITY_ROWS.length > 0
   && PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS !== "PENDING_PGC_R03";
 
@@ -153,6 +155,14 @@ function capacityRowsForCase({ sourceId, selectionMode, selectedKnowledgePointId
     && row.verifiedMaxQuestionCount > 0);
 }
 
+function isP03F21StructuralFallback({ sourceId, selectionMode, selectedKnowledgePointIds, questionType }) {
+  if (sourceId !== P03F21_SOURCE_ID || questionType !== "numeric") return false;
+  if (selectionMode === SOURCE_UNIT_MODE) return true;
+  return selectionMode === SINGLE_KP_MODE
+    && selectedKnowledgePointIds.length === 1
+    && selectedKnowledgePointIds[0] === P03F21_KP_ID;
+}
+
 function rowsForSelectedGroups(rows, selectedPatternGroupIds) {
   const requested = uniqueStrings(selectedPatternGroupIds);
   if (requested.length === 0) return rows;
@@ -199,6 +209,22 @@ function capacityResolution({
       capacityStatus: "FAIL_CLOSED_PENDING_PGC_R03",
       qualityStatuses: [],
       routeIds: [],
+    };
+  }
+
+  if (isP03F21StructuralFallback({ sourceId, selectionMode, selectedKnowledgePointIds, questionType })) {
+    return {
+      registryReady: true,
+      structuralFallback: true,
+      legalRows: [],
+      depthOptions: [],
+      contextOptions: [],
+      depthMode: null,
+      contextMode: null,
+      questionCount: Object.freeze({ min: 1, default: 20, max: 240, evidence: "P03F21_DETERMINISTIC_240_UNIQUE_STRUCTURAL_FALLBACK" }),
+      capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+      qualityStatuses: ["P03F21_DETERMINISTIC_240_UNIQUE"],
+      routeIds: ["p03f21_g5a_u01_decimal_read_place_numeric_20"],
     };
   }
 
@@ -257,6 +283,7 @@ function capacityResolution({
 
 function hasLegalCapacityForType(input, questionType) {
   if (!CAPACITY_REGISTRY_READY) return true;
+  if (isP03F21StructuralFallback({ ...input, questionType })) return true;
   const rows = capacityRowsForCase({ ...input, questionType });
   return rows.length > 0;
 }
@@ -330,7 +357,7 @@ export function resolvePublicUiCapabilityBinding({
     })
     : [];
   const wholeCaseCapacity = legalCapacityRows.some((row) => !row.publicPatternGroupKey);
-  const legalPublicGroupIds = CAPACITY_REGISTRY_READY && !wholeCaseCapacity
+  const legalPublicGroupIds = CAPACITY_REGISTRY_READY && !wholeCaseCapacity && !capacity.structuralFallback
     ? new Set(legalCapacityRows.flatMap((row) => uniqueStrings(row.publicPatternGroupKey.split("|"))))
     : null;
 
