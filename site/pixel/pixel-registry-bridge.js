@@ -7,7 +7,7 @@ import {
   BATCH_A_SELECTOR_AVAILABILITY as CURRENT_SELECTOR_AVAILABILITY,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints
-} from "../modules/curriculum/registry/batch-a-selector-p03f23-extension.js";
+} from "../modules/curriculum/registry/batch-a-selector-p03f24-extension.js";
 import {
   BATCH_A_SELECTOR_AVAILABILITY as P01E_SELECTOR_AVAILABILITY,
 } from "../modules/curriculum/registry/batch-a-selector-p01e-extension.js";

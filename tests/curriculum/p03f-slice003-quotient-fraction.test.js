@@ -111,15 +111,15 @@ test("P03F3 current Pixel preserves early G3B-U07 KPs while later slices extend 
   assert.equal(sources.length, 29);
   const source = sources.find((row) => row.sourceId === G3B_U07_SOURCE_ID);
   assert.ok(source);
-  assert.equal(source.visibleKnowledgePointCount, 4);
-  assert.equal(source.hiddenPendingCount, 4);
+  assert.equal(source.visibleKnowledgePointCount, 8);
+  assert.equal(source.hiddenPendingCount, 0);
   const currentIds = listPixelKnowledgePointsForSource(G3B_U07_SOURCE_ID).map((row) => row.knowledgePointId);
-  assert.equal(currentIds.length, 4);
+  assert.equal(currentIds.length, 8);
   assert.equal(currentIds.includes(G3B_U07_QUOTIENT_FRACTION_KP_ID), true);
   assert.equal(currentIds.includes(G3B_U07_FRACTION_UNIT_CONVERSION_KP_ID), true);
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 29);
-  assert.equal(snapshot.bySourceId[G3B_U07_SOURCE_ID].visibleKnowledgePoints.length, 4);
+  assert.equal(snapshot.bySourceId[G3B_U07_SOURCE_ID].visibleKnowledgePoints.length, 8);
 });
 
 test("P03F3 shared worksheet and answer key render eight items", () => {

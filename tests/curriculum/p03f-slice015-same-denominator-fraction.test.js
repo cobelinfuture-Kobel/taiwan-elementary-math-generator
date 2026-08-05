@@ -117,9 +117,9 @@ test("P03F15 shared worksheet produces questions and answer key without applicat
   assert.equal(result.worksheetDocument.metadata.applicationExpansion, false);
 });
 
-test("P03F15 current Pixel snapshot exposes four G3B-U07 KPs", () => {
+test("P03F15 current Pixel snapshot exposes eight G3B-U07 KPs", () => {
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 4);
+  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 8);
 });
 
 test("P03F15 D0 closeout binds exact E6, closeout CI and main readback without starting Slice016", () => {
