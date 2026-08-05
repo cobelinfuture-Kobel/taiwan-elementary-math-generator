@@ -2,8 +2,8 @@
   "claimId": "P03F-W3-SLICE024-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice024Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice024 only: expand existing g3b_u07_3b07 with the final four fraction-context KnowledgePoints using 20 existing W02 PatternSpecs.",
   "authority": {
     "queuePosition": 24,
@@ -84,8 +84,8 @@
     "answerKey": "PASS",
     "chromiumPdf": "PASS",
     "semanticQuality": "PASS",
-    "productAdmissionState": "READY_FOR_D0_CLOSEOUT_CI",
-    "d0Complete": false
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
   },
   "boundaries": {
     "slice025Started": false,
@@ -97,13 +97,19 @@
     "sharedWorksheetRendererBehaviorChanged": false
   },
   "closeoutEvidence": {
-    "prNumber": null,
-    "headSha": null,
-    "nodeWorkflowRunId": null,
-    "nodeWorkflowJobId": null,
-    "nodeConclusion": null,
-    "fullRegression": null,
+    "prNumber": 550,
+    "headSha": "57c61a5fdd289a719d819fe61892fd7603278294",
+    "nodeWorkflowRunId": 30977309819,
+    "nodeWorkflowJobId": 92213933831,
+    "nodeConclusion": "success",
+    "fullRegression": {
+      "tests": 2935,
+      "pass": 2935,
+      "fail": 0
+    },
+    "diagnosticsArtifactId": 8918800254,
+    "diagnosticsArtifactDigest": "sha256:72264117712f2e8db6015de1e2e6974e4fff1222724410a6475a923510087385",
     "mergeSha": null
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice024D0Closeout"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice025Implementation"
 }
