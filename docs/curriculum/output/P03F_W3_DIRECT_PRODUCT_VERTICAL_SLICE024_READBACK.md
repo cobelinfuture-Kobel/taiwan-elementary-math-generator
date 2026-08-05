@@ -77,6 +77,7 @@ CLOSEOUT_NODE_JOB           = 92213933831
 CLOSEOUT_REGRESSION         = 2935 / 2935 PASS
 CLOSEOUT_DIAGNOSTICS        = 8918800254
 CLOSEOUT_DIAGNOSTICS_DIGEST = sha256:72264117712f2e8db6015de1e2e6974e4fff1222724410a6475a923510087385
+CLOSEOUT_MERGE_SHA          = 0b2c2116a3361ed603ec874602263d59cd0e5b37
 ```
 
 The closeout candidate adds only the claim, product-admission manifest, readback, and closeout contract test. Its exact Node gate passed the complete 2935-test repository regression with zero failures and zero skipped tests. The final metadata promotion does not alter runtime, selector, PatternSpec, validator, worksheet, renderer, or accepted Chromium output.
@@ -88,7 +89,7 @@ Slice024 expands an existing public source; it does not add a source, expand the
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE024_D0_CLOSEOUT_CANDIDATE
 GOAL_DISTANCE_AFTER  = D0_SLICE024_PRODUCT_CLOSED
-DISTANCE_REDUCED     = Exact closeout Node CI and the already accepted semantic/visual Chromium evidence are bound into the formal Slice024 D0 authority.
+DISTANCE_REDUCED     = Exact closeout Node CI, merged closeout authority, and the already accepted semantic/visual Chromium evidence are bound into the formal Slice024 D0 authority.
 REMAINING_BLOCKERS   = []
 NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice025Implementation
 ```
