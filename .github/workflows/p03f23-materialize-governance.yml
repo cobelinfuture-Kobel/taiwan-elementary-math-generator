@@ -42,7 +42,7 @@ jobs:
         run: |
           node --test \
             tests/curriculum/pgc-r01-public-capability-matrix.test.js \
-            tests/curriculum/pgc-r02-kp-driven-ui-binding.test.js \
+            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js \
             tests/curriculum/p03f-slice023-reciprocal-core.test.js
 
       - name: Commit exact generated artifacts
