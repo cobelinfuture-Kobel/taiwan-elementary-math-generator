@@ -260,27 +260,55 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
     depthMode: null,
     contextMode: null,
     questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
-    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
-    capacityRegistryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
-    capacityRouteIds: Object.freeze([]),
-    capacityQualityStatuses: Object.freeze(["POST_P03F_STRUCTURAL_FALLBACK"]),
     capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRouteIds: Object.freeze([]),
+    capacityQualityStatuses: Object.freeze(["POST_R03_STRUCTURAL_FALLBACK"]),
     blocked: false,
     blockedReasons: Object.freeze([]),
   });
 }
 
-export function auditPublicUiCapabilityBinding(input = {}) {
-  const binding = resolvePublicUiCapabilityBinding(input);
-  return Object.freeze({
-    ok: !binding.blocked,
-    errors: Object.freeze((binding.blockedReasons ?? []).map((reason) => Object.freeze({
-      code: "PUBLIC_UI_CAPABILITY_BINDING_BLOCKED",
-      reason,
-      sourceId: input.sourceId ?? null,
-      surfaceId: input.surfaceId ?? null,
-      selectionMode: input.selectionMode ?? null,
-    }))),
-    binding,
-  });
+export function auditPublicUiCapabilityBinding() {
+  const errors = [];
+  const surfaces = Object.values(PUBLIC_UI_SURFACES);
+  const visibleRows = listVisibleBatchAKnowledgePoints();
+  const sourceIds = [...new Set(visibleRows.map((entry) => entry.sourceId))];
+  let caseCount = 0;
+
+  for (const sourceId of sourceIds) {
+    const visible = visibleRows.filter((entry) => entry.sourceId === sourceId);
+    for (const surfaceId of surfaces) {
+      const sourceUnit = resolvePublicUiCapabilityBinding({ sourceId, surfaceId });
+      caseCount += 1;
+      if (sourceUnit.blocked) errors.push(`${sourceId}|${surfaceId}|sourceUnit:${sourceUnit.blockedReasons.join("|")}`);
+
+      for (const kp of visible) {
+        const single = resolvePublicUiCapabilityBinding({
+          sourceId,
+          surfaceId,
+          selectionMode: SINGLE_KP_MODE,
+          selectedKnowledgePointIds: [kp.knowledgePointId],
+        });
+        caseCount += 1;
+        if (single.blocked) errors.push(`${sourceId}|${surfaceId}|${kp.knowledgePointId}:${single.blockedReasons.join("|")}`);
+      }
+
+      if (visible.length >= 2) {
+        const mixed = resolvePublicUiCapabilityBinding({
+          sourceId,
+          surfaceId,
+          selectionMode: SAME_UNIT_MIXED_MODE,
+          selectedKnowledgePointIds: visible.map((kp) => kp.knowledgePointId),
+        });
+        caseCount += 1;
+        if (mixed.blocked) errors.push(`${sourceId}|${surfaceId}|mixed:${mixed.blockedReasons.join("|")}`);
+      }
+    }
+  }
+
+  const result = Object.freeze({ ok: errors.length === 0, caseCount, errors: Object.freeze(errors) });
+  return result;
 }
+
+// PGC-R06 A03 runtime capacity consumer reconciliation

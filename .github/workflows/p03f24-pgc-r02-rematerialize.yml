@@ -1,0 +1,76 @@
+name: P03F24 PGC R02 Rematerialize
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/p03f24-pgc-r02-rematerialize.yml"
+      - "site/modules/curriculum/public/public-ui-capability-binding.js"
+      - "tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs"
+      - "tests/curriculum/pgc-r02-public-ui-capability-binding.test.js"
+      - "tests/curriculum/p03f-slice003-quotient-fraction.test.js"
+      - "tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js"
+      - "tests/curriculum/p03f-slice015-same-denominator-fraction.test.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p03f24-extension.js"
+
+permissions:
+  contents: write
+
+jobs:
+  rematerialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Materialize canonical PGC-R02 artifacts
+        run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
+
+      - name: Focused Slice024 reconciliation tests
+        run: >-
+          node --test
+          tests/curriculum/p03f-slice003-quotient-fraction.test.js
+          tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js
+          tests/curriculum/p03f-slice015-same-denominator-fraction.test.js
+          tests/curriculum/p03f-slice024-fraction-context-core.test.js
+          tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+
+      - name: Create detached Git blobs for generated authority
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p tmp/p03f24-pgc-r02-rematerialize
+          manifest="tmp/p03f24-pgc-r02-rematerialize/blob-shas.txt"
+          : > "$manifest"
+          for path in \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          do
+            encoded=$(base64 -w 0 "$path")
+            sha=$(gh api \
+              --method POST \
+              "repos/${GITHUB_REPOSITORY}/git/blobs" \
+              -f content="$encoded" \
+              -f encoding=base64 \
+              --jq .sha)
+            printf '%s %s\n' "$sha" "$path" | tee -a "$manifest"
+          done
+
+      - name: Upload generated authority and blob SHA manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f24-pgc-r02-rematerialized-authority
+          path: |
+            data/curriculum/public-generation/ui_capability_binding_contract.json
+            data/curriculum/public-generation/ui_option_filter_matrix.csv
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+            tmp/p03f24-pgc-r02-rematerialize/blob-shas.txt
+          if-no-files-found: error
