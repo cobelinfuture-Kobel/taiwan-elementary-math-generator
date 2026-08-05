@@ -10,12 +10,17 @@ import {
 import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
-} from "../registry/batch-a-selector-p03f22-extension.js";
+} from "../registry/batch-a-selector-p03f23-extension.js";
 import {
   G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
   G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
   G4A_U06_FRACTION_CLASSIFICATION_PATTERN_GROUPS,
 } from "../registry/g4a-u06-fraction-type-classification-selector-projection.js";
+import {
+  G6A_U02_SOURCE_ID,
+  G6A_U02_RECIPROCAL_KP_ID,
+  G6A_U02_RECIPROCAL_PATTERN_GROUPS,
+} from "../registry/g6a-u02-reciprocal-selector-projection.js";
 
 export { PUBLIC_UI_SAFE_QUESTION_COUNT, PUBLIC_UI_SURFACES };
 
@@ -34,6 +39,48 @@ const CAPACITY_BLOCK_REASONS = new Set([
   "COMPATIBLE_QUESTION_TYPE_MISSING",
   "COMPATIBLE_PATTERN_GROUP_MISSING",
 ]);
+
+function p03f23Binding(input = {}) {
+  if (input.sourceId !== G6A_U02_SOURCE_ID) return null;
+  const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
+  const group = G6A_U02_RECIPROCAL_PATTERN_GROUPS[0];
+  const compatiblePatternGroup = Object.freeze({
+    ...group,
+    knowledgePointId: G6A_U02_RECIPROCAL_KP_ID,
+    knowledgePointDisplayName: "倒數概念",
+    effectiveQuestionType: "numeric",
+    uiQuestionType: "numeric",
+    displayLabel: "倒數概念",
+    selected: true,
+  });
+  return Object.freeze({
+    sourceId: G6A_U02_SOURCE_ID,
+    surfaceId: input.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
+    selectionMode,
+    availableSelectionModes: Object.freeze([
+      Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
+      Object.freeze({ value: SINGLE_KP_MODE, enabled: true }),
+      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: false }),
+      Object.freeze({ value: "mixedKnowledgePointsCrossUnit", enabled: false }),
+    ]),
+    selectedKnowledgePointIds: Object.freeze([G6A_U02_RECIPROCAL_KP_ID]),
+    selectedKnowledgePointCount: 1,
+    availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
+    questionType: "numeric",
+    compatiblePatternGroups: Object.freeze([compatiblePatternGroup]),
+    compatiblePatternGroupIds: Object.freeze([group.patternGroupId]),
+    selectedCompatiblePatternGroupIds: Object.freeze([group.patternGroupId]),
+    depthOptions: Object.freeze([]), contextOptions: Object.freeze([]), depthMode: null, contextMode: null,
+    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRegistryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
+    capacityRouteIds: Object.freeze([]),
+    capacityQualityStatuses: Object.freeze(["P03F23_FOCUSED_RUNTIME_240_VALIDATED"]),
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    blocked: false,
+    blockedReasons: Object.freeze([]),
+  });
+}
 
 function uniqueStrings(values = []) {
   return [...new Set((Array.isArray(values) ? values : [])
@@ -166,6 +213,8 @@ function selectedFallbackGroups(sourceBinding, requestedKnowledgePointIds, input
 }
 
 export function resolvePublicUiCapabilityBinding(input = {}) {
+  const slice023 = p03f23Binding(input);
+  if (slice023) return slice023;
   const slice017 = p03f17Binding(input);
   if (slice017) return slice017;
   const primary = resolveBasePublicUiCapabilityBinding(input);

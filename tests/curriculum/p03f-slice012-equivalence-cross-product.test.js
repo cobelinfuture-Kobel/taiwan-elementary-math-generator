@@ -113,12 +113,12 @@ test("P03F12 selector remains two G4B-U08 KPs while current Pixel includes later
   const availability = listBatchAKnowledgePointAvailabilityBySource(G4B_U08_SOURCE_ID);
   assert.equal(availability.visibleCount, 2);
   assert.equal(availability.hiddenPendingCount, 5);
-  assert.equal(listCurrentPixelSourceOptions().length, 28);
+  assert.equal(listCurrentPixelSourceOptions().length, 29);
   const currentPixelRows = listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID);
   assert.equal(currentPixelRows.length, 3);
   assert.equal(currentPixelRows[1].knowledgePointId, G4B_U08_EQUIVALENCE_CROSS_PRODUCT_KP_ID);
   assert.equal(currentPixelRows[2].knowledgePointId, "kp_g4b_u08_fraction_decimal_conversion");
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 28);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 29);
 });
 
 test("P03F12 shared worksheet and answer key render bounded pages", () => {

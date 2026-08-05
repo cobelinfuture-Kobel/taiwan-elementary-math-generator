@@ -7,7 +7,7 @@ import {
 } from "./materialize-pgc-r01-public-capability-matrix-v3.mjs";
 import {
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f22-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f23-extension.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const outputDir = path.join(repoRoot, "data/curriculum/public-generation");
@@ -164,7 +164,7 @@ function writeReport(matrix) {
     "## Accepted findings",
     "",
     `1. All ${matrix.summary.publicSourceCount} public sources and all ${matrix.summary.publicVisibleKnowledgePointCount} visible KnowledgePoints are accounted across all three public surfaces.`,
-    "2. All 156 visible question-type UI options map to at least one capability row.",
+    `2. All ${matrix.summary.uiOptionCoverageCount} visible question-type UI options map to at least one capability row.`,
     "3. 404-only absence is explicit and fail-closed; it is not counted as a working capability.",
     "4. Concept, representation, estimation and reasoning PatternGroup subtypes remain visible through their actual parent UI option.",
     "5. Capacity remains unverified and is owned by PGC-R03.",

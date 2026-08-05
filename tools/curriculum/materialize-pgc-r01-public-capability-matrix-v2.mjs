@@ -13,7 +13,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f22-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f23-extension.js";
 import {
   getFullProductPublicControlProfile,
 } from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
