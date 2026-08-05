@@ -14,7 +14,7 @@ on:
       - "site/modules/curriculum/**"
       - "site/pixel/**"
       - "tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs"
-      - "tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js"
+      - "tests/curriculum/**"
       - "data/curriculum/full-product/p03f/slice025-improper-mixed-integer-conversion-authority.json"
 
 permissions:
@@ -35,11 +35,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: npm
+          node-version: 22
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run Slice025 core focused contract
         run: node --test tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js
@@ -48,7 +47,7 @@ jobs:
         shell: bash
         run: |
           cp data/curriculum/public-generation/ui_capability_binding_contract.json /tmp/p03f25-old-r02.json
-          node tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs
+          node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           const oldContract = JSON.parse(fs.readFileSync('/tmp/p03f25-old-r02.json', 'utf8'));
@@ -77,7 +76,8 @@ jobs:
           console.log(`P03F25_VISIBLE_KPS=${nextContract.summary?.visibleKnowledgePointCount}`);
           console.log(`P03F25_BINDINGS=${nextContract.summary?.questionTypeBindingRowCount}`);
           if (nextContract.status !== 'PASS') process.exit(2);
-          if (nextContract.summary?.visibleKnowledgePointCount !== 212) process.exit(3);
+          if (nextContract.schemaName !== 'PublicUiCapabilityBindingContractV2') process.exit(3);
+          if (nextContract.summary?.visibleKnowledgePointCount !== 212) process.exit(4);
           NODE
 
       - name: Run current PGC and R06 focused contracts
