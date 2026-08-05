@@ -5,7 +5,7 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f23-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f24-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
   "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding.js",
   "adapters": {
@@ -26,19 +26,19 @@
   ],
   "summary": {
     "publicSourceCount": 29,
-    "visibleKnowledgePointCount": 207,
+    "visibleKnowledgePointCount": 211,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 262,
-    "surfaceCaseCount": 786,
-    "questionTypeBindingRowCount": 1149,
-    "parityCaseCount": 262,
-    "auditCaseCount": 786,
+    "baseCaseCount": 266,
+    "surfaceCaseCount": 798,
+    "questionTypeBindingRowCount": 1161,
+    "parityCaseCount": 266,
+    "auditCaseCount": 798,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
     "limitedCapacityBindingCount": 1077,
-    "structuralFallbackBindingCount": 72,
+    "structuralFallbackBindingCount": 84,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -8072,13 +8072,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g3b_u04_3b04::sourceUnit::FALLBACK_404::numeric",
@@ -8239,13 +8233,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g3b_u04_3b04::sourceUnit::PIXEL::numeric",
@@ -8406,13 +8394,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g3b_u04_3b04::single::kp_g3b_u04_add_then_divide::CLASSIC::application",
@@ -16061,13 +16043,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g4a_u08_4a08::sourceUnit::FALLBACK_404::numeric",
@@ -16282,13 +16258,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g4a_u08_4a08::sourceUnit::PIXEL::numeric",
@@ -16503,13 +16473,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g4a_u08_4a08::single::kp_g4a_u08_num_add_group_round::CLASSIC::numeric",
@@ -20416,14 +20380,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::sourceUnit::FALLBACK_404::mixed",
@@ -20736,14 +20693,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::sourceUnit::PIXEL::mixed",
@@ -21056,14 +21006,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_mixed_operation_order::CLASSIC::mixed",
@@ -21477,14 +21420,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_mul_div_equivalent_regroup::CLASSIC::application",
@@ -21569,14 +21505,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_mul_div_equivalent_regroup::FALLBACK_404::application",
@@ -21661,14 +21590,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_mul_div_equivalent_regroup::PIXEL::application",
@@ -22499,14 +22421,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_near_round_multiply_compensation::CLASSIC::application",
@@ -22590,14 +22505,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_near_round_multiply_compensation::FALLBACK_404::application",
@@ -22681,14 +22589,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::single::kp_g5a_u08_near_round_multiply_compensation::PIXEL::application",
@@ -23691,14 +23592,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::mixedSameUnit::CLASSIC::reasoning",
@@ -23899,14 +23793,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::mixedSameUnit::FALLBACK_404::reasoning",
@@ -24107,14 +23994,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-        "sourceId": "g5a_u08_5a08",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u08_5a08::mixedSameUnit::PIXEL::reasoning",
@@ -24594,13 +24474,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g4b_u04_4b04::sourceUnit::FALLBACK_404::mixed",
@@ -24990,13 +24864,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g4b_u04_4b04::sourceUnit::PIXEL::mixed",
@@ -25386,13 +25254,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues::CLASSIC::mixed",
@@ -29297,14 +29159,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::CLASSIC::concept",
@@ -29612,14 +29467,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
-        "sourceId": "g5a_u02_5a02",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::FALLBACK_404::mixed",
@@ -29732,14 +29580,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::FALLBACK_404::concept",
@@ -30047,14 +29888,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
-        "sourceId": "g5a_u02_5a02",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::PIXEL::mixed",
@@ -30167,14 +30001,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::PIXEL::concept",
@@ -30482,14 +30309,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
-        "sourceId": "g5a_u02_5a02",
-        "verifiedRouteMax": 20,
-        "crossSeedDiverse": true
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::CLASSIC::mixed",
@@ -30527,14 +30347,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::CLASSIC::concept",
@@ -30604,14 +30417,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::FALLBACK_404::concept",
@@ -30681,14 +30487,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::PIXEL::concept",
@@ -30758,14 +30557,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::CLASSIC::numeric",
@@ -30835,14 +30627,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::FALLBACK_404::numeric",
@@ -30912,14 +30697,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::PIXEL::numeric",
@@ -30990,14 +30768,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::CLASSIC::numeric",
@@ -31069,14 +30840,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::FALLBACK_404::numeric",
@@ -31148,14 +30912,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::PIXEL::numeric",
@@ -31226,14 +30983,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_pair_order_and_symmetry::FALLBACK_404::mixed",
@@ -31271,14 +31021,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_pair_order_and_symmetry::PIXEL::mixed",
@@ -31316,14 +31059,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::CLASSIC::mixed",
@@ -31361,14 +31097,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::CLASSIC::reasoning",
@@ -31406,14 +31135,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::FALLBACK_404::mixed",
@@ -31451,14 +31173,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::FALLBACK_404::reasoning",
@@ -31496,14 +31211,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::PIXEL::mixed",
@@ -31541,14 +31249,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::PIXEL::reasoning",
@@ -31586,14 +31287,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::CLASSIC::mixed",
@@ -31632,14 +31326,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::CLASSIC::concept",
@@ -31711,14 +31398,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::FALLBACK_404::concept",
@@ -31790,14 +31470,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::PIXEL::concept",
@@ -31870,14 +31543,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::CLASSIC::application",
@@ -31957,14 +31623,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::FALLBACK_404::application",
@@ -32044,14 +31703,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::PIXEL::application",
@@ -32129,14 +31781,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::CLASSIC::concept",
@@ -32206,14 +31851,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::FALLBACK_404::concept",
@@ -32283,14 +31921,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::PIXEL::concept",
@@ -32361,14 +31992,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::CLASSIC::reasoning",
@@ -32407,14 +32031,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::FALLBACK_404::mixed",
@@ -32453,14 +32070,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::FALLBACK_404::reasoning",
@@ -32499,14 +32109,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::PIXEL::mixed",
@@ -32545,14 +32148,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::PIXEL::reasoning",
@@ -32591,14 +32187,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::CLASSIC::mixed",
@@ -32636,14 +32225,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::FALLBACK_404::mixed",
@@ -32681,14 +32263,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::PIXEL::mixed",
@@ -32726,14 +32301,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_concept::CLASSIC::mixed",
@@ -32981,14 +32549,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::CLASSIC::numeric",
@@ -33058,14 +32619,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::FALLBACK_404::numeric",
@@ -33135,14 +32689,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::PIXEL::numeric",
@@ -33212,14 +32759,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::CLASSIC::numeric",
@@ -33289,14 +32829,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::FALLBACK_404::numeric",
@@ -33366,14 +32899,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::PIXEL::numeric",
@@ -33899,14 +33425,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::CLASSIC::application",
@@ -33982,14 +33501,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::FALLBACK_404::application",
@@ -34065,14 +33577,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::PIXEL::application",
@@ -34148,14 +33653,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::CLASSIC::application",
@@ -34231,14 +33729,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::FALLBACK_404::application",
@@ -34314,14 +33805,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::PIXEL::application",
@@ -34397,14 +33881,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_multi_constraint_digit_code_number_theory::FALLBACK_404::mixed",
@@ -34442,14 +33919,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_multi_constraint_digit_code_number_theory::PIXEL::mixed",
@@ -34487,14 +33957,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::CLASSIC::mixed",
@@ -34607,14 +34070,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::CLASSIC::concept",
@@ -34983,14 +34439,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::FALLBACK_404::concept",
@@ -35359,14 +34808,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "verifiedCapacityQuestionCountMax": 20,
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      }
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::PIXEL::concept",
@@ -42525,16 +41967,24 @@
         "kp_g3b_u07_quotient_as_fraction",
         "kp_g3b_u07_fraction_unit_conversion",
         "kp_g3b_u07_same_denominator_add_sub",
-        "kp_g3b_u07_same_denominator_compare"
+        "kp_g3b_u07_same_denominator_compare",
+        "kp_g3b_u07_whole_and_fraction_add_sub",
+        "kp_g3b_u07_combined_fraction_context",
+        "kp_g3b_u07_fraction_plus_count_context",
+        "kp_g3b_u07_original_or_difference_context"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 8,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g3b_u07_quotient_as_fraction_numeric",
         "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_same_denominator_add_sub_numeric",
-        "pg_g3b_u07_same_denominator_compare_numeric"
+        "pg_g3b_u07_same_denominator_compare_numeric",
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
+        "pg_g3b_u07_combined_fraction_context_numeric",
+        "pg_g3b_u07_fraction_plus_count_context_numeric",
+        "pg_g3b_u07_original_or_difference_context_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u07_quotient_as_fraction_quotient_numeric",
@@ -42543,13 +41993,27 @@
         "ps_g3b_u07_same_denominator_add",
         "ps_g3b_u07_same_denominator_sub",
         "ps_g3b_u07_same_denominator_compare_fraction",
-        "ps_g3b_u07_same_denominator_compare_whole_one"
+        "ps_g3b_u07_same_denominator_compare_whole_one",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric"
       ],
       "questionFormLabels": [
         "除法結果的分數表示",
         "單位分數與離散單位換算｜數字題",
         "同分母分數加減",
-        "同分母分數比較與整數改寫"
+        "同分母分數比較與整數改寫",
+        "整數與分數加減｜數字題",
+        "同一整體的分數合併｜數字題",
+        "分數量與絕對個數合併｜數字題",
+        "由已用、剩餘或差量求未知｜數字題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -42572,20 +42036,42 @@
         "kp_g3b_u07_quotient_as_fraction",
         "kp_g3b_u07_fraction_unit_conversion",
         "kp_g3b_u07_same_denominator_add_sub",
-        "kp_g3b_u07_same_denominator_compare"
+        "kp_g3b_u07_same_denominator_compare",
+        "kp_g3b_u07_whole_and_fraction_add_sub",
+        "kp_g3b_u07_combined_fraction_context",
+        "kp_g3b_u07_fraction_plus_count_context",
+        "kp_g3b_u07_original_or_difference_context"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 8,
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
-        "pg_g3b_u07_fraction_unit_conversion_application"
+        "pg_g3b_u07_fraction_unit_conversion_application",
+        "pg_g3b_u07_whole_and_fraction_add_sub_application",
+        "pg_g3b_u07_combined_fraction_context_application",
+        "pg_g3b_u07_fraction_plus_count_context_application",
+        "pg_g3b_u07_original_or_difference_context_application"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u07_fraction_unit_conversion_item_count_application",
-        "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_application",
+        "ps_g3b_u07_combined_fraction_context_total_application",
+        "ps_g3b_u07_combined_fraction_context_original_application",
+        "ps_g3b_u07_combined_fraction_context_difference_application",
+        "ps_g3b_u07_fraction_plus_count_context_total_application",
+        "ps_g3b_u07_fraction_plus_count_context_original_application",
+        "ps_g3b_u07_fraction_plus_count_context_difference_application",
+        "ps_g3b_u07_original_or_difference_context_total_application",
+        "ps_g3b_u07_original_or_difference_context_original_application",
+        "ps_g3b_u07_original_or_difference_context_difference_application"
       ],
       "questionFormLabels": [
-        "單位分數與離散單位換算｜應用題"
+        "單位分數與離散單位換算｜應用題",
+        "整數與分數加減｜應用題",
+        "同一整體的分數合併｜應用題",
+        "分數量與絕對個數合併｜應用題",
+        "由已用、剩餘或差量求未知｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -42610,16 +42096,24 @@
         "kp_g3b_u07_quotient_as_fraction",
         "kp_g3b_u07_fraction_unit_conversion",
         "kp_g3b_u07_same_denominator_add_sub",
-        "kp_g3b_u07_same_denominator_compare"
+        "kp_g3b_u07_same_denominator_compare",
+        "kp_g3b_u07_whole_and_fraction_add_sub",
+        "kp_g3b_u07_combined_fraction_context",
+        "kp_g3b_u07_fraction_plus_count_context",
+        "kp_g3b_u07_original_or_difference_context"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 8,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g3b_u07_quotient_as_fraction_numeric",
         "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_same_denominator_add_sub_numeric",
-        "pg_g3b_u07_same_denominator_compare_numeric"
+        "pg_g3b_u07_same_denominator_compare_numeric",
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
+        "pg_g3b_u07_combined_fraction_context_numeric",
+        "pg_g3b_u07_fraction_plus_count_context_numeric",
+        "pg_g3b_u07_original_or_difference_context_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u07_quotient_as_fraction_quotient_numeric",
@@ -42628,13 +42122,27 @@
         "ps_g3b_u07_same_denominator_add",
         "ps_g3b_u07_same_denominator_sub",
         "ps_g3b_u07_same_denominator_compare_fraction",
-        "ps_g3b_u07_same_denominator_compare_whole_one"
+        "ps_g3b_u07_same_denominator_compare_whole_one",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric"
       ],
       "questionFormLabels": [
         "除法結果的分數表示",
         "單位分數與離散單位換算｜數字題",
         "同分母分數加減",
-        "同分母分數比較與整數改寫"
+        "同分母分數比較與整數改寫",
+        "整數與分數加減｜數字題",
+        "同一整體的分數合併｜數字題",
+        "分數量與絕對個數合併｜數字題",
+        "由已用、剩餘或差量求未知｜數字題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -42657,20 +42165,42 @@
         "kp_g3b_u07_quotient_as_fraction",
         "kp_g3b_u07_fraction_unit_conversion",
         "kp_g3b_u07_same_denominator_add_sub",
-        "kp_g3b_u07_same_denominator_compare"
+        "kp_g3b_u07_same_denominator_compare",
+        "kp_g3b_u07_whole_and_fraction_add_sub",
+        "kp_g3b_u07_combined_fraction_context",
+        "kp_g3b_u07_fraction_plus_count_context",
+        "kp_g3b_u07_original_or_difference_context"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 8,
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
-        "pg_g3b_u07_fraction_unit_conversion_application"
+        "pg_g3b_u07_fraction_unit_conversion_application",
+        "pg_g3b_u07_whole_and_fraction_add_sub_application",
+        "pg_g3b_u07_combined_fraction_context_application",
+        "pg_g3b_u07_fraction_plus_count_context_application",
+        "pg_g3b_u07_original_or_difference_context_application"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u07_fraction_unit_conversion_item_count_application",
-        "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_application",
+        "ps_g3b_u07_combined_fraction_context_total_application",
+        "ps_g3b_u07_combined_fraction_context_original_application",
+        "ps_g3b_u07_combined_fraction_context_difference_application",
+        "ps_g3b_u07_fraction_plus_count_context_total_application",
+        "ps_g3b_u07_fraction_plus_count_context_original_application",
+        "ps_g3b_u07_fraction_plus_count_context_difference_application",
+        "ps_g3b_u07_original_or_difference_context_total_application",
+        "ps_g3b_u07_original_or_difference_context_original_application",
+        "ps_g3b_u07_original_or_difference_context_difference_application"
       ],
       "questionFormLabels": [
-        "單位分數與離散單位換算｜應用題"
+        "單位分數與離散單位換算｜應用題",
+        "整數與分數加減｜應用題",
+        "同一整體的分數合併｜應用題",
+        "分數量與絕對個數合併｜應用題",
+        "由已用、剩餘或差量求未知｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -42695,16 +42225,24 @@
         "kp_g3b_u07_quotient_as_fraction",
         "kp_g3b_u07_fraction_unit_conversion",
         "kp_g3b_u07_same_denominator_add_sub",
-        "kp_g3b_u07_same_denominator_compare"
+        "kp_g3b_u07_same_denominator_compare",
+        "kp_g3b_u07_whole_and_fraction_add_sub",
+        "kp_g3b_u07_combined_fraction_context",
+        "kp_g3b_u07_fraction_plus_count_context",
+        "kp_g3b_u07_original_or_difference_context"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 8,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g3b_u07_quotient_as_fraction_numeric",
         "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_same_denominator_add_sub_numeric",
-        "pg_g3b_u07_same_denominator_compare_numeric"
+        "pg_g3b_u07_same_denominator_compare_numeric",
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
+        "pg_g3b_u07_combined_fraction_context_numeric",
+        "pg_g3b_u07_fraction_plus_count_context_numeric",
+        "pg_g3b_u07_original_or_difference_context_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u07_quotient_as_fraction_quotient_numeric",
@@ -42713,13 +42251,27 @@
         "ps_g3b_u07_same_denominator_add",
         "ps_g3b_u07_same_denominator_sub",
         "ps_g3b_u07_same_denominator_compare_fraction",
-        "ps_g3b_u07_same_denominator_compare_whole_one"
+        "ps_g3b_u07_same_denominator_compare_whole_one",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric"
       ],
       "questionFormLabels": [
         "除法結果的分數表示",
         "單位分數與離散單位換算｜數字題",
         "同分母分數加減",
-        "同分母分數比較與整數改寫"
+        "同分母分數比較與整數改寫",
+        "整數與分數加減｜數字題",
+        "同一整體的分數合併｜數字題",
+        "分數量與絕對個數合併｜數字題",
+        "由已用、剩餘或差量求未知｜數字題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -42742,20 +42294,42 @@
         "kp_g3b_u07_quotient_as_fraction",
         "kp_g3b_u07_fraction_unit_conversion",
         "kp_g3b_u07_same_denominator_add_sub",
-        "kp_g3b_u07_same_denominator_compare"
+        "kp_g3b_u07_same_denominator_compare",
+        "kp_g3b_u07_whole_and_fraction_add_sub",
+        "kp_g3b_u07_combined_fraction_context",
+        "kp_g3b_u07_fraction_plus_count_context",
+        "kp_g3b_u07_original_or_difference_context"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 8,
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
-        "pg_g3b_u07_fraction_unit_conversion_application"
+        "pg_g3b_u07_fraction_unit_conversion_application",
+        "pg_g3b_u07_whole_and_fraction_add_sub_application",
+        "pg_g3b_u07_combined_fraction_context_application",
+        "pg_g3b_u07_fraction_plus_count_context_application",
+        "pg_g3b_u07_original_or_difference_context_application"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u07_fraction_unit_conversion_item_count_application",
-        "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_application",
+        "ps_g3b_u07_combined_fraction_context_total_application",
+        "ps_g3b_u07_combined_fraction_context_original_application",
+        "ps_g3b_u07_combined_fraction_context_difference_application",
+        "ps_g3b_u07_fraction_plus_count_context_total_application",
+        "ps_g3b_u07_fraction_plus_count_context_original_application",
+        "ps_g3b_u07_fraction_plus_count_context_difference_application",
+        "ps_g3b_u07_original_or_difference_context_total_application",
+        "ps_g3b_u07_original_or_difference_context_original_application",
+        "ps_g3b_u07_original_or_difference_context_difference_application"
       ],
       "questionFormLabels": [
-        "單位分數與離散單位換算｜應用題"
+        "單位分數與離散單位換算｜應用題",
+        "整數與分數加減｜應用題",
+        "同一整體的分數合併｜應用題",
+        "分數量與絕對個數合併｜應用題",
+        "由已用、剩餘或差量求未知｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -43269,6 +42843,408 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_whole_and_fraction_add_sub::CLASSIC::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_whole_and_fraction_add_sub",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_whole_and_fraction_add_sub"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "整數與分數加減｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_whole_and_fraction_add_sub::FALLBACK_404::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_whole_and_fraction_add_sub",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_whole_and_fraction_add_sub"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "整數與分數加減｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_whole_and_fraction_add_sub::PIXEL::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_whole_and_fraction_add_sub",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_whole_and_fraction_add_sub"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "整數與分數加減｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_combined_fraction_context::CLASSIC::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_combined_fraction_context",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_combined_fraction_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_combined_fraction_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric"
+      ],
+      "questionFormLabels": [
+        "同一整體的分數合併｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_combined_fraction_context::FALLBACK_404::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_combined_fraction_context",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_combined_fraction_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_combined_fraction_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric"
+      ],
+      "questionFormLabels": [
+        "同一整體的分數合併｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_combined_fraction_context::PIXEL::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_combined_fraction_context",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_combined_fraction_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_combined_fraction_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric"
+      ],
+      "questionFormLabels": [
+        "同一整體的分數合併｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_fraction_plus_count_context::CLASSIC::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_fraction_plus_count_context",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_fraction_plus_count_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_fraction_plus_count_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric"
+      ],
+      "questionFormLabels": [
+        "分數量與絕對個數合併｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_fraction_plus_count_context::FALLBACK_404::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_fraction_plus_count_context",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_fraction_plus_count_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_fraction_plus_count_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric"
+      ],
+      "questionFormLabels": [
+        "分數量與絕對個數合併｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_fraction_plus_count_context::PIXEL::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_fraction_plus_count_context",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_fraction_plus_count_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_fraction_plus_count_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric"
+      ],
+      "questionFormLabels": [
+        "分數量與絕對個數合併｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_original_or_difference_context::CLASSIC::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_original_or_difference_context",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_original_or_difference_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_original_or_difference_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric"
+      ],
+      "questionFormLabels": [
+        "由已用、剩餘或差量求未知｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_original_or_difference_context::FALLBACK_404::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_original_or_difference_context",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_original_or_difference_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_original_or_difference_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric"
+      ],
+      "questionFormLabels": [
+        "由已用、剩餘或差量求未知｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g3b_u07_3b07::single::kp_g3b_u07_original_or_difference_context::PIXEL::numeric",
+      "caseId": "g3b_u07_3b07::single::kp_g3b_u07_original_or_difference_context",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g3b_u07_original_or_difference_context"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g3b_u07_original_or_difference_context_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric"
+      ],
+      "questionFormLabels": [
+        "由已用、剩餘或差量求未知｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g3b_u07_3b07::mixedSameUnit::CLASSIC::numeric",
       "caseId": "g3b_u07_3b07::mixedSameUnit",
       "sourceId": "g3b_u07_3b07",
@@ -43278,16 +43254,24 @@
         "kp_g3b_u07_quotient_as_fraction",
         "kp_g3b_u07_fraction_unit_conversion",
         "kp_g3b_u07_same_denominator_add_sub",
-        "kp_g3b_u07_same_denominator_compare"
+        "kp_g3b_u07_same_denominator_compare",
+        "kp_g3b_u07_whole_and_fraction_add_sub",
+        "kp_g3b_u07_combined_fraction_context",
+        "kp_g3b_u07_fraction_plus_count_context",
+        "kp_g3b_u07_original_or_difference_context"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 8,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g3b_u07_quotient_as_fraction_numeric",
         "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_same_denominator_add_sub_numeric",
-        "pg_g3b_u07_same_denominator_compare_numeric"
+        "pg_g3b_u07_same_denominator_compare_numeric",
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
+        "pg_g3b_u07_combined_fraction_context_numeric",
+        "pg_g3b_u07_fraction_plus_count_context_numeric",
+        "pg_g3b_u07_original_or_difference_context_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u07_quotient_as_fraction_quotient_numeric",
@@ -43296,13 +43280,27 @@
         "ps_g3b_u07_same_denominator_add",
         "ps_g3b_u07_same_denominator_sub",
         "ps_g3b_u07_same_denominator_compare_fraction",
-        "ps_g3b_u07_same_denominator_compare_whole_one"
+        "ps_g3b_u07_same_denominator_compare_whole_one",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric"
       ],
       "questionFormLabels": [
         "除法結果的分數表示",
         "單位分數與離散單位換算｜數字題",
         "同分母分數加減",
-        "同分母分數比較與整數改寫"
+        "同分母分數比較與整數改寫",
+        "整數與分數加減｜數字題",
+        "同一整體的分數合併｜數字題",
+        "分數量與絕對個數合併｜數字題",
+        "由已用、剩餘或差量求未知｜數字題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -43325,16 +43323,24 @@
         "kp_g3b_u07_quotient_as_fraction",
         "kp_g3b_u07_fraction_unit_conversion",
         "kp_g3b_u07_same_denominator_add_sub",
-        "kp_g3b_u07_same_denominator_compare"
+        "kp_g3b_u07_same_denominator_compare",
+        "kp_g3b_u07_whole_and_fraction_add_sub",
+        "kp_g3b_u07_combined_fraction_context",
+        "kp_g3b_u07_fraction_plus_count_context",
+        "kp_g3b_u07_original_or_difference_context"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 8,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g3b_u07_quotient_as_fraction_numeric",
         "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_same_denominator_add_sub_numeric",
-        "pg_g3b_u07_same_denominator_compare_numeric"
+        "pg_g3b_u07_same_denominator_compare_numeric",
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
+        "pg_g3b_u07_combined_fraction_context_numeric",
+        "pg_g3b_u07_fraction_plus_count_context_numeric",
+        "pg_g3b_u07_original_or_difference_context_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u07_quotient_as_fraction_quotient_numeric",
@@ -43343,13 +43349,27 @@
         "ps_g3b_u07_same_denominator_add",
         "ps_g3b_u07_same_denominator_sub",
         "ps_g3b_u07_same_denominator_compare_fraction",
-        "ps_g3b_u07_same_denominator_compare_whole_one"
+        "ps_g3b_u07_same_denominator_compare_whole_one",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric"
       ],
       "questionFormLabels": [
         "除法結果的分數表示",
         "單位分數與離散單位換算｜數字題",
         "同分母分數加減",
-        "同分母分數比較與整數改寫"
+        "同分母分數比較與整數改寫",
+        "整數與分數加減｜數字題",
+        "同一整體的分數合併｜數字題",
+        "分數量與絕對個數合併｜數字題",
+        "由已用、剩餘或差量求未知｜數字題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -43372,16 +43392,24 @@
         "kp_g3b_u07_quotient_as_fraction",
         "kp_g3b_u07_fraction_unit_conversion",
         "kp_g3b_u07_same_denominator_add_sub",
-        "kp_g3b_u07_same_denominator_compare"
+        "kp_g3b_u07_same_denominator_compare",
+        "kp_g3b_u07_whole_and_fraction_add_sub",
+        "kp_g3b_u07_combined_fraction_context",
+        "kp_g3b_u07_fraction_plus_count_context",
+        "kp_g3b_u07_original_or_difference_context"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 8,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g3b_u07_quotient_as_fraction_numeric",
         "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_same_denominator_add_sub_numeric",
-        "pg_g3b_u07_same_denominator_compare_numeric"
+        "pg_g3b_u07_same_denominator_compare_numeric",
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
+        "pg_g3b_u07_combined_fraction_context_numeric",
+        "pg_g3b_u07_fraction_plus_count_context_numeric",
+        "pg_g3b_u07_original_or_difference_context_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u07_quotient_as_fraction_quotient_numeric",
@@ -43390,13 +43418,27 @@
         "ps_g3b_u07_same_denominator_add",
         "ps_g3b_u07_same_denominator_sub",
         "ps_g3b_u07_same_denominator_compare_fraction",
-        "ps_g3b_u07_same_denominator_compare_whole_one"
+        "ps_g3b_u07_same_denominator_compare_whole_one",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric"
       ],
       "questionFormLabels": [
         "除法結果的分數表示",
         "單位分數與離散單位換算｜數字題",
         "同分母分數加減",
-        "同分母分數比較與整數改寫"
+        "同分母分數比較與整數改寫",
+        "整數與分數加減｜數字題",
+        "同一整體的分數合併｜數字題",
+        "分數量與絕對個數合併｜數字題",
+        "由已用、剩餘或差量求未知｜數字題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -47554,40 +47596,5 @@
     }
   ],
   "capacityAuthority": "site/modules/curriculum/public/public-generator-capacity-registry.js",
-  "runtimeCapacityPolicy": "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING",
-  "lastReconciliation": {
-    "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-    "sourceId": "g5a_u02_5a02",
-    "liveRouteCount": 98,
-    "matchedBindingCount": 60,
-    "capacityAuthority": "data/curriculum/public-generation/generator_capacity_contract.json",
-    "status": "PASS_R06_A03_PUBLIC_BINDING_RECONCILED"
-  },
-  "lastR06A04Reconciliation": {
-    "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
-    "sourceId": "g5a_u02_5a02",
-    "routeCount": 12,
-    "matchedBindingCount": 3,
-    "status": "PASS_R06_A04_PUBLIC_BINDING_RECONCILED"
-  },
-  "lastR06A05Reconciliation": {
-    "taskId": "PGC-R06-A05_G5A-U08_30ResidualDualAxisFullFix",
-    "sourceId": "g5a_u08_5a08",
-    "routeCount": 30,
-    "matchedBindingCount": 12,
-    "status": "PASS_R06_A05_PUBLIC_BINDING_RECONCILED"
-  },
-  "lastR06A06Reconciliation": {
-    "taskId": "PGC-R06-A06_5ResidualPBLFixtureDiversityFullFix",
-    "routeCount": 5,
-    "matchedBindingCount": 9,
-    "status": "PASS_R06_A06_PUBLIC_BINDING_RECONCILED"
-  },
-  "lastR06A07Closeout": {
-    "taskId": "PGC-R06-A07_FinalReconciliationGlobalLiveGateAndD0Closeout",
-    "globalLivePassRouteCount": 389,
-    "repairQueueCount": 0,
-    "status": "PASS_R06_A07_GLOBAL_LIVE_RUNTIME_RECONCILED_AND_D0_CLOSED"
-  },
-  "r06TerminalStatus": "D0_CLOSED"
+  "runtimeCapacityPolicy": "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING"
 }
