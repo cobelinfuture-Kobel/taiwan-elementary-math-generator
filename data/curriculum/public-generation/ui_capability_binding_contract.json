@@ -5,7 +5,7 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f22-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f23-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
   "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding.js",
   "adapters": {
@@ -25,20 +25,20 @@
     "PIXEL"
   ],
   "summary": {
-    "publicSourceCount": 28,
-    "visibleKnowledgePointCount": 206,
+    "publicSourceCount": 29,
+    "visibleKnowledgePointCount": 207,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 260,
-    "surfaceCaseCount": 780,
-    "questionTypeBindingRowCount": 1143,
-    "parityCaseCount": 260,
-    "auditCaseCount": 780,
+    "baseCaseCount": 262,
+    "surfaceCaseCount": 786,
+    "questionTypeBindingRowCount": 1149,
+    "parityCaseCount": 262,
+    "auditCaseCount": 786,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
     "limitedCapacityBindingCount": 1077,
-    "structuralFallbackBindingCount": 66,
+    "structuralFallbackBindingCount": 72,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -47336,6 +47336,210 @@
       ],
       "questionFormLabels": [
         "多位小數讀法與位名"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g6a_u02_6a02::sourceUnit::CLASSIC::numeric",
+      "caseId": "g6a_u02_6a02::sourceUnit",
+      "sourceId": "g6a_u02_6a02",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g6a_u02_reciprocal_concept"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6a_u02_reciprocal_concept_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6a_u02_fraction_reciprocal_numeric",
+        "ps_g6a_u02_integer_reciprocal_numeric",
+        "ps_g6a_u02_reciprocal_identity_missing_factor_numeric"
+      ],
+      "questionFormLabels": [
+        "倒數概念"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g6a_u02_6a02::sourceUnit::FALLBACK_404::numeric",
+      "caseId": "g6a_u02_6a02::sourceUnit",
+      "sourceId": "g6a_u02_6a02",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g6a_u02_reciprocal_concept"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6a_u02_reciprocal_concept_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6a_u02_fraction_reciprocal_numeric",
+        "ps_g6a_u02_integer_reciprocal_numeric",
+        "ps_g6a_u02_reciprocal_identity_missing_factor_numeric"
+      ],
+      "questionFormLabels": [
+        "倒數概念"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g6a_u02_6a02::sourceUnit::PIXEL::numeric",
+      "caseId": "g6a_u02_6a02::sourceUnit",
+      "sourceId": "g6a_u02_6a02",
+      "surfaceId": "PIXEL",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g6a_u02_reciprocal_concept"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6a_u02_reciprocal_concept_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6a_u02_fraction_reciprocal_numeric",
+        "ps_g6a_u02_integer_reciprocal_numeric",
+        "ps_g6a_u02_reciprocal_identity_missing_factor_numeric"
+      ],
+      "questionFormLabels": [
+        "倒數概念"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g6a_u02_6a02::single::kp_g6a_u02_reciprocal_concept::CLASSIC::numeric",
+      "caseId": "g6a_u02_6a02::single::kp_g6a_u02_reciprocal_concept",
+      "sourceId": "g6a_u02_6a02",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g6a_u02_reciprocal_concept"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6a_u02_reciprocal_concept_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6a_u02_fraction_reciprocal_numeric",
+        "ps_g6a_u02_integer_reciprocal_numeric",
+        "ps_g6a_u02_reciprocal_identity_missing_factor_numeric"
+      ],
+      "questionFormLabels": [
+        "倒數概念"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g6a_u02_6a02::single::kp_g6a_u02_reciprocal_concept::FALLBACK_404::numeric",
+      "caseId": "g6a_u02_6a02::single::kp_g6a_u02_reciprocal_concept",
+      "sourceId": "g6a_u02_6a02",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g6a_u02_reciprocal_concept"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6a_u02_reciprocal_concept_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6a_u02_fraction_reciprocal_numeric",
+        "ps_g6a_u02_integer_reciprocal_numeric",
+        "ps_g6a_u02_reciprocal_identity_missing_factor_numeric"
+      ],
+      "questionFormLabels": [
+        "倒數概念"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g6a_u02_6a02::single::kp_g6a_u02_reciprocal_concept::PIXEL::numeric",
+      "caseId": "g6a_u02_6a02::single::kp_g6a_u02_reciprocal_concept",
+      "sourceId": "g6a_u02_6a02",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g6a_u02_reciprocal_concept"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6a_u02_reciprocal_concept_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6a_u02_fraction_reciprocal_numeric",
+        "ps_g6a_u02_integer_reciprocal_numeric",
+        "ps_g6a_u02_reciprocal_identity_missing_factor_numeric"
+      ],
+      "questionFormLabels": [
+        "倒數概念"
       ],
       "depthModes": [],
       "contextModes": [],
