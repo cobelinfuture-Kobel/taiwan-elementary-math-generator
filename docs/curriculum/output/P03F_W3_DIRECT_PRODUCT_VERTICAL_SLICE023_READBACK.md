@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice023 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice023 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice023Implementation
 SLICE      = 023
 SOURCE_REF = g6a_u02_6a02
-STATUS     = PASS_D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -39,18 +39,40 @@ DEPLOYMENT_SHA             = 8da935579f45166d7b7d1160604ff1d348cccf35
 DEPLOYED_CONTENT_PARITY    = PASS
 ```
 
-The exact-head Node workflow ran the existing shared Slice023 Chromium route successfully. Automated browser acceptance found zero duplicate prompts, overflow, console errors, page errors, or semantic-scope findings. All six physical pages were then visually reviewed: question pages 1–3 contain questions 1–24 without clipping, overlap, broken glyphs, or blank pages; answer pages 4–6 contain the matching 24 answer cards with the same clean layout result.
+The exact-head Node workflow ran the existing shared Slice023 Chromium route successfully. Automated browser acceptance found zero duplicate prompts, overflow, console errors, page errors, or semantic-scope findings. All six physical pages were visually reviewed: question pages 1–3 contain questions 1–24 without clipping, overlap, broken glyphs, or blank pages; answer pages 4–6 contain the matching 24 answer cards with the same clean layout result.
 
-The main CI readback reran all 2925 tests with zero failures and a clean working tree. The deployed Pages evidence is bound through the existing G5A-U08-R1 deployed smoke, whose workflow_run can execute only after a successful `Deploy GitHub Pages` completion on main and whose recorded `deploymentSha` is the Slice023 merge SHA.
-
-## Candidate boundary
-
-Slice024 has not started. This candidate adds no application context candidate, Global Context ontology, parallel runtime pipeline, new workflow, or worksheet/renderer pipeline. Formal D0 requires this four-file candidate to pass exact-head CI, merge, and receive a clean fresh-main readback before metadata reconciliation.
+## Formal closeout
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE023_MERGED_DEPLOYED_CLOSEOUT_ONLY
-GOAL_DISTANCE_AFTER  = D1_SLICE023_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = Implementation, exact-head Chromium, manual six-page visual review, fresh-main CI and deployed exact-SHA evidence are bound into one fail-closed closeout candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_EXACT_HEAD_CI, CLOSEOUT_MERGE, CLOSEOUT_MAIN_READBACK]
-NEXT_SHORTEST_STEP   = Validate and merge the Slice023 closeout candidate; do not start Slice024.
+CLOSEOUT_PR                 = #547
+CLOSEOUT_HEAD               = ff3b3a148b79e9d823191a1848f8690a8375d3e0
+CLOSEOUT_NODE_RUN           = 30966785421
+CLOSEOUT_NODE_JOB           = 92182367493
+CLOSEOUT_REGRESSION         = 2926 / 2926 PASS
+CLOSEOUT_MERGE_SHA          = eba7fb4403e1e82050612b04aeb4500fcd9324f3
+CLOSEOUT_MAIN_READBACK_RUN  = 30967406604
+CLOSEOUT_MAIN_READBACK_JOB  = 92184251674
+CLOSEOUT_MAIN_READBACK_SHA  = a843ac194598b27e93cc73cf56fd7adfbbcd80d2
+CLOSEOUT_MAIN_READBACK      = PASS_CI_SYNCED_AND_CLEAN
+CLOSEOUT_MAIN_WORKING_TREE  = clean
+CLOSEOUT_PAGES              = success
+CLOSEOUT_DEPLOYMENT_SHA     = eba7fb4403e1e82050612b04aeb4500fcd9324f3
+PAGES_EVIDENCE_RUN          = 30967601941
+```
+
+The Pages success is established by the existing S76R2 workflow's `workflow_run` gate: it only executes for a successful `Deploy GitHub Pages` completion on `main`, and its evidence records `deploymentSha=eba7fb4403e1e82050612b04aeb4500fcd9324f3`.
+
+S76R2's own browser assertion is currently `FAIL` because its expected preview metadata omits the already-present layout suffix (`題目 3 欄 × 5 列；答案 1 欄 × 6 列`). This exact stale assertion already failed on the earlier Slice023 implementation deployment `8da935579f45166d7b7d1160604ff1d348cccf35`; therefore it is recorded as pre-existing unrelated CI debt rather than rewritten as a Slice023 PASS or treated as a regression caused by the closeout metadata merge.
+
+## Boundary and final state
+
+Slice024 has not started. Slice023 adds no application context candidate, Global Context ontology, parallel runtime pipeline, new workflow, or worksheet/renderer pipeline. The candidate passed exact-head CI, merged, and received a clean fresh-main 2926/2926 readback before this reconciliation.
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE023_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE023_PRODUCT_CLOSED
+DISTANCE_REDUCED     = Exact closeout CI, locked-head merge, clean fresh-main regression and successful Pages deployment are bound into the Slice023 D0 authority without masking pre-existing unrelated smoke debt.
+REMAINING_BLOCKERS   = []
+NON_BLOCKING_CI_DEBT = [S76R2_DEPLOYED_PREVIEW_META_MISMATCH_PREEXISTING]
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice024Implementation
 ```
