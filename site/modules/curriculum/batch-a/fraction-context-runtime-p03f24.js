@@ -88,7 +88,7 @@ function combinedQuestion(definition, ordinal, seed) {
   const promptText = role === "total"
     ? application ? `班級上午完成 ${fractionText(first)} 份工作，下午完成 ${fractionText(second)} 份，共完成多少份？` : `${fractionText(first)} + ${fractionText(second)} = ?`
     : role === "original"
-      ? application ? `一項工作已完成 ${fractionText(first)}，還剩 ${fractionText(second)}，原來共有多少？` : `已用 ${fractionText(first)}，剩餘 ${fractionText(second)}，原量 = ?`
+      ? application ? `一批工作已完成 ${fractionText(first)} 份，還剩 ${fractionText(second)} 份，原來共有多少份？` : `已用 ${fractionText(first)}，剩餘 ${fractionText(second)}，原量 = ?`
       : application ? `甲完成 ${fractionText(first)}，乙完成 ${fractionText(second)}，兩者相差多少？` : `${fractionText(first)} 與 ${fractionText(second)} 相差多少？`;
   return { left: first, right: second, operator: role === "difference" ? "difference" : "add", answer, promptText, unitLabel: "份", conversion: null };
 }
