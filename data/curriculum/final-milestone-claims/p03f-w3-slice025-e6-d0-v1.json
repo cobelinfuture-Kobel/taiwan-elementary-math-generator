@@ -1,0 +1,101 @@
+{
+  "claimId": "P03F-W3-SLICE025-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice025Implementation",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D1",
+  "scope": "Slice025 only: expand existing g4a_u06_4a06 with improper/mixed/integer conversion using one numeric PatternGroup and three deterministic PatternSpecs.",
+  "authority": {
+    "queuePosition": 25,
+    "queueEntryId": "p03e_q025_r8_g4a_u06_4a06_profile_fraction_c1",
+    "sourceRef": "g4a_u06_4a06",
+    "knowledgePointIds": [
+      "kp_fraction_improper_mixed_integer_conversion"
+    ],
+    "patternSpecCount": 3,
+    "numericPatternSpecCount": 3,
+    "applicationPatternSpecCount": 0,
+    "requiredCapabilityIds": [
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ]
+  },
+  "implementationEvidence": {
+    "prNumber": 552,
+    "finalHeadSha": "a0aec21da893147636d6a92342315972947b4315",
+    "mergeSha": "2e51effd085ee5b0237506089f00e7b3871a361e",
+    "nodeWorkflowRunId": 31014126078,
+    "nodeWorkflowJobId": 92333608758,
+    "fullRegression": {
+      "tests": 2942,
+      "pass": 2942,
+      "fail": 0,
+      "skipped": 0
+    },
+    "pgcR02WorkflowRunId": 31014126040,
+    "pgcR02": "PASS",
+    "pgcR06WorkflowRunId": 31014127184,
+    "pgcR06": "PASS",
+    "pgcR00WorkflowRunId": 31014126028,
+    "pgcR00": "PASS",
+    "pgcR09Exact793": {
+      "executed": 793,
+      "pass": 793,
+      "fail": 0,
+      "fullNineGatePass": 793
+    }
+  },
+  "artifactEvidence": {
+    "acceptanceWorkflowRunId": 31014127688,
+    "artifactId": 8933725140,
+    "artifactDigest": "sha256:9662f49912c759c538f1f6230203d98466c853dcc4d89bf3ac71a28e0fe7333c",
+    "acceptedRuntimeBlobSha": "a997ee32665f2edd3081d0390fa6ee50dac28d66",
+    "caseCount": 1,
+    "pdfPageCount": 6,
+    "screenshotCount": 6,
+    "questionCount": 24,
+    "answerKeyCount": 24,
+    "patternSpecCount": 3,
+    "witnessesPerPatternSpec": 8,
+    "htmlSha256": "981e421eeec26bfad1a895152222509207f0fc8650020db367aadd9781179f95",
+    "pdfSha256": "f14ebc6b3fafb1b0f80314af9525d120a68ee97bf95be0c3558f5bd9edf55c11",
+    "duplicatePromptFindingCount": 0,
+    "overflowFindingCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "semanticScopeFindingCount": 0,
+    "visualReview": "PASS",
+    "answerKeyReview": "PASS",
+    "visualPageReviewCount": 6
+  },
+  "productResult": {
+    "knowledgePointCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "numericPatternSpecCount": 3,
+    "applicationPatternSpecCount": 0,
+    "questionWitnessCount": 24,
+    "answerKeyWitnessCount": 24,
+    "newProductAdmissionCount": 1,
+    "newPublicSourceCount": 0,
+    "existingPublicSourceExpanded": true,
+    "classicPublicSurface": "PASS",
+    "pixelPublicSurface": "PASS",
+    "worksheetPrintable": "PASS",
+    "answerKey": "PASS",
+    "chromiumPdf": "PASS",
+    "global793RouteRegression": "PASS",
+    "productAdmissionState": "READY_FOR_D0_CLOSEOUT_CI",
+    "d0Complete": false
+  },
+  "boundaries": {
+    "slice026Started": false,
+    "newPublicSourceAdded": false,
+    "existingPublicSourceExpanded": true,
+    "globalContextExpanded": false,
+    "parallelRuntimePipelineAdded": false,
+    "sharedWorksheetRendererBehaviorChanged": false,
+    "fractionArithmeticAdded": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice025D0Closeout"
+}
