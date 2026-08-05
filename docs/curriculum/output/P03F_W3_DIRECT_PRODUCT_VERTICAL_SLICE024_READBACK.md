@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice024 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice024 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice024Implementation
 SLICE      = 024
 SOURCE_REF = g3b_u07_3b07
-STATUS     = READY_FOR_D0_CLOSEOUT_CI
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -56,7 +56,7 @@ SEMANTIC_REVIEW            = PASS
 ANSWER_KEY_REVIEW          = PASS
 ```
 
-Product acceptance identified and repaired two real defects before closeout: deterministic prompt collisions in fraction-plus-count witnesses, and discrete-item/wording semantics. The final runtime performs deterministic per-PatternSpec collision resampling; box capacities are divisible by the admitted half/quarter fractions so `顆` counts remain integral; the ambiguous single-work-item wording was replaced by an explicit batch-of-work quantity phrasing. Permanent regression assertions protect all three conditions.
+Product acceptance identified and repaired two real defect classes before closeout: deterministic prompt collisions in fraction-plus-count witnesses, and discrete-item/wording semantics. The final runtime performs deterministic per-PatternSpec collision resampling; box capacities are divisible by the admitted half/quarter fractions so `顆` counts remain integral; the ambiguous single-work-item wording was replaced by an explicit batch-of-work quantity phrasing. Permanent regression assertions protect prompt uniqueness, discrete quantities, and wording semantics.
 
 Artifact hashes:
 
@@ -67,14 +67,28 @@ APPLICATION_HTML_SHA256  = 2ac1253de2f20fe55a5c70d2de3a0f251ec8a81306e4e9b27254d
 APPLICATION_PDF_SHA256   = 5668697190be9f97b3ac97410070a315ff23c7ae6b5bc0e128dd353b87922a97
 ```
 
-## Closeout candidate boundary
-
-The implementation is merged and product acceptance is complete. This closeout branch does not start Slice025. It only binds the already accepted implementation evidence into the formal D0 claim/manifest and requires one closeout Node CI gate before admission can become `PRODUCTION_ADMITTED_D0`.
+## Formal closeout evidence
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE024_IMPLEMENTATION_MERGED_PRODUCT_ACCEPTED
-GOAL_DISTANCE_AFTER  = D1_SLICE024_D0_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = Implementation, 211-KP current-public reconciliation, 20/20 PatternSpec coverage, exact Chromium evidence and manual semantic/visual review are bound into one closeout candidate.
-REMAINING_BLOCKERS   = [SLICE024_CLOSEOUT_NODE_CI]
-NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice024D0Closeout
+CLOSEOUT_PR                 = #550
+CLOSEOUT_CANDIDATE_HEAD     = 57c61a5fdd289a719d819fe61892fd7603278294
+CLOSEOUT_NODE_RUN           = 30977309819
+CLOSEOUT_NODE_JOB           = 92213933831
+CLOSEOUT_REGRESSION         = 2935 / 2935 PASS
+CLOSEOUT_DIAGNOSTICS        = 8918800254
+CLOSEOUT_DIAGNOSTICS_DIGEST = sha256:72264117712f2e8db6015de1e2e6974e4fff1222724410a6475a923510087385
+```
+
+The closeout candidate adds only the claim, product-admission manifest, readback, and closeout contract test. Its exact Node gate passed the complete 2935-test repository regression with zero failures and zero skipped tests. The final metadata promotion does not alter runtime, selector, PatternSpec, validator, worksheet, renderer, or accepted Chromium output.
+
+## Boundary and final state
+
+Slice024 expands an existing public source; it does not add a source, expand the Global Context ontology, create a parallel runtime pipeline, or change shared worksheet/renderer behavior. Slice025 remains unstarted in this closeout.
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE024_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE024_PRODUCT_CLOSED
+DISTANCE_REDUCED     = Exact closeout Node CI and the already accepted semantic/visual Chromium evidence are bound into the formal Slice024 D0 authority.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice025Implementation
 ```
