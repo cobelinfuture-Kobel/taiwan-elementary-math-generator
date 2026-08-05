@@ -61,19 +61,26 @@ jobs:
           import fs from "node:fs";
           const contractPath = "data/curriculum/public-generation/generator_capacity_contract.json";
           const reportPath = "data/curriculum/public-generation/PGC-R06-A01.g4b-u04-capacity-contract-reconciliation.json";
-          const inventoryPath = "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json";
           let terminal = false;
-          if (fs.existsSync(contractPath) && fs.existsSync(reportPath) && fs.existsSync(inventoryPath)) {
+          let laterTaskId = null;
+          if (fs.existsSync(contractPath) && fs.existsSync(reportPath)) {
             const contract = JSON.parse(fs.readFileSync(contractPath, "utf8"));
             const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
-            const inventory = JSON.parse(fs.readFileSync(inventoryPath, "utf8"));
-            terminal = contract.lastR06Reconciliation?.taskId === "PGC-R06-A01_BoundedCapacityReasoningMixedPBLRouteFullFix"
-              && report.status === "PASS_R06_A01_G4BU04_15_BOUNDED_ROUTES_CONTRACT_RECONCILED_AND_CLOSED"
+            laterTaskId = contract.lastR06A07Closeout?.taskId
+              ?? contract.lastR06A06Reconciliation?.taskId
+              ?? contract.lastR06A05Reconciliation?.taskId
+              ?? contract.lastR06A04Reconciliation?.taskId
+              ?? null;
+            const a01Closed = report.status === "PASS_R06_A01_G4BU04_15_BOUNDED_ROUTES_CONTRACT_RECONCILED_AND_CLOSED"
               && report.reconciledRouteIds?.length === 15
-              && inventory.summary?.repairQueueCount === 133;
+              && report.remainingRepairQueueCount === 133;
+            terminal = a01Closed && (
+              contract.lastR06Reconciliation?.taskId === "PGC-R06-A01_BoundedCapacityReasoningMixedPBLRouteFullFix"
+              || Boolean(laterTaskId)
+            );
           }
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `terminal=${terminal}\n`);
-          console.log(`PGC_R06_A01_WORKFLOW_MODE=${terminal ? "A01_READ_ONLY" : "FULLFIX_AND_RECONCILE"}`);
+          console.log(`PGC_R06_A01_WORKFLOW_MODE=${terminal ? "A01_READ_ONLY" : "FULLFIX_AND_RECONCILE"}:${laterTaskId ?? "NO_LATER_R06_AUTHORITY"}`);
           NODE
 
       - name: Syntax-check A01 authorities
