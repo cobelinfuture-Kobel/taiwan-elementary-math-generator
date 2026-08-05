@@ -5,6 +5,8 @@ on:
     paths:
       - ".github/workflows/p03f24-pgc-r02-rematerialize.yml"
       - "site/modules/curriculum/public/public-ui-capability-binding.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-base.js"
+      - "site/assets/browser/state/public-pattern-group-selection.js"
       - "tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs"
       - "tests/curriculum/pgc-r02-public-ui-capability-binding.test.js"
       - "tests/curriculum/p03f-slice003-quotient-fraction.test.js"
@@ -28,6 +30,31 @@ jobs:
         with:
           node-version: 24
 
+      - name: Stage successor-aware public selector imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+              Path("site/modules/curriculum/public/public-ui-capability-binding-base.js"): (
+                  '../registry/batch-a-selector-p03f23-extension.js',
+                  '../registry/batch-a-selector-p03f24-extension.js',
+              ),
+              Path("site/assets/browser/state/public-pattern-group-selection.js"): (
+                  '../../../modules/curriculum/registry/batch-a-selector-p03f23-extension.js',
+                  '../../../modules/curriculum/registry/batch-a-selector-p03f24-extension.js',
+              ),
+          }
+          for path, (old, new) in replacements.items():
+              text = path.read_text(encoding="utf-8")
+              if text.count(old) != 1:
+                  raise SystemExit(f"unexpected successor import count for {path}: {text.count(old)}")
+              path.write_text(text.replace(old, new), encoding="utf-8")
+              print(f"P03F24_SUCCESSOR_IMPORT_STAGED={path}")
+          PY
+
       - name: Materialize canonical PGC-R02 artifacts
         run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
 
@@ -40,7 +67,7 @@ jobs:
           tests/curriculum/p03f-slice024-fraction-context-core.test.js
           tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
 
-      - name: Create detached Git blobs for generated authority
+      - name: Create detached Git blobs for successor and generated authority
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -50,6 +77,8 @@ jobs:
           manifest="tmp/p03f24-pgc-r02-rematerialize/blob-shas.txt"
           : > "$manifest"
           for path in \
+            site/modules/curriculum/public/public-ui-capability-binding-base.js \
+            site/assets/browser/state/public-pattern-group-selection.js \
             data/curriculum/public-generation/ui_capability_binding_contract.json \
             data/curriculum/public-generation/ui_option_filter_matrix.csv \
             docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
@@ -64,11 +93,13 @@ jobs:
             printf '%s %s\n' "$sha" "$path" | tee -a "$manifest"
           done
 
-      - name: Upload generated authority and blob SHA manifest
+      - name: Upload successor and generated authority manifest
         uses: actions/upload-artifact@v4
         with:
           name: p03f24-pgc-r02-rematerialized-authority
           path: |
+            site/modules/curriculum/public/public-ui-capability-binding-base.js
+            site/assets/browser/state/public-pattern-group-selection.js
             data/curriculum/public-generation/ui_capability_binding_contract.json
             data/curriculum/public-generation/ui_option_filter_matrix.csv
             docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
