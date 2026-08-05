@@ -37,13 +37,30 @@ jobs:
         with:
           node-version: 24
 
+      - name: Detect terminal R06 authority
+        id: authority
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const capacity = JSON.parse(fs.readFileSync("data/curriculum/public-generation/generator_capacity_contract.json", "utf8"));
+          const terminal = capacity.lastR06A07Closeout?.taskId === "PGC-R06-A07_FinalReconciliationGlobalLiveGateAndD0Closeout"
+            || capacity.r06TerminalStatus === "D0_CLOSED";
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `historical_mode=${terminal ? "true" : "false"}\n`);
+          console.log(`PGC_R06_A00_HISTORICAL_MODE=${terminal}`);
+          NODE
+
       - name: Syntax-check R06 A00 authority
         run: |
           node --check tools/curriculum/materialize-pgc-r06-reasoning-mixed-pbl-inventory.mjs
           node --check tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js
 
       - name: Materialize R06 reasoning mixed PBL inventory
+        if: steps.authority.outputs.historical_mode != 'true'
         run: node tools/curriculum/materialize-pgc-r06-reasoning-mixed-pbl-inventory.mjs
+
+      - name: Confirm terminal R06 read-only mode
+        if: steps.authority.outputs.historical_mode == 'true'
+        run: echo "R06 A00 remains read-only because terminal R06 D0 authority is active."
 
       - name: Focused R06 A00 acceptance
         run: node --test tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js
@@ -52,6 +69,7 @@ jobs:
         run: npm test
 
       - name: Commit deterministic R06 A00 artifacts
+        if: steps.authority.outputs.historical_mode != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

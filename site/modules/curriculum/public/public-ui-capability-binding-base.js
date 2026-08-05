@@ -80,6 +80,25 @@ function uiTypeForGroup(group, profileQuestionTypeValues) {
   return null;
 }
 
+function applicationPatternGroupIdForUiGroup(group, groups = []) {
+  if (!group?.patternGroupId) return null;
+  if (groupMode(group) === "application") return group.patternGroupId;
+  const candidates = groups.filter((candidate) => candidate.knowledgePointId === group.knowledgePointId
+    && groupMode(candidate) === "application");
+  const alias = candidates.find((candidate) => candidate.basePatternGroupId === group.patternGroupId);
+  if (alias) return alias.patternGroupId;
+  return candidates.length === 1 ? candidates[0].patternGroupId : null;
+}
+
+function normalizeSelectedPatternGroupIdsForQuestionType(selectedPatternGroupIds, groups, questionType) {
+  const requested = uniqueStrings(selectedPatternGroupIds);
+  if (questionType !== "application" || requested.length === 0) return requested;
+  return requested.map((patternGroupId) => {
+    const group = groups.find((candidate) => candidate.patternGroupId === patternGroupId);
+    return applicationPatternGroupIdForUiGroup(group, groups) ?? patternGroupId;
+  });
+}
+
 function visibleKpsForSource(sourceId) {
   return listVisibleBatchAKnowledgePoints().filter((entry) => entry.sourceId === sourceId);
 }
@@ -336,12 +355,17 @@ export function resolvePublicUiCapabilityBinding({
   const questionType = availableQuestionTypeValues.has(requestedQuestionType)
     ? requestedQuestionType
     : defaultQuestionType;
+  const capacitySelectedPatternGroupIds = normalizeSelectedPatternGroupIdsForQuestionType(
+    selectedPatternGroupIds,
+    annotatedGroups,
+    questionType,
+  );
 
   const capacity = capacityResolution({
     sourceId,
     selectionMode,
     selectedKnowledgePointIds: normalizedKnowledgePointIds,
-    selectedPatternGroupIds,
+    selectedPatternGroupIds: capacitySelectedPatternGroupIds,
     questionType: questionType ?? "",
     requestedDepthMode,
     requestedContextMode,
@@ -364,8 +388,14 @@ export function resolvePublicUiCapabilityBinding({
   const compatiblePatternGroups = questionType === "pbl"
     ? []
     : annotatedGroups.filter((group) => {
-      const typeMatches = questionType === "mixed" ? group.uiQuestionType !== null : group.uiQuestionType === questionType;
-      return typeMatches && (!legalPublicGroupIds || legalPublicGroupIds.has(group.patternGroupId));
+      const applicationAliasId = questionType === "application"
+        ? applicationPatternGroupIdForUiGroup(group, annotatedGroups)
+        : null;
+      const typeMatches = questionType === "mixed"
+        ? group.uiQuestionType !== null
+        : group.uiQuestionType === questionType || Boolean(applicationAliasId);
+      const capacityPatternGroupId = applicationAliasId ?? group.patternGroupId;
+      return typeMatches && (!legalPublicGroupIds || legalPublicGroupIds.has(capacityPatternGroupId));
     });
   const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
   const selectedCompatiblePatternGroupIds = uniqueStrings(

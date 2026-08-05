@@ -5,7 +5,7 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f24-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f25-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
   "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding.js",
   "adapters": {
@@ -26,19 +26,19 @@
   ],
   "summary": {
     "publicSourceCount": 29,
-    "visibleKnowledgePointCount": 211,
+    "visibleKnowledgePointCount": 212,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 266,
-    "surfaceCaseCount": 798,
-    "questionTypeBindingRowCount": 1161,
-    "parityCaseCount": 266,
-    "auditCaseCount": 798,
+    "baseCaseCount": 268,
+    "surfaceCaseCount": 804,
+    "questionTypeBindingRowCount": 1167,
+    "parityCaseCount": 268,
+    "auditCaseCount": 804,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
     "limitedCapacityBindingCount": 1077,
-    "structuralFallbackBindingCount": 84,
+    "structuralFallbackBindingCount": 90,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -47400,21 +47400,27 @@
       "surfaceId": "CLASSIC",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_fraction_true_improper_mixed_classification"
+        "kp_fraction_true_improper_mixed_classification",
+        "kp_fraction_improper_mixed_integer_conversion"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 2,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g4a_u06_fraction_type_classification_numeric"
+        "pg_g4a_u06_fraction_type_classification_numeric",
+        "pg_g4a_u06_improper_mixed_integer_conversion_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u06_classify_proper_fraction",
         "ps_g4a_u06_classify_improper_fraction",
-        "ps_g4a_u06_classify_mixed_number"
+        "ps_g4a_u06_classify_mixed_number",
+        "ps_g4a_u06_improper_to_mixed_or_integer",
+        "ps_g4a_u06_mixed_to_improper_fraction",
+        "ps_g4a_u06_integer_to_improper_fraction"
       ],
       "questionFormLabels": [
-        "真分數、假分數與帶分數分類"
+        "真分數、假分數與帶分數分類",
+        "假分數、帶分數與整數互換"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -47434,21 +47440,27 @@
       "surfaceId": "FALLBACK_404",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_fraction_true_improper_mixed_classification"
+        "kp_fraction_true_improper_mixed_classification",
+        "kp_fraction_improper_mixed_integer_conversion"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 2,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g4a_u06_fraction_type_classification_numeric"
+        "pg_g4a_u06_fraction_type_classification_numeric",
+        "pg_g4a_u06_improper_mixed_integer_conversion_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u06_classify_proper_fraction",
         "ps_g4a_u06_classify_improper_fraction",
-        "ps_g4a_u06_classify_mixed_number"
+        "ps_g4a_u06_classify_mixed_number",
+        "ps_g4a_u06_improper_to_mixed_or_integer",
+        "ps_g4a_u06_mixed_to_improper_fraction",
+        "ps_g4a_u06_integer_to_improper_fraction"
       ],
       "questionFormLabels": [
-        "真分數、假分數與帶分數分類"
+        "真分數、假分數與帶分數分類",
+        "假分數、帶分數與整數互換"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -47468,21 +47480,27 @@
       "surfaceId": "PIXEL",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_fraction_true_improper_mixed_classification"
+        "kp_fraction_true_improper_mixed_classification",
+        "kp_fraction_improper_mixed_integer_conversion"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 2,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g4a_u06_fraction_type_classification_numeric"
+        "pg_g4a_u06_fraction_type_classification_numeric",
+        "pg_g4a_u06_improper_mixed_integer_conversion_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u06_classify_proper_fraction",
         "ps_g4a_u06_classify_improper_fraction",
-        "ps_g4a_u06_classify_mixed_number"
+        "ps_g4a_u06_classify_mixed_number",
+        "ps_g4a_u06_improper_to_mixed_or_integer",
+        "ps_g4a_u06_mixed_to_improper_fraction",
+        "ps_g4a_u06_integer_to_improper_fraction"
       ],
       "questionFormLabels": [
-        "真分數、假分數與帶分數分類"
+        "真分數、假分數與帶分數分類",
+        "假分數、帶分數與整數互換"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -47585,6 +47603,228 @@
       ],
       "questionFormLabels": [
         "真分數、假分數與帶分數分類"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u06_4a06::single::kp_fraction_improper_mixed_integer_conversion::CLASSIC::numeric",
+      "caseId": "g4a_u06_4a06::single::kp_fraction_improper_mixed_integer_conversion",
+      "sourceId": "g4a_u06_4a06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_fraction_improper_mixed_integer_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u06_improper_mixed_integer_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u06_improper_to_mixed_or_integer",
+        "ps_g4a_u06_mixed_to_improper_fraction",
+        "ps_g4a_u06_integer_to_improper_fraction"
+      ],
+      "questionFormLabels": [
+        "假分數、帶分數與整數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u06_4a06::single::kp_fraction_improper_mixed_integer_conversion::FALLBACK_404::numeric",
+      "caseId": "g4a_u06_4a06::single::kp_fraction_improper_mixed_integer_conversion",
+      "sourceId": "g4a_u06_4a06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_fraction_improper_mixed_integer_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u06_improper_mixed_integer_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u06_improper_to_mixed_or_integer",
+        "ps_g4a_u06_mixed_to_improper_fraction",
+        "ps_g4a_u06_integer_to_improper_fraction"
+      ],
+      "questionFormLabels": [
+        "假分數、帶分數與整數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u06_4a06::single::kp_fraction_improper_mixed_integer_conversion::PIXEL::numeric",
+      "caseId": "g4a_u06_4a06::single::kp_fraction_improper_mixed_integer_conversion",
+      "sourceId": "g4a_u06_4a06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_fraction_improper_mixed_integer_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u06_improper_mixed_integer_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u06_improper_to_mixed_or_integer",
+        "ps_g4a_u06_mixed_to_improper_fraction",
+        "ps_g4a_u06_integer_to_improper_fraction"
+      ],
+      "questionFormLabels": [
+        "假分數、帶分數與整數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u06_4a06::mixedSameUnit::CLASSIC::numeric",
+      "caseId": "g4a_u06_4a06::mixedSameUnit",
+      "sourceId": "g4a_u06_4a06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_fraction_true_improper_mixed_classification",
+        "kp_fraction_improper_mixed_integer_conversion"
+      ],
+      "selectedKnowledgePointCount": 2,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u06_fraction_type_classification_numeric",
+        "pg_g4a_u06_improper_mixed_integer_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u06_classify_proper_fraction",
+        "ps_g4a_u06_classify_improper_fraction",
+        "ps_g4a_u06_classify_mixed_number",
+        "ps_g4a_u06_improper_to_mixed_or_integer",
+        "ps_g4a_u06_mixed_to_improper_fraction",
+        "ps_g4a_u06_integer_to_improper_fraction"
+      ],
+      "questionFormLabels": [
+        "真分數、假分數與帶分數分類",
+        "假分數、帶分數與整數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u06_4a06::mixedSameUnit::FALLBACK_404::numeric",
+      "caseId": "g4a_u06_4a06::mixedSameUnit",
+      "sourceId": "g4a_u06_4a06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_fraction_true_improper_mixed_classification",
+        "kp_fraction_improper_mixed_integer_conversion"
+      ],
+      "selectedKnowledgePointCount": 2,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u06_fraction_type_classification_numeric",
+        "pg_g4a_u06_improper_mixed_integer_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u06_classify_proper_fraction",
+        "ps_g4a_u06_classify_improper_fraction",
+        "ps_g4a_u06_classify_mixed_number",
+        "ps_g4a_u06_improper_to_mixed_or_integer",
+        "ps_g4a_u06_mixed_to_improper_fraction",
+        "ps_g4a_u06_integer_to_improper_fraction"
+      ],
+      "questionFormLabels": [
+        "真分數、假分數與帶分數分類",
+        "假分數、帶分數與整數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u06_4a06::mixedSameUnit::PIXEL::numeric",
+      "caseId": "g4a_u06_4a06::mixedSameUnit",
+      "sourceId": "g4a_u06_4a06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_fraction_true_improper_mixed_classification",
+        "kp_fraction_improper_mixed_integer_conversion"
+      ],
+      "selectedKnowledgePointCount": 2,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u06_fraction_type_classification_numeric",
+        "pg_g4a_u06_improper_mixed_integer_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u06_classify_proper_fraction",
+        "ps_g4a_u06_classify_improper_fraction",
+        "ps_g4a_u06_classify_mixed_number",
+        "ps_g4a_u06_improper_to_mixed_or_integer",
+        "ps_g4a_u06_mixed_to_improper_fraction",
+        "ps_g4a_u06_integer_to_improper_fraction"
+      ],
+      "questionFormLabels": [
+        "真分數、假分數與帶分數分類",
+        "假分數、帶分數與整數互換"
       ],
       "depthModes": [],
       "contextModes": [],

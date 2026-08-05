@@ -10,12 +10,12 @@ import {
 import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
-} from "../registry/batch-a-selector-p03f24-extension.js";
+} from "../registry/batch-a-selector-p03f25-extension.js";
 import {
   G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
   G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
-  G4A_U06_FRACTION_CLASSIFICATION_PATTERN_GROUPS,
 } from "../registry/g4a-u06-fraction-type-classification-selector-projection.js";
+import { G4A_U06_P03F25_KP_ID } from "../registry/g4a-u06-improper-mixed-conversion-selector-projection-p03f25.js";
 import {
   G6A_U02_SOURCE_ID,
   G6A_U02_RECIPROCAL_KP_ID,
@@ -103,24 +103,34 @@ function withGlobalQuestionCount(binding) {
   });
 }
 
-function p03f17Binding(input = {}) {
+function g4aU06CurrentBinding(input = {}) {
   if (input.sourceId !== G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID) return null;
   const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
-  const requested = uniqueStrings(input.selectedKnowledgePointIds);
-  const selectedKnowledgePointIds = requested.includes(G4A_U06_FRACTION_CLASSIFICATION_KP_ID)
-    ? [G4A_U06_FRACTION_CLASSIFICATION_KP_ID]
-    : [G4A_U06_FRACTION_CLASSIFICATION_KP_ID];
-  const group = G4A_U06_FRACTION_CLASSIFICATION_PATTERN_GROUPS[0];
-  const compatiblePatternGroup = Object.freeze({
-    knowledgePointId: G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
-    knowledgePointDisplayName: "真分數、假分數與帶分數分類",
-    patternGroupId: group.patternGroupId,
-    patternSpecIds: Object.freeze([...(group.patternSpecIds ?? [])]),
-    effectiveQuestionType: "numeric",
-    uiQuestionType: "numeric",
-    displayLabel: "真分數、假分數與帶分數分類",
-    selected: true,
+  const visibleRows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID);
+  const allowedIds = visibleRows.map((row) => row.knowledgePointId);
+  const requested = uniqueStrings(input.selectedKnowledgePointIds).filter((id) => allowedIds.includes(id));
+  let selectedKnowledgePointIds;
+  if (selectionMode === SINGLE_KP_MODE) {
+    selectedKnowledgePointIds = [requested[0] ?? G4A_U06_FRACTION_CLASSIFICATION_KP_ID];
+  } else if (selectionMode === SAME_UNIT_MIXED_MODE) {
+    selectedKnowledgePointIds = requested.length > 0 ? requested : allowedIds;
+  } else {
+    selectedKnowledgePointIds = allowedIds;
+  }
+  const compatiblePatternGroups = selectedKnowledgePointIds.flatMap((knowledgePointId) => {
+    const row = visibleRows.find((entry) => entry.knowledgePointId === knowledgePointId);
+    return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => Object.freeze({
+      ...group,
+      knowledgePointId,
+      knowledgePointDisplayName: row?.displayName ?? knowledgePointId,
+      effectiveQuestionType: "numeric",
+      uiQuestionType: "numeric",
+      displayLabel: row?.displayName ?? group.displayName ?? "數字題",
+      selected: true,
+    }));
   });
+  const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
+  const sameUnitMixedEnabled = allowedIds.includes(G4A_U06_FRACTION_CLASSIFICATION_KP_ID) && allowedIds.includes(G4A_U06_P03F25_KP_ID);
   return Object.freeze({
     sourceId: G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
     surfaceId: input.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
@@ -128,16 +138,16 @@ function p03f17Binding(input = {}) {
     availableSelectionModes: Object.freeze([
       Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
       Object.freeze({ value: SINGLE_KP_MODE, enabled: true }),
-      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: false }),
+      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: sameUnitMixedEnabled }),
       Object.freeze({ value: "mixedKnowledgePointsCrossUnit", enabled: false }),
     ]),
     selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
-    selectedKnowledgePointCount: 1,
+    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
     availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
     questionType: "numeric",
-    compatiblePatternGroups: Object.freeze([compatiblePatternGroup]),
-    compatiblePatternGroupIds: Object.freeze([group.patternGroupId]),
-    selectedCompatiblePatternGroupIds: Object.freeze([group.patternGroupId]),
+    compatiblePatternGroups: Object.freeze(compatiblePatternGroups),
+    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
     depthOptions: Object.freeze([]),
     contextOptions: Object.freeze([]),
     depthMode: null,
@@ -146,7 +156,7 @@ function p03f17Binding(input = {}) {
     capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
     capacityRegistryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
     capacityRouteIds: Object.freeze([]),
-    capacityQualityStatuses: Object.freeze(["P03F17_FOCUSED_RUNTIME_VALIDATED"]),
+    capacityQualityStatuses: Object.freeze(["P03F25_G4A_U06_TWO_KP_STRUCTURAL_RUNTIME"]),
     capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
     blocked: false,
     blockedReasons: Object.freeze([]),
@@ -215,8 +225,8 @@ function selectedFallbackGroups(sourceBinding, requestedKnowledgePointIds, input
 export function resolvePublicUiCapabilityBinding(input = {}) {
   const slice023 = p03f23Binding(input);
   if (slice023) return slice023;
-  const slice017 = p03f17Binding(input);
-  if (slice017) return slice017;
+  const g4aU06 = g4aU06CurrentBinding(input);
+  if (g4aU06) return g4aU06;
   const primary = resolveBasePublicUiCapabilityBinding(input);
   if (!needsStructuralFallback(primary)) return withGlobalQuestionCount(primary);
 
