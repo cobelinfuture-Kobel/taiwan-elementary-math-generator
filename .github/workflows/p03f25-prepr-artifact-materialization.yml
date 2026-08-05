@@ -6,12 +6,22 @@ on:
       - p03f25-g4a-u06-rank8
     paths:
       - ".github/workflows/p03f25-prepr-artifact-materialization.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/p03f25-prepr-artifact-materialization.yml"
+      - "site/modules/curriculum/**"
+      - "site/pixel/**"
+      - "tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs"
+      - "tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js"
+      - "data/curriculum/full-product/p03f/slice025-improper-mixed-integer-conversion-authority.json"
 
 permissions:
   contents: read
 
 concurrency:
-  group: p03f25-prepr-artifact-materialization
+  group: p03f25-prepr-artifact-materialization-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
