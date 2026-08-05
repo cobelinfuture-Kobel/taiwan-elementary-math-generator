@@ -29159,7 +29159,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::CLASSIC::concept",
@@ -29580,7 +29587,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::FALLBACK_404::concept",
@@ -30001,7 +30015,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::PIXEL::concept",
@@ -30347,7 +30368,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::CLASSIC::concept",
@@ -30417,7 +30445,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::FALLBACK_404::concept",
@@ -30487,7 +30522,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::PIXEL::concept",
@@ -30557,7 +30599,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::CLASSIC::numeric",
@@ -30627,7 +30676,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::FALLBACK_404::numeric",
@@ -30697,7 +30753,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::PIXEL::numeric",
@@ -30768,7 +30831,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::CLASSIC::numeric",
@@ -30840,7 +30910,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::FALLBACK_404::numeric",
@@ -30912,7 +30989,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::PIXEL::numeric",
@@ -30983,7 +31067,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_pair_order_and_symmetry::FALLBACK_404::mixed",
@@ -31021,7 +31112,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_pair_order_and_symmetry::PIXEL::mixed",
@@ -31059,7 +31157,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::CLASSIC::mixed",
@@ -31097,7 +31202,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::CLASSIC::reasoning",
@@ -31135,7 +31247,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::FALLBACK_404::mixed",
@@ -31173,7 +31292,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::FALLBACK_404::reasoning",
@@ -31211,7 +31337,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::PIXEL::mixed",
@@ -31249,7 +31382,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::PIXEL::reasoning",
@@ -31287,7 +31427,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::CLASSIC::mixed",
@@ -31326,7 +31473,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::CLASSIC::concept",
@@ -31398,7 +31552,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::FALLBACK_404::concept",
@@ -31470,7 +31631,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::PIXEL::concept",
@@ -31543,7 +31711,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::CLASSIC::application",
@@ -31623,7 +31798,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::FALLBACK_404::application",
@@ -31703,7 +31885,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::PIXEL::application",
@@ -31781,7 +31970,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::CLASSIC::concept",
@@ -31851,7 +32047,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::FALLBACK_404::concept",
@@ -31921,7 +32124,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::PIXEL::concept",
@@ -31992,7 +32202,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::CLASSIC::reasoning",
@@ -32031,7 +32248,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::FALLBACK_404::mixed",
@@ -32070,7 +32294,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::FALLBACK_404::reasoning",
@@ -32109,7 +32340,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::PIXEL::mixed",
@@ -32148,7 +32386,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::PIXEL::reasoning",
@@ -32187,7 +32432,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::CLASSIC::mixed",
@@ -32225,7 +32477,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::FALLBACK_404::mixed",
@@ -32263,7 +32522,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::PIXEL::mixed",
@@ -32301,7 +32567,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_concept::CLASSIC::mixed",
@@ -32549,7 +32822,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::CLASSIC::numeric",
@@ -32619,7 +32899,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::FALLBACK_404::numeric",
@@ -32689,7 +32976,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::PIXEL::numeric",
@@ -32759,7 +33053,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::CLASSIC::numeric",
@@ -32829,7 +33130,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::FALLBACK_404::numeric",
@@ -32899,7 +33207,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::PIXEL::numeric",
@@ -33425,7 +33740,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::CLASSIC::application",
@@ -33501,7 +33823,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::FALLBACK_404::application",
@@ -33577,7 +33906,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::PIXEL::application",
@@ -33653,7 +33989,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::CLASSIC::application",
@@ -33729,7 +34072,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::FALLBACK_404::application",
@@ -33805,7 +34155,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::PIXEL::application",
@@ -33881,7 +34238,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_multi_constraint_digit_code_number_theory::FALLBACK_404::mixed",
@@ -33919,7 +34283,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_multi_constraint_digit_code_number_theory::PIXEL::mixed",
@@ -33957,7 +34328,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::CLASSIC::mixed",
@@ -34070,7 +34448,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::CLASSIC::concept",
@@ -34439,7 +34824,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::FALLBACK_404::concept",
@@ -34808,7 +35200,14 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": []
+      "capacityQualityStatuses": [],
+      "lastCapacityReconciliation": {
+        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+        "sourceId": "g5a_u02_5a02",
+        "publicInputMax": 240,
+        "verifiedRouteMax": 20
+      },
+      "verifiedCapacityQuestionCountMax": 20
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::PIXEL::concept",
@@ -47596,5 +47995,20 @@
     }
   ],
   "capacityAuthority": "site/modules/curriculum/public/public-generator-capacity-registry.js",
-  "runtimeCapacityPolicy": "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING"
+  "runtimeCapacityPolicy": "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING",
+  "lastReconciliation": {
+    "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
+    "sourceId": "g5a_u02_5a02",
+    "liveRouteCount": 98,
+    "matchedBindingCount": 60,
+    "capacityAuthority": "data/curriculum/public-generation/generator_capacity_contract.json",
+    "status": "PASS_R06_A03_PUBLIC_BINDING_RECONCILED"
+  },
+  "lastR06A07Closeout": {
+    "taskId": "PGC-R06-A07_FinalReconciliationGlobalLiveGateAndD0Closeout",
+    "globalLivePassRouteCount": 389,
+    "repairQueueCount": 0,
+    "status": "PASS_R06_A07_GLOBAL_LIVE_RUNTIME_RECONCILED_AND_D0_CLOSED"
+  },
+  "r06TerminalStatus": "D0_CLOSED"
 }
