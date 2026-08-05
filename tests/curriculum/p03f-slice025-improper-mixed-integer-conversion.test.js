@@ -15,6 +15,9 @@ import {
   listVisibleBatchAKnowledgePoints,
 } from "../../site/modules/curriculum/registry/batch-a-selector-p03f25-extension.js";
 import {
+  BATCH_A_SELECTOR_AVAILABILITY as P03F24_SELECTOR_AVAILABILITY,
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f24-extension.js";
+import {
   G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
   G4A_U06_FRACTION_CLASSIFICATION_PATTERN_SPEC_IDS,
   G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
@@ -53,7 +56,7 @@ test("P03F25 selector adds exactly one G4A-U06 conversion KP without adding a so
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
   assert.equal(availability.visibleCount, 2);
   assert.equal(availability.hiddenPendingCount, 4);
-  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount, 29);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount, P03F24_SELECTOR_AVAILABILITY.publicSourceCount);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 212);
   const sourceRows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === sourceId);
   assert.deepEqual(new Set(sourceRows.map((row) => row.knowledgePointId)), new Set([
