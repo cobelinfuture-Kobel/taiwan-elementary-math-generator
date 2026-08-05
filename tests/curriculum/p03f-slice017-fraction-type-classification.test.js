@@ -127,9 +127,9 @@ test("P03F17 shared worksheet produces questions and answer key without applicat
   assert.equal(result.worksheetDocument.metadata.applicationExpansion, false);
 });
 
-test("P03F17 current Pixel snapshot exposes new G4A-U06 source and one KP", () => {
+test("P03F17 current Pixel snapshot preserves the classification KP while later slices extend G4A-U06", () => {
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.ok(snapshot.bySourceId[SOURCE_ID]);
-  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 1);
-  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints[0].knowledgePointId, G4A_U06_FRACTION_CLASSIFICATION_KP_ID);
+  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 2);
+  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.some((row) => row.knowledgePointId === G4A_U06_FRACTION_CLASSIFICATION_KP_ID), true);
 });
