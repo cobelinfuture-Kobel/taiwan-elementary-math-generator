@@ -1,0 +1,99 @@
+name: P03F24 Semantic Wording Acceptance
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/p03f24-semantic-wording-acceptance.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  accept:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Stage unambiguous combined-original wording
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("site/modules/curriculum/batch-a/fraction-context-runtime-p03f24.js")
+          old = "`一項工作已完成 ${fractionText(first)}，還剩 ${fractionText(second)}，原來共有多少？`"
+          new = "`一批工作已完成 ${fractionText(first)} 份，還剩 ${fractionText(second)} 份，原來共有多少份？`"
+          text = path.read_text(encoding="utf-8")
+          if text.count(old) != 1:
+              raise SystemExit(f"unexpected wording match count: {text.count(old)}")
+          path.write_text(text.replace(old, new), encoding="utf-8")
+          print("P03F24_COMBINED_ORIGINAL_WORDING_STAGED=true")
+          PY
+
+      - name: Focused semantic and diversity acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test \
+            tests/curriculum/p03f-slice024-fraction-context-core.test.js \
+            tests/curriculum/p03f-slice024-diversity-regression.test.js
+          node --input-type=module <<'NODE'
+          import assert from "node:assert/strict";
+          import { generateBatchABrowserQuestions } from "./site/modules/curriculum/batch-a/batch-a-browser-question-router-p03f24.js";
+          import { G3B_U07_P03F24_APPLICATION_SPEC_IDS } from "./site/modules/curriculum/registry/g3b-u07-fraction-context-selector-projection-p03f24.js";
+          const result = generateBatchABrowserQuestions({
+            sourceId: "g3b_u07_3b07",
+            patternSpecIds: G3B_U07_P03F24_APPLICATION_SPEC_IDS,
+            questionMode: "application",
+            questionCount: 20,
+            generationSeed: "p03f24-chromium-application",
+          });
+          assert.equal(result.ok, true, JSON.stringify(result.errors));
+          assert.equal(new Set(result.questions.map((q) => q.blankedDisplayText)).size, 20);
+          assert.equal(result.questions.some((q) => q.blankedDisplayText.includes("一項工作已完成")), false);
+          assert.equal(result.questions.some((q) => q.blankedDisplayText.includes("一批工作已完成") && q.blankedDisplayText.includes("原來共有多少份")), true);
+          for (const question of result.questions.filter((q) => q.conversion)) {
+            const { itemsPerWhole } = question.conversion;
+            assert.equal((itemsPerWhole * question.leftValue.numerator) % question.leftValue.denominator, 0, question.blankedDisplayText);
+          }
+          console.log("P03F24_SEMANTIC_WORDING=PASS");
+          NODE
+
+      - name: Install Chromium acceptance dependencies
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1 @fontsource/noto-sans-tc@5.2.9
+          npx playwright install --with-deps chromium
+
+      - name: Run Slice024 Chromium product acceptance
+        run: node tools/curriculum/render-p03f-slice024-product-acceptance.mjs
+
+      - name: Create detached runtime blob after acceptance
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          path="site/modules/curriculum/batch-a/fraction-context-runtime-p03f24.js"
+          sha=$(python -c 'import base64,json,sys; p=sys.argv[1]; print(json.dumps({"content":base64.b64encode(open(p,"rb").read()).decode(),"encoding":"base64"}))' "$path" \
+            | gh api --method POST "repos/${GITHUB_REPOSITORY}/git/blobs" --input - --jq .sha)
+          mkdir -p tmp/p03f24-semantic-wording-acceptance
+          printf '%s %s\n' "$sha" "$path" | tee tmp/p03f24-semantic-wording-acceptance/runtime-blob-sha.txt
+
+      - name: Upload semantic wording acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f24-semantic-wording-acceptance
+          path: |
+            tmp/p03f-slice024-product-acceptance
+            tmp/p03f24-semantic-wording-acceptance
+          if-no-files-found: error
+          retention-days: 30
