@@ -127,7 +127,13 @@ export function generateG4AU06P03F25Questions(options = {}) {
   if (!canGenerateG4AU06P03F25Questions(plan)) return { ok: false, errors: [{ code: "p03f25_plan_not_supported", severity: "error", path: "patternSpecIds", message: "p03f25_plan_not_supported" }], warnings: [], questions: [], plan };
   const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 9;
   const ids = plan.patternSpecIds;
-  const questions = Array.from({ length: count }, (_, index) => buildQuestion(ids[index % ids.length], index, plan.generationSeed));
+  const occurrenceBySpec = new Map(ids.map((patternSpecId) => [patternSpecId, 0]));
+  const questions = Array.from({ length: count }, (_, index) => {
+    const patternSpecId = ids[index % ids.length];
+    const ordinal = occurrenceBySpec.get(patternSpecId) ?? 0;
+    occurrenceBySpec.set(patternSpecId, ordinal + 1);
+    return buildQuestion(patternSpecId, ordinal, plan.generationSeed);
+  });
   const validationErrors = questions.flatMap((question, index) => validateG4AU06P03F25Question(question).errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
   const allocation = ids.map((patternSpecId) => Object.freeze({ patternSpecId, questionCount: questions.filter((q) => q.patternSpecId === patternSpecId).length }));
   return Object.freeze({ ok: validationErrors.length === 0, errors: Object.freeze(validationErrors), warnings: Object.freeze([]), questions: Object.freeze(questions), plan: Object.freeze(plan), allocation: Object.freeze(allocation) });
