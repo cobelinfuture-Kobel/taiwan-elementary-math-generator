@@ -2,8 +2,8 @@
   "claimId": "P03F-W3-SLICE025-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice025Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice025 only: expand existing g4a_u06_4a06 with improper/mixed/integer conversion using one numeric PatternGroup and three deterministic PatternSpecs.",
   "authority": {
     "queuePosition": 25,
@@ -85,8 +85,8 @@
     "answerKey": "PASS",
     "chromiumPdf": "PASS",
     "global793RouteRegression": "PASS",
-    "productAdmissionState": "READY_FOR_D0_CLOSEOUT_CI",
-    "d0Complete": false
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
   },
   "boundaries": {
     "slice026Started": false,
@@ -97,5 +97,20 @@
     "sharedWorksheetRendererBehaviorChanged": false,
     "fractionArithmeticAdded": false
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice025D0Closeout"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice026Implementation",
+  "closeoutEvidence": {
+    "prNumber": 553,
+    "headSha": "028deebd43e7bfba8b5e19b11c1c2feced2044c4",
+    "nodeWorkflowRunId": 31021505606,
+    "nodeWorkflowJobId": 92359082846,
+    "nodeConclusion": "success",
+    "fullRegression": {
+      "tests": 2943,
+      "pass": 2943,
+      "fail": 0,
+      "skipped": 0
+    },
+    "diagnosticsArtifactId": 8936862728,
+    "diagnosticsArtifactDigest": "sha256:c3e5f58363c1b10364cd8801d2baa0d8bed4e02081aa7d7880547c251d23bb5c"
+  }
 }

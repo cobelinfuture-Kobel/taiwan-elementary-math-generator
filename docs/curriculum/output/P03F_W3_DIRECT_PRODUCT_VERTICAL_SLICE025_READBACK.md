@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice025 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice025 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice025Implementation
 SLICE      = 025
 SOURCE_REF = g4a_u06_4a06
-STATUS     = D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -100,14 +100,29 @@ PDF_SHA256                 = f14ebc6b3fafb1b0f80314af9525d120a68ee97bf95be0c3558
 
 The automated artifact status was `PASS_AUTOMATED_PENDING_VISUAL_REVIEW`; all six rendered pages were subsequently reviewed manually and passed with no clipping, overlap, broken glyph, or answer-key readability issue.
 
-## Closeout candidate
-
-This candidate adds only the Slice025 final milestone claim, product-admission manifest, readback, and closeout contract test. It does not change runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or public-generation authority.
+## Formal closeout evidence
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE025_IMPLEMENTATION_MERGED
-GOAL_DISTANCE_AFTER  = D1_SLICE025_D0_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = Merged implementation, exact 793/793 global browser evidence, and accepted Chromium product evidence are now bound into a formal closeout candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_NODE_CI_AND_MERGE]
-NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice025D0Closeout
+CLOSEOUT_PR                 = #553
+CLOSEOUT_CANDIDATE_HEAD     = 028deebd43e7bfba8b5e19b11c1c2feced2044c4
+CLOSEOUT_NODE_RUN           = 31021505606
+CLOSEOUT_NODE_JOB           = 92359082846
+CLOSEOUT_REGRESSION         = 2943 / 2943 PASS
+CLOSEOUT_DIAGNOSTICS        = 8936862728
+CLOSEOUT_DIAGNOSTICS_DIGEST = sha256:c3e5f58363c1b10364cd8801d2baa0d8bed4e02081aa7d7880547c251d23bb5c
+CLOSEOUT_MERGE_SHA          = PENDING_POST_MERGE_RECONCILIATION
+```
+
+The closeout candidate adds only the claim, product-admission manifest, readback, and closeout contract test. Its exact Node gate passed the complete 2943-test repository regression with zero failures and zero skipped tests. This D0 promotion does not alter runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or accepted Chromium output.
+
+## Boundary and final state
+
+Slice025 expands an existing public source; it does not add a source, add fraction arithmetic, expand Global Context, create a parallel runtime pipeline, or change shared worksheet/renderer behavior. Slice026 remains unstarted in this closeout.
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE025_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE025_PRODUCT_CLOSED
+DISTANCE_REDUCED     = Closeout Node CI, 793/793 exact browser evidence, and accepted Chromium/visual evidence are bound into the formal Slice025 D0 authority.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice026Implementation
 ```
