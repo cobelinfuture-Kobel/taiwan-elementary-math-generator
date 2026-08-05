@@ -30,7 +30,7 @@ jobs:
 
       - name: Materialize Slice023 current governance
         run: |
-          cp data/curriculum/public-generation/public_generation_ui_binding_contract.json /tmp/p03f23-prior-r02.json
+          cp data/curriculum/public-generation/ui_capability_binding_contract.json /tmp/p03f23-prior-r02.json
           sed -i \
             -e 's/batch-a-selector-p03f22-extension/batch-a-selector-p03f23-extension/g' \
             -e 's/selectorAuthority: "batch-a-selector-p03f22-extension.js"/selectorAuthority: "batch-a-selector-p03f23-extension.js"/g' \
@@ -50,8 +50,8 @@ jobs:
           git add -- \
             data/curriculum/public-generation/public_generation_capability_matrix.csv \
             data/curriculum/public-generation/public_generation_capability_matrix.json \
-            data/curriculum/public-generation/public_generation_ui_binding_contract.json \
-            data/curriculum/public-generation/public_generation_ui_filter_cases.csv \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
             tools/curriculum/materialize-pgc-r01-public-capability-matrix.mjs
           if git diff --cached --quiet; then
             exit 0
