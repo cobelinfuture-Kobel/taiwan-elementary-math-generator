@@ -14,13 +14,17 @@ import {
 const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
 const rows = Object.freeze(listG4AU06P03F25SelectorRows().map((row) => Object.freeze(row)));
 const prior = base.listBatchAKnowledgePointAvailabilityBySource(G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID);
+const currentSourceCount = base.BATCH_A_SELECTOR_AVAILABILITY.sourceCount
+  ?? base.BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount
+  ?? Object.keys(base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId).length;
 
 export { G4A_U06_P03F25_SELECTOR_PROJECTION };
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
 export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   ...base.BATCH_A_SELECTOR_AVAILABILITY,
   visibleCount: base.BATCH_A_SELECTOR_AVAILABILITY.visibleCount + 1,
-  publicSourceCount: base.BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount,
+  sourceCount: currentSourceCount,
+  publicSourceCount: currentSourceCount,
   bySourceId: Object.freeze({
     ...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,
     [G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID]: Object.freeze({
@@ -64,8 +68,8 @@ export function auditP03F25PublicSelectorComposition() {
   if (!availability || availability.visibleCount !== 2 || availability.hiddenPendingCount !== 4) errors.push("P03F25_SELECTOR_AVAILABILITY_INVALID");
   const sourceRows = allRows.filter((row) => row.sourceId === G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID);
   if (sourceRows.length !== 2) errors.push("P03F25_EXISTING_SOURCE_KP_COUNT_INVALID");
-  if (BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount !== base.BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount) errors.push("P03F25_PUBLIC_SOURCE_COUNT_CHANGED");
+  if (BATCH_A_SELECTOR_AVAILABILITY.sourceCount !== currentSourceCount || BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount !== currentSourceCount) errors.push("P03F25_PUBLIC_SOURCE_COUNT_CHANGED");
   const groups = getVisiblePatternGroupsForKnowledgePoint(G4A_U06_P03F25_KP_ID);
   if (groups.length !== 1 || new Set(groups.flatMap((group) => group.patternSpecIds)).size !== 3) errors.push("P03F25_NEW_PATTERN_SURFACE_INVALID");
-  return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), counts: Object.freeze({ addedSources: 0, addedKnowledgePoints: 1, currentSourceKnowledgePoints: sourceRows.length, addedPatternGroups: 1, addedPatternSpecs: 3, publicSources: BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount }) });
+  return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), counts: Object.freeze({ addedSources: 0, addedKnowledgePoints: 1, currentSourceKnowledgePoints: sourceRows.length, addedPatternGroups: 1, addedPatternSpecs: 3, publicSources: currentSourceCount }) });
 }
