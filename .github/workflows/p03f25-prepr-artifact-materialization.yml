@@ -1,0 +1,95 @@
+name: P03F25 Pre-PR Artifact Materialization
+
+on:
+  push:
+    branches:
+      - p03f25-g4a-u06-rank8
+    paths:
+      - ".github/workflows/p03f25-prepr-artifact-materialization.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f25-prepr-artifact-materialization
+  cancel-in-progress: true
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Slice025 core focused contract
+        run: node --test tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js
+
+      - name: Preserve current R06 overlays and materialize PGC-R02
+        shell: bash
+        run: |
+          cp data/curriculum/public-generation/ui_capability_binding_contract.json /tmp/p03f25-old-r02.json
+          node tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const oldContract = JSON.parse(fs.readFileSync('/tmp/p03f25-old-r02.json', 'utf8'));
+          const path = 'data/curriculum/public-generation/ui_capability_binding_contract.json';
+          const nextContract = JSON.parse(fs.readFileSync(path, 'utf8'));
+          const oldById = new Map((oldContract.bindings ?? []).map((row) => [row.bindingId, row]));
+          let preservedBindingFieldCount = 0;
+          for (const next of nextContract.bindings ?? []) {
+            const old = oldById.get(next.bindingId);
+            if (!old) continue;
+            for (const [key, value] of Object.entries(old)) {
+              if (Object.prototype.hasOwnProperty.call(next, key)) continue;
+              next[key] = value;
+              preservedBindingFieldCount += 1;
+            }
+          }
+          let preservedRootFieldCount = 0;
+          for (const [key, value] of Object.entries(oldContract)) {
+            if (Object.prototype.hasOwnProperty.call(nextContract, key)) continue;
+            nextContract[key] = value;
+            preservedRootFieldCount += 1;
+          }
+          fs.writeFileSync(path, JSON.stringify(nextContract, null, 2) + '\n');
+          console.log(`P03F25_OVERLAY_BINDING_FIELDS=${preservedBindingFieldCount}`);
+          console.log(`P03F25_OVERLAY_ROOT_FIELDS=${preservedRootFieldCount}`);
+          console.log(`P03F25_VISIBLE_KPS=${nextContract.summary?.visibleKnowledgePointCount}`);
+          console.log(`P03F25_BINDINGS=${nextContract.summary?.questionTypeBindingRowCount}`);
+          if (nextContract.status !== 'PASS') process.exit(2);
+          if (nextContract.summary?.visibleKnowledgePointCount !== 212) process.exit(3);
+          NODE
+
+      - name: Run current PGC and R06 focused contracts
+        shell: bash
+        run: |
+          node --test tests/curriculum/pgc-r02-public-ui-capability-binding.test.js tests/curriculum/pgc-r06*.test.js
+
+      - name: Verify generated diff is bounded
+        shell: bash
+        run: |
+          git status --short
+          git diff --name-only -- \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+
+      - name: Upload deterministic R02 artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f25-r02-materialized
+          path: |
+            data/curriculum/public-generation/ui_capability_binding_contract.json
+            data/curriculum/public-generation/ui_option_filter_matrix.csv
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          if-no-files-found: error
