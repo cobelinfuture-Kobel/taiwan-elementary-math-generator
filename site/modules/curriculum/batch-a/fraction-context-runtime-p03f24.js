@@ -94,7 +94,7 @@ function combinedQuestion(definition, ordinal, seed) {
 }
 
 function fractionPlusCountQuestion(definition, ordinal, seed) {
-  const itemsPerWhole = 8 + 2 * ((ordinal + seedOffset(seed, 5)) % 5);
+  const itemsPerWhole = 8 + 4 * ((ordinal + seedOffset(seed, 5)) % 5);
   const denominator = [2, 4][(ordinal + seedOffset(seed, 2)) % 2];
   const fractionNumerator = 1 + (ordinal % (denominator - 1));
   const count = Math.max(1, Math.floor(itemsPerWhole / denominator));
