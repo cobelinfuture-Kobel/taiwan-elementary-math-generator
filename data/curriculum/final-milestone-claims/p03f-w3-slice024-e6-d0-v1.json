@@ -1,0 +1,109 @@
+{
+  "claimId": "P03F-W3-SLICE024-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice024Implementation",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D1",
+  "scope": "Slice024 only: expand existing g3b_u07_3b07 with the final four fraction-context KnowledgePoints using 20 existing W02 PatternSpecs.",
+  "authority": {
+    "queuePosition": 24,
+    "queueEntryId": "p03e_q024_r8_g3b_u07_3b07_profile_fraction_c1",
+    "sourceRef": "g3b_u07_3b07",
+    "knowledgePointIds": [
+      "kp_g3b_u07_whole_and_fraction_add_sub",
+      "kp_g3b_u07_combined_fraction_context",
+      "kp_g3b_u07_fraction_plus_count_context",
+      "kp_g3b_u07_original_or_difference_context"
+    ],
+    "patternSpecCount": 20,
+    "numericPatternSpecCount": 10,
+    "applicationPatternSpecCount": 10,
+    "requiredCapabilityIds": [
+      "cap_fraction_arithmetic",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ]
+  },
+  "implementationEvidence": {
+    "prNumber": 549,
+    "finalHeadSha": "091e4241c626379b35f57fc681b842985a0d7218",
+    "mergeSha": "40fcb6859190abcd4c5cf5268297842e9ceac89b",
+    "nodeWorkflowRunId": 30976548085,
+    "nodeWorkflowJobId": 92211657710,
+    "fullRegression": {
+      "tests": 2934,
+      "pass": 2934,
+      "fail": 0
+    },
+    "pgcR02WorkflowRunId": 30976548023,
+    "pgcR02": "PASS",
+    "pgcR06WorkflowRunId": 30976548067,
+    "pgcR06": "PASS"
+  },
+  "artifactEvidence": {
+    "acceptanceWorkflowRunId": 30976345833,
+    "artifactId": 8918396713,
+    "artifactDigest": "sha256:47e2fdf8821c10e08cff2e5abd0c4a6f8ffe08eb3a6474b54b59a71a5da980b9",
+    "acceptedRuntimeBlobSha": "ddbc771d7f4c4d6386986971f14f530c7d1ab106",
+    "caseCount": 2,
+    "pdfPageCount": 11,
+    "screenshotCount": 11,
+    "questionCount": 40,
+    "answerKeyCount": 40,
+    "patternSpecCount": 20,
+    "witnessesPerPatternSpec": 2,
+    "numericHtmlSha256": "46fa0e9c17735662b06d3ed554a8f67c523210ae2ab004e9ac6ab3d37cd1c676",
+    "numericPdfSha256": "8c483cbf86dc58ff8b7a77094e90813ddfbb5cb26d3dcb54d1bf38ea4020c336",
+    "applicationHtmlSha256": "2ac1253de2f20fe55a5c70d2de3a0f251ec8a81306e4e9b27254d167a7ba7a9c",
+    "applicationPdfSha256": "5668697190be9f97b3ac97410070a315ff23c7ae6b5bc0e128dd353b87922a97",
+    "duplicatePromptFindingCount": 0,
+    "overflowFindingCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "semanticScopeFindingCount": 0,
+    "visualReview": "PASS",
+    "semanticReview": "PASS",
+    "answerKeyReview": "PASS",
+    "visualPageReviewCount": 11
+  },
+  "productResult": {
+    "knowledgePointCount": 4,
+    "patternGroupCount": 8,
+    "patternSpecCount": 20,
+    "numericPatternSpecCount": 10,
+    "applicationPatternSpecCount": 10,
+    "existingContextBindingCount": 10,
+    "questionWitnessCount": 40,
+    "answerKeyWitnessCount": 40,
+    "newProductAdmissionCount": 1,
+    "newPublicSourceCount": 0,
+    "existingPublicSourceExpanded": true,
+    "classicPublicSurface": "PASS",
+    "pixelPublicSurface": "PASS",
+    "worksheetPrintable": "PASS",
+    "answerKey": "PASS",
+    "chromiumPdf": "PASS",
+    "semanticQuality": "PASS",
+    "productAdmissionState": "READY_FOR_D0_CLOSEOUT_CI",
+    "d0Complete": false
+  },
+  "boundaries": {
+    "slice025Started": false,
+    "newPublicSourceAdded": false,
+    "existingPublicSourceExpanded": true,
+    "existingW02ContextLineageReused": true,
+    "globalContextExpanded": false,
+    "parallelRuntimePipelineAdded": false,
+    "sharedWorksheetRendererBehaviorChanged": false
+  },
+  "closeoutEvidence": {
+    "prNumber": null,
+    "headSha": null,
+    "nodeWorkflowRunId": null,
+    "nodeWorkflowJobId": null,
+    "nodeConclusion": null,
+    "fullRegression": null,
+    "mergeSha": null
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice024D0Closeout"
+}
