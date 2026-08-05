@@ -15,7 +15,8 @@ function fixtureFor(patternSpecId, ordinal, seed) {
     return { whole, denominator, remainder: 0, improperNumerator: whole * denominator };
   }
   if (direction === "improper_to_mixed_or_integer") {
-    const makeInteger = (ordinal + seedOffset(seed, 3)) % 3 === 0;
+    const conversionCycle = Math.floor(ordinal / G4A_U06_P03F25_PATTERN_SPEC_IDS.length);
+    const makeInteger = (conversionCycle + seedOffset(seed, 3)) % 3 === 0;
     const remainder = makeInteger ? 0 : 1 + ((ordinal * 3 + seedOffset(seed, denominator - 1)) % (denominator - 1));
     return { whole, denominator, remainder, improperNumerator: whole * denominator + remainder };
   }
