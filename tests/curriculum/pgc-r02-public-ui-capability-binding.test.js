@@ -15,7 +15,7 @@ import {
 } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f24-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f25-extension.js";
 import {
   listPublicPatternGroupChoices,
 } from "../../site/assets/browser/state/public-pattern-group-selection.js";
@@ -52,7 +52,7 @@ test("PGC-R02 post-R03 closes all capacity-aware public UI binding cases", () =>
   assert.equal(contract.status, "PASS", JSON.stringify(contract.gaps, null, 2));
   assert.equal(contract.schemaName, "PublicUiCapabilityBindingContractV2");
   assert.equal(contract.summary.publicSourceCount, 29);
-  assert.equal(contract.summary.visibleKnowledgePointCount, 211);
+  assert.equal(contract.summary.visibleKnowledgePointCount, 212);
   assert.equal(contract.summary.publicSurfaceCount, 3);
   assert.equal(contract.summary.gapCount, 0);
   assert.equal(contract.summary.blockedBindingCount, 0);
