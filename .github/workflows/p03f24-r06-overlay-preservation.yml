@@ -35,7 +35,7 @@ jobs:
           import { execFileSync } from "node:child_process";
 
           const path = "data/curriculum/public-generation/ui_capability_binding_contract.json";
-          const A03 = "PGC-R06-A03_CapacityPublicRuntimeRepairReconciliation";
+          const A03 = "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation";
           const A07 = "PGC-R06-A07_FinalReconciliationGlobalLiveGateAndD0Closeout";
           const current = JSON.parse(fs.readFileSync(path, "utf8"));
           const historical = JSON.parse(execFileSync("git", ["show", `origin/main:${path}`], { encoding: "utf8", maxBuffer: 32 * 1024 * 1024 }));
