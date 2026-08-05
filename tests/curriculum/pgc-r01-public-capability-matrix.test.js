@@ -12,7 +12,7 @@ import {
 } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f22-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f23-extension.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const jsonPath = path.join(repoRoot, "data/curriculum/public-generation/public_generation_capability_matrix.json");
@@ -46,8 +46,8 @@ test("PGC-R01 materializes the deterministic current public capability authority
 test("PGC-R01 accounts for all current public sources and all visible KnowledgePoints", () => {
   const matrix = readMatrix();
   const visibleKnowledgePoints = listVisibleBatchAKnowledgePoints();
-  assert.equal(matrix.summary.publicSourceCount, 28);
-  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 28);
+  assert.equal(matrix.summary.publicSourceCount, 29);
+  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 29);
   assert.equal(matrix.summary.publicVisibleKnowledgePointCount, visibleKnowledgePoints.length);
 
   const matrixSources = new Set(matrix.capabilities.map((row) => row.sourceId));

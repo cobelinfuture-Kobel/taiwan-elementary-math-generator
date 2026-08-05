@@ -2,7 +2,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints,
-} from "../registry/batch-a-selector-p03f22-extension.js";
+} from "../registry/batch-a-selector-p03f23-extension.js";
 import { getFullProductPublicControlProfile } from "../registry/full-product-public-control-profiles.js";
 import { listW01PublicApplicationGroupsForKnowledgePoint } from "../registry/w01-public-application-groups.js";
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../registry/fifteen-unit-public-application-groups.js";
