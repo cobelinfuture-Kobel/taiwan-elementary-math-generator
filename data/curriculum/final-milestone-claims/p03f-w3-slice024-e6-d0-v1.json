@@ -109,7 +109,7 @@
     },
     "diagnosticsArtifactId": 8918800254,
     "diagnosticsArtifactDigest": "sha256:72264117712f2e8db6015de1e2e6974e4fff1222724410a6475a923510087385",
-    "mergeSha": null
+    "mergeSha": "0b2c2116a3361ed603ec874602263d59cd0e5b37"
   },
   "nextResumeTask": "P03F_W3DirectProductVerticalSlice025Implementation"
 }
