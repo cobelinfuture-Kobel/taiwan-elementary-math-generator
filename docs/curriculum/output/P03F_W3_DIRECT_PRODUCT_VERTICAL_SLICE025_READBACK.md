@@ -110,7 +110,7 @@ CLOSEOUT_NODE_JOB           = 92359082846
 CLOSEOUT_REGRESSION         = 2943 / 2943 PASS
 CLOSEOUT_DIAGNOSTICS        = 8936862728
 CLOSEOUT_DIAGNOSTICS_DIGEST = sha256:c3e5f58363c1b10364cd8801d2baa0d8bed4e02081aa7d7880547c251d23bb5c
-CLOSEOUT_MERGE_SHA          = PENDING_POST_MERGE_RECONCILIATION
+CLOSEOUT_MERGE_SHA          = 7dd2c90136531b546e1aa8db0eae0511a4fd05e8
 ```
 
 The closeout candidate adds only the claim, product-admission manifest, readback, and closeout contract test. Its exact Node gate passed the complete 2943-test repository regression with zero failures and zero skipped tests. This D0 promotion does not alter runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or accepted Chromium output.
