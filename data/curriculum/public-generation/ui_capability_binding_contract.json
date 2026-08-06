@@ -5,7 +5,7 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f25-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f26-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
   "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding.js",
   "adapters": {
@@ -26,19 +26,19 @@
   ],
   "summary": {
     "publicSourceCount": 29,
-    "visibleKnowledgePointCount": 212,
+    "visibleKnowledgePointCount": 216,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 268,
-    "surfaceCaseCount": 804,
-    "questionTypeBindingRowCount": 1167,
-    "parityCaseCount": 268,
-    "auditCaseCount": 804,
+    "baseCaseCount": 272,
+    "surfaceCaseCount": 816,
+    "questionTypeBindingRowCount": 1179,
+    "parityCaseCount": 272,
+    "auditCaseCount": 816,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
-    "limitedCapacityBindingCount": 1077,
-    "structuralFallbackBindingCount": 90,
+    "limitedCapacityBindingCount": 1071,
+    "structuralFallbackBindingCount": 108,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -136,15 +136,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_4digit_compare",
         "w01_app_pg_g3a_u01_4digit_compare",
+        "pg_g3a_u01_range_reasoning",
         "w01_app_pg_g3a_u01_range_reasoning"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u01_4digit_compare",
-        "ps_g3a_u01_4digit_range_compare_reasoning"
+        "ps_g3a_u01_4digit_range_compare_reasoning",
+        "ps_g3a_u01_4digit_serial_number_range",
+        "ps_g3a_u01_4digit_price_range_reasoning"
       ],
       "questionFormLabels": [
+        "四位數比大小",
         "應用題",
+        "四位數條件範圍推理",
         "應用題"
       ],
       "depthModes": [],
@@ -250,15 +256,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_4digit_compare",
         "w01_app_pg_g3a_u01_4digit_compare",
+        "pg_g3a_u01_range_reasoning",
         "w01_app_pg_g3a_u01_range_reasoning"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u01_4digit_compare",
-        "ps_g3a_u01_4digit_range_compare_reasoning"
+        "ps_g3a_u01_4digit_range_compare_reasoning",
+        "ps_g3a_u01_4digit_serial_number_range",
+        "ps_g3a_u01_4digit_price_range_reasoning"
       ],
       "questionFormLabels": [
+        "四位數比大小",
         "應用題",
+        "四位數條件範圍推理",
         "應用題"
       ],
       "depthModes": [],
@@ -364,15 +376,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_4digit_compare",
         "w01_app_pg_g3a_u01_4digit_compare",
+        "pg_g3a_u01_range_reasoning",
         "w01_app_pg_g3a_u01_range_reasoning"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u01_4digit_compare",
-        "ps_g3a_u01_4digit_range_compare_reasoning"
+        "ps_g3a_u01_4digit_range_compare_reasoning",
+        "ps_g3a_u01_4digit_serial_number_range",
+        "ps_g3a_u01_4digit_price_range_reasoning"
       ],
       "questionFormLabels": [
+        "四位數比大小",
         "應用題",
+        "四位數條件範圍推理",
         "應用題"
       ],
       "depthModes": [],
@@ -431,12 +449,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_4digit_compare",
         "w01_app_pg_g3a_u01_4digit_compare"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u01_4digit_compare"
       ],
       "questionFormLabels": [
+        "四位數比大小",
         "應用題"
       ],
       "depthModes": [],
@@ -495,12 +515,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_4digit_compare",
         "w01_app_pg_g3a_u01_4digit_compare"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u01_4digit_compare"
       ],
       "questionFormLabels": [
+        "四位數比大小",
         "應用題"
       ],
       "depthModes": [],
@@ -559,12 +581,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_4digit_compare",
         "w01_app_pg_g3a_u01_4digit_compare"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u01_4digit_compare"
       ],
       "questionFormLabels": [
+        "四位數比大小",
         "應用題"
       ],
       "depthModes": [],
@@ -1231,12 +1255,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_range_reasoning",
         "w01_app_pg_g3a_u01_range_reasoning"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g3a_u01_4digit_range_compare_reasoning"
+        "ps_g3a_u01_4digit_range_compare_reasoning",
+        "ps_g3a_u01_4digit_serial_number_range",
+        "ps_g3a_u01_4digit_price_range_reasoning"
       ],
       "questionFormLabels": [
+        "四位數條件範圍推理",
         "應用題"
       ],
       "depthModes": [],
@@ -1297,12 +1325,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_range_reasoning",
         "w01_app_pg_g3a_u01_range_reasoning"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g3a_u01_4digit_range_compare_reasoning"
+        "ps_g3a_u01_4digit_range_compare_reasoning",
+        "ps_g3a_u01_4digit_serial_number_range",
+        "ps_g3a_u01_4digit_price_range_reasoning"
       ],
       "questionFormLabels": [
+        "四位數條件範圍推理",
         "應用題"
       ],
       "depthModes": [],
@@ -1363,12 +1395,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_range_reasoning",
         "w01_app_pg_g3a_u01_range_reasoning"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g3a_u01_4digit_range_compare_reasoning"
+        "ps_g3a_u01_4digit_range_compare_reasoning",
+        "ps_g3a_u01_4digit_serial_number_range",
+        "ps_g3a_u01_4digit_price_range_reasoning"
       ],
       "questionFormLabels": [
+        "四位數條件範圍推理",
         "應用題"
       ],
       "depthModes": [],
@@ -1474,15 +1510,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_4digit_compare",
         "w01_app_pg_g3a_u01_4digit_compare",
+        "pg_g3a_u01_range_reasoning",
         "w01_app_pg_g3a_u01_range_reasoning"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u01_4digit_compare",
-        "ps_g3a_u01_4digit_range_compare_reasoning"
+        "ps_g3a_u01_4digit_range_compare_reasoning",
+        "ps_g3a_u01_4digit_serial_number_range",
+        "ps_g3a_u01_4digit_price_range_reasoning"
       ],
       "questionFormLabels": [
+        "四位數比大小",
         "應用題",
+        "四位數條件範圍推理",
         "應用題"
       ],
       "depthModes": [],
@@ -1588,15 +1630,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_4digit_compare",
         "w01_app_pg_g3a_u01_4digit_compare",
+        "pg_g3a_u01_range_reasoning",
         "w01_app_pg_g3a_u01_range_reasoning"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u01_4digit_compare",
-        "ps_g3a_u01_4digit_range_compare_reasoning"
+        "ps_g3a_u01_4digit_range_compare_reasoning",
+        "ps_g3a_u01_4digit_serial_number_range",
+        "ps_g3a_u01_4digit_price_range_reasoning"
       ],
       "questionFormLabels": [
+        "四位數比大小",
         "應用題",
+        "四位數條件範圍推理",
         "應用題"
       ],
       "depthModes": [],
@@ -1702,15 +1750,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u01_4digit_compare",
         "w01_app_pg_g3a_u01_4digit_compare",
+        "pg_g3a_u01_range_reasoning",
         "w01_app_pg_g3a_u01_range_reasoning"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u01_4digit_compare",
-        "ps_g3a_u01_4digit_range_compare_reasoning"
+        "ps_g3a_u01_4digit_range_compare_reasoning",
+        "ps_g3a_u01_4digit_serial_number_range",
+        "ps_g3a_u01_4digit_price_range_reasoning"
       ],
       "questionFormLabels": [
+        "四位數比大小",
         "應用題",
+        "四位數條件範圍推理",
         "應用題"
       ],
       "depthModes": [],
@@ -1811,7 +1865,9 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_add_multi_carry_seed",
         "w01_app_pg_g3a_u02_add_multi_carry",
+        "pg_g3a_u02_sub_multi_borrow_seed",
         "w01_app_pg_g3a_u02_sub_multi_borrow",
         "pg_g3a_u02_word_problem_estimation_add_sub"
       ],
@@ -1821,7 +1877,9 @@
         "ps_g3a_u02_word_problem_estimation_add_sub"
       ],
       "questionFormLabels": [
+        "四位數加法多次進位（seed）",
         "應用題",
+        "四位數減法多次退位（seed）",
         "應用題",
         "加減應用題估算"
       ],
@@ -1923,7 +1981,9 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_add_multi_carry_seed",
         "w01_app_pg_g3a_u02_add_multi_carry",
+        "pg_g3a_u02_sub_multi_borrow_seed",
         "w01_app_pg_g3a_u02_sub_multi_borrow",
         "pg_g3a_u02_word_problem_estimation_add_sub"
       ],
@@ -1933,7 +1993,9 @@
         "ps_g3a_u02_word_problem_estimation_add_sub"
       ],
       "questionFormLabels": [
+        "四位數加法多次進位（seed）",
         "應用題",
+        "四位數減法多次退位（seed）",
         "應用題",
         "加減應用題估算"
       ],
@@ -2035,7 +2097,9 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_add_multi_carry_seed",
         "w01_app_pg_g3a_u02_add_multi_carry",
+        "pg_g3a_u02_sub_multi_borrow_seed",
         "w01_app_pg_g3a_u02_sub_multi_borrow",
         "pg_g3a_u02_word_problem_estimation_add_sub"
       ],
@@ -2045,7 +2109,9 @@
         "ps_g3a_u02_word_problem_estimation_add_sub"
       ],
       "questionFormLabels": [
+        "四位數加法多次進位（seed）",
         "應用題",
+        "四位數減法多次退位（seed）",
         "應用題",
         "加減應用題估算"
       ],
@@ -2105,12 +2171,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_add_multi_carry_seed",
         "w01_app_pg_g3a_u02_add_multi_carry"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u02_4digit_add_multi_carry"
       ],
       "questionFormLabels": [
+        "四位數加法多次進位（seed）",
         "應用題"
       ],
       "depthModes": [],
@@ -2169,12 +2237,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_add_multi_carry_seed",
         "w01_app_pg_g3a_u02_add_multi_carry"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u02_4digit_add_multi_carry"
       ],
       "questionFormLabels": [
+        "四位數加法多次進位（seed）",
         "應用題"
       ],
       "depthModes": [],
@@ -2233,12 +2303,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_add_multi_carry_seed",
         "w01_app_pg_g3a_u02_add_multi_carry"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u02_4digit_add_multi_carry"
       ],
       "questionFormLabels": [
+        "四位數加法多次進位（seed）",
         "應用題"
       ],
       "depthModes": [],
@@ -2297,12 +2369,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_sub_multi_borrow_seed",
         "w01_app_pg_g3a_u02_sub_multi_borrow"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u02_4digit_sub_multi_borrow"
       ],
       "questionFormLabels": [
+        "四位數減法多次退位（seed）",
         "應用題"
       ],
       "depthModes": [],
@@ -2361,12 +2435,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_sub_multi_borrow_seed",
         "w01_app_pg_g3a_u02_sub_multi_borrow"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u02_4digit_sub_multi_borrow"
       ],
       "questionFormLabels": [
+        "四位數減法多次退位（seed）",
         "應用題"
       ],
       "depthModes": [],
@@ -2425,12 +2501,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_sub_multi_borrow_seed",
         "w01_app_pg_g3a_u02_sub_multi_borrow"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u02_4digit_sub_multi_borrow"
       ],
       "questionFormLabels": [
+        "四位數減法多次退位（seed）",
         "應用題"
       ],
       "depthModes": [],
@@ -3299,7 +3377,9 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_add_multi_carry_seed",
         "w01_app_pg_g3a_u02_add_multi_carry",
+        "pg_g3a_u02_sub_multi_borrow_seed",
         "w01_app_pg_g3a_u02_sub_multi_borrow",
         "pg_g3a_u02_word_problem_estimation_add_sub"
       ],
@@ -3309,7 +3389,9 @@
         "ps_g3a_u02_word_problem_estimation_add_sub"
       ],
       "questionFormLabels": [
+        "四位數加法多次進位（seed）",
         "應用題",
+        "四位數減法多次退位（seed）",
         "應用題",
         "加減應用題估算"
       ],
@@ -3411,7 +3493,9 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_add_multi_carry_seed",
         "w01_app_pg_g3a_u02_add_multi_carry",
+        "pg_g3a_u02_sub_multi_borrow_seed",
         "w01_app_pg_g3a_u02_sub_multi_borrow",
         "pg_g3a_u02_word_problem_estimation_add_sub"
       ],
@@ -3421,7 +3505,9 @@
         "ps_g3a_u02_word_problem_estimation_add_sub"
       ],
       "questionFormLabels": [
+        "四位數加法多次進位（seed）",
         "應用題",
+        "四位數減法多次退位（seed）",
         "應用題",
         "加減應用題估算"
       ],
@@ -3523,7 +3609,9 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u02_add_multi_carry_seed",
         "w01_app_pg_g3a_u02_add_multi_carry",
+        "pg_g3a_u02_sub_multi_borrow_seed",
         "w01_app_pg_g3a_u02_sub_multi_borrow",
         "pg_g3a_u02_word_problem_estimation_add_sub"
       ],
@@ -3533,7 +3621,9 @@
         "ps_g3a_u02_word_problem_estimation_add_sub"
       ],
       "questionFormLabels": [
+        "四位數加法多次進位（seed）",
         "應用題",
+        "四位數減法多次退位（seed）",
         "應用題",
         "加減應用題估算"
       ],
@@ -3620,6 +3710,7 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u03_2digit_by_1digit_carry",
         "w01_app_pg_g3a_u03_2digit_by_1digit",
         "pg_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
@@ -3628,6 +3719,7 @@
         "ps_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
       "questionFormLabels": [
+        "二位數乘以一位數",
         "應用題",
         "兩步驟連續乘法應用題"
       ],
@@ -3714,6 +3806,7 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u03_2digit_by_1digit_carry",
         "w01_app_pg_g3a_u03_2digit_by_1digit",
         "pg_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
@@ -3722,6 +3815,7 @@
         "ps_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
       "questionFormLabels": [
+        "二位數乘以一位數",
         "應用題",
         "兩步驟連續乘法應用題"
       ],
@@ -3808,6 +3902,7 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u03_2digit_by_1digit_carry",
         "w01_app_pg_g3a_u03_2digit_by_1digit",
         "pg_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
@@ -3816,6 +3911,7 @@
         "ps_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
       "questionFormLabels": [
+        "二位數乘以一位數",
         "應用題",
         "兩步驟連續乘法應用題"
       ],
@@ -3875,12 +3971,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u03_2digit_by_1digit_carry",
         "w01_app_pg_g3a_u03_2digit_by_1digit"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u03_2digit_by_1digit_carry"
       ],
       "questionFormLabels": [
+        "二位數乘以一位數",
         "應用題"
       ],
       "depthModes": [],
@@ -3939,12 +4037,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u03_2digit_by_1digit_carry",
         "w01_app_pg_g3a_u03_2digit_by_1digit"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u03_2digit_by_1digit_carry"
       ],
       "questionFormLabels": [
+        "二位數乘以一位數",
         "應用題"
       ],
       "depthModes": [],
@@ -4003,12 +4103,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u03_2digit_by_1digit_carry",
         "w01_app_pg_g3a_u03_2digit_by_1digit"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u03_2digit_by_1digit_carry"
       ],
       "questionFormLabels": [
+        "二位數乘以一位數",
         "應用題"
       ],
       "depthModes": [],
@@ -4670,6 +4772,7 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u03_2digit_by_1digit_carry",
         "w01_app_pg_g3a_u03_2digit_by_1digit",
         "pg_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
@@ -4678,6 +4781,7 @@
         "ps_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
       "questionFormLabels": [
+        "二位數乘以一位數",
         "應用題",
         "兩步驟連續乘法應用題"
       ],
@@ -4764,6 +4868,7 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u03_2digit_by_1digit_carry",
         "w01_app_pg_g3a_u03_2digit_by_1digit",
         "pg_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
@@ -4772,6 +4877,7 @@
         "ps_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
       "questionFormLabels": [
+        "二位數乘以一位數",
         "應用題",
         "兩步驟連續乘法應用題"
       ],
@@ -4858,6 +4964,7 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u03_2digit_by_1digit_carry",
         "w01_app_pg_g3a_u03_2digit_by_1digit",
         "pg_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
@@ -4866,6 +4973,7 @@
         "ps_g3a_u03_consecutive_multiplication_two_step_word_problem"
       ],
       "questionFormLabels": [
+        "二位數乘以一位數",
         "應用題",
         "兩步驟連續乘法應用題"
       ],
@@ -4950,12 +5058,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u06_exact_division_check",
         "w01_app_pg_g3a_u06_exact_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u06_exact_division_check"
       ],
       "questionFormLabels": [
+        "二位數除以一位數整除",
         "應用題"
       ],
       "depthModes": [],
@@ -5039,12 +5149,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u06_exact_division_check",
         "w01_app_pg_g3a_u06_exact_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u06_exact_division_check"
       ],
       "questionFormLabels": [
+        "二位數除以一位數整除",
         "應用題"
       ],
       "depthModes": [],
@@ -5128,12 +5240,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u06_exact_division_check",
         "w01_app_pg_g3a_u06_exact_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u06_exact_division_check"
       ],
       "questionFormLabels": [
+        "二位數除以一位數整除",
         "應用題"
       ],
       "depthModes": [],
@@ -5192,12 +5306,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u06_exact_division_check",
         "w01_app_pg_g3a_u06_exact_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u06_exact_division_check"
       ],
       "questionFormLabels": [
+        "二位數除以一位數整除",
         "應用題"
       ],
       "depthModes": [],
@@ -5256,12 +5372,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u06_exact_division_check",
         "w01_app_pg_g3a_u06_exact_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u06_exact_division_check"
       ],
       "questionFormLabels": [
+        "二位數除以一位數整除",
         "應用題"
       ],
       "depthModes": [],
@@ -5320,12 +5438,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u06_exact_division_check",
         "w01_app_pg_g3a_u06_exact_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u06_exact_division_check"
       ],
       "questionFormLabels": [
+        "二位數除以一位數整除",
         "應用題"
       ],
       "depthModes": [],
@@ -5889,12 +6009,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u06_exact_division_check",
         "w01_app_pg_g3a_u06_exact_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u06_exact_division_check"
       ],
       "questionFormLabels": [
+        "二位數除以一位數整除",
         "應用題"
       ],
       "depthModes": [],
@@ -5978,12 +6100,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u06_exact_division_check",
         "w01_app_pg_g3a_u06_exact_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u06_exact_division_check"
       ],
       "questionFormLabels": [
+        "二位數除以一位數整除",
         "應用題"
       ],
       "depthModes": [],
@@ -6067,12 +6191,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u06_exact_division_check",
         "w01_app_pg_g3a_u06_exact_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3a_u06_exact_division_check"
       ],
       "questionFormLabels": [
+        "二位數除以一位數整除",
         "應用題"
       ],
       "depthModes": [],
@@ -6179,12 +6305,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u01_2digit_division_place_value_cases",
         "w01_app_pg_g3b_u01_place_value_division",
         "pg_g3b_u01_wp_division_with_remainder",
         "pg_g3b_u01_wp_two_step_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact",
         "ps_g3b_u01_wp_remainder_packaging_leftover",
         "ps_g3b_u01_wp_remainder_calendar_weeks_days",
         "ps_g3b_u01_wp_two_step_divide_then_add",
@@ -6193,6 +6322,7 @@
         "ps_g3b_u01_wp_two_step_subtract_then_divide"
       ],
       "questionFormLabels": [
+        "二位數除以一位數商位判斷",
         "應用題",
         "有餘數除法應用題",
         "兩步驟除法應用題"
@@ -6301,12 +6431,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u01_2digit_division_place_value_cases",
         "w01_app_pg_g3b_u01_place_value_division",
         "pg_g3b_u01_wp_division_with_remainder",
         "pg_g3b_u01_wp_two_step_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact",
         "ps_g3b_u01_wp_remainder_packaging_leftover",
         "ps_g3b_u01_wp_remainder_calendar_weeks_days",
         "ps_g3b_u01_wp_two_step_divide_then_add",
@@ -6315,6 +6448,7 @@
         "ps_g3b_u01_wp_two_step_subtract_then_divide"
       ],
       "questionFormLabels": [
+        "二位數除以一位數商位判斷",
         "應用題",
         "有餘數除法應用題",
         "兩步驟除法應用題"
@@ -6423,12 +6557,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u01_2digit_division_place_value_cases",
         "w01_app_pg_g3b_u01_place_value_division",
         "pg_g3b_u01_wp_division_with_remainder",
         "pg_g3b_u01_wp_two_step_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact",
         "ps_g3b_u01_wp_remainder_packaging_leftover",
         "ps_g3b_u01_wp_remainder_calendar_weeks_days",
         "ps_g3b_u01_wp_two_step_divide_then_add",
@@ -6437,6 +6574,7 @@
         "ps_g3b_u01_wp_two_step_subtract_then_divide"
       ],
       "questionFormLabels": [
+        "二位數除以一位數商位判斷",
         "應用題",
         "有餘數除法應用題",
         "兩步驟除法應用題"
@@ -6499,12 +6637,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u01_2digit_division_place_value_cases",
         "w01_app_pg_g3b_u01_place_value_division"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g3b_u01_2digit_by_1digit_regroup_tens"
+        "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact"
       ],
       "questionFormLabels": [
+        "二位數除以一位數商位判斷",
         "應用題"
       ],
       "depthModes": [],
@@ -6565,12 +6707,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u01_2digit_division_place_value_cases",
         "w01_app_pg_g3b_u01_place_value_division"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g3b_u01_2digit_by_1digit_regroup_tens"
+        "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact"
       ],
       "questionFormLabels": [
+        "二位數除以一位數商位判斷",
         "應用題"
       ],
       "depthModes": [],
@@ -6631,12 +6777,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u01_2digit_division_place_value_cases",
         "w01_app_pg_g3b_u01_place_value_division"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g3b_u01_2digit_by_1digit_regroup_tens"
+        "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact"
       ],
       "questionFormLabels": [
+        "二位數除以一位數商位判斷",
         "應用題"
       ],
       "depthModes": [],
@@ -7640,12 +7790,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u01_2digit_division_place_value_cases",
         "w01_app_pg_g3b_u01_place_value_division",
         "pg_g3b_u01_wp_division_with_remainder",
         "pg_g3b_u01_wp_two_step_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact",
         "ps_g3b_u01_wp_remainder_packaging_leftover",
         "ps_g3b_u01_wp_remainder_calendar_weeks_days",
         "ps_g3b_u01_wp_two_step_divide_then_add",
@@ -7654,6 +7807,7 @@
         "ps_g3b_u01_wp_two_step_subtract_then_divide"
       ],
       "questionFormLabels": [
+        "二位數除以一位數商位判斷",
         "應用題",
         "有餘數除法應用題",
         "兩步驟除法應用題"
@@ -7762,12 +7916,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u01_2digit_division_place_value_cases",
         "w01_app_pg_g3b_u01_place_value_division",
         "pg_g3b_u01_wp_division_with_remainder",
         "pg_g3b_u01_wp_two_step_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact",
         "ps_g3b_u01_wp_remainder_packaging_leftover",
         "ps_g3b_u01_wp_remainder_calendar_weeks_days",
         "ps_g3b_u01_wp_two_step_divide_then_add",
@@ -7776,6 +7933,7 @@
         "ps_g3b_u01_wp_two_step_subtract_then_divide"
       ],
       "questionFormLabels": [
+        "二位數除以一位數商位判斷",
         "應用題",
         "有餘數除法應用題",
         "兩步驟除法應用題"
@@ -7884,12 +8042,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u01_2digit_division_place_value_cases",
         "w01_app_pg_g3b_u01_place_value_division",
         "pg_g3b_u01_wp_division_with_remainder",
         "pg_g3b_u01_wp_two_step_division"
       ],
       "compatiblePatternSpecIds": [
         "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact",
         "ps_g3b_u01_wp_remainder_packaging_leftover",
         "ps_g3b_u01_wp_remainder_calendar_weeks_days",
         "ps_g3b_u01_wp_two_step_divide_then_add",
@@ -7898,6 +8059,7 @@
         "ps_g3b_u01_wp_two_step_subtract_then_divide"
       ],
       "questionFormLabels": [
+        "二位數除以一位數商位判斷",
         "應用題",
         "有餘數除法應用題",
         "兩步驟除法應用題"
@@ -7980,6 +8142,7 @@
         "pg_g3b_u04_divide_then_add",
         "pg_g3b_u04_total_minus_shared_amount",
         "pg_g3b_u04_group_total_minus_remaining",
+        "pg_g3b_u04_consecutive_multiplication_numeric",
         "pg_g3b_u04_consecutive_multiplication_application",
         "pg_g3b_u04_composite_multiplicative_ratio",
         "pg_g3b_u04_multiplicative_quantity_chain"
@@ -8006,6 +8169,7 @@
         "ps_g3b_u04_group_minus_remaining_packaged_total_minus_remaining_sold",
         "ps_g3b_u04_group_minus_remaining_formed_teams_minus_inactive_teams",
         "ps_g3b_u04_group_minus_remaining_prepared_trays_minus_leftover_trays",
+        "ps_g3b_u04_consecutive_multiplication",
         "ps_g3b_u04_consecutive_items_per_row_per_box",
         "ps_g3b_u04_consecutive_units_per_group_per_container",
         "ps_g3b_u04_consecutive_unit_price_items_per_pack_packs",
@@ -8025,6 +8189,7 @@
         "應用題",
         "應用題",
         "應用題",
+        "計算題",
         "應用題",
         "應用題",
         "應用題"
@@ -8141,6 +8306,7 @@
         "pg_g3b_u04_divide_then_add",
         "pg_g3b_u04_total_minus_shared_amount",
         "pg_g3b_u04_group_total_minus_remaining",
+        "pg_g3b_u04_consecutive_multiplication_numeric",
         "pg_g3b_u04_consecutive_multiplication_application",
         "pg_g3b_u04_composite_multiplicative_ratio",
         "pg_g3b_u04_multiplicative_quantity_chain"
@@ -8167,6 +8333,7 @@
         "ps_g3b_u04_group_minus_remaining_packaged_total_minus_remaining_sold",
         "ps_g3b_u04_group_minus_remaining_formed_teams_minus_inactive_teams",
         "ps_g3b_u04_group_minus_remaining_prepared_trays_minus_leftover_trays",
+        "ps_g3b_u04_consecutive_multiplication",
         "ps_g3b_u04_consecutive_items_per_row_per_box",
         "ps_g3b_u04_consecutive_units_per_group_per_container",
         "ps_g3b_u04_consecutive_unit_price_items_per_pack_packs",
@@ -8186,6 +8353,7 @@
         "應用題",
         "應用題",
         "應用題",
+        "計算題",
         "應用題",
         "應用題",
         "應用題"
@@ -8302,6 +8470,7 @@
         "pg_g3b_u04_divide_then_add",
         "pg_g3b_u04_total_minus_shared_amount",
         "pg_g3b_u04_group_total_minus_remaining",
+        "pg_g3b_u04_consecutive_multiplication_numeric",
         "pg_g3b_u04_consecutive_multiplication_application",
         "pg_g3b_u04_composite_multiplicative_ratio",
         "pg_g3b_u04_multiplicative_quantity_chain"
@@ -8328,6 +8497,7 @@
         "ps_g3b_u04_group_minus_remaining_packaged_total_minus_remaining_sold",
         "ps_g3b_u04_group_minus_remaining_formed_teams_minus_inactive_teams",
         "ps_g3b_u04_group_minus_remaining_prepared_trays_minus_leftover_trays",
+        "ps_g3b_u04_consecutive_multiplication",
         "ps_g3b_u04_consecutive_items_per_row_per_box",
         "ps_g3b_u04_consecutive_units_per_group_per_container",
         "ps_g3b_u04_consecutive_unit_price_items_per_pack_packs",
@@ -8347,6 +8517,7 @@
         "應用題",
         "應用題",
         "應用題",
+        "計算題",
         "應用題",
         "應用題",
         "應用題"
@@ -9062,15 +9233,18 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u04_consecutive_multiplication_numeric",
         "pg_g3b_u04_consecutive_multiplication_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3b_u04_consecutive_multiplication",
         "ps_g3b_u04_consecutive_items_per_row_per_box",
         "ps_g3b_u04_consecutive_units_per_group_per_container",
         "ps_g3b_u04_consecutive_unit_price_items_per_pack_packs",
         "ps_g3b_u04_consecutive_length_width_layers_array"
       ],
       "questionFormLabels": [
+        "計算題",
         "應用題"
       ],
       "depthModes": [],
@@ -9129,15 +9303,18 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u04_consecutive_multiplication_numeric",
         "pg_g3b_u04_consecutive_multiplication_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3b_u04_consecutive_multiplication",
         "ps_g3b_u04_consecutive_items_per_row_per_box",
         "ps_g3b_u04_consecutive_units_per_group_per_container",
         "ps_g3b_u04_consecutive_unit_price_items_per_pack_packs",
         "ps_g3b_u04_consecutive_length_width_layers_array"
       ],
       "questionFormLabels": [
+        "計算題",
         "應用題"
       ],
       "depthModes": [],
@@ -9196,15 +9373,18 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u04_consecutive_multiplication_numeric",
         "pg_g3b_u04_consecutive_multiplication_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3b_u04_consecutive_multiplication",
         "ps_g3b_u04_consecutive_items_per_row_per_box",
         "ps_g3b_u04_consecutive_units_per_group_per_container",
         "ps_g3b_u04_consecutive_unit_price_items_per_pack_packs",
         "ps_g3b_u04_consecutive_length_width_layers_array"
       ],
       "questionFormLabels": [
+        "計算題",
         "應用題"
       ],
       "depthModes": [],
@@ -9452,6 +9632,7 @@
         "pg_g3b_u04_divide_then_add",
         "pg_g3b_u04_total_minus_shared_amount",
         "pg_g3b_u04_group_total_minus_remaining",
+        "pg_g3b_u04_consecutive_multiplication_numeric",
         "pg_g3b_u04_consecutive_multiplication_application",
         "pg_g3b_u04_composite_multiplicative_ratio",
         "pg_g3b_u04_multiplicative_quantity_chain"
@@ -9478,6 +9659,7 @@
         "ps_g3b_u04_group_minus_remaining_packaged_total_minus_remaining_sold",
         "ps_g3b_u04_group_minus_remaining_formed_teams_minus_inactive_teams",
         "ps_g3b_u04_group_minus_remaining_prepared_trays_minus_leftover_trays",
+        "ps_g3b_u04_consecutive_multiplication",
         "ps_g3b_u04_consecutive_items_per_row_per_box",
         "ps_g3b_u04_consecutive_units_per_group_per_container",
         "ps_g3b_u04_consecutive_unit_price_items_per_pack_packs",
@@ -9497,6 +9679,7 @@
         "應用題",
         "應用題",
         "應用題",
+        "計算題",
         "應用題",
         "應用題",
         "應用題"
@@ -9539,6 +9722,7 @@
         "pg_g3b_u04_divide_then_add",
         "pg_g3b_u04_total_minus_shared_amount",
         "pg_g3b_u04_group_total_minus_remaining",
+        "pg_g3b_u04_consecutive_multiplication_numeric",
         "pg_g3b_u04_consecutive_multiplication_application",
         "pg_g3b_u04_composite_multiplicative_ratio",
         "pg_g3b_u04_multiplicative_quantity_chain"
@@ -9565,6 +9749,7 @@
         "ps_g3b_u04_group_minus_remaining_packaged_total_minus_remaining_sold",
         "ps_g3b_u04_group_minus_remaining_formed_teams_minus_inactive_teams",
         "ps_g3b_u04_group_minus_remaining_prepared_trays_minus_leftover_trays",
+        "ps_g3b_u04_consecutive_multiplication",
         "ps_g3b_u04_consecutive_items_per_row_per_box",
         "ps_g3b_u04_consecutive_units_per_group_per_container",
         "ps_g3b_u04_consecutive_unit_price_items_per_pack_packs",
@@ -9584,6 +9769,7 @@
         "應用題",
         "應用題",
         "應用題",
+        "計算題",
         "應用題",
         "應用題",
         "應用題"
@@ -9626,6 +9812,7 @@
         "pg_g3b_u04_divide_then_add",
         "pg_g3b_u04_total_minus_shared_amount",
         "pg_g3b_u04_group_total_minus_remaining",
+        "pg_g3b_u04_consecutive_multiplication_numeric",
         "pg_g3b_u04_consecutive_multiplication_application",
         "pg_g3b_u04_composite_multiplicative_ratio",
         "pg_g3b_u04_multiplicative_quantity_chain"
@@ -9652,6 +9839,7 @@
         "ps_g3b_u04_group_minus_remaining_packaged_total_minus_remaining_sold",
         "ps_g3b_u04_group_minus_remaining_formed_teams_minus_inactive_teams",
         "ps_g3b_u04_group_minus_remaining_prepared_trays_minus_leftover_trays",
+        "ps_g3b_u04_consecutive_multiplication",
         "ps_g3b_u04_consecutive_items_per_row_per_box",
         "ps_g3b_u04_consecutive_units_per_group_per_container",
         "ps_g3b_u04_consecutive_unit_price_items_per_pack_packs",
@@ -9671,6 +9859,7 @@
         "應用題",
         "應用題",
         "應用題",
+        "計算題",
         "應用題",
         "應用題",
         "應用題"
@@ -13425,12 +13614,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4a_u02_3digit_by_1digit_review",
         "closeout_app_pg_g4a_u02_3digit_by_1digit"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u02_3digit_by_1digit_review"
       ],
       "questionFormLabels": [
+        "三位數乘一位數複習",
         "應用題"
       ],
       "depthModes": [],
@@ -13529,12 +13720,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4a_u02_3digit_by_1digit_review",
         "closeout_app_pg_g4a_u02_3digit_by_1digit"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u02_3digit_by_1digit_review"
       ],
       "questionFormLabels": [
+        "三位數乘一位數複習",
         "應用題"
       ],
       "depthModes": [],
@@ -13633,12 +13826,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4a_u02_3digit_by_1digit_review",
         "closeout_app_pg_g4a_u02_3digit_by_1digit"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u02_3digit_by_1digit_review"
       ],
       "questionFormLabels": [
+        "三位數乘一位數複習",
         "應用題"
       ],
       "depthModes": [],
@@ -14783,12 +14978,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4a_u04_4digit_by_1digit_thousands_exact",
         "closeout_app_pg_g4a_u04_4digit_by_1digit"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u04_4digit_by_1digit_thousands_exact"
       ],
       "questionFormLabels": [
+        "4位數除以1位數：千位整除",
         "應用題"
       ],
       "depthModes": [],
@@ -14877,12 +15074,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4a_u04_4digit_by_1digit_thousands_exact",
         "closeout_app_pg_g4a_u04_4digit_by_1digit"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u04_4digit_by_1digit_thousands_exact"
       ],
       "questionFormLabels": [
+        "4位數除以1位數：千位整除",
         "應用題"
       ],
       "depthModes": [],
@@ -14971,12 +15170,14 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4a_u04_4digit_by_1digit_thousands_exact",
         "closeout_app_pg_g4a_u04_4digit_by_1digit"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u04_4digit_by_1digit_thousands_exact"
       ],
       "questionFormLabels": [
+        "4位數除以1位數：千位整除",
         "應用題"
       ],
       "depthModes": [],
@@ -20203,31 +20404,55 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_mixed_operation_order_numeric",
         "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_mul_div_regroup_numeric",
         "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_distributive_expand_numeric",
         "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_common_factor_numeric",
         "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_near_round_multiply_numeric",
         "pg_g5a_u08_near_round_multiply_application",
-        "pg_g5a_u08_average_application"
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_mixed_precedence_3op",
+        "ps_g5a_u08_mixed_precedence_4op",
         "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_mul_div_factor_regroup",
+        "ps_g5a_u08_continuous_division",
         "ps_g5a_u08_app_group_select",
         "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_distributive_expand_add",
+        "ps_g5a_u08_distributive_expand_sub",
         "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_common_factor_add",
+        "ps_g5a_u08_common_factor_sub",
         "ps_g5a_u08_app_two_same_rate_groups_sum",
         "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_near_round_multiply_below",
+        "ps_g5a_u08_near_round_multiply_above",
         "ps_g5a_u08_app_near_round_unit_price",
         "ps_g5a_u08_app_direct_average",
-        "ps_g5a_u08_app_average_share_transfer"
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update"
       ],
       "questionFormLabels": [
+        "四則混合運算順序｜數字題",
         "四則混合運算順序｜應用題",
+        "乘除連算等值重組｜數字題",
         "乘除連算等值重組｜應用題",
+        "分配律展開｜數字題",
         "分配律展開｜應用題",
+        "提取公因數｜數字題",
         "提取公因數｜應用題",
+        "接近整數乘法補償｜數字題",
         "接近整數乘法補償｜應用題",
-        "平均數與平均分攤｜應用題"
+        "平均數與平均分攤｜應用題",
+        "逆推平均與平均更新｜推理題"
       ],
       "depthModes": [
         "mixed",
@@ -20516,31 +20741,55 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_mixed_operation_order_numeric",
         "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_mul_div_regroup_numeric",
         "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_distributive_expand_numeric",
         "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_common_factor_numeric",
         "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_near_round_multiply_numeric",
         "pg_g5a_u08_near_round_multiply_application",
-        "pg_g5a_u08_average_application"
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_mixed_precedence_3op",
+        "ps_g5a_u08_mixed_precedence_4op",
         "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_mul_div_factor_regroup",
+        "ps_g5a_u08_continuous_division",
         "ps_g5a_u08_app_group_select",
         "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_distributive_expand_add",
+        "ps_g5a_u08_distributive_expand_sub",
         "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_common_factor_add",
+        "ps_g5a_u08_common_factor_sub",
         "ps_g5a_u08_app_two_same_rate_groups_sum",
         "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_near_round_multiply_below",
+        "ps_g5a_u08_near_round_multiply_above",
         "ps_g5a_u08_app_near_round_unit_price",
         "ps_g5a_u08_app_direct_average",
-        "ps_g5a_u08_app_average_share_transfer"
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update"
       ],
       "questionFormLabels": [
+        "四則混合運算順序｜數字題",
         "四則混合運算順序｜應用題",
+        "乘除連算等值重組｜數字題",
         "乘除連算等值重組｜應用題",
+        "分配律展開｜數字題",
         "分配律展開｜應用題",
+        "提取公因數｜數字題",
         "提取公因數｜應用題",
+        "接近整數乘法補償｜數字題",
         "接近整數乘法補償｜應用題",
-        "平均數與平均分攤｜應用題"
+        "平均數與平均分攤｜應用題",
+        "逆推平均與平均更新｜推理題"
       ],
       "depthModes": [
         "mixed",
@@ -20829,31 +21078,55 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_mixed_operation_order_numeric",
         "pg_g5a_u08_mixed_operation_order_application",
+        "pg_g5a_u08_mul_div_regroup_numeric",
         "pg_g5a_u08_mul_div_regroup_application",
+        "pg_g5a_u08_distributive_expand_numeric",
         "pg_g5a_u08_distributive_expand_application",
+        "pg_g5a_u08_common_factor_numeric",
         "pg_g5a_u08_common_factor_application",
+        "pg_g5a_u08_near_round_multiply_numeric",
         "pg_g5a_u08_near_round_multiply_application",
-        "pg_g5a_u08_average_application"
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_mixed_precedence_3op",
+        "ps_g5a_u08_mixed_precedence_4op",
         "ps_g5a_u08_app_discount_change",
+        "ps_g5a_u08_mul_div_factor_regroup",
+        "ps_g5a_u08_continuous_division",
         "ps_g5a_u08_app_group_select",
         "ps_g5a_u08_app_nested_grouping",
+        "ps_g5a_u08_distributive_expand_add",
+        "ps_g5a_u08_distributive_expand_sub",
         "ps_g5a_u08_app_adjust_unit_remaining",
+        "ps_g5a_u08_common_factor_add",
+        "ps_g5a_u08_common_factor_sub",
         "ps_g5a_u08_app_two_same_rate_groups_sum",
         "ps_g5a_u08_app_two_product_groups_difference",
+        "ps_g5a_u08_near_round_multiply_below",
+        "ps_g5a_u08_near_round_multiply_above",
         "ps_g5a_u08_app_near_round_unit_price",
         "ps_g5a_u08_app_direct_average",
-        "ps_g5a_u08_app_average_share_transfer"
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update"
       ],
       "questionFormLabels": [
+        "四則混合運算順序｜數字題",
         "四則混合運算順序｜應用題",
+        "乘除連算等值重組｜數字題",
         "乘除連算等值重組｜應用題",
+        "分配律展開｜數字題",
         "分配律展開｜應用題",
+        "提取公因數｜數字題",
         "提取公因數｜應用題",
+        "接近整數乘法補償｜數字題",
         "接近整數乘法補償｜應用題",
-        "平均數與平均分攤｜應用題"
+        "平均數與平均分攤｜應用題",
+        "逆推平均與平均更新｜推理題"
       ],
       "depthModes": [
         "mixed",
@@ -21065,12 +21338,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_mixed_operation_order_numeric",
         "pg_g5a_u08_mixed_operation_order_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_mixed_precedence_3op",
+        "ps_g5a_u08_mixed_precedence_4op",
         "ps_g5a_u08_app_discount_change"
       ],
       "questionFormLabels": [
+        "四則混合運算順序｜數字題",
         "四則混合運算順序｜應用題"
       ],
       "depthModes": [
@@ -21148,12 +21425,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_mixed_operation_order_numeric",
         "pg_g5a_u08_mixed_operation_order_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_mixed_precedence_3op",
+        "ps_g5a_u08_mixed_precedence_4op",
         "ps_g5a_u08_app_discount_change"
       ],
       "questionFormLabels": [
+        "四則混合運算順序｜數字題",
         "四則混合運算順序｜應用題"
       ],
       "depthModes": [
@@ -21231,12 +21512,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_mixed_operation_order_numeric",
         "pg_g5a_u08_mixed_operation_order_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_mixed_precedence_3op",
+        "ps_g5a_u08_mixed_precedence_4op",
         "ps_g5a_u08_app_discount_change"
       ],
       "questionFormLabels": [
+        "四則混合運算順序｜數字題",
         "四則混合運算順序｜應用題"
       ],
       "depthModes": [
@@ -21435,13 +21720,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_mul_div_regroup_numeric",
         "pg_g5a_u08_mul_div_regroup_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_mul_div_factor_regroup",
+        "ps_g5a_u08_continuous_division",
         "ps_g5a_u08_app_group_select",
         "ps_g5a_u08_app_nested_grouping"
       ],
       "questionFormLabels": [
+        "乘除連算等值重組｜數字題",
         "乘除連算等值重組｜應用題"
       ],
       "depthModes": [
@@ -21520,13 +21809,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_mul_div_regroup_numeric",
         "pg_g5a_u08_mul_div_regroup_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_mul_div_factor_regroup",
+        "ps_g5a_u08_continuous_division",
         "ps_g5a_u08_app_group_select",
         "ps_g5a_u08_app_nested_grouping"
       ],
       "questionFormLabels": [
+        "乘除連算等值重組｜數字題",
         "乘除連算等值重組｜應用題"
       ],
       "depthModes": [
@@ -21605,13 +21898,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_mul_div_regroup_numeric",
         "pg_g5a_u08_mul_div_regroup_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_mul_div_factor_regroup",
+        "ps_g5a_u08_continuous_division",
         "ps_g5a_u08_app_group_select",
         "ps_g5a_u08_app_nested_grouping"
       ],
       "questionFormLabels": [
+        "乘除連算等值重組｜數字題",
         "乘除連算等值重組｜應用題"
       ],
       "depthModes": [
@@ -21689,12 +21986,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_distributive_expand_numeric",
         "pg_g5a_u08_distributive_expand_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_distributive_expand_add",
+        "ps_g5a_u08_distributive_expand_sub",
         "ps_g5a_u08_app_adjust_unit_remaining"
       ],
       "questionFormLabels": [
+        "分配律展開｜數字題",
         "分配律展開｜應用題"
       ],
       "depthModes": [
@@ -21772,12 +22073,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_distributive_expand_numeric",
         "pg_g5a_u08_distributive_expand_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_distributive_expand_add",
+        "ps_g5a_u08_distributive_expand_sub",
         "ps_g5a_u08_app_adjust_unit_remaining"
       ],
       "questionFormLabels": [
+        "分配律展開｜數字題",
         "分配律展開｜應用題"
       ],
       "depthModes": [
@@ -21855,12 +22160,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_distributive_expand_numeric",
         "pg_g5a_u08_distributive_expand_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_distributive_expand_add",
+        "ps_g5a_u08_distributive_expand_sub",
         "ps_g5a_u08_app_adjust_unit_remaining"
       ],
       "questionFormLabels": [
+        "分配律展開｜數字題",
         "分配律展開｜應用題"
       ],
       "depthModes": [
@@ -21939,13 +22248,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_common_factor_numeric",
         "pg_g5a_u08_common_factor_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_common_factor_add",
+        "ps_g5a_u08_common_factor_sub",
         "ps_g5a_u08_app_two_same_rate_groups_sum",
         "ps_g5a_u08_app_two_product_groups_difference"
       ],
       "questionFormLabels": [
+        "提取公因數｜數字題",
         "提取公因數｜應用題"
       ],
       "depthModes": [
@@ -22025,13 +22338,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_common_factor_numeric",
         "pg_g5a_u08_common_factor_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_common_factor_add",
+        "ps_g5a_u08_common_factor_sub",
         "ps_g5a_u08_app_two_same_rate_groups_sum",
         "ps_g5a_u08_app_two_product_groups_difference"
       ],
       "questionFormLabels": [
+        "提取公因數｜數字題",
         "提取公因數｜應用題"
       ],
       "depthModes": [
@@ -22111,13 +22428,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_common_factor_numeric",
         "pg_g5a_u08_common_factor_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_common_factor_add",
+        "ps_g5a_u08_common_factor_sub",
         "ps_g5a_u08_app_two_same_rate_groups_sum",
         "ps_g5a_u08_app_two_product_groups_difference"
       ],
       "questionFormLabels": [
+        "提取公因數｜數字題",
         "提取公因數｜應用題"
       ],
       "depthModes": [
@@ -22436,12 +22757,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_near_round_multiply_numeric",
         "pg_g5a_u08_near_round_multiply_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_near_round_multiply_below",
+        "ps_g5a_u08_near_round_multiply_above",
         "ps_g5a_u08_app_near_round_unit_price"
       ],
       "questionFormLabels": [
+        "接近整數乘法補償｜數字題",
         "接近整數乘法補償｜應用題"
       ],
       "depthModes": [
@@ -22520,12 +22845,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_near_round_multiply_numeric",
         "pg_g5a_u08_near_round_multiply_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_near_round_multiply_below",
+        "ps_g5a_u08_near_round_multiply_above",
         "ps_g5a_u08_app_near_round_unit_price"
       ],
       "questionFormLabels": [
+        "接近整數乘法補償｜數字題",
         "接近整數乘法補償｜應用題"
       ],
       "depthModes": [
@@ -22604,12 +22933,16 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u08_near_round_multiply_numeric",
         "pg_g5a_u08_near_round_multiply_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u08_near_round_multiply_below",
+        "ps_g5a_u08_near_round_multiply_above",
         "ps_g5a_u08_app_near_round_unit_price"
       ],
       "questionFormLabels": [
+        "接近整數乘法補償｜數字題",
         "接近整數乘法補償｜應用題"
       ],
       "depthModes": [
@@ -23163,14 +23496,18 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
-        "pg_g5a_u08_average_application"
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u08_app_direct_average",
-        "ps_g5a_u08_app_average_share_transfer"
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update"
       ],
       "questionFormLabels": [
-        "平均數與平均分攤｜應用題"
+        "平均數與平均分攤｜應用題",
+        "逆推平均與平均更新｜推理題"
       ],
       "depthModes": [
         "mixed",
@@ -23289,14 +23626,18 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
-        "pg_g5a_u08_average_application"
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u08_app_direct_average",
-        "ps_g5a_u08_app_average_share_transfer"
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update"
       ],
       "questionFormLabels": [
-        "平均數與平均分攤｜應用題"
+        "平均數與平均分攤｜應用題",
+        "逆推平均與平均更新｜推理題"
       ],
       "depthModes": [
         "mixed",
@@ -23415,14 +23756,18 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
-        "pg_g5a_u08_average_application"
+        "pg_g5a_u08_average_application",
+        "pg_g5a_u08_average_reasoning"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u08_app_direct_average",
-        "ps_g5a_u08_app_average_share_transfer"
+        "ps_g5a_u08_app_average_share_transfer",
+        "ps_g5a_u08_app_average_inverse",
+        "ps_g5a_u08_app_average_update"
       ],
       "questionFormLabels": [
-        "平均數與平均分攤｜應用題"
+        "平均數與平均分攤｜應用題",
+        "逆推平均與平均更新｜推理題"
       ],
       "depthModes": [
         "mixed",
@@ -29159,14 +29504,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::CLASSIC::concept",
@@ -29587,14 +29925,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::FALLBACK_404::concept",
@@ -30015,14 +30346,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::sourceUnit::PIXEL::concept",
@@ -30368,14 +30692,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::CLASSIC::concept",
@@ -30445,14 +30762,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::FALLBACK_404::concept",
@@ -30522,14 +30832,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_criterion_multiplication_division_equivalence::PIXEL::concept",
@@ -30599,14 +30902,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::CLASSIC::numeric",
@@ -30676,14 +30972,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::FALLBACK_404::numeric",
@@ -30753,14 +31042,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_division::PIXEL::numeric",
@@ -30831,14 +31113,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::CLASSIC::numeric",
@@ -30910,14 +31185,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::FALLBACK_404::numeric",
@@ -30989,14 +31257,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_enumeration_by_multiplication_pairs::PIXEL::numeric",
@@ -31067,14 +31328,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_pair_order_and_symmetry::FALLBACK_404::mixed",
@@ -31112,14 +31366,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_factor_pair_order_and_symmetry::PIXEL::mixed",
@@ -31157,14 +31404,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::CLASSIC::mixed",
@@ -31202,14 +31442,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::CLASSIC::reasoning",
@@ -31247,14 +31480,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::FALLBACK_404::mixed",
@@ -31292,14 +31518,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::FALLBACK_404::reasoning",
@@ -31337,14 +31556,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::PIXEL::mixed",
@@ -31382,14 +31594,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_missing_factor_reconstruction::PIXEL::reasoning",
@@ -31427,14 +31632,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::CLASSIC::mixed",
@@ -31473,14 +31671,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::CLASSIC::concept",
@@ -31552,14 +31743,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::FALLBACK_404::concept",
@@ -31631,14 +31815,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_divisibility_factor_membership_judgement::PIXEL::concept",
@@ -31711,14 +31888,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::CLASSIC::application",
@@ -31798,14 +31968,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::FALLBACK_404::application",
@@ -31885,14 +32048,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_equal_partition_factor_application::PIXEL::application",
@@ -31970,14 +32126,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::CLASSIC::concept",
@@ -32047,14 +32196,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::FALLBACK_404::concept",
@@ -32124,14 +32266,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_number_theory_problem_type_discrimination::PIXEL::concept",
@@ -32202,14 +32337,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::CLASSIC::reasoning",
@@ -32248,14 +32376,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::FALLBACK_404::mixed",
@@ -32294,14 +32415,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::FALLBACK_404::reasoning",
@@ -32340,14 +32454,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::PIXEL::mixed",
@@ -32386,14 +32493,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_inverse_reasoning_from_complete_factor_list::PIXEL::reasoning",
@@ -32432,14 +32532,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::CLASSIC::mixed",
@@ -32477,14 +32570,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::FALLBACK_404::mixed",
@@ -32522,14 +32608,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_remainder_transfer_under_divisor_relation::PIXEL::mixed",
@@ -32567,14 +32646,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_concept::CLASSIC::mixed",
@@ -32822,14 +32894,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::CLASSIC::numeric",
@@ -32899,14 +32964,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::FALLBACK_404::numeric",
@@ -32976,14 +33034,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_common_factor_enumeration::PIXEL::numeric",
@@ -33053,14 +33104,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::CLASSIC::numeric",
@@ -33130,14 +33174,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::FALLBACK_404::numeric",
@@ -33207,14 +33244,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_greatest_common_factor::PIXEL::numeric",
@@ -33740,14 +33770,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::CLASSIC::application",
@@ -33823,14 +33846,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::FALLBACK_404::application",
@@ -33906,14 +33922,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_rectangle_equal_square_side_lengths::PIXEL::application",
@@ -33989,14 +33998,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::CLASSIC::application",
@@ -34072,14 +34074,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::FALLBACK_404::application",
@@ -34155,14 +34150,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_square_tile_area_possibilities::PIXEL::application",
@@ -34238,14 +34226,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_multi_constraint_digit_code_number_theory::FALLBACK_404::mixed",
@@ -34283,14 +34264,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::single::kp_g5a_u02_multi_constraint_digit_code_number_theory::PIXEL::mixed",
@@ -34328,14 +34302,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::CLASSIC::mixed",
@@ -34448,14 +34415,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::CLASSIC::concept",
@@ -34824,14 +34784,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::FALLBACK_404::concept",
@@ -35200,14 +35153,7 @@
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
-      "capacityQualityStatuses": [],
-      "lastCapacityReconciliation": {
-        "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-        "sourceId": "g5a_u02_5a02",
-        "publicInputMax": 240,
-        "verifiedRouteMax": 20
-      },
-      "verifiedCapacityQuestionCountMax": 20
+      "capacityQualityStatuses": []
     },
     {
       "bindingId": "g5a_u02_5a02::mixedSameUnit::PIXEL::concept",
@@ -35535,21 +35481,33 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_place_value",
         "p01e_app_pg_g5b_u05_digit_value",
+        "pg_g5b_u05a_large_number_read_write",
         "p01e_app_pg_g5b_u05_read_write",
+        "pg_g5b_u05a_power_of_ten_scaling",
         "p01e_app_pg_g5b_u05_power_ten",
+        "pg_g5b_u05a_large_number_decompose_compare",
         "p01e_app_pg_g5b_u05_decompose"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5b_u05a_large_number_digit_value",
+        "ps_g5b_u05a_large_number_place_composition",
         "ps_g5b_u05a_large_number_to_chinese",
+        "ps_g5b_u05a_chinese_to_large_number",
         "ps_g5b_u05a_multiply_power_of_ten",
-        "ps_g5b_u05a_large_number_expanded_form"
+        "ps_g5b_u05a_divide_power_of_ten_exact",
+        "ps_g5b_u05a_large_number_expanded_form",
+        "ps_g5b_u05a_large_number_compare"
       ],
       "questionFormLabels": [
+        "億以上大數位值",
         "應用題",
+        "億以上大數讀寫",
         "應用題",
+        "乘除10的次方與位值移動",
         "應用題",
+        "大數分解與比較",
         "應用題"
       ],
       "depthModes": [],
@@ -35633,21 +35591,33 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_place_value",
         "p01e_app_pg_g5b_u05_digit_value",
+        "pg_g5b_u05a_large_number_read_write",
         "p01e_app_pg_g5b_u05_read_write",
+        "pg_g5b_u05a_power_of_ten_scaling",
         "p01e_app_pg_g5b_u05_power_ten",
+        "pg_g5b_u05a_large_number_decompose_compare",
         "p01e_app_pg_g5b_u05_decompose"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5b_u05a_large_number_digit_value",
+        "ps_g5b_u05a_large_number_place_composition",
         "ps_g5b_u05a_large_number_to_chinese",
+        "ps_g5b_u05a_chinese_to_large_number",
         "ps_g5b_u05a_multiply_power_of_ten",
-        "ps_g5b_u05a_large_number_expanded_form"
+        "ps_g5b_u05a_divide_power_of_ten_exact",
+        "ps_g5b_u05a_large_number_expanded_form",
+        "ps_g5b_u05a_large_number_compare"
       ],
       "questionFormLabels": [
+        "億以上大數位值",
         "應用題",
+        "億以上大數讀寫",
         "應用題",
+        "乘除10的次方與位值移動",
         "應用題",
+        "大數分解與比較",
         "應用題"
       ],
       "depthModes": [],
@@ -35731,21 +35701,33 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_place_value",
         "p01e_app_pg_g5b_u05_digit_value",
+        "pg_g5b_u05a_large_number_read_write",
         "p01e_app_pg_g5b_u05_read_write",
+        "pg_g5b_u05a_power_of_ten_scaling",
         "p01e_app_pg_g5b_u05_power_ten",
+        "pg_g5b_u05a_large_number_decompose_compare",
         "p01e_app_pg_g5b_u05_decompose"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5b_u05a_large_number_digit_value",
+        "ps_g5b_u05a_large_number_place_composition",
         "ps_g5b_u05a_large_number_to_chinese",
+        "ps_g5b_u05a_chinese_to_large_number",
         "ps_g5b_u05a_multiply_power_of_ten",
-        "ps_g5b_u05a_large_number_expanded_form"
+        "ps_g5b_u05a_divide_power_of_ten_exact",
+        "ps_g5b_u05a_large_number_expanded_form",
+        "ps_g5b_u05a_large_number_compare"
       ],
       "questionFormLabels": [
+        "億以上大數位值",
         "應用題",
+        "億以上大數讀寫",
         "應用題",
+        "乘除10的次方與位值移動",
         "應用題",
+        "大數分解與比較",
         "應用題"
       ],
       "depthModes": [],
@@ -35805,12 +35787,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_place_value",
         "p01e_app_pg_g5b_u05_digit_value"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_large_number_digit_value"
+        "ps_g5b_u05a_large_number_digit_value",
+        "ps_g5b_u05a_large_number_place_composition"
       ],
       "questionFormLabels": [
+        "億以上大數位值",
         "應用題"
       ],
       "depthModes": [],
@@ -35870,12 +35855,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_place_value",
         "p01e_app_pg_g5b_u05_digit_value"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_large_number_digit_value"
+        "ps_g5b_u05a_large_number_digit_value",
+        "ps_g5b_u05a_large_number_place_composition"
       ],
       "questionFormLabels": [
+        "億以上大數位值",
         "應用題"
       ],
       "depthModes": [],
@@ -35935,12 +35923,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_place_value",
         "p01e_app_pg_g5b_u05_digit_value"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_large_number_digit_value"
+        "ps_g5b_u05a_large_number_digit_value",
+        "ps_g5b_u05a_large_number_place_composition"
       ],
       "questionFormLabels": [
+        "億以上大數位值",
         "應用題"
       ],
       "depthModes": [],
@@ -36000,12 +35991,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_read_write",
         "p01e_app_pg_g5b_u05_read_write"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_large_number_to_chinese"
+        "ps_g5b_u05a_large_number_to_chinese",
+        "ps_g5b_u05a_chinese_to_large_number"
       ],
       "questionFormLabels": [
+        "億以上大數讀寫",
         "應用題"
       ],
       "depthModes": [],
@@ -36065,12 +36059,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_read_write",
         "p01e_app_pg_g5b_u05_read_write"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_large_number_to_chinese"
+        "ps_g5b_u05a_large_number_to_chinese",
+        "ps_g5b_u05a_chinese_to_large_number"
       ],
       "questionFormLabels": [
+        "億以上大數讀寫",
         "應用題"
       ],
       "depthModes": [],
@@ -36130,12 +36127,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_read_write",
         "p01e_app_pg_g5b_u05_read_write"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_large_number_to_chinese"
+        "ps_g5b_u05a_large_number_to_chinese",
+        "ps_g5b_u05a_chinese_to_large_number"
       ],
       "questionFormLabels": [
+        "億以上大數讀寫",
         "應用題"
       ],
       "depthModes": [],
@@ -36195,12 +36195,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_power_of_ten_scaling",
         "p01e_app_pg_g5b_u05_power_ten"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_multiply_power_of_ten"
+        "ps_g5b_u05a_multiply_power_of_ten",
+        "ps_g5b_u05a_divide_power_of_ten_exact"
       ],
       "questionFormLabels": [
+        "乘除10的次方與位值移動",
         "應用題"
       ],
       "depthModes": [],
@@ -36260,12 +36263,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_power_of_ten_scaling",
         "p01e_app_pg_g5b_u05_power_ten"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_multiply_power_of_ten"
+        "ps_g5b_u05a_multiply_power_of_ten",
+        "ps_g5b_u05a_divide_power_of_ten_exact"
       ],
       "questionFormLabels": [
+        "乘除10的次方與位值移動",
         "應用題"
       ],
       "depthModes": [],
@@ -36325,12 +36331,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_power_of_ten_scaling",
         "p01e_app_pg_g5b_u05_power_ten"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_multiply_power_of_ten"
+        "ps_g5b_u05a_multiply_power_of_ten",
+        "ps_g5b_u05a_divide_power_of_ten_exact"
       ],
       "questionFormLabels": [
+        "乘除10的次方與位值移動",
         "應用題"
       ],
       "depthModes": [],
@@ -36390,12 +36399,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_decompose_compare",
         "p01e_app_pg_g5b_u05_decompose"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_large_number_expanded_form"
+        "ps_g5b_u05a_large_number_expanded_form",
+        "ps_g5b_u05a_large_number_compare"
       ],
       "questionFormLabels": [
+        "大數分解與比較",
         "應用題"
       ],
       "depthModes": [],
@@ -36455,12 +36467,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_decompose_compare",
         "p01e_app_pg_g5b_u05_decompose"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_large_number_expanded_form"
+        "ps_g5b_u05a_large_number_expanded_form",
+        "ps_g5b_u05a_large_number_compare"
       ],
       "questionFormLabels": [
+        "大數分解與比較",
         "應用題"
       ],
       "depthModes": [],
@@ -36520,12 +36535,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5b_u05a_large_number_decompose_compare",
         "p01e_app_pg_g5b_u05_decompose"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5b_u05a_large_number_expanded_form"
+        "ps_g5b_u05a_large_number_expanded_form",
+        "ps_g5b_u05a_large_number_compare"
       ],
       "questionFormLabels": [
+        "大數分解與比較",
         "應用題"
       ],
       "depthModes": [],
@@ -36879,21 +36897,33 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_exact_grouping_feasibility",
         "p01e_app_pg_g5a_u03_exact_grouping",
+        "pg_g5a_u03a_multiple_identify_enumerate",
         "p01e_app_pg_g5a_u03_enumerate_multiples",
+        "pg_g5a_u03a_bounded_or_nearest_multiple",
         "p01e_app_pg_g5a_u03_bounded_multiple",
+        "pg_g5a_u03a_count_multiples_interval",
         "p01e_app_pg_g5a_u03_count_interval"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a_exact_grouping_yes_no",
+        "ps_g5a_u03a_exact_grouping_candidate_sizes",
         "ps_g5a_u03a_enumerate_first_multiples",
+        "ps_g5a_u03a_enumerate_multiples_after",
         "ps_g5a_u03a_list_multiples_in_interval",
-        "ps_g5a_u03a_count_multiples_in_interval"
+        "ps_g5a_u03a_nearest_multiple",
+        "ps_g5a_u03a_count_multiples_in_interval",
+        "ps_g5a_u03a_nth_multiple"
       ],
       "questionFormLabels": [
+        "整除分組方案可行性",
         "應用題",
+        "倍數辨識與列舉",
         "應用題",
+        "範圍內與最接近的倍數",
         "應用題",
+        "區間內倍數個數",
         "應用題"
       ],
       "depthModes": [],
@@ -36989,21 +37019,33 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_exact_grouping_feasibility",
         "p01e_app_pg_g5a_u03_exact_grouping",
+        "pg_g5a_u03a_multiple_identify_enumerate",
         "p01e_app_pg_g5a_u03_enumerate_multiples",
+        "pg_g5a_u03a_bounded_or_nearest_multiple",
         "p01e_app_pg_g5a_u03_bounded_multiple",
+        "pg_g5a_u03a_count_multiples_interval",
         "p01e_app_pg_g5a_u03_count_interval"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a_exact_grouping_yes_no",
+        "ps_g5a_u03a_exact_grouping_candidate_sizes",
         "ps_g5a_u03a_enumerate_first_multiples",
+        "ps_g5a_u03a_enumerate_multiples_after",
         "ps_g5a_u03a_list_multiples_in_interval",
-        "ps_g5a_u03a_count_multiples_in_interval"
+        "ps_g5a_u03a_nearest_multiple",
+        "ps_g5a_u03a_count_multiples_in_interval",
+        "ps_g5a_u03a_nth_multiple"
       ],
       "questionFormLabels": [
+        "整除分組方案可行性",
         "應用題",
+        "倍數辨識與列舉",
         "應用題",
+        "範圍內與最接近的倍數",
         "應用題",
+        "區間內倍數個數",
         "應用題"
       ],
       "depthModes": [],
@@ -37099,21 +37141,33 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_exact_grouping_feasibility",
         "p01e_app_pg_g5a_u03_exact_grouping",
+        "pg_g5a_u03a_multiple_identify_enumerate",
         "p01e_app_pg_g5a_u03_enumerate_multiples",
+        "pg_g5a_u03a_bounded_or_nearest_multiple",
         "p01e_app_pg_g5a_u03_bounded_multiple",
+        "pg_g5a_u03a_count_multiples_interval",
         "p01e_app_pg_g5a_u03_count_interval"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a_exact_grouping_yes_no",
+        "ps_g5a_u03a_exact_grouping_candidate_sizes",
         "ps_g5a_u03a_enumerate_first_multiples",
+        "ps_g5a_u03a_enumerate_multiples_after",
         "ps_g5a_u03a_list_multiples_in_interval",
-        "ps_g5a_u03a_count_multiples_in_interval"
+        "ps_g5a_u03a_nearest_multiple",
+        "ps_g5a_u03a_count_multiples_in_interval",
+        "ps_g5a_u03a_nth_multiple"
       ],
       "questionFormLabels": [
+        "整除分組方案可行性",
         "應用題",
+        "倍數辨識與列舉",
         "應用題",
+        "範圍內與最接近的倍數",
         "應用題",
+        "區間內倍數個數",
         "應用題"
       ],
       "depthModes": [],
@@ -37371,12 +37425,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_exact_grouping_feasibility",
         "p01e_app_pg_g5a_u03_exact_grouping"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_exact_grouping_yes_no"
+        "ps_g5a_u03a_exact_grouping_yes_no",
+        "ps_g5a_u03a_exact_grouping_candidate_sizes"
       ],
       "questionFormLabels": [
+        "整除分組方案可行性",
         "應用題"
       ],
       "depthModes": [],
@@ -37436,12 +37493,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_exact_grouping_feasibility",
         "p01e_app_pg_g5a_u03_exact_grouping"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_exact_grouping_yes_no"
+        "ps_g5a_u03a_exact_grouping_yes_no",
+        "ps_g5a_u03a_exact_grouping_candidate_sizes"
       ],
       "questionFormLabels": [
+        "整除分組方案可行性",
         "應用題"
       ],
       "depthModes": [],
@@ -37501,12 +37561,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_exact_grouping_feasibility",
         "p01e_app_pg_g5a_u03_exact_grouping"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_exact_grouping_yes_no"
+        "ps_g5a_u03a_exact_grouping_yes_no",
+        "ps_g5a_u03a_exact_grouping_candidate_sizes"
       ],
       "questionFormLabels": [
+        "整除分組方案可行性",
         "應用題"
       ],
       "depthModes": [],
@@ -37566,12 +37629,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_multiple_identify_enumerate",
         "p01e_app_pg_g5a_u03_enumerate_multiples"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_enumerate_first_multiples"
+        "ps_g5a_u03a_enumerate_first_multiples",
+        "ps_g5a_u03a_enumerate_multiples_after"
       ],
       "questionFormLabels": [
+        "倍數辨識與列舉",
         "應用題"
       ],
       "depthModes": [],
@@ -37631,12 +37697,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_multiple_identify_enumerate",
         "p01e_app_pg_g5a_u03_enumerate_multiples"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_enumerate_first_multiples"
+        "ps_g5a_u03a_enumerate_first_multiples",
+        "ps_g5a_u03a_enumerate_multiples_after"
       ],
       "questionFormLabels": [
+        "倍數辨識與列舉",
         "應用題"
       ],
       "depthModes": [],
@@ -37696,12 +37765,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_multiple_identify_enumerate",
         "p01e_app_pg_g5a_u03_enumerate_multiples"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_enumerate_first_multiples"
+        "ps_g5a_u03a_enumerate_first_multiples",
+        "ps_g5a_u03a_enumerate_multiples_after"
       ],
       "questionFormLabels": [
+        "倍數辨識與列舉",
         "應用題"
       ],
       "depthModes": [],
@@ -37761,12 +37833,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_bounded_or_nearest_multiple",
         "p01e_app_pg_g5a_u03_bounded_multiple"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_list_multiples_in_interval"
+        "ps_g5a_u03a_list_multiples_in_interval",
+        "ps_g5a_u03a_nearest_multiple"
       ],
       "questionFormLabels": [
+        "範圍內與最接近的倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -37826,12 +37901,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_bounded_or_nearest_multiple",
         "p01e_app_pg_g5a_u03_bounded_multiple"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_list_multiples_in_interval"
+        "ps_g5a_u03a_list_multiples_in_interval",
+        "ps_g5a_u03a_nearest_multiple"
       ],
       "questionFormLabels": [
+        "範圍內與最接近的倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -37891,12 +37969,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_bounded_or_nearest_multiple",
         "p01e_app_pg_g5a_u03_bounded_multiple"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_list_multiples_in_interval"
+        "ps_g5a_u03a_list_multiples_in_interval",
+        "ps_g5a_u03a_nearest_multiple"
       ],
       "questionFormLabels": [
+        "範圍內與最接近的倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -37956,12 +38037,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_count_multiples_interval",
         "p01e_app_pg_g5a_u03_count_interval"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_count_multiples_in_interval"
+        "ps_g5a_u03a_count_multiples_in_interval",
+        "ps_g5a_u03a_nth_multiple"
       ],
       "questionFormLabels": [
+        "區間內倍數個數",
         "應用題"
       ],
       "depthModes": [],
@@ -38021,12 +38105,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_count_multiples_interval",
         "p01e_app_pg_g5a_u03_count_interval"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_count_multiples_in_interval"
+        "ps_g5a_u03a_count_multiples_in_interval",
+        "ps_g5a_u03a_nth_multiple"
       ],
       "questionFormLabels": [
+        "區間內倍數個數",
         "應用題"
       ],
       "depthModes": [],
@@ -38086,12 +38173,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_count_multiples_interval",
         "p01e_app_pg_g5a_u03_count_interval"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a_count_multiples_in_interval"
+        "ps_g5a_u03a_count_multiples_in_interval",
+        "ps_g5a_u03a_nth_multiple"
       ],
       "questionFormLabels": [
+        "區間內倍數個數",
         "應用題"
       ],
       "depthModes": [],
@@ -38286,21 +38376,33 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_exact_grouping_feasibility",
         "p01e_app_pg_g5a_u03_exact_grouping",
+        "pg_g5a_u03a_multiple_identify_enumerate",
         "p01e_app_pg_g5a_u03_enumerate_multiples",
+        "pg_g5a_u03a_bounded_or_nearest_multiple",
         "p01e_app_pg_g5a_u03_bounded_multiple",
+        "pg_g5a_u03a_count_multiples_interval",
         "p01e_app_pg_g5a_u03_count_interval"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a_exact_grouping_yes_no",
+        "ps_g5a_u03a_exact_grouping_candidate_sizes",
         "ps_g5a_u03a_enumerate_first_multiples",
+        "ps_g5a_u03a_enumerate_multiples_after",
         "ps_g5a_u03a_list_multiples_in_interval",
-        "ps_g5a_u03a_count_multiples_in_interval"
+        "ps_g5a_u03a_nearest_multiple",
+        "ps_g5a_u03a_count_multiples_in_interval",
+        "ps_g5a_u03a_nth_multiple"
       ],
       "questionFormLabels": [
+        "整除分組方案可行性",
         "應用題",
+        "倍數辨識與列舉",
         "應用題",
+        "範圍內與最接近的倍數",
         "應用題",
+        "區間內倍數個數",
         "應用題"
       ],
       "depthModes": [],
@@ -38396,21 +38498,33 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_exact_grouping_feasibility",
         "p01e_app_pg_g5a_u03_exact_grouping",
+        "pg_g5a_u03a_multiple_identify_enumerate",
         "p01e_app_pg_g5a_u03_enumerate_multiples",
+        "pg_g5a_u03a_bounded_or_nearest_multiple",
         "p01e_app_pg_g5a_u03_bounded_multiple",
+        "pg_g5a_u03a_count_multiples_interval",
         "p01e_app_pg_g5a_u03_count_interval"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a_exact_grouping_yes_no",
+        "ps_g5a_u03a_exact_grouping_candidate_sizes",
         "ps_g5a_u03a_enumerate_first_multiples",
+        "ps_g5a_u03a_enumerate_multiples_after",
         "ps_g5a_u03a_list_multiples_in_interval",
-        "ps_g5a_u03a_count_multiples_in_interval"
+        "ps_g5a_u03a_nearest_multiple",
+        "ps_g5a_u03a_count_multiples_in_interval",
+        "ps_g5a_u03a_nth_multiple"
       ],
       "questionFormLabels": [
+        "整除分組方案可行性",
         "應用題",
+        "倍數辨識與列舉",
         "應用題",
+        "範圍內與最接近的倍數",
         "應用題",
+        "區間內倍數個數",
         "應用題"
       ],
       "depthModes": [],
@@ -38506,21 +38620,33 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a_exact_grouping_feasibility",
         "p01e_app_pg_g5a_u03_exact_grouping",
+        "pg_g5a_u03a_multiple_identify_enumerate",
         "p01e_app_pg_g5a_u03_enumerate_multiples",
+        "pg_g5a_u03a_bounded_or_nearest_multiple",
         "p01e_app_pg_g5a_u03_bounded_multiple",
+        "pg_g5a_u03a_count_multiples_interval",
         "p01e_app_pg_g5a_u03_count_interval"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a_exact_grouping_yes_no",
+        "ps_g5a_u03a_exact_grouping_candidate_sizes",
         "ps_g5a_u03a_enumerate_first_multiples",
+        "ps_g5a_u03a_enumerate_multiples_after",
         "ps_g5a_u03a_list_multiples_in_interval",
-        "ps_g5a_u03a_count_multiples_in_interval"
+        "ps_g5a_u03a_nearest_multiple",
+        "ps_g5a_u03a_count_multiples_in_interval",
+        "ps_g5a_u03a_nth_multiple"
       ],
       "questionFormLabels": [
+        "整除分組方案可行性",
         "應用題",
+        "倍數辨識與列舉",
         "應用題",
+        "範圍內與最接近的倍數",
         "應用題",
+        "區間內倍數個數",
         "應用題"
       ],
       "depthModes": [],
@@ -38604,18 +38730,27 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_common_multiple_lcm",
         "p01e_app_pg_g5a_u03a1_lcm",
+        "pg_g5a_u03a1_bounded_common_multiples",
         "p01e_app_pg_g5a_u03a1_bounded",
+        "pg_g5a_u03a1_grouping_constraints",
         "p01e_app_pg_g5a_u03a1_grouping"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a1_lcm_direct",
+        "ps_g5a_u03a1_first_common_multiples",
         "ps_g5a_u03a1_bounded_common_multiples",
-        "ps_g5a_u03a1_minimum_common_group_total"
+        "ps_g5a_u03a1_count_common_multiples_interval",
+        "ps_g5a_u03a1_minimum_common_group_total",
+        "ps_g5a_u03a1_possible_common_totals_in_range"
       ],
       "questionFormLabels": [
+        "公倍數與最小公倍數",
         "應用題",
+        "指定範圍內的公倍數",
         "應用題",
+        "兩種分組規格的共同總量",
         "應用題"
       ],
       "depthModes": [],
@@ -38699,18 +38834,27 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_common_multiple_lcm",
         "p01e_app_pg_g5a_u03a1_lcm",
+        "pg_g5a_u03a1_bounded_common_multiples",
         "p01e_app_pg_g5a_u03a1_bounded",
+        "pg_g5a_u03a1_grouping_constraints",
         "p01e_app_pg_g5a_u03a1_grouping"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a1_lcm_direct",
+        "ps_g5a_u03a1_first_common_multiples",
         "ps_g5a_u03a1_bounded_common_multiples",
-        "ps_g5a_u03a1_minimum_common_group_total"
+        "ps_g5a_u03a1_count_common_multiples_interval",
+        "ps_g5a_u03a1_minimum_common_group_total",
+        "ps_g5a_u03a1_possible_common_totals_in_range"
       ],
       "questionFormLabels": [
+        "公倍數與最小公倍數",
         "應用題",
+        "指定範圍內的公倍數",
         "應用題",
+        "兩種分組規格的共同總量",
         "應用題"
       ],
       "depthModes": [],
@@ -38794,18 +38938,27 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_common_multiple_lcm",
         "p01e_app_pg_g5a_u03a1_lcm",
+        "pg_g5a_u03a1_bounded_common_multiples",
         "p01e_app_pg_g5a_u03a1_bounded",
+        "pg_g5a_u03a1_grouping_constraints",
         "p01e_app_pg_g5a_u03a1_grouping"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a1_lcm_direct",
+        "ps_g5a_u03a1_first_common_multiples",
         "ps_g5a_u03a1_bounded_common_multiples",
-        "ps_g5a_u03a1_minimum_common_group_total"
+        "ps_g5a_u03a1_count_common_multiples_interval",
+        "ps_g5a_u03a1_minimum_common_group_total",
+        "ps_g5a_u03a1_possible_common_totals_in_range"
       ],
       "questionFormLabels": [
+        "公倍數與最小公倍數",
         "應用題",
+        "指定範圍內的公倍數",
         "應用題",
+        "兩種分組規格的共同總量",
         "應用題"
       ],
       "depthModes": [],
@@ -38865,12 +39018,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_common_multiple_lcm",
         "p01e_app_pg_g5a_u03a1_lcm"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a1_lcm_direct"
+        "ps_g5a_u03a1_lcm_direct",
+        "ps_g5a_u03a1_first_common_multiples"
       ],
       "questionFormLabels": [
+        "公倍數與最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -38930,12 +39086,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_common_multiple_lcm",
         "p01e_app_pg_g5a_u03a1_lcm"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a1_lcm_direct"
+        "ps_g5a_u03a1_lcm_direct",
+        "ps_g5a_u03a1_first_common_multiples"
       ],
       "questionFormLabels": [
+        "公倍數與最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -38995,12 +39154,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_common_multiple_lcm",
         "p01e_app_pg_g5a_u03a1_lcm"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a1_lcm_direct"
+        "ps_g5a_u03a1_lcm_direct",
+        "ps_g5a_u03a1_first_common_multiples"
       ],
       "questionFormLabels": [
+        "公倍數與最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -39060,12 +39222,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_bounded_common_multiples",
         "p01e_app_pg_g5a_u03a1_bounded"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a1_bounded_common_multiples"
+        "ps_g5a_u03a1_bounded_common_multiples",
+        "ps_g5a_u03a1_count_common_multiples_interval"
       ],
       "questionFormLabels": [
+        "指定範圍內的公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -39125,12 +39290,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_bounded_common_multiples",
         "p01e_app_pg_g5a_u03a1_bounded"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a1_bounded_common_multiples"
+        "ps_g5a_u03a1_bounded_common_multiples",
+        "ps_g5a_u03a1_count_common_multiples_interval"
       ],
       "questionFormLabels": [
+        "指定範圍內的公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -39190,12 +39358,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_bounded_common_multiples",
         "p01e_app_pg_g5a_u03a1_bounded"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a1_bounded_common_multiples"
+        "ps_g5a_u03a1_bounded_common_multiples",
+        "ps_g5a_u03a1_count_common_multiples_interval"
       ],
       "questionFormLabels": [
+        "指定範圍內的公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -39354,12 +39525,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_grouping_constraints",
         "p01e_app_pg_g5a_u03a1_grouping"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a1_minimum_common_group_total"
+        "ps_g5a_u03a1_minimum_common_group_total",
+        "ps_g5a_u03a1_possible_common_totals_in_range"
       ],
       "questionFormLabels": [
+        "兩種分組規格的共同總量",
         "應用題"
       ],
       "depthModes": [],
@@ -39419,12 +39593,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_grouping_constraints",
         "p01e_app_pg_g5a_u03a1_grouping"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a1_minimum_common_group_total"
+        "ps_g5a_u03a1_minimum_common_group_total",
+        "ps_g5a_u03a1_possible_common_totals_in_range"
       ],
       "questionFormLabels": [
+        "兩種分組規格的共同總量",
         "應用題"
       ],
       "depthModes": [],
@@ -39484,12 +39661,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_grouping_constraints",
         "p01e_app_pg_g5a_u03a1_grouping"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u03a1_minimum_common_group_total"
+        "ps_g5a_u03a1_minimum_common_group_total",
+        "ps_g5a_u03a1_possible_common_totals_in_range"
       ],
       "questionFormLabels": [
+        "兩種分組規格的共同總量",
         "應用題"
       ],
       "depthModes": [],
@@ -39672,18 +39852,27 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_common_multiple_lcm",
         "p01e_app_pg_g5a_u03a1_lcm",
+        "pg_g5a_u03a1_bounded_common_multiples",
         "p01e_app_pg_g5a_u03a1_bounded",
+        "pg_g5a_u03a1_grouping_constraints",
         "p01e_app_pg_g5a_u03a1_grouping"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a1_lcm_direct",
+        "ps_g5a_u03a1_first_common_multiples",
         "ps_g5a_u03a1_bounded_common_multiples",
-        "ps_g5a_u03a1_minimum_common_group_total"
+        "ps_g5a_u03a1_count_common_multiples_interval",
+        "ps_g5a_u03a1_minimum_common_group_total",
+        "ps_g5a_u03a1_possible_common_totals_in_range"
       ],
       "questionFormLabels": [
+        "公倍數與最小公倍數",
         "應用題",
+        "指定範圍內的公倍數",
         "應用題",
+        "兩種分組規格的共同總量",
         "應用題"
       ],
       "depthModes": [],
@@ -39767,18 +39956,27 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_common_multiple_lcm",
         "p01e_app_pg_g5a_u03a1_lcm",
+        "pg_g5a_u03a1_bounded_common_multiples",
         "p01e_app_pg_g5a_u03a1_bounded",
+        "pg_g5a_u03a1_grouping_constraints",
         "p01e_app_pg_g5a_u03a1_grouping"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a1_lcm_direct",
+        "ps_g5a_u03a1_first_common_multiples",
         "ps_g5a_u03a1_bounded_common_multiples",
-        "ps_g5a_u03a1_minimum_common_group_total"
+        "ps_g5a_u03a1_count_common_multiples_interval",
+        "ps_g5a_u03a1_minimum_common_group_total",
+        "ps_g5a_u03a1_possible_common_totals_in_range"
       ],
       "questionFormLabels": [
+        "公倍數與最小公倍數",
         "應用題",
+        "指定範圍內的公倍數",
         "應用題",
+        "兩種分組規格的共同總量",
         "應用題"
       ],
       "depthModes": [],
@@ -39862,18 +40060,27 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u03a1_common_multiple_lcm",
         "p01e_app_pg_g5a_u03a1_lcm",
+        "pg_g5a_u03a1_bounded_common_multiples",
         "p01e_app_pg_g5a_u03a1_bounded",
+        "pg_g5a_u03a1_grouping_constraints",
         "p01e_app_pg_g5a_u03a1_grouping"
       ],
       "compatiblePatternSpecIds": [
         "ps_g5a_u03a1_lcm_direct",
+        "ps_g5a_u03a1_first_common_multiples",
         "ps_g5a_u03a1_bounded_common_multiples",
-        "ps_g5a_u03a1_minimum_common_group_total"
+        "ps_g5a_u03a1_count_common_multiples_interval",
+        "ps_g5a_u03a1_minimum_common_group_total",
+        "ps_g5a_u03a1_possible_common_totals_in_range"
       ],
       "questionFormLabels": [
+        "公倍數與最小公倍數",
         "應用題",
+        "指定範圍內的公倍數",
         "應用題",
+        "兩種分組規格的共同總量",
         "應用題"
       ],
       "depthModes": [],
@@ -39957,15 +40164,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_greatest_common_factor",
         "p01e_app_pg_g6a_u01_gcf",
+        "pg_g6a_u01_least_common_multiple",
         "p01e_app_pg_g6a_u01_lcm"
       ],
       "compatiblePatternSpecIds": [
         "ps_g6a_u01_gcf_direct",
-        "ps_g6a_u01_lcm_direct"
+        "ps_g6a_u01_gcf_from_prime_exponents",
+        "ps_g6a_u01_lcm_direct",
+        "ps_g6a_u01_lcm_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最大公因數",
         "應用題",
+        "最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -40049,15 +40262,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_greatest_common_factor",
         "p01e_app_pg_g6a_u01_gcf",
+        "pg_g6a_u01_least_common_multiple",
         "p01e_app_pg_g6a_u01_lcm"
       ],
       "compatiblePatternSpecIds": [
         "ps_g6a_u01_gcf_direct",
-        "ps_g6a_u01_lcm_direct"
+        "ps_g6a_u01_gcf_from_prime_exponents",
+        "ps_g6a_u01_lcm_direct",
+        "ps_g6a_u01_lcm_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最大公因數",
         "應用題",
+        "最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -40141,15 +40360,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_greatest_common_factor",
         "p01e_app_pg_g6a_u01_gcf",
+        "pg_g6a_u01_least_common_multiple",
         "p01e_app_pg_g6a_u01_lcm"
       ],
       "compatiblePatternSpecIds": [
         "ps_g6a_u01_gcf_direct",
-        "ps_g6a_u01_lcm_direct"
+        "ps_g6a_u01_gcf_from_prime_exponents",
+        "ps_g6a_u01_lcm_direct",
+        "ps_g6a_u01_lcm_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最大公因數",
         "應用題",
+        "最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -40506,12 +40731,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_greatest_common_factor",
         "p01e_app_pg_g6a_u01_gcf"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g6a_u01_gcf_direct"
+        "ps_g6a_u01_gcf_direct",
+        "ps_g6a_u01_gcf_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最大公因數",
         "應用題"
       ],
       "depthModes": [],
@@ -40571,12 +40799,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_greatest_common_factor",
         "p01e_app_pg_g6a_u01_gcf"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g6a_u01_gcf_direct"
+        "ps_g6a_u01_gcf_direct",
+        "ps_g6a_u01_gcf_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最大公因數",
         "應用題"
       ],
       "depthModes": [],
@@ -40636,12 +40867,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_greatest_common_factor",
         "p01e_app_pg_g6a_u01_gcf"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g6a_u01_gcf_direct"
+        "ps_g6a_u01_gcf_direct",
+        "ps_g6a_u01_gcf_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最大公因數",
         "應用題"
       ],
       "depthModes": [],
@@ -40701,12 +40935,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_least_common_multiple",
         "p01e_app_pg_g6a_u01_lcm"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g6a_u01_lcm_direct"
+        "ps_g6a_u01_lcm_direct",
+        "ps_g6a_u01_lcm_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -40766,12 +41003,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_least_common_multiple",
         "p01e_app_pg_g6a_u01_lcm"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g6a_u01_lcm_direct"
+        "ps_g6a_u01_lcm_direct",
+        "ps_g6a_u01_lcm_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -40831,12 +41071,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_least_common_multiple",
         "p01e_app_pg_g6a_u01_lcm"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g6a_u01_lcm_direct"
+        "ps_g6a_u01_lcm_direct",
+        "ps_g6a_u01_lcm_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -40920,15 +41163,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_greatest_common_factor",
         "p01e_app_pg_g6a_u01_gcf",
+        "pg_g6a_u01_least_common_multiple",
         "p01e_app_pg_g6a_u01_lcm"
       ],
       "compatiblePatternSpecIds": [
         "ps_g6a_u01_gcf_direct",
-        "ps_g6a_u01_lcm_direct"
+        "ps_g6a_u01_gcf_from_prime_exponents",
+        "ps_g6a_u01_lcm_direct",
+        "ps_g6a_u01_lcm_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最大公因數",
         "應用題",
+        "最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -41012,15 +41261,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_greatest_common_factor",
         "p01e_app_pg_g6a_u01_gcf",
+        "pg_g6a_u01_least_common_multiple",
         "p01e_app_pg_g6a_u01_lcm"
       ],
       "compatiblePatternSpecIds": [
         "ps_g6a_u01_gcf_direct",
-        "ps_g6a_u01_lcm_direct"
+        "ps_g6a_u01_gcf_from_prime_exponents",
+        "ps_g6a_u01_lcm_direct",
+        "ps_g6a_u01_lcm_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最大公因數",
         "應用題",
+        "最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -41104,15 +41359,21 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g6a_u01_greatest_common_factor",
         "p01e_app_pg_g6a_u01_gcf",
+        "pg_g6a_u01_least_common_multiple",
         "p01e_app_pg_g6a_u01_lcm"
       ],
       "compatiblePatternSpecIds": [
         "ps_g6a_u01_gcf_direct",
-        "ps_g6a_u01_lcm_direct"
+        "ps_g6a_u01_gcf_from_prime_exponents",
+        "ps_g6a_u01_lcm_direct",
+        "ps_g6a_u01_lcm_from_prime_exponents"
       ],
       "questionFormLabels": [
+        "最大公因數",
         "應用題",
+        "最小公倍數",
         "應用題"
       ],
       "depthModes": [],
@@ -41187,19 +41448,29 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_unit_fraction_accumulation_numeric",
         "pg_g3a_u08_unit_fraction_accumulation_application",
+        "pg_g3a_u08_discrete_set_fraction_numeric",
         "pg_g3a_u08_discrete_set_fraction_application",
+        "pg_g3a_u08_same_denominator_compare_numeric",
         "pg_g3a_u08_same_denominator_compare_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
         "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+        "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+        "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
         "ps_g3a_u08_discrete_set_fraction_item_count_application",
         "ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric",
         "ps_g3a_u08_same_denominator_compare_comparison_application"
       ],
       "questionFormLabels": [
+        "單位分數累積｜數字題",
         "單位分數累積｜應用題",
+        "離散集合分數與單位換算｜數字題",
         "離散集合分數與單位換算｜應用題",
+        "同分母分數比較｜數字題",
         "同分母分數比較｜應用題"
       ],
       "depthModes": [],
@@ -41276,19 +41547,29 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_unit_fraction_accumulation_numeric",
         "pg_g3a_u08_unit_fraction_accumulation_application",
+        "pg_g3a_u08_discrete_set_fraction_numeric",
         "pg_g3a_u08_discrete_set_fraction_application",
+        "pg_g3a_u08_same_denominator_compare_numeric",
         "pg_g3a_u08_same_denominator_compare_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
         "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+        "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+        "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
         "ps_g3a_u08_discrete_set_fraction_item_count_application",
         "ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric",
         "ps_g3a_u08_same_denominator_compare_comparison_application"
       ],
       "questionFormLabels": [
+        "單位分數累積｜數字題",
         "單位分數累積｜應用題",
+        "離散集合分數與單位換算｜數字題",
         "離散集合分數與單位換算｜應用題",
+        "同分母分數比較｜數字題",
         "同分母分數比較｜應用題"
       ],
       "depthModes": [],
@@ -41365,19 +41646,29 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_unit_fraction_accumulation_numeric",
         "pg_g3a_u08_unit_fraction_accumulation_application",
+        "pg_g3a_u08_discrete_set_fraction_numeric",
         "pg_g3a_u08_discrete_set_fraction_application",
+        "pg_g3a_u08_same_denominator_compare_numeric",
         "pg_g3a_u08_same_denominator_compare_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
         "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+        "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+        "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
         "ps_g3a_u08_discrete_set_fraction_item_count_application",
         "ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric",
         "ps_g3a_u08_same_denominator_compare_comparison_application"
       ],
       "questionFormLabels": [
+        "單位分數累積｜數字題",
         "單位分數累積｜應用題",
+        "離散集合分數與單位換算｜數字題",
         "離散集合分數與單位換算｜應用題",
+        "同分母分數比較｜數字題",
         "同分母分數比較｜應用題"
       ],
       "depthModes": [],
@@ -41534,12 +41825,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_unit_fraction_accumulation_numeric",
         "pg_g3a_u08_unit_fraction_accumulation_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
         "ps_g3a_u08_unit_fraction_accumulation_fraction_application"
       ],
       "questionFormLabels": [
+        "單位分數累積｜數字題",
         "單位分數累積｜應用題"
       ],
       "depthModes": [],
@@ -41600,12 +41894,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_unit_fraction_accumulation_numeric",
         "pg_g3a_u08_unit_fraction_accumulation_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
         "ps_g3a_u08_unit_fraction_accumulation_fraction_application"
       ],
       "questionFormLabels": [
+        "單位分數累積｜數字題",
         "單位分數累積｜應用題"
       ],
       "depthModes": [],
@@ -41666,12 +41963,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_unit_fraction_accumulation_numeric",
         "pg_g3a_u08_unit_fraction_accumulation_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
         "ps_g3a_u08_unit_fraction_accumulation_fraction_application"
       ],
       "questionFormLabels": [
+        "單位分數累積｜數字題",
         "單位分數累積｜應用題"
       ],
       "depthModes": [],
@@ -41733,13 +42033,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_discrete_set_fraction_numeric",
         "pg_g3a_u08_discrete_set_fraction_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+        "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
         "ps_g3a_u08_discrete_set_fraction_item_count_application",
         "ps_g3a_u08_discrete_set_fraction_fractional_units_application"
       ],
       "questionFormLabels": [
+        "離散集合分數與單位換算｜數字題",
         "離散集合分數與單位換算｜應用題"
       ],
       "depthModes": [],
@@ -41801,13 +42105,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_discrete_set_fraction_numeric",
         "pg_g3a_u08_discrete_set_fraction_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+        "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
         "ps_g3a_u08_discrete_set_fraction_item_count_application",
         "ps_g3a_u08_discrete_set_fraction_fractional_units_application"
       ],
       "questionFormLabels": [
+        "離散集合分數與單位換算｜數字題",
         "離散集合分數與單位換算｜應用題"
       ],
       "depthModes": [],
@@ -41869,13 +42177,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_discrete_set_fraction_numeric",
         "pg_g3a_u08_discrete_set_fraction_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+        "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
         "ps_g3a_u08_discrete_set_fraction_item_count_application",
         "ps_g3a_u08_discrete_set_fraction_fractional_units_application"
       ],
       "questionFormLabels": [
+        "離散集合分數與單位換算｜數字題",
         "離散集合分數與單位換算｜應用題"
       ],
       "depthModes": [],
@@ -41936,12 +42248,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_same_denominator_compare_numeric",
         "pg_g3a_u08_same_denominator_compare_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric",
         "ps_g3a_u08_same_denominator_compare_comparison_application"
       ],
       "questionFormLabels": [
+        "同分母分數比較｜數字題",
         "同分母分數比較｜應用題"
       ],
       "depthModes": [],
@@ -42002,12 +42317,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_same_denominator_compare_numeric",
         "pg_g3a_u08_same_denominator_compare_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric",
         "ps_g3a_u08_same_denominator_compare_comparison_application"
       ],
       "questionFormLabels": [
+        "同分母分數比較｜數字題",
         "同分母分數比較｜應用題"
       ],
       "depthModes": [],
@@ -42068,12 +42386,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_same_denominator_compare_numeric",
         "pg_g3a_u08_same_denominator_compare_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric",
         "ps_g3a_u08_same_denominator_compare_comparison_application"
       ],
       "questionFormLabels": [
+        "同分母分數比較｜數字題",
         "同分母分數比較｜應用題"
       ],
       "depthModes": [],
@@ -42150,19 +42471,29 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_unit_fraction_accumulation_numeric",
         "pg_g3a_u08_unit_fraction_accumulation_application",
+        "pg_g3a_u08_discrete_set_fraction_numeric",
         "pg_g3a_u08_discrete_set_fraction_application",
+        "pg_g3a_u08_same_denominator_compare_numeric",
         "pg_g3a_u08_same_denominator_compare_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
         "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+        "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+        "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
         "ps_g3a_u08_discrete_set_fraction_item_count_application",
         "ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric",
         "ps_g3a_u08_same_denominator_compare_comparison_application"
       ],
       "questionFormLabels": [
+        "單位分數累積｜數字題",
         "單位分數累積｜應用題",
+        "離散集合分數與單位換算｜數字題",
         "離散集合分數與單位換算｜應用題",
+        "同分母分數比較｜數字題",
         "同分母分數比較｜應用題"
       ],
       "depthModes": [],
@@ -42239,19 +42570,29 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_unit_fraction_accumulation_numeric",
         "pg_g3a_u08_unit_fraction_accumulation_application",
+        "pg_g3a_u08_discrete_set_fraction_numeric",
         "pg_g3a_u08_discrete_set_fraction_application",
+        "pg_g3a_u08_same_denominator_compare_numeric",
         "pg_g3a_u08_same_denominator_compare_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
         "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+        "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+        "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
         "ps_g3a_u08_discrete_set_fraction_item_count_application",
         "ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric",
         "ps_g3a_u08_same_denominator_compare_comparison_application"
       ],
       "questionFormLabels": [
+        "單位分數累積｜數字題",
         "單位分數累積｜應用題",
+        "離散集合分數與單位換算｜數字題",
         "離散集合分數與單位換算｜應用題",
+        "同分母分數比較｜數字題",
         "同分母分數比較｜應用題"
       ],
       "depthModes": [],
@@ -42328,19 +42669,29 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3a_u08_unit_fraction_accumulation_numeric",
         "pg_g3a_u08_unit_fraction_accumulation_application",
+        "pg_g3a_u08_discrete_set_fraction_numeric",
         "pg_g3a_u08_discrete_set_fraction_application",
+        "pg_g3a_u08_same_denominator_compare_numeric",
         "pg_g3a_u08_same_denominator_compare_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
         "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+        "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+        "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric",
         "ps_g3a_u08_discrete_set_fraction_item_count_application",
         "ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+        "ps_g3a_u08_same_denominator_compare_comparison_numeric",
         "ps_g3a_u08_same_denominator_compare_comparison_application"
       ],
       "questionFormLabels": [
+        "單位分數累積｜數字題",
         "單位分數累積｜應用題",
+        "離散集合分數與單位換算｜數字題",
         "離散集合分數與單位換算｜應用題",
+        "同分母分數比較｜數字題",
         "同分母分數比較｜應用題"
       ],
       "depthModes": [],
@@ -42445,31 +42796,53 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_fraction_unit_conversion_application",
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
         "pg_g3b_u07_whole_and_fraction_add_sub_application",
+        "pg_g3b_u07_combined_fraction_context_numeric",
         "pg_g3b_u07_combined_fraction_context_application",
+        "pg_g3b_u07_fraction_plus_count_context_numeric",
         "pg_g3b_u07_fraction_plus_count_context_application",
+        "pg_g3b_u07_original_or_difference_context_numeric",
         "pg_g3b_u07_original_or_difference_context_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3b_u07_fraction_unit_conversion_item_count_numeric",
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_numeric",
         "ps_g3b_u07_fraction_unit_conversion_item_count_application",
         "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
         "ps_g3b_u07_whole_and_fraction_add_sub_result_application",
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric",
         "ps_g3b_u07_combined_fraction_context_total_application",
         "ps_g3b_u07_combined_fraction_context_original_application",
         "ps_g3b_u07_combined_fraction_context_difference_application",
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
         "ps_g3b_u07_fraction_plus_count_context_total_application",
         "ps_g3b_u07_fraction_plus_count_context_original_application",
         "ps_g3b_u07_fraction_plus_count_context_difference_application",
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric",
         "ps_g3b_u07_original_or_difference_context_total_application",
         "ps_g3b_u07_original_or_difference_context_original_application",
         "ps_g3b_u07_original_or_difference_context_difference_application"
       ],
       "questionFormLabels": [
+        "單位分數與離散單位換算｜數字題",
         "單位分數與離散單位換算｜應用題",
+        "整數與分數加減｜數字題",
         "整數與分數加減｜應用題",
+        "同一整體的分數合併｜數字題",
         "同一整體的分數合併｜應用題",
+        "分數量與絕對個數合併｜數字題",
         "分數量與絕對個數合併｜應用題",
+        "由已用、剩餘或差量求未知｜數字題",
         "由已用、剩餘或差量求未知｜應用題"
       ],
       "depthModes": [],
@@ -42574,31 +42947,53 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_fraction_unit_conversion_application",
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
         "pg_g3b_u07_whole_and_fraction_add_sub_application",
+        "pg_g3b_u07_combined_fraction_context_numeric",
         "pg_g3b_u07_combined_fraction_context_application",
+        "pg_g3b_u07_fraction_plus_count_context_numeric",
         "pg_g3b_u07_fraction_plus_count_context_application",
+        "pg_g3b_u07_original_or_difference_context_numeric",
         "pg_g3b_u07_original_or_difference_context_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3b_u07_fraction_unit_conversion_item_count_numeric",
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_numeric",
         "ps_g3b_u07_fraction_unit_conversion_item_count_application",
         "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
         "ps_g3b_u07_whole_and_fraction_add_sub_result_application",
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric",
         "ps_g3b_u07_combined_fraction_context_total_application",
         "ps_g3b_u07_combined_fraction_context_original_application",
         "ps_g3b_u07_combined_fraction_context_difference_application",
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
         "ps_g3b_u07_fraction_plus_count_context_total_application",
         "ps_g3b_u07_fraction_plus_count_context_original_application",
         "ps_g3b_u07_fraction_plus_count_context_difference_application",
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric",
         "ps_g3b_u07_original_or_difference_context_total_application",
         "ps_g3b_u07_original_or_difference_context_original_application",
         "ps_g3b_u07_original_or_difference_context_difference_application"
       ],
       "questionFormLabels": [
+        "單位分數與離散單位換算｜數字題",
         "單位分數與離散單位換算｜應用題",
+        "整數與分數加減｜數字題",
         "整數與分數加減｜應用題",
+        "同一整體的分數合併｜數字題",
         "同一整體的分數合併｜應用題",
+        "分數量與絕對個數合併｜數字題",
         "分數量與絕對個數合併｜應用題",
+        "由已用、剩餘或差量求未知｜數字題",
         "由已用、剩餘或差量求未知｜應用題"
       ],
       "depthModes": [],
@@ -42703,31 +43098,53 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_fraction_unit_conversion_application",
+        "pg_g3b_u07_whole_and_fraction_add_sub_numeric",
         "pg_g3b_u07_whole_and_fraction_add_sub_application",
+        "pg_g3b_u07_combined_fraction_context_numeric",
         "pg_g3b_u07_combined_fraction_context_application",
+        "pg_g3b_u07_fraction_plus_count_context_numeric",
         "pg_g3b_u07_fraction_plus_count_context_application",
+        "pg_g3b_u07_original_or_difference_context_numeric",
         "pg_g3b_u07_original_or_difference_context_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3b_u07_fraction_unit_conversion_item_count_numeric",
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_numeric",
         "ps_g3b_u07_fraction_unit_conversion_item_count_application",
         "ps_g3b_u07_fraction_unit_conversion_fractional_units_application",
+        "ps_g3b_u07_whole_and_fraction_add_sub_result_numeric",
         "ps_g3b_u07_whole_and_fraction_add_sub_result_application",
+        "ps_g3b_u07_combined_fraction_context_total_numeric",
+        "ps_g3b_u07_combined_fraction_context_original_numeric",
+        "ps_g3b_u07_combined_fraction_context_difference_numeric",
         "ps_g3b_u07_combined_fraction_context_total_application",
         "ps_g3b_u07_combined_fraction_context_original_application",
         "ps_g3b_u07_combined_fraction_context_difference_application",
+        "ps_g3b_u07_fraction_plus_count_context_total_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_original_numeric",
+        "ps_g3b_u07_fraction_plus_count_context_difference_numeric",
         "ps_g3b_u07_fraction_plus_count_context_total_application",
         "ps_g3b_u07_fraction_plus_count_context_original_application",
         "ps_g3b_u07_fraction_plus_count_context_difference_application",
+        "ps_g3b_u07_original_or_difference_context_total_numeric",
+        "ps_g3b_u07_original_or_difference_context_original_numeric",
+        "ps_g3b_u07_original_or_difference_context_difference_numeric",
         "ps_g3b_u07_original_or_difference_context_total_application",
         "ps_g3b_u07_original_or_difference_context_original_application",
         "ps_g3b_u07_original_or_difference_context_difference_application"
       ],
       "questionFormLabels": [
+        "單位分數與離散單位換算｜數字題",
         "單位分數與離散單位換算｜應用題",
+        "整數與分數加減｜數字題",
         "整數與分數加減｜應用題",
+        "同一整體的分數合併｜數字題",
         "同一整體的分數合併｜應用題",
+        "分數量與絕對個數合併｜數字題",
         "分數量與絕對個數合併｜應用題",
+        "由已用、剩餘或差量求未知｜數字題",
         "由已用、剩餘或差量求未知｜應用題"
       ],
       "depthModes": [],
@@ -42885,13 +43302,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_fraction_unit_conversion_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3b_u07_fraction_unit_conversion_item_count_numeric",
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_numeric",
         "ps_g3b_u07_fraction_unit_conversion_item_count_application",
         "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
       ],
       "questionFormLabels": [
+        "單位分數與離散單位換算｜數字題",
         "單位分數與離散單位換算｜應用題"
       ],
       "depthModes": [],
@@ -42953,13 +43374,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_fraction_unit_conversion_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3b_u07_fraction_unit_conversion_item_count_numeric",
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_numeric",
         "ps_g3b_u07_fraction_unit_conversion_item_count_application",
         "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
       ],
       "questionFormLabels": [
+        "單位分數與離散單位換算｜數字題",
         "單位分數與離散單位換算｜應用題"
       ],
       "depthModes": [],
@@ -43021,13 +43446,17 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g3b_u07_fraction_unit_conversion_numeric",
         "pg_g3b_u07_fraction_unit_conversion_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g3b_u07_fraction_unit_conversion_item_count_numeric",
+        "ps_g3b_u07_fraction_unit_conversion_fractional_units_numeric",
         "ps_g3b_u07_fraction_unit_conversion_item_count_application",
         "ps_g3b_u07_fraction_unit_conversion_fractional_units_application"
       ],
       "questionFormLabels": [
+        "單位分數與離散單位換算｜數字題",
         "單位分數與離散單位換算｜應用題"
       ],
       "depthModes": [],
@@ -45310,29 +45739,46 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g4a_u09_hundredth_representation",
-        "kp_g4a_u09_decimal_compose_decompose"
+        "kp_g4a_u09_decimal_compose_decompose",
+        "kp_g4a_u09_decimal_compare",
+        "kp_g4a_u09_decimal_sequence",
+        "kp_g4a_u09_missing_digit_column_operation",
+        "kp_g4a_u09_place_value_factor_relation"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 6,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4a_u09_hundredth_representation_numeric",
-        "pg_g4a_u09_decimal_compose_decompose_numeric"
+        "pg_g4a_u09_decimal_compose_decompose_numeric",
+        "pg_g4a_u09_decimal_compare_numeric",
+        "pg_g4a_u09_decimal_sequence_numeric",
+        "pg_g4a_u09_missing_digit_column_operation_numeric",
+        "pg_g4a_u09_place_value_factor_relation_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u09_hundredth_representation_decimal_numeric",
-        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric",
+        "ps_g4a_u09_decimal_compare_comparison_numeric",
+        "ps_g4a_u09_decimal_sequence_term_numeric",
+        "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric",
+        "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+        "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric"
       ],
       "questionFormLabels": [
         "百分位與 0.01",
-        "二位小數組成分解"
+        "二位小數組成分解",
+        "二位小數比較",
+        "小數數列規律",
+        "小數直式缺位推理",
+        "相鄰小數位值倍數關係"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45346,29 +45792,46 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g4a_u09_hundredth_representation",
-        "kp_g4a_u09_decimal_compose_decompose"
+        "kp_g4a_u09_decimal_compose_decompose",
+        "kp_g4a_u09_decimal_compare",
+        "kp_g4a_u09_decimal_sequence",
+        "kp_g4a_u09_missing_digit_column_operation",
+        "kp_g4a_u09_place_value_factor_relation"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 6,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4a_u09_hundredth_representation_numeric",
-        "pg_g4a_u09_decimal_compose_decompose_numeric"
+        "pg_g4a_u09_decimal_compose_decompose_numeric",
+        "pg_g4a_u09_decimal_compare_numeric",
+        "pg_g4a_u09_decimal_sequence_numeric",
+        "pg_g4a_u09_missing_digit_column_operation_numeric",
+        "pg_g4a_u09_place_value_factor_relation_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u09_hundredth_representation_decimal_numeric",
-        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric",
+        "ps_g4a_u09_decimal_compare_comparison_numeric",
+        "ps_g4a_u09_decimal_sequence_term_numeric",
+        "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric",
+        "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+        "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric"
       ],
       "questionFormLabels": [
         "百分位與 0.01",
-        "二位小數組成分解"
+        "二位小數組成分解",
+        "二位小數比較",
+        "小數數列規律",
+        "小數直式缺位推理",
+        "相鄰小數位值倍數關係"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45382,29 +45845,46 @@
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
         "kp_g4a_u09_hundredth_representation",
-        "kp_g4a_u09_decimal_compose_decompose"
+        "kp_g4a_u09_decimal_compose_decompose",
+        "kp_g4a_u09_decimal_compare",
+        "kp_g4a_u09_decimal_sequence",
+        "kp_g4a_u09_missing_digit_column_operation",
+        "kp_g4a_u09_place_value_factor_relation"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 6,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4a_u09_hundredth_representation_numeric",
-        "pg_g4a_u09_decimal_compose_decompose_numeric"
+        "pg_g4a_u09_decimal_compose_decompose_numeric",
+        "pg_g4a_u09_decimal_compare_numeric",
+        "pg_g4a_u09_decimal_sequence_numeric",
+        "pg_g4a_u09_missing_digit_column_operation_numeric",
+        "pg_g4a_u09_place_value_factor_relation_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u09_hundredth_representation_decimal_numeric",
-        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric",
+        "ps_g4a_u09_decimal_compare_comparison_numeric",
+        "ps_g4a_u09_decimal_sequence_term_numeric",
+        "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric",
+        "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+        "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric"
       ],
       "questionFormLabels": [
         "百分位與 0.01",
-        "二位小數組成分解"
+        "二位小數組成分解",
+        "二位小數比較",
+        "小數數列規律",
+        "小數直式缺位推理",
+        "相鄰小數位值倍數關係"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45436,7 +45916,7 @@
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45468,7 +45948,7 @@
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45500,7 +45980,7 @@
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45603,6 +46083,393 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compare::CLASSIC::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compare",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_decimal_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_decimal_compare_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_decimal_compare_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "二位小數比較"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compare::FALLBACK_404::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compare",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_decimal_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_decimal_compare_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_decimal_compare_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "二位小數比較"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compare::PIXEL::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_compare",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_decimal_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_decimal_compare_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_decimal_compare_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "二位小數比較"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_sequence::CLASSIC::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_sequence",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_decimal_sequence"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_decimal_sequence_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_decimal_sequence_term_numeric"
+      ],
+      "questionFormLabels": [
+        "小數數列規律"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_sequence::FALLBACK_404::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_sequence",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_decimal_sequence"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_decimal_sequence_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_decimal_sequence_term_numeric"
+      ],
+      "questionFormLabels": [
+        "小數數列規律"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_sequence::PIXEL::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_decimal_sequence",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_decimal_sequence"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_decimal_sequence_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_decimal_sequence_term_numeric"
+      ],
+      "questionFormLabels": [
+        "小數數列規律"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_missing_digit_column_operation::CLASSIC::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_missing_digit_column_operation",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_missing_digit_column_operation"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_missing_digit_column_operation_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric"
+      ],
+      "questionFormLabels": [
+        "小數直式缺位推理"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_missing_digit_column_operation::FALLBACK_404::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_missing_digit_column_operation",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_missing_digit_column_operation"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_missing_digit_column_operation_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric"
+      ],
+      "questionFormLabels": [
+        "小數直式缺位推理"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_missing_digit_column_operation::PIXEL::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_missing_digit_column_operation",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_missing_digit_column_operation"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_missing_digit_column_operation_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric"
+      ],
+      "questionFormLabels": [
+        "小數直式缺位推理"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_place_value_factor_relation::CLASSIC::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_place_value_factor_relation",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_place_value_factor_relation"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_place_value_factor_relation_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+        "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric"
+      ],
+      "questionFormLabels": [
+        "相鄰小數位值倍數關係"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_place_value_factor_relation::FALLBACK_404::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_place_value_factor_relation",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_place_value_factor_relation"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_place_value_factor_relation_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+        "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric"
+      ],
+      "questionFormLabels": [
+        "相鄰小數位值倍數關係"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4a_u09_4a09::single::kp_g4a_u09_place_value_factor_relation::PIXEL::numeric",
+      "caseId": "g4a_u09_4a09::single::kp_g4a_u09_place_value_factor_relation",
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4a_u09_place_value_factor_relation"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4a_u09_place_value_factor_relation_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+        "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric"
+      ],
+      "questionFormLabels": [
+        "相鄰小數位值倍數關係"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4a_u09_4a09::mixedSameUnit::CLASSIC::numeric",
       "caseId": "g4a_u09_4a09::mixedSameUnit",
       "sourceId": "g4a_u09_4a09",
@@ -45610,22 +46477,39 @@
       "selectionMode": "mixedKnowledgePointsSameUnit",
       "selectedKnowledgePointIds": [
         "kp_g4a_u09_hundredth_representation",
-        "kp_g4a_u09_decimal_compose_decompose"
+        "kp_g4a_u09_decimal_compose_decompose",
+        "kp_g4a_u09_decimal_compare",
+        "kp_g4a_u09_decimal_sequence",
+        "kp_g4a_u09_missing_digit_column_operation",
+        "kp_g4a_u09_place_value_factor_relation"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 6,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4a_u09_hundredth_representation_numeric",
-        "pg_g4a_u09_decimal_compose_decompose_numeric"
+        "pg_g4a_u09_decimal_compose_decompose_numeric",
+        "pg_g4a_u09_decimal_compare_numeric",
+        "pg_g4a_u09_decimal_sequence_numeric",
+        "pg_g4a_u09_missing_digit_column_operation_numeric",
+        "pg_g4a_u09_place_value_factor_relation_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u09_hundredth_representation_decimal_numeric",
-        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric",
+        "ps_g4a_u09_decimal_compare_comparison_numeric",
+        "ps_g4a_u09_decimal_sequence_term_numeric",
+        "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric",
+        "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+        "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric"
       ],
       "questionFormLabels": [
         "百分位與 0.01",
-        "二位小數組成分解"
+        "二位小數組成分解",
+        "二位小數比較",
+        "小數數列規律",
+        "小數直式缺位推理",
+        "相鄰小數位值倍數關係"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -45646,22 +46530,39 @@
       "selectionMode": "mixedKnowledgePointsSameUnit",
       "selectedKnowledgePointIds": [
         "kp_g4a_u09_hundredth_representation",
-        "kp_g4a_u09_decimal_compose_decompose"
+        "kp_g4a_u09_decimal_compose_decompose",
+        "kp_g4a_u09_decimal_compare",
+        "kp_g4a_u09_decimal_sequence",
+        "kp_g4a_u09_missing_digit_column_operation",
+        "kp_g4a_u09_place_value_factor_relation"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 6,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4a_u09_hundredth_representation_numeric",
-        "pg_g4a_u09_decimal_compose_decompose_numeric"
+        "pg_g4a_u09_decimal_compose_decompose_numeric",
+        "pg_g4a_u09_decimal_compare_numeric",
+        "pg_g4a_u09_decimal_sequence_numeric",
+        "pg_g4a_u09_missing_digit_column_operation_numeric",
+        "pg_g4a_u09_place_value_factor_relation_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u09_hundredth_representation_decimal_numeric",
-        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric",
+        "ps_g4a_u09_decimal_compare_comparison_numeric",
+        "ps_g4a_u09_decimal_sequence_term_numeric",
+        "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric",
+        "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+        "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric"
       ],
       "questionFormLabels": [
         "百分位與 0.01",
-        "二位小數組成分解"
+        "二位小數組成分解",
+        "二位小數比較",
+        "小數數列規律",
+        "小數直式缺位推理",
+        "相鄰小數位值倍數關係"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -45682,22 +46583,39 @@
       "selectionMode": "mixedKnowledgePointsSameUnit",
       "selectedKnowledgePointIds": [
         "kp_g4a_u09_hundredth_representation",
-        "kp_g4a_u09_decimal_compose_decompose"
+        "kp_g4a_u09_decimal_compose_decompose",
+        "kp_g4a_u09_decimal_compare",
+        "kp_g4a_u09_decimal_sequence",
+        "kp_g4a_u09_missing_digit_column_operation",
+        "kp_g4a_u09_place_value_factor_relation"
       ],
-      "selectedKnowledgePointCount": 2,
+      "selectedKnowledgePointCount": 6,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4a_u09_hundredth_representation_numeric",
-        "pg_g4a_u09_decimal_compose_decompose_numeric"
+        "pg_g4a_u09_decimal_compose_decompose_numeric",
+        "pg_g4a_u09_decimal_compare_numeric",
+        "pg_g4a_u09_decimal_sequence_numeric",
+        "pg_g4a_u09_missing_digit_column_operation_numeric",
+        "pg_g4a_u09_place_value_factor_relation_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4a_u09_hundredth_representation_decimal_numeric",
-        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric"
+        "ps_g4a_u09_decimal_compose_decompose_decimal_numeric",
+        "ps_g4a_u09_decimal_compare_comparison_numeric",
+        "ps_g4a_u09_decimal_sequence_term_numeric",
+        "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric",
+        "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+        "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric"
       ],
       "questionFormLabels": [
         "百分位與 0.01",
-        "二位小數組成分解"
+        "二位小數組成分解",
+        "二位小數比較",
+        "小數數列規律",
+        "小數直式缺位推理",
+        "相鄰小數位值倍數關係"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -45766,19 +46684,29 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
         "pg_g4b_u06_one_decimal_times_integer_application",
+        "pg_g4b_u06_rate_distance_context_numeric",
         "pg_g4b_u06_rate_distance_context_application",
+        "pg_g4b_u06_two_decimal_times_integer_numeric",
         "pg_g4b_u06_two_decimal_times_integer_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
         "ps_g4b_u06_one_decimal_times_integer_product_application",
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric",
         "ps_g4b_u06_rate_distance_context_total_application",
         "ps_g4b_u06_rate_distance_context_combined_application",
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric",
         "ps_g4b_u06_two_decimal_times_integer_product_application"
       ],
       "questionFormLabels": [
+        "一位小數乘整數｜數字題",
         "一位小數乘整數｜應用題",
+        "小數單位率與總量｜數字題",
         "小數單位率與總量｜應用題",
+        "二位小數乘整數｜數字題",
         "二位小數乘整數｜應用題"
       ],
       "depthModes": [],
@@ -45850,19 +46778,29 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
         "pg_g4b_u06_one_decimal_times_integer_application",
+        "pg_g4b_u06_rate_distance_context_numeric",
         "pg_g4b_u06_rate_distance_context_application",
+        "pg_g4b_u06_two_decimal_times_integer_numeric",
         "pg_g4b_u06_two_decimal_times_integer_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
         "ps_g4b_u06_one_decimal_times_integer_product_application",
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric",
         "ps_g4b_u06_rate_distance_context_total_application",
         "ps_g4b_u06_rate_distance_context_combined_application",
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric",
         "ps_g4b_u06_two_decimal_times_integer_product_application"
       ],
       "questionFormLabels": [
+        "一位小數乘整數｜數字題",
         "一位小數乘整數｜應用題",
+        "小數單位率與總量｜數字題",
         "小數單位率與總量｜應用題",
+        "二位小數乘整數｜數字題",
         "二位小數乘整數｜應用題"
       ],
       "depthModes": [],
@@ -45934,19 +46872,29 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
         "pg_g4b_u06_one_decimal_times_integer_application",
+        "pg_g4b_u06_rate_distance_context_numeric",
         "pg_g4b_u06_rate_distance_context_application",
+        "pg_g4b_u06_two_decimal_times_integer_numeric",
         "pg_g4b_u06_two_decimal_times_integer_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
         "ps_g4b_u06_one_decimal_times_integer_product_application",
+        "ps_g4b_u06_rate_distance_context_total_numeric",
+        "ps_g4b_u06_rate_distance_context_combined_numeric",
         "ps_g4b_u06_rate_distance_context_total_application",
         "ps_g4b_u06_rate_distance_context_combined_application",
+        "ps_g4b_u06_two_decimal_times_integer_product_numeric",
         "ps_g4b_u06_two_decimal_times_integer_product_application"
       ],
       "questionFormLabels": [
+        "一位小數乘整數｜數字題",
         "一位小數乘整數｜應用題",
+        "小數單位率與總量｜數字題",
         "小數單位率與總量｜應用題",
+        "二位小數乘整數｜數字題",
         "二位小數乘整數｜應用題"
       ],
       "depthModes": [],
@@ -46007,12 +46955,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
         "pg_g4b_u06_one_decimal_times_integer_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
         "ps_g4b_u06_one_decimal_times_integer_product_application"
       ],
       "questionFormLabels": [
+        "一位小數乘整數｜數字題",
         "一位小數乘整數｜應用題"
       ],
       "depthModes": [],
@@ -46073,12 +47024,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
         "pg_g4b_u06_one_decimal_times_integer_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
         "ps_g4b_u06_one_decimal_times_integer_product_application"
       ],
       "questionFormLabels": [
+        "一位小數乘整數｜數字題",
         "一位小數乘整數｜應用題"
       ],
       "depthModes": [],
@@ -46139,12 +47093,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u06_one_decimal_times_integer_numeric",
         "pg_g4b_u06_one_decimal_times_integer_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u06_one_decimal_times_integer_product_numeric",
         "ps_g4b_u06_one_decimal_times_integer_product_application"
       ],
       "questionFormLabels": [
+        "一位小數乘整數｜數字題",
         "一位小數乘整數｜應用題"
       ],
       "depthModes": [],
@@ -46544,12 +47501,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
         "pg_g5a_u04_quotient_as_fraction_context_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
         "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
       ],
       "questionFormLabels": [
+        "整數相除的分數商｜數字題",
         "平均分配的分數商｜應用題"
       ],
       "depthModes": [],
@@ -46631,12 +47591,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
         "pg_g5a_u04_quotient_as_fraction_context_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
         "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
       ],
       "questionFormLabels": [
+        "整數相除的分數商｜數字題",
         "平均分配的分數商｜應用題"
       ],
       "depthModes": [],
@@ -46718,12 +47681,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
         "pg_g5a_u04_quotient_as_fraction_context_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
         "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
       ],
       "questionFormLabels": [
+        "整數相除的分數商｜數字題",
         "平均分配的分數商｜應用題"
       ],
       "depthModes": [],
@@ -46886,12 +47852,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
         "pg_g5a_u04_quotient_as_fraction_context_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
         "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
       ],
       "questionFormLabels": [
+        "整數相除的分數商｜數字題",
         "平均分配的分數商｜應用題"
       ],
       "depthModes": [],
@@ -46952,12 +47921,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
         "pg_g5a_u04_quotient_as_fraction_context_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
         "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
       ],
       "questionFormLabels": [
+        "整數相除的分數商｜數字題",
         "平均分配的分數商｜應用題"
       ],
       "depthModes": [],
@@ -47018,12 +47990,15 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g5a_u04_quotient_as_fraction_context_numeric",
         "pg_g5a_u04_quotient_as_fraction_context_application"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_numeric",
         "ps_g5a_u04_quotient_as_fraction_context_share_per_recipient_application"
       ],
       "questionFormLabels": [
+        "整數相除的分數商｜數字題",
         "平均分配的分數商｜應用題"
       ],
       "depthModes": [],
@@ -48235,20 +49210,5 @@
     }
   ],
   "capacityAuthority": "site/modules/curriculum/public/public-generator-capacity-registry.js",
-  "runtimeCapacityPolicy": "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING",
-  "lastReconciliation": {
-    "taskId": "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation",
-    "sourceId": "g5a_u02_5a02",
-    "liveRouteCount": 98,
-    "matchedBindingCount": 60,
-    "capacityAuthority": "data/curriculum/public-generation/generator_capacity_contract.json",
-    "status": "PASS_R06_A03_PUBLIC_BINDING_RECONCILED"
-  },
-  "lastR06A07Closeout": {
-    "taskId": "PGC-R06-A07_FinalReconciliationGlobalLiveGateAndD0Closeout",
-    "globalLivePassRouteCount": 389,
-    "repairQueueCount": 0,
-    "status": "PASS_R06_A07_GLOBAL_LIVE_RUNTIME_RECONCILED_AND_D0_CLOSED"
-  },
-  "r06TerminalStatus": "D0_CLOSED"
+  "runtimeCapacityPolicy": "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING"
 }
