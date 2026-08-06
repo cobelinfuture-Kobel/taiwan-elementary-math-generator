@@ -111,6 +111,7 @@
       "skipped": 0
     },
     "diagnosticsArtifactId": 8936862728,
-    "diagnosticsArtifactDigest": "sha256:c3e5f58363c1b10364cd8801d2baa0d8bed4e02081aa7d7880547c251d23bb5c"
+    "diagnosticsArtifactDigest": "sha256:c3e5f58363c1b10364cd8801d2baa0d8bed4e02081aa7d7880547c251d23bb5c",
+    "mergeSha": "7dd2c90136531b546e1aa8db0eae0511a4fd05e8"
   }
 }
