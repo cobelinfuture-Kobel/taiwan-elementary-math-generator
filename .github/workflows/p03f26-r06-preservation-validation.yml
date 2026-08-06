@@ -39,7 +39,19 @@ jobs:
             tests/curriculum/pgc-r06-a07-final-global-live-d0-closeout.test.js
 
       - name: Full repository regression
-        run: npm test
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p tmp/p03f26-r06-preservation-diagnostics
+          npm test 2>&1 | tee tmp/p03f26-r06-preservation-diagnostics/npm-test.log
+
+      - name: Upload full repository regression log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f26-r06-preservation-full-regression-log
+          path: tmp/p03f26-r06-preservation-diagnostics/npm-test.log
+          if-no-files-found: error
 
       - name: Verify deterministic output scope
         run: |
