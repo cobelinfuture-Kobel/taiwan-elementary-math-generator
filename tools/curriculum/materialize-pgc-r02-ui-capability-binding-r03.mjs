@@ -14,12 +14,59 @@ const csvPath = path.join(outputDir, "ui_option_filter_matrix.csv");
 const readbackPath = path.join(docsDir, "PGC-R02_ui_capability_binding_readback.md");
 
 const ACCEPTED_RUNTIME_CAPACITY_STATUSES = new Set(["VERIFIED_20", "VERIFIED_LIMITED", "STRUCTURAL_FALLBACK_AVAILABLE"]);
+const R06_BINDING_RECONCILIATION_FIELDS = Object.freeze([
+  "questionCountMin",
+  "questionCountDefault",
+  "questionCountMax",
+  "verifiedCapacityQuestionCountMax",
+  "capacityStatus",
+  "blocked",
+  "blockedReasons",
+  "capacityRouteIds",
+  "capacityQualityStatuses",
+  "lastCapacityReconciliation",
+]);
 const csvEscape = (value) => {
   const text = value == null ? "" : Array.isArray(value) ? value.join("|") : typeof value === "object" ? JSON.stringify(value) : String(value);
   return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 };
+const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
+
+function readExistingContract() {
+  if (!fs.existsSync(contractPath)) return null;
+  return JSON.parse(fs.readFileSync(contractPath, "utf8"));
+}
+
+function isR06LineageKey(key) {
+  return key === "lastReconciliation"
+    || key === "r06TerminalStatus"
+    || /^lastR06A\d+/.test(key);
+}
+
+function preserveR06BindingReconciliation(bindings, existing) {
+  if (!existing?.bindings?.length) return bindings;
+  const priorByBindingId = new Map(existing.bindings.map((row) => [row.bindingId, row]));
+  return bindings.map((row) => {
+    const prior = priorByBindingId.get(row.bindingId);
+    if (!prior?.lastCapacityReconciliation) return row;
+    const preserved = { ...row };
+    for (const field of R06_BINDING_RECONCILIATION_FIELDS) {
+      if (prior[field] !== undefined) preserved[field] = clone(prior[field]);
+    }
+    return preserved;
+  });
+}
+
+function preserveR06TopLevelLineage(contract, existing) {
+  if (!existing) return contract;
+  for (const [key, value] of Object.entries(existing)) {
+    if (isR06LineageKey(key)) contract[key] = clone(value);
+  }
+  return contract;
+}
 
 export function buildPgcR02UiCapabilityBindingContract() {
+  const existing = readExistingContract();
   const legacy = buildLegacyContract();
   const byBindingId = new Map(legacy.bindings.map((row) => [row.bindingId, row]));
   const gaps = legacy.gaps.filter((gap) => {
@@ -27,12 +74,14 @@ export function buildPgcR02UiCapabilityBindingContract() {
     const row = byBindingId.get(gap.bindingId);
     return !row || !ACCEPTED_RUNTIME_CAPACITY_STATUSES.has(row.capacityStatus);
   });
-  const bindings = legacy.bindings.map((row) => ({
+  const freshBindings = legacy.bindings.map((row) => ({
     ...row,
     capacityRouteIds: [...(row.capacityRouteIds ?? [])],
     capacityQualityStatuses: [...(row.capacityQualityStatuses ?? [])],
   }));
+  const bindings = preserveR06BindingReconciliation(freshBindings, existing);
   const summary = {
+    ...(existing?.summary ?? {}),
     ...legacy.summary,
     questionTypeBindingRowCount: bindings.length,
     verified20BindingCount: bindings.filter((row) => row.capacityStatus === "VERIFIED_20").length,
@@ -43,7 +92,7 @@ export function buildPgcR02UiCapabilityBindingContract() {
     maximumVerifiedQuestionCount: bindings.length > 0 ? Math.max(...bindings.map((row) => row.questionCountMax)) : 0,
     gapCount: gaps.length,
   };
-  return {
+  const contract = {
     ...legacy,
     schemaName: "PublicUiCapabilityBindingContractV2",
     schemaVersion: 2,
@@ -54,6 +103,7 @@ export function buildPgcR02UiCapabilityBindingContract() {
     gaps,
     bindings,
   };
+  return preserveR06TopLevelLineage(contract, existing);
 }
 
 function writeCsv(contract) {
