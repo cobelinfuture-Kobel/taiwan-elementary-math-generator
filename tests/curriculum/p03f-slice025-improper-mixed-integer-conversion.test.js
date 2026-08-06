@@ -1,121 +1,134 @@
-import assert from "node:assert/strict";
 import test from "node:test";
+import assert from "node:assert/strict";
 
 import {
+  G4A_U06_P03F25_GROUP_ID,
+  G4A_U06_P03F25_KP_ID,
+  G4A_U06_P03F25_PATTERN_SPEC_IDS,
+  auditG4AU06P03F25SelectorProjection,
+} from "../../site/modules/curriculum/registry/g4a-u06-improper-mixed-conversion-selector-projection-p03f25.js";
+import {
+  BATCH_A_SELECTOR_AVAILABILITY,
+  auditP03F25PublicSelectorComposition,
+  getVisiblePatternGroupsForKnowledgePoint,
+  listBatchAKnowledgePointAvailabilityBySource,
+  listVisibleBatchAKnowledgePoints,
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f25-extension.js";
+import {
   G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
+  G4A_U06_FRACTION_CLASSIFICATION_PATTERN_SPEC_IDS,
   G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
 } from "../../site/modules/curriculum/registry/g4a-u06-fraction-type-classification-selector-projection.js";
 import {
-  G4A_U06_P03F25_KP_ID,
-  G4A_U06_P03F25_PATTERN_GROUPS,
-  G4A_U06_P03F25_PATTERN_SPEC_IDS,
-  G4A_U06_P03F25_REQUIRED_CAPABILITY_IDS,
-  auditG4AU06P03F25SelectorProjection,
-  getG4AU06P03F25SelectorRow,
-  listG4AU06P03F25PatternGroups,
-} from "../../site/modules/curriculum/registry/g4a-u06-improper-mixed-conversion-selector-projection-p03f25.js";
+  getBatchABrowserPatternDefinition,
+  validateP03F25PatternDefinitions,
+} from "../../site/modules/curriculum/batch-a/source-pattern-full-product-p03f25-extension.js";
+import { buildBatchABrowserPlan } from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p03f25.js";
+import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router-p03f25.js";
 import {
-  resolveP03F25PatternSpecIdsForKnowledgePoint,
-} from "../../site/modules/curriculum/registry/pattern-spec-runtime-p03f25-extension.js";
-import {
-  generateP03F25PatternSpecItem,
-} from "../../site/modules/curriculum/batch-a/pattern-spec-generator-router-p03f25-extension.js";
-import {
-  validateP03F25PatternSpecItem,
-} from "../../site/modules/curriculum/batch-a/pattern-spec-validator-router-p03f25-extension.js";
-import {
-  buildBatchABrowserWorksheetDocument,
-} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f25-extension.js";
-import {
-  getCurrentPixelRegistrySnapshot,
-  listPixelKnowledgePointsForSource,
-} from "../../site/pixel/pixel-registry-bridge.js";
+  validateBatchABrowserPlan,
+  validateBatchABrowserQuestion,
+  validateBatchABrowserQuestions,
+} from "../../site/modules/curriculum/batch-a/batch-a-browser-validator-p03f25.js";
+import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f25-extension.js";
+import { resolvePublicUiCapabilityBinding } from "../../site/modules/curriculum/public/public-ui-capability-binding.js";
+import { getCurrentPixelRegistrySnapshot, listPixelKnowledgePointsForSource } from "../../site/pixel/pixel-registry-bridge.js";
 
 const sourceId = G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID;
-const conversionSpecs = Object.freeze([
-  "ps_g4a_u06_improper_to_mixed_or_integer",
-  "ps_g4a_u06_integer_to_improper_fraction",
-  "ps_g4a_u06_mixed_to_improper_fraction",
-]);
-
-function makeOptions(overrides = {}) {
-  return {
-    sourceId,
-    selectionMode: "singleKnowledgePoint",
-    selectedKnowledgePointIds: [G4A_U06_P03F25_KP_ID],
-    selectedPatternGroupIds: [G4A_U06_P03F25_PATTERN_GROUPS[0].patternGroupId],
-    questionMode: "numeric",
-    questionCount: 18,
-    includeAnswerKey: true,
-    generationSeed: "p03f25-test-seed",
-    ordering: "shuffleAcrossPatterns",
-    ...overrides,
-  };
-}
-
-test("P03F25 authority freezes exactly one new G4A-U06 conversion KP", () => {
-  assert.deepEqual(G4A_U06_P03F25_REQUIRED_CAPABILITY_IDS, [
-    "cap_fraction_domain_validator",
-    "cap_fraction_number_system",
-  ]);
-  assert.deepEqual(G4A_U06_P03F25_PATTERN_SPEC_IDS, conversionSpecs);
-  assert.equal(G4A_U06_P03F25_PATTERN_GROUPS.length, 1);
-  assert.equal(G4AU06P03F25SelectorProjectionSafe().expectedSourceVisibleCountAfterAdmission, 2);
-  assert.equal(G4AU06P03F25SelectorProjectionSafe().expectedSourceHiddenCountAfterAdmission, 4);
-  assert.equal(G4AU06P03F25SelectorProjectionSafe().expectedPublicKnowledgePointCountAfterAdmission, 212);
-  const audit = auditG4AU06P03F25SelectorProjection();
-  assert.equal(audit.ok, true, audit.errors.join("\n"));
+const makeOptions = (patternSpecIds = G4A_U06_P03F25_PATTERN_SPEC_IDS, questionCount = 18) => ({
+  sourceId,
+  selectedKnowledgePointIds: [G4A_U06_P03F25_KP_ID],
+  selectedPatternGroupIds: [G4A_U06_P03F25_GROUP_ID],
+  patternSpecIds,
+  questionMode: "numeric",
+  questionCount,
+  generationSeed: "p03f25-focused",
+  includeAnswerKey: true,
 });
 
-function G4AU06P03F25SelectorProjectionSafe() {
-  const row = getG4AU06P03F25SelectorRow(G4A_U06_P03F25_KP_ID);
-  return {
-    expectedSourceVisibleCountAfterAdmission: row ? 2 : 0,
-    expectedSourceHiddenCountAfterAdmission: row ? 4 : 0,
-    expectedPublicKnowledgePointCountAfterAdmission: row ? 212 : 0,
-  };
-}
-
-test("P03F25 keeps the earlier G4A-U06 fraction-classification identity separate", () => {
-  assert.notEqual(G4A_U06_P03F25_KP_ID, G4A_U06_FRACTION_CLASSIFICATION_KP_ID);
-  const row = getG4AU06P03F25SelectorRow(G4A_U06_P03F25_KP_ID);
-  assert.equal(row.sourceId, sourceId);
-  assert.equal(row.visibilityStatus, "visible");
-  assert.equal(row.applicationClassification, "APPLICATION_NOT_APPLICABLE");
-  assert.equal(row.questionModes.join(","), "numeric");
-  assert.equal(listG4AU06P03F25PatternGroups(G4A_U06_P03F25_KP_ID).length, 1);
+test("P03F25 selector adds exactly one G4A-U06 conversion KP without adding a source", () => {
+  assert.deepEqual(auditG4AU06P03F25SelectorProjection().counts, { knowledgePoints: 1, patternGroups: 1, patternSpecs: 3 });
+  assert.equal(auditG4AU06P03F25SelectorProjection().ok, true);
+  assert.equal(auditP03F25PublicSelectorComposition().ok, true);
+  const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
+  assert.equal(availability.visibleCount, 2);
+  assert.equal(availability.hiddenPendingCount, 4);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount, 29);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.sourceCount, 29);
+  assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 212);
+  const sourceRows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === sourceId);
+  assert.deepEqual(new Set(sourceRows.map((row) => row.knowledgePointId)), new Set([
+    G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
+    G4A_U06_P03F25_KP_ID,
+  ]));
 });
 
-test("P03F25 runtime resolves all three conversion PatternSpecs", () => {
-  assert.deepEqual(resolveP03F25PatternSpecIdsForKnowledgePoint(G4A_U06_P03F25_KP_ID), conversionSpecs);
-});
-
-test("P03F25 generator and validator admit deterministic witnesses for every conversion PatternSpec", () => {
-  for (const [index, patternSpecId] of conversionSpecs.entries()) {
-    const item = generateP03F25PatternSpecItem({ patternSpecId, seed: `p03f25-${index}` });
-    assert.ok(item, patternSpecId);
-    assert.equal(item.patternSpecId, patternSpecId);
-    assert.equal(item.knowledgePointId, G4A_U06_P03F25_KP_ID);
-    assert.equal(validateP03F25PatternSpecItem(item).ok, true, patternSpecId);
+test("P03F25 preserves Slice017 classification identities and adds three conversion PatternSpecs", () => {
+  assert.equal(validateP03F25PatternDefinitions().ok, true);
+  assert.deepEqual(getVisiblePatternGroupsForKnowledgePoint(G4A_U06_FRACTION_CLASSIFICATION_KP_ID)[0].patternSpecIds, [...G4A_U06_FRACTION_CLASSIFICATION_PATTERN_SPEC_IDS]);
+  assert.deepEqual(getVisiblePatternGroupsForKnowledgePoint(G4A_U06_P03F25_KP_ID)[0].patternSpecIds, [...G4A_U06_P03F25_PATTERN_SPEC_IDS]);
+  for (const id of G4A_U06_P03F25_PATTERN_SPEC_IDS) {
+    const definition = getBatchABrowserPatternDefinition(id);
+    assert.equal(definition.knowledgePointId, G4A_U06_P03F25_KP_ID);
+    assert.equal(definition.patternGroupId, G4A_U06_P03F25_GROUP_ID);
+    assert.deepEqual(definition.requiredCapabilityIds, ["cap_fraction_domain_validator", "cap_fraction_number_system"]);
+    assert.equal(definition.globalContextRequired, false);
+    assert.equal(definition.requiredCapabilityIds.includes("cap_fraction_arithmetic"), false);
   }
 });
 
-test("P03F25 public binding exposes both G4A-U06 KPs while single conversion selection stays bounded", async () => {
-  const { resolvePublicUiCapabilityBinding } = await import(`../../site/modules/curriculum/public/public-ui-capability-binding.js?p03f25=${Date.now()}`);
-  const sourceUnit = resolvePublicUiCapabilityBinding({ sourceId, selectionMode: "sourceUnit", surfaceId: "CLASSIC" });
-  assert.equal(sourceUnit.blocked, false, JSON.stringify(sourceUnit.blockedReasons));
-  assert.equal(sourceUnit.selectedKnowledgePointIds.includes(G4A_U06_FRACTION_CLASSIFICATION_KP_ID), true);
-  assert.equal(sourceUnit.selectedKnowledgePointIds.includes(G4A_U06_P03F25_KP_ID), true);
+test("P03F25 all three conversion directions generate deterministic valid witnesses", () => {
+  for (const patternSpecId of G4A_U06_P03F25_PATTERN_SPEC_IDS) {
+    const options = makeOptions([patternSpecId], 12);
+    const plan = buildBatchABrowserPlan(options);
+    assert.equal(validateBatchABrowserPlan(plan).ok, true);
+    const generated = generateBatchABrowserQuestions(options);
+    assert.equal(generated.ok, true, JSON.stringify(generated.errors));
+    assert.equal(generated.questions.length, 12);
+    assert.equal(validateBatchABrowserQuestions(generated.questions).ok, true);
+    for (const question of generated.questions) {
+      assert.equal(validateBatchABrowserQuestion(question).ok, true);
+      assert.equal(question.metadata.knowledgePointId, G4A_U06_P03F25_KP_ID);
+      assert.equal(question.metadata.patternGroupId, G4A_U06_P03F25_GROUP_ID);
+      assert.equal(question.globalContextProduction, null);
+      assert.equal(question.improperNumerator, question.whole * question.denominator + question.remainder);
+      assert.ok(question.remainder >= 0 && question.remainder < question.denominator);
+    }
+  }
+});
 
+test("P03F25 conversion semantics cover improper-to-mixed-or-integer, mixed-to-improper and integer-to-improper", () => {
+  const generated = generateBatchABrowserQuestions(makeOptions(G4A_U06_P03F25_PATTERN_SPEC_IDS, 30));
+  assert.equal(generated.ok, true, JSON.stringify(generated.errors));
+  const byDirection = new Map();
+  for (const question of generated.questions) {
+    const rows = byDirection.get(question.conversionDirection) ?? [];
+    rows.push(question);
+    byDirection.set(question.conversionDirection, rows);
+  }
+  assert.equal(byDirection.size, 3);
+  const improperRows = byDirection.get("improper_to_mixed_or_integer");
+  assert.ok(improperRows.some((question) => question.remainder === 0));
+  assert.ok(improperRows.some((question) => question.remainder > 0));
+  for (const question of byDirection.get("mixed_to_improper_fraction")) assert.ok(question.remainder > 0);
+  for (const question of byDirection.get("integer_to_improper_fraction")) assert.equal(question.remainder, 0);
+});
+
+test("P03F25 public binding exposes both G4A-U06 KPs while single conversion selection stays bounded", () => {
+  const source = resolvePublicUiCapabilityBinding({ sourceId, surfaceId: "CLASSIC" });
+  assert.equal(source.blocked, false);
+  assert.equal(source.selectedKnowledgePointCount, 2);
+  assert.equal(source.compatiblePatternGroupIds.includes(G4A_U06_P03F25_GROUP_ID), true);
   const single = resolvePublicUiCapabilityBinding({
     sourceId,
+    surfaceId: "PIXEL",
     selectionMode: "singleKnowledgePoint",
     selectedKnowledgePointIds: [G4A_U06_P03F25_KP_ID],
-    surfaceId: "CLASSIC",
   });
-  assert.equal(single.blocked, false, JSON.stringify(single.blockedReasons));
+  assert.equal(single.blocked, false);
   assert.deepEqual(single.selectedKnowledgePointIds, [G4A_U06_P03F25_KP_ID]);
-  assert.equal(single.compatiblePatternGroupIds.includes(G4A_U06_P03F25_PATTERN_GROUPS[0].patternGroupId), true);
+  assert.deepEqual(single.compatiblePatternGroupIds, [G4A_U06_P03F25_GROUP_ID]);
+  assert.equal(single.questionType, "numeric");
 });
 
 test("P03F25 shared worksheet produces printable questions and answer key", () => {
