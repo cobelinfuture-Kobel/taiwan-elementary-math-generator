@@ -97,7 +97,8 @@
     "closeoutFullRegressionFail": 0,
     "closeoutFullRegressionSkipped": 0,
     "closeoutNodeDiagnosticsArtifactId": 8936862728,
-    "closeoutNodeDiagnosticsArtifactDigest": "sha256:c3e5f58363c1b10364cd8801d2baa0d8bed4e02081aa7d7880547c251d23bb5c"
+    "closeoutNodeDiagnosticsArtifactDigest": "sha256:c3e5f58363c1b10364cd8801d2baa0d8bed4e02081aa7d7880547c251d23bb5c",
+    "closeoutMergeSha": "7dd2c90136531b546e1aa8db0eae0511a4fd05e8"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice025-improper-mixed-integer-conversion-authority.json",
   "chromiumAcceptancePath": "tools/curriculum/render-p03f-slice025-product-acceptance.mjs",
