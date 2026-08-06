@@ -1,21 +1,29 @@
 name: P03F26 Pre-PR Bootstrap
 
 on:
-  push:
-    branches:
-      - p03f26-g4a-u09-rank8
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'data/curriculum/full-product/p03f/slice026-*'
+      - 'site/modules/curriculum/**'
+      - 'site/assets/browser/state/public-pattern-group-selection.js'
+      - 'site/pixel/pixel-registry-bridge.js'
+      - 'tools/curriculum/**'
+      - 'tests/curriculum/**'
+      - '.github/workflows/p03f26-prepr-bootstrap.yml'
 
 permissions:
   contents: write
 
 jobs:
   bootstrap:
-    if: github.actor != 'github-actions[bot]'
+    if: github.event.pull_request.head.ref == 'p03f26-g4a-u09-rank8' && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
@@ -76,14 +84,14 @@ jobs:
         id: full
         continue-on-error: true
         run: npm test > /tmp/p03f26-full.log 2>&1
-      - name: Record bootstrap result
+      - name: Commit generated current authority and readback
         run: |
           PGC_STATUS="${{ steps.pgc.outcome }}"
           FOCUSED_STATUS="${{ steps.focused.outcome }}"
           FULL_STATUS="${{ steps.full.outcome }}"
           mkdir -p docs/curriculum/output
           {
-            echo "P03F26_PREPR_BOOTSTRAP"
+            echo "P03F26_PR_BOOTSTRAP"
             echo "HEAD=${GITHUB_SHA}"
             echo "PGC_R02=${PGC_STATUS}"
             echo "FOCUSED=${FOCUSED_STATUS}"
@@ -109,7 +117,7 @@ jobs:
             data/curriculum/public-generation/ui_option_filter_matrix.csv \
             docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md \
             docs/curriculum/output/P03F26_PREPR_BOOTSTRAP_STATUS.txt
-          git commit -m "ci(p03f26): record prepr bootstrap ${PGC_STATUS}-${FOCUSED_STATUS}-${FULL_STATUS} [skip ci]"
+          git commit -m "ci(p03f26): record PR bootstrap ${PGC_STATUS}-${FOCUSED_STATUS}-${FULL_STATUS} [skip ci]"
           git push origin HEAD:p03f26-g4a-u09-rank8
           if [ "${PGC_STATUS}" != "success" ] || [ "${FOCUSED_STATUS}" != "success" ] || [ "${FULL_STATUS}" != "success" ]; then
             exit 1
