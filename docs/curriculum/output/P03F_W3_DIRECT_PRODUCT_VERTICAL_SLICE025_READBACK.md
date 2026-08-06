@@ -122,7 +122,7 @@ Slice025 expands an existing public source; it does not add a source, add fracti
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE025_D0_CLOSEOUT_CANDIDATE
 GOAL_DISTANCE_AFTER  = D0_SLICE025_PRODUCT_CLOSED
-DISTANCE_REDUCED     = Closeout Node CI, 793/793 exact browser evidence, accepted Chromium/visual evidence, and actual closeout merge SHA are bound into the formal Slice025 D0 authority.
+DISTANCE_REDUCED     = Closeout Node CI, 793/793 exact browser evidence, and accepted Chromium/visual evidence are bound into the formal Slice025 D0 authority.
 REMAINING_BLOCKERS   = []
 NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice026Implementation
 ```
