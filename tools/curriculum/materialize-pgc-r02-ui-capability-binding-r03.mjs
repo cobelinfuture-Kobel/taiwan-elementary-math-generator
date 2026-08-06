@@ -12,6 +12,7 @@ const docsDir = path.join(repoRoot, "docs/curriculum/output");
 const contractPath = path.join(outputDir, "ui_capability_binding_contract.json");
 const csvPath = path.join(outputDir, "ui_option_filter_matrix.csv");
 const readbackPath = path.join(docsDir, "PGC-R02_ui_capability_binding_readback.md");
+const r06A07CloseoutPath = path.join(outputDir, "PGC-R06-A07.final-global-live-closeout.json");
 
 const ACCEPTED_RUNTIME_CAPACITY_STATUSES = new Set(["VERIFIED_20", "VERIFIED_LIMITED", "STRUCTURAL_FALLBACK_AVAILABLE"]);
 const R06_BINDING_RECONCILIATION_FIELDS = Object.freeze([
@@ -65,6 +66,56 @@ function preserveR06TopLevelLineage(contract, existing) {
   return contract;
 }
 
+function readVerifiedR06A07TerminalLineage() {
+  if (!fs.existsSync(r06A07CloseoutPath)) return null;
+  const closeout = JSON.parse(fs.readFileSync(r06A07CloseoutPath, "utf8"));
+  const verified = closeout.schemaName === "PGC-R06-A07.FinalGlobalLiveD0Closeout"
+    && closeout.taskId === "PGC-R06-A07_FinalGlobalLiveD0Closeout"
+    && closeout.status === "PASS_CI_SYNCED_AND_MERGED"
+    && closeout.summary?.globalLiveTargetRouteCount === 389
+    && closeout.summary?.globalLivePassRouteCount === 389
+    && closeout.summary?.globalLiveFailRouteCount === 0
+    && closeout.summary?.repairQueueOpenCount === 0
+    && closeout.summary?.globalLiveD0 === true
+    && closeout.invariants?.globalLivePassEqualsTarget === true
+    && closeout.invariants?.globalLiveD0Achieved === true
+    && closeout.invariants?.repairQueueEmpty === true
+    && closeout.closeout?.status === "PASS_CI_SYNCED_AND_MERGED"
+    && closeout.closeout?.terminalR06Status === "D0_CLOSED";
+  if (!verified) {
+    throw new Error("PGC-R02 refuses to restore R06 A07 terminal lineage from an unverified closeout authority");
+  }
+  return {
+    lastR06A07Closeout: {
+      taskId: closeout.taskId,
+      status: closeout.status,
+    },
+    r06TerminalStatus: closeout.closeout.terminalR06Status,
+  };
+}
+
+function reconcileR06A07TerminalLineage(contract) {
+  const canonical = readVerifiedR06A07TerminalLineage();
+  if (!canonical) return contract;
+  const current = contract.lastR06A07Closeout ?? {};
+  if (current.taskId !== undefined && current.taskId !== canonical.lastR06A07Closeout.taskId) {
+    throw new Error(`PGC-R02 R06 A07 taskId conflict: ${current.taskId}`);
+  }
+  if (current.status !== undefined && current.status !== canonical.lastR06A07Closeout.status) {
+    throw new Error(`PGC-R02 R06 A07 status conflict: ${current.status}`);
+  }
+  if (contract.r06TerminalStatus !== undefined && contract.r06TerminalStatus !== canonical.r06TerminalStatus) {
+    throw new Error(`PGC-R02 R06 terminal status conflict: ${contract.r06TerminalStatus}`);
+  }
+  contract.lastR06A07Closeout = {
+    ...current,
+    taskId: canonical.lastR06A07Closeout.taskId,
+    status: canonical.lastR06A07Closeout.status,
+  };
+  contract.r06TerminalStatus = canonical.r06TerminalStatus;
+  return contract;
+}
+
 export function buildPgcR02UiCapabilityBindingContract() {
   const existing = readExistingContract();
   const legacy = buildLegacyContract();
@@ -103,7 +154,8 @@ export function buildPgcR02UiCapabilityBindingContract() {
     gaps,
     bindings,
   };
-  return preserveR06TopLevelLineage(contract, existing);
+  preserveR06TopLevelLineage(contract, existing);
+  return reconcileR06A07TerminalLineage(contract);
 }
 
 function writeCsv(contract) {
