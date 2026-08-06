@@ -1,9 +1,9 @@
 name: P03F26 Readonly Cutover Materializer
 
 on:
-  push:
+  pull_request:
     branches:
-      - p03f26-readonly-materialize-staging
+      - p03f26-g4a-u09-rank8
 
 permissions:
   contents: read
