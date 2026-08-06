@@ -17,6 +17,8 @@ const prior = base.listBatchAKnowledgePointAvailabilityBySource(G4A_U09_P03F26_S
 const currentSourceCount = base.BATCH_A_SELECTOR_AVAILABILITY.sourceCount
   ?? base.BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount
   ?? Object.keys(base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId).length;
+const CURRENT_G4A_U09_TOTAL_KP_COUNT = 8;
+const CURRENT_G4A_U09_VISIBLE_KP_COUNT = 6;
 
 export { G4A_U09_P03F26_SELECTOR_PROJECTION };
 export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA = base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
@@ -30,14 +32,16 @@ export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
     [G4A_U09_P03F26_SOURCE_ID]: Object.freeze({
       ...(prior ?? {}),
       sourceId: G4A_U09_P03F26_SOURCE_ID,
-      visibleCount: (prior?.visibleCount ?? 2) + 4,
-      hiddenPendingCount: Math.max(0, (prior?.hiddenPendingCount ?? 6) - 4),
+      visibleCount: CURRENT_G4A_U09_VISIBLE_KP_COUNT,
+      hiddenPendingCount: CURRENT_G4A_U09_TOTAL_KP_COUNT - CURRENT_G4A_U09_VISIBLE_KP_COUNT,
       notSelectableCount: 0,
       publicSelectorStatus: "slice026_rank8_decimal_kps_added_to_existing_g4a_u09_source",
-      canonicalReachableKnowledgePointCount: (prior?.canonicalReachableKnowledgePointCount ?? 2) + 4,
+      canonicalReachableKnowledgePointCount: CURRENT_G4A_U09_VISIBLE_KP_COUNT,
       canonicalReachableKnowledgePointIds: Object.freeze([
-        ...(prior?.canonicalReachableKnowledgePointIds ?? []),
-        ...G4A_U09_P03F26_KP_IDS,
+        ...new Set([
+          ...(prior?.canonicalReachableKnowledgePointIds ?? []),
+          ...G4A_U09_P03F26_KP_IDS,
+        ]),
       ]),
       compatibilityProjection: "full_product_w3_shared_decimal_pipeline",
       publicDropdownCutoverTask: "P03F_W3DirectProductVerticalSlice026Implementation",
