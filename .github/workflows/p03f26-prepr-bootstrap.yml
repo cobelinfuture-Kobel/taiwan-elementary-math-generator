@@ -1,0 +1,116 @@
+name: P03F26 Pre-PR Bootstrap
+
+on:
+  push:
+    branches:
+      - p03f26-g4a-u09-rank8
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Cut current consumers to Slice026
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+            "site/modules/curriculum/registry/batch-a-selector-extension.js": [
+              ("batch-a-selector-p03f25-extension.js", "batch-a-selector-p03f26-extension.js"),
+              ("P03F25 successor", "P03F26 successor"),
+            ],
+            "site/modules/curriculum/public/public-ui-capability-binding.js": [
+              ("batch-a-selector-p03f25-extension.js", "batch-a-selector-p03f26-extension.js"),
+            ],
+            "site/assets/browser/state/public-pattern-group-selection.js": [
+              ("batch-a-selector-p03f25-extension.js", "batch-a-selector-p03f26-extension.js"),
+            ],
+            "site/pixel/pixel-registry-bridge.js": [
+              ("batch-a-selector-p03f25-extension.js", "batch-a-selector-p03f26-extension.js"),
+            ],
+            "site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59j-r1-extension.js": [
+              ("batch-a-browser-worksheet-p03f25-extension.js", "batch-a-browser-worksheet-p03f26-extension.js"),
+            ],
+            "tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs": [
+              ("batch-a-selector-p03f25-extension.js", "batch-a-selector-p03f26-extension.js"),
+            ],
+            "tests/curriculum/pgc-r02-public-ui-capability-binding.test.js": [
+              ("batch-a-selector-p03f25-extension.js", "batch-a-selector-p03f26-extension.js"),
+              ("assert.equal(contract.summary.visibleKnowledgePointCount, 212);", "assert.equal(contract.summary.visibleKnowledgePointCount, 216);"),
+            ],
+          }
+          for repo_path, pairs in replacements.items():
+            path = Path(repo_path)
+            text = path.read_text(encoding="utf-8")
+            original = text
+            for old, new in pairs:
+              if old not in text:
+                raise SystemExit(f"P03F26_EXPECTED_TOKEN_MISSING:{repo_path}:{old}")
+              text = text.replace(old, new)
+            if text == original:
+              raise SystemExit(f"P03F26_NO_CHANGE:{repo_path}")
+            path.write_text(text, encoding="utf-8")
+          PY
+      - name: Materialize current PGC-R02 authority
+        id: pgc
+        continue-on-error: true
+        run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs > /tmp/p03f26-pgc.log 2>&1
+      - name: Run focused Slice026 contracts
+        id: focused
+        continue-on-error: true
+        run: node --test tests/curriculum/p03f-slice026-authority-preflight.test.js tests/curriculum/p03f-slice026-g4a-u09-rank8-decimal.test.js tests/curriculum/pgc-r02-public-ui-capability-binding.test.js > /tmp/p03f26-focused.log 2>&1
+      - name: Run full regression
+        id: full
+        continue-on-error: true
+        run: npm test > /tmp/p03f26-full.log 2>&1
+      - name: Record bootstrap result
+        run: |
+          PGC_STATUS="${{ steps.pgc.outcome }}"
+          FOCUSED_STATUS="${{ steps.focused.outcome }}"
+          FULL_STATUS="${{ steps.full.outcome }}"
+          mkdir -p docs/curriculum/output
+          {
+            echo "P03F26_PREPR_BOOTSTRAP"
+            echo "HEAD=${GITHUB_SHA}"
+            echo "PGC_R02=${PGC_STATUS}"
+            echo "FOCUSED=${FOCUSED_STATUS}"
+            echo "FULL_REGRESSION=${FULL_STATUS}"
+            echo "--- PGC TAIL ---"
+            tail -n 80 /tmp/p03f26-pgc.log || true
+            echo "--- FOCUSED TAIL ---"
+            tail -n 120 /tmp/p03f26-focused.log || true
+            echo "--- FULL TAIL ---"
+            tail -n 200 /tmp/p03f26-full.log || true
+          } > docs/curriculum/output/P03F26_PREPR_BOOTSTRAP_STATUS.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            site/modules/curriculum/registry/batch-a-selector-extension.js \
+            site/modules/curriculum/public/public-ui-capability-binding.js \
+            site/assets/browser/state/public-pattern-group-selection.js \
+            site/pixel/pixel-registry-bridge.js \
+            site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59j-r1-extension.js \
+            tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs \
+            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md \
+            docs/curriculum/output/P03F26_PREPR_BOOTSTRAP_STATUS.txt
+          git commit -m "ci(p03f26): record prepr bootstrap ${PGC_STATUS}-${FOCUSED_STATUS}-${FULL_STATUS} [skip ci]"
+          git push origin HEAD:p03f26-g4a-u09-rank8
+          if [ "${PGC_STATUS}" != "success" ] || [ "${FOCUSED_STATUS}" != "success" ] || [ "${FULL_STATUS}" != "success" ]; then
+            exit 1
+          fi
