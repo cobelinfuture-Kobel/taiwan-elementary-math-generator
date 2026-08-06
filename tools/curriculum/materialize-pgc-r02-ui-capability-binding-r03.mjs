@@ -13,13 +13,49 @@ const contractPath = path.join(outputDir, "ui_capability_binding_contract.json")
 const csvPath = path.join(outputDir, "ui_option_filter_matrix.csv");
 const readbackPath = path.join(docsDir, "PGC-R02_ui_capability_binding_readback.md");
 
+const R06_A03_TASK_ID = "PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation";
 const ACCEPTED_RUNTIME_CAPACITY_STATUSES = new Set(["VERIFIED_20", "VERIFIED_LIMITED", "STRUCTURAL_FALLBACK_AVAILABLE"]);
 const csvEscape = (value) => {
   const text = value == null ? "" : Array.isArray(value) ? value.join("|") : typeof value === "object" ? JSON.stringify(value) : String(value);
   return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 };
+const unique = (values = []) => [...new Set(values.filter((value) => value !== null && value !== undefined && value !== ""))];
+
+function readExistingContract() {
+  if (!fs.existsSync(contractPath)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(contractPath, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function preserveHistoricalCapacityOverlay(row, prior) {
+  if (prior?.lastCapacityReconciliation?.taskId !== R06_A03_TASK_ID) {
+    return {
+      ...row,
+      capacityRouteIds: [...(row.capacityRouteIds ?? [])],
+      capacityQualityStatuses: [...(row.capacityQualityStatuses ?? [])],
+    };
+  }
+  return {
+    ...row,
+    questionCountMin: prior.questionCountMin,
+    questionCountDefault: prior.questionCountDefault,
+    questionCountMax: prior.questionCountMax,
+    verifiedCapacityQuestionCountMax: prior.verifiedCapacityQuestionCountMax,
+    capacityStatus: prior.capacityStatus,
+    blocked: prior.blocked,
+    blockedReasons: [...(prior.blockedReasons ?? [])],
+    capacityRouteIds: unique([...(row.capacityRouteIds ?? []), ...(prior.capacityRouteIds ?? [])]),
+    capacityQualityStatuses: unique([...(row.capacityQualityStatuses ?? []), ...(prior.capacityQualityStatuses ?? [])]),
+    lastCapacityReconciliation: { ...prior.lastCapacityReconciliation },
+  };
+}
 
 export function buildPgcR02UiCapabilityBindingContract() {
+  const existing = readExistingContract();
+  const existingByBindingId = new Map((existing?.bindings ?? []).map((row) => [row.bindingId, row]));
   const legacy = buildLegacyContract();
   const byBindingId = new Map(legacy.bindings.map((row) => [row.bindingId, row]));
   const gaps = legacy.gaps.filter((gap) => {
@@ -27,11 +63,8 @@ export function buildPgcR02UiCapabilityBindingContract() {
     const row = byBindingId.get(gap.bindingId);
     return !row || !ACCEPTED_RUNTIME_CAPACITY_STATUSES.has(row.capacityStatus);
   });
-  const bindings = legacy.bindings.map((row) => ({
-    ...row,
-    capacityRouteIds: [...(row.capacityRouteIds ?? [])],
-    capacityQualityStatuses: [...(row.capacityQualityStatuses ?? [])],
-  }));
+  const bindings = legacy.bindings.map((row) => preserveHistoricalCapacityOverlay(row, existingByBindingId.get(row.bindingId)));
+  const preserveR06A03 = existing?.lastReconciliation?.taskId === R06_A03_TASK_ID;
   const summary = {
     ...legacy.summary,
     questionTypeBindingRowCount: bindings.length,
@@ -42,6 +75,12 @@ export function buildPgcR02UiCapabilityBindingContract() {
     minimumVerifiedQuestionCount: bindings.length > 0 ? Math.min(...bindings.map((row) => row.questionCountMax)) : 0,
     maximumVerifiedQuestionCount: bindings.length > 0 ? Math.max(...bindings.map((row) => row.questionCountMax)) : 0,
     gapCount: gaps.length,
+    ...(preserveR06A03 && Number.isFinite(existing?.summary?.maximumPublicInputQuestionCount)
+      ? { maximumPublicInputQuestionCount: existing.summary.maximumPublicInputQuestionCount }
+      : {}),
+    ...(preserveR06A03 && Number.isFinite(existing?.summary?.reconciledG5AU02BindingCount)
+      ? { reconciledG5AU02BindingCount: existing.summary.reconciledG5AU02BindingCount }
+      : {}),
   };
   return {
     ...legacy,
@@ -50,6 +89,8 @@ export function buildPgcR02UiCapabilityBindingContract() {
     status: gaps.length === 0 ? "PASS" : "FAIL_CLOSED",
     capacityAuthority: "site/modules/curriculum/public/public-generator-capacity-registry.js",
     runtimeCapacityPolicy: "PGC_R03_VERIFIED_OR_POST_R03_STRUCTURAL_FALLBACK_UNDER_GLOBAL_240_CEILING",
+    ...(preserveR06A03 && existing?.safeQuestionCount ? { safeQuestionCount: { ...existing.safeQuestionCount } } : {}),
+    ...(preserveR06A03 ? { lastReconciliation: { ...existing.lastReconciliation } } : {}),
     summary,
     gaps,
     bindings,

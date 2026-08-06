@@ -1,0 +1,66 @@
+name: P03F26 Readonly R06 Overlay Materialization Staging
+
+on:
+  push:
+    branches:
+      - p03f26-r06-overlay-materialize-staging
+
+permissions:
+  contents: read
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Restore predecessor R06-A03 overlay seed
+        run: |
+          git show a97bd829d65775e499b2e14ddb734f143b11decb:data/curriculum/public-generation/ui_capability_binding_contract.json > data/curriculum/public-generation/ui_capability_binding_contract.json
+
+      - name: Materialize Slice026 current PGC-R02 authority
+        run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
+
+      - name: Verify generated authority metadata
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const contract = JSON.parse(fs.readFileSync('data/curriculum/public-generation/ui_capability_binding_contract.json', 'utf8'));
+          const taskId = 'PGC-R06-A03_CapacityPublicBindingRuntimeConsumerAndRepairQueueReconciliation';
+          const reconciled = contract.bindings.filter((row) => row.lastCapacityReconciliation?.taskId === taskId);
+          console.log(`P03F26_VISIBLE_KP=${contract.summary.visibleKnowledgePointCount}`);
+          console.log(`P03F26_BINDING_ROWS=${contract.summary.questionTypeBindingRowCount}`);
+          console.log(`P03F26_R06_A03_RECONCILED_BINDINGS=${reconciled.length}`);
+          if (contract.summary.visibleKnowledgePointCount !== 216) throw new Error('P03F26_VISIBLE_KP_MISMATCH');
+          if (contract.summary.questionTypeBindingRowCount !== 1179) throw new Error('P03F26_BINDING_ROW_MISMATCH');
+          if (contract.lastReconciliation?.taskId !== taskId) throw new Error('P03F26_R06_A03_TOP_LEVEL_OVERLAY_MISSING');
+          if (reconciled.length === 0) throw new Error('P03F26_R06_A03_BINDING_OVERLAY_MISSING');
+          if (!reconciled.every((row) => row.questionCountMax === 240 && row.verifiedCapacityQuestionCountMax === 20 && row.blocked === false)) {
+            throw new Error('P03F26_R06_A03_BINDING_OVERLAY_INVALID');
+          }
+          NODE
+
+      - name: Focused Slice026 and historical compatibility acceptance
+        run: |
+          node --test \
+            tests/curriculum/p03f-slice026-authority-preflight.test.js \
+            tests/curriculum/p03f-slice026-g4a-u09-rank8-decimal.test.js \
+            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js \
+            tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js
+
+      - name: Upload read-only materialization artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f26-r06-overlay-materialized-authority
+          path: |
+            data/curriculum/public-generation/ui_capability_binding_contract.json
+            data/curriculum/public-generation/ui_option_filter_matrix.csv
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          if-no-files-found: error
