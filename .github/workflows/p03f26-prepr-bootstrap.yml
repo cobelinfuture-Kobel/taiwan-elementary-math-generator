@@ -25,11 +25,11 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-      - run: npm ci
+
       - name: Cut current consumers to Slice026
         run: |
           python - <<'PY'
@@ -72,53 +72,26 @@ jobs:
               raise SystemExit(f"P03F26_NO_CHANGE:{repo_path}")
             path.write_text(text, encoding="utf-8")
           PY
-      - name: Materialize current PGC-R02 authority
-        id: pgc
-        continue-on-error: true
-        run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs > /tmp/p03f26-pgc.log 2>&1
-      - name: Run focused Slice026 contracts
-        id: focused
-        continue-on-error: true
-        run: node --test tests/curriculum/p03f-slice026-authority-preflight.test.js tests/curriculum/p03f-slice026-g4a-u09-rank8-decimal.test.js tests/curriculum/pgc-r02-public-ui-capability-binding.test.js > /tmp/p03f26-focused.log 2>&1
-      - name: Run full regression
-        id: full
-        continue-on-error: true
-        run: npm test > /tmp/p03f26-full.log 2>&1
-      - name: Commit generated current authority and readback
+
+      - name: Remove temporary bootstrap from candidate tree
         run: |
-          PGC_STATUS="${{ steps.pgc.outcome }}"
-          FOCUSED_STATUS="${{ steps.focused.outcome }}"
-          FULL_STATUS="${{ steps.full.outcome }}"
-          mkdir -p docs/curriculum/output
-          {
-            echo "P03F26_PR_BOOTSTRAP"
-            echo "HEAD=${GITHUB_SHA}"
-            echo "PGC_R02=${PGC_STATUS}"
-            echo "FOCUSED=${FOCUSED_STATUS}"
-            echo "FULL_REGRESSION=${FULL_STATUS}"
-            echo "--- PGC TAIL ---"
-            tail -n 80 /tmp/p03f26-pgc.log || true
-            echo "--- FOCUSED TAIL ---"
-            tail -n 120 /tmp/p03f26-focused.log || true
-            echo "--- FULL TAIL ---"
-            tail -n 200 /tmp/p03f26-full.log || true
-          } > docs/curriculum/output/P03F26_PREPR_BOOTSTRAP_STATUS.txt
+          rm -f .github/workflows/p03f26-prepr-bootstrap.yml
+          rm -f .github/p03f26-bootstrap-trigger.txt
+
+      - name: Materialize current PGC-R02 authority
+        run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
+
+      - name: Run focused Slice026 contracts
+        run: node --test tests/curriculum/p03f-slice026-authority-preflight.test.js tests/curriculum/p03f-slice026-g4a-u09-rank8-decimal.test.js tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+
+      - name: Run full regression
+        run: npm test
+
+      - name: Commit current cutover and generated authority
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            site/modules/curriculum/registry/batch-a-selector-extension.js \
-            site/modules/curriculum/public/public-ui-capability-binding.js \
-            site/assets/browser/state/public-pattern-group-selection.js \
-            site/pixel/pixel-registry-bridge.js \
-            site/modules/curriculum/batch-a/batch-a-browser-worksheet-s59j-r1-extension.js \
-            tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs \
-            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js \
-            data/curriculum/public-generation/ui_capability_binding_contract.json \
-            data/curriculum/public-generation/ui_option_filter_matrix.csv \
-            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md \
-            docs/curriculum/output/P03F26_PREPR_BOOTSTRAP_STATUS.txt
-          git commit -m "ci(p03f26): record PR bootstrap ${PGC_STATUS}-${FOCUSED_STATUS}-${FULL_STATUS} [skip ci]"
+          git add -A
+          git diff --cached --check
+          git commit -m "feat(p03f26): cut current consumers to Slice026 [skip ci]"
           git push origin HEAD:p03f26-g4a-u09-rank8
-          if [ "${PGC_STATUS}" != "success" ] || [ "${FOCUSED_STATUS}" != "success" ] || [ "${FULL_STATUS}" != "success" ]; then
-            exit 1
-          fi
