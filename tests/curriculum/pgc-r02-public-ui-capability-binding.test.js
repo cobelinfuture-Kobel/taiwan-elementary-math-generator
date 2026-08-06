@@ -57,6 +57,9 @@ test("PGC-R02 post-R03 closes all capacity-aware public UI binding cases", () =>
   assert.equal(contract.summary.gapCount, 0);
   assert.equal(contract.summary.blockedBindingCount, 0);
   assert.equal(contract.summary.unverifiedCapacityExposureCount, 0);
+  assert.equal(contract.lastR06A07Closeout?.taskId, "PGC-R06-A07_FinalGlobalLiveD0Closeout");
+  assert.equal(contract.lastR06A07Closeout?.status, "PASS_CI_SYNCED_AND_MERGED");
+  assert.equal(contract.r06TerminalStatus, "D0_CLOSED");
   assert.equal(audit.ok, true, audit.errors.join("\n"));
   assert.equal(audit.caseCount, contract.summary.surfaceCaseCount);
 });
