@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice027 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice027 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice027Implementation
 SLICE      = 027
 SOURCE_REF = g4b_u08_4b08
-STATUS     = READY_FOR_D0_CLOSEOUT_CI
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -15,7 +15,7 @@ Slice027 consumes queue position 27 (`p03e_q027_r8_g4b_u08_4b08_profile_fraction
 1. `kp_g4b_u08_fraction_compare_cross_product`
 2. `kp_g4b_u08_unlike_denominator_add_sub`
 
-The current public projection is `5 visible / 2 hidden` for G4B-U08. Public source count remains 29 and current public KnowledgePoint count becomes 218.
+The current public projection is `5 visible / 2 hidden` for G4B-U08. Public source count remains 29 and current public KnowledgePoint count is 218.
 
 The admitted product contract is numeric-only: two numeric PatternGroups and two deterministic numeric PatternSpecs. Required shared capabilities are `cap_fraction_arithmetic`, `cap_fraction_domain_validator`, and `cap_fraction_number_system`. The two application PatternSpecs remain hidden and are not production-admitted by Slice027. Global Context expansion remains forbidden.
 
@@ -103,14 +103,29 @@ PDF_SHA256                        = 8341cfdd50581c2bb7bc97e7bd991fd6adc304019880
 
 The six screenshots cover three worksheet pages and three answer-key pages. Visual readback found no clipping, overlap, broken glyph, or pagination overflow.
 
-## Closeout candidate state
+## Formal closeout evidence
 
-This candidate adds only the Slice027 final milestone claim, product-admission manifest, readback, and closeout contract test. It does not modify runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority. Slice028 remains unstarted.
+The closeout contains exactly four files: final milestone claim, product-admission manifest, readback, and closeout contract test. It does not modify runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority.
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE027_IMPLEMENTATION_CI_SYNCED_AND_MERGED
-GOAL_DISTANCE_AFTER  = D1_SLICE027_D0_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = implementation, current 218-KP R02 authority, preserved R06 A07 lineage, exact 793-route replay, and exact-head Slice027 Chromium/visual evidence are now bound into one formal closeout candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_NODE_CI_NOT_YET_BOUND, CLOSEOUT_PR_NOT_YET_MERGED]
-NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice027D0Closeout
+CLOSEOUT_PR                   = #562
+CLOSEOUT_CANDIDATE_HEAD       = 6e5bb642ef357ae8f9bc16465a5725a8316731b5
+CLOSEOUT_NODE_RUN             = 31208621614
+CLOSEOUT_NODE_JOB             = 92965754937
+CLOSEOUT_REGRESSION           = 2969 / 2969 PASS
+CLOSEOUT_DIAGNOSTICS          = 9005844518
+CLOSEOUT_DIAGNOSTICS_DIGEST   = sha256:73fc49627f2df2c84a5794afdd998c5835136d38feeb837781e99ecc32937126
+CLOSEOUT_MERGE_SHA            = 5eb4e1402a6deb3109bd0d4c7e96d1ea847b1f5c
+```
+
+## Boundary and final state
+
+Slice027 expands an existing public source. It does not add a public source, admit either hidden application PatternSpec, expand Global Context, create a parallel runtime pipeline, or change shared worksheet/renderer behavior. Slice028 remains unstarted in this closeout.
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE027_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE027_PRODUCT_CLOSED
+DISTANCE_REDUCED     = closeout Node CI, 793/793 exact browser evidence, current 218-KP R02 authority with preserved R06 A07 terminal lineage, exact-head Chromium/visual evidence, and actual closeout merge SHA are bound into the formal Slice027 D0 authority.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice028Implementation
 ```
