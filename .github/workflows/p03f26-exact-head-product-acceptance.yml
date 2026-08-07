@@ -1,0 +1,55 @@
+name: P03F26 Exact Head Chromium Acceptance
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/p03f26-exact-head-product-acceptance.yml"
+      - "tools/curriculum/render-p03f-slice026-product-acceptance.mjs"
+      - "site/modules/curriculum/batch-a/**"
+      - "site/modules/curriculum/registry/**"
+      - "site/modules/renderer/**"
+      - "src/renderer/**"
+      - "data/curriculum/final-milestone-claims/p03f-w3-slice026-e6-d0-v1.json"
+      - "data/curriculum/full-product/p03f/slice026-product-admission.manifest.json"
+      - "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE026_READBACK.md"
+      - "tests/curriculum/p03f-slice026-d0-closeout.test.js"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f26-exact-head-product-acceptance-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  accept:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Slice026 Chromium product acceptance
+        run: node tools/curriculum/render-p03f-slice026-product-acceptance.mjs
+
+      - name: Upload Slice026 product acceptance artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f26-product-acceptance
+          path: tmp/p03f-slice026-product-acceptance
+          if-no-files-found: error
