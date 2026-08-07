@@ -89,14 +89,35 @@ try {
   await browser.close();
 }
 
-const questions = result.generation.questions;
+const generationQuestions = result.generation.questions;
+const questions = document.generatedQuestions;
+const answerKeyItems = document.answerKeyItems;
+const answerKeyByQuestionId = new Map(answerKeyItems.map((item) => [item.questionId, item]));
 const patternSpecWitnessCounts = Object.fromEntries(G4B_U08_P03F27_NUMERIC_PATTERN_SPEC_IDS.map((patternSpecId) => [
   patternSpecId,
   questions.filter((question) => question.patternSpecId === patternSpecId).length,
 ]));
 const comparisonRows = questions.filter((question) => question.operation === "fraction_compare");
 const arithmeticRows = questions.filter((question) => question.operation === "fraction_add_sub");
-const hiddenApplicationLeakCount = G4B_U08_P03F27_HIDDEN_APPLICATION_SPEC_IDS.filter((patternSpecId) => JSON.stringify({ questions, document }).includes(patternSpecId)).length;
+const comparisonAnswerRows = comparisonRows.map((question) => answerKeyByQuestionId.get(question.id)).filter(Boolean);
+const crossLayerMismatchCount = questions.filter((question, index) => {
+  const generated = generationQuestions[index];
+  const answer = answerKeyItems[index];
+  if (!generated || !answer) return true;
+  return generated.id !== question.id
+    || generated.patternSpecId !== question.patternSpecId
+    || generated.metadata?.knowledgePointId !== question.metadata?.knowledgePointId
+    || generated.metadata?.patternGroupId !== question.metadata?.patternGroupId
+    || generated.blankedDisplayText !== question.blankedDisplayText
+    || generated.answerText !== question.answerText
+    || answer.questionId !== question.id
+    || answer.patternId !== question.patternSpecId
+    || answer.knowledgePointId !== question.metadata?.knowledgePointId
+    || answer.patternGroupId !== question.metadata?.patternGroupId
+    || answer.promptText !== question.blankedDisplayText
+    || answer.answerText !== question.answerText;
+}).length + Math.abs(generationQuestions.length - questions.length) + Math.abs(answerKeyItems.length - questions.length);
+const hiddenApplicationLeakCount = G4B_U08_P03F27_HIDDEN_APPLICATION_SPEC_IDS.filter((patternSpecId) => JSON.stringify({ questions, answerKeyItems, document }).includes(patternSpecId)).length;
 const semanticScopeFindingCount = questions.filter((question) => {
   const capabilities = question.metadata?.requiredCapabilityIds ?? [];
   if (question.sourceId !== G4B_U08_P03F27_SOURCE_ID
@@ -134,7 +155,7 @@ const report = {
   sourceId: G4B_U08_P03F27_SOURCE_ID,
   caseCount: 1,
   totalQuestionCount: questions.length,
-  totalAnswerKeyItemCount: document.answerKeyItems.length,
+  totalAnswerKeyItemCount: answerKeyItems.length,
   totalPhysicalPdfPageCount: physicalPages(pdfPath),
   screenshotCount: pageMetrics.length,
   screenshotMedia: "screen",
@@ -144,14 +165,15 @@ const report = {
   observedPatternSpecIds: [...new Set(questions.map((question) => question.patternSpecId))].sort(),
   expectedPatternSpecIds: [...G4B_U08_P03F27_NUMERIC_PATTERN_SPEC_IDS].sort(),
   patternSpecWitnessCounts,
-  comparisonEqualityWitnessCount: comparisonRows.filter((question) => question.comparison === "=").length,
-  comparisonNonEqualityWitnessCount: comparisonRows.filter((question) => question.comparison !== "=").length,
+  comparisonEqualityWitnessCount: comparisonAnswerRows.filter((item) => item.answerText === "=").length,
+  comparisonNonEqualityWitnessCount: comparisonAnswerRows.filter((item) => item.answerText !== "=").length,
   additionWitnessCount: arithmeticRows.filter((question) => question.arithmeticOperation === "add").length,
   subtractionWitnessCount: arithmeticRows.filter((question) => question.arithmeticOperation === "sub").length,
+  crossLayerMismatchCount,
   htmlSha256: sha256(htmlPath),
   pdfSha256: sha256(pdfPath),
   pdfByteLength: fs.statSync(pdfPath).size,
-  duplicatePromptFindingCount: questions.length - new Set(questions.map((question) => question.blankedDisplayText)).size,
+  duplicatePromptFindingCount: questions.length - new Set(document.questionDisplayModels.map((model) => model.promptText)).size,
   overflowFindingCount: pageMetrics.filter((row) => row.overflowX || row.overflowY).length,
   consoleErrorCount: consoleErrors.length,
   pageErrorCount: pageErrors.length,
@@ -181,6 +203,7 @@ const automatedPass = report.totalQuestionCount === 24
   && report.comparisonNonEqualityWitnessCount > 0
   && report.additionWitnessCount > 0
   && report.subtractionWitnessCount > 0
+  && report.crossLayerMismatchCount === 0
   && report.duplicatePromptFindingCount === 0
   && report.overflowFindingCount === 0
   && report.consoleErrorCount === 0
