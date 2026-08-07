@@ -20,18 +20,27 @@ const compareProducts = (leftNumerator,leftDenominator,rightNumerator,rightDenom
   const left=leftNumerator*rightDenominator; const right=rightNumerator*leftDenominator;
   return left<right?"<":left>right?">":"=";
 };
+const NON_EQUAL_COMPARISON_FIXTURES = Object.freeze(DENOMINATOR_PAIRS.flatMap(([leftDenominator,rightDenominator]) => {
+  const rows=[];
+  for(let leftNumerator=1;leftNumerator<leftDenominator;leftNumerator+=1){
+    for(let rightNumerator=1;rightNumerator<rightDenominator;rightNumerator+=1){
+      if(compareProducts(leftNumerator,leftDenominator,rightNumerator,rightDenominator)!=="=") {
+        rows.push(Object.freeze({leftNumerator,leftDenominator,rightNumerator,rightDenominator}));
+      }
+    }
+  }
+  return rows;
+}));
 
 function compareFixture(ordinal, seed){
   const offset=seedOffset(seed,97);
   if(ordinal%5===0){
-    const row=EQUAL_PAIRS[(ordinal+offset)%EQUAL_PAIRS.length];
+    const equalityOrdinal=Math.floor(ordinal/5);
+    const row=EQUAL_PAIRS[(equalityOrdinal+offset)%EQUAL_PAIRS.length];
     return {leftNumerator:row[0],leftDenominator:row[1],rightNumerator:row[2],rightDenominator:row[3]};
   }
-  const [leftDenominator,rightDenominator]=DENOMINATOR_PAIRS[(ordinal+offset)%DENOMINATOR_PAIRS.length];
-  const leftNumerator=1+((ordinal*3+offset)%Math.max(1,leftDenominator-1));
-  let rightNumerator=1+((ordinal*5+offset+2)%Math.max(1,rightDenominator-1));
-  if(compareProducts(leftNumerator,leftDenominator,rightNumerator,rightDenominator)==="=") rightNumerator=rightNumerator===rightDenominator-1?1:rightNumerator+1;
-  return {leftNumerator,leftDenominator,rightNumerator,rightDenominator};
+  const row=NON_EQUAL_COMPARISON_FIXTURES[(ordinal*17+offset)%NON_EQUAL_COMPARISON_FIXTURES.length];
+  return {leftNumerator:row.leftNumerator,leftDenominator:row.leftDenominator,rightNumerator:row.rightNumerator,rightDenominator:row.rightDenominator};
 }
 
 function addSubFixture(ordinal, seed){
