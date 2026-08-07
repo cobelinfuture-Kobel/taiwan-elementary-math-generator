@@ -33,7 +33,7 @@ jobs:
           set -o pipefail
           npm test 2>&1 | tee tmp/npm-test.log
       - name: Install Chromium for product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'closeout/15-unit-public-worksheet-v1' || github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout' || github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice003-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice004-v1' || github.head_ref == 'p03f19-g4b-u06-rank7-core' || github.head_ref == 'p03f20-g4b-u08-rank7' || github.head_ref == 'p03f21-g5a-u01-rank7' || github.head_ref == 'p03f22-g5a-u04-rank7' || github.head_ref == 'p03f23-g6a-u02-rank7' || github.head_ref == 'pgc-r07-a03-chromium-print-answer-matrix' || github.head_ref == 'pgc-r07-a04-overflow-clipping-font-pagination-fullfix')
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'closeout/15-unit-public-worksheet-v1' || github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout' || github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice003-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice004-v1' || github.head_ref == 'p03f19-g4b-u06-rank7-core' || github.head_ref == 'p03f20-g4b-u08-rank7' || github.head_ref == 'p03f21-g5a-u01-rank7' || github.head_ref == 'p03f22-g5a-u04-rank7' || github.head_ref == 'p03f23-g6a-u02-rank7' || github.head_ref == 'p03f27-g4b-u08-rank8' || github.head_ref == 'pgc-r07-a03-chromium-print-answer-matrix' || github.head_ref == 'pgc-r07-a04-overflow-clipping-font-pagination-fullfix')
         run: |
           npm install --no-save --package-lock=false playwright@1.51.1 @fontsource/noto-sans-tc@5.2.9
           npx playwright install --with-deps chromium
@@ -82,6 +82,9 @@ jobs:
       - name: Run P03F slice023 Chromium product acceptance
         if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f23-g6a-u02-rank7'
         run: node tools/curriculum/render-p03f-slice023-product-acceptance.mjs
+      - name: Run P03F slice027 Chromium product acceptance
+        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f27-g4b-u08-rank8'
+        run: node tools/curriculum/render-p03f-slice027-product-acceptance.mjs
       - name: Run PGC-R07 A03 Chromium print and answer-key matrix
         if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'pgc-r07-a03-chromium-print-answer-matrix'
         run: node tools/curriculum/run-pgc-r07-a03-chromium-print-answer-matrix-r1.mjs
@@ -222,6 +225,14 @@ jobs:
         with:
           name: p03f-slice023-product-acceptance
           path: tmp/p03f-slice023-product-acceptance
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload P03F slice027 product artifacts
+        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f27-g4b-u08-rank8'
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice027-product-acceptance
+          path: tmp/p03f-slice027-product-acceptance
           if-no-files-found: error
           retention-days: 30
       - name: Upload PGC-R07 A03 Chromium print artifacts

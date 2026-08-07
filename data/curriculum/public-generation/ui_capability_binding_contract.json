@@ -5,7 +5,7 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f26-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f27-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
   "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding.js",
   "adapters": {
@@ -26,19 +26,19 @@
   ],
   "summary": {
     "publicSourceCount": 29,
-    "visibleKnowledgePointCount": 216,
+    "visibleKnowledgePointCount": 218,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 272,
-    "surfaceCaseCount": 816,
-    "questionTypeBindingRowCount": 1179,
-    "parityCaseCount": 272,
-    "auditCaseCount": 816,
+    "baseCaseCount": 274,
+    "surfaceCaseCount": 822,
+    "questionTypeBindingRowCount": 1185,
+    "parityCaseCount": 274,
+    "auditCaseCount": 822,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
-    "limitedCapacityBindingCount": 1071,
-    "structuralFallbackBindingCount": 108,
+    "limitedCapacityBindingCount": 1062,
+    "structuralFallbackBindingCount": 123,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -45584,15 +45584,19 @@
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
         "kp_g4b_u08_equivalence_cross_product",
-        "kp_g4b_u08_fraction_decimal_conversion"
+        "kp_g4b_u08_fraction_decimal_conversion",
+        "kp_g4b_u08_fraction_compare_cross_product",
+        "kp_g4b_u08_unlike_denominator_add_sub"
       ],
-      "selectedKnowledgePointCount": 3,
+      "selectedKnowledgePointCount": 5,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
         "pg_g4b_u08_equivalence_cross_product_numeric",
-        "pg_g4b_u08_fraction_decimal_conversion_numeric"
+        "pg_g4b_u08_fraction_decimal_conversion_numeric",
+        "pg_g4b_u08_fraction_compare_cross_product_numeric",
+        "pg_g4b_u08_unlike_denominator_add_sub_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
@@ -45600,19 +45604,23 @@
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
         "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
         "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
-        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric",
+        "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+        "ps_g4b_u08_unlike_denominator_add_sub_result_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
         "交叉乘積判定等值",
-        "分數與有限小數互換"
+        "分數與有限小數互換",
+        "異分母分數比較",
+        "異分母分數加減"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45627,15 +45635,19 @@
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
         "kp_g4b_u08_equivalence_cross_product",
-        "kp_g4b_u08_fraction_decimal_conversion"
+        "kp_g4b_u08_fraction_decimal_conversion",
+        "kp_g4b_u08_fraction_compare_cross_product",
+        "kp_g4b_u08_unlike_denominator_add_sub"
       ],
-      "selectedKnowledgePointCount": 3,
+      "selectedKnowledgePointCount": 5,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
         "pg_g4b_u08_equivalence_cross_product_numeric",
-        "pg_g4b_u08_fraction_decimal_conversion_numeric"
+        "pg_g4b_u08_fraction_decimal_conversion_numeric",
+        "pg_g4b_u08_fraction_compare_cross_product_numeric",
+        "pg_g4b_u08_unlike_denominator_add_sub_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
@@ -45643,19 +45655,23 @@
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
         "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
         "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
-        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric",
+        "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+        "ps_g4b_u08_unlike_denominator_add_sub_result_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
         "交叉乘積判定等值",
-        "分數與有限小數互換"
+        "分數與有限小數互換",
+        "異分母分數比較",
+        "異分母分數加減"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45670,15 +45686,19 @@
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
         "kp_g4b_u08_equivalence_cross_product",
-        "kp_g4b_u08_fraction_decimal_conversion"
+        "kp_g4b_u08_fraction_decimal_conversion",
+        "kp_g4b_u08_fraction_compare_cross_product",
+        "kp_g4b_u08_unlike_denominator_add_sub"
       ],
-      "selectedKnowledgePointCount": 3,
+      "selectedKnowledgePointCount": 5,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
         "pg_g4b_u08_equivalence_cross_product_numeric",
-        "pg_g4b_u08_fraction_decimal_conversion_numeric"
+        "pg_g4b_u08_fraction_decimal_conversion_numeric",
+        "pg_g4b_u08_fraction_compare_cross_product_numeric",
+        "pg_g4b_u08_unlike_denominator_add_sub_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
@@ -45686,19 +45706,23 @@
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
         "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
         "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
-        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric",
+        "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+        "ps_g4b_u08_unlike_denominator_add_sub_result_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
         "交叉乘積判定等值",
-        "分數與有限小數互換"
+        "分數與有限小數互換",
+        "異分母分數比較",
+        "異分母分數加減"
       ],
       "depthModes": [],
       "contextModes": [],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45732,7 +45756,7 @@
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45766,7 +45790,7 @@
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45800,7 +45824,7 @@
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45832,7 +45856,7 @@
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45864,7 +45888,7 @@
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -45896,7 +45920,7 @@
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
-      "capacityStatus": "VERIFIED_LIMITED",
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
       "blocked": false,
       "blockedReasons": [],
       "capacityRouteIds": [],
@@ -46002,6 +46026,198 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_compare_cross_product::CLASSIC::numeric",
+      "caseId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_compare_cross_product",
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u08_fraction_compare_cross_product"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u08_fraction_compare_cross_product_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數比較"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_compare_cross_product::FALLBACK_404::numeric",
+      "caseId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_compare_cross_product",
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u08_fraction_compare_cross_product"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u08_fraction_compare_cross_product_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數比較"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_compare_cross_product::PIXEL::numeric",
+      "caseId": "g4b_u08_4b08::single::kp_g4b_u08_fraction_compare_cross_product",
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u08_fraction_compare_cross_product"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u08_fraction_compare_cross_product_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數比較"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u08_4b08::single::kp_g4b_u08_unlike_denominator_add_sub::CLASSIC::numeric",
+      "caseId": "g4b_u08_4b08::single::kp_g4b_u08_unlike_denominator_add_sub",
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u08_unlike_denominator_add_sub"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u08_unlike_denominator_add_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u08_unlike_denominator_add_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數加減"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u08_4b08::single::kp_g4b_u08_unlike_denominator_add_sub::FALLBACK_404::numeric",
+      "caseId": "g4b_u08_4b08::single::kp_g4b_u08_unlike_denominator_add_sub",
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u08_unlike_denominator_add_sub"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u08_unlike_denominator_add_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u08_unlike_denominator_add_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數加減"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u08_4b08::single::kp_g4b_u08_unlike_denominator_add_sub::PIXEL::numeric",
+      "caseId": "g4b_u08_4b08::single::kp_g4b_u08_unlike_denominator_add_sub",
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u08_unlike_denominator_add_sub"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u08_unlike_denominator_add_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u08_unlike_denominator_add_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數加減"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u08_4b08::mixedSameUnit::CLASSIC::numeric",
       "caseId": "g4b_u08_4b08::mixedSameUnit",
       "sourceId": "g4b_u08_4b08",
@@ -46010,15 +46226,19 @@
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
         "kp_g4b_u08_equivalence_cross_product",
-        "kp_g4b_u08_fraction_decimal_conversion"
+        "kp_g4b_u08_fraction_decimal_conversion",
+        "kp_g4b_u08_fraction_compare_cross_product",
+        "kp_g4b_u08_unlike_denominator_add_sub"
       ],
-      "selectedKnowledgePointCount": 3,
+      "selectedKnowledgePointCount": 5,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
         "pg_g4b_u08_equivalence_cross_product_numeric",
-        "pg_g4b_u08_fraction_decimal_conversion_numeric"
+        "pg_g4b_u08_fraction_decimal_conversion_numeric",
+        "pg_g4b_u08_fraction_compare_cross_product_numeric",
+        "pg_g4b_u08_unlike_denominator_add_sub_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
@@ -46026,12 +46246,16 @@
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
         "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
         "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
-        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric",
+        "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+        "ps_g4b_u08_unlike_denominator_add_sub_result_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
         "交叉乘積判定等值",
-        "分數與有限小數互換"
+        "分數與有限小數互換",
+        "異分母分數比較",
+        "異分母分數加減"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -46053,15 +46277,19 @@
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
         "kp_g4b_u08_equivalence_cross_product",
-        "kp_g4b_u08_fraction_decimal_conversion"
+        "kp_g4b_u08_fraction_decimal_conversion",
+        "kp_g4b_u08_fraction_compare_cross_product",
+        "kp_g4b_u08_unlike_denominator_add_sub"
       ],
-      "selectedKnowledgePointCount": 3,
+      "selectedKnowledgePointCount": 5,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
         "pg_g4b_u08_equivalence_cross_product_numeric",
-        "pg_g4b_u08_fraction_decimal_conversion_numeric"
+        "pg_g4b_u08_fraction_decimal_conversion_numeric",
+        "pg_g4b_u08_fraction_compare_cross_product_numeric",
+        "pg_g4b_u08_unlike_denominator_add_sub_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
@@ -46069,12 +46297,16 @@
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
         "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
         "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
-        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric",
+        "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+        "ps_g4b_u08_unlike_denominator_add_sub_result_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
         "交叉乘積判定等值",
-        "分數與有限小數互換"
+        "分數與有限小數互換",
+        "異分母分數比較",
+        "異分母分數加減"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -46096,15 +46328,19 @@
       "selectedKnowledgePointIds": [
         "kp_g4b_u08_generate_equivalent_fraction",
         "kp_g4b_u08_equivalence_cross_product",
-        "kp_g4b_u08_fraction_decimal_conversion"
+        "kp_g4b_u08_fraction_decimal_conversion",
+        "kp_g4b_u08_fraction_compare_cross_product",
+        "kp_g4b_u08_unlike_denominator_add_sub"
       ],
-      "selectedKnowledgePointCount": 3,
+      "selectedKnowledgePointCount": 5,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u08_generate_equivalent_fraction_numeric",
         "pg_g4b_u08_equivalence_cross_product_numeric",
-        "pg_g4b_u08_fraction_decimal_conversion_numeric"
+        "pg_g4b_u08_fraction_decimal_conversion_numeric",
+        "pg_g4b_u08_fraction_compare_cross_product_numeric",
+        "pg_g4b_u08_unlike_denominator_add_sub_numeric"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
@@ -46112,12 +46348,16 @@
         "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric",
         "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
         "ps_g4b_u08_fraction_decimal_conversion_decimal_numeric",
-        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric"
+        "ps_g4b_u08_fraction_decimal_conversion_numerator_numeric",
+        "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+        "ps_g4b_u08_unlike_denominator_add_sub_result_numeric"
       ],
       "questionFormLabels": [
         "擴分與約分產生等值分數",
         "交叉乘積判定等值",
-        "分數與有限小數互換"
+        "分數與有限小數互換",
+        "異分母分數比較",
+        "異分母分數加減"
       ],
       "depthModes": [],
       "contextModes": [],

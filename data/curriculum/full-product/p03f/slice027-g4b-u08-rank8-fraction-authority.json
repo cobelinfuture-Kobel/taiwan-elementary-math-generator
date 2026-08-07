@@ -1,0 +1,149 @@
+{
+  "schemaName": "P03FSlice027G4BU08Rank8FractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice027Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 27,
+    "sliceId": "p03e_q027_r8_g4b_u08_4b08_profile_fraction_c1",
+    "previousSliceId": "p03e_q026_r8_g4a_u09_4a09_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 555,
+      "closeoutPr": 558,
+      "postMergeReconciliationPr": 559,
+      "implementationMergeSha": "188b119aad4c66b8b26010d341407483fddf4a79",
+      "closeoutMergeSha": "f2cdbedfd57acd9fde8aa4b6d03c73750cb03cc5",
+      "finalMainReconciliationMergeSha": "93a4d383fda26750ef3427e46a8341b2c0d8a710",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice026-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g4b_u08_4b08.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g4b_u08_4b08.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g4b_u08_4b08.hidden-pattern-spec.json",
+    "sourceNodeId": "g4b_u08_4b08",
+    "sourceCode": "4b08",
+    "sourceTitle": "等值分數",
+    "grade": 4,
+    "semester": "lower",
+    "unitCode": "4B-U08",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_AND_HIDDEN_PATTERNSPEC_AUTHORITY_READBACK",
+    "reviewedPages": [1, 3]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4b_u08_fraction_compare_cross_product",
+      "canonicalNameZh": "異分母分數比較",
+      "scope": "以交叉乘積或等值分數比較異分母分數。",
+      "evidencePages": [1, 3],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g4b_u08_fraction_compare_cross_product",
+      "operationFamilyId": "fraction_compare",
+      "requiredW3CapabilityIds": [
+        "cap_fraction_arithmetic",
+        "cap_fraction_domain_validator",
+        "cap_fraction_number_system"
+      ],
+      "reasoningInvariant": "比較結果必須等於兩個正分數的精確有理數大小關係；交叉乘積比較不可因表示形式改變結果。"
+    },
+    {
+      "knowledgePointId": "kp_g4b_u08_unlike_denominator_add_sub",
+      "canonicalNameZh": "異分母分數加減",
+      "scope": "先通分再進行分數加減，並以等值分數保持精確結果。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g4b_u08_unlike_denominator_add_sub",
+      "operationFamilyId": "fraction_add_sub",
+      "requiredW3CapabilityIds": [
+        "cap_fraction_arithmetic",
+        "cap_fraction_domain_validator",
+        "cap_fraction_number_system"
+      ],
+      "reasoningInvariant": "結果必須等於精確有理數加減，通分與最後表示形式不得改變分數值。"
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g4b_u08_fraction_compare_cross_product_numeric",
+      "patternSpecId": "ps_g4b_u08_fraction_compare_cross_product_comparison_numeric",
+      "knowledgePointId": "kp_g4b_u08_fraction_compare_cross_product",
+      "operationModelId": "op_g4b_u08_fraction_compare_cross_product",
+      "operationFamilyId": "fraction_compare",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "comparison",
+      "givenRoles": ["leftNumerator", "leftDenominator", "rightNumerator", "rightDenominator"],
+      "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"]
+    },
+    {
+      "patternGroupId": "pg_g4b_u08_unlike_denominator_add_sub_numeric",
+      "patternSpecId": "ps_g4b_u08_unlike_denominator_add_sub_result_numeric",
+      "knowledgePointId": "kp_g4b_u08_unlike_denominator_add_sub",
+      "operationModelId": "op_g4b_u08_unlike_denominator_add_sub",
+      "operationFamilyId": "fraction_add_sub",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "result",
+      "givenRoles": ["leftNumerator", "leftDenominator", "rightNumerator", "rightDenominator"],
+      "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"]
+    }
+  ],
+  "hiddenApplicationLineage": [
+    {
+      "patternSpecId": "ps_g4b_u08_fraction_compare_cross_product_comparison_application",
+      "patternGroupId": "pg_g4b_u08_fraction_compare_cross_product_application",
+      "knowledgePointId": "kp_g4b_u08_fraction_compare_cross_product",
+      "productionAdmissionAllowedBySlice027": false,
+      "publicSelectorVisibility": "hidden",
+      "globalContextExpansionAllowed": false
+    },
+    {
+      "patternSpecId": "ps_g4b_u08_unlike_denominator_add_sub_result_application",
+      "patternGroupId": "pg_g4b_u08_unlike_denominator_add_sub_application",
+      "knowledgePointId": "kp_g4b_u08_unlike_denominator_add_sub",
+      "productionAdmissionAllowedBySlice027": false,
+      "publicSelectorVisibility": "hidden",
+      "globalContextExpansionAllowed": false
+    }
+  ],
+  "formalMappingBoundary": {
+    "comparisonRequired": true,
+    "unlikeDenominatorAddSubRequired": true,
+    "exactRationalIdentityRequired": true,
+    "positiveDenominatorsRequired": true,
+    "fractionArithmeticRequired": true,
+    "fractionNumberSystemRequired": true,
+    "fractionDomainValidatorRequired": true,
+    "applicationRequired": false,
+    "fractionNumberLineDistanceRequired": false,
+    "mixedFractionOrderConstraintRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "reuseSlice005G4BU08Source": true,
+    "reuseSlice012G4BU08Source": true,
+    "reuseSlice020G4BU08Source": true,
+    "expectedSourceVisibleCountAfterAdmission": 5,
+    "expectedSourceHiddenCountAfterAdmission": 2,
+    "expectedPublicSourceCountAfterAdmission": 29,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 218,
+    "sharedFractionArithmeticRequired": true,
+    "sharedFractionNumberSystemRequired": true,
+    "sharedFractionDomainValidatorRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice028Implementation"
+  }
+}
