@@ -2,8 +2,8 @@
   "claimId": "P03F-W3-SLICE026-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice026Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice026 only: expand existing g4a_u09_4a09 with four rank-8 decimal KnowledgePoints using four numeric PatternGroups and five deterministic numeric PatternSpecs while preserving the hidden application lineage.",
   "authority": {
     "queuePosition": 26,
@@ -108,8 +108,8 @@
     "global793RouteRegression": "PASS",
     "r02CurrentAuthority": "29_SOURCES_216_KPS_ZERO_GAPS",
     "r06A07TerminalLineagePreserved": true,
-    "productAdmissionState": "READY_FOR_D0_CLOSEOUT_CI",
-    "d0Complete": false
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
   },
   "boundaries": {
     "slice027Started": false,
@@ -121,5 +121,20 @@
     "parallelRuntimePipelineAdded": false,
     "sharedWorksheetRendererBehaviorChanged": false
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice026D0Closeout"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice027Implementation",
+  "closeoutEvidence": {
+    "prNumber": 558,
+    "headSha": "c6114b48824c2396390c37c4c685f9ebfb1bd773",
+    "nodeWorkflowRunId": 31151529863,
+    "nodeWorkflowJobId": 92782056090,
+    "nodeConclusion": "success",
+    "fullRegression": {
+      "tests": 2954,
+      "pass": 2954,
+      "fail": 0,
+      "skipped": 0
+    },
+    "diagnosticsArtifactId": 8983531632,
+    "diagnosticsArtifactDigest": "sha256:d7765de502c209471ed7e51d3bf997e4c9764d965b9e36f84c8e0db47f7f2483"
+  }
 }
