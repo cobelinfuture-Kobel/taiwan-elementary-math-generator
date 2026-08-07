@@ -40,8 +40,8 @@ function addSubFixture(ordinal, seed){
   let leftNumerator=1+((ordinal*5+offset)%Math.max(1,firstDenominator-1));
   let rightNumerator=1+((ordinal*7+offset+1)%Math.max(1,secondDenominator-1));
   let leftDenominator=firstDenominator, rightDenominator=secondDenominator;
-  const operation=ordinal%2===0?"add":"sub";
-  if(operation==="sub"){
+  const arithmeticOperation=ordinal%2===0?"add":"sub";
+  if(arithmeticOperation==="sub"){
     const relation=compareProducts(leftNumerator,leftDenominator,rightNumerator,rightDenominator);
     if(relation==="<") [leftNumerator,leftDenominator,rightNumerator,rightDenominator]=[rightNumerator,rightDenominator,leftNumerator,leftDenominator];
     if(compareProducts(leftNumerator,leftDenominator,rightNumerator,rightDenominator)==="=") {
@@ -49,7 +49,7 @@ function addSubFixture(ordinal, seed){
       else if(rightNumerator>1) rightNumerator-=1;
     }
   }
-  return {operation,leftNumerator,leftDenominator,rightNumerator,rightDenominator};
+  return {arithmeticOperation,leftNumerator,leftDenominator,rightNumerator,rightDenominator};
 }
 
 function metadata(definition){
@@ -88,15 +88,15 @@ function buildQuestion(patternSpecId, ordinal, seed){
   }
   const fixture=addSubFixture(ordinal,seed);
   const commonDenominator=fixture.leftDenominator*fixture.rightDenominator;
-  const rawNumerator=fixture.operation==="add"
+  const rawNumerator=fixture.arithmeticOperation==="add"
     ? fixture.leftNumerator*fixture.rightDenominator+fixture.rightNumerator*fixture.leftDenominator
     : fixture.leftNumerator*fixture.rightDenominator-fixture.rightNumerator*fixture.leftDenominator;
   const normalized=normalize(rawNumerator,commonDenominator);
   const answerText=fractionText(normalized);
-  const symbol=fixture.operation==="add"?"+":"−";
+  const symbol=fixture.arithmeticOperation==="add"?"+":"−";
   const promptText=`${fixture.leftNumerator}/${fixture.leftDenominator} ${symbol} ${fixture.rightNumerator}/${fixture.rightDenominator} = ?`;
   return Object.freeze({
-    id:`${patternSpecId}-${ordinal+1}`,sourceId:G4B_U08_P03F27_SOURCE_ID,patternSpecId,kind:definition.kind,operation:definition.operation,operationFamilyId:definition.operationFamilyId,arithmeticOperation:fixture.operation,
+    id:`${patternSpecId}-${ordinal+1}`,sourceId:G4B_U08_P03F27_SOURCE_ID,patternSpecId,kind:definition.kind,operation:definition.operation,operationFamilyId:definition.operationFamilyId,
     questionMode:"numeric",mode:"NUMERIC",promptText,questionText:promptText,blankedDisplayText:promptText,displayText:`${promptText} ${answerText}`,answerText,finalAnswer:answerText,
     ...fixture,resultNumerator:normalized.numerator,resultDenominator:normalized.denominator,metadata:metadata(definition),globalContextProduction:null,
   });
