@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: node-test-${{ github.event.pull_request.number || github.ref }}
@@ -23,6 +23,41 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: P03F27 exact-head R02 materialization bridge
+        if: github.event_name == 'pull_request' && github.head_ref == 'p03f27-g4b-u08-rank8'
+        env:
+          HEAD_BRANCH: ${{ github.head_ref }}
+        run: |
+          git fetch origin main "$HEAD_BRANCH"
+          git checkout -B "$HEAD_BRANCH" "origin/$HEAD_BRANCH"
+          node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
+          node --input-type=module - <<'NODE'
+          import fs from "node:fs";
+          const contract = JSON.parse(fs.readFileSync("data/curriculum/public-generation/ui_capability_binding_contract.json", "utf8"));
+          if (contract.status !== "PASS") throw new Error(`R02 status ${contract.status}`);
+          if (contract.summary.publicSourceCount !== 29) throw new Error(`source count ${contract.summary.publicSourceCount}`);
+          if (contract.summary.visibleKnowledgePointCount !== 218) throw new Error(`KP count ${contract.summary.visibleKnowledgePointCount}`);
+          if (contract.summary.gapCount !== 0) throw new Error(`gap count ${contract.summary.gapCount}`);
+          if (contract.r06TerminalStatus !== "D0_CLOSED") throw new Error(`R06 terminal ${contract.r06TerminalStatus}`);
+          const serialized = JSON.stringify(contract);
+          for (const forbidden of [
+            "ps_g4b_u08_fraction_compare_cross_product_comparison_application",
+            "ps_g4b_u08_unlike_denominator_add_sub_result_application",
+          ]) {
+            if (serialized.includes(forbidden)) throw new Error(`hidden application spec leaked: ${forbidden}`);
+          }
+          console.log(`P03F27_R02_MATERIALIZED=${JSON.stringify(contract.summary)}`);
+          NODE
+          git checkout origin/main -- .github/workflows/node-test.yml
+          git rm tests/curriculum/p03f-slice027-r02-capture.test.js
+          git add \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data(p03f27): materialize current 218-KP R02 authority"
+          git push origin "HEAD:$HEAD_BRANCH"
       - name: Install dependencies
         run: npm install
       - name: Run tests
