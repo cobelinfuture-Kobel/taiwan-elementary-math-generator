@@ -107,7 +107,8 @@
     "closeoutFullRegressionFail": 0,
     "closeoutFullRegressionSkipped": 0,
     "closeoutNodeDiagnosticsArtifactId": 8983531632,
-    "closeoutNodeDiagnosticsArtifactDigest": "sha256:d7765de502c209471ed7e51d3bf997e4c9764d965b9e36f84c8e0db47f7f2483"
+    "closeoutNodeDiagnosticsArtifactDigest": "sha256:d7765de502c209471ed7e51d3bf997e4c9764d965b9e36f84c8e0db47f7f2483",
+    "closeoutMergeSha": "f2cdbedfd57acd9fde8aa4b6d03c73750cb03cc5"
   },
   "authorityPath": "data/curriculum/full-product/p03f/slice026-g4a-u09-rank8-decimal-authority.json",
   "chromiumAcceptancePath": "tools/curriculum/render-p03f-slice026-product-acceptance.mjs",
