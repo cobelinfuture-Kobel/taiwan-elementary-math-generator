@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import { resolvePublicUiCapabilityBinding } from "../../site/modules/curriculum/public/public-ui-capability-binding.js";
 import { listPublicPatternGroupChoices } from "../../site/assets/browser/state/public-pattern-group-selection.js";
+import { getCurrentPixelRegistrySnapshot } from "../../site/pixel/pixel-registry-bridge.js";
 import {
   G4B_U08_P03F27_KP_IDS,
   G4B_U08_P03F27_PATTERN_GROUPS,
@@ -54,4 +55,11 @@ test("P03F27 current G4B-U08 source-unit binding exposes all five visible KPs an
   for (const hiddenSpecId of G4B_U08_P03F27_HIDDEN_APPLICATION_SPEC_IDS) {
     assert.equal(serialized.includes(hiddenSpecId), false);
   }
+});
+
+test("P03F27 current registry is exactly 29 public sources and 218 visible KPs", () => {
+  const snapshot = getCurrentPixelRegistrySnapshot();
+  assert.equal(snapshot.sourceCount, 29);
+  assert.equal(snapshot.visibleKnowledgePointCount, 218);
+  assert.equal(snapshot.bySourceId[G4B_U08_P03F27_SOURCE_ID].visibleKnowledgePoints.length, 5);
 });
