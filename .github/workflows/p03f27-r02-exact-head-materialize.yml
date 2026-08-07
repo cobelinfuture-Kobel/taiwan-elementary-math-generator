@@ -34,6 +34,92 @@ jobs:
         with:
           node-version: 24
 
+      - name: Repair G4B-U08 current public UI binding
+        run: |
+          node --input-type=module - <<'NODE'
+          import fs from "node:fs";
+          const file = "site/modules/curriculum/public/public-ui-capability-binding.js";
+          let text = fs.readFileSync(file, "utf8");
+          const constantMarker = 'const G5A_U08_SOURCE_ID = "g5a_u08_5a08";\n';
+          if (!text.includes(constantMarker)) throw new Error("G4B_U08_CONSTANT_INSERTION_MARKER_MISSING");
+          if (!text.includes('const G4B_U08_CURRENT_SOURCE_ID = "g4b_u08_4b08";')) {
+            text = text.replace(constantMarker, `${constantMarker}const G4B_U08_CURRENT_SOURCE_ID = "g4b_u08_4b08";\n`);
+          }
+
+          const functionMarker = "\nfunction needsStructuralFallback(binding) {";
+          if (!text.includes(functionMarker)) throw new Error("G4B_U08_BINDING_INSERTION_MARKER_MISSING");
+          if (!text.includes("function g4bU08CurrentBinding(input = {})")) {
+            const binding = `
+function g4bU08CurrentBinding(input = {}) {
+  if (input.sourceId !== G4B_U08_CURRENT_SOURCE_ID) return null;
+  const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
+  const visibleRows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G4B_U08_CURRENT_SOURCE_ID);
+  const allowedIds = visibleRows.map((row) => row.knowledgePointId);
+  const requested = uniqueStrings(input.selectedKnowledgePointIds).filter((id) => allowedIds.includes(id));
+  let selectedKnowledgePointIds;
+  if (selectionMode === SINGLE_KP_MODE) {
+    selectedKnowledgePointIds = [requested[0] ?? allowedIds[0]].filter(Boolean);
+  } else if (selectionMode === SAME_UNIT_MIXED_MODE) {
+    selectedKnowledgePointIds = requested.length > 0 ? requested : allowedIds;
+  } else {
+    selectedKnowledgePointIds = allowedIds;
+  }
+  const compatiblePatternGroups = selectedKnowledgePointIds.flatMap((knowledgePointId) => {
+    const row = visibleRows.find((entry) => entry.knowledgePointId === knowledgePointId);
+    return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => Object.freeze({
+      ...group,
+      knowledgePointId,
+      knowledgePointDisplayName: row?.displayName ?? knowledgePointId,
+      effectiveQuestionType: "numeric",
+      uiQuestionType: "numeric",
+      displayLabel: row?.displayName ?? group.displayName ?? "數字題",
+      selected: true,
+    }));
+  });
+  const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
+  return Object.freeze({
+    sourceId: G4B_U08_CURRENT_SOURCE_ID,
+    surfaceId: input.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
+    selectionMode,
+    availableSelectionModes: Object.freeze([
+      Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
+      Object.freeze({ value: SINGLE_KP_MODE, enabled: allowedIds.length > 0 }),
+      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: allowedIds.length >= 2 }),
+      Object.freeze({ value: "mixedKnowledgePointsCrossUnit", enabled: false }),
+    ]),
+    selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
+    availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
+    questionType: "numeric",
+    compatiblePatternGroups: Object.freeze(compatiblePatternGroups),
+    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    depthOptions: Object.freeze([]),
+    contextOptions: Object.freeze([]),
+    depthMode: null,
+    contextMode: null,
+    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRegistryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
+    capacityRouteIds: Object.freeze([]),
+    capacityQualityStatuses: Object.freeze(["P03F27_G4B_U08_FIVE_KP_STRUCTURAL_RUNTIME"]),
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    blocked: false,
+    blockedReasons: Object.freeze([]),
+  });
+}
+`;
+            text = text.replace(functionMarker, `${binding}${functionMarker}`);
+          }
+
+          const resolverMarker = "  const g4aU09 = g4aU09CurrentBinding(input);\n  if (g4aU09) return g4aU09;\n";
+          if (!text.includes(resolverMarker)) throw new Error("G4B_U08_RESOLVER_INSERTION_MARKER_MISSING");
+          if (!text.includes("  const g4bU08 = g4bU08CurrentBinding(input);")) {
+            text = text.replace(resolverMarker, `${resolverMarker}  const g4bU08 = g4bU08CurrentBinding(input);\n  if (g4bU08) return g4bU08;\n`);
+          }
+          fs.writeFileSync(file, text);
+          NODE
+
       - name: Materialize current R02 authority with R06 lineage preservation
         run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
 
@@ -57,18 +143,19 @@ jobs:
           NODE
           node --test tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
 
-      - name: Commit generated authority and remove one-shot workflow
+      - name: Commit repaired resolver, generated authority and remove one-shot workflow
         env:
           HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
+            site/modules/curriculum/public/public-ui-capability-binding.js \
             data/curriculum/public-generation/ui_capability_binding_contract.json \
             data/curriculum/public-generation/ui_option_filter_matrix.csv \
             docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
           git rm .github/workflows/p03f27-r02-exact-head-materialize.yml
-          git commit -m "data(p03f27): materialize current 218-KP R02 authority"
+          git commit -m "fix(p03f27): materialize current 218-KP R02 authority"
           git fetch origin "$HEAD_BRANCH"
           git rebase "origin/$HEAD_BRANCH"
           git push origin "HEAD:$HEAD_BRANCH"
