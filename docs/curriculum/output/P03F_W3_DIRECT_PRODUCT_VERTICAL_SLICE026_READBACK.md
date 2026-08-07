@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice026 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice026 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice026Implementation
 SLICE      = 026
 SOURCE_REF = g4a_u09_4a09
-STATUS     = READY_FOR_D0_CLOSEOUT_CI
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -17,7 +17,7 @@ Slice026 consumes queue position 26 (`p03e_q026_r8_g4a_u09_4a09_profile_decimal_
 3. `kp_g4a_u09_missing_digit_column_operation`
 4. `kp_g4a_u09_place_value_factor_relation`
 
-The current public projection is `6 visible / 2 hidden` for G4A-U09. Public source count remains 29 and current public KnowledgePoint count becomes 216.
+The current public projection is `6 visible / 2 hidden` for G4A-U09. Public source count remains 29 and current public KnowledgePoint count is 216.
 
 The admitted product contract is numeric-only: four numeric PatternGroups and five deterministic numeric PatternSpecs. Required shared capabilities are `cap_decimal_arithmetic`, `cap_decimal_domain_validator`, and `cap_decimal_number_system`; decimal arithmetic is required only for missing-column-digit reasoning. The existing decimal-comparison application PatternSpec remains hidden and is not production-admitted by Slice026.
 
@@ -64,7 +64,7 @@ PRODUCT_CODE_CHANGE_REQUIRED  = false
 
 ## Slice026 Chromium product acceptance
 
-A temporary PR-only exact-head workflow was used solely to produce missing Slice026-specific product evidence. Its first attempt failed before product execution because the harness had not installed the `playwright` package. The harness was aligned to the existing P03F25 dependency-install contract; the second attempt then executed the unchanged Slice026 product runner and passed. The temporary workflow is removed from the closeout diff.
+A temporary PR-only exact-head workflow was used solely to produce missing Slice026-specific product evidence. Its first attempt failed before product execution because the harness had not installed the `playwright` package. The harness was aligned to the existing P03F25 dependency-install contract; the second attempt executed the unchanged Slice026 product runner and passed. The temporary workflow was then removed and is absent from the final closeout diff.
 
 ```text
 ACCEPTANCE_RUN                 = 31151104775
@@ -99,14 +99,29 @@ PDF_SHA256                     = b41735684dc0400334ebffa060b34a2cb1b03d08bf94647
 
 The fourth question page contains only question 25 because 25 questions are paginated at eight question cells per page; the empty cells are expected pagination, not overflow or clipping.
 
-## Closeout candidate state
+## Formal closeout evidence
 
-This candidate adds only the Slice026 final milestone claim, product-admission manifest, readback, and closeout contract test. It does not modify runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority.
+The closeout candidate contains exactly four files: final milestone claim, product-admission manifest, readback, and closeout contract test. It does not modify runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority.
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE026_IMPLEMENTATION_CI_SYNCED_AND_MERGED
-GOAL_DISTANCE_AFTER  = D1_SLICE026_D0_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = implementation, current R02 authority, preserved R06 A07 lineage, exact 793-route replay, and Slice026 Chromium/visual evidence are now bound into one formal closeout candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_NODE_CI_NOT_YET_BOUND, CLOSEOUT_PR_NOT_YET_MERGED]
-NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice026D0Closeout
+CLOSEOUT_PR                   = #558
+CLOSEOUT_CANDIDATE_HEAD       = c6114b48824c2396390c37c4c685f9ebfb1bd773
+CLOSEOUT_NODE_RUN             = 31151529863
+CLOSEOUT_NODE_JOB             = 92782056090
+CLOSEOUT_REGRESSION           = 2954 / 2954 PASS
+CLOSEOUT_DIAGNOSTICS          = 8983531632
+CLOSEOUT_DIAGNOSTICS_DIGEST   = sha256:d7765de502c209471ed7e51d3bf997e4c9764d965b9e36f84c8e0db47f7f2483
+CLOSEOUT_MERGE_SHA            = PENDING_POST_MERGE_RECONCILIATION
+```
+
+## Boundary and final state
+
+Slice026 expands an existing public source. It does not add a public source, admit the hidden application PatternSpec, expand Global Context, create a parallel runtime pipeline, or change shared worksheet/renderer behavior. Slice027 remains unstarted in this closeout.
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE026_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE026_PRODUCT_CLOSED
+DISTANCE_REDUCED     = closeout Node CI, 793/793 exact browser evidence, current 216-KP R02 authority with preserved R06 A07 terminal lineage, and accepted Chromium/visual evidence are bound into the formal Slice026 D0 authority.
+REMAINING_BLOCKERS   = [CLOSEOUT_PR_MERGE_AND_MERGE_SHA_RECONCILIATION]
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice027Implementation
 ```
