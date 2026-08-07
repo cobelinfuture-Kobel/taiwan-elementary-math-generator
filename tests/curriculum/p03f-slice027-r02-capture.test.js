@@ -89,5 +89,11 @@ test("P03F27 exact-head R02 materialization is canonical and captureable without
     readbackText: buildReadback(contract),
   };
   const encoded = gzipSync(Buffer.from(JSON.stringify(payload), "utf8"), { level: 9 }).toString("base64");
-  console.log(`P03F27_R02_CAPTURE_GZIP_B64=${encoded}`);
+  const chunkSize = 4000;
+  const chunkCount = Math.ceil(encoded.length / chunkSize);
+  console.log(`P03F27_R02_CAPTURE_META=${encoded.length}:${chunkCount}`);
+  for (let index = 0; index < chunkCount; index += 1) {
+    const chunk = encoded.slice(index * chunkSize, (index + 1) * chunkSize);
+    console.log(`P03F27_R02_CAPTURE_CHUNK_${String(index).padStart(4, "0")}=${chunk}`);
+  }
 });
