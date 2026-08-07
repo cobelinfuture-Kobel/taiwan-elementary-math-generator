@@ -135,6 +135,7 @@
       "skipped": 0
     },
     "diagnosticsArtifactId": 8983531632,
-    "diagnosticsArtifactDigest": "sha256:d7765de502c209471ed7e51d3bf997e4c9764d965b9e36f84c8e0db47f7f2483"
+    "diagnosticsArtifactDigest": "sha256:d7765de502c209471ed7e51d3bf997e4c9764d965b9e36f84c8e0db47f7f2483",
+    "mergeSha": "f2cdbedfd57acd9fde8aa4b6d03c73750cb03cc5"
   }
 }
