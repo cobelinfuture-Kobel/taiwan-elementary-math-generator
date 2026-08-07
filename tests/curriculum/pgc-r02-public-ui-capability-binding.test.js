@@ -15,7 +15,7 @@ import {
 } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f25-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f26-extension.js";
 import {
   listPublicPatternGroupChoices,
 } from "../../site/assets/browser/state/public-pattern-group-selection.js";
@@ -52,11 +52,14 @@ test("PGC-R02 post-R03 closes all capacity-aware public UI binding cases", () =>
   assert.equal(contract.status, "PASS", JSON.stringify(contract.gaps, null, 2));
   assert.equal(contract.schemaName, "PublicUiCapabilityBindingContractV2");
   assert.equal(contract.summary.publicSourceCount, 29);
-  assert.equal(contract.summary.visibleKnowledgePointCount, 212);
+  assert.equal(contract.summary.visibleKnowledgePointCount, 216);
   assert.equal(contract.summary.publicSurfaceCount, 3);
   assert.equal(contract.summary.gapCount, 0);
   assert.equal(contract.summary.blockedBindingCount, 0);
   assert.equal(contract.summary.unverifiedCapacityExposureCount, 0);
+  assert.equal(contract.lastR06A07Closeout?.taskId, "PGC-R06-A07_FinalReconciliationGlobalLiveGateAndD0Closeout");
+  assert.equal(contract.lastR06A07Closeout?.status, "PASS_R06_A07_GLOBAL_LIVE_RUNTIME_RECONCILED_AND_D0_CLOSED");
+  assert.equal(contract.r06TerminalStatus, "D0_CLOSED");
   assert.equal(audit.ok, true, audit.errors.join("\n"));
   assert.equal(audit.caseCount, contract.summary.surfaceCaseCount);
 });
