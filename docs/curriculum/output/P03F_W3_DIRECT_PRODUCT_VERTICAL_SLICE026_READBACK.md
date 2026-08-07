@@ -101,7 +101,7 @@ The fourth question page contains only question 25 because 25 questions are pagi
 
 ## Formal closeout evidence
 
-The closeout candidate contains exactly four files: final milestone claim, product-admission manifest, readback, and closeout contract test. It does not modify runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority.
+The closeout contains exactly four files: final milestone claim, product-admission manifest, readback, and closeout contract test. It does not modify runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority.
 
 ```text
 CLOSEOUT_PR                   = #558
@@ -111,7 +111,7 @@ CLOSEOUT_NODE_JOB             = 92782056090
 CLOSEOUT_REGRESSION           = 2954 / 2954 PASS
 CLOSEOUT_DIAGNOSTICS          = 8983531632
 CLOSEOUT_DIAGNOSTICS_DIGEST   = sha256:d7765de502c209471ed7e51d3bf997e4c9764d965b9e36f84c8e0db47f7f2483
-CLOSEOUT_MERGE_SHA            = PENDING_POST_MERGE_RECONCILIATION
+CLOSEOUT_MERGE_SHA            = f2cdbedfd57acd9fde8aa4b6d03c73750cb03cc5
 ```
 
 ## Boundary and final state
@@ -121,7 +121,7 @@ Slice026 expands an existing public source. It does not add a public source, adm
 ```text
 GOAL_DISTANCE_BEFORE = D1_SLICE026_D0_CLOSEOUT_CANDIDATE
 GOAL_DISTANCE_AFTER  = D0_SLICE026_PRODUCT_CLOSED
-DISTANCE_REDUCED     = closeout Node CI, 793/793 exact browser evidence, current 216-KP R02 authority with preserved R06 A07 terminal lineage, and accepted Chromium/visual evidence are bound into the formal Slice026 D0 authority.
-REMAINING_BLOCKERS   = [CLOSEOUT_PR_MERGE_AND_MERGE_SHA_RECONCILIATION]
+DISTANCE_REDUCED     = closeout Node CI, 793/793 exact browser evidence, current 216-KP R02 authority with preserved R06 A07 terminal lineage, accepted Chromium/visual evidence, and actual closeout merge SHA are bound into the formal Slice026 D0 authority.
+REMAINING_BLOCKERS   = []
 NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice027Implementation
 ```
