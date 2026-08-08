@@ -134,8 +134,8 @@ jobs:
           path: tmp/p01d2-g6a-u01-pdf-smoke
           if-no-files-found: warn
           retention-days: 30
-      - name: Upload P01D3 Chromium acceptance artifacts
-        if: always() && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d3-g5b-u05-large-number' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
+      - name: Upload P01D3 G5A-U03 Chromium acceptance artifacts
+        if: always() && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
         uses: actions/upload-artifact@v4
         with:
           name: p01d3-g5a-u03-chromium-acceptance
