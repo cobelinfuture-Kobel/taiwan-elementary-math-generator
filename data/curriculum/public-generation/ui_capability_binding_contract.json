@@ -5,7 +5,7 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f27-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f28-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
   "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding.js",
   "adapters": {
@@ -26,19 +26,19 @@
   ],
   "summary": {
     "publicSourceCount": 29,
-    "visibleKnowledgePointCount": 218,
+    "visibleKnowledgePointCount": 219,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 274,
-    "surfaceCaseCount": 822,
-    "questionTypeBindingRowCount": 1185,
-    "parityCaseCount": 274,
-    "auditCaseCount": 822,
+    "baseCaseCount": 276,
+    "surfaceCaseCount": 828,
+    "questionTypeBindingRowCount": 1191,
+    "parityCaseCount": 276,
+    "auditCaseCount": 828,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
     "limitedCapacityBindingCount": 1062,
-    "structuralFallbackBindingCount": 123,
+    "structuralFallbackBindingCount": 129,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -49458,19 +49458,23 @@
       "surfaceId": "CLASSIC",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g5a_u01_decimal_read_place"
+        "kp_g5a_u01_decimal_read_place",
+        "kp_g5a_u01_decimal_compose_decompose"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 2,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g5a_u01_decimal_read_place_numeric"
+        "pg_g5a_u01_decimal_read_place_numeric",
+        "pg_g5a_u01_decimal_compose_decompose_numeric"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u01_decimal_read_place_decimal_numeric"
+        "ps_g5a_u01_decimal_read_place_decimal_numeric",
+        "ps_g5a_u01_decimal_compose_decompose_decimal_numeric"
       ],
       "questionFormLabels": [
-        "多位小數讀法與位名"
+        "多位小數讀法與位名",
+        "多位小數組成分解"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -49490,19 +49494,23 @@
       "surfaceId": "FALLBACK_404",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g5a_u01_decimal_read_place"
+        "kp_g5a_u01_decimal_read_place",
+        "kp_g5a_u01_decimal_compose_decompose"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 2,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g5a_u01_decimal_read_place_numeric"
+        "pg_g5a_u01_decimal_read_place_numeric",
+        "pg_g5a_u01_decimal_compose_decompose_numeric"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u01_decimal_read_place_decimal_numeric"
+        "ps_g5a_u01_decimal_read_place_decimal_numeric",
+        "ps_g5a_u01_decimal_compose_decompose_decimal_numeric"
       ],
       "questionFormLabels": [
-        "多位小數讀法與位名"
+        "多位小數讀法與位名",
+        "多位小數組成分解"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -49522,19 +49530,23 @@
       "surfaceId": "PIXEL",
       "selectionMode": "sourceUnit",
       "selectedKnowledgePointIds": [
-        "kp_g5a_u01_decimal_read_place"
+        "kp_g5a_u01_decimal_read_place",
+        "kp_g5a_u01_decimal_compose_decompose"
       ],
-      "selectedKnowledgePointCount": 1,
+      "selectedKnowledgePointCount": 2,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
-        "pg_g5a_u01_decimal_read_place_numeric"
+        "pg_g5a_u01_decimal_read_place_numeric",
+        "pg_g5a_u01_decimal_compose_decompose_numeric"
       ],
       "compatiblePatternSpecIds": [
-        "ps_g5a_u01_decimal_read_place_decimal_numeric"
+        "ps_g5a_u01_decimal_read_place_decimal_numeric",
+        "ps_g5a_u01_decimal_compose_decompose_decimal_numeric"
       ],
       "questionFormLabels": [
-        "多位小數讀法與位名"
+        "多位小數讀法與位名",
+        "多位小數組成分解"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -49631,6 +49643,210 @@
       ],
       "questionFormLabels": [
         "多位小數讀法與位名"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_compose_decompose::CLASSIC::numeric",
+      "caseId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_compose_decompose",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_compose_decompose::FALLBACK_404::numeric",
+      "caseId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_compose_decompose",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_compose_decompose::PIXEL::numeric",
+      "caseId": "g5a_u01_5a01::single::kp_g5a_u01_decimal_compose_decompose",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::mixedSameUnit::CLASSIC::numeric",
+      "caseId": "g5a_u01_5a01::mixedSameUnit",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_read_place",
+        "kp_g5a_u01_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 2,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_read_place_numeric",
+        "pg_g5a_u01_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_read_place_decimal_numeric",
+        "ps_g5a_u01_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數讀法與位名",
+        "多位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::mixedSameUnit::FALLBACK_404::numeric",
+      "caseId": "g5a_u01_5a01::mixedSameUnit",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_read_place",
+        "kp_g5a_u01_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 2,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_read_place_numeric",
+        "pg_g5a_u01_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_read_place_decimal_numeric",
+        "ps_g5a_u01_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數讀法與位名",
+        "多位小數組成分解"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u01_5a01::mixedSameUnit::PIXEL::numeric",
+      "caseId": "g5a_u01_5a01::mixedSameUnit",
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "PIXEL",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u01_decimal_read_place",
+        "kp_g5a_u01_decimal_compose_decompose"
+      ],
+      "selectedKnowledgePointCount": 2,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u01_decimal_read_place_numeric",
+        "pg_g5a_u01_decimal_compose_decompose_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u01_decimal_read_place_decimal_numeric",
+        "ps_g5a_u01_decimal_compose_decompose_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "多位小數讀法與位名",
+        "多位小數組成分解"
       ],
       "depthModes": [],
       "contextModes": [],
