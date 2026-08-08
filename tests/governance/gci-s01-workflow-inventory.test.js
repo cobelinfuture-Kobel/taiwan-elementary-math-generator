@@ -21,6 +21,7 @@ const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/pgc-r06-a07-final-global-live-d0-closeout.yml",
   ".github/workflows/p03f25-exact-head-product-acceptance.yml",
   ".github/workflows/p03f-slice029-product-acceptance.yml",
+  ".github/workflows/p03f-slice030-product-acceptance.yml",
 ];
 
 const POST_S01_PGC_R00_PATHS = new Set([
@@ -53,9 +54,6 @@ function normalizeApprovedPostS01WorkflowEvolution(row) {
     ...structuralRow,
     pullRequestPaths: structuralRow.pullRequestPaths
       .filter((path) => !POST_S01_PGC_R00_PATHS.has(path)),
-    // GCI-S01 predates A03. Its scanner historically classifies any indented
-    // step-level `if:` as job-level; the R08 contract independently forbids
-    // a real four-space job-level conditional gate.
     hasJobLevelIf: false,
   };
 }
