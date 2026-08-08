@@ -77,3 +77,16 @@ export function normalizePublicPatternGroupSelection({ selectionMode = SOURCE_UN
   }));
   return Object.freeze({ selectedPatternGroupIds: Object.freeze([...selectedSet]), choices: Object.freeze(annotatedChoices), warnings: Object.freeze(warnings) });
 }
+
+export function togglePublicPatternGroupSelection({ selectionMode, selectedKnowledgePointIds = [], selectedPatternGroupIds = [], patternGroupId } = {}) {
+  const normalized = normalizePublicPatternGroupSelection({ selectionMode, selectedKnowledgePointIds, selectedPatternGroupIds });
+  const target = normalized.choices.find((choice) => choice.patternGroupId === patternGroupId);
+  if (!target) return normalized;
+  const selected = new Set(normalized.selectedPatternGroupIds);
+  if (selected.has(patternGroupId)) {
+    const selectedForKnowledgePoint = normalized.choices.filter((choice) => choice.knowledgePointId === target.knowledgePointId && selected.has(choice.patternGroupId));
+    if (selectedForKnowledgePoint.length <= 1) return Object.freeze({ ...normalized, warnings: Object.freeze([{ code: PUBLIC_PATTERN_GROUP_WARNING_CODES.PATTERN_GROUP_MINIMUM_ONE, knowledgePointId: target.knowledgePointId }]) });
+    selected.delete(patternGroupId);
+  } else selected.add(patternGroupId);
+  return normalizePublicPatternGroupSelection({ selectionMode, selectedKnowledgePointIds, selectedPatternGroupIds: [...selected] });
+}
