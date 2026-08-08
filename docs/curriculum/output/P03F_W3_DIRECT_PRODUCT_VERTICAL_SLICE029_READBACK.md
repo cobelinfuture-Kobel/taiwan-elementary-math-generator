@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice029 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice029 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice029Implementation
 SLICE      = 029
 SOURCE_REF = g5a_u04_5a04
-STATUS     = D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -34,7 +34,7 @@ PGC_R00_793_STATUS         = PASS
 PR_GATE_RUN                = 31259126611 PASS
 ```
 
-The first implementation CI wave exposed seven stale current-authority/workflow-inventory assertions, not a runtime defect. Reconciliation preserved historical selector identities and frozen GCI-S01 history while current authority advanced from 219 to 220 KPs. Final full regression is zero-failure.
+The first implementation CI wave exposed seven stale current-authority/workflow-inventory assertions, not a runtime defect. Reconciliation preserved historical selector identities and frozen GCI-S01 history while current authority advanced from 219 to 220 KPs. Final implementation regression is zero-failure.
 
 ## Exact-head Chromium evidence
 
@@ -75,14 +75,29 @@ PDF_SHA256                        = ebbfd8967873d1e86a501ce0ac543f3bcfe94ad69843
 
 All six screenshots were read back: three worksheet pages and three answer-key pages. No clipping, overlap, broken glyph, or pagination overflow was found.
 
-## Candidate boundary
+## Formal closeout evidence
 
-The closeout candidate contains exactly four files: final milestone claim, product-admission manifest, readback, and closeout contract test. It modifies no runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority. Slice030 remains unstarted.
+The D0 candidate PR contained exactly four closeout files and changed no runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority.
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE029_IMPLEMENTATION_EXACT_EVIDENCE_COMPLETE
-GOAL_DISTANCE_AFTER  = D1_SLICE029_D0_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = implementation, 29-source/220-KP current authority, preserved historical lineage, exact-head Chromium evidence, visual review, and 2993/2993 regression are bound into a formal D0 admission candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_CI_PENDING, CLOSEOUT_MERGE_PENDING, POST_MERGE_RECONCILIATION_PENDING]
-NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice029D0CloseoutCandidateCIAndMerge
+CLOSEOUT_PR                   = #570
+CLOSEOUT_CANDIDATE_HEAD       = b41383e0dd559e2e7aa89430cfd1756c00f62c96
+CLOSEOUT_NODE_RUN             = 31260022055
+CLOSEOUT_NODE_JOB             = 93109281107
+CLOSEOUT_REGRESSION           = 2994 / 2994 PASS
+CLOSEOUT_DIAGNOSTICS          = 9022540013
+CLOSEOUT_DIAGNOSTICS_DIGEST   = sha256:06fccf7ddd09669cfb44a5f87cf1ebda8a72ac07a806822c457f619dd477d0b2
+CLOSEOUT_MERGE_SHA            = 51e2e77cf9fb3481ddd2368bdd3fa8d6921c822e
+```
+
+## Boundary and final state
+
+Slice029 adds one numeric comparison KnowledgePoint to an existing G5A-U04 public source. The hidden application lineage remains non-production, Global Context is unchanged, and no parallel runtime pipeline or renderer fork is introduced. Slice030 was not started during Slice029 closeout.
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE029_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE029_FINAL_PRODUCTION_ADMISSION_CLOSED
+DISTANCE_REDUCED     = closeout 2994/2994 Node CI, actual candidate merge evidence, 29-source/220-KP current authority, preserved R06 lineage, exact-head Chromium/visual evidence, and production admission are bound into final Slice029 D0 authority.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice030Implementation
 ```
