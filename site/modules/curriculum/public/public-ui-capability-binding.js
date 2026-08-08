@@ -106,65 +106,6 @@ function withGlobalQuestionCount(binding) {
   });
 }
 
-function numericCurrentSourceBinding(input = {}, sourceId, qualityStatus) {
-  if (input.sourceId !== sourceId) return null;
-  const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
-  const visibleRows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === sourceId);
-  const allowedIds = visibleRows.map((row) => row.knowledgePointId);
-  const requested = uniqueStrings(input.selectedKnowledgePointIds).filter((id) => allowedIds.includes(id));
-  let selectedKnowledgePointIds;
-  if (selectionMode === SINGLE_KP_MODE) {
-    selectedKnowledgePointIds = [requested[0] ?? allowedIds[0]].filter(Boolean);
-  } else if (selectionMode === SAME_UNIT_MIXED_MODE) {
-    selectedKnowledgePointIds = requested.length > 0 ? requested : allowedIds;
-  } else {
-    selectedKnowledgePointIds = allowedIds;
-  }
-  const compatiblePatternGroups = selectedKnowledgePointIds.flatMap((knowledgePointId) => {
-    const row = visibleRows.find((entry) => entry.knowledgePointId === knowledgePointId);
-    return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => Object.freeze({
-      ...group,
-      knowledgePointId,
-      knowledgePointDisplayName: row?.displayName ?? knowledgePointId,
-      effectiveQuestionType: "numeric",
-      uiQuestionType: "numeric",
-      displayLabel: row?.displayName ?? group.displayName ?? "數字題",
-      selected: true,
-    }));
-  });
-  const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
-  return Object.freeze({
-    sourceId,
-    surfaceId: input.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
-    selectionMode,
-    availableSelectionModes: Object.freeze([
-      Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
-      Object.freeze({ value: SINGLE_KP_MODE, enabled: allowedIds.length > 0 }),
-      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: allowedIds.length >= 2 }),
-      Object.freeze({ value: "mixedKnowledgePointsCrossUnit", enabled: false }),
-    ]),
-    selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
-    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
-    availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
-    questionType: "numeric",
-    compatiblePatternGroups: Object.freeze(compatiblePatternGroups),
-    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
-    selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
-    depthOptions: Object.freeze([]),
-    contextOptions: Object.freeze([]),
-    depthMode: null,
-    contextMode: null,
-    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
-    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
-    capacityRegistryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
-    capacityRouteIds: Object.freeze([]),
-    capacityQualityStatuses: Object.freeze([qualityStatus]),
-    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
-    blocked: false,
-    blockedReasons: Object.freeze([]),
-  });
-}
-
 function g4aU06CurrentBinding(input = {}) {
   if (input.sourceId !== G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID) return null;
   const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
@@ -226,15 +167,180 @@ function g4aU06CurrentBinding(input = {}) {
 }
 
 function g4aU09CurrentBinding(input = {}) {
-  return numericCurrentSourceBinding(input, G4A_U09_P03F26_SOURCE_ID, "P03F26_G4A_U09_SIX_KP_STRUCTURAL_RUNTIME");
+  if (input.sourceId !== G4A_U09_P03F26_SOURCE_ID) return null;
+  const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
+  const visibleRows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G4A_U09_P03F26_SOURCE_ID);
+  const allowedIds = visibleRows.map((row) => row.knowledgePointId);
+  const requested = uniqueStrings(input.selectedKnowledgePointIds).filter((id) => allowedIds.includes(id));
+  let selectedKnowledgePointIds;
+  if (selectionMode === SINGLE_KP_MODE) {
+    selectedKnowledgePointIds = [requested[0] ?? allowedIds[0]].filter(Boolean);
+  } else if (selectionMode === SAME_UNIT_MIXED_MODE) {
+    selectedKnowledgePointIds = requested.length > 0 ? requested : allowedIds;
+  } else {
+    selectedKnowledgePointIds = allowedIds;
+  }
+  const compatiblePatternGroups = selectedKnowledgePointIds.flatMap((knowledgePointId) => {
+    const row = visibleRows.find((entry) => entry.knowledgePointId === knowledgePointId);
+    return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => Object.freeze({
+      ...group,
+      knowledgePointId,
+      knowledgePointDisplayName: row?.displayName ?? knowledgePointId,
+      effectiveQuestionType: "numeric",
+      uiQuestionType: "numeric",
+      displayLabel: row?.displayName ?? group.displayName ?? "數字題",
+      selected: true,
+    }));
+  });
+  const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
+  return Object.freeze({
+    sourceId: G4A_U09_P03F26_SOURCE_ID,
+    surfaceId: input.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
+    selectionMode,
+    availableSelectionModes: Object.freeze([
+      Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
+      Object.freeze({ value: SINGLE_KP_MODE, enabled: allowedIds.length > 0 }),
+      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: allowedIds.length >= 2 }),
+      Object.freeze({ value: "mixedKnowledgePointsCrossUnit", enabled: false }),
+    ]),
+    selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
+    availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
+    questionType: "numeric",
+    compatiblePatternGroups: Object.freeze(compatiblePatternGroups),
+    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    depthOptions: Object.freeze([]),
+    contextOptions: Object.freeze([]),
+    depthMode: null,
+    contextMode: null,
+    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRegistryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
+    capacityRouteIds: Object.freeze([]),
+    capacityQualityStatuses: Object.freeze(["P03F26_G4A_U09_SIX_KP_STRUCTURAL_RUNTIME"]),
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    blocked: false,
+    blockedReasons: Object.freeze([]),
+  });
 }
 
 function g5aU01CurrentBinding(input = {}) {
-  return numericCurrentSourceBinding(input, G5A_U01_CURRENT_SOURCE_ID, "P03F28_G5A_U01_TWO_KP_STRUCTURAL_RUNTIME");
+  if (input.sourceId !== G5A_U01_CURRENT_SOURCE_ID) return null;
+  const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
+  const visibleRows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G5A_U01_CURRENT_SOURCE_ID);
+  const allowedIds = visibleRows.map((row) => row.knowledgePointId);
+  const requested = uniqueStrings(input.selectedKnowledgePointIds).filter((id) => allowedIds.includes(id));
+  let selectedKnowledgePointIds;
+  if (selectionMode === SINGLE_KP_MODE) {
+    selectedKnowledgePointIds = [requested[0] ?? allowedIds[0]].filter(Boolean);
+  } else if (selectionMode === SAME_UNIT_MIXED_MODE) {
+    selectedKnowledgePointIds = requested.length > 0 ? requested : allowedIds;
+  } else {
+    selectedKnowledgePointIds = allowedIds;
+  }
+  const compatiblePatternGroups = selectedKnowledgePointIds.flatMap((knowledgePointId) => {
+    const row = visibleRows.find((entry) => entry.knowledgePointId === knowledgePointId);
+    return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => Object.freeze({
+      ...group,
+      knowledgePointId,
+      knowledgePointDisplayName: row?.displayName ?? knowledgePointId,
+      effectiveQuestionType: "numeric",
+      uiQuestionType: "numeric",
+      displayLabel: row?.displayName ?? group.displayName ?? "數字題",
+      selected: true,
+    }));
+  });
+  const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
+  return Object.freeze({
+    sourceId: G5A_U01_CURRENT_SOURCE_ID,
+    surfaceId: input.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
+    selectionMode,
+    availableSelectionModes: Object.freeze([
+      Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
+      Object.freeze({ value: SINGLE_KP_MODE, enabled: allowedIds.length > 0 }),
+      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: allowedIds.length >= 2 }),
+      Object.freeze({ value: "mixedKnowledgePointsCrossUnit", enabled: false }),
+    ]),
+    selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
+    availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
+    questionType: "numeric",
+    compatiblePatternGroups: Object.freeze(compatiblePatternGroups),
+    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    depthOptions: Object.freeze([]),
+    contextOptions: Object.freeze([]),
+    depthMode: null,
+    contextMode: null,
+    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRegistryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
+    capacityRouteIds: Object.freeze([]),
+    capacityQualityStatuses: Object.freeze(["P03F28_G5A_U01_TWO_KP_STRUCTURAL_RUNTIME"]),
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    blocked: false,
+    blockedReasons: Object.freeze([]),
+  });
 }
 
 function g4bU08CurrentBinding(input = {}) {
-  return numericCurrentSourceBinding(input, G4B_U08_CURRENT_SOURCE_ID, "P03F27_G4B_U08_FIVE_KP_STRUCTURAL_RUNTIME");
+  if (input.sourceId !== G4B_U08_CURRENT_SOURCE_ID) return null;
+  const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
+  const visibleRows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G4B_U08_CURRENT_SOURCE_ID);
+  const allowedIds = visibleRows.map((row) => row.knowledgePointId);
+  const requested = uniqueStrings(input.selectedKnowledgePointIds).filter((id) => allowedIds.includes(id));
+  let selectedKnowledgePointIds;
+  if (selectionMode === SINGLE_KP_MODE) {
+    selectedKnowledgePointIds = [requested[0] ?? allowedIds[0]].filter(Boolean);
+  } else if (selectionMode === SAME_UNIT_MIXED_MODE) {
+    selectedKnowledgePointIds = requested.length > 0 ? requested : allowedIds;
+  } else {
+    selectedKnowledgePointIds = allowedIds;
+  }
+  const compatiblePatternGroups = selectedKnowledgePointIds.flatMap((knowledgePointId) => {
+    const row = visibleRows.find((entry) => entry.knowledgePointId === knowledgePointId);
+    return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => Object.freeze({
+      ...group,
+      knowledgePointId,
+      knowledgePointDisplayName: row?.displayName ?? knowledgePointId,
+      effectiveQuestionType: "numeric",
+      uiQuestionType: "numeric",
+      displayLabel: row?.displayName ?? group.displayName ?? "數字題",
+      selected: true,
+    }));
+  });
+  const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
+  return Object.freeze({
+    sourceId: G4B_U08_CURRENT_SOURCE_ID,
+    surfaceId: input.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
+    selectionMode,
+    availableSelectionModes: Object.freeze([
+      Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
+      Object.freeze({ value: SINGLE_KP_MODE, enabled: allowedIds.length > 0 }),
+      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: allowedIds.length >= 2 }),
+      Object.freeze({ value: "mixedKnowledgePointsCrossUnit", enabled: false }),
+    ]),
+    selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
+    availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
+    questionType: "numeric",
+    compatiblePatternGroups: Object.freeze(compatiblePatternGroups),
+    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    depthOptions: Object.freeze([]),
+    contextOptions: Object.freeze([]),
+    depthMode: null,
+    contextMode: null,
+    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRegistryStatus: PUBLIC_GENERATOR_CAPACITY_REGISTRY_STATUS,
+    capacityRouteIds: Object.freeze([]),
+    capacityQualityStatuses: Object.freeze(["P03F27_G4B_U08_FIVE_KP_STRUCTURAL_RUNTIME"]),
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    blocked: false,
+    blockedReasons: Object.freeze([]),
+  });
 }
 
 function needsStructuralFallback(binding) {
