@@ -1,0 +1,42 @@
+name: P03F Slice029 Product Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f29-product-acceptance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromium-product-acceptance:
+    if: github.head_ref == 'p03f29-g5a-u04-rank8'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Install Chromium and acceptance font
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1 @fontsource/noto-sans-tc@5.2.9
+          npx playwright install --with-deps chromium
+      - name: Run Slice029 Chromium product acceptance
+        run: node tools/curriculum/render-p03f-slice029-product-acceptance.mjs
+      - name: Upload Slice029 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice029-product-acceptance
+          path: tmp/p03f-slice029-product-acceptance
+          if-no-files-found: error
+          retention-days: 30
