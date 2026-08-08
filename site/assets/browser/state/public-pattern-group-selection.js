@@ -1,7 +1,7 @@
 import {
   getVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint
-} from "../../../modules/curriculum/registry/batch-a-selector-p03f27-extension.js";
+} from "../../../modules/curriculum/registry/batch-a-selector-p03f28-extension.js";
 import { listW01PublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w01-public-application-groups.js";
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/fifteen-unit-public-application-groups.js";
 import { listW1FullProductPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w1-full-product-public-application-groups.js";
@@ -76,17 +76,4 @@ export function normalizePublicPatternGroupSelection({ selectionMode = SOURCE_UN
     canDeselect: choices.filter((candidate) => candidate.knowledgePointId === choice.knowledgePointId && selectedSet.has(candidate.patternGroupId)).length > 1
   }));
   return Object.freeze({ selectedPatternGroupIds: Object.freeze([...selectedSet]), choices: Object.freeze(annotatedChoices), warnings: Object.freeze(warnings) });
-}
-
-export function togglePublicPatternGroupSelection({ selectionMode, selectedKnowledgePointIds = [], selectedPatternGroupIds = [], patternGroupId } = {}) {
-  const normalized = normalizePublicPatternGroupSelection({ selectionMode, selectedKnowledgePointIds, selectedPatternGroupIds });
-  const target = normalized.choices.find((choice) => choice.patternGroupId === patternGroupId);
-  if (!target) return normalized;
-  const selected = new Set(normalized.selectedPatternGroupIds);
-  if (selected.has(patternGroupId)) {
-    const selectedForKnowledgePoint = normalized.choices.filter((choice) => choice.knowledgePointId === target.knowledgePointId && selected.has(choice.patternGroupId));
-    if (selectedForKnowledgePoint.length <= 1) return Object.freeze({ ...normalized, warnings: Object.freeze([{ code: PUBLIC_PATTERN_GROUP_WARNING_CODES.PATTERN_GROUP_MINIMUM_ONE, knowledgePointId: target.knowledgePointId }]) });
-    selected.delete(patternGroupId);
-  } else selected.add(patternGroupId);
-  return normalizePublicPatternGroupSelection({ selectionMode, selectedKnowledgePointIds, selectedPatternGroupIds: [...selected] });
 }
