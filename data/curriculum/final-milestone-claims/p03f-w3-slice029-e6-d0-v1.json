@@ -2,8 +2,8 @@
   "claimId": "P03F-W3-SLICE029-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice029Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice029 only: expand existing g5a_u04_5a04 with the rank-8 unlike-fraction comparison KnowledgePoint using one numeric PatternGroup and one deterministic numeric PatternSpec; the source is application-compatible but application production remains forbidden and Global Context remains unchanged.",
   "authority": {
     "queuePosition": 29,
@@ -94,8 +94,8 @@
     "r02CurrentAuthority": "29_SOURCES_220_KPS_CONTRACT_PASS",
     "r06HistoricalLineagePreserved": true,
     "canonical793AuthorityContracts": "PASS",
-    "productAdmissionState": "READY_FOR_D0_CLOSEOUT_CI",
-    "d0Complete": false
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
   },
   "boundaries": {
     "slice030Started": false,
@@ -108,5 +108,16 @@
     "parallelRuntimePipelineAdded": false,
     "sharedWorksheetRendererBehaviorChanged": false
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice029D0Closeout"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice030Implementation",
+  "closeoutEvidence": {
+    "prNumber": 570,
+    "headSha": "b41383e0dd559e2e7aa89430cfd1756c00f62c96",
+    "nodeWorkflowRunId": 31260022055,
+    "nodeWorkflowJobId": 93109281107,
+    "nodeConclusion": "success",
+    "fullRegression": {"tests": 2994, "pass": 2994, "fail": 0, "skipped": 0},
+    "diagnosticsArtifactId": 9022540013,
+    "diagnosticsArtifactDigest": "sha256:06fccf7ddd09669cfb44a5f87cf1ebda8a72ac07a806822c457f619dd477d0b2",
+    "mergeSha": "51e2e77cf9fb3481ddd2368bdd3fa8d6921c822e"
+  }
 }
