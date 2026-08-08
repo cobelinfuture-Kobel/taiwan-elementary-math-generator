@@ -1,5 +1,5 @@
 // Historical worksheet authority remains traceable through ./batch-a-browser-worksheet-s59h-extension.js.
-import { buildBatchABrowserWorksheetDocument as buildBaseBatchABrowserWorksheetDocument } from "./batch-a-browser-worksheet-p03f27-extension.js";
+import { buildBatchABrowserWorksheetDocument as buildBaseBatchABrowserWorksheetDocument } from "./batch-a-browser-worksheet-p03f28-extension.js";
 
 export const G4B_U01_PUBLIC_WARNING_FULLFIX = Object.freeze({
   task: "S59J_R1_G4B_U01_PublicWarningAndPrintLayout_FullFix",
