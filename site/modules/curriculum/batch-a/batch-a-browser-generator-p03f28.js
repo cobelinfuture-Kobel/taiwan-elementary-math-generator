@@ -25,13 +25,15 @@ const SPEC_BY_GROUP=Object.freeze({
   [G5A_U01_P03F28_GROUP_ID]:G5A_U01_P03F28_SPEC_ID,
 });
 const has=(values,id)=>Array.isArray(values)&&values.includes(id);
+const hasExplicitSelection=(options={})=>[options.selectedKnowledgePointIds,options.selectedPatternGroupIds,options.patternSpecIds].some((values)=>Array.isArray(values)&&values.length>0);
 
 export function requestsP03F28(options={}){
-  return options.sourceId===G5A_U01_SOURCE_ID && (
-    has(options.selectedKnowledgePointIds,G5A_U01_P03F28_KP_ID)
-    || has(options.selectedPatternGroupIds,G5A_U01_P03F28_GROUP_ID)
-    || has(options.patternSpecIds,G5A_U01_P03F28_SPEC_ID)
-  );
+  if(options.sourceId!==G5A_U01_SOURCE_ID) return false;
+  const targetRequested=has(options.selectedKnowledgePointIds,G5A_U01_P03F28_KP_ID)
+    ||has(options.selectedPatternGroupIds,G5A_U01_P03F28_GROUP_ID)
+    ||has(options.patternSpecIds,G5A_U01_P03F28_SPEC_ID);
+  const sourceUnitCurrent=(options.selectionMode??"sourceUnit")==="sourceUnit"&&!hasExplicitSelection(options);
+  return targetRequested||sourceUnitCurrent;
 }
 function requestedSpecs(options={}){
   if(Array.isArray(options.patternSpecIds)&&options.patternSpecIds.length) return [...new Set(options.patternSpecIds.filter((id)=>SPEC_IDS.includes(id)))];
@@ -43,7 +45,7 @@ export function buildBatchABrowserPlan(options={}){
   const plan=baseBuild(options);
   if(!requestsP03F28(options)) return plan;
   let patternSpecIds=requestedSpecs(options);
-  if(patternSpecIds.length===0) patternSpecIds=[G5A_U01_P03F28_SPEC_ID];
+  if(patternSpecIds.length===0) patternSpecIds=[...SPEC_IDS];
   const requestedKnowledgePointIds=(options.selectedKnowledgePointIds??[]).filter((id)=>KP_IDS.includes(id));
   const requestedPatternGroupIds=(options.selectedPatternGroupIds??[]).filter((id)=>GROUP_IDS.includes(id));
   return {
