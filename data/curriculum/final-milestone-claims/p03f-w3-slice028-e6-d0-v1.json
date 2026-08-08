@@ -2,8 +2,8 @@
   "claimId": "P03F-W3-SLICE028-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice028Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice028 only: expand existing g5a_u01_5a01 with the rank-8 decimal compose/decompose KnowledgePoint using one numeric PatternGroup and one deterministic numeric PatternSpec; application is not applicable and Global Context remains unchanged.",
   "authority": {
     "queuePosition": 28,
@@ -115,8 +115,8 @@
     "global793RouteRegression": "PASS",
     "r02CurrentAuthority": "29_SOURCES_219_KPS_ZERO_GAPS",
     "r06HistoricalLineagePreserved": true,
-    "productAdmissionState": "READY_FOR_D0_CLOSEOUT_CI",
-    "d0Complete": false
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
   },
   "boundaries": {
     "slice029Started": false,
@@ -129,5 +129,21 @@
     "parallelRuntimePipelineAdded": false,
     "sharedWorksheetRendererBehaviorChanged": false
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice028D0Closeout"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice029Implementation",
+  "closeoutEvidence": {
+    "prNumber": 567,
+    "headSha": "f8f205c5c35738c1de036c8f4f4d26ab864cb4e9",
+    "nodeWorkflowRunId": 31240734854,
+    "nodeWorkflowJobId": 93061135378,
+    "nodeConclusion": "success",
+    "fullRegression": {
+      "tests": 2984,
+      "pass": 2984,
+      "fail": 0,
+      "skipped": 0
+    },
+    "diagnosticsArtifactId": 9016956546,
+    "diagnosticsArtifactDigest": "sha256:369498a475286e7474da658c4153bf3ec27190b1bc52aed9d841f4d46eaf21b4",
+    "mergeSha": "9677c0e9c77bab40457557f3610f96a81503d7d5"
+  }
 }

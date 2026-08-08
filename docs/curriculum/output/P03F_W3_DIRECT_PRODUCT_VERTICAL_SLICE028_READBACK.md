@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice028 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice028 — Final D0 Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice028Implementation
 SLICE      = 028
 SOURCE_REF = g5a_u01_5a01
-STATUS     = D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -14,7 +14,7 @@ Slice028 consumes queue position 28 (`p03e_q028_r8_g5a_u01_5a01_profile_decimal_
 
 - `kp_g5a_u01_decimal_compose_decompose`
 
-The current public projection is `2 visible / 6 hidden` for G5A-U01. Public source count remains 29 and current public KnowledgePoint count advances to 219.
+The current public projection is `2 visible / 6 hidden` for G5A-U01. Public source count remains 29 and current public KnowledgePoint count is 219.
 
 The admitted product contract is numeric-only: one new numeric PatternGroup and one deterministic numeric PatternSpec. Required shared capabilities are `cap_decimal_domain_validator` and `cap_decimal_number_system`. Application is `APPLICATION_NOT_APPLICABLE`; Slice028 does not expand Global Context, decimal arithmetic, comparison, or rounding.
 
@@ -101,20 +101,29 @@ PDF_SHA256                        = de17e226d0c16756c12bd57c5e87654367c638f92da9
 
 All six screenshots were manually read back: three worksheet pages and three answer-key pages. No clipping, overlap, broken glyph, or pagination overflow was found.
 
-## Formal closeout candidate
+## Formal closeout evidence
 
-This closeout changes exactly four Slice028 authority files: final milestone claim, product-admission manifest, readback, and closeout contract test. It does not modify runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority.
+The closeout contains exactly four files: final milestone claim, product-admission manifest, readback, and closeout contract test. It does not modify runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority.
 
-At candidate stage, `productionAdmissionState` remains `READY_FOR_D0_CLOSEOUT_CI`. Actual closeout PR/head/run/job/merge evidence must be written only after the candidate CI passes and merges.
+```text
+CLOSEOUT_PR                   = #567
+CLOSEOUT_CANDIDATE_HEAD       = f8f205c5c35738c1de036c8f4f4d26ab864cb4e9
+CLOSEOUT_NODE_RUN             = 31240734854
+CLOSEOUT_NODE_JOB             = 93061135378
+CLOSEOUT_REGRESSION           = 2984 / 2984 PASS
+CLOSEOUT_DIAGNOSTICS          = 9016956546
+CLOSEOUT_DIAGNOSTICS_DIGEST   = sha256:369498a475286e7474da658c4153bf3ec27190b1bc52aed9d841f4d46eaf21b4
+CLOSEOUT_MERGE_SHA            = 9677c0e9c77bab40457557f3610f96a81503d7d5
+```
 
-## Boundary and candidate state
+## Boundary and final state
 
 Slice028 expands an existing public source by one numeric KnowledgePoint. Application remains not applicable, no Global Context is added, and no parallel runtime pipeline or shared renderer behavior is introduced. Slice029 remains unstarted and is outside the currently approved scope.
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE028_IMPLEMENTATION_EXACT_EVIDENCE_COMPLETE_D0_RECONCILIATION_PENDING
-GOAL_DISTANCE_AFTER  = D1_SLICE028_D0_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = exact-head 2983/2983 Node evidence, current 219-KP R02 authority, preserved R06 lineage, 793/793 global route replay, and 6/6 exact-head Chromium visual evidence are bound into a formal closeout candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_CI_AND_MERGE, POST_MERGE_D0_RECONCILIATION]
-NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice028_D0Closeout_CI_Merge
+GOAL_DISTANCE_BEFORE = D1_SLICE028_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE028_FINAL_PRODUCTION_ADMISSION_CLOSED
+DISTANCE_REDUCED     = closeout 2984/2984 Node CI, current 219-KP R02 authority with preserved R06 lineage, 793/793 global replay, exact-head Chromium/visual evidence, and the actual closeout merge SHA are bound into the final Slice028 D0 authority.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice029Implementation
 ```
