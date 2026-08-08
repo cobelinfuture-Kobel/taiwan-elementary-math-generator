@@ -57,9 +57,9 @@ test("P03F27 current G4B-U08 source-unit binding exposes all five visible KPs an
   }
 });
 
-test("P03F27 current registry is exactly 29 public sources and 218 visible KPs", () => {
+test("P03F27 current registry advances through Slice028 to exactly 29 public sources and 219 visible KPs", () => {
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 29);
-  assert.equal(snapshot.visibleKnowledgePointCount, 218);
+  assert.equal(snapshot.visibleKnowledgePointCount, 219);
   assert.equal(snapshot.bySourceId[G4B_U08_P03F27_SOURCE_ID].visibleKnowledgePoints.length, 5);
 });
