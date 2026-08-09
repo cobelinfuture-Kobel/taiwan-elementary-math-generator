@@ -42,10 +42,10 @@ test("PGC-R00 freezes the exact 26-source historical authority while current pub
   assert.equal(scope.programId, "PUBLIC_KP_GENERATION_CONFORMANCE_V1");
   assert.equal(scope.taskId, "PGC-R00_PublicGenerationScopeAndAuthorityFreeze");
   assert.equal(scope.currentAuthority.publicSourceCount, 26);
-  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 29);
+  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 30);
   assert.equal(
     new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size,
-    29,
+    30,
   );
 
   const selectorAudit = auditP03F13PublicSelectorComposition();
