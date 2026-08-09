@@ -30,14 +30,14 @@
     "publicSurfaceCount": 3,
     "baseCaseCount": 283,
     "surfaceCaseCount": 849,
-    "questionTypeBindingRowCount": 1173,
+    "questionTypeBindingRowCount": 1212,
     "parityCaseCount": 283,
     "auditCaseCount": 849,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
-    "limitedCapacityBindingCount": 1023,
+    "limitedCapacityBindingCount": 1062,
     "structuralFallbackBindingCount": 150,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
@@ -25602,6 +25602,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_language_cues"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify"
+      ],
+      "questionFormLabels": [
+        "概數語意辨識｜概念題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues::CLASSIC::concept",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues",
       "sourceId": "g4b_u04_4b04",
@@ -25624,6 +25660,42 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_language_cues"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify"
+      ],
+      "questionFormLabels": [
+        "概數語意辨識｜概念題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -25666,6 +25738,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_language_cues"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify"
+      ],
+      "questionFormLabels": [
+        "概數語意辨識｜概念題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues::PIXEL::concept",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_language_cues",
       "sourceId": "g4b_u04_4b04",
@@ -25688,6 +25796,42 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_symbol_reading"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_symbol"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_symbol_reading"
+      ],
+      "questionFormLabels": [
+        "約等號與讀法｜概念題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -25730,6 +25874,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_symbol_reading"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_symbol"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_symbol_reading"
+      ],
+      "questionFormLabels": [
+        "約等號與讀法｜概念題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::FALLBACK_404::concept",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading",
       "sourceId": "g4b_u04_4b04",
@@ -25762,6 +25942,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_symbol_reading"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_symbol"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_symbol_reading"
+      ],
+      "questionFormLabels": [
+        "約等號與讀法｜概念題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading::PIXEL::concept",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_approximation_symbol_reading",
       "sourceId": "g4b_u04_4b04",
@@ -25784,6 +26000,43 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_three_approximation_methods_compare::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_three_approximation_methods_compare",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_three_approximation_methods_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_method_comparison"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result"
+      ],
+      "questionFormLabels": [
+        "三種取概數方法｜概念題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -25827,6 +26080,43 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_three_approximation_methods_compare::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_three_approximation_methods_compare",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_three_approximation_methods_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_method_comparison"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result"
+      ],
+      "questionFormLabels": [
+        "三種取概數方法｜概念題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_three_approximation_methods_compare::FALLBACK_404::concept",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_three_approximation_methods_compare",
       "sourceId": "g4b_u04_4b04",
@@ -25850,6 +26140,43 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_three_approximation_methods_compare::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_three_approximation_methods_compare",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_three_approximation_methods_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_method_comparison"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result"
+      ],
+      "questionFormLabels": [
+        "三種取概數方法｜概念題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -25893,6 +26220,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_unconditional_round_down"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_round_down"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_unconditional_round_down"
+      ],
+      "questionFormLabels": [
+        "無條件捨去｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down::CLASSIC::numeric",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down",
       "sourceId": "g4b_u04_4b04",
@@ -25915,6 +26278,42 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_unconditional_round_down"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_round_down"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_unconditional_round_down"
+      ],
+      "questionFormLabels": [
+        "無條件捨去｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -25957,6 +26356,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_unconditional_round_down"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_round_down"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_unconditional_round_down"
+      ],
+      "questionFormLabels": [
+        "無條件捨去｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down::PIXEL::numeric",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_down",
       "sourceId": "g4b_u04_4b04",
@@ -25979,6 +26414,42 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_up::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_up",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_unconditional_round_up"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_round_up"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_unconditional_round_up"
+      ],
+      "questionFormLabels": [
+        "無條件進入｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -26021,6 +26492,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_up::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_up",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_unconditional_round_up"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_round_up"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_unconditional_round_up"
+      ],
+      "questionFormLabels": [
+        "無條件進入｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_up::FALLBACK_404::numeric",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_up",
       "sourceId": "g4b_u04_4b04",
@@ -26043,6 +26550,42 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_up::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_unconditional_round_up",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_unconditional_round_up"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_round_up"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_unconditional_round_up"
+      ],
+      "questionFormLabels": [
+        "無條件進入｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -26085,6 +26628,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_half_up_place_value"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_round_half_up"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_round_half_up"
+      ],
+      "questionFormLabels": [
+        "四捨五入｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value::CLASSIC::numeric",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value",
       "sourceId": "g4b_u04_4b04",
@@ -26107,6 +26686,42 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_half_up_place_value"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_round_half_up"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_round_half_up"
+      ],
+      "questionFormLabels": [
+        "四捨五入｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -26149,6 +26764,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_half_up_place_value"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_round_half_up"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_round_half_up"
+      ],
+      "questionFormLabels": [
+        "四捨五入｜數字題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value::PIXEL::numeric",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_half_up_place_value",
       "sourceId": "g4b_u04_4b04",
@@ -26181,6 +26832,43 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_context_floor_ceiling_selection"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_context_floor_ceiling"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required"
+      ],
+      "questionFormLabels": [
+        "最多完整數量與最少需求｜應用題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection::CLASSIC::application",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection",
       "sourceId": "g4b_u04_4b04",
@@ -26192,6 +26880,43 @@
       "selectedKnowledgePointCount": 1,
       "questionType": "application",
       "questionTypeLabel": "應用題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_context_floor_ceiling"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required"
+      ],
+      "questionFormLabels": [
+        "最多完整數量與最少需求｜應用題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_context_floor_ceiling_selection"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_context_floor_ceiling"
       ],
@@ -26255,6 +26980,43 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_context_floor_ceiling_selection"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_context_floor_ceiling"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required"
+      ],
+      "questionFormLabels": [
+        "最多完整數量與最少需求｜應用題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection::PIXEL::application",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_context_floor_ceiling_selection",
       "sourceId": "g4b_u04_4b04",
@@ -26292,6 +27054,43 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_payment_denomination_ceiling"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_payment_ceiling"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count"
+      ],
+      "questionFormLabels": [
+        "最少付款與鈔票張數｜應用題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling::CLASSIC::application",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling",
       "sourceId": "g4b_u04_4b04",
@@ -26303,6 +27102,43 @@
       "selectedKnowledgePointCount": 1,
       "questionType": "application",
       "questionTypeLabel": "應用題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_payment_ceiling"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count"
+      ],
+      "questionFormLabels": [
+        "最少付款與鈔票張數｜應用題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_payment_denomination_ceiling"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_payment_ceiling"
       ],
@@ -26366,6 +27202,43 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_payment_denomination_ceiling"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_payment_ceiling"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count"
+      ],
+      "questionFormLabels": [
+        "最少付款與鈔票張數｜應用題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling::PIXEL::application",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_payment_denomination_ceiling",
       "sourceId": "g4b_u04_4b04",
@@ -26386,6 +27259,43 @@
       ],
       "questionFormLabels": [
         "最少付款與鈔票張數｜應用題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_add_subtract::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_add_subtract",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_then_add_subtract"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_estimate_add_subtract"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract"
+      ],
+      "questionFormLabels": [
+        "先取概數再加減｜估算題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -26436,6 +27346,43 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_add_subtract::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_add_subtract",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_then_add_subtract"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_estimate_add_subtract"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract"
+      ],
+      "questionFormLabels": [
+        "先取概數再加減｜估算題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_add_subtract::FALLBACK_404::operation_estimation",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_add_subtract",
       "sourceId": "g4b_u04_4b04",
@@ -26459,6 +27406,43 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_add_subtract::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_add_subtract",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_then_add_subtract"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_estimate_add_subtract"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract"
+      ],
+      "questionFormLabels": [
+        "先取概數再加減｜估算題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -26502,6 +27486,43 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_then_multiply_divide"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_estimate_multiply_divide"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide"
+      ],
+      "questionFormLabels": [
+        "先取概數再乘除｜估算題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide::CLASSIC::operation_estimation",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide",
       "sourceId": "g4b_u04_4b04",
@@ -26525,6 +27546,43 @@
       ],
       "depthModes": [],
       "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_then_multiply_divide"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_estimate_multiply_divide"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide"
+      ],
+      "questionFormLabels": [
+        "先取概數再乘除｜估算題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
       "questionCountMin": 1,
       "questionCountDefault": 20,
       "questionCountMax": 240,
@@ -26568,6 +27626,43 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_round_then_multiply_divide"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_estimate_multiply_divide"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide"
+      ],
+      "questionFormLabels": [
+        "先取概數再乘除｜估算題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide::PIXEL::operation_estimation",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_round_then_multiply_divide",
       "sourceId": "g4b_u04_4b04",
@@ -26601,6 +27696,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_inverse_digit_set"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "questionFormLabels": [
+        "未知數字集合｜推理題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::CLASSIC::reasoning",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
       "sourceId": "g4b_u04_4b04",
@@ -26612,6 +27743,42 @@
       "selectedKnowledgePointCount": 1,
       "questionType": "reasoning",
       "questionTypeLabel": "推理題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_inverse_digit_set"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "questionFormLabels": [
+        "未知數字集合｜推理題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_inverse_digit_set"
       ],
@@ -26673,6 +27840,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_inverse_digit_set"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "questionFormLabels": [
+        "未知數字集合｜推理題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit::PIXEL::reasoning",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_unknown_digit",
       "sourceId": "g4b_u04_4b04",
@@ -26709,6 +27912,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_inverse_original_values"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "questionFormLabels": [
+        "可能原數集合｜推理題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::CLASSIC::reasoning",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
       "sourceId": "g4b_u04_4b04",
@@ -26720,6 +27959,42 @@
       "selectedKnowledgePointCount": 1,
       "questionType": "reasoning",
       "questionTypeLabel": "推理題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_inverse_original_values"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "questionFormLabels": [
+        "可能原數集合｜推理題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_inverse_original_values"
       ],
@@ -26781,6 +28056,42 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_inverse_original_values"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "questionFormLabels": [
+        "可能原數集合｜推理題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original::PIXEL::reasoning",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_inverse_rounding_possible_original",
       "sourceId": "g4b_u04_4b04",
@@ -26800,6 +28111,43 @@
       ],
       "questionFormLabels": [
         "可能原數集合｜推理題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_discount_denomination_round_down::CLASSIC::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_discount_denomination_round_down",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_discount_denomination_round_down"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_discount_round_down"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
+      ],
+      "questionFormLabels": [
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -26854,6 +28202,43 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_discount_denomination_round_down::FALLBACK_404::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_discount_denomination_round_down",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_discount_denomination_round_down"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_discount_round_down"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
+      ],
+      "questionFormLabels": [
+        "特價整千元捨去與鈔票張數｜應用題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_discount_denomination_round_down::FALLBACK_404::application",
       "caseId": "g4b_u04_4b04::single::kp_g4b_u04_discount_denomination_round_down",
       "sourceId": "g4b_u04_4b04",
@@ -26865,6 +28250,43 @@
       "selectedKnowledgePointCount": 1,
       "questionType": "application",
       "questionTypeLabel": "應用題",
+      "compatiblePatternGroupIds": [
+        "pg_g4b_u04_discount_round_down"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
+      ],
+      "questionFormLabels": [
+        "特價整千元捨去與鈔票張數｜應用題"
+      ],
+      "depthModes": [],
+      "contextModes": [
+        "mixed",
+        "daily_life",
+        "sdg"
+      ],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "VERIFIED_LIMITED",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g4b_u04_4b04::single::kp_g4b_u04_discount_denomination_round_down::PIXEL::mixed",
+      "caseId": "g4b_u04_4b04::single::kp_g4b_u04_discount_denomination_round_down",
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_discount_denomination_round_down"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "mixed",
+      "questionTypeLabel": "混合題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_discount_round_down"
       ],
