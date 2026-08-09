@@ -100,12 +100,14 @@ function g4bU04CurrentModeBinding(input = {}) {
 
   const modes = uniqueStrings(compatiblePatternGroups.map((group) => group.uiQuestionType));
   const requestedMode = String(input.requestedQuestionType ?? input.questionMode ?? "").toLowerCase();
-  const questionType = modes.includes(requestedMode)
-    ? requestedMode
-    : modes.length === 1
-      ? modes[0]
-      : "mixed";
-  const optionValues = modes.length > 1 ? uniqueStrings(["mixed", ...modes]) : modes;
+  const questionType = requestedMode === "mixed"
+    ? "mixed"
+    : modes.includes(requestedMode)
+      ? requestedMode
+      : modes.length === 1
+        ? modes[0]
+        : "mixed";
+  const optionValues = uniqueStrings(["mixed", ...modes]);
   const base = resolveBasePublicUiCapabilityBinding(input);
   const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
   return Object.freeze({
