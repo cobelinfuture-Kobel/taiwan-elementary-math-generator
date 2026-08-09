@@ -2,8 +2,14 @@ import {
   buildBatchABrowserWorksheetDocument as buildR2DWorksheetDocument,
 } from "./batch-a-browser-worksheet-r2d-entry.js";
 import {
+  buildBatchABrowserWorksheetDocument as buildP03F31WorksheetDocument,
+} from "./batch-a-browser-worksheet-p03f31-extension.js";
+import {
   G4B_U04_SOURCE_ID,
 } from "../registry/g4b-u04-promotion.js";
+import {
+  G5B_U04_P03F31_SOURCE_ID,
+} from "../registry/g5b-u04-rank8-decimal-times-integer-selector-projection-p03f31.js";
 import {
   G4B_U04_CONTEXT_CONTRACT_VERSION,
   normalizeG4BU04ContextMode,
@@ -105,5 +111,8 @@ function applyR2EContextMetadata(result, options = {}) {
 }
 
 export function buildBatchABrowserWorksheetDocument(options = {}) {
+  if (options.sourceId === G5B_U04_P03F31_SOURCE_ID) {
+    return buildP03F31WorksheetDocument(options);
+  }
   return applyR2EContextMetadata(buildR2DWorksheetDocument(options), options);
 }
