@@ -27,6 +27,8 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
+      - name: Diagnose current selector, binding, and plan lineage
+        run: node tools/curriculum/diagnose-p03f-slice030-current-binding.mjs
       - name: Rematerialize current PGC-R01 and PGC-R02 authority
         run: |
           node tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs
