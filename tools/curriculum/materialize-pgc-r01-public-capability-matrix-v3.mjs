@@ -13,10 +13,10 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f23-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f30-extension.js";
 import {
   getFullProductPublicControlProfile,
-} from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
+} from "../../site/modules/curriculum/registry/full-product-public-control-profiles-p03f30.js";
 import {
   listW01PublicApplicationGroupsForKnowledgePoint,
 } from "../../site/modules/curriculum/registry/w01-public-application-groups.js";
@@ -276,7 +276,7 @@ function writeReport(matrix) {
     "",
     "## Accepted findings",
     "",
-    "1. All 26 public sources and all 193 visible KnowledgePoints are represented on Classic, fallback 404 and Pixel.",
+    `1. All ${matrix.summary.publicSourceCount} public sources and all ${matrix.summary.publicVisibleKnowledgePointCount} visible KnowledgePoints are represented on Classic, fallback 404 and Pixel.`,
     "2. All visible question-type UI options are accounted for.",
     "3. Concept, representation, estimation and reasoning PatternGroup subtypes remain visible in the matrix while mapping to the parent UI option actually exposed by each surface.",
     "4. The 404 fallback profile parity gaps remain explicit and move to PGC-R02.",
