@@ -8,6 +8,9 @@ import {
 import {
   listVisibleBatchAKnowledgePoints,
 } from "../../site/modules/curriculum/registry/batch-a-selector-p03f30-extension.js";
+import {
+  CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
+} from "../../site/modules/curriculum/batch-a/source-units.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const outputDir = path.join(repoRoot, "data/curriculum/public-generation");
@@ -68,6 +71,7 @@ export function buildPublicGenerationCapabilityMatrixV4() {
     };
   });
 
+  const visibleKnowledgePoints = listVisibleBatchAKnowledgePoints();
   const accounting = visiblePairAccounting(matrix);
   for (const pair of accounting.unaccountedPairs) {
     const [knowledgePointId, surfaceId] = pair.split("|");
@@ -89,6 +93,9 @@ export function buildPublicGenerationCapabilityMatrixV4() {
   const blockingGaps = matrix.gaps.filter((gap) => gap.severity === "blocking_r01");
   matrix.summary = {
     ...matrix.summary,
+    publicSourceCount: CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length,
+    publicVisibleKnowledgePointCount: visibleKnowledgePoints.length,
+    publicSelectorVisibleCount: visibleKnowledgePoints.length,
     gapCount: matrix.gaps.length,
     blockingGapCount: blockingGaps.length,
     r02UiBindingGapCount: matrix.gaps.filter((gap) => gap.severity === "r02_ui_binding").length,
@@ -196,5 +203,7 @@ export function materializePublicGenerationCapabilityMatrixV4() {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const matrix = materializePublicGenerationCapabilityMatrixV4();
   console.log(`PGC_R01_V4_SUMMARY=${JSON.stringify(matrix.summary)}`);
+  const blockingGaps = matrix.gaps.filter((gap) => gap.severity === "blocking_r01");
+  if (blockingGaps.length > 0) console.log(`PGC_R01_V4_BLOCKING_GAPS=${JSON.stringify(blockingGaps)}`);
   if (matrix.summary.blockingGapCount > 0) process.exitCode = 2;
 }
