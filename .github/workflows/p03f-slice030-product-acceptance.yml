@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 
-# Exact-head acceptance also rematerializes current PGC-R01/R02 authority for deterministic readback.
+# Exact-head acceptance rematerializes current PGC-R01/R02 authority and verifies mode-preserving public bindings.
 concurrency:
   group: p03f30-product-acceptance-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
