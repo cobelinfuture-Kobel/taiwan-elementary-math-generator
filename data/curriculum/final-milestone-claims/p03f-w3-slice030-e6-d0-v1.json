@@ -2,8 +2,8 @@
   "claimId": "P03F-W3-SLICE030-E6-D0-V1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice030Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice030 only: admit new public source g5a_u06_5a06 with four rank-8 fraction KnowledgePoints using four numeric PatternGroups and four deterministic numeric PatternSpecs while preserving three hidden application PatternSpecs; application production and Global Context expansion remain forbidden.",
   "authority": {
     "queuePosition": 30,
@@ -123,8 +123,8 @@
     "global793RouteRegression": "PASS",
     "r02CurrentAuthority": "30_SOURCES_224_KPS_ZERO_GAPS",
     "r06HistoricalLineagePreserved": true,
-    "productAdmissionState": "READY_FOR_D0_CLOSEOUT_CI",
-    "d0Complete": false
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
   },
   "boundaries": {
     "slice031Started": false,
@@ -137,5 +137,21 @@
     "parallelRuntimePipelineAdded": false,
     "sharedWorksheetRendererBehaviorChanged": false
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice030D0Closeout"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice031Implementation",
+  "closeoutEvidence": {
+    "prNumber": 573,
+    "headSha": "ffc645226c2deb06f578888dfa8267621cdeada1",
+    "nodeWorkflowRunId": 31316844927,
+    "nodeWorkflowJobId": 93253376469,
+    "nodeConclusion": "success",
+    "fullRegression": {
+      "tests": 3004,
+      "pass": 3004,
+      "fail": 0,
+      "skipped": 0
+    },
+    "diagnosticsArtifactId": 9039032814,
+    "diagnosticsArtifactDigest": "sha256:3affe376c0189f42ce8e1183eb133bb87983e2f3052977558348c7aefe1d1b21",
+    "mergeSha": "05bfd3c876489b845fa1c4480ea01abca0bf9d7c"
+  }
 }

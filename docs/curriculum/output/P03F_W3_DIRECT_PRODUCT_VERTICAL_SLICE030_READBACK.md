@@ -1,11 +1,11 @@
-# P03F W3 Direct Product Vertical Slice030 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice030 — D0 Final Readback
 
 ```text
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID    = P03F_W3DirectProductVerticalSlice030Implementation
 SLICE      = 030
 SOURCE_REF = g5a_u06_5a06
-STATUS     = D0_CLOSEOUT_CANDIDATE
+STATUS     = PASS_D0_CLOSED
 ```
 
 ## Frozen authority
@@ -83,14 +83,25 @@ PDF_SHA256                        = 9436301e7e6911b580f1da1ec0ff3ee79e9496067a57
 
 All six screenshots were read back: three worksheet pages and three answer-key pages. No clipping, overlap, broken glyph, blank question card, answer-key misalignment, or pagination overflow was found. The 24 questions and 24 answer-key items are complete and aligned.
 
-## Candidate boundary
-
-The closeout candidate contains exactly four files: final milestone claim, product-admission manifest, readback, and closeout contract test. It modifies no runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or current public-generation authority. Slice031 remains unstarted.
+## D0 closeout reconciliation
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE030_IMPLEMENTATION_MERGED_EXACT_EVIDENCE_UNBOUND
-GOAL_DISTANCE_AFTER  = D1_SLICE030_D0_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = 30-source/224-KP authority, 3003/3003 regression, exact 793/793 browser replay, exact-head Chromium artifact, runtime-main blob identity, and six-page visual review are bound into a formal D0 admission candidate.
-REMAINING_BLOCKERS   = [CLOSEOUT_CI_PENDING, CLOSEOUT_MERGE_PENDING, POST_MERGE_RECONCILIATION_PENDING]
-NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice030D0CloseoutCandidateCIAndMerge
+CLOSEOUT_PR                = #573
+CLOSEOUT_HEAD              = ffc645226c2deb06f578888dfa8267621cdeada1
+CLOSEOUT_NODE_RUN          = 31316844927
+CLOSEOUT_NODE_JOB          = 93253376469
+CLOSEOUT_FULL_REGRESSION   = 3004 / 3004 PASS
+CLOSEOUT_DIAGNOSTICS       = 9039032814
+CLOSEOUT_DIAGNOSTICS_SHA   = sha256:3affe376c0189f42ce8e1183eb133bb87983e2f3052977558348c7aefe1d1b21
+CLOSEOUT_MERGE_SHA         = 05bfd3c876489b845fa1c4480ea01abca0bf9d7c
+```
+
+The candidate PR changed exactly four closeout files and passed the full Node regression with one additional Slice030 closeout contract test. Post-merge reconciliation changes only the final claim, manifest, and readback; the already merged closeout test accepts both candidate and final states. No runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or public-generation authority is changed by reconciliation.
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE030_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE030_CLOSED
+DISTANCE_REDUCED     = candidate CI/merge evidence is reconciled into final production admission authority; Slice030 now has implementation, 793/793 browser replay, Chromium/visual evidence, closeout regression, and merged D0 lineage.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice031Implementation
 ```
