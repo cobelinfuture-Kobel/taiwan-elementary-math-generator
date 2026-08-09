@@ -49,7 +49,7 @@ function compareFixture(ordinal, seed) {
 
 function reciprocalFixture(ordinal, seed) {
   const offset = seedOffset(seed, 71);
-  const [firstDenominator, secondDenominator] = UNIT_DENOMINATOR_PAIRS[(ordinal * 3 + offset) % UNIT_DENOMINATOR_PAIRS.length];
+  const [firstDenominator, secondDenominator] = UNIT_DENOMINATOR_PAIRS[(ordinal * 5 + offset) % UNIT_DENOMINATOR_PAIRS.length];
   return { firstDenominator, secondDenominator };
 }
 
