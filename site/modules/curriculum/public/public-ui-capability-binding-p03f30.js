@@ -14,7 +14,10 @@ import {
   listG5AU06P03F30PatternGroups,
   listG5AU06P03F30SelectorRows,
 } from "../registry/g5a-u06-rank8-fraction-selector-projection-p03f30.js";
-import { listVisibleBatchAKnowledgePoints } from "../registry/batch-a-selector-p03f30-extension.js";
+import {
+  getVisiblePatternGroupsForKnowledgePoint,
+  listVisibleBatchAKnowledgePoints,
+} from "../registry/batch-a-selector-p03f30-extension.js";
 
 export { PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION, PUBLIC_UI_SAFE_QUESTION_COUNT, PUBLIC_UI_SURFACES };
 
@@ -22,7 +25,18 @@ const SOURCE_UNIT_MODE = "sourceUnit";
 const SINGLE_KP_MODE = "singleKnowledgePoint";
 const SAME_UNIT_MIXED_MODE = "mixedKnowledgePointsSameUnit";
 const CROSS_UNIT_MIXED_MODE = "mixedKnowledgePointsCrossUnit";
+const G4B_U04_SOURCE_ID = "g4b_u04_4b04";
 const uniqueStrings = (values = []) => [...new Set((Array.isArray(values) ? values : []).map((value) => String(value ?? "").trim()).filter(Boolean))];
+
+function modeLabel(value) {
+  if (value === "mixed") return "混合題";
+  if (value === "application") return "應用題";
+  if (value === "reasoning") return "推理題";
+  if (value === "concept") return "概念題";
+  if (value === "operation_estimation") return "估算題";
+  if (value === "representation") return "表徵題";
+  return "數字題";
+}
 
 function structuralNumericBinding({ sourceId, surfaceId, selectionMode, selectedKnowledgePointIds, compatiblePatternGroups, capacityQualityStatus }) {
   const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
@@ -53,6 +67,64 @@ function structuralNumericBinding({ sourceId, surfaceId, selectionMode, selected
     capacityRouteIds: Object.freeze([]),
     capacityQualityStatuses: Object.freeze([capacityQualityStatus]),
     capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    blocked: false,
+    blockedReasons: Object.freeze([]),
+  });
+}
+
+function g4bU04CurrentModeBinding(input = {}) {
+  if (input.sourceId !== G4B_U04_SOURCE_ID) return null;
+  const selectionMode = input.selectionMode ?? SOURCE_UNIT_MODE;
+  if (![SINGLE_KP_MODE, SAME_UNIT_MIXED_MODE].includes(selectionMode)) return null;
+  const selectedKnowledgePointIds = uniqueStrings(input.selectedKnowledgePointIds);
+  if (selectedKnowledgePointIds.length === 0) return null;
+  const requestedGroupIds = new Set(uniqueStrings(input.selectedPatternGroupIds));
+  const rows = listVisibleBatchAKnowledgePoints();
+  let compatiblePatternGroups = selectedKnowledgePointIds.flatMap((knowledgePointId) => {
+    const row = rows.find((entry) => entry.knowledgePointId === knowledgePointId);
+    return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId).map((group) => Object.freeze({
+      ...group,
+      knowledgePointId,
+      knowledgePointDisplayName: row?.displayName ?? knowledgePointId,
+      effectiveQuestionType: String(group.publicQuestionMode ?? group.questionMode ?? group.mode ?? "numeric").toLowerCase(),
+      uiQuestionType: String(group.publicQuestionMode ?? group.questionMode ?? group.mode ?? "numeric").toLowerCase(),
+      displayLabel: group.displayName ?? row?.displayName ?? "題目形式",
+      selected: true,
+    }));
+  });
+  if (requestedGroupIds.size > 0) {
+    const requestedGroups = compatiblePatternGroups.filter((group) => requestedGroupIds.has(group.patternGroupId));
+    if (requestedGroups.length > 0) compatiblePatternGroups = requestedGroups;
+  }
+  if (compatiblePatternGroups.length === 0) return null;
+
+  const modes = uniqueStrings(compatiblePatternGroups.map((group) => group.uiQuestionType));
+  const requestedMode = String(input.requestedQuestionType ?? input.questionMode ?? "").toLowerCase();
+  const questionType = modes.includes(requestedMode)
+    ? requestedMode
+    : modes.length === 1
+      ? modes[0]
+      : "mixed";
+  const optionValues = modes.length > 1 ? uniqueStrings(["mixed", ...modes]) : modes;
+  const base = resolveBasePublicUiCapabilityBinding(input);
+  const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
+  return Object.freeze({
+    ...base,
+    sourceId: G4B_U04_SOURCE_ID,
+    surfaceId: input.surfaceId ?? base.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
+    selectionMode,
+    selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
+    availableQuestionTypeOptions: Object.freeze(optionValues.map((value) => Object.freeze({ value, label: modeLabel(value) }))),
+    questionType,
+    compatiblePatternGroups: Object.freeze(compatiblePatternGroups),
+    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    capacityStatus: base.capacityStatus === "VERIFIED_20" || base.capacityStatus === "VERIFIED_LIMITED"
+      ? base.capacityStatus
+      : "STRUCTURAL_FALLBACK_AVAILABLE",
     blocked: false,
     blockedReasons: Object.freeze([]),
   });
@@ -115,7 +187,8 @@ function g5aU06CurrentBinding(input = {}) {
 }
 
 export function resolvePublicUiCapabilityBinding(input = {}) {
-  return g5aU04Slice029Binding(input)
+  return g4bU04CurrentModeBinding(input)
+    ?? g5aU04Slice029Binding(input)
     ?? g5aU06CurrentBinding(input)
     ?? resolveBasePublicUiCapabilityBinding(input);
 }
