@@ -5,6 +5,11 @@ import {
   resolvePublicUiCapabilityBinding as resolveBasePublicUiCapabilityBinding,
 } from "./public-ui-capability-binding.js";
 import {
+  G5A_U04_P03F29_KP_ID,
+  G5A_U04_P03F29_SOURCE_ID,
+  listG5AU04P03F29PatternGroups,
+} from "../registry/g5a-u04-rank8-fraction-selector-projection-p03f29.js";
+import {
   G5A_U06_P03F30_SOURCE_ID,
   listG5AU06P03F30PatternGroups,
   listG5AU06P03F30SelectorRows,
@@ -18,6 +23,63 @@ const SINGLE_KP_MODE = "singleKnowledgePoint";
 const SAME_UNIT_MIXED_MODE = "mixedKnowledgePointsSameUnit";
 const CROSS_UNIT_MIXED_MODE = "mixedKnowledgePointsCrossUnit";
 const uniqueStrings = (values = []) => [...new Set((Array.isArray(values) ? values : []).map((value) => String(value ?? "").trim()).filter(Boolean))];
+
+function structuralNumericBinding({ sourceId, surfaceId, selectionMode, selectedKnowledgePointIds, compatiblePatternGroups, capacityQualityStatus }) {
+  const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
+  return Object.freeze({
+    sourceId,
+    surfaceId: surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
+    selectionMode,
+    availableSelectionModes: Object.freeze([
+      Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
+      Object.freeze({ value: SINGLE_KP_MODE, enabled: true }),
+      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: selectedKnowledgePointIds.length >= 2 }),
+      Object.freeze({ value: CROSS_UNIT_MIXED_MODE, enabled: false }),
+    ]),
+    selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
+    availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
+    questionType: "numeric",
+    compatiblePatternGroups: Object.freeze(compatiblePatternGroups),
+    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
+    depthOptions: Object.freeze([]),
+    contextOptions: Object.freeze([]),
+    depthMode: null,
+    contextMode: null,
+    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
+    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
+    capacityRegistryStatus: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION.registryStatus,
+    capacityRouteIds: Object.freeze([]),
+    capacityQualityStatuses: Object.freeze([capacityQualityStatus]),
+    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
+    blocked: false,
+    blockedReasons: Object.freeze([]),
+  });
+}
+
+function g5aU04Slice029Binding(input = {}) {
+  if (input.sourceId !== G5A_U04_P03F29_SOURCE_ID) return null;
+  if ((input.selectionMode ?? SOURCE_UNIT_MODE) !== SINGLE_KP_MODE) return null;
+  if (!uniqueStrings(input.selectedKnowledgePointIds).includes(G5A_U04_P03F29_KP_ID)) return null;
+  const compatiblePatternGroups = listG5AU04P03F29PatternGroups(G5A_U04_P03F29_KP_ID).map((group) => Object.freeze({
+    ...group,
+    knowledgePointId: G5A_U04_P03F29_KP_ID,
+    knowledgePointDisplayName: "通分後比較異分母分數",
+    effectiveQuestionType: "numeric",
+    uiQuestionType: "numeric",
+    displayLabel: group.displayName ?? "通分後比較異分母分數",
+    selected: true,
+  }));
+  return structuralNumericBinding({
+    sourceId: G5A_U04_P03F29_SOURCE_ID,
+    surfaceId: input.surfaceId,
+    selectionMode: SINGLE_KP_MODE,
+    selectedKnowledgePointIds: [G5A_U04_P03F29_KP_ID],
+    compatiblePatternGroups,
+    capacityQualityStatus: "P03F29_G5A_U04_RANK8_COMPARE_STRUCTURAL_RUNTIME",
+  });
+}
 
 function g5aU06CurrentBinding(input = {}) {
   if (input.sourceId !== G5A_U06_P03F30_SOURCE_ID) return null;
@@ -42,41 +104,20 @@ function g5aU06CurrentBinding(input = {}) {
       selected: true,
     }));
   });
-  const compatiblePatternGroupIds = uniqueStrings(compatiblePatternGroups.map((group) => group.patternGroupId));
-  return Object.freeze({
+  return structuralNumericBinding({
     sourceId: G5A_U06_P03F30_SOURCE_ID,
-    surfaceId: input.surfaceId ?? PUBLIC_UI_SURFACES.CLASSIC,
+    surfaceId: input.surfaceId,
     selectionMode,
-    availableSelectionModes: Object.freeze([
-      Object.freeze({ value: SOURCE_UNIT_MODE, enabled: true }),
-      Object.freeze({ value: SINGLE_KP_MODE, enabled: allowedIds.length > 0 }),
-      Object.freeze({ value: SAME_UNIT_MIXED_MODE, enabled: allowedIds.length >= 2 }),
-      Object.freeze({ value: CROSS_UNIT_MIXED_MODE, enabled: false }),
-    ]),
-    selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
-    selectedKnowledgePointCount: selectedKnowledgePointIds.length,
-    availableQuestionTypeOptions: Object.freeze([Object.freeze({ value: "numeric", label: "數字題" })]),
-    questionType: "numeric",
-    compatiblePatternGroups: Object.freeze(compatiblePatternGroups),
-    compatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
-    selectedCompatiblePatternGroupIds: Object.freeze(compatiblePatternGroupIds),
-    depthOptions: Object.freeze([]),
-    contextOptions: Object.freeze([]),
-    depthMode: null,
-    contextMode: null,
-    questionCount: PUBLIC_UI_SAFE_QUESTION_COUNT,
-    capacityStatus: "STRUCTURAL_FALLBACK_AVAILABLE",
-    capacityRegistryStatus: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION.registryStatus,
-    capacityRouteIds: Object.freeze([]),
-    capacityQualityStatuses: Object.freeze(["P03F30_G5A_U06_FOUR_KP_STRUCTURAL_RUNTIME"]),
-    capacityReconciliation: PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION,
-    blocked: false,
-    blockedReasons: Object.freeze([]),
+    selectedKnowledgePointIds,
+    compatiblePatternGroups,
+    capacityQualityStatus: "P03F30_G5A_U06_FOUR_KP_STRUCTURAL_RUNTIME",
   });
 }
 
 export function resolvePublicUiCapabilityBinding(input = {}) {
-  return g5aU06CurrentBinding(input) ?? resolveBasePublicUiCapabilityBinding(input);
+  return g5aU04Slice029Binding(input)
+    ?? g5aU06CurrentBinding(input)
+    ?? resolveBasePublicUiCapabilityBinding(input);
 }
 
 export function auditPublicUiCapabilityBinding() {
