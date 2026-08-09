@@ -7,6 +7,7 @@ import {
 } from "../registry/g5b-u04-rank8-decimal-times-integer-selector-projection-p03f31.js";
 
 const SCALE = 3;
+export const P03F31_SOURCE_WITNESS_FIXTURE = Object.freeze({ decimalCoefficient: 672, integerFactor: 18, scale: SCALE });
 const hash = (value) => [...String(value)].reduce((n, c) => ((n * 33) ^ c.charCodeAt(0)) >>> 0, 5381);
 const canonicalFromCoefficient = (coefficient, scale = SCALE) => {
   const digits = String(Math.abs(coefficient)).padStart(scale + 1, "0");
@@ -112,7 +113,11 @@ export function generateG5BU04P03F31Questions(options = {}) {
   }
   const seed = options.generationSeed ?? plan.generationSeed ?? "p03f31";
   const offset = hash(seed) % 100000;
-  const questions = Array.from({ length: questionCount }, (_, index) => buildQuestion(buildCase(offset + index + 1), index + 1));
+  const sourceWitnessMode = String(seed).includes("source-witness");
+  const fixtures = Array.from({ length: questionCount }, (_, index) => sourceWitnessMode && index === 0
+    ? P03F31_SOURCE_WITNESS_FIXTURE
+    : buildCase(offset + index + 1));
+  const questions = fixtures.map((fixture, index) => buildQuestion(fixture, index + 1));
   const errors = questions.flatMap((question, index) => validateG5BU04P03F31Question(question).errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
   if (new Set(questions.map((question) => question.blankedDisplayText)).size !== questions.length) errors.push({ code: "p03f31_duplicate_prompt_detected", severity: "error", path: "questions", message: "Duplicate prompts are forbidden." });
   return Object.freeze({
