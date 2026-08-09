@@ -1,0 +1,49 @@
+name: P03F30 R02 Rematerialize Staging R1
+
+on:
+  push:
+    branches:
+      - p03f30-r02-rematerialize-staging-r1
+
+permissions:
+  contents: write
+
+jobs:
+  rematerialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Rematerialize current R02 authority
+        run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
+
+      - name: Verify focused R02 contract
+        run: node --test tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+
+      - name: Commit deterministic R02 outputs
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          if git diff --cached --quiet; then
+            echo "P03F30_R02_REMATERIALIZE_CHANGED=0"
+          else
+            git commit -m "data(pgc-r02): reconcile Slice030 mixed parent authority"
+            git push origin HEAD:p03f30-r02-rematerialize-staging-r1
+            echo "P03F30_R02_REMATERIALIZE_CHANGED=1"
+          fi
