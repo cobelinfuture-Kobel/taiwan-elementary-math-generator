@@ -70,15 +70,26 @@ export function resolvePublicUiCapabilityBinding(input = {}) {
 
 export function auditPublicUiCapabilityBinding() {
   const baseAudit = auditBasePublicUiCapabilityBinding();
-  const binding = g5bU04Slice031Binding({ sourceId: G5B_U04_P03F31_SOURCE_ID, surfaceId: PUBLIC_UI_SURFACES.CLASSIC });
   const errors = [...(baseAudit.errors ?? [])];
-  if (!binding || binding.blocked || binding.questionType !== "numeric") errors.push("P03F31_PUBLIC_BINDING_INVALID");
-  if (binding?.compatiblePatternGroupIds?.length !== 1 || binding?.selectedKnowledgePointIds?.[0] !== G5B_U04_P03F31_KP_ID) errors.push("P03F31_PUBLIC_BINDING_IDENTITY_INVALID");
+  let slice031CaseCount = 0;
+  const cases = [
+    { selectionMode:SOURCE_UNIT_MODE, selectedKnowledgePointIds:[] },
+    { selectionMode:SINGLE_KP_MODE, selectedKnowledgePointIds:[G5B_U04_P03F31_KP_ID] },
+  ];
+  for (const surfaceId of Object.values(PUBLIC_UI_SURFACES)) {
+    for (const input of cases) {
+      const binding = g5bU04Slice031Binding({ sourceId:G5B_U04_P03F31_SOURCE_ID, surfaceId, ...input });
+      slice031CaseCount += 1;
+      if (!binding || binding.blocked || binding.questionType !== "numeric") errors.push(`P03F31_PUBLIC_BINDING_INVALID:${surfaceId}:${input.selectionMode}`);
+      if (binding?.compatiblePatternGroupIds?.length !== 1 || binding?.selectedKnowledgePointIds?.[0] !== G5B_U04_P03F31_KP_ID) errors.push(`P03F31_PUBLIC_BINDING_IDENTITY_INVALID:${surfaceId}:${input.selectionMode}`);
+      if (binding?.depthOptions?.length !== 0 || binding?.contextOptions?.length !== 0) errors.push(`P03F31_PUBLIC_BINDING_SCOPE_LEAK:${surfaceId}:${input.selectionMode}`);
+    }
+  }
   return Object.freeze({
     ok: errors.length === 0,
-    caseCount: Number(baseAudit.caseCount ?? 0) + 1,
+    caseCount: Number(baseAudit.caseCount ?? 0) + slice031CaseCount,
     errors: Object.freeze(errors),
     baseAuditCaseCount: Number(baseAudit.caseCount ?? 0),
-    slice031AuditCaseCount: 1,
+    slice031AuditCaseCount,
   });
 }
