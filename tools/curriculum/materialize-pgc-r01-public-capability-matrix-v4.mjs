@@ -7,7 +7,7 @@ import {
 } from "./materialize-pgc-r01-public-capability-matrix-v3.mjs";
 import {
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f23-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f30-extension.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const outputDir = path.join(repoRoot, "data/curriculum/public-generation");
