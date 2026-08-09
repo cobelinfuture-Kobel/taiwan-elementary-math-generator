@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 # Exact-head acceptance rematerializes current PGC-R01/R02 authority and verifies mode-preserving public bindings.
 concurrency:
@@ -64,3 +64,21 @@ jobs:
           path: tmp/p03f-slice030-product-acceptance
           if-no-files-found: error
           retention-days: 30
+      - name: Commit rematerialized public authority to PR branch
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/public-generation/public_generation_capability_matrix.json \
+            data/curriculum/public-generation/public_generation_capability_matrix.csv \
+            docs/curriculum/output/PGC-R01_capability_gap_report.md \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          if git diff --cached --quiet; then
+            echo "P03F30_AUTHORITY_ALREADY_CURRENT=true"
+          else
+            git commit -m "data: rematerialize Slice030 public authority [skip ci]"
+            git push origin "HEAD:${{ github.head_ref }}"
+          fi
