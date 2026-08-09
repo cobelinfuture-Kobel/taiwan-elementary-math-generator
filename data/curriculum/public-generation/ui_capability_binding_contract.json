@@ -5,9 +5,9 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f28-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f30-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
-  "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding.js",
+  "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding-p03f30.js",
   "adapters": {
     "classic": "site/assets/browser/public-capability-ui.js",
     "fallback404": "site/assets/browser/public-capability-ui.js",
@@ -25,20 +25,20 @@
     "PIXEL"
   ],
   "summary": {
-    "publicSourceCount": 29,
-    "visibleKnowledgePointCount": 219,
+    "publicSourceCount": 30,
+    "visibleKnowledgePointCount": 224,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 276,
-    "surfaceCaseCount": 828,
-    "questionTypeBindingRowCount": 1191,
-    "parityCaseCount": 276,
-    "auditCaseCount": 828,
+    "baseCaseCount": 283,
+    "surfaceCaseCount": 849,
+    "questionTypeBindingRowCount": 1212,
+    "parityCaseCount": 283,
+    "auditCaseCount": 849,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
     "limitedCapacityBindingCount": 1062,
-    "structuralFallbackBindingCount": 129,
+    "structuralFallbackBindingCount": 150,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -26851,7 +26851,7 @@
         "ps_g4b_u04_ceiling_minimum_required"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最多完整數量與最少需求｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -26888,7 +26888,7 @@
         "ps_g4b_u04_ceiling_minimum_required"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最多完整數量與最少需求｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -26925,7 +26925,7 @@
         "ps_g4b_u04_ceiling_minimum_required"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最多完整數量與最少需求｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -26962,7 +26962,7 @@
         "ps_g4b_u04_ceiling_minimum_required"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最多完整數量與最少需求｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -26999,7 +26999,7 @@
         "ps_g4b_u04_ceiling_minimum_required"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最多完整數量與最少需求｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -27036,7 +27036,7 @@
         "ps_g4b_u04_ceiling_minimum_required"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最多完整數量與最少需求｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -27073,7 +27073,7 @@
         "ps_g4b_u04_payment_banknote_count"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最少付款與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -27110,7 +27110,7 @@
         "ps_g4b_u04_payment_banknote_count"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最少付款與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -27147,7 +27147,7 @@
         "ps_g4b_u04_payment_banknote_count"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最少付款與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -27184,7 +27184,7 @@
         "ps_g4b_u04_payment_banknote_count"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最少付款與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -27221,7 +27221,7 @@
         "ps_g4b_u04_payment_banknote_count"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最少付款與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -27258,7 +27258,7 @@
         "ps_g4b_u04_payment_banknote_count"
       ],
       "questionFormLabels": [
-        "應用題"
+        "最少付款與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -27323,7 +27323,7 @@
       ],
       "selectedKnowledgePointCount": 1,
       "questionType": "operation_estimation",
-      "questionTypeLabel": "運算估算題",
+      "questionTypeLabel": "估算題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_estimate_add_subtract"
       ],
@@ -27393,7 +27393,7 @@
       ],
       "selectedKnowledgePointCount": 1,
       "questionType": "operation_estimation",
-      "questionTypeLabel": "運算估算題",
+      "questionTypeLabel": "估算題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_estimate_add_subtract"
       ],
@@ -27463,7 +27463,7 @@
       ],
       "selectedKnowledgePointCount": 1,
       "questionType": "operation_estimation",
-      "questionTypeLabel": "運算估算題",
+      "questionTypeLabel": "估算題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_estimate_add_subtract"
       ],
@@ -27533,7 +27533,7 @@
       ],
       "selectedKnowledgePointCount": 1,
       "questionType": "operation_estimation",
-      "questionTypeLabel": "運算估算題",
+      "questionTypeLabel": "估算題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_estimate_multiply_divide"
       ],
@@ -27603,7 +27603,7 @@
       ],
       "selectedKnowledgePointCount": 1,
       "questionType": "operation_estimation",
-      "questionTypeLabel": "運算估算題",
+      "questionTypeLabel": "估算題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_estimate_multiply_divide"
       ],
@@ -27673,7 +27673,7 @@
       ],
       "selectedKnowledgePointCount": 1,
       "questionType": "operation_estimation",
-      "questionTypeLabel": "運算估算題",
+      "questionTypeLabel": "估算題",
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_estimate_multiply_divide"
       ],
@@ -28147,7 +28147,7 @@
         "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
-        "應用題"
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28184,7 +28184,7 @@
         "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
-        "應用題"
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28221,7 +28221,7 @@
         "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
-        "應用題"
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28258,7 +28258,7 @@
         "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
-        "應用題"
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28295,7 +28295,7 @@
         "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
-        "應用題"
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28332,7 +28332,7 @@
         "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
-        "應用題"
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28416,13 +28416,13 @@
         "無條件捨去｜數字題",
         "無條件進入｜數字題",
         "四捨五入｜數字題",
-        "應用題",
-        "應用題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
         "先取概數再加減｜估算題",
         "先取概數再乘除｜估算題",
         "未知數字集合｜推理題",
         "可能原數集合｜推理題",
-        "應用題"
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28466,18 +28466,53 @@
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_approximation_language",
         "pg_g4b_u04_approximation_symbol",
-        "pg_g4b_u04_method_comparison"
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u04_approx_language_classify",
         "ps_g4b_u04_approx_symbol_reading",
         "ps_g4b_u04_method_compare_outputs",
-        "ps_g4b_u04_method_identify_from_result"
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
         "概數語意辨識｜概念題",
         "約等號與讀法｜概念題",
-        "三種取概數方法｜概念題"
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -28515,19 +28550,55 @@
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
         "pg_g4b_u04_round_down",
         "pg_g4b_u04_round_up",
-        "pg_g4b_u04_round_half_up"
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
         "ps_g4b_u04_unconditional_round_down",
         "ps_g4b_u04_unconditional_round_up",
-        "ps_g4b_u04_round_half_up"
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
         "無條件捨去｜數字題",
         "無條件進入｜數字題",
-        "四捨五入｜數字題"
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -28565,22 +28636,55 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
         "pg_g4b_u04_context_floor_ceiling",
         "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
         "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
         "ps_g4b_u04_floor_complete_groups",
         "ps_g4b_u04_ceiling_minimum_required",
         "ps_g4b_u04_payment_amount_ceiling",
         "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
         "ps_g4b_u04_discount_payment_amount_round_down",
         "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
-        "應用題",
-        "應用題",
-        "應用題"
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28620,20 +28724,57 @@
       ],
       "selectedKnowledgePointCount": 13,
       "questionType": "operation_estimation",
-      "questionTypeLabel": "運算估算題",
+      "questionTypeLabel": "估算題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
         "pg_g4b_u04_estimate_add_subtract",
-        "pg_g4b_u04_estimate_multiply_divide"
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
         "ps_g4b_u04_round_then_add",
         "ps_g4b_u04_round_then_subtract",
         "ps_g4b_u04_round_then_multiply",
-        "ps_g4b_u04_round_then_divide"
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
         "先取概數再加減｜估算題",
-        "先取概數再乘除｜估算題"
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -28671,16 +28812,55 @@
       "questionType": "reasoning",
       "questionTypeLabel": "推理題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
         "pg_g4b_u04_inverse_digit_set",
-        "pg_g4b_u04_inverse_original_values"
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
         "ps_g4b_u04_inverse_digit_set",
-        "ps_g4b_u04_inverse_original_values"
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
         "未知數字集合｜推理題",
-        "可能原數集合｜推理題"
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28764,13 +28944,13 @@
         "無條件捨去｜數字題",
         "無條件進入｜數字題",
         "四捨五入｜數字題",
-        "應用題",
-        "應用題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
         "先取概數再加減｜估算題",
         "先取概數再乘除｜估算題",
         "未知數字集合｜推理題",
         "可能原數集合｜推理題",
-        "應用題"
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28814,18 +28994,53 @@
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_approximation_language",
         "pg_g4b_u04_approximation_symbol",
-        "pg_g4b_u04_method_comparison"
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u04_approx_language_classify",
         "ps_g4b_u04_approx_symbol_reading",
         "ps_g4b_u04_method_compare_outputs",
-        "ps_g4b_u04_method_identify_from_result"
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
         "概數語意辨識｜概念題",
         "約等號與讀法｜概念題",
-        "三種取概數方法｜概念題"
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -28863,19 +29078,55 @@
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
         "pg_g4b_u04_round_down",
         "pg_g4b_u04_round_up",
-        "pg_g4b_u04_round_half_up"
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
         "ps_g4b_u04_unconditional_round_down",
         "ps_g4b_u04_unconditional_round_up",
-        "ps_g4b_u04_round_half_up"
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
         "無條件捨去｜數字題",
         "無條件進入｜數字題",
-        "四捨五入｜數字題"
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -28913,22 +29164,55 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
         "pg_g4b_u04_context_floor_ceiling",
         "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
         "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
         "ps_g4b_u04_floor_complete_groups",
         "ps_g4b_u04_ceiling_minimum_required",
         "ps_g4b_u04_payment_amount_ceiling",
         "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
         "ps_g4b_u04_discount_payment_amount_round_down",
         "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
-        "應用題",
-        "應用題",
-        "應用題"
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -28968,20 +29252,57 @@
       ],
       "selectedKnowledgePointCount": 13,
       "questionType": "operation_estimation",
-      "questionTypeLabel": "運算估算題",
+      "questionTypeLabel": "估算題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
         "pg_g4b_u04_estimate_add_subtract",
-        "pg_g4b_u04_estimate_multiply_divide"
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
         "ps_g4b_u04_round_then_add",
         "ps_g4b_u04_round_then_subtract",
         "ps_g4b_u04_round_then_multiply",
-        "ps_g4b_u04_round_then_divide"
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
         "先取概數再加減｜估算題",
-        "先取概數再乘除｜估算題"
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -29019,16 +29340,55 @@
       "questionType": "reasoning",
       "questionTypeLabel": "推理題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
         "pg_g4b_u04_inverse_digit_set",
-        "pg_g4b_u04_inverse_original_values"
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
         "ps_g4b_u04_inverse_digit_set",
-        "ps_g4b_u04_inverse_original_values"
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
         "未知數字集合｜推理題",
-        "可能原數集合｜推理題"
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -29112,13 +29472,13 @@
         "無條件捨去｜數字題",
         "無條件進入｜數字題",
         "四捨五入｜數字題",
-        "應用題",
-        "應用題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
         "先取概數再加減｜估算題",
         "先取概數再乘除｜估算題",
         "未知數字集合｜推理題",
         "可能原數集合｜推理題",
-        "應用題"
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -29162,18 +29522,53 @@
       "compatiblePatternGroupIds": [
         "pg_g4b_u04_approximation_language",
         "pg_g4b_u04_approximation_symbol",
-        "pg_g4b_u04_method_comparison"
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
         "ps_g4b_u04_approx_language_classify",
         "ps_g4b_u04_approx_symbol_reading",
         "ps_g4b_u04_method_compare_outputs",
-        "ps_g4b_u04_method_identify_from_result"
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
         "概數語意辨識｜概念題",
         "約等號與讀法｜概念題",
-        "三種取概數方法｜概念題"
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -29211,19 +29606,55 @@
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
         "pg_g4b_u04_round_down",
         "pg_g4b_u04_round_up",
-        "pg_g4b_u04_round_half_up"
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
         "ps_g4b_u04_unconditional_round_down",
         "ps_g4b_u04_unconditional_round_up",
-        "ps_g4b_u04_round_half_up"
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
         "無條件捨去｜數字題",
         "無條件進入｜數字題",
-        "四捨五入｜數字題"
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -29261,22 +29692,55 @@
       "questionType": "application",
       "questionTypeLabel": "應用題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
         "pg_g4b_u04_context_floor_ceiling",
         "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
         "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
         "ps_g4b_u04_floor_complete_groups",
         "ps_g4b_u04_ceiling_minimum_required",
         "ps_g4b_u04_payment_amount_ceiling",
         "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
         "ps_g4b_u04_discount_payment_amount_round_down",
         "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
-        "應用題",
-        "應用題",
-        "應用題"
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -29316,20 +29780,57 @@
       ],
       "selectedKnowledgePointCount": 13,
       "questionType": "operation_estimation",
-      "questionTypeLabel": "運算估算題",
+      "questionTypeLabel": "估算題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
         "pg_g4b_u04_estimate_add_subtract",
-        "pg_g4b_u04_estimate_multiply_divide"
+        "pg_g4b_u04_estimate_multiply_divide",
+        "pg_g4b_u04_inverse_digit_set",
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
         "ps_g4b_u04_round_then_add",
         "ps_g4b_u04_round_then_subtract",
         "ps_g4b_u04_round_then_multiply",
-        "ps_g4b_u04_round_then_divide"
+        "ps_g4b_u04_round_then_divide",
+        "ps_g4b_u04_inverse_digit_set",
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
         "先取概數再加減｜估算題",
-        "先取概數再乘除｜估算題"
+        "先取概數再乘除｜估算題",
+        "未知數字集合｜推理題",
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [],
@@ -29367,16 +29868,55 @@
       "questionType": "reasoning",
       "questionTypeLabel": "推理題",
       "compatiblePatternGroupIds": [
+        "pg_g4b_u04_approximation_language",
+        "pg_g4b_u04_approximation_symbol",
+        "pg_g4b_u04_method_comparison",
+        "pg_g4b_u04_round_down",
+        "pg_g4b_u04_round_up",
+        "pg_g4b_u04_round_half_up",
+        "pg_g4b_u04_context_floor_ceiling",
+        "pg_g4b_u04_payment_ceiling",
+        "pg_g4b_u04_estimate_add_subtract",
+        "pg_g4b_u04_estimate_multiply_divide",
         "pg_g4b_u04_inverse_digit_set",
-        "pg_g4b_u04_inverse_original_values"
+        "pg_g4b_u04_inverse_original_values",
+        "pg_g4b_u04_discount_round_down"
       ],
       "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_language_classify",
+        "ps_g4b_u04_approx_symbol_reading",
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result",
+        "ps_g4b_u04_unconditional_round_down",
+        "ps_g4b_u04_unconditional_round_up",
+        "ps_g4b_u04_round_half_up",
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required",
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count",
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide",
         "ps_g4b_u04_inverse_digit_set",
-        "ps_g4b_u04_inverse_original_values"
+        "ps_g4b_u04_inverse_original_values",
+        "ps_g4b_u04_discount_payment_amount_round_down",
+        "ps_g4b_u04_discount_banknote_count_round_down"
       ],
       "questionFormLabels": [
+        "概數語意辨識｜概念題",
+        "約等號與讀法｜概念題",
+        "三種取概數方法｜概念題",
+        "無條件捨去｜數字題",
+        "無條件進入｜數字題",
+        "四捨五入｜數字題",
+        "最多完整數量與最少需求｜應用題",
+        "最少付款與鈔票張數｜應用題",
+        "先取概數再加減｜估算題",
+        "先取概數再乘除｜估算題",
         "未知數字集合｜推理題",
-        "可能原數集合｜推理題"
+        "可能原數集合｜推理題",
+        "特價整千元捨去與鈔票張數｜應用題"
       ],
       "depthModes": [],
       "contextModes": [
@@ -48858,6 +49398,102 @@
       "capacityQualityStatuses": []
     },
     {
+      "bindingId": "g5a_u04_5a04::single::kp_g5a_u04_unlike_fraction_compare::CLASSIC::numeric",
+      "caseId": "g5a_u04_5a04::single::kp_g5a_u04_unlike_fraction_compare",
+      "sourceId": "g5a_u04_5a04",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u04_unlike_fraction_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u04_unlike_fraction_compare_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u04_unlike_fraction_compare_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "通分後比較異分母分數"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u04_5a04::single::kp_g5a_u04_unlike_fraction_compare::FALLBACK_404::numeric",
+      "caseId": "g5a_u04_5a04::single::kp_g5a_u04_unlike_fraction_compare",
+      "sourceId": "g5a_u04_5a04",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u04_unlike_fraction_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u04_unlike_fraction_compare_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u04_unlike_fraction_compare_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "通分後比較異分母分數"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u04_5a04::single::kp_g5a_u04_unlike_fraction_compare::PIXEL::numeric",
+      "caseId": "g5a_u04_5a04::single::kp_g5a_u04_unlike_fraction_compare",
+      "sourceId": "g5a_u04_5a04",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u04_unlike_fraction_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u04_unlike_fraction_compare_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u04_unlike_fraction_compare_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "通分後比較異分母分數"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
       "bindingId": "g5a_u04_5a04::mixedSameUnit::CLASSIC::numeric",
       "caseId": "g5a_u04_5a04::mixedSameUnit",
       "sourceId": "g5a_u04_5a04",
@@ -48867,9 +49503,10 @@
         "kp_g5a_u04_expand_reduce_simplest",
         "kp_g5a_u04_quotient_as_fraction_context",
         "kp_g5a_u04_common_denominator",
-        "kp_g5a_u04_divisibility_supported_reduction"
+        "kp_g5a_u04_divisibility_supported_reduction",
+        "kp_g5a_u04_unlike_fraction_compare"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 5,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
@@ -48917,9 +49554,10 @@
         "kp_g5a_u04_expand_reduce_simplest",
         "kp_g5a_u04_quotient_as_fraction_context",
         "kp_g5a_u04_common_denominator",
-        "kp_g5a_u04_divisibility_supported_reduction"
+        "kp_g5a_u04_divisibility_supported_reduction",
+        "kp_g5a_u04_unlike_fraction_compare"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 5,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
@@ -48967,9 +49605,10 @@
         "kp_g5a_u04_expand_reduce_simplest",
         "kp_g5a_u04_quotient_as_fraction_context",
         "kp_g5a_u04_common_denominator",
-        "kp_g5a_u04_divisibility_supported_reduction"
+        "kp_g5a_u04_divisibility_supported_reduction",
+        "kp_g5a_u04_unlike_fraction_compare"
       ],
-      "selectedKnowledgePointCount": 4,
+      "selectedKnowledgePointCount": 5,
       "questionType": "numeric",
       "questionTypeLabel": "數字題",
       "compatiblePatternGroupIds": [
@@ -50051,6 +50690,654 @@
       ],
       "questionFormLabels": [
         "倒數概念"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::sourceUnit::CLASSIC::numeric",
+      "caseId": "g5a_u06_5a06::sourceUnit",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_reciprocal_unit_fraction_sum",
+        "kp_g5a_u06_unlike_fraction_add",
+        "kp_g5a_u06_unlike_fraction_compare",
+        "kp_g5a_u06_unlike_fraction_sub"
+      ],
+      "selectedKnowledgePointCount": 4,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_reciprocal_unit_fraction_sum_numeric",
+        "pg_g5a_u06_unlike_fraction_add_numeric",
+        "pg_g5a_u06_unlike_fraction_compare_numeric",
+        "pg_g5a_u06_unlike_fraction_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric",
+        "ps_g5a_u06_unlike_fraction_add_result_numeric",
+        "ps_g5a_u06_unlike_fraction_compare_comparison_numeric",
+        "ps_g5a_u06_unlike_fraction_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "單位分數規律合計",
+        "異分母分數加法",
+        "異分母分數比較",
+        "異分母分數減法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::sourceUnit::FALLBACK_404::numeric",
+      "caseId": "g5a_u06_5a06::sourceUnit",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_reciprocal_unit_fraction_sum",
+        "kp_g5a_u06_unlike_fraction_add",
+        "kp_g5a_u06_unlike_fraction_compare",
+        "kp_g5a_u06_unlike_fraction_sub"
+      ],
+      "selectedKnowledgePointCount": 4,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_reciprocal_unit_fraction_sum_numeric",
+        "pg_g5a_u06_unlike_fraction_add_numeric",
+        "pg_g5a_u06_unlike_fraction_compare_numeric",
+        "pg_g5a_u06_unlike_fraction_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric",
+        "ps_g5a_u06_unlike_fraction_add_result_numeric",
+        "ps_g5a_u06_unlike_fraction_compare_comparison_numeric",
+        "ps_g5a_u06_unlike_fraction_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "單位分數規律合計",
+        "異分母分數加法",
+        "異分母分數比較",
+        "異分母分數減法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::sourceUnit::PIXEL::numeric",
+      "caseId": "g5a_u06_5a06::sourceUnit",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_reciprocal_unit_fraction_sum",
+        "kp_g5a_u06_unlike_fraction_add",
+        "kp_g5a_u06_unlike_fraction_compare",
+        "kp_g5a_u06_unlike_fraction_sub"
+      ],
+      "selectedKnowledgePointCount": 4,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_reciprocal_unit_fraction_sum_numeric",
+        "pg_g5a_u06_unlike_fraction_add_numeric",
+        "pg_g5a_u06_unlike_fraction_compare_numeric",
+        "pg_g5a_u06_unlike_fraction_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric",
+        "ps_g5a_u06_unlike_fraction_add_result_numeric",
+        "ps_g5a_u06_unlike_fraction_compare_comparison_numeric",
+        "ps_g5a_u06_unlike_fraction_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "單位分數規律合計",
+        "異分母分數加法",
+        "異分母分數比較",
+        "異分母分數減法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_reciprocal_unit_fraction_sum::CLASSIC::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_reciprocal_unit_fraction_sum",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_reciprocal_unit_fraction_sum"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_reciprocal_unit_fraction_sum_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric"
+      ],
+      "questionFormLabels": [
+        "單位分數規律合計"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_reciprocal_unit_fraction_sum::FALLBACK_404::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_reciprocal_unit_fraction_sum",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_reciprocal_unit_fraction_sum"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_reciprocal_unit_fraction_sum_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric"
+      ],
+      "questionFormLabels": [
+        "單位分數規律合計"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_reciprocal_unit_fraction_sum::PIXEL::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_reciprocal_unit_fraction_sum",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_reciprocal_unit_fraction_sum"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_reciprocal_unit_fraction_sum_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric"
+      ],
+      "questionFormLabels": [
+        "單位分數規律合計"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_add::CLASSIC::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_add",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_unlike_fraction_add"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_unlike_fraction_add_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_unlike_fraction_add_result_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數加法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_add::FALLBACK_404::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_add",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_unlike_fraction_add"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_unlike_fraction_add_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_unlike_fraction_add_result_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數加法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_add::PIXEL::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_add",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_unlike_fraction_add"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_unlike_fraction_add_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_unlike_fraction_add_result_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數加法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_compare::CLASSIC::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_compare",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_unlike_fraction_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_unlike_fraction_compare_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_unlike_fraction_compare_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數比較"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_compare::FALLBACK_404::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_compare",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_unlike_fraction_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_unlike_fraction_compare_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_unlike_fraction_compare_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數比較"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_compare::PIXEL::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_compare",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_unlike_fraction_compare"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_unlike_fraction_compare_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_unlike_fraction_compare_comparison_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數比較"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_sub::CLASSIC::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_sub",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_unlike_fraction_sub"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_unlike_fraction_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_unlike_fraction_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數減法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_sub::FALLBACK_404::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_sub",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_unlike_fraction_sub"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_unlike_fraction_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_unlike_fraction_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數減法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_sub::PIXEL::numeric",
+      "caseId": "g5a_u06_5a06::single::kp_g5a_u06_unlike_fraction_sub",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_unlike_fraction_sub"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_unlike_fraction_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_unlike_fraction_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "異分母分數減法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::mixedSameUnit::CLASSIC::numeric",
+      "caseId": "g5a_u06_5a06::mixedSameUnit",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_reciprocal_unit_fraction_sum",
+        "kp_g5a_u06_unlike_fraction_add",
+        "kp_g5a_u06_unlike_fraction_compare",
+        "kp_g5a_u06_unlike_fraction_sub"
+      ],
+      "selectedKnowledgePointCount": 4,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_reciprocal_unit_fraction_sum_numeric",
+        "pg_g5a_u06_unlike_fraction_add_numeric",
+        "pg_g5a_u06_unlike_fraction_compare_numeric",
+        "pg_g5a_u06_unlike_fraction_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric",
+        "ps_g5a_u06_unlike_fraction_add_result_numeric",
+        "ps_g5a_u06_unlike_fraction_compare_comparison_numeric",
+        "ps_g5a_u06_unlike_fraction_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "單位分數規律合計",
+        "異分母分數加法",
+        "異分母分數比較",
+        "異分母分數減法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::mixedSameUnit::FALLBACK_404::numeric",
+      "caseId": "g5a_u06_5a06::mixedSameUnit",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_reciprocal_unit_fraction_sum",
+        "kp_g5a_u06_unlike_fraction_add",
+        "kp_g5a_u06_unlike_fraction_compare",
+        "kp_g5a_u06_unlike_fraction_sub"
+      ],
+      "selectedKnowledgePointCount": 4,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_reciprocal_unit_fraction_sum_numeric",
+        "pg_g5a_u06_unlike_fraction_add_numeric",
+        "pg_g5a_u06_unlike_fraction_compare_numeric",
+        "pg_g5a_u06_unlike_fraction_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric",
+        "ps_g5a_u06_unlike_fraction_add_result_numeric",
+        "ps_g5a_u06_unlike_fraction_compare_comparison_numeric",
+        "ps_g5a_u06_unlike_fraction_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "單位分數規律合計",
+        "異分母分數加法",
+        "異分母分數比較",
+        "異分母分數減法"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "blocked": false,
+      "blockedReasons": [],
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g5a_u06_5a06::mixedSameUnit::PIXEL::numeric",
+      "caseId": "g5a_u06_5a06::mixedSameUnit",
+      "sourceId": "g5a_u06_5a06",
+      "surfaceId": "PIXEL",
+      "selectionMode": "mixedKnowledgePointsSameUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g5a_u06_reciprocal_unit_fraction_sum",
+        "kp_g5a_u06_unlike_fraction_add",
+        "kp_g5a_u06_unlike_fraction_compare",
+        "kp_g5a_u06_unlike_fraction_sub"
+      ],
+      "selectedKnowledgePointCount": 4,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g5a_u06_reciprocal_unit_fraction_sum_numeric",
+        "pg_g5a_u06_unlike_fraction_add_numeric",
+        "pg_g5a_u06_unlike_fraction_compare_numeric",
+        "pg_g5a_u06_unlike_fraction_sub_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric",
+        "ps_g5a_u06_unlike_fraction_add_result_numeric",
+        "ps_g5a_u06_unlike_fraction_compare_comparison_numeric",
+        "ps_g5a_u06_unlike_fraction_sub_result_numeric"
+      ],
+      "questionFormLabels": [
+        "單位分數規律合計",
+        "異分母分數加法",
+        "異分母分數比較",
+        "異分母分數減法"
       ],
       "depthModes": [],
       "contextModes": [],

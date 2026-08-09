@@ -111,7 +111,7 @@ test("P03F4 historical selector snapshot exposes only one G3B-U09 KP", () => {
 
 test("P03F4 current Pixel retains historical sources and includes later successor sources and KPs", () => {
   const sources = listCurrentPixelSourceOptions();
-  assert.equal(sources.length, 29);
+  assert.equal(sources.length, 30);
   const source = sources.find((row) => row.sourceId === G3B_U09_SOURCE_ID);
   assert.ok(source);
   assert.equal(source.visibleKnowledgePointCount, 6);
@@ -120,7 +120,7 @@ test("P03F4 current Pixel retains historical sources and includes later successo
   assert.equal(currentIds.includes(G3B_U09_TENTH_DECIMAL_KP_ID), true);
   assert.equal(currentIds.length, 6);
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 29);
+  assert.equal(snapshot.sourceCount, 30);
   assert.equal(snapshot.bySourceId[G3B_U09_SOURCE_ID].visibleKnowledgePoints.length, 6);
 });
 

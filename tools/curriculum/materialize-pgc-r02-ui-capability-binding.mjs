@@ -7,11 +7,11 @@ import {
   PUBLIC_UI_SURFACES,
   auditPublicUiCapabilityBinding,
   resolvePublicUiCapabilityBinding,
-} from "../../site/modules/curriculum/public/public-ui-capability-binding.js";
+} from "../../site/modules/curriculum/public/public-ui-capability-binding-p03f30.js";
 import {
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f28-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f30-extension.js";
 import {
   CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
 } from "../../site/modules/curriculum/batch-a/source-units.js";
@@ -212,9 +212,9 @@ export function buildPgcR02UiCapabilityBindingContract() {
     taskId: "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
     status: gaps.length === 0 ? "PASS" : "FAIL_CLOSED",
     sourceAuthority: "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-    selectorAuthority: "batch-a-selector-p03f28-extension.js",
+    selectorAuthority: "batch-a-selector-p03f30-extension.js",
     capabilityAuthority: "data/curriculum/public-generation/public_generation_capability_matrix.json",
-    publicUiResolver: "site/modules/curriculum/public/public-ui-capability-binding.js",
+    publicUiResolver: "site/modules/curriculum/public/public-ui-capability-binding-p03f30.js",
     adapters: {
       classic: "site/assets/browser/public-capability-ui.js",
       fallback404: "site/assets/browser/public-capability-ui.js",

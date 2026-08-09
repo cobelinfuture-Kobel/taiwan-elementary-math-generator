@@ -1,0 +1,66 @@
+name: P03F Slice030 Product Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Exact-head acceptance rematerializes current PGC-R01/R02 authority and verifies mode-preserving public bindings.
+concurrency:
+  group: p03f30-product-acceptance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromium-product-acceptance:
+    if: github.head_ref == 'p03f30-g5a-u06-rank8'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Diagnose current selector, binding, and plan lineage
+        run: node tools/curriculum/diagnose-p03f-slice030-current-binding.mjs
+      - name: Rematerialize current PGC-R01 and PGC-R02 authority
+        run: |
+          node tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs
+          node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
+          node --test \
+            tests/curriculum/pgc-r00-public-generation-scope.test.js \
+            tests/curriculum/pgc-r01-public-capability-matrix.test.js \
+            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+      - name: Upload rematerialized public authority
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice030-rematerialized-public-authority
+          path: |
+            data/curriculum/public-generation/public_generation_capability_matrix.json
+            data/curriculum/public-generation/public_generation_capability_matrix.csv
+            docs/curriculum/output/PGC-R01_capability_gap_report.md
+            data/curriculum/public-generation/ui_capability_binding_contract.json
+            data/curriculum/public-generation/ui_option_filter_matrix.csv
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          if-no-files-found: error
+          retention-days: 30
+      - name: Install Chromium and acceptance font
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1 @fontsource/noto-sans-tc@5.2.9
+          npx playwright install --with-deps chromium
+      - name: Run Slice030 Chromium product acceptance
+        run: node tools/curriculum/render-p03f-slice030-product-acceptance.mjs
+      - name: Upload Slice030 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice030-product-acceptance
+          path: tmp/p03f-slice030-product-acceptance
+          if-no-files-found: error
+          retention-days: 30

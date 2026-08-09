@@ -7,7 +7,10 @@ import {
 } from "./materialize-pgc-r01-public-capability-matrix-v3.mjs";
 import {
   listVisibleBatchAKnowledgePoints,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f23-extension.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p03f30-extension.js";
+import {
+  CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
+} from "../../site/modules/curriculum/batch-a/source-units.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const outputDir = path.join(repoRoot, "data/curriculum/public-generation");
@@ -55,18 +58,26 @@ function visiblePairAccounting(matrix) {
 
 export function buildPublicGenerationCapabilityMatrixV4() {
   const matrix = clone(buildPublicGenerationCapabilityMatrixV3());
-  matrix.gaps = matrix.gaps.map((gap) => {
-    if (gap.code !== "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY") return gap;
-    if (gap.surfaceId !== "FALLBACK_404") return gap;
-    return {
-      ...gap,
-      code: "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
-      severity: "r02_ui_binding",
-      capabilityStatus: "ABSENT_EXPLICIT",
-      rationale: "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
-      ownerMilestone: "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
-    };
-  });
+  const visibleKnowledgePoints = listVisibleBatchAKnowledgePoints();
+  const currentVisibleSourceIds = new Set(visibleKnowledgePoints.map((row) => row.sourceId));
+
+  matrix.gaps = matrix.gaps
+    .filter((gap) => !(
+      gap.code === "PUBLIC_SOURCE_WITHOUT_VISIBLE_KP"
+      && currentVisibleSourceIds.has(gap.sourceId)
+    ))
+    .map((gap) => {
+      if (gap.code !== "PUBLIC_KP_SURFACE_WITHOUT_CAPABILITY") return gap;
+      if (gap.surfaceId !== "FALLBACK_404") return gap;
+      return {
+        ...gap,
+        code: "FALLBACK_404_KP_CAPABILITY_HIDDEN_BY_CONTROL_PARITY",
+        severity: "r02_ui_binding",
+        capabilityStatus: "ABSENT_EXPLICIT",
+        rationale: "The deprecated 404 surface exposes the KnowledgePoint selector but does not mount the shared profile-driven application/reasoning controls for this KP.",
+        ownerMilestone: "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
+      };
+    });
 
   const accounting = visiblePairAccounting(matrix);
   for (const pair of accounting.unaccountedPairs) {
@@ -89,6 +100,9 @@ export function buildPublicGenerationCapabilityMatrixV4() {
   const blockingGaps = matrix.gaps.filter((gap) => gap.severity === "blocking_r01");
   matrix.summary = {
     ...matrix.summary,
+    publicSourceCount: CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length,
+    publicVisibleKnowledgePointCount: visibleKnowledgePoints.length,
+    publicSelectorVisibleCount: visibleKnowledgePoints.length,
     gapCount: matrix.gaps.length,
     blockingGapCount: blockingGaps.length,
     r02UiBindingGapCount: matrix.gaps.filter((gap) => gap.severity === "r02_ui_binding").length,
@@ -196,5 +210,7 @@ export function materializePublicGenerationCapabilityMatrixV4() {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const matrix = materializePublicGenerationCapabilityMatrixV4();
   console.log(`PGC_R01_V4_SUMMARY=${JSON.stringify(matrix.summary)}`);
+  const blockingGaps = matrix.gaps.filter((gap) => gap.severity === "blocking_r01");
+  if (blockingGaps.length > 0) console.log(`PGC_R01_V4_BLOCKING_GAPS=${JSON.stringify(blockingGaps)}`);
   if (matrix.summary.blockingGapCount > 0) process.exitCode = 2;
 }

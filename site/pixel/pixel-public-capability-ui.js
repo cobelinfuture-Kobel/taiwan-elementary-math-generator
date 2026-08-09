@@ -2,7 +2,7 @@ import {
   PUBLIC_UI_SAFE_QUESTION_COUNT,
   PUBLIC_UI_SURFACES,
   resolvePublicUiCapabilityBinding,
-} from "../modules/curriculum/public/public-ui-capability-binding.js";
+} from "../modules/curriculum/public/public-ui-capability-binding-p03f30.js";
 
 const sourceSelect = document.getElementById("pixel-source-select");
 const selectionModeSelect = document.getElementById("pixel-selection-mode-select");
