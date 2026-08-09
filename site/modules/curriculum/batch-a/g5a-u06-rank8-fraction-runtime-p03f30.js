@@ -44,6 +44,10 @@ function compareFixture(ordinal, seed) {
   }
   const fixture = fractionFixture(ordinal, seed, "add");
   if (compareProducts(fixture.leftNumerator, fixture.leftDenominator, fixture.rightNumerator, fixture.rightDenominator) === "=") fixture.rightNumerator += 1;
+  const target = ordinal % 2 === 0 ? "<" : ">";
+  if (compareProducts(fixture.leftNumerator, fixture.leftDenominator, fixture.rightNumerator, fixture.rightDenominator) !== target) {
+    [fixture.leftNumerator, fixture.leftDenominator, fixture.rightNumerator, fixture.rightDenominator] = [fixture.rightNumerator, fixture.rightDenominator, fixture.leftNumerator, fixture.leftDenominator];
+  }
   return fixture;
 }
 
