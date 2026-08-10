@@ -5,9 +5,11 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 # Exact-head acceptance rematerializes current PGC-R01/R02 authority and verifies the stable worksheet consumer path.
+# TEMPORARY Slice031 reconciliation export: generated authority is committed only to a detached staging branch,
+# never to the PR head. The final PR head restores contents: read before merge.
 concurrency:
   group: p03f31-product-acceptance-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
@@ -39,6 +41,20 @@ jobs:
             tests/curriculum/pgc-r00-public-generation-scope.test.js \
             tests/curriculum/pgc-r01-public-capability-matrix.test.js \
             tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+
+      - name: Export deterministic authority to detached staging branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/curriculum/public-generation/public_generation_capability_matrix.json \
+            data/curriculum/public-generation/public_generation_capability_matrix.csv \
+            docs/curriculum/output/PGC-R01_capability_gap_report.md \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          git commit -m "data(p03f31): export deterministic current authority [skip ci]"
+          git push --force origin HEAD:refs/heads/p03f31-authority-export-staging
 
       - name: Upload rematerialized public authority
         uses: actions/upload-artifact@v4
