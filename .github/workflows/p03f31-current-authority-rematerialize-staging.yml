@@ -25,33 +25,71 @@ jobs:
         with:
           node-version: 24
 
-      - name: Materialize PGC-R01 V5 current authority
-        run: node tools/curriculum/materialize-pgc-r01-public-capability-matrix-v5.mjs
-
-      - name: Materialize PGC-R02 R04 current authority
-        run: node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r04.mjs
-
-      - name: Run Slice031 focused authority acceptance
-        run: >-
-          node --test
-          tests/curriculum/p03f-slice031-g5b-u04-rank8-decimal-times-integer.test.js
-          tests/curriculum/pgc-r01-public-capability-matrix.test.js
-          tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
-
-      - name: Commit deterministic current authority only
+      - name: Materialize and run focused acceptance with captured status
         run: |
+          set +e
+          mkdir -p tmp/p03f31-current-authority-rematerialize
+
+          node tools/curriculum/materialize-pgc-r01-public-capability-matrix-v5.mjs \
+            > tmp/p03f31-current-authority-rematerialize/r01.log 2>&1
+          R01_EXIT=$?
+
+          node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r04.mjs \
+            > tmp/p03f31-current-authority-rematerialize/r02.log 2>&1
+          R02_EXIT=$?
+
+          node --test \
+            tests/curriculum/p03f-slice031-g5b-u04-rank8-decimal-times-integer.test.js \
+            tests/curriculum/pgc-r01-public-capability-matrix.test.js \
+            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js \
+            > tmp/p03f31-current-authority-rematerialize/focused-tests.log 2>&1
+          TEST_EXIT=$?
+
+          echo "$R01_EXIT" > tmp/p03f31-current-authority-rematerialize/r01.exit
+          echo "$R02_EXIT" > tmp/p03f31-current-authority-rematerialize/r02.exit
+          echo "$TEST_EXIT" > tmp/p03f31-current-authority-rematerialize/tests.exit
+
+          {
+            echo "P03F31_CURRENT_AUTHORITY_REMATERIALIZE_STAGING"
+            echo "R01_EXIT=$R01_EXIT"
+            echo "R02_EXIT=$R02_EXIT"
+            echo "FOCUSED_TEST_EXIT=$TEST_EXIT"
+            echo
+            echo "=== R01 tail ==="
+            tail -n 40 tmp/p03f31-current-authority-rematerialize/r01.log
+            echo
+            echo "=== R02 tail ==="
+            tail -n 40 tmp/p03f31-current-authority-rematerialize/r02.log
+            echo
+            echo "=== Focused tests tail ==="
+            tail -n 80 tmp/p03f31-current-authority-rematerialize/focused-tests.log
+          } > tmp/p03f31-current-authority-rematerialize/status.txt
+
+          exit 0
+
+      - name: Commit deterministic authority on pass and status on every run
+        run: |
+          R01_EXIT=$(cat tmp/p03f31-current-authority-rematerialize/r01.exit)
+          R02_EXIT=$(cat tmp/p03f31-current-authority-rematerialize/r02.exit)
+          TEST_EXIT=$(cat tmp/p03f31-current-authority-rematerialize/tests.exit)
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            data/curriculum/public-generation/public_generation_capability_matrix.json \
-            data/curriculum/public-generation/public_generation_capability_matrix.csv \
-            docs/curriculum/output/PGC-R01_capability_gap_report.md \
-            data/curriculum/public-generation/ui_capability_binding_contract.json \
-            data/curriculum/public-generation/ui_option_filter_matrix.csv \
-            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
-          if git diff --cached --quiet; then
-            echo "P03F31 current authority already synchronized."
-          else
-            git commit -m "data(p03f31): rematerialize current R01/R02 authority [skip ci]"
-            git push origin HEAD:p03f31-current-authority-rematerialize-staging
+          git add tmp/p03f31-current-authority-rematerialize/status.txt
+
+          if [ "$R01_EXIT" = "0" ] && [ "$R02_EXIT" = "0" ] && [ "$TEST_EXIT" = "0" ]; then
+            git add \
+              data/curriculum/public-generation/public_generation_capability_matrix.json \
+              data/curriculum/public-generation/public_generation_capability_matrix.csv \
+              docs/curriculum/output/PGC-R01_capability_gap_report.md \
+              data/curriculum/public-generation/ui_capability_binding_contract.json \
+              data/curriculum/public-generation/ui_option_filter_matrix.csv \
+              docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          fi
+
+          git commit -m "test(p03f31): record current authority staging result [skip ci]"
+          git push origin HEAD:p03f31-current-authority-rematerialize-staging
+
+          if [ "$R01_EXIT" != "0" ] || [ "$R02_EXIT" != "0" ] || [ "$TEST_EXIT" != "0" ]; then
+            exit 1
           fi
