@@ -6,7 +6,7 @@
   "status": "PASS_WITH_DOWNSTREAM_GAPS",
   "generatedAt": "DETERMINISTIC",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f23-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f31-extension.js",
   "scopeRef": "data/curriculum/public-generation/public_generation_scope.json",
   "defaultQuestionCount": 20,
   "declaredUiMaxQuestionCount": 200,
@@ -31,40 +31,40 @@
     }
   ],
   "summary": {
-    "publicSourceCount": 30,
-    "publicVisibleKnowledgePointCount": 224,
-    "publicSelectorVisibleCount": 224,
-    "capabilityRowCount": 1410,
-    "uniquePatternGroupCount": 283,
-    "uniquePatternSpecCount": 417,
+    "publicSourceCount": 31,
+    "publicVisibleKnowledgePointCount": 225,
+    "publicSelectorVisibleCount": 225,
+    "capabilityRowCount": 1413,
+    "uniquePatternGroupCount": 284,
+    "uniquePatternSpecCount": 418,
     "surfaceCount": 3,
-    "uiOptionCoverageCount": 165,
-    "accountedUiOptionCount": 165,
+    "uiOptionCoverageCount": 168,
+    "accountedUiOptionCount": 168,
     "gapCount": 56,
     "blockingGapCount": 0,
     "r02UiBindingGapCount": 56,
-    "capacityUnverifiedCapabilityCount": 1410,
-    "kpSurfacePairCount": 640,
-    "expectedKpSurfacePairCount": 672,
-    "visibleKpSurfaceExpectedPairCount": 672,
-    "visibleKpSurfaceCapabilityPairCount": 638,
+    "capacityUnverifiedCapabilityCount": 1413,
+    "kpSurfacePairCount": 643,
+    "expectedKpSurfacePairCount": 675,
+    "visibleKpSurfaceExpectedPairCount": 675,
+    "visibleKpSurfaceCapabilityPairCount": 641,
     "visibleKpSurfaceExplicitGapPairCount": 34,
-    "visibleKpSurfaceAccountedPairCount": 672,
+    "visibleKpSurfaceAccountedPairCount": 675,
     "visibleKpSurfaceUnaccountedPairCount": 0
   },
   "uiOptionCoverage": [
     {
       "sourceId": "g3a_u01_3a01",
       "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 17,
+      "questionTypeOption": "application",
+      "capabilityRowCount": 2,
       "accounted": true
     },
     {
       "sourceId": "g3a_u01_3a01",
       "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 2,
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 17,
       "accounted": true
     },
     {
@@ -77,22 +77,15 @@
     {
       "sourceId": "g3a_u01_3a01",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 17,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3a_u01_3a01",
-      "surfaceId": "PIXEL",
       "questionTypeOption": "application",
       "capabilityRowCount": 2,
       "accounted": true
     },
     {
-      "sourceId": "g3a_u02_3a02",
-      "surfaceId": "CLASSIC",
+      "sourceId": "g3a_u01_3a01",
+      "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
-      "capabilityRowCount": 8,
+      "capabilityRowCount": 17,
       "accounted": true
     },
     {
@@ -104,14 +97,14 @@
     },
     {
       "sourceId": "g3a_u02_3a02",
-      "surfaceId": "FALLBACK_404",
+      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 8,
       "accounted": true
     },
     {
       "sourceId": "g3a_u02_3a02",
-      "surfaceId": "PIXEL",
+      "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 8,
       "accounted": true
@@ -124,10 +117,10 @@
       "accounted": true
     },
     {
-      "sourceId": "g3a_u03_3a03",
-      "surfaceId": "CLASSIC",
+      "sourceId": "g3a_u02_3a02",
+      "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
-      "capabilityRowCount": 5,
+      "capabilityRowCount": 8,
       "accounted": true
     },
     {
@@ -139,14 +132,14 @@
     },
     {
       "sourceId": "g3a_u03_3a03",
-      "surfaceId": "FALLBACK_404",
+      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 5,
       "accounted": true
     },
     {
       "sourceId": "g3a_u03_3a03",
-      "surfaceId": "PIXEL",
+      "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 5,
       "accounted": true
@@ -159,10 +152,10 @@
       "accounted": true
     },
     {
-      "sourceId": "g3a_u06_3a06",
-      "surfaceId": "CLASSIC",
+      "sourceId": "g3a_u03_3a03",
+      "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
-      "capabilityRowCount": 6,
+      "capabilityRowCount": 5,
       "accounted": true
     },
     {
@@ -170,6 +163,13 @@
       "surfaceId": "CLASSIC",
       "questionTypeOption": "application",
       "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3a_u06_3a06",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 6,
       "accounted": true
     },
     {
@@ -182,22 +182,50 @@
     {
       "sourceId": "g3a_u06_3a06",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 6,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3a_u06_3a06",
-      "surfaceId": "PIXEL",
       "questionTypeOption": "application",
       "capabilityRowCount": 1,
       "accounted": true
     },
     {
-      "sourceId": "g3b_u01_3b01",
+      "sourceId": "g3a_u06_3a06",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 6,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3a_u08_3a08",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 4,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3a_u08_3a08",
       "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
-      "capabilityRowCount": 17,
+      "capabilityRowCount": 5,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3a_u08_3a08",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 5,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3a_u08_3a08",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 4,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3a_u08_3a08",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 5,
       "accounted": true
     },
     {
@@ -205,6 +233,13 @@
       "surfaceId": "CLASSIC",
       "questionTypeOption": "application",
       "capabilityRowCount": 7,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3b_u01_3b01",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 17,
       "accounted": true
     },
     {
@@ -217,24 +252,16 @@
     {
       "sourceId": "g3b_u01_3b01",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 17,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u01_3b01",
-      "surfaceId": "PIXEL",
       "questionTypeOption": "application",
       "capabilityRowCount": 7,
       "accounted": true
     },
     {
-      "sourceId": "g3b_u04_3b04",
-      "surfaceId": "CLASSIC",
+      "sourceId": "g3b_u01_3b01",
+      "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
-      "capabilityRowCount": 0,
-      "accounted": true,
-      "normalizationEvidence": "LEGACY_PATTERN_GROUP_MODE_NORMALIZED_TO_NUMERIC"
+      "capabilityRowCount": 17,
+      "accounted": true
     },
     {
       "sourceId": "g3b_u04_3b04",
@@ -246,13 +273,6 @@
     {
       "sourceId": "g3b_u04_3b04",
       "surfaceId": "CLASSIC",
-      "questionTypeOption": "pbl",
-      "capabilityRowCount": 1,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u04_3b04",
-      "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 0,
       "accounted": true,
@@ -260,7 +280,14 @@
     },
     {
       "sourceId": "g3b_u04_3b04",
-      "surfaceId": "PIXEL",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "pbl",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3b_u04_3b04",
+      "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 0,
       "accounted": true,
@@ -276,17 +303,52 @@
     {
       "sourceId": "g3b_u04_3b04",
       "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 0,
+      "accounted": true,
+      "normalizationEvidence": "LEGACY_PATTERN_GROUP_MODE_NORMALIZED_TO_NUMERIC"
+    },
+    {
+      "sourceId": "g3b_u04_3b04",
+      "surfaceId": "PIXEL",
       "questionTypeOption": "pbl",
       "capabilityRowCount": 1,
       "accounted": true
     },
     {
-      "sourceId": "g3b_u08_3b08",
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 2,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3b_u07_3b07",
       "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
-      "capabilityRowCount": 0,
-      "accounted": true,
-      "normalizationEvidence": "LEGACY_PATTERN_GROUP_MODE_NORMALIZED_TO_NUMERIC"
+      "capabilityRowCount": 7,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 7,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 2,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3b_u07_3b07",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 7,
+      "accounted": true
     },
     {
       "sourceId": "g3b_u08_3b08",
@@ -294,6 +356,14 @@
       "questionTypeOption": "application",
       "capabilityRowCount": 24,
       "accounted": true
+    },
+    {
+      "sourceId": "g3b_u08_3b08",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 0,
+      "accounted": true,
+      "normalizationEvidence": "LEGACY_PATTERN_GROUP_MODE_NORMALIZED_TO_NUMERIC"
     },
     {
       "sourceId": "g3b_u08_3b08",
@@ -306,23 +376,37 @@
     {
       "sourceId": "g3b_u08_3b08",
       "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 24,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3b_u08_3b08",
+      "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 0,
       "accounted": true,
       "normalizationEvidence": "LEGACY_PATTERN_GROUP_MODE_NORMALIZED_TO_NUMERIC"
     },
     {
-      "sourceId": "g3b_u08_3b08",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 24,
+      "sourceId": "g3b_u09_3b09",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 7,
       "accounted": true
     },
     {
-      "sourceId": "g4a_u01_4a01",
-      "surfaceId": "CLASSIC",
+      "sourceId": "g3b_u09_3b09",
+      "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
-      "capabilityRowCount": 16,
+      "capabilityRowCount": 7,
+      "accounted": true
+    },
+    {
+      "sourceId": "g3b_u09_3b09",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 7,
       "accounted": true
     },
     {
@@ -334,14 +418,14 @@
     },
     {
       "sourceId": "g4a_u01_4a01",
-      "surfaceId": "FALLBACK_404",
+      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 16,
       "accounted": true
     },
     {
       "sourceId": "g4a_u01_4a01",
-      "surfaceId": "PIXEL",
+      "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 16,
       "accounted": true
@@ -354,80 +438,101 @@
       "accounted": true
     },
     {
-      "sourceId": "g4a_u02_4a02",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 9,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u02_4a02",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 1,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u02_4a02",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 9,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u02_4a02",
+      "sourceId": "g4a_u01_4a01",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 9,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u02_4a02",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 1,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u04_4a04",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u04_4a04",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 1,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u04_4a04",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u04_4a04",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u04_4a04",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 1,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u08_4a08",
-      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 16,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 9,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 9,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 9,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u04_4a04",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u04_4a04",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 7,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u04_4a04",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 7,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u04_4a04",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u04_4a04",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 7,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u06_4a06",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 3,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u06_4a06",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 3,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u06_4a06",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 3,
       "accounted": true
     },
     {
@@ -440,6 +545,13 @@
     {
       "sourceId": "g4a_u08_4a08",
       "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 16,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u08_4a08",
+      "surfaceId": "CLASSIC",
       "questionTypeOption": "pbl",
       "capabilityRowCount": 1,
       "accounted": true
@@ -447,13 +559,6 @@
     {
       "sourceId": "g4a_u08_4a08",
       "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 16,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u08_4a08",
-      "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 16,
       "accounted": true
@@ -468,7 +573,42 @@
     {
       "sourceId": "g4a_u08_4a08",
       "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 16,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u08_4a08",
+      "surfaceId": "PIXEL",
       "questionTypeOption": "pbl",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 2,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 2,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4a_u09_4a09",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 2,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u01_4b01",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "application",
       "capabilityRowCount": 1,
       "accounted": true
     },
@@ -482,13 +622,6 @@
     },
     {
       "sourceId": "g4b_u01_4b01",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 1,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u01_4b01",
       "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 0,
@@ -498,121 +631,30 @@
     {
       "sourceId": "g4b_u01_4b01",
       "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u01_4b01",
+      "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 0,
       "accounted": true,
       "normalizationEvidence": "LEGACY_PATTERN_GROUP_MODE_NORMALIZED_TO_NUMERIC"
     },
     {
-      "sourceId": "g4b_u01_4b01",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 1,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "mixed",
-      "capabilityRowCount": 30,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 16,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
+      "sourceId": "g4b_u04_4b04",
       "surfaceId": "CLASSIC",
       "questionTypeOption": "application",
-      "capabilityRowCount": 9,
+      "capabilityRowCount": 6,
       "accounted": true
     },
     {
-      "sourceId": "g5a_u08_5a08",
+      "sourceId": "g4b_u04_4b04",
       "surfaceId": "CLASSIC",
-      "questionTypeOption": "reasoning",
-      "capabilityRowCount": 30,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "pbl",
-      "capabilityRowCount": 1,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "mixed",
-      "capabilityRowCount": 30,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 16,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 9,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "reasoning",
-      "capabilityRowCount": 30,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "pbl",
-      "capabilityRowCount": 1,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "mixed",
-      "capabilityRowCount": 30,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 16,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 9,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "reasoning",
-      "capabilityRowCount": 30,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u08_5a08",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "pbl",
-      "capabilityRowCount": 1,
+      "questionTypeOption": "concept",
+      "capabilityRowCount": 4,
       "accounted": true
     },
     {
@@ -625,22 +667,8 @@
     {
       "sourceId": "g4b_u04_4b04",
       "surfaceId": "CLASSIC",
-      "questionTypeOption": "concept",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u04_4b04",
-      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 3,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u04_4b04",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 6,
       "accounted": true
     },
     {
@@ -653,15 +681,15 @@
     {
       "sourceId": "g4b_u04_4b04",
       "surfaceId": "CLASSIC",
-      "questionTypeOption": "reasoning",
-      "capabilityRowCount": 2,
+      "questionTypeOption": "pbl",
+      "capabilityRowCount": 1,
       "accounted": true
     },
     {
       "sourceId": "g4b_u04_4b04",
       "surfaceId": "CLASSIC",
-      "questionTypeOption": "pbl",
-      "capabilityRowCount": 1,
+      "questionTypeOption": "reasoning",
+      "capabilityRowCount": 2,
       "accounted": true
     },
     {
@@ -669,6 +697,20 @@
       "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 3,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 6,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u04_4b04",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "concept",
+      "capabilityRowCount": 4,
       "accounted": true
     },
     {
@@ -681,22 +723,8 @@
     {
       "sourceId": "g4b_u04_4b04",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "concept",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u04_4b04",
-      "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 3,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u04_4b04",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 6,
       "accounted": true
     },
     {
@@ -709,22 +737,99 @@
     {
       "sourceId": "g4b_u04_4b04",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "reasoning",
-      "capabilityRowCount": 2,
+      "questionTypeOption": "pbl",
+      "capabilityRowCount": 1,
       "accounted": true
     },
     {
       "sourceId": "g4b_u04_4b04",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "pbl",
+      "questionTypeOption": "reasoning",
+      "capabilityRowCount": 2,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 4,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 4,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 4,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 4,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u06_4b06",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 4,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 6,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 6,
+      "accounted": true
+    },
+    {
+      "sourceId": "g4b_u08_4b08",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 6,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u01_5a01",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
       "capabilityRowCount": 1,
       "accounted": true
     },
     {
       "sourceId": "g5a_u02_5a02",
       "surfaceId": "CLASSIC",
-      "questionTypeOption": "mixed",
-      "capabilityRowCount": 22,
+      "questionTypeOption": "application",
+      "capabilityRowCount": 4,
       "accounted": true
     },
     {
@@ -737,6 +842,13 @@
     {
       "sourceId": "g5a_u02_5a02",
       "surfaceId": "CLASSIC",
+      "questionTypeOption": "mixed",
+      "capabilityRowCount": 22,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u02_5a02",
+      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 7,
       "accounted": true
@@ -744,8 +856,8 @@
     {
       "sourceId": "g5a_u02_5a02",
       "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 4,
+      "questionTypeOption": "pbl",
+      "capabilityRowCount": 1,
       "accounted": true
     },
     {
@@ -753,13 +865,6 @@
       "surfaceId": "CLASSIC",
       "questionTypeOption": "reasoning",
       "capabilityRowCount": 5,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u02_5a02",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "pbl",
-      "capabilityRowCount": 1,
       "accounted": true
     },
     {
@@ -772,8 +877,8 @@
     {
       "sourceId": "g5a_u02_5a02",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "mixed",
-      "capabilityRowCount": 22,
+      "questionTypeOption": "application",
+      "capabilityRowCount": 4,
       "accounted": true
     },
     {
@@ -786,22 +891,15 @@
     {
       "sourceId": "g5a_u02_5a02",
       "surfaceId": "PIXEL",
+      "questionTypeOption": "mixed",
+      "capabilityRowCount": 22,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u02_5a02",
+      "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u02_5a02",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u02_5a02",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "reasoning",
-      "capabilityRowCount": 5,
       "accounted": true
     },
     {
@@ -812,36 +910,15 @@
       "accounted": true
     },
     {
-      "sourceId": "g5b_u05_5b05a",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 10,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5b_u05_5b05a",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5b_u05_5b05a",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 10,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5b_u05_5b05a",
+      "sourceId": "g5a_u02_5a02",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 10,
+      "questionTypeOption": "reasoning",
+      "capabilityRowCount": 5,
       "accounted": true
     },
     {
-      "sourceId": "g5b_u05_5b05a",
-      "surfaceId": "PIXEL",
+      "sourceId": "g5a_u03_5a03a",
+      "surfaceId": "CLASSIC",
       "questionTypeOption": "application",
       "capabilityRowCount": 4,
       "accounted": true
@@ -855,13 +932,6 @@
     },
     {
       "sourceId": "g5a_u03_5a03a",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u03_5a03a",
       "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 14,
@@ -870,22 +940,15 @@
     {
       "sourceId": "g5a_u03_5a03a",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 14,
+      "questionTypeOption": "application",
+      "capabilityRowCount": 4,
       "accounted": true
     },
     {
       "sourceId": "g5a_u03_5a03a",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u03_5a03a1",
-      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
-      "capabilityRowCount": 10,
+      "capabilityRowCount": 14,
       "accounted": true
     },
     {
@@ -897,14 +960,14 @@
     },
     {
       "sourceId": "g5a_u03_5a03a1",
-      "surfaceId": "FALLBACK_404",
+      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 10,
       "accounted": true
     },
     {
       "sourceId": "g5a_u03_5a03a1",
-      "surfaceId": "PIXEL",
+      "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 10,
       "accounted": true
@@ -917,211 +980,8 @@
       "accounted": true
     },
     {
-      "sourceId": "g6a_u01_6a01",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 10,
-      "accounted": true
-    },
-    {
-      "sourceId": "g6a_u01_6a01",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 2,
-      "accounted": true
-    },
-    {
-      "sourceId": "g6a_u01_6a01",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 10,
-      "accounted": true
-    },
-    {
-      "sourceId": "g6a_u01_6a01",
+      "sourceId": "g5a_u03_5a03a1",
       "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 10,
-      "accounted": true
-    },
-    {
-      "sourceId": "g6a_u01_6a01",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 2,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3a_u08_3a08",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 5,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3a_u08_3a08",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3a_u08_3a08",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 5,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3a_u08_3a08",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 5,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3a_u08_3a08",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u07_3b07",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u07_3b07",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 2,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u07_3b07",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u07_3b07",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u07_3b07",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 2,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u09_3b09",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u09_3b09",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g3b_u09_3b09",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 7,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u08_4b08",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 6,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u08_4b08",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 6,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u08_4b08",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 6,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u09_4a09",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 2,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u09_4a09",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 2,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u09_4a09",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 2,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u06_4b06",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u06_4b06",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u06_4b06",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u06_4b06",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4b_u06_4b06",
-      "surfaceId": "PIXEL",
-      "questionTypeOption": "application",
-      "capabilityRowCount": 4,
-      "accounted": true
-    },
-    {
-      "sourceId": "g5a_u04_5a04",
-      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 10,
       "accounted": true
@@ -1135,14 +995,14 @@
     },
     {
       "sourceId": "g5a_u04_5a04",
-      "surfaceId": "FALLBACK_404",
+      "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 10,
       "accounted": true
     },
     {
       "sourceId": "g5a_u04_5a04",
-      "surfaceId": "PIXEL",
+      "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 10,
       "accounted": true
@@ -1155,45 +1015,209 @@
       "accounted": true
     },
     {
-      "sourceId": "g4a_u06_4a06",
-      "surfaceId": "CLASSIC",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 3,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u06_4a06",
-      "surfaceId": "FALLBACK_404",
-      "questionTypeOption": "numeric",
-      "capabilityRowCount": 3,
-      "accounted": true
-    },
-    {
-      "sourceId": "g4a_u06_4a06",
+      "sourceId": "g5a_u04_5a04",
       "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
-      "capabilityRowCount": 3,
+      "capabilityRowCount": 10,
       "accounted": true
     },
     {
-      "sourceId": "g5a_u01_5a01",
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 9,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "mixed",
+      "capabilityRowCount": 30,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 16,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "pbl",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "reasoning",
+      "capabilityRowCount": 30,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 9,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "mixed",
+      "capabilityRowCount": 30,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 16,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "pbl",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "reasoning",
+      "capabilityRowCount": 30,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 9,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "mixed",
+      "capabilityRowCount": 30,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 16,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "pbl",
+      "capabilityRowCount": 1,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "reasoning",
+      "capabilityRowCount": 30,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5b_u04_5b04",
       "surfaceId": "CLASSIC",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 1,
-      "accounted": true
+      "accounted": true,
+      "normalizationEvidence": "P03F31_DECIMAL_TIMES_INTEGER_DIRECT_NUMERIC_BINDING"
     },
     {
-      "sourceId": "g5a_u01_5a01",
+      "sourceId": "g5b_u04_5b04",
       "surfaceId": "FALLBACK_404",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 1,
-      "accounted": true
+      "accounted": true,
+      "normalizationEvidence": "P03F31_DECIMAL_TIMES_INTEGER_DIRECT_NUMERIC_BINDING"
     },
     {
-      "sourceId": "g5a_u01_5a01",
+      "sourceId": "g5b_u04_5b04",
       "surfaceId": "PIXEL",
       "questionTypeOption": "numeric",
       "capabilityRowCount": 1,
+      "accounted": true,
+      "normalizationEvidence": "P03F31_DECIMAL_TIMES_INTEGER_DIRECT_NUMERIC_BINDING"
+    },
+    {
+      "sourceId": "g5b_u05_5b05a",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 4,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5b_u05_5b05a",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 10,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5b_u05_5b05a",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 10,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5b_u05_5b05a",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 4,
+      "accounted": true
+    },
+    {
+      "sourceId": "g5b_u05_5b05a",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 10,
+      "accounted": true
+    },
+    {
+      "sourceId": "g6a_u01_6a01",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 2,
+      "accounted": true
+    },
+    {
+      "sourceId": "g6a_u01_6a01",
+      "surfaceId": "CLASSIC",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 10,
+      "accounted": true
+    },
+    {
+      "sourceId": "g6a_u01_6a01",
+      "surfaceId": "FALLBACK_404",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 10,
+      "accounted": true
+    },
+    {
+      "sourceId": "g6a_u01_6a01",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "application",
+      "capabilityRowCount": 2,
+      "accounted": true
+    },
+    {
+      "sourceId": "g6a_u01_6a01",
+      "surfaceId": "PIXEL",
+      "questionTypeOption": "numeric",
+      "capabilityRowCount": 10,
       "accounted": true
     },
     {
@@ -68645,6 +68669,153 @@
       "compatibilityStatus": "ACCOUNTED_PENDING_PGC_R02_INTERSECTION_NORMALIZATION"
     },
     {
+      "capabilityId": "pgc_g5b_u04_5b04_2425b8b68f720195",
+      "sourceId": "g5b_u04_5b04",
+      "unitCode": "5B-U04",
+      "unitTitle": "小數的乘法",
+      "grade": 5,
+      "semester": "lower",
+      "sourceLifecycle": "public_full_product_w3_slice031_candidate",
+      "knowledgePointId": "kp_g5b_u04_decimal_times_integer",
+      "knowledgePointName": "小數乘以整數",
+      "knowledgePointPublicStatus": "visible",
+      "questionType": "NUMERIC",
+      "effectiveQuestionType": "NUMERIC",
+      "questionForm": "decimal_multiplication",
+      "questionFormLabel": "三位小數乘以整數",
+      "patternGroupId": "pg_g5b_u04_decimal_times_integer_numeric",
+      "basePatternGroupId": "pg_g5b_u04_decimal_times_integer_numeric",
+      "patternSpecId": "ps_g5b_u04_decimal_times_integer_product_numeric",
+      "depthModes": [
+        "NOT_APPLICABLE"
+      ],
+      "contextModes": [
+        "NOT_APPLICABLE"
+      ],
+      "selectionModes": [
+        "sourceUnit",
+        "singleKnowledgePoint"
+      ],
+      "surfaceId": "CLASSIC",
+      "surfaceRouteId": "surface.classic.index",
+      "surfaceStatus": "PUBLIC_ACTIVE",
+      "controlPolicy": "PROFILE_DRIVEN",
+      "generatorConsumer": "site/modules/curriculum/batch-a/batch-a-browser-generator-p03f31.js",
+      "validatorConsumer": "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f31.js",
+      "questionRouterConsumer": "site/modules/curriculum/batch-a/batch-a-browser-question-router-p03f31.js",
+      "worksheetConsumer": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f31-extension.js",
+      "contextLineage": "NOT_APPLICABLE",
+      "htmlRouteId": "renderer.preview_html",
+      "pdfRouteId": "renderer.iframe_print",
+      "answerKeySupported": true,
+      "defaultQuestionCount": 20,
+      "declaredUiMaxQuestionCount": 200,
+      "verifiedMaxQuestionCount": null,
+      "capacityEvidence": "UNVERIFIED_UNTIL_PGC_R03",
+      "evidenceLevel": "PUBLIC_CANDIDATE_WITH_ACCEPTANCE_EVIDENCE",
+      "compatibilityPolicy": "w3_slice031_decimal_times_integer_numeric_only_future_application_reserved",
+      "compatibilityStatus": "ACCOUNTED_PENDING_PGC_R02_INTERSECTION_NORMALIZATION",
+      "normalizationEvidence": "P03F31_DECIMAL_TIMES_INTEGER_DIRECT_NUMERIC_BINDING"
+    },
+    {
+      "capabilityId": "pgc_g5b_u04_5b04_35cc96fe54911c03",
+      "sourceId": "g5b_u04_5b04",
+      "unitCode": "5B-U04",
+      "unitTitle": "小數的乘法",
+      "grade": 5,
+      "semester": "lower",
+      "sourceLifecycle": "public_full_product_w3_slice031_candidate",
+      "knowledgePointId": "kp_g5b_u04_decimal_times_integer",
+      "knowledgePointName": "小數乘以整數",
+      "knowledgePointPublicStatus": "visible",
+      "questionType": "NUMERIC",
+      "effectiveQuestionType": "NUMERIC",
+      "questionForm": "decimal_multiplication",
+      "questionFormLabel": "三位小數乘以整數",
+      "patternGroupId": "pg_g5b_u04_decimal_times_integer_numeric",
+      "basePatternGroupId": "pg_g5b_u04_decimal_times_integer_numeric",
+      "patternSpecId": "ps_g5b_u04_decimal_times_integer_product_numeric",
+      "depthModes": [
+        "NOT_APPLICABLE"
+      ],
+      "contextModes": [
+        "NOT_APPLICABLE"
+      ],
+      "selectionModes": [
+        "sourceUnit",
+        "singleKnowledgePoint"
+      ],
+      "surfaceId": "PIXEL",
+      "surfaceRouteId": "surface.pixel.beta",
+      "surfaceStatus": "PUBLIC_ACTIVE",
+      "controlPolicy": "PROFILE_DRIVEN",
+      "generatorConsumer": "site/modules/curriculum/batch-a/batch-a-browser-generator-p03f31.js",
+      "validatorConsumer": "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f31.js",
+      "questionRouterConsumer": "site/modules/curriculum/batch-a/batch-a-browser-question-router-p03f31.js",
+      "worksheetConsumer": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f31-extension.js",
+      "contextLineage": "NOT_APPLICABLE",
+      "htmlRouteId": "renderer.preview_html",
+      "pdfRouteId": "renderer.iframe_print",
+      "answerKeySupported": true,
+      "defaultQuestionCount": 20,
+      "declaredUiMaxQuestionCount": 200,
+      "verifiedMaxQuestionCount": null,
+      "capacityEvidence": "UNVERIFIED_UNTIL_PGC_R03",
+      "evidenceLevel": "PUBLIC_CANDIDATE_WITH_ACCEPTANCE_EVIDENCE",
+      "compatibilityPolicy": "w3_slice031_decimal_times_integer_numeric_only_future_application_reserved",
+      "compatibilityStatus": "ACCOUNTED_PENDING_PGC_R02_INTERSECTION_NORMALIZATION",
+      "normalizationEvidence": "P03F31_DECIMAL_TIMES_INTEGER_DIRECT_NUMERIC_BINDING"
+    },
+    {
+      "capabilityId": "pgc_g5b_u04_5b04_3adf389bf4d741f6",
+      "sourceId": "g5b_u04_5b04",
+      "unitCode": "5B-U04",
+      "unitTitle": "小數的乘法",
+      "grade": 5,
+      "semester": "lower",
+      "sourceLifecycle": "public_full_product_w3_slice031_candidate",
+      "knowledgePointId": "kp_g5b_u04_decimal_times_integer",
+      "knowledgePointName": "小數乘以整數",
+      "knowledgePointPublicStatus": "visible",
+      "questionType": "NUMERIC",
+      "effectiveQuestionType": "NUMERIC",
+      "questionForm": "decimal_multiplication",
+      "questionFormLabel": "三位小數乘以整數",
+      "patternGroupId": "pg_g5b_u04_decimal_times_integer_numeric",
+      "basePatternGroupId": "pg_g5b_u04_decimal_times_integer_numeric",
+      "patternSpecId": "ps_g5b_u04_decimal_times_integer_product_numeric",
+      "depthModes": [
+        "NOT_APPLICABLE"
+      ],
+      "contextModes": [
+        "NOT_APPLICABLE"
+      ],
+      "selectionModes": [
+        "sourceUnit",
+        "singleKnowledgePoint"
+      ],
+      "surfaceId": "FALLBACK_404",
+      "surfaceRouteId": "surface.classic.404_fallback",
+      "surfaceStatus": "PUBLIC_DEPRECATED",
+      "controlPolicy": "G5A_U08_STATIC_ELSE_DEFAULT_NUMERIC",
+      "generatorConsumer": "site/modules/curriculum/batch-a/batch-a-browser-generator-p03f31.js",
+      "validatorConsumer": "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f31.js",
+      "questionRouterConsumer": "site/modules/curriculum/batch-a/batch-a-browser-question-router-p03f31.js",
+      "worksheetConsumer": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f31-extension.js",
+      "contextLineage": "NOT_APPLICABLE",
+      "htmlRouteId": "renderer.preview_html",
+      "pdfRouteId": "renderer.iframe_print",
+      "answerKeySupported": true,
+      "defaultQuestionCount": 20,
+      "declaredUiMaxQuestionCount": 200,
+      "verifiedMaxQuestionCount": null,
+      "capacityEvidence": "UNVERIFIED_UNTIL_PGC_R03",
+      "evidenceLevel": "PUBLIC_CANDIDATE_WITH_ACCEPTANCE_EVIDENCE",
+      "compatibilityPolicy": "w3_slice031_decimal_times_integer_numeric_only_future_application_reserved",
+      "compatibilityStatus": "ACCOUNTED_PENDING_PGC_R02_INTERSECTION_NORMALIZATION",
+      "normalizationEvidence": "P03F31_DECIMAL_TIMES_INTEGER_DIRECT_NUMERIC_BINDING"
+    },
+    {
       "capabilityId": "pgc_g5b_u05_5b05a_0dac7ad09411780b",
       "sourceId": "g5b_u05_5b05a",
       "unitCode": "5B-U05",
@@ -72627,5 +72798,14 @@
     "deprecated404AbsenceIsNotCapability": true,
     "explicitAbsenceOwner": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
     "unaccountedPairCount": 0
+  },
+  "matrixVersion": "pgc-r01-public-capability-matrix-v5",
+  "currentAuthorityPatch": {
+    "task": "P03F_W3DirectProductVerticalSlice031Implementation",
+    "sourceId": "g5b_u04_5b04",
+    "knowledgePointId": "kp_g5b_u04_decimal_times_integer",
+    "addedCapabilityRowCount": 3,
+    "arithmeticModel": "COEFFICIENT_PRODUCT_SCALE_SUM",
+    "applicationExpansionAllowed": false
   }
 }

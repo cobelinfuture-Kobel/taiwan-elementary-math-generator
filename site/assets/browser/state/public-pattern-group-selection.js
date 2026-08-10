@@ -1,11 +1,7 @@
 import {
-  getVisibleBatchAKnowledgePoint as baseGetVisibleBatchAKnowledgePoint,
-  getVisiblePatternGroupsForKnowledgePoint as baseGetVisiblePatternGroupsForKnowledgePoint,
-} from "../../../modules/curriculum/registry/batch-a-selector-p03f29-extension.js";
-import {
-  getG5AU06P03F30SelectorRow,
-  listG5AU06P03F30PatternGroups,
-} from "../../../modules/curriculum/registry/g5a-u06-rank8-fraction-selector-projection-p03f30.js";
+  getVisibleBatchAKnowledgePoint,
+  getVisiblePatternGroupsForKnowledgePoint,
+} from "../../../modules/curriculum/registry/batch-a-selector-p03f31-extension.js";
 import { listW01PublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w01-public-application-groups.js";
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/fifteen-unit-public-application-groups.js";
 import { listW1FullProductPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w1-full-product-public-application-groups.js";
@@ -22,13 +18,6 @@ function uniqueStrings(values) {
   return [...new Set((Array.isArray(values) ? values : []).map((value) => String(value ?? "").trim()).filter(Boolean))];
 }
 function clone(value) { return JSON.parse(JSON.stringify(value)); }
-function getVisibleBatchAKnowledgePoint(knowledgePointId) {
-  return getG5AU06P03F30SelectorRow(knowledgePointId) ?? baseGetVisibleBatchAKnowledgePoint(knowledgePointId);
-}
-function getVisiblePatternGroupsForKnowledgePoint(knowledgePointId) {
-  const slice030 = listG5AU06P03F30PatternGroups(knowledgePointId);
-  return slice030.length > 0 ? slice030 : baseGetVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
-}
 
 function groupsForKnowledgePoint(knowledgePointId) {
   return [

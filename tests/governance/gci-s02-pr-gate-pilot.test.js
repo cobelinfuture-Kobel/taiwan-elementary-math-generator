@@ -17,8 +17,11 @@ const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/p03f25-exact-head-product-acceptance.yml",
   ".github/workflows/p03f-slice029-product-acceptance.yml",
   ".github/workflows/p03f-slice030-product-acceptance.yml",
+  ".github/workflows/p03f-slice031-product-acceptance.yml",
   ...TEMPORARY_WORKFLOW_FILES,
 ];
+
+const compareCodePoint = (left, right) => left < right ? -1 : left > right ? 1 : 0;
 
 test("GCI-S02 PR gate pilot is read-only and structurally complete", () => {
   const workflow = fs.readFileSync(WORKFLOW_FILE, "utf8");
@@ -58,11 +61,24 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
     excludeFiles: [WORKFLOW_FILE, ...POST_S01_WORKFLOW_FILES]
   });
 
-  assert.equal(current.summary.workflowFileCount, 116);
-  assert.equal(current.summary.pullRequestWorkflowCount, 72);
+  // S01 owns the absolute historical inventory. S02 owns the exact approved
+  // live delta, which must stay stable whether CI checks out the PR head or
+  // GitHub's synthetic merge ref with inherited non-PR workflows.
+  const historicalFiles = new Set(historical.workflows.map((row) => row.file));
+  const approvedLiveDelta = [WORKFLOW_FILE, ...POST_S01_WORKFLOW_FILES]
+    .filter((file) => !TEMPORARY_WORKFLOW_FILES.includes(file) && fs.existsSync(file))
+    .sort(compareCodePoint);
+  const observedLiveDelta = current.workflows
+    .map((row) => row.file)
+    .filter((file) => !historicalFiles.has(file))
+    .sort(compareCodePoint);
+
+  assert.deepEqual(observedLiveDelta, approvedLiveDelta);
+  assert.equal(current.summary.workflowFileCount, historical.summary.workflowFileCount + approvedLiveDelta.length);
+  assert.equal(current.summary.pullRequestWorkflowCount, 73);
   assert.equal(current.summary.prBranchWriterCount, 22);
   assert.equal(current.summary.prFullRegressionWorkflowCount, 27);
-  assert.equal(current.summary.lateSkipCandidateCount, 31);
+  assert.equal(current.summary.lateSkipCandidateCount, 32);
   assert.ok(current.summary.sharedExactPathPatternCount >= 79);
 
   const prGate = current.workflows.find((row) => row.file === WORKFLOW_FILE);
@@ -74,12 +90,12 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
   assert.equal(prGate.npmTestOccurrenceCount, 1);
   assert.equal(prGate.proposedDisposition, "PILOT_ORCHESTRATOR");
 
-  assert.equal(historical.summary.workflowFileCount, 110);
   assert.equal(historical.summary.pullRequestWorkflowCount, 66);
   assert.equal(historical.summary.prFullRegressionWorkflowCount, 24);
   assert.ok(!historical.workflows.some((row) => row.file === WORKFLOW_FILE));
   assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice029-product-acceptance.yml"));
   assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice030-product-acceptance.yml"));
+  assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice031-product-acceptance.yml"));
 });
 
 // PGC-R06 A03 historical authority and workflow governance compatibility
