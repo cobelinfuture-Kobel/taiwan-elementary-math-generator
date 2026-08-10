@@ -103,10 +103,10 @@ test("P03F10 historical selector stays at one G4A-U09 KP while current Pixel pre
   assert.equal(availability.visibleCount, 1);
   assert.equal(availability.hiddenPendingCount, 6);
   const sources = listCurrentPixelSourceOptions();
-  assert.equal(sources.length, 30);
+  assert.equal(sources.length, 31);
   const pixelRows = listPixelKnowledgePointsForSource(G4A_U09_SOURCE_ID);
   assert.equal(pixelRows.some((row) => row.knowledgePointId === G4A_U09_HUNDREDTH_DECIMAL_KP_ID), true);
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 30);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 31);
 });
 
 test("P03F10 shared worksheet and answer key render eight items", () => {

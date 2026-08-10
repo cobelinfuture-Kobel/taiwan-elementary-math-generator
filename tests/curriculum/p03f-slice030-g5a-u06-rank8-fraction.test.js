@@ -32,7 +32,7 @@ const options = {
   printLayout: { paperSize: "A4", columns: 2, rowsPerPage: 4, showQuestionNumbers: true, showAnswerKeyPage: true },
 };
 
-test("P03F30 exposes a new 4-KP numeric G5A-U06 source at 30 sources / 224 current KPs", () => {
+test("P03F30 exposes a new 4-KP numeric G5A-U06 source at 31 sources / 225 current KPs", () => {
   assert.equal(auditG5AU06P03F30SelectorProjection().ok, true);
   assert.equal(auditP03F30PublicSelectorComposition().ok, true);
   assert.equal(validateP03F30PatternDefinitions().ok, true);
@@ -41,11 +41,11 @@ test("P03F30 exposes a new 4-KP numeric G5A-U06 source at 30 sources / 224 curre
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.sourceCount, 30);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount, 30);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 224);
-  assert.equal(listCurrentFullProductPublicSourceUnits().length, 30);
+  assert.equal(listCurrentFullProductPublicSourceUnits().length, 31);
   assert.equal(getBatchASourceUnit(G5A_U06_P03F30_SOURCE_ID)?.unitCode, "5A-U06");
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 30);
-  assert.equal(pixel.visibleKnowledgePointCount, 224);
+  assert.equal(pixel.sourceCount, 31);
+  assert.equal(pixel.visibleKnowledgePointCount, 225);
   const summary = getCurrentPixelSourceSummary(G5A_U06_P03F30_SOURCE_ID);
   assert.ok(summary);
   assert.equal(summary.visibleKnowledgePoints.length, 4);

@@ -5,114 +5,14 @@ on:
     branches: [main]
 
 permissions:
-  contents: write
+  contents: read
 
-# TEMPORARY remediation export: normalize stale current-inventory assertions on a detached staging branch only.
-# The final PR head restores contents: read before merge.
+# Exact-head acceptance rematerializes current PGC-R01/R02 authority and verifies the stable worksheet consumer path.
 concurrency:
   group: p03f31-product-acceptance-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  export-stale-current-test-reconciliation:
-    if: github.head_ref == 'p03f31-g5b-u04-rank8-decimal-times-integer'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout exact PR head
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-
-      - name: Reconcile Slice031 current inventory expectations
-        run: |
-          node <<'NODE'
-          const fs = require('node:fs');
-          const files = [
-            'tests/curriculum/p03f-slice003-quotient-fraction.test.js',
-            'tests/curriculum/p03f-slice004-tenth-decimal.test.js',
-            'tests/curriculum/p03f-slice005-equivalent-fraction.test.js',
-            'tests/curriculum/p03f-slice006-same-denominator-compare.test.js',
-            'tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js',
-            'tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js',
-            'tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js',
-            'tests/curriculum/p03f-slice010-hundredth-decimal.test.js',
-            'tests/curriculum/p03f-slice011-decimal-multiplication.test.js',
-            'tests/curriculum/p03f-slice012-equivalence-cross-product.test.js',
-            'tests/curriculum/p03f-slice013-simplest-fraction.test.js',
-            'tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js',
-            'tests/curriculum/p03f-slice027-public-ui-binding.test.js',
-            'tests/curriculum/p03f-slice028-public-ui-binding.test.js',
-            'tests/curriculum/p03f-slice030-g5a-u06-rank8-fraction.test.js',
-          ];
-          for (const file of files) {
-            let text = fs.readFileSync(file, 'utf8');
-            const before = text;
-            text = text.split('\n').map((line) => {
-              const historicalSelectorSnapshot = /BATCH_A_SELECTOR_AVAILABILITY/.test(line);
-              if (!historicalSelectorSnapshot && /assert\.equal\(/.test(line) && /(?:source|sources)/i.test(line) && /,\s*30\);/.test(line)) {
-                line = line.replace(/,\s*30\);/g, ', 31);');
-              }
-              if (!historicalSelectorSnapshot && /assert\.equal\(/.test(line) && /(?:visible|knowledge|snapshot|registry)/i.test(line) && /,\s*224\);/.test(line)) {
-                line = line.replace(/,\s*224\);/g, ', 225);');
-              }
-              if (/^test\(/.test(line) && /current/i.test(line)) {
-                line = line
-                  .replace(/\b30 public sources\b/g, '31 public sources')
-                  .replace(/\b30 sources\b/g, '31 sources')
-                  .replace(/\b224 current KPs\b/g, '225 current KPs')
-                  .replace(/\b224 visible KPs\b/g, '225 visible KPs')
-                  .replace(/\b224 KPs\b/g, '225 KPs')
-                  .replace(/\bto 224\b/g, 'to 225')
-                  .replace(/\bthrough Slice030\b/g, 'through Slice031');
-              }
-              return line;
-            }).join('\n');
-            if (text === before) throw new Error(`NO_STALE_CURRENT_EXPECTATION_UPDATED:${file}`);
-            fs.writeFileSync(file, text);
-          }
-          NODE
-          git diff --check
-          node --test \
-            tests/curriculum/p03f-slice003-quotient-fraction.test.js \
-            tests/curriculum/p03f-slice004-tenth-decimal.test.js \
-            tests/curriculum/p03f-slice005-equivalent-fraction.test.js \
-            tests/curriculum/p03f-slice006-same-denominator-compare.test.js \
-            tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js \
-            tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js \
-            tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js \
-            tests/curriculum/p03f-slice010-hundredth-decimal.test.js \
-            tests/curriculum/p03f-slice011-decimal-multiplication.test.js \
-            tests/curriculum/p03f-slice012-equivalence-cross-product.test.js \
-            tests/curriculum/p03f-slice013-simplest-fraction.test.js \
-            tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js \
-            tests/curriculum/p03f-slice027-public-ui-binding.test.js \
-            tests/curriculum/p03f-slice028-public-ui-binding.test.js \
-            tests/curriculum/p03f-slice030-g5a-u06-rank8-fraction.test.js
-          git diff -- tests/curriculum/p03f-slice003-quotient-fraction.test.js tests/curriculum/p03f-slice004-tenth-decimal.test.js tests/curriculum/p03f-slice005-equivalent-fraction.test.js tests/curriculum/p03f-slice006-same-denominator-compare.test.js tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js tests/curriculum/p03f-slice010-hundredth-decimal.test.js tests/curriculum/p03f-slice011-decimal-multiplication.test.js tests/curriculum/p03f-slice012-equivalence-cross-product.test.js tests/curriculum/p03f-slice013-simplest-fraction.test.js tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js tests/curriculum/p03f-slice027-public-ui-binding.test.js tests/curriculum/p03f-slice028-public-ui-binding.test.js tests/curriculum/p03f-slice030-g5a-u06-rank8-fraction.test.js
-
-      - name: Export reconciled tests to detached staging branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tests/curriculum/p03f-slice003-quotient-fraction.test.js \
-            tests/curriculum/p03f-slice004-tenth-decimal.test.js \
-            tests/curriculum/p03f-slice005-equivalent-fraction.test.js \
-            tests/curriculum/p03f-slice006-same-denominator-compare.test.js \
-            tests/curriculum/p03f-slice007-fraction-unit-conversion.test.js \
-            tests/curriculum/p03f-slice008-decimal-compose-decompose.test.js \
-            tests/curriculum/p03f-slice009-tenths-fraction-decimal.test.js \
-            tests/curriculum/p03f-slice010-hundredth-decimal.test.js \
-            tests/curriculum/p03f-slice011-decimal-multiplication.test.js \
-            tests/curriculum/p03f-slice012-equivalence-cross-product.test.js \
-            tests/curriculum/p03f-slice013-simplest-fraction.test.js \
-            tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js \
-            tests/curriculum/p03f-slice027-public-ui-binding.test.js \
-            tests/curriculum/p03f-slice028-public-ui-binding.test.js \
-            tests/curriculum/p03f-slice030-g5a-u06-rank8-fraction.test.js
-          git commit -m "test(p03f31): reconcile stale current inventory assertions [skip ci]"
-          git push --force origin HEAD:refs/heads/p03f31-stale-current-tests-export
-
   chromium-product-acceptance:
     if: github.head_ref == 'p03f31-g5b-u04-rank8-decimal-times-integer'
     runs-on: ubuntu-latest
