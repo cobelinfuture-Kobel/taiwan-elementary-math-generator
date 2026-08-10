@@ -59,7 +59,7 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
     excludeFiles: [WORKFLOW_FILE, ...POST_S01_WORKFLOW_FILES]
   });
 
-  assert.equal(current.summary.workflowFileCount, 117);
+  assert.equal(current.summary.workflowFileCount, 118);
   assert.equal(current.summary.pullRequestWorkflowCount, 73);
   assert.equal(current.summary.prBranchWriterCount, 22);
   assert.equal(current.summary.prFullRegressionWorkflowCount, 27);
