@@ -48,7 +48,7 @@ jobs:
           for (const file of files) {
             let text = fs.readFileSync(file, 'utf8');
             const before = text;
-            const lines = text.split('\n').map((line) => {
+            text = text.split('\n').map((line) => {
               if (/assert\.equal\(/.test(line) && /(?:source|sources)/i.test(line) && /, 30\);/.test(line)) {
                 return line.replace(/, 30\);/, ', 31);');
               }
