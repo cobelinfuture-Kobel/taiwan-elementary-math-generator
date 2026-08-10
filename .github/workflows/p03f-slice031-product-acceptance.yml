@@ -49,10 +49,11 @@ jobs:
             let text = fs.readFileSync(file, 'utf8');
             const before = text;
             text = text.split('\n').map((line) => {
-              if (/assert\.equal\(/.test(line) && /(?:source|sources)/i.test(line) && /,\s*30\);/.test(line)) {
+              const historicalSelectorSnapshot = /BATCH_A_SELECTOR_AVAILABILITY/.test(line);
+              if (!historicalSelectorSnapshot && /assert\.equal\(/.test(line) && /(?:source|sources)/i.test(line) && /,\s*30\);/.test(line)) {
                 line = line.replace(/,\s*30\);/g, ', 31);');
               }
-              if (/assert\.equal\(/.test(line) && /(?:visible|knowledge|snapshot|registry)/i.test(line) && /,\s*224\);/.test(line)) {
+              if (!historicalSelectorSnapshot && /assert\.equal\(/.test(line) && /(?:visible|knowledge|snapshot|registry)/i.test(line) && /,\s*224\);/.test(line)) {
                 line = line.replace(/,\s*224\);/g, ', 225);');
               }
               if (/^test\(/.test(line) && /current/i.test(line)) {
