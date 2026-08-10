@@ -90,6 +90,6 @@ export function auditPublicUiCapabilityBinding() {
     caseCount: Number(baseAudit.caseCount ?? 0) + slice031CaseCount,
     errors: Object.freeze(errors),
     baseAuditCaseCount: Number(baseAudit.caseCount ?? 0),
-    slice031AuditCaseCount,
+    slice031AuditCaseCount: slice031CaseCount,
   });
 }
