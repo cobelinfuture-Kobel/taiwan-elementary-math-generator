@@ -47,7 +47,7 @@ test('Slice031 implementation evidence is exact-head, merged, and runtime-identi
   assert.equal(claim.implementationEvidence.prNumber, 575);
   assert.equal(claim.implementationEvidence.headSha, '15c43769fb6fe44f26efa0d50cd2427bfd49bb30');
   assert.equal(claim.implementationEvidence.mergeSha, '7f0a49902cfbd5d9946118f2644c5e64de31513d');
-  assert.equal(claim.implementationEvidence.runtimeBlobShaOnMain, '82545716500194faab7da86d66b5455575d65663');
+  assert.equal(claim.implementationEvidence.runtimeBlobShaOnMain, '8254571659c9983823f79f90e1e0524ec9882d09');
   const localBlob = execFileSync('git', ['hash-object', runtimePath], { encoding: 'utf8' }).trim();
   assert.equal(localBlob, claim.implementationEvidence.runtimeBlobShaOnMain);
 });
