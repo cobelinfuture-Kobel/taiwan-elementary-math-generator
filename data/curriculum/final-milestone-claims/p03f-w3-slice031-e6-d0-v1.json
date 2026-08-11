@@ -3,9 +3,9 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice031Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice031_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
-  "scope": "Slice031 only: admit new public source g5b_u04_5b04 with one source-backed decimal-times-integer KnowledgePoint using one deterministic numeric PatternGroup/PatternSpec and the existing shared decimal arithmetic/domain/number-system capabilities. Integer×decimal, decimal×decimal, application, estimation, Global Context expansion and Slice032 remain forbidden until later queue positions / final Slice031 D0 closeout.",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
+  "scope": "Slice031 only: admit new public source g5b_u04_5b04 with one source-backed decimal-times-integer KnowledgePoint using one deterministic numeric PatternGroup/PatternSpec and the existing shared decimal arithmetic/domain/number-system capabilities. Integer×decimal, decimal×decimal, application, estimation, Global Context expansion and Slice032 remain outside Slice031.",
   "authority": {
     "path": "data/curriculum/full-product/p03f/slice031-g5b-u04-rank8-decimal-multiplication-authority.json",
     "queuePosition": 31,
@@ -108,21 +108,21 @@
     "runtimeBlobMatchesImplementation": true
   },
   "closeoutEvidence": {
-    "candidatePrNumber": null,
-    "candidateHeadSha": null,
-    "candidateMergeSha": null,
-    "candidateNodeRunId": null,
-    "candidateNodeJobId": null,
-    "candidateNodeTests": null,
-    "candidateNodePass": null,
-    "candidateNodeFail": null,
-    "candidateNodeDiagnosticsArtifactId": null,
-    "candidateNodeDiagnosticsDigest": null,
-    "status": "PENDING_CANDIDATE_PR_CI_AND_MERGE"
+    "candidatePrNumber": 576,
+    "candidateHeadSha": "9f464e4020dc6133d4a808b340d9d2574bfb9b37",
+    "candidateMergeSha": "501a5db169dfea008974ec45c46f2ea1ccdc549d",
+    "candidateNodeRunId": 31507711914,
+    "candidateNodeJobId": 93833678657,
+    "candidateNodeTests": 3022,
+    "candidateNodePass": 3022,
+    "candidateNodeFail": 0,
+    "candidateNodeDiagnosticsArtifactId": 9107866852,
+    "candidateNodeDiagnosticsDigest": "sha256:044b27ca1035a77c90e290e2a72c062f613e7dcf39631be8015a956297582628",
+    "status": "PASS_CANDIDATE_CI_MERGED"
   },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice032Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice031_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice032Implementation"
   }
 }
