@@ -1,0 +1,60 @@
+{
+  "schemaName": "P03FSlice031ProductAdmissionManifestV1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice031Implementation",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "admissionState": "PENDING_D0_RECONCILIATION",
+  "goalDistance": "D1",
+  "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice031-e6-d0-v1.json",
+  "readbackPath": "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE031_READBACK.md",
+  "authorityPath": "data/curriculum/full-product/p03f/slice031-g5b-u04-rank8-decimal-multiplication-authority.json",
+  "closeoutTestPath": "tests/curriculum/p03f-slice031-d0-closeout.test.js",
+  "queuePosition": 31,
+  "sourceId": "g5b_u04_5b04",
+  "knowledgePointIds": ["kp_g5b_u04_decimal_times_integer"],
+  "patternGroupIds": ["pg_g5b_u04_decimal_times_integer_numeric"],
+  "patternSpecIds": ["ps_g5b_u04_decimal_times_integer_product_numeric"],
+  "implementation": {
+    "prNumber": 575,
+    "headSha": "15c43769fb6fe44f26efa0d50cd2427bfd49bb30",
+    "mergeSha": "7f0a49902cfbd5d9946118f2644c5e64de31513d"
+  },
+  "currentAuthority": {
+    "publicSources": 31,
+    "visibleKnowledgePoints": 225,
+    "r01CapabilityRows": 1413,
+    "r02BindingRows": 1218,
+    "gaps": 0
+  },
+  "runtime": {
+    "path": "site/modules/curriculum/batch-a/g5b-u04-rank8-decimal-times-integer-runtime-p03f31.js",
+    "mainBlobSha": "82545716500194faab7da86d66b5455575d65663"
+  },
+  "productEvidence": {
+    "artifactId": 9065854822,
+    "artifactDigest": "sha256:c152bd3186738cf205401e5d26dc391be5ca521e914afb15cac35146574387f9",
+    "questions": 24,
+    "answers": 24,
+    "pdfPages": 6,
+    "visualReview": "PASS"
+  },
+  "frozenR00Evidence": {
+    "artifactId": 9066455214,
+    "artifactDigest": "sha256:48b28fff71b5577580a92ed407900baee7619425ab29f4bb582d2661c5920a8a",
+    "executed": 793,
+    "pass": 793,
+    "fail": 0,
+    "exitCode": 0
+  },
+  "closeoutPr": {
+    "number": null,
+    "headSha": null,
+    "mergeSha": null,
+    "status": "PENDING"
+  },
+  "productionAdmission": {
+    "slice031Admitted": false,
+    "slice032MayStart": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice031_D0PostMergeReconciliation"
+}
