@@ -2,9 +2,9 @@
   "schemaName": "P03FSlice031ProductAdmissionManifestV1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice031Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "admissionState": "ADMITTED_D0",
+  "goalDistance": "D0",
   "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice031-e6-d0-v1.json",
   "readbackPath": "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE031_READBACK.md",
   "authorityPath": "data/curriculum/full-product/p03f/slice031-g5b-u04-rank8-decimal-multiplication-authority.json",
@@ -47,14 +47,21 @@
     "exitCode": 0
   },
   "closeoutPr": {
-    "number": null,
-    "headSha": null,
-    "mergeSha": null,
-    "status": "PENDING"
+    "number": 576,
+    "headSha": "9f464e4020dc6133d4a808b340d9d2574bfb9b37",
+    "mergeSha": "501a5db169dfea008974ec45c46f2ea1ccdc549d",
+    "nodeRunId": 31507711914,
+    "nodeJobId": 93833678657,
+    "tests": 3022,
+    "pass": 3022,
+    "fail": 0,
+    "diagnosticsArtifactId": 9107866852,
+    "diagnosticsDigest": "sha256:044b27ca1035a77c90e290e2a72c062f613e7dcf39631be8015a956297582628",
+    "status": "PASS_CI_SYNCED_AND_MERGED"
   },
   "productionAdmission": {
-    "slice031Admitted": false,
-    "slice032MayStart": false
+    "slice031Admitted": true,
+    "slice032MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice031_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice032Implementation"
 }
