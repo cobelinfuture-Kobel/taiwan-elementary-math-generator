@@ -1,4 +1,4 @@
-# P03F W3 Direct Product Vertical Slice031 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice031 — D0 Final Readback
 
 ## Status
 
@@ -7,12 +7,12 @@ PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID = P03F_W3DirectProductVerticalSlice031Implementation
 E6_MILESTONE_ID = P03F_W3DirectProductVerticalSlice031_E6_D0Closeout
 
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
-ADMISSION_STATE = PENDING_D0_RECONCILIATION
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
+ADMISSION_STATE = ADMITTED_D0
 ```
 
-This candidate records the immutable implementation evidence for W3 queue position 31. It does **not** authorize Slice032. Final D0 requires candidate PR CI/merge followed by post-merge reconciliation.
+Slice031 is formally closed at D0. The final state binds the implementation evidence, exact-head product acceptance, candidate closeout CI/merge, and post-merge authority reconciliation. This reconciliation does not start Slice032.
 
 ## Admitted Slice031 identity
 
@@ -35,7 +35,7 @@ SOURCE_WITNESS =
 0.672 × 18 = 12.096
 ```
 
-Scope remains numeric-only decimal × integer. Integer × decimal, decimal × decimal, application, estimation, Global Context expansion, and Slice032 are outside this candidate.
+Scope remains numeric-only decimal × integer. Integer × decimal, decimal × decimal, application, estimation, and Global Context expansion remain outside Slice031.
 
 ## Implementation evidence
 
@@ -52,7 +52,7 @@ MAIN_RUNTIME_BLOB =
 8254571659c9983823f79f90e1e0524ec9882d09
 ```
 
-### Node full regression
+### Implementation Node full regression
 
 ```text
 RUN = 31396488175
@@ -145,23 +145,51 @@ R02_GAPS = 0
 R02_BINDING_REVISION = pgc-r02-r04-p03f31
 ```
 
-## Candidate boundary
+## D0 closeout reconciliation
 
 ```text
-CANDIDATE_CLOSEOUT_PR = PENDING
-CANDIDATE_CLOSEOUT_CI = PENDING
-CANDIDATE_CLOSEOUT_MERGE = PENDING
-FINAL_RECONCILIATION = NOT_STARTED
+CLOSEOUT_PR = #576
+CLOSEOUT_HEAD = 9f464e4020dc6133d4a808b340d9d2574bfb9b37
+CLOSEOUT_NODE_RUN = 31507711914
+CLOSEOUT_NODE_JOB = 93833678657
+CLOSEOUT_FULL_REGRESSION = 3022 / 3022 PASS
+CLOSEOUT_DIAGNOSTICS = 9107866852
+CLOSEOUT_DIAGNOSTICS_SHA = sha256:044b27ca1035a77c90e290e2a72c062f613e7dcf39631be8015a956297582628
+CLOSEOUT_MERGE_SHA = 501a5db169dfea008974ec45c46f2ea1ccdc549d
 
-SLICE031_ADMITTED_D0 = false
-SLICE032_MAY_START = false
+SLICE031_ADMITTED_D0 = true
+SLICE032_MAY_START = true
+SLICE032_STARTED_BY_THIS_RECONCILIATION = false
 ```
 
-## Next shortest step
+The candidate PR changed exactly four closeout files and passed the full Node regression. Post-merge reconciliation changes only the final claim, manifest, and readback. It changes no runtime, selector, PatternSpec, validator, worksheet, renderer, workflow, or public-generation authority.
+
+## End-to-End D0 conclusion
 
 ```text
-P03F_W3DirectProductVerticalSlice031_D0CloseoutCandidate
-→ candidate PR CI
-→ candidate merge
-→ P03F_W3DirectProductVerticalSlice031_D0PostMergeReconciliation
+SOURCE / KP AUTHORITY = PASS
+PATTERN SPEC RESOLUTION = PASS
+GENERATOR = PASS
+VALIDATOR = PASS
+WORKSHEET ASSEMBLY = PASS
+HTML RENDERER = PASS
+ANSWER KEY = PASS
+PDF / PRINT ARTIFACT = PASS
+MANUAL VISUAL REVIEW = PASS
+CLOSEOUT CI = PASS
+CANDIDATE MERGE = PASS
+
+SLICE031_E2E_D0 = PASS
 ```
+
+## Distance closeout
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE031_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE031_CLOSED
+DISTANCE_REDUCED     = candidate CI/merge evidence is reconciled into final production admission authority; Slice031 now has implementation, exact runtime-main identity, 793/793 frozen browser replay, Chromium/visual evidence, 3022/3022 closeout regression, and merged D0 lineage.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice032Implementation
+```
+
+Slice032 is authorized by the frozen W3 queue after Slice031 D0, but is not started by this reconciliation.
