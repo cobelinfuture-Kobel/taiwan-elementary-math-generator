@@ -49,7 +49,7 @@ RUNTIME_PATH =
 site/modules/curriculum/batch-a/g5b-u04-rank8-decimal-times-integer-runtime-p03f31.js
 
 MAIN_RUNTIME_BLOB =
-82545716500194faab7da86d66b5455575d65663
+8254571659c9983823f79f90e1e0524ec9882d09
 ```
 
 ### Node full regression
