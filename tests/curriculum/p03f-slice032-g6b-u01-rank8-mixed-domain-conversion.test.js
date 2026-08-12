@@ -207,5 +207,5 @@ test("P03F32 does not expose hidden sibling, compare, arithmetic or application 
   assert.doesNotMatch(corpus, /mixed_number_domain_order/);
   assert.doesNotMatch(corpus, /mixed_decimal_fraction_add_sub/);
   assert.doesNotMatch(corpus, /mixed_decimal_fraction_mul_div/);
-  assert.doesNotMatch(corpus, /questionType\":\"APPLICATION\"/);
+  assert.doesNotMatch(corpus, /questionType":"APPLICATION"/);
 });
