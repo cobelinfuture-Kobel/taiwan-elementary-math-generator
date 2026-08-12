@@ -53,7 +53,7 @@ function g6bU01Slice032Binding(input = {}) {
     contextOptions:Object.freeze([]),
     depthMode:null,
     contextMode:null,
-    questionCount:Math.min(PUBLIC_UI_SAFE_QUESTION_COUNT, 24),
+    questionCount:PUBLIC_UI_SAFE_QUESTION_COUNT,
     capacityStatus:"STRUCTURAL_FALLBACK_AVAILABLE",
     capacityRegistryStatus:PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION.registryStatus,
     capacityRouteIds:Object.freeze([]),
