@@ -159,7 +159,11 @@ test('Slice032 claim, manifest, and readback remain mutually consistent', () => 
   assert.match(readback, /SOURCE = g6b_u01_6b01/);
   assert.match(readback, /R02_BINDING_ROWS = 1224/);
   assert.match(readback, /EXECUTED = 793/);
-  assert.match(readback, /SLICE032_E2E_CANDIDATE = PASS/);
+  if (claim.status === 'D0_CLOSEOUT_CANDIDATE') {
+    assert.match(readback, /SLICE032_E2E_CANDIDATE = PASS/);
+  } else {
+    assert.match(readback, /SLICE032_E2E_D0 = PASS/);
+  }
 });
 
 test('Slice032 candidate cannot admit Slice033; final state requires merged closeout evidence', () => {
