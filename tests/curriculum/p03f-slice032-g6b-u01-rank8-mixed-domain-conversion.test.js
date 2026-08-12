@@ -60,7 +60,7 @@ const plan = (overrides = {}) => ({
 test("P03F32 consumes queue position 32 only after Slice031 D0", () => {
   assert.equal(predecessor.status, "PASS_D0_CLOSED");
   assert.equal(predecessor.goalDistance, "D0");
-  assert.equal(predecessor.nextResumeTask, "P03F_W3DirectProductVerticalSlice032Implementation");
+  assert.equal(predecessor.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice032Implementation");
 });
 
 test("P03F32 selector admits one KP, one group and exactly two numeric conversion specs", () => {
@@ -207,5 +207,5 @@ test("P03F32 does not expose hidden sibling, compare, arithmetic or application 
   assert.doesNotMatch(corpus, /mixed_number_domain_order/);
   assert.doesNotMatch(corpus, /mixed_decimal_fraction_add_sub/);
   assert.doesNotMatch(corpus, /mixed_decimal_fraction_mul_div/);
-  assert.doesNotMatch(corpus, /questionType":"APPLICATION"/);
+  assert.doesNotMatch(corpus, /questionType\":\"APPLICATION\"/);
 });
