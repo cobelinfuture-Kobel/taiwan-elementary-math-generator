@@ -79,11 +79,13 @@ jobs:
             fi
           done
 
-      - name: Commit deterministic authority to main
+      - name: Publish deterministic authority reconciliation branch
         run: |
           set -euo pipefail
+          branch="p03f32-current-authority-reconcile"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
           git add \
             data/curriculum/public-generation/public_generation_capability_matrix.json \
             data/curriculum/public-generation/public_generation_capability_matrix.csv \
@@ -91,7 +93,7 @@ jobs:
             data/curriculum/public-generation/ui_capability_binding_contract.json \
             data/curriculum/public-generation/ui_option_filter_matrix.csv \
             docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
-          git commit -m "data(p03f32): reconcile current R01 R02 authority [skip ci]"
+          git commit -m "data(p03f32): reconcile current R01 R02 authority"
           git fetch origin main
           git rebase origin/main
-          git push origin HEAD:main
+          git push --force origin HEAD:refs/heads/$branch
