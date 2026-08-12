@@ -84,7 +84,7 @@ function buildQuestion(patternSpecId, pair, ordinal) {
       productAdmissionTask:"P03F_W3DirectProductVerticalSlice032Implementation",
       generatorAdapterId:"SHARED_OPERATION_FAMILY_GENERATOR_V1",
       validatorAdapterId:"SHARED_OPERATION_FAMILY_VALIDATOR_V1",
-      mixedDomainNormalizerId:"shared-mixed-domain-normalizer-p03f32-v1",
+      mixedDomainNormalizerId:"shared-mixed-domain-normalizer-p03f32-v2",
     }),
   });
 }
