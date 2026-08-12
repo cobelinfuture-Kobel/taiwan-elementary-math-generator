@@ -1,0 +1,77 @@
+{
+  "schemaName": "P03FSlice032ProductAdmissionManifestV1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice032Implementation",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "admissionState": "PENDING_D0_RECONCILIATION",
+  "goalDistance": "D1",
+  "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice032-e6-d0-v1.json",
+  "readbackPath": "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE032_READBACK.md",
+  "authorityPath": "data/curriculum/full-product/p03f/slice032-g6b-u01-rank8-mixed-domain-authority.json",
+  "closeoutTestPath": "tests/curriculum/p03f-slice032-d0-closeout.test.js",
+  "queuePosition": 32,
+  "sourceId": "g6b_u01_6b01",
+  "knowledgePointIds": ["kp_g6b_u01_decimal_fraction_conversion"],
+  "patternGroupIds": ["pg_g6b_u01_decimal_fraction_conversion_numeric"],
+  "patternSpecIds": [
+    "ps_g6b_u01_decimal_fraction_conversion_fraction_numeric",
+    "ps_g6b_u01_decimal_fraction_conversion_decimal_numeric"
+  ],
+  "implementation": {
+    "prNumber": 578,
+    "headSha": "dc85107da64c718ee3654a8115959b1f8c49170b",
+    "mergeSha": "0849b65c7755deb031c33b007ab375858f784221"
+  },
+  "authorityReconciliation": {
+    "prNumber": 579,
+    "headSha": "8abed0e9879198409580bb284979b5712bbd872b",
+    "mergeSha": "e16c1273e842117fab2482a4b102b6454fa2807b"
+  },
+  "currentAuthority": {
+    "publicSources": 32,
+    "visibleKnowledgePoints": 226,
+    "r01CapabilityRows": 1419,
+    "r02BindingRows": 1224,
+    "gaps": 0
+  },
+  "runtime": {
+    "path": "site/modules/curriculum/batch-a/g6b-u01-rank8-decimal-fraction-conversion-runtime-p03f32.js",
+    "mainBlobSha": "e9bd4381888af66e9a7931a7813debc41429be3b"
+  },
+  "productEvidence": {
+    "artifactId": 9125263728,
+    "artifactDigest": "sha256:782a48c9a60c85fc24914810a21759fe90560dec2363835c15d8aab50e522e59",
+    "questions": 24,
+    "answers": 24,
+    "toFraction": 12,
+    "toDecimal": 12,
+    "pdfPages": 6,
+    "visualReview": "PASS"
+  },
+  "frozenR00Evidence": {
+    "artifactId": 9126052632,
+    "artifactDigest": "sha256:76fdb0ca10ff963a3b6d7db4c79a595bb913d65422eb4edb526734b3559db4b6",
+    "executed": 793,
+    "pass": 793,
+    "fail": 0,
+    "exitCode": 0
+  },
+  "closeoutPr": {
+    "number": null,
+    "headSha": null,
+    "mergeSha": null,
+    "nodeRunId": null,
+    "nodeJobId": null,
+    "tests": null,
+    "pass": null,
+    "fail": null,
+    "diagnosticsArtifactId": null,
+    "diagnosticsDigest": null,
+    "status": "PENDING_CANDIDATE_CI"
+  },
+  "productionAdmission": {
+    "slice032Admitted": false,
+    "slice033MayStart": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice032_D0PostMergeReconciliation"
+}
