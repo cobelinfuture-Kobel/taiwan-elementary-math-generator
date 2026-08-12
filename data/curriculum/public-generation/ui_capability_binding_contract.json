@@ -5,9 +5,9 @@
   "taskId": "PGC-R02_KnowledgePointDrivenUICapabilityBinding",
   "status": "PASS",
   "sourceAuthority": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
-  "selectorAuthority": "batch-a-selector-p03f31-extension.js",
+  "selectorAuthority": "batch-a-selector-p03f32-extension.js",
   "capabilityAuthority": "data/curriculum/public-generation/public_generation_capability_matrix.json",
-  "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding-p03f31.js",
+  "publicUiResolver": "site/modules/curriculum/public/public-ui-capability-binding-p03f32.js",
   "adapters": {
     "classic": "site/assets/browser/public-capability-ui.js",
     "fallback404": "site/assets/browser/public-capability-ui.js",
@@ -25,20 +25,20 @@
     "PIXEL"
   ],
   "summary": {
-    "publicSourceCount": 31,
-    "visibleKnowledgePointCount": 225,
+    "publicSourceCount": 32,
+    "visibleKnowledgePointCount": 226,
     "publicSurfaceCount": 3,
-    "baseCaseCount": 285,
-    "surfaceCaseCount": 855,
-    "questionTypeBindingRowCount": 1218,
-    "parityCaseCount": 285,
-    "auditCaseCount": 855,
+    "baseCaseCount": 287,
+    "surfaceCaseCount": 861,
+    "questionTypeBindingRowCount": 1224,
+    "parityCaseCount": 287,
+    "auditCaseCount": 861,
     "blockedBindingCount": 0,
     "unverifiedCapacityExposureCount": 0,
     "gapCount": 0,
     "verified20BindingCount": 0,
     "limitedCapacityBindingCount": 1062,
-    "structuralFallbackBindingCount": 156,
+    "structuralFallbackBindingCount": 162,
     "minimumVerifiedQuestionCount": 240,
     "maximumVerifiedQuestionCount": 240
   },
@@ -51559,6 +51559,222 @@
       "blockedReasons": [],
       "capacityRouteIds": [],
       "capacityQualityStatuses": []
+    },
+    {
+      "bindingId": "g6b_u01_6b01::single::kp_g6b_u01_decimal_fraction_conversion::CLASSIC::numeric",
+      "caseId": "g6b_u01_6b01::single::kp_g6b_u01_decimal_fraction_conversion",
+      "sourceId": "g6b_u01_6b01",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g6b_u01_decimal_fraction_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6b_u01_decimal_fraction_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6b_u01_decimal_fraction_conversion_fraction_numeric",
+        "ps_g6b_u01_decimal_fraction_conversion_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "小數與分數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "verifiedCapacityQuestionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": [
+        "P03F32_G6B_U01_MIXED_DOMAIN_CONVERSION_STRUCTURAL_RUNTIME"
+      ],
+      "blocked": false,
+      "blockedReasons": []
+    },
+    {
+      "bindingId": "g6b_u01_6b01::single::kp_g6b_u01_decimal_fraction_conversion::FALLBACK_404::numeric",
+      "caseId": "g6b_u01_6b01::single::kp_g6b_u01_decimal_fraction_conversion",
+      "sourceId": "g6b_u01_6b01",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g6b_u01_decimal_fraction_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6b_u01_decimal_fraction_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6b_u01_decimal_fraction_conversion_fraction_numeric",
+        "ps_g6b_u01_decimal_fraction_conversion_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "小數與分數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "verifiedCapacityQuestionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": [
+        "P03F32_G6B_U01_MIXED_DOMAIN_CONVERSION_STRUCTURAL_RUNTIME"
+      ],
+      "blocked": false,
+      "blockedReasons": []
+    },
+    {
+      "bindingId": "g6b_u01_6b01::single::kp_g6b_u01_decimal_fraction_conversion::PIXEL::numeric",
+      "caseId": "g6b_u01_6b01::single::kp_g6b_u01_decimal_fraction_conversion",
+      "sourceId": "g6b_u01_6b01",
+      "surfaceId": "PIXEL",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g6b_u01_decimal_fraction_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6b_u01_decimal_fraction_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6b_u01_decimal_fraction_conversion_fraction_numeric",
+        "ps_g6b_u01_decimal_fraction_conversion_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "小數與分數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "verifiedCapacityQuestionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": [
+        "P03F32_G6B_U01_MIXED_DOMAIN_CONVERSION_STRUCTURAL_RUNTIME"
+      ],
+      "blocked": false,
+      "blockedReasons": []
+    },
+    {
+      "bindingId": "g6b_u01_6b01::sourceUnit::CLASSIC::numeric",
+      "caseId": "g6b_u01_6b01::sourceUnit",
+      "sourceId": "g6b_u01_6b01",
+      "surfaceId": "CLASSIC",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g6b_u01_decimal_fraction_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6b_u01_decimal_fraction_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6b_u01_decimal_fraction_conversion_fraction_numeric",
+        "ps_g6b_u01_decimal_fraction_conversion_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "小數與分數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "verifiedCapacityQuestionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": [
+        "P03F32_G6B_U01_MIXED_DOMAIN_CONVERSION_STRUCTURAL_RUNTIME"
+      ],
+      "blocked": false,
+      "blockedReasons": []
+    },
+    {
+      "bindingId": "g6b_u01_6b01::sourceUnit::FALLBACK_404::numeric",
+      "caseId": "g6b_u01_6b01::sourceUnit",
+      "sourceId": "g6b_u01_6b01",
+      "surfaceId": "FALLBACK_404",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g6b_u01_decimal_fraction_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6b_u01_decimal_fraction_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6b_u01_decimal_fraction_conversion_fraction_numeric",
+        "ps_g6b_u01_decimal_fraction_conversion_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "小數與分數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "verifiedCapacityQuestionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": [
+        "P03F32_G6B_U01_MIXED_DOMAIN_CONVERSION_STRUCTURAL_RUNTIME"
+      ],
+      "blocked": false,
+      "blockedReasons": []
+    },
+    {
+      "bindingId": "g6b_u01_6b01::sourceUnit::PIXEL::numeric",
+      "caseId": "g6b_u01_6b01::sourceUnit",
+      "sourceId": "g6b_u01_6b01",
+      "surfaceId": "PIXEL",
+      "selectionMode": "sourceUnit",
+      "selectedKnowledgePointIds": [
+        "kp_g6b_u01_decimal_fraction_conversion"
+      ],
+      "selectedKnowledgePointCount": 1,
+      "questionType": "numeric",
+      "questionTypeLabel": "數字題",
+      "compatiblePatternGroupIds": [
+        "pg_g6b_u01_decimal_fraction_conversion_numeric"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g6b_u01_decimal_fraction_conversion_fraction_numeric",
+        "ps_g6b_u01_decimal_fraction_conversion_decimal_numeric"
+      ],
+      "questionFormLabels": [
+        "小數與分數互換"
+      ],
+      "depthModes": [],
+      "contextModes": [],
+      "questionCountMin": 1,
+      "questionCountDefault": 20,
+      "questionCountMax": 240,
+      "verifiedCapacityQuestionCountMax": 240,
+      "capacityStatus": "STRUCTURAL_FALLBACK_AVAILABLE",
+      "capacityRouteIds": [],
+      "capacityQualityStatuses": [
+        "P03F32_G6B_U01_MIXED_DOMAIN_CONVERSION_STRUCTURAL_RUNTIME"
+      ],
+      "blocked": false,
+      "blockedReasons": []
     }
   ],
   "capacityAuthority": "site/modules/curriculum/public/public-generator-capacity-registry.js",
@@ -51576,12 +51792,19 @@
     "status": "PASS_R06_A07_GLOBAL_LIVE_RUNTIME_RECONCILED_AND_D0_CLOSED"
   },
   "r06TerminalStatus": "D0_CLOSED",
-  "bindingRevision": "pgc-r02-r04-p03f31",
+  "bindingRevision": "pgc-r02-r05-p03f32",
   "currentAuthorityPatch": {
-    "task": "P03F_W3DirectProductVerticalSlice031Implementation",
-    "sourceId": "g5b_u04_5b04",
-    "knowledgePointId": "kp_g5b_u04_decimal_times_integer",
+    "task": "P03F_W3DirectProductVerticalSlice032Implementation",
+    "sourceId": "g6b_u01_6b01",
+    "knowledgePointId": "kp_g6b_u01_decimal_fraction_conversion",
     "addedBindingRowCount": 6,
-    "capacityPolicy": "STRUCTURAL_FALLBACK_UNDER_EXISTING_R03_R06_TERMINAL_LINEAGE"
+    "capacityPolicy": "STRUCTURAL_FALLBACK_UNDER_EXISTING_R03_R06_TERMINAL_LINEAGE",
+    "learnerActions": [
+      "TO_FRACTION",
+      "TO_DECIMAL"
+    ],
+    "compareLearnerSurfaceAllowed": false,
+    "arithmeticMutationAllowed": false,
+    "applicationExpansionAllowed": false
   }
 }
