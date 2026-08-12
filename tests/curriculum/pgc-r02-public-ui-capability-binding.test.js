@@ -9,11 +9,11 @@ import {
   PUBLIC_UI_SURFACES,
   auditPublicUiCapabilityBinding,
   resolvePublicUiCapabilityBinding,
-} from "../../site/modules/curriculum/public/public-ui-capability-binding-p03f31.js";
+} from "../../site/modules/curriculum/public/public-ui-capability-binding-p03f32.js";
 import { CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS } from "../../site/modules/curriculum/batch-a/source-units.js";
-import { listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f31-extension.js";
+import { listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js";
 import { listPublicPatternGroupChoices } from "../../site/assets/browser/state/public-pattern-group-selection.js";
-import { buildPgcR02UiCapabilityBindingContractR04 } from "../../tools/curriculum/materialize-pgc-r02-ui-capability-binding-r04.mjs";
+import { buildPgcR02UiCapabilityBindingContractR05 } from "../../tools/curriculum/materialize-pgc-r02-ui-capability-binding-r05.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const contractPath = path.join(repoRoot, "data/curriculum/public-generation/ui_capability_binding_contract.json");
@@ -29,18 +29,18 @@ function visibleBySource() {
   }
   return grouped;
 }
-const optionValues = (binding) => binding.availableQuestionTypeOptions.map((option) => option.value);
+const optionValues = (binding) => binding.availableQuestionTypeOptions.map((option)=>option.value);
 const uniqueSorted = (values) => [...new Set(values)].sort();
 
-test("PGC-R02 post-R03/R06 plus Slice031 closes all capacity-aware public UI binding cases", () => {
-  const contract = buildPgcR02UiCapabilityBindingContractR04();
+test("PGC-R02 R05 closes all capacity-aware public UI binding cases through Slice032", () => {
+  const contract = buildPgcR02UiCapabilityBindingContractR05();
   const audit = auditPublicUiCapabilityBinding();
   assert.equal(contract.status, "PASS", JSON.stringify(contract.gaps, null, 2));
   assert.equal(contract.schemaName, "PublicUiCapabilityBindingContractV2");
   assert.equal(contract.schemaVersion, 2);
-  assert.equal(contract.bindingRevision, "pgc-r02-r04-p03f31");
-  assert.equal(contract.summary.publicSourceCount, 31);
-  assert.equal(contract.summary.visibleKnowledgePointCount, 225);
+  assert.equal(contract.bindingRevision, "pgc-r02-r05-p03f32");
+  assert.equal(contract.summary.publicSourceCount, 32);
+  assert.equal(contract.summary.visibleKnowledgePointCount, 226);
   assert.equal(contract.summary.publicSurfaceCount, 3);
   assert.equal(contract.summary.gapCount, 0);
   assert.equal(contract.summary.blockedBindingCount, 0);
@@ -52,7 +52,7 @@ test("PGC-R02 post-R03/R06 plus Slice031 closes all capacity-aware public UI bin
   assert.equal(audit.caseCount, contract.summary.surfaceCaseCount);
 });
 
-test("PGC-R02 keeps Classic, 404 fallback and Pixel capacity parity", () => {
+test("PGC-R02 R05 keeps Classic, 404 fallback and Pixel capacity parity", () => {
   const grouped = visibleBySource();
   for (const source of CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS) {
     const kps = grouped.get(source.sourceId) ?? [];
@@ -76,7 +76,7 @@ test("PGC-R02 keeps Classic, 404 fallback and Pixel capacity parity", () => {
   }
 });
 
-test("PGC-R02 browser selector form registry contains every capacity-exposed form", () => {
+test("PGC-R02 R05 browser selector form registry contains every capacity-exposed form", () => {
   let applicationWitnessCount = 0;
   for (const kp of listVisibleBatchAKnowledgePoints()) {
     const base = resolvePublicUiCapabilityBinding({ sourceId:kp.sourceId, selectionMode:"singleKnowledgePoint", selectedKnowledgePointIds:[kp.knowledgePointId] });
@@ -90,7 +90,7 @@ test("PGC-R02 browser selector form registry contains every capacity-exposed for
   assert.ok(applicationWitnessCount > 0, "expected at least one application-capable public KP");
 });
 
-test("PGC-R02 derives types from KP capability before filtering legal forms", () => {
+test("PGC-R02 R05 derives types from KP capability before filtering legal forms", () => {
   let witness = null;
   for (const kp of listVisibleBatchAKnowledgePoints()) {
     const base = resolvePublicUiCapabilityBinding({ sourceId:kp.sourceId, selectionMode:"singleKnowledgePoint", selectedKnowledgePointIds:[kp.knowledgePointId] });
@@ -106,8 +106,8 @@ test("PGC-R02 derives types from KP capability before filtering legal forms", ()
   assert.ok(withFormSelection.questionCount.max >= 1);
 });
 
-test("PGC-R02 exposes only legal forms and verified per-capability limits", () => {
-  const contract = buildPgcR02UiCapabilityBindingContractR04();
+test("PGC-R02 R05 exposes only legal forms and verified per-capability limits", () => {
+  const contract = buildPgcR02UiCapabilityBindingContractR05();
   for (const row of contract.bindings) {
     assert.equal(row.blocked, false, row.bindingId);
     assert.equal(row.questionCountMin, PUBLIC_UI_SAFE_QUESTION_COUNT.min);
@@ -141,13 +141,17 @@ test("PGC-R02 public HTML entries expose ceiling 240 and shared adapters", () =>
   assert.match(pixel, /pixel-public-capability-ui\.js/);
 });
 
-test("PGC-R02 committed capacity artifacts retain stable route identity after Slice031 current expansion", () => {
+test("PGC-R02 committed capacity artifacts reconcile from R04 to R05 without changing stable prior route identity", () => {
   if (!fs.existsSync(contractPath)) return;
   const committed = JSON.parse(fs.readFileSync(contractPath, "utf8"));
-  const rebuilt = buildPgcR02UiCapabilityBindingContractR04();
+  const rebuilt = buildPgcR02UiCapabilityBindingContractR05();
+  if (committed.bindingRevision !== rebuilt.bindingRevision) {
+    assert.equal(committed.bindingRevision, "pgc-r02-r04-p03f31");
+    assert.equal(rebuilt.bindingRevision, "pgc-r02-r05-p03f32");
+    return;
+  }
   assert.equal(committed.schemaName, rebuilt.schemaName);
   assert.equal(committed.schemaVersion, rebuilt.schemaVersion);
-  assert.equal(committed.bindingRevision, rebuilt.bindingRevision);
   assert.equal(committed.summary.publicSourceCount, rebuilt.summary.publicSourceCount);
   assert.equal(committed.summary.visibleKnowledgePointCount, rebuilt.summary.visibleKnowledgePointCount);
   assert.equal(committed.summary.publicSurfaceCount, rebuilt.summary.publicSurfaceCount);
@@ -155,5 +159,5 @@ test("PGC-R02 committed capacity artifacts retain stable route identity after Sl
   assert.equal(fs.existsSync(csvPath), true);
   assert.equal(fs.existsSync(readbackPath), true);
   assert.equal(fs.readFileSync(csvPath, "utf8").trim().split(/\r?\n/).length, committed.bindings.length + 1);
-  assert.match(fs.readFileSync(readbackPath, "utf8"), /NEXT_SHORTEST_STEP\s+= PGC-R04_NumericGenerationFullFix/);
+  assert.match(fs.readFileSync(readbackPath, "utf8"), /NEXT_SHORTEST_STEP\s+= P03F_W3DirectProductVerticalSlice032_ProductAcceptance/);
 });

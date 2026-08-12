@@ -24,8 +24,8 @@ import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curricul
 import { resolvePublicUiCapabilityBinding, PUBLIC_UI_SURFACES } from "../../site/modules/curriculum/public/public-ui-capability-binding-p03f31.js";
 import { listCurrentPixelSourceOptions, listPixelKnowledgePointsForSource } from "../../site/pixel/pixel-registry-bridge.js";
 import { CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS } from "../../site/modules/curriculum/batch-a/source-units.js";
-import { buildPublicGenerationCapabilityMatrixV5 } from "../../tools/curriculum/materialize-pgc-r01-public-capability-matrix-v5.mjs";
-import { buildPgcR02UiCapabilityBindingContractR04 } from "../../tools/curriculum/materialize-pgc-r02-ui-capability-binding-r04.mjs";
+import { buildPublicGenerationCapabilityMatrixV6 } from "../../tools/curriculum/materialize-pgc-r01-public-capability-matrix-v6.mjs";
+import { buildPgcR02UiCapabilityBindingContractR05 } from "../../tools/curriculum/materialize-pgc-r02-ui-capability-binding-r05.mjs";
 
 const predecessor = JSON.parse(fs.readFileSync(new URL("../../data/curriculum/final-milestone-claims/p03f-w3-slice030-e6-d0-v1.json", import.meta.url), "utf8"));
 const plan = (overrides = {}) => ({
@@ -49,7 +49,7 @@ test("P03F31 consumes queue position 31 only after Slice030 D0", () => {
   assert.equal(predecessor.nextResumeTask, "P03F_W3DirectProductVerticalSlice031Implementation");
 });
 
-test("P03F31 selector admits exactly one numeric source-backed KP", () => {
+test("P03F31 historical selector admits exactly one numeric source-backed KP", () => {
   const audit = auditG5BU04P03F31SelectorProjection();
   assert.equal(audit.ok, true, JSON.stringify(audit.errors));
   assert.deepEqual(audit.counts, { knowledgePoints:1, patternGroups:1, patternSpecs:1, numeric:1, application:0 });
@@ -65,10 +65,10 @@ test("P03F31 selector admits exactly one numeric source-backed KP", () => {
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 225);
 });
 
-test("P03F31 current source and Pixel inventories expand monotonically to 31/225", () => {
-  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 31);
+test("P03F31 current source and Pixel inventories expand monotonically through Slice032 to 32 sources", () => {
+  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 32);
   assert.ok(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.some((row) => row.sourceId === G5B_U04_P03F31_SOURCE_ID));
-  assert.equal(listCurrentPixelSourceOptions().length, 31);
+  assert.equal(listCurrentPixelSourceOptions().length, 32);
   const pixelKps = listPixelKnowledgePointsForSource(G5B_U04_P03F31_SOURCE_ID);
   assert.equal(pixelKps.length, 1);
   assert.equal(pixelKps[0].knowledgePointId, G5B_U04_P03F31_KP_ID);
@@ -127,10 +127,10 @@ test("P03F31 stable worksheet entry produces printable questions and answer key"
   assert.equal(result.worksheetDocument.metadata.applicationExpansion, false);
 });
 
-test("P03F31 R01 V5 current authority accounts 31 sources and 225 KPs without gaps", () => {
-  const matrix = buildPublicGenerationCapabilityMatrixV5();
-  assert.equal(matrix.summary.publicSourceCount, 31);
-  assert.equal(matrix.summary.publicVisibleKnowledgePointCount, 225);
+test("P03F31 remains fully accounted after R01 V6 advances current authority to Slice032", () => {
+  const matrix = buildPublicGenerationCapabilityMatrixV6();
+  assert.equal(matrix.summary.publicSourceCount, 32);
+  assert.equal(matrix.summary.publicVisibleKnowledgePointCount, 226);
   assert.equal(matrix.summary.blockingGapCount, 0, JSON.stringify(matrix.gaps.filter((gap) => gap.severity === "blocking_r01")));
   const rows = matrix.capabilities.filter((row) => row.knowledgePointId === G5B_U04_P03F31_KP_ID);
   assert.equal(rows.length, 3);
@@ -138,11 +138,11 @@ test("P03F31 R01 V5 current authority accounts 31 sources and 225 KPs without ga
   assert.ok(rows.every((row) => row.patternSpecId === G5B_U04_P03F31_SPEC_ID && row.questionType === "NUMERIC"));
 });
 
-test("P03F31 R02 R04 current binding accounts the new source with zero gaps", () => {
-  const contract = buildPgcR02UiCapabilityBindingContractR04();
+test("P03F31 remains fully bound after R02 R05 advances current binding to Slice032", () => {
+  const contract = buildPgcR02UiCapabilityBindingContractR05();
   assert.equal(contract.status, "PASS", JSON.stringify(contract.gaps));
-  assert.equal(contract.summary.publicSourceCount, 31);
-  assert.equal(contract.summary.visibleKnowledgePointCount, 225);
+  assert.equal(contract.summary.publicSourceCount, 32);
+  assert.equal(contract.summary.visibleKnowledgePointCount, 226);
   assert.equal(contract.summary.gapCount, 0);
   const rows = contract.bindings.filter((row) => row.sourceId === G5B_U04_P03F31_SOURCE_ID);
   assert.equal(rows.length, 6);
@@ -152,7 +152,7 @@ test("P03F31 R02 R04 current binding accounts the new source with zero gaps", ()
 test("P03F31 does not admit later G5B-U04 decimal multiplication capabilities", () => {
   const corpus = JSON.stringify({
     selector:listVisibleBatchAKnowledgePoints().filter((row)=>row.sourceId===G5B_U04_P03F31_SOURCE_ID),
-    capabilities:buildPublicGenerationCapabilityMatrixV5().capabilities.filter((row)=>row.sourceId===G5B_U04_P03F31_SOURCE_ID),
+    capabilities:buildPublicGenerationCapabilityMatrixV6().capabilities.filter((row)=>row.sourceId===G5B_U04_P03F31_SOURCE_ID),
   });
   assert.doesNotMatch(corpus, /kp_g5b_u04_integer_times_decimal/);
   assert.doesNotMatch(corpus, /kp_g5b_u04_decimal_times_decimal/);

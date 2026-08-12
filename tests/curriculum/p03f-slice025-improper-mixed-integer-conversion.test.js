@@ -119,12 +119,7 @@ test("P03F25 public binding exposes both G4A-U06 KPs while single conversion sel
   assert.equal(source.blocked, false);
   assert.equal(source.selectedKnowledgePointCount, 2);
   assert.equal(source.compatiblePatternGroupIds.includes(G4A_U06_P03F25_GROUP_ID), true);
-  const single = resolvePublicUiCapabilityBinding({
-    sourceId,
-    surfaceId: "PIXEL",
-    selectionMode: "singleKnowledgePoint",
-    selectedKnowledgePointIds: [G4A_U06_P03F25_KP_ID],
-  });
+  const single = resolvePublicUiCapabilityBinding({ sourceId, surfaceId: "PIXEL", selectionMode: "singleKnowledgePoint", selectedKnowledgePointIds: [G4A_U06_P03F25_KP_ID] });
   assert.equal(single.blocked, false);
   assert.deepEqual(single.selectedKnowledgePointIds, [G4A_U06_P03F25_KP_ID]);
   assert.deepEqual(single.compatiblePatternGroupIds, [G4A_U06_P03F25_GROUP_ID]);
@@ -141,12 +136,12 @@ test("P03F25 shared worksheet produces printable questions and answer key", () =
   assert.equal(result.worksheetDocument.metadata.knowledgePointIds.includes(G4A_U06_P03F25_KP_ID), true);
 });
 
-test("P03F25 current Pixel projection preserves two G4A-U06 KPs while current public total advances through Slice031 to 225", () => {
+test("P03F25 current Pixel projection preserves two G4A-U06 KPs while current public total advances through Slice032 to 226", () => {
   const rows = listPixelKnowledgePointsForSource(sourceId);
   assert.equal(rows.length, 2);
   assert.equal(rows.some((row) => row.knowledgePointId === G4A_U06_P03F25_KP_ID), true);
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 31);
-  assert.equal(snapshot.visibleKnowledgePointCount, 225);
+  assert.equal(snapshot.sourceCount, 32);
+  assert.equal(snapshot.visibleKnowledgePointCount, 226);
   assert.equal(snapshot.bySourceId[sourceId].visibleKnowledgePoints.length, 2);
 });
