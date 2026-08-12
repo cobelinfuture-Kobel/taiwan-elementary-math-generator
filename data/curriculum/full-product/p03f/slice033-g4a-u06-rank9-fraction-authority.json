@@ -24,7 +24,7 @@
     "sourceNodeId": "g4a_u06_4a06",
     "sourceCode": "4a06",
     "sourceTitle": "假分數與帶分數",
-    "reviewMethod": "EXISTING_PAGE_EVIDENCE_AND_CANONICAL_OPERATION_READBACK",
+    "reviewMethod": "EXISTING_PAGE_EVIDENCE_AND_CANONICAL_HIDDEN_PATTERNSPEC_READBACK",
     "reviewedPages": [1, 2]
   },
   "knowledgePoints": [
@@ -34,6 +34,8 @@
       "canonicalNameZh": "假分數與帶分數比較排序",
       "operationModelId": "op_g4a_u06_fraction_compare_order",
       "operationFamilyId": "fraction_compare",
+      "numericPatternSpecIds": ["ps_g4a_u06_fraction_compare_order_comparison_numeric"],
+      "hiddenApplicationPatternSpecIds": ["ps_g4a_u06_fraction_compare_order_comparison_application"],
       "applicationClassification": "APPLICATION_COMPATIBLE",
       "publicModes": ["numeric"],
       "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"]
@@ -44,6 +46,11 @@
       "canonicalNameZh": "分數數線定位",
       "operationModelId": "op_g4a_u06_fraction_number_line",
       "operationFamilyId": "number_line",
+      "numericPatternSpecIds": [
+        "ps_g4a_u06_fraction_number_line_coordinate_numeric",
+        "ps_g4a_u06_fraction_number_line_distance_numeric"
+      ],
+      "hiddenApplicationPatternSpecIds": [],
       "applicationClassification": "APPLICATION_NOT_APPLICABLE",
       "publicModes": ["numeric"],
       "requiredW3CapabilityIds": ["cap_fraction_domain_validator", "cap_fraction_number_system"]
@@ -54,6 +61,8 @@
       "canonicalNameZh": "同分母帶分數加減",
       "operationModelId": "op_g4a_u06_mixed_fraction_add_sub",
       "operationFamilyId": "fraction_add_sub",
+      "numericPatternSpecIds": ["ps_g4a_u06_mixed_fraction_add_sub_result_numeric"],
+      "hiddenApplicationPatternSpecIds": ["ps_g4a_u06_mixed_fraction_add_sub_result_application"],
       "applicationClassification": "APPLICATION_COMPATIBLE",
       "publicModes": ["numeric"],
       "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"]
@@ -62,10 +71,12 @@
   "patternContract": {
     "knowledgePointCount": 3,
     "patternGroupCount": 3,
-    "patternSpecCount": 5,
-    "numericPatternSpecCount": 5,
+    "patternSpecCount": 4,
+    "numericPatternSpecCount": 4,
     "applicationPatternSpecCount": 0,
     "requestedUnknownRoles": ["comparison", "coordinate", "distance", "result"],
+    "numericPatternSpecsReuseExistingHiddenAuthority": true,
+    "newPatternSpecAuthored": false,
     "globalContextRequired": false,
     "hiddenApplicationSpecsRemainHidden": true
   },
