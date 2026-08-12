@@ -9,19 +9,19 @@ STATUS     = PASS_WITH_DOWNSTREAM_GAPS
 ## Matrix summary
 
 ```text
-PUBLIC_SOURCES                    = 31
-VISIBLE_KNOWLEDGE_POINTS          = 225
-VISIBLE_KP_SURFACE_ACCOUNTED      = 675 / 675
-CAPABILITY_ROWS                   = 1413
-UNIQUE_PATTERN_GROUPS             = 284
-UNIQUE_PATTERN_SPECS              = 418
-UI_OPTIONS_ACCOUNTED              = 168 / 168
+PUBLIC_SOURCES                    = 32
+VISIBLE_KNOWLEDGE_POINTS          = 226
+VISIBLE_KP_SURFACE_ACCOUNTED      = 678 / 678
+CAPABILITY_ROWS                   = 1419
+UNIQUE_PATTERN_GROUPS             = 285
+UNIQUE_PATTERN_SPECS              = 420
+UI_OPTIONS_ACCOUNTED              = 171 / 171
 BLOCKING_R01_GAPS                 = 0
 R02_UI_BINDING_GAPS               = 56
-R03_CAPACITY_UNVERIFIED           = 1413
+R03_CAPACITY_UNVERIFIED           = 1419
 ```
 
-Slice031 adds one source-backed numeric decimal-times-integer KnowledgePoint on Classic, fallback 404 and Pixel without admitting integer-times-decimal, decimal-times-decimal, application, estimation, depth or context surfaces.
+Slice032 adds exactly one G6B-U01 decimal/fraction conversion KnowledgePoint with two numeric PatternSpecs on Classic, fallback 404 and Pixel. Compare, mixed arithmetic, application, estimation and Global Context remain reserved.
 
 ## Gap classes
 
@@ -33,10 +33,10 @@ Slice031 adds one source-backed numeric decimal-times-integer KnowledgePoint on 
 ## Distance update
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE031_SOURCE_BACKED_RUNTIME_CANDIDATE
-GOAL_DISTANCE_AFTER  = D1_SLICE031_CURRENT_R01_AUTHORITY_MATERIALIZED
-DISTANCE_REDUCED     = current public source/KP capability authority now accounts for the Slice031 decimal-times-integer surface
-REMAINING_BLOCKERS   = [PGC-R02_CURRENT_BINDING_RECONCILIATION, SLICE031_PRODUCT_ACCEPTANCE]
-NEXT_SHORTEST_STEP   = PGC-R02 Slice031 current binding materialization
+GOAL_DISTANCE_BEFORE = D1_SLICE032_RUNTIME_CONNECTED_CURRENT_AUTHORITY_PENDING
+GOAL_DISTANCE_AFTER  = D1_SLICE032_CURRENT_R01_AUTHORITY_MATERIALIZED
+DISTANCE_REDUCED     = current public capability authority now accounts for exact decimal/fraction conversion on 32 sources / 226 visible KPs
+REMAINING_BLOCKERS   = [PGC-R02_CURRENT_BINDING_RECONCILIATION, SLICE032_PRODUCT_ACCEPTANCE]
+NEXT_SHORTEST_STEP   = PGC-R02 Slice032 current binding materialization
 ```
 
