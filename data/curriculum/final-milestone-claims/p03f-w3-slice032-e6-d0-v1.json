@@ -1,0 +1,163 @@
+{
+  "claimId": "P03F-W3-SLICE032-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice032Implementation",
+  "e6MilestoneId": "P03F_W3DirectProductVerticalSlice032_E6_D0Closeout",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D1",
+  "scope": "Slice032 only: admit g6b_u01_6b01 decimal/fraction exact conversion through one numeric PatternGroup with two learner-facing PatternSpecs (TO_FRACTION and TO_DECIMAL) using the shared mixed-domain normalization path. Compare/order, mixed decimal/fraction arithmetic, application, estimation, Global Context expansion, later-wave mixed-domain expression work, and Slice033 implementation remain outside Slice032.",
+  "authority": {
+    "path": "data/curriculum/full-product/p03f/slice032-g6b-u01-rank8-mixed-domain-authority.json",
+    "queuePosition": 32,
+    "queueEntryId": "p03e_q032_r8_g6b_u01_6b01_profile_mixed_number_domain_c1",
+    "sourceRef": "g6b_u01_6b01",
+    "sourceTitle": "小數與分數的計算",
+    "knowledgePointIds": ["kp_g6b_u01_decimal_fraction_conversion"],
+    "patternGroupIds": ["pg_g6b_u01_decimal_fraction_conversion_numeric"],
+    "patternSpecIds": [
+      "ps_g6b_u01_decimal_fraction_conversion_fraction_numeric",
+      "ps_g6b_u01_decimal_fraction_conversion_decimal_numeric"
+    ],
+    "requiredCapabilityIds": [
+      "cap_decimal_domain_validator",
+      "cap_decimal_number_system",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system",
+      "cap_mixed_number_domain_normalization"
+    ],
+    "expectedPublicSourceCount": 32,
+    "expectedVisibleKnowledgePointCount": 226
+  },
+  "implementationEvidence": {
+    "prNumber": 578,
+    "headSha": "dc85107da64c718ee3654a8115959b1f8c49170b",
+    "mergeSha": "0849b65c7755deb031c33b007ab375858f784221",
+    "mergeMethod": "squash",
+    "runtimePath": "site/modules/curriculum/batch-a/g6b-u01-rank8-decimal-fraction-conversion-runtime-p03f32.js",
+    "runtimeBlobShaOnMain": "e9bd4381888af66e9a7931a7813debc41429be3b",
+    "node": {
+      "runId": 31553853021,
+      "jobId": 93982065246,
+      "status": "SUCCESS",
+      "tests": 3043,
+      "pass": 3043,
+      "fail": 0,
+      "skipped": 0,
+      "diagnosticsArtifactId": 9125305932,
+      "diagnosticsDigest": "sha256:603a96b30c24964e45873965cdf836564c3d7a17bff16de67aaa39264483bb7f"
+    },
+    "productAcceptance": {
+      "runId": 31553852989,
+      "jobId": 93982067200,
+      "status": "SUCCESS",
+      "artifactId": 9125263728,
+      "artifactName": "p03f-slice032-product-acceptance",
+      "artifactDigest": "sha256:782a48c9a60c85fc24914810a21759fe90560dec2363835c15d8aab50e522e59",
+      "reportSchema": "P03FSlice032ChromiumProductAcceptanceReportV1",
+      "questionCount": 24,
+      "answerKeyItemCount": 24,
+      "uniqueQuestionCount": 24,
+      "toFractionQuestionCount": 12,
+      "toDecimalQuestionCount": 12,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "physicalPdfPageCount": 6,
+      "screenshotCount": 6,
+      "htmlSha256": "aa30f5396a0b9a0e154658927bc57376c7754bbbd860f195cd72d5c2636f5d9e",
+      "pdfSha256": "f4039955d29907851f59d194816e96a033cc523f074dedc37df79c28472ad738",
+      "pdfByteLength": 72689,
+      "conversionFindingCount": 0,
+      "crossLayerMismatchCount": 0,
+      "duplicatePromptFindingCount": 0,
+      "overflowFindingCount": 0,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "semanticScopeFindingCount": 0,
+      "applicationLeakFindingCount": 0,
+      "compareLeakFindingCount": 0,
+      "arithmeticLeakFindingCount": 0,
+      "manualVisualReview": {
+        "status": "PASS",
+        "pagesReviewed": 6,
+        "clippedTextFindingCount": 0,
+        "overlapFindingCount": 0,
+        "brokenGlyphFindingCount": 0,
+        "sourceWitnessVisibleAndAnswerAligned": true
+      }
+    },
+    "r00FrozenReplay": {
+      "runId": 31553852958,
+      "jobId": 93986287000,
+      "status": "SUCCESS",
+      "artifactId": 9126052632,
+      "artifactName": "pgc-r09-a01-exact-head-execution-31553852958",
+      "artifactDigest": "sha256:76fdb0ca10ff963a3b6d7db4c79a595bb913d65422eb4edb526734b3559db4b6",
+      "replayStatus": "PASS_ALL_793_LEGAL_ROUTES",
+      "legalRouteCount": 793,
+      "executedRouteCount": 793,
+      "passRouteCount": 793,
+      "failRouteCount": 0,
+      "fullNineGatePassCount": 793,
+      "browserConsoleErrorCount": 0,
+      "browserPageErrorCount": 0,
+      "exitCode": 0,
+      "retryProvenance": {
+        "acceptedAttempt": 2,
+        "firstAttemptJobId": 93982064651,
+        "firstAttemptFailureClass": "NON_REPRODUCIBLE_PLAYWRIGHT_PAGE_CLICK_TIMEOUT",
+        "firstAttemptFailRouteId": "pgc_r03_g3a_u08_3a08_application_585b4e8fdd0c",
+        "productionCodeChangedForRetry": false
+      }
+    }
+  },
+  "authorityReconciliation": {
+    "prNumber": 579,
+    "headSha": "8abed0e9879198409580bb284979b5712bbd872b",
+    "mergeSha": "e16c1273e842117fab2482a4b102b6454fa2807b",
+    "mergeMethod": "squash",
+    "changedArtifactCount": 6,
+    "node": {
+      "runId": 31557531778,
+      "jobId": 93992871191,
+      "status": "SUCCESS",
+      "tests": 3043,
+      "pass": 3043,
+      "fail": 0,
+      "skipped": 0,
+      "diagnosticsArtifactId": 9126562888,
+      "diagnosticsDigest": "sha256:7a31994aa0eae780c7b849e15a504b64b5ed483265c771b07c4fb7da13ee4e8a"
+    },
+    "r00": {
+      "runId": 31557531772,
+      "jobId": 93992871185,
+      "status": "SUCCESS",
+      "artifactId": 9126848241,
+      "artifactDigest": "sha256:c4ee755beab337a89c5ef39792006a11b6e191a98bc9423969f3a76f683547d2"
+    }
+  },
+  "mainReadback": {
+    "implementationMergeSha": "0849b65c7755deb031c33b007ab375858f784221",
+    "authorityReconciliationMergeSha": "e16c1273e842117fab2482a4b102b6454fa2807b",
+    "r01": {"publicSources": 32, "visibleKnowledgePoints": 226, "capabilityRows": 1419, "gaps": 0},
+    "r02": {"publicSources": 32, "visibleKnowledgePoints": 226, "bindingRows": 1224, "verifiedLimitedBindings": 1062, "structuralFallbackBindings": 162, "gaps": 0, "bindingRevision": "pgc-r02-r05-p03f32"},
+    "runtimeBlobMatchesImplementation": true
+  },
+  "closeoutEvidence": {
+    "candidatePrNumber": null,
+    "candidateHeadSha": null,
+    "candidateMergeSha": null,
+    "candidateNodeRunId": null,
+    "candidateNodeJobId": null,
+    "candidateNodeTests": null,
+    "candidateNodePass": null,
+    "candidateNodeFail": null,
+    "candidateNodeDiagnosticsArtifactId": null,
+    "candidateNodeDiagnosticsDigest": null,
+    "status": "PENDING_CANDIDATE_CI"
+  },
+  "progression": {
+    "nextTask": "P03F_W3DirectProductVerticalSlice033Implementation",
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice032_D0PostMergeReconciliation"
+  }
+}
