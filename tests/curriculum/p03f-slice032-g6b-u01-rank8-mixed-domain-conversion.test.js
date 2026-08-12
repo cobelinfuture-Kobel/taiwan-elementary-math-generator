@@ -60,7 +60,7 @@ const plan = (overrides = {}) => ({
 test("P03F32 consumes queue position 32 only after Slice031 D0", () => {
   assert.equal(predecessor.status, "PASS_D0_CLOSED");
   assert.equal(predecessor.goalDistance, "D0");
-  assert.equal(predecessor.nextResumeTask, "P03F_W3DirectProductVerticalSlice032Implementation");
+  assert.equal(predecessor.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice032Implementation");
 });
 
 test("P03F32 selector admits one KP, one group and exactly two numeric conversion specs", () => {

@@ -31,7 +31,12 @@ test("P03F32 browser-safe mixed-domain normalizer exactly reduces decimal to fra
   for (const [decimal, numerator, denominator] of cases) {
     const result = exactDecimalToFraction(decimal);
     assert.equal(result.ok, true);
-    assert.deepEqual(result.canonicalValue, { numerator, denominator });
+    assert.equal(result.canonicalValue.numerator, numerator);
+    assert.equal(result.canonicalValue.denominator, denominator);
+    assert.equal(result.canonicalValue.numericDomainId, "NON_NEGATIVE_RATIONAL");
+    assert.equal(result.canonicalValue.valueForm, "REDUCED_IMPROPER_FRACTION");
+    assert.equal(result.canonicalValue.isReduced, true);
+    assert.equal(result.canonicalValue.exact, true);
     assert.equal(result.canonicalRationalIdentity, `${numerator}/${denominator}`);
     assert.equal(result.exact, true);
   }
