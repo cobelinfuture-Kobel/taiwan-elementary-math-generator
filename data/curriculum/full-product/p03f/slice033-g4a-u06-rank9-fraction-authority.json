@@ -1,0 +1,95 @@
+{
+  "schemaName": "P03FSlice033G4AU06Rank9FractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice033Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 33,
+    "sliceId": "p03e_q033_r9_g4a_u06_4a06_profile_fraction_c1",
+    "sourceNodeId": "g4a_u06_4a06",
+    "runtimeProfileId": "profile_fraction",
+    "prerequisiteRank": 9,
+    "requiredW3CapabilityIds": [
+      "cap_fraction_arithmetic",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ]
+  },
+  "sourceAuthority": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g4a_u06_4a06.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g4a_u06_4a06.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g4a_u06_4a06.hidden-pattern-spec.json",
+    "sourceNodeId": "g4a_u06_4a06",
+    "sourceCode": "4a06",
+    "sourceTitle": "假分數與帶分數",
+    "reviewMethod": "EXISTING_PAGE_EVIDENCE_AND_CANONICAL_OPERATION_READBACK",
+    "reviewedPages": [1, 2]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_fraction_improper_mixed_compare_order",
+      "sourceCandidateId": "kp_g4a_u06_fraction_compare_order",
+      "canonicalNameZh": "假分數與帶分數比較排序",
+      "operationModelId": "op_g4a_u06_fraction_compare_order",
+      "operationFamilyId": "fraction_compare",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"]
+    },
+    {
+      "knowledgePointId": "kp_fraction_improper_mixed_number_line",
+      "sourceCandidateId": "kp_g4a_u06_fraction_number_line",
+      "canonicalNameZh": "分數數線定位",
+      "operationModelId": "op_g4a_u06_fraction_number_line",
+      "operationFamilyId": "number_line",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_fraction_domain_validator", "cap_fraction_number_system"]
+    },
+    {
+      "knowledgePointId": "kp_fraction_same_denominator_mixed_add_sub",
+      "sourceCandidateId": "kp_g4a_u06_mixed_fraction_add_sub",
+      "canonicalNameZh": "同分母帶分數加減",
+      "operationModelId": "op_g4a_u06_mixed_fraction_add_sub",
+      "operationFamilyId": "fraction_add_sub",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"]
+    }
+  ],
+  "patternContract": {
+    "knowledgePointCount": 3,
+    "patternGroupCount": 3,
+    "patternSpecCount": 5,
+    "numericPatternSpecCount": 5,
+    "applicationPatternSpecCount": 0,
+    "requestedUnknownRoles": ["comparison", "coordinate", "distance", "result"],
+    "globalContextRequired": false,
+    "hiddenApplicationSpecsRemainHidden": true
+  },
+  "publicProjection": {
+    "newSourceAdmission": false,
+    "publicSourceCountBefore": 32,
+    "publicSourceCountAfter": 32,
+    "g4aU06VisibleKnowledgePointsBefore": 2,
+    "g4aU06VisibleKnowledgePointsAfter": 5,
+    "g4aU06HiddenKnowledgePointsBefore": 4,
+    "g4aU06HiddenKnowledgePointsAfter": 1,
+    "currentPublicKnowledgePointCountBefore": 226,
+    "currentPublicKnowledgePointCountAfter": 229
+  },
+  "runtimeBoundary": {
+    "sharedFractionArithmeticRequired": true,
+    "sharedFractionNumberSystemRequired": true,
+    "sharedFractionDomainValidatorRequired": true,
+    "sharedWorksheetRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "fractionTimesIntegerQuantityAllowed": false,
+    "parallelPipelineAllowed": false,
+    "historicalSliceMutationAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}
