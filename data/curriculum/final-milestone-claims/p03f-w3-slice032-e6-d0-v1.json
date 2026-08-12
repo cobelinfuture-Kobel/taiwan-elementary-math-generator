@@ -3,8 +3,8 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice032Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice032_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice032 only: admit g6b_u01_6b01 decimal/fraction exact conversion through one numeric PatternGroup with two learner-facing PatternSpecs (TO_FRACTION and TO_DECIMAL) using the shared mixed-domain normalization path. Compare/order, mixed decimal/fraction arithmetic, application, estimation, Global Context expansion, later-wave mixed-domain expression work, and Slice033 implementation remain outside Slice032.",
   "authority": {
     "path": "data/curriculum/full-product/p03f/slice032-g6b-u01-rank8-mixed-domain-authority.json",
@@ -143,21 +143,21 @@
     "runtimeBlobMatchesImplementation": true
   },
   "closeoutEvidence": {
-    "candidatePrNumber": null,
-    "candidateHeadSha": null,
-    "candidateMergeSha": null,
-    "candidateNodeRunId": null,
-    "candidateNodeJobId": null,
-    "candidateNodeTests": null,
-    "candidateNodePass": null,
-    "candidateNodeFail": null,
-    "candidateNodeDiagnosticsArtifactId": null,
-    "candidateNodeDiagnosticsDigest": null,
-    "status": "PENDING_CANDIDATE_CI"
+    "candidatePrNumber": 580,
+    "candidateHeadSha": "c3e7c7f47e000191afadf84386911bce3673e1ce",
+    "candidateMergeSha": "481e24ad093ff00ec596cf6a9199c273d81e6bb1",
+    "candidateNodeRunId": 31559230867,
+    "candidateNodeJobId": 93998004127,
+    "candidateNodeTests": 3051,
+    "candidateNodePass": 3051,
+    "candidateNodeFail": 0,
+    "candidateNodeDiagnosticsArtifactId": 9127179196,
+    "candidateNodeDiagnosticsDigest": "sha256:67f00a2fdf711061fad71ca52d699e559812f3f162611e41f69094ad594977e9",
+    "status": "PASS_CANDIDATE_CI_MERGED"
   },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice033Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice032_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice033Implementation"
   }
 }

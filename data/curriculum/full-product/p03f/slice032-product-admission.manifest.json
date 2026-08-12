@@ -2,9 +2,9 @@
   "schemaName": "P03FSlice032ProductAdmissionManifestV1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice032Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "admissionState": "ADMITTED_D0",
+  "goalDistance": "D0",
   "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice032-e6-d0-v1.json",
   "readbackPath": "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE032_READBACK.md",
   "authorityPath": "data/curriculum/full-product/p03f/slice032-g6b-u01-rank8-mixed-domain-authority.json",
@@ -57,21 +57,21 @@
     "exitCode": 0
   },
   "closeoutPr": {
-    "number": null,
-    "headSha": null,
-    "mergeSha": null,
-    "nodeRunId": null,
-    "nodeJobId": null,
-    "tests": null,
-    "pass": null,
-    "fail": null,
-    "diagnosticsArtifactId": null,
-    "diagnosticsDigest": null,
-    "status": "PENDING_CANDIDATE_CI"
+    "number": 580,
+    "headSha": "c3e7c7f47e000191afadf84386911bce3673e1ce",
+    "mergeSha": "481e24ad093ff00ec596cf6a9199c273d81e6bb1",
+    "nodeRunId": 31559230867,
+    "nodeJobId": 93998004127,
+    "tests": 3051,
+    "pass": 3051,
+    "fail": 0,
+    "diagnosticsArtifactId": 9127179196,
+    "diagnosticsDigest": "sha256:67f00a2fdf711061fad71ca52d699e559812f3f162611e41f69094ad594977e9",
+    "status": "PASS_CI_SYNCED_AND_MERGED"
   },
   "productionAdmission": {
-    "slice032Admitted": false,
-    "slice033MayStart": false
+    "slice032Admitted": true,
+    "slice033MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice032_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice033Implementation"
 }
