@@ -1,4 +1,4 @@
-# P03F W3 Direct Product Vertical Slice032 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice032 — D0 Final Readback
 
 ## Status
 
@@ -7,14 +7,14 @@ PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID = P03F_W3DirectProductVerticalSlice032Implementation
 E6_MILESTONE_ID = P03F_W3DirectProductVerticalSlice032_E6_D0Closeout
 
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
-ADMISSION_STATE = PENDING_D0_RECONCILIATION
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
+ADMISSION_STATE = ADMITTED_D0
 ```
 
-Slice032 has implementation E2E evidence, merged runtime identity, and merged R01/R02 current-authority reconciliation. This file is still a closeout candidate: it does not admit Slice032 at D0 and does not start Slice033.
+Slice032 is formally closed at D0. The final state binds implementation E2E evidence, exact-head product acceptance, merged R01/R02 authority reconciliation, candidate closeout CI/merge, and runtime identity on main. This reconciliation does not start Slice033.
 
-## Frozen Slice032 identity
+## Admitted Slice032 identity
 
 ```text
 QUEUE_POSITION = 32
@@ -136,7 +136,6 @@ FULL_NINE_GATE = 793
 EXIT_CODE = 0
 BROWSER_CONSOLE_ERRORS = 0
 BROWSER_PAGE_ERRORS = 0
-
 PRODUCTION_CODE_CHANGED_FOR_RETRY = false
 ```
 
@@ -182,7 +181,26 @@ R02_BINDING_REVISION = pgc-r02-r05-p03f32
 RUNTIME_BLOB_MATCHES_IMPLEMENTATION = true
 ```
 
-## Candidate End-to-End conclusion
+## D0 closeout reconciliation
+
+```text
+CLOSEOUT_PR = #580
+CLOSEOUT_HEAD = c3e7c7f47e000191afadf84386911bce3673e1ce
+CLOSEOUT_NODE_RUN = 31559230867
+CLOSEOUT_NODE_JOB = 93998004127
+CLOSEOUT_FULL_REGRESSION = 3051 / 3051 PASS
+CLOSEOUT_DIAGNOSTICS = 9127179196
+CLOSEOUT_DIAGNOSTICS_SHA = sha256:67f00a2fdf711061fad71ca52d699e559812f3f162611e41f69094ad594977e9
+CLOSEOUT_MERGE_SHA = 481e24ad093ff00ec596cf6a9199c273d81e6bb1
+
+SLICE032_ADMITTED_D0 = true
+SLICE033_MAY_START = true
+SLICE033_STARTED_BY_THIS_RECONCILIATION = false
+```
+
+The candidate PR changed exactly four closeout files and passed the full Node regression. This post-merge reconciliation changes only the final claim, manifest, and readback. It changes no runtime, selector, PatternSpec, generator, validator, worksheet, renderer, workflow, current-authority artifact, or Slice033 implementation.
+
+## End-to-End D0 conclusion
 
 ```text
 SOURCE / KP AUTHORITY = PASS
@@ -198,19 +216,23 @@ IMPLEMENTATION CI = PASS
 IMPLEMENTATION MERGE = PASS
 AUTHORITY RECONCILIATION CI = PASS
 AUTHORITY RECONCILIATION MERGE = PASS
+CLOSEOUT CI = PASS
+CANDIDATE MERGE = PASS
 
 SLICE032_E2E_CANDIDATE = PASS
-SLICE032_E2E_D0 = PENDING_CLOSEOUT_CI_AND_POST_MERGE_RECONCILIATION
+SLICE032_E2E_D0 = PASS
 ```
 
-## Candidate distance
+`SLICE032_E2E_CANDIDATE = PASS` is retained as the accepted predecessor evidence marker; `SLICE032_E2E_D0 = PASS` is the final admitted state.
+
+## Distance closeout
 
 ```text
-GOAL_DISTANCE_BEFORE = D1_SLICE032_IMPLEMENTATION_AND_AUTHORITY_RECONCILED
-GOAL_DISTANCE_AFTER  = D1_SLICE032_D0_CLOSEOUT_CANDIDATE
-DISTANCE_REDUCED     = implementation E2E, runtime-main identity, 793/793 frozen browser replay, Chromium/visual evidence, and 32/226 R01/R02 authority are bound into one candidate closeout contract.
-REMAINING_BLOCKERS   = [CLOSEOUT_CANDIDATE_EXACT_HEAD_CI, CLOSEOUT_CANDIDATE_MERGE, FINAL_POST_MERGE_RECONCILIATION]
-NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice032_D0PostMergeReconciliation
+GOAL_DISTANCE_BEFORE = D1_SLICE032_D0_CLOSEOUT_CANDIDATE
+GOAL_DISTANCE_AFTER  = D0_SLICE032_CLOSED
+DISTANCE_REDUCED     = candidate CI/merge evidence is reconciled into final production admission authority; Slice032 now has source/KP authority, exact PatternSpec resolution, generator/validator/worksheet/HTML/answer-key/PDF evidence, 6/6 manual visual review, exact runtime-main identity, 793/793 frozen browser replay, merged 32/226 R01/R02 authority, and 3051/3051 closeout regression lineage.
+REMAINING_BLOCKERS   = []
+NEXT_SHORTEST_STEP   = P03F_W3DirectProductVerticalSlice033Implementation
 ```
 
-Slice033 remains frozen until Slice032 reaches `PASS_D0_CLOSED`.
+Slice033 is authorized by the frozen W3 queue after Slice032 D0, but is not started by this reconciliation.
