@@ -81,7 +81,7 @@ test("P03F8 binds both KPs to exact decimal capabilities", () => {
   }
 });
 
-test("P03F8 historical selector remains three KPs while current Pixel includes Slice016", () => {
+test("P03F8 historical selector remains three KPs while current Pixel includes later slices through Slice032", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((r) => r.sourceId === G3B_U09_SOURCE_ID);
   assert.equal(rows.length, 3);
   assert.ok(rows.some((r) => r.knowledgePointId === G3B_U09_DECIMAL_READ_WRITE_KP_ID));
@@ -90,7 +90,7 @@ test("P03F8 historical selector remains three KPs while current Pixel includes S
   assert.equal(availability.visibleCount, 3);
   assert.equal(availability.hiddenPendingCount, 4);
   assert.equal(listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).length, 6);
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 31);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 32);
 });
 
 test("P03F8 shared worksheet renders eight questions and answer keys on two pages", () => {
