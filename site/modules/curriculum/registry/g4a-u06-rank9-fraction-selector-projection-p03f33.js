@@ -57,13 +57,9 @@ export const G4A_U06_P03F33_SURFACES = Object.freeze([
     operationFamilyId:"fraction_add_sub",
     patternGroupId:"pg_g4a_u06_mixed_fraction_add_sub_numeric",
     patternSpecs:Object.freeze([
-      Object.freeze({ patternSpecId:"ps_g4a_u06_mixed_fraction_add_result_numeric", requestedUnknownRole:"result", arithmeticOperation:"add" }),
-      Object.freeze({ patternSpecId:"ps_g4a_u06_mixed_fraction_sub_result_numeric", requestedUnknownRole:"result", arithmeticOperation:"sub" }),
+      Object.freeze({ patternSpecId:"ps_g4a_u06_mixed_fraction_add_sub_result_numeric", requestedUnknownRole:"result" }),
     ]),
-    hiddenApplicationPatternSpecIds:Object.freeze([
-      "ps_g4a_u06_mixed_fraction_add_result_application",
-      "ps_g4a_u06_mixed_fraction_sub_result_application",
-    ]),
+    hiddenApplicationPatternSpecIds:Object.freeze(["ps_g4a_u06_mixed_fraction_add_sub_result_application"]),
     representationTags:Object.freeze(["fraction","mixed_number","same_denominator","addition","subtraction","exact_rational"]),
   }),
 ]);
@@ -123,8 +119,8 @@ export const G4A_U06_P03F33_SELECTOR_PROJECTION = Object.freeze({
   status:"THREE_RANK9_FRACTION_KPS_ADDED_TO_EXISTING_PUBLIC_SOURCE",
   knowledgePointCount:3,
   patternGroupCount:3,
-  patternSpecCount:5,
-  numericPatternSpecCount:5,
+  patternSpecCount:4,
+  numericPatternSpecCount:4,
   applicationPatternSpecCount:0,
   publicSelectionEnabled:true,
   sharedPipelineRequired:true,
@@ -143,8 +139,8 @@ export function auditG4AU06P03F33SelectorProjection() {
   const errors = [];
   if (G4A_U06_P03F33_SELECTOR_ROWS.length !== 3) errors.push("P03F33_KP_COUNT_INVALID");
   if (G4A_U06_P03F33_PATTERN_GROUPS.length !== 3) errors.push("P03F33_GROUP_COUNT_INVALID");
-  if (G4A_U06_P03F33_PATTERN_SPEC_IDS.length !== 5 || new Set(G4A_U06_P03F33_PATTERN_SPEC_IDS).size !== 5) errors.push("P03F33_SPEC_COUNT_INVALID");
+  if (G4A_U06_P03F33_PATTERN_SPEC_IDS.length !== 4 || new Set(G4A_U06_P03F33_PATTERN_SPEC_IDS).size !== 4) errors.push("P03F33_SPEC_COUNT_INVALID");
   if (G4A_U06_P03F33_SELECTOR_ROWS.some((row) => row.questionMode !== "numeric" || row.patternSpecIds.some((id) => G4A_U06_P03F33_HIDDEN_APPLICATION_SPEC_IDS.includes(id)))) errors.push("P03F33_APPLICATION_MODE_LEAK");
   if (G4A_U06_P03F33_SELECTOR_ROWS.some((row) => JSON.stringify(row.requiredCapabilityIds) !== JSON.stringify(P03F33_REQUIRED_CAPABILITY_IDS))) errors.push("P03F33_CAPABILITY_SET_INVALID");
-  return Object.freeze({ ok:errors.length===0, errors:Object.freeze(errors), counts:Object.freeze({ knowledgePoints:3, patternGroups:3, patternSpecs:5, numeric:5, application:0 }) });
+  return Object.freeze({ ok:errors.length===0, errors:Object.freeze(errors), counts:Object.freeze({ knowledgePoints:3, patternGroups:3, patternSpecs:4, numeric:4, application:0 }) });
 }
