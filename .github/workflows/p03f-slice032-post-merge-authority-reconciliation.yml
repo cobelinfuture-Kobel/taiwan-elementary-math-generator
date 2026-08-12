@@ -1,0 +1,99 @@
+name: P03F Slice032 Post-Merge Authority Reconciliation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/modules/curriculum/public/shared-mixed-domain-normalizer-p03f32.js'
+      - 'site/modules/curriculum/batch-a/g6b-u01-rank8-decimal-fraction-conversion-runtime-p03f32.js'
+      - 'site/modules/curriculum/registry/g6b-u01-rank8-decimal-fraction-conversion-selector-projection-p03f32.js'
+      - 'site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js'
+      - 'site/modules/curriculum/public/public-ui-capability-binding-p03f32.js'
+      - 'tools/curriculum/materialize-pgc-r01-public-capability-matrix-v6.mjs'
+      - 'tools/curriculum/materialize-pgc-r02-ui-capability-binding-r05.mjs'
+      - '.github/workflows/p03f-slice032-post-merge-authority-reconciliation.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p03f32-post-merge-authority-main
+  cancel-in-progress: false
+
+jobs:
+  reconcile-current-authority:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Materialize Slice032 current R01 and R02 authority
+        run: |
+          node tools/curriculum/materialize-pgc-r01-public-capability-matrix-v6.mjs
+          node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r05.mjs
+
+      - name: Verify focused current authority
+        run: |
+          node --test \
+            tests/curriculum/p03f-slice032-g6b-u01-rank8-mixed-domain-conversion.test.js \
+            tests/curriculum/pgc-r01-public-capability-matrix.test.js \
+            tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+
+      - name: Verify exact generated artifact boundary
+        run: |
+          set -euo pipefail
+          changed="$(git diff --name-only)"
+          expected=(
+            data/curriculum/public-generation/public_generation_capability_matrix.json
+            data/curriculum/public-generation/public_generation_capability_matrix.csv
+            docs/curriculum/output/PGC-R01_capability_gap_report.md
+            data/curriculum/public-generation/ui_capability_binding_contract.json
+            data/curriculum/public-generation/ui_option_filter_matrix.csv
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          )
+          for path in $changed; do
+            allowed=false
+            for wanted in "${expected[@]}"; do
+              if [[ "$path" == "$wanted" ]]; then allowed=true; break; fi
+            done
+            if [[ "$allowed" != true ]]; then
+              echo "Unexpected generated path: $path" >&2
+              exit 1
+            fi
+          done
+          for wanted in "${expected[@]}"; do
+            if ! grep -Fxq "$wanted" <<< "$changed"; then
+              echo "Expected generated path missing from reconciliation: $wanted" >&2
+              exit 1
+            fi
+          done
+
+      - name: Publish deterministic authority reconciliation branch
+        run: |
+          set -euo pipefail
+          branch="p03f32-current-authority-reconcile"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add \
+            data/curriculum/public-generation/public_generation_capability_matrix.json \
+            data/curriculum/public-generation/public_generation_capability_matrix.csv \
+            docs/curriculum/output/PGC-R01_capability_gap_report.md \
+            data/curriculum/public-generation/ui_capability_binding_contract.json \
+            data/curriculum/public-generation/ui_option_filter_matrix.csv \
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          git commit -m "data(p03f32): reconcile current R01 R02 authority"
+          git fetch origin main
+          git rebase origin/main
+          git push --force origin HEAD:refs/heads/$branch

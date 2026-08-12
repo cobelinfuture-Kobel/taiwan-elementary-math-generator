@@ -94,20 +94,20 @@ test("P03F13 validators reject simplest and quotient tampering", () => {
   assert.equal(validateG5AU04QuotientFractionQuestion({ ...quotient, metadata: { ...quotient.metadata, bindingCandidateId: "wrong" } }).ok, false);
 });
 
-test("P03F13 historical selector stays two KPs while current Pixel advances through Slice031 monotonically", () => {
+test("P03F13 historical selector stays two KPs while current Pixel advances through Slice032 monotonically", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G5A_U04_SOURCE_ID);
   assert.equal(rows.length, 2);
   assert.deepEqual(rows.map((row) => row.knowledgePointId), [G5A_U04_EXPAND_REDUCE_SIMPLEST_KP_ID, G5A_U04_QUOTIENT_CONTEXT_KP_ID]);
   const availability = listBatchAKnowledgePointAvailabilityBySource(G5A_U04_SOURCE_ID);
   assert.equal(availability.visibleCount, 2);
   assert.equal(availability.hiddenPendingCount, 5);
-  assert.equal(listCurrentPixelSourceOptions().length, 31);
+  assert.equal(listCurrentPixelSourceOptions().length, 32);
   const currentPixelRows = listPixelKnowledgePointsForSource(G5A_U04_SOURCE_ID);
   assert.equal(currentPixelRows.length, 5);
   assert.deepEqual(currentPixelRows.slice(0, 2).map((row) => row.knowledgePointId), [G5A_U04_EXPAND_REDUCE_SIMPLEST_KP_ID, G5A_U04_QUOTIENT_CONTEXT_KP_ID]);
   assert.deepEqual(currentPixelRows.slice(2, 4).map((row) => row.knowledgePointId), ["kp_g5a_u04_common_denominator", "kp_g5a_u04_divisibility_supported_reduction"]);
   assert.equal(currentPixelRows[4].knowledgePointId, "kp_g5a_u04_unlike_fraction_compare");
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 31);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 32);
 });
 
 test("P03F13 shared worksheets render all three public paths", () => {
