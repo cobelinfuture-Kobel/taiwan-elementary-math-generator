@@ -219,8 +219,11 @@ AUTHORITY RECONCILIATION MERGE = PASS
 CLOSEOUT CI = PASS
 CANDIDATE MERGE = PASS
 
+SLICE032_E2E_CANDIDATE = PASS
 SLICE032_E2E_D0 = PASS
 ```
+
+`SLICE032_E2E_CANDIDATE = PASS` is retained as the accepted predecessor evidence marker; `SLICE032_E2E_D0 = PASS` is the final admitted state.
 
 ## Distance closeout
 
