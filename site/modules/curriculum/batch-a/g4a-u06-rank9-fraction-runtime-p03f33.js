@@ -27,6 +27,12 @@ function mixedText(value){
   const whole=Math.floor(normalized.numerator/normalized.denominator); const remainder=normalized.numerator%normalized.denominator;
   return remainder===0?String(whole):`${whole} ${remainder}/${normalized.denominator}`;
 }
+function mixedTextWithDenominator(numerator,denominator){
+  if(!Number.isSafeInteger(numerator)||!Number.isSafeInteger(denominator)||numerator<0||denominator<=0) throw new Error("P03F33_INVALID_MIXED_OPERAND");
+  const whole=Math.floor(numerator/denominator); const remainder=numerator%denominator;
+  if(whole===0) return remainder===0?"0":`${remainder}/${denominator}`;
+  return remainder===0?String(whole):`${whole} ${remainder}/${denominator}`;
+}
 const compare=(ln,ld,rn,rd)=>ln*rd<rn*ld?"<":ln*rd>rn*ld?">":"=";
 const issue=(code,path)=>({code,severity:"error",path,message:code});
 function metadata(definition){ return Object.freeze({
@@ -68,12 +74,13 @@ function buildDistance(definition,ordinal,seed){
   return Object.freeze({id:`${definition.patternSpecId}-${ordinal+1}`,sourceId:G4A_U06_P03F33_SOURCE_ID,patternSpecId:definition.patternSpecId,kind:definition.kind,operation:"number_line",operationFamilyId:"number_line",numberLineTask:"distance",questionMode:"numeric",mode:"NUMERIC",promptText,questionText:promptText,blankedDisplayText:promptText,displayText:`${promptText} ${answerText}`,answerText,finalAnswer:answerText,leftCoordinateNumerator:left.numerator,leftCoordinateDenominator:left.denominator,rightCoordinateNumerator:right.numerator,rightCoordinateDenominator:right.denominator,distanceNumerator:distance.numerator,distanceDenominator:distance.denominator,metadata:metadata(definition),globalContextProduction:null});
 }
 function buildAddSub(definition,ordinal,seed){
-  const offset=seedOffset(seed,61); const denominator=DENOMINATORS[(ordinal+offset)%DENOMINATORS.length]; const operation=ordinal%2===0?"add":"sub";
-  let leftNumerator=denominator+1+((ordinal*5+offset)%denominator); let rightNumerator=denominator+1+((ordinal*7+offset+2)%denominator);
-  if(operation==="sub"&&leftNumerator<rightNumerator)[leftNumerator,rightNumerator]=[rightNumerator,leftNumerator];
-  if(operation==="sub"&&leftNumerator===rightNumerator) leftNumerator+=denominator;
+  const offset=seedOffset(seed,61); const denominator=DENOMINATORS[(Math.floor(ordinal/2)+offset)%DENOMINATORS.length]; const operation=ordinal%2===0?"add":"sub";
+  const uniquenessBand=Math.floor(ordinal/(DENOMINATORS.length*2)); const remainderSpan=Math.max(1,denominator-1);
+  const leftRemainder=1+((ordinal*5+offset)%remainderSpan); const rightRemainder=1+((ordinal*7+offset+2)%remainderSpan);
+  let leftNumerator=(uniquenessBand+2)*denominator+leftRemainder; const rightNumerator=(uniquenessBand+1)*denominator+rightRemainder;
+  if(operation==="sub"&&leftNumerator<=rightNumerator) leftNumerator+=denominator;
   const raw=operation==="add"?leftNumerator+rightNumerator:leftNumerator-rightNumerator; const result=normalize(raw,denominator); const answerText=mixedText(result); const symbol=operation==="add"?"+":"−";
-  const promptText=`${mixedText({numerator:leftNumerator,denominator})} ${symbol} ${mixedText({numerator:rightNumerator,denominator})} = ?`;
+  const promptText=`${mixedTextWithDenominator(leftNumerator,denominator)} ${symbol} ${mixedTextWithDenominator(rightNumerator,denominator)} = ?`;
   return Object.freeze({id:`${definition.patternSpecId}-${ordinal+1}`,sourceId:G4A_U06_P03F33_SOURCE_ID,patternSpecId:definition.patternSpecId,kind:definition.kind,operation:"fraction_add_sub",operationFamilyId:"fraction_add_sub",arithmeticOperation:operation,questionMode:"numeric",mode:"NUMERIC",promptText,questionText:promptText,blankedDisplayText:promptText,displayText:`${promptText} ${answerText}`,answerText,finalAnswer:answerText,leftNumerator,leftDenominator:denominator,rightNumerator,rightDenominator:denominator,resultNumerator:result.numerator,resultDenominator:result.denominator,metadata:metadata(definition),globalContextProduction:null});
 }
 function buildQuestion(patternSpecId,ordinal,seed){ const definition=getBatchABrowserPatternDefinition(patternSpecId); if(patternSpecId===COMPARE_SPEC)return buildCompare(definition,ordinal,seed); if(patternSpecId===COORDINATE_SPEC)return buildCoordinate(definition,ordinal,seed); if(patternSpecId===DISTANCE_SPEC)return buildDistance(definition,ordinal,seed); if(patternSpecId===ADD_SUB_SPEC)return buildAddSub(definition,ordinal,seed); throw new Error("P03F33_PATTERN_NOT_SUPPORTED"); }
