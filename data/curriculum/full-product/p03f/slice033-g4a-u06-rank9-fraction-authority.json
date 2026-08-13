@@ -18,7 +18,7 @@
       "acceptedState": "PASS_D0_CLOSED"
     },
     "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7",
-    "queueKnowledgePointAliases": [
+    "knowledgePointIds": [
       "kp_fraction_improper_mixed_compare_order",
       "kp_fraction_improper_mixed_number_line",
       "kp_fraction_same_denominator_mixed_add_sub"
@@ -44,8 +44,8 @@
   ],
   "knowledgePoints": [
     {
-      "knowledgePointId": "kp_g4a_u06_fraction_compare_order",
-      "queueAliasId": "kp_fraction_improper_mixed_compare_order",
+      "knowledgePointId": "kp_fraction_improper_mixed_compare_order",
+      "sourceCanonicalKnowledgePointId": "kp_g4a_u06_fraction_compare_order",
       "canonicalNameZh": "假分數與帶分數比較排序",
       "operationModelId": "op_g4a_u06_fraction_compare_order",
       "operationFamilyId": "fraction_compare",
@@ -54,8 +54,8 @@
       "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"]
     },
     {
-      "knowledgePointId": "kp_g4a_u06_fraction_number_line",
-      "queueAliasId": "kp_fraction_improper_mixed_number_line",
+      "knowledgePointId": "kp_fraction_improper_mixed_number_line",
+      "sourceCanonicalKnowledgePointId": "kp_g4a_u06_fraction_number_line",
       "canonicalNameZh": "分數數線定位",
       "operationModelId": "op_g4a_u06_fraction_number_line",
       "operationFamilyId": "number_line",
@@ -64,8 +64,8 @@
       "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"]
     },
     {
-      "knowledgePointId": "kp_g4a_u06_mixed_fraction_add_sub",
-      "queueAliasId": "kp_fraction_same_denominator_mixed_add_sub",
+      "knowledgePointId": "kp_fraction_same_denominator_mixed_add_sub",
+      "sourceCanonicalKnowledgePointId": "kp_g4a_u06_mixed_fraction_add_sub",
       "canonicalNameZh": "同分母帶分數加減",
       "operationModelId": "op_g4a_u06_mixed_fraction_add_sub",
       "operationFamilyId": "fraction_add_sub",
@@ -78,7 +78,8 @@
     {
       "patternGroupId": "pg_g4a_u06_fraction_compare_order_numeric",
       "patternSpecId": "ps_g4a_u06_fraction_compare_order_comparison_numeric",
-      "knowledgePointId": "kp_g4a_u06_fraction_compare_order",
+      "knowledgePointId": "kp_fraction_improper_mixed_compare_order",
+      "sourceCanonicalKnowledgePointId": "kp_g4a_u06_fraction_compare_order",
       "operationFamilyId": "fraction_compare",
       "requestedUnknownRole": "comparison",
       "mode": "NUMERIC"
@@ -86,7 +87,8 @@
     {
       "patternGroupId": "pg_g4a_u06_fraction_number_line_numeric",
       "patternSpecId": "ps_g4a_u06_fraction_number_line_coordinate_numeric",
-      "knowledgePointId": "kp_g4a_u06_fraction_number_line",
+      "knowledgePointId": "kp_fraction_improper_mixed_number_line",
+      "sourceCanonicalKnowledgePointId": "kp_g4a_u06_fraction_number_line",
       "operationFamilyId": "number_line",
       "requestedUnknownRole": "coordinate",
       "mode": "NUMERIC"
@@ -94,7 +96,8 @@
     {
       "patternGroupId": "pg_g4a_u06_fraction_number_line_numeric",
       "patternSpecId": "ps_g4a_u06_fraction_number_line_distance_numeric",
-      "knowledgePointId": "kp_g4a_u06_fraction_number_line",
+      "knowledgePointId": "kp_fraction_improper_mixed_number_line",
+      "sourceCanonicalKnowledgePointId": "kp_g4a_u06_fraction_number_line",
       "operationFamilyId": "number_line",
       "requestedUnknownRole": "distance",
       "mode": "NUMERIC"
@@ -102,7 +105,8 @@
     {
       "patternGroupId": "pg_g4a_u06_mixed_fraction_add_sub_numeric",
       "patternSpecId": "ps_g4a_u06_mixed_fraction_add_sub_result_numeric",
-      "knowledgePointId": "kp_g4a_u06_mixed_fraction_add_sub",
+      "knowledgePointId": "kp_fraction_same_denominator_mixed_add_sub",
+      "sourceCanonicalKnowledgePointId": "kp_g4a_u06_mixed_fraction_add_sub",
       "operationFamilyId": "fraction_add_sub",
       "requestedUnknownRole": "result",
       "mode": "NUMERIC"
@@ -112,7 +116,8 @@
     {
       "patternSpecId": "ps_g4a_u06_fraction_compare_order_comparison_application",
       "patternGroupId": "pg_g4a_u06_fraction_compare_order_application",
-      "knowledgePointId": "kp_g4a_u06_fraction_compare_order",
+      "knowledgePointId": "kp_fraction_improper_mixed_compare_order",
+      "sourceCanonicalKnowledgePointId": "kp_g4a_u06_fraction_compare_order",
       "productionAdmissionAllowedBySlice033": false,
       "publicSelectorVisibility": "hidden",
       "globalContextExpansionAllowed": false
@@ -120,7 +125,8 @@
     {
       "patternSpecId": "ps_g4a_u06_mixed_fraction_add_sub_result_application",
       "patternGroupId": "pg_g4a_u06_mixed_fraction_add_sub_application",
-      "knowledgePointId": "kp_g4a_u06_mixed_fraction_add_sub",
+      "knowledgePointId": "kp_fraction_same_denominator_mixed_add_sub",
+      "sourceCanonicalKnowledgePointId": "kp_g4a_u06_mixed_fraction_add_sub",
       "productionAdmissionAllowedBySlice033": false,
       "publicSelectorVisibility": "hidden",
       "globalContextExpansionAllowed": false
