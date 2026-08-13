@@ -30,14 +30,14 @@ function snapshots(input){
   return Object.values(PUBLIC_UI_SURFACES).map((surfaceId)=>resolvePublicUiCapabilityBinding({...input,surfaceId}));
 }
 
-test("P03F28 historical selector remains 219 while current public inventory advances through Slice032 to 32 sources / 226 KPs",()=>{
+test("P03F28 historical selector remains 219 while current public inventory advances through Slice033 to 32 sources / 229 KPs",()=>{
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount,219);
   const sourceRows=listVisibleBatchAKnowledgePoints().filter((row)=>row.sourceId===G5A_U01_SOURCE_ID);
   assert.equal(sourceRows.length,2);
   assert.deepEqual(sourceRows.map((row)=>row.knowledgePointId).sort(),expectedKps);
   const pixel=getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 32);
-  assert.equal(pixel.visibleKnowledgePointCount, 226);
+  assert.equal(pixel.visibleKnowledgePointCount, 229);
   assert.equal(pixel.bySourceId[G5A_U01_SOURCE_ID].visibleKnowledgePointCount,2);
 });
 
