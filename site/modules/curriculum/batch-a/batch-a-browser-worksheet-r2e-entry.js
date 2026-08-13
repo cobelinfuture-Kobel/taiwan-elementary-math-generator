@@ -8,6 +8,9 @@ import {
   buildBatchABrowserWorksheetDocument as buildP03F32WorksheetDocument,
 } from "./batch-a-browser-worksheet-p03f32-extension.js";
 import {
+  buildBatchABrowserWorksheetDocument as buildP03F33WorksheetDocument,
+} from "./batch-a-browser-worksheet-p03f33-extension.js";
+import {
   G4B_U04_SOURCE_ID,
 } from "../registry/g4b-u04-promotion.js";
 import {
@@ -16,6 +19,9 @@ import {
 import {
   G6B_U01_P03F32_SOURCE_ID,
 } from "../registry/g6b-u01-rank8-decimal-fraction-conversion-selector-projection-p03f32.js";
+import {
+  G4A_U06_P03F33_SOURCE_ID,
+} from "../registry/g4a-u06-rank9-fraction-selector-projection-p03f33.js";
 import {
   G4B_U04_CONTEXT_CONTRACT_VERSION,
   normalizeG4BU04ContextMode,
@@ -117,6 +123,9 @@ function applyR2EContextMetadata(result, options = {}) {
 }
 
 export function buildBatchABrowserWorksheetDocument(options = {}) {
+  if (options.sourceId === G4A_U06_P03F33_SOURCE_ID) {
+    return buildP03F33WorksheetDocument(options);
+  }
   if (options.sourceId === G6B_U01_P03F32_SOURCE_ID) {
     return buildP03F32WorksheetDocument(options);
   }
