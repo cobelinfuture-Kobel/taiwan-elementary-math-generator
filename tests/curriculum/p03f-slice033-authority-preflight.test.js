@@ -14,15 +14,15 @@ const knowledge = readJson("data/curriculum/knowledge/units/g4a_u06_4a06.knowled
 const operations = readJson("data/curriculum/application/operations/w02/g4a_u06_4a06.canonical-operation.json");
 const hiddenSpecs = readJson("data/curriculum/application/pattern-specs/w02/g4a_u06_4a06.hidden-pattern-spec.json");
 
-const TARGET_KPS = [
-  "kp_g4a_u06_fraction_compare_order",
-  "kp_g4a_u06_fraction_number_line",
-  "kp_g4a_u06_mixed_fraction_add_sub",
-];
-const QUEUE_ALIASES = [
+const TARGET_PUBLIC_KPS = [
   "kp_fraction_improper_mixed_compare_order",
   "kp_fraction_improper_mixed_number_line",
   "kp_fraction_same_denominator_mixed_add_sub",
+];
+const TARGET_CANONICAL_KPS = [
+  "kp_g4a_u06_fraction_compare_order",
+  "kp_g4a_u06_fraction_number_line",
+  "kp_g4a_u06_mixed_fraction_add_sub",
 ];
 const NUMERIC_SPECS = [
   "ps_g4a_u06_fraction_compare_order_comparison_numeric",
@@ -49,25 +49,31 @@ test("P03F33 freezes queue position 33 only after Slice032 final D0", () => {
   assert.equal(predecessor.status, "PASS_D0_CLOSED");
   assert.equal(predecessor.goalDistance, "D0");
   assert.equal(predecessor.progression.nextTask, "P03F_W3DirectProductVerticalSlice033Implementation");
-  assert.ok(QUEUE_ALIASES.every((id) => queue.orderedKnowledgePointIds.includes(id)));
-  assert.deepEqual(authority.queueAuthority.queueKnowledgePointAliases, QUEUE_ALIASES);
+  assert.deepEqual(queue.orderedKnowledgePointIds.slice(49, 52), TARGET_PUBLIC_KPS);
+  assert.deepEqual(authority.queueAuthority.knowledgePointIds, TARGET_PUBLIC_KPS);
 });
 
-test("P03F33 maps the three rank9 queue aliases to the canonical G4A-U06 KPs", () => {
-  assert.deepEqual(authority.knowledgePoints.map((row) => row.knowledgePointId), TARGET_KPS);
-  assert.deepEqual(authority.knowledgePoints.map((row) => row.queueAliasId), QUEUE_ALIASES);
-  for (const kpId of TARGET_KPS) {
-    assert.ok(knowledge.knowledgePoints.some((row) => row.candidateId === kpId));
-    const operation = operations.knowledgePoints.find((row) => row.knowledgePointId === kpId);
+test("P03F33 keeps product KP identity separate from W02 canonical source lineage", () => {
+  assert.deepEqual(authority.knowledgePoints.map((row) => row.knowledgePointId), TARGET_PUBLIC_KPS);
+  assert.deepEqual(authority.knowledgePoints.map((row) => row.sourceCanonicalKnowledgePointId), TARGET_CANONICAL_KPS);
+  authority.knowledgePoints.forEach((row, index) => {
+    const canonicalId = TARGET_CANONICAL_KPS[index];
+    assert.ok(knowledge.knowledgePoints.some((entry) => entry.candidateId === canonicalId));
+    const operation = operations.knowledgePoints.find((entry) => entry.knowledgePointId === canonicalId);
     assert.ok(operation);
     assert.equal(operation.operationModels.length, 1);
-  }
-  assert.equal(authority.knowledgePoints.some((row) => row.knowledgePointId === "kp_g4a_u06_fraction_times_integer_quantity"), false);
+    assert.equal(row.operationModelId, operation.operationModels[0].modelId);
+    assert.equal(row.operationFamilyId, operation.operationModels[0].operationFamilyId);
+  });
+  assert.equal(authority.knowledgePoints.some((row) => row.sourceCanonicalKnowledgePointId === "kp_g4a_u06_fraction_times_integer_quantity"), false);
 });
 
 test("P03F33 freezes three shared fraction capabilities and four numeric PatternSpecs", () => {
   assert.deepEqual(authority.requiredW3CapabilityUnion, CAPS);
   assert.deepEqual(authority.patternSurfaces.map((row) => row.patternSpecId), NUMERIC_SPECS);
+  assert.deepEqual(authority.patternSurfaces.map((row) => row.knowledgePointId), [
+    TARGET_PUBLIC_KPS[0], TARGET_PUBLIC_KPS[1], TARGET_PUBLIC_KPS[1], TARGET_PUBLIC_KPS[2],
+  ]);
   const specs = allHiddenSpecs();
   for (const specId of NUMERIC_SPECS) {
     const spec = specs.find((row) => row.patternSpecId === specId);
