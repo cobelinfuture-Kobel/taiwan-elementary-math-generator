@@ -43,7 +43,7 @@ function metadata(definition){ return Object.freeze({
 function compareFixture(ordinal,seed){
   const offset=seedOffset(seed,97);
   if(ordinal%5===4){const row=EQUAL_COMPARE[(Math.floor(ordinal/5)+offset)%EQUAL_COMPARE.length];return {leftNumerator:row[0],leftDenominator:row[1],rightNumerator:row[2],rightDenominator:row[3]};}
-  const ld=DENOMINATORS[(ordinal+offset)%DENOMINATORS.length]; const rd=DENOMINATORS[(ordinal*3+offset+1)%DENOMINATORS.length];
+  let ld=DENOMINATORS[(ordinal+offset)%DENOMINATORS.length]; let rd=DENOMINATORS[(ordinal*3+offset+1)%DENOMINATORS.length];
   let ln=ld+1+((ordinal*5+offset)%Math.max(2,ld)); let rn=rd+1+((ordinal*7+offset+1)%Math.max(2,rd));
   if(compare(ln,ld,rn,rd)==="=") rn+=1;
   const desired=ordinal%2===0?"<":">";

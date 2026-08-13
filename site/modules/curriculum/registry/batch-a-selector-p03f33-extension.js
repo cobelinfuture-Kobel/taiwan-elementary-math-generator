@@ -32,7 +32,7 @@ export const BATCH_A_SELECTOR_AVAILABILITY=Object.freeze({
       sourceId:G4A_U06_P03F33_SOURCE_ID,
       visibleCount:(prior?.visibleCount??2)+rows.length,
       hiddenPendingCount:Math.max(0,(prior?.hiddenPendingCount??4)-rows.length),
-      notSelectableCount:Math.max(0,(prior?.notSelectableCount??4)-rows.length),
+      notSelectableCount:prior?.notSelectableCount??0,
       publicSelectorStatus:"slice033_rank9_three_fraction_kps_added_to_existing_source",
       canonicalReachableKnowledgePointCount:(prior?.canonicalReachableKnowledgePointCount??2)+rows.length,
       canonicalReachableKnowledgePointIds:Object.freeze([...(prior?.canonicalReachableKnowledgePointIds??[]),...G4A_U06_P03F33_KP_IDS]),
@@ -54,7 +54,7 @@ export function auditP03F33PublicSelectorComposition(){
   const ids=allRows.map((row)=>row.knowledgePointId);
   if(new Set(ids).size!==ids.length) errors.push("P03F33_SELECTOR_DUPLICATE_KP");
   const availability=listBatchAKnowledgePointAvailabilityBySource(G4A_U06_P03F33_SOURCE_ID);
-  if(!availability||availability.visibleCount!==5||availability.hiddenPendingCount!==1||availability.notSelectableCount!==1) errors.push("P03F33_SELECTOR_AVAILABILITY_INVALID");
+  if(!availability||availability.visibleCount!==5||availability.hiddenPendingCount!==1||availability.notSelectableCount!==0) errors.push("P03F33_SELECTOR_AVAILABILITY_INVALID");
   const sourceRows=allRows.filter((row)=>row.sourceId===G4A_U06_P03F33_SOURCE_ID);
   if(sourceRows.length!==5) errors.push("P03F33_EXISTING_SOURCE_KP_COUNT_INVALID");
   if(BATCH_A_SELECTOR_AVAILABILITY.sourceCount!==baseSourceCount||BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount!==baseSourceCount) errors.push("P03F33_PUBLIC_SOURCE_COUNT_CHANGED");

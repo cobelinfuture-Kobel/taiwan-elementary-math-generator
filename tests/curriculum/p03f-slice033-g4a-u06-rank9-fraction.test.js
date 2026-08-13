@@ -36,7 +36,7 @@ test("P03F33 selector adds three KPs to existing G4A-U06 without adding a source
   assert.equal(auditP03F33PublicSelectorComposition().ok,true);
   assert.equal(validateP03F33PatternDefinitions().ok,true);
   const availability=listBatchAKnowledgePointAvailabilityBySource(G4A_U06_P03F33_SOURCE_ID);
-  assert.deepEqual([availability.visibleCount,availability.hiddenPendingCount,availability.notSelectableCount],[5,1,1]);
+  assert.deepEqual([availability.visibleCount,availability.hiddenPendingCount,availability.notSelectableCount],[5,1,0]);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.sourceCount,32);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount,32);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount,229);
