@@ -2,9 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 
-import {
-  materializeGciS01WorkflowInventory
-} from "../../tools/governance/materialize-gci-s01-workflow-inventory.mjs";
+import { materializeGciS01WorkflowInventory } from "../../tools/governance/materialize-gci-s01-workflow-inventory.mjs";
 
 const WORKFLOW_FILE = ".github/workflows/pr-gate.yml";
 const CONTRACT_FILE = ".github/ci/gci-s02/pr-gate-pilot-contract.json";
@@ -20,6 +18,7 @@ const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/p03f-slice031-product-acceptance.yml",
   ".github/workflows/p03f-slice032-product-acceptance.yml",
   ".github/workflows/p03f-slice032-post-merge-authority-reconciliation.yml",
+  ".github/workflows/p03f-slice033-product-acceptance.yml",
   ...TEMPORARY_WORKFLOW_FILES,
 ];
 
@@ -56,16 +55,9 @@ test("GCI-S02 PR gate pilot is read-only and structurally complete", () => {
 });
 
 test("GCI-S02 PR gate is visible in the live workflow inventory without mutating S01 history", () => {
-  const current = materializeGciS01WorkflowInventory({
-    excludeFiles: TEMPORARY_WORKFLOW_FILES
-  });
-  const historical = materializeGciS01WorkflowInventory({
-    excludeFiles: [WORKFLOW_FILE, ...POST_S01_WORKFLOW_FILES]
-  });
+  const current = materializeGciS01WorkflowInventory({ excludeFiles: TEMPORARY_WORKFLOW_FILES });
+  const historical = materializeGciS01WorkflowInventory({ excludeFiles: [WORKFLOW_FILE, ...POST_S01_WORKFLOW_FILES] });
 
-  // S01 owns the absolute historical inventory. S02 owns the exact approved
-  // live delta, which must stay stable whether CI checks out the PR head or
-  // GitHub's synthetic merge ref with inherited non-PR workflows.
   const historicalFiles = new Set(historical.workflows.map((row) => row.file));
   const approvedLiveDelta = [WORKFLOW_FILE, ...POST_S01_WORKFLOW_FILES]
     .filter((file) => !TEMPORARY_WORKFLOW_FILES.includes(file) && fs.existsSync(file))
@@ -77,10 +69,10 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
 
   assert.deepEqual(observedLiveDelta, approvedLiveDelta);
   assert.equal(current.summary.workflowFileCount, historical.summary.workflowFileCount + approvedLiveDelta.length);
-  assert.equal(current.summary.pullRequestWorkflowCount, 74);
+  assert.equal(current.summary.pullRequestWorkflowCount, 75);
   assert.equal(current.summary.prBranchWriterCount, 22);
   assert.equal(current.summary.prFullRegressionWorkflowCount, 27);
-  assert.equal(current.summary.lateSkipCandidateCount, 33);
+  assert.equal(current.summary.lateSkipCandidateCount, 34);
   assert.ok(current.summary.sharedExactPathPatternCount >= 79);
 
   const prGate = current.workflows.find((row) => row.file === WORKFLOW_FILE);
@@ -100,6 +92,7 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
   assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice031-product-acceptance.yml"));
   assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice032-product-acceptance.yml"));
   assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice032-post-merge-authority-reconciliation.yml"));
+  assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice033-product-acceptance.yml"));
 });
 
 // PGC-R06 A03 historical authority and workflow governance compatibility
