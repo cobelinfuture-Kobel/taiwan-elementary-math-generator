@@ -78,12 +78,12 @@ test("P03F19 current application consumer uses existing contexts and shared work
   assert.ok(result.generation.questions.every((row) => row.metadata.contextAuthority));
 });
 
-test("P03F19 current Pixel registry consumes the same Slice019 selector authority", () => {
+test("P03F19 historical KP visibility remains intact while current Pixel advances G4B-U06 through Slice035", () => {
   const summary = getCurrentPixelSourceSummary(G4B_U06_SLICE019_SOURCE_ID);
   assert.ok(summary);
-  assert.equal(summary.visibleKnowledgePoints.length, 3);
+  assert.equal(summary.visibleKnowledgePoints.length, 4);
   assert.ok(summary.visibleKnowledgePoints.some((row) => row.knowledgePointId === G4B_U06_TWO_DECIMAL_KP_ID));
   assert.ok(summary.visibleKnowledgePoints.some((row) => row.knowledgePointId === G4B_U06_RATE_TOTAL_KP_ID));
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.bySourceId[G4B_U06_SLICE019_SOURCE_ID].visibleKnowledgePoints.length, 3);
+  assert.equal(snapshot.bySourceId[G4B_U06_SLICE019_SOURCE_ID].visibleKnowledgePoints.length, 4);
 });
