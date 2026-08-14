@@ -1,4 +1,4 @@
-name: P03F Slice035 Core Acceptance
+name: P03F Slice035 Product Acceptance
 
 on:
   pull_request:
@@ -8,11 +8,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: p03f35-core-acceptance-${{ github.event.pull_request.number || github.ref }}
+  group: p03f35-product-acceptance-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  focused-core:
+  chromium-product-acceptance:
     if: github.head_ref == 'p03f35-g4b-u06-rank9-decimal-scale'
     runs-on: ubuntu-latest
     steps:
@@ -20,11 +20,34 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - name: Install dependencies
         run: npm install
-      - name: Run Slice035 core contracts
-        run: node --test tests/curriculum/p03f-slice035-g4b-u06-rank9-decimal-scale-core.test.js
+
+      - name: Run Slice035 focused contracts
+        run: |
+          node --test \
+            tests/curriculum/p03f-slice035-g4b-u06-rank9-decimal-scale-core.test.js \
+            tests/curriculum/p03f-slice035-public-ui-binding.test.js
+
+      - name: Install Chromium and acceptance font
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1 @fontsource/noto-sans-tc@5.2.9
+          npx playwright install --with-deps chromium
+
+      - name: Run Slice035 Chromium product acceptance
+        run: node tools/curriculum/render-p03f-slice035-product-acceptance.mjs
+
+      - name: Upload Slice035 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice035-product-acceptance
+          path: tmp/p03f-slice035-product-acceptance
+          if-no-files-found: error
+          retention-days: 30
