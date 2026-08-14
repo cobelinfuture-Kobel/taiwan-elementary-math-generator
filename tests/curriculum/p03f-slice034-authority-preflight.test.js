@@ -30,7 +30,7 @@ test("P03F34 source and FormalMapping preserve missing-digit inequality semantic
   const op=operations.knowledgePoints.find((row)=>row.knowledgePointId===KP); assert.ok(op); assert.equal(op.operationModels.length,1);
   assert.equal(op.operationModels[0].modelId,"op_g4a_u09_missing_digit_inequality");
   assert.equal(op.operationModels[0].operationFamilyId,"missing_digit_inequality");
-  assert.equal(op.operationModels[0].requestedUnknownRole,"possibleDigits");
+  assert.deepEqual(op.operationModels[0].unknownRoles,["possibleDigits"]);
   assert.equal(op.operationModels[0].answerType,"digit_set");
   assert.deepEqual(authority.requiredW3CapabilityUnion,CAPS);
   assert.equal(authority.formalMappingBoundary.decimalArithmeticRequired,false);
