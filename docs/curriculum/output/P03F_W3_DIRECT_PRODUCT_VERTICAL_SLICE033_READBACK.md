@@ -1,4 +1,4 @@
-# P03F W3 Direct Product Vertical Slice033 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice033 — D0 Closeout Readback
 
 ## Status
 
@@ -6,12 +6,12 @@
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID = P03F_W3DirectProductVerticalSlice033Implementation
 E6_MILESTONE_ID = P03F_W3DirectProductVerticalSlice033_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
-ADMISSION_STATE = PENDING_D0_RECONCILIATION
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
+ADMISSION_STATE = PRODUCTION_ADMITTED_D0
 ```
 
-Slice033 implementation is merged to main, but this package does not yet admit Slice033 at D0 and does not start Slice034.
+Slice033 is admitted at D0 after exact-head product acceptance, candidate CI, canonical 793-route replay, candidate merge, and post-merge reconciliation. Slice034 may start only after this final reconciliation is merged and read back from main.
 
 ## Frozen product identity
 
@@ -72,9 +72,42 @@ OVERLAP = 0
 BROKEN_GLYPH = 0
 ```
 
-## Main readback
+## Candidate closeout evidence
 
-Main contains the Slice033 authority, runtime and current selector successor. The executable contracts on main assert:
+```text
+PR = #583
+EXACT_HEAD = 2270807bafe7fb5aa2fe0e03ed45b67b49fe31d0
+MERGE_SHA = 04cd65c0ba69522268b7b494b19caecbb69406e4
+NODE_RUN = 31759862170
+NODE_JOB = 94643702378
+NODE = 3070 / 3070 PASS, 0 FAIL
+NODE_DIAGNOSTICS_ARTIFACT = 9204233311
+NODE_DIAGNOSTICS_DIGEST = sha256:4110743d4b103e4734c267919541b9daa89df57cf029261a26e45be50d513681
+```
+
+## Canonical 793-route replay
+
+The first R00 attempt reached the deployed public-site smoke with a transient HTTP 503 in the ES-module/resource load path. The same exact candidate head was rerun with zero code changes; the deployed smoke then passed and the workflow continued through all browser replay gates.
+
+```text
+WORKFLOW = PGC-R00 Public Generation Scope Freeze
+RUN = 31759862193
+RERUN_JOB = 94645759057
+HEAD = 2270807bafe7fb5aa2fe0e03ed45b67b49fe31d0
+ARTIFACT = 9204780340
+DIGEST = sha256:ae6c3bb218d59daf89b2e32454d82ebe1f313f7070a599324b5bb16dfe13b455
+STATUS = PASS_ALL_793_LEGAL_ROUTES
+EXECUTED = 793
+PASS = 793
+FAIL = 0
+CONSOLE_ERRORS = 0
+PAGE_ERRORS = 0
+EXIT_CODE = 0
+```
+
+## Main authority readback
+
+The candidate closeout merge is present on main at `04cd65c0ba69522268b7b494b19caecbb69406e4`. Product authority remains unchanged from the accepted Slice033 implementation:
 
 ```text
 PUBLIC_SOURCES = 32
@@ -85,18 +118,12 @@ PUBLIC_UI_BINDING_GAPS = 0
 RUNTIME_BLOB = 88b057b829f618e06e195c54883fe0b5923be2e9
 ```
 
-## Pending canonical replay
-
-The implementation PR did not touch a PGC-R00 trigger path, so its exact-head 793-route replay was not scheduled. This closeout candidate updates only the stale R00 test description from `through Slice032` to `through Slice033`; the executable assertion remains `32` current public sources. That scope-aligned reconciliation triggers the existing read-only PGC-R00 workflow on the closeout candidate head.
-
-Until that workflow returns `PASS_ALL_793_LEGAL_ROUTES`, this package remains D1.
-
 ## E2E closeout boundary
 
-The candidate is not D0 merely because the implementation PR is merged. Final D0 requires a consistent chain across authority, PatternSpecs, generator, validator, Classic/Pixel bindings, worksheet/answer key, HTML/PDF/print evidence, canonical 793-route replay, candidate CI/merge, and post-merge main readback.
+The D0 claim is based on one continuous evidence chain: source/KP authority, PatternSpecs, shared capability runtime, generator, validator, Classic/Pixel selector projection, worksheet and answer-key bijection, HTML/PDF/print product evidence, visual review, canonical browser replay, candidate CI/merge, and post-merge authority reconciliation.
 
 ```text
-SLICE033_ADMITTED = false
-SLICE034_MAY_START = false
-NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice033_D0PostMergeReconciliation
+SLICE033_ADMITTED = true
+SLICE034_MAY_START = true
+NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice034Implementation
 ```
