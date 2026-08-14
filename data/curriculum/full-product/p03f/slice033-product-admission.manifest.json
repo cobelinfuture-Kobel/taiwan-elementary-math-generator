@@ -1,0 +1,85 @@
+{
+  "schemaName": "P03FSlice033ProductAdmissionManifestV1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice033Implementation",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "admissionState": "PENDING_D0_RECONCILIATION",
+  "goalDistance": "D1",
+  "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice033-e6-d0-v1.json",
+  "readbackPath": "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE033_READBACK.md",
+  "authorityPath": "data/curriculum/full-product/p03f/slice033-g4a-u06-rank9-fraction-authority.json",
+  "closeoutTestPath": "tests/curriculum/p03f-slice033-d0-closeout.test.js",
+  "queuePosition": 33,
+  "sourceId": "g4a_u06_4a06",
+  "knowledgePointIds": [
+    "kp_fraction_improper_mixed_compare_order",
+    "kp_fraction_improper_mixed_number_line",
+    "kp_fraction_same_denominator_mixed_add_sub"
+  ],
+  "patternGroupIds": [
+    "pg_g4a_u06_fraction_compare_order_numeric",
+    "pg_g4a_u06_fraction_number_line_numeric",
+    "pg_g4a_u06_mixed_fraction_add_sub_numeric"
+  ],
+  "patternSpecIds": [
+    "ps_g4a_u06_fraction_compare_order_comparison_numeric",
+    "ps_g4a_u06_fraction_number_line_coordinate_numeric",
+    "ps_g4a_u06_fraction_number_line_distance_numeric",
+    "ps_g4a_u06_mixed_fraction_add_sub_result_numeric"
+  ],
+  "implementation": {
+    "prNumber": 582,
+    "headSha": "cfd52c46604732a4fcb9a8c61427b27d064551b9",
+    "mergeSha": "3305e7b2692b54e954fe54c6cc8a2114b0366b4e"
+  },
+  "currentAuthority": {
+    "publicSources": 32,
+    "visibleKnowledgePoints": 229,
+    "sourceVisibleKnowledgePoints": 5,
+    "sourceHiddenKnowledgePoints": 1,
+    "gaps": 0
+  },
+  "runtime": {
+    "path": "site/modules/curriculum/batch-a/g4a-u06-rank9-fraction-runtime-p03f33.js",
+    "mainBlobSha": "88b057b829f618e06e195c54883fe0b5923be2e9"
+  },
+  "productEvidence": {
+    "artifactId": 9186979147,
+    "artifactDigest": "sha256:4813c1f344ed1c0614959344daf0f3cce94133e26c6d267feeb0247d0f624e5f",
+    "questions": 24,
+    "answers": 24,
+    "patternSpecs": 4,
+    "witnessesPerPatternSpec": 6,
+    "pdfPages": 6,
+    "visualReview": "PASS"
+  },
+  "canonical793Evidence": {
+    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "runId": null,
+    "jobId": null,
+    "artifactId": null,
+    "artifactDigest": null,
+    "executed": null,
+    "pass": null,
+    "fail": null,
+    "exitCode": null
+  },
+  "closeoutPr": {
+    "number": null,
+    "headSha": null,
+    "mergeSha": null,
+    "nodeRunId": null,
+    "nodeJobId": null,
+    "tests": null,
+    "pass": null,
+    "fail": null,
+    "diagnosticsArtifactId": null,
+    "diagnosticsDigest": null,
+    "status": "PENDING_CANDIDATE_CI"
+  },
+  "productionAdmission": {
+    "slice033Admitted": false,
+    "slice034MayStart": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice033_D0PostMergeReconciliation"
+}
