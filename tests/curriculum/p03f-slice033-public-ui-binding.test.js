@@ -55,14 +55,14 @@ test("P03F33 mixed-same-unit binding composes all three rank9 KPs without applic
   for (const hiddenSpecId of G4A_U06_P03F33_HIDDEN_APPLICATION_SPEC_IDS) assert.equal(serialized.includes(hiddenSpecId), false);
 });
 
-test("P03F33 current pattern-group state and Pixel registry advance to 32 sources / 229 KPs", () => {
+test("P03F33 pattern-group state remains intact while current Pixel registry advances through Slice034 to 32 sources / 230 KPs", () => {
   for (const knowledgePointId of G4A_U06_P03F33_KP_IDS) {
     const choices = listPublicPatternGroupChoices([knowledgePointId]);
     assert.deepEqual(choices.map((row) => row.patternGroupId), [groupByKnowledgePoint.get(knowledgePointId)]);
   }
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 32);
-  assert.equal(snapshot.visibleKnowledgePointCount, 229);
+  assert.equal(snapshot.visibleKnowledgePointCount, 230);
   assert.equal(snapshot.bySourceId[G4A_U06_P03F33_SOURCE_ID].visibleKnowledgePoints.length, 5);
 });
 
