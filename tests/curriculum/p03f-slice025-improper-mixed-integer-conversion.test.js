@@ -136,12 +136,12 @@ test("P03F25 shared worksheet produces printable questions and answer key", () =
   assert.equal(result.worksheetDocument.metadata.knowledgePointIds.includes(G4A_U06_P03F25_KP_ID), true);
 });
 
-test("P03F25 historical two-KP projection remains intact while current public total advances through Slice033 to 229", () => {
+test("P03F25 historical two-KP projection remains intact while current public total advances through Slice034 to 230", () => {
   const rows = listPixelKnowledgePointsForSource(sourceId);
   assert.equal(rows.length, 5);
   assert.equal(rows.some((row) => row.knowledgePointId === G4A_U06_P03F25_KP_ID), true);
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 32);
-  assert.equal(snapshot.visibleKnowledgePointCount, 229);
+  assert.equal(snapshot.visibleKnowledgePointCount, 230);
   assert.equal(snapshot.bySourceId[sourceId].visibleKnowledgePoints.length, 5);
 });
