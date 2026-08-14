@@ -1,0 +1,91 @@
+{
+  "schemaName": "P03FSlice034G4AU09Rank9MissingDigitInequalityAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice034Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "goalDistanceBefore": "D2",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 34,
+    "sliceId": "p03e_q034_r9_g4a_u09_4a09_profile_decimal_c1",
+    "previousSliceId": "p03e_q033_r9_g4a_u06_4a06_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice033-e6-d0-v1.json",
+    "previousSliceAcceptedState": "PASS_D0_CLOSED",
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g4a_u09_4a09.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g4a_u09_4a09.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g4a_u09_4a09.hidden-pattern-spec.json",
+    "sourceNodeId": "g4a_u09_4a09",
+    "sourceCode": "4a09",
+    "sourceTitle": "2位小數",
+    "grade": 4,
+    "semester": "upper",
+    "unitCode": "4A-U09",
+    "evidencePages": [1]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4a_u09_missing_digit_inequality",
+      "canonicalNameZh": "小數不等式未知數字",
+      "scope": "由大小關係推定未知位數的可行值。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g4a_u09_missing_digit_inequality",
+      "operationFamilyId": "missing_digit_inequality",
+      "requestedUnknownRole": "possibleDigits",
+      "answerType": "digit_set",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "reasoningInvariant": "possibleDigits 必須完整列出 0..9 中所有且僅有滿足指定小數不等式的數字。"
+    }
+  ],
+  "requiredW3CapabilityUnion": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g4a_u09_missing_digit_inequality_numeric",
+      "patternSpecId": "ps_g4a_u09_missing_digit_inequality_possible_digits_numeric",
+      "knowledgePointId": "kp_g4a_u09_missing_digit_inequality",
+      "operationModelId": "op_g4a_u09_missing_digit_inequality",
+      "operationFamilyId": "missing_digit_inequality",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "possibleDigits",
+      "answerType": "digit_set",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    }
+  ],
+  "formalMappingBoundary": {
+    "decimalScale": 2,
+    "missingDigitInequalityRequired": true,
+    "exhaustiveDigitSetValidationRequired": true,
+    "decimalArithmeticRequired": false,
+    "applicationRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "reuseSlice026G4AU09Source": true,
+    "expectedSourceVisibleCountBeforeAdmission": 6,
+    "expectedSourceVisibleCountAfterAdmission": 7,
+    "expectedSourceHiddenCountBeforeAdmission": 2,
+    "expectedSourceHiddenCountAfterAdmission": 1,
+    "expectedPublicSourceCountBeforeAdmission": 32,
+    "expectedPublicSourceCountAfterAdmission": 32,
+    "expectedCurrentPublicKnowledgePointCountBeforeAdmission": 229,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 230,
+    "sharedDecimalNumberSystemRequired": true,
+    "sharedDecimalDomainValidatorRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice035Implementation"
+  }
+}
