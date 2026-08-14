@@ -1,0 +1,40 @@
+{
+  "claimId": "P03F-W3-SLICE033-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice033Implementation",
+  "e6MilestoneId": "P03F_W3DirectProductVerticalSlice033_E6_D0Closeout",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D1",
+  "scope": "Slice033 only: expand existing public source g4a_u06_4a06 from two to five visible KnowledgePoints by admitting compare/order, number-line coordinate/distance, and same-denominator mixed add/sub through three numeric PatternGroups and four numeric PatternSpecs. Application PatternSpecs, fraction-times-integer quantity, Global Context expansion, parallel pipelines, historical Slice mutation, and Slice034 remain outside Slice033.",
+  "authority": {
+    "path": "data/curriculum/full-product/p03f/slice033-g4a-u06-rank9-fraction-authority.json",
+    "queuePosition": 33,
+    "queueEntryId": "p03e_q033_r9_g4a_u06_4a06_profile_fraction_c1",
+    "sourceRef": "g4a_u06_4a06",
+    "sourceTitle": "假分數與帶分數",
+    "knowledgePointIds": ["kp_fraction_improper_mixed_compare_order", "kp_fraction_improper_mixed_number_line", "kp_fraction_same_denominator_mixed_add_sub"],
+    "patternGroupIds": ["pg_g4a_u06_fraction_compare_order_numeric", "pg_g4a_u06_fraction_number_line_numeric", "pg_g4a_u06_mixed_fraction_add_sub_numeric"],
+    "patternSpecIds": ["ps_g4a_u06_fraction_compare_order_comparison_numeric", "ps_g4a_u06_fraction_number_line_coordinate_numeric", "ps_g4a_u06_fraction_number_line_distance_numeric", "ps_g4a_u06_mixed_fraction_add_sub_result_numeric"],
+    "requiredCapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+    "expectedPublicSourceCount": 32,
+    "expectedVisibleKnowledgePointCount": 229,
+    "expectedSourceVisibleCount": 5,
+    "expectedSourceHiddenCount": 1
+  },
+  "implementationEvidence": {
+    "prNumber": 582,
+    "headSha": "cfd52c46604732a4fcb9a8c61427b27d064551b9",
+    "mergeSha": "3305e7b2692b54e954fe54c6cc8a2114b0366b4e",
+    "mergeMethod": "squash",
+    "runtimePath": "site/modules/curriculum/batch-a/g4a-u06-rank9-fraction-runtime-p03f33.js",
+    "runtimeBlobShaOnMain": "88b057b829f618e06e195c54883fe0b5923be2e9",
+    "node": {"runId": 31715279230, "jobId": 94498331119, "status": "SUCCESS", "tests": 3065, "pass": 3065, "fail": 0, "skipped": 0, "diagnosticsArtifactId": 9187062506, "diagnosticsDigest": "sha256:2d4892bb5ce9fdb4b8aaedf5636074488bee17ce9afe27517feb534eed57c653"},
+    "productAcceptance": {"runId": 31715279212, "jobId": 94498330807, "status": "SUCCESS", "artifactId": 9186979147, "artifactName": "p03f-slice033-product-acceptance", "artifactDigest": "sha256:4813c1f344ed1c0614959344daf0f3cce94133e26c6d267feeb0247d0f624e5f", "reportSchema": "P03FSlice033ChromiumProductAcceptanceReportV1", "questionCount": 24, "answerKeyItemCount": 24, "uniqueQuestionCount": 24, "patternSpecCount": 4, "witnessesPerPatternSpec": 6, "questionPageCount": 3, "answerPageCount": 3, "physicalPdfPageCount": 6, "screenshotCount": 6, "htmlSha256": "70828cd243356947dc7cb1fd4f4e938515053ff8012a0993259b045b1b1ed356", "pdfSha256": "8b72cbc0eea0f3ddb6be36811d20cb9f7ed6a40407c7dd32321ea80ddde3887c", "pdfByteLength": 82963, "crossLayerMismatchCount": 0, "duplicatePromptFindingCount": 0, "overflowFindingCount": 0, "consoleErrorCount": 0, "pageErrorCount": 0, "semanticScopeFindingCount": 0, "applicationLeakFindingCount": 0, "hiddenApplicationLeakFindingCount": 0, "excludedFractionTimesIntegerFindingCount": 0, "hiddenApplicationLineagePreserved": true, "sharedPagination": true, "sharedRenderer": true, "parallelPipeline": false, "manualVisualReview": {"status": "PASS", "pagesReviewed": 6, "clippedTextFindingCount": 0, "overlapFindingCount": 0, "brokenGlyphFindingCount": 0, "sourceWitnessVisibleAndAnswerAligned": true}},
+    "prGate": {"runId": 31715279214, "status": "SUCCESS"},
+    "workflowRuns": {"pgcR02": {"runId": 31715279148, "status": "SUCCESS"}, "pgcR03": {"runId": 31715279176, "status": "SUCCESS"}, "pgcR04": {"runId": 31715279284, "status": "SUCCESS"}, "pgcR06A03": {"runId": 31715279151, "status": "SUCCESS"}, "glmS03": {"runId": 31715279373, "status": "SUCCESS"}}
+  },
+  "mainReadback": {"implementationMergeSha": "3305e7b2692b54e954fe54c6cc8a2114b0366b4e", "publicSources": 32, "visibleKnowledgePoints": 229, "g4aU06VisibleKnowledgePoints": 5, "g4aU06HiddenKnowledgePoints": 1, "publicUiBindingGaps": 0, "runtimeBlobMatchesImplementation": true},
+  "canonical793Evidence": {"status": "PENDING_CLOSEOUT_CANDIDATE_CI", "workflow": "PGC-R00 Public Generation Scope Freeze", "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js", "runId": null, "jobId": null, "artifactId": null, "artifactDigest": null, "legalRouteCount": 793, "executedRouteCount": null, "passRouteCount": null, "failRouteCount": null},
+  "closeoutEvidence": {"candidatePrNumber": null, "candidateHeadSha": null, "candidateMergeSha": null, "candidateNodeRunId": null, "candidateNodeJobId": null, "candidateNodeTests": null, "candidateNodePass": null, "candidateNodeFail": null, "candidateNodeDiagnosticsArtifactId": null, "candidateNodeDiagnosticsDigest": null, "status": "PENDING_CANDIDATE_CI"},
+  "progression": {"nextTask": "P03F_W3DirectProductVerticalSlice034Implementation", "nextSliceMayStartBeforeD0Closeout": false, "nextResumeTask": "P03F_W3DirectProductVerticalSlice033_D0PostMergeReconciliation"}
+}
