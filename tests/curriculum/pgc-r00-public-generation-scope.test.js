@@ -14,6 +14,7 @@ import {
   auditFullProductPublicControlProfiles,
 } from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
 
+// P03F34 D0 closeout replay trigger; executable and Slice033 historical authority below are unchanged.
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "../..");
 const scopePath = path.join(repoRoot, "data/curriculum/public-generation/public_generation_scope.json");
@@ -38,7 +39,7 @@ function expectRoute(routeId, classification) {
   return route;
 }
 
-test("PGC-R00 freezes the exact 26-source historical authority while current public sources may extend through Slice034", () => {
+test("PGC-R00 freezes the exact 26-source historical authority while current public sources may extend through Slice033", () => {
   assert.equal(scope.programId, "PUBLIC_KP_GENERATION_CONFORMANCE_V1");
   assert.equal(scope.taskId, "PGC-R00_PublicGenerationScopeAndAuthorityFreeze");
   assert.equal(scope.currentAuthority.publicSourceCount, 26);

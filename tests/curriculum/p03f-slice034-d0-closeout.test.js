@@ -73,8 +73,9 @@ test("P03F34 candidate files agree on main authority and keep Slice035 frozen", 
   assert.equal(claim.progression.nextTask, "P03F_W3DirectProductVerticalSlice035Implementation");
 });
 
-test("P03F34 R00 trigger reconciliation is scope-bounded", () => {
-  assert.match(r00Test, /current public sources may extend through Slice034/);
+test("P03F34 R00 trigger reconciliation is scope-bounded without mutating Slice033 historical wording", () => {
+  assert.match(r00Test, /P03F34 D0 closeout replay trigger/);
+  assert.match(r00Test, /current public sources may extend through Slice033/);
   assert.equal(claim.canonical793Evidence.workflow, "PGC-R00 Public Generation Scope Freeze");
   assert.equal(claim.canonical793Evidence.triggerPath, "tests/curriculum/pgc-r00-public-generation-scope.test.js");
   assert.equal(claim.canonical793Evidence.legalRouteCount, 793);
