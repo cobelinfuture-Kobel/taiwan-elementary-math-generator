@@ -1,0 +1,51 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"../..");
+const readJson=(relativePath)=>JSON.parse(fs.readFileSync(path.join(ROOT,relativePath),"utf8"));
+const authority=readJson("data/curriculum/full-product/p03f/slice034-g4a-u09-rank9-missing-digit-inequality-authority.json");
+const queue=readJson("data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json");
+const predecessor=readJson("data/curriculum/final-milestone-claims/p03f-w3-slice033-e6-d0-v1.json");
+const knowledge=readJson("data/curriculum/knowledge/units/g4a_u09_4a09.knowledge-operation.json");
+const operations=readJson("data/curriculum/application/operations/w02/g4a_u09_4a09.canonical-operation.json");
+const hiddenSpecs=readJson("data/curriculum/application/pattern-specs/w02/g4a_u09_4a09.hidden-pattern-spec.json");
+const KP="kp_g4a_u09_missing_digit_inequality";
+const SPEC="ps_g4a_u09_missing_digit_inequality_possible_digits_numeric";
+const CAPS=["cap_decimal_domain_validator","cap_decimal_number_system"];
+const allSpecs=()=>hiddenSpecs.knowledgePoints.flatMap((row)=>row.patternSpecs);
+test("P03F34 freezes queue position 34 only after Slice033 D0",()=>{
+  assert.equal(queue.queueDigest,authority.queueAuthority.queueDigest);
+  assert.equal(queue.orderedSliceIds[33],"p03e_q034_r9_g4a_u09_4a09_profile_decimal_c1");
+  assert.equal(queue.orderedImplementationTaskIds[33],"P03F_W3DirectProductVerticalSlice034Implementation");
+  assert.equal(authority.queueAuthority.queuePosition,34);
+  assert.equal(predecessor.status,"PASS_D0_CLOSED");
+  assert.equal(predecessor.goalDistance,"D0");
+  assert.equal(predecessor.progression.nextTask,"P03F_W3DirectProductVerticalSlice034Implementation");
+  assert.equal(authority.knowledgePoints[0].knowledgePointId,KP);
+});
+test("P03F34 source and FormalMapping preserve missing-digit inequality semantics",()=>{
+  const kp=knowledge.knowledgePoints.find((row)=>row.candidateId===KP); assert.ok(kp); assert.equal(kp.applicationClassification,"APPLICATION_NOT_APPLICABLE");
+  const op=operations.knowledgePoints.find((row)=>row.knowledgePointId===KP); assert.ok(op); assert.equal(op.operationModels.length,1);
+  assert.equal(op.operationModels[0].modelId,"op_g4a_u09_missing_digit_inequality");
+  assert.equal(op.operationModels[0].operationFamilyId,"missing_digit_inequality");
+  assert.equal(op.operationModels[0].requestedUnknownRole,"possibleDigits");
+  assert.equal(op.operationModels[0].answerType,"digit_set");
+  assert.deepEqual(authority.requiredW3CapabilityUnion,CAPS);
+  assert.equal(authority.formalMappingBoundary.decimalArithmeticRequired,false);
+});
+test("P03F34 promotes exactly the existing numeric PatternSpec and no application surface",()=>{
+  const spec=allSpecs().find((row)=>row.patternSpecId===SPEC); assert.ok(spec); assert.equal(spec.mode,"NUMERIC");
+  assert.equal(authority.patternSurfaces.length,1); assert.equal(authority.patternSurfaces[0].patternSpecId,SPEC);
+  assert.equal(authority.patternSurfaces[0].answerType,"digit_set");
+  assert.equal(authority.productBoundary.applicationExpansionAllowed,false);
+  assert.equal(authority.productBoundary.globalContextExpansionAllowed,false);
+  assert.equal(authority.productBoundary.parallelPipelineAllowed,false);
+});
+test("P03F34 is existing-source expansion from 32/229 to 32/230",()=>{
+  assert.deepEqual([authority.productBoundary.expectedSourceVisibleCountBeforeAdmission,authority.productBoundary.expectedSourceVisibleCountAfterAdmission,authority.productBoundary.expectedSourceHiddenCountBeforeAdmission,authority.productBoundary.expectedSourceHiddenCountAfterAdmission],[6,7,2,1]);
+  assert.deepEqual([authority.productBoundary.expectedPublicSourceCountBeforeAdmission,authority.productBoundary.expectedPublicSourceCountAfterAdmission,authority.productBoundary.expectedCurrentPublicKnowledgePointCountBeforeAdmission,authority.productBoundary.expectedCurrentPublicKnowledgePointCountAfterAdmission],[32,32,229,230]);
+  assert.equal(authority.productBoundary.nextSliceMayStartBeforeD0Closeout,false);
+  assert.equal(authority.productBoundary.nextTask,"P03F_W3DirectProductVerticalSlice035Implementation");
+});
