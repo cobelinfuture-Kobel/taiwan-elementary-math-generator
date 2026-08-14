@@ -2,9 +2,9 @@
   "schemaName": "P03FSlice033ProductAdmissionManifestV1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice033Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice033-e6-d0-v1.json",
   "readbackPath": "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE033_READBACK.md",
   "authorityPath": "data/curriculum/full-product/p03f/slice033-g4a-u06-rank9-fraction-authority.json",
@@ -54,32 +54,32 @@
     "visualReview": "PASS"
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
-    "runId": null,
-    "jobId": null,
-    "artifactId": null,
-    "artifactDigest": null,
-    "executed": null,
-    "pass": null,
-    "fail": null,
-    "exitCode": null
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
+    "runId": 31759862193,
+    "jobId": 94645759057,
+    "artifactId": 9204780340,
+    "artifactDigest": "sha256:ae6c3bb218d59daf89b2e32454d82ebe1f313f7070a599324b5bb16dfe13b455",
+    "executed": 793,
+    "pass": 793,
+    "fail": 0,
+    "exitCode": 0
   },
   "closeoutPr": {
-    "number": null,
-    "headSha": null,
-    "mergeSha": null,
-    "nodeRunId": null,
-    "nodeJobId": null,
-    "tests": null,
-    "pass": null,
-    "fail": null,
-    "diagnosticsArtifactId": null,
-    "diagnosticsDigest": null,
-    "status": "PENDING_CANDIDATE_CI"
+    "number": 583,
+    "headSha": "2270807bafe7fb5aa2fe0e03ed45b67b49fe31d0",
+    "mergeSha": "04cd65c0ba69522268b7b494b19caecbb69406e4",
+    "nodeRunId": 31759862170,
+    "nodeJobId": 94643702378,
+    "tests": 3070,
+    "pass": 3070,
+    "fail": 0,
+    "diagnosticsArtifactId": 9204233311,
+    "diagnosticsDigest": "sha256:4110743d4b103e4734c267919541b9daa89df57cf029261a26e45be50d513681",
+    "status": "PASS_CANDIDATE_CI_MERGED"
   },
   "productionAdmission": {
-    "slice033Admitted": false,
-    "slice034MayStart": false
+    "slice033Admitted": true,
+    "slice034MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice033_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice034Implementation"
 }

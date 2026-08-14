@@ -77,7 +77,7 @@ test("P03F33 current selector remains exactly 32 sources / 229 KPs with G4A-U06 
   assert.equal(pixel.bySourceId[sourceId].visibleKnowledgePoints.length, 5);
 });
 
-test("P03F33 candidate files agree on main authority and keep Slice034 frozen", () => {
+test("P03F33 files agree on main authority and admission follows closeout state", () => {
   assert.equal(manifest.queuePosition, 33);
   assert.equal(manifest.sourceId, sourceId);
   assert.equal(manifest.currentAuthority.publicSources, 32);
@@ -91,8 +91,9 @@ test("P03F33 candidate files agree on main authority and keep Slice034 frozen", 
   assert.equal(manifest.runtime.mainBlobSha, claim.implementationEvidence.runtimeBlobShaOnMain);
   assert.equal(manifest.productEvidence.artifactId, claim.implementationEvidence.productAcceptance.artifactId);
   assert.equal(manifest.productEvidence.artifactDigest, claim.implementationEvidence.productAcceptance.artifactDigest);
-  assert.equal(manifest.productionAdmission.slice033Admitted, false);
-  assert.equal(manifest.productionAdmission.slice034MayStart, false);
+  const finalD0 = claim.status === "PASS_D0_CLOSED";
+  assert.equal(manifest.productionAdmission.slice033Admitted, finalD0);
+  assert.equal(manifest.productionAdmission.slice034MayStart, finalD0);
   assert.equal(claim.progression.nextSliceMayStartBeforeD0Closeout, false);
   assert.equal(claim.progression.nextTask, "P03F_W3DirectProductVerticalSlice034Implementation");
 });
