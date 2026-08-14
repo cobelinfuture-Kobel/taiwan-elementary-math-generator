@@ -1,0 +1,76 @@
+{
+  "schemaName": "P03FSlice035ProductAdmissionManifestV1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice035Implementation",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "admissionState": "PENDING_D0_RECONCILIATION",
+  "goalDistance": "D1",
+  "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice035-e6-d0-v1.json",
+  "readbackPath": "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE035_READBACK.md",
+  "authorityPath": "data/curriculum/full-product/p03f/slice035-g4b-u06-rank9-decimal-scale-authority.json",
+  "closeoutTestPath": "tests/curriculum/p03f-slice035-d0-closeout.test.js",
+  "queuePosition": 35,
+  "sourceId": "g4b_u06_4b06",
+  "knowledgePointIds": ["kp_g4b_u06_decimal_scale_ten_hundred"],
+  "patternGroupIds": ["pg_g4b_u06_decimal_scale_ten_hundred_numeric"],
+  "patternSpecIds": ["ps_g4b_u06_decimal_scale_ten_hundred_result_numeric"],
+  "implementation": {
+    "prNumber": 588,
+    "headSha": "088d3220d4760962f046ef957c01c1d19900d6b4",
+    "mergeSha": "af64cb90c5da3cf46812dd34a505255b52f7954a"
+  },
+  "currentAuthority": {
+    "publicSources": 32,
+    "visibleKnowledgePoints": 231,
+    "sourceVisibleKnowledgePoints": 4,
+    "sourceHiddenKnowledgePoints": 2,
+    "gaps": 0
+  },
+  "runtime": {
+    "path": "site/modules/curriculum/batch-a/g4b-u06-rank9-decimal-scale-runtime-p03f35.js",
+    "mainBlobSha": "1fe66a24a62eb234936aeb418573bfb8f55ba656"
+  },
+  "productEvidence": {
+    "artifactId": 9222993887,
+    "artifactDigest": "sha256:8e3f078bb6f05fec1a2fc25a532fee0375dec59845dc579ac42ac117ee209c3c",
+    "questions": 24,
+    "answers": 24,
+    "patternSpecs": 1,
+    "factorWitnessCounts": {"10": 6, "100": 6, "0.1": 6, "0.01": 6},
+    "pdfPages": 6,
+    "visualReview": "PASS"
+  },
+  "canonical793Evidence": {
+    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "runId": null,
+    "jobId": null,
+    "artifactId": null,
+    "artifactDigest": null,
+    "executed": 0,
+    "terminal": 0,
+    "pass": 0,
+    "fail": 0,
+    "browserConsoleErrors": null,
+    "browserPageErrors": null,
+    "exitCode": null
+  },
+  "closeoutPr": {
+    "number": null,
+    "headSha": null,
+    "mergeSha": null,
+    "nodeRunId": null,
+    "nodeJobId": null,
+    "tests": null,
+    "pass": null,
+    "fail": null,
+    "skipped": null,
+    "diagnosticsArtifactId": null,
+    "diagnosticsDigest": null,
+    "status": "PENDING_CANDIDATE_CI"
+  },
+  "productionAdmission": {
+    "slice035Admitted": false,
+    "slice036MayStart": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice035_D0PostMergeReconciliation"
+}

@@ -60,8 +60,8 @@ test("P03F34 final manifest admits only Slice034 and releases Slice035", () => {
   assert.equal(claim.progression.nextSliceMayStartBeforeD0Closeout, false);
 });
 
-test("P03F34 final R00 replay trigger preserved historical wording", () => {
-  assert.match(r00Test, /P03F34 D0 closeout replay trigger/);
+test("P03F34 final R00 replay keeps a current trigger while preserving historical wording", () => {
+  assert.match(r00Test, /P03F\d+ D0 closeout replay trigger/);
   assert.match(r00Test, /current public sources may extend through Slice033/);
   assert.equal(claim.canonical793Evidence.artifactId, 9214954655);
   assert.equal(claim.canonical793Evidence.artifactDigest, "sha256:8f8a49c042041246196a24fe48eb78bcb2e7454b0e4c56f8dc23266f3df04988");

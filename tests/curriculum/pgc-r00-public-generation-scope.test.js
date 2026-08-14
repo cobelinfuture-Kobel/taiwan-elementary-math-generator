@@ -14,7 +14,7 @@ import {
   auditFullProductPublicControlProfiles,
 } from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
 
-// P03F34 D0 closeout replay trigger; executable and Slice033 historical authority below are unchanged.
+// P03F35 D0 closeout replay trigger; executable and Slice033 historical authority below are unchanged.
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "../..");
 const scopePath = path.join(repoRoot, "data/curriculum/public-generation/public_generation_scope.json");
