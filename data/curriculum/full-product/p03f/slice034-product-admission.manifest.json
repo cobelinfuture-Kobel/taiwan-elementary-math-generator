@@ -2,9 +2,9 @@
   "schemaName": "P03FSlice034ProductAdmissionManifestV1",
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice034Implementation",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice034-e6-d0-v1.json",
   "readbackPath": "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE034_READBACK.md",
   "authorityPath": "data/curriculum/full-product/p03f/slice034-g4a-u09-rank9-missing-digit-inequality-authority.json",
@@ -18,8 +18,8 @@
   "currentAuthority": {"publicSources": 32, "visibleKnowledgePoints": 230, "sourceVisibleKnowledgePoints": 7, "sourceHiddenKnowledgePoints": 1, "gaps": 0},
   "runtime": {"path": "site/modules/curriculum/batch-a/g4a-u09-rank9-missing-digit-inequality-runtime-p03f34.js", "mainBlobSha": "c969448b6d1e59c33572e954c575c10f88b321bf"},
   "productEvidence": {"artifactId": 9214050679, "artifactDigest": "sha256:37feb5c7d799f8f8c3e1a5c7015fb498811cbc644fa4458a03eebddd286615a9", "questions": 24, "answers": 24, "patternSpecs": 1, "witnessesPerPatternSpec": 24, "pdfPages": 6, "visualReview": "PASS"},
-  "canonical793Evidence": {"status": "PENDING_CLOSEOUT_CANDIDATE_CI", "runId": null, "jobId": null, "artifactId": null, "artifactDigest": null, "executed": null, "pass": null, "fail": null, "exitCode": null},
-  "closeoutPr": {"number": null, "headSha": null, "mergeSha": null, "nodeRunId": null, "nodeJobId": null, "tests": null, "pass": null, "fail": null, "diagnosticsArtifactId": null, "diagnosticsDigest": null, "status": "PENDING_CANDIDATE_CI"},
-  "productionAdmission": {"slice034Admitted": false, "slice035MayStart": false},
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice034_D0PostMergeReconciliation"
+  "canonical793Evidence": {"status": "PASS_ALL_793_LEGAL_ROUTES", "runId": 31788409088, "jobId": 94729483306, "artifactId": 9214954655, "artifactDigest": "sha256:8f8a49c042041246196a24fe48eb78bcb2e7454b0e4c56f8dc23266f3df04988", "executed": 793, "terminal": 793, "pass": 793, "fail": 0, "browserConsoleErrors": 0, "browserPageErrors": 0, "exitCode": 0},
+  "closeoutPr": {"number": 586, "headSha": "3aed81f8ed9744b0189f91e878d1f228b54ed970", "mergeSha": "5010947e06a86c2c651c58b6bffd3d77e1dc714d", "nodeRunId": 31788409115, "nodeJobId": 94729483416, "tests": 3088, "pass": 3088, "fail": 0, "skipped": 0, "diagnosticsArtifactId": 9214496934, "diagnosticsDigest": "sha256:99e66ee26eb1c988140135ef64150f1448a6543f34cf2fdd7b3b2ff9a4246f74", "status": "PASS_CI_SYNCED_AND_MERGED"},
+  "productionAdmission": {"slice034Admitted": true, "slice035MayStart": true},
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice035Implementation"
 }
