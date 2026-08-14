@@ -3,8 +3,8 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice033Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice033_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice033 only: expand existing public source g4a_u06_4a06 from two to five visible KnowledgePoints by admitting compare/order, number-line coordinate/distance, and same-denominator mixed add/sub through three numeric PatternGroups and four numeric PatternSpecs. Application PatternSpecs, fraction-times-integer quantity, Global Context expansion, parallel pipelines, historical Slice mutation, and Slice034 remain outside Slice033.",
   "authority": {
     "path": "data/curriculum/full-product/p03f/slice033-g4a-u06-rank9-fraction-authority.json",
@@ -34,7 +34,7 @@
     "workflowRuns": {"pgcR02": {"runId": 31715279148, "status": "SUCCESS"}, "pgcR03": {"runId": 31715279176, "status": "SUCCESS"}, "pgcR04": {"runId": 31715279284, "status": "SUCCESS"}, "pgcR06A03": {"runId": 31715279151, "status": "SUCCESS"}, "glmS03": {"runId": 31715279373, "status": "SUCCESS"}}
   },
   "mainReadback": {"implementationMergeSha": "3305e7b2692b54e954fe54c6cc8a2114b0366b4e", "publicSources": 32, "visibleKnowledgePoints": 229, "g4aU06VisibleKnowledgePoints": 5, "g4aU06HiddenKnowledgePoints": 1, "publicUiBindingGaps": 0, "runtimeBlobMatchesImplementation": true},
-  "canonical793Evidence": {"status": "PENDING_CLOSEOUT_CANDIDATE_CI", "workflow": "PGC-R00 Public Generation Scope Freeze", "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js", "runId": null, "jobId": null, "artifactId": null, "artifactDigest": null, "legalRouteCount": 793, "executedRouteCount": null, "passRouteCount": null, "failRouteCount": null},
-  "closeoutEvidence": {"candidatePrNumber": null, "candidateHeadSha": null, "candidateMergeSha": null, "candidateNodeRunId": null, "candidateNodeJobId": null, "candidateNodeTests": null, "candidateNodePass": null, "candidateNodeFail": null, "candidateNodeDiagnosticsArtifactId": null, "candidateNodeDiagnosticsDigest": null, "status": "PENDING_CANDIDATE_CI"},
-  "progression": {"nextTask": "P03F_W3DirectProductVerticalSlice034Implementation", "nextSliceMayStartBeforeD0Closeout": false, "nextResumeTask": "P03F_W3DirectProductVerticalSlice033_D0PostMergeReconciliation"}
+  "canonical793Evidence": {"status": "PASS_ALL_793_LEGAL_ROUTES", "workflow": "PGC-R00 Public Generation Scope Freeze", "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js", "runId": 31759862193, "jobId": 94645759057, "artifactId": 9204780340, "artifactDigest": "sha256:ae6c3bb218d59daf89b2e32454d82ebe1f313f7070a599324b5bb16dfe13b455", "legalRouteCount": 793, "executedRouteCount": 793, "passRouteCount": 793, "failRouteCount": 0},
+  "closeoutEvidence": {"candidatePrNumber": 583, "candidateHeadSha": "2270807bafe7fb5aa2fe0e03ed45b67b49fe31d0", "candidateMergeSha": "04cd65c0ba69522268b7b494b19caecbb69406e4", "candidateNodeRunId": 31759862170, "candidateNodeJobId": 94643702378, "candidateNodeTests": 3070, "candidateNodePass": 3070, "candidateNodeFail": 0, "candidateNodeDiagnosticsArtifactId": 9204233311, "candidateNodeDiagnosticsDigest": "sha256:4110743d4b103e4734c267919541b9daa89df57cf029261a26e45be50d513681", "status": "PASS_CANDIDATE_CI_MERGED"},
+  "progression": {"nextTask": "P03F_W3DirectProductVerticalSlice034Implementation", "nextSliceMayStartBeforeD0Closeout": false, "nextResumeTask": "P03F_W3DirectProductVerticalSlice034Implementation"}
 }
