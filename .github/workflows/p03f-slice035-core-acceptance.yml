@@ -1,0 +1,30 @@
+name: P03F Slice035 Core Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f35-core-acceptance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-core:
+    if: github.head_ref == 'p03f35-g4b-u06-rank9-decimal-scale'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run Slice035 core contracts
+        run: node --test tests/curriculum/p03f-slice035-g4b-u06-rank9-decimal-scale-core.test.js
