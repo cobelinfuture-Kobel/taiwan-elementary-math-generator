@@ -31,7 +31,7 @@ const assetContracts = [
   {
     repoPath: "site/modules/curriculum/batch-a/g4b-u06-rank9-decimal-scale-runtime-p03f35.js",
     publicPath: "modules/curriculum/batch-a/g4b-u06-rank9-decimal-scale-runtime-p03f35.js",
-    requiredTokens: [PATTERN_SPEC_ID, "decimal_scale", "APPLICATION_NOT_APPLICABLE", "SHARED_OPERATION_FAMILY_VALIDATOR_V1"]
+    requiredTokens: ["G4B_U06_P03F35_PATTERN_SPEC_ID", "decimal_scale", "APPLICATION_NOT_APPLICABLE", "SHARED_OPERATION_FAMILY_VALIDATOR_V1"]
   },
   {
     repoPath: "site/assets/browser/public-capability-ui.js",
@@ -137,9 +137,9 @@ async function waitForExactDeployment() {
       for (const contract of assetContracts) {
         const localText = readFileSync(repoPath(contract.repoPath), "utf8");
         const expectedSha256 = sha256(localText);
-        const liveUrl = new URL(contract.publicPath, baseUrl);
-        liveUrl.searchParams.set("p03f35-sha", expectedSha256.slice(0, 16));
-        const liveText = await fetchText(liveUrl);
+        const assetUrl = new URL(contract.publicPath, baseUrl);
+        assetUrl.searchParams.set("p03f35-sha", expectedSha256.slice(0, 16));
+        const liveText = await fetchText(assetUrl);
         const liveSha256 = sha256(liveText);
         const missingTokens = contract.requiredTokens.filter((token) => !liveText.includes(token));
         if (liveSha256 !== expectedSha256 || missingTokens.length > 0) {
@@ -171,17 +171,19 @@ function buildLiveUrl() {
   return url;
 }
 
-const deployment = await waitForExactDeployment();
 const liveUrl = buildLiveUrl();
 const consoleErrors = [];
 const pageErrors = [];
 const requestFailures = [];
 const serverErrors = [];
-const browser = await chromium.launch({ headless: true });
+let deployment = null;
+let browser = null;
 let page;
 let report;
 
 try {
+  deployment = await waitForExactDeployment();
+  browser = await chromium.launch({ headless: true });
   page = await browser.newPage({ viewport: { width: 1440, height: 1100 }, deviceScaleFactor: 1 });
   page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
   page.on("pageerror", (error) => pageErrors.push(error.message));
@@ -376,6 +378,7 @@ try {
     exactMergeSha: EXACT_MERGE_SHA,
     exactPagesRunId: EXACT_PAGES_RUN_ID,
     liveUrl: liveUrl.href,
+    deployment,
     error: error?.stack ?? String(error),
     browser: { consoleErrors, pageErrors, requestFailures, serverErrors }
   };
@@ -384,5 +387,5 @@ try {
   console.error(failure.error);
   process.exitCode = 1;
 } finally {
-  await browser.close();
+  if (browser) await browser.close();
 }
