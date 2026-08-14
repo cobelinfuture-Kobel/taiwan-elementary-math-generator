@@ -3,9 +3,9 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice034Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice034_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
-  "scope": "Slice034 only: expand existing public source g4a_u09_4a09 from six to seven visible KnowledgePoints by admitting missing-digit decimal inequality through one numeric PatternGroup and one numeric PatternSpec with exhaustive digit_set answers. Decimal arithmetic, application mode, Global Context expansion, parallel pipelines, historical Slice mutation, and Slice035 remain outside Slice034.",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
+  "scope": "Slice034 only: expand existing public source g4a_u09_4a09 from six to seven visible KnowledgePoints by admitting missing-digit decimal inequality through one numeric PatternGroup and one numeric PatternSpec with exhaustive digit_set answers. Decimal arithmetic, application mode, Global Context expansion, parallel pipelines, historical Slice mutation, and Slice035 remained outside Slice034 implementation scope.",
   "authority": {
     "path": "data/curriculum/full-product/p03f/slice034-g4a-u09-rank9-missing-digit-inequality-authority.json",
     "queuePosition": 34,
@@ -34,7 +34,7 @@
     "workflowRuns": {"pgcR02": {"runId": 31787399575, "status": "SUCCESS"}, "pgcR03": {"runId": 31787399344, "status": "SUCCESS"}, "pgcR04": {"runId": 31787399338, "status": "SUCCESS"}, "pgcR06A03": {"runId": 31787399370, "status": "SUCCESS"}, "glmS03": {"runId": 31787399449, "status": "SUCCESS"}}
   },
   "mainReadback": {"implementationMergeSha": "190b809fb45606a85102d0027a00082efcde4cb4", "publicSources": 32, "visibleKnowledgePoints": 230, "g4aU09VisibleKnowledgePoints": 7, "g4aU09HiddenKnowledgePoints": 1, "publicUiBindingGaps": 0, "runtimeBlobMatchesImplementation": true},
-  "canonical793Evidence": {"status": "PENDING_CLOSEOUT_CANDIDATE_CI", "workflow": "PGC-R00 Public Generation Scope Freeze", "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js", "runId": null, "jobId": null, "artifactId": null, "artifactDigest": null, "legalRouteCount": 793, "executedRouteCount": null, "passRouteCount": null, "failRouteCount": null},
-  "closeoutEvidence": {"candidatePrNumber": null, "candidateHeadSha": null, "candidateMergeSha": null, "candidateNodeRunId": null, "candidateNodeJobId": null, "candidateNodeTests": null, "candidateNodePass": null, "candidateNodeFail": null, "candidateNodeDiagnosticsArtifactId": null, "candidateNodeDiagnosticsDigest": null, "status": "PENDING_CANDIDATE_CI"},
-  "progression": {"nextTask": "P03F_W3DirectProductVerticalSlice035Implementation", "nextSliceMayStartBeforeD0Closeout": false, "nextResumeTask": "P03F_W3DirectProductVerticalSlice034_D0PostMergeReconciliation"}
+  "canonical793Evidence": {"status": "PASS_ALL_793_LEGAL_ROUTES", "workflow": "PGC-R00 Public Generation Scope Freeze", "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js", "runId": 31788409088, "jobId": 94729483306, "artifactId": 9214954655, "artifactDigest": "sha256:8f8a49c042041246196a24fe48eb78bcb2e7454b0e4c56f8dc23266f3df04988", "legalRouteCount": 793, "executedRouteCount": 793, "terminalRouteCount": 793, "passRouteCount": 793, "failRouteCount": 0, "browserConsoleErrorCount": 0, "browserPageErrorCount": 0, "exitCode": 0},
+  "closeoutEvidence": {"candidatePrNumber": 586, "candidateHeadSha": "3aed81f8ed9744b0189f91e878d1f228b54ed970", "candidateMergeSha": "5010947e06a86c2c651c58b6bffd3d77e1dc714d", "candidateNodeRunId": 31788409115, "candidateNodeJobId": 94729483416, "candidateNodeTests": 3088, "candidateNodePass": 3088, "candidateNodeFail": 0, "candidateNodeSkipped": 0, "candidateNodeDiagnosticsArtifactId": 9214496934, "candidateNodeDiagnosticsDigest": "sha256:99e66ee26eb1c988140135ef64150f1448a6543f34cf2fdd7b3b2ff9a4246f74", "status": "PASS_CI_SYNCED_AND_MERGED"},
+  "progression": {"nextTask": "P03F_W3DirectProductVerticalSlice035Implementation", "nextSliceMayStartBeforeD0Closeout": false, "nextResumeTask": "P03F_W3DirectProductVerticalSlice035Implementation"}
 }

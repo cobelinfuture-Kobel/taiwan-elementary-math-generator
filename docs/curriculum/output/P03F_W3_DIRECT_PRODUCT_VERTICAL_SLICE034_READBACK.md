@@ -1,4 +1,4 @@
-# P03F W3 Direct Product Vertical Slice034 — D0 Closeout Candidate Readback
+# P03F W3 Direct Product Vertical Slice034 — D0 Final Readback
 
 ## Status
 
@@ -6,39 +6,39 @@
 PROGRAM_ID = FULL_PRODUCT_LINE_D0_V1
 TASK_ID = P03F_W3DirectProductVerticalSlice034Implementation
 E6_MILESTONE_ID = P03F_W3DirectProductVerticalSlice034_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
-ADMISSION_STATE = PENDING_D0_RECONCILIATION
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
+ADMISSION_STATE = PRODUCTION_ADMITTED_D0
 ```
 
-Slice034 implementation is merged to main, but this package does not yet admit Slice034 at D0 and does not start Slice035.
+Slice034 is fully reconciled at D0. Slice035 may now begin from the frozen W3 queue; no Slice035 implementation is included in this closeout.
 
 ## Frozen product identity
 
-- Queue position: `34`
-- Source: `g4a_u09_4a09` / 4A-U09 2位小數
-- Existing public source expansion: `6 visible / 2 hidden -> 7 visible / 1 hidden`
-- Current public inventory: `32 sources / 230 visible KPs`
-- New public KPs: 1
-- Numeric PatternGroups: 1
-- Numeric PatternSpecs: 1
-- Answer model: exhaustive `digit_set`
-- Required shared capabilities: decimal domain validator, decimal number system
-- Decimal arithmetic remains forbidden for this KP.
-- Application mode and Global Context remain forbidden.
-- Parallel pipeline expansion remains forbidden.
+```text
+QUEUE_POSITION = 34
+SOURCE = g4a_u09_4a09
+KP = kp_g4a_u09_missing_digit_inequality
+PATTERN = ps_g4a_u09_missing_digit_inequality_possible_digits_numeric
+ANSWER_MODEL = digit_set
+CAPABILITIES = cap_decimal_domain_validator + cap_decimal_number_system
+PUBLIC_INVENTORY = 32 sources / 230 visible KPs
+G4A_U09 = 7 visible / 1 hidden
+```
+
+Decimal arithmetic, application mode, Global Context expansion and parallel pipelines were not admitted by Slice034.
 
 ## Implementation evidence
 
 ```text
 PR = #585
 EXACT_HEAD = da14347e0b7f16c0ff2ffb4758a2f478e971a855
-MERGE_SHA = 190b809fb45606a85102d0027a00082efcde4cb4
+IMPLEMENTATION_MERGE = 190b809fb45606a85102d0027a00082efcde4cb4
+NODE = 3083 / 3083 PASS, 0 FAIL
 NODE_RUN = 31787399556
 NODE_JOB = 94726298726
-NODE = 3083 / 3083 PASS, 0 FAIL
-NODE_DIAGNOSTICS_ARTIFACT = 9214127813
-NODE_DIAGNOSTICS_DIGEST = sha256:121ae90591ee70e87e6e306630ed4c2d809c53321eea13d2379e4fa357edfe5b
+NODE_ARTIFACT = 9214127813
+NODE_DIGEST = sha256:121ae90591ee70e87e6e306630ed4c2d809c53321eea13d2379e4fa357edfe5b
 ```
 
 ## Chromium product evidence
@@ -52,58 +52,58 @@ QUESTIONS = 24
 ANSWERS = 24
 PATTERN_SPECS = 1
 WITNESSES_PER_SPEC = 24
-QUESTION_PAGES = 3
-ANSWER_PAGES = 3
-PHYSICAL_PDF_PAGES = 6
+PDF_PAGES = 6
 COMPLETE_DIGIT_SET_MISMATCH = 0
 NON_DISCRIMINATING_DIGIT_SET = 0
-TENTHS_WITNESSES = 12
-HUNDREDTHS_WITNESSES = 12
-LESS_THAN_WITNESSES = 12
-GREATER_THAN_WITNESSES = 12
 CROSS_LAYER_MISMATCH = 0
 DUPLICATE_PROMPT = 0
 OVERFLOW = 0
-CONSOLE_ERRORS = 0
-PAGE_ERRORS = 0
 SEMANTIC_SCOPE_FINDINGS = 0
 APPLICATION_LEAK = 0
-SHARED_PAGINATION = true
-SHARED_RENDERER = true
-PARALLEL_PIPELINE = false
 MANUAL_VISUAL_REVIEW = PASS (6 / 6 pages)
-CLIPPED_TEXT = 0
-OVERLAP = 0
-BROKEN_GLYPH = 0
 ```
 
-The final-head six page screenshots are byte-identical to the six-page wave already manually reviewed, so the final-head visual verdict remains PASS.
+Final-head screenshots are byte-identical to the manually reviewed wave.
 
-## Main readback
-
-Main contains the Slice034 authority, runtime and current selector successor. The executable contracts on main assert:
+## D0 closeout candidate evidence
 
 ```text
-PUBLIC_SOURCES = 32
-VISIBLE_KPS = 230
-G4A_U09_VISIBLE = 7
-G4A_U09_HIDDEN = 1
-PUBLIC_UI_BINDING_GAPS = 0
-RUNTIME_BLOB = c969448b6d1e59c33572e954c575c10f88b321bf
+CANDIDATE_PR = #586
+CANDIDATE_HEAD = 3aed81f8ed9744b0189f91e878d1f228b54ed970
+CANDIDATE_MERGE = 5010947e06a86c2c651c58b6bffd3d77e1dc714d
+CANDIDATE_NODE_RUN = 31788409115
+CANDIDATE_NODE_JOB = 94729483416
+CANDIDATE_NODE = 3088 / 3088 PASS, 0 FAIL
+CANDIDATE_NODE_ARTIFACT = 9214496934
+CANDIDATE_NODE_DIGEST = sha256:99e66ee26eb1c988140135ef64150f1448a6543f34cf2fdd7b3b2ff9a4246f74
 ```
 
-## Pending canonical replay
-
-The implementation PR did not touch a PGC-R00 trigger path, so its exact-head 793-route replay was not scheduled. This closeout candidate updates only the stale R00 test description from `through Slice033` to `through Slice034`; the executable assertion remains `32` current public sources. That scope-aligned reconciliation triggers the existing read-only PGC-R00 workflow on the closeout candidate head.
-
-Until that workflow returns `PASS_ALL_793_LEGAL_ROUTES`, this package remains D1.
-
-## E2E closeout boundary
-
-The candidate is not D0 merely because the implementation PR is merged. Final D0 requires a consistent chain across authority, PatternSpec, generator, validator, Classic/Pixel bindings, worksheet/answer key, HTML/PDF/print evidence, canonical 793-route replay, candidate CI/merge, and post-merge main readback.
+## Canonical 793-route evidence
 
 ```text
-SLICE034_ADMITTED = false
-SLICE035_MAY_START = false
-NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice034_D0PostMergeReconciliation
+R00_RUN = 31788409088
+R00_JOB = 94729483306
+R00_ARTIFACT = 9214954655
+R00_DIGEST = sha256:8f8a49c042041246196a24fe48eb78bcb2e7454b0e4c56f8dc23266f3df04988
+STATUS = PASS_ALL_793_LEGAL_ROUTES
+LEGAL = 793
+EXECUTED = 793
+TERMINAL = 793
+PASS = 793
+FAIL = 0
+BROWSER_CONSOLE_ERRORS = 0
+BROWSER_PAGE_ERRORS = 0
+EXIT_CODE = 0
+```
+
+## Closeout
+
+```text
+GOAL_DISTANCE_BEFORE = D1_SLICE034_D0_CANDIDATE_CI_AND_CANONICAL_REPLAY_PENDING
+GOAL_DISTANCE_AFTER = D0_SLICE034_CLOSED
+DISTANCE_REDUCED = candidate full regression, deployed smoke, exact 10-route/3-route checks, canonical 793-route replay, candidate merge, and production admission are reconciled into final authority.
+REMAINING_BLOCKERS = []
+SLICE034_ADMITTED = true
+SLICE035_MAY_START = true
+NEXT_SHORTEST_STEP = P03F_W3DirectProductVerticalSlice035Implementation
 ```
