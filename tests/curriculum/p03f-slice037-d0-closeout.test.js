@@ -12,7 +12,7 @@ import {
 
 const claim = JSON.parse(readFileSync(new URL("../../data/curriculum/final-milestone-claims/p03f-w3-slice037-e6-d0-v1.json", import.meta.url), "utf8"));
 const manifest = JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p03f/slice037-product-admission.manifest.json", import.meta.url), "utf8"));
-const r00Test = readFileSync(new URL("./pgc-r00-public-generation-scope.test.js", import.meta.url), "utf8");
+const r00Test = readFileSync(new URL("./pgc-r00-public-generation-scope.test.js", import.meta.url), "utf8"));
 
 test("P03F37 D0 authority binds exact q037 product scope", () => {
   assert.equal(claim.authority.queuePosition, 37);
@@ -90,10 +90,10 @@ test("P03F37 final-head Main/Pages E2E binds deployed product behavior", () => {
   assert.equal(e2e.slice038Started, false);
 });
 
-test("P03F37 historical authority remains 32/235 while current Pixel advances through Slice038 to 32/236", () => {
+test("P03F37 historical authority remains 32/235 while current Pixel advances through Slice039 to 32/237", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 32);
-  assert.equal(pixel.visibleKnowledgePointCount, 236);
+  assert.equal(pixel.visibleKnowledgePointCount, 237);
   assert.equal(pixel.bySourceId[G5A_U04_P03F37_SOURCE_ID].visibleKnowledgePoints.length, 6);
   assert.equal(pixel.bySourceId[G5A_U04_P03F37_SOURCE_ID].hiddenPendingCount, 1);
 });
