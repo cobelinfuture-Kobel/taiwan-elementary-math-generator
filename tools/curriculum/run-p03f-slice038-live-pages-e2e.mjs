@@ -32,7 +32,7 @@ const assetContracts = [
   {
     repoPath: "site/modules/curriculum/batch-a/g5a-u06-rank9-mixed-improper-add-sub-runtime-p03f38.js",
     publicPath: "modules/curriculum/batch-a/g5a-u06-rank9-mixed-improper-add-sub-runtime-p03f38.js",
-    requiredTokens: ["fraction_add_sub", "P03F_W3DirectProductVerticalSlice038Implementation", KP_ID, SPEC_ID],
+    requiredTokens: ["fraction_add_sub", "P03F_W3DirectProductVerticalSlice038Implementation"],
   },
   {
     repoPath: "site/assets/browser/state/query-state.js",
