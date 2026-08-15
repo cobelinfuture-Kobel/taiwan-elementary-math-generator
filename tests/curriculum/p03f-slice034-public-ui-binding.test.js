@@ -11,9 +11,9 @@ test("P03F34 Classic fallback404 and Pixel expose target only as numeric",()=>{
     assert.equal(JSON.stringify(binding).includes("application"),false);
   }
 });
-test("P03F34 pattern-group state remains intact while Pixel current registry advances through Slice038 to 32 sources / 236 KPs",()=>{
+test("P03F34 pattern-group state remains intact while Pixel current registry advances through Slice039 to 32 sources / 237 KPs",()=>{
   const choices=listPublicPatternGroupChoices([G4A_U09_P03F34_KP_ID]); assert.deepEqual(choices.map((row)=>row.patternGroupId),[G4A_U09_P03F34_PATTERN_GROUP_ID]); assert.deepEqual(choices[0].patternSpecIds,[G4A_U09_P03F34_PATTERN_SPEC_ID]);
-  const snapshot=getCurrentPixelRegistrySnapshot(); assert.equal(snapshot.sourceCount,32); assert.equal(snapshot.visibleKnowledgePointCount,236); assert.equal(snapshot.bySourceId[G4A_U09_P03F34_SOURCE_ID].visibleKnowledgePoints.length,7);
+  const snapshot=getCurrentPixelRegistrySnapshot(); assert.equal(snapshot.sourceCount,32); assert.equal(snapshot.visibleKnowledgePointCount,237); assert.equal(snapshot.bySourceId[G4A_U09_P03F34_SOURCE_ID].visibleKnowledgePoints.length,7);
 });
 test("P03F34 same-unit mixed binding keeps prior decimal KP plus target",()=>{
   const binding=resolvePublicUiCapabilityBinding({sourceId:G4A_U09_P03F34_SOURCE_ID,surfaceId:"classic",selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:["kp_g4a_u09_decimal_compare",G4A_U09_P03F34_KP_ID]});
