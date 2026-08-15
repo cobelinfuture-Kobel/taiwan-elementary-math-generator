@@ -3,9 +3,9 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice036Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice036_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
-  "scope": "Slice036 only: expand existing public source g5a_u01_5a01 from two to five visible KnowledgePoints by admitting decimal add/subtract, decimal compare and place-value factor relation through three numeric PatternGroups and four numeric PatternSpecs. The shared current query-state consumer was cut over before implementation merge. Exact post-merge Main/Pages E2E is complete; canonical 793-route replay is the only remaining D0 evidence. Application mode, Global Context expansion, parallel pipelines, sibling KnowledgePoint promotion and Slice037 are not admitted by this candidate.",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
+  "scope": "Slice036 only: g5a_u01_5a01 rank9 admits decimal add/subtract, decimal compare and place-value factor relation through three numeric PatternGroups and four numeric PatternSpecs. Shared query-state, generator, validator, worksheet and renderer consumers remain on the existing product path. Exact implementation CI, exact Pages deployment, live Main/Pages E2E and canonical 793-route replay are all bound. No application expansion, Global Context expansion, parallel pipeline or sibling KnowledgePoint promotion is admitted by Slice036.",
   "authority": {
     "path": "data/curriculum/full-product/p03f/slice036-g5a-u01-rank9-decimal-authority.json",
     "queuePosition": 36,
@@ -116,6 +116,7 @@
   "mainReadback": {
     "implementationMergeSha": "ccf0a9e6cd1f00a0b8fa3fc43739f9145add8c8b",
     "evidenceMergeSha": "50fe8c3c5cddfb54e6934dde09ccfc45c7450125",
+    "candidateMergeSha": "d4edf578cad53d494568ca43d3040c5c3a223040",
     "publicSources": 32,
     "visibleKnowledgePoints": 234,
     "g5aU01VisibleKnowledgePoints": 5,
@@ -160,24 +161,49 @@
     "slice037Started": false
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
     "workflow": "PGC-R00 Public Generation Scope Freeze",
-    "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js",
+    "runId": 31863263241,
+    "jobId": 94960120191,
+    "headSha": "a3ed634812663d3e4112742b31e76945cca14b78",
+    "artifactId": 9241481568,
+    "artifactDigest": "sha256:1a2d32d80996e2d9a45d0448e2450099f970cfea23530b4fc75013b7bb5dd2de",
     "legalRouteCount": 793,
-    "executedRouteCount": null,
-    "terminalRouteCount": null,
-    "passRouteCount": null,
-    "failRouteCount": null
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
   },
   "closeoutEvidence": {
-    "candidatePrNumber": null,
-    "candidateHeadSha": null,
-    "candidateMergeSha": null,
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI"
+    "candidatePrNumber": 595,
+    "candidateHeadSha": "a3ed634812663d3e4112742b31e76945cca14b78",
+    "candidateMergeSha": "d4edf578cad53d494568ca43d3040c5c3a223040",
+    "candidateNode": {
+      "runId": 31863263165,
+      "jobId": 94960120146,
+      "status": "SUCCESS",
+      "tests": 3119,
+      "pass": 3119,
+      "fail": 0,
+      "skipped": 0,
+      "artifactId": 9241266955,
+      "artifactDigest": "sha256:3e65113b0985cd368a40c15c92fe7f223225536212b2cda4a9e1ed5a4cf67707"
+    },
+    "status": "PASS_CI_SYNCED_AND_MERGED"
   },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice037Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice036_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice037Implementation"
   }
 }

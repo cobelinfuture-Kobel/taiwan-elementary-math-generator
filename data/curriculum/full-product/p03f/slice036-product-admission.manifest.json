@@ -4,9 +4,9 @@
   "queuePosition": 36,
   "queueEntryId": "p03e_q036_r9_g5a_u01_5a01_profile_decimal_c1",
   "sourceId": "g5a_u01_5a01",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "data/curriculum/full-product/p03f/slice036-g5a-u01-rank9-decimal-authority.json",
   "knowledgePointIds": [
     "kp_g5a_u01_decimal_add_sub",
@@ -77,15 +77,35 @@
     "browserErrorCount": 0
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
-    "executed": null,
-    "terminal": null,
-    "pass": null,
-    "fail": null
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
+    "runId": 31863263241,
+    "jobId": 94960120191,
+    "headSha": "a3ed634812663d3e4112742b31e76945cca14b78",
+    "artifactId": 9241481568,
+    "artifactDigest": "sha256:1a2d32d80996e2d9a45d0448e2450099f970cfea23530b4fc75013b7bb5dd2de",
+    "executed": 793,
+    "terminal": 793,
+    "pass": 793,
+    "fail": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0
+  },
+  "closeoutPr": {
+    "number": 595,
+    "headSha": "a3ed634812663d3e4112742b31e76945cca14b78",
+    "mergeSha": "d4edf578cad53d494568ca43d3040c5c3a223040",
+    "nodeRunId": 31863263165,
+    "nodeJobId": 94960120146,
+    "nodeTests": 3119,
+    "nodePass": 3119,
+    "nodeFail": 0,
+    "nodeArtifactId": 9241266955,
+    "nodeArtifactDigest": "sha256:3e65113b0985cd368a40c15c92fe7f223225536212b2cda4a9e1ed5a4cf67707"
   },
   "productionAdmission": {
-    "slice036Admitted": false,
-    "slice037MayStart": false
+    "slice036Admitted": true,
+    "slice037MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice036_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice037Implementation"
 }
