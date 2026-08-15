@@ -1,0 +1,98 @@
+{
+  "schemaName": "P03F37ProductAdmissionManifestV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice037_E6_D0Closeout",
+  "queuePosition": 37,
+  "queueEntryId": "p03e_q037_r9_g5a_u04_5a04_profile_fraction_c1",
+  "sourceId": "g5a_u04_5a04",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "admissionState": "PENDING_D0_RECONCILIATION",
+  "goalDistance": "D1",
+  "authorityPath": "data/curriculum/full-product/p03f/slice037-g5a-u04-rank9-equivalent-mixed-authority.json",
+  "knowledgePointIds": [
+    "kp_g5a_u04_equivalent_mixed_selection"
+  ],
+  "patternGroupIds": [
+    "pg_g5a_u04_equivalent_mixed_selection_numeric"
+  ],
+  "patternSpecIds": [
+    "ps_g5a_u04_equivalent_mixed_selection_whole_numeric",
+    "ps_g5a_u04_equivalent_mixed_selection_remainder_numeric",
+    "ps_g5a_u04_equivalent_mixed_selection_improper_numerator_numeric"
+  ],
+  "currentAuthority": {
+    "publicSources": 32,
+    "visibleKnowledgePoints": 235,
+    "sourceVisibleKnowledgePoints": 6,
+    "sourceHiddenKnowledgePoints": 1,
+    "sourceNotSelectableKnowledgePoints": 1,
+    "gaps": 0
+  },
+  "implementation": {
+    "prNumber": 597,
+    "headSha": "d8964648a6ecfd448234785e50025768856b5bdf",
+    "mergeSha": "be5ac90b8708cb2764eaae7ed2b0b2bd25e6c982",
+    "runtimePath": "site/modules/curriculum/batch-a/g5a-u04-rank9-equivalent-mixed-runtime-p03f37.js",
+    "runtimeBlobSha": "f0d729b46da01658ea389d876ea7acb63ecac681"
+  },
+  "productEvidence": {
+    "runId": 31868408025,
+    "jobId": 94972958022,
+    "artifactId": 9242684024,
+    "artifactDigest": "sha256:204c0f4d78c184eaa252b6f78134c25f04f614901a0e3a4b3c4684a7b97e6d5c",
+    "questionCount": 24,
+    "answerCount": 24,
+    "patternSpecCount": 3,
+    "patternSpecWitnessCounts": [8, 8, 8],
+    "integerEquivalenceWitnessCount": 9,
+    "physicalPageCount": 6,
+    "manualVisualStatus": "PASS_6_OF_6",
+    "sharedRenderer": true,
+    "sharedPagination": true,
+    "parallelPipeline": false,
+    "applicationLeakCount": 0
+  },
+  "pagesDeployment": {
+    "runId": 31868596524,
+    "status": "SUCCESS",
+    "exactMergeSha": "be5ac90b8708cb2764eaae7ed2b0b2bd25e6c982"
+  },
+  "livePagesE2E": {
+    "prNumber": 598,
+    "headSha": "b1a22b04db129f64646d61f4f29ccb8c7559c532",
+    "mergeSha": "1b4b2f343bfa444b8c35dce94d023e6bf7ec03ec",
+    "runId": 31869754637,
+    "jobId": 94976475463,
+    "artifactId": 9243091026,
+    "artifactDigest": "sha256:0750af7c0f95d7217ba2a3e402a9c73bd783adcea9cb1db58e3ee61489d88715",
+    "status": "PASS_P03F37_POSTMERGE_MAIN_PAGES_E2E",
+    "questionCount": 24,
+    "answerCount": 24,
+    "familyCounts": [8, 8, 8],
+    "integerEquivalenceWitnessCount": 9,
+    "questionPageCount": 3,
+    "answerPageCount": 3,
+    "exactAnswerMismatchCount": 0,
+    "printInvocationCount": 1,
+    "browserErrorCount": 0,
+    "sharedRenderer": true,
+    "patternGroupSelectionMode": "auto-applied-by-kp"
+  },
+  "canonical793Evidence": {
+    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "legalRouteCount": 793,
+    "executed": null,
+    "terminal": null,
+    "pass": null,
+    "fail": null
+  },
+  "closeoutPr": {
+    "number": null,
+    "headSha": null,
+    "mergeSha": null
+  },
+  "productionAdmission": {
+    "slice037Admitted": false,
+    "slice038MayStart": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice037_D0PostMergeReconciliation"
+}
