@@ -269,6 +269,12 @@ try {
     const params = new URL(location.href).searchParams;
     const kpState = Object.fromEntries(kpIds.map((id) => [id, document.querySelector(`[data-knowledge-point-id="${id}"]`)?.dataset?.selected ?? null]));
     const groupState = Object.fromEntries(groupIds.map((id) => [id, document.querySelector(`[data-pattern-group-id="${id}"]`)?.dataset?.selected ?? null]));
+    const groupQueryMatches = groupIds.every((id) => params.getAll("pg").includes(id));
+    const patternGroupSelectionMode = Object.values(groupState).every((value) => value === "true")
+      ? "visible-controls"
+      : Object.values(groupState).every((value) => value == null) && groupQueryMatches
+        ? "auto-applied-by-kp"
+        : "unresolved";
     return {
       sourceId: document.querySelector("#batch-a-source-select")?.value ?? null,
       sourceMatches: document.querySelector("#batch-a-source-select")?.value === sourceId,
@@ -281,8 +287,9 @@ try {
       rowsPerPage: document.querySelector("#rows-per-page-input")?.value ?? null,
       kpState,
       groupState,
+      patternGroupSelectionMode,
       kpQueryMatches: kpIds.every((id) => params.getAll("kp").includes(id)),
-      groupQueryMatches: groupIds.every((id) => params.getAll("pg").includes(id)),
+      groupQueryMatches,
       questionMode: document.querySelector("#g5a-u08-question-mode")?.value ?? null,
       publicCapabilityVisible: document.querySelector("#g5a-u08-public-controls")?.dataset?.visible ?? null,
       availabilitySummary: document.querySelector("#batch-a-knowledge-point-availability-summary")?.textContent?.trim() ?? "",
@@ -298,7 +305,7 @@ try {
     && selectorState.columns === "2"
     && selectorState.rowsPerPage === "4"
     && Object.values(selectorState.kpState).every((value) => value === "true")
-    && Object.values(selectorState.groupState).every((value) => value === "true")
+    && ["visible-controls", "auto-applied-by-kp"].includes(selectorState.patternGroupSelectionMode)
     && selectorState.kpQueryMatches
     && selectorState.groupQueryMatches
     && selectorState.questionMode === "numeric"
