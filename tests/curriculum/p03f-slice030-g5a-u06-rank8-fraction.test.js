@@ -48,8 +48,8 @@ test("P03F30 historical selector remains 30/224 while current inventory advances
   assert.equal(pixel.visibleKnowledgePointCount, 236);
   const summary = getCurrentPixelSourceSummary(G5A_U06_P03F30_SOURCE_ID);
   assert.ok(summary);
-  assert.equal(summary.visibleKnowledgePoints.length, 4);
-  assert.equal(summary.hiddenPendingCount, 3);
+  assert.equal(summary.visibleKnowledgePoints.length, 5);
+  assert.equal(summary.hiddenPendingCount, 2);
 });
 
 test("P03F30 runtime emits 24 unique validated witnesses across all four exact numeric specs", () => {
