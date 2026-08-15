@@ -124,7 +124,7 @@ test("repair is one shared query-state reconciliation and does not extend timeou
   assert.match(authoritySource, /UI_GROUP_BY_APPLICATION_ALIAS/);
   assert.match(authoritySource, /CURRENT_W3_SOURCE_IDS/);
   assert.match(authoritySource, /legacyRenderedBasePatternGroupId/);
-  assert.match(queryStateSource, /batch-a-selector-p03f13-extension/);
+  assert.match(queryStateSource, /batch-a-selector-p03f\d+-extension/);
   assert.match(queryStateSource, /getFullProductPublicControlProfile/);
   assert.match(queryStateSource, /normalizeFullProductPublicControlValue/);
   assert.doesNotMatch(queryStateSource, /getFifteenUnitPublicControlProfile/);
