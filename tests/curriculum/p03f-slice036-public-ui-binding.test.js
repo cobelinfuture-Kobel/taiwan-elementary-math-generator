@@ -1,0 +1,36 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import {auditPublicUiCapabilityBinding,resolvePublicUiCapabilityBinding} from "../../site/modules/curriculum/public/public-ui-capability-binding-p03f36.js";
+import {parseQueryState} from "../../site/assets/browser/state/query-state.js";
+import {listPublicPatternGroupChoices} from "../../site/assets/browser/state/public-pattern-group-selection.js";
+import {getCurrentPixelRegistrySnapshot} from "../../site/pixel/pixel-registry-bridge.js";
+import {buildBatchABrowserWorksheetDocument} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+import {
+  G5A_U01_P03F36_ADD_SUB_GROUP_ID,
+  G5A_U01_P03F36_COMPARE_GROUP_ID,
+  G5A_U01_P03F36_FACTOR_GROUP_ID,
+  G5A_U01_P03F36_KP_IDS,
+  G5A_U01_P03F36_NUMERIC_PATTERN_SPEC_IDS,
+  G5A_U01_P03F36_SOURCE_ID,
+} from "../../site/modules/curriculum/registry/g5a-u01-rank9-decimal-selector-projection-p03f36.js";
+
+const sourceText=(path)=>fs.readFileSync(new URL(`../../${path}`,import.meta.url),"utf8");
+const P03F36_GROUP_IDS=[G5A_U01_P03F36_ADD_SUB_GROUP_ID,G5A_U01_P03F36_COMPARE_GROUP_ID,G5A_U01_P03F36_FACTOR_GROUP_ID];
+function slice036Search(sourceId=G5A_U01_P03F36_SOURCE_ID){const params=new URLSearchParams({sourceId,selectionMode:"mixedKnowledgePointsSameUnit",questionCount:"24",ordering:"groupedByPattern",answerKey:"1",generationSeed:"p03f36-postmerge-pages-e2e",columns:"2",rowsPerPage:"4"});for(const kp of G5A_U01_P03F36_KP_IDS)params.append("kp",kp);for(const pg of P03F36_GROUP_IDS)params.append("pg",pg);return `?${params.toString()}`;}
+
+test("P03F36 Classic fallback404 and Pixel expose each target numeric binding",()=>{for(const surfaceId of["classic","fallback404","pixel"]){for(const knowledgePointId of G5A_U01_P03F36_KP_IDS){const binding=resolvePublicUiCapabilityBinding({sourceId:G5A_U01_P03F36_SOURCE_ID,surfaceId,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[knowledgePointId]});assert.equal(binding.blocked,false);assert.deepEqual(binding.selectedKnowledgePointIds,[knowledgePointId]);assert.equal(binding.questionType,"numeric");assert.equal(binding.compatiblePatternGroupIds.length,1);assert.deepEqual(binding.depthOptions,[]);assert.deepEqual(binding.contextOptions,[]);}}});
+
+test("P03F36 same-unit mixed binding exposes exactly three new rank9 groups when requested",()=>{const binding=resolvePublicUiCapabilityBinding({sourceId:G5A_U01_P03F36_SOURCE_ID,surfaceId:"classic",selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:G5A_U01_P03F36_KP_IDS});assert.equal(binding.blocked,false);assert.deepEqual(new Set(binding.selectedKnowledgePointIds),new Set(G5A_U01_P03F36_KP_IDS));assert.equal(binding.compatiblePatternGroupIds.length,3);assert.equal(binding.compatiblePatternGroups.every((row)=>row.uiQuestionType==="numeric"),true);});
+
+test("P03F36 current query-state preserves all three KP and PatternGroup deep-link selections",()=>{const state=parseQueryState(slice036Search());assert.equal(state.sourceId,G5A_U01_P03F36_SOURCE_ID);assert.equal(state.selectionMode,"mixedKnowledgePointsSameUnit");assert.deepEqual(state.selectedKnowledgePointIds,G5A_U01_P03F36_KP_IDS);assert.deepEqual(state.selectedPatternGroupIds,P03F36_GROUP_IDS);assert.deepEqual(state.selectorWarnings,[]);assert.equal(state.questionCount,24);assert.equal(state.ordering,"groupedByPattern");assert.equal(state.includeAnswerKey,true);assert.equal(state.generationSeed,"p03f36-postmerge-pages-e2e");assert.equal(state.columns,2);assert.equal(state.rowsPerPage,4);});
+
+test("P03F36 query-state keeps source-scoped fail-closed behavior",()=>{const state=parseQueryState(slice036Search("g4b_u05_4b05"));assert.equal(state.selectionMode,"sourceUnit");assert.deepEqual(state.selectedKnowledgePointIds,[]);assert.deepEqual(state.selectedPatternGroupIds,[]);assert.ok(state.selectorWarnings.some((entry)=>entry.code==="selector_id_dropped"&&entry.field==="knowledgePointIds"));assert.ok(state.selectorWarnings.some((entry)=>entry.code==="selector_mode_fallback"));});
+
+test("P03F36 pattern-group state and Pixel current registry reach 32 sources / 234 KPs",()=>{const choices=G5A_U01_P03F36_KP_IDS.flatMap((kp)=>listPublicPatternGroupChoices([kp]));assert.equal(choices.length,3);assert.deepEqual(new Set(choices.flatMap((row)=>row.patternSpecIds)),new Set(G5A_U01_P03F36_NUMERIC_PATTERN_SPEC_IDS));const snapshot=getCurrentPixelRegistrySnapshot();assert.equal(snapshot.sourceCount,32);assert.equal(snapshot.visibleKnowledgePointCount,234);assert.equal(snapshot.bySourceId[G5A_U01_P03F36_SOURCE_ID].visibleKnowledgePoints.length,5);});
+
+test("P03F36 current worksheet entry generates 24 rank9 questions and 6 logical pages",()=>{const result=buildBatchABrowserWorksheetDocument({sourceId:G5A_U01_P03F36_SOURCE_ID,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:G5A_U01_P03F36_KP_IDS,questionMode:"numeric",questionCount:24,generationSeed:"p03f36-public",includeAnswerKey:true,printLayout:{paperSize:"A4",columns:2,rowsPerPage:4,showQuestionNumbers:true,showAnswerKeyPage:true}});assert.equal(result.ok,true,JSON.stringify(result.errors));assert.equal(result.worksheetDocument.generatedQuestions.length,24);assert.equal(result.worksheetDocument.questionPages.length,3);assert.equal(result.worksheetDocument.answerKeyPages.length,3);assert.equal(result.worksheetDocument.metadata.worksheetAdapter.parallelPipeline,false);assert.deepEqual(new Set(result.worksheetDocument.generatedQuestions.map((q)=>q.patternSpecId)),new Set(G5A_U01_P03F36_NUMERIC_PATTERN_SPEC_IDS));});
+
+test("P03F36 current Classic Pixel query-state and worksheet consumers point to P03F36 successors",()=>{assert.match(sourceText("site/assets/browser/public-capability-ui.js"),/public-ui-capability-binding-p03f36\.js/);assert.match(sourceText("site/assets/browser/state/public-pattern-group-selection.js"),/batch-a-selector-p03f36-extension\.js/);assert.match(sourceText("site/assets/browser/state/query-state.js"),/batch-a-selector-p03f36-extension\.js/);assert.match(sourceText("site/pixel/pixel-public-capability-ui.js"),/public-ui-capability-binding-p03f36\.js/);assert.match(sourceText("site/pixel/pixel-registry-bridge.js"),/batch-a-selector-p03f36-extension\.js/);assert.match(sourceText("site/modules/curriculum/registry/batch-a-selector-extension.js"),/batch-a-selector-p03f36-extension\.js/);assert.match(sourceText("site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js"),/batch-a-browser-worksheet-p03f36-extension\.js/);});
+
+test("P03F36 capability audit is gap-free",()=>{const audit=auditPublicUiCapabilityBinding();assert.equal(audit.ok,true,JSON.stringify(audit.errors));assert.ok(audit.slice036AuditCaseCount>0);});
