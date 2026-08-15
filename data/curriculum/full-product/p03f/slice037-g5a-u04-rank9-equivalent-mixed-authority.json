@@ -1,0 +1,49 @@
+{
+  "schemaName": "P03FSlice037G5AU04Rank9EquivalentMixedAuthorityV1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice037Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 37,
+    "sliceId": "p03e_q037_r9_g5a_u04_5a04_profile_fraction_c1",
+    "rank": 9,
+    "profileId": "profile_fraction",
+    "previousTask": "P03F_W3DirectProductVerticalSlice036Implementation",
+    "previousSliceMustBeD0Complete": true
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5a_u04_5a04",
+    "sourceTitle": "擴分約分通分",
+    "unitCode": "5A-U04",
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g5a_u04_5a04.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g5a_u04_5a04.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g5a_u04_5a04.hidden-pattern-spec.json"
+  },
+  "knowledgePointIds": ["kp_g5a_u04_equivalent_mixed_selection"],
+  "formalMappings": [{
+    "knowledgePointId": "kp_g5a_u04_equivalent_mixed_selection",
+    "operationModelId": "op_g5a_u04_equivalent_mixed_selection",
+    "operationFamilyId": "improper_mixed_conversion",
+    "canonicalExpressions": [
+      "whole = floor(numerator / denominator)",
+      "remainder = numerator mod denominator",
+      "improperNumerator = whole * denominator + remainder"
+    ],
+    "numberConstraints": ["denominator > 0", "0 <= remainder < denominator"],
+    "answerType": "fraction_or_mixed_number"
+  }],
+  "patternSurfaces": [{
+    "knowledgePointId": "kp_g5a_u04_equivalent_mixed_selection",
+    "patternGroupId": "pg_g5a_u04_equivalent_mixed_selection_numeric",
+    "patternSpecIds": [
+      "ps_g5a_u04_equivalent_mixed_selection_whole_numeric",
+      "ps_g5a_u04_equivalent_mixed_selection_remainder_numeric",
+      "ps_g5a_u04_equivalent_mixed_selection_improper_numerator_numeric"
+    ]
+  }],
+  "requiredCapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+  "inventoryBefore": {"publicSources": 32, "visibleKnowledgePoints": 234, "sourceVisible": 5, "sourceHidden": 2},
+  "inventoryAfter": {"publicSources": 32, "visibleKnowledgePoints": 235, "sourceVisible": 6, "sourceHidden": 1},
+  "forbidden": ["application PatternSpecs", "Global Context expansion", "parallel pipeline", "sibling KnowledgePoint promotion", "Slice038"],
+  "status": "CORE_IMPLEMENTATION_CANDIDATE"
+}
