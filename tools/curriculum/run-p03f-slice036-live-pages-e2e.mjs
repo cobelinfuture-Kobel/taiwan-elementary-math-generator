@@ -49,7 +49,7 @@ const assetContracts = [
   {
     repoPath: "site/assets/browser/state/query-state.js",
     publicPath: "assets/browser/state/query-state.js",
-    requiredTokens: ["batch-a-selector-p03f36-extension.js", ...KP_IDS, ...GROUP_IDS],
+    requiredTokens: ["batch-a-selector-p03f36-extension.js", "LATEST_FIRST_QUERY_SELECTOR_SOURCE_IDS", "approvedLatestKnowledgePoint"],
   },
   {
     repoPath: "site/assets/browser/public-capability-ui.js",
