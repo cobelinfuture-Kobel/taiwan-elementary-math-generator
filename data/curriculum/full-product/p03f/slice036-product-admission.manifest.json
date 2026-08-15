@@ -1,0 +1,91 @@
+{
+  "schemaName": "P03F36ProductAdmissionManifestV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice036_E6_D0Closeout",
+  "queuePosition": 36,
+  "queueEntryId": "p03e_q036_r9_g5a_u01_5a01_profile_decimal_c1",
+  "sourceId": "g5a_u01_5a01",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "admissionState": "PENDING_D0_RECONCILIATION",
+  "goalDistance": "D1",
+  "authorityPath": "data/curriculum/full-product/p03f/slice036-g5a-u01-rank9-decimal-authority.json",
+  "knowledgePointIds": [
+    "kp_g5a_u01_decimal_add_sub",
+    "kp_g5a_u01_decimal_compare",
+    "kp_g5a_u01_place_value_factor_relation"
+  ],
+  "patternGroupIds": [
+    "pg_g5a_u01_decimal_add_sub_numeric",
+    "pg_g5a_u01_decimal_compare_numeric",
+    "pg_g5a_u01_place_value_factor_relation_numeric"
+  ],
+  "patternSpecIds": [
+    "ps_g5a_u01_decimal_add_sub_result_numeric",
+    "ps_g5a_u01_decimal_compare_comparison_numeric",
+    "ps_g5a_u01_place_value_factor_relation_higher_place_value_numeric",
+    "ps_g5a_u01_place_value_factor_relation_lower_place_value_numeric"
+  ],
+  "currentAuthority": {
+    "publicSources": 32,
+    "visibleKnowledgePoints": 234,
+    "sourceVisibleKnowledgePoints": 5,
+    "sourceHiddenKnowledgePoints": 3,
+    "gaps": 0
+  },
+  "implementation": {
+    "prNumber": 593,
+    "headSha": "cf680cfcad312dcf51a1f80a127ae7ea7579420a",
+    "mergeSha": "ccf0a9e6cd1f00a0b8fa3fc43739f9145add8c8b",
+    "runtimePath": "site/modules/curriculum/batch-a/g5a-u01-rank9-decimal-runtime-p03f36.js",
+    "runtimeBlobSha": "f465b235ae0deb65160d9250b3183306f5dc625f"
+  },
+  "productEvidence": {
+    "runId": 31861806326,
+    "jobId": 94955466735,
+    "artifactId": 9240810095,
+    "artifactDigest": "sha256:9aa6fe9f4dc957cba235ed57506b03256029403be5050b9663e591c317ec60a3",
+    "questionCount": 24,
+    "answerCount": 24,
+    "patternSpecCount": 4,
+    "physicalPageCount": 6,
+    "manualVisualStatus": "PASS_6_OF_6",
+    "sharedRenderer": true,
+    "sharedPagination": true,
+    "parallelPipeline": false,
+    "applicationLeakCount": 0,
+    "globalContextLeakCount": 0
+  },
+  "pagesDeployment": {
+    "runId": 31861998297,
+    "status": "SUCCESS",
+    "exactMergeSha": "ccf0a9e6cd1f00a0b8fa3fc43739f9145add8c8b"
+  },
+  "livePagesE2E": {
+    "prNumber": 594,
+    "headSha": "5107ac06b69e4b0edc42adeb101a9ec3e0d4ac7a",
+    "mergeSha": "50fe8c3c5cddfb54e6934dde09ccfc45c7450125",
+    "runId": 31862891536,
+    "jobId": 94959208366,
+    "artifactId": 9241131799,
+    "artifactDigest": "sha256:aaded628e9acbd6dbab99dc1884f96d738a91ef4844bb134181ea6d98f46ee4a",
+    "status": "PASS_P03F36_POSTMERGE_MAIN_PAGES_E2E",
+    "questionCount": 24,
+    "answerCount": 24,
+    "questionPages": 3,
+    "answerPages": 3,
+    "answerMismatchCount": 0,
+    "printInvocationCount": 1,
+    "browserErrorCount": 0
+  },
+  "canonical793Evidence": {
+    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "executed": null,
+    "terminal": null,
+    "pass": null,
+    "fail": null
+  },
+  "productionAdmission": {
+    "slice036Admitted": false,
+    "slice037MayStart": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice036_D0PostMergeReconciliation"
+}
