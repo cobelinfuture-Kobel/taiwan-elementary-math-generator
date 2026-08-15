@@ -36,6 +36,26 @@ jobs:
           npm install --no-save --package-lock=false playwright@1.51.1
           npx playwright install --with-deps chromium
 
+      - name: Bind exact repaired Main/Pages evidence target
+        env:
+          P03F35_EXACT_MERGE_SHA: "3715ac02f993f8cc5a0d09e5599c427f788a3251"
+          P03F35_EXACT_PAGES_RUN_ID: "31856970854"
+        run: |
+          node --input-type=module - <<'NODE'
+          import { readFileSync, writeFileSync } from "node:fs";
+          const path = "tools/curriculum/run-p03f-slice035-live-pages-e2e.mjs";
+          let source = readFileSync(path, "utf8");
+          source = source.replace(
+            /const EXACT_MERGE_SHA = "[0-9a-f]+";/,
+            `const EXACT_MERGE_SHA = "${process.env.P03F35_EXACT_MERGE_SHA}";`,
+          );
+          source = source.replace(
+            /const EXACT_PAGES_RUN_ID = \d+;/,
+            `const EXACT_PAGES_RUN_ID = ${process.env.P03F35_EXACT_PAGES_RUN_ID};`,
+          );
+          writeFileSync(path, source);
+          NODE
+
       - name: Run Slice035 exact deployed Main/Pages E2E
         env:
           P03F35_DEPLOYMENT_RETRIES: "20"
