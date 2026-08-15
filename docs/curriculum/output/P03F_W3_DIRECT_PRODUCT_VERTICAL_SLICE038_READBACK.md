@@ -1,18 +1,18 @@
 # P03F W3 Direct Product Vertical Slice038 Readback
 
-## Candidate status
+## Final status
 
 ```text
 TASK = P03F_W3DirectProductVerticalSlice038_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 QUEUE = q038 / rank9 / g5a_u06_5a06
 SOURCE = 異分母分數加減
 PUBLIC_INVENTORY = 32 sources / 236 visible KPs
 G5A_U06 = 5 visible / 2 hidden / 2 notSelectable
 ```
 
-## Exact candidate product scope
+## Exact admitted product scope
 
 ```text
 KP = kp_g5a_u06_mixed_improper_add_sub
@@ -100,20 +100,44 @@ SIBLING_KP_PROMOTION = false
 SLICE039_STARTED = false
 ```
 
-## Candidate barrier
+## D0 candidate and canonical R00 evidence
 
 ```text
-CANONICAL_R00_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-EXPECTED_LEGAL_ROUTES = 793
-SLICE038_ADMITTED = false
-SLICE039_MAY_START = false
-NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice038_D0PostMergeReconciliation
+CANDIDATE_PR = #603
+CANDIDATE_HEAD = a4f4dd94b9754b3451e616e8f85f6de34e2e32fb
+CANDIDATE_MERGE = 55e757b81465b6add824a99f0949eccbcea51c69
+CANDIDATE_NODE = 3156 / 3156 PASS
+CANDIDATE_NODE_RUN = 31880102811
+CANDIDATE_NODE_JOB = 95001371199
+CANDIDATE_NODE_ARTIFACT = 9245824111
+CANONICAL_R00_RUN = 31880102862
+CANONICAL_R00_JOB = 95001371246
+CANONICAL_R00_ARTIFACT = 9245966502
+CANONICAL_R00_STATUS = PASS_ALL_793_LEGAL_ROUTES
+LEGAL / EXECUTED / TERMINAL / PASS / FAIL = 793 / 793 / 793 / 793 / 0
+FULL_NINE_GATE_PASS = 793
+SHARDS / SAMPLE_HTML / SAMPLE_PDF = 16 / 16 / 16
+FINAL_CHECKPOINT = 793 authoritative=true
+BROWSER_CONSOLE / PAGE_ERRORS = 0 / 0
+EXIT_CODE = 0
+PRODUCT_MUTATION = false
+CAPACITY_AUTHORITY_MUTATION = false
+PER_ROUTE_PATCH = false
 ```
 
-## Forbidden scope remains closed
+## Production admission
+
+```text
+ADMISSION_STATE = PRODUCTION_ADMITTED_D0
+SLICE038_ADMITTED = true
+SLICE039_MAY_START = true
+NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice039Implementation
+```
+
+## Forbidden scope remained closed through Slice038
 
 - no application PatternSpec expansion
 - no Global Context expansion
 - no sibling KnowledgePoint promotion
 - no parallel generator / validator / renderer path
-- no Slice039 implementation
+- no Slice039 implementation was included in Slice038 closeout

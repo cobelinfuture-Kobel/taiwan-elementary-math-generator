@@ -3,9 +3,9 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice038Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice038_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
-  "scope": "Slice038 only: g5a_u06_5a06 rank9 admits mixed-number, improper-fraction and integer addition/subtraction through one numeric KnowledgePoint, one numeric PatternGroup and one canonical numeric PatternSpec. Existing shared query-state, generator, validator, worksheet, pagination and renderer consumers remain the only product path. Exact implementation CI, exact Pages deployment and live Main/Pages E2E are bound; canonical 793-route replay remains the candidate closeout barrier. Application PatternSpecs, Global Context expansion, sibling KnowledgePoint promotion, parallel pipelines and Slice039 implementation are not admitted by this candidate.",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
+  "scope": "Slice038 only: g5a_u06_5a06 rank9 admits mixed-number, improper-fraction and integer addition/subtraction through one numeric KnowledgePoint, one numeric PatternGroup and one canonical numeric PatternSpec. Existing shared query-state, generator, validator, worksheet, pagination and renderer consumers remain the only product path. Exact implementation CI, exact Pages deployment, live Main/Pages E2E, candidate Node CI and canonical 793-route replay are bound. Application PatternSpecs, Global Context expansion, sibling KnowledgePoint promotion, parallel pipelines and Slice039 implementation were not admitted by Slice038.",
   "authority": {
     "path": "data/curriculum/full-product/p03f/slice038-g5a-u06-rank9-mixed-improper-add-sub-authority.json",
     "queuePosition": 38,
@@ -94,7 +94,7 @@
   "mainReadback": {
     "implementationMergeSha": "f7e7888881aaff1b926905021db53a3b7e1542bd",
     "evidenceMergeSha": "0f8ca6b0a2a2759b87574125e2330644a3ad2641",
-    "candidateMergeSha": null,
+    "candidateMergeSha": "55e757b81465b6add824a99f0949eccbcea51c69",
     "publicSources": 32,
     "visibleKnowledgePoints": 236,
     "g5aU06VisibleKnowledgePoints": 5,
@@ -142,15 +142,51 @@
     "slice039Started": false
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
     "workflow": "PGC-R00 Public Generation Scope Freeze",
     "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js",
-    "legalRouteCount": 793
+    "runId": 31880102862,
+    "jobId": 95001371246,
+    "headSha": "a4f4dd94b9754b3451e616e8f85f6de34e2e32fb",
+    "artifactId": 9245966502,
+    "artifactDigest": "sha256:e919dca366bd5285c9104e19723b708b1ad281db1a897d372a815131d6024457",
+    "legalRouteCount": 793,
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
   },
-  "closeoutEvidence": {"status": "PENDING_CLOSEOUT_CANDIDATE_CI"},
+  "closeoutEvidence": {
+    "candidatePrNumber": 603,
+    "candidateHeadSha": "a4f4dd94b9754b3451e616e8f85f6de34e2e32fb",
+    "candidateMergeSha": "55e757b81465b6add824a99f0949eccbcea51c69",
+    "status": "PASS_CI_SYNCED_AND_MERGED",
+    "candidateNode": {
+      "runId": 31880102811,
+      "jobId": 95001371199,
+      "tests": 3156,
+      "pass": 3156,
+      "fail": 0,
+      "skipped": 0,
+      "artifactId": 9245824111,
+      "artifactDigest": "sha256:43ae9dae6dce9dc36dc8751e19b47415ed94a94e2207eda117f529f21f5c5fb2"
+    }
+  },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice039Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice038_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice039Implementation"
   }
 }
