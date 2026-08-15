@@ -14,6 +14,7 @@ import {
   auditFullProductPublicControlProfiles,
 } from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
 
+// P03F36 D0 closeout replay trigger; historical closeout compatibility marker retained.
 // P03F37 D0 closeout replay trigger; executable and Slice033 historical authority below are unchanged.
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "../..");
