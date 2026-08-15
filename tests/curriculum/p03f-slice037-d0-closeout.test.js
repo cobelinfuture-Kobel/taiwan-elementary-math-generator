@@ -139,6 +139,52 @@ test("P03F37 product admission remains candidate until canonical R00 replay is b
   assert.equal(claim.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice038Implementation");
 });
 
+test("P03F37 final D0 binds exact candidate Node and canonical 793 replay evidence", () => {
+  if (claim.status !== "PASS_D0_CLOSED") return;
+
+  assert.equal(claim.closeoutEvidence.candidatePrNumber, 599);
+  assert.equal(claim.closeoutEvidence.candidateHeadSha, "b21fd32d5c29115a7efed102989e4c853558be0d");
+  assert.equal(claim.closeoutEvidence.candidateMergeSha, "9bcf13140e255eb0ce168ffcde0b93807a279c9d");
+  assert.equal(claim.closeoutEvidence.status, "PASS_CI_SYNCED_AND_MERGED");
+  assert.deepEqual([
+    claim.closeoutEvidence.candidateNode.tests,
+    claim.closeoutEvidence.candidateNode.pass,
+    claim.closeoutEvidence.candidateNode.fail,
+    claim.closeoutEvidence.candidateNode.skipped,
+  ], [3139, 3139, 0, 0]);
+  assert.equal(claim.closeoutEvidence.candidateNode.runId, 31874431055);
+  assert.equal(claim.closeoutEvidence.candidateNode.jobId, 94987919450);
+  assert.equal(claim.closeoutEvidence.candidateNode.artifactId, 9244373282);
+  assert.equal(claim.closeoutEvidence.candidateNode.artifactDigest, "sha256:f19ab09d11f4853a5acf7f867291857753c659b0a647fb4b5d8cfeac30945ced");
+
+  const replay = claim.canonical793Evidence;
+  assert.equal(replay.runId, 31874431027);
+  assert.equal(replay.jobId, 94987919376);
+  assert.equal(replay.headSha, "b21fd32d5c29115a7efed102989e4c853558be0d");
+  assert.equal(replay.artifactId, 9244522133);
+  assert.equal(replay.artifactDigest, "sha256:1435a330928e30776037e686ffdc56b6a5985b5b000e0c49405f1b978827741a");
+  assert.deepEqual([
+    replay.legalRouteCount,
+    replay.executedRouteCount,
+    replay.terminalRouteCount,
+    replay.passRouteCount,
+    replay.failRouteCount,
+    replay.fullNineGatePassCount,
+  ], [793, 793, 793, 793, 0, 793]);
+  assert.deepEqual([replay.shardCount, replay.sampleHtmlCount, replay.samplePdfCount], [16, 16, 16]);
+  assert.deepEqual([replay.finalCheckpointExecutedRouteCount, replay.finalCheckpointAuthoritative], [793, true]);
+  assert.deepEqual([replay.browserConsoleErrorCount, replay.browserPageErrorCount, replay.exitCode], [0, 0, 0]);
+  assert.equal(replay.productMutationUsed, false);
+  assert.equal(replay.capacityAuthorityMutationUsed, false);
+  assert.equal(replay.perRoutePatchUsed, false);
+
+  assert.equal(manifest.closeoutPr.number, 599);
+  assert.equal(manifest.closeoutPr.headSha, "b21fd32d5c29115a7efed102989e4c853558be0d");
+  assert.equal(manifest.closeoutPr.mergeSha, "9bcf13140e255eb0ce168ffcde0b93807a279c9d");
+  assert.equal(manifest.canonical793Evidence.artifactId, 9244522133);
+  assert.equal(manifest.canonical793Evidence.fail, 0);
+});
+
 test("P03F37 canonical R00 replay trigger is current while route authority stays canonical", () => {
   assert.match(r00Test, /P03F37 D0 closeout replay trigger/);
   assert.match(r00Test, /current public sources may extend through Slice033/);

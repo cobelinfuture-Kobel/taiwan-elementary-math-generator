@@ -3,9 +3,9 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice037Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice037_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
-  "scope": "Slice037 only: g5a_u04_5a04 rank9 admits equivalent improper-fraction/mixed-number selection through one numeric KnowledgePoint, one numeric PatternGroup and three numeric PatternSpecs for whole, remainder and improper numerator. Existing shared query-state, generator, validator, worksheet and renderer consumers remain the only product path. Exact implementation CI, exact Pages deployment and live Main/Pages E2E are bound; canonical 793-route replay is the only remaining D0 evidence. Application PatternSpecs, Global Context expansion, sibling KnowledgePoint promotion, parallel pipelines and Slice038 are forbidden by this candidate.",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
+  "scope": "Slice037 only: g5a_u04_5a04 rank9 admits equivalent improper-fraction/mixed-number selection through one numeric KnowledgePoint, one numeric PatternGroup and three numeric PatternSpecs for whole, remainder and improper numerator. Existing shared query-state, generator, validator, worksheet and renderer consumers remain the only product path. Exact implementation CI, exact Pages deployment, live Main/Pages E2E and canonical 793-route replay are all bound. Application PatternSpecs, Global Context expansion, sibling KnowledgePoint promotion, parallel pipelines and Slice038 implementation are not admitted by this closeout.",
   "authority": {
     "path": "data/curriculum/full-product/p03f/slice037-g5a-u04-rank9-equivalent-mixed-authority.json",
     "queuePosition": 37,
@@ -99,16 +99,32 @@
       }
     },
     "workflowRuns": {
-      "pgcR02": {"runId": 31868408047, "status": "SUCCESS"},
-      "pgcR03": {"runId": 31868408051, "status": "SUCCESS"},
-      "pgcR04": {"runId": 31868408058, "status": "SUCCESS"},
-      "pgcR06A03": {"runId": 31868408064, "status": "SUCCESS"},
-      "prGate": {"runId": 31868408040, "status": "SUCCESS"}
+      "pgcR02": {
+        "runId": 31868408047,
+        "status": "SUCCESS"
+      },
+      "pgcR03": {
+        "runId": 31868408051,
+        "status": "SUCCESS"
+      },
+      "pgcR04": {
+        "runId": 31868408058,
+        "status": "SUCCESS"
+      },
+      "pgcR06A03": {
+        "runId": 31868408064,
+        "status": "SUCCESS"
+      },
+      "prGate": {
+        "runId": 31868408040,
+        "status": "SUCCESS"
+      }
     }
   },
   "mainReadback": {
     "implementationMergeSha": "be5ac90b8708cb2764eaae7ed2b0b2bd25e6c982",
     "evidenceMergeSha": "1b4b2f343bfa444b8c35dce94d023e6bf7ec03ec",
+    "candidateMergeSha": "9bcf13140e255eb0ce168ffcde0b93807a279c9d",
     "publicSources": 32,
     "visibleKnowledgePoints": 235,
     "g5aU04VisibleKnowledgePoints": 6,
@@ -158,24 +174,52 @@
     "slice038Started": false
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
     "workflow": "PGC-R00 Public Generation Scope Freeze",
     "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js",
+    "runId": 31874431027,
+    "jobId": 94987919376,
+    "headSha": "b21fd32d5c29115a7efed102989e4c853558be0d",
+    "artifactId": 9244522133,
+    "artifactDigest": "sha256:1435a330928e30776037e686ffdc56b6a5985b5b000e0c49405f1b978827741a",
     "legalRouteCount": 793,
-    "executedRouteCount": null,
-    "terminalRouteCount": null,
-    "passRouteCount": null,
-    "failRouteCount": null
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
   },
   "closeoutEvidence": {
-    "candidatePrNumber": null,
-    "candidateHeadSha": null,
-    "candidateMergeSha": null,
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI"
+    "candidatePrNumber": 599,
+    "candidateHeadSha": "b21fd32d5c29115a7efed102989e4c853558be0d",
+    "candidateMergeSha": "9bcf13140e255eb0ce168ffcde0b93807a279c9d",
+    "candidateNode": {
+      "runId": 31874431055,
+      "jobId": 94987919450,
+      "status": "SUCCESS",
+      "tests": 3139,
+      "pass": 3139,
+      "fail": 0,
+      "skipped": 0,
+      "artifactId": 9244373282,
+      "artifactDigest": "sha256:f19ab09d11f4853a5acf7f867291857753c659b0a647fb4b5d8cfeac30945ced"
+    },
+    "status": "PASS_CI_SYNCED_AND_MERGED"
   },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice038Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice037_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice038Implementation"
   }
 }

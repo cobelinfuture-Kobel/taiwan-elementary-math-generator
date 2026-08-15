@@ -1,11 +1,11 @@
 # P03F W3 Direct Product Vertical Slice037 Readback
 
-## Candidate status
+## Final status
 
 ```text
 TASK = P03F_W3DirectProductVerticalSlice037_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 QUEUE = q037 / rank9 / g5a_u04_5a04
 SOURCE = 擴分約分通分
 PUBLIC_INVENTORY = 32 sources / 235 visible KPs
@@ -101,21 +101,44 @@ SIBLING_KP_PROMOTION = false
 SLICE038_STARTED = false
 ```
 
-## Candidate barrier
-
-Canonical PGC-R00 793-route replay is intentionally not pre-declared PASS. This candidate touches the R00 test only through a replay-trigger comment so GitHub Actions must execute the existing canonical route authority unchanged.
+## D0 candidate and canonical R00 evidence
 
 ```text
-CANONICAL_R00 = PENDING_CLOSEOUT_CANDIDATE_CI
-LEGAL_ROUTES = 793
-NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice037_D0PostMergeReconciliation
-SLICE038_MAY_START = false
+CANDIDATE_PR = #599
+CANDIDATE_HEAD = b21fd32d5c29115a7efed102989e4c853558be0d
+CANDIDATE_MERGE = 9bcf13140e255eb0ce168ffcde0b93807a279c9d
+CANDIDATE_NODE = 3139 / 3139 PASS
+CANDIDATE_NODE_RUN = 31874431055
+CANDIDATE_NODE_JOB = 94987919450
+CANDIDATE_NODE_ARTIFACT = 9244373282
+CANONICAL_R00_RUN = 31874431027
+CANONICAL_R00_JOB = 94987919376
+CANONICAL_R00_ARTIFACT = 9244522133
+CANONICAL_R00_STATUS = PASS_ALL_793_LEGAL_ROUTES
+LEGAL / EXECUTED / TERMINAL / PASS / FAIL = 793 / 793 / 793 / 793 / 0
+FULL_NINE_GATE_PASS = 793
+SHARDS / SAMPLE_HTML / SAMPLE_PDF = 16 / 16 / 16
+FINAL_CHECKPOINT = 793 authoritative=true
+BROWSER_CONSOLE / PAGE_ERRORS = 0 / 0
+EXIT_CODE = 0
+PRODUCT_MUTATION = false
+CAPACITY_AUTHORITY_MUTATION = false
+PER_ROUTE_PATCH = false
 ```
 
-## Forbidden scope remains closed
+## Production admission
+
+```text
+ADMISSION_STATE = PRODUCTION_ADMITTED_D0
+SLICE037_ADMITTED = true
+SLICE038_MAY_START = true
+NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice038Implementation
+```
+
+## Forbidden scope remained closed through Slice037
 
 - no application PatternSpec expansion
 - no Global Context expansion
 - no sibling KnowledgePoint promotion
 - no parallel generator / validator / renderer path
-- no Slice038 implementation before Slice037 D0 closeout
+- no Slice038 implementation was included in Slice037 closeout
