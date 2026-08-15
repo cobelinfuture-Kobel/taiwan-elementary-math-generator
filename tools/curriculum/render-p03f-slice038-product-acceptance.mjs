@@ -1,0 +1,119 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+import {chromium} from "playwright";
+import {buildBatchABrowserWorksheetDocument} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+import {renderWorksheetDocumentToHtml} from "../../site/modules/renderer/html-renderer.js";
+import {getCurrentPixelRegistrySnapshot} from "../../site/pixel/pixel-registry-bridge.js";
+import {
+  G5A_U06_P03F38_GROUP_ID,
+  G5A_U06_P03F38_HIDDEN_APPLICATION_SPEC_ID,
+  G5A_U06_P03F38_KP_ID,
+  G5A_U06_P03F38_SOURCE_ID,
+  G5A_U06_P03F38_SPEC_ID,
+} from "../../site/modules/curriculum/registry/g5a-u06-rank9-mixed-improper-add-sub-selector-projection-p03f38.js";
+
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"../..");
+const OUTPUT=path.join(ROOT,"tmp/p03f-slice038-product-acceptance");
+fs.mkdirSync(OUTPUT,{recursive:true});
+const printStyles=fs.readFileSync(path.join(ROOT,"src/renderer/print-styles.css"),"utf8");
+const fontRoot=path.join(ROOT,"node_modules/@fontsource/noto-sans-tc");
+const embeddedFontStyles=fs.readFileSync(path.join(fontRoot,"400.css"),"utf8").replace(/url\(\.\/files\/([^)]*\.woff2)\) format\('woff2'\), url\(\.\/files\/[^)]*\.woff\) format\('woff'\)/g,(_,file)=>`url(data:font/woff2;base64,${fs.readFileSync(path.join(fontRoot,"files",file)).toString("base64")}) format('woff2')`);
+const sha256=(file)=>crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
+const physicalPages=(file)=>(fs.readFileSync(file).toString("latin1").match(/\/Type\s*\/Page(?!s)\b/g)??[]).length;
+const gcd=(a,b)=>{let x=Math.abs(a),y=Math.abs(b);while(y)[x,y]=[y,x%y];return x||1;};
+const normalize=(n,d)=>{const sign=d<0?-1:1,g=gcd(n,d);return{numerator:n*sign/g,denominator:Math.abs(d)/g};};
+const answerText=(r)=>r.denominator===1?String(r.numerator):`${r.numerator}/${r.denominator}`;
+
+const result=buildBatchABrowserWorksheetDocument({
+  sourceId:G5A_U06_P03F38_SOURCE_ID,
+  selectionMode:"singleKnowledgePoint",
+  selectedKnowledgePointIds:[G5A_U06_P03F38_KP_ID],
+  selectedPatternGroupIds:[G5A_U06_P03F38_GROUP_ID],
+  patternSpecIds:[G5A_U06_P03F38_SPEC_ID],
+  questionMode:"numeric",
+  questionCount:24,
+  generationSeed:"p03f38-acceptance",
+  includeAnswerKey:true,
+  printLayout:{paperSize:"A4",columns:2,rowsPerPage:4,showQuestionNumbers:true,showAnswerKeyPage:true},
+});
+if(!result.ok||!result.worksheetDocument)throw new Error(`P03F38_WORKSHEET_FAILED:${JSON.stringify(result.errors)}`);
+const document=result.worksheetDocument;
+const html=renderWorksheetDocumentToHtml(document,{stylesheetHref:""}).replace("</head>",`<style>${embeddedFontStyles}\nbody { font-family: 'Noto Sans TC', sans-serif !important; }</style><style>${printStyles}</style></head>`);
+const htmlPath=path.join(OUTPUT,"g5a-u06-rank9-mixed-improper-add-sub.html");
+const pdfPath=path.join(OUTPUT,"g5a-u06-rank9-mixed-improper-add-sub.pdf");
+fs.writeFileSync(htmlPath,html);
+
+const browser=await chromium.launch({headless:true});
+const consoleErrors=[],pageErrors=[];
+let pageMetrics=[];
+try{
+  const page=await browser.newPage({viewport:{width:1280,height:960},deviceScaleFactor:1});
+  page.on("console",m=>{if(m.type()==="error")consoleErrors.push(m.text());});
+  page.on("pageerror",e=>pageErrors.push(String(e)));
+  await page.setContent(html,{waitUntil:"networkidle"});
+  const pages=page.locator(".worksheet-page");
+  for(let i=0;i<await pages.count();i++)await pages.nth(i).screenshot({path:path.join(OUTPUT,`rank9-mixed-improper-add-sub-page-${String(i+1).padStart(2,"0")}.png`)});
+  await page.emulateMedia({media:"print"});
+  pageMetrics=await page.$$eval(".worksheet-page",nodes=>nodes.map((node,index)=>({index,clientHeight:node.clientHeight,scrollHeight:node.scrollHeight,clientWidth:node.clientWidth,scrollWidth:node.scrollWidth,overflowY:node.scrollHeight>node.clientHeight+1,overflowX:node.scrollWidth>node.clientWidth+1})));
+  await page.pdf({path:pdfPath,format:"A4",printBackground:true,preferCSSPageSize:true,margin:{top:"0",right:"0",bottom:"0",left:"0"}});
+  await page.close();
+}finally{await browser.close();}
+
+const questions=document.generatedQuestions,answers=document.answerKeyItems;
+const operationCounts={add:questions.filter(q=>q.arithmeticOperation==="add").length,sub:questions.filter(q=>q.arithmeticOperation==="sub").length};
+const representationCounts=Object.fromEntries(["mixed","improper","integer"].map(kind=>[kind,questions.filter(q=>q.leftRepresentation===kind||q.rightRepresentation===kind).length]));
+const representationPairCounts=Object.fromEntries([...new Set(questions.map(q=>`${q.leftRepresentation}->${q.rightRepresentation}`))].sort().map(pair=>[pair,questions.filter(q=>`${q.leftRepresentation}->${q.rightRepresentation}`===pair).length]));
+const crossLayerMismatchCount=questions.filter((q,i)=>!answers[i]||answers[i].questionId!==q.id||answers[i].answerText!==q.answerText||answers[i].knowledgePointId!==q.metadata?.knowledgePointId||document.questionDisplayModels[i]?.promptText!==q.blankedDisplayText).length;
+const exactAnswerMismatchCount=questions.filter(q=>{const raw=q.arithmeticOperation==="add"?q.leftNumerator*q.rightDenominator+q.rightNumerator*q.leftDenominator:q.leftNumerator*q.rightDenominator-q.rightNumerator*q.leftDenominator,expected=normalize(raw,q.leftDenominator*q.rightDenominator);return q.resultNumerator!==expected.numerator||q.resultDenominator!==expected.denominator||q.answerText!==answerText(expected)||q.finalAnswer!==q.answerText;}).length;
+const semanticScopeFindingCount=questions.filter(q=>q.sourceId!==G5A_U06_P03F38_SOURCE_ID||q.metadata?.knowledgePointId!==G5A_U06_P03F38_KP_ID||q.metadata?.patternGroupId!==G5A_U06_P03F38_GROUP_ID||q.patternSpecId!==G5A_U06_P03F38_SPEC_ID||q.metadata?.productAdmissionTask!=="P03F_W3DirectProductVerticalSlice038Implementation").length;
+const applicationLeakFindingCount=questions.filter(q=>q.questionMode!=="numeric"||q.mode!=="NUMERIC"||q.globalContextProduction!=null||q.metadata?.globalContextAuthorityPath!=null||q.patternSpecId===G5A_U06_P03F38_HIDDEN_APPLICATION_SPEC_ID).length;
+const hiddenApplicationLineageFindingCount=questions.filter(q=>!q.metadata?.hiddenApplicationPatternSpecIds?.includes(G5A_U06_P03F38_HIDDEN_APPLICATION_SPEC_ID)).length;
+const registry=getCurrentPixelRegistrySnapshot();
+const report={
+  schemaName:"P03FSlice038ChromiumProductAcceptanceReportV1",
+  taskId:"P03F_W3DirectProductVerticalSlice038ChromiumAcceptance",
+  status:"PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  sourceId:G5A_U06_P03F38_SOURCE_ID,
+  publicSourceCount:registry.sourceCount,
+  visibleKnowledgePointCount:registry.visibleKnowledgePointCount,
+  sourceVisibleKnowledgePointCount:registry.bySourceId[G5A_U06_P03F38_SOURCE_ID]?.visibleKnowledgePoints?.length??0,
+  sourceHiddenKnowledgePointCount:registry.bySourceId[G5A_U06_P03F38_SOURCE_ID]?.hiddenPendingCount??0,
+  sourceNotSelectableKnowledgePointCount:registry.bySourceId[G5A_U06_P03F38_SOURCE_ID]?.notSelectableCount??0,
+  totalQuestionCount:questions.length,
+  totalAnswerKeyItemCount:answers.length,
+  questionPageCount:document.questionPages.length,
+  answerPageCount:document.answerKeyPages.length,
+  totalPhysicalPdfPageCount:physicalPages(pdfPath),
+  screenshotCount:pageMetrics.length,
+  observedKnowledgePointIds:[...new Set(questions.map(q=>q.metadata?.knowledgePointId))],
+  observedPatternGroupIds:[...new Set(questions.map(q=>q.metadata?.patternGroupId))],
+  observedPatternSpecIds:[...new Set(questions.map(q=>q.patternSpecId))],
+  patternSpecWitnessCount:questions.filter(q=>q.patternSpecId===G5A_U06_P03F38_SPEC_ID).length,
+  operationCounts,
+  representationCounts,
+  representationPairCounts,
+  crossLayerMismatchCount,
+  exactAnswerMismatchCount,
+  htmlSha256:sha256(htmlPath),
+  pdfSha256:sha256(pdfPath),
+  pdfByteLength:fs.statSync(pdfPath).size,
+  duplicatePromptFindingCount:questions.length-new Set(document.questionDisplayModels.map(m=>m.promptText)).size,
+  overflowFindingCount:pageMetrics.filter(r=>r.overflowX||r.overflowY).length,
+  consoleErrorCount:consoleErrors.length,
+  pageErrorCount:pageErrors.length,
+  semanticScopeFindingCount,
+  applicationLeakFindingCount,
+  hiddenApplicationLineageFindingCount,
+  hiddenApplicationPatternSpecPubliclyObserved:questions.some(q=>q.patternSpecId===G5A_U06_P03F38_HIDDEN_APPLICATION_SPEC_ID),
+  sharedPagination:document.metadata?.worksheetAdapter?.sharedPagination===true,
+  sharedRenderer:document.metadata?.worksheetAdapter?.sharedRenderer===true,
+  parallelPipeline:document.metadata?.worksheetAdapter?.parallelPipeline===true,
+  pageMetrics,
+  visualReview:{status:"PENDING",allPagesReviewed:false},
+};
+const pass=report.publicSourceCount===32&&report.visibleKnowledgePointCount===236&&report.sourceVisibleKnowledgePointCount===5&&report.sourceHiddenKnowledgePointCount===2&&report.sourceNotSelectableKnowledgePointCount===2&&report.totalQuestionCount===24&&report.totalAnswerKeyItemCount===24&&report.questionPageCount===3&&report.answerPageCount===3&&report.totalPhysicalPdfPageCount===6&&report.screenshotCount===6&&report.observedKnowledgePointIds.length===1&&report.observedKnowledgePointIds[0]===G5A_U06_P03F38_KP_ID&&report.observedPatternGroupIds.length===1&&report.observedPatternGroupIds[0]===G5A_U06_P03F38_GROUP_ID&&report.observedPatternSpecIds.length===1&&report.observedPatternSpecIds[0]===G5A_U06_P03F38_SPEC_ID&&report.patternSpecWitnessCount===24&&report.operationCounts.add===12&&report.operationCounts.sub===12&&Object.values(report.representationCounts).every(c=>c>0)&&report.crossLayerMismatchCount===0&&report.exactAnswerMismatchCount===0&&report.duplicatePromptFindingCount===0&&report.overflowFindingCount===0&&report.consoleErrorCount===0&&report.pageErrorCount===0&&report.semanticScopeFindingCount===0&&report.applicationLeakFindingCount===0&&report.hiddenApplicationLineageFindingCount===0&&report.hiddenApplicationPatternSpecPubliclyObserved===false&&report.sharedPagination&&report.sharedRenderer&&report.parallelPipeline===false;
+if(!pass)throw new Error(`P03F38_CHROMIUM_FAILED:${JSON.stringify(report)}`);
+fs.writeFileSync(path.join(OUTPUT,"p03f-slice038-product-acceptance-report.json"),`${JSON.stringify(report,null,2)}\n`);
+console.log(`P03F38_CHROMIUM_ACCEPTANCE=${JSON.stringify(report)}`);
