@@ -106,10 +106,11 @@ test("P03F29 shared worksheet and answer key preserve exact cross-layer lineage"
   });
 });
 
-test("P03F29 Pixel current surface exposes five G5A-U04 KPs with target visible", () => {
+test("P03F29 historical Slice029 projection stays five G5A-U04 KPs while Pixel current surface advances through Slice037", () => {
   const summary = getCurrentPixelSourceSummary("g5a_u04_5a04");
   assert.ok(summary);
-  assert.equal(summary.visibleKnowledgePoints.length, 5);
+  assert.equal(summary.visibleKnowledgePoints.length, 6);
   assert.ok(summary.visibleKnowledgePoints.some((row) => row.knowledgePointId === G5A_U04_P03F29_KP_ID));
-  assert.equal(summary.hiddenPendingCount, 2);
+  assert.ok(summary.visibleKnowledgePoints.some((row) => row.knowledgePointId === "kp_g5a_u04_equivalent_mixed_selection"));
+  assert.equal(summary.hiddenPendingCount, 1);
 });
