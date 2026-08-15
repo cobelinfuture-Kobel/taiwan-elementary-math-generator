@@ -28,9 +28,10 @@ test("P03F22 shared worksheet emits 24 balanced questions and answers", () => {
   assert.equal(result.worksheetDocument.answerKeyPages.length, 3);
 });
 
-test("P03F22 Pixel current registry preserves the four-KP Slice022 successor while Slice029 adds the fifth G5A-U04 KP", () => {
+test("P03F22 Pixel current registry preserves the four-KP Slice022 successor while Slice037 adds the sixth G5A-U04 KP", () => {
   const summary = getCurrentPixelSourceSummary("g5a_u04_5a04");
-  assert.equal(summary.visibleKnowledgePoints.length, 5);
+  assert.equal(summary.visibleKnowledgePoints.length, 6);
   assert.deepEqual(summary.visibleKnowledgePoints.slice(2, 4).map((row) => row.knowledgePointId), G5A_U04_SLICE022_KP_IDS);
   assert.equal(summary.visibleKnowledgePoints[4].knowledgePointId, "kp_g5a_u04_unlike_fraction_compare");
+  assert.equal(summary.visibleKnowledgePoints[5].knowledgePointId, "kp_g5a_u04_equivalent_mixed_selection");
 });
