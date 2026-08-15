@@ -1,6 +1,7 @@
 # P03F W3 Direct Product Vertical Slice036 Readback
 
-STATUS = D0_CLOSEOUT_CANDIDATE
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 
 ## Scope
 
@@ -14,14 +15,14 @@ KnowledgePoints:
 PatternGroups = 3 numeric groups  
 PatternSpecs = 4 numeric specs
 
-Forbidden scope remains unchanged: no application expansion, no Global Context expansion, no parallel pipeline, no sibling KP promotion, no Slice037 implementation.
+No application expansion, Global Context expansion, parallel pipeline or sibling KP promotion was admitted by Slice036.
 
-## Implementation evidence
+## Implementation
 
 - PR #593
 - exact implementation head = `cf680cfcad312dcf51a1f80a127ae7ea7579420a`
 - implementation merge = `ccf0a9e6cd1f00a0b8fa3fc43739f9145add8c8b`
-- Node = 3115 / 3115 PASS
+- implementation Node = 3115 / 3115 PASS
 - product acceptance = PASS
 - public inventory = 32 sources / 234 visible KPs
 - G5A-U01 = 5 visible / 3 hidden / 3 not selectable
@@ -34,9 +35,9 @@ Forbidden scope remains unchanged: no application expansion, no Global Context e
 - parallel pipeline = false
 - manual visual = PASS 6 / 6
 
-## Main / Pages E2E evidence
+## Main / Pages E2E
 
-- exact Pages deployment run = `31861998297`
+- exact Pages deployment run = `31861998297` PASS
 - evidence PR #594
 - evidence final head = `5107ac06b69e4b0edc42adeb101a9ec3e0d4ac7a`
 - evidence merge = `50fe8c3c5cddfb54e6934dde09ccfc45c7450125`
@@ -56,23 +57,41 @@ Forbidden scope remains unchanged: no application expansion, no Global Context e
 - print invocation = 1
 - console / page / request / server errors = 0 / 0 / 0 / 0
 
-The transient Pages 503 observed during one E2E attempt was retried without any code or assertion change; the same exact-head E2E then passed. It is classified as infrastructure flake, not product failure.
+One live Pages attempt encountered a transient 503 after exact asset hashes had already matched. The same unchanged E2E head was rerun and passed; it remains classified as infrastructure flake, not product failure.
 
-## Current D0 gate
+## Canonical D0 replay
 
-Canonical R00 793-route replay is intentionally pending. This candidate changes only the R00 replay-trigger comment; historical R00 authority and executable assertions are unchanged.
+- candidate PR #595
+- candidate exact head = `a3ed634812663d3e4112742b31e76945cca14b78`
+- candidate merge = `d4edf578cad53d494568ca43d3040c5c3a223040`
+- candidate Node = 3119 / 3119 PASS
+- candidate Node artifact = `9241266955`
+- candidate Node digest = `sha256:3e65113b0985cd368a40c15c92fe7f223225536212b2cda4a9e1ed5a4cf67707`
+- canonical R00 run = `31863263241`
+- canonical R00 job = `94960120191`
+- canonical artifact = `9241481568`
+- canonical digest = `sha256:1a2d32d80996e2d9a45d0448e2450099f970cfea23530b4fc75013b7bb5dd2de`
+- status = `PASS_ALL_793_LEGAL_ROUTES`
+- executed / terminal / pass / fail = 793 / 793 / 793 / 0
+- full nine-gate pass = 793
+- shards = 16
+- HTML / PDF samples = 16 / 16
+- browser console / page errors = 0 / 0
+- exit code = 0
+- product mutation / capacity authority mutation / per-route patch = false / false / false
 
-GOAL_DISTANCE_BEFORE = D1_SLICE036_IMPLEMENTATION_MERGED_MAIN_PAGES_E2E_PASS_CANONICAL_D0_REPLAY_PENDING
-GOAL_DISTANCE_AFTER  = D1_SLICE036_D0_CLOSEOUT_CANDIDATE_CANONICAL_793_PENDING
+## Final admission
+
+`Slice036 = PRODUCTION_ADMITTED_D0`
+
+`Slice037MayStart = true` in the D0 authority, but Slice037 implementation is not started by this closeout because it is outside the currently approved execution scope.
+
+GOAL_DISTANCE_BEFORE = D1_SLICE036_D0_CLOSEOUT_CANDIDATE_CANONICAL_793_PENDING
+GOAL_DISTANCE_AFTER  = D0_SLICE036_PRODUCTION_ADMITTED
 
 DISTANCE_REDUCED =
-Implementation, exact deployment and full Main/Pages E2E are now bound into one D0 candidate authority. The remaining distance is only canonical 793-route replay plus post-merge final reconciliation.
+Slice036 moved from implementation/product acceptance pending global proof to fully admitted D0: exact-head Node reconciliation, implementation merge, exact Pages deployment, live Main/Pages E2E, canonical 793-route replay, candidate merge and final authority reconciliation are all bound.
 
-REMAINING_BLOCKERS = [
-  CANONICAL_793_CLOSEOUT_REPLAY_PENDING,
-  D0_CANDIDATE_NOT_YET_MERGED,
-  FINAL_D0_RECONCILIATION_NOT_YET_MERGED,
-  SLICE037_FROZEN
-]
+REMAINING_BLOCKERS = []
 
-NEXT_SHORTEST_STEP = P03F_W3DirectProductVerticalSlice036_D0Candidate_CI_793Replay_And_Merge
+NEXT_SHORTEST_STEP = P03F_W3DirectProductVerticalSlice037Implementation

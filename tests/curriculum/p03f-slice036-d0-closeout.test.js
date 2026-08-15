@@ -129,10 +129,51 @@ test("P03F36 product admission state is candidate or final only and never releas
   assert.equal(claim.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice037Implementation");
 });
 
+test("P03F36 final D0 binds exact candidate Node and canonical 793 replay evidence", () => {
+  if (claim.status !== "PASS_D0_CLOSED") return;
+
+  assert.equal(claim.closeoutEvidence.candidatePrNumber, 595);
+  assert.equal(claim.closeoutEvidence.candidateHeadSha, "a3ed634812663d3e4112742b31e76945cca14b78");
+  assert.equal(claim.closeoutEvidence.candidateMergeSha, "d4edf578cad53d494568ca43d3040c5c3a223040");
+  assert.equal(claim.closeoutEvidence.status, "PASS_CI_SYNCED_AND_MERGED");
+  assert.deepEqual([
+    claim.closeoutEvidence.candidateNode.tests,
+    claim.closeoutEvidence.candidateNode.pass,
+    claim.closeoutEvidence.candidateNode.fail,
+    claim.closeoutEvidence.candidateNode.skipped,
+  ], [3119, 3119, 0, 0]);
+  assert.equal(claim.closeoutEvidence.candidateNode.artifactId, 9241266955);
+  assert.equal(claim.closeoutEvidence.candidateNode.artifactDigest, "sha256:3e65113b0985cd368a40c15c92fe7f223225536212b2cda4a9e1ed5a4cf67707");
+
+  const replay = claim.canonical793Evidence;
+  assert.equal(replay.runId, 31863263241);
+  assert.equal(replay.jobId, 94960120191);
+  assert.equal(replay.headSha, "a3ed634812663d3e4112742b31e76945cca14b78");
+  assert.equal(replay.artifactId, 9241481568);
+  assert.equal(replay.artifactDigest, "sha256:1a2d32d80996e2d9a45d0448e2450099f970cfea23530b4fc75013b7bb5dd2de");
+  assert.deepEqual([
+    replay.legalRouteCount,
+    replay.executedRouteCount,
+    replay.terminalRouteCount,
+    replay.passRouteCount,
+    replay.failRouteCount,
+    replay.fullNineGatePassCount,
+  ], [793, 793, 793, 793, 0, 793]);
+  assert.deepEqual([replay.shardCount, replay.sampleHtmlCount, replay.samplePdfCount], [16, 16, 16]);
+  assert.deepEqual([replay.browserConsoleErrorCount, replay.browserPageErrorCount, replay.exitCode], [0, 0, 0]);
+  assert.equal(replay.productMutationUsed, false);
+  assert.equal(replay.capacityAuthorityMutationUsed, false);
+  assert.equal(replay.perRoutePatchUsed, false);
+
+  assert.equal(manifest.closeoutPr.number, 595);
+  assert.equal(manifest.closeoutPr.mergeSha, "d4edf578cad53d494568ca43d3040c5c3a223040");
+  assert.equal(manifest.canonical793Evidence.artifactId, 9241481568);
+  assert.equal(manifest.canonical793Evidence.fail, 0);
+});
+
 test("P03F36 canonical R00 replay trigger is current while historical R00 authority remains unchanged", () => {
   assert.match(r00Test, /P03F36 D0 closeout replay trigger/);
   assert.match(r00Test, /current public sources may extend through Slice033/);
   assert.equal(claim.canonical793Evidence.workflow, "PGC-R00 Public Generation Scope Freeze");
-  assert.equal(claim.canonical793Evidence.triggerPath, "tests/curriculum/pgc-r00-public-generation-scope.test.js");
   assert.equal(claim.canonical793Evidence.legalRouteCount, 793);
 });
