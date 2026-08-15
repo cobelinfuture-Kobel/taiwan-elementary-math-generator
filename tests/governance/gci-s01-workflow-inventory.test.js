@@ -29,6 +29,7 @@ const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/p03f-slice034-product-acceptance.yml",
   ".github/workflows/p03f-slice035-core-acceptance.yml",
   ".github/workflows/p03f-slice036-core-acceptance.yml",
+  ".github/workflows/p03f-slice036-live-pages-e2e.yml",
 ];
 
 const POST_S01_PGC_R00_PATHS = new Set([
