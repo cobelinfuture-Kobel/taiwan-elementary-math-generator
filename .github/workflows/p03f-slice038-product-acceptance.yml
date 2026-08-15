@@ -1,0 +1,47 @@
+name: P03F Slice038 Product Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f38-product-acceptance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromium-product-acceptance:
+    if: github.head_ref == 'p03f38-g5a-u06-rank9-mixed-improper-add-sub'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run Slice038 focused contracts
+        run: |
+          node --test \
+            tests/curriculum/p03f-slice038-g5a-u06-rank9-mixed-improper-add-sub.test.js \
+            tests/curriculum/p03f-slice038-public-ui-binding.test.js
+      - name: Install Chromium and acceptance font
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1 @fontsource/noto-sans-tc@5.2.9
+          npx playwright install --with-deps chromium
+      - name: Run Slice038 Chromium product acceptance
+        run: node tools/curriculum/render-p03f-slice038-product-acceptance.mjs
+      - name: Upload Slice038 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice038-product-acceptance
+          path: tmp/p03f-slice038-product-acceptance
+          if-no-files-found: error
+          retention-days: 30
