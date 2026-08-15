@@ -1,0 +1,181 @@
+{
+  "claimId": "P03F-W3-SLICE037-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice037Implementation",
+  "e6MilestoneId": "P03F_W3DirectProductVerticalSlice037_E6_D0Closeout",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D1",
+  "scope": "Slice037 only: g5a_u04_5a04 rank9 admits equivalent improper-fraction/mixed-number selection through one numeric KnowledgePoint, one numeric PatternGroup and three numeric PatternSpecs for whole, remainder and improper numerator. Existing shared query-state, generator, validator, worksheet and renderer consumers remain the only product path. Exact implementation CI, exact Pages deployment and live Main/Pages E2E are bound; canonical 793-route replay is the only remaining D0 evidence. Application PatternSpecs, Global Context expansion, sibling KnowledgePoint promotion, parallel pipelines and Slice038 are forbidden by this candidate.",
+  "authority": {
+    "path": "data/curriculum/full-product/p03f/slice037-g5a-u04-rank9-equivalent-mixed-authority.json",
+    "queuePosition": 37,
+    "queueEntryId": "p03e_q037_r9_g5a_u04_5a04_profile_fraction_c1",
+    "sourceRef": "g5a_u04_5a04",
+    "sourceTitle": "擴分約分通分",
+    "knowledgePointIds": [
+      "kp_g5a_u04_equivalent_mixed_selection"
+    ],
+    "patternGroupIds": [
+      "pg_g5a_u04_equivalent_mixed_selection_numeric"
+    ],
+    "patternSpecIds": [
+      "ps_g5a_u04_equivalent_mixed_selection_whole_numeric",
+      "ps_g5a_u04_equivalent_mixed_selection_remainder_numeric",
+      "ps_g5a_u04_equivalent_mixed_selection_improper_numerator_numeric"
+    ],
+    "requiredCapabilityIds": [
+      "cap_fraction_arithmetic",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ],
+    "expectedPublicSourceCount": 32,
+    "expectedVisibleKnowledgePointCount": 235,
+    "expectedSourceVisibleCount": 6,
+    "expectedSourceHiddenCount": 1,
+    "expectedSourceNotSelectableCount": 1
+  },
+  "implementationEvidence": {
+    "prNumber": 597,
+    "headSha": "d8964648a6ecfd448234785e50025768856b5bdf",
+    "mergeSha": "be5ac90b8708cb2764eaae7ed2b0b2bd25e6c982",
+    "mergeMethod": "squash",
+    "runtimePath": "site/modules/curriculum/batch-a/g5a-u04-rank9-equivalent-mixed-runtime-p03f37.js",
+    "runtimeBlobShaOnMain": "f0d729b46da01658ea389d876ea7acb63ecac681",
+    "node": {
+      "runId": 31868408003,
+      "jobId": 94972957899,
+      "status": "SUCCESS",
+      "tests": 3133,
+      "pass": 3133,
+      "fail": 0,
+      "skipped": 0,
+      "diagnosticsArtifactId": 9242716895,
+      "diagnosticsDigest": "sha256:ee8b5b535daa425cd97243199806b886c6554fe2f9a8263d3b749a90e8c23379"
+    },
+    "productAcceptance": {
+      "runId": 31868408025,
+      "jobId": 94972958022,
+      "status": "SUCCESS",
+      "artifactId": 9242684024,
+      "artifactName": "p03f-slice037-product-acceptance",
+      "artifactDigest": "sha256:204c0f4d78c184eaa252b6f78134c25f04f614901a0e3a4b3c4684a7b97e6d5c",
+      "questionCount": 24,
+      "answerKeyItemCount": 24,
+      "patternSpecCount": 3,
+      "patternSpecWitnessCounts": {
+        "ps_g5a_u04_equivalent_mixed_selection_whole_numeric": 8,
+        "ps_g5a_u04_equivalent_mixed_selection_remainder_numeric": 8,
+        "ps_g5a_u04_equivalent_mixed_selection_improper_numerator_numeric": 8
+      },
+      "unknownRoleCounts": {
+        "whole": 8,
+        "remainder": 8,
+        "improperNumerator": 8
+      },
+      "integerEquivalenceWitnessCount": 9,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "physicalPdfPageCount": 6,
+      "screenshotCount": 6,
+      "htmlSha256": "15a7c176225342fbb970c040b015013ef512d249aacba05777bbca4a17929d4b",
+      "pdfSha256": "8657ae3bb909e523d08a6b7acb7bc354ec7a238951d727505925498446e44042",
+      "pdfByteLength": 61038,
+      "crossLayerMismatchCount": 0,
+      "exactAnswerMismatchCount": 0,
+      "duplicatePromptFindingCount": 0,
+      "overflowFindingCount": 0,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "semanticScopeFindingCount": 0,
+      "applicationLeakFindingCount": 0,
+      "sharedPagination": true,
+      "sharedRenderer": true,
+      "parallelPipeline": false,
+      "manualVisualReview": {
+        "status": "PASS",
+        "pagesReviewed": 6,
+        "evidenceSource": "exact_product_artifact_visual_review",
+        "exactHeadReviewed": true
+      }
+    },
+    "workflowRuns": {
+      "pgcR02": {"runId": 31868408047, "status": "SUCCESS"},
+      "pgcR03": {"runId": 31868408051, "status": "SUCCESS"},
+      "pgcR04": {"runId": 31868408058, "status": "SUCCESS"},
+      "pgcR06A03": {"runId": 31868408064, "status": "SUCCESS"},
+      "prGate": {"runId": 31868408040, "status": "SUCCESS"}
+    }
+  },
+  "mainReadback": {
+    "implementationMergeSha": "be5ac90b8708cb2764eaae7ed2b0b2bd25e6c982",
+    "evidenceMergeSha": "1b4b2f343bfa444b8c35dce94d023e6bf7ec03ec",
+    "publicSources": 32,
+    "visibleKnowledgePoints": 235,
+    "g5aU04VisibleKnowledgePoints": 6,
+    "g5aU04HiddenKnowledgePoints": 1,
+    "g5aU04NotSelectableKnowledgePoints": 1,
+    "publicUiBindingGaps": 0,
+    "runtimeBlobMatchesImplementation": true
+  },
+  "pagesDeploymentEvidence": {
+    "runId": 31868596524,
+    "status": "SUCCESS",
+    "exactMergeSha": "be5ac90b8708cb2764eaae7ed2b0b2bd25e6c982"
+  },
+  "livePagesE2E": {
+    "prNumber": 598,
+    "headSha": "b1a22b04db129f64646d61f4f29ccb8c7559c532",
+    "mergeSha": "1b4b2f343bfa444b8c35dce94d023e6bf7ec03ec",
+    "runId": 31869754637,
+    "jobId": 94976475463,
+    "artifactId": 9243091026,
+    "artifactDigest": "sha256:0750af7c0f95d7217ba2a3e402a9c73bd783adcea9cb1db58e3ee61489d88715",
+    "status": "PASS_P03F37_POSTMERGE_MAIN_PAGES_E2E",
+    "exactMergeSha": "be5ac90b8708cb2764eaae7ed2b0b2bd25e6c982",
+    "exactPagesRunId": 31868596524,
+    "questionCount": 24,
+    "answerCount": 24,
+    "questionPageCount": 3,
+    "answerPageCount": 3,
+    "familyCounts": {
+      "whole": 8,
+      "remainder": 8,
+      "improperNumerator": 8
+    },
+    "integerEquivalenceWitnessCount": 9,
+    "exactAnswerMismatchCount": 0,
+    "printInvocationCount": 1,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "requestFailureCount": 0,
+    "serverErrorCount": 0,
+    "sharedRenderer": true,
+    "patternGroupSelectionMode": "auto-applied-by-kp",
+    "applicationExpansion": false,
+    "globalContextExpansion": false,
+    "parallelPipeline": false,
+    "siblingKnowledgePointPromotion": false,
+    "slice038Started": false
+  },
+  "canonical793Evidence": {
+    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "workflow": "PGC-R00 Public Generation Scope Freeze",
+    "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js",
+    "legalRouteCount": 793,
+    "executedRouteCount": null,
+    "terminalRouteCount": null,
+    "passRouteCount": null,
+    "failRouteCount": null
+  },
+  "closeoutEvidence": {
+    "candidatePrNumber": null,
+    "candidateHeadSha": null,
+    "candidateMergeSha": null,
+    "status": "PENDING_CLOSEOUT_CANDIDATE_CI"
+  },
+  "progression": {
+    "nextTask": "P03F_W3DirectProductVerticalSlice038Implementation",
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice037_D0PostMergeReconciliation"
+  }
+}
