@@ -31,7 +31,7 @@ const assetContracts = [
   {
     repoPath: "site/modules/curriculum/batch-a/g5b-u06-rank9-integer-division-decimal-quotient-runtime-p03f40.js",
     publicPath: "modules/curriculum/batch-a/g5b-u06-rank9-integer-division-decimal-quotient-runtime-p03f40.js",
-    requiredTokens: ["exactFractionToDecimal", "integer_division_decimal_quotient", "P03F_W3DirectProductVerticalSlice040Implementation"],
+    requiredTokens: ["exactFractionToDecimal", "integer_dividend_by_integer_divisor", "P03F_W3DirectProductVerticalSlice040Implementation"],
   },
   {
     repoPath: "site/assets/browser/state/query-state.js",
