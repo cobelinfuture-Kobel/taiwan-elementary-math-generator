@@ -107,43 +107,52 @@ test("P03F41 current Pixel authority preserves q041 admission", () => {
   assert.equal(pixel.bySourceId[G6B_U01_P03F41_SOURCE_ID].notSelectableCount, 3);
 });
 
-test("P03F41 candidate is fail-closed and final D0 releases only Slice042", () => {
+test("P03F41 final product admission is D0 and releases only Slice042", () => {
   assert.equal(manifest.queuePosition, 41);
   assert.equal(manifest.sourceId, G6B_U01_P03F41_SOURCE_ID);
-  if (claim.status === "D0_CLOSEOUT_CANDIDATE") {
-    assert.equal(claim.goalDistance, "D1");
-    assert.equal(manifest.status, "D0_CLOSEOUT_CANDIDATE");
-    assert.equal(manifest.admissionState, "PENDING_D0_RECONCILIATION");
-    assert.equal(manifest.goalDistance, "D1");
-    assert.equal(manifest.productionAdmission.slice041Admitted, false);
-    assert.equal(manifest.productionAdmission.slice042MayStart, false);
-    assert.equal(claim.canonical793Evidence.status, "PENDING_CLOSEOUT_CANDIDATE_CI");
-    assert.equal(manifest.canonical793Evidence.status, "PENDING_CLOSEOUT_CANDIDATE_CI");
-    assert.equal(claim.closeoutEvidence.status, "PENDING_CLOSEOUT_CANDIDATE_CI");
-    assert.equal(claim.progression.nextSliceMayStartBeforeD0Closeout, false);
-    return;
-  }
-
   assert.equal(claim.status, "PASS_D0_CLOSED");
   assert.equal(claim.goalDistance, "D0");
   assert.equal(manifest.status, "PASS_CI_SYNCED_AND_MERGED");
   assert.equal(manifest.admissionState, "PRODUCTION_ADMITTED_D0");
   assert.equal(manifest.goalDistance, "D0");
+  assert.deepEqual([
+    manifest.currentAuthority.publicSourcesAtAdmission,
+    manifest.currentAuthority.visibleKnowledgePointsAtAdmission,
+    manifest.currentAuthority.sourceVisibleKnowledgePoints,
+    manifest.currentAuthority.sourceHiddenKnowledgePoints,
+    manifest.currentAuthority.sourceNotSelectableKnowledgePoints,
+    manifest.currentAuthority.gaps,
+  ], [33, 239, 2, 3, 3, 0]);
   assert.equal(manifest.productionAdmission.slice041Admitted, true);
   assert.equal(manifest.productionAdmission.slice042MayStart, true);
   assert.equal(claim.progression.nextSliceMayStartBeforeD0Closeout, false);
   assert.equal(claim.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice042Implementation");
   assert.equal(manifest.nextResumeTask, "P03F_W3DirectProductVerticalSlice042Implementation");
+});
 
-  const node = claim.closeoutEvidence.candidateNode;
-  assert.ok(node.tests >= 3198);
-  assert.equal(node.tests, node.pass);
-  assert.equal(node.fail, 0);
-  assert.equal(node.skipped, 0);
-  assert.match(node.artifactDigest, /^sha256:[0-9a-f]{64}$/);
+test("P03F41 final D0 binds exact candidate Node and canonical 793 replay evidence", () => {
+  assert.equal(claim.closeoutEvidence.candidatePrNumber, 616);
+  assert.equal(claim.closeoutEvidence.candidateHeadSha, "087639ec4adc50f610180f01c9ecd733dbfdbf8b");
+  assert.equal(claim.closeoutEvidence.candidateMergeSha, "6fa24f9da6d3493b28d4e822386111a170d8b4b5");
+  assert.equal(claim.closeoutEvidence.status, "PASS_CI_SYNCED_AND_MERGED");
+  assert.deepEqual([
+    claim.closeoutEvidence.candidateNode.runId,
+    claim.closeoutEvidence.candidateNode.jobId,
+    claim.closeoutEvidence.candidateNode.tests,
+    claim.closeoutEvidence.candidateNode.pass,
+    claim.closeoutEvidence.candidateNode.fail,
+    claim.closeoutEvidence.candidateNode.skipped,
+    claim.closeoutEvidence.candidateNode.artifactId,
+  ], [31956485528, 95187833339, 3204, 3204, 0, 0, 9266123637]);
+  assert.equal(claim.closeoutEvidence.candidateNode.artifactDigest, "sha256:50522b15edc32db1afa3d61ff90d08cdda412d3794f21908c3bafb6d71e7fe8e");
 
   const replay = claim.canonical793Evidence;
   assert.equal(replay.status, "PASS_ALL_793_LEGAL_ROUTES");
+  assert.equal(replay.runId, 31956485523);
+  assert.equal(replay.jobId, 95187797695);
+  assert.equal(replay.headSha, "087639ec4adc50f610180f01c9ecd733dbfdbf8b");
+  assert.equal(replay.artifactId, 9266324965);
+  assert.equal(replay.artifactDigest, "sha256:187f6d8552f8d67664ef05631e50296a954a7739b279a566b6849fe8ec96542e");
   assert.deepEqual([replay.legalRouteCount, replay.executedRouteCount, replay.terminalRouteCount, replay.passRouteCount, replay.failRouteCount, replay.fullNineGatePassCount], [793, 793, 793, 793, 0, 793]);
   assert.deepEqual([replay.shardCount, replay.sampleHtmlCount, replay.samplePdfCount], [16, 16, 16]);
   assert.deepEqual([replay.finalCheckpointExecutedRouteCount, replay.finalCheckpointAuthoritative], [793, true]);
@@ -151,10 +160,12 @@ test("P03F41 candidate is fail-closed and final D0 releases only Slice042", () =
   assert.equal(replay.productMutationUsed, false);
   assert.equal(replay.capacityAuthorityMutationUsed, false);
   assert.equal(replay.perRoutePatchUsed, false);
-  assert.equal(manifest.closeoutPr.number, claim.closeoutEvidence.candidatePrNumber);
-  assert.equal(manifest.closeoutPr.headSha, claim.closeoutEvidence.candidateHeadSha);
-  assert.equal(manifest.closeoutPr.mergeSha, claim.closeoutEvidence.candidateMergeSha);
-  assert.equal(manifest.canonical793Evidence.artifactId, replay.artifactId);
+
+  assert.equal(manifest.closeoutPr.number, 616);
+  assert.equal(manifest.closeoutPr.headSha, "087639ec4adc50f610180f01c9ecd733dbfdbf8b");
+  assert.equal(manifest.closeoutPr.mergeSha, "6fa24f9da6d3493b28d4e822386111a170d8b4b5");
+  assert.equal(manifest.canonical793Evidence.artifactId, 9266324965);
+  assert.equal(manifest.canonical793Evidence.fail, 0);
 });
 
 test("P03F41 canonical R00 replay trigger stays on the frozen 793-route authority", () => {
