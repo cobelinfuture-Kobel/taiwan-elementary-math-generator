@@ -32,7 +32,7 @@ const options = {
   printLayout: { paperSize: "A4", columns: 2, rowsPerPage: 4, showQuestionNumbers: true, showAnswerKeyPage: true },
 };
 
-test("P03F30 historical selector remains 30/224 while current inventory advances through Slice040 to 33/238", () => {
+test("P03F30 historical selector remains 30/224 while current inventory advances through Slice041 to 33/239", () => {
   assert.equal(auditG5AU06P03F30SelectorProjection().ok, true);
   assert.equal(auditP03F30PublicSelectorComposition().ok, true);
   assert.equal(validateP03F30PatternDefinitions().ok, true);
@@ -45,7 +45,7 @@ test("P03F30 historical selector remains 30/224 while current inventory advances
   assert.equal(getBatchASourceUnit(G5A_U06_P03F30_SOURCE_ID)?.unitCode, "5A-U06");
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 238);
+  assert.equal(pixel.visibleKnowledgePointCount, 239);
   const summary = getCurrentPixelSourceSummary(G5A_U06_P03F30_SOURCE_ID);
   assert.ok(summary);
   assert.equal(summary.visibleKnowledgePoints.length, 5);

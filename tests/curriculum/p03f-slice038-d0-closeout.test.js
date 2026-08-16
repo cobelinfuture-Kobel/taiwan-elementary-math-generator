@@ -67,10 +67,10 @@ test("P03F38 final-head Main/Pages E2E binds deployed product behavior", () => {
   assert.equal(e2e.slice039Started, false);
 });
 
-test("P03F38 historical D0 authority remains 32/236 while current Pixel advances through Slice039 to 32/237", () => {
+test("P03F38 historical D0 authority remains 32/236 while current Pixel advances through Slice041 to 33/239", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 238);
+  assert.equal(pixel.visibleKnowledgePointCount, 239);
   assert.equal(pixel.bySourceId[G5A_U06_P03F38_SOURCE_ID].visibleKnowledgePoints.length, 5);
   assert.equal(pixel.bySourceId[G5A_U06_P03F38_SOURCE_ID].hiddenPendingCount, 2);
 });
