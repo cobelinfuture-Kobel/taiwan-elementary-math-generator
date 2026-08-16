@@ -24,6 +24,54 @@ function buildDataAttributes(attributes, enabled) {
     .join("");
 }
 
+function validateDecimalNumberLineModel(model) {
+  if (!model || model.kind !== "decimal_number_line") {
+    return false;
+  }
+  if (![10, 100].includes(model.scale) || !Number.isInteger(model.stepScaled) || model.stepScaled <= 0) {
+    return false;
+  }
+  if (!Array.isArray(model.ticks) || model.ticks.length < 2 || model.ticks.length > 21 || model.tickCount !== model.ticks.length) {
+    return false;
+  }
+  if (!Array.isArray(model.points) || model.points.length !== 2) {
+    return false;
+  }
+  return model.ticks.every((tick, index) => tick && tick.index === index && Number.isInteger(tick.valueScaled) && typeof tick.label === "string")
+    && model.points.every((point) => point && ["A", "B"].includes(point.label) && Number.isInteger(point.tickIndex) && point.tickIndex >= 0 && point.tickIndex < model.ticks.length && Number.isInteger(point.valueScaled));
+}
+
+export function renderDecimalNumberLine(model) {
+  if (!validateDecimalNumberLineModel(model)) {
+    throw createRendererError("decimal_number_line_invalid", "Decimal number-line representation is invalid.");
+  }
+  const width = 360;
+  const left = 28;
+  const right = 332;
+  const axisY = 56;
+  const count = model.ticks.length;
+  const xForIndex = (index) => left + ((right - left) * index) / (count - 1);
+  const pointByIndex = new Map(model.points.map((point) => [point.tickIndex, point]));
+  const tickMarkup = model.ticks.map((tick, index) => {
+    const x = xForIndex(index).toFixed(2);
+    const point = pointByIndex.get(index);
+    return [
+      `<line x1="${x}" y1="50" x2="${x}" y2="62" stroke="currentColor" stroke-width="1" />`,
+      `<text x="${x}" y="76" text-anchor="middle" font-size="9">${escapeHtml(tick.label)}</text>`,
+      point ? `<circle cx="${x}" cy="${axisY}" r="4" fill="currentColor" />` : "",
+      point ? `<text x="${x}" y="40" text-anchor="middle" font-size="12" font-weight="700">${escapeHtml(point.label)}</text>` : ""
+    ].join("");
+  }).join("");
+  return [
+    '<div class="worksheet-cell__representation worksheet-cell__representation--number-line" data-representation="decimal-number-line">',
+    `<svg class="worksheet-number-line" viewBox="0 0 ${width} 84" role="img" aria-label="小數數線，標示 A、B 兩點" preserveAspectRatio="xMidYMid meet">`,
+    `<line x1="${left}" y1="${axisY}" x2="${right}" y2="${axisY}" stroke="currentColor" stroke-width="2" />`,
+    tickMarkup,
+    "</svg>",
+    "</div>"
+  ].join("");
+}
+
 function renderPageSection(title, pagesHtml, sectionClassName, options) {
   return [
     `<section class="worksheet-section ${sectionClassName}">`,
@@ -63,6 +111,7 @@ export function renderQuestionCell(cell, options = {}) {
       ? `<div class="worksheet-cell__number">${escapeHtml(displayModel.questionNumberText)}</div>`
       : "",
     `<div class="worksheet-cell__prompt">${escapeHtml(displayModel.blankedDisplayText)}</div>`,
+    displayModel.numberLine ? renderDecimalNumberLine(displayModel.numberLine) : "",
     "</article>"
   ].join("");
 }
@@ -87,6 +136,7 @@ export function renderAnswerKeyCell(cell, options = {}) {
     `<article class="worksheet-cell worksheet-cell--answer-key"${dataAttributes}>`,
     `<div class="worksheet-cell__number">${escapeHtml(`${answerKeyItem.questionNumber}.`)}</div>`,
     `<div class="worksheet-cell__prompt">${escapeHtml(answerKeyItem.promptText)}</div>`,
+    answerKeyItem.numberLine ? renderDecimalNumberLine(answerKeyItem.numberLine) : "",
     `<div class="worksheet-cell__answer">${escapeHtml(answerKeyItem.answerText)}</div>`,
     "</article>"
   ].join("");
