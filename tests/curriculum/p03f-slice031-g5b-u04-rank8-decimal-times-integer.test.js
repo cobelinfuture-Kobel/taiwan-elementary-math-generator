@@ -65,13 +65,14 @@ test("P03F31 historical selector admits exactly one numeric source-backed KP", (
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 225);
 });
 
-test("P03F31 current source and Pixel inventories expand monotonically through Slice032 to 32 sources", () => {
+test("P03F31 current source and Pixel inventories expand monotonically through Slice039", () => {
   assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 32);
   assert.ok(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.some((row) => row.sourceId === G5B_U04_P03F31_SOURCE_ID));
   assert.equal(listCurrentPixelSourceOptions().length, 32);
   const pixelKps = listPixelKnowledgePointsForSource(G5B_U04_P03F31_SOURCE_ID);
-  assert.equal(pixelKps.length, 1);
-  assert.equal(pixelKps[0].knowledgePointId, G5B_U04_P03F31_KP_ID);
+  assert.equal(pixelKps.length, 2);
+  assert.ok(pixelKps.some((row) => row.knowledgePointId === G5B_U04_P03F31_KP_ID));
+  assert.ok(pixelKps.some((row) => row.knowledgePointId === "kp_g5b_u04_integer_times_decimal"));
 });
 
 test("P03F31 replays the manually verified source witness through shared decimal arithmetic", () => {
@@ -149,7 +150,7 @@ test("P03F31 remains fully bound after R02 R05 advances current binding to Slice
   assert.ok(rows.every((row) => row.questionType === "numeric" && row.compatiblePatternSpecIds.includes(G5B_U04_P03F31_SPEC_ID)));
 });
 
-test("P03F31 does not admit later G5B-U04 decimal multiplication capabilities", () => {
+test("P03F31 historical corpus does not admit later G5B-U04 decimal multiplication capabilities", () => {
   const corpus = JSON.stringify({
     selector:listVisibleBatchAKnowledgePoints().filter((row)=>row.sourceId===G5B_U04_P03F31_SOURCE_ID),
     capabilities:buildPublicGenerationCapabilityMatrixV6().capabilities.filter((row)=>row.sourceId===G5B_U04_P03F31_SOURCE_ID),
