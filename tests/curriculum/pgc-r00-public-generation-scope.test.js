@@ -18,6 +18,7 @@ import {
 // P03F37 D0 closeout replay trigger; executable and Slice033 historical authority below are unchanged.
 // P03F38 D0 closeout replay trigger; executable and historical route authority below are unchanged.
 // P03F39 D0 closeout replay trigger; executable and historical route authority below are unchanged.
+// P03F40 D0 closeout replay trigger; executable and historical route authority below are unchanged.
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "../..");
 const scopePath = path.join(repoRoot, "data/curriculum/public-generation/public_generation_scope.json");
