@@ -1,18 +1,18 @@
 # P03F W3 Direct Product Vertical Slice039 Readback
 
-## Candidate status
+## Final status
 
 ```text
 TASK = P03F_W3DirectProductVerticalSlice039_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 QUEUE = q039 / rank9 / g5b_u04_5b04
 SOURCE = 小數的乘法
 PUBLIC_INVENTORY = 32 sources / 237 visible KPs
 G5B_U04 = 2 visible / 0 hidden / 0 notSelectable
 ```
 
-## Exact candidate product scope
+## Exact admitted product scope
 
 ```text
 KP = kp_g5b_u04_integer_times_decimal
@@ -105,17 +105,41 @@ SLICE040_STARTED = false
 
 The first live E2E attempt timed out before UI source options initialized. A single same-head rerun, with no code or branch change, passed the complete contract and produced the exact evidence artifact above. The first attempt is therefore classified as a live initialization flake, not a product mutation or accepted failure.
 
-## Candidate barrier
+## D0 candidate and canonical R00 evidence
 
 ```text
-CANONICAL_R00_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-EXPECTED_LEGAL_ROUTES = 793
-SLICE039_ADMITTED = false
-SLICE040_MAY_START = false
-NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice039_D0PostMergeReconciliation
+CANDIDATE_PR = #607
+CANDIDATE_HEAD = dd84fae383b6089061a6691def01304db9170df9
+CANDIDATE_MERGE = d13fb18c0623807ad3cfa303cf6d6a841d551c32
+CANDIDATE_NODE = 3173 / 3173 PASS
+CANDIDATE_NODE_RUN = 31925688430
+CANDIDATE_NODE_JOB = 95112785452
+CANDIDATE_NODE_ARTIFACT = 9257789934
+CANONICAL_R00_RUN = 31925688477
+CANONICAL_R00_JOB = 95112785418
+CANONICAL_R00_ARTIFACT = 9257976188
+CANONICAL_R00_STATUS = PASS_ALL_793_LEGAL_ROUTES
+LEGAL / EXECUTED / TERMINAL / PASS / FAIL = 793 / 793 / 793 / 793 / 0
+FULL_NINE_GATE_PASS = 793
+SHARDS / SAMPLE_HTML / SAMPLE_PDF = 16 / 16 / 16
+FINAL_CHECKPOINT = 793 authoritative=true
+BROWSER_CONSOLE / PAGE_ERRORS = 0 / 0
+EXIT_CODE = 0
+PRODUCT_MUTATION = false
+CAPACITY_AUTHORITY_MUTATION = false
+PER_ROUTE_PATCH = false
 ```
 
-## Forbidden scope remains closed
+## Production admission
+
+```text
+ADMISSION_STATE = PRODUCTION_ADMITTED_D0
+SLICE039_ADMITTED = true
+SLICE040_MAY_START = true
+NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice040Implementation
+```
+
+## Forbidden scope remained closed through Slice039
 
 - no application expansion
 - no Global Context expansion
@@ -123,4 +147,4 @@ NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice039_D0PostMergeReconciliatio
 - no estimation promotion
 - no sibling KnowledgePoint promotion
 - no parallel generator / validator / renderer path
-- no Slice040 implementation
+- no Slice040 implementation was included in Slice039 closeout
