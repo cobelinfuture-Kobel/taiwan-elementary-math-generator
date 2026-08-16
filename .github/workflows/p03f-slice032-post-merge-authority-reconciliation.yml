@@ -50,7 +50,7 @@ jobs:
             tests/curriculum/pgc-r01-public-capability-matrix.test.js \
             tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
 
-      - name: Verify exact generated artifact boundary
+      - name: Verify generated artifact boundary
         run: |
           set -euo pipefail
           changed="$(git diff --name-only)"
@@ -72,27 +72,37 @@ jobs:
               exit 1
             fi
           done
-          for wanted in "${expected[@]}"; do
-            if ! grep -Fxq "$wanted" <<< "$changed"; then
-              echo "Expected generated path missing from reconciliation: $wanted" >&2
-              exit 1
-            fi
-          done
+          if [[ -z "$changed" ]]; then
+            echo "Slice032 deterministic authority artifacts are already synchronized."
+          else
+            echo "Slice032 deterministic authority reconciliation changed only allowed artifacts:"
+            printf '%s\n' "$changed"
+          fi
 
-      - name: Publish deterministic authority reconciliation branch
+      - name: Publish deterministic authority reconciliation branch when needed
         run: |
           set -euo pipefail
+          expected=(
+            data/curriculum/public-generation/public_generation_capability_matrix.json
+            data/curriculum/public-generation/public_generation_capability_matrix.csv
+            docs/curriculum/output/PGC-R01_capability_gap_report.md
+            data/curriculum/public-generation/ui_capability_binding_contract.json
+            data/curriculum/public-generation/ui_option_filter_matrix.csv
+            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          )
+          if git diff --quiet -- "${expected[@]}"; then
+            echo "No deterministic authority reconciliation branch is required."
+            exit 0
+          fi
           branch="p03f32-current-authority-reconcile"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B "$branch"
-          git add \
-            data/curriculum/public-generation/public_generation_capability_matrix.json \
-            data/curriculum/public-generation/public_generation_capability_matrix.csv \
-            docs/curriculum/output/PGC-R01_capability_gap_report.md \
-            data/curriculum/public-generation/ui_capability_binding_contract.json \
-            data/curriculum/public-generation/ui_option_filter_matrix.csv \
-            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
+          git add "${expected[@]}"
+          if git diff --cached --quiet; then
+            echo "No staged deterministic authority changes; nothing to publish."
+            exit 0
+          fi
           git commit -m "data(p03f32): reconcile current R01 R02 authority"
           git fetch origin main
           git rebase origin/main
