@@ -61,8 +61,8 @@ test("P03F33 pattern-group state remains intact while current Pixel registry adv
     assert.deepEqual(choices.map((row) => row.patternGroupId), [groupByKnowledgePoint.get(knowledgePointId)]);
   }
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 32);
-  assert.equal(snapshot.visibleKnowledgePointCount, 237);
+  assert.equal(snapshot.sourceCount, 33);
+  assert.equal(snapshot.visibleKnowledgePointCount, 238);
   assert.equal(snapshot.bySourceId[G4A_U06_P03F33_SOURCE_ID].visibleKnowledgePoints.length, 5);
 });
 

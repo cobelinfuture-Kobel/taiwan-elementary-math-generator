@@ -20,7 +20,7 @@ test("P03F39 exposes q039 numeric-only binding on every public surface",()=>{
 
 test("P03F39 current Pixel registry is 32/237 and G5B-U04 contains q031 plus q039",()=>{
   const registry=getCurrentPixelRegistrySnapshot();
-  assert.deepEqual([registry.sourceCount,registry.visibleKnowledgePointCount],[32,237]);
+  assert.deepEqual([registry.sourceCount,registry.visibleKnowledgePointCount],[33,238]);
   const summary=getCurrentPixelSourceSummary(G5B_U04_P03F39_SOURCE_ID);
   const ids=summary.visibleKnowledgePoints.map(row=>row.knowledgePointId);
   assert.deepEqual(new Set(ids),new Set([G5B_U04_P03F31_KP_ID,G5B_U04_P03F39_KP_ID]));

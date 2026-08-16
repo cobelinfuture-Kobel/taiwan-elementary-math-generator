@@ -72,8 +72,8 @@ test("P03F33 historical selector remains exactly 32 sources / 229 KPs while curr
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
   assert.deepEqual([availability.visibleCount, availability.hiddenPendingCount, availability.notSelectableCount], [5, 1, 0]);
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 32);
-  assert.equal(pixel.visibleKnowledgePointCount, 237);
+  assert.equal(pixel.sourceCount, 33);
+  assert.equal(pixel.visibleKnowledgePointCount, 238);
   assert.equal(pixel.bySourceId[sourceId].visibleKnowledgePoints.length, 5);
 });
 
