@@ -12,7 +12,7 @@ import {
 
 const claim = JSON.parse(readFileSync(new URL("../../data/curriculum/final-milestone-claims/p03f-w3-slice037-e6-d0-v1.json", import.meta.url), "utf8"));
 const manifest = JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p03f/slice037-product-admission.manifest.json", import.meta.url), "utf8"));
-const r00Test = readFileSync(new URL("./pgc-r00-public-generation-scope.test.js", import.meta.url), "utf8"));
+const r00Test = readFileSync(new URL("./pgc-r00-public-generation-scope.test.js", import.meta.url), "utf8");
 
 test("P03F37 D0 authority binds exact q037 product scope", () => {
   assert.equal(claim.authority.queuePosition, 37);
