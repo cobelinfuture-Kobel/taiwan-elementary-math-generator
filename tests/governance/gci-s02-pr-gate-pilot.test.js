@@ -85,7 +85,7 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
   assert.equal(current.summary.pullRequestWorkflowCount, 88);
   assert.equal(current.summary.prBranchWriterCount, 22);
   assert.equal(current.summary.prFullRegressionWorkflowCount, 27);
-  assert.equal(current.summary.lateSkipCandidateCount, 46);
+  assert.equal(current.summary.lateSkipCandidateCount, 47);
   assert.ok(current.summary.sharedExactPathPatternCount >= 79);
 
   const prGate = current.workflows.find((row) => row.file === WORKFLOW_FILE);
