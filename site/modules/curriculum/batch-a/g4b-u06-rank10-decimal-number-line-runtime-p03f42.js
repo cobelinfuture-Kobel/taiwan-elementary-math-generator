@@ -5,12 +5,10 @@ const SOURCE_DECIMAL_SCALE=10;
 const SOURCE_STEP_SCALED=Object.freeze([1,2]);
 export function formatP03F42ScaledDecimal(value,scale){if(!Number.isInteger(value)||scale!==SOURCE_DECIMAL_SCALE)throw new Error("P03F42_SCALED_DECIMAL_INVALID");const sign=value<0?"-":"",abs=Math.abs(value),whole=Math.floor(abs/scale),fraction=String(abs%scale).replace(/0+$/u,"");return fraction?`${sign}${whole}.${fraction}`:`${sign}${whole}`;}
 function fixture(ordinal,seed){
-  const offset=hash(seed)%97,scale=SOURCE_DECIMAL_SCALE,stepScaled=SOURCE_STEP_SCALED[(ordinal+offset)%SOURCE_STEP_SCALED.length];
-  const intervalStepCount=scale/stepScaled,tickCount=intervalStepCount+1,startWhole=1+((ordinal*3+offset)%8),axisStartScaled=startWhole*scale,axisEndScaled=axisStartScaled+scale;
-  const internalPointCount=intervalStepCount-1;
-  let aIndex=1+((ordinal+offset)%internalPointCount),bIndex=1+((ordinal*3+offset+1)%internalPointCount);
-  if(aIndex===bIndex)bIndex=(bIndex%internalPointCount)+1;
-  const pointAIndex=(ordinal+offset)%2===0?aIndex:bIndex,pointBIndex=(ordinal+offset)%2===0?bIndex:aIndex,pointAScaled=axisStartScaled+pointAIndex*stepScaled,pointBScaled=axisStartScaled+pointBIndex*stepScaled,distanceScaled=Math.abs(pointBScaled-pointAScaled);
+  const offset=hash(seed)%8,scale=SOURCE_DECIMAL_SCALE,stepScaled=SOURCE_STEP_SCALED[(ordinal+offset)%SOURCE_STEP_SCALED.length],variantIndex=Math.floor(ordinal/2);
+  const intervalStepCount=scale/stepScaled,tickCount=intervalStepCount+1,startWhole=1+((variantIndex+offset)%8),axisStartScaled=startWhole*scale,axisEndScaled=axisStartScaled+scale;
+  const internalPointCount=intervalStepCount-1,pairCycle=Math.floor(variantIndex/8),aIndex=1+((variantIndex+offset+pairCycle)%internalPointCount),pairShift=1+pairCycle,bIndex=1+(((aIndex-1+pairShift)%internalPointCount));
+  const pointAIndex=(ordinal+offset+pairCycle)%2===0?aIndex:bIndex,pointBIndex=(ordinal+offset+pairCycle)%2===0?bIndex:aIndex,pointAScaled=axisStartScaled+pointAIndex*stepScaled,pointBScaled=axisStartScaled+pointBIndex*stepScaled,distanceScaled=Math.abs(pointBScaled-pointAScaled);
   return Object.freeze({scale,stepScaled,intervalStepCount,tickCount,axisStartScaled,axisEndScaled,pointAIndex,pointBIndex,pointAScaled,pointBScaled,distanceScaled});
 }
 function buildNumberLine(row){const ticks=Array.from({length:row.tickCount},(_,index)=>Object.freeze({index,valueScaled:row.axisStartScaled+index*row.stepScaled,label:formatP03F42ScaledDecimal(row.axisStartScaled+index*row.stepScaled,row.scale),pointLabel:index===row.pointAIndex?"A":index===row.pointBIndex?"B":null}));return Object.freeze({kind:"decimal_number_line",scale:row.scale,axisStartScaled:row.axisStartScaled,axisEndScaled:row.axisEndScaled,stepScaled:row.stepScaled,subdivisionCount:row.intervalStepCount,tickCount:ticks.length,ticks:Object.freeze(ticks),points:Object.freeze([Object.freeze({label:"A",tickIndex:row.pointAIndex,valueScaled:row.pointAScaled}),Object.freeze({label:"B",tickIndex:row.pointBIndex,valueScaled:row.pointBScaled})])});}
