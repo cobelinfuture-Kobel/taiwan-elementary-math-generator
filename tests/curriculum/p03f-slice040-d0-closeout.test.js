@@ -103,9 +103,13 @@ test("P03F40 current Pixel authority preserves the q040 admission floor and sour
   assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].notSelectableCount, 4);
 });
 
-test("P03F40 product admission remains candidate until canonical R00 replay is bound", () => {
+test("P03F40 final product admission is D0 and releases only the next frozen slice", () => {
   assert.equal(manifest.queuePosition, 40);
   assert.equal(manifest.sourceId, G5B_U06_P03F40_SOURCE_ID);
+  assert.equal(claim.status, "PASS_D0_CLOSED");
+  assert.equal(claim.goalDistance, "D0");
+  assert.equal(manifest.status, "PASS_CI_SYNCED_AND_MERGED");
+  assert.equal(manifest.admissionState, "PRODUCTION_ADMITTED_D0");
   assert.deepEqual([
     manifest.currentAuthority.publicSourcesAtAdmission,
     manifest.currentAuthority.visibleKnowledgePointsAtAdmission,
@@ -114,45 +118,36 @@ test("P03F40 product admission remains candidate until canonical R00 replay is b
     manifest.currentAuthority.sourceNotSelectableKnowledgePoints,
     manifest.currentAuthority.gaps,
   ], [33, 238, 1, 4, 4, 0]);
-  if (claim.status === "D0_CLOSEOUT_CANDIDATE") {
-    assert.equal(claim.goalDistance, "D1");
-    assert.equal(manifest.status, "D0_CLOSEOUT_CANDIDATE");
-    assert.equal(manifest.admissionState, "PENDING_D0_RECONCILIATION");
-    assert.equal(claim.canonical793Evidence.status, "PENDING_CLOSEOUT_CANDIDATE_CI");
-    assert.equal(manifest.canonical793Evidence.status, "PENDING_CLOSEOUT_CANDIDATE_CI");
-    assert.equal(manifest.productionAdmission.slice040Admitted, false);
-    assert.equal(manifest.productionAdmission.slice041MayStart, false);
-    assert.equal(claim.progression.nextSliceMayStartBeforeD0Closeout, false);
-    assert.equal(claim.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice040_D0PostMergeReconciliation");
-    return;
-  }
-  assert.equal(claim.status, "PASS_D0_CLOSED");
-  assert.equal(claim.goalDistance, "D0");
-  assert.equal(manifest.status, "PASS_CI_SYNCED_AND_MERGED");
-  assert.equal(manifest.admissionState, "PRODUCTION_ADMITTED_D0");
-  assert.equal(claim.canonical793Evidence.status, "PASS_ALL_793_LEGAL_ROUTES");
-  assert.deepEqual([
-    claim.canonical793Evidence.executedRouteCount,
-    claim.canonical793Evidence.terminalRouteCount,
-    claim.canonical793Evidence.passRouteCount,
-    claim.canonical793Evidence.failRouteCount,
-  ], [793, 793, 793, 0]);
   assert.equal(manifest.productionAdmission.slice040Admitted, true);
   assert.equal(manifest.productionAdmission.slice041MayStart, true);
+  assert.equal(claim.progression.nextSliceMayStartBeforeD0Closeout, false);
   assert.equal(claim.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice041Implementation");
+  assert.equal(manifest.nextResumeTask, "P03F_W3DirectProductVerticalSlice041Implementation");
 });
 
 test("P03F40 final D0 binds exact candidate Node and canonical 793 replay evidence", () => {
-  if (claim.status !== "PASS_D0_CLOSED") return;
-  assert.ok(Number.isInteger(claim.closeoutEvidence.candidatePrNumber));
-  assert.match(claim.closeoutEvidence.candidateHeadSha, /^[0-9a-f]{40}$/);
-  assert.match(claim.closeoutEvidence.candidateMergeSha, /^[0-9a-f]{40}$/);
+  assert.equal(claim.closeoutEvidence.candidatePrNumber, 612);
+  assert.equal(claim.closeoutEvidence.candidateHeadSha, "92cda26143ba4fea397620032b17e13d734ebffb");
+  assert.equal(claim.closeoutEvidence.candidateMergeSha, "ea633f184a926313a815514c94b88910bd7b9735");
   assert.equal(claim.closeoutEvidence.status, "PASS_CI_SYNCED_AND_MERGED");
-  assert.equal(claim.closeoutEvidence.candidateNode.fail, 0);
-  assert.equal(claim.closeoutEvidence.candidateNode.skipped, 0);
-  assert.equal(claim.closeoutEvidence.candidateNode.tests, claim.closeoutEvidence.candidateNode.pass);
+  assert.deepEqual([
+    claim.closeoutEvidence.candidateNode.runId,
+    claim.closeoutEvidence.candidateNode.jobId,
+    claim.closeoutEvidence.candidateNode.tests,
+    claim.closeoutEvidence.candidateNode.pass,
+    claim.closeoutEvidence.candidateNode.fail,
+    claim.closeoutEvidence.candidateNode.skipped,
+    claim.closeoutEvidence.candidateNode.artifactId,
+  ], [31946484507, 95163195153, 3189, 3189, 0, 0, 9263457168]);
+  assert.equal(claim.closeoutEvidence.candidateNode.artifactDigest, "sha256:a220e217b4e8b2fce17c1e4f19b51d94561a6f74e32781647b890d28e2a6dad9");
+
   const replay = claim.canonical793Evidence;
-  assert.match(replay.headSha, /^[0-9a-f]{40}$/);
+  assert.equal(replay.status, "PASS_ALL_793_LEGAL_ROUTES");
+  assert.equal(replay.runId, 31946487249);
+  assert.equal(replay.jobId, 95163193129);
+  assert.equal(replay.headSha, "92cda26143ba4fea397620032b17e13d734ebffb");
+  assert.equal(replay.artifactId, 9263669250);
+  assert.equal(replay.artifactDigest, "sha256:42b6bb382885f6c34bc3a9d8b8bfbc5eab002655c007904fc589ce8a051a0acc");
   assert.deepEqual([replay.legalRouteCount, replay.executedRouteCount, replay.terminalRouteCount, replay.passRouteCount, replay.failRouteCount, replay.fullNineGatePassCount], [793, 793, 793, 793, 0, 793]);
   assert.deepEqual([replay.shardCount, replay.sampleHtmlCount, replay.samplePdfCount], [16, 16, 16]);
   assert.deepEqual([replay.finalCheckpointExecutedRouteCount, replay.finalCheckpointAuthoritative], [793, true]);
@@ -160,9 +155,11 @@ test("P03F40 final D0 binds exact candidate Node and canonical 793 replay eviden
   assert.equal(replay.productMutationUsed, false);
   assert.equal(replay.capacityAuthorityMutationUsed, false);
   assert.equal(replay.perRoutePatchUsed, false);
-  assert.equal(manifest.closeoutPr.number, claim.closeoutEvidence.candidatePrNumber);
-  assert.equal(manifest.closeoutPr.mergeSha, claim.closeoutEvidence.candidateMergeSha);
-  assert.equal(manifest.canonical793Evidence.artifactId, replay.artifactId);
+
+  assert.equal(manifest.closeoutPr.number, 612);
+  assert.equal(manifest.closeoutPr.headSha, "92cda26143ba4fea397620032b17e13d734ebffb");
+  assert.equal(manifest.closeoutPr.mergeSha, "ea633f184a926313a815514c94b88910bd7b9735");
+  assert.equal(manifest.canonical793Evidence.artifactId, 9263669250);
   assert.equal(manifest.canonical793Evidence.fail, 0);
 });
 
