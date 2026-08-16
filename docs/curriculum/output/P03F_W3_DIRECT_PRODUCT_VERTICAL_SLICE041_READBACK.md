@@ -1,17 +1,17 @@
 # P03F W3 Direct Product Vertical Slice041 Readback
 
-## Candidate status
+## Final status
 
 ```text
 TASK = P03F_W3DirectProductVerticalSlice041_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 QUEUE = q041 / rank9 / g6b_u01_6b01
 SOURCE = 小數與分數的計算
 PUBLIC_INVENTORY_AT_ADMISSION = 33 sources / 239 visible KPs
 G6B_U01 = 2 visible / 3 hidden / 3 notSelectable
-PRODUCTION_ADMISSION = false
-SLICE042_MAY_START = false
+PRODUCTION_ADMISSION = true
+SLICE042_MAY_START = true
 ```
 
 ## Exact product scope
@@ -118,18 +118,34 @@ SIBLING_KP_PROMOTION = false
 SLICE042_STARTED = false
 ```
 
-## D0 closeout candidate barrier
+## D0 closeout evidence
 
 ```text
-CANONICAL_R00_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-LEGAL_ROUTE_COUNT = 793
-PRODUCTION_ADMISSION = false
-SLICE042_MAY_START = false
+CANDIDATE_PR = #616
+CANDIDATE_HEAD = 087639ec4adc50f610180f01c9ecd733dbfdbf8b
+CANDIDATE_MERGE = 6fa24f9da6d3493b28d4e822386111a170d8b4b5
+CANDIDATE_NODE = 3204 / 3204 PASS
+CANDIDATE_NODE_RUN = 31956485528
+CANDIDATE_NODE_JOB = 95187833339
+CANDIDATE_NODE_ARTIFACT = 9266123637
+CANONICAL_R00_STATUS = PASS_ALL_793_LEGAL_ROUTES
+R00_RUN = 31956485523
+R00_JOB = 95187797695
+R00_ARTIFACT = 9266324965
+ROUTES legal / executed / terminal / pass / fail = 793 / 793 / 793 / 793 / 0
+FULL_NINE_GATE_PASS = 793
+SHARDS / HTML / PDF = 16 / 16 / 16
+FINAL_CHECKPOINT = 793 authoritative
+BROWSER_CONSOLE / PAGE ERRORS = 0 / 0
+EXIT_CODE = 0
+PRODUCT_MUTATION_USED = false
+CAPACITY_AUTHORITY_MUTATION_USED = false
+PER_ROUTE_PATCH_USED = false
 ```
 
-The candidate must still produce fresh exact-head Node full-regression evidence and canonical PGC-R00 793-route replay evidence. Only after those gates pass, the candidate is merged, and a final governance-only reconciliation binds the exact candidate evidence may Slice041 become `PASS_D0_CLOSED / PRODUCTION_ADMITTED_D0`.
+The candidate was merged only after its exact-head Node full regression and canonical 793-route replay passed. Final reconciliation binds those exact artifacts; no second R00 replay and no production mutation are required for the final governance state.
 
-## Forbidden scope remains closed
+## Forbidden scope remained closed
 
 - no `kp_g6b_u01_mixed_decimal_fraction_add_sub` / q047 promotion
 - no mixed-domain multiplication/division promotion
@@ -144,7 +160,7 @@ The candidate must still produce fresh exact-head Node full-regression evidence 
 ## Next resume task
 
 ```text
-P03F_W3DirectProductVerticalSlice041_D0PostMergeReconciliation
+P03F_W3DirectProductVerticalSlice042Implementation
 ```
 
-Slice042 remains blocked until final D0 reconciliation is complete.
+Slice041 is production-admitted D0. The frozen queue may now advance to Slice042.
