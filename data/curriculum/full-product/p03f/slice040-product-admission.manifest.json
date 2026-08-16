@@ -4,9 +4,9 @@
   "queuePosition": 40,
   "queueEntryId": "p03e_q040_r9_g5b_u06_5b06_profile_decimal_c1",
   "sourceId": "g5b_u06_5b06",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "data/curriculum/full-product/p03f/slice040-g5b-u06-rank9-integer-division-decimal-quotient-authority.json",
   "knowledgePointIds": [
     "kp_g5b_u06_integer_division_decimal_quotient"
@@ -82,12 +82,44 @@
     "patternGroupSelectionMode": "auto-applied-by-kp"
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
-    "legalRouteCount": 793
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
+    "runId": 31946487249,
+    "jobId": 95163193129,
+    "headSha": "92cda26143ba4fea397620032b17e13d734ebffb",
+    "artifactId": 9263669250,
+    "artifactDigest": "sha256:42b6bb382885f6c34bc3a9d8b8bfbc5eab002655c007904fc589ce8a051a0acc",
+    "legalRouteCount": 793,
+    "executed": 793,
+    "terminal": 793,
+    "pass": 793,
+    "fail": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
+  },
+  "closeoutPr": {
+    "number": 612,
+    "headSha": "92cda26143ba4fea397620032b17e13d734ebffb",
+    "mergeSha": "ea633f184a926313a815514c94b88910bd7b9735",
+    "nodeRunId": 31946484507,
+    "nodeJobId": 95163195153,
+    "nodeTests": 3189,
+    "nodePass": 3189,
+    "nodeFail": 0,
+    "nodeSkipped": 0,
+    "nodeArtifactId": 9263457168,
+    "nodeArtifactDigest": "sha256:a220e217b4e8b2fce17c1e4f19b51d94561a6f74e32781647b890d28e2a6dad9"
   },
   "productionAdmission": {
-    "slice040Admitted": false,
-    "slice041MayStart": false
+    "slice040Admitted": true,
+    "slice041MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice040_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice041Implementation"
 }

@@ -1,18 +1,20 @@
 # P03F W3 Direct Product Vertical Slice040 Readback
 
-## Candidate status
+## Final status
 
 ```text
 TASK = P03F_W3DirectProductVerticalSlice040_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 QUEUE = q040 / rank9 / g5b_u06_5b06
 SOURCE = 整數、小數除以整數
 PUBLIC_INVENTORY_AT_ADMISSION = 33 sources / 238 visible KPs
 G5B_U06 = 1 visible / 4 hidden / 4 notSelectable
+PRODUCTION_ADMISSION = true
+SLICE041_MAY_START = true
 ```
 
-## Exact candidate product scope
+## Exact product scope
 
 ```text
 KP = kp_g5b_u06_integer_division_decimal_quotient
@@ -109,19 +111,32 @@ SIBLING_KP_PROMOTION = false
 SLICE041_STARTED = false
 ```
 
-## Candidate closeout barrier
+## D0 closeout evidence
 
 ```text
-CANONICAL_R00_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-CANONICAL_LEGAL_ROUTE_COUNT = 793
-CANDIDATE_NODE_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-PRODUCTION_ADMISSION = false
-SLICE041_MAY_START = false
+CANDIDATE_PR = #612
+CANDIDATE_HEAD = 92cda26143ba4fea397620032b17e13d734ebffb
+CANDIDATE_MERGE = ea633f184a926313a815514c94b88910bd7b9735
+CANDIDATE_NODE = 3189 / 3189 PASS
+CANDIDATE_NODE_RUN = 31946484507
+CANDIDATE_NODE_JOB = 95163195153
+CANDIDATE_NODE_ARTIFACT = 9263457168
+CANONICAL_R00_RUN = 31946487249
+CANONICAL_R00_JOB = 95163193129
+CANONICAL_R00_ARTIFACT = 9263669250
+CANONICAL_R00_STATUS = PASS_ALL_793_LEGAL_ROUTES
+LEGAL / EXECUTED / TERMINAL / PASS / FAIL = 793 / 793 / 793 / 793 / 0
+FULL_NINE_GATE_PASS = 793
+SHARDS / HTML / PDF = 16 / 16 / 16
+FINAL_CHECKPOINT = 793 authoritative
+BROWSER_CONSOLE / PAGE ERRORS = 0 / 0
+EXIT_CODE = 0
+PRODUCT_MUTATION_USED = false
+CAPACITY_AUTHORITY_MUTATION_USED = false
+PER_ROUTE_PATCH_USED = false
 ```
 
-The candidate PR must pass Node CI and the canonical 793-route PGC-R00 replay before Slice040 can be reconciled to D0.
-
-## Forbidden scope remains closed
+## Forbidden scope remained closed
 
 - no decimal-dividend promotion
 - no application or Global Context expansion
@@ -129,10 +144,10 @@ The candidate PR must pass Node CI and the canonical 793-route PGC-R00 replay be
 - no zero-placeholder special-case promotion
 - no sibling KnowledgePoint promotion
 - no parallel generator / validator / renderer path
-- no Slice041 implementation
+- no Slice041 implementation inside Slice040
 
 ## Next resume task
 
 ```text
-P03F_W3DirectProductVerticalSlice040_D0PostMergeReconciliation
+P03F_W3DirectProductVerticalSlice041Implementation
 ```
