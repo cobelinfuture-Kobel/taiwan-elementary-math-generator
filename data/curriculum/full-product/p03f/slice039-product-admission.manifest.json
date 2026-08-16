@@ -4,13 +4,19 @@
   "queuePosition": 39,
   "queueEntryId": "p03e_q039_r9_g5b_u04_5b04_profile_decimal_c1",
   "sourceId": "g5b_u04_5b04",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "data/curriculum/full-product/p03f/slice039-g5b-u04-rank9-integer-times-decimal-authority.json",
-  "knowledgePointIds": ["kp_g5b_u04_integer_times_decimal"],
-  "patternGroupIds": ["pg_g5b_u04_integer_times_decimal_numeric"],
-  "patternSpecIds": ["ps_g5b_u04_integer_times_decimal_product_numeric"],
+  "knowledgePointIds": [
+    "kp_g5b_u04_integer_times_decimal"
+  ],
+  "patternGroupIds": [
+    "pg_g5b_u04_integer_times_decimal_numeric"
+  ],
+  "patternSpecIds": [
+    "ps_g5b_u04_integer_times_decimal_product_numeric"
+  ],
   "currentAuthority": {
     "publicSources": 32,
     "visibleKnowledgePoints": 237,
@@ -71,12 +77,44 @@
     "patternGroupSelectionMode": "auto-applied-by-kp"
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
-    "legalRouteCount": 793
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
+    "runId": 31925688477,
+    "jobId": 95112785418,
+    "headSha": "dd84fae383b6089061a6691def01304db9170df9",
+    "artifactId": 9257976188,
+    "artifactDigest": "sha256:0ce39d7ecba13a6ea5ecd1c1da4d9aa7766ab96e4df1bd368133866036a42792",
+    "legalRouteCount": 793,
+    "executed": 793,
+    "terminal": 793,
+    "pass": 793,
+    "fail": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
+  },
+  "closeoutPr": {
+    "number": 607,
+    "headSha": "dd84fae383b6089061a6691def01304db9170df9",
+    "mergeSha": "d13fb18c0623807ad3cfa303cf6d6a841d551c32",
+    "nodeRunId": 31925688430,
+    "nodeJobId": 95112785452,
+    "nodeTests": 3173,
+    "nodePass": 3173,
+    "nodeFail": 0,
+    "nodeSkipped": 0,
+    "nodeArtifactId": 9257789934,
+    "nodeArtifactDigest": "sha256:8934c57a7e8c9384515a15fbed0572625ec57a74c68d3d24e9a1e038d63bb460"
   },
   "productionAdmission": {
-    "slice039Admitted": false,
-    "slice040MayStart": false
+    "slice039Admitted": true,
+    "slice040MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice039_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice040Implementation"
 }
