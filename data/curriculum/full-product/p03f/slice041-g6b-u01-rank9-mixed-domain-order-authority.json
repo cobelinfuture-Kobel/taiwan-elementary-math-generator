@@ -1,0 +1,132 @@
+{
+  "schemaName": "P03FSlice041G6BU01Rank9MixedDomainOrderAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice041Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 41,
+    "sliceId": "p03e_q041_r9_g6b_u01_6b01_profile_mixed_number_domain_c1",
+    "previousSliceId": "p03e_q040_r9_g5b_u06_5b06_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice040-e6-d0-v1.json",
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6b_u01_6b01",
+    "sourceTitle": "小數與分數的計算",
+    "grade": 6,
+    "semester": "lower",
+    "unitCode": "6B-U01",
+    "r02CandidatePath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "sourcePdfTitle": "meow911_6b01_source.pdf",
+    "sourceDriveFileId": "1CzY3FQ1z4OKy7BsT7tr2f9ZcFfhGkSJK",
+    "reviewedPages": [1],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_PLUS_SLICE032_DIRECT_SOURCE_RECHECK",
+    "directPdfWitness": {
+      "classification": "MIXED_DECIMAL_FRACTION_EXPRESSION_WITNESS",
+      "standaloneCompareExerciseDirectlyVisible": false,
+      "visibleExamples": ["1.8 + 1 3/4", "2 2/5 ÷ 0.75", "6.5 × 3 1/13"]
+    },
+    "canonicalProjectionBoundary": "The raw page directly witnesses mixed decimal/fraction expressions. Mixed-domain comparison is the approved R02 canonical prerequisite projection and must be represented as a canonical learner task, not as a verbatim source exercise."
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g6b_u01_mixed_number_domain_order",
+      "canonicalNameZh": "小數分數大小比較",
+      "capabilityStatement": "學生能以共同表示比較小數與分數。",
+      "reasoningInvariant": "比較前須統一為小數、同分母分數或交叉乘積。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_COMPATIBLE_FUTURE_QUEUE_RESERVED",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g6b_u01_mixed_number_domain_order",
+      "operationFamilyId": "mixed_domain_compare",
+      "requiredW3CapabilityIds": [
+        "cap_decimal_domain_validator",
+        "cap_decimal_number_system",
+        "cap_fraction_domain_validator",
+        "cap_fraction_number_system",
+        "cap_mixed_number_domain_normalization"
+      ]
+    }
+  ],
+  "sourceSiblingBoundary": {
+    "visibleKnowledgePointIdsAfterAdmission": [
+      "kp_g6b_u01_decimal_fraction_conversion",
+      "kp_g6b_u01_mixed_number_domain_order"
+    ],
+    "hiddenKnowledgePointIdsAfterAdmission": [
+      "kp_g6b_u01_mixed_decimal_fraction_add_sub",
+      "kp_g6b_u01_mixed_decimal_fraction_mul_div",
+      "kp_g6b_u01_mixed_domain_expression"
+    ],
+    "futureDirectQueue": {
+      "kp_g6b_u01_mixed_decimal_fraction_add_sub": 47
+    },
+    "laterWaveExcludedKnowledgePointIds": [
+      "kp_g6b_u01_mixed_decimal_fraction_mul_div",
+      "kp_g6b_u01_mixed_domain_expression"
+    ]
+  },
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g6b_u01_mixed_number_domain_order_numeric",
+      "patternSpecId": "ps_g6b_u01_mixed_number_domain_order_comparison_numeric",
+      "knowledgePointId": "kp_g6b_u01_mixed_number_domain_order",
+      "operationModelId": "op_g6b_u01_mixed_number_domain_order",
+      "operationFamilyId": "mixed_domain_compare",
+      "mode": "NUMERIC",
+      "action": "COMPARE",
+      "requestedUnknownRole": "relation",
+      "givenRoles": ["decimalOperand", "fractionOperand"]
+    }
+  ],
+  "formalMappingBoundary": {
+    "comparison": "exactMixedDomainCompare(decimalOperand, fractionOperand)",
+    "relationSymbols": ["<", "=", ">"],
+    "exactRationalIdentityRequired": true,
+    "crossDomainOperandRequired": true,
+    "decimalOperandRequired": true,
+    "fractionOperandRequired": true,
+    "leftRightOrientationDiversityRequired": true,
+    "equalityWitnessRequired": true,
+    "floatingPointApproximationAllowed": false,
+    "arithmeticMutationAllowed": false,
+    "applicationRequired": false,
+    "globalContextRequired": false
+  },
+  "capabilityBoundary": {
+    "requiredW3CapabilityIds": [
+      "cap_decimal_domain_validator",
+      "cap_decimal_number_system",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system",
+      "cap_mixed_number_domain_normalization"
+    ],
+    "sharedP03F32MixedDomainNormalizerRequired": true,
+    "newRationalEngineAllowed": false,
+    "decimalArithmeticCapabilityRequired": false,
+    "fractionArithmeticCapabilityRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "expectedSourceVisibleCountAfterAdmission": 2,
+    "expectedSourceHiddenCountAfterAdmission": 3,
+    "expectedSourceNotSelectableCountAfterAdmission": 3,
+    "expectedPublicSourceCountAfterAdmission": 33,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 239,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "parallelPipelineAllowed": false,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "slice047LeakAllowed": false,
+    "laterWaveLeakAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice042Implementation"
+  }
+}
