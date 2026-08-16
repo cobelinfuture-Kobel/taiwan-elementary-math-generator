@@ -8,12 +8,18 @@
   "admissionState": "PENDING_D0_RECONCILIATION",
   "goalDistance": "D1",
   "authorityPath": "data/curriculum/full-product/p03f/slice040-g5b-u06-rank9-integer-division-decimal-quotient-authority.json",
-  "knowledgePointIds": ["kp_g5b_u06_integer_division_decimal_quotient"],
-  "patternGroupIds": ["pg_g5b_u06_integer_division_decimal_quotient_numeric"],
-  "patternSpecIds": ["ps_g5b_u06_integer_division_decimal_quotient_numeric"],
+  "knowledgePointIds": [
+    "kp_g5b_u06_integer_division_decimal_quotient"
+  ],
+  "patternGroupIds": [
+    "pg_g5b_u06_integer_division_decimal_quotient_numeric"
+  ],
+  "patternSpecIds": [
+    "ps_g5b_u06_integer_division_decimal_quotient_numeric"
+  ],
   "currentAuthority": {
-    "publicSources": 33,
-    "visibleKnowledgePoints": 238,
+    "publicSourcesAtAdmission": 33,
+    "visibleKnowledgePointsAtAdmission": 238,
     "sourceVisibleKnowledgePoints": 1,
     "sourceHiddenKnowledgePoints": 4,
     "sourceNotSelectableKnowledgePoints": 4,
@@ -24,7 +30,7 @@
     "headSha": "0868bbaed1820c661857776f4f4a9981f043941d",
     "mergeSha": "74690ae4aa57082c4e0295e7ed62ce5baf89c437",
     "runtimePath": "site/modules/curriculum/batch-a/g5b-u06-rank9-integer-division-decimal-quotient-runtime-p03f40.js",
-    "runtimeBlobSha": "c13dd6d9cc19df55a863502a904fd571a232dbc8"
+    "runtimeBlobSha": "c13dd6d286ec9650372cbdcc931d751229951f7e"
   },
   "productEvidence": {
     "runId": 31934467623,
@@ -35,16 +41,16 @@
     "answerCount": 24,
     "patternSpecCount": 1,
     "patternSpecWitnessCount": 24,
-    "belowOneWitnessCount": 12,
-    "aboveOneWitnessCount": 12,
     "physicalPageCount": 6,
+    "quotientBelowOneWitnessCount": 12,
+    "quotientAboveOneWitnessCount": 12,
     "manualVisualStatus": "PASS_6_OF_6",
     "sharedP03F32ExactRationalNormalizer": true,
     "sharedRenderer": true,
     "sharedPagination": true,
     "parallelPipeline": false,
     "applicationLeakCount": 0,
-    "decimalDividendFindingCount": 0,
+    "decimalDividendLeakCount": 0,
     "integerQuotientFindingCount": 0
   },
   "pagesDeployment": {
@@ -65,10 +71,10 @@
     "answerCount": 24,
     "questionPageCount": 3,
     "answerPageCount": 3,
+    "quotientBelowOneWitnessCount": 12,
+    "quotientAboveOneWitnessCount": 12,
     "exactAnswerMismatchCount": 0,
     "semanticScopeFindingCount": 0,
-    "belowOneWitnessCount": 12,
-    "aboveOneWitnessCount": 12,
     "printInvocationCount": 1,
     "browserErrorCount": 0,
     "sharedP03F32ExactRationalNormalizer": true,

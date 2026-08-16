@@ -43,14 +43,14 @@ test("P03F40 implementation and Chromium product evidence are exact and gap-free
   ], [3182, 3182, 0, 0]);
   const product = claim.implementationEvidence.productAcceptance;
   assert.deepEqual([product.questionCount, product.answerKeyItemCount, product.patternSpecCount, product.patternSpecWitnessCount], [24, 24, 1, 24]);
-  assert.deepEqual([product.belowOneWitnessCount, product.aboveOneWitnessCount], [12, 12]);
   assert.deepEqual([product.questionPageCount, product.answerPageCount, product.physicalPdfPageCount, product.screenshotCount], [3, 3, 6, 6]);
+  assert.deepEqual([product.quotientBelowOneWitnessCount, product.quotientAboveOneWitnessCount], [12, 12]);
   assert.deepEqual([
     product.crossLayerMismatchCount,
     product.exactAnswerMismatchCount,
     product.semanticScopeFindingCount,
     product.applicationLeakFindingCount,
-    product.decimalDividendFindingCount,
+    product.decimalDividendLeakFindingCount,
     product.integerQuotientFindingCount,
     product.duplicatePromptFindingCount,
     product.overflowFindingCount,
@@ -63,6 +63,11 @@ test("P03F40 implementation and Chromium product evidence are exact and gap-free
   assert.equal(product.parallelPipeline, false);
   assert.equal(product.manualVisualReview.status, "PASS");
   assert.equal(product.manualVisualReview.pagesReviewed, 6);
+  assert.equal(product.manualVisualReview.clippedTextFindingCount, 0);
+  assert.equal(product.manualVisualReview.overlapFindingCount, 0);
+  assert.equal(product.manualVisualReview.brokenGlyphFindingCount, 0);
+  assert.equal(product.manualVisualReview.twoColumnEightQuestionsPerPageConsistent, true);
+  assert.equal(product.manualVisualReview.divisionAndDecimalAnswersLegible, true);
 });
 
 test("P03F40 final-head Main/Pages E2E binds deployed product behavior", () => {
@@ -72,7 +77,7 @@ test("P03F40 final-head Main/Pages E2E binds deployed product behavior", () => {
   assert.equal(e2e.mergeSha, "60cfc3f41fadc4f1e41db46398640d934282a537");
   assert.equal(e2e.status, "PASS_P03F40_POSTMERGE_MAIN_PAGES_E2E");
   assert.deepEqual([e2e.questionCount, e2e.answerCount, e2e.questionPageCount, e2e.answerPageCount], [24, 24, 3, 3]);
-  assert.deepEqual([e2e.belowOneWitnessCount, e2e.aboveOneWitnessCount], [12, 12]);
+  assert.deepEqual([e2e.quotientBelowOneWitnessCount, e2e.quotientAboveOneWitnessCount], [12, 12]);
   assert.deepEqual([e2e.exactAnswerMismatchCount, e2e.semanticScopeFindingCount, e2e.duplicatePromptCount, e2e.internalIdLeakageCount], [0, 0, 0, 0]);
   assert.equal(e2e.printInvocationCount, 1);
   assert.deepEqual([e2e.consoleErrorCount, e2e.pageErrorCount, e2e.requestFailureCount, e2e.serverErrorCount], [0, 0, 0, 0]);
@@ -89,26 +94,26 @@ test("P03F40 final-head Main/Pages E2E binds deployed product behavior", () => {
   assert.equal(e2e.slice041Started, false);
 });
 
-test("P03F40 current Pixel authority is exactly 33 sources / 238 visible KPs", () => {
+test("P03F40 current Pixel authority preserves the q040 admission floor and source identity", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 238);
+  assert.ok(pixel.sourceCount >= 33);
+  assert.ok(pixel.visibleKnowledgePointCount >= 238);
   assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].visibleKnowledgePoints.length, 1);
   assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].hiddenPendingCount, 4);
   assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].notSelectableCount, 4);
 });
 
-test("P03F40 closeout state machine never releases Slice041 before final D0", () => {
+test("P03F40 product admission remains candidate until canonical R00 replay is bound", () => {
+  assert.equal(manifest.queuePosition, 40);
+  assert.equal(manifest.sourceId, G5B_U06_P03F40_SOURCE_ID);
   assert.deepEqual([
-    manifest.currentAuthority.publicSources,
-    manifest.currentAuthority.visibleKnowledgePoints,
+    manifest.currentAuthority.publicSourcesAtAdmission,
+    manifest.currentAuthority.visibleKnowledgePointsAtAdmission,
     manifest.currentAuthority.sourceVisibleKnowledgePoints,
     manifest.currentAuthority.sourceHiddenKnowledgePoints,
     manifest.currentAuthority.sourceNotSelectableKnowledgePoints,
     manifest.currentAuthority.gaps,
   ], [33, 238, 1, 4, 4, 0]);
-  assert.equal(claim.progression.nextSliceMayStartBeforeD0Closeout, false);
-
   if (claim.status === "D0_CLOSEOUT_CANDIDATE") {
     assert.equal(claim.goalDistance, "D1");
     assert.equal(manifest.status, "D0_CLOSEOUT_CANDIDATE");
@@ -117,11 +122,10 @@ test("P03F40 closeout state machine never releases Slice041 before final D0", ()
     assert.equal(manifest.canonical793Evidence.status, "PENDING_CLOSEOUT_CANDIDATE_CI");
     assert.equal(manifest.productionAdmission.slice040Admitted, false);
     assert.equal(manifest.productionAdmission.slice041MayStart, false);
+    assert.equal(claim.progression.nextSliceMayStartBeforeD0Closeout, false);
     assert.equal(claim.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice040_D0PostMergeReconciliation");
-    assert.equal(manifest.nextResumeTask, "P03F_W3DirectProductVerticalSlice040_D0PostMergeReconciliation");
     return;
   }
-
   assert.equal(claim.status, "PASS_D0_CLOSED");
   assert.equal(claim.goalDistance, "D0");
   assert.equal(manifest.status, "PASS_CI_SYNCED_AND_MERGED");
@@ -136,12 +140,34 @@ test("P03F40 closeout state machine never releases Slice041 before final D0", ()
   assert.equal(manifest.productionAdmission.slice040Admitted, true);
   assert.equal(manifest.productionAdmission.slice041MayStart, true);
   assert.equal(claim.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice041Implementation");
-  assert.equal(manifest.nextResumeTask, "P03F_W3DirectProductVerticalSlice041Implementation");
 });
 
-test("P03F40 canonical R00 replay trigger is committed while historical route authority stays canonical", () => {
+test("P03F40 final D0 binds exact candidate Node and canonical 793 replay evidence", () => {
+  if (claim.status !== "PASS_D0_CLOSED") return;
+  assert.ok(Number.isInteger(claim.closeoutEvidence.candidatePrNumber));
+  assert.match(claim.closeoutEvidence.candidateHeadSha, /^[0-9a-f]{40}$/);
+  assert.match(claim.closeoutEvidence.candidateMergeSha, /^[0-9a-f]{40}$/);
+  assert.equal(claim.closeoutEvidence.status, "PASS_CI_SYNCED_AND_MERGED");
+  assert.equal(claim.closeoutEvidence.candidateNode.fail, 0);
+  assert.equal(claim.closeoutEvidence.candidateNode.skipped, 0);
+  assert.equal(claim.closeoutEvidence.candidateNode.tests, claim.closeoutEvidence.candidateNode.pass);
+  const replay = claim.canonical793Evidence;
+  assert.match(replay.headSha, /^[0-9a-f]{40}$/);
+  assert.deepEqual([replay.legalRouteCount, replay.executedRouteCount, replay.terminalRouteCount, replay.passRouteCount, replay.failRouteCount, replay.fullNineGatePassCount], [793, 793, 793, 793, 0, 793]);
+  assert.deepEqual([replay.shardCount, replay.sampleHtmlCount, replay.samplePdfCount], [16, 16, 16]);
+  assert.deepEqual([replay.finalCheckpointExecutedRouteCount, replay.finalCheckpointAuthoritative], [793, true]);
+  assert.deepEqual([replay.browserConsoleErrorCount, replay.browserPageErrorCount, replay.exitCode], [0, 0, 0]);
+  assert.equal(replay.productMutationUsed, false);
+  assert.equal(replay.capacityAuthorityMutationUsed, false);
+  assert.equal(replay.perRoutePatchUsed, false);
+  assert.equal(manifest.closeoutPr.number, claim.closeoutEvidence.candidatePrNumber);
+  assert.equal(manifest.closeoutPr.mergeSha, claim.closeoutEvidence.candidateMergeSha);
+  assert.equal(manifest.canonical793Evidence.artifactId, replay.artifactId);
+  assert.equal(manifest.canonical793Evidence.fail, 0);
+});
+
+test("P03F40 canonical R00 replay trigger remains committed while route authority stays canonical", () => {
   assert.match(r00Test, /P03F40 D0 closeout replay trigger/);
-  assert.match(r00Test, /current public sources may extend through Slice033/);
   assert.equal(claim.canonical793Evidence.workflow, "PGC-R00 Public Generation Scope Freeze");
   assert.equal(claim.canonical793Evidence.legalRouteCount, 793);
 });

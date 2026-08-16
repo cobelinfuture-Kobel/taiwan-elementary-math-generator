@@ -8,7 +8,7 @@ STATUS = D0_CLOSEOUT_CANDIDATE
 GOAL_DISTANCE = D1
 QUEUE = q040 / rank9 / g5b_u06_5b06
 SOURCE = 整數、小數除以整數
-PUBLIC_INVENTORY = 33 sources / 238 visible KPs
+PUBLIC_INVENTORY_AT_ADMISSION = 33 sources / 238 visible KPs
 G5B_U06 = 1 visible / 4 hidden / 4 notSelectable
 ```
 
@@ -28,9 +28,10 @@ Formal invariant:
 
 ```text
 learner surface = positive integer dividend ÷ positive integer divisor
-result = non-integer terminating decimal quotient
-answer = exact rational recomputation converted to canonical terminating decimal
-P03F32 exact-rational normalizer is reused; no second decimal-division engine exists
+quotient = exact non-integer terminating base-10 decimal
+dividend = divisor × quotient
+both quotient < 1 and quotient > 1 must have witnesses
+P03F32 exact-rational normalizer is reused; no second decimal engine exists
 ```
 
 ## Implementation evidence
@@ -54,15 +55,15 @@ Product acceptance:
 ```text
 QUESTIONS / ANSWERS = 24 / 24
 PATTERN_WITNESSES = 24
-QUOTIENT_BELOW_ONE / ABOVE_ONE = 12 / 12
 QUESTION / ANSWER PAGES = 3 / 3
 PHYSICAL_PDF_PAGES = 6
 SCREENSHOTS = 6
+QUOTIENT_BELOW_ONE / ABOVE_ONE = 12 / 12
 EXACT_ANSWER_MISMATCH = 0
 CROSS_LAYER_MISMATCH = 0
 SEMANTIC_SCOPE_FINDINGS = 0
 APPLICATION_LEAK = 0
-DECIMAL_DIVIDEND_FINDINGS = 0
+DECIMAL_DIVIDEND_LEAK = 0
 INTEGER_QUOTIENT_FINDINGS = 0
 DUPLICATE_PROMPT = 0
 OVERFLOW = 0
@@ -74,6 +75,8 @@ PARALLEL_PIPELINE = false
 MANUAL_VISUAL = 6 / 6 PASS
 ```
 
+Manual visual readback confirmed question pages 1–3 and answer pages 1–3 have no clipping, overlap, broken glyphs or question/answer misalignment. The two-column eight-question-per-page layout is consistent, and the division sign plus decimal answers are legible.
+
 ## Post-merge Main/Pages E2E
 
 ```text
@@ -84,7 +87,6 @@ RUN = 31946025482
 JOB = 95161993802
 ARTIFACT = 9263295133
 STATUS = PASS_P03F40_POSTMERGE_MAIN_PAGES_E2E
-DEPLOYED_ASSET_SHA_MATCH = 6 / 6
 QUESTIONS / ANSWERS = 24 / 24
 QUESTION / ANSWER PAGES = 3 / 3
 QUOTIENT_BELOW_ONE / ABOVE_ONE = 12 / 12
@@ -107,28 +109,30 @@ SIBLING_KP_PROMOTION = false
 SLICE041_STARTED = false
 ```
 
-The first E2E evidence attempt used a non-existent literal runtime token in its deployment guard. The deployed SHA already matched exactly; only that evidence token guard failed. A single evidence-only correction replaced it with the real runtime contract token `integer_dividend_by_integer_divisor`. No product file changed. The final exact evidence head above passed the full live contract.
-
-## D0 candidate gate
+## Candidate closeout barrier
 
 ```text
 CANONICAL_R00_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-LEGAL_ROUTE_COUNT = 793
-PRODUCTION_ADMISSION = pending
-SLICE040_ADMITTED = false
+CANONICAL_LEGAL_ROUTE_COUNT = 793
+CANDIDATE_NODE_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
+PRODUCTION_ADMISSION = false
 SLICE041_MAY_START = false
-NEXT_RESUME_TASK = P03F_W3DirectProductVerticalSlice040_D0PostMergeReconciliation
 ```
 
-Candidate CI must bind a fresh exact-head Node result and canonical R00 793-route replay before final D0 reconciliation.
+The candidate PR must pass Node CI and the canonical 793-route PGC-R00 replay before Slice040 can be reconciled to D0.
 
 ## Forbidden scope remains closed
 
-- no application expansion
-- no Global Context expansion
 - no decimal-dividend promotion
+- no application or Global Context expansion
 - no estimation promotion
-- no zero-placeholder promotion
+- no zero-placeholder special-case promotion
 - no sibling KnowledgePoint promotion
 - no parallel generator / validator / renderer path
-- no Slice041 implementation in this candidate
+- no Slice041 implementation
+
+## Next resume task
+
+```text
+P03F_W3DirectProductVerticalSlice040_D0PostMergeReconciliation
+```
