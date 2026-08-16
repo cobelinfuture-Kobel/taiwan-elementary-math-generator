@@ -93,8 +93,11 @@ test("P03F32 current Classic and Pixel inventories advance monotonically through
   assert.equal(snapshot.sourceCount, 33);
   assert.equal(snapshot.visibleKnowledgePointCount, 239);
   const rows = listPixelKnowledgePointsForSource(G6B_U01_P03F32_SOURCE_ID);
-  assert.equal(rows.length, 1);
-  assert.equal(rows[0].knowledgePointId, G6B_U01_P03F32_KP_ID);
+  assert.equal(rows.length, 2);
+  assert.deepEqual(
+    new Set(rows.map((row) => row.knowledgePointId)),
+    new Set([G6B_U01_P03F32_KP_ID, "kp_g6b_u01_mixed_number_domain_order"]),
+  );
 });
 
 test("P03F32 generator deterministically emits 24 unique balanced exact conversions", () => {
