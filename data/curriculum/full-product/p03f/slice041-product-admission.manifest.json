@@ -4,13 +4,19 @@
   "queuePosition": 41,
   "queueEntryId": "p03e_q041_r9_g6b_u01_6b01_profile_mixed_number_domain_c1",
   "sourceId": "g6b_u01_6b01",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "data/curriculum/full-product/p03f/slice041-g6b-u01-rank9-mixed-domain-order-authority.json",
-  "knowledgePointIds": ["kp_g6b_u01_mixed_number_domain_order"],
-  "patternGroupIds": ["pg_g6b_u01_mixed_number_domain_order_numeric"],
-  "patternSpecIds": ["ps_g6b_u01_mixed_number_domain_order_comparison_numeric"],
+  "knowledgePointIds": [
+    "kp_g6b_u01_mixed_number_domain_order"
+  ],
+  "patternGroupIds": [
+    "pg_g6b_u01_mixed_number_domain_order_numeric"
+  ],
+  "patternSpecIds": [
+    "ps_g6b_u01_mixed_number_domain_order_comparison_numeric"
+  ],
   "currentAuthority": {
     "publicSourcesAtAdmission": 33,
     "visibleKnowledgePointsAtAdmission": 239,
@@ -36,8 +42,15 @@
     "patternSpecCount": 1,
     "patternSpecWitnessCount": 24,
     "physicalPageCount": 6,
-    "relationWitnessCounts": {"lessThan": 8, "equal": 8, "greaterThan": 8},
-    "orientationWitnessCounts": {"decimalLeft": 12, "fractionLeft": 12},
+    "relationWitnessCounts": {
+      "lessThan": 8,
+      "equal": 8,
+      "greaterThan": 8
+    },
+    "orientationWitnessCounts": {
+      "decimalLeft": 12,
+      "fractionLeft": 12
+    },
     "manualVisualStatus": "PASS_6_OF_6",
     "sharedP03F32MixedDomainNormalizer": true,
     "sharedRenderer": true,
@@ -67,8 +80,15 @@
     "answerCount": 24,
     "questionPageCount": 3,
     "answerPageCount": 3,
-    "relationWitnessCounts": {"lessThan": 8, "equal": 8, "greaterThan": 8},
-    "orientationWitnessCounts": {"decimalLeft": 12, "fractionLeft": 12},
+    "relationWitnessCounts": {
+      "lessThan": 8,
+      "equal": 8,
+      "greaterThan": 8
+    },
+    "orientationWitnessCounts": {
+      "decimalLeft": 12,
+      "fractionLeft": 12
+    },
     "exactAnswerMismatchCount": 0,
     "semanticScopeFindingCount": 0,
     "printInvocationCount": 1,
@@ -78,12 +98,44 @@
     "patternGroupSelectionMode": "auto-applied-by-kp"
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
-    "legalRouteCount": 793
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
+    "runId": 31956485523,
+    "jobId": 95187797695,
+    "headSha": "087639ec4adc50f610180f01c9ecd733dbfdbf8b",
+    "artifactId": 9266324965,
+    "artifactDigest": "sha256:187f6d8552f8d67664ef05631e50296a954a7739b279a566b6849fe8ec96542e",
+    "legalRouteCount": 793,
+    "executed": 793,
+    "terminal": 793,
+    "pass": 793,
+    "fail": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
+  },
+  "closeoutPr": {
+    "number": 616,
+    "headSha": "087639ec4adc50f610180f01c9ecd733dbfdbf8b",
+    "mergeSha": "6fa24f9da6d3493b28d4e822386111a170d8b4b5",
+    "nodeRunId": 31956485528,
+    "nodeJobId": 95187833339,
+    "nodeTests": 3204,
+    "nodePass": 3204,
+    "nodeFail": 0,
+    "nodeSkipped": 0,
+    "nodeArtifactId": 9266123637,
+    "nodeArtifactDigest": "sha256:50522b15edc32db1afa3d61ff90d08cdda412d3794f21908c3bafb6d71e7fe8e"
   },
   "productionAdmission": {
-    "slice041Admitted": false,
-    "slice042MayStart": false
+    "slice041Admitted": true,
+    "slice042MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice041_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice042Implementation"
 }
