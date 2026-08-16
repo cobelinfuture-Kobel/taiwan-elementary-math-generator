@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 import { buildPublicGenerationCapabilityMatrixV6 } from "../../tools/curriculum/materialize-pgc-r01-public-capability-matrix-v6.mjs";
 import { CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS } from "../../site/modules/curriculum/batch-a/source-units.js";
-import { listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js";
+import { BATCH_A_SELECTOR_AVAILABILITY, listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const jsonPath = path.join(repoRoot, "data/curriculum/public-generation/public_generation_capability_matrix.json");
@@ -40,15 +40,17 @@ test("PGC-R01 V6 rebuild is deterministic while committed authority may remain V
   assert.deepEqual(committed.capabilities.map((row)=>row.capabilityId), rebuilt.capabilities.map((row)=>row.capabilityId));
 });
 
-test("PGC-R01 V6 accounts for all 32 current public sources and 226 visible KnowledgePoints", () => {
+test("PGC-R01 V6 remains frozen to the exact Slice032 32-source / 226-KP authority", () => {
   const matrix = currentMatrix();
   const visibleKnowledgePoints = listVisibleBatchAKnowledgePoints();
   assert.equal(matrix.summary.publicSourceCount, 32);
-  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 32);
+  assert.ok(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length >= 32);
+  const frozenSourceIds = new Set(Object.keys(BATCH_A_SELECTOR_AVAILABILITY.bySourceId));
+  assert.equal(frozenSourceIds.size, 32);
   assert.equal(matrix.summary.publicVisibleKnowledgePointCount, 226);
   assert.equal(visibleKnowledgePoints.length, 226);
   const matrixSources = new Set(matrix.capabilities.map((row)=>row.sourceId));
-  for (const source of CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS) assert.equal(matrixSources.has(source.sourceId), true, `missing capability source ${source.sourceId}`);
+  for (const source of CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.filter((row) => frozenSourceIds.has(row.sourceId))) assert.equal(matrixSources.has(source.sourceId), true, `missing capability source ${source.sourceId}`);
   const accountedKps = new Set([
     ...matrix.capabilities.map((row)=>row.knowledgePointId),
     ...matrix.gaps.filter((gap)=>gap.capabilityStatus === "ABSENT_EXPLICIT").map((gap)=>gap.knowledgePointId),

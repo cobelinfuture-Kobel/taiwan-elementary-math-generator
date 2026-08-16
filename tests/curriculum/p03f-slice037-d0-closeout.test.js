@@ -92,8 +92,8 @@ test("P03F37 final-head Main/Pages E2E binds deployed product behavior", () => {
 
 test("P03F37 historical authority remains 32/235 while current Pixel advances through Slice039 to 32/237", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 32);
-  assert.equal(pixel.visibleKnowledgePointCount, 237);
+  assert.equal(pixel.sourceCount, 33);
+  assert.equal(pixel.visibleKnowledgePointCount, 238);
   assert.equal(pixel.bySourceId[G5A_U04_P03F37_SOURCE_ID].visibleKnowledgePoints.length, 6);
   assert.equal(pixel.bySourceId[G5A_U04_P03F37_SOURCE_ID].hiddenPendingCount, 1);
 });

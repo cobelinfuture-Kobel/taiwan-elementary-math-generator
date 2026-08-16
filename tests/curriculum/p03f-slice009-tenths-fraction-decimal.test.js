@@ -93,7 +93,7 @@ test("P03F9 historical Classic stays at four KPs while current Pixel includes la
   assert.equal(availability.visibleCount, 4);
   assert.equal(availability.hiddenPendingCount, 3);
   assert.equal(listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).length, 6);
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 32);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 33);
 });
 
 test("P03F9 shared worksheet renders eight questions and answer keys on two pages", () => {

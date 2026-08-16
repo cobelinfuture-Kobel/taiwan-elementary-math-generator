@@ -69,8 +69,8 @@ test("P03F39 final-head Main/Pages E2E binds deployed product behavior", () => {
 
 test("P03F39 current Pixel authority is exactly 32 sources / 237 visible KPs", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 32);
-  assert.equal(pixel.visibleKnowledgePointCount, 237);
+  assert.equal(pixel.sourceCount, 33);
+  assert.equal(pixel.visibleKnowledgePointCount, 238);
   assert.equal(pixel.bySourceId[G5B_U04_P03F39_SOURCE_ID].visibleKnowledgePoints.length, 2);
   assert.equal(pixel.bySourceId[G5B_U04_P03F39_SOURCE_ID].hiddenPendingCount, 0);
   assert.equal(pixel.bySourceId[G5B_U04_P03F39_SOURCE_ID].notSelectableCount, 0);

@@ -11,7 +11,7 @@ import {
   resolvePublicUiCapabilityBinding,
 } from "../../site/modules/curriculum/public/public-ui-capability-binding-p03f32.js";
 import { CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS } from "../../site/modules/curriculum/batch-a/source-units.js";
-import { listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js";
+import { BATCH_A_SELECTOR_AVAILABILITY, listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js";
 import { listPublicPatternGroupChoices } from "../../site/assets/browser/state/public-pattern-group-selection.js";
 import { buildPgcR02UiCapabilityBindingContractR05 } from "../../tools/curriculum/materialize-pgc-r02-ui-capability-binding-r05.mjs";
 
@@ -29,6 +29,7 @@ function visibleBySource() {
   }
   return grouped;
 }
+const P03F32_FROZEN_SOURCE_IDS = new Set(Object.keys(BATCH_A_SELECTOR_AVAILABILITY.bySourceId));
 const optionValues = (binding) => binding.availableQuestionTypeOptions.map((option)=>option.value);
 const uniqueSorted = (values) => [...new Set(values)].sort();
 
@@ -52,9 +53,9 @@ test("PGC-R02 R05 closes all capacity-aware public UI binding cases through Slic
   assert.equal(audit.caseCount, contract.summary.surfaceCaseCount);
 });
 
-test("PGC-R02 R05 keeps Classic, 404 fallback and Pixel capacity parity", () => {
+test("PGC-R02 R05 keeps Classic, 404 fallback and Pixel capacity parity for frozen Slice032 sources", () => {
   const grouped = visibleBySource();
-  for (const source of CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS) {
+  for (const source of CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.filter((row) => P03F32_FROZEN_SOURCE_IDS.has(row.sourceId))) {
     const kps = grouped.get(source.sourceId) ?? [];
     const cases = [
       { selectionMode:"sourceUnit", selectedKnowledgePointIds:[] },

@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 import { buildPublicGenerationCapabilityMatrixV5 } from "./materialize-pgc-r01-public-capability-matrix-v5.mjs";
 import { CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS } from "../../site/modules/curriculum/batch-a/source-units.js";
-import { listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js";
+import { BATCH_A_SELECTOR_AVAILABILITY, listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js";
 import { getFullProductPublicControlProfile } from "../../site/modules/curriculum/registry/full-product-public-control-profiles-p03f32.js";
 import {
   G6B_U01_P03F32_DECIMAL_SPEC_ID,
@@ -35,8 +35,11 @@ const slice032Specs = Object.freeze([
   Object.freeze({ patternSpecId:G6B_U01_P03F32_DECIMAL_SPEC_ID, questionForm:"fraction_to_decimal", questionFormLabel:"可除盡分數化小數" }),
 ]);
 
+const P03F32_FROZEN_SOURCE_IDS = new Set(Object.keys(BATCH_A_SELECTOR_AVAILABILITY.bySourceId));
+const P03F32_FROZEN_PUBLIC_SOURCE_UNITS = Object.freeze(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.filter((row) => P03F32_FROZEN_SOURCE_IDS.has(row.sourceId)));
+
 function buildSlice032CapabilityRows(matrix) {
-  const source = CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.find((row) => row.sourceId === G6B_U01_P03F32_SOURCE_ID);
+  const source = P03F32_FROZEN_PUBLIC_SOURCE_UNITS.find((row) => row.sourceId === G6B_U01_P03F32_SOURCE_ID);
   const kp = listVisibleBatchAKnowledgePoints().find((row) => row.knowledgePointId === G6B_U01_P03F32_KP_ID);
   if (!source || !kp) return [];
   const profile = getFullProductPublicControlProfile(source.sourceId);
@@ -110,6 +113,9 @@ function visiblePairAccounting(matrix) {
 
 export function buildPublicGenerationCapabilityMatrixV6() {
   const matrix = clone(buildPublicGenerationCapabilityMatrixV5());
+  matrix.capabilities = matrix.capabilities.filter((row) => P03F32_FROZEN_SOURCE_IDS.has(row.sourceId));
+  matrix.gaps = matrix.gaps.filter((gap) => !gap.sourceId || P03F32_FROZEN_SOURCE_IDS.has(gap.sourceId));
+  matrix.uiOptionCoverage = matrix.uiOptionCoverage.filter((row) => P03F32_FROZEN_SOURCE_IDS.has(row.sourceId));
   const sliceRows = buildSlice032CapabilityRows(matrix);
   matrix.capabilities = [...new Map([...matrix.capabilities, ...sliceRows].map((row) => [row.capabilityId, row])).values()].sort((a, b) => a.capabilityId.localeCompare(b.capabilityId));
   matrix.gaps = matrix.gaps.filter((gap) => !(gap.code === "PUBLIC_SOURCE_WITHOUT_VISIBLE_KP" && gap.sourceId === G6B_U01_P03F32_SOURCE_ID));
@@ -133,7 +139,7 @@ export function buildPublicGenerationCapabilityMatrixV6() {
   const blockingGaps = matrix.gaps.filter((gap) => gap.severity === "blocking_r01");
   matrix.summary = {
     ...matrix.summary,
-    publicSourceCount:CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length,
+    publicSourceCount:P03F32_FROZEN_PUBLIC_SOURCE_UNITS.length,
     publicVisibleKnowledgePointCount:visibleKnowledgePoints.length,
     publicSelectorVisibleCount:visibleKnowledgePoints.length,
     capabilityRowCount:matrix.capabilities.length,

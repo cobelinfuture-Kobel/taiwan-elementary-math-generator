@@ -36,8 +36,8 @@ test("P03F28 historical selector remains 219 while current public inventory adva
   assert.equal(sourceRows.length,2);
   assert.deepEqual(sourceRows.map((row)=>row.knowledgePointId).sort(),expectedKps);
   const pixel=getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 32);
-  assert.equal(pixel.visibleKnowledgePointCount, 237);
+  assert.equal(pixel.sourceCount, 33);
+  assert.equal(pixel.visibleKnowledgePointCount, 238);
   assert.equal(pixel.bySourceId[G5A_U01_SOURCE_ID].visibleKnowledgePointCount,5);
 });
 

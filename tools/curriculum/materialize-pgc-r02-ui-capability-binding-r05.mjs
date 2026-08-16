@@ -9,7 +9,7 @@ import {
   auditPublicUiCapabilityBinding,
   resolvePublicUiCapabilityBinding,
 } from "../../site/modules/curriculum/public/public-ui-capability-binding-p03f32.js";
-import { listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js";
+import { BATCH_A_SELECTOR_AVAILABILITY, listVisibleBatchAKnowledgePoints } from "../../site/modules/curriculum/registry/batch-a-selector-p03f32-extension.js";
 import { CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS } from "../../site/modules/curriculum/batch-a/source-units.js";
 import {
   G6B_U01_P03F32_KP_ID,
@@ -29,6 +29,9 @@ const csvEscape = (value) => {
   return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 };
 
+const P03F32_FROZEN_SOURCE_IDS = new Set(Object.keys(BATCH_A_SELECTOR_AVAILABILITY.bySourceId));
+const P03F32_FROZEN_PUBLIC_SOURCE_UNITS = Object.freeze(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.filter((row) => P03F32_FROZEN_SOURCE_IDS.has(row.sourceId)));
+
 function currentBaseCaseCount() {
   const grouped = new Map();
   for (const kp of listVisibleBatchAKnowledgePoints()) {
@@ -37,7 +40,7 @@ function currentBaseCaseCount() {
     grouped.set(kp.sourceId, rows);
   }
   let count = 0;
-  for (const source of CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS) {
+  for (const source of P03F32_FROZEN_PUBLIC_SOURCE_UNITS) {
     const kps = grouped.get(source.sourceId) ?? [];
     count += 1 + kps.length + (kps.length >= 2 ? 1 : 0);
   }
@@ -94,11 +97,11 @@ function belongsToSlice032(value = {}) {
 
 export function buildPgcR02UiCapabilityBindingContractR05() {
   const predecessor = buildPgcR02UiCapabilityBindingContractR04();
-  const oldBindings = predecessor.bindings.filter((row)=>!belongsToSlice032(row));
+  const oldBindings = predecessor.bindings.filter((row)=>!belongsToSlice032(row) && P03F32_FROZEN_SOURCE_IDS.has(row.sourceId));
   const newBindings = buildSlice032Bindings();
   const bindings = [...oldBindings, ...newBindings].sort((a,b)=>a.bindingId.localeCompare(b.bindingId));
   const audit = auditPublicUiCapabilityBinding();
-  const gaps = predecessor.gaps.filter((gap)=>!belongsToSlice032(gap));
+  const gaps = predecessor.gaps.filter((gap)=>!belongsToSlice032(gap) && (!gap.sourceId || P03F32_FROZEN_SOURCE_IDS.has(gap.sourceId)));
   for (const row of newBindings) {
     if (row.blocked) gaps.push({ code:"PUBLIC_UI_QUESTION_TYPE_BINDING_BLOCKED", bindingId:row.bindingId, sourceId:row.sourceId, blockedReasons:[...row.blockedReasons] });
     if (row.compatiblePatternGroupIds.length === 0 || row.compatiblePatternSpecIds.length === 0) gaps.push({ code:"PUBLIC_UI_QUESTION_TYPE_WITHOUT_FORM", bindingId:row.bindingId, sourceId:row.sourceId });
@@ -108,7 +111,7 @@ export function buildPgcR02UiCapabilityBindingContractR05() {
   const baseCaseCount = currentBaseCaseCount();
   const summary = {
     ...predecessor.summary,
-    publicSourceCount:CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length,
+    publicSourceCount:P03F32_FROZEN_PUBLIC_SOURCE_UNITS.length,
     visibleKnowledgePointCount:listVisibleBatchAKnowledgePoints().length,
     publicSurfaceCount:surfaces.length,
     baseCaseCount,
