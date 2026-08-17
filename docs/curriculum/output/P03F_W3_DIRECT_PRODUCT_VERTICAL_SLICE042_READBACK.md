@@ -1,17 +1,17 @@
 # P03F W3 Direct Product Vertical Slice042 Readback
 
-## Candidate status
+## Final status
 
 ```text
 TASK = P03F_W3DirectProductVerticalSlice042_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 QUEUE = q042 / rank10 / g4b_u06_4b06
 SOURCE = 小數乘法
 PUBLIC_INVENTORY_AT_ADMISSION = 33 sources / 240 visible KPs
 G4B_U06 = 5 visible / 1 hidden / 0 notSelectable
-PRODUCTION_ADMISSION = false
-SLICE043_MAY_START = false
+PRODUCTION_ADMISSION = true
+SLICE043_MAY_START = true
 ```
 
 ## Exact product scope
@@ -124,29 +124,45 @@ SLICE043_STARTED = false
 
 The first live E2E attempt on the same exact head failed only because GitHub Pages transiently returned HTTP 503 for an existing historical asset. The same job was rerun without any code change and passed; the successful rerun artifact above is the bound acceptance authority.
 
-## D0 closeout candidate barrier
+## D0 closeout evidence
 
 ```text
-CANONICAL_R00_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-LEGAL_ROUTE_COUNT = 793
-PRODUCTION_ADMISSION = false
-SLICE043_MAY_START = false
+CANDIDATE_PR = #621
+CANDIDATE_HEAD = 0be666b40a53740fa2f0d3e75fdde12f7c1f8b1e
+CANDIDATE_MERGE = dcba60e3c891408f4783d0b596cd5cce8e46f27e
+CANDIDATE_NODE = 3219 / 3219 PASS
+CANDIDATE_NODE_RUN = 31985254709
+CANDIDATE_NODE_JOB = 95259042682
+CANDIDATE_NODE_ARTIFACT = 9273607579
+CANONICAL_R00_STATUS = PASS_ALL_793_LEGAL_ROUTES
+R00_RUN = 31985254744
+R00_JOB = 95307677670
+R00_ARTIFACT = 9279596956
+ROUTES legal / executed / terminal / pass / fail = 793 / 793 / 793 / 793 / 0
+FULL_NINE_GATE_PASS = 793
+SHARDS / HTML / PDF = 16 / 16 / 16
+FINAL_CHECKPOINT = 793 authoritative
+BROWSER_CONSOLE / PAGE ERRORS = 0 / 0
+EXIT_CODE = 0
+PRODUCT_MUTATION_USED = false
+CAPACITY_AUTHORITY_MUTATION_USED = false
+PER_ROUTE_PATCH_USED = false
 ```
 
-The candidate must still produce fresh exact-head Node full-regression evidence and canonical PGC-R00 793-route replay evidence. Only after those gates pass, the candidate is merged, and a final governance-only reconciliation binds the exact candidate evidence may Slice042 become `PASS_D0_CLOSED / PRODUCTION_ADMITTED_D0`.
+The candidate exact head passed Node full regression. Canonical R00 initially encountered the deployed public-site smoke barrier on two same-head attempts; attempt 3 passed the public-site smoke and then completed the exact 793-route replay without any code change. Final reconciliation binds the successful exact-head artifacts; no second R00 replay and no production mutation are required for the final governance state.
 
-## Forbidden scope remains closed
+## Forbidden scope remained closed
 
 - no `kp_g4b_u06_infer_decimal_product` promotion
 - no decimal arithmetic capability promotion
 - no application or Global Context expansion
 - no second number-line renderer or parallel pipeline
-- no q043 / Slice043 implementation inside Slice042 closeout
+- no q043 / Slice043 implementation inside Slice042
 
 ## Next resume task
 
 ```text
-P03F_W3DirectProductVerticalSlice042_D0PostMergeReconciliation
+P03F_W3DirectProductVerticalSlice043Implementation
 ```
 
-Slice043 remains blocked until final D0 reconciliation is complete.
+Slice042 is production-admitted D0. The frozen queue may advance to Slice043, but Slice043 is not started by this closeout.
