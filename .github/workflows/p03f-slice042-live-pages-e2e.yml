@@ -1,0 +1,54 @@
+name: P03F Slice042 Post-Merge Pages E2E
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "tools/curriculum/run-p03f-slice042-live-pages-e2e.mjs"
+      - ".github/workflows/p03f-slice042-live-pages-e2e.yml"
+      - "tests/governance/gci-s01-workflow-inventory.test.js"
+      - "tests/governance/gci-s02-pr-gate-pilot.test.js"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f42-postmerge-pages-e2e-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-pages-e2e:
+    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'p03f42-postmerge-pages-e2e'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact evidence head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+
+      - name: Run Slice042 exact deployed Main/Pages E2E
+        env:
+          P03F42_DEPLOYMENT_RETRIES: "20"
+          P03F42_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+        run: node tools/curriculum/run-p03f-slice042-live-pages-e2e.mjs
+
+      - name: Upload Slice042 Main/Pages E2E evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice042-postmerge-main-pages-e2e
+          path: tmp/p03f-slice042-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30
