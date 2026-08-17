@@ -4,9 +4,9 @@
   "queuePosition": 42,
   "queueEntryId": "p03e_q042_r10_g4b_u06_4b06_profile_decimal_c1",
   "sourceId": "g4b_u06_4b06",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "site/modules/curriculum/registry/g4b-u06-rank10-decimal-number-line-selector-projection-p03f42.js",
   "knowledgePointIds": ["kp_g4b_u06_decimal_number_line"],
   "patternGroupIds": ["pg_g4b_u06_decimal_number_line_numeric"],
@@ -87,7 +87,39 @@
     "sharedRenderer": true,
     "patternGroupSelectionMode": "auto-applied-by-kp"
   },
-  "canonical793Evidence": {"status": "PENDING_CLOSEOUT_CANDIDATE_CI", "legalRouteCount": 793},
-  "productionAdmission": {"slice042Admitted": false, "slice043MayStart": false},
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice042_D0PostMergeReconciliation"
+  "closeoutPr": {
+    "number": 621,
+    "headSha": "0be666b40a53740fa2f0d3e75fdde12f7c1f8b1e",
+    "mergeSha": "dcba60e3c891408f4783d0b596cd5cce8e46f27e"
+  },
+  "canonical793Evidence": {
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
+    "runId": 31985254744,
+    "jobId": 95307677670,
+    "headSha": "0be666b40a53740fa2f0d3e75fdde12f7c1f8b1e",
+    "artifactId": 9279596956,
+    "artifactDigest": "sha256:21505c3b0cb76e943b7bf2bb34fdfd666bf8fb22721b297ddb8f3051764fc206",
+    "legal": 793,
+    "executed": 793,
+    "terminal": 793,
+    "pass": 793,
+    "fail": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
+  },
+  "productionAdmission": {
+    "slice042Admitted": true,
+    "slice043MayStart": true
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice043Implementation"
 }
