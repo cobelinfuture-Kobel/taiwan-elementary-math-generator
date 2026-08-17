@@ -34,6 +34,7 @@ const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/p03f-slice041-product-acceptance.yml",
   ".github/workflows/p03f-slice041-live-pages-e2e.yml",
   ".github/workflows/p03f-slice042-product-acceptance.yml",
+  ".github/workflows/p03f-slice042-live-pages-e2e.yml",
   ...TEMPORARY_WORKFLOW_FILES,
 ];
 
@@ -84,10 +85,10 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
 
   assert.deepEqual(observedLiveDelta, approvedLiveDelta);
   assert.equal(current.summary.workflowFileCount, historical.summary.workflowFileCount + approvedLiveDelta.length);
-  assert.equal(current.summary.pullRequestWorkflowCount, 90);
+  assert.equal(current.summary.pullRequestWorkflowCount, 91);
   assert.equal(current.summary.prBranchWriterCount, 22);
   assert.equal(current.summary.prFullRegressionWorkflowCount, 27);
-  assert.equal(current.summary.lateSkipCandidateCount, 49);
+  assert.equal(current.summary.lateSkipCandidateCount, 50);
   assert.ok(current.summary.sharedExactPathPatternCount >= 79);
 
   const prGate = current.workflows.find((row) => row.file === WORKFLOW_FILE);
@@ -123,6 +124,7 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
   assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice041-product-acceptance.yml"));
   assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice041-live-pages-e2e.yml"));
   assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice042-product-acceptance.yml"));
+  assert.ok(!historical.workflows.some((row) => row.file === ".github/workflows/p03f-slice042-live-pages-e2e.yml"));
 });
 
 // PGC-R06 A03 historical authority and workflow governance compatibility
