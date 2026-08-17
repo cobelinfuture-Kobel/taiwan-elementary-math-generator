@@ -3,9 +3,9 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice042Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice042_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
-  "scope": "Slice042 only: g4b_u06_4b06 rank10 promotes the canonical decimal number-line distance KnowledgePoint through one numeric PatternGroup and one numeric PatternSpec. The existing shared query-state, operation-family generator/validator, worksheet pagination and shared HTML renderer remain the only product path; the renderer uses the bounded shared decimal-number-line adapter. Exact implementation CI, exact Pages deployment, manual 6-page visual review and live Main/Pages E2E are bound; canonical 793-route replay remains the candidate closeout barrier. Hidden sibling decimal-product inference, application/Global Context, decimal arithmetic promotion, parallel pipelines and Slice043 implementation are not admitted by this candidate.",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
+  "scope": "Slice042 only: g4b_u06_4b06 rank10 promotes the canonical decimal number-line distance KnowledgePoint through one numeric PatternGroup and one numeric PatternSpec. The existing shared query-state, operation-family generator/validator, worksheet pagination and shared HTML renderer remain the only product path; the renderer uses the bounded shared decimal-number-line adapter. Exact implementation CI, exact Pages deployment, manual 6-page visual review, live Main/Pages E2E, candidate Node and canonical 793-route replay are all bound. Hidden sibling decimal-product inference, application/Global Context, decimal arithmetic promotion, parallel pipelines and Slice043 implementation were not admitted inside Slice042.",
   "authority": {
     "path": "site/modules/curriculum/registry/g4b-u06-rank10-decimal-number-line-selector-projection-p03f42.js",
     "queuePosition": 42,
@@ -100,7 +100,7 @@
   "mainReadback": {
     "implementationMergeSha": "f7ccdde3a661aa131445884ea25c7dea87e7539e",
     "evidenceMergeSha": "75252ac380d9c329170ffb7a9642908b46fda405",
-    "candidateMergeSha": null,
+    "candidateMergeSha": "dcba60e3c891408f4783d0b596cd5cce8e46f27e",
     "publicSourcesAtAdmission": 33,
     "visibleKnowledgePointsAtAdmission": 240,
     "g4bU06VisibleKnowledgePoints": 5,
@@ -158,15 +158,51 @@
     "slice043Started": false
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
     "workflow": "PGC-R00 Public Generation Scope Freeze",
     "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js",
-    "legalRouteCount": 793
+    "runId": 31985254744,
+    "jobId": 95307677670,
+    "headSha": "0be666b40a53740fa2f0d3e75fdde12f7c1f8b1e",
+    "artifactId": 9279596956,
+    "artifactDigest": "sha256:21505c3b0cb76e943b7bf2bb34fdfd666bf8fb22721b297ddb8f3051764fc206",
+    "legalRouteCount": 793,
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
   },
-  "closeoutEvidence": {"status": "PENDING_CLOSEOUT_CANDIDATE_CI"},
+  "closeoutEvidence": {
+    "candidatePrNumber": 621,
+    "candidateHeadSha": "0be666b40a53740fa2f0d3e75fdde12f7c1f8b1e",
+    "candidateMergeSha": "dcba60e3c891408f4783d0b596cd5cce8e46f27e",
+    "status": "PASS_CI_SYNCED_AND_MERGED",
+    "candidateNode": {
+      "runId": 31985254709,
+      "jobId": 95259042682,
+      "tests": 3219,
+      "pass": 3219,
+      "fail": 0,
+      "skipped": 0,
+      "artifactId": 9273607579,
+      "artifactDigest": "sha256:709ac4f9fb87f15e58060fe39f631c02582904792f971426bd15d34c8ce2cec2"
+    }
+  },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice043Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice042_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice043Implementation"
   }
 }
