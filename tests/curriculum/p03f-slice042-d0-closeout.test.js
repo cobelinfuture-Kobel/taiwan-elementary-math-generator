@@ -101,12 +101,12 @@ test("P03F42 post-merge Pages E2E binds the deployed product", () => {
   assert.equal(e2e.slice043Started, false);
 });
 
-test("P03F42 current Pixel authority preserves q042 admission", () => {
+test("P03F42 current Pixel authority reconciles the full q042 two-KP allocation", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.ok(pixel.sourceCount >= 33);
-  assert.ok(pixel.visibleKnowledgePointCount >= 240);
-  assert.equal(pixel.bySourceId[G4B_U06_P03F42_SOURCE_ID].visibleKnowledgePoints.length, 5);
-  assert.equal(pixel.bySourceId[G4B_U06_P03F42_SOURCE_ID].hiddenPendingCount, 1);
+  assert.ok(pixel.visibleKnowledgePointCount >= 241);
+  assert.equal(pixel.bySourceId[G4B_U06_P03F42_SOURCE_ID].visibleKnowledgePoints.length, 6);
+  assert.equal(pixel.bySourceId[G4B_U06_P03F42_SOURCE_ID].hiddenPendingCount, 0);
   assert.equal(pixel.bySourceId[G4B_U06_P03F42_SOURCE_ID].notSelectableCount, 0);
 });
 
