@@ -63,7 +63,7 @@ function makeTicks(denominator, maxStep) {
 function buildCoordinate(definition, ordinal, seed) {
   const offset = seedOffset(seed, 97);
   const denominator = DENOMINATORS[(ordinal + offset) % DENOMINATORS.length];
-  const stepCount = 1 + ((ordinal * 3 + offset) % (denominator * 2));
+  const stepCount = 1 + (ordinal * 2) + (offset % 2);
   const coordinate = normalize(stepCount, denominator);
   const maxStep = Math.max(denominator * 2, stepCount + 2);
   const ticks = makeTicks(denominator, maxStep);
@@ -107,9 +107,9 @@ function buildCoordinate(definition, ordinal, seed) {
 }
 function buildDistance(definition, ordinal, seed) {
   const offset = seedOffset(seed, 89);
-  const denominator = DENOMINATORS[(ordinal * 3 + offset) % DENOMINATORS.length];
-  const leftStep = (ordinal + offset) % denominator;
-  const gap = 1 + ((ordinal * 5 + offset) % Math.max(2, denominator));
+  const denominator = DENOMINATORS[(ordinal + offset) % DENOMINATORS.length];
+  const leftStep = ordinal + (offset % 2);
+  const gap = 1 + ((ordinal + offset) % 3);
   const rightStep = leftStep + gap;
   const left = normalize(leftStep, denominator);
   const right = normalize(rightStep, denominator);
