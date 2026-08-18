@@ -113,23 +113,25 @@ test("P03F5 selector exposes only one historical G4B-U08 KP and three specs", ()
   assert.equal(availability.hiddenPendingCount, 6);
 });
 
-test("P03F5 historical authority stays one KP while current Pixel expands monotonically through Slice032", () => {
+test("P03F5 historical authority stays one KP while current Pixel expands monotonically through Slice043", () => {
   const sources = listCurrentPixelSourceOptions();
   assert.equal(sources.length, 33);
   const source = sources.find((row) => row.sourceId === G4B_U08_SOURCE_ID);
   assert.ok(source);
-  assert.equal(source.visibleKnowledgePointCount, 5);
-  assert.equal(source.hiddenPendingCount, 2);
+  assert.equal(source.visibleKnowledgePointCount, 7);
+  assert.equal(source.hiddenPendingCount, 0);
   assert.deepEqual(listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID).map((row) => row.knowledgePointId), [
     G4B_U08_EQUIVALENT_FRACTION_KP_ID,
     G4B_U08_EQUIVALENCE_CROSS_PRODUCT_KP_ID,
     G4B_U08_FRACTION_DECIMAL_KP_ID,
     "kp_g4b_u08_fraction_compare_cross_product",
     "kp_g4b_u08_unlike_denominator_add_sub",
+    "kp_g4b_u08_fraction_number_line_distance",
+    "kp_g4b_u08_mixed_fraction_order_constraints",
   ]);
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 33);
-  assert.equal(snapshot.bySourceId[G4B_U08_SOURCE_ID].visibleKnowledgePoints.length, 5);
+  assert.equal(snapshot.bySourceId[G4B_U08_SOURCE_ID].visibleKnowledgePoints.length, 7);
 });
 
 test("P03F5 shared worksheet and answer key render nine items on bounded pages", () => {
