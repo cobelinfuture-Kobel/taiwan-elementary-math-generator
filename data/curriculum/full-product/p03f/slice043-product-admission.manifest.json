@@ -1,0 +1,103 @@
+{
+  "schemaName": "P03F43ProductAdmissionManifestV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice043_E6_D0Closeout",
+  "queuePosition": 43,
+  "queueEntryId": "p03e_q043_r10_g4b_u08_4b08_profile_fraction_c1",
+  "sourceId": "g4b_u08_4b08",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "admissionState": "PENDING_D0_RECONCILIATION",
+  "goalDistance": "D1",
+  "authorityPath": "site/modules/curriculum/registry/g4b-u08-rank10-fraction-selector-projection-p03f43.js",
+  "knowledgePointIds": [
+    "kp_g4b_u08_fraction_number_line_distance",
+    "kp_g4b_u08_mixed_fraction_order_constraints"
+  ],
+  "patternGroupIds": [
+    "pg_g4b_u08_fraction_number_line_distance_numeric",
+    "pg_g4b_u08_mixed_fraction_order_constraints_numeric"
+  ],
+  "patternSpecIds": [
+    "ps_g4b_u08_fraction_number_line_distance_coordinate_numeric",
+    "ps_g4b_u08_fraction_number_line_distance_distance_numeric",
+    "ps_g4b_u08_mixed_fraction_order_constraints_possible_values_numeric"
+  ],
+  "hiddenApplicationPatternSpecIds": [
+    "ps_g4b_u08_mixed_fraction_order_constraints_possible_values_application"
+  ],
+  "currentAuthority": {
+    "publicSourcesAtAdmission": 33,
+    "visibleKnowledgePointsAtAdmission": 243,
+    "sourceVisibleKnowledgePoints": 7,
+    "sourceHiddenKnowledgePoints": 0,
+    "sourceNotSelectableKnowledgePoints": 0,
+    "gaps": 0
+  },
+  "implementation": {
+    "prNumber": 627,
+    "headSha": "f1a7246a19c2febd14aaf312d9188f32b4c56793",
+    "mergeSha": "7fe42337ccfac8d5489525ef02f5605af37a5a16",
+    "runtimePath": "site/modules/curriculum/batch-a/g4b-u08-rank10-fraction-runtime-p03f43.js",
+    "runtimeBlobSha": "248f82bbc80166ca1bb7a6058184ab030f082f38"
+  },
+  "productEvidence": {
+    "runId": 32102888442,
+    "jobId": 95606695945,
+    "artifactId": 9312169455,
+    "artifactDigest": "sha256:97f7d460173641ab120ddade596d345888b2027c6693e0bdab147e8da9c5f418",
+    "questionCount": 24,
+    "answerCount": 24,
+    "coordinateWitnessCount": 8,
+    "distanceWitnessCount": 8,
+    "boundsWitnessCount": 8,
+    "patternSpecCount": 3,
+    "physicalPageCount": 6,
+    "representationCount": 32,
+    "manualVisualStatus": "PASS_6_OF_6",
+    "sharedRenderer": true,
+    "sharedPagination": true,
+    "parallelPipeline": false,
+    "applicationLeakCount": 0,
+    "arithmeticLeakCount": 0,
+    "duplicateProblemCount": 0,
+    "slice044Expansion": false
+  },
+  "livePagesE2E": {
+    "prNumber": 628,
+    "headSha": "138a8eb14f4143b819ce45c8f34958afc88546d0",
+    "mergeSha": "5be183b60bdb2c5e3ad8942b5cc5a1d716ce50f5",
+    "runId": 32155565321,
+    "jobId": 95771821627,
+    "artifactId": 9331889922,
+    "artifactDigest": "sha256:d3c0786de6b3e846271dbcfe33eb16cac67fd845526d0893f0022c7c3bdf71da",
+    "status": "PASS_P03F43_POSTMERGE_MAIN_PAGES_E2E",
+    "deployedAssetCount": 9,
+    "deployedAssetShaMismatchCount": 0,
+    "questionCount": 24,
+    "answerCount": 24,
+    "questionPageCount": 3,
+    "answerPageCount": 3,
+    "coordinateWitnessCount": 8,
+    "distanceWitnessCount": 8,
+    "boundsWitnessCount": 8,
+    "representationCount": 32,
+    "numberLineSvgCount": 32,
+    "pointMarkerCount": 48,
+    "exactAnswerMismatchCount": 0,
+    "representationMismatchCount": 0,
+    "duplicateProblemCount": 0,
+    "internalIdLeakageCount": 0,
+    "printInvocationCount": 1,
+    "browserErrorCount": 0,
+    "sharedRenderer": true,
+    "patternGroupSelectionMode": "auto-or-visible-by-kp"
+  },
+  "canonical793Evidence": {
+    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "legalRouteCount": 793
+  },
+  "productionAdmission": {
+    "slice043Admitted": false,
+    "slice044MayStart": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice043_D0PostMergeReconciliation"
+}
