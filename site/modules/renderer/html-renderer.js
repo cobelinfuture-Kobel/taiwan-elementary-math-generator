@@ -1,3 +1,5 @@
+import { renderFractionNumberLine } from "./fraction-number-line.js";
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -14,10 +16,7 @@ function createRendererError(code, message) {
 }
 
 function buildDataAttributes(attributes, enabled) {
-  if (!enabled) {
-    return "";
-  }
-
+  if (!enabled) return "";
   return Object.entries(attributes)
     .filter(([, value]) => value !== undefined && value !== null)
     .map(([key, value]) => ` data-${key}="${escapeHtml(value)}"`)
@@ -25,26 +24,16 @@ function buildDataAttributes(attributes, enabled) {
 }
 
 function validateDecimalNumberLineModel(model) {
-  if (!model || model.kind !== "decimal_number_line") {
-    return false;
-  }
-  if (![10, 100].includes(model.scale) || !Number.isInteger(model.stepScaled) || model.stepScaled <= 0) {
-    return false;
-  }
-  if (!Array.isArray(model.ticks) || model.ticks.length < 2 || model.ticks.length > 21 || model.tickCount !== model.ticks.length) {
-    return false;
-  }
-  if (!Array.isArray(model.points) || model.points.length !== 2) {
-    return false;
-  }
+  if (!model || model.kind !== "decimal_number_line") return false;
+  if (![10, 100].includes(model.scale) || !Number.isInteger(model.stepScaled) || model.stepScaled <= 0) return false;
+  if (!Array.isArray(model.ticks) || model.ticks.length < 2 || model.ticks.length > 21 || model.tickCount !== model.ticks.length) return false;
+  if (!Array.isArray(model.points) || model.points.length !== 2) return false;
   return model.ticks.every((tick, index) => tick && tick.index === index && Number.isInteger(tick.valueScaled) && typeof tick.label === "string")
     && model.points.every((point) => point && ["A", "B"].includes(point.label) && Number.isInteger(point.tickIndex) && point.tickIndex >= 0 && point.tickIndex < model.ticks.length && Number.isInteger(point.valueScaled));
 }
 
 export function renderDecimalNumberLine(model) {
-  if (!validateDecimalNumberLineModel(model)) {
-    throw createRendererError("decimal_number_line_invalid", "Decimal number-line representation is invalid.");
-  }
+  if (!validateDecimalNumberLineModel(model)) throw createRendererError("decimal_number_line_invalid", "Decimal number-line representation is invalid.");
   const width = 360;
   const left = 28;
   const right = 332;
@@ -59,7 +48,7 @@ export function renderDecimalNumberLine(model) {
       `<line x1="${x}" y1="50" x2="${x}" y2="62" stroke="currentColor" stroke-width="1" />`,
       `<text x="${x}" y="76" text-anchor="middle" font-size="9">${escapeHtml(tick.label)}</text>`,
       point ? `<circle cx="${x}" cy="${axisY}" r="4" fill="currentColor" />` : "",
-      point ? `<text x="${x}" y="40" text-anchor="middle" font-size="12" font-weight="700">${escapeHtml(point.label)}</text>` : ""
+      point ? `<text x="${x}" y="40" text-anchor="middle" font-size="12" font-weight="700">${escapeHtml(point.label)}</text>` : "",
     ].join("");
   }).join("");
   return [
@@ -68,8 +57,14 @@ export function renderDecimalNumberLine(model) {
     `<line x1="${left}" y1="${axisY}" x2="${right}" y2="${axisY}" stroke="currentColor" stroke-width="2" />`,
     tickMarkup,
     "</svg>",
-    "</div>"
+    "</div>",
   ].join("");
+}
+
+export { renderFractionNumberLine };
+export function renderNumberLine(model) {
+  if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
+  return renderDecimalNumberLine(model);
 }
 
 function renderPageSection(title, pagesHtml, sectionClassName, options) {
@@ -77,7 +72,7 @@ function renderPageSection(title, pagesHtml, sectionClassName, options) {
     `<section class="worksheet-section ${sectionClassName}">`,
     `<header class="worksheet-section__header screen-only"><h2 class="worksheet-section__title">${escapeHtml(title)}</h2></header>`,
     pagesHtml,
-    "</section>"
+    "</section>",
   ].join("");
 }
 
@@ -85,16 +80,13 @@ function renderPageGrid(page, options) {
   return [
     `<div class="worksheet-page__grid" style="--worksheet-columns:${page.columns};">`,
     page.cells.map((cell) => renderWorksheetCell(cell, options)).join(""),
-    "</div>"
+    "</div>",
   ].join("");
 }
 
 export function renderQuestionCell(cell, options = {}) {
   const displayModel = cell?.displayModel;
-  if (!displayModel) {
-    throw createRendererError("question_cell_invalid", "Question cells must contain a displayModel.");
-  }
-
+  if (!displayModel) throw createRendererError("question_cell_invalid", "Question cells must contain a displayModel.");
   const dataAttributes = buildDataAttributes({
     "cell-index": cell.cellIndex,
     "row-index": cell.rowIndex,
@@ -102,26 +94,20 @@ export function renderQuestionCell(cell, options = {}) {
     "cell-type": cell.cellType,
     "question-id": cell.questionId,
     "question-number": cell.questionNumber,
-    "pattern-id": displayModel.patternId
+    "pattern-id": displayModel.patternId,
   }, options.debugDataAttributes !== false);
-
   return [
     `<article class="worksheet-cell worksheet-cell--question"${dataAttributes}>`,
-    displayModel.questionNumberText
-      ? `<div class="worksheet-cell__number">${escapeHtml(displayModel.questionNumberText)}</div>`
-      : "",
+    displayModel.questionNumberText ? `<div class="worksheet-cell__number">${escapeHtml(displayModel.questionNumberText)}</div>` : "",
     `<div class="worksheet-cell__prompt">${escapeHtml(displayModel.blankedDisplayText)}</div>`,
-    displayModel.numberLine ? renderDecimalNumberLine(displayModel.numberLine) : "",
-    "</article>"
+    displayModel.numberLine ? renderNumberLine(displayModel.numberLine) : "",
+    "</article>",
   ].join("");
 }
 
 export function renderAnswerKeyCell(cell, options = {}) {
   const answerKeyItem = cell?.answerKeyItem;
-  if (!answerKeyItem) {
-    throw createRendererError("answer_key_cell_invalid", "Answer-key cells must contain an answerKeyItem.");
-  }
-
+  if (!answerKeyItem) throw createRendererError("answer_key_cell_invalid", "Answer-key cells must contain an answerKeyItem.");
   const dataAttributes = buildDataAttributes({
     "cell-index": cell.cellIndex,
     "row-index": cell.rowIndex,
@@ -129,102 +115,67 @@ export function renderAnswerKeyCell(cell, options = {}) {
     "cell-type": cell.cellType,
     "question-id": cell.questionId,
     "question-number": cell.questionNumber,
-    "pattern-id": answerKeyItem.patternId
+    "pattern-id": answerKeyItem.patternId,
   }, options.debugDataAttributes !== false);
-
   return [
     `<article class="worksheet-cell worksheet-cell--answer-key"${dataAttributes}>`,
     `<div class="worksheet-cell__number">${escapeHtml(`${answerKeyItem.questionNumber}.`)}</div>`,
     `<div class="worksheet-cell__prompt">${escapeHtml(answerKeyItem.promptText)}</div>`,
-    answerKeyItem.numberLine ? renderDecimalNumberLine(answerKeyItem.numberLine) : "",
+    answerKeyItem.numberLine ? renderNumberLine(answerKeyItem.numberLine) : "",
     `<div class="worksheet-cell__answer">${escapeHtml(answerKeyItem.answerText)}</div>`,
-    "</article>"
+    "</article>",
   ].join("");
 }
 
 export function renderFillerCell(cell, options = {}) {
-  if (options.renderFillerCells !== true) {
-    return "";
-  }
-
+  if (options.renderFillerCells !== true) return "";
   const dataAttributes = buildDataAttributes({
     "cell-index": cell.cellIndex,
     "row-index": cell.rowIndex,
     "column-index": cell.columnIndex,
-    "cell-type": cell.cellType
+    "cell-type": cell.cellType,
   }, options.debugDataAttributes !== false);
-
   return `<div class="worksheet-cell worksheet-cell--filler"${dataAttributes}></div>`;
 }
 
 export function renderWorksheetCell(cell, options = {}) {
-  if (!cell || typeof cell !== "object") {
-    throw createRendererError("worksheet_cell_invalid", "Worksheet cell must be an object.");
-  }
-
-  if (cell.cellType === "question") {
-    return renderQuestionCell(cell, options);
-  }
-
-  if (cell.cellType === "answerKey") {
-    return renderAnswerKeyCell(cell, options);
-  }
-
-  if (cell.cellType === "filler") {
-    return renderFillerCell(cell, options);
-  }
-
+  if (!cell || typeof cell !== "object") throw createRendererError("worksheet_cell_invalid", "Worksheet cell must be an object.");
+  if (cell.cellType === "question") return renderQuestionCell(cell, options);
+  if (cell.cellType === "answerKey") return renderAnswerKeyCell(cell, options);
+  if (cell.cellType === "filler") return renderFillerCell(cell, options);
   throw createRendererError("worksheet_cell_type_invalid", `Unsupported worksheet cell type '${cell.cellType}'.`);
 }
 
 export function renderQuestionPage(page, options = {}) {
-  const dataAttributes = buildDataAttributes({
-    "page-number": page.pageNumber,
-    "page-type": page.pageType
-  }, options.debugDataAttributes !== false);
-
+  const dataAttributes = buildDataAttributes({ "page-number": page.pageNumber, "page-type": page.pageType }, options.debugDataAttributes !== false);
   return [
     `<section class="worksheet-page worksheet-page--questions print-page"${dataAttributes}>`,
     `<header class="worksheet-page__meta screen-only">題目頁 ${escapeHtml(page.pageNumber)}</header>`,
     renderPageGrid(page, options),
-    "</section>"
+    "</section>",
   ].join("");
 }
 
 export function renderAnswerKeyPage(page, options = {}) {
-  const dataAttributes = buildDataAttributes({
-    "page-number": page.pageNumber,
-    "page-type": page.pageType
-  }, options.debugDataAttributes !== false);
-
+  const dataAttributes = buildDataAttributes({ "page-number": page.pageNumber, "page-type": page.pageType }, options.debugDataAttributes !== false);
   return [
     `<section class="worksheet-page worksheet-page--answer-key print-page"${dataAttributes}>`,
     `<header class="worksheet-page__meta screen-only">答案頁 ${escapeHtml(page.pageNumber)}</header>`,
     renderPageGrid(page, options),
-    "</section>"
+    "</section>",
   ].join("");
 }
 
 export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
-  if (!worksheetDocument || typeof worksheetDocument !== "object") {
-    throw createRendererError("worksheet_document_invalid", "WorksheetDocument must be an object.");
-  }
-
+  if (!worksheetDocument || typeof worksheetDocument !== "object") throw createRendererError("worksheet_document_invalid", "WorksheetDocument must be an object.");
   const questionPages = Array.isArray(worksheetDocument.questionPages) ? worksheetDocument.questionPages : [];
   const answerKeyPages = Array.isArray(worksheetDocument.answerKeyPages) ? worksheetDocument.answerKeyPages : [];
   const title = options.title ?? "數學練習題預覽";
   const stylesheetHref = options.stylesheetHref ?? "./src/renderer/print-styles.css";
-
   const questionPagesHtml = questionPages.map((page) => renderQuestionPage(page, options)).join("");
   const answerKeyPagesHtml = answerKeyPages.length > 0
-    ? renderPageSection(
-      "答案頁",
-      answerKeyPages.map((page) => renderAnswerKeyPage(page, options)).join(""),
-      "worksheet-section--answer-key",
-      options
-    )
+    ? renderPageSection("答案頁", answerKeyPages.map((page) => renderAnswerKeyPage(page, options)).join(""), "worksheet-section--answer-key", options)
     : "";
-
   return [
     "<!doctype html>",
     '<html lang="zh-Hant">',
@@ -240,6 +191,6 @@ export function renderWorksheetDocumentToHtml(worksheetDocument, options = {}) {
     answerKeyPagesHtml,
     "</main>",
     "</body>",
-    "</html>"
+    "</html>",
   ].join("");
 }
