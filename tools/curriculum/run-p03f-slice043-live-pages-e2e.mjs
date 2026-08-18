@@ -26,7 +26,7 @@ const assetContracts = [
   {
     repoPath: "site/modules/curriculum/registry/g4b-u08-rank10-fraction-selector-projection-p03f43.js",
     publicPath: "modules/curriculum/registry/g4b-u08-rank10-fraction-selector-projection-p03f43.js",
-    requiredTokens: [SOURCE_ID, NUMBER_LINE_KP_ID, BOUNDS_KP_ID, COORDINATE_SPEC_ID, DISTANCE_SPEC_ID, BOUNDS_SPEC_ID],
+    requiredTokens: [NUMBER_LINE_KP_ID, BOUNDS_KP_ID, COORDINATE_SPEC_ID, DISTANCE_SPEC_ID, BOUNDS_SPEC_ID],
   },
   {
     repoPath: "site/modules/curriculum/public/public-ui-capability-binding-p03f43.js",
