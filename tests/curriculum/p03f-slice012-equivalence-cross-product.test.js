@@ -103,7 +103,7 @@ test("P03F12 validator rejects cross-product, answer and scope tampering", () =>
   assert.equal(validateG4BU08EquivalenceCrossProductQuestion({ ...question, questionMode: "application" }).ok, false);
 });
 
-test("P03F12 selector remains two G4B-U08 KPs while current Pixel includes later slices through Slice032", () => {
+test("P03F12 selector remains two historical G4B-U08 KPs while current Pixel includes later slices through Slice043", () => {
   const rows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === G4B_U08_SOURCE_ID);
   assert.equal(rows.length, 2);
   assert.deepEqual(rows.map((row) => row.knowledgePointId), [
@@ -115,11 +115,13 @@ test("P03F12 selector remains two G4B-U08 KPs while current Pixel includes later
   assert.equal(availability.hiddenPendingCount, 5);
   assert.equal(listCurrentPixelSourceOptions().length, 33);
   const currentPixelRows = listPixelKnowledgePointsForSource(G4B_U08_SOURCE_ID);
-  assert.equal(currentPixelRows.length, 5);
+  assert.equal(currentPixelRows.length, 7);
   assert.equal(currentPixelRows[1].knowledgePointId, G4B_U08_EQUIVALENCE_CROSS_PRODUCT_KP_ID);
   assert.equal(currentPixelRows[2].knowledgePointId, "kp_g4b_u08_fraction_decimal_conversion");
   assert.equal(currentPixelRows[3].knowledgePointId, "kp_g4b_u08_fraction_compare_cross_product");
   assert.equal(currentPixelRows[4].knowledgePointId, "kp_g4b_u08_unlike_denominator_add_sub");
+  assert.equal(currentPixelRows[5].knowledgePointId, "kp_g4b_u08_fraction_number_line_distance");
+  assert.equal(currentPixelRows[6].knowledgePointId, "kp_g4b_u08_mixed_fraction_order_constraints");
   assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 33);
 });
 
