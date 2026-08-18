@@ -44,7 +44,7 @@ jobs:
         run: npm test
 
       - name: Install exact-replay dependencies
-        run: npm install --no-audit --no-fund --no-save --package-lock=false playwright
+        run: npm install --no-audit --no-fund --no-save --package-lock=false playwright@1.51.1
 
       - name: Focused R08 A05-A06 contracts
         run: >-
@@ -55,6 +55,7 @@ jobs:
           tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js
 
       - name: Install Chromium
+        timeout-minutes: 10
         run: npx playwright install --with-deps chromium
 
       - name: R09 A03 deployed public-site smoke
