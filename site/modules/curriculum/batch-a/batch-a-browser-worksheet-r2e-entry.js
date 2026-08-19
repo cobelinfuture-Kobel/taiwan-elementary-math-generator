@@ -1,33 +1,3 @@
-import { buildBatchABrowserWorksheetDocument as buildR2DWorksheetDocument } from "./batch-a-browser-worksheet-r2d-entry.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F31WorksheetDocument } from "./batch-a-browser-worksheet-p03f31-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F32WorksheetDocument } from "./batch-a-browser-worksheet-p03f32-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F33WorksheetDocument } from "./batch-a-browser-worksheet-p03f33-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F34WorksheetDocument } from "./batch-a-browser-worksheet-p03f34-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F35WorksheetDocument } from "./batch-a-browser-worksheet-p03f35-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F36WorksheetDocument } from "./batch-a-browser-worksheet-p03f36-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F37WorksheetDocument } from "./batch-a-browser-worksheet-p03f37-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F38WorksheetDocument } from "./batch-a-browser-worksheet-p03f38-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F39WorksheetDocument } from "./batch-a-browser-worksheet-p03f39-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F40WorksheetDocument } from "./batch-a-browser-worksheet-p03f40-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F41WorksheetDocument } from "./batch-a-browser-worksheet-p03f41-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F42WorksheetDocument } from "./batch-a-browser-worksheet-p03f42-extension.js";
-import { buildBatchABrowserWorksheetDocument as buildP03F43WorksheetDocument } from "./batch-a-browser-worksheet-p03f43-extension.js";
-import { requestsP03F34 } from "./batch-a-browser-generator-p03f34.js";
-import { requestsP03F35 } from "./batch-a-browser-generator-p03f35.js";
-import { requestsP03F36 } from "./batch-a-browser-generator-p03f36.js";
-import { requestsP03F37 } from "./batch-a-browser-generator-p03f37.js";
-import { requestsP03F38 } from "./batch-a-browser-generator-p03f38.js";
-import { requestsP03F39 } from "./batch-a-browser-generator-p03f39.js";
-import { requestsP03F40 } from "./batch-a-browser-generator-p03f40.js";
-import { requestsP03F41 } from "./batch-a-browser-generator-p03f41.js";
-import { requestsP03F42 } from "./batch-a-browser-generator-p03f42.js";
-import { requestsP03F43 } from "./batch-a-browser-generator-p03f43.js";
-import { G4B_U04_SOURCE_ID } from "../registry/g4b-u04-promotion.js";
-import { G5B_U04_P03F31_SOURCE_ID } from "../registry/g5b-u04-rank8-decimal-times-integer-selector-projection-p03f31.js";
-import { G6B_U01_P03F32_SOURCE_ID } from "../registry/g6b-u01-rank8-decimal-fraction-conversion-selector-projection-p03f32.js";
-import { G4A_U06_P03F33_SOURCE_ID } from "../registry/g4a-u06-rank9-fraction-selector-projection-p03f33.js";
-import { G4B_U04_CONTEXT_CONTRACT_VERSION, normalizeG4BU04ContextMode, summarizeG4BU04ContextAllocation } from "../batch-b/g4b-u04-controlled-context-variants.js";
-export const G4B_U04_R2E_WORKSHEET_CONTEXT_INTEGRATION=Object.freeze({task:"G4B_U04_R2E_ControlledSDGTemplateVariantsAndContextMode",status:"controlled_context_integrated_pending_ci",contextModes:Object.freeze(["mixed","daily_life","sdg"]),defaultContextMode:"mixed",genericContextFallbackAllowed:false,freeFormAIAllowed:false,requiredNextGate:"G4B_U04_R2F_FullWorksheetHTMLPDFAndDeployedUIRecloseout"});
-function clone(value){if(Array.isArray(value))return value.map(clone);if(value&&typeof value==="object")return Object.fromEntries(Object.entries(value).map(([key,nested])=>[key,clone(nested)]));return value;}
-function applyR2EContextMetadata(result,options={}){const document=result?.worksheetDocument;if(!result?.ok||!document||document.batchA?.sourceId!==G4B_U04_SOURCE_ID)return result;const questions=document.generatedQuestions??[];const contextMode=normalizeG4BU04ContextMode(options.contextMode??result.generation?.plan?.contextMode??questions.find((question)=>question.contextModeRequested)?.contextModeRequested);const contextAllocation=result.generation?.contextAllocation??summarizeG4BU04ContextAllocation(questions,contextMode);const publicControls={...(document.publicControls??{}),sourceId:G4B_U04_SOURCE_ID,questionMode:options.questionMode??document.batchA?.questionMode??"mixed",contextMode,layoutMode:document.layoutResolution?.layoutMode??options.layoutMode??"auto_safe",genericFallback:false,freeFormAI:false,printScope:"controlled_context_and_resolved_layout"};const sourceTaskIds=[...new Set([...(document.provenance?.sourceTaskIds??[]),G4B_U04_R2E_WORKSHEET_CONTEXT_INTEGRATION.task])];const worksheetDocument={...document,publicControls,contextAllocation:clone(contextAllocation),metadata:{...(document.metadata??{}),publicControls:clone(publicControls),contextContractVersion:G4B_U04_CONTEXT_CONTRACT_VERSION,contextMode,contextAllocation:clone(contextAllocation)},validationSummary:{...(document.validationSummary??{}),contextValidatorVersion:G4B_U04_CONTEXT_CONTRACT_VERSION},batchA:{...(document.batchA??{}),contextMode},g4bU04Summary:{...(document.g4bU04Summary??{}),contextMode,contextAllocation:clone(contextAllocation)},provenance:{...(document.provenance??{}),sourceTaskIds,contextContractVersion:G4B_U04_CONTEXT_CONTRACT_VERSION,genericContextFallbackUsed:false,freeFormAIUsed:false},configSnapshot:{...(document.configSnapshot??{}),schemaVersion:"r2e.batch_b.g4b_u04.worksheet_plan.v1",contextMode},summary:{...(document.summary??{}),contextMode,dailyLifeContextCount:contextAllocation.counts.daily_life,sdgContextCount:contextAllocation.counts.sdg,contextNotApplicableCount:contextAllocation.counts.not_applicable}};return {...result,worksheetDocument,contextAllocation:clone(contextAllocation)};}
-export function buildBatchABrowserWorksheetDocument(options={}){if(requestsP03F43(options))return buildP03F43WorksheetDocument(options);if(requestsP03F42(options))return buildP03F42WorksheetDocument(options);if(requestsP03F41(options))return buildP03F41WorksheetDocument(options);if(requestsP03F40(options))return buildP03F40WorksheetDocument(options);if(requestsP03F39(options))return buildP03F39WorksheetDocument(options);if(requestsP03F38(options))return buildP03F38WorksheetDocument(options);if(requestsP03F37(options))return buildP03F37WorksheetDocument(options);if(requestsP03F36(options))return buildP03F36WorksheetDocument(options);if(requestsP03F35(options))return buildP03F35WorksheetDocument(options);if(requestsP03F34(options))return buildP03F34WorksheetDocument(options);if(options.sourceId===G4A_U06_P03F33_SOURCE_ID)return buildP03F33WorksheetDocument(options);if(options.sourceId===G6B_U01_P03F32_SOURCE_ID)return buildP03F32WorksheetDocument(options);if(options.sourceId===G5B_U04_P03F31_SOURCE_ID)return buildP03F31WorksheetDocument(options);return applyR2EContextMetadata(buildR2DWorksheetDocument(options),options);}
+import { buildBatchABrowserWorksheetDocument as buildP03F44BatchAWorksheetDocument } from "./batch-a-browser-worksheet-p03f44-extension.js";
+export const buildR2EBatchAWorksheetState = buildP03F44BatchAWorksheetDocument;
+export { buildP03F44BatchAWorksheetDocument };
