@@ -20,7 +20,7 @@ test("P03F34 final D0 binds implementation, candidate and canonical evidence", (
   assert.deepEqual(claim.authority.requiredCapabilityIds, ["cap_decimal_domain_validator", "cap_decimal_number_system"]);
   assert.equal(claim.implementationEvidence.prNumber, 585);
   assert.equal(claim.implementationEvidence.headSha, "da14347e0b7f16c0ff2ffb4758a2f478e971a855");
-  assert.equal(claim.implementationEvidence.mergeSha, "190b809fb45606a85102d0027a00082efcde4cb4e");
+  assert.equal(claim.implementationEvidence.mergeSha, "190b809fb45606a85102d0027a00082efcde4cb4");
   assert.deepEqual([claim.implementationEvidence.node.tests, claim.implementationEvidence.node.pass, claim.implementationEvidence.node.fail], [3083, 3083, 0]);
   assert.equal(claim.implementationEvidence.productAcceptance.manualVisualReview.status, "PASS");
   assert.equal(claim.closeoutEvidence.candidatePrNumber, 586);
