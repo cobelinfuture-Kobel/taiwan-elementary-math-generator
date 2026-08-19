@@ -3,9 +3,9 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice043Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice043_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
-  "scope": "Slice043 only: g4b_u08_4b08 rank10 promotes the frozen q043 fraction number-line distance and mixed-fraction order-constraint KnowledgePoints through two numeric PatternGroups and three numeric PatternSpecs. The existing shared query-state, generator/validator, worksheet pagination and HTML renderer remain the only product path; the existing fraction number-line renderer is reused. Exact implementation CI, exact-head Chromium product acceptance, manual six-page visual review and post-merge Main/Pages E2E are bound. The hidden application PatternSpec, Global Context, fraction-arithmetic promotion, parallel pipelines, sibling promotion and Slice044 implementation are not admitted by this candidate. Canonical frozen 793-route replay remains the final candidate closeout barrier.",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
+  "scope": "Slice043 only: g4b_u08_4b08 rank10 promotes the frozen q043 fraction number-line distance and mixed-fraction order-constraint KnowledgePoints through two numeric PatternGroups and three numeric PatternSpecs. The existing shared query-state, generator/validator, worksheet pagination and HTML renderer remain the only product path; the existing fraction number-line renderer is reused. Exact implementation CI, exact-head Chromium product acceptance, manual six-page visual review, post-merge Main/Pages E2E, candidate Node and canonical frozen 793-route replay are bound. The hidden application PatternSpec, Global Context, fraction-arithmetic promotion, parallel pipelines, sibling promotion and Slice044 implementation were not admitted inside Slice043 closeout.",
   "authority": {
     "path": "site/modules/curriculum/registry/g4b-u08-rank10-fraction-selector-projection-p03f43.js",
     "queuePosition": 43,
@@ -113,7 +113,7 @@
   "mainReadback": {
     "implementationMergeSha": "7fe42337ccfac8d5489525ef02f5605af37a5a16",
     "evidenceMergeSha": "5be183b60bdb2c5e3ad8942b5cc5a1d716ce50f5",
-    "candidateMergeSha": null,
+    "candidateMergeSha": "be978149e6f97119dcc6efe46759d49f19abb04a",
     "publicSourcesAtAdmission": 33,
     "visibleKnowledgePointsAtAdmission": 243,
     "g4bU08VisibleKnowledgePoints": 7,
@@ -164,17 +164,62 @@
     "slice044Started": false
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
     "workflow": "PGC-R00 Public Generation Scope Freeze",
     "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js",
-    "legalRouteCount": 793
+    "runId": 32175212436,
+    "jobId": 96053724121,
+    "headSha": "38d3f7b49c6800c1e9121a762da2f6bcc63b03c6",
+    "artifactId": 9363986697,
+    "artifactDigest": "sha256:6d3fc43ba00178bcfffa7b76d0b847c9987da41b57dd79f0d6eb954fefe7fe69",
+    "legalRouteCount": 793,
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
   },
   "closeoutEvidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI"
+    "candidatePrNumber": 629,
+    "candidateHeadSha": "38d3f7b49c6800c1e9121a762da2f6bcc63b03c6",
+    "candidateMergeSha": "be978149e6f97119dcc6efe46759d49f19abb04a",
+    "status": "PASS_CI_SYNCED_AND_MERGED",
+    "candidateNode": {
+      "runId": 32175212817,
+      "jobId": 95835700194,
+      "tests": 3240,
+      "pass": 3240,
+      "fail": 0,
+      "skipped": 0,
+      "artifactId": 9338898512,
+      "artifactDigest": "sha256:a26f975752ecf913b4f6dd5bcc12e64c40e9d3e53cb289394fd761fe30f5dfd4"
+    },
+    "a03Recovery": {
+      "initialFailureArtifactId": 9338901207,
+      "initialFailureArtifactDigest": "sha256:4be8a2c70601c5093fabe9dffe578e0b2fa8a0d3ad52f4c304f2caff2bad58eb",
+      "initialFailureStatus": "FAIL_DEPLOYED_PUBLIC_SITE_SMOKE",
+      "initialFailureHttpStatus": 503,
+      "successfulRerunArtifactId": 9363525072,
+      "successfulRerunArtifactDigest": "sha256:ccf26db2a46cce0cc844010a7f51c7d6897681f98644c7993eec1d68f052e1b4",
+      "successfulRerunStatus": "PASS_DEPLOYED_PUBLIC_SITE_SMOKE",
+      "successfulRerunHttpStatus": 200,
+      "repositoryMutationBetweenAttempts": false
+    }
   },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice044Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice043_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice044Implementation"
   }
 }
