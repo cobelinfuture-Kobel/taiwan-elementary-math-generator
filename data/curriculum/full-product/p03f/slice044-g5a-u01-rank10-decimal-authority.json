@@ -1,0 +1,91 @@
+{
+  "schemaName": "P03FSlice044G5AU01Rank10DecimalAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice044Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "goalDistanceBefore": "D2",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 44,
+    "sliceId": "p03e_q044_r10_g5a_u01_5a01_profile_decimal_c1",
+    "previousSliceId": "p03e_q043_r10_g4b_u08_4b08_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice043-e6-d0-v1.json",
+    "previousSliceAcceptedState": "PASS_D0_CLOSED"
+  },
+  "sourceAuthority": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g5a_u01_5a01.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g5a_u01_5a01.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g5a_u01_5a01.hidden-pattern-spec.json",
+    "sourceNodeId": "g5a_u01_5a01",
+    "sourceCode": "5a01",
+    "sourceTitle": "多位小數",
+    "grade": 5,
+    "semester": "upper",
+    "unitCode": "5A-U01"
+  },
+  "knowledgePointIds": [
+    "kp_g5a_u01_decimal_round_estimate",
+    "kp_g5a_u01_missing_digit_inequality"
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g5a_u01_decimal_round_estimate_numeric",
+      "patternSpecIds": [
+        "ps_g5a_u01_decimal_round_estimate_rounded_numeric",
+        "ps_g5a_u01_decimal_round_estimate_estimate_numeric"
+      ],
+      "knowledgePointId": "kp_g5a_u01_decimal_round_estimate",
+      "operationModelId": "op_g5a_u01_decimal_round_estimate",
+      "operationFamilyId": "rounding",
+      "mode": "NUMERIC",
+      "requestedUnknownRoles": ["rounded", "estimate"],
+      "answerType": "decimal",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    },
+    {
+      "patternGroupId": "pg_g5a_u01_missing_digit_inequality_numeric",
+      "patternSpecIds": ["ps_g5a_u01_missing_digit_inequality_possible_digits_numeric"],
+      "knowledgePointId": "kp_g5a_u01_missing_digit_inequality",
+      "operationModelId": "op_g5a_u01_missing_digit_inequality",
+      "operationFamilyId": "missing_digit_inequality",
+      "mode": "NUMERIC",
+      "requestedUnknownRoles": ["possibleDigits"],
+      "answerType": "digit_set",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    }
+  ],
+  "hiddenApplicationPatternSpecIds": [
+    "ps_g5a_u01_decimal_round_estimate_rounded_application",
+    "ps_g5a_u01_decimal_round_estimate_estimate_application"
+  ],
+  "hiddenSiblingKnowledgePointIds": ["kp_g5a_u01_inverse_rounding_range"],
+  "requiredW3CapabilityUnion": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "expectedSourceVisibleCountBeforeAdmission": 5,
+    "expectedSourceHiddenCountBeforeAdmission": 3,
+    "expectedSourceVisibleCountAfterAdmission": 7,
+    "expectedSourceHiddenCountAfterAdmission": 1,
+    "expectedSourceNotSelectableCountAfterAdmission": 0,
+    "expectedPublicSourceCountBeforeAdmission": 33,
+    "expectedPublicSourceCountAfterAdmission": 33,
+    "expectedCurrentPublicKnowledgePointCountBeforeAdmission": 243,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 245,
+    "sharedDecimalNumberSystemRequired": true,
+    "sharedDecimalDomainValidatorRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "decimalArithmeticCapabilityPromotionAllowed": false,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "inverseRoundingRangePromotionAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice045Implementation"
+  }
+}

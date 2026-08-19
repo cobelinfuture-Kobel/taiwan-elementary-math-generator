@@ -71,7 +71,7 @@ test("P03F36 D0 authority binds exact implementation and post-merge Main/Pages E
   assert.equal(e2e.slice037Started, false);
 });
 
-test("P03F36 historical selector stays exactly 32 sources / 234 KPs while current Pixel advances through Slice043 to 243 KPs", () => {
+test("P03F36 historical selector stays exactly 32 sources / 234 KPs while current Pixel advances through Slice044 to 245 KPs", () => {
   assert.deepEqual([
     BATCH_A_SELECTOR_AVAILABILITY.sourceCount,
     BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount,
@@ -85,8 +85,8 @@ test("P03F36 historical selector stays exactly 32 sources / 234 KPs while curren
   ], [5, 3, 3]);
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 243);
-  assert.equal(pixel.bySourceId[sourceId].visibleKnowledgePoints.length, 5);
+  assert.equal(pixel.visibleKnowledgePointCount, 245);
+  assert.equal(pixel.bySourceId[sourceId].visibleKnowledgePoints.length, 7);
 });
 
 test("P03F36 product admission state is candidate or final only and never releases Slice037 early", () => {

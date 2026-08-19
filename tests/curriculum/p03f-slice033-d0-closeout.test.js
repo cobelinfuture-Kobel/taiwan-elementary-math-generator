@@ -65,7 +65,7 @@ test("P03F33 closeout candidate binds exact implementation and accepted product 
   assert.equal(product.manualVisualReview.sourceWitnessVisibleAndAnswerAligned, true);
 });
 
-test("P03F33 historical selector remains exactly 32 sources / 229 KPs while current Pixel advances through Slice043 to 243 KPs", () => {
+test("P03F33 historical selector remains exactly 32 sources / 229 KPs while current Pixel advances through Slice044 to 245 KPs", () => {
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.sourceCount, 32);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount, 32);
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 229);
@@ -73,7 +73,7 @@ test("P03F33 historical selector remains exactly 32 sources / 229 KPs while curr
   assert.deepEqual([availability.visibleCount, availability.hiddenPendingCount, availability.notSelectableCount], [5, 1, 0]);
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 243);
+  assert.equal(pixel.visibleKnowledgePointCount, 245);
   assert.equal(pixel.bySourceId[sourceId].visibleKnowledgePoints.length, 5);
 });
 
