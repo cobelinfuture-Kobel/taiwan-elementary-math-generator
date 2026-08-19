@@ -1,17 +1,17 @@
 # P03F W3 Direct Product Vertical Slice043 Readback
 
-## Candidate status
+## Final status
 
 ```text
 TASK = P03F_W3DirectProductVerticalSlice043_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 QUEUE = q043 / rank10 / g4b_u08_4b08
 SOURCE = 等值分數
 PUBLIC_INVENTORY_AT_ADMISSION = 33 sources / 243 visible KPs
 G4B_U08 = 7 visible / 0 hidden / 0 notSelectable
-PRODUCTION_ADMISSION = false
-SLICE044_MAY_START = false
+PRODUCTION_ADMISSION = true
+SLICE044_MAY_START = true
 ```
 
 ## Exact product scope
@@ -51,7 +51,7 @@ number-line representation = required only for coordinate/distance patterns
 application / Global Context = forbidden
 fraction arithmetic promotion = forbidden
 parallel generator / validator / renderer = forbidden
-Slice044 implementation = forbidden before final D0 reconciliation
+Slice044 implementation = not part of Slice043 closeout
 ```
 
 The closeout authority is the actual merged Slice043 selector projection, not a synthetic second product authority.
@@ -136,18 +136,36 @@ SLICE044_STARTED = false
 
 The first E2E evidence head failed only because the evidence runner incorrectly required the selector-projection module to contain the literal source ID even though that module imports and re-exports the canonical source constant. The deployed asset SHA already matched. The exact-head remediation removed only that redundant token requirement; all SHA, selector, generator, validator, answer, rendering and scope assertions remained intact and then passed.
 
-## D0 closeout candidate barrier
+## D0 closeout evidence
 
 ```text
-CANONICAL_R00_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-FROZEN_LEGAL_ROUTE_COUNT = 793
-PRODUCTION_ADMISSION = false
-SLICE044_MAY_START = false
+CANDIDATE_PR = #629
+CANDIDATE_HEAD = 38d3f7b49c6800c1e9121a762da2f6bcc63b03c6
+CANDIDATE_MERGE = be978149e6f97119dcc6efe46759d49f19abb04a
+CANDIDATE_NODE = 3240 / 3240 PASS
+CANDIDATE_NODE_RUN = 32175212817
+CANDIDATE_NODE_JOB = 95835700194
+CANDIDATE_NODE_ARTIFACT = 9338898512
+CANDIDATE_NODE_DIGEST = sha256:a26f975752ecf913b4f6dd5bcc12e64c40e9d3e53cb289394fd761fe30f5dfd4
+CANONICAL_R00_STATUS = PASS_ALL_793_LEGAL_ROUTES
+R00_RUN = 32175212436
+R00_SUCCESSFUL_RERUN_JOB = 96053724121
+R00_ARTIFACT = 9363986697
+R00_DIGEST = sha256:6d3fc43ba00178bcfffa7b76d0b847c9987da41b57dd79f0d6eb954fefe7fe69
+ROUTES legal / executed / terminal / pass / fail = 793 / 793 / 793 / 793 / 0
+FULL_NINE_GATE_PASS = 793
+SHARDS / HTML / PDF = 16 / 16 / 16
+FINAL_CHECKPOINT = 793 authoritative
+BROWSER_CONSOLE / PAGE ERRORS = 0 / 0
+EXIT_CODE = 0
+PRODUCT_MUTATION_USED = false
+CAPACITY_AUTHORITY_MUTATION_USED = false
+PER_ROUTE_PATCH_USED = false
 ```
 
-The candidate must still produce fresh exact-head Node full-regression evidence and canonical PGC-R00 frozen 793-route replay evidence. Only after those gates pass, the candidate is merged, and a final governance-only reconciliation binds the exact candidate evidence may Slice043 become `PASS_D0_CLOSED / PRODUCTION_ADMITTED_D0`.
+The first current-head R00 attempt reached the deployed A03 smoke after all focused contracts, full regression and Chromium installation had passed, then failed because GitHub Pages returned HTTP 503 and left public source options empty. Failure artifact `9338901207` records `FAIL_DEPLOYED_PUBLIC_SITE_SMOKE`, `PUBLIC_SOURCE_OPTIONS_EMPTY` and the single console error `503`; page errors were zero. The exact same head was rerun with no repository change. Successful A03 artifact `9363525072` records `PASS_DEPLOYED_PUBLIC_SITE_SMOKE`, HTTP 200, 6 questions / 6 answers and zero console/page errors. The rerun then passed ten-route replay, three-route capacity replay and the full canonical 793-route replay. Final reconciliation therefore classifies the original A03 failure as transient deployed Pages availability, binds only the successful same-head authority, and does not mutate production runtime or replay authority.
 
-## Forbidden scope remains closed
+## Forbidden scope remained closed
 
 - no hidden application PatternSpec promotion
 - no Global Context expansion
@@ -158,7 +176,7 @@ The candidate must still produce fresh exact-head Node full-regression evidence 
 ## Next resume task
 
 ```text
-P03F_W3DirectProductVerticalSlice043_D0PostMergeReconciliation
+P03F_W3DirectProductVerticalSlice044Implementation
 ```
 
-Slice044 remains blocked until final D0 reconciliation is complete.
+Slice043 is production-admitted D0. The frozen queue may now advance to Slice044 after this final reconciliation passes CI and merges.
