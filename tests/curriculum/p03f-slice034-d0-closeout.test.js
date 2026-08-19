@@ -20,7 +20,7 @@ test("P03F34 final D0 binds implementation, candidate and canonical evidence", (
   assert.deepEqual(claim.authority.requiredCapabilityIds, ["cap_decimal_domain_validator", "cap_decimal_number_system"]);
   assert.equal(claim.implementationEvidence.prNumber, 585);
   assert.equal(claim.implementationEvidence.headSha, "da14347e0b7f16c0ff2ffb4758a2f478e971a855");
-  assert.equal(claim.implementationEvidence.mergeSha, "190b809fb45606a85102d0027a00082efcde4cb4");
+  assert.equal(claim.implementationEvidence.mergeSha, "190b809fb45606a85102d0027a00082efcde4cb4e");
   assert.deepEqual([claim.implementationEvidence.node.tests, claim.implementationEvidence.node.pass, claim.implementationEvidence.node.fail], [3083, 3083, 0]);
   assert.equal(claim.implementationEvidence.productAcceptance.manualVisualReview.status, "PASS");
   assert.equal(claim.closeoutEvidence.candidatePrNumber, 586);
@@ -34,13 +34,13 @@ test("P03F34 final D0 binds implementation, candidate and canonical evidence", (
   assert.equal(claim.canonical793Evidence.exitCode, 0);
 });
 
-test("P03F34 historical selector stays exactly 32 sources / 230 KPs while current Pixel advances through Slice043 to 243 KPs", () => {
+test("P03F34 historical selector stays exactly 32 sources / 230 KPs while current Pixel advances through Slice044 to 245 KPs", () => {
   assert.deepEqual([BATCH_A_SELECTOR_AVAILABILITY.sourceCount, BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount, BATCH_A_SELECTOR_AVAILABILITY.visibleCount], [32, 32, 230]);
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
   assert.deepEqual([availability.visibleCount, availability.hiddenPendingCount, availability.notSelectableCount], [7, 1, 0]);
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 243);
+  assert.equal(pixel.visibleKnowledgePointCount, 245);
   assert.equal(pixel.bySourceId[sourceId].visibleKnowledgePoints.length, 7);
 });
 
