@@ -19,9 +19,9 @@ test("P03F39 exposes q039 numeric-only binding on every public surface",()=>{
   }
 });
 
-test("P03F39 current Pixel registry advances through Slice045 to 33/246 and G5B-U04 contains q031 q039 plus q045",()=>{
+test("P03F39 current Pixel registry advances through Slice046 to 33/247 and G5B-U04 contains q031 q039 plus q045",()=>{
   const registry=getCurrentPixelRegistrySnapshot();
-  assert.deepEqual([registry.sourceCount,registry.visibleKnowledgePointCount],[33,246]);
+  assert.deepEqual([registry.sourceCount,registry.visibleKnowledgePointCount],[33,247]);
   const summary=getCurrentPixelSourceSummary(G5B_U04_P03F39_SOURCE_ID);
   const ids=summary.visibleKnowledgePoints.map(row=>row.knowledgePointId);
   assert.deepEqual(new Set(ids),new Set([G5B_U04_P03F31_KP_ID,G5B_U04_P03F39_KP_ID,G5B_U04_P03F45_KP_ID]));
