@@ -4,9 +4,9 @@
   "queuePosition": 45,
   "queueEntryId": "p03e_q045_r10_g5b_u04_5b04_profile_decimal_c1",
   "sourceId": "g5b_u04_5b04",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "site/modules/curriculum/registry/g5b-u04-rank10-decimal-times-decimal-selector-projection-p03f45.js",
   "knowledgePointIds": [
     "kp_g5b_u04_decimal_times_decimal"
@@ -85,13 +85,39 @@
     "q049EstimationExpansion": false,
     "slice046Expansion": false
   },
+  "closeoutPr": {
+    "number": 638,
+    "headSha": "8b747359d21b77cf665a55d90fdc78b587755edf",
+    "mergeSha": "069bb8c014b44d000849894d99d46be4cd6a1d22"
+  },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
-    "legalRouteCount": 793
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
+    "runId": 32368000429,
+    "jobId": 96421763709,
+    "headSha": "8b747359d21b77cf665a55d90fdc78b587755edf",
+    "artifactId": 9406644656,
+    "artifactDigest": "sha256:e68e5fe24181ae9627bfc5f9db514dd1afe011e3cc1b633490f4abefdb71e7e1",
+    "legal": 793,
+    "executed": 793,
+    "terminal": 793,
+    "pass": 793,
+    "fail": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
   },
   "productionAdmission": {
-    "slice045Admitted": false,
-    "slice046MayStart": false
+    "slice045Admitted": true,
+    "slice046MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice045_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice046Implementation"
 }

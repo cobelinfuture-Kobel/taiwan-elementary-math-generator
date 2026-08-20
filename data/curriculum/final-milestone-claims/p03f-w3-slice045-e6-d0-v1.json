@@ -3,9 +3,9 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice045Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice045_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
-  "scope": "Slice045 only: g5b_u04_5b04 rank10 promotes the frozen q045 decimal-times-decimal KnowledgePoint through one numeric PatternGroup and one numeric PatternSpec using the existing shared decimal multiplication family, query-state, generator/validator, worksheet pagination and HTML renderer. Exact implementation CI, exact-head Chromium product acceptance, manual six-page visual review and post-merge Main/Pages E2E are bound. q049 decimal-multiplication application/estimation, Global Context, parallel pipelines and Slice046 implementation are not admitted by this candidate. Canonical frozen 793-route replay remains the final candidate closeout barrier.",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
+  "scope": "Slice045 only: g5b_u04_5b04 rank10 promotes the frozen q045 decimal-times-decimal KnowledgePoint through one numeric PatternGroup and one numeric PatternSpec using the existing shared decimal multiplication family, query-state, generator/validator, worksheet pagination and HTML renderer. Exact implementation CI, exact-head Chromium product acceptance, manual six-page visual review, post-merge Main/Pages E2E, candidate Node and canonical frozen 793-route replay are bound. q049 decimal-multiplication application/estimation, Global Context, parallel pipelines and Slice046 implementation were not admitted inside Slice045 closeout.",
   "authority": {
     "path": "site/modules/curriculum/registry/g5b-u04-rank10-decimal-times-decimal-selector-projection-p03f45.js",
     "queuePosition": 45,
@@ -118,7 +118,7 @@
   "mainReadback": {
     "implementationMergeSha": "a02c44b5bca2cd1afc122a195d79b2f143d10968",
     "evidenceMergeSha": "a686b962863f4aa008f452d1b11ee545a300f6c1",
-    "candidateMergeSha": null,
+    "candidateMergeSha": "069bb8c014b44d000849894d99d46be4cd6a1d22",
     "publicSourcesAtAdmission": 33,
     "visibleKnowledgePointsAtAdmission": 246,
     "g5bU04VisibleKnowledgePoints": 3,
@@ -177,17 +177,51 @@
     "slice046Expansion": false
   },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
     "workflow": "PGC-R00 Public Generation Scope Freeze",
     "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js",
-    "legalRouteCount": 793
+    "runId": 32368000429,
+    "jobId": 96421763709,
+    "headSha": "8b747359d21b77cf665a55d90fdc78b587755edf",
+    "artifactId": 9406644656,
+    "artifactDigest": "sha256:e68e5fe24181ae9627bfc5f9db514dd1afe011e3cc1b633490f4abefdb71e7e1",
+    "legalRouteCount": 793,
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
   },
   "closeoutEvidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI"
+    "candidatePrNumber": 638,
+    "candidateHeadSha": "8b747359d21b77cf665a55d90fdc78b587755edf",
+    "candidateMergeSha": "069bb8c014b44d000849894d99d46be4cd6a1d22",
+    "status": "PASS_CI_SYNCED_AND_MERGED",
+    "candidateNode": {
+      "runId": 32368000408,
+      "jobId": 96421850753,
+      "tests": 3271,
+      "pass": 3271,
+      "fail": 0,
+      "skipped": 0,
+      "artifactId": 9406140346,
+      "artifactDigest": "sha256:d1df8a85c32f7144ad910703e88cb7b52efd2919e7c46930a866fb1eaf098e84"
+    }
   },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice046Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice045_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice046Implementation"
   }
 }

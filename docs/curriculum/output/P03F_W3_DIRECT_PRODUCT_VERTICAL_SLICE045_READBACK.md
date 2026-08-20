@@ -1,17 +1,17 @@
 # P03F W3 Direct Product Vertical Slice045 Readback
 
-## Candidate status
+## Final status
 
 ```text
 TASK = P03F_W3DirectProductVerticalSlice045_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 QUEUE = q045 / rank10 / g5b_u04_5b04
 SOURCE = 小數的乘法
 PUBLIC_INVENTORY_AT_ADMISSION = 33 sources / 246 visible KPs
 G5B_U04 = 3 visible / 0 hidden / 0 notSelectable
-PRODUCTION_ADMISSION = false
-SLICE046_MAY_START = false
+PRODUCTION_ADMISSION = true
+SLICE046_MAY_START = true
 ```
 
 ## Exact product scope
@@ -34,13 +34,13 @@ Formal boundary:
 productCoefficient = leftCoefficient × rightCoefficient
 productScale = leftScale + rightScale
 canonical answer may remove only insignificant trailing decimal zeroes
-q049 application / estimation = forbidden
-Global Context = forbidden
+q049 application / estimation = forbidden inside Slice045 closeout
+Global Context = forbidden inside Slice045 closeout
 parallel generator / validator / renderer = forbidden
-Slice046 implementation = forbidden before final D0 reconciliation
+Slice046 implementation = not part of Slice045 closeout
 ```
 
-Source-backed witnesses remain `0.3 × 0.8 = 0.24`, `12.63 × 1.8 = 22.734`, `4.02 × 0.25 = 1.0050`, plus the general factor-scale sum rule. The closeout authority is the merged Slice045 selector projection and existing shared decimal multiplication/worksheet path, not a second authority or parallel runtime.
+Source-backed witnesses remain `0.3 × 0.8 = 0.24`, `12.63 × 1.8 = 22.734`, `4.02 × 0.25 = 1.0050`, plus the general factor-scale sum rule. The production authority remains the merged Slice045 selector projection and existing shared decimal multiplication/worksheet path.
 
 ## Implementation evidence
 
@@ -107,7 +107,6 @@ JOB = 96296151978
 ARTIFACT = 9391241309
 DIGEST = sha256:69052ab4835ac9e30b8541be7af1fea6699bf20205fbdfa457898290eef40d20
 STATUS = PASS_P03F45_POSTMERGE_MAIN_PAGES_E2E
-DEPLOYMENT_ATTEMPT = 1
 DEPLOYED_ASSETS = 8 / 8 exact SHA matches
 PUBLIC = 33 sources / 246 visible KPs
 G5B_U04 = 3 / 0 / 0
@@ -128,20 +127,38 @@ Q049 APPLICATION / ESTIMATION EXPANSION = false / false
 SLICE046_EXPANSION = false
 ```
 
-The earlier evidence-head failure was a verifier false-negative: deployed runtime SHA already matched exactly, while the verifier incorrectly required literal IDs that were supplied by imported constants. The evidence-only verifier was corrected; no product/runtime/selector/renderer mutation was used to obtain the passing live result.
+The earlier evidence-head failure was a verifier false-negative: deployed runtime SHA already matched exactly, while the verifier incorrectly required literal IDs supplied by imported constants. The evidence-only verifier was corrected without product/runtime/selector/renderer mutation.
 
-## D0 closeout candidate barrier
+## D0 closeout evidence
 
 ```text
-CANONICAL_R00_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-FROZEN_LEGAL_ROUTE_COUNT = 793
-PRODUCTION_ADMISSION = false
-SLICE046_MAY_START = false
+CANDIDATE_PR = #638
+CANDIDATE_HEAD = 8b747359d21b77cf665a55d90fdc78b587755edf
+CANDIDATE_MERGE = 069bb8c014b44d000849894d99d46be4cd6a1d22
+CANDIDATE_NODE = 3271 / 3271 PASS
+CANDIDATE_NODE_RUN = 32368000408
+CANDIDATE_NODE_JOB = 96421850753
+CANDIDATE_NODE_ARTIFACT = 9406140346
+CANDIDATE_NODE_DIGEST = sha256:d1df8a85c32f7144ad910703e88cb7b52efd2919e7c46930a866fb1eaf098e84
+CANONICAL_R00_STATUS = PASS_ALL_793_LEGAL_ROUTES
+R00_RUN = 32368000429
+R00_JOB = 96421763709
+R00_ARTIFACT = 9406644656
+R00_DIGEST = sha256:e68e5fe24181ae9627bfc5f9db514dd1afe011e3cc1b633490f4abefdb71e7e1
+ROUTES legal / executed / terminal / pass / fail = 793 / 793 / 793 / 793 / 0
+FULL_NINE_GATE_PASS = 793
+SHARDS / HTML / PDF = 16 / 16 / 16
+FINAL_CHECKPOINT = 793 authoritative
+BROWSER_CONSOLE / PAGE ERRORS = 0 / 0
+EXIT_CODE = 0
+PRODUCT_MUTATION_USED = false
+CAPACITY_AUTHORITY_MUTATION_USED = false
+PER_ROUTE_PATCH_USED = false
 ```
 
-The candidate must produce fresh exact-head Node full-regression evidence and canonical PGC-R00 frozen 793-route replay evidence. Only after those gates pass, the candidate is merged, and final governance-only reconciliation binds the exact candidate evidence may Slice045 become `PASS_D0_CLOSED / PRODUCTION_ADMITTED_D0`.
+The candidate exact head passed fresh Node full regression and the canonical PGC-R00 frozen 793-route replay. The replay retained all 793 legal routes, full nine-gate coverage, 16 shard samples, zero browser errors and no product/capacity/per-route repository mutation. Final reconciliation therefore binds the merged candidate as production-admitted D0 without changing runtime, selector, PatternSpec, generator, validator, renderer or replay authority.
 
-## Forbidden scope remains closed
+## Forbidden scope remained closed
 
 - no q049 application KnowledgePoint promotion
 - no q049 estimation KnowledgePoint promotion
@@ -152,7 +169,7 @@ The candidate must produce fresh exact-head Node full-regression evidence and ca
 ## Next resume task
 
 ```text
-P03F_W3DirectProductVerticalSlice045_D0PostMergeReconciliation
+P03F_W3DirectProductVerticalSlice046Implementation
 ```
 
-Slice046 remains blocked until final D0 reconciliation is complete.
+Slice045 is production-admitted D0. The frozen queue may advance to Slice046 after this final reconciliation passes fresh CI and merges. q049 remains future/frozen.
