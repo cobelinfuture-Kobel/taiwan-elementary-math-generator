@@ -1,17 +1,17 @@
 # P03F W3 Direct Product Vertical Slice044 Readback
 
-## Candidate status
+## Final status
 
 ```text
 TASK = P03F_W3DirectProductVerticalSlice044_E6_D0Closeout
-STATUS = D0_CLOSEOUT_CANDIDATE
-GOAL_DISTANCE = D1
+STATUS = PASS_D0_CLOSED
+GOAL_DISTANCE = D0
 QUEUE = q044 / rank10 / g5a_u01_5a01
 SOURCE = 多位小數與加減
 PUBLIC_INVENTORY_AT_ADMISSION = 33 sources / 245 visible KPs
 G5A_U01 = 7 visible / 1 hidden / 0 notSelectable
-PRODUCTION_ADMISSION = false
-SLICE045_MAY_START = false
+PRODUCTION_ADMISSION = true
+SLICE045_MAY_START = true
 ```
 
 ## Exact product scope
@@ -54,7 +54,7 @@ application / Global Context = forbidden
 decimal arithmetic capability promotion = forbidden
 inverse-rounding q048 = forbidden
 parallel generator / validator / renderer = forbidden
-Slice045 implementation = forbidden before final D0 reconciliation
+Slice045 implementation = not part of Slice044 closeout
 ```
 
 The closeout authority is the merged Slice044 selector projection and existing shared worksheet path, not a second authority or parallel runtime.
@@ -147,18 +147,36 @@ SLICE045 / SLICE048 STARTED = false / false
 
 The first live E2E attempt failed after exact deployment matching because GitHub Pages returned HTTP 503 for the already-existing shared dependency `batch-a-browser-validator-p03f31.js`. No repository mutation occurred. Rerunning the same exact evidence head passed the complete deployed-site contract; the transient failure artifact remains bound as recovery evidence.
 
-## D0 closeout candidate barrier
+## D0 closeout evidence
 
 ```text
-CANONICAL_R00_STATUS = PENDING_CLOSEOUT_CANDIDATE_CI
-FROZEN_LEGAL_ROUTE_COUNT = 793
-PRODUCTION_ADMISSION = false
-SLICE045_MAY_START = false
+CANDIDATE_PR = #634
+CANDIDATE_HEAD = b9315416573875ab9c485164f01f2012ae0bd1fd
+CANDIDATE_MERGE = a84e1fd1f7300d521dd6df158c61a06deb7fb2ec
+CANDIDATE_NODE = 3255 / 3255 PASS
+CANDIDATE_NODE_RUN = 32287718500
+CANDIDATE_NODE_JOB = 96181103328
+CANDIDATE_NODE_ARTIFACT = 9378395915
+CANDIDATE_NODE_DIGEST = sha256:27decff57529dae7a9ddc2c6c9bde134b14dfe096de5a7e16995f6168f63540b
+CANONICAL_R00_STATUS = PASS_ALL_793_LEGAL_ROUTES
+R00_RUN = 32287718698
+R00_JOB = 96181103423
+R00_ARTIFACT = 9379009942
+R00_DIGEST = sha256:3c9adf3897b2baf3cf9a33deb07b432f6e689e2c75db182b8296426227865bf3
+ROUTES legal / executed / terminal / pass / fail = 793 / 793 / 793 / 793 / 0
+FULL_NINE_GATE_PASS = 793
+SHARDS / HTML / PDF = 16 / 16 / 16
+FINAL_CHECKPOINT = 793 authoritative
+BROWSER_CONSOLE / PAGE ERRORS = 0 / 0
+EXIT_CODE = 0
+PRODUCT_MUTATION_USED = false
+CAPACITY_AUTHORITY_MUTATION_USED = false
+PER_ROUTE_PATCH_USED = false
 ```
 
-The candidate must produce fresh exact-head Node full-regression evidence and canonical PGC-R00 frozen 793-route replay evidence. Only after those gates pass, the candidate is merged, and final governance-only reconciliation binds the exact candidate evidence may Slice044 become `PASS_D0_CLOSED / PRODUCTION_ADMITTED_D0`.
+The candidate exact head passed fresh Node full regression and the canonical PGC-R00 frozen 793-route replay on the first R00 attempt. The replay retained all 793 legal routes, full nine-gate coverage, 16 shard samples, zero browser errors and zero product/capacity/per-route mutation. Final reconciliation therefore binds the candidate merge as production-admitted D0 without changing runtime, selector, renderer, PatternSpec, validator or replay authority.
 
-## Forbidden scope remains closed
+## Forbidden scope remained closed
 
 - no hidden application PatternSpec promotion
 - no Global Context expansion
@@ -170,7 +188,7 @@ The candidate must produce fresh exact-head Node full-regression evidence and ca
 ## Next resume task
 
 ```text
-P03F_W3DirectProductVerticalSlice044_D0PostMergeReconciliation
+P03F_W3DirectProductVerticalSlice045Implementation
 ```
 
-Slice045 remains blocked until final D0 reconciliation is complete.
+Slice044 is production-admitted D0. The frozen queue may advance to Slice045 after this final reconciliation passes CI and merges.
