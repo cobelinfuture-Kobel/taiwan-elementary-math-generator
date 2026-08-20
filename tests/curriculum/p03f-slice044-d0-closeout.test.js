@@ -139,10 +139,10 @@ test("P03F44 post-merge Pages E2E binds exact deployed product and recovered tra
   assert.equal(e2e.recovery.successfulRerunJobId, e2e.jobId);
 });
 
-test("P03F44 current Pixel authority preserves 33/245 and G5A-U01 7/1/0", () => {
+test("P03F44 current Pixel authority preserves 33/246 and G5A-U01 7/1/0", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 245);
+  assert.equal(pixel.visibleKnowledgePointCount, 246);
   const source = pixel.bySourceId[G5A_U01_P03F44_SOURCE_ID];
   assert.equal(source.visibleKnowledgePoints.length, 7);
   assert.equal(source.hiddenPendingCount, 1);
