@@ -4,9 +4,9 @@
   "queuePosition": 44,
   "queueEntryId": "p03e_q044_r10_g5a_u01_5a01_profile_decimal_c1",
   "sourceId": "g5a_u01_5a01",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "site/modules/curriculum/registry/g5a-u01-rank10-decimal-selector-projection-p03f44.js",
   "knowledgePointIds": [
     "kp_g5a_u01_decimal_round_estimate",
@@ -93,13 +93,39 @@
     "patternGroupSelectionMode": "auto-applied-by-kp",
     "transient503RecoveredWithoutRepositoryMutation": true
   },
+  "closeoutPr": {
+    "number": 634,
+    "headSha": "b9315416573875ab9c485164f01f2012ae0bd1fd",
+    "mergeSha": "a84e1fd1f7300d521dd6df158c61a06deb7fb2ec"
+  },
   "canonical793Evidence": {
-    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
-    "legalRouteCount": 793
+    "status": "PASS_ALL_793_LEGAL_ROUTES",
+    "runId": 32287718698,
+    "jobId": 96181103423,
+    "headSha": "b9315416573875ab9c485164f01f2012ae0bd1fd",
+    "artifactId": 9379009942,
+    "artifactDigest": "sha256:3c9adf3897b2baf3cf9a33deb07b432f6e689e2c75db182b8296426227865bf3",
+    "legal": 793,
+    "executed": 793,
+    "terminal": 793,
+    "pass": 793,
+    "fail": 0,
+    "fullNineGatePassCount": 793,
+    "shardCount": 16,
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "exitCode": 0,
+    "productMutationUsed": false,
+    "capacityAuthorityMutationUsed": false,
+    "perRoutePatchUsed": false
   },
   "productionAdmission": {
-    "slice044Admitted": false,
-    "slice045MayStart": false
+    "slice044Admitted": true,
+    "slice045MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice044_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice045Implementation"
 }
