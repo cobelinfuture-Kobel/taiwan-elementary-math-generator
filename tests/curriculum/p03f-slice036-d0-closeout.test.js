@@ -71,7 +71,7 @@ test("P03F36 D0 authority binds exact implementation and post-merge Main/Pages E
   assert.equal(e2e.slice037Started, false);
 });
 
-test("P03F36 historical selector stays exactly 32 sources / 234 KPs while current Pixel advances through Slice045 to 246 KPs", () => {
+test("P03F36 historical selector stays exactly 32 sources / 234 KPs while current Pixel advances through Slice046 to 247 KPs", () => {
   assert.deepEqual([
     BATCH_A_SELECTOR_AVAILABILITY.sourceCount,
     BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount,
@@ -85,7 +85,7 @@ test("P03F36 historical selector stays exactly 32 sources / 234 KPs while curren
   ], [5, 3, 3]);
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 246);
+  assert.equal(pixel.visibleKnowledgePointCount, 247);
   assert.equal(pixel.bySourceId[sourceId].visibleKnowledgePoints.length, 7);
 });
 
