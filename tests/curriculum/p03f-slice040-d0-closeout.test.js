@@ -98,9 +98,9 @@ test("P03F40 current Pixel authority preserves the q040 admission floor and sour
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.ok(pixel.sourceCount >= 33);
   assert.ok(pixel.visibleKnowledgePointCount >= 238);
-  assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].visibleKnowledgePoints.length, 1);
-  assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].hiddenPendingCount, 4);
-  assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].notSelectableCount, 4);
+  assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].visibleKnowledgePoints.length, 2);
+  assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].hiddenPendingCount, 3);
+  assert.equal(pixel.bySourceId[G5B_U06_P03F40_SOURCE_ID].notSelectableCount, 3);
 });
 
 test("P03F40 final product admission is D0 and releases only the next frozen slice", () => {
