@@ -1,0 +1,404 @@
+import { createHash } from "node:crypto";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { chromium } from "playwright";
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(HERE, "../..");
+const DEFAULT_BASE_URL = "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/";
+const DEFAULT_OUTPUT_DIR = resolve(ROOT, "tmp/p03f-slice045-live-pages-e2e");
+const EXACT_IMPLEMENTATION_HEAD_SHA = "07ec2d5c2706ec75d907382239b5106a473a151e";
+const EXACT_IMPLEMENTATION_MERGE_SHA = "a02c44b5bca2cd1afc122a195d79b2f143d10968";
+const SOURCE_ID = "g5b_u04_5b04";
+const KP_ID = "kp_g5b_u04_decimal_times_decimal";
+const GROUP_ID = "pg_g5b_u04_decimal_times_decimal_numeric";
+const SPEC_ID = "ps_g5b_u04_decimal_times_decimal_product_numeric";
+const Q049_APPLICATION_KP_ID = "kp_g5b_u04_decimal_multiplication_application";
+const Q049_ESTIMATION_KP_ID = "kp_g5b_u04_decimal_multiplication_estimate";
+const QUESTION_COUNT = 24;
+const GENERATION_SEED = "p03f45-source-witness-product-acceptance";
+
+const assetContracts = [
+  {
+    repoPath: "site/modules/curriculum/registry/g5b-u04-rank10-decimal-times-decimal-selector-projection-p03f45.js",
+    publicPath: "modules/curriculum/registry/g5b-u04-rank10-decimal-times-decimal-selector-projection-p03f45.js",
+    requiredTokens: ["P03F_W3DirectProductVerticalSlice045Implementation", KP_ID, GROUP_ID, SPEC_ID, "cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+  },
+  {
+    repoPath: "site/modules/curriculum/public/public-ui-capability-binding-p03f45.js",
+    publicPath: "modules/curriculum/public/public-ui-capability-binding-p03f45.js",
+    requiredTokens: ["public-ui-capability-binding-p03f44.js", "batch-a-selector-p03f45-extension.js", "P03F45_G5B_U04_RANK10_DECIMAL_TIMES_DECIMAL_SHARED_RUNTIME"],
+    forbiddenTokens: ["p03f46"],
+  },
+  {
+    repoPath: "site/modules/curriculum/batch-a/g5b-u04-rank10-decimal-times-decimal-runtime-p03f45.js",
+    publicPath: "modules/curriculum/batch-a/g5b-u04-rank10-decimal-times-decimal-runtime-p03f45.js",
+    requiredTokens: [KP_ID, GROUP_ID, SPEC_ID, "COEFFICIENT_PRODUCT_SCALE_SUM", "q049Expansion"],
+    forbiddenTokens: ["p03f46"],
+  },
+  {
+    repoPath: "site/assets/browser/state/query-state.js",
+    publicPath: "assets/browser/state/query-state.js",
+    requiredTokens: ["batch-a-selector-p03f45-extension.js", "LATEST_FIRST_QUERY_SELECTOR_SOURCE_IDS"],
+    forbiddenTokens: ["p03f46"],
+  },
+  {
+    repoPath: "site/assets/browser/state/public-pattern-group-selection.js",
+    publicPath: "assets/browser/state/public-pattern-group-selection.js",
+    requiredTokens: ["batch-a-selector-p03f45-extension.js"],
+    forbiddenTokens: ["p03f46"],
+  },
+  {
+    repoPath: "site/assets/browser/public-capability-ui.js",
+    publicPath: "assets/browser/public-capability-ui.js",
+    requiredTokens: ["public-ui-capability-binding-p03f45.js"],
+    forbiddenTokens: ["p03f46"],
+  },
+  {
+    repoPath: "site/pixel/pixel-registry-bridge.js",
+    publicPath: "pixel/pixel-registry-bridge.js",
+    requiredTokens: ["batch-a-selector-p03f45-extension.js"],
+    forbiddenTokens: ["p03f46"],
+  },
+  {
+    repoPath: "site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js",
+    publicPath: "modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js",
+    requiredTokens: ["batch-a-browser-worksheet-p03f45-extension.js"],
+    forbiddenTokens: ["p03f46"],
+  },
+];
+
+const argument = (name, fallback) => {
+  const prefix = `--${name}=`;
+  return process.argv.find((value) => value.startsWith(prefix))?.slice(prefix.length) ?? fallback;
+};
+const sha256 = (value) => createHash("sha256").update(value).digest("hex");
+const repoPath = (path) => resolve(ROOT, path);
+const sleep = (ms) => new Promise((resolvePromise) => setTimeout(resolvePromise, ms));
+
+function parseDecimal(text) {
+  const match = String(text ?? "").trim().match(/^(\d+)(?:\.(\d+))?$/u);
+  if (!match) throw new Error(`invalid decimal:${text}`);
+  const fraction = match[2] ?? "";
+  return { coefficient: BigInt(`${match[1]}${fraction}`), scale: fraction.length };
+}
+
+function canonicalProduct(leftText, rightText) {
+  const left = parseDecimal(leftText);
+  const right = parseDecimal(rightText);
+  const coefficient = left.coefficient * right.coefficient;
+  const scale = left.scale + right.scale;
+  if (coefficient === 0n) return "0";
+  const digits = String(coefficient).padStart(scale + 1, "0");
+  const whole = scale ? (digits.slice(0, -scale) || "0") : digits;
+  const fractional = scale ? digits.slice(-scale).replace(/0+$/u, "") : "";
+  return fractional ? `${whole}.${fractional}` : whole;
+}
+
+function verifyRenderedPair(promptText, answerText) {
+  const prompt = String(promptText ?? "").trim();
+  const answer = String(answerText ?? "").trim();
+  const match = prompt.match(/^(\d+(?:\.\d+)?)\s*×\s*(\d+(?:\.\d+)?)\s*=\s*[？?]$/u);
+  if (!match) return { ok: false, reason: "prompt_parse", prompt, answer };
+  const expected = canonicalProduct(match[1], match[2]);
+  return { ok: answer === expected, left: match[1], right: match[2], expected, actual: answer };
+}
+
+const baseUrl = new URL(argument("base-url", process.env.P03F45_BASE_URL ?? DEFAULT_BASE_URL));
+const outputDir = resolve(argument("output-dir", process.env.P03F45_OUTPUT_DIR ?? DEFAULT_OUTPUT_DIR));
+const deploymentRetryCount = Number(argument("deployment-retries", process.env.P03F45_DEPLOYMENT_RETRIES ?? "20"));
+const deploymentRetryDelayMs = Number(argument("deployment-retry-delay-ms", process.env.P03F45_DEPLOYMENT_RETRY_DELAY_MS ?? "15000"));
+mkdirSync(outputDir, { recursive: true });
+
+async function fetchText(url) {
+  const response = await fetch(url, { cache: "no-store", headers: { "cache-control": "no-cache" } });
+  if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
+  return response.text();
+}
+
+async function waitForExactDeployment() {
+  let lastFailure = null;
+  for (let attempt = 1; attempt <= deploymentRetryCount; attempt += 1) {
+    try {
+      const assets = [];
+      for (const contract of assetContracts) {
+        const localText = readFileSync(repoPath(contract.repoPath), "utf8");
+        const expectedSha256 = sha256(localText);
+        const assetUrl = new URL(contract.publicPath, baseUrl);
+        assetUrl.searchParams.set("p03f45-sha", expectedSha256.slice(0, 16));
+        const liveText = await fetchText(assetUrl);
+        const liveSha256 = sha256(liveText);
+        const missingTokens = (contract.requiredTokens ?? []).filter((token) => !liveText.includes(token));
+        const forbiddenTokens = (contract.forbiddenTokens ?? []).filter((token) => liveText.includes(token));
+        if (liveSha256 !== expectedSha256 || missingTokens.length || forbiddenTokens.length) {
+          throw new Error(`${contract.publicPath} deployment mismatch expected=${expectedSha256} actual=${liveSha256} missing=${missingTokens.join(",")} forbidden=${forbiddenTokens.join(",")}`);
+        }
+        assets.push({ repoPath: contract.repoPath, publicUrl: new URL(contract.publicPath, baseUrl).href, expectedSha256, liveSha256, missingTokenCount: 0, forbiddenTokenCount: 0 });
+      }
+      return { attempt, assets };
+    } catch (error) {
+      lastFailure = error;
+      if (attempt < deploymentRetryCount) await sleep(deploymentRetryDelayMs);
+    }
+  }
+  throw new Error(`Slice045 exact Pages deployment not observed:${lastFailure?.message ?? "unknown"}`);
+}
+
+function buildLiveUrl() {
+  const url = new URL(baseUrl);
+  url.searchParams.set("sourceId", SOURCE_ID);
+  url.searchParams.set("selectionMode", "singleKnowledgePoint");
+  url.searchParams.set("questionCount", String(QUESTION_COUNT));
+  url.searchParams.set("ordering", "groupedByPattern");
+  url.searchParams.set("answerKey", "1");
+  url.searchParams.set("generationSeed", GENERATION_SEED);
+  url.searchParams.set("columns", "2");
+  url.searchParams.set("rowsPerPage", "4");
+  url.searchParams.append("kp", KP_ID);
+  url.searchParams.append("pg", GROUP_ID);
+  return url;
+}
+
+const liveUrl = buildLiveUrl();
+const consoleErrors = [];
+const pageErrors = [];
+const requestFailures = [];
+const serverErrors = [];
+let browser = null;
+let report = null;
+
+try {
+  const deployment = await waitForExactDeployment();
+  browser = await chromium.launch({ headless: true });
+  const page = await browser.newPage({ viewport: { width: 1440, height: 1100 }, deviceScaleFactor: 1 });
+  page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
+  page.on("pageerror", (error) => pageErrors.push(error.message));
+  page.on("requestfailed", (request) => requestFailures.push({ url: request.url(), errorText: request.failure()?.errorText ?? "unknown" }));
+  page.on("response", (response) => { if (response.status() >= 500) serverErrors.push({ url: response.url(), status: response.status() }); });
+
+  const response = await page.goto(liveUrl.href, { waitUntil: "networkidle", timeout: 120000 });
+  if (!response?.ok()) throw new Error(`Live Pages main response failed:${response?.status() ?? "no-response"}`);
+  await page.waitForFunction(() => document.querySelector("#batch-a-source-select")?.options?.length > 0, null, { timeout: 120000 });
+  await page.waitForFunction(({ sourceId, kpId }) => document.querySelector("#batch-a-source-select")?.value === sourceId
+    && document.querySelector(`[data-knowledge-point-id="${kpId}"]`)?.dataset?.selected === "true",
+  { sourceId: SOURCE_ID, kpId: KP_ID }, { timeout: 120000 });
+
+  const selectorState = await page.evaluate(async ({ sourceId, kpId, groupId, q049Application, q049Estimation }) => {
+    const registryUrl = new URL("pixel/pixel-registry-bridge.js", location.href);
+    registryUrl.searchParams.set("p03f45-e2e", String(Date.now()));
+    const registryModule = await import(registryUrl.href);
+    const registry = registryModule.getCurrentPixelRegistrySnapshot();
+    const source = registry.bySourceId[sourceId];
+    const bindingUrl = new URL("modules/curriculum/public/public-ui-capability-binding-p03f45.js", location.href);
+    bindingUrl.searchParams.set("p03f45-e2e", String(Date.now()));
+    const bindingModule = await import(bindingUrl.href);
+    const binding = bindingModule.resolvePublicUiCapabilityBinding({ sourceId, surfaceId: "classic", selectionMode: "singleKnowledgePoint", selectedKnowledgePointIds: [kpId], selectedPatternGroupIds: [groupId] });
+    const params = new URL(location.href).searchParams;
+    return {
+      sourceCount: registry.sourceCount,
+      visibleKnowledgePointCount: registry.visibleKnowledgePointCount,
+      sourceVisibleCount: source?.visibleKnowledgePoints?.length ?? 0,
+      sourceHiddenCount: source?.hiddenPendingCount ?? 0,
+      sourceNotSelectableCount: source?.notSelectableCount ?? 0,
+      sourceVisibleIds: (source?.visibleKnowledgePoints ?? []).map((row) => row.knowledgePointId),
+      sourceValue: document.querySelector("#batch-a-source-select")?.value ?? null,
+      kpSelected: document.querySelector(`[data-knowledge-point-id="${kpId}"]`)?.dataset?.selected ?? null,
+      selectionMode: document.querySelector("#batch-a-selection-mode-select")?.value ?? null,
+      queryKps: params.getAll("kp"),
+      queryGroups: params.getAll("pg"),
+      bindingBlocked: binding.blocked,
+      bindingQuestionType: binding.questionType,
+      bindingGroups: binding.compatiblePatternGroupIds,
+      bindingDepthCount: binding.depthOptions.length,
+      bindingContextCount: binding.contextOptions.length,
+      q049ApplicationVisible: (source?.visibleKnowledgePoints ?? []).some((row) => row.knowledgePointId === q049Application),
+      q049EstimationVisible: (source?.visibleKnowledgePoints ?? []).some((row) => row.knowledgePointId === q049Estimation),
+    };
+  }, { sourceId: SOURCE_ID, kpId: KP_ID, groupId: GROUP_ID, q049Application: Q049_APPLICATION_KP_ID, q049Estimation: Q049_ESTIMATION_KP_ID });
+
+  const liveWorksheet = await page.evaluate(async ({ sourceId, kpId, groupId, specId, questionCount, generationSeed }) => {
+    const moduleUrl = new URL("modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js", location.href);
+    moduleUrl.searchParams.set("p03f45-e2e", String(Date.now()));
+    const module = await import(moduleUrl.href);
+    const result = module.buildBatchABrowserWorksheetDocument({
+      sourceId,
+      selectionMode: "singleKnowledgePoint",
+      selectedKnowledgePointIds: [kpId],
+      selectedPatternGroupIds: [groupId],
+      patternSpecIds: [specId],
+      questionMode: "numeric",
+      questionCount,
+      generationSeed,
+      includeAnswerKey: true,
+      ordering: "groupedByPattern",
+      printLayout: { paperSize: "A4", columns: 2, rowsPerPage: 4, showQuestionNumbers: true, showAnswerKeyPage: true },
+    });
+    if (!result.ok || !result.worksheetDocument) return { ok: false, errors: result.errors ?? [] };
+    const doc = result.worksheetDocument;
+    return {
+      ok: true,
+      questionCount: doc.generatedQuestions.length,
+      answerCount: doc.answerKeyItems.length,
+      questionPageCount: doc.questionPages.length,
+      answerPageCount: doc.answerKeyPages.length,
+      metadata: doc.metadata,
+      scalePairs: [...new Set(doc.generatedQuestions.map((q) => `${q.leftScale}x${q.rightScale}`))],
+      sourceWitnesses: {
+        oneByOne: doc.generatedQuestions.some((q) => q.promptText === "0.3 × 0.8 = ？" && q.answerText === "0.24"),
+        twoByOne: doc.generatedQuestions.some((q) => q.promptText === "12.63 × 1.8 = ？" && q.answerText === "22.734"),
+        twoByTwoTrailingZero: doc.generatedQuestions.some((q) => q.promptText === "4.02 × 0.25 = ？" && q.fixedProductText === "1.0050" && q.answerText === "1.005"),
+      },
+    };
+  }, { sourceId: SOURCE_ID, kpId: KP_ID, groupId: GROUP_ID, specId: SPEC_ID, questionCount: QUESTION_COUNT, generationSeed: GENERATION_SEED });
+
+  await page.click("#regenerate-button");
+  await page.waitForFunction(() => document.querySelector("#status-panel")?.dataset?.tone === "success", null, { timeout: 120000 });
+  const frame = page.frames().find((candidate) => candidate !== page.mainFrame() && candidate.url() === "about:srcdoc") ?? page.frames().find((candidate) => candidate !== page.mainFrame());
+  if (!frame) throw new Error("preview iframe unavailable");
+  await frame.waitForSelector(".worksheet-cell--question", { timeout: 120000 });
+
+  const rendered = await frame.evaluate(() => {
+    const questions = [...document.querySelectorAll(".worksheet-cell--question")].map((node) => ({
+      questionId: node.dataset.questionId ?? null,
+      patternId: node.dataset.patternId ?? null,
+      promptText: node.querySelector(".worksheet-cell__prompt")?.textContent?.trim() ?? "",
+    }));
+    const answers = [...document.querySelectorAll(".worksheet-cell--answer-key")].map((node) => ({
+      questionId: node.dataset.questionId ?? null,
+      patternId: node.dataset.patternId ?? null,
+      promptText: node.querySelector(".worksheet-cell__prompt")?.textContent?.trim() ?? "",
+      answerText: node.querySelector(".worksheet-cell__answer")?.textContent?.trim() ?? "",
+    }));
+    const pages = [...document.querySelectorAll(".worksheet-page")].map((node, index) => ({
+      index,
+      pageType: node.dataset.pageType ?? null,
+      clientWidth: node.clientWidth,
+      scrollWidth: node.scrollWidth,
+      clientHeight: node.clientHeight,
+      scrollHeight: node.scrollHeight,
+      overflowX: node.scrollWidth > node.clientWidth + 1,
+      overflowY: node.scrollHeight > node.clientHeight + 1,
+    }));
+    return { questions, answers, pages, text: document.body.innerText };
+  });
+
+  const answerById = new Map(rendered.answers.map((row) => [row.questionId, row]));
+  const verifications = rendered.questions.map((question) => {
+    const answer = answerById.get(question.questionId);
+    return { questionId: question.questionId, patternId: question.patternId, promptText: question.promptText, answerText: answer?.answerText ?? "", ...verifyRenderedPair(question.promptText, answer?.answerText ?? "") };
+  });
+  const exactAnswerMismatchCount = verifications.filter((row) => !row.ok).length;
+  const unexpectedPatternCount = rendered.questions.filter((row) => row.patternId !== SPEC_ID).length + rendered.answers.filter((row) => row.patternId !== SPEC_ID).length;
+  const duplicateProblemCount = rendered.questions.length - new Set(rendered.questions.map((row) => row.promptText)).size;
+  const questionAnswerIdMismatchCount = rendered.questions.filter((row) => !answerById.has(row.questionId)).length;
+  const internalIdLeakageCount = (rendered.text.match(/\b(?:kp|pg|ps)_g5b_u04_[a-z0-9_]+\b/giu) ?? []).length;
+  const sourceWitnesses = {
+    oneByOne: verifications.some((row) => row.promptText === "0.3 × 0.8 = ？" && row.answerText === "0.24"),
+    twoByOne: verifications.some((row) => row.promptText === "12.63 × 1.8 = ？" && row.answerText === "22.734"),
+    twoByTwoTrailingZero: verifications.some((row) => row.promptText === "4.02 × 0.25 = ？" && row.answerText === "1.005"),
+  };
+
+  await frame.evaluate(() => { window.__p03f45PrintInvocationCount = 0; window.print = () => { window.__p03f45PrintInvocationCount += 1; }; });
+  await page.click("#print-button");
+  const printInvocationCount = await frame.evaluate(() => window.__p03f45PrintInvocationCount ?? 0);
+  await page.screenshot({ path: resolve(outputDir, "p03f45-live-classic.png"), fullPage: true });
+
+  report = {
+    schemaName: "P03FSlice045PostMergeMainPagesE2EReportV1",
+    taskId: "P03F_W3DirectProductVerticalSlice045PostMergeMainPagesE2E",
+    status: "PASS_P03F45_POSTMERGE_MAIN_PAGES_E2E",
+    exactImplementationHeadSha: EXACT_IMPLEMENTATION_HEAD_SHA,
+    exactImplementationMergeSha: EXACT_IMPLEMENTATION_MERGE_SHA,
+    baseUrl: baseUrl.href,
+    liveUrl: liveUrl.href,
+    deploymentAttempt: deployment.attempt,
+    deployedAssetCount: deployment.assets.length,
+    deployedAssetShaMismatchCount: deployment.assets.filter((row) => row.expectedSha256 !== row.liveSha256).length,
+    selectorState,
+    liveWorksheet,
+    questionCount: rendered.questions.length,
+    answerCount: rendered.answers.length,
+    questionPageCount: rendered.pages.filter((row) => row.pageType === "questions").length,
+    answerPageCount: rendered.pages.filter((row) => row.pageType === "answerKey").length,
+    exactAnswerMismatchCount,
+    unexpectedPatternCount,
+    duplicateProblemCount,
+    questionAnswerIdMismatchCount,
+    internalIdLeakageCount,
+    sourceWitnesses,
+    overflowFindingCount: rendered.pages.filter((row) => row.overflowX || row.overflowY).length,
+    printInvocationCount,
+    consoleErrorCount: consoleErrors.length,
+    pageErrorCount: pageErrors.length,
+    requestFailureCount: requestFailures.length,
+    serverErrorCount: serverErrors.length,
+    sharedRenderer: liveWorksheet.metadata?.worksheetAdapter?.sharedRenderer === true,
+    sharedPagination: liveWorksheet.metadata?.worksheetAdapter?.sharedPagination === true,
+    parallelPipeline: liveWorksheet.metadata?.worksheetAdapter?.parallelPipeline === true,
+    applicationExpansion: liveWorksheet.metadata?.applicationExpansion === true,
+    estimationExpansion: liveWorksheet.metadata?.estimationExpansion === true,
+    globalContextExpansion: liveWorksheet.metadata?.globalContextExpansion === true,
+    q049ApplicationExpansion: liveWorksheet.metadata?.q049ApplicationExpansion === true,
+    q049EstimationExpansion: liveWorksheet.metadata?.q049EstimationExpansion === true,
+    slice046Expansion: liveWorksheet.metadata?.slice046Expansion === true,
+    deployedAssets: deployment.assets,
+    verificationSamples: verifications.slice(0, 8),
+  };
+
+  const requiredScalePairs = ["1x1", "2x1", "2x2", "4x3"];
+  const pass = selectorState.sourceCount === 33
+    && selectorState.visibleKnowledgePointCount === 246
+    && selectorState.sourceVisibleCount === 3
+    && selectorState.sourceHiddenCount === 0
+    && selectorState.sourceNotSelectableCount === 0
+    && selectorState.sourceValue === SOURCE_ID
+    && selectorState.kpSelected === "true"
+    && selectorState.selectionMode === "singleKnowledgePoint"
+    && selectorState.queryKps.length === 1 && selectorState.queryKps[0] === KP_ID
+    && selectorState.queryGroups.length === 1 && selectorState.queryGroups[0] === GROUP_ID
+    && selectorState.bindingBlocked === false
+    && selectorState.bindingQuestionType === "numeric"
+    && selectorState.bindingGroups.length === 1 && selectorState.bindingGroups[0] === GROUP_ID
+    && selectorState.bindingDepthCount === 0 && selectorState.bindingContextCount === 0
+    && selectorState.q049ApplicationVisible === false && selectorState.q049EstimationVisible === false
+    && liveWorksheet.ok === true
+    && liveWorksheet.questionCount === 24 && liveWorksheet.answerCount === 24
+    && liveWorksheet.questionPageCount === 3 && liveWorksheet.answerPageCount === 3
+    && requiredScalePairs.every((pair) => liveWorksheet.scalePairs.includes(pair))
+    && Object.values(liveWorksheet.sourceWitnesses).every(Boolean)
+    && report.deployedAssetCount === 8 && report.deployedAssetShaMismatchCount === 0
+    && report.questionCount === 24 && report.answerCount === 24
+    && report.questionPageCount === 3 && report.answerPageCount === 3
+    && report.exactAnswerMismatchCount === 0 && report.unexpectedPatternCount === 0
+    && report.duplicateProblemCount === 0 && report.questionAnswerIdMismatchCount === 0
+    && report.internalIdLeakageCount === 0 && Object.values(report.sourceWitnesses).every(Boolean)
+    && report.overflowFindingCount === 0 && report.printInvocationCount === 1
+    && report.consoleErrorCount === 0 && report.pageErrorCount === 0
+    && report.requestFailureCount === 0 && report.serverErrorCount === 0
+    && report.sharedRenderer && report.sharedPagination && !report.parallelPipeline
+    && !report.applicationExpansion && !report.estimationExpansion && !report.globalContextExpansion
+    && !report.q049ApplicationExpansion && !report.q049EstimationExpansion && !report.slice046Expansion;
+
+  writeFileSync(resolve(outputDir, "p03f-slice045-live-pages-e2e-report.json"), `${JSON.stringify(report, null, 2)}\n`);
+  if (!pass) throw new Error(`P03F45_LIVE_PAGES_E2E_FAILED:${JSON.stringify(report)}`);
+  console.log(`P03F45_LIVE_PAGES_E2E=${JSON.stringify(report)}`);
+} catch (error) {
+  const failure = {
+    schemaName: "P03FSlice045PostMergeMainPagesE2EFailureV1",
+    taskId: "P03F_W3DirectProductVerticalSlice045PostMergeMainPagesE2E",
+    status: "FAIL",
+    exactImplementationHeadSha: EXACT_IMPLEMENTATION_HEAD_SHA,
+    exactImplementationMergeSha: EXACT_IMPLEMENTATION_MERGE_SHA,
+    error: error instanceof Error ? error.message : String(error),
+    consoleErrors,
+    pageErrors,
+    requestFailures,
+    serverErrors,
+    partialReport: report,
+  };
+  writeFileSync(resolve(outputDir, "p03f-slice045-live-pages-e2e-failure.json"), `${JSON.stringify(failure, null, 2)}\n`);
+  throw error;
+} finally {
+  if (browser) await browser.close();
+}
