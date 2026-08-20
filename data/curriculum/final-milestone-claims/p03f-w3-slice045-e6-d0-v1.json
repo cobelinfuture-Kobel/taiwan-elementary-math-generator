@@ -1,0 +1,193 @@
+{
+  "claimId": "P03F-W3-SLICE045-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice045Implementation",
+  "e6MilestoneId": "P03F_W3DirectProductVerticalSlice045_E6_D0Closeout",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "goalDistance": "D1",
+  "scope": "Slice045 only: g5b_u04_5b04 rank10 promotes the frozen q045 decimal-times-decimal KnowledgePoint through one numeric PatternGroup and one numeric PatternSpec using the existing shared decimal multiplication family, query-state, generator/validator, worksheet pagination and HTML renderer. Exact implementation CI, exact-head Chromium product acceptance, manual six-page visual review and post-merge Main/Pages E2E are bound. q049 decimal-multiplication application/estimation, Global Context, parallel pipelines and Slice046 implementation are not admitted by this candidate. Canonical frozen 793-route replay remains the final candidate closeout barrier.",
+  "authority": {
+    "path": "site/modules/curriculum/registry/g5b-u04-rank10-decimal-times-decimal-selector-projection-p03f45.js",
+    "queuePosition": 45,
+    "queueEntryId": "p03e_q045_r10_g5b_u04_5b04_profile_decimal_c1",
+    "sourceRef": "g5b_u04_5b04",
+    "sourceTitle": "小數的乘法",
+    "knowledgePointIds": [
+      "kp_g5b_u04_decimal_times_decimal"
+    ],
+    "patternGroupIds": [
+      "pg_g5b_u04_decimal_times_decimal_numeric"
+    ],
+    "patternSpecIds": [
+      "ps_g5b_u04_decimal_times_decimal_product_numeric"
+    ],
+    "futureQ049KnowledgePointIds": [
+      "kp_g5b_u04_decimal_multiplication_application",
+      "kp_g5b_u04_decimal_multiplication_estimation"
+    ],
+    "requiredCapabilityIds": [
+      "cap_decimal_arithmetic",
+      "cap_decimal_domain_validator",
+      "cap_decimal_number_system"
+    ],
+    "decimalArithmeticRequired": true,
+    "expectedPublicSourceCount": 33,
+    "expectedVisibleKnowledgePointCount": 246,
+    "expectedSourceVisibleCount": 3,
+    "expectedSourceHiddenCount": 0,
+    "expectedSourceNotSelectableCount": 0
+  },
+  "implementationEvidence": {
+    "prNumber": 636,
+    "headSha": "07ec2d5c2706ec75d907382239b5106a473a151e",
+    "mergeSha": "a02c44b5bca2cd1afc122a195d79b2f143d10968",
+    "mergeMethod": "merge",
+    "runtimePath": "site/modules/curriculum/batch-a/g5b-u04-rank10-decimal-times-decimal-runtime-p03f45.js",
+    "runtimeBlobShaOnMain": "90900b8cd14c0ba4c15b9e60d00777d8721df2e0",
+    "node": {
+      "runId": 32324652057,
+      "jobId": 96293345724,
+      "status": "SUCCESS",
+      "tests": 3265,
+      "pass": 3265,
+      "fail": 0,
+      "skipped": 0,
+      "diagnosticsArtifactId": 9390977757,
+      "diagnosticsDigest": "sha256:045733edef4c41583ebd8745eafaa2e30e4004608e13f56ffedaa26f10d6fb16"
+    },
+    "productAcceptance": {
+      "runId": 32324652124,
+      "jobId": 96293345641,
+      "status": "SUCCESS",
+      "artifactId": 9390916787,
+      "artifactName": "p03f-slice045-product-acceptance",
+      "artifactDigest": "sha256:ab9385c209bf36143dcc3f079f229f01b62a59c21d8c8486f98343d277994469",
+      "questionCount": 24,
+      "answerKeyItemCount": 24,
+      "patternSpecCount": 1,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "physicalPdfPageCount": 6,
+      "screenshotCount": 6,
+      "htmlSha256": "e0c72dbc79579fabbf91b962830ddcd4b2f2cedcbe61cba573850702c704156c",
+      "pdfSha256": "ef175c0193826df20a6eabfdb0f37de17b763d5381e81ce0ff328841ca017bf9",
+      "pdfByteLength": 39884,
+      "scalePairWitnesses": ["1x1", "2x1", "2x2", "4x3"],
+      "sourceWitnesses": {
+        "oneByOne": true,
+        "twoByOne": true,
+        "twoByTwoTrailingZero": true
+      },
+      "trailingZeroCanonicalizationWitnessCount": 5,
+      "crossLayerMismatchCount": 0,
+      "exactAnswerMismatchCount": 0,
+      "semanticScopeFindingCount": 0,
+      "capabilityMismatchFindingCount": 0,
+      "q049LeakFindingCount": 0,
+      "duplicatePromptFindingCount": 0,
+      "overflowFindingCount": 0,
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "sharedDecimalArithmetic": true,
+      "sharedDecimalNumberSystem": true,
+      "sharedDecimalDomainValidator": true,
+      "sharedNumericRendererAdapter": true,
+      "sharedPagination": true,
+      "sharedRenderer": true,
+      "parallelPipeline": false,
+      "applicationExpansion": false,
+      "estimationExpansion": false,
+      "globalContextExpansion": false,
+      "q049ApplicationExpansion": false,
+      "q049EstimationExpansion": false,
+      "slice046Expansion": false,
+      "manualVisualReview": {
+        "status": "PASS",
+        "pagesReviewed": 6,
+        "evidenceSource": "operator_manual_visual_review_of_exact_final_head_product_artifact",
+        "exactHeadReviewed": true,
+        "clippedTextFindingCount": 0,
+        "overlapFindingCount": 0,
+        "brokenGlyphFindingCount": 0,
+        "questionAnswerAlignmentVisible": true,
+        "twoColumnEightQuestionsPerPageConsistent": true,
+        "decimalProductsLegible": true
+      }
+    }
+  },
+  "mainReadback": {
+    "implementationMergeSha": "a02c44b5bca2cd1afc122a195d79b2f143d10968",
+    "evidenceMergeSha": "a686b962863f4aa008f452d1b11ee545a300f6c1",
+    "candidateMergeSha": null,
+    "publicSourcesAtAdmission": 33,
+    "visibleKnowledgePointsAtAdmission": 246,
+    "g5bU04VisibleKnowledgePoints": 3,
+    "g5bU04HiddenKnowledgePoints": 0,
+    "g5bU04NotSelectableKnowledgePoints": 0,
+    "publicUiBindingGaps": 0,
+    "runtimeBlobMatchesImplementation": true
+  },
+  "livePagesE2E": {
+    "prNumber": 637,
+    "headSha": "8be2c35d952a130beaf2ac8a32763b0e6d587ba4",
+    "mergeSha": "a686b962863f4aa008f452d1b11ee545a300f6c1",
+    "runId": 32325620617,
+    "jobId": 96296151978,
+    "artifactId": 9391241309,
+    "artifactDigest": "sha256:69052ab4835ac9e30b8541be7af1fea6699bf20205fbdfa457898290eef40d20",
+    "status": "PASS_P03F45_POSTMERGE_MAIN_PAGES_E2E",
+    "exactImplementationMergeSha": "a02c44b5bca2cd1afc122a195d79b2f143d10968",
+    "deploymentAttempt": 1,
+    "deployedAssetCount": 8,
+    "deployedAssetShaMismatchCount": 0,
+    "publicSourceCount": 33,
+    "visibleKnowledgePointCount": 246,
+    "sourceVisibleCount": 3,
+    "sourceHiddenCount": 0,
+    "sourceNotSelectableCount": 0,
+    "questionCount": 24,
+    "answerCount": 24,
+    "questionPageCount": 3,
+    "answerPageCount": 3,
+    "scalePairWitnesses": ["1x1", "2x1", "2x2", "4x3"],
+    "sourceWitnesses": {
+      "oneByOne": true,
+      "twoByOne": true,
+      "twoByTwoTrailingZero": true
+    },
+    "exactAnswerMismatchCount": 0,
+    "unexpectedPatternCount": 0,
+    "duplicateProblemCount": 0,
+    "questionAnswerIdMismatchCount": 0,
+    "internalIdLeakageCount": 0,
+    "overflowFindingCount": 0,
+    "printInvocationCount": 1,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "requestFailureCount": 0,
+    "serverErrorCount": 0,
+    "sharedRenderer": true,
+    "sharedPagination": true,
+    "parallelPipeline": false,
+    "applicationExpansion": false,
+    "estimationExpansion": false,
+    "globalContextExpansion": false,
+    "q049ApplicationExpansion": false,
+    "q049EstimationExpansion": false,
+    "slice046Expansion": false
+  },
+  "canonical793Evidence": {
+    "status": "PENDING_CLOSEOUT_CANDIDATE_CI",
+    "workflow": "PGC-R00 Public Generation Scope Freeze",
+    "triggerPath": "tests/curriculum/pgc-r00-public-generation-scope.test.js",
+    "legalRouteCount": 793
+  },
+  "closeoutEvidence": {
+    "status": "PENDING_CLOSEOUT_CANDIDATE_CI"
+  },
+  "progression": {
+    "nextTask": "P03F_W3DirectProductVerticalSlice046Implementation",
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice045_D0PostMergeReconciliation"
+  }
+}
