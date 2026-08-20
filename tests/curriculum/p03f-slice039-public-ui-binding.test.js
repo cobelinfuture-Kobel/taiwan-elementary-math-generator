@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {PUBLIC_UI_SURFACES,resolvePublicUiCapabilityBinding} from "../../site/modules/curriculum/public/public-ui-capability-binding-p03f39.js";
 import {G5B_U04_P03F39_GROUP_ID,G5B_U04_P03F39_KP_ID,G5B_U04_P03F39_SOURCE_ID} from "../../site/modules/curriculum/registry/g5b-u04-rank9-integer-times-decimal-selector-projection-p03f39.js";
 import {G5B_U04_P03F31_GROUP_ID,G5B_U04_P03F31_KP_ID} from "../../site/modules/curriculum/registry/g5b-u04-rank8-decimal-times-integer-selector-projection-p03f31.js";
+import {G5B_U04_P03F45_KP_ID} from "../../site/modules/curriculum/registry/g5b-u04-rank10-decimal-times-decimal-selector-projection-p03f45.js";
 import {getCurrentPixelRegistrySnapshot,getCurrentPixelSourceSummary} from "../../site/pixel/pixel-registry-bridge.js";
 import {parseQueryState} from "../../site/assets/browser/state/query-state.js";
 
@@ -18,12 +19,12 @@ test("P03F39 exposes q039 numeric-only binding on every public surface",()=>{
   }
 });
 
-test("P03F39 current Pixel registry advances through Slice044 to 33/245 and G5B-U04 contains q031 plus q039",()=>{
+test("P03F39 current Pixel registry advances through Slice045 to 33/246 and G5B-U04 contains q031 q039 plus q045",()=>{
   const registry=getCurrentPixelRegistrySnapshot();
-  assert.deepEqual([registry.sourceCount,registry.visibleKnowledgePointCount],[33,245]);
+  assert.deepEqual([registry.sourceCount,registry.visibleKnowledgePointCount],[33,246]);
   const summary=getCurrentPixelSourceSummary(G5B_U04_P03F39_SOURCE_ID);
   const ids=summary.visibleKnowledgePoints.map(row=>row.knowledgePointId);
-  assert.deepEqual(new Set(ids),new Set([G5B_U04_P03F31_KP_ID,G5B_U04_P03F39_KP_ID]));
+  assert.deepEqual(new Set(ids),new Set([G5B_U04_P03F31_KP_ID,G5B_U04_P03F39_KP_ID,G5B_U04_P03F45_KP_ID]));
   assert.deepEqual([summary.hiddenPendingCount,summary.notSelectableCount],[0,0]);
 });
 
