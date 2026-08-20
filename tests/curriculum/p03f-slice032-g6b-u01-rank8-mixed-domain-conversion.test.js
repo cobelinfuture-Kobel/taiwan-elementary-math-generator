@@ -86,12 +86,12 @@ test("P03F32 selector admits one KP, one group and exactly two numeric conversio
   assert.deepEqual(rows[0].patternSpecIds, G6B_U01_P03F32_SPEC_IDS);
 });
 
-test("P03F32 current Classic and Pixel inventories advance monotonically through Slice045 to 33 sources / 246 KPs", () => {
+test("P03F32 current Classic and Pixel inventories advance monotonically through Slice046 to 33 sources / 247 KPs", () => {
   assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 33);
   assert.equal(listCurrentPixelSourceOptions().length, 33);
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.equal(snapshot.sourceCount, 33);
-  assert.equal(snapshot.visibleKnowledgePointCount, 246);
+  assert.equal(snapshot.visibleKnowledgePointCount, 247);
   const rows = listPixelKnowledgePointsForSource(G6B_U01_P03F32_SOURCE_ID);
   assert.equal(rows.length, 2);
   assert.deepEqual(
