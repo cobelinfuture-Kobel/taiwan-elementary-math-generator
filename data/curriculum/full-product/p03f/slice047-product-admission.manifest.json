@@ -4,14 +4,23 @@
   "queuePosition": 47,
   "queueEntryId": "p03e_q047_r10_g6b_u01_6b01_profile_mixed_number_domain_c1",
   "sourceId": "g6b_u01_6b01",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "site/modules/curriculum/registry/g6b-u01-rank10-mixed-decimal-fraction-add-sub-selector-projection-p03f47.js",
-  "knowledgePointIds": ["kp_g6b_u01_mixed_decimal_fraction_add_sub"],
-  "patternGroupIds": ["pg_g6b_u01_mixed_decimal_fraction_add_sub_numeric"],
-  "patternSpecIds": ["ps_g6b_u01_mixed_decimal_fraction_add_sub_result_numeric"],
-  "hiddenSiblingKnowledgePointIds": ["kp_g6b_u01_mixed_decimal_fraction_mul_div", "kp_g6b_u01_mixed_domain_expression"],
+  "knowledgePointIds": [
+    "kp_g6b_u01_mixed_decimal_fraction_add_sub"
+  ],
+  "patternGroupIds": [
+    "pg_g6b_u01_mixed_decimal_fraction_add_sub_numeric"
+  ],
+  "patternSpecIds": [
+    "ps_g6b_u01_mixed_decimal_fraction_add_sub_result_numeric"
+  ],
+  "hiddenSiblingKnowledgePointIds": [
+    "kp_g6b_u01_mixed_decimal_fraction_mul_div",
+    "kp_g6b_u01_mixed_domain_expression"
+  ],
   "currentAuthority": {
     "publicSourcesAtAdmission": 33,
     "visibleKnowledgePointsAtAdmission": 248,
@@ -92,16 +101,24 @@
     "fullRouteReplayRequired": false
   },
   "closeoutPr": {
-    "number": null,
-    "headSha": null,
-    "mergeSha": null
+    "number": 646,
+    "headSha": "97e2ea8a82ebd6e34da2bc7cc21a365fcff18ac0",
+    "mergeSha": "02694141ae9a3c776e968b60e50dc354f48e4fbe"
   },
   "closeoutNode": {
-    "status": "PENDING_EXACT_HEAD_NODE_CI"
+    "runId": 32458296726,
+    "jobId": 96699859401,
+    "status": "SUCCESS",
+    "tests": 3301,
+    "pass": 3301,
+    "fail": 0,
+    "skipped": 0,
+    "artifactId": 9438099922,
+    "artifactDigest": "sha256:2ec9d0ecc773126fddbfbe51dacba445d9fc2776cc66c34d2f5e81cecf07d1ca"
   },
   "productionAdmission": {
-    "slice047Admitted": false,
-    "slice048MayStart": false
+    "slice047Admitted": true,
+    "slice048MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice047_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice048Implementation"
 }
