@@ -139,16 +139,16 @@ test("P03F44 post-merge Pages E2E binds exact deployed product and recovered tra
   assert.equal(e2e.recovery.successfulRerunJobId, e2e.jobId);
 });
 
-test("P03F44 current Pixel authority advances through Slice047 to 33/248 while G5A-U01 remains 7/1/0", () => {
+test("P03F44 current Pixel authority advances through Slice048 to 33/249 while G5A-U01 advances to 8/0/0", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 248);
+  assert.equal(pixel.visibleKnowledgePointCount, 249);
   const source = pixel.bySourceId[G5A_U01_P03F44_SOURCE_ID];
-  assert.equal(source.visibleKnowledgePoints.length, 7);
-  assert.equal(source.hiddenPendingCount, 1);
+  assert.equal(source.visibleKnowledgePoints.length, 8);
+  assert.equal(source.hiddenPendingCount, 0);
   assert.equal(source.notSelectableCount, 0);
   for (const kpId of P03F44_KP_IDS) assert.ok(source.visibleKnowledgePoints.some((row) => row.knowledgePointId === kpId));
-  for (const kpId of P03F44_HIDDEN_SIBLING_KP_IDS) assert.equal(source.visibleKnowledgePoints.some((row) => row.knowledgePointId === kpId), false);
+  for (const kpId of P03F44_HIDDEN_SIBLING_KP_IDS) assert.ok(source.visibleKnowledgePoints.some((row) => row.knowledgePointId === kpId));
 });
 
 test("P03F44 candidate is fail-closed and final D0 releases only Slice045", () => {

@@ -43,10 +43,10 @@ test("P03F41 query-state deep link preserves the promoted KP and PatternGroup",(
   assert.deepEqual(state.selectorWarnings,[]);
 });
 
-test("P03F41 current Pixel inventory through Slice047 is 33 sources / 248 KPs with G6B-U01 3/2/2",()=>{
+test("P03F41 current Pixel inventory through Slice048 is 33 sources / 249 KPs with G6B-U01 3/2/2",()=>{
   const pixel=getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount,33);
-  assert.equal(pixel.visibleKnowledgePointCount,248);
+  assert.equal(pixel.visibleKnowledgePointCount,249);
   const source=pixel.bySourceId[G6B_U01_P03F41_SOURCE_ID];
   assert.equal(source.visibleKnowledgePoints.length,3);
   assert.equal(source.hiddenPendingCount,2);
