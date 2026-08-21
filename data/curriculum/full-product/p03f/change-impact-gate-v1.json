@@ -1,0 +1,40 @@
+{
+  "schemaName": "P03FChangeImpactGateV1",
+  "policyId": "P03F_CHANGE_IMPACT_GATE_V1",
+  "principle": "Validation level is selected by blast radius, not by Slice number or D0 closeout status.",
+  "levels": {
+    "L1": ["sliceFocused", "sliceChromiumOrE2E"],
+    "L2": ["sliceFocused", "sliceChromiumOrE2E", "nodeFullRegression"],
+    "L3": ["sliceFocused", "sliceChromiumOrE2E", "nodeFullRegression", "necessaryGlobalContracts"],
+    "L4": ["sliceFocused", "sliceChromiumOrE2E", "nodeFullRegression", "necessaryGlobalContracts", "fullLegalRouteBrowserReplay"]
+  },
+  "decisionInputs": [
+    "sharedExecutablePathModified",
+    "sharedExecutionSemanticsChanged",
+    "legalRouteSemanticsChanged",
+    "currentAuthorityChanged",
+    "affectedRouteSetBounded",
+    "globalReleaseCheckpoint"
+  ],
+  "rules": {
+    "governanceOnlyWithoutRouteAuthorityChange": "L1_OR_L2_NO_FULL_REPLAY",
+    "leafSliceBoundedNoSharedRuntimeChange": "L2_TARGETED_E2E_NO_FULL_REPLAY",
+    "currentAuthorityOnlySemanticsUnchanged": "L3_GLOBAL_CONTRACTS_NO_FULL_REPLAY",
+    "sharedRuntimeBoundedSemanticsUnchanged": "L3_GLOBAL_CONTRACTS_TARGETED_REPLAY",
+    "sharedRuntimeUnbounded": "L4_FULL_REPLAY",
+    "legalRouteSemanticsChanged": "L4_FULL_REPLAY",
+    "globalReleaseCheckpoint": "L4_FULL_REPLAY"
+  },
+  "invariants": {
+    "d0CloseoutAloneTriggersFullReplay": false,
+    "commentOnlyReplayTriggerMayEscalateValidation": false,
+    "boundedImpactUsesTargetedReplay": true,
+    "unboundedImpactUsesFullReplay": true,
+    "authorityChangeDoesNotImplyHistoricalBrowserReplay": true
+  },
+  "currentFrozenFullReplay": {
+    "workflow": "PGC-R00 Public Generation Scope Freeze",
+    "legalRouteCount": 793,
+    "purpose": "GLOBAL_PRODUCT_CERTIFICATION_OR_UNBOUNDED_CHANGE_ONLY"
+  }
+}

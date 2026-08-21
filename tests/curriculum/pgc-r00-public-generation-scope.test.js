@@ -4,15 +4,9 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import {
-  CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS,
-} from "../../site/modules/curriculum/batch-a/source-units.js";
-import {
-  auditP03F13PublicSelectorComposition,
-} from "../../site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js";
-import {
-  auditFullProductPublicControlProfiles,
-} from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
+import { CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS } from "../../site/modules/curriculum/batch-a/source-units.js";
+import { auditP03F13PublicSelectorComposition } from "../../site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js";
+import { auditFullProductPublicControlProfiles } from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
 
 // P03F36 D0 closeout replay trigger; historical closeout compatibility marker retained.
 // P03F37 D0 closeout replay trigger; executable and Slice033 historical authority below are unchanged.
@@ -29,17 +23,9 @@ const repoRoot = path.resolve(here, "../..");
 const scopePath = path.join(repoRoot, "data/curriculum/public-generation/public_generation_scope.json");
 const csvPath = path.join(repoRoot, "data/curriculum/public-generation/public_route_registry.csv");
 const scope = JSON.parse(fs.readFileSync(scopePath, "utf8"));
-
 const byId = new Map(scope.routes.map((route) => [route.routeId, route]));
 const routeIds = scope.routes.map((route) => route.routeId);
-const allowedClassifications = new Set([
-  "PUBLIC_ACTIVE",
-  "PUBLIC_DEPRECATED",
-  "INTERNAL_ONLY",
-  "HIDDEN_CANDIDATE",
-  "DEAD_ROUTE",
-  "DUPLICATE_AUTHORITY",
-]);
+const allowedClassifications = new Set(["PUBLIC_ACTIVE", "PUBLIC_DEPRECATED", "INTERNAL_ONLY", "HIDDEN_CANDIDATE", "DEAD_ROUTE", "DUPLICATE_AUTHORITY"]);
 
 function expectRoute(routeId, classification) {
   const route = byId.get(routeId);
@@ -53,15 +39,10 @@ test("PGC-R00 freezes the exact 26-source historical authority while current pub
   assert.equal(scope.taskId, "PGC-R00_PublicGenerationScopeAndAuthorityFreeze");
   assert.equal(scope.currentAuthority.publicSourceCount, 26);
   assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 33);
-  assert.equal(
-    new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size,
-    33,
-  );
-
+  assert.equal(new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size, 33);
   const selectorAudit = auditP03F13PublicSelectorComposition();
   assert.equal(selectorAudit.ok, true, selectorAudit.errors.join("\n"));
   assert.equal(selectorAudit.counts.publicSources, 26);
-
   const profileAudit = auditFullProductPublicControlProfiles({ includeW3Slice013: true });
   assert.equal(profileAudit.ok, true, profileAudit.errors.join("\n"));
   assert.equal(profileAudit.profileCount, 26);
