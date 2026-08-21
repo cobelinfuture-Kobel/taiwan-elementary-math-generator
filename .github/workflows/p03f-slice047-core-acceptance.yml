@@ -1,0 +1,34 @@
+name: P03F Slice047 Core Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f47-core-acceptance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-core-acceptance:
+    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'p03f47-g6b-u01-rank10-mixed-decimal-fraction-add-sub'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run Slice047 focused contracts
+        run: |
+          node --test \
+            tests/curriculum/p03f-slice047-g6b-u01-rank10-mixed-decimal-fraction-add-sub.test.js \
+            tests/curriculum/p03f-slice047-public-ui-binding.test.js
