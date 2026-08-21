@@ -80,10 +80,10 @@ test("P03F46 post-merge targeted Pages E2E binds exact deployed product", () => 
   assert.equal(e2e.slice047Expansion, false);
 });
 
-test("P03F46 current Pixel authority preserves 33/247 and G5B-U06 2/3/3", () => {
+test("P03F46 current Pixel authority advances through Slice047 to 33/248 while preserving G5B-U06 2/3/3", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 247);
+  assert.equal(pixel.visibleKnowledgePointCount, 248);
   const source = pixel.bySourceId[G5B_U06_P03F46_SOURCE_ID];
   assert.equal(source.visibleKnowledgePoints.length, 2);
   assert.equal(source.hiddenPendingCount, 3);

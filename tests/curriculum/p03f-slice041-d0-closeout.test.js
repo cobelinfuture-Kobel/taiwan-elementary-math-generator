@@ -98,13 +98,13 @@ test("P03F41 post-merge Pages E2E binds the deployed product", () => {
   assert.equal(e2e.slice042Started, false);
 });
 
-test("P03F41 current Pixel authority preserves q041 admission", () => {
+test("P03F41 current Pixel authority preserves q041 admission and includes q047 successor", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.ok(pixel.sourceCount >= 33);
-  assert.ok(pixel.visibleKnowledgePointCount >= 239);
-  assert.equal(pixel.bySourceId[G6B_U01_P03F41_SOURCE_ID].visibleKnowledgePoints.length, 2);
-  assert.equal(pixel.bySourceId[G6B_U01_P03F41_SOURCE_ID].hiddenPendingCount, 3);
-  assert.equal(pixel.bySourceId[G6B_U01_P03F41_SOURCE_ID].notSelectableCount, 3);
+  assert.ok(pixel.visibleKnowledgePointCount >= 248);
+  assert.equal(pixel.bySourceId[G6B_U01_P03F41_SOURCE_ID].visibleKnowledgePoints.length, 3);
+  assert.equal(pixel.bySourceId[G6B_U01_P03F41_SOURCE_ID].hiddenPendingCount, 2);
+  assert.equal(pixel.bySourceId[G6B_U01_P03F41_SOURCE_ID].notSelectableCount, 2);
 });
 
 test("P03F41 candidate is fail-closed and final D0 releases only Slice042", () => {

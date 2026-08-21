@@ -1,0 +1,124 @@
+{
+  "schemaName": "P03FSlice047G6BU01Rank10MixedDecimalFractionAddSubAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice047Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 47,
+    "sliceId": "p03e_q047_r10_g6b_u01_6b01_profile_mixed_number_domain_c1",
+    "previousSliceId": "p03e_q046_r10_g5b_u06_5b06_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 640,
+      "postMergeEvidencePr": 641,
+      "candidateCloseoutPr": 642,
+      "finalCloseoutPr": 643,
+      "finalCloseoutMergeSha": "b1ff4c477c2cc3de6c568c2863a893cd229f2a46",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6b_u01_6b01",
+    "sourceTitle": "小數與分數的計算",
+    "grade": 6,
+    "semester": "lower",
+    "unitCode": "6B-U01",
+    "r02CandidatePath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "reviewLineageAuthority": "data/curriculum/full-product/p03f/slice041-g6b-u01-rank9-mixed-domain-order-authority.json",
+    "sourceFileName": "meow911_6b01_source.pdf",
+    "sourceDriveFileId": "1CzY3FQ1z4OKy7BsT7tr2f9ZcFfhGkSJK",
+    "reviewMethod": "R02_CANONICAL_REVIEW_PLUS_SLICE041_FULL_PAGE_VISUAL_READBACK",
+    "reviewedPages": [1],
+    "sourceWitnesses": [
+      {"concept":"mixed_decimal_fraction_addition","visibleExpression":"1.8 + 1 3/4","page":1}
+    ],
+    "verificationBoundary": "q047 admits exact numeric mixed decimal/fraction addition and subtraction only. Multiplication/division, mixed expressions, application and Global Context remain frozen."
+  },
+  "knowledgePointIds": ["kp_g6b_u01_mixed_decimal_fraction_add_sub"],
+  "knowledgePoints": [{
+    "knowledgePointId": "kp_g6b_u01_mixed_decimal_fraction_add_sub",
+    "canonicalNameZh": "小數分數加減",
+    "capabilityStatement": "學生能統一表示後進行小數與分數加減。",
+    "scope": "將一個有限小數與一個分數轉為共同精確有理數表示後進行加法或非負減法，結果以最簡分數或帶分數表示。",
+    "reasoningInvariant": "運算前須將數轉成共同數域或共同單位；結果必須等於精確有理數加減，不使用浮點相等判定。",
+    "evidencePages": [1],
+    "applicationClassification": "APPLICATION_COMPATIBLE_FUTURE_QUEUE_RESERVED",
+    "publicModes": ["numeric"],
+    "operationModelId": "op_g6b_u01_mixed_decimal_fraction_add_sub",
+    "operationFamilyId": "mixed_domain_add_sub",
+    "requiredW3CapabilityIds": [
+      "cap_decimal_arithmetic",
+      "cap_decimal_domain_validator",
+      "cap_decimal_number_system",
+      "cap_fraction_arithmetic",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system",
+      "cap_mixed_number_domain_normalization"
+    ]
+  }],
+  "patternSurfaces": [{
+    "patternGroupId": "pg_g6b_u01_mixed_decimal_fraction_add_sub_numeric",
+    "patternSpecId": "ps_g6b_u01_mixed_decimal_fraction_add_sub_result_numeric",
+    "knowledgePointId": "kp_g6b_u01_mixed_decimal_fraction_add_sub",
+    "operationModelId": "op_g6b_u01_mixed_decimal_fraction_add_sub",
+    "operationFamilyId": "mixed_domain_add_sub",
+    "mode": "NUMERIC",
+    "requestedUnknownRole": "result",
+    "givenRoles": ["decimalOperand", "fractionOperand", "arithmeticOperation"]
+  }],
+  "formalMappingBoundary": {
+    "decimalOperandRequired": true,
+    "fractionOperandRequired": true,
+    "additionAndSubtractionRequired": true,
+    "balancedOperationCoverageRequired": true,
+    "nonnegativeSubtractionRequired": true,
+    "exactRationalRecalculationRequired": true,
+    "sharedP03F32MixedDomainNormalizerRequired": true,
+    "floatingPointEqualityAllowed": false,
+    "applicationRequired": false,
+    "globalContextRequired": false
+  },
+  "sourceSiblingBoundary": {
+    "visibleKnowledgePointIdsAfterAdmission": [
+      "kp_g6b_u01_decimal_fraction_conversion",
+      "kp_g6b_u01_mixed_number_domain_order",
+      "kp_g6b_u01_mixed_decimal_fraction_add_sub"
+    ],
+    "hiddenKnowledgePointIdsAfterAdmission": [
+      "kp_g6b_u01_mixed_decimal_fraction_mul_div",
+      "kp_g6b_u01_mixed_domain_expression"
+    ],
+    "laterWaveExcludedKnowledgePointIds": [
+      "kp_g6b_u01_mixed_decimal_fraction_mul_div",
+      "kp_g6b_u01_mixed_domain_expression"
+    ]
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "expectedSourceVisibleCountAfterAdmission": 3,
+    "expectedSourceHiddenCountAfterAdmission": 2,
+    "expectedSourceNotSelectableCountAfterAdmission": 2,
+    "expectedPublicSourceCountAfterAdmission": 33,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 248,
+    "sharedMixedDomainNormalizerRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice048Implementation"
+  },
+  "changeImpactGate": {
+    "policy": "P03F_CHANGE_IMPACT_GATE_V1",
+    "preflightLevel": "L3",
+    "reason": "bounded successor selector/router/current-authority cutover; shared mathematical semantics and legal-route semantics unchanged",
+    "full793RouteReplayRequired": false
+  }
+}
