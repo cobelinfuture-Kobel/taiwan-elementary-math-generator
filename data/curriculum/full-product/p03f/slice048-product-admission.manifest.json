@@ -4,9 +4,9 @@
   "queuePosition": 48,
   "queueEntryId": "p03e_q048_r11_g5a_u01_5a01_profile_decimal_c1",
   "sourceId": "g5a_u01_5a01",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "site/modules/curriculum/registry/g5a-u01-rank11-inverse-rounding-range-selector-projection-p03f48.js",
   "knowledgePointIds": ["kp_g5a_u01_inverse_rounding_range"],
   "patternGroupIds": ["pg_g5a_u01_inverse_rounding_range_numeric"],
@@ -90,16 +90,24 @@
     "fullRouteReplayRequired": false
   },
   "closeoutPr": {
-    "number": null,
-    "headSha": null,
-    "mergeSha": null
+    "number": 650,
+    "headSha": "fd379c40f97fa645176be4e76ffde188a96ac139",
+    "mergeSha": "6d00b52673daa2f461a309129c5a59c0e490d2bc"
   },
   "closeoutNode": {
-    "status": "PENDING_EXACT_HEAD_NODE_CI"
+    "runId": 32500747246,
+    "jobId": 96829592672,
+    "status": "SUCCESS",
+    "tests": 3312,
+    "pass": 3312,
+    "fail": 0,
+    "skipped": 0,
+    "artifactId": 9453500321,
+    "artifactDigest": "sha256:0ac594d6da3b08d73dcdca3c7a62314a59def202d7f65d8430bed27b67d45add"
   },
   "productionAdmission": {
-    "slice048Admitted": false,
-    "slice049MayStart": false
+    "slice048Admitted": true,
+    "slice049MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice048_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice049Implementation"
 }
