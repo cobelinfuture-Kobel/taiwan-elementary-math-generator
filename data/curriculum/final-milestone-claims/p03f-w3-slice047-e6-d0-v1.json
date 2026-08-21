@@ -3,8 +3,8 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F_W3DirectProductVerticalSlice047Implementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice047_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice047 only: g6b_u01_6b01 rank10 promotes the frozen q047 mixed decimal/fraction add-sub KnowledgePoint through one numeric PatternGroup and one numeric PatternSpec using the existing P03F32 mixed-domain exact-rational normalizer, shared decimal/fraction arithmetic capabilities, bounded selector successor dispatch, generator/validator, worksheet pagination and HTML renderer. Exact implementation CI, global contracts, exact-head Chromium product acceptance, manual six-page visual review, post-merge Main/Pages targeted E2E and deployed six-page visual review are bound. Multiplication/division, mixed expressions, application, Global Context, parallel pipelines and Slice048 are not admitted by Slice047. Change Impact Gate V1 classifies Slice047 as L3 bounded impact; full 793-route replay is not a D0 requirement.",
   "authority": {
     "path": "site/modules/curriculum/registry/g6b-u01-rank10-mixed-decimal-fraction-add-sub-selector-projection-p03f47.js",
@@ -12,11 +12,28 @@
     "queueEntryId": "p03e_q047_r10_g6b_u01_6b01_profile_mixed_number_domain_c1",
     "sourceRef": "g6b_u01_6b01",
     "sourceTitle": "小數與分數的計算",
-    "knowledgePointIds": ["kp_g6b_u01_mixed_decimal_fraction_add_sub"],
-    "patternGroupIds": ["pg_g6b_u01_mixed_decimal_fraction_add_sub_numeric"],
-    "patternSpecIds": ["ps_g6b_u01_mixed_decimal_fraction_add_sub_result_numeric"],
-    "hiddenSiblingKnowledgePointIds": ["kp_g6b_u01_mixed_decimal_fraction_mul_div", "kp_g6b_u01_mixed_domain_expression"],
-    "requiredCapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system", "cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system", "cap_mixed_number_domain_normalization"],
+    "knowledgePointIds": [
+      "kp_g6b_u01_mixed_decimal_fraction_add_sub"
+    ],
+    "patternGroupIds": [
+      "pg_g6b_u01_mixed_decimal_fraction_add_sub_numeric"
+    ],
+    "patternSpecIds": [
+      "ps_g6b_u01_mixed_decimal_fraction_add_sub_result_numeric"
+    ],
+    "hiddenSiblingKnowledgePointIds": [
+      "kp_g6b_u01_mixed_decimal_fraction_mul_div",
+      "kp_g6b_u01_mixed_domain_expression"
+    ],
+    "requiredCapabilityIds": [
+      "cap_decimal_arithmetic",
+      "cap_decimal_domain_validator",
+      "cap_decimal_number_system",
+      "cap_fraction_arithmetic",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system",
+      "cap_mixed_number_domain_normalization"
+    ],
     "sharedP03F32MixedDomainNormalizerRequired": true,
     "expectedPublicSourceCount": 33,
     "expectedVisibleKnowledgePointCount": 248,
@@ -28,7 +45,9 @@
     "sourceFileName": "meow911_6b01_source.pdf",
     "sourceSha256Status": "NOT_RECORDED_IN_SLICE047_REPOSITORY_AUTHORITY",
     "reviewMethod": "R02_CANONICAL_REVIEW_PLUS_SLICE041_FULL_PAGE_VISUAL_READBACK",
-    "reviewedPages": [1],
+    "reviewedPages": [
+      1
+    ],
     "witness": "1.8 + 1 3/4",
     "verificationBoundary": "exact numeric mixed decimal/fraction addition and nonnegative subtraction only"
   },
@@ -117,7 +136,7 @@
   "mainReadback": {
     "implementationMergeSha": "9ea10b64d5a26dbf7ecff1e2ec89fbfe9cce3634",
     "evidenceMergeSha": "3d5bff0e2093240eac5f44ed5acfbc6a19d523cb",
-    "candidateMergeSha": null,
+    "candidateMergeSha": "02694141ae9a3c776e968b60e50dc354f48e4fbe",
     "publicSourcesAtAdmission": 33,
     "visibleKnowledgePointsAtAdmission": 248,
     "g6bU01VisibleKnowledgePoints": 3,
@@ -188,15 +207,25 @@
     "fullRouteReplayReason": "NOT_TRIGGERED_BY_D0_CLOSEOUT_OR_GOVERNANCE_ONLY_RECONCILIATION"
   },
   "closeoutEvidence": {
-    "status": "PENDING_EXACT_HEAD_NODE_CI",
-    "candidatePrNumber": null,
-    "candidateHeadSha": null,
-    "candidateMergeSha": null,
-    "candidateNode": null
+    "status": "PASS_CI_SYNCED_AND_MERGED",
+    "candidatePrNumber": 646,
+    "candidateHeadSha": "97e2ea8a82ebd6e34da2bc7cc21a365fcff18ac0",
+    "candidateMergeSha": "02694141ae9a3c776e968b60e50dc354f48e4fbe",
+    "candidateNode": {
+      "runId": 32458296726,
+      "jobId": 96699859401,
+      "status": "SUCCESS",
+      "tests": 3301,
+      "pass": 3301,
+      "fail": 0,
+      "skipped": 0,
+      "artifactId": 9438099922,
+      "artifactDigest": "sha256:2ec9d0ecc773126fddbfbe51dacba445d9fc2776cc66c34d2f5e81cecf07d1ca"
+    }
   },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice048Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice047_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice048Implementation"
   }
 }
