@@ -1,0 +1,62 @@
+name: P03F Slice048 Core Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p03f48-core-acceptance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-core-acceptance:
+    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'p03f48-g5a-u01-rank11-inverse-rounding-range'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run Slice048 focused contracts
+        run: node --test tests/curriculum/p03f-slice048-g5a-u01-rank11-inverse-rounding-range.test.js
+
+  chromium-product-acceptance:
+    needs: focused-core-acceptance
+    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'p03f48-g5a-u01-rank11-inverse-rounding-range'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Install Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Run Slice048 Chromium product acceptance
+        run: node tools/curriculum/render-p03f-slice048-product-acceptance.mjs
+      - name: Upload Slice048 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p03f-slice048-product-acceptance
+          path: tmp/p03f-slice048-product-acceptance
+          if-no-files-found: error
+          retention-days: 30
