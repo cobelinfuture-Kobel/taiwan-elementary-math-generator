@@ -30,8 +30,8 @@ test("P03F49 direct-source resolution keeps frozen q049 fail-closed pending expl
   assert.equal(resolution.queueAuthority.silentReorderAllowed, false);
   assert.equal(resolution.queueAuthority.queueChangeRequiresExplicitReconciliationTask, true);
   assert.equal(resolution.queueAuthority.queueMutationPerformedByThisTask, false);
-  assert.equal(queuePolicy.queuePolicy.silentReorderAllowed, false);
-  assert.equal(queuePolicy.queuePolicy.queueChangeRequiresExplicitReconciliationTask, true);
+  assert.equal(queuePolicy.sliceRules.silentReorderAllowed, false);
+  assert.equal(queuePolicy.sliceRules.queueChangeRequiresExplicitReconciliationTask, true);
   assert.equal(resolution.resolution.implementationBranchMayStart, false);
   assert.equal(resolution.resolution.nextTask, "P03F49_Q049QueueAllocationReconciliation");
 });
