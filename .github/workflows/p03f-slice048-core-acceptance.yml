@@ -46,9 +46,9 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
-      - name: Install Chromium
+      - name: Install Chromium and acceptance font
         run: |
-          npm install --no-save --package-lock=false playwright@1.51.1
+          npm install --no-save --package-lock=false playwright@1.51.1 @fontsource/noto-sans-tc@5.2.9
           npx playwright install --with-deps chromium
       - name: Run Slice048 Chromium product acceptance
         run: node tools/curriculum/render-p03f-slice048-product-acceptance.mjs
