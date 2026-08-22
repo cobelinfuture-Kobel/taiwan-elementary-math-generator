@@ -175,7 +175,7 @@ test("P03F50 candidate is fail-closed and final D0 releases only Slice051", () =
   assert.equal(claim.progression.nextResumeTask, "P03F_W3DirectProductVerticalSlice051Implementation");
   assert.equal(manifest.nextResumeTask, "P03F_W3DirectProductVerticalSlice051Implementation");
   const closeoutNode = claim.closeoutEvidence.candidateNode;
-  assert.ok(closeoutNode.tests > 0);
+  assert.equal(closeoutNode.tests, 3351);
   assert.equal(closeoutNode.tests, closeoutNode.pass);
   assert.equal(closeoutNode.fail, 0);
   assert.equal(closeoutNode.skipped, 0);
