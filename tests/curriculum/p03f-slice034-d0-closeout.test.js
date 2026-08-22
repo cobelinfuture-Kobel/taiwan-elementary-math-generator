@@ -34,13 +34,13 @@ test("P03F34 final D0 binds implementation, candidate and canonical evidence", (
   assert.equal(claim.canonical793Evidence.exitCode, 0);
 });
 
-test("P03F34 historical selector stays exactly 32 sources / 230 KPs while current Pixel advances through Slice049 to 251 KPs", () => {
+test("P03F34 historical selector stays exactly 32 sources / 230 KPs while current Pixel advances through Slice050 to 254 KPs", () => {
   assert.deepEqual([BATCH_A_SELECTOR_AVAILABILITY.sourceCount, BATCH_A_SELECTOR_AVAILABILITY.publicSourceCount, BATCH_A_SELECTOR_AVAILABILITY.visibleCount], [32, 32, 230]);
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
   assert.deepEqual([availability.visibleCount, availability.hiddenPendingCount, availability.notSelectableCount], [7, 1, 0]);
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 251);
+  assert.equal(pixel.visibleKnowledgePointCount, 254);
   assert.equal(pixel.bySourceId[sourceId].visibleKnowledgePoints.length, 7);
 });
 
