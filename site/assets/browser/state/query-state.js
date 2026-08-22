@@ -6,7 +6,7 @@ import {
 import {
   getVisibleBatchAKnowledgePoint as getLatestVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint as getLatestVisiblePatternGroupsForKnowledgePoint
-} from "../../../modules/curriculum/registry/batch-a-selector-p03f49-extension.js";
+} from "../../../modules/curriculum/registry/batch-a-selector-p03f50-extension.js";
 import {
   G4B_U04_PUBLIC_CONTROLS,
   G4B_U04_SOURCE_ID,
