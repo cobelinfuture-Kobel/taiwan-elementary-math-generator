@@ -80,16 +80,16 @@ test("P03F46 post-merge targeted Pages E2E binds exact deployed product", () => 
   assert.equal(e2e.slice047Expansion, false);
 });
 
-test("P03F46 current Pixel authority advances through Slice049 to 33/251 while preserving G5B-U06 2/3/3", () => {
+test("P03F46 current Pixel authority advances through Slice050 to 33/254 with G5B-U06 5/0/0", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 251);
+  assert.equal(pixel.visibleKnowledgePointCount, 254);
   const source = pixel.bySourceId[G5B_U06_P03F46_SOURCE_ID];
-  assert.equal(source.visibleKnowledgePoints.length, 2);
-  assert.equal(source.hiddenPendingCount, 3);
-  assert.equal(source.notSelectableCount, 3);
+  assert.equal(source.visibleKnowledgePoints.length, 5);
+  assert.equal(source.hiddenPendingCount, 0);
+  assert.equal(source.notSelectableCount, 0);
   assert.ok(source.visibleKnowledgePoints.some((row) => row.knowledgePointId === G5B_U06_P03F46_KP_ID));
-  for (const kpId of P03F46_HIDDEN_SIBLING_KP_IDS) assert.equal(source.visibleKnowledgePoints.some((row) => row.knowledgePointId === kpId), false);
+  for (const kpId of P03F46_HIDDEN_SIBLING_KP_IDS) assert.equal(source.visibleKnowledgePoints.some((row) => row.knowledgePointId === kpId), true);
 });
 
 test("P03F46 Change Impact classification is L3 bounded and does not require 793", () => {
