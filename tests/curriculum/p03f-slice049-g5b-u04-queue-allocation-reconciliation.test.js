@@ -57,7 +57,7 @@ test('P03F49 keeps exactly the two frozen G5B-U04 rank11 knowledge points', () =
     APPLICATION_KP,
     ESTIMATION_KP
   ]);
-  assert.deepEqual(sourceResolution.frozenKnowledgePointIds, [
+  assert.deepEqual(sourceResolution.queueAuthority.frozenKnowledgePointIds, [
     APPLICATION_KP,
     ESTIMATION_KP
   ]);
@@ -80,10 +80,10 @@ test('P03F49 operator approval reconciles allocation without rewriting textbook 
   assert.equal(reconciliation.sourceTruth.applicationDirectTextbookWitness, false);
   assert.equal(reconciliation.sourceTruth.estimationDirectTextbookWitness, false);
   assert.equal(reconciliation.sourceTruth.textbookDirectWitnessClaimAdded, false);
-  assert.equal(reconciliation.sourceTruth.sha256, sourceResolution.source.sha256);
-  assert.equal(reconciliation.sourceTruth.reviewedPage, 1);
+  assert.equal(reconciliation.sourceTruth.sha256, sourceResolution.sourceAuthority.sourceSha256);
+  assert.equal(reconciliation.sourceTruth.reviewedPage, sourceResolution.sourceAuthority.reviewedPages[0]);
 
-  for (const candidate of sourceResolution.candidateReview) {
+  for (const candidate of sourceResolution.frozenCandidateReview) {
     assert.equal(candidate.directSourceWitnessFound, false);
     assert.equal(candidate.primarySourceTaxonomyMatch, false);
   }
