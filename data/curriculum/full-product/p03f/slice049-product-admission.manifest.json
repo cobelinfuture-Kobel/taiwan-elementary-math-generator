@@ -1,0 +1,124 @@
+{
+  "schemaName": "P03F49ProductAdmissionManifestV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice049_E6_D0Closeout",
+  "queuePosition": 49,
+  "queueEntryId": "p03e_q049_r11_g5b_u04_5b04_profile_decimal_c1",
+  "sourceId": "g5b_u04_5b04",
+  "status": "D0_CLOSEOUT_CANDIDATE",
+  "admissionState": "PENDING_D0_RECONCILIATION",
+  "goalDistance": "D1",
+  "authorityPath": "site/modules/curriculum/registry/g5b-u04-rank11-application-estimation-selector-projection-p03f49.js",
+  "knowledgePointIds": [
+    "kp_g5b_u04_decimal_multiplication_application",
+    "kp_g5b_u04_decimal_multiplication_estimation"
+  ],
+  "patternGroupIds": [
+    "pg_g5b_u04_decimal_multiplication_application",
+    "pg_g5b_u04_decimal_multiplication_estimation_numeric"
+  ],
+  "patternSpecIds": [
+    "ps_g5b_u04_decimal_multiplication_application_product_application",
+    "ps_g5b_u04_decimal_multiplication_estimation_estimate_numeric"
+  ],
+  "currentAuthority": {
+    "publicSourcesAtAdmission": 33,
+    "visibleKnowledgePointsAtAdmission": 251,
+    "sourceVisibleKnowledgePoints": 5,
+    "sourceHiddenKnowledgePoints": 0,
+    "sourceNotSelectableKnowledgePoints": 0,
+    "gaps": 0
+  },
+  "implementation": {
+    "prNumber": 653,
+    "headSha": "de61a7f4d1a16dd4f052534ebf96f1b0cfcd8fc1",
+    "mergeSha": "67355e0ab7bb6e26611bb068cbf7b4e5d3d4d4fa",
+    "runtimePath": "site/modules/curriculum/batch-a/g5b-u04-rank11-application-estimation-runtime-p03f49.js",
+    "runtimeBlobSha": "5ea65a7b4040fba4af987d3ef512fc15b049b80a"
+  },
+  "productEvidence": {
+    "runId": 32561490097,
+    "focusedJobId": 97003634866,
+    "jobId": 97003810256,
+    "artifactId": 9472935441,
+    "artifactDigest": "sha256:3c00c03ef5b105dd285f092f412b18047877d06e040ab5bb5e7937f25cfbe339",
+    "applicationQuestionCount": 12,
+    "estimationQuestionCount": 12,
+    "questionCount": 24,
+    "answerCount": 24,
+    "patternSpecCount": 2,
+    "physicalPageCount": 8,
+    "applicationWitnessPresent": true,
+    "estimationWitnessPresent": true,
+    "manualVisualStatus": "PASS_8_OF_8",
+    "sharedIntegerScaledDecimalModel": true,
+    "sharedNumericRendererAdapter": true,
+    "sharedRenderer": true,
+    "sharedPagination": true,
+    "applicationExpansion": true,
+    "operatorApprovedApplication": true,
+    "operatorApprovedEstimation": true,
+    "directTextbookApplicationExampleClaimed": false,
+    "directTextbookEstimationMethodClaimed": false,
+    "parallelPipeline": false,
+    "exactAnswerMismatchCount": 0,
+    "crossLayerMismatchCount": 0,
+    "scopeLeakCount": 0,
+    "globalContextExpansion": false,
+    "slice050Expansion": false
+  },
+  "livePagesE2E": {
+    "prNumber": 656,
+    "headSha": "9f8950bd33ce01915fdf974ccc481cb16ae6f135",
+    "mergeSha": "7fc0be3d78e51f342aeac2e69b046f4656d03161",
+    "runId": 32563306420,
+    "jobId": 97008154398,
+    "artifactId": 9473402449,
+    "artifactDigest": "sha256:8ba14571b53d87801812451b68c50f33f358d106eb9ae911bee9b31cd7e71fb1",
+    "status": "PASS_P03F49_POSTMERGE_MAIN_PAGES_E2E",
+    "deployedAssetCount": 8,
+    "deployedAssetShaMismatchCount": 0,
+    "applicationQuestionCount": 12,
+    "estimationQuestionCount": 12,
+    "questionCount": 24,
+    "answerCount": 24,
+    "pageCount": 8,
+    "operatorApprovedApplicationWitnessRendered": true,
+    "operatorApprovedEstimationWitnessRendered": true,
+    "exactAnswerMismatchCount": 0,
+    "applicationDimensionMismatchCount": 0,
+    "estimationInstructionMismatchCount": 0,
+    "duplicatePromptCount": 0,
+    "internalIdLeakageCount": 0,
+    "q050LeakageCount": 0,
+    "overflowFindingCount": 0,
+    "printInvocationCount": 2,
+    "browserErrorCount": 0,
+    "networkErrorCount": 0
+  },
+  "changeImpactGate": {
+    "policyId": "P03F_CHANGE_IMPACT_GATE_V1",
+    "level": "L3",
+    "sharedExecutablePathModified": true,
+    "sharedExecutionSemanticsChanged": false,
+    "legalRouteSemanticsChanged": false,
+    "currentAuthorityChanged": true,
+    "affectedRouteSetBounded": true,
+    "globalReleaseCheckpoint": false,
+    "targetedRouteReplayRequired": true,
+    "targetedRouteReplayStatus": "PASS_IMPLEMENTATION_PRODUCT_ACCEPTANCE_AND_POSTMERGE_MAIN_PAGES_E2E",
+    "fullRouteReplayRequired": false
+  },
+  "closeoutPr": {
+    "number": null,
+    "headSha": null,
+    "mergeSha": null
+  },
+  "closeoutNode": {
+    "status": "PENDING_EXACT_HEAD_NODE_CI"
+  },
+  "productionAdmission": {
+    "slice049Admitted": false,
+    "slice050MayStart": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice049_D0PostMergeReconciliation"
+}
