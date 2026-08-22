@@ -30,17 +30,16 @@ function snapshots(input){
   return Object.values(PUBLIC_UI_SURFACES).map((surfaceId)=>resolvePublicUiCapabilityBinding({...input,surfaceId}));
 }
 
-test("P03F28 historical selector remains 219 while current public inventory advances through Slice048 to 33 sources / 249 KPs",()=>{
+test("P03F28 historical selector remains 219 while current public inventory advances through Slice049 to 33 sources / 251 KPs",()=>{
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount,219);
   const sourceRows=listVisibleBatchAKnowledgePoints().filter((row)=>row.sourceId===G5A_U01_SOURCE_ID);
   assert.equal(sourceRows.length,2);
   assert.deepEqual(sourceRows.map((row)=>row.knowledgePointId).sort(),expectedKps);
   const pixel=getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 249);
+  assert.equal(pixel.visibleKnowledgePointCount, 251);
   assert.equal(pixel.bySourceId[G5A_U01_SOURCE_ID].visibleKnowledgePointCount,8);
 });
-
 test("P03F28 exposes target single-KP numeric binding on Classic, 404 and Pixel",()=>{
   for(const binding of snapshots({
     sourceId:G5A_U01_SOURCE_ID,
@@ -55,7 +54,6 @@ test("P03F28 exposes target single-KP numeric binding on Classic, 404 and Pixel"
     assert.equal(binding.questionCount.max,240);
   }
 });
-
 test("P03F28 source-unit and same-unit mixed binding use both visible G5A-U01 KPs",()=>{
   for(const selectionMode of ["sourceUnit","mixedKnowledgePointsSameUnit"]){
     const input={sourceId:G5A_U01_SOURCE_ID,selectionMode};
