@@ -65,15 +65,17 @@ test("P03F31 historical selector admits exactly one numeric source-backed KP", (
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 225);
 });
 
-test("P03F31 current source and Pixel inventories expand monotonically through Slice045", () => {
+test("P03F31 current source and Pixel inventories expand monotonically through Slice049", () => {
   assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 33);
   assert.ok(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.some((row) => row.sourceId === G5B_U04_P03F31_SOURCE_ID));
   assert.equal(listCurrentPixelSourceOptions().length, 33);
   const pixelKps = listPixelKnowledgePointsForSource(G5B_U04_P03F31_SOURCE_ID);
-  assert.equal(pixelKps.length, 3);
+  assert.equal(pixelKps.length, 5);
   assert.ok(pixelKps.some((row) => row.knowledgePointId === G5B_U04_P03F31_KP_ID));
   assert.ok(pixelKps.some((row) => row.knowledgePointId === "kp_g5b_u04_integer_times_decimal"));
   assert.ok(pixelKps.some((row) => row.knowledgePointId === "kp_g5b_u04_decimal_times_decimal"));
+  assert.ok(pixelKps.some((row) => row.knowledgePointId === "kp_g5b_u04_decimal_multiplication_application"));
+  assert.ok(pixelKps.some((row) => row.knowledgePointId === "kp_g5b_u04_decimal_multiplication_estimation"));
 });
 
 test("P03F31 replays the manually verified source witness through shared decimal arithmetic", () => {
