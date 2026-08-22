@@ -1,0 +1,75 @@
+{
+  "schemaName": "P03F49G5BU04QueueAllocationReconciliationV1",
+  "task": "P03F49_Q049QueueAllocationReconciliation",
+  "date": "2026-08-22",
+  "status": "PASS_QUEUE_ALLOCATION_RECONCILED",
+  "frozenQueue": {
+    "position": 49,
+    "entryId": "p03e_q049_r11_g5b_u04_5b04_profile_decimal_c1",
+    "sourceUnitId": "g5b_u04_5b04",
+    "knowledgePointIds": [
+      "kp_g5b_u04_decimal_multiplication_application",
+      "kp_g5b_u04_decimal_multiplication_estimation"
+    ],
+    "queueMutationRequired": false,
+    "frozenQueuePreserved": true,
+    "silentReorderUsed": false
+  },
+  "sourceTruth": {
+    "sourceFile": "meow911_5b04_source.pdf",
+    "driveFileId": "15boi5o_A6_F6hxnM6U2nL7wWYypy6aq-",
+    "sha256": "12fae845404ae3b845a0e531e0c1a8695d421cdc3e3d0858b0b8e47c334c7ca9",
+    "reviewedPage": 1,
+    "applicationDirectTextbookWitness": false,
+    "estimationDirectTextbookWitness": false,
+    "textbookDirectWitnessClaimAdded": false,
+    "note": "The reviewed textbook page directly supports decimal multiplication computation, decimal-place rules, and product relation by multiplier, but does not directly contain the frozen application or estimate-by-rounding task forms."
+  },
+  "operatorApproval": {
+    "approved": true,
+    "approvedDate": "2026-08-22",
+    "approvalMeaning": "Both frozen q049 knowledge points remain assigned to G5B-U04 despite the direct textbook witness gap.",
+    "applicationClassification": "OPERATOR_APPROVED_CONTEXTUAL_EXTENSION",
+    "estimationClassification": "OPERATOR_APPROVED_CURRICULUM_EXTENSION",
+    "doesNotRewriteSourceEvidence": true
+  },
+  "semanticAnchors": {
+    "application": {
+      "knowledgePointId": "kp_g5b_u04_decimal_multiplication_application",
+      "prerequisiteKnowledgePointId": "kp_g5b_u04_decimal_times_decimal",
+      "operationFamily": "decimal_multiplication",
+      "meaning": "由單位量與份數求小數總量或總價。",
+      "directTextbookWitness": false
+    },
+    "estimation": {
+      "knowledgePointId": "kp_g5b_u04_decimal_multiplication_estimation",
+      "prerequisiteKnowledgePointId": "kp_g5b_u04_decimal_times_decimal",
+      "operationFamily": "decimal_multiplication",
+      "meaning": "以概數判斷小數乘積的合理範圍。",
+      "directTextbookWitness": false,
+      "sourceBackedBackground": "教材 page 1 的乘積關係提供數感背景，但不是估算題型的直接證據。"
+    }
+  },
+  "prerequisiteChain": {
+    "rank8": "kp_g5b_u04_decimal_times_integer",
+    "rank9": "kp_g5b_u04_integer_times_decimal",
+    "rank10": "kp_g5b_u04_decimal_times_decimal"
+  },
+  "scope": {
+    "sourceCountUnchanged": 33,
+    "currentKnowledgePointCountBeforeQ049": 249,
+    "expectedKnowledgePointCountAfterQ049": 251,
+    "g5bU04VisibleBeforeQ049": 3,
+    "expectedG5bU04VisibleAfterQ049": 5,
+    "q050Included": false,
+    "globalContextExpansion": false,
+    "queueMutation": false
+  },
+  "resolution": {
+    "allocationReconciled": true,
+    "implementationAuthorityWorkMayStart": true,
+    "implementationBranchMayStart": false,
+    "reason": "Frozen allocation is explicitly reconciled without changing the queue or source truth. Exact FormalMapping and PatternSpec authority must be frozen before product implementation begins.",
+    "nextTask": "P03F49_G5BU04Rank11ApplicationEstimationAuthorityFreeze"
+  }
+}
