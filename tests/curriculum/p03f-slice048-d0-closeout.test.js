@@ -105,10 +105,10 @@ test("P03F48 post-merge targeted Pages E2E binds exact deployed product and reco
   assert.equal(e2e.manualVisualReview.pagesReviewed, 6);
 });
 
-test("P03F48 current Pixel authority is exactly 33/249 and G5A-U01 is fully visible 8/0/0", () => {
+test("P03F48 current Pixel authority advances through Slice049 to 33/251 while G5A-U01 remains fully visible 8/0/0", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 249);
+  assert.equal(pixel.visibleKnowledgePointCount, 251);
   const source = pixel.bySourceId[G5A_U01_P03F48_SOURCE_ID];
   assert.equal(source.visibleKnowledgePoints.length, 8);
   assert.equal(source.hiddenPendingCount, 0);
