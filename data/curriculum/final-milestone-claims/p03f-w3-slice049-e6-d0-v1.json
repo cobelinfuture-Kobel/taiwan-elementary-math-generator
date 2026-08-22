@@ -3,8 +3,8 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F49_G5BU04Rank11ApplicationEstimationImplementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice049_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice049 only: g5b_u04_5b04 rank11 promotes the two frozen decimal-multiplication KnowledgePoints for operator-approved application and estimation extensions through two PatternGroups and two PatternSpecs using the existing integer-scaled decimal multiplication model, canonical HALF_UP rounding semantics, bounded selector successor dispatch, shared generator/validator, worksheet pagination and HTML renderer. Exact implementation CI, L3 global contracts, exact-head Chromium product acceptance, manual eight-page visual review, and post-merge Main/Pages targeted E2E are bound. Direct textbook witness claims, Global Context, parallel pipelines and Slice050 are not admitted by Slice049. Change Impact Gate V1 classifies Slice049 as L3 bounded impact; full 793-route replay is not a D0 requirement.",
   "authority": {
     "path": "site/modules/curriculum/registry/g5b-u04-rank11-application-estimation-selector-projection-p03f49.js",
@@ -137,7 +137,7 @@
   "mainReadback": {
     "implementationMergeSha": "67355e0ab7bb6e26611bb068cbf7b4e5d3d4d4fa",
     "evidenceMergeSha": "7fc0be3d78e51f342aeac2e69b046f4656d03161",
-    "candidateMergeSha": null,
+    "candidateMergeSha": "489c92b2bdbfa1b6bce429be70be039d52268fe2",
     "publicSourcesAtAdmission": 33,
     "visibleKnowledgePointsAtAdmission": 251,
     "g5bU04VisibleKnowledgePoints": 5,
@@ -210,15 +210,25 @@
     "fullRouteReplayReason": "NOT_TRIGGERED_BY_D0_CLOSEOUT_OR_BOUNDED_L3_RECONCILIATION"
   },
   "closeoutEvidence": {
-    "status": "PENDING_EXACT_HEAD_NODE_CI",
-    "candidatePrNumber": null,
-    "candidateHeadSha": null,
-    "candidateMergeSha": null,
-    "candidateNode": null
+    "status": "PASS_CI_SYNCED_AND_MERGED",
+    "candidatePrNumber": 657,
+    "candidateHeadSha": "33204dce3c57b0b5d6f3a8bfb5331119af611a46",
+    "candidateMergeSha": "489c92b2bdbfa1b6bce429be70be039d52268fe2",
+    "candidateNode": {
+      "runId": 32567783957,
+      "jobId": 97018841300,
+      "status": "SUCCESS",
+      "tests": 3336,
+      "pass": 3336,
+      "fail": 0,
+      "skipped": 0,
+      "artifactId": 9474565236,
+      "artifactDigest": "sha256:674b47a5eae5a41a8d2b813bb3abe7f932359ced613b4d5d05620d5766aadd33"
+    }
   },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice050Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice049_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice050Implementation"
   }
 }
