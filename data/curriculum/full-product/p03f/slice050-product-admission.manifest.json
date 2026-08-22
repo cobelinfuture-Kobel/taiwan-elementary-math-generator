@@ -4,9 +4,9 @@
   "queuePosition": 50,
   "queueEntryId": "p03e_q050_r11_g5b_u06_5b06_profile_decimal_c1",
   "sourceId": "g5b_u06_5b06",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "site/modules/curriculum/registry/g5b-u06-rank11-application-estimation-zero-placeholder-selector-projection-p03f50.js",
   "knowledgePointIds": [
     "kp_g5b_u06_decimal_division_application",
@@ -119,16 +119,24 @@
     "fullRouteReplayRequired": false
   },
   "closeoutPr": {
-    "number": null,
-    "headSha": null,
-    "mergeSha": null
+    "number": 661,
+    "headSha": "32e1313dc36dbb51b94bb5f92f17fae326401c61",
+    "mergeSha": "728d6aebb6a6787295457d80600fdd0b47ee1d29"
   },
   "closeoutNode": {
-    "status": "PENDING_EXACT_HEAD_NODE_CI"
+    "runId": 32586768949,
+    "jobId": 97064219617,
+    "status": "SUCCESS",
+    "tests": 3351,
+    "pass": 3351,
+    "fail": 0,
+    "skipped": 0,
+    "artifactId": 9479298539,
+    "artifactDigest": "sha256:c7d46850eb5250cbb1b1988202ea1f9e2036e6aee8a5ec8e210423a9a07218a4"
   },
   "productionAdmission": {
-    "slice050Admitted": false,
-    "slice051MayStart": false
+    "slice050Admitted": true,
+    "slice051MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice050_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice051Implementation"
 }
