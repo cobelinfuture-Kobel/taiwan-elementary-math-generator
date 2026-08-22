@@ -2,94 +2,270 @@
   "schemaName": "P03FSlice049G5BU04Rank11ApplicationEstimationAuthorityV1",
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
-  "taskId": "P03F49_G5BU04Rank11ApplicationEstimationAuthorityAndImplementation",
-  "status": "IMPLEMENTATION_SCOPE_FROZEN_OPERATOR_APPROVED",
+  "taskId": "P03F49_G5BU04Rank11ApplicationEstimationAuthorityFreeze",
+  "status": "AUTHORITY_FROZEN_IMPLEMENTATION_ELIGIBLE",
+  "goalDistanceBefore": "D3",
+  "goalDistanceAfter": "D2",
   "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
     "queuePosition": 49,
     "sliceId": "p03e_q049_r11_g5b_u04_5b04_profile_decimal_c1",
     "previousSliceId": "p03e_q048_r11_g5a_u01_5a01_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
     "previousSliceD0Complete": true,
-    "previousSliceFinalMergeSha": "8e92529f2505627eaa2742c160e670692382de93"
+    "reconciliationPath": "data/curriculum/full-product/p03f/slice049-g5b-u04-queue-allocation-reconciliation.json",
+    "reconciliationAcceptedState": "PASS_QUEUE_ALLOCATION_RECONCILED",
+    "frozenKnowledgePointIds": [
+      "kp_g5b_u04_decimal_multiplication_application",
+      "kp_g5b_u04_decimal_multiplication_estimation"
+    ],
+    "queueMutationAllowed": false
   },
   "sourceAuthority": {
     "sourceNodeId": "g5b_u04_5b04",
+    "sourceCode": "5b04",
     "sourceTitle": "小數的乘法",
+    "grade": 5,
+    "semester": "lower",
+    "unitCode": "5B-U04",
     "sourceFileName": "meow911_5b04_source.pdf",
     "sourceDriveFileId": "15boi5o_A6_F6hxnM6U2nL7wWYypy6aq-",
     "sourceSha256": "12fae845404ae3b845a0e531e0c1a8695d421cdc3e3d0858b0b8e47c334c7ca9",
-    "sourceByteLength": 350776,
     "reviewedPages": [1],
-    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_PLUS_R02_CANDIDATE_SEMANTICS_PLUS_OPERATOR_APPROVAL",
-    "textbookDirectFoundation": [
-      "decimal_times_integer",
-      "integer_times_decimal",
-      "decimal_times_decimal",
-      "decimal_place_sum_rule",
-      "multiplier_product_magnitude_relation"
-    ],
-    "applicationDirectTextbookExamplePresent": false,
-    "estimationDirectTextbookExamplePresent": false,
-    "evidencePolicy": "Do not claim direct textbook application/estimation examples. Both rank11 KPs are admitted to 5B-U04 by explicit operator approval on top of the page-1 decimal-multiplication foundation and R02 candidate semantics."
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_PLUS_OPERATOR_APPROVED_CURRICULUM_EXTENSION",
+    "directSourceWitnessResolutionPath": "data/curriculum/full-product/p03f/slice049-g5b-u04-direct-source-witness-resolution.json",
+    "applicationDirectTextbookWitness": false,
+    "estimationDirectTextbookWitness": false,
+    "textbookDirectWitnessClaimAdded": false,
+    "operatorApprovalDate": "2026-08-22",
+    "operatorApprovalMeaning": "Both frozen q049 knowledge points remain assigned to G5B-U04 despite the direct textbook witness gap."
   },
-  "knowledgePointIds": [
-    "kp_g5b_u04_decimal_multiplication_application",
-    "kp_g5b_u04_decimal_multiplication_estimation"
+  "prerequisiteChain": [
+    {
+      "rank": 8,
+      "knowledgePointId": "kp_g5b_u04_decimal_times_integer",
+      "authorityPath": "data/curriculum/full-product/p03f/slice031-g5b-u04-rank8-decimal-multiplication-authority.json"
+    },
+    {
+      "rank": 9,
+      "knowledgePointId": "kp_g5b_u04_integer_times_decimal",
+      "authorityPath": "data/curriculum/full-product/p03f/slice039-g5b-u04-rank9-integer-times-decimal-authority.json"
+    },
+    {
+      "rank": 10,
+      "knowledgePointId": "kp_g5b_u04_decimal_times_decimal",
+      "authorityPath": "data/curriculum/full-product/p03f/slice045-g5b-u04-rank10-decimal-times-decimal-authority.json"
+    }
   ],
+  "precedentAuthority": {
+    "applicationPatternSpecPrecedentPath": "data/curriculum/application/pattern-specs/w02/g4b_u06_4b06.hidden-pattern-spec.json",
+    "applicationOperationPrecedentPath": "data/curriculum/full-product/p03f/slice011-decimal-multiplication-authority.json",
+    "roundingOperationPrecedentPath": "data/curriculum/application/operations/w02/g5a_u01_5a01.canonical-operation.json",
+    "roundingPatternSpecPrecedentPath": "data/curriculum/application/pattern-specs/w02/g5a_u01_5a01.hidden-pattern-spec.json",
+    "applicationPrecedentRule": "product = decimalFactor * integerFactor with APPLICATION surface and requested unknown product",
+    "estimationPrecedentRule": "estimate = operate(round(left), round(right)); q049 specializes operate to multiplication",
+    "estimationEquivalentForm": "half-up interval"
+  },
   "knowledgePoints": [
     {
       "knowledgePointId": "kp_g5b_u04_decimal_multiplication_application",
-      "canonicalNameZh": "小數乘法量價問題",
-      "formalModel": "total = unitAmount * quantity",
-      "reasoningInvariant": "總量等於每份量乘份數，量綱與單位必須合理。",
-      "authorityClass": "SOURCE_FOUNDATION_PLUS_R02_SEMANTICS_PLUS_OPERATOR_APPROVAL"
+      "canonicalNameZh": "小數乘法應用",
+      "scope": "以兩個有限小數的乘法解決單位量、單價或每單位數量乘以份數／數量後求總量或總價的單步情境題。",
+      "applicationClassification": "OPERATOR_APPROVED_CONTEXTUAL_EXTENSION",
+      "prerequisiteKnowledgePointId": "kp_g5b_u04_decimal_times_decimal",
+      "operationModelId": "op_g5b_u04_decimal_multiplication_application",
+      "operationFamilyId": "decimal_multiplication",
+      "publicModes": ["application"],
+      "requiredW3CapabilityIds": [
+        "cap_decimal_arithmetic",
+        "cap_decimal_domain_validator",
+        "cap_decimal_number_system"
+      ],
+      "directTextbookWitness": false
     },
     {
       "knowledgePointId": "kp_g5b_u04_decimal_multiplication_estimation",
       "canonicalNameZh": "小數乘法估算",
-      "formalModel": "estimatedProduct = roundHalfUp(left,0) * roundHalfUp(right,0)",
-      "reasoningInvariant": "估算須保持數量級並可檢核小數點位置。",
-      "authorityClass": "OPERATOR_APPROVED_CURRICULUM_EXTENSION",
-      "directTextbookMethodClaimed": false
+      "scope": "將兩個有限小數依四捨五入取概數到個位，再相乘得到可驗證的乘積估算值。",
+      "applicationClassification": "OPERATOR_APPROVED_CURRICULUM_EXTENSION",
+      "prerequisiteKnowledgePointId": "kp_g5b_u04_decimal_times_decimal",
+      "operationModelId": "op_g5b_u04_decimal_multiplication_estimation",
+      "operationFamilyId": "decimal_multiplication",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": [
+        "cap_decimal_arithmetic",
+        "cap_decimal_domain_validator",
+        "cap_decimal_number_system"
+      ],
+      "directTextbookWitness": false
+    }
+  ],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g5b_u04_decimal_multiplication_application",
+      "knowledgePointId": "kp_g5b_u04_decimal_multiplication_application",
+      "operationModelId": "op_g5b_u04_decimal_multiplication_application",
+      "operationFamilyId": "decimal_multiplication",
+      "canonicalExpressions": [
+        "product = leftDecimalFactor * rightDecimalFactor"
+      ],
+      "operandRoles": {
+        "leftDecimalFactor": "每單位量、單價或第一個小數因數",
+        "rightDecimalFactor": "份數、數量或第二個小數因數",
+        "product": "總量、總價或精確小數乘積"
+      },
+      "unknownRoles": ["product"],
+      "numberConstraints": [
+        "both factors are finite nonnegative decimals within G5B-U04 scope",
+        "product is exact and nonnegative",
+        "context units must be dimensionally consistent"
+      ],
+      "answerType": "decimal",
+      "validationInvariants": [
+        "productCoefficient = leftCoefficient * rightCoefficient",
+        "productScale = leftScale + rightScale before canonical trailing-zero normalization",
+        "context unit flow matches per-unit value times quantity equals total"
+      ]
+    },
+    {
+      "formalMappingId": "fm_g5b_u04_decimal_multiplication_estimation",
+      "knowledgePointId": "kp_g5b_u04_decimal_multiplication_estimation",
+      "operationModelId": "op_g5b_u04_decimal_multiplication_estimation",
+      "operationFamilyId": "decimal_multiplication",
+      "canonicalExpressions": [
+        "roundedLeft = roundToPlace(leftDecimalFactor, ones)",
+        "roundedRight = roundToPlace(rightDecimalFactor, ones)",
+        "estimate = roundedLeft * roundedRight"
+      ],
+      "operandRoles": {
+        "leftDecimalFactor": "第一個原始小數因數",
+        "rightDecimalFactor": "第二個原始小數因數",
+        "roundedLeft": "第一個因數四捨五入到個位的概數",
+        "roundedRight": "第二個因數四捨五入到個位的概數",
+        "estimate": "兩個概數相乘得到的估算值"
+      },
+      "unknownRoles": ["estimate"],
+      "numberConstraints": [
+        "both factors are finite nonnegative decimals within G5B-U04 scope",
+        "rounding target is fixed to ones place for q049",
+        "rounding uses the canonical half-up rule"
+      ],
+      "answerType": "decimal",
+      "validationInvariants": [
+        "each factor is independently rounded to the ones place using roundToPlace",
+        "half-up boundary is applied at the tenths place",
+        "estimate equals exact multiplication of the two rounded factors"
+      ]
     }
   ],
   "patternSurfaces": [
     {
-      "patternGroupId": "pg_g5b_u04_decimal_multiplication_application_numeric",
-      "patternSpecId": "ps_g5b_u04_decimal_multiplication_application_total_numeric",
+      "patternGroupId": "pg_g5b_u04_decimal_multiplication_application",
+      "patternSpecId": "ps_g5b_u04_decimal_multiplication_application_product_application",
       "knowledgePointId": "kp_g5b_u04_decimal_multiplication_application",
-      "answerType": "decimal_number",
-      "requestedUnknownRole": "total",
-      "questionMode": "numeric_context"
+      "operationModelId": "op_g5b_u04_decimal_multiplication_application",
+      "operationFamilyId": "decimal_multiplication",
+      "mode": "APPLICATION",
+      "requestedUnknownRole": "product",
+      "givenRoles": ["leftDecimalFactor", "rightDecimalFactor"],
+      "answerType": "decimal",
+      "contextRequired": true,
+      "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+      "globalContextExpansionRequired": false,
+      "requiredW3CapabilityIds": [
+        "cap_decimal_arithmetic",
+        "cap_decimal_domain_validator",
+        "cap_decimal_number_system"
+      ]
     },
     {
       "patternGroupId": "pg_g5b_u04_decimal_multiplication_estimation_numeric",
-      "patternSpecId": "ps_g5b_u04_decimal_multiplication_estimation_product_numeric",
+      "patternSpecId": "ps_g5b_u04_decimal_multiplication_estimation_estimate_numeric",
       "knowledgePointId": "kp_g5b_u04_decimal_multiplication_estimation",
-      "answerType": "integer",
-      "requestedUnknownRole": "estimatedProduct",
-      "questionMode": "numeric"
+      "operationModelId": "op_g5b_u04_decimal_multiplication_estimation",
+      "operationFamilyId": "decimal_multiplication",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "estimate",
+      "givenRoles": ["leftDecimalFactor", "rightDecimalFactor"],
+      "answerType": "decimal",
+      "contextRequired": false,
+      "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+      "globalContextExpansionRequired": false,
+      "requiredW3CapabilityIds": [
+        "cap_decimal_arithmetic",
+        "cap_decimal_domain_validator",
+        "cap_decimal_number_system"
+      ]
     }
   ],
-  "requiredW3CapabilityIds": [
-    "cap_decimal_arithmetic",
-    "cap_decimal_domain_validator",
-    "cap_decimal_number_system"
+  "operatorApprovedExamples": [
+    {
+      "knowledgePointId": "kp_g5b_u04_decimal_multiplication_application",
+      "promptModel": "每公斤 12.5 元，買 2.4 公斤，共多少錢？",
+      "canonicalExpression": "12.5 * 2.4",
+      "answer": "30",
+      "textbookDirectWitness": false
+    },
+    {
+      "knowledgePointId": "kp_g5b_u04_decimal_multiplication_estimation",
+      "promptModel": "12.6 × 3.9，大約是多少？",
+      "derivation": "13 × 4",
+      "answer": "52",
+      "textbookDirectWitness": false
+    }
   ],
-  "productBoundary": {
-    "expectedPublicSourceCountAfterAdmission": 33,
-    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 251,
-    "expectedSourceVisibleCountAfterAdmission": 5,
-    "expectedSourceHiddenCountAfterAdmission": 0,
-    "expectedSourceNotSelectableCountAfterAdmission": 0,
-    "newPublicSourceAllowed": false,
-    "globalContextExpansionAllowed": false,
-    "sharedDecimalMultiplicationCoreRequired": true,
-    "parallelPipelineAllowed": false,
-    "slice050ExpansionAllowed": false
+  "validatorContract": {
+    "application": {
+      "exactScaledIntegerMultiplicationRequired": true,
+      "floatingPointEqualityAllowed": false,
+      "contextRoleClosureRequired": true,
+      "canonicalTrailingZeroNormalizationAllowed": true
+    },
+    "estimation": {
+      "independentFactorRoundingRequired": true,
+      "roundingTarget": "ones",
+      "roundingRule": "HALF_UP",
+      "exactRoundedFactorMultiplicationRequired": true,
+      "floatingPointEqualityAllowed": false,
+      "exactUnroundedProductIsNotTheRequestedAnswer": true
+    }
   },
-  "changeImpactGate": {
-    "level": "L3",
-    "reason": "bounded successor selector/router/current-authority cutover plus leaf application/estimation runtime; shared decimal multiplication semantics unchanged",
-    "full793RouteReplayRequired": false
+  "capabilityContract": {
+    "requiredW3CapabilityUnion": [
+      "cap_decimal_arithmetic",
+      "cap_decimal_domain_validator",
+      "cap_decimal_number_system"
+    ],
+    "newCapabilityIdRequired": false,
+    "sharedDecimalMultiplicationFamilyRequired": true,
+    "sharedRoundingSemanticsReused": true
+  },
+  "publicProjection": {
+    "newSourceAdmission": false,
+    "publicSourceCountBefore": 33,
+    "publicSourceCountAfter": 33,
+    "currentPublicKnowledgePointCountBefore": 249,
+    "currentPublicKnowledgePointCountAfter": 251,
+    "g5bU04VisibleKnowledgePointsBefore": 3,
+    "g5bU04VisibleKnowledgePointsAfter": 5,
+    "g5bU04HiddenKnowledgePointsAfter": 0,
+    "g5bU04NotSelectableKnowledgePointsAfter": 0
+  },
+  "implementationBoundary": {
+    "authorityFreezeComplete": true,
+    "implementationBranchMayStart": true,
+    "runtimeImplementationRequired": true,
+    "selectorProjectionRequired": true,
+    "sharedGeneratorRequired": true,
+    "sharedValidatorRequired": true,
+    "sharedWorksheetRendererRequired": true,
+    "publicCapabilityBindingCutoverRequired": true,
+    "globalContextExpansionAllowed": false,
+    "q050Included": false,
+    "parallelPipelineAllowed": false,
+    "changeImpactGate": "L3",
+    "targetedRouteReplayRequired": true,
+    "full793RouteReplayRequired": false,
+    "nextTask": "P03F49_G5BU04Rank11ApplicationEstimationImplementation"
   }
 }
