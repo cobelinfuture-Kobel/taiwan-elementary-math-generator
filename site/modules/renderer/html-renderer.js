@@ -1,4 +1,5 @@
 import { renderFractionNumberLine } from "./fraction-number-line.js";
+import { renderInlineMathModel } from "./inline-math.js";
 
 function escapeHtml(value) {
   return String(value)
@@ -7,6 +8,10 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function renderStructuredText(model, plainText) {
+  return model ? renderInlineMathModel(model, plainText) : escapeHtml(plainText);
 }
 
 function createRendererError(code, message) {
@@ -99,7 +104,7 @@ export function renderQuestionCell(cell, options = {}) {
   return [
     `<article class="worksheet-cell worksheet-cell--question"${dataAttributes}>`,
     displayModel.questionNumberText ? `<div class="worksheet-cell__number">${escapeHtml(displayModel.questionNumberText)}</div>` : "",
-    `<div class="worksheet-cell__prompt">${escapeHtml(displayModel.blankedDisplayText)}</div>`,
+    `<div class="worksheet-cell__prompt">${renderStructuredText(displayModel.promptInlineMath, displayModel.blankedDisplayText)}</div>`,
     displayModel.numberLine ? renderNumberLine(displayModel.numberLine) : "",
     "</article>",
   ].join("");
@@ -120,9 +125,9 @@ export function renderAnswerKeyCell(cell, options = {}) {
   return [
     `<article class="worksheet-cell worksheet-cell--answer-key"${dataAttributes}>`,
     `<div class="worksheet-cell__number">${escapeHtml(`${answerKeyItem.questionNumber}.`)}</div>`,
-    `<div class="worksheet-cell__prompt">${escapeHtml(answerKeyItem.promptText)}</div>`,
+    `<div class="worksheet-cell__prompt">${renderStructuredText(answerKeyItem.promptInlineMath, answerKeyItem.promptText)}</div>`,
     answerKeyItem.numberLine ? renderNumberLine(answerKeyItem.numberLine) : "",
-    `<div class="worksheet-cell__answer">${escapeHtml(answerKeyItem.answerText)}</div>`,
+    `<div class="worksheet-cell__answer">${renderStructuredText(answerKeyItem.answerInlineMath, answerKeyItem.answerText)}</div>`,
     "</article>",
   ].join("");
 }

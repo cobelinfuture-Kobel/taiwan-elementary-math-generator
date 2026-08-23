@@ -97,6 +97,49 @@ body.worksheet-renderer {
   font-weight: 700;
 }
 
+.inline-math {
+  white-space: normal;
+}
+
+.math-fraction,
+.math-mixed-fraction {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  white-space: nowrap;
+}
+
+.math-fraction {
+  display: inline-flex;
+  min-width: 1.15em;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  margin: 0 0.1em;
+  vertical-align: -0.38em;
+  line-height: 1;
+  text-align: center;
+}
+
+.math-fraction__numerator {
+  padding: 0 0.14em 0.08em;
+  border-bottom: 1.5px solid currentColor;
+}
+
+.math-fraction__denominator {
+  padding: 0.08em 0.14em 0;
+}
+
+.math-mixed-fraction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.02em;
+  vertical-align: middle;
+}
+
+.math-mixed-fraction > [aria-hidden="true"] {
+  display: inline-flex;
+}
+
 .worksheet-cell--filler {
   background:
     linear-gradient(135deg, transparent 0 48%, #e8eef3 48% 52%, transparent 52% 100%),
