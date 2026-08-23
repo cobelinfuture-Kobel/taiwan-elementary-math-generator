@@ -81,6 +81,11 @@ jobs:
         run: |
           npm install --no-save --package-lock=false playwright@1.51.1
           npx playwright install --with-deps chromium
+      - name: Verify Slice051 deployed dependency closure and UI hydration
+        env:
+          P03F51_DEPLOYMENT_RETRIES: "20"
+          P03F51_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+        run: node tools/curriculum/preflight-p03f-slice051-live-pages-e2e.mjs
       - name: Run Slice051 exact deployed Main/Pages E2E
         env:
           P03F51_DEPLOYMENT_RETRIES: "20"
