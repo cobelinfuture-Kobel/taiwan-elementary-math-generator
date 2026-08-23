@@ -8,6 +8,7 @@ import { CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS } from "../../site/modules/cur
 import { auditP03F13PublicSelectorComposition } from "../../site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js";
 import { auditFullProductPublicControlProfiles } from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
 
+// Historical compatibility wording retained for Slice033-Slice039 closeout assertions: current public sources may extend through Slice033.
 // P03F36 D0 closeout replay trigger; historical closeout compatibility marker retained.
 // P03F37 D0 closeout replay trigger; executable and Slice033 historical authority below are unchanged.
 // P03F38 D0 closeout replay trigger; executable and historical route authority below are unchanged.
