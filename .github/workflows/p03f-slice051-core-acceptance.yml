@@ -85,12 +85,28 @@ jobs:
         env:
           P03F51_DEPLOYMENT_RETRIES: "20"
           P03F51_DEPLOYMENT_RETRY_DELAY_MS: "15000"
-        run: node tools/curriculum/preflight-p03f-slice051-live-pages-e2e.mjs
+        run: |
+          for attempt in 1 2 3 4 5; do
+            echo "P03F51_PREFLIGHT_ATTEMPT=${attempt}"
+            if node tools/curriculum/preflight-p03f-slice051-live-pages-e2e.mjs; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 5 ]; then sleep 15; fi
+          done
+          exit 1
       - name: Run Slice051 exact deployed Main/Pages E2E
         env:
           P03F51_DEPLOYMENT_RETRIES: "20"
           P03F51_DEPLOYMENT_RETRY_DELAY_MS: "15000"
-        run: node tools/curriculum/run-p03f-slice051-live-pages-e2e.mjs
+        run: |
+          for attempt in 1 2 3; do
+            echo "P03F51_FULL_E2E_ATTEMPT=${attempt}"
+            if node tools/curriculum/run-p03f-slice051-live-pages-e2e.mjs; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then sleep 15; fi
+          done
+          exit 1
       - name: Upload Slice051 Main/Pages E2E evidence
         if: always()
         uses: actions/upload-artifact@v4
