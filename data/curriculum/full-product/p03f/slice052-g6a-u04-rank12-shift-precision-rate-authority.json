@@ -1,0 +1,232 @@
+{
+  "schemaName": "P03FSlice052G6AU04Rank12ShiftPrecisionRateAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice052Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_SOURCE_EVIDENCE_RESOLVED",
+  "goalDistanceBefore": "D3",
+  "goalDistanceAfter": "D2",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 52,
+    "sliceId": "p03e_q052_r12_g6a_u04_6a04_profile_decimal_c1",
+    "previousSliceId": "p03e_q051_r11_g6a_u04_6a04_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice051-e6-d0-v1.json",
+    "sourceWitnessResolutionPath": "data/curriculum/full-product/p03f/slice052-g6a-u04-direct-source-witness-resolution.json",
+    "knowledgePointIds": [
+      "kp_g6a_u04_decimal_division_decimal_shift",
+      "kp_g6a_u04_decimal_division_quotient_precision",
+      "kp_g6a_u04_decimal_division_rate_application"
+    ],
+    "reservedNextSliceKnowledgePointIds": ["kp_g6a_u04_decimal_division_rounding"],
+    "queueMutationAllowed": false
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6a_u04_6a04",
+    "sourceCode": "6a04",
+    "sourceTitle": "小數除法",
+    "grade": 6,
+    "semester": "upper",
+    "unitCode": "6A-U04",
+    "sourceFileName": "meow911_6a04_source.pdf",
+    "sourceDriveFileId": "1jFp8TvNtrECiCMuYCENyPeZNbb3fQNM1",
+    "sourceSha256": "1e1790a2fe9a91e4d819d0c9ff93d3065dde536887d93c5e20323f7011df8f50",
+    "sourceByteLength": 482611,
+    "reviewedPages": [1, 2],
+    "decimalShiftDirectTextbookWitness": true,
+    "quotientPrecisionDirectTextbookWitness": true,
+    "quotientPrecisionZeroFillDirectTextbookWitness": false,
+    "quotientPrecisionZeroFillOperatorApprovedExtension": true,
+    "rateApplicationDirectTextbookWitness": false,
+    "rateApplicationOperatorApprovedExtension": true,
+    "generatedExtensionExampleClaimedAsTextbook": false
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g6a_u04_decimal_division_decimal_shift",
+      "canonicalNameZh": "除法小數點同移",
+      "scope": "依正且非零小數除數的小數位數，判定被除數與除數需同步向右移動的小數位數，使除數成為整數；不要求近似或四捨五入。",
+      "applicationClassification": "DIRECT_SOURCE_PROCEDURAL_CAPABILITY",
+      "operationModelId": "op_g6a_u04_decimal_division_decimal_shift",
+      "operationFamilyId": "decimal_division",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "directTextbookWitness": true
+    },
+    {
+      "knowledgePointId": "kp_g6a_u04_decimal_division_quotient_precision",
+      "canonicalNameZh": "商的位數與補零",
+      "scope": "對可精確終止的小數商，依指定小數位數呈現完整商；若精確商位數不足則在尾端補0至指定 scale。q052 不做截斷或四捨五入，近似商保留給 q053。",
+      "applicationClassification": "DIRECT_PRECISION_WITNESS_PLUS_OPERATOR_APPROVED_ZERO_FILL_EXTENSION",
+      "operationModelId": "op_g6a_u04_decimal_division_quotient_precision",
+      "operationFamilyId": "decimal_division",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "directPrecisionTextbookWitness": true,
+      "zeroFillOperatorApprovedExtension": true,
+      "generatedExampleClaimedAsTextbook": false
+    },
+    {
+      "knowledgePointId": "kp_g6a_u04_decimal_division_rate_application",
+      "canonicalNameZh": "小數除法單位率",
+      "scope": "以正有限小數總量除以正且非零有限小數的份數／時間／測量單位數，求單一步驟 unitAmount；要求精確終止小數且 unitAmount × groupCount 精確重建 totalAmount。",
+      "applicationClassification": "OPERATOR_APPROVED_CURRICULUM_EXTENSION",
+      "operationModelId": "op_g6a_u04_decimal_division_rate_application",
+      "operationFamilyId": "decimal_division",
+      "publicModes": ["application"],
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "directTextbookWitness": false,
+      "operatorApprovedExtension": true,
+      "generatedExampleClaimedAsTextbook": false
+    }
+  ],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g6a_u04_decimal_division_decimal_shift",
+      "knowledgePointId": "kp_g6a_u04_decimal_division_decimal_shift",
+      "operationModelId": "op_g6a_u04_decimal_division_decimal_shift",
+      "canonicalExpressions": [
+        "shiftPlaces = decimalPlaces(decimalDivisor)",
+        "scaledDividend = decimalDividend * 10^shiftPlaces",
+        "scaledDivisor = decimalDivisor * 10^shiftPlaces"
+      ],
+      "unknownRoles": ["shiftPlaces"],
+      "answerType": "integer",
+      "validationInvariants": [
+        "shiftPlaces is a nonnegative integer",
+        "scaledDivisor is an integer",
+        "decimalDividend / decimalDivisor equals scaledDividend / scaledDivisor exactly",
+        "no rounding or approximation is permitted"
+      ]
+    },
+    {
+      "formalMappingId": "fm_g6a_u04_decimal_division_quotient_precision",
+      "knowledgePointId": "kp_g6a_u04_decimal_division_quotient_precision",
+      "operationModelId": "op_g6a_u04_decimal_division_quotient_precision",
+      "canonicalExpressions": [
+        "exactQuotient = decimalDividend / decimalDivisor",
+        "displayQuotient = padRightZeros(exactQuotient, requestedScale)"
+      ],
+      "unknownRoles": ["displayQuotient"],
+      "answerType": "decimal",
+      "validationInvariants": [
+        "exact rational recalculation is required",
+        "quotient must terminate in base 10",
+        "requestedScale must be at least the exact quotient scale",
+        "displayQuotient must preserve the exact numeric value and contain exactly requestedScale fractional digits",
+        "rounding and truncation are forbidden"
+      ]
+    },
+    {
+      "formalMappingId": "fm_g6a_u04_decimal_division_rate_application",
+      "knowledgePointId": "kp_g6a_u04_decimal_division_rate_application",
+      "operationModelId": "op_g6a_u04_decimal_division_rate_application",
+      "canonicalExpressions": [
+        "unitAmount = totalAmount / groupCount",
+        "totalAmount = unitAmount * groupCount"
+      ],
+      "unknownRoles": ["unitAmount"],
+      "answerType": "decimal",
+      "validationInvariants": [
+        "totalAmount and groupCount are positive finite decimals",
+        "groupCount is nonzero",
+        "exact rational recalculation is required",
+        "quotient must terminate in base 10",
+        "unitAmount * groupCount reconstructs totalAmount exactly",
+        "generated application example must not be attributed to the textbook"
+      ]
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g6a_u04_decimal_division_decimal_shift_numeric",
+      "patternSpecId": "ps_g6a_u04_decimal_division_decimal_shift_places_numeric",
+      "knowledgePointId": "kp_g6a_u04_decimal_division_decimal_shift",
+      "operationModelId": "op_g6a_u04_decimal_division_decimal_shift",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "shiftPlaces",
+      "givenRoles": ["decimalDividend", "decimalDivisor"],
+      "answerType": "integer",
+      "contextRequired": false
+    },
+    {
+      "patternGroupId": "pg_g6a_u04_decimal_division_quotient_precision_numeric",
+      "patternSpecId": "ps_g6a_u04_decimal_division_quotient_precision_zero_fill_numeric",
+      "knowledgePointId": "kp_g6a_u04_decimal_division_quotient_precision",
+      "operationModelId": "op_g6a_u04_decimal_division_quotient_precision",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "displayQuotient",
+      "givenRoles": ["decimalDividend", "decimalDivisor", "requestedScale"],
+      "answerType": "decimal",
+      "contextRequired": false
+    },
+    {
+      "patternGroupId": "pg_g6a_u04_decimal_division_rate_application",
+      "patternSpecId": "ps_g6a_u04_decimal_division_rate_application_unit_amount_application",
+      "knowledgePointId": "kp_g6a_u04_decimal_division_rate_application",
+      "operationModelId": "op_g6a_u04_decimal_division_rate_application",
+      "mode": "APPLICATION",
+      "requestedUnknownRole": "unitAmount",
+      "givenRoles": ["totalAmount", "groupCount"],
+      "answerType": "decimal",
+      "contextRequired": true,
+      "globalContextExpansionRequired": false
+    }
+  ],
+  "validatorContract": {
+    "decimalShift": {
+      "exactScaleInspectionRequired": true,
+      "samePowerOfTenInvariantRequired": true,
+      "roundingAllowed": false
+    },
+    "quotientPrecision": {
+      "exactRationalRecalculationRequired": true,
+      "fixedScaleStringRequired": true,
+      "numericValuePreservationRequired": true,
+      "roundingAllowed": false,
+      "truncationAllowed": false
+    },
+    "rateApplication": {
+      "exactRationalRecalculationRequired": true,
+      "contextRoleClosureRequired": true,
+      "exactReconstructionRequired": true,
+      "textbookAttributionAllowed": false
+    }
+  },
+  "capabilityContract": {
+    "requiredW3CapabilityUnion": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+    "newCapabilityIdRequired": false,
+    "sharedExactRationalNormalizerRequired": true,
+    "sharedDecimalDivisionFamilyRequired": true,
+    "parallelMathPipelineAllowed": false
+  },
+  "publicProjection": {
+    "newSourceAdmission": false,
+    "publicSourceCountBefore": 34,
+    "publicSourceCountAfter": 34,
+    "currentPublicKnowledgePointCountBefore": 255,
+    "currentPublicKnowledgePointCountAfter": 258,
+    "g6aU04VisibleKnowledgePointsBefore": 1,
+    "g6aU04VisibleKnowledgePointsAfter": 4,
+    "g6aU04HiddenKnowledgePointsAfter": 1,
+    "g6aU04NotSelectableKnowledgePointsAfter": 1
+  },
+  "implementationBoundary": {
+    "runtimeImplementationRequired": true,
+    "selectorProjectionRequired": true,
+    "sharedGeneratorRequired": true,
+    "sharedValidatorRequired": true,
+    "sharedWorksheetRendererRequired": true,
+    "publicCapabilityBindingCutoverRequired": true,
+    "globalContextExpansionAllowed": false,
+    "q053Included": false,
+    "roundingIncluded": false,
+    "parallelPipelineAllowed": false,
+    "changeImpactGate": "L3",
+    "targetedRouteReplayRequired": true,
+    "full793RouteReplayRequired": false,
+    "nextTask": "P03F52_G6AU04Rank12ShiftPrecisionRateImplementation"
+  }
+}
