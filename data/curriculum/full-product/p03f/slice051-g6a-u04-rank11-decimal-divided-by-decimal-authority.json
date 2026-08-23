@@ -27,8 +27,8 @@
     "canonicalR02AuthorityPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
     "reviewMethod": "FULL_PAGE_VISUAL_READBACK_NO_OCR_AUTHORITY_PLUS_CANONICAL_R02_CANDIDATE",
     "reviewedPages": [1,2],
-    "sourceWitnesses": [{"concept":"decimal_dividend_by_decimal_divisor","visibleExpression":"2.46 ÷ 0.06","expectedQuotient":"41","page":1}],
-    "verificationBoundary": "q051 admits the basic decimal-dividend by nonzero decimal-divisor numeric relation only. Decimal-shift procedure, quotient precision/zero-place procedure, rate application and quotient rounding remain reserved to q052/q053."
+    "sourceWitnesses": [{"concept":"decimal_dividend_by_decimal_divisor","visibleExpression":"2.46 ÷ 0.06","page":1,"literalSourceAnswerPrinted":false,"independentlyVerifiedExactQuotient":"41","answerVerificationMethod":"EXACT_RATIONAL_RECALCULATION"}],
+    "verificationBoundary": "q051 admits the basic decimal-dividend by nonzero decimal-divisor numeric relation only. The source directly shows 2.46 ÷ 0.06 and the long-division setup; quotient 41 is independently exact-verified and is not claimed as literal printed source text. Decimal-shift procedure as an independently requested skill, quotient precision/zero-place procedure, rate application and quotient rounding remain reserved to q052/q053."
   },
   "knowledgePoints": [{
     "knowledgePointId": "kp_g6a_u04_decimal_divided_by_decimal",
