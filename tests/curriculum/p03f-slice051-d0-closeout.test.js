@@ -145,14 +145,14 @@ test("P03F51 post-merge targeted Pages E2E binds exact deployed q051 product", (
   assert.equal(e2e.parallelPipeline, false);
 });
 
-test("P03F51 current Pixel authority is exactly 34/255 and G6A-U04 is 1/4/4", () => {
+test("P03F51 current Pixel authority advances through Slice052 to 34/258 and G6A-U04 is 4/1/1", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
   assert.equal(pixel.sourceCount, 34);
-  assert.equal(pixel.visibleKnowledgePointCount, 255);
+  assert.equal(pixel.visibleKnowledgePointCount, 258);
   const source = pixel.bySourceId[G6A_U04_P03F51_SOURCE_ID];
-  assert.equal(source.visibleKnowledgePoints.length, 1);
-  assert.equal(source.hiddenPendingCount, 4);
-  assert.equal(source.notSelectableCount, 4);
+  assert.equal(source.visibleKnowledgePoints.length, 4);
+  assert.equal(source.hiddenPendingCount, 1);
+  assert.equal(source.notSelectableCount, 1);
   assert.ok(source.visibleKnowledgePoints.some((row) => row.knowledgePointId === G6A_U04_P03F51_KP_ID));
 });
 
