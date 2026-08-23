@@ -16,7 +16,7 @@ import {
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const OUTPUT = path.join(ROOT, "tmp/p03f-slice025-product-acceptance");
 fs.mkdirSync(OUTPUT, { recursive: true });
-const printStyles = fs.readFileSync(path.join(ROOT, "src/renderer/print-styles.css"), "utf8");
+const printStyles = fs.readFileSync(path.join(ROOT, "site/assets/styles/print-styles.css"), "utf8");
 const fontRoot = path.join(ROOT, "node_modules/@fontsource/noto-sans-tc");
 const embeddedFontStyles = fs.readFileSync(path.join(fontRoot, "400.css"), "utf8")
   .replace(/url\(\.\/files\/([^)]*\.woff2)\) format\('woff2'\), url\(\.\/files\/[^)]*\.woff\) format\('woff'\)/g, (_, file) => `url(data:font/woff2;base64,${fs.readFileSync(path.join(fontRoot, "files", file)).toString("base64")}) format('woff2')`);
