@@ -6,7 +6,7 @@ import {
 import {
   getVisibleBatchAKnowledgePoint as getLatestVisibleBatchAKnowledgePoint,
   getVisiblePatternGroupsForKnowledgePoint as getLatestVisiblePatternGroupsForKnowledgePoint
-} from "../../../modules/curriculum/registry/batch-a-selector-p03f50-extension.js";
+} from "../../../modules/curriculum/registry/batch-a-selector-p03f51-extension.js";
 import {
   G4B_U04_PUBLIC_CONTROLS,
   G4B_U04_SOURCE_ID,
@@ -27,6 +27,7 @@ const G4A_U08_SOURCE_ID = "g4a_u08_4a08";
 const G5A_U06_SOURCE_ID = "g5a_u06_5a06";
 const G5B_U04_SOURCE_ID = "g5b_u04_5b04";
 const G5B_U06_SOURCE_ID = "g5b_u06_5b06";
+const G6A_U04_SOURCE_ID = "g6a_u04_6a04";
 const G6B_U01_SOURCE_ID = "g6b_u01_6b01";
 const P01E_QUERY_SELECTOR_SOURCE_IDS = new Set(P01E_FULL_PRODUCT_PUBLIC_SOURCE_IDS);
 const CURRENT_W3_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(
@@ -35,7 +36,7 @@ const CURRENT_W3_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(
   ),
 );
 const LATEST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(
-  new Set([...CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS, G5A_U06_SOURCE_ID, G5B_U04_SOURCE_ID, G5B_U06_SOURCE_ID, G6B_U01_SOURCE_ID]),
+  new Set([...CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_IDS, G5A_U06_SOURCE_ID, G5B_U04_SOURCE_ID, G5B_U06_SOURCE_ID, G6A_U04_SOURCE_ID, G6B_U01_SOURCE_ID]),
 );
 const LATEST_FIRST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
   G4A_U08_SOURCE_ID,
@@ -43,6 +44,7 @@ const LATEST_FIRST_QUERY_SELECTOR_SOURCE_IDS = Object.freeze(new Set([
   G5A_U06_SOURCE_ID,
   G5B_U04_SOURCE_ID,
   G5B_U06_SOURCE_ID,
+  G6A_U04_SOURCE_ID,
   G6B_U01_SOURCE_ID,
   ...CURRENT_W3_QUERY_SELECTOR_SOURCE_IDS,
 ]));
