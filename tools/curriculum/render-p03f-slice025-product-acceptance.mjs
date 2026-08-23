@@ -62,7 +62,7 @@ try {
   page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
   page.on("pageerror", (error) => pageErrors.push(String(error)));
   await page.setContent(html, { waitUntil: "networkidle" });
-  fractionLayoutMetrics = await page["$eval"](".math-fraction", (nodes) => nodes.map((node, index) => {
+  fractionLayoutMetrics = await page.locator(".math-fraction").evaluateAll((nodes) => nodes.map((node, index) => {
     const numerator = node.querySelector(".math-fraction__numerator");
     const denominator = node.querySelector(".math-fraction__denominator");
     const numeratorRect = numerator?.getBoundingClientRect();
