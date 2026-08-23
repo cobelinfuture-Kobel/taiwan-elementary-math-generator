@@ -1,0 +1,119 @@
+{
+  "schemaName": "P03F52G6AU04DirectSourceWitnessResolutionV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F52_Q052SourceWitnessGapResolution",
+  "status": "PASS_SOURCE_WITNESS_RESOLVED_WITH_OPERATOR_APPROVED_EXTENSIONS",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "policyPath": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue-policy.json",
+    "queuePosition": 52,
+    "frozenSliceId": "p03e_q052_r12_g6a_u04_6a04_profile_decimal_c1",
+    "previousSliceId": "p03e_q051_r11_g6a_u04_6a04_profile_decimal_c1",
+    "previousSliceD0ClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice051-e6-d0-v1.json",
+    "previousSliceRequiredState": "PASS_D0_CLOSED",
+    "frozenKnowledgePointIds": [
+      "kp_g6a_u04_decimal_division_decimal_shift",
+      "kp_g6a_u04_decimal_division_quotient_precision",
+      "kp_g6a_u04_decimal_division_rate_application"
+    ],
+    "reservedNextSliceKnowledgePointIds": [
+      "kp_g6a_u04_decimal_division_rounding"
+    ],
+    "silentReorderAllowed": false,
+    "queueMutationPerformedByThisTask": false
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6a_u04_6a04",
+    "sourceCode": "6a04",
+    "sourceTitle": "小數除法",
+    "sourceFileName": "meow911_6a04_source.pdf",
+    "sourceDriveFileId": "1jFp8TvNtrECiCMuYCENyPeZNbb3fQNM1",
+    "sourceSha256": "1e1790a2fe9a91e4d819d0c9ff93d3065dde536887d93c5e20323f7011df8f50",
+    "sourceByteLength": 482611,
+    "sourceDriveRevisionId": "0B66IWBjxpIKUTEVPTWxCaUhNTlVuNjdWVjZQTWRnQzBpUG1RPQ",
+    "sourceRevisionCount": 1,
+    "publicMirrorDriveFileId": "17lSzcLixlux4hVNJNwPqARGaoE-3gZyR",
+    "publicMirrorSha256": "1e1790a2fe9a91e4d819d0c9ff93d3065dde536887d93c5e20323f7011df8f50",
+    "binaryIdentityStatus": "PASS_CANONICAL_AND_PUBLIC_MIRROR_BYTE_IDENTICAL",
+    "canonicalR02AuthorityPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_NO_OCR_AUTHORITY_PLUS_CANONICAL_R02_CANDIDATE_PLUS_OPERATOR_APPROVED_EXTENSION",
+    "reviewedPages": [1, 2],
+    "operatorApprovalDate": "2026-08-23",
+    "operatorApprovalMeaning": "The operator explicitly approved q052 extension after disclosure that the canonical two-page PDF directly supports decimal-shift procedure and requested quotient precision, but does not independently show the zero-fill subskill or a direct unit-rate application example. These gaps are admitted as curriculum extensions and must never be represented as literal textbook examples."
+  },
+  "directSourceWitnesses": [
+    {
+      "concept": "decimal_division_decimal_shift",
+      "page": 1,
+      "directTextbookWitnessFound": true,
+      "semanticBoundary": "The source directly teaches moving the decimal point in dividend and divisor so the divisor becomes an integer, with the quotient decimal point aligned to the dividend's new decimal position.",
+      "deliveryStatus": "DIRECT_SOURCE_PROCEDURAL_WITNESS_SUPPORTED"
+    },
+    {
+      "concept": "decimal_division_quotient_precision",
+      "page": 1,
+      "directTextbookWitnessFound": true,
+      "visibleExpression": "107.9 ÷ 7",
+      "requestedPrecision": "商取到小數第一位",
+      "semanticBoundary": "The source directly requests quotient precision to a named decimal place. This supports the precision portion of the KnowledgePoint but does not independently establish the zero-fill subskill.",
+      "deliveryStatus": "DIRECT_SOURCE_PRECISION_WITNESS_SUPPORTED"
+    }
+  ],
+  "frozenCandidateReview": [
+    {
+      "knowledgePointId": "kp_g6a_u04_decimal_division_decimal_shift",
+      "r02CandidateNameZh": "除法小數點同移",
+      "r02CandidateEvidencePages": [1, 2],
+      "directSourceWitnessFound": true,
+      "extensionRequired": false,
+      "q052DeliveryStatus": "DIRECT_SOURCE_PROCEDURAL_WITNESS_SUPPORTED"
+    },
+    {
+      "knowledgePointId": "kp_g6a_u04_decimal_division_quotient_precision",
+      "r02CandidateNameZh": "商的位數與補零",
+      "r02CandidateEvidencePages": [1, 2],
+      "directPrecisionWitnessFound": true,
+      "directZeroFillWitnessFound": false,
+      "extensionRequired": true,
+      "extensionScope": "zero-fill / placeholder completion only",
+      "q052DeliveryStatus": "DIRECT_PRECISION_WITNESS_PLUS_OPERATOR_APPROVED_ZERO_FILL_EXTENSION",
+      "generatedExampleClaimedAsTextbook": false
+    },
+    {
+      "knowledgePointId": "kp_g6a_u04_decimal_division_rate_application",
+      "r02CandidateNameZh": "小數除法單位率",
+      "r02CandidateEvidencePages": [1, 2],
+      "directSourceWitnessFound": false,
+      "extensionRequired": true,
+      "extensionScope": "bounded single-step unit-rate application: unitAmount = totalAmount / groupCount, with exact reconstruction",
+      "q052DeliveryStatus": "OPERATOR_APPROVED_CURRICULUM_EXTENSION",
+      "generatedExampleClaimedAsTextbook": false
+    }
+  ],
+  "extensionGuardrails": {
+    "operatorApprovedExtensionLabelRequired": true,
+    "textbookLiteralClaimAllowed": false,
+    "generatedExampleMayBePedagogicallyDerived": true,
+    "generatedExampleMustNotBeAttributedToTextbook": true,
+    "exactRationalValidationRequired": true,
+    "q053RoundingMayBeConsumed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false
+  },
+  "resolution": {
+    "sourceWitnessGapResolved": true,
+    "decimalShiftDirectWitness": true,
+    "quotientPrecisionDirectWitness": true,
+    "quotientPrecisionZeroFillDirectWitness": false,
+    "quotientPrecisionZeroFillOperatorApprovedExtension": true,
+    "rateApplicationDirectWitness": false,
+    "rateApplicationOperatorApprovedExtension": true,
+    "queueMutationRequired": false,
+    "implementationBranchMayProceed": true,
+    "globalR02MutationPerformedByThisTask": false,
+    "globalR03MutationPerformedByThisTask": false,
+    "globalR04MutationPerformedByThisTask": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice052Implementation"
+  }
+}
