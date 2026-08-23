@@ -5,6 +5,7 @@ import { generateBatchABrowserQuestions } from "./batch-a-browser-question-route
 import { validateBatchABrowserPlan, validateBatchABrowserQuestions } from "./batch-a-browser-validator-p03f25.js";
 import { G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID } from "../registry/g4a-u06-fraction-type-classification-selector-projection.js";
 import { G4A_U06_P03F25_KP_ID } from "../registry/g4a-u06-improper-mixed-conversion-selector-projection-p03f25.js";
+import { buildG4AU06InlineMathModel } from "./g4a-u06-inline-fraction-display.js";
 
 export const P03F25_WORKSHEET_ADAPTER = Object.freeze({
   task: "P03F_W3DirectProductVerticalSlice025Implementation",
@@ -46,6 +47,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     displayText: question.displayText,
     blankedDisplayText: question.blankedDisplayText,
     answerText: question.answerText,
+    promptInlineMath: buildG4AU06InlineMathModel({ sourceId: G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID, plainText: question.blankedDisplayText }),
     metadataSnapshot: question.metadata,
     layoutHints: Object.freeze({ estimatedTextLength: question.blankedDisplayText.length, hasGrouping: false, avoidPageBreakInside: true, representation: "fraction_conversion_numeric", longTextCardPolicy: "avoidSplit" }),
   }));
@@ -57,6 +59,8 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     patternGroupId: question.metadata.patternGroupId,
     promptText: question.blankedDisplayText,
     answerText: question.answerText,
+    promptInlineMath: buildG4AU06InlineMathModel({ sourceId: G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID, plainText: question.blankedDisplayText }),
+    answerInlineMath: buildG4AU06InlineMathModel({ sourceId: G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID, plainText: question.answerText }),
     metadataSnapshot: question.metadata,
     layoutHints: Object.freeze({ avoidPageBreakInside: true, representation: "fraction_conversion_answer" }),
   })) : [];
