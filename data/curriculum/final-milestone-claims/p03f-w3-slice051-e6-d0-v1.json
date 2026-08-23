@@ -27,7 +27,20 @@
   "sourceEvidence": {
     "sourceFileName": "meow911_6a04_source.pdf",
     "sourceDriveFileId": "1jFp8TvNtrECiCMuYCENyPeZNbb3fQNM1",
-    "sourceSha256": "fcacee5cb58fb3618feb0574259a1be2be9b9e49c7b87a4de5f75a17eeb3e17f",
+    "sourceSha256": "1e1790a2fe9a91e4d819d0c9ff93d3065dde536887d93c5e20323f7011df8f50",
+    "sourceByteLength": 482611,
+    "sourceDriveRevisionId": "0B66IWBjxpIKUTEVPTWxCaUhNTlVuNjdWVjZQTWRnQzBpUG1RPQ",
+    "sourceRevisionCount": 1,
+    "publicMirrorDriveFileId": "17lSzcLixlux4hVNJNwPqARGaoE-3gZyR",
+    "publicMirrorSha256": "1e1790a2fe9a91e4d819d0c9ff93d3065dde536887d93c5e20323f7011df8f50",
+    "binaryIdentityStatus": "PASS_CANONICAL_AND_PUBLIC_MIRROR_BYTE_IDENTICAL",
+    "provenanceCorrection": {
+      "status": "PASS_CORRECTED_UNTRACEABLE_CLOSEOUT_HASH",
+      "previousUntraceableSha256": "fcacee5cb58fb3618feb0574259a1be2be9b9e49c7b87a4de5f75a17eeb3e17f",
+      "canonicalRawDownloadSha256": "1e1790a2fe9a91e4d819d0c9ff93d3065dde536887d93c5e20323f7011df8f50",
+      "canonicalAndPublicMirrorByteIdentical": true,
+      "driveRevisionCount": 1
+    },
     "reviewMethod": "FULL_PAGE_VISUAL_READBACK_NO_OCR_AUTHORITY_PLUS_CANONICAL_R02_CANDIDATE",
     "reviewedPages": [1, 2],
     "directExpression": "2.46 ÷ 0.06",
