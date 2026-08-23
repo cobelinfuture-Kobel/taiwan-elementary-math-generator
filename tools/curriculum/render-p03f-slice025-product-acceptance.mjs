@@ -56,11 +56,25 @@ const browser = await chromium.launch({
 const consoleErrors = [];
 const pageErrors = [];
 let pageMetrics = [];
+let fractionLayoutMetrics = [];
 try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 960 }, deviceScaleFactor: 1 });
   page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
   page.on("pageerror", (error) => pageErrors.push(String(error)));
   await page.setContent(html, { waitUntil: "networkidle" });
+  fractionLayoutMetrics = await page.$eval(".math-fraction", (nodes) => nodes.map((node, index) => {
+    const numerator = node.querySelector(".math-fraction__numerator");
+    const denominator = node.querySelector(".math-fraction__denominator");
+    const numeratorRect = numerator?.getBoundingClientRect();
+    const denominatorRect = denominator?.getBoundingClientRect();
+    const numeratorStyle = numerator ? getComputedStyle(numerator) : null;
+    const lineWidth = Number.parseFloat(numeratorStyle?.borderBottomWidth ?? "0");
+    return {
+      index,
+      stacked: Boolean(numeratorRect && denominatorRect && numeratorRect.bottom <= denominatorRect.top + 1),
+      horizontalLine: numeratorStyle?.borderBottomStyle === "solid" && lineWidth >= 1,
+    };
+  }));
   const pages = page.locator(".worksheet-page");
   for (let index = 0; index < await pages.count(); index += 1) {
     await pages.nth(index).screenshot({ path: path.join(OUTPUT, `conversion-page-${String(index + 1).padStart(2, "0")}.png`) });
@@ -133,6 +147,8 @@ const report = {
   consoleErrorCount: consoleErrors.length,
   pageErrorCount: pageErrors.length,
   semanticScopeFindingCount,
+  structuredFractionCount: fractionLayoutMetrics.length,
+  fractionLayoutFindingCount: fractionLayoutMetrics.filter((row) => !row.stacked || !row.horizontalLine).length,
   pageMetrics,
   visualReview: {
     status: "PENDING",
@@ -154,7 +170,9 @@ const automatedPass = report.totalQuestionCount === 24
   && report.overflowFindingCount === 0
   && report.consoleErrorCount === 0
   && report.pageErrorCount === 0
-  && report.semanticScopeFindingCount === 0;
+  && report.semanticScopeFindingCount === 0
+  && report.structuredFractionCount > 0
+  && report.fractionLayoutFindingCount === 0;
 if (!automatedPass) throw new Error(`P03F25_CHROMIUM_FAILED:${JSON.stringify(report)}`);
 fs.writeFileSync(path.join(OUTPUT, "p03f-slice025-product-acceptance-report.json"), `${JSON.stringify(report, null, 2)}\n`);
 console.log(`P03F25_CHROMIUM_ACCEPTANCE=${JSON.stringify(report)}`);
