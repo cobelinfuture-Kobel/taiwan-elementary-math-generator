@@ -39,9 +39,20 @@ test("P03F51 D0 authority binds exact frozen q051 scope", () => {
   assert.deepEqual(authority.queueAuthority.knowledgePointIds, claim.authority.knowledgePointIds);
 });
 
-test("P03F51 source evidence preserves direct expression and independent exact answer boundary", () => {
+test("P03F51 source evidence preserves canonical binary identity, direct expression and independent exact answer boundary", () => {
   assert.equal(claim.sourceEvidence.sourceFileName, "meow911_6a04_source.pdf");
-  assert.equal(claim.sourceEvidence.sourceSha256, "fcacee5cb58fb3618feb0574259a1be2be9b9e49c7b87a4de5f75a17eeb3e17f");
+  assert.equal(claim.sourceEvidence.sourceDriveFileId, "1jFp8TvNtrECiCMuYCENyPeZNbb3fQNM1");
+  assert.equal(claim.sourceEvidence.sourceSha256, "1e1790a2fe9a91e4d819d0c9ff93d3065dde536887d93c5e20323f7011df8f50");
+  assert.equal(claim.sourceEvidence.sourceByteLength, 482611);
+  assert.equal(claim.sourceEvidence.sourceRevisionCount, 1);
+  assert.equal(claim.sourceEvidence.publicMirrorDriveFileId, "17lSzcLixlux4hVNJNwPqARGaoE-3gZyR");
+  assert.equal(claim.sourceEvidence.publicMirrorSha256, claim.sourceEvidence.sourceSha256);
+  assert.equal(claim.sourceEvidence.binaryIdentityStatus, "PASS_CANONICAL_AND_PUBLIC_MIRROR_BYTE_IDENTICAL");
+  assert.equal(claim.sourceEvidence.provenanceCorrection.status, "PASS_CORRECTED_UNTRACEABLE_CLOSEOUT_HASH");
+  assert.equal(claim.sourceEvidence.provenanceCorrection.previousUntraceableSha256, "fcacee5cb58fb3618feb0574259a1be2be9b9e49c7b87a4de5f75a17eeb3e17f");
+  assert.equal(claim.sourceEvidence.provenanceCorrection.canonicalRawDownloadSha256, claim.sourceEvidence.sourceSha256);
+  assert.equal(claim.sourceEvidence.provenanceCorrection.canonicalAndPublicMirrorByteIdentical, true);
+  assert.equal(claim.sourceEvidence.provenanceCorrection.driveRevisionCount, 1);
   assert.equal(claim.sourceEvidence.reviewMethod, "FULL_PAGE_VISUAL_READBACK_NO_OCR_AUTHORITY_PLUS_CANONICAL_R02_CANDIDATE");
   assert.deepEqual(claim.sourceEvidence.reviewedPages, [1, 2]);
   assert.equal(claim.sourceEvidence.directExpression, "2.46 ÷ 0.06");
