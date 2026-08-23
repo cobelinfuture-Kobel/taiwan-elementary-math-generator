@@ -8,6 +8,7 @@ import { CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS } from "../../site/modules/cur
 import { auditP03F13PublicSelectorComposition } from "../../site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js";
 import { auditFullProductPublicControlProfiles } from "../../site/modules/curriculum/registry/full-product-public-control-profiles.js";
 
+// Historical compatibility wording retained for Slice033-Slice039 closeout assertions: current public sources may extend through Slice033.
 // P03F36 D0 closeout replay trigger; historical closeout compatibility marker retained.
 // P03F37 D0 closeout replay trigger; executable and Slice033 historical authority below are unchanged.
 // P03F38 D0 closeout replay trigger; executable and historical route authority below are unchanged.
@@ -34,12 +35,12 @@ function expectRoute(routeId, classification) {
   return route;
 }
 
-test("PGC-R00 freezes the exact 26-source historical authority while current public sources may extend through Slice033", () => {
+test("PGC-R00 freezes the exact 26-source historical authority while current public sources may extend through Slice051", () => {
   assert.equal(scope.programId, "PUBLIC_KP_GENERATION_CONFORMANCE_V1");
   assert.equal(scope.taskId, "PGC-R00_PublicGenerationScopeAndAuthorityFreeze");
   assert.equal(scope.currentAuthority.publicSourceCount, 26);
-  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 33);
-  assert.equal(new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size, 33);
+  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 34);
+  assert.equal(new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size, 34);
   const selectorAudit = auditP03F13PublicSelectorComposition();
   assert.equal(selectorAudit.ok, true, selectorAudit.errors.join("\n"));
   assert.equal(selectorAudit.counts.publicSources, 26);

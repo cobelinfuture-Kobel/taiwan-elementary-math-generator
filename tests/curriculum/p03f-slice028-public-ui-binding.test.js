@@ -30,14 +30,14 @@ function snapshots(input){
   return Object.values(PUBLIC_UI_SURFACES).map((surfaceId)=>resolvePublicUiCapabilityBinding({...input,surfaceId}));
 }
 
-test("P03F28 historical selector remains 219 while current public inventory advances through Slice050 to 33 sources / 254 KPs",()=>{
+test("P03F28 historical selector remains 219 while current public inventory advances through Slice051 to 34 sources / 255 KPs",()=>{
   assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount,219);
   const sourceRows=listVisibleBatchAKnowledgePoints().filter((row)=>row.sourceId===G5A_U01_SOURCE_ID);
   assert.equal(sourceRows.length,2);
   assert.deepEqual(sourceRows.map((row)=>row.knowledgePointId).sort(),expectedKps);
   const pixel=getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 33);
-  assert.equal(pixel.visibleKnowledgePointCount, 254);
+  assert.equal(pixel.sourceCount, 34);
+  assert.equal(pixel.visibleKnowledgePointCount, 255);
   assert.equal(pixel.bySourceId[G5A_U01_SOURCE_ID].visibleKnowledgePointCount,8);
 });
 test("P03F28 exposes target single-KP numeric binding on Classic, 404 and Pixel",()=>{
