@@ -34,12 +34,12 @@ function expectRoute(routeId, classification) {
   return route;
 }
 
-test("PGC-R00 freezes the exact 26-source historical authority while current public sources may extend through Slice033", () => {
+test("PGC-R00 freezes the exact 26-source historical authority while current public sources may extend through Slice051", () => {
   assert.equal(scope.programId, "PUBLIC_KP_GENERATION_CONFORMANCE_V1");
   assert.equal(scope.taskId, "PGC-R00_PublicGenerationScopeAndAuthorityFreeze");
   assert.equal(scope.currentAuthority.publicSourceCount, 26);
-  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 33);
-  assert.equal(new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size, 33);
+  assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 34);
+  assert.equal(new Set(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((row) => row.sourceId)).size, 34);
   const selectorAudit = auditP03F13PublicSelectorComposition();
   assert.equal(selectorAudit.ok, true, selectorAudit.errors.join("\n"));
   assert.equal(selectorAudit.counts.publicSources, 26);
