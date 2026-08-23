@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
 
 import {
   renderInlineMathModel,
@@ -79,6 +80,19 @@ test("inline_math_v1 serializes exactly and renders escaped structured fractions
   assert.match(html, /1\.5px|math-fraction__numerator/);
   assert.equal(html.includes(" < 11"), false);
   assert.equal(html.includes("&lt;"), true);
+});
+
+
+test("both browser and canonical print stylesheets implement the fraction layout contract", () => {
+  for (const stylesheetPath of [
+    "site/assets/styles/print-styles.css",
+    "src/renderer/print-styles.css",
+  ]) {
+    const css = fs.readFileSync(stylesheetPath, "utf8");
+    assert.match(css, /\.math-fraction\s*\{[^}]*display:\s*inline-flex/s);
+    assert.match(css, /\.math-fraction\s*\{[^}]*flex-direction:\s*column/s);
+    assert.match(css, /\.math-fraction__numerator\s*\{[^}]*border-bottom:\s*1\.5px solid currentColor/s);
+  }
 });
 
 test("inline_math_v1 fails closed on canonical plain-text mismatch", () => {
