@@ -1,0 +1,94 @@
+{
+  "schemaName": "P03FSlice051G6AU04Rank11DecimalDividedByDecimalAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice051Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_EXACT_Q051_MEMBERSHIP_PROVEN",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 51,
+    "sliceId": "p03e_q051_r11_g6a_u04_6a04_profile_decimal_c1",
+    "primarySourceNodeId": "g6a_u04_6a04",
+    "intraWavePrerequisiteRank": 11,
+    "primaryRuntimeProfileId": "profile_decimal",
+    "chunkIndex": 1,
+    "knowledgePointIds": ["kp_g6a_u04_decimal_divided_by_decimal"],
+    "membershipRecoveryAuthority": "tests/curriculum/p03f51-r05-g6a-u04-assignment-row-recovery.test.js"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6a_u04_6a04",
+    "sourceCode": "6a04",
+    "sourceTitle": "小數除法",
+    "grade": 6,
+    "semester": "upper",
+    "unitCode": "6A-U04",
+    "sourceFileName": "meow911_6a04_source.pdf",
+    "sourceDriveFileId": "1jFp8TvNtrECiCMuYCENyPeZNbb3fQNM1",
+    "canonicalR02AuthorityPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_NO_OCR_AUTHORITY_PLUS_CANONICAL_R02_CANDIDATE",
+    "reviewedPages": [1,2],
+    "sourceWitnesses": [{"concept":"decimal_dividend_by_decimal_divisor","visibleExpression":"2.46 ÷ 0.06","expectedQuotient":"41","page":1}],
+    "verificationBoundary": "q051 admits the basic decimal-dividend by nonzero decimal-divisor numeric relation only. Decimal-shift procedure, quotient precision/zero-place procedure, rate application and quotient rounding remain reserved to q052/q053."
+  },
+  "knowledgePoints": [{
+    "knowledgePointId": "kp_g6a_u04_decimal_divided_by_decimal",
+    "canonicalNameZh": "小數除以小數",
+    "capabilityStatement": "學生能將除數化為整數後計算小數除法。",
+    "reasoningInvariant": "被除數與除數同乘10的次方不改變商。",
+    "category": "arithmetic",
+    "evidencePages": [1,2],
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "publicModes": ["numeric"],
+    "operationModelId": "op_g6a_u04_decimal_divided_by_decimal",
+    "operationFamilyId": "decimal_division",
+    "requiredW3CapabilityIds": ["cap_decimal_arithmetic","cap_decimal_domain_validator","cap_decimal_number_system"]
+  }],
+  "patternSurfaces": [{
+    "patternGroupId": "pg_g6a_u04_decimal_divided_by_decimal_numeric",
+    "patternSpecId": "ps_g6a_u04_decimal_divided_by_decimal_numeric",
+    "knowledgePointId": "kp_g6a_u04_decimal_divided_by_decimal",
+    "operationModelId": "op_g6a_u04_decimal_divided_by_decimal",
+    "operationFamilyId": "decimal_division",
+    "mode": "NUMERIC",
+    "requestedUnknownRole": "quotient",
+    "givenRoles": ["decimalDividend","decimalDivisor"],
+    "requiredW3CapabilityIds": ["cap_decimal_arithmetic","cap_decimal_domain_validator","cap_decimal_number_system"]
+  }],
+  "formalMappingBoundary": {
+    "positiveDecimalDividendRequired": true,
+    "positiveNonzeroDecimalDivisorRequired": true,
+    "exactRationalRecalculationRequired": true,
+    "sharedP03F32ExactRationalNormalizerRequired": true,
+    "terminatingDecimalQuotientRequired": true,
+    "integerQuotientAllowed": true,
+    "samePowerOfTenScalingInvariantRequired": true,
+    "sourceWitness246Div006Required": true,
+    "decimalShiftKnowledgePointRequired": false,
+    "quotientPrecisionKnowledgePointRequired": false,
+    "rateApplicationKnowledgePointRequired": false,
+    "roundingKnowledgePointRequired": false,
+    "globalContextRequired": false
+  },
+  "futureQueueBoundary": {
+    "slice052KnowledgePointIds": ["kp_g6a_u04_decimal_division_decimal_shift","kp_g6a_u04_decimal_division_quotient_precision","kp_g6a_u04_decimal_division_rate_application"],
+    "slice053KnowledgePointIds": ["kp_g6a_u04_decimal_division_rounding"],
+    "slice051MayConsumeFutureKnowledgePoints": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": false,
+    "newPublicSourceAllowed": true,
+    "expectedSourceVisibleCountAfterAdmission": 1,
+    "expectedSourceHiddenCountAfterAdmission": 4,
+    "expectedSourceNotSelectableCountAfterAdmission": 4,
+    "expectedPublicSourceCountAfterAdmission": 34,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 255,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice052Implementation"
+  },
+  "changeImpactGate": {
+    "level": "L3",
+    "reason": "bounded current selector/public authority successor and shared executable dispatch; shared decimal division semantics and legal-route semantics remain unchanged",
+    "full793RouteReplayRequiredByImplementation": false
+  }
+}
