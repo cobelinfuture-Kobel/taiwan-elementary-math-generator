@@ -1,4 +1,4 @@
-import { listBatchASourceUnits, listCurrentFullProductPublicSourceUnits, listFullProductPublicSourceUnits } from "../modules/curriculum/batch-a/source-units.js";
+import { listBatchASourceUnits, listCurrentFullProductPublicSourceUnits, listFullProductPublicSourceUnits } from "../modules/curriculum/batch-a/source-units-p04f1-extension.js";
 import { BATCH_A_SELECTOR_AVAILABILITY as CURRENT_SELECTOR_AVAILABILITY, listBatchAKnowledgePointAvailabilityBySource, listVisibleBatchAKnowledgePoints } from "../modules/curriculum/registry/batch-a-selector-p04f1-extension.js";
 import { BATCH_A_SELECTOR_AVAILABILITY as P01E_SELECTOR_AVAILABILITY } from "../modules/curriculum/registry/batch-a-selector-p01e-extension.js";
 import { G4B_U04_SOURCE_ID } from "../modules/curriculum/registry/g4b-u04-promotion.js";
