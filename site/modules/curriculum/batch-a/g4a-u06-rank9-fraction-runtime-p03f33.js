@@ -12,7 +12,16 @@ const COORDINATE_SPEC="ps_g4a_u06_fraction_number_line_coordinate_numeric";
 const DISTANCE_SPEC="ps_g4a_u06_fraction_number_line_distance_numeric";
 const ADD_SUB_SPEC="ps_g4a_u06_mixed_fraction_add_sub_result_numeric";
 const DENOMINATORS=Object.freeze([2,3,4,5,6,8,10,12]);
-const EQUAL_COMPARE=Object.freeze([[4,3,8,6],[7,4,14,8],[9,5,18,10],[11,6,22,12],[5,2,10,4],[13,8,26,16]]);
+const COMPARE_FRACTION_PARTS = Object.freeze([
+  Object.freeze([1, 2]),
+  Object.freeze([1, 3]),
+  Object.freeze([3, 4]),
+  Object.freeze([2, 5]),
+  Object.freeze([5, 6]),
+  Object.freeze([3, 7]),
+  Object.freeze([5, 8]),
+  Object.freeze([4, 9]),
+]);
 const seedOffset=(seed,size)=>[...String(seed??"p03f33")].reduce((sum,char)=>(sum+char.charCodeAt(0))%Math.max(1,size),0);
 const gcd=(a,b)=>{let x=Math.abs(a),y=Math.abs(b);while(y)[x,y]=[y,x%y];return x||1;};
 function normalize(numerator,denominator){
@@ -46,15 +55,81 @@ function metadata(definition){ return Object.freeze({
   productAdmissionTask:"P03F_W3DirectProductVerticalSlice033Implementation",
   generatorAdapterId:"SHARED_OPERATION_FAMILY_GENERATOR_V1",validatorAdapterId:"SHARED_OPERATION_FAMILY_VALIDATOR_V1",globalContextAuthorityPath:null,
 }); }
-function compareFixture(ordinal,seed){
-  const offset=seedOffset(seed,97);
-  if(ordinal%5===4){const row=EQUAL_COMPARE[(Math.floor(ordinal/5)+offset)%EQUAL_COMPARE.length];return {leftNumerator:row[0],leftDenominator:row[1],rightNumerator:row[2],rightDenominator:row[3]};}
-  let ld=DENOMINATORS[(ordinal+offset)%DENOMINATORS.length]; let rd=DENOMINATORS[(ordinal*3+offset+1)%DENOMINATORS.length];
-  let ln=ld+1+((ordinal*5+offset)%Math.max(2,ld)); let rn=rd+1+((ordinal*7+offset+1)%Math.max(2,rd));
-  if(compare(ln,ld,rn,rd)==="=") rn+=1;
-  const desired=ordinal%2===0?"<":">";
-  if(compare(ln,ld,rn,rd)!==desired) [ln,ld,rn,rd]=[rn,rd,ln,ld];
-  return {leftNumerator:ln,leftDenominator:ld,rightNumerator:rn,rightDenominator:rd};
+function compareFixture(ordinal, seed) {
+  const seedKey = String(seed ?? "p03f33");
+
+  /*
+   * 240 個唯一組合：
+   *
+   * 10 個整數層
+   * × 8 個不同分數部分
+   * × 3 種比較關係
+   * = 240
+   */
+
+  const relationIndex =
+    (
+      ordinal
+      + seedOffset(`${seedKey}:relation`, 3)
+    ) % 3;
+
+  const fractionPartIndex =
+    (
+      Math.floor(ordinal / 3)
+      + seedOffset(
+        `${seedKey}:fraction-part`,
+        COMPARE_FRACTION_PARTS.length,
+      )
+    ) % COMPARE_FRACTION_PARTS.length;
+
+  const uniquenessBand = Math.floor(
+    ordinal
+    / (COMPARE_FRACTION_PARTS.length * 3),
+  );
+
+  const whole =
+    1 + (
+      (
+        uniquenessBand
+        + seedOffset(`${seedKey}:whole`, 10)
+      ) % 10
+    );
+
+  const [
+    fractionNumerator,
+    denominator,
+  ] = COMPARE_FRACTION_PARTS[fractionPartIndex];
+
+  const baseNumerator =
+    whole * denominator + fractionNumerator;
+
+  // 小於
+  if (relationIndex === 0) {
+    return {
+      leftNumerator: baseNumerator,
+      leftDenominator: denominator,
+      rightNumerator: baseNumerator + 1,
+      rightDenominator: denominator,
+    };
+  }
+
+  // 大於
+  if (relationIndex === 1) {
+    return {
+      leftNumerator: baseNumerator + 1,
+      leftDenominator: denominator,
+      rightNumerator: baseNumerator,
+      rightDenominator: denominator,
+    };
+  }
+
+  // 等於：右邊使用二倍分子及二倍分母。
+  return {
+    leftNumerator: baseNumerator,
+    leftDenominator: denominator,
+    rightNumerator: baseNumerator * 2,
+    rightDenominator: denominator * 2,
+  };
 }
 function buildCompare(definition,ordinal,seed){
   const f=compareFixture(ordinal,seed); const answerText=compare(f.leftNumerator,f.leftDenominator,f.rightNumerator,f.rightDenominator);
