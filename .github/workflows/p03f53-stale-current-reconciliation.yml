@@ -87,15 +87,18 @@ jobs:
               .replaceAll('advances to 34 sources and 258 KPs', 'advances to 34 sources and 259 KPs')
               .replaceAll('34/258', '34/259')
               .replaceAll('258 KPs', '259 KPs')
-              .replace(/assert\.equal\((pixel|registry)\.visibleKnowledgePointCount,\s*258\)/g, 'assert.equal($1.visibleKnowledgePointCount, 259)')
-              .replace(/assert\.deepEqual\(\[(pixel|registry)\.sourceCount,\s*\1\.visibleKnowledgePointCount\],\s*\[34,\s*258\]\)/g, 'assert.deepEqual([$1.sourceCount,$1.visibleKnowledgePointCount],[34,259])');
+              .replace(/assert\.equal\((snapshot|pixel|registry)\.visibleKnowledgePointCount,\s*258\)/g, 'assert.equal($1.visibleKnowledgePointCount, 259)')
+              .replace(/assert\.deepEqual\(\[(snapshot|pixel|registry)\.sourceCount,\s*\1\.visibleKnowledgePointCount\],\s*\[34,\s*258\]\)/g, 'assert.deepEqual([$1.sourceCount,$1.visibleKnowledgePointCount],[34,259])');
           }
 
           for (const path of olderCurrentFiles) {
             update(path, (before) => {
               let after = advanceCurrentInventory(before);
               if (consumerFiles.has(path)) {
-                after = after.replaceAll('P03F52', 'P03F53').replaceAll('p03f52', 'p03f53');
+                after = after
+                  .replaceAll('P03F52', 'P03F53')
+                  .replaceAll('p03f52', 'p03f53')
+                  .replaceAll('Slice052 successor', 'Slice053 successor');
               }
               return after;
             });
@@ -125,13 +128,19 @@ jobs:
               const end = before.indexOf('\n});', start);
               if (end < 0) throw new Error(`P03F53_CURRENT_BLOCK_END_NOT_FOUND:${path}`);
               const blockEnd = end + '\n});'.length;
-              const current = before.slice(start, blockEnd)
+              let current = before.slice(start, blockEnd)
                 .replace('34/258', '34/259')
                 .replace('4/1/1', '5/0/0')
                 .replace('assert.equal(pixel.visibleKnowledgePointCount, 258);', 'assert.equal(pixel.visibleKnowledgePointCount, 259);')
                 .replace('assert.equal(source.visibleKnowledgePoints.length, 4);', 'assert.equal(source.visibleKnowledgePoints.length, 5);')
                 .replace('assert.equal(source.hiddenPendingCount, 1);', 'assert.equal(source.hiddenPendingCount, 0);')
                 .replace('assert.equal(source.notSelectableCount, 1);', 'assert.equal(source.notSelectableCount, 0);');
+              if (path.endsWith('p03f-slice052-g6a-u04-rank12-shift-precision-rate.test.js')) {
+                current = current.replace(
+                  'new Set(["kp_g6a_u04_decimal_divided_by_decimal", ...TARGET_KPS])',
+                  'new Set(["kp_g6a_u04_decimal_divided_by_decimal", ...TARGET_KPS, "kp_g6a_u04_decimal_division_rounding"])',
+                );
+              }
               return before.slice(0, start) + current + before.slice(blockEnd);
             });
           }
