@@ -45,6 +45,7 @@ const POST_S01_WORKFLOW_FILES = [
   ".github/workflows/p03f-slice050-core-acceptance.yml",
   ".github/workflows/p03f-slice051-core-acceptance.yml",
   ".github/workflows/p03f-slice052-core-acceptance.yml",
+  ".github/workflows/p03f-slice053-core-acceptance.yml",
   ...TEMPORARY_WORKFLOW_FILES,
 ];
 
@@ -95,10 +96,10 @@ test("GCI-S02 PR gate is visible in the live workflow inventory without mutating
 
   assert.deepEqual(observedLiveDelta, approvedLiveDelta);
   assert.equal(current.summary.workflowFileCount, historical.summary.workflowFileCount + approvedLiveDelta.length);
-  assert.equal(current.summary.pullRequestWorkflowCount, 101);
+  assert.equal(current.summary.pullRequestWorkflowCount, 102);
   assert.equal(current.summary.prBranchWriterCount, 22);
   assert.equal(current.summary.prFullRegressionWorkflowCount, 27);
-  assert.equal(current.summary.lateSkipCandidateCount, 60);
+  assert.equal(current.summary.lateSkipCandidateCount, 61);
   assert.ok(current.summary.sharedExactPathPatternCount >= 79);
 
   const prGate = current.workflows.find((row) => row.file === WORKFLOW_FILE);
