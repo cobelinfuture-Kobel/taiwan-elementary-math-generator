@@ -10,7 +10,37 @@ const H=(s)=>{let a=0;for(const c of String(s??"x"))a=((a*31)+c.charCodeAt(0))>>
 const D=(n)=>Math.floor(n/10)%10, C=(n)=>Math.floor(n/100)%10, QT=(n)=>Math.floor(n/10)%10;
 export function canGenerateG3BU01BatchAQuestions(plan={}){return plan?.sourceId===sourceId&&Array.isArray(plan.patternSpecIds)&&plan.patternSpecIds.every((id)=>IDS.includes(id));}
 function normalizedIds(plan){return plan.patternSpecIds.length===1&&plan.patternSpecIds[0]===P.d?[P.d,P.g,P.h]:plan.patternSpecIds;}
-function alloc(ids,n){const b=Math.floor(n/ids.length);let r=n%ids.length;return ids.map((patternSpecId)=>{const questionCount=b+(r>0?1:0);r-=r>0?1:0;return{patternSpecId,questionCount};}).filter(x=>x.questionCount>0);}
+function alloc(ids, n) {
+  const rows = ids.map((patternSpecId) => ({
+    patternSpecId,
+    questionCount: 0,
+    capacity: cap(patternSpecId)
+  }));
+
+  let remaining = Math.max(0, Number(n) || 0);
+
+  while (remaining > 0) {
+    const available = rows.filter(
+      (row) => row.questionCount < row.capacity
+    );
+
+    if (available.length === 0) break;
+
+    for (const row of available) {
+      if (remaining <= 0) break;
+
+      row.questionCount += 1;
+      remaining -= 1;
+    }
+  }
+
+  return rows
+    .filter((row) => row.questionCount > 0)
+    .map(({ patternSpecId, questionCount }) => ({
+      patternSpecId,
+      questionCount
+    }));
+}
 function is3(id){return id===P.a||id.startsWith("ps_g3b_u01_3digit");}
 function rem(id){return id===P.j||id===P.k;}
 function pred(id){return({[P.c]:(m)=>D(m.dividend)<m.divisor,[P.d]:(m)=>m.quotient%10===0,[P.e]:(m)=>D(m.dividend)>=m.divisor&&D(m.dividend)%m.divisor===0,[P.f]:(m)=>C(m.dividend)<m.divisor,[P.g]:(m)=>m.quotient>=100&&QT(m.quotient)===0,[P.h]:(m)=>m.quotient>=10&&m.quotient%10===0,[P.i]:(m)=>C(m.dividend)>=m.divisor&&C(m.dividend)%m.divisor===0}[id]??(()=>true));}
