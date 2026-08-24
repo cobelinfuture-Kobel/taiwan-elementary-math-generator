@@ -2,13 +2,12 @@
   "schemaVersion": "g4b-u04-r3d-deployed-approved-layouts-v1",
   "task": "G4B_U04_R3D_DeployedQuestionOnly3x5And2x6Audit",
   "status": "FAIL",
-  "deploymentSha": "039311a5109d846dd1a48977e20e6c343bba6bef",
+  "deploymentSha": "7f9b4a8230fee3012b72dcf67739ec2c5451998e",
   "scenarioId": "auto-safe-3x5",
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r3d-auto-safe-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R3D=039311a5109d846dd1a48977e20e6c343bba6bef-auto-safe-3x5-1787556588500",
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4b_u04_4b04&selectionMode=mixedKnowledgePointsSameUnit&questionMode=reasoning&layoutMode=auto_safe&questionCount=15&ordering=groupedByPattern&answerKey=0&generationSeed=g4b-u04-r3d-auto-safe-3x5&columns=4&rowsPerPage=10&kp=kp_g4b_u04_inverse_rounding_unknown_digit&kp=kp_g4b_u04_inverse_rounding_possible_original&pg=pg_g4b_u04_inverse_digit_set&pg=pg_g4b_u04_inverse_original_values&g4bU04R3D=7f9b4a8230fee3012b72dcf67739ec2c5451998e-auto-safe-3x5-1787561645437",
   "message": "page.waitForFunction: Timeout 120000ms exceeded.",
   "details": null,
   "consoleErrors": [
-    "auto-safe-3x5: Failed to load resource: the server responded with a status of 503 ()",
     "auto-safe-3x5: Failed to load resource: the server responded with a status of 503 ()",
     "auto-safe-3x5: Failed to load resource: the server responded with a status of 503 ()"
   ],
@@ -16,12 +15,12 @@
   "workflow": "G4B-U04 R3D Deployed Approved Layouts",
   "eventName": "workflow_run",
   "run": {
-    "id": "32701692152",
-    "number": "463",
+    "id": "32708573342",
+    "number": "464",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/32701692152"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/32708573342"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-08-24T07:31:54.415Z"
+  "verifiedAt": "2026-08-24T08:56:10.131Z"
 }
