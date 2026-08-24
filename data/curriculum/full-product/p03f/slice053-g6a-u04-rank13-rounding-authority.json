@@ -1,0 +1,134 @@
+{
+  "schemaName": "P03FSlice053G6AU04Rank13RoundingAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice053Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_SOURCE_EVIDENCE_RESOLVED",
+  "goalDistanceBefore": "D3",
+  "goalDistanceAfter": "D2",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 53,
+    "sliceId": "p03e_q053_r13_g6a_u04_6a04_profile_decimal_c1",
+    "previousSliceId": "p03e_q052_r12_g6a_u04_6a04_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice052-e6-d0-v1.json",
+    "sourceWitnessResolutionPath": "data/curriculum/full-product/p03f/slice053-g6a-u04-direct-source-witness-resolution.json",
+    "knowledgePointIds": ["kp_g6a_u04_decimal_division_rounding"],
+    "nextSliceId": null,
+    "queueMutationAllowed": false
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6a_u04_6a04",
+    "sourceCode": "6a04",
+    "sourceTitle": "小數除法",
+    "grade": 6,
+    "semester": "upper",
+    "unitCode": "6A-U04",
+    "sourceFileName": "meow911_6a04_source.pdf",
+    "sourceDriveFileId": "1jFp8TvNtrECiCMuYCENyPeZNbb3fQNM1",
+    "sourceSha256": "1e1790a2fe9a91e4d819d0c9ff93d3065dde536887d93c5e20323f7011df8f50",
+    "sourceByteLength": 482611,
+    "reviewedPages": [1, 2],
+    "decimalRoundingDirectTextbookWitness": true,
+    "quotientRequestedPlaceDirectTextbookWitness": true,
+    "operatorApprovedExtensionRequired": false,
+    "generatedExampleClaimedAsTextbook": false
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g6a_u04_decimal_division_rounding",
+      "canonicalNameZh": "小數商概數",
+      "scope": "對正有限小數被除數與正且非零有限小數除數，先以精確有理數表示商，再依指定個位／小數第一位／小數第二位用四捨五入法取得商的概數；不得以浮點近似作為權威計算。",
+      "applicationClassification": "DIRECT_SOURCE_ROUNDING_CAPABILITY",
+      "operationModelId": "op_g6a_u04_decimal_division_rounding",
+      "operationFamilyId": "decimal_division",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "directTextbookWitness": true
+    }
+  ],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g6a_u04_decimal_division_rounding",
+      "knowledgePointId": "kp_g6a_u04_decimal_division_rounding",
+      "operationModelId": "op_g6a_u04_decimal_division_rounding",
+      "canonicalExpressions": [
+        "exactQuotient = decimalDividend / decimalDivisor",
+        "scaleFactor = 10^requestedScale",
+        "scaledExact = exactQuotient * scaleFactor",
+        "retainedInteger = floor(scaledExact)",
+        "roundedInteger = retainedInteger + 1 iff fractionalPart(scaledExact) >= 1/2",
+        "roundedQuotient = roundedInteger / scaleFactor"
+      ],
+      "unknownRoles": ["roundedQuotient"],
+      "answerType": "decimal_approximation",
+      "validationInvariants": [
+        "decimalDivisor is positive and nonzero",
+        "requestedScale is an integer in {0,1,2}",
+        "exact rational quotient is authoritative",
+        "a remainder strictly below half keeps the retained digit",
+        "a remainder equal to or above half increments the retained digit",
+        "roundedQuotient is emitted at exactly requestedScale fractional digits when requestedScale > 0",
+        "approximation is explicitly marked and never represented as exact equality"
+      ]
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g6a_u04_decimal_division_rounding_numeric",
+      "patternSpecId": "ps_g6a_u04_decimal_division_rounding_half_up_numeric",
+      "knowledgePointId": "kp_g6a_u04_decimal_division_rounding",
+      "operationModelId": "op_g6a_u04_decimal_division_rounding",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "roundedQuotient",
+      "givenRoles": ["decimalDividend", "decimalDivisor", "requestedScale"],
+      "answerType": "decimal_approximation",
+      "contextRequired": false
+    }
+  ],
+  "validatorContract": {
+    "rounding": {
+      "exactRationalRecalculationRequired": true,
+      "halfUpDecisionRequired": true,
+      "requestedScaleRequired": true,
+      "fixedScaleStringRequiredWhenFractional": true,
+      "approximationMarkerRequired": true,
+      "floatingPointAuthorityAllowed": false
+    }
+  },
+  "capabilityContract": {
+    "requiredW3CapabilityUnion": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+    "newCapabilityIdRequired": false,
+    "sharedExactRationalNormalizerRequired": true,
+    "sharedDecimalDivisionFamilyRequired": true,
+    "parallelMathPipelineAllowed": false
+  },
+  "publicProjection": {
+    "newSourceAdmission": false,
+    "publicSourceCountBefore": 34,
+    "publicSourceCountAfter": 34,
+    "currentPublicKnowledgePointCountBefore": 258,
+    "currentPublicKnowledgePointCountAfter": 259,
+    "g6aU04VisibleKnowledgePointsBefore": 4,
+    "g6aU04VisibleKnowledgePointsAfter": 5,
+    "g6aU04HiddenKnowledgePointsAfter": 0,
+    "g6aU04NotSelectableKnowledgePointsAfter": 0
+  },
+  "implementationBoundary": {
+    "runtimeImplementationRequired": true,
+    "selectorProjectionRequired": true,
+    "sharedGeneratorRequired": true,
+    "sharedValidatorRequired": true,
+    "sharedWorksheetRendererRequired": true,
+    "publicCapabilityBindingCutoverRequired": true,
+    "globalContextExpansionAllowed": false,
+    "queueMutationAllowed": false,
+    "parallelPipelineAllowed": false,
+    "changeImpactGate": "L3",
+    "targetedRouteReplayRequired": true,
+    "full793RouteReplayRequired": false,
+    "nextTask": "P03F53_G6AU04Rank13RoundingImplementation"
+  }
+}
