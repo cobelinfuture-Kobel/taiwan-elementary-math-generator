@@ -21,12 +21,12 @@ function fixturesFor(patternSpecId) {
       for (let numerator = 1; numerator < denominator; numerator += 1) rows.push({ whole: 0, numerator, denominator });
     }
   } else if (targetType === "improper_fraction") {
-    for (let denominator = 2; denominator <= 10; denominator += 1) {
+    for (let denominator = 2; denominator <= 19; denominator += 1) {
       for (let numerator = denominator; numerator <= denominator * 3; numerator += 1) rows.push({ whole: 0, numerator, denominator });
     }
   } else {
-    for (let whole = 1; whole <= 6; whole += 1) {
-      for (let denominator = 2; denominator <= 10; denominator += 1) {
+    for (let whole = 1; whole <= 9; whole += 1) {
+      for (let denominator = 2; denominator <= 19; denominator += 1) {
         for (let numerator = 1; numerator < denominator; numerator += 1) rows.push({ whole, numerator, denominator });
       }
     }
