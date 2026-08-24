@@ -1,0 +1,67 @@
+{
+  "schemaName": "P03F53G6AU04DirectSourceWitnessResolutionV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F53_Q053SourceWitnessResolution",
+  "status": "PASS_DIRECT_SOURCE_WITNESS_RESOLVED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 53,
+    "frozenSliceId": "p03e_q053_r13_g6a_u04_6a04_profile_decimal_c1",
+    "previousSliceId": "p03e_q052_r12_g6a_u04_6a04_profile_decimal_c1",
+    "previousSliceD0ClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice052-e6-d0-v1.json",
+    "previousSliceRequiredState": "PASS_D0_CLOSED",
+    "frozenKnowledgePointIds": ["kp_g6a_u04_decimal_division_rounding"],
+    "nextSliceId": null,
+    "queueMutationPerformedByThisTask": false
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6a_u04_6a04",
+    "sourceCode": "6a04",
+    "sourceTitle": "小數除法",
+    "sourceFileName": "meow911_6a04_source.pdf",
+    "sourceDriveFileId": "1jFp8TvNtrECiCMuYCENyPeZNbb3fQNM1",
+    "sourceSha256": "1e1790a2fe9a91e4d819d0c9ff93d3065dde536887d93c5e20323f7011df8f50",
+    "sourceByteLength": 482611,
+    "canonicalR02AuthorityPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_NO_OCR_AUTHORITY_PLUS_CANONICAL_R02_CANDIDATE",
+    "reviewedPages": [1, 2]
+  },
+  "directSourceWitnesses": [
+    {
+      "concept": "decimal_rounding_half_up",
+      "page": 1,
+      "directTextbookWitnessFound": true,
+      "visibleHeading": "小數取概數",
+      "visibleInstruction": "四捨五入取到個位",
+      "visibleExampleValue": "10.485",
+      "semanticBoundary": "The source directly teaches decimal approximation by 四捨五入 to a named place."
+    },
+    {
+      "concept": "decimal_division_requested_quotient_place",
+      "page": 1,
+      "directTextbookWitnessFound": true,
+      "visibleExpression": "107.9 ÷ 7",
+      "visibleInstruction": "商取到小數第一位",
+      "semanticBoundary": "The source directly places requested quotient precision inside the decimal-division lesson."
+    }
+  ],
+  "canonicalR02Candidate": {
+    "knowledgePointId": "kp_g6a_u04_decimal_division_rounding",
+    "canonicalNameZh": "小數商概數",
+    "capabilityStatement": "學生能將無限或較長小數商四捨五入到指定位置。",
+    "reasoningInvariant": "保留位由下一位決定進位，近似值須標示精度。",
+    "evidencePages": [1, 2],
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "resolution": {
+    "directRoundingWitness": true,
+    "directQuotientPrecisionWitness": true,
+    "canonicalR02RoundingCandidatePresent": true,
+    "operatorApprovedExtensionRequired": false,
+    "generatedExampleClaimedAsTextbook": false,
+    "implementationMayProceed": true,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false
+  }
+}
