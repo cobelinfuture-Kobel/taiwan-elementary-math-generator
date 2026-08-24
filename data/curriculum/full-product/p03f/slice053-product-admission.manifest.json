@@ -4,9 +4,9 @@
   "queuePosition": 53,
   "queueEntryId": "p03e_q053_r13_g6a_u04_6a04_profile_decimal_c1",
   "sourceId": "g6a_u04_6a04",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "admissionState": "ADMITTED_FINAL_FROZEN_QUEUE_SLICE",
+  "goalDistance": "D0",
   "authorityPath": "site/modules/curriculum/registry/g6a-u04-rank13-rounding-selector-projection-p03f53.js",
   "knowledgePointIds": ["kp_g6a_u04_decimal_division_rounding"],
   "patternGroupIds": ["pg_g6a_u04_decimal_division_rounding_numeric"],
@@ -109,15 +109,21 @@
     "fullRouteReplayRequired": false
   },
   "closeoutPr": {
-    "number": null,
-    "headSha": null,
-    "mergeSha": null
+    "number": 678,
+    "headSha": "e8c493a16f1f3240874b8bfb6d624eab859172c6",
+    "mergeSha": "039311a5109d846dd1a48977e20e6c343bba6bef"
   },
-  "closeoutNode": null,
+  "closeoutNode": {
+    "runId": 32701023982,
+    "jobId": 97352365075,
+    "status": "SUCCESS",
+    "artifactId": 9510582395,
+    "artifactDigest": "sha256:63b8fe47e05ace2fe2894e838d135d02ec397bbbdc488a5273c8263751688e39"
+  },
   "productionAdmission": {
-    "slice053Admitted": false,
-    "frozenQueueComplete": false,
+    "slice053Admitted": true,
+    "frozenQueueComplete": true,
     "nextSliceExists": false
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice053_D0PostMergeReconciliation"
+  "nextResumeTask": null
 }

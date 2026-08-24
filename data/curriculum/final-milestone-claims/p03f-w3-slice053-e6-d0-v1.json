@@ -3,8 +3,8 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F53_G6AU04Rank13RoundingImplementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice053_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice053 only: final frozen q053 promotes G6A-U04 decimal-division quotient rounding through one direct-source numeric PatternGroup and PatternSpec on the existing shared exact-rational decimal-division path. Exact BigInt rational HALF_UP is authoritative for requested scales 0/1/2, learner-facing approximation uses ≈, current authority is 34 sources / 259 visible KPs with G6A-U04 fully visible 5/0/0, and exact-head Node, bounded L3 contracts, Chromium product acceptance, and post-merge deployed Main/Pages E2E are bound. No operator-approved curriculum extension, Global Context expansion, parallel pipeline, queue mutation, q054, or new route family is admitted.",
   "authority": {
     "path": "site/modules/curriculum/registry/g6a-u04-rank13-rounding-selector-projection-p03f53.js",
@@ -114,7 +114,7 @@
   "mainReadback": {
     "implementationMergeSha": "d0bb3b875fa7a6646588b68ef289268313e43cdc",
     "evidenceMergeSha": "3aae8af779d06ae160f86b8b3e87aaca8e4dc0e9",
-    "candidateMergeSha": null,
+    "candidateMergeSha": "039311a5109d846dd1a48977e20e6c343bba6bef",
     "publicSourcesAtAdmission": 34,
     "visibleKnowledgePointsAtAdmission": 259,
     "g6aU04VisibleKnowledgePoints": 5,
@@ -181,11 +181,17 @@
     "fullRouteReplayReason": "NOT_TRIGGERED_BY_BOUNDED_L3_SLICE053_OR_D0_CLOSEOUT"
   },
   "closeoutEvidence": {
-    "status": "PENDING_EXACT_HEAD_NODE_CI",
-    "candidatePrNumber": null,
-    "candidateHeadSha": null,
-    "candidateMergeSha": null,
-    "candidateNode": null
+    "status": "PASS_EXACT_HEAD_NODE_AND_POSTMERGE_RECONCILED",
+    "candidatePrNumber": 678,
+    "candidateHeadSha": "e8c493a16f1f3240874b8bfb6d624eab859172c6",
+    "candidateMergeSha": "039311a5109d846dd1a48977e20e6c343bba6bef",
+    "candidateNode": {
+      "runId": 32701023982,
+      "jobId": 97352365075,
+      "status": "SUCCESS",
+      "artifactId": 9510582395,
+      "artifactDigest": "sha256:63b8fe47e05ace2fe2894e838d135d02ec397bbbdc488a5273c8263751688e39"
+    }
   },
   "progression": {
     "previousSliceId": "p03e_q052_r12_g6a_u04_6a04_profile_decimal_c1",
@@ -195,8 +201,8 @@
     "lastSliceId": "p03e_q053_r13_g6a_u04_6a04_profile_decimal_c1",
     "nextSliceId": null,
     "nextSliceMayStartBeforeD0Closeout": false,
-    "frozenQueueComplete": false,
+    "frozenQueueComplete": true,
     "nextTask": null,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice053_D0PostMergeReconciliation"
+    "nextResumeTask": null
   }
 }
