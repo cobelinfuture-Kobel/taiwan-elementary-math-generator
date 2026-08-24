@@ -137,17 +137,175 @@ function buildCompare(definition,ordinal,seed){
   const promptText=`${leftText} ○ ${rightText}，請填入 <、= 或 >。`;
   return Object.freeze({id:`${definition.patternSpecId}-${ordinal+1}`,sourceId:G4A_U06_P03F33_SOURCE_ID,patternSpecId:definition.patternSpecId,kind:definition.kind,operation:"fraction_compare",operationFamilyId:"fraction_compare",questionMode:"numeric",mode:"NUMERIC",promptText,questionText:promptText,blankedDisplayText:promptText,displayText:`${promptText} ${answerText}`,answerText,finalAnswer:answerText,...f,comparison:answerText,metadata:metadata(definition),globalContextProduction:null});
 }
-function buildCoordinate(definition,ordinal,seed){
-  const offset=seedOffset(seed,83); const denominator=DENOMINATORS[(ordinal+offset)%DENOMINATORS.length]; const stepCount=denominator+1+((ordinal*3+offset)%denominator);
-  const coordinate=normalize(stepCount,denominator); const answerText=mixedText(coordinate); const promptText=`數線每一小格代表 1/${denominator}，從 0 向右第 ${stepCount} 格的位置是多少？`;
-  return Object.freeze({id:`${definition.patternSpecId}-${ordinal+1}`,sourceId:G4A_U06_P03F33_SOURCE_ID,patternSpecId:definition.patternSpecId,kind:definition.kind,operation:"number_line",operationFamilyId:"number_line",numberLineTask:"coordinate",questionMode:"numeric",mode:"NUMERIC",promptText,questionText:promptText,blankedDisplayText:promptText,displayText:`${promptText} ${answerText}`,answerText,finalAnswer:answerText,originNumerator:0,originDenominator:1,unitStepNumerator:1,unitStepDenominator:denominator,stepCount,coordinateNumerator:coordinate.numerator,coordinateDenominator:coordinate.denominator,metadata:metadata(definition),globalContextProduction:null});
+function buildCoordinate(definition, ordinal, seed) {
+  const seedKey = String(seed ?? "p03f33");
+
+  /*
+   * 單一數線知識點產生 240 題時，
+   * coordinate 與 distance 各分配 120 題。
+   *
+   * 15 個整數層
+   * × 8 個分數部分
+   * = 120 個唯一座標
+   */
+
+  const fractionPartIndex =
+    (
+      ordinal
+      + seedOffset(
+        `${seedKey}:coordinate:fraction-part`,
+        COMPARE_FRACTION_PARTS.length,
+      )
+    ) % COMPARE_FRACTION_PARTS.length;
+
+  const uniquenessBand = Math.floor(
+    ordinal / COMPARE_FRACTION_PARTS.length,
+  );
+
+  const whole =
+    1 + (
+      (
+        uniquenessBand
+        + seedOffset(`${seedKey}:coordinate:whole`, 15)
+      ) % 15
+    );
+
+  const [
+    fractionNumerator,
+    denominator,
+  ] = COMPARE_FRACTION_PARTS[fractionPartIndex];
+
+  const stepCount =
+    whole * denominator + fractionNumerator;
+
+  const coordinate = normalize(
+    stepCount,
+    denominator,
+  );
+
+  const answerText = mixedText(coordinate);
+
+  const promptText =
+    `數線每一小格代表 1/${denominator}，從 0 向右第 ${stepCount} 格的位置是多少？`;
+
+  return Object.freeze({
+    id: `${definition.patternSpecId}-${ordinal + 1}`,
+    sourceId: G4A_U06_P03F33_SOURCE_ID,
+    patternSpecId: definition.patternSpecId,
+    kind: definition.kind,
+    operation: "number_line",
+    operationFamilyId: "number_line",
+    numberLineTask: "coordinate",
+    questionMode: "numeric",
+    mode: "NUMERIC",
+    promptText,
+    questionText: promptText,
+    blankedDisplayText: promptText,
+    displayText: `${promptText} ${answerText}`,
+    answerText,
+    finalAnswer: answerText,
+    originNumerator: 0,
+    originDenominator: 1,
+    unitStepNumerator: 1,
+    unitStepDenominator: denominator,
+    stepCount,
+    coordinateNumerator: coordinate.numerator,
+    coordinateDenominator: coordinate.denominator,
+    metadata: metadata(definition),
+    globalContextProduction: null,
+  });
 }
-function buildDistance(definition,ordinal,seed){
-  const offset=seedOffset(seed,71); const denominator=DENOMINATORS[(ordinal*3+offset)%DENOMINATORS.length]; const leftStep=denominator-1+((ordinal+offset)%3); const rightStep=leftStep+1+((ordinal*2+offset)%4);
-  const left=normalize(leftStep,denominator); const right=normalize(rightStep,denominator); const distance=normalize(rightStep-leftStep,denominator); const answerText=mixedText(distance);
-  const promptText=`數線上 A=${mixedText(left)}、B=${mixedText(right)}，A 到 B 的距離是多少？`;
-  return Object.freeze({id:`${definition.patternSpecId}-${ordinal+1}`,sourceId:G4A_U06_P03F33_SOURCE_ID,patternSpecId:definition.patternSpecId,kind:definition.kind,operation:"number_line",operationFamilyId:"number_line",numberLineTask:"distance",questionMode:"numeric",mode:"NUMERIC",promptText,questionText:promptText,blankedDisplayText:promptText,displayText:`${promptText} ${answerText}`,answerText,finalAnswer:answerText,leftCoordinateNumerator:left.numerator,leftCoordinateDenominator:left.denominator,rightCoordinateNumerator:right.numerator,rightCoordinateDenominator:right.denominator,distanceNumerator:distance.numerator,distanceDenominator:distance.denominator,metadata:metadata(definition),globalContextProduction:null});
+function buildDistance(definition, ordinal, seed) {
+  const seedKey = String(seed ?? "p03f33");
+
+  const fractionPartIndex =
+    (
+      ordinal
+      + seedOffset(
+        `${seedKey}:distance:fraction-part`,
+        COMPARE_FRACTION_PARTS.length,
+      )
+    ) % COMPARE_FRACTION_PARTS.length;
+
+  const uniquenessBand = Math.floor(
+    ordinal / COMPARE_FRACTION_PARTS.length,
+  );
+
+  const whole =
+    1 + (
+      (
+        uniquenessBand
+        + seedOffset(`${seedKey}:distance:whole`, 15)
+      ) % 15
+    );
+
+  const [
+    fractionNumerator,
+    denominator,
+  ] = COMPARE_FRACTION_PARTS[fractionPartIndex];
+
+  const leftStep =
+    whole * denominator + fractionNumerator;
+
+  // A、B 距離使用1～4小格。
+  const distanceStep =
+    1 + (
+      (
+        ordinal
+        + seedOffset(`${seedKey}:distance:span`, 4)
+      ) % 4
+    );
+
+  const rightStep = leftStep + distanceStep;
+
+  const left = normalize(
+    leftStep,
+    denominator,
+  );
+
+  const right = normalize(
+    rightStep,
+    denominator,
+  );
+
+  const distance = normalize(
+    rightStep - leftStep,
+    denominator,
+  );
+
+  const answerText = mixedText(distance);
+
+  const promptText =
+    `數線上 A=${mixedText(left)}、B=${mixedText(right)}，A 到 B 的距離是多少？`;
+
+  return Object.freeze({
+    id: `${definition.patternSpecId}-${ordinal + 1}`,
+    sourceId: G4A_U06_P03F33_SOURCE_ID,
+    patternSpecId: definition.patternSpecId,
+    kind: definition.kind,
+    operation: "number_line",
+    operationFamilyId: "number_line",
+    numberLineTask: "distance",
+    questionMode: "numeric",
+    mode: "NUMERIC",
+    promptText,
+    questionText: promptText,
+    blankedDisplayText: promptText,
+    displayText: `${promptText} ${answerText}`,
+    answerText,
+    finalAnswer: answerText,
+    leftCoordinateNumerator: left.numerator,
+    leftCoordinateDenominator: left.denominator,
+    rightCoordinateNumerator: right.numerator,
+    rightCoordinateDenominator: right.denominator,
+    distanceNumerator: distance.numerator,
+    distanceDenominator: distance.denominator,
+    metadata: metadata(definition),
+    globalContextProduction: null,
+  });
 }
+
+
 function buildAddSub(definition,ordinal,seed){
   const offset=seedOffset(seed,61); const denominator=DENOMINATORS[(Math.floor(ordinal/2)+offset)%DENOMINATORS.length]; const operation=ordinal%2===0?"add":"sub";
   const uniquenessBand=Math.floor(ordinal/(DENOMINATORS.length*2)); const remainderSpan=Math.max(1,denominator-1);
