@@ -4,9 +4,9 @@
   "queuePosition": 52,
   "queueEntryId": "p03e_q052_r12_g6a_u04_6a04_profile_decimal_c1",
   "sourceId": "g6a_u04_6a04",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "admissionState": "PENDING_D0_RECONCILIATION",
-  "goalDistance": "D1",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "admissionState": "PRODUCTION_ADMITTED_D0",
+  "goalDistance": "D0",
   "authorityPath": "site/modules/curriculum/registry/g6a-u04-rank12-shift-precision-rate-selector-projection-p03f52.js",
   "knowledgePointIds": [
     "kp_g6a_u04_decimal_division_decimal_shift",
@@ -129,14 +129,24 @@
     "fullRouteReplayReason": "NOT_TRIGGERED_BY_D0_CLOSEOUT_OR_BOUNDED_L3_RECONCILIATION"
   },
   "closeoutPr": {
-    "number": null,
-    "headSha": null,
-    "mergeSha": null
+    "number": 673,
+    "headSha": "cedd565e40c50a70bc8d70e6693e9c9e00de0f7e",
+    "mergeSha": "29b78bcbe2debaec97a5c8d2eb75e137df4008df"
   },
-  "closeoutNode": null,
+  "closeoutNode": {
+    "runId": 32682870299,
+    "jobId": 97302462882,
+    "status": "SUCCESS",
+    "tests": 3397,
+    "pass": 3397,
+    "fail": 0,
+    "skipped": 0,
+    "artifactId": 9504695513,
+    "artifactDigest": "sha256:7922e86342da74f8588d277642a3b26e37b01e98a7b2ca0aa9a7d88192e9372e"
+  },
   "productionAdmission": {
-    "slice052Admitted": false,
-    "slice053MayStart": false
+    "slice052Admitted": true,
+    "slice053MayStart": true
   },
-  "nextResumeTask": "P03F_W3DirectProductVerticalSlice052_D0PostMergeReconciliation"
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice053Implementation"
 }
