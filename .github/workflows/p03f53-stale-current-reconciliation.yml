@@ -3,6 +3,8 @@ name: P03F53 Stale Current Reconciliation
 on:
   push:
     branches: [p03f53-g6a-u04-rank13-rounding]
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
