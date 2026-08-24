@@ -17,7 +17,7 @@ function fixturesFor(patternSpecId) {
   const targetType = getBatchABrowserPatternDefinition(patternSpecId)?.numericDomain?.targetType;
   const rows = [];
   if (targetType === "proper_fraction") {
-    for (let denominator = 2; denominator <= 12; denominator += 1) {
+    for (let denominator = 2; denominator <= 19; denominator += 1) {
       for (let numerator = 1; numerator < denominator; numerator += 1) rows.push({ whole: 0, numerator, denominator });
     }
   } else if (targetType === "improper_fraction") {
@@ -130,11 +130,102 @@ export function validateG4AU06FractionClassificationSlice017Question(question = 
 
 export function generateG4AU06FractionClassificationSlice017Questions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
-  if (!canGenerateG4AU06FractionClassificationSlice017Questions(plan)) return { ok: false, errors: [{ code: "p03f17_plan_not_supported", severity: "error", path: "patternSpecIds", message: "p03f17_plan_not_supported" }], warnings: [], questions: [], plan };
-  const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 9;
+
+  if (!canGenerateG4AU06FractionClassificationSlice017Questions(plan)) {
+    return {
+      ok: false,
+      errors: [{
+        code: "p03f17_plan_not_supported",
+        severity: "error",
+        path: "patternSpecIds",
+        message: "p03f17_plan_not_supported",
+      }],
+      warnings: [],
+      questions: [],
+      plan,
+    };
+  }
+
+  const count = Number.isInteger(plan.questionCount)
+    ? plan.questionCount
+    : 9;
+
+  if (count < 1 || count > 240) {
+    return Object.freeze({
+      ok: false,
+      errors: Object.freeze([{
+        code: "p03f17_question_count_invalid",
+        severity: "error",
+        path: "questionCount",
+        message: "p03f17_question_count_invalid",
+      }]),
+      warnings: Object.freeze([]),
+      questions: Object.freeze([]),
+      plan: Object.freeze(plan),
+      allocation: Object.freeze([]),
+    });
+  }
+
   const ids = plan.patternSpecIds;
-  const questions = Array.from({ length: count }, (_, index) => buildQuestion(ids[index % ids.length], index, plan.generationSeed));
-  const validationErrors = questions.flatMap((question, index) => validateG4AU06FractionClassificationSlice017Question(question).errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
-  const allocation = ids.map((patternSpecId) => Object.freeze({ patternSpecId, questionCount: questions.filter((q) => q.patternSpecId === patternSpecId).length }));
-  return Object.freeze({ ok: validationErrors.length === 0, errors: Object.freeze(validationErrors), warnings: Object.freeze([]), questions: Object.freeze(questions), plan: Object.freeze(plan), allocation: Object.freeze(allocation) });
+
+  // 每個 PatternSpec 使用自己的連續 ordinal：
+  // 0、1、2、3……，不再使用全域 index 的 0、3、6、9……
+  const occurrenceBySpec = new Map(
+    ids.map((patternSpecId) => [patternSpecId, 0]),
+  );
+
+  const questions = Array.from({ length: count }, (_, index) => {
+    const patternSpecId = ids[index % ids.length];
+    const ordinal = occurrenceBySpec.get(patternSpecId) ?? 0;
+
+    occurrenceBySpec.set(patternSpecId, ordinal + 1);
+
+    return buildQuestion(
+      patternSpecId,
+      ordinal,
+      plan.generationSeed,
+    );
+  });
+
+  const validationErrors = questions.flatMap(
+    (question, index) =>
+      validateG4AU06FractionClassificationSlice017Question(question)
+        .errors
+        .map((error) => ({
+          ...error,
+          path: `questions[${index}].${error.path}`,
+        })),
+  );
+
+  // 檢查整份題目是否有相同的題目文字。
+  const uniquePromptCount = new Set(
+    questions.map((question) => question.blankedDisplayText),
+  ).size;
+
+  if (uniquePromptCount !== questions.length) {
+    validationErrors.push({
+      code: "p03f17_duplicate_prompt_detected",
+      severity: "error",
+      path: "questions",
+      message: "p03f17_duplicate_prompt_detected",
+    });
+  }
+
+  const allocation = ids.map((patternSpecId) =>
+    Object.freeze({
+      patternSpecId,
+      questionCount: questions.filter(
+        (question) => question.patternSpecId === patternSpecId,
+      ).length,
+    }),
+  );
+
+  return Object.freeze({
+    ok: validationErrors.length === 0,
+    errors: Object.freeze(validationErrors),
+    warnings: Object.freeze([]),
+    questions: Object.freeze(questions),
+    plan: Object.freeze(plan),
+    allocation: Object.freeze(allocation),
+  });
 }
