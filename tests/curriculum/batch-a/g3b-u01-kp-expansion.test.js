@@ -37,3 +37,81 @@ test("S43E5 R3 G3B U01 mixed worksheet renders current specs", () => {
   assert.equal(result.worksheetDocument.answerKeyItems.length, 40);
   assert.equal(new Set(result.worksheetDocument.generatedQuestions.slice(0, 10).map((question) => question.patternSpecId)).size >= 3, true);
 });
+
+test("G3B U01 quotient-zero single KP generates 60 unique questions", () => {
+  const result = buildBatchABrowserWorksheetDocument({
+    sourceId: SOURCE_ID,
+    selectionMode:
+      BATCH_A_RESOLVER_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+
+    selectedKnowledgePointIds: [
+      "kp_g3b_u01_quotient_zero_cases"
+    ],
+
+    selectedPatternGroupIds: [
+      "pg_g3b_u01_quotient_zero_cases"
+    ],
+
+    questionCount: 60,
+    ordering: "shuffleAcrossPatterns",
+    includeAnswerKey: true,
+    generationSeed: "g3b-u01-quotient-zero-60",
+
+    printLayout: {
+      columns: 4,
+      rowsPerPage: 10,
+      showAnswerKeyPage: true
+    }
+  });
+
+  assert.equal(
+    result.ok,
+    true,
+    JSON.stringify(result.errors, null, 2)
+  );
+
+  const questions =
+    result.worksheetDocument.generatedQuestions;
+
+  assert.equal(questions.length, 60);
+
+  assert.equal(
+    result.worksheetDocument.answerKeyItems.length,
+    60
+  );
+
+  const counts = new Map();
+
+  for (const question of questions) {
+    counts.set(
+      question.patternSpecId,
+      (counts.get(question.patternSpecId) ?? 0) + 1
+    );
+  }
+
+  assert.equal(
+    counts.get("ps_g3b_u01_2digit_ones_quotient_zero"),
+    14
+  );
+
+  assert.equal(
+    counts.get("ps_g3b_u01_3digit_tens_quotient_zero"),
+    23
+  );
+
+  assert.equal(
+    counts.get("ps_g3b_u01_3digit_ones_quotient_zero"),
+    23
+  );
+
+  const uniqueQuestionKeys = new Set(
+    questions.map(
+      (question) =>
+        question.duplicateKey ??
+        question.blankedDisplayText ??
+        question.id
+    )
+  );
+
+  assert.equal(uniqueQuestionKeys.size, 60);
+});
