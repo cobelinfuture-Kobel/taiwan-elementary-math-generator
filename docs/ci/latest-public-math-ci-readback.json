@@ -1,36 +1,36 @@
 {
   "schemaVersion": "public-math-ci-readback-v1",
-  "status": "FAIL_NPM_TEST",
-  "result": "FAIL",
-  "failedStage": "npm_test",
+  "status": "PASS_CI_SYNCED_AND_CLEAN",
+  "result": "PASS",
+  "failedStage": "none",
   "workflow": "Math CI Readback",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "eventName": "push",
   "ref": "refs/heads/main",
   "refName": "main",
-  "sha": "44e8b64eb0261a30aeb0794223d26815275cc6d3",
+  "sha": "4a532ead5b8b66402ca2452fa6eff178be5d8535",
   "run": {
-    "id": "32692815473",
-    "number": "3272",
+    "id": "32693035352",
+    "number": "3273",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/32692815473"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/32693035352"
   },
   "checks": {
     "npmTestExitCode": {
       "expected": "0",
-      "actual": "1"
+      "actual": "0"
     },
     "tests": {
       "expected": "auto-detected",
-      "actual": "UNPARSED"
+      "actual": "3397"
     },
     "pass": {
       "expected": "equal tests",
-      "actual": "UNPARSED"
+      "actual": "3397"
     },
     "fail": {
       "expected": "0",
-      "actual": "UNPARSED"
+      "actual": "0"
     },
     "workingTree": {
       "expected": "clean",
@@ -42,14 +42,14 @@
     "setupNode": "success",
     "installDependencies": "success",
     "npmTest": "success",
-    "verifyDynamicTestResult": "failure",
+    "verifyDynamicTestResult": "success",
     "gitStatus": "success",
     "verifyWorkingTree": "success"
   },
   "diagnostics": {
     "failingTestsExcerpt": "",
-    "npmOutputTail": "\n> math-worksheet-generator@0.0.0 pretest\n> node --input-type=module -e \"import fs from 'node:fs';import {auditFifteenUnitPublicWorksheetCloseout as a} from './tools/curriculum/audit-15-unit-public-worksheet-closeout-v2.mjs';const r=a();fs.mkdirSync('tmp',{recursive:true});fs.writeFileSync('tmp/15-unit-public-worksheet-closeout-report.json',JSON.stringify(r,null,2));console.log('CLOSEOUT_METRICS='+JSON.stringify(r.metrics));console.log('CLOSEOUT_BLOCKERS='+JSON.stringify(r.rows.filter(x=>x.blockers.length).map(({sourceId,blockers})=>({sourceId,blockers}))));\"\n\nfile:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f33-extension.js:69\n  const document=Object.freeze({schemaVersion:\"worksheet-document-v1\",version:\"1\",worksheetId:g4a-u06-current-${plan.questionCount}-${plan.generationSeed}`,worksheetKind:\"batchAWorksheet\",title:options.title??\"四年級上｜假分數與帶分數｜比較、數線與加減\",subtitle:\"假分數與帶分數比較、數線定位、同分母帶分數加減\",generatedAt:\"DETERMINISTIC\",configSnapshot:Object.freeze({...plan,printLayout:layout}),orderingMode:plan.ordering,questionCount:generation.questions.length,questionPages:Object.freeze(questionPages),answerKeyPages:Object.freeze(answerKeyPages),sections:Object.freeze([]),generatedQuestions:Object.freeze(generation.questions),questions:Object.freeze(generation.questions),questionDisplayModels:Object.freeze(models),answerKeyItems:Object.freeze(answers),printOptions:Object.freeze({...layout,answerKeyColumns:2,answerKeyRowsPerPage:4,showAnswerKey:layout.showAnswerKeyPage,answerKeyPlacement:layout.showAnswerKeyPage?\"afterQuestions\":\"none\"}),publicControls:Object.freeze({sourceId:G4A_U06_P03F33_SOURCE_ID,questionMode:\"numeric\",productAdmissionTask:P03F33_WORKSHEET_ADAPTER.task,globalContextRegistry:null}),metadata:Object.freeze({sourceId:G4A_U06_P03F33_SOURCE_ID,knowledgePointIds:selectedKps,applicationExpansion:false,hiddenApplicationLineagePreserved:true,worksheetAdapter:P03F33_WORKSHEET_ADAPTER}),batchA:Object.freeze({sourceId:G4A_U06_P03F33_SOURCE_ID,questionMode:\"numeric\",selectionMode:plan.selectionMode}),report:Object.freeze({ok:true,errors:Object.freeze([]),warnings:Object.freeze([]),summary:Object.freeze({questionCount:generation.questions.length,questionPageCount:questionPages.length,answerKeyPageCount:answerKeyPages.length})}),summary:Object.freeze({questionCount:generation.questions.length,questionPageCount:questionPages.length,answerKeyPageCount:answerKeyPages.length,numericQuestionCount:generation.questions.length,applicationQuestionCount:0})});\n                                                                                                               ^\n\nSyntaxError: Unexpected token '{'\n    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)\n    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)\n    at #translate (node:internal/modules/esm/loader:497:12)\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)\n\nNode.js v20.20.2\n",
+    "npmOutputTail": "n codes\nok 3364 - createValidationResult rejects forbidden validator answer statuses and unknown codes\n  ---\n  duration_ms: 0.509469\n  ...\n# Subtest: validateNumericRange enforces integer and bound constraints\nok 3365 - validateNumericRange enforces integer and bound constraints\n  ---\n  duration_ms: 0.362417\n  ...\n# Subtest: validateDigitCount rejects leading zeroes and wrong digit lengths\nok 3366 - validateDigitCount rejects leading zeroes and wrong digit lengths\n  ---\n  duration_ms: 0.42403\n  ...\n# Subtest: validateSupportStatusCompatibility blocks items that overstate support\nok 3367 - validateSupportStatusCompatibility blocks items that overstate support\n  ---\n  duration_ms: 0.212911\n  ...\n# Subtest: validateNoFutureDomainLeakage detects decimals and future-domain markers\nok 3368 - validateNoFutureDomainLeakage detects decimals and future-domain markers\n  ---\n  duration_ms: 0.388326\n  ...\n# Subtest: validateUniqueAnswer fails obvious ambiguity and warns on borderline prompts\nok 3369 - validateUniqueAnswer fails obvious ambiguity and warns on borderline prompts\n  ---\n  duration_ms: 0.332722\n  ...\n# Subtest: validateSourceBoundary rejects generated items claiming source-backed or verified without evidence\nok 3370 - validateSourceBoundary rejects generated items claiming source-backed or verified without evidence\n  ---\n  duration_ms: 0.349718\n  ...\n# Subtest: validatePatternSpec runs structural checks only; accepts generic PatternSpec when no allow-list is provided\nok 3371 - validatePatternSpec runs structural checks only; accepts generic PatternSpec when no allow-list is provided\n  ---\n  duration_ms: 0.359543\n  ...\n# Subtest: validatePatternSpec allow-list mode rejects unknown patternSpecId\nok 3372 - validatePatternSpec allow-list mode rejects unknown patternSpecId\n  ---\n  duration_ms: 0.219451\n  ...\n# Subtest: validatePatternSpec catches missing hooks and empty validatorHooks\nok 3373 - validatePatternSpec catches missing hooks and empty validatorHooks\n  ---\n  duration_ms: 0.13857\n  ...\n# Subtest: validatePatternSpec allow-list mode rejects unknown hook names\nok 3374 - validatePatternSpec allow-list mode rejects unknown hook names\n  ---\n  duration_ms: 0.136617\n  ...\n# Subtest: validateAnswerStatus forbids validator assignment of verified and enforces computed prerequisites\nok 3375 - validateAnswerStatus forbids validator assignment of verified and enforces computed prerequisites\n  ---\n  duration_ms: 0.259672\n  ...\n# Subtest: validateDomainBoundary aggregates global core hooks and blocks unsupported visual items\nok 3376 - validateDomainBoundary aggregates global core hooks and blocks unsupported visual items\n  ---\n  duration_ms: 0.505913\n  ...\n# Subtest: H3 decomposes 7063 into place-value parts\nok 3377 - H3 decomposes 7063 into place-value parts\n  ---\n  duration_ms: 2.200332\n  ...\n# Subtest: H3 allows omitted zero place parts when explicitly allowed\nok 3378 - H3 allows omitted zero place parts when explicitly allowed\n  ---\n  duration_ms: 0.215696\n  ...\n# Subtest: H3 fails wrong hundreds, tens, or ones with place-value mismatch\nok 3379 - H3 fails wrong hundreds, tens, or ones with place-value mismatch\n  ---\n  duration_ms: 0.223958\n  ...\n# Subtest: H3 digit-value subcase computes digit times place value\nok 3380 - H3 digit-value subcase computes digit times place value\n  ---\n  duration_ms: 0.306252\n  ...\n# Subtest: H3 digit-value subcase fails wrong candidate value\nok 3381 - H3 digit-value subcase fails wrong candidate value\n  ---\n  duration_ms: 0.183677\n  ...\n# Subtest: H4 composes 7 thousands, 0 hundreds, 6 tens, 3 ones into 7063\nok 3382 - H4 composes 7 thousands, 0 hundreds, 6 tens, 3 ones into 7063\n  ---\n  duration_ms: 0.405662\n  ...\n# Subtest: H4 normalizes omitted zero parts\nok 3383 - H4 normalizes omitted zero parts\n  ---\n  duration_ms: 0.266362\n  ...\n# Subtest: H4 supports count-based regrouping when allowed\nok 3384 - H4 supports count-based regrouping when allowed\n  ---\n  duration_ms: 0.214664\n  ...\n# Subtest: H4 rejects regrouping when not allowed\nok 3385 - H4 rejects regrouping when not allowed\n  ---\n  duration_ms: 0.367595\n  ...\n# Subtest: H4 fails wrong candidate total with place-value mismatch\nok 3386 - H4 fails wrong candidate total with place-value mismatch\n  ---\n  duration_ms: 0.265571\n  ...\n# Subtest: H8 computes max and min for digits [0, 2, 5, 8]\nok 3387 - H8 computes max and min for digits [0, 2, 5, 8]\n  ---\n  duration_ms: 0.531633\n  ...\n# Subtest: H8 fails candidate with leading zero minimum\nok 3388 - H8 fails candidate with leading zero minimum\n  ---\n  duration_ms: 0.245501\n  ...\n# Subtest: H8 fails wrong max\nok 3389 - H8 fails wrong max\n  ---\n  duration_ms: 0.242767\n  ...\n# Subtest: H8 fails wrong min\nok 3390 - H8 fails wrong min\n  ---\n  duration_ms: 0.242086\n  ...\n# Subtest: H9 comparison passes for less-than relation\nok 3391 - H9 comparison passes for less-than relation\n  ---\n  duration_ms: 0.266893\n  ...\n# Subtest: H9 comparison passes for greater-than relation\nok 3392 - H9 comparison passes for greater-than relation\n  ---\n  duration_ms: 0.21197\n  ...\n# Subtest: H9 comparison passes for equal values\nok 3393 - H9 comparison passes for equal values\n  ---\n  duration_ms: 0.131158\n  ...\n# Subtest: H9 comparison fails wrong relation\nok 3394 - H9 comparison fails wrong relation\n  ---\n  duration_ms: 0.23801\n  ...\n# Subtest: scope guard: number-sense index does not export H5-H14 hooks\nok 3395 - scope guard: number-sense index does not export H5-H14 hooks\n  ---\n  duration_ms: 0.163097\n  ...\n# Subtest: scope guard: Chinese numeral parser files were not created\nok 3396 - scope guard: Chinese numeral parser files were not created\n  ---\n  duration_ms: 0.259932\n  ...\n# Subtest: scope guard: G3A U01 validator and pattern-pack files were not created\nok 3397 - scope guard: G3A U01 validator and pattern-pack files were not created\n  ---\n  duration_ms: 0.149305\n  ...\n1..3397\n# tests 3397\n# suites 0\n# pass 3397\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 203777.573085\n",
     "failureContext": ""
   },
-  "updatedAt": "2026-08-24T05:14:50.283716Z"
+  "updatedAt": "2026-08-24T05:21:46.674788Z"
 }
