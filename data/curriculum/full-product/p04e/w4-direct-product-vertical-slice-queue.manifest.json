@@ -3,14 +3,45 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P04E_W4DirectProductVerticalSliceQueueFreeze",
-  "status": "W4_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_DERIVATION_READY",
+  "status": "W4_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FROZEN",
   "targetDeliveryWaveId": "R05-W4",
   "expectedKnowledgePointCount": 53,
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "frozenQueue": {
+    "queueVersion": "p04e-w4-direct-product-vertical-slice-queue-v1",
+    "queueSliceCount": 39,
+    "directW4KnowledgePointCount": 53,
+    "directW4SourceNodeCount": 17,
+    "directW4RuntimeProfileCount": 5,
+    "directW4PrerequisiteRankCount": 14,
+    "queueDigest": "d21c942fbba177a4cba3d88a419174c863441095cfab32e61d1d103d3621ff41",
+    "firstExecutableSliceId": "p04e_q001_r0_g3a_u04_3a04_profile_quantity_measurement_c1",
+    "firstExecutableKnowledgePointIds": [
+      "kp_length_mm_ruler_reading"
+    ],
+    "lastSliceId": "p04e_q039_r13_g6b_u01_6b01_profile_mixed_number_domain_c1"
+  },
+  "exactAcceptance": {
+    "freezePrNumber": 680,
+    "freezeExactHeadSha": "a410e25f5fd81f5255fe024b01bd93fcb2024e7d",
+    "nodeWorkflowRunId": 32740872932,
+    "nodeWorkflowJobId": 97474902327,
+    "nodeConclusion": "SUCCESS",
+    "queueRegistryPresent": true,
+    "queueRegistryParityPassed": true,
+    "queueFrozen": true,
+    "freezeMergeSha": "c2fb1cce0b576683e70be484351bc1a54380447f"
+  },
   "scope": {
     "queueFreezeOnly": true,
     "w4ImplementationStarted": false,
     "productionAdmissionChanged": false
+  },
+  "authorityPaths": {
+    "policyPath": "data/curriculum/full-product/p04e/w4-direct-product-vertical-slice-queue-policy.json",
+    "queueRegistryPath": "data/curriculum/full-product/p04e/w4-direct-product-vertical-slice-queue.json",
+    "runtimePath": "src/curriculum/full-product/p04e-w4-direct-product-vertical-slice-queue.mjs",
+    "testPath": "tests/curriculum/p04e-w4-direct-product-vertical-slice-queue.test.js"
   },
   "mainlineBoundary": {
     "productionConsumerChanged": false,
