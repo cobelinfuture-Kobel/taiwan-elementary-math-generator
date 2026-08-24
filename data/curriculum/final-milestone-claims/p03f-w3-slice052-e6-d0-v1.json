@@ -3,8 +3,8 @@
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P03F52_G6AU04Rank12ShiftPrecisionRateImplementation",
   "e6MilestoneId": "P03F_W3DirectProductVerticalSlice052_E6_D0Closeout",
-  "status": "D0_CLOSEOUT_CANDIDATE",
-  "goalDistance": "D1",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
   "scope": "Slice052 only: g6a_u04_6a04 rank12 promotes decimal-shift, fixed-scale exact quotient precision/zero-fill, and bounded unit-rate application through three PatternGroups and three PatternSpecs on the existing shared exact-rational decimal-division path, shared generator/validator, worksheet pagination and HTML renderer. Decimal-shift and quotient-precision have direct source witness; zero-fill and unit-rate application remain explicitly operator-approved curriculum extensions and generated examples are never attributed to the textbook. Exact implementation CI, bounded L3 global contracts, exact-head Chromium product acceptance, ten-page direct multimodal visual review, and post-merge Main/Pages targeted E2E are bound. q053 rounding, Global Context expansion, parallel pipelines and queue mutation are excluded.",
   "authority": {
     "path": "site/modules/curriculum/registry/g6a-u04-rank12-shift-precision-rate-selector-projection-p03f52.js",
@@ -165,7 +165,7 @@
   "mainReadback": {
     "implementationMergeSha": "5e1d396977095f0764dee6cb33b9f2e46eda8dd6",
     "evidenceMergeSha": "f4a46ca2793fc1b7e01722c5c0c54650643eb9f7",
-    "candidateMergeSha": null,
+    "candidateMergeSha": "29b78bcbe2debaec97a5c8d2eb75e137df4008df",
     "publicSourcesAtAdmission": 34,
     "visibleKnowledgePointsAtAdmission": 258,
     "g6aU04VisibleKnowledgePoints": 4,
@@ -245,15 +245,25 @@
     "fullRouteReplayReason": "NOT_TRIGGERED_BY_D0_CLOSEOUT_OR_BOUNDED_L3_RECONCILIATION"
   },
   "closeoutEvidence": {
-    "status": "PENDING_EXACT_HEAD_NODE_CI",
-    "candidatePrNumber": null,
-    "candidateHeadSha": null,
-    "candidateMergeSha": null,
-    "candidateNode": null
+    "status": "PASS_CI_SYNCED_AND_MERGED",
+    "candidatePrNumber": 673,
+    "candidateHeadSha": "cedd565e40c50a70bc8d70e6693e9c9e00de0f7e",
+    "candidateMergeSha": "29b78bcbe2debaec97a5c8d2eb75e137df4008df",
+    "candidateNode": {
+      "runId": 32682870299,
+      "jobId": 97302462882,
+      "status": "SUCCESS",
+      "tests": 3397,
+      "pass": 3397,
+      "fail": 0,
+      "skipped": 0,
+      "artifactId": 9504695513,
+      "artifactDigest": "sha256:7922e86342da74f8588d277642a3b26e37b01e98a7b2ca0aa9a7d88192e9372e"
+    }
   },
   "progression": {
     "nextTask": "P03F_W3DirectProductVerticalSlice053Implementation",
     "nextSliceMayStartBeforeD0Closeout": false,
-    "nextResumeTask": "P03F_W3DirectProductVerticalSlice052_D0PostMergeReconciliation"
+    "nextResumeTask": "P03F_W3DirectProductVerticalSlice053Implementation"
   }
 }
