@@ -28,3 +28,15 @@ test("P04E W4 slices never mix rank, source, or runtime profile", () => {
     assert.ok(rows.every((row) => row.primaryRuntimeProfileId === slice.primaryRuntimeProfileId));
   }
 });
+
+test("P04E frozen registry exactly matches the derived W4 queue", () => {
+  const result = materializeP04EW4DirectProductVerticalSliceQueue();
+  assert.equal(result.status, "W4_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FROZEN");
+  assert.equal(result.queueRegistryPresent, true);
+  assert.equal(result.queueRegistryParity, true);
+  assert.equal(result.queueFrozen, true);
+  assert.equal(result.metrics.queueSliceCount, 39);
+  assert.equal(result.derivedRegistrySnapshot.queueDigest, "d21c942fbba177a4cba3d88a419174c863441095cfab32e61d1d103d3621ff41");
+  assert.equal(result.nextExecutableSlice.sliceId, "p04e_q001_r0_g3a_u04_3a04_profile_quantity_measurement_c1");
+  assert.deepEqual(result.nextExecutableSlice.knowledgePointIds, ["kp_length_mm_ruler_reading"]);
+});
