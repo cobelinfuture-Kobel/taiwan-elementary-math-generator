@@ -1,0 +1,20 @@
+{
+  "schemaName": "P04EW4DirectProductVerticalSliceQueueManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04E_W4DirectProductVerticalSliceQueueFreeze",
+  "status": "W4_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_DERIVATION_READY",
+  "targetDeliveryWaveId": "R05-W4",
+  "expectedKnowledgePointCount": 53,
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "scope": {
+    "queueFreezeOnly": true,
+    "w4ImplementationStarted": false,
+    "productionAdmissionChanged": false
+  },
+  "mainlineBoundary": {
+    "productionConsumerChanged": false,
+    "parallelRuntimePipelineAllowed": false,
+    "nextTaskAfterFreeze": "P04F_W4DirectProductVerticalSlice001Implementation"
+  }
+}
