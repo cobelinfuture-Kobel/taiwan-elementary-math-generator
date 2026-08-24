@@ -9,18 +9,82 @@ const seedOffset = (seed, size) => [...String(seed ?? "p03f25")].reduce((sum, ch
 function fixtureFor(patternSpecId, ordinal, seed) {
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
   const direction = definition?.numericDomain?.conversionDirection;
-  const denominator = 2 + ((ordinal + seedOffset(seed, 8)) % 8);
-  const whole = 1 + ((ordinal * 2 + seedOffset(seed, 6)) % 6);
+
+  // 分母使用 2～19，共 18 種。
+  const denominator =
+    2 + (
+      (
+        ordinal
+        + seedOffset(`${seed}:denominator`, 18)
+      ) % 18
+    );
+
+  // 每完成 18 個分母後才更換整數部分。
+  // 240 題平均分配到三個 PatternSpec，
+  // 每個 PatternSpec 最多需要 80 題。
+  const whole =
+    1 + (
+      (
+        Math.floor(ordinal / 18)
+        + seedOffset(`${seed}:whole`, 7)
+      ) % 7
+    );
+
   if (direction === "integer_to_improper_fraction") {
-    return { whole, denominator, remainder: 0, improperNumerator: whole * denominator };
+    return {
+      whole,
+      denominator,
+      remainder: 0,
+      improperNumerator: whole * denominator,
+    };
   }
+
   if (direction === "improper_to_mixed_or_integer") {
-    const makeInteger = (ordinal + seedOffset(seed, 3)) % 3 === 0;
-    const remainder = makeInteger ? 0 : 1 + ((ordinal * 3 + seedOffset(seed, denominator - 1)) % (denominator - 1));
-    return { whole, denominator, remainder, improperNumerator: whole * denominator + remainder };
+    const makeInteger =
+      (
+        ordinal
+        + seedOffset(`${seed}:integer`, 3)
+      ) % 3 === 0;
+
+    const remainder = makeInteger
+      ? 0
+      : 1 + (
+        (
+          ordinal
+          + seedOffset(
+            `${seed}:remainder`,
+            denominator - 1,
+          )
+        ) % (denominator - 1)
+      );
+
+    return {
+      whole,
+      denominator,
+      remainder,
+      improperNumerator:
+        whole * denominator + remainder,
+    };
   }
-  const remainder = 1 + ((ordinal * 3 + seedOffset(seed, denominator - 1)) % (denominator - 1));
-  return { whole, denominator, remainder, improperNumerator: whole * denominator + remainder };
+
+  const remainder =
+    1 + (
+      (
+        ordinal
+        + seedOffset(
+          `${seed}:remainder`,
+          denominator - 1,
+        )
+      ) % (denominator - 1)
+    );
+
+  return {
+    whole,
+    denominator,
+    remainder,
+    improperNumerator:
+      whole * denominator + remainder,
+  };
 }
 
 function mixedText({ whole, remainder, denominator }) {
@@ -124,17 +188,110 @@ export function validateG4AU06P03F25Question(question = {}) {
 
 export function generateG4AU06P03F25Questions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
-  if (!canGenerateG4AU06P03F25Questions(plan)) return { ok: false, errors: [{ code: "p03f25_plan_not_supported", severity: "error", path: "patternSpecIds", message: "p03f25_plan_not_supported" }], warnings: [], questions: [], plan };
-  const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 9;
+
+  if (!canGenerateG4AU06P03F25Questions(plan)) {
+    return {
+      ok: false,
+      errors: [{
+        code: "p03f25_plan_not_supported",
+        severity: "error",
+        path: "patternSpecIds",
+        message: "p03f25_plan_not_supported",
+      }],
+      warnings: [],
+      questions: [],
+      plan,
+    };
+  }
+
+  const count = Number.isInteger(plan.questionCount)
+    ? plan.questionCount
+    : 9;
+
+  if (count < 1 || count > 240) {
+    return Object.freeze({
+      ok: false,
+      errors: Object.freeze([{
+        code: "p03f25_question_count_invalid",
+        severity: "error",
+        path: "questionCount",
+        message: "p03f25_question_count_invalid",
+      }]),
+      warnings: Object.freeze([]),
+      questions: Object.freeze([]),
+      plan: Object.freeze(plan),
+      allocation: Object.freeze([]),
+    });
+  }
+
   const ids = plan.patternSpecIds;
-  const occurrenceBySpec = new Map(ids.map((patternSpecId) => [patternSpecId, 0]));
-  const questions = Array.from({ length: count }, (_, index) => {
-    const patternSpecId = ids[index % ids.length];
-    const ordinal = occurrenceBySpec.get(patternSpecId) ?? 0;
-    occurrenceBySpec.set(patternSpecId, ordinal + 1);
-    return buildQuestion(patternSpecId, ordinal, plan.generationSeed);
+
+  // 每個 PatternSpec 使用自己的連續 ordinal。
+  const occurrenceBySpec = new Map(
+    ids.map((patternSpecId) => [patternSpecId, 0]),
+  );
+
+  const questions = Array.from(
+    { length: count },
+    (_, index) => {
+      const patternSpecId = ids[index % ids.length];
+      const ordinal =
+        occurrenceBySpec.get(patternSpecId) ?? 0;
+
+      occurrenceBySpec.set(
+        patternSpecId,
+        ordinal + 1,
+      );
+
+      return buildQuestion(
+        patternSpecId,
+        ordinal,
+        plan.generationSeed,
+      );
+    },
+  );
+
+  const validationErrors = questions.flatMap(
+    (question, index) =>
+      validateG4AU06P03F25Question(question)
+        .errors
+        .map((error) => ({
+          ...error,
+          path: `questions[${index}].${error.path}`,
+        })),
+  );
+
+  const uniquePromptCount = new Set(
+    questions.map(
+      (question) => question.blankedDisplayText,
+    ),
+  ).size;
+
+  if (uniquePromptCount !== questions.length) {
+    validationErrors.push({
+      code: "p03f25_duplicate_prompt_detected",
+      severity: "error",
+      path: "questions",
+      message: "p03f25_duplicate_prompt_detected",
+    });
+  }
+
+  const allocation = ids.map((patternSpecId) =>
+    Object.freeze({
+      patternSpecId,
+      questionCount: questions.filter(
+        (question) =>
+          question.patternSpecId === patternSpecId,
+      ).length,
+    }),
+  );
+
+  return Object.freeze({
+    ok: validationErrors.length === 0,
+    errors: Object.freeze(validationErrors),
+    warnings: Object.freeze([]),
+    questions: Object.freeze(questions),
+    plan: Object.freeze(plan),
+    allocation: Object.freeze(allocation),
   });
-  const validationErrors = questions.flatMap((question, index) => validateG4AU06P03F25Question(question).errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
-  const allocation = ids.map((patternSpecId) => Object.freeze({ patternSpecId, questionCount: questions.filter((q) => q.patternSpecId === patternSpecId).length }));
-  return Object.freeze({ ok: validationErrors.length === 0, errors: Object.freeze(validationErrors), warnings: Object.freeze([]), questions: Object.freeze(questions), plan: Object.freeze(plan), allocation: Object.freeze(allocation) });
 }
