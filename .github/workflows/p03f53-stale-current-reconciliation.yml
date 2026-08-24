@@ -1,0 +1,202 @@
+name: P03F53 Stale Current Reconciliation
+
+on:
+  push:
+    branches: [p03f53-g6a-u04-rank13-rounding]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: p03f53-stale-current-reconciliation
+  cancel-in-progress: true
+
+jobs:
+  reconcile:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: p03f53-g6a-u04-rank13-rounding
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Remove temporary workflow and reconcile exact stale-current assertions
+        shell: bash
+        run: |
+          rm .github/workflows/p03f53-stale-current-reconciliation.yml
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const olderCurrentFiles = [
+            'tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js',
+            'tests/curriculum/p03f-slice027-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice028-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice030-g5a-u06-rank8-fraction.test.js',
+            'tests/curriculum/p03f-slice032-g6b-u01-rank8-mixed-domain-conversion.test.js',
+            'tests/curriculum/p03f-slice033-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice033-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice034-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice034-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice035-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice036-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice036-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice037-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice037-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice038-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice038-g5a-u06-rank9-mixed-improper-add-sub.test.js',
+            'tests/curriculum/p03f-slice039-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice039-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice040-g5b-u06-rank9-integer-division-decimal-quotient.test.js',
+            'tests/curriculum/p03f-slice041-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice042-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice044-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice045-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice046-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice047-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice047-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice048-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice048-g5a-u01-rank11-inverse-rounding-range.test.js',
+            'tests/curriculum/p03f-slice049-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice050-d0-closeout.test.js',
+          ];
+
+          const consumerFiles = new Set([
+            'tests/curriculum/p03f-slice036-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice037-public-ui-binding.test.js',
+            'tests/curriculum/p03f-slice047-public-ui-binding.test.js',
+          ]);
+
+          function update(path, transform) {
+            const before = fs.readFileSync(path, 'utf8');
+            const after = transform(before);
+            if (after === before) throw new Error(`P03F53_RECONCILIATION_NO_CHANGE:${path}`);
+            fs.writeFileSync(path, after);
+          }
+
+          function advanceCurrentInventory(text) {
+            return text
+              .replaceAll('through Slice052', 'through Slice053')
+              .replaceAll('advances to 34 sources and 258 KPs', 'advances to 34 sources and 259 KPs')
+              .replaceAll('34/258', '34/259')
+              .replaceAll('258 KPs', '259 KPs')
+              .replace(/assert\.equal\((pixel|registry)\.visibleKnowledgePointCount,\s*258\)/g, 'assert.equal($1.visibleKnowledgePointCount, 259)')
+              .replace(/assert\.deepEqual\(\[(pixel|registry)\.sourceCount,\s*\1\.visibleKnowledgePointCount\],\s*\[34,\s*258\]\)/g, 'assert.deepEqual([$1.sourceCount,$1.visibleKnowledgePointCount],[34,259])');
+          }
+
+          for (const path of olderCurrentFiles) {
+            update(path, (before) => {
+              let after = advanceCurrentInventory(before);
+              if (consumerFiles.has(path)) {
+                after = after.replaceAll('P03F52', 'P03F53').replaceAll('p03f52', 'p03f53');
+              }
+              return after;
+            });
+          }
+
+          update('tests/curriculum/p03f-slice051-d0-closeout.test.js', (before) => before
+            .replace('P03F51 current Pixel authority advances through Slice052 to 34/258 and G6A-U04 is 4/1/1', 'P03F51 current Pixel authority advances through Slice053 to 34/259 and G6A-U04 is 5/0/0')
+            .replace('assert.equal(pixel.visibleKnowledgePointCount, 258);', 'assert.equal(pixel.visibleKnowledgePointCount, 259);')
+            .replace('assert.equal(source.visibleKnowledgePoints.length, 4);', 'assert.equal(source.visibleKnowledgePoints.length, 5);')
+            .replace('assert.equal(source.hiddenPendingCount, 1);', 'assert.equal(source.hiddenPendingCount, 0);')
+            .replace('assert.equal(source.notSelectableCount, 1);', 'assert.equal(source.notSelectableCount, 0);'));
+
+          update('tests/curriculum/p03f-slice051-g6a-u04-rank11-decimal-divided-by-decimal.test.js', (before) => before
+            .replace('Slice052 successor', 'Slice053 successor')
+            .replaceAll('p03f52', 'p03f53'));
+
+          for (const path of [
+            'tests/curriculum/p03f-slice052-d0-closeout.test.js',
+            'tests/curriculum/p03f-slice052-g6a-u04-rank12-shift-precision-rate.test.js',
+          ]) {
+            update(path, (before) => {
+              const marker = path.includes('d0-closeout')
+                ? 'test("P03F52 current Pixel authority is 34/258 and G6A-U04 remains 4/1/1"'
+                : 'test("P03F52 current Pixel authority is 34/258 and G6A-U04 is 4/1/1"';
+              const start = before.indexOf(marker);
+              if (start < 0) throw new Error(`P03F53_CURRENT_BLOCK_NOT_FOUND:${path}`);
+              const end = before.indexOf('\n});', start);
+              if (end < 0) throw new Error(`P03F53_CURRENT_BLOCK_END_NOT_FOUND:${path}`);
+              const blockEnd = end + '\n});'.length;
+              const current = before.slice(start, blockEnd)
+                .replace('34/258', '34/259')
+                .replace('4/1/1', '5/0/0')
+                .replace('assert.equal(pixel.visibleKnowledgePointCount, 258);', 'assert.equal(pixel.visibleKnowledgePointCount, 259);')
+                .replace('assert.equal(source.visibleKnowledgePoints.length, 4);', 'assert.equal(source.visibleKnowledgePoints.length, 5);')
+                .replace('assert.equal(source.hiddenPendingCount, 1);', 'assert.equal(source.hiddenPendingCount, 0);')
+                .replace('assert.equal(source.notSelectableCount, 1);', 'assert.equal(source.notSelectableCount, 0);');
+              return before.slice(0, start) + current + before.slice(blockEnd);
+            });
+          }
+
+          update('tests/governance/gci-s01-workflow-inventory.test.js', (before) => {
+            const anchor = '  ".github/workflows/p03f-slice052-core-acceptance.yml",\n';
+            if (!before.includes(anchor)) throw new Error('P03F53_GCI_S01_ANCHOR_MISSING');
+            if (before.includes('p03f-slice053-core-acceptance.yml')) return before;
+            return before.replace(anchor, `${anchor}  ".github/workflows/p03f-slice053-core-acceptance.yml",\n`);
+          });
+
+          update('tests/governance/gci-s02-pr-gate-pilot.test.js', (before) => {
+            const anchor = '  ".github/workflows/p03f-slice052-core-acceptance.yml",\n';
+            if (!before.includes(anchor)) throw new Error('P03F53_GCI_S02_ANCHOR_MISSING');
+            let after = before.includes('p03f-slice053-core-acceptance.yml')
+              ? before
+              : before.replace(anchor, `${anchor}  ".github/workflows/p03f-slice053-core-acceptance.yml",\n`);
+            after = after
+              .replace('assert.equal(current.summary.pullRequestWorkflowCount, 101);', 'assert.equal(current.summary.pullRequestWorkflowCount, 102);')
+              .replace('assert.equal(current.summary.lateSkipCandidateCount, 60);', 'assert.equal(current.summary.lateSkipCandidateCount, 61);');
+            return after;
+          });
+          NODE
+      - name: Verify exact reconciliation set
+        run: |
+          node --test \
+            tests/curriculum/p03f-slice025-improper-mixed-integer-conversion.test.js \
+            tests/curriculum/p03f-slice027-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice028-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice030-g5a-u06-rank8-fraction.test.js \
+            tests/curriculum/p03f-slice032-g6b-u01-rank8-mixed-domain-conversion.test.js \
+            tests/curriculum/p03f-slice033-d0-closeout.test.js \
+            tests/curriculum/p03f-slice033-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice034-d0-closeout.test.js \
+            tests/curriculum/p03f-slice034-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice035-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice036-d0-closeout.test.js \
+            tests/curriculum/p03f-slice036-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice037-d0-closeout.test.js \
+            tests/curriculum/p03f-slice037-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice038-d0-closeout.test.js \
+            tests/curriculum/p03f-slice038-g5a-u06-rank9-mixed-improper-add-sub.test.js \
+            tests/curriculum/p03f-slice039-d0-closeout.test.js \
+            tests/curriculum/p03f-slice039-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice040-g5b-u06-rank9-integer-division-decimal-quotient.test.js \
+            tests/curriculum/p03f-slice041-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice042-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice044-d0-closeout.test.js \
+            tests/curriculum/p03f-slice045-d0-closeout.test.js \
+            tests/curriculum/p03f-slice046-d0-closeout.test.js \
+            tests/curriculum/p03f-slice047-d0-closeout.test.js \
+            tests/curriculum/p03f-slice047-public-ui-binding.test.js \
+            tests/curriculum/p03f-slice048-d0-closeout.test.js \
+            tests/curriculum/p03f-slice048-g5a-u01-rank11-inverse-rounding-range.test.js \
+            tests/curriculum/p03f-slice049-d0-closeout.test.js \
+            tests/curriculum/p03f-slice050-d0-closeout.test.js \
+            tests/curriculum/p03f-slice051-d0-closeout.test.js \
+            tests/curriculum/p03f-slice051-g6a-u04-rank11-decimal-divided-by-decimal.test.js \
+            tests/curriculum/p03f-slice052-d0-closeout.test.js \
+            tests/curriculum/p03f-slice052-g6a-u04-rank12-shift-precision-rate.test.js \
+            tests/governance/gci-s01-workflow-inventory.test.js \
+            tests/governance/gci-s02-pr-gate-pilot.test.js
+      - name: Commit reconciled current assertions
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "test: reconcile current authority through Slice053"
+          git push origin HEAD:p03f53-g6a-u04-rank13-rounding
