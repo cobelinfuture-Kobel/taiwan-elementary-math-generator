@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "tools/curriculum/run-p03f-slice042-live-pages-e2e.mjs"
+      - "tools/curriculum/run-p03f-slice042-reconciliation-live-pages-e2e.mjs"
       - ".github/workflows/p03f-slice042-live-pages-e2e.yml"
       - "tests/governance/gci-s01-workflow-inventory.test.js"
       - "tests/governance/gci-s02-pr-gate-pilot.test.js"
@@ -19,7 +20,7 @@ concurrency:
 
 jobs:
   live-pages-e2e:
-    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'p03f42-postmerge-pages-e2e'
+    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'p03f42-postmerge-pages-e2e' || github.head_ref == 'p03f42-reconciliation-postmerge-pages-e2e'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -42,13 +43,20 @@ jobs:
         env:
           P03F42_DEPLOYMENT_RETRIES: "20"
           P03F42_DEPLOYMENT_RETRY_DELAY_MS: "15000"
-        run: node tools/curriculum/run-p03f-slice042-live-pages-e2e.mjs
+        run: |
+          if [ "${{ github.head_ref }}" = "p03f42-reconciliation-postmerge-pages-e2e" ]; then
+            node tools/curriculum/run-p03f-slice042-reconciliation-live-pages-e2e.mjs
+          else
+            node tools/curriculum/run-p03f-slice042-live-pages-e2e.mjs
+          fi
 
       - name: Upload Slice042 Main/Pages E2E evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: p03f-slice042-postmerge-main-pages-e2e
-          path: tmp/p03f-slice042-live-pages-e2e
+          path: |
+            tmp/p03f-slice042-live-pages-e2e
+            tmp/p03f-slice042-reconciliation-live-pages-e2e
           if-no-files-found: error
           retention-days: 30
