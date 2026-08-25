@@ -55,7 +55,7 @@ jobs:
           const pgc='tests/curriculum/pgc-r08-a04-a04-question-type-state-settlement.test.js';
           {const before=fs.readFileSync(pgc,'utf8');const t=before.replace('batch-a-selector-p03f\\d+-extension','batch-a-selector-(?:p03f\\d+|p04f1)-extension');put(pgc,t,before);}
 
-          const controls='site/assets/browser/ui/public-pattern-group-controls.js';
+          const controls='site/assets/browser/state/public-pattern-group-selection.js';
           {const before=fs.readFileSync(controls,'utf8');const t=before.replace('batch-a-selector-p03f53-extension.js','batch-a-selector-p04f1-extension.js');if(t===before)throw new Error('P04F1_PATTERN_GROUP_CONTROLS_POINTER_NOT_FOUND');put(controls,t,before);}
 
           for(const file of ['tests/governance/gci-s01-workflow-inventory.test.js','tests/governance/gci-s02-pr-gate-pilot.test.js']){
@@ -73,11 +73,11 @@ jobs:
         shell: bash
         run: |
           git diff --check
-          bad="$(git diff --name-only | grep -Ev '^(tests/|site/assets/browser/ui/public-pattern-group-controls\.js$|\.github/workflows/p04f1-readonly-current-reconciliation.*\.yml$)' || true)"
+          bad="$(git diff --name-only | grep -Ev '^(tests/|site/assets/browser/state/public-pattern-group-selection\.js$|\.github/workflows/p04f1-readonly-current-reconciliation.*\.yml$)' || true)"
           test -z "$bad"
           grep -q 'batch-a-selector-p03f53-extension.js' tests/curriculum/p03f-slice053-g6a-u04-rank13-rounding.test.js
           grep -q 'BATCH_A_SELECTOR_AVAILABILITY.sourceCount,34' tests/curriculum/p03f-slice053-g6a-u04-rank13-rounding.test.js
-          grep -q 'batch-a-selector-p04f1-extension.js' site/assets/browser/ui/public-pattern-group-controls.js
+          grep -q 'batch-a-selector-p04f1-extension.js' site/assets/browser/state/public-pattern-group-selection.js
       - name: Run full regression
         id: full
         continue-on-error: true
