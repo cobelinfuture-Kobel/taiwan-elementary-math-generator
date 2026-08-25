@@ -68,7 +68,7 @@ test("P03F31 historical selector admits exactly one numeric source-backed KP", (
 test("P03F31 current source and Pixel inventories expand monotonically through Slice051", () => {
   assert.equal(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.length, 34);
   assert.ok(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.some((row) => row.sourceId === G5B_U04_P03F31_SOURCE_ID));
-  assert.equal(listCurrentPixelSourceOptions().length, 34);
+  assert.equal(listCurrentPixelSourceOptions().length, 35);
   const pixelKps = listPixelKnowledgePointsForSource(G5B_U04_P03F31_SOURCE_ID);
   assert.equal(pixelKps.length, 5);
   assert.ok(pixelKps.some((row) => row.knowledgePointId === G5B_U04_P03F31_KP_ID));

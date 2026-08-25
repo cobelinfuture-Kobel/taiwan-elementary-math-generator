@@ -250,8 +250,8 @@ test("P03F52 worksheet adapter renders exact numeric and application routes with
 
 test("P03F52 current Pixel authority is 34/259 and G6A-U04 is 5/0/0", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 34);
-  assert.equal(pixel.visibleKnowledgePointCount, 259);
+  assert.equal(pixel.sourceCount, 35);
+  assert.equal(pixel.visibleKnowledgePointCount, 260);
   const source = pixel.bySourceId[G6A_U04_P03F52_SOURCE_ID];
   assert.ok(source);
   assert.equal(source.visibleKnowledgePoints.length, 5);
