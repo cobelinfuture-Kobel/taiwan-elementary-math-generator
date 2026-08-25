@@ -1,0 +1,106 @@
+name: P04F1 Readonly Current Reconciliation V3
+
+on:
+  push:
+    branches: [p04f1-w4-ruler-reading-implementation-v1]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p04f1-readonly-current-reconciliation-v3
+  cancel-in-progress: true
+
+jobs:
+  reconcile-and-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: p04f1-w4-ruler-reading-implementation-v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Materialize semantic current-only reconciliation
+        shell: bash
+        run: |
+          rm .github/workflows/p04f1-readonly-current-reconciliation.yml
+          rm .github/workflows/p04f1-readonly-current-reconciliation-v2.yml
+          rm .github/workflows/p04f1-readonly-current-reconciliation-v3.yml
+          node <<'NODE'
+          const fs=require('node:fs');
+          const path=require('node:path');
+          const changed=new Set();
+          function walk(dir){const out=[];for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=path.join(dir,e.name);if(e.isDirectory())out.push(...walk(p));else if(e.isFile()&&p.endsWith('.test.js'))out.push(p.replaceAll('\\','/'));}return out;}
+          function put(file,text,before){if(text!==before){fs.writeFileSync(file,text);changed.add(file);}}
+          for(const file of walk('tests/curriculum').filter(f=>f.includes('/p03f-'))){
+            const before=fs.readFileSync(file,'utf8');
+            let t=before
+              .replace(/assert\.equal\((listCurrentPixelSourceOptions\(\)\.length),\s*34\);/g,'assert.equal($1, 35);')
+              .replace(/assert\.equal\((getCurrentPixelRegistrySnapshot\(\)\.sourceCount),\s*34\);/g,'assert.equal($1, 35);')
+              .replace(/assert\.equal\(((?:pixel|registry|currentPixel|snapshot)\.sourceCount),\s*34\);/g,'assert.equal($1, 35);')
+              .replace(/assert\.equal\(((?:pixel|registry|currentPixel|snapshot)\.visibleKnowledgePointCount),\s*(?:258|259)\);/g,'assert.equal($1, 260);')
+              .replace(/\[34,\s*(?:258|259)\]/g,(m,offset,whole)=>{const ctx=whole.slice(Math.max(0,offset-180),offset);return /(?:pixel|registry|current)/i.test(ctx)?'[35, 260]':m;})
+              .replaceAll('public-ui-capability-binding-p03f53\\.js','public-ui-capability-binding-p04f1\\.js')
+              .replaceAll('public-ui-capability-binding-p03f53.js','public-ui-capability-binding-p04f1.js')
+              .replaceAll('batch-a-selector-p03f53-extension\\.js','batch-a-selector-p04f1-extension\\.js')
+              .replaceAll('batch-a-selector-p03f53-extension.js','batch-a-selector-p04f1-extension.js')
+              .replaceAll('batch-a-browser-worksheet-p03f53-extension\\.js','batch-a-browser-worksheet-p04f1-extension\\.js')
+              .replaceAll('batch-a-browser-worksheet-p03f53-extension.js','batch-a-browser-worksheet-p04f1-extension.js');
+            put(file,t,before);
+          }
+          const pgc='tests/curriculum/pgc-r08-a04-a04-question-type-state-settlement.test.js';
+          {const before=fs.readFileSync(pgc,'utf8');const t=before.replace('batch-a-selector-p03f\\d+-extension','batch-a-selector-(?:p03f\\d+|p04f1)-extension');put(pgc,t,before);}
+          for(const file of ['tests/governance/gci-s01-workflow-inventory.test.js','tests/governance/gci-s02-pr-gate-pilot.test.js']){
+            const before=fs.readFileSync(file,'utf8');let t=before;
+            const anchor='  ".github/workflows/p03f-slice053-core-acceptance.yml",\n';
+            if(!t.includes(anchor))throw new Error(`P04F1_GCI_ANCHOR_MISSING:${file}`);
+            if(!t.includes('.github/workflows/p04f-slice001-product-acceptance.yml'))t=t.replace(anchor,`${anchor}  ".github/workflows/p04f-slice001-product-acceptance.yml",\n`);
+            if(file.endsWith('gci-s02-pr-gate-pilot.test.js'))t=t.replace('pullRequestWorkflowCount, 102','pullRequestWorkflowCount, 103').replace('lateSkipCandidateCount, 61','lateSkipCandidateCount, 62');
+            put(file,t,before);
+          }
+          console.log(`P04F1_RECONCILED_FILES=${changed.size}`);
+          for(const f of [...changed].sort())console.log(`P04F1_RECONCILED_FILE=${f}`);
+          NODE
+      - name: Verify diff scope
+        shell: bash
+        run: |
+          git diff --check
+          git status --short
+          bad="$(git diff --name-only | grep -Ev '^(tests/|\.github/workflows/p04f1-readonly-current-reconciliation.*\.yml$)' || true)"
+          test -z "$bad"
+      - name: Run full regression
+        id: full
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p tmp/p04f1-current-reconciliation-v3
+          set +e
+          npm test > tmp/p04f1-current-reconciliation-v3/npm-test.log 2>&1
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          echo "$code" > tmp/p04f1-current-reconciliation-v3/npm-test-exit-code.txt
+      - name: Export reconciliation artifact
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p tmp/p04f1-current-reconciliation-v3/files
+          git diff --binary > tmp/p04f1-current-reconciliation-v3/reconciliation.patch
+          git diff --name-only | grep '^tests/' > tmp/p04f1-current-reconciliation-v3/reconciled-files.txt || true
+          while IFS= read -r file; do
+            test -n "$file" || continue
+            mkdir -p "tmp/p04f1-current-reconciliation-v3/files/$(dirname "$file")"
+            cp "$file" "tmp/p04f1-current-reconciliation-v3/files/$file"
+          done < tmp/p04f1-current-reconciliation-v3/reconciled-files.txt
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p04f1-current-reconciliation-v3
+          path: tmp/p04f1-current-reconciliation-v3
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce full regression pass
+        if: steps.full.outputs.exit_code != '0'
+        run: exit 1
