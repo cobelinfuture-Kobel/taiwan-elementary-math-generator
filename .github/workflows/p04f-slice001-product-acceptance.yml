@@ -3,6 +3,8 @@ name: P04F Slice001 Product Acceptance
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [p04f1-q001-postmerge-pages-e2e]
   workflow_dispatch:
 
 permissions:
@@ -61,5 +63,34 @@ jobs:
         with:
           name: p04f-slice001-product-acceptance
           path: tmp/p04f-slice001-product-acceptance
+          if-no-files-found: error
+          retention-days: 30
+
+  live-pages-e2e:
+    if: github.ref == 'refs/heads/p04f1-q001-postmerge-pages-e2e'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact evidence head
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1
+          npx playwright install --with-deps chromium
+      - name: Run q001 deployed Main Pages E2E
+        env:
+          P04F1_DEPLOYMENT_RETRIES: "20"
+          P04F1_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+        run: node tools/curriculum/run-p04f-slice001-live-pages-e2e.mjs
+      - name: Upload q001 deployed Main Pages E2E evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p04f-slice001-postmerge-main-pages-e2e
+          path: tmp/p04f-slice001-live-pages-e2e
           if-no-files-found: error
           retention-days: 30
