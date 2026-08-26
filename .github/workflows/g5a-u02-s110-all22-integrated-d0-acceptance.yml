@@ -1,31 +1,6 @@
 name: G5A-U02 S110 All22 Integrated D0 Acceptance
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "src/curriculum/g5a-u02/**"
-      - "site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js"
-      - "site/modules/curriculum/batch-a/global-public-layout-overlay.js"
-      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
-      - "site/modules/curriculum/batch-b/source-pattern-g5a-u02-extension.js"
-      - "site/modules/renderer/g5a-u02-s101-public-renderer.js"
-      - "site/modules/renderer/g5a-u02-s106-public-representation.js"
-      - "site/modules/renderer/g5a-u02-s107-public-representation.js"
-      - "site/modules/renderer/g5a-u02-s108-public-representation.js"
-      - "site/modules/renderer/html-renderer-s73-extension.js"
-      - "site/assets/styles/print-styles.css"
-      - "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json"
-      - "data/curriculum/contracts/G5AU02_S105_P1P2SourceParityMilestoneDefinition.json"
-      - "data/curriculum/contracts/G5AU02_S110_All22IntegratedAcceptance.json"
-      - "data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json"
-      - "tests/curriculum/g5a-u02-s110-all22-integrated-d0-acceptance.test.js"
-      - "tools/curriculum/run-g5a-u02-s110-all22-html-pdf-acceptance.mjs"
-      - "tools/curriculum/normalize-g5a-u02-s110-partial-answer-pages.mjs"
-      - "docs/curriculum/architecture/G5AU02_S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout.md"
-      - "docs/curriculum/output/G5AU02_S110_ALL22_INTEGRATED_D0_PENDING.marker"
-      - "docs/curriculum/output/G5AU02_S110_ALL22_INTEGRATED_D0_PASS.marker"
-      - ".github/workflows/g5a-u02-s110-all22-integrated-d0-acceptance.yml"
   workflow_dispatch:
 
 concurrency:
@@ -175,3 +150,4 @@ jobs:
           retention-days: 14
           if-no-files-found: error
           path: /tmp/g5a-u02-s110-full-regression.log
+

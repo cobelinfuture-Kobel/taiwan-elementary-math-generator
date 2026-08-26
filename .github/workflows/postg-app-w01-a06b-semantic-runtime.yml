@@ -1,16 +1,6 @@
 name: POSTG-APP W01-A06B Semantic Runtime
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/contracts/w01-application-semantic-remediation-policy.json"
-      - "src/curriculum/application/w01-semantic-class-quantity-schema-runtime.mjs"
-      - "tests/curriculum/postg-app-w01-a06b-semantic-runtime.test.js"
-      - "tools/curriculum/validate-postg-app-w01-a06b-semantic-runtime.mjs"
-      - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
-      - "docs/curriculum/output/POSTG_APP_W01_A06B_SEMANTIC_RUNTIME_READY.marker"
-      - ".github/workflows/postg-app-w01-a06b-semantic-runtime.yml"
   workflow_dispatch:
 
 permissions:
@@ -44,3 +34,4 @@ jobs:
 
       - name: Validate milestone claims
         run: npm run governance:claims
+

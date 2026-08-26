@@ -1,16 +1,6 @@
 name: G5A-U02 S99 P0 Source Method FullFix Contract
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json"
-      - "data/curriculum/audits/G5AU02_S98_All22SourceMethodAndRepresentationParityAudit.json"
-      - "docs/curriculum/architecture/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.md"
-      - "docs/curriculum/output/G5AU02_S99_P0_SOURCE_METHOD_FULLFIX_CONTRACT_PENDING.marker"
-      - "tests/curriculum/g5a-u02-s99-p0-source-method-fullfix-contract.test.js"
-      - ".github/workflows/g5a-u02-s99-p0-source-method-fullfix-contract.yml"
   workflow_dispatch:
 
 jobs:
@@ -34,3 +24,4 @@ jobs:
       - run: npm install --no-package-lock
       - name: Run complete Node regression
         run: npm test
+

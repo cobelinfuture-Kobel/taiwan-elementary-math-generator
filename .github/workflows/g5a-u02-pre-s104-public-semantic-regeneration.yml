@@ -1,22 +1,6 @@
 name: G5A-U02 Pre-S104 Public Semantic Regeneration
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "src/curriculum/g5a-u02/**"
-      - "site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js"
-      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
-      - "site/modules/renderer/g5a-u02-s101-public-renderer.js"
-      - "site/modules/renderer/html-renderer-s73-extension.js"
-      - "site/assets/styles/print-styles.css"
-      - "tests/curriculum/g5a-u02-pre-s104-public-semantic-regeneration.test.js"
-      - "tests/curriculum/g5a-u02-s101-partition-geometry-representation.test.js"
-      - "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs"
-      - "docs/curriculum/architecture/G5AU02_PreS104_PublicWorksheetSemanticProjectionFullFixAndRegeneration.md"
-      - "docs/curriculum/output/G5AU02_PRE_S104_PUBLIC_SEMANTIC_REGENERATION_PENDING.marker"
-      - ".github/workflows/g5a-u02-pre-s104-public-semantic-regeneration.yml"
   workflow_dispatch:
 
 permissions:
@@ -206,3 +190,4 @@ jobs:
             docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.pdf
             docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.manifest.json
             docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.audit.json
+

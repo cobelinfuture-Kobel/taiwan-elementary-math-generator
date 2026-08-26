@@ -1,8 +1,6 @@
 name: P03F Slice043 Product Acceptance
 
 on:
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -78,3 +76,4 @@ jobs:
           path: tmp/p03f-slice043-live-pages-e2e
           if-no-files-found: error
           retention-days: 30
+

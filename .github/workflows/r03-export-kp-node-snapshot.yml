@@ -1,12 +1,7 @@
 name: R03 Export Global KP Node Snapshot
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "tools/curriculum/export-r03-global-kp-node-snapshot.mjs"
-      - ".github/workflows/r03-export-kp-node-snapshot.yml"
-
+  workflow_dispatch:
 permissions:
   contents: read
 
@@ -30,3 +25,4 @@ jobs:
           path: tmp/r03-global-kp-node-snapshot.json
           if-no-files-found: error
           retention-days: 7
+

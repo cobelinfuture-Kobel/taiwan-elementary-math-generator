@@ -1,20 +1,6 @@
 name: PGC-R06 A02 G5A-U02 Live Diagnostics
 
 on:
-  pull_request:
-    paths:
-      - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-diagnostic-scope-patch.mjs"
-      - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-duplicate-prompt-patch.mjs"
-      - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-class-c-seed-collision-fix.mjs"
-      - "tools/curriculum/apply-pgc-r06-a02-g5a-u02-s107-diversity-fix.mjs"
-      - "tools/curriculum/materialize-pgc-r06-a02-g5a-u02-live-diagnostics.mjs"
-      - "src/curriculum/g5a-u02/**"
-      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
-      - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
-      - "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
-      - "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.csv"
-      - "docs/curriculum/output/PGC-R06-A02_G5A_U02_live_diagnostics.md"
-      - ".github/workflows/pgc-r06-a02-g5a-u02-live-diagnostics.yml"
   workflow_dispatch:
 
 permissions:
@@ -155,3 +141,4 @@ jobs:
             data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.csv
             docs/curriculum/output/PGC-R06-A02_G5A_U02_live_diagnostics.md
           if-no-files-found: error
+

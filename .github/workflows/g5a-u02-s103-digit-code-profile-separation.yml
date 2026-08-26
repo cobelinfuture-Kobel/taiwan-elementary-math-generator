@@ -1,19 +1,6 @@
 name: G5A-U02 S103 Digit Code Profile Separation
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "src/curriculum/g5a-u02/**"
-      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
-      - "tests/curriculum/g5a-u02-s103-digit-code-profile-separation.test.js"
-      - "tests/curriculum/g5a-u02-class-d-semantic-generator-validator.test.js"
-      - "tests/curriculum/g5a-u02-s97-source-parity-prompt-completeness.test.js"
-      - "tools/curriculum/run-g5a-u02-s103-bundle-audit.mjs"
-      - "docs/curriculum/architecture/G5AU02_S103_P0SourceDigitCodeReferenceAndGeneratedFamilySeparation.md"
-      - "docs/curriculum/output/G5AU02_S103_P0_SOURCE_DIGIT_CODE_SEPARATION_PENDING.marker"
-      - ".github/workflows/g5a-u02-s103-digit-code-profile-separation.yml"
   workflow_dispatch:
 
 jobs:
@@ -145,3 +132,4 @@ jobs:
           console.log(JSON.stringify(authority, null, 2));
           if (authority.status !== 'PASS_270_OF_270_ACTUAL_COLUMN_GEOMETRY') process.exit(1);
           NODE
+

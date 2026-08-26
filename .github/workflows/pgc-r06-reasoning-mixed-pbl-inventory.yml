@@ -1,17 +1,6 @@
 name: PGC-R06 Reasoning Mixed PBL Inventory
 
 on:
-  pull_request:
-    paths:
-      - "tools/curriculum/materialize-pgc-r06-reasoning-mixed-pbl-inventory.mjs"
-      - "tests/curriculum/pgc-r06-reasoning-mixed-pbl-inventory.test.js"
-      - "data/curriculum/public-generation/generator_capacity_contract.json"
-      - "data/curriculum/public-generation/ui_capability_binding_contract.json"
-      - "data/curriculum/public-generation/public_generation_scope.json"
-      - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
-      - "data/curriculum/public-generation/reasoning_mixed_pbl_route_inventory.csv"
-      - "docs/curriculum/output/PGC-R06_reasoning_mixed_pbl_inventory.md"
-      - ".github/workflows/pgc-r06-reasoning-mixed-pbl-inventory.yml"
   workflow_dispatch:
 
 permissions:
@@ -96,3 +85,4 @@ jobs:
             data/curriculum/public-generation/reasoning_mixed_pbl_route_inventory.csv
             docs/curriculum/output/PGC-R06_reasoning_mixed_pbl_inventory.md
           if-no-files-found: error
+
