@@ -175,8 +175,8 @@ test("P03F53 implementation and deployed evidence bind exact successful artifact
 
 test("P03F53 current registry and exact rational runtime remain D0-usable", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 34);
-  assert.equal(pixel.visibleKnowledgePointCount, 259);
+  assert.equal(pixel.sourceCount, 35);
+  assert.equal(pixel.visibleKnowledgePointCount, 260);
   const source = pixel.bySourceId[G6A_U04_P03F53_SOURCE_ID];
   assert.ok(source);
   assert.deepEqual([source.visibleKnowledgePoints.length, source.hiddenPendingCount, source.notSelectableCount], [5, 0, 0]);
@@ -254,13 +254,13 @@ test("P03F53 current consumers stay cut over to Slice053 and Change Impact remai
     pixelRegistry: sourceText("site/pixel/pixel-registry-bridge.js"),
     worksheet: sourceText("site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js"),
   };
-  assert.match(consumers.classic, /public-ui-capability-binding-p03f53\.js/);
-  assert.match(consumers.patternState, /batch-a-selector-p03f53-extension\.js/);
-  assert.match(consumers.queryState, /batch-a-selector-p03f53-extension\.js/);
-  assert.match(consumers.selector, /batch-a-selector-p03f53-extension\.js/);
-  assert.match(consumers.pixelBinding, /public-ui-capability-binding-p03f53\.js/);
-  assert.match(consumers.pixelRegistry, /batch-a-selector-p03f53-extension\.js/);
-  assert.match(consumers.worksheet, /batch-a-browser-worksheet-p03f53-extension\.js/);
+  assert.match(consumers.classic, /public-ui-capability-binding-p04f1\.js/);
+  assert.match(consumers.patternState, /batch-a-selector-p04f1-extension\.js/);
+  assert.match(consumers.queryState, /batch-a-selector-p04f1-extension\.js/);
+  assert.match(consumers.selector, /batch-a-selector-p04f1-extension\.js/);
+  assert.match(consumers.pixelBinding, /public-ui-capability-binding-p04f1\.js/);
+  assert.match(consumers.pixelRegistry, /batch-a-selector-p04f1-extension\.js/);
+  assert.match(consumers.worksheet, /batch-a-browser-worksheet-p04f1-extension\.js/);
 
   assert.equal(impactPolicy.policyId, "P03F_CHANGE_IMPACT_GATE_V1");
   assert.equal(impactPolicy.invariants.d0CloseoutAloneTriggersFullReplay, false);

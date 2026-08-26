@@ -38,6 +38,7 @@ export const W3_SLICE031_PUBLIC_SOURCE_UNITS = Object.freeze([Object.freeze({ so
 export const W3_SLICE032_PUBLIC_SOURCE_UNITS = Object.freeze([Object.freeze({ sourceId: "g6b_u01_6b01", grade: 6, semester: "lower", unitCode: "6B-U01", title: "小數與分數的計算", domain: "mixed_decimal_fraction", lifecycle: "public_full_product_w3_slice032_candidate" })]);
 export const W3_SLICE040_PUBLIC_SOURCE_UNITS = Object.freeze([Object.freeze({ sourceId: "g5b_u06_5b06", grade: 5, semester: "lower", unitCode: "5B-U06", title: "整數、小數除以整數", domain: "decimal_division", lifecycle: "public_full_product_w3_slice040_candidate" })]);
 export const W3_SLICE051_PUBLIC_SOURCE_UNITS = Object.freeze([Object.freeze({ sourceId: "g6a_u04_6a04", grade: 6, semester: "upper", unitCode: "6A-U04", title: "小數除法", domain: "decimal_division", lifecycle: "public_full_product_w3_slice051_candidate" })]);
+export const W4_SLICE001_PUBLIC_SOURCE_UNITS = Object.freeze([Object.freeze({ sourceId: "g3a_u04_3a04", grade: 3, semester: "upper", unitCode: "3A-U04", title: "毫米與數線", domain: "quantity_measurement", lifecycle: "public_full_product_w4_slice001_candidate" })]);
 export const FULL_PRODUCT_PUBLIC_SOURCE_UNITS = W1_FULL_PRODUCT_PUBLIC_SOURCE_UNITS;
 export const PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS = Object.freeze([...BATCH_A_SOURCE_UNITS, ...PUBLIC_CANDIDATE_SOURCE_UNITS]);
 export const P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([...PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS, ...W1_FULL_PRODUCT_PUBLIC_SOURCE_UNITS]);
@@ -57,8 +58,11 @@ export const P03F32_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([...P03F31_
 export const P03F40_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([...P03F32_FULL_PRODUCT_PUBLIC_SOURCE_UNITS, ...W3_SLICE040_PUBLIC_SOURCE_UNITS]);
 export const P03F51_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([...P03F40_FULL_PRODUCT_PUBLIC_SOURCE_UNITS, ...W3_SLICE051_PUBLIC_SOURCE_UNITS]);
 export const CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = P03F51_FULL_PRODUCT_PUBLIC_SOURCE_UNITS;
-const SOURCE_UNIT_BY_ID = new Map(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
-export function listBatchASourceUnits(options = {}) { const browserDefault = typeof document !== "undefined"; const includePublicCandidates = options.includePublicCandidates ?? browserDefault; const includeFullProductPublic = options.includeFullProductPublic ?? (browserDefault && options.includePublicCandidates === undefined); const includeCurrentFullProductPublic = options.includeCurrentFullProductPublic ?? options.includeW3Slice001 ?? (browserDefault && options.includeFullProductPublic === undefined && options.includePublicCandidates === undefined); const units = includeFullProductPublic ? (includeCurrentFullProductPublic ? CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS : P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS) : includePublicCandidates ? PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS : BATCH_A_SOURCE_UNITS; return units.map((unit) => ({ ...unit })); }
+const P04F1_BROWSER_CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS = Object.freeze([...CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS, ...W4_SLICE001_PUBLIC_SOURCE_UNITS]);
+const HISTORICAL_SOURCE_UNIT_BY_ID = new Map(CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
+const BROWSER_SOURCE_UNIT_BY_ID = new Map(P04F1_BROWSER_CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => [unit.sourceId, unit]));
+function sourceUnitMap() { return typeof document !== "undefined" ? BROWSER_SOURCE_UNIT_BY_ID : HISTORICAL_SOURCE_UNIT_BY_ID; }
+export function listBatchASourceUnits(options = {}) { const browserDefault = typeof document !== "undefined"; const includePublicCandidates = options.includePublicCandidates ?? browserDefault; const includeFullProductPublic = options.includeFullProductPublic ?? (browserDefault && options.includePublicCandidates === undefined); const includeCurrentFullProductPublic = options.includeCurrentFullProductPublic ?? options.includeW3Slice001 ?? (browserDefault && options.includeFullProductPublic === undefined && options.includePublicCandidates === undefined); const currentUnits = browserDefault ? P04F1_BROWSER_CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS : CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS; const units = includeFullProductPublic ? (includeCurrentFullProductPublic ? currentUnits : P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS) : includePublicCandidates ? PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS : BATCH_A_SOURCE_UNITS; return units.map((unit) => ({ ...unit })); }
 export function listProtectedFifteenPublicSourceUnits() { return PROTECTED_FIFTEEN_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function listFullProductPublicSourceUnits() { return P01E_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function listP03F2FullProductPublicSourceUnits() { return P03F2_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
@@ -67,6 +71,6 @@ export function listP03F4FullProductPublicSourceUnits() { return P03F4_FULL_PROD
 export function listP03F9FullProductPublicSourceUnits() { return P03F9_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function listP03F10FullProductPublicSourceUnits() { return P03F10_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
 export function listP03F51FullProductPublicSourceUnits() { return P03F51_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
-export function listCurrentFullProductPublicSourceUnits() { return CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS.map((unit) => ({ ...unit })); }
-export function getBatchASourceUnit(sourceId) { const unit = SOURCE_UNIT_BY_ID.get(sourceId) ?? null; return unit ? { ...unit } : null; }
-export function isBatchASourceId(sourceId) { return SOURCE_UNIT_BY_ID.has(sourceId); }
+export function listCurrentFullProductPublicSourceUnits() { return (typeof document !== "undefined" ? P04F1_BROWSER_CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS : CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS).map((unit) => ({ ...unit })); }
+export function getBatchASourceUnit(sourceId) { const unit = sourceUnitMap().get(sourceId) ?? null; return unit ? { ...unit } : null; }
+export function isBatchASourceId(sourceId) { return sourceUnitMap().has(sourceId); }

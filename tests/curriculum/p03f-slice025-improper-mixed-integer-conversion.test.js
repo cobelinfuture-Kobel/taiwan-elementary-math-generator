@@ -141,7 +141,7 @@ test("P03F25 historical two-KP projection remains intact while current public to
   assert.equal(rows.length, 5);
   assert.equal(rows.some((row) => row.knowledgePointId === G4A_U06_P03F25_KP_ID), true);
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 34);
-  assert.equal(snapshot.visibleKnowledgePointCount, 259);
+  assert.equal(snapshot.sourceCount, 35);
+  assert.equal(snapshot.visibleKnowledgePointCount, 260);
   assert.equal(snapshot.bySourceId[sourceId].visibleKnowledgePoints.length, 5);
 });

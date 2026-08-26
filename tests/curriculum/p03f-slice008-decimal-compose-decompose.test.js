@@ -90,7 +90,7 @@ test("P03F8 historical selector remains three KPs while current Pixel includes l
   assert.equal(availability.visibleCount, 3);
   assert.equal(availability.hiddenPendingCount, 4);
   assert.equal(listPixelKnowledgePointsForSource(G3B_U09_SOURCE_ID).length, 6);
-  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 34);
+  assert.equal(getCurrentPixelRegistrySnapshot().sourceCount, 35);
 });
 
 test("P03F8 shared worksheet renders eight questions and answer keys on two pages", () => {

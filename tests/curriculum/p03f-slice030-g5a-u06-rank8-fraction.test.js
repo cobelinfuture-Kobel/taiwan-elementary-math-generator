@@ -44,8 +44,8 @@ test("P03F30 historical selector remains 30/224 while current inventory advances
   assert.equal(listCurrentFullProductPublicSourceUnits().length, 34);
   assert.equal(getBatchASourceUnit(G5A_U06_P03F30_SOURCE_ID)?.unitCode, "5A-U06");
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 34);
-  assert.equal(pixel.visibleKnowledgePointCount, 259);
+  assert.equal(pixel.sourceCount, 35);
+  assert.equal(pixel.visibleKnowledgePointCount, 260);
   const summary = getCurrentPixelSourceSummary(G5A_U06_P03F30_SOURCE_ID);
   assert.ok(summary);
   assert.equal(summary.visibleKnowledgePoints.length, 5);

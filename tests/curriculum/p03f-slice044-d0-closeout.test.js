@@ -141,8 +141,8 @@ test("P03F44 post-merge Pages E2E binds exact deployed product and recovered tra
 
 test("P03F44 current Pixel authority advances through Slice053 to 34/259 while G5A-U01 remains fully visible 8/0/0", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 34);
-  assert.equal(pixel.visibleKnowledgePointCount, 259);
+  assert.equal(pixel.sourceCount, 35);
+  assert.equal(pixel.visibleKnowledgePointCount, 260);
   const source = pixel.bySourceId[G5A_U01_P03F44_SOURCE_ID];
   assert.equal(source.visibleKnowledgePoints.length, 8);
   assert.equal(source.hiddenPendingCount, 0);

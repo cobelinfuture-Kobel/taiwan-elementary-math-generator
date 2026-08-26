@@ -1,4 +1,5 @@
 import { renderFractionNumberLine } from "./fraction-number-line.js";
+import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderInlineMathModel } from "./inline-math.js";
 
 function escapeHtml(value) {
@@ -66,9 +67,10 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderFractionNumberLine };
+export { renderFractionNumberLine, renderMeasurementRuler };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
+  if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
   return renderDecimalNumberLine(model);
 }
 

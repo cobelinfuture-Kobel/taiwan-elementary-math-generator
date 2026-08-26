@@ -115,7 +115,7 @@ test("P03F5 selector exposes only one historical G4B-U08 KP and three specs", ()
 
 test("P03F5 historical authority stays one KP while current Pixel expands monotonically through Slice043", () => {
   const sources = listCurrentPixelSourceOptions();
-  assert.equal(sources.length, 34);
+  assert.equal(sources.length, 35);
   const source = sources.find((row) => row.sourceId === G4B_U08_SOURCE_ID);
   assert.ok(source);
   assert.equal(source.visibleKnowledgePointCount, 7);
@@ -130,7 +130,7 @@ test("P03F5 historical authority stays one KP while current Pixel expands monoto
     "kp_g4b_u08_mixed_fraction_order_constraints",
   ]);
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 34);
+  assert.equal(snapshot.sourceCount, 35);
   assert.equal(snapshot.bySourceId[G4B_U08_SOURCE_ID].visibleKnowledgePoints.length, 7);
 });
 

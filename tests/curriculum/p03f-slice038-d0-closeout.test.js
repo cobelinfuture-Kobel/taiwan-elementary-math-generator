@@ -69,8 +69,8 @@ test("P03F38 final-head Main/Pages E2E binds deployed product behavior", () => {
 
 test("P03F38 historical D0 authority remains 32/236 while current Pixel advances through Slice053 to 34/259", () => {
   const pixel = getCurrentPixelRegistrySnapshot();
-  assert.equal(pixel.sourceCount, 34);
-  assert.equal(pixel.visibleKnowledgePointCount, 259);
+  assert.equal(pixel.sourceCount, 35);
+  assert.equal(pixel.visibleKnowledgePointCount, 260);
   assert.equal(pixel.bySourceId[G5A_U06_P03F38_SOURCE_ID].visibleKnowledgePoints.length, 5);
   assert.equal(pixel.bySourceId[G5A_U06_P03F38_SOURCE_ID].hiddenPendingCount, 2);
 });
