@@ -11,10 +11,11 @@ const harness = readFileSync(
   "utf8",
 );
 
-test("R3D deployed workflow audits the approved production deployment on PR and Pages completion", () => {
+test("R3D deployed workflow audits the approved production deployment on Pages completion or manual dispatch", () => {
   assert.match(workflow, /name: G4B-U04 R3D Deployed Approved Layouts/);
-  assert.match(workflow, /pull_request:/);
+  assert.doesNotMatch(workflow, /\bpull_request:/);
   assert.match(workflow, /workflow_run:/);
+  assert.match(workflow, /workflow_dispatch:/);
   assert.match(workflow, /Deploy GitHub Pages/);
   assert.match(workflow, /run-g4b-u04-r3d-deployed-approved-layouts\.mjs/);
   assert.match(workflow, /latest-g4b-u04-r3d-deployed-approved-layouts\.json/);
