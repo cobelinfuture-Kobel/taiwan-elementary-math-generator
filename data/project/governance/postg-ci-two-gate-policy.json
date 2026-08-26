@@ -5,7 +5,7 @@
   "scope": "repository pull-request trigger routing with historical workflow body preservation",
   "requiredPullRequestGates": [
     "POSTG Application PR Gate",
-    "Node Test"
+    "PR Gate"
   ],
   "maxRequiredPullRequestGateCount": 2,
   "historicalWorkflowMode": "workflow_call_and_workflow_dispatch_only",
@@ -65,7 +65,7 @@
   "exactHeadAcceptance": {
     "expectedWorkflowNames": [
       "POSTG Application PR Gate",
-      "Node Test"
+      "PR Gate"
     ],
     "maximumWorkflowRunCount": 2,
     "unrelatedUnitWorkflowRunCount": 0

@@ -3,7 +3,7 @@
   "programId": "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "inventoryCompleteness": "BOOTSTRAP_PARTIAL",
-  "inventoryAsOfCommit": "d531ee415f1e83b4fa172c3f9cb1a587d358da82",
+  "inventoryAsOfCommit": "500b1f5e37b1a110058462f756c17bcb0813ea06",
   "policyLock": {
     "maxTopLevelPrWorkflows": 1,
     "maxRequiredPrChecks": 3,
@@ -19,32 +19,55 @@
   },
   "workflows": [
     {
-      "workflowId": "node-test",
-      "file": ".github/workflows/node-test.yml",
-      "displayName": "Node Test",
+      "workflowId": "pr-gate",
+      "file": ".github/workflows/pr-gate.yml",
+      "displayName": "PR Gate",
       "lifecycle": "ACTIVE_OPTIONAL",
-      "triggerClasses": ["PULL_REQUEST", "PUSH_MAIN"],
+      "triggerClasses": ["PULL_REQUEST", "WORKFLOW_DISPATCH"],
       "pathScope": [],
       "requiredCheckStatus": "UNVERIFIED",
-      "branchProtectionEvidenceStatus": "NOT_INSPECTED_S00",
+      "branchProtectionEvidenceStatus": "MAIN_PROTECTION_DISABLED",
       "writesPullRequestBranch": false,
       "fullRegressionRole": "PR_AUTHORITY",
-      "successorWorkflowId": "pr-gate",
+      "successorWorkflowId": null,
       "retirementTaskId": null,
-      "policyDisposition": "NONCONFORMANT_PENDING_S02",
+      "policyDisposition": "CONFORMANT",
       "evidence": {
-        "blobSha": "3be4a93f89d8a90b566c86a38dc0a9b5f7b88b7d",
+        "blobSha": "1c8e196d7ad3def0dd51a7ced931ec0bc7b35400",
         "observations": [
-          "Pull-request and main-push triggers are active.",
-          "contents permission is read-only.",
-          "npm test is executed and treated as the bootstrap PR full-regression authority.",
-          "Branch-name-specific Chromium acceptance remains embedded and requires S01/S02 reconciliation."
+          "All pull requests to main are classified by UNIT_INCREMENTAL_VALIDATION_V1.",
+          "KP_LEAF skips full repository regression; UNIT_INTEGRATION runs it once after all expected KPs are focused-pass.",
+          "Any SHARED_RUNTIME change and GLOBAL_RELEASE require GLOBAL_CERTIFICATION; PR Gate fails closed until the canonical global browser replay gate is aggregated.",
+          "The workflow is read-only and never commits, rebases, or pushes the pull-request branch."
         ]
       },
       "notes": [
-        "Required-check status is intentionally not asserted in S00 because branch protection is out of scope.",
-        "The successor ID is reserved; GCI-S02 will decide the final orchestrator implementation."
+        "Required-check migration remains pending while main branch protection is disabled."
       ]
+    },
+    {
+      "workflowId": "node-test",
+      "file": ".github/workflows/node-test.yml",
+      "displayName": "Node Test Post-Merge",
+      "lifecycle": "POST_MERGE_ONLY",
+      "triggerClasses": ["PUSH_MAIN", "WORKFLOW_DISPATCH"],
+      "pathScope": [],
+      "requiredCheckStatus": "NOT_APPLICABLE",
+      "branchProtectionEvidenceStatus": "NOT_APPLICABLE",
+      "writesPullRequestBranch": false,
+      "fullRegressionRole": "POST_MERGE_GUARD",
+      "successorWorkflowId": "pr-gate",
+      "retirementTaskId": null,
+      "policyDisposition": "CONFORMANT",
+      "evidence": {
+        "blobSha": "0105215f6c2188e2ed7ec5d6a45e537aed82d86a",
+        "observations": [
+          "Node Test no longer has a pull_request trigger.",
+          "It runs npm test only on main push or workflow_dispatch.",
+          "It is read-only and uploads diagnostics without changing repository state."
+        ]
+      },
+      "notes": []
     },
     {
       "workflowId": "pgc-r05-application-generation-full-fix",
@@ -52,33 +75,22 @@
       "displayName": "PGC-R05 Application Generation FullFix",
       "lifecycle": "ACTIVE_OPTIONAL",
       "triggerClasses": ["PULL_REQUEST", "WORKFLOW_DISPATCH"],
-      "pathScope": [
-        "tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs",
-        "tools/curriculum/apply-pgc-r05-*.mjs",
-        "tests/curriculum/pgc-r05-*.test.js",
-        "data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json",
-        "data/curriculum/public-generation/application_generation_gap_inventory.csv",
-        "docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md",
-        "shared Batch A/Batch B runtime paths"
-      ],
+      "pathScope": ["R05 application tools, tests, authorities and shared runtime paths"],
       "requiredCheckStatus": "UNVERIFIED",
-      "branchProtectionEvidenceStatus": "NOT_INSPECTED_S00",
+      "branchProtectionEvidenceStatus": "MAIN_PROTECTION_DISABLED",
       "writesPullRequestBranch": true,
       "fullRegressionRole": "PR_DUPLICATE",
       "successorWorkflowId": "pr-gate",
-      "retirementTaskId": "GCI-S03_LegacyWorkflowRetirement",
+      "retirementTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation",
       "policyDisposition": "NONCONFORMANT_PENDING_S03",
       "evidence": {
         "blobSha": "10f588f3b54522f7c913ccdf5db74b77567749c5",
         "observations": [
-          "Pull-request trigger covers R05 and shared runtime paths.",
-          "The workflow executes focused R05 acceptance and npm test.",
-          "When terminal authority is absent, the workflow commits, rebases, and pushes generated runtime and diagnostic artifacts back to the PR branch."
+          "The workflow still commits, rebases, and pushes generated artifacts from pull-request CI.",
+          "It still duplicates npm test pending legacy retirement."
         ]
       },
-      "notes": [
-        "S00 records the violation but does not modify or retire the workflow."
-      ]
+      "notes": []
     },
     {
       "workflowId": "pgc-r05-capacity-contract-reconciliation-d0-closeout",
@@ -86,31 +98,22 @@
       "displayName": "PGC-R05 Capacity Contract Reconciliation D0 Closeout",
       "lifecycle": "ACTIVE_OPTIONAL",
       "triggerClasses": ["PULL_REQUEST", "WORKFLOW_DISPATCH"],
-      "pathScope": [
-        "R05 reconciliation/materialization tools",
-        "R03/R05 tests",
-        "public-generation capacity and UI binding authorities",
-        "public generator capacity registry",
-        "R02/R05 readbacks"
-      ],
+      "pathScope": ["R05 capacity, UI binding, diagnostics, tests and closeout authorities"],
       "requiredCheckStatus": "UNVERIFIED",
-      "branchProtectionEvidenceStatus": "NOT_INSPECTED_S00",
+      "branchProtectionEvidenceStatus": "MAIN_PROTECTION_DISABLED",
       "writesPullRequestBranch": true,
       "fullRegressionRole": "PR_DUPLICATE",
       "successorWorkflowId": "pr-gate",
-      "retirementTaskId": "GCI-S03_LegacyWorkflowRetirement",
+      "retirementTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation",
       "policyDisposition": "NONCONFORMANT_PENDING_S03",
       "evidence": {
         "blobSha": "637b88712283097e5815712276ae4bb7267354bf",
         "observations": [
-          "Pull-request trigger covers shared capacity, UI binding, diagnostics, tests, and readback authorities.",
-          "The workflow executes focused R02/R03/R05 acceptance and npm test.",
-          "When terminal authority is absent, the workflow commits, rebases, and pushes deterministic D0 authorities back to the PR branch."
+          "The workflow still commits, rebases, and pushes deterministic authorities from pull-request CI.",
+          "It still duplicates npm test pending legacy retirement."
         ]
       },
-      "notes": [
-        "S00 records the violation but does not modify or retire the workflow."
-      ]
+      "notes": []
     },
     {
       "workflowId": "deploy-github-pages",
@@ -134,9 +137,7 @@
           "It does not write to a pull-request branch."
         ]
       },
-      "notes": [
-        "Post-merge deployment testing is classified separately from PR full-regression ownership."
-      ]
+      "notes": []
     }
   ],
   "observedNonconformities": [
@@ -148,30 +149,28 @@
       ],
       "rule": "PR_BRANCH_WRITER_COUNT must be 0; pull-request CI must not commit, rebase, or push to the PR branch.",
       "status": "OPEN",
-      "resolutionTaskId": "GCI-S03_LegacyWorkflowRetirement"
+      "resolutionTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation"
     },
     {
       "nonconformityId": "GCI-NC-002",
       "workflowIds": [
-        "node-test",
         "pgc-r05-application-generation-full-fix",
         "pgc-r05-capacity-contract-reconciliation-d0-closeout"
       ],
       "rule": "FULL_REGRESSION_AUTHORITY_COUNT must be 1; focused milestone workflows must not duplicate npm test.",
       "status": "OPEN",
-      "resolutionTaskId": "GCI-S02_SinglePrGateOrchestratorPilot"
+      "resolutionTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation"
     },
     {
       "nonconformityId": "GCI-NC-003",
       "workflowIds": [
-        "node-test",
         "pgc-r05-application-generation-full-fix",
         "pgc-r05-capacity-contract-reconciliation-d0-closeout"
       ],
-      "rule": "Top-level PR workflow fan-out must converge to one orchestrator with affected-scope jobs or reusable workflows.",
+      "rule": "Top-level PR workflow fan-out must converge to the PR Gate orchestrator or focused read-only workflows without duplicate full regression.",
       "status": "OPEN",
-      "resolutionTaskId": "GCI-S01_MathRepositoryWorkflowInventoryAndFanoutMatrix"
+      "resolutionTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation"
     }
   ],
-  "nextInventoryTaskId": "GCI-S01_MathRepositoryWorkflowInventoryAndFanoutMatrix"
+  "nextInventoryTaskId": "GCI-UIV02_LegacyPrFanoutConsolidationAndRequiredCheckEnforcement"
 }
