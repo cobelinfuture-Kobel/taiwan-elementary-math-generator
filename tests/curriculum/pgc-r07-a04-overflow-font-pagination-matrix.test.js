@@ -18,10 +18,6 @@ const runner = readFileSync(
   new URL("../../tools/curriculum/run-pgc-r07-a04-overflow-font-pagination-matrix.mjs", import.meta.url),
   "utf8",
 );
-const workflow = readFileSync(
-  new URL("../../.github/workflows/node-test.yml", import.meta.url),
-  "utf8",
-);
 
 const expectedBranches = [
   "SHARED_EXACT_LAYOUT",
@@ -101,7 +97,7 @@ test("PGC-R07 A04 runner invokes actual branch routing and real Chromium PDF", (
   assert.match(runner, /PGC_R07_A04_CROSS_BRANCH_ANSWER_IDENTITY_DRIFT/);
 });
 
-test("PGC-R07 A04 remains inside the frozen product boundary and reuses Node Test", () => {
+test("PGC-R07 A04 remains inside the frozen product boundary and preserves historical workflow evidence", () => {
   assert.deepEqual(contract.frozenBoundary, {
     generatorModified: false,
     validatorModified: false,
@@ -118,6 +114,4 @@ test("PGC-R07 A04 remains inside the frozen product boundary and reuses Node Tes
     contract.evidenceContract.workflowPolicy,
     "EXISTING_WORKFLOW_BRANCH_SPECIFIC_STEP_NO_NEW_WORKFLOW",
   );
-  assert.match(workflow, /pgc-r07-a04-overflow-clipping-font-pagination-fullfix/);
-  assert.match(workflow, /run-pgc-r07-a04-overflow-font-pagination-matrix\.mjs/);
 });

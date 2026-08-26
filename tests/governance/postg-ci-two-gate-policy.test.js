@@ -9,22 +9,31 @@ const historical = [
   ...policy.historicalLegacyWorkflowPaths,
 ];
 
-test('repository pull requests use one focused POSTG gate plus Node Test', () => {
+test('repository pull requests use one focused POSTG gate plus conditional PR Gate', () => {
   assert.equal(policy.schemaVersion, 'postg-ci-two-gate-policy-v3');
   assert.equal(policy.task, 'POSTG-CI-GOV-W01W02R1_TriggerOnlyPreservingHistoricalWorkflowContracts');
-  assert.deepEqual(policy.requiredPullRequestGates, ['POSTG Application PR Gate', 'Node Test']);
+  assert.deepEqual(policy.requiredPullRequestGates, ['POSTG Application PR Gate', 'PR Gate']);
   assert.equal(policy.maxRequiredPullRequestGateCount, 2);
 
   const router = fs.readFileSync('.github/workflows/postg-application-pr-gate.yml', 'utf8');
+  const prGate = fs.readFileSync('.github/workflows/pr-gate.yml', 'utf8');
   const nodeTest = fs.readFileSync('.github/workflows/node-test.yml', 'utf8');
+
   assert.match(router, /^name: POSTG Application PR Gate$/m);
   assert.match(router, /\bpull_request:/);
   assert.match(router, /concurrency:/);
   assert.match(router, /cancel-in-progress: true/);
-  assert.match(nodeTest, /^name: Node Test$/m);
-  assert.match(nodeTest, /\bpull_request:/);
-  assert.match(nodeTest, /concurrency:/);
-  assert.match(nodeTest, /cancel-in-progress: true/);
+
+  assert.match(prGate, /^name: PR Gate$/m);
+  assert.match(prGate, /\bpull_request:/);
+  assert.match(prGate, /concurrency:/);
+  assert.match(prGate, /cancel-in-progress: true/);
+  assert.match(prGate, /classify-unit-validation-impact\.mjs/);
+
+  assert.match(nodeTest, /^name: Node Test Post-Merge$/m);
+  assert.doesNotMatch(nodeTest, /\bpull_request:/);
+  assert.match(nodeTest, /^\s+push:/m);
+  assert.match(nodeTest, /workflow_dispatch:/);
 });
 
 test('33 closed milestone workflows are trigger-only historical contracts', () => {
@@ -76,7 +85,7 @@ test('publication and exact-head acceptance contracts remain bounded', () => {
     actionsAsIterativeDebugger: false,
     markerCommitTriggerAllowed: false,
   });
-  assert.deepEqual(policy.exactHeadAcceptance.expectedWorkflowNames, ['POSTG Application PR Gate', 'Node Test']);
+  assert.deepEqual(policy.exactHeadAcceptance.expectedWorkflowNames, ['POSTG Application PR Gate', 'PR Gate']);
   assert.equal(policy.exactHeadAcceptance.maximumWorkflowRunCount, 2);
   assert.equal(policy.exactHeadAcceptance.unrelatedUnitWorkflowRunCount, 0);
 });

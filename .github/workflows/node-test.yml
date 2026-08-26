@@ -1,20 +1,20 @@
-name: Node Test
+name: Node Test Post-Merge
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: node-test-${{ github.event.pull_request.number || github.ref }}
+  group: node-test-post-merge-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   test:
+    name: Post-merge full repository regression
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -26,242 +26,16 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run tests
-        id: full_tests
-        continue-on-error: true
+        shell: bash
         run: |
           mkdir -p tmp
           set -o pipefail
-          npm test 2>&1 | tee tmp/npm-test.log
-      - name: Install Chromium for product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'closeout/15-unit-public-worksheet-v1' || github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout' || github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice003-v1' || github.head_ref == 'p03f-w3-direct-product-vertical-slice004-v1' || github.head_ref == 'p03f19-g4b-u06-rank7-core' || github.head_ref == 'p03f20-g4b-u08-rank7' || github.head_ref == 'p03f21-g5a-u01-rank7' || github.head_ref == 'p03f22-g5a-u04-rank7' || github.head_ref == 'p03f23-g6a-u02-rank7' || github.head_ref == 'p03f27-g4b-u08-rank8' || github.head_ref == 'p03f28-g5a-u01-rank8' || github.head_ref == 'pgc-r07-a03-chromium-print-answer-matrix' || github.head_ref == 'pgc-r07-a04-overflow-clipping-font-pagination-fullfix')
-        run: |
-          npm install --no-save --package-lock=false playwright@1.51.1 @fontsource/noto-sans-tc@5.2.9
-          npx playwright install --with-deps chromium
-      - name: Run 15-unit Chromium PDF and live UI acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'closeout/15-unit-public-worksheet-v1'
-        run: node tools/curriculum/render-15-unit-public-worksheet-pdf-smoke.mjs
-      - name: Run P01D1 G5B-U05 Chromium PDF acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        run: node tools/curriculum/render-p01d1-g5b-u05-pdf-smoke.mjs
-      - name: Run P01D2 G6A-U01 Chromium PDF acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        run: node tools/curriculum/render-p01d2-g6a-u01-pdf-smoke.mjs
-      - name: Run P01D3 G5A-U03 Chromium PDF acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        run: node tools/curriculum/render-p01d3-g5a-u03-pdf-smoke.mjs
-      - name: Run P01E W1 public UI HTML PDF print closeout
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout'
-        run: node tools/curriculum/render-p01e-w1-public-closeout.mjs
-      - name: Run P03D protected D0 Chromium compatibility acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1'
-        run: node tools/curriculum/render-p03d-protected-d0-compatibility.mjs
-      - name: Run P03F slice001 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1'
-        run: node tools/curriculum/render-p03f-slice001-product-acceptance.mjs
-      - name: Run P03F slice002 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1'
-        run: node tools/curriculum/render-p03f-slice002-product-acceptance.mjs
-      - name: Run P03F slice003 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice003-v1'
-        run: node tools/curriculum/render-p03f-slice003-product-acceptance.mjs
-      - name: Run P03F slice004 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice004-v1'
-        run: node tools/curriculum/render-p03f-slice004-product-acceptance.mjs
-      - name: Run P03F slice019 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f19-g4b-u06-rank7-core'
-        run: node tools/curriculum/render-p03f-slice019-product-acceptance.mjs
-      - name: Run P03F slice020 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f20-g4b-u08-rank7'
-        run: node tools/curriculum/render-p03f-slice020-product-acceptance.mjs
-      - name: Run P03F slice021 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f21-g5a-u01-rank7'
-        run: node tools/curriculum/render-p03f-slice021-product-acceptance.mjs
-      - name: Run P03F slice022 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f22-g5a-u04-rank7'
-        run: node tools/curriculum/render-p03f-slice022-product-acceptance.mjs
-      - name: Run P03F slice023 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f23-g6a-u02-rank7'
-        run: node tools/curriculum/render-p03f-slice023-product-acceptance.mjs
-      - name: Run P03F slice027 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f27-g4b-u08-rank8'
-        run: node tools/curriculum/render-p03f-slice027-product-acceptance.mjs
-      - name: Run P03F slice028 Chromium product acceptance
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'p03f28-g5a-u01-rank8'
-        run: node tools/curriculum/render-p03f-slice028-product-acceptance.mjs
-      - name: Run PGC-R07 A03 Chromium print and answer-key matrix
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'pgc-r07-a03-chromium-print-answer-matrix'
-        run: node tools/curriculum/run-pgc-r07-a03-chromium-print-answer-matrix-r1.mjs
-      - name: Run PGC-R07 A04 overflow clipping font pagination matrix
-        if: steps.full_tests.outcome == 'success' && github.event_name == 'pull_request' && github.head_ref == 'pgc-r07-a04-overflow-clipping-font-pagination-fullfix'
-        run: node tools/curriculum/run-pgc-r07-a04-overflow-font-pagination-matrix.mjs
-      - name: Upload full regression diagnostics
+          npm test 2>&1 | tee tmp/npm-test-post-merge.log
+      - name: Upload post-merge regression diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: node-test-full-regression-diagnostics
-          path: tmp/npm-test.log
+          name: node-test-post-merge-diagnostics
+          path: tmp/npm-test-post-merge.log
           if-no-files-found: error
           retention-days: 30
-      - name: Upload 15-unit public worksheet closeout report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: fifteen-unit-public-worksheet-closeout-report
-          path: tmp/15-unit-public-worksheet-closeout-report.json
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload 15-unit Chromium acceptance artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'closeout/15-unit-public-worksheet-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: fifteen-unit-public-worksheet-chromium-acceptance
-          path: tmp/15-unit-public-worksheet-pdf-smoke
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P01D1 Chromium acceptance artifacts
-        if: always() && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d1-g5b-u05-large-number' || github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        uses: actions/upload-artifact@v4
-        with:
-          name: p01d1-g5b-u05-chromium-acceptance
-          path: tmp/p01d1-g5b-u05-pdf-smoke
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P01D2 Chromium acceptance artifacts
-        if: always() && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d2-g6a-u01-number-theory' || github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        uses: actions/upload-artifact@v4
-        with:
-          name: p01d2-g6a-u01-chromium-acceptance
-          path: tmp/p01d2-g6a-u01-pdf-smoke
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P01D3 G5A-U03 Chromium acceptance artifacts
-        if: always() && github.event_name == 'pull_request' && (github.head_ref == 'full-product/p01d3-g5a-u03-factor-multiple' || github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout')
-        uses: actions/upload-artifact@v4
-        with:
-          name: p01d3-g5a-u03-chromium-acceptance
-          path: tmp/p01d3-g5a-u03-pdf-smoke
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P01E W1 public closeout artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'full-product/p01e-w1-public-ui-html-pdf-print-closeout'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p01e-w1-public-ui-html-pdf-print-closeout
-          path: tmp/p01e-w1-public-closeout
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03D protected D0 compatibility artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03d-w3-protected-d0-compatibility-revalidation-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03d-protected-d0-compatibility
-          path: tmp/p03d-protected-d0-compatibility
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03F slice001 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice001-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice001-product-acceptance
-          path: tmp/p03f-slice001-product-acceptance
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03F slice002 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice002-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice002-product-acceptance
-          path: tmp/p03f-slice002-product-acceptance
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03F slice003 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice003-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice003-product-acceptance
-          path: tmp/p03f-slice003-product-acceptance
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03F slice004 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f-w3-direct-product-vertical-slice004-v1'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice004-product-acceptance
-          path: tmp/p03f-slice004-product-acceptance
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload P03F slice019 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f19-g4b-u06-rank7-core'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice019-product-acceptance
-          path: tmp/p03f-slice019-product-acceptance
-          if-no-files-found: error
-          retention-days: 30
-      - name: Upload P03F slice020 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f20-g4b-u08-rank7'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice020-product-acceptance
-          path: tmp/p03f-slice020-product-acceptance
-          if-no-files-found: error
-          retention-days: 30
-      - name: Upload P03F slice021 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f21-g5a-u01-rank7'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice021-product-acceptance
-          path: tmp/p03f-slice021-product-acceptance
-          if-no-files-found: error
-          retention-days: 30
-      - name: Upload P03F slice022 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f22-g5a-u04-rank7'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice022-product-acceptance
-          path: tmp/p03f-slice022-product-acceptance
-          if-no-files-found: error
-          retention-days: 30
-      - name: Upload P03F slice023 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f23-g6a-u02-rank7'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice023-product-acceptance
-          path: tmp/p03f-slice023-product-acceptance
-          if-no-files-found: error
-          retention-days: 30
-      - name: Upload P03F slice027 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f27-g4b-u08-rank8'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice027-product-acceptance
-          path: tmp/p03f-slice027-product-acceptance
-          if-no-files-found: error
-          retention-days: 30
-      - name: Upload P03F slice028 product artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'p03f28-g5a-u01-rank8'
-        uses: actions/upload-artifact@v4
-        with:
-          name: p03f-slice028-product-acceptance
-          path: tmp/p03f-slice028-product-acceptance
-          if-no-files-found: error
-          retention-days: 30
-      - name: Upload PGC-R07 A03 Chromium print artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'pgc-r07-a03-chromium-print-answer-matrix'
-        uses: actions/upload-artifact@v4
-        with:
-          name: pgc-r07-a03-chromium-print-answer-matrix
-          path: tmp/pgc-r07-a03-chromium-print-answer-matrix
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Upload PGC-R07 A04 overflow clipping font pagination artifacts
-        if: always() && github.event_name == 'pull_request' && github.head_ref == 'pgc-r07-a04-overflow-clipping-font-pagination-fullfix'
-        uses: actions/upload-artifact@v4
-        with:
-          name: pgc-r07-a04-overflow-font-pagination-matrix
-          path: tmp/pgc-r07-a04-overflow-font-pagination-matrix
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Block after full regression failure
-        if: steps.full_tests.outcome == 'failure'
-        run: exit 1

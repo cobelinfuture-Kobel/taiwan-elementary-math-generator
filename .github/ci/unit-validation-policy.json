@@ -1,20 +1,74 @@
 {
-  "schemaVersion": "1.1.0",
+  "schemaVersion": "1.2.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
-  "status": "ACTIVE_LAYER2_STATE_MODEL",
+  "status": "ACTIVE_LAYER3_CI_ROUTING_REQUIRED_CHECK_PENDING",
   "sourceAuthority": "回歸測試成本分析.txt",
   "layerStatus": {
     "layer1HandshakePolicy": "LOCKED",
     "layer2ValidationStateMachine": "ACTIVE",
-    "layer3GitHubCiEnforcement": "NOT_STARTED"
+    "layer3GitHubCiEnforcement": "ACTIVE_PR_ROUTING_REQUIRED_CHECK_PENDING"
   },
   "validationModel": [
     "PER_KP_FOCUSED",
     "PER_UNIT_FULL_REGRESSION_ONCE",
     "PER_BATCH_OR_RELEASE_GLOBAL_REPLAY"
   ],
-  "routeBounds": ["BOUNDED", "UNBOUNDED", "UNKNOWN"],
-  "scopes": ["KP_LEAF", "UNIT_INTEGRATION", "SHARED_RUNTIME", "GLOBAL_RELEASE"],
+  "routeBounds": [
+    "BOUNDED",
+    "UNBOUNDED",
+    "UNKNOWN"
+  ],
+  "scopes": [
+    "KP_LEAF",
+    "UNIT_INTEGRATION",
+    "SHARED_RUNTIME",
+    "GLOBAL_RELEASE"
+  ],
+  "impactManifest": {
+    "directory": "data/project/change-impact",
+    "suffix": ".impact.json",
+    "requiredPathPrefixes": [
+      "data/curriculum/",
+      "site/modules/curriculum/",
+      "site/assets/browser/",
+      "tests/curriculum/",
+      "tools/curriculum/"
+    ],
+    "requiredExactPaths": [
+      "site/index.html",
+      "site/404.html"
+    ],
+    "ciOwnershipMigrationGovernanceExactPaths": [
+      "tests/curriculum/p03f-slice022-authority-preflight.test.js",
+      "tests/curriculum/p03f-slice023-authority-preflight.test.js",
+      "tests/curriculum/pgc-r07-a04-overflow-font-pagination-matrix.test.js"
+    ]
+  },
+  "knownSharedExecutablePaths": {
+    "prefixes": [
+      "site/modules/curriculum/public/",
+      "data/curriculum/public-generation/"
+    ],
+    "exact": [
+      "site/assets/browser/public-capability-ui.js"
+    ],
+    "contains": [
+      "/query-state",
+      "/current-coordinator",
+      "/worksheet-router",
+      "/shared-generator",
+      "/shared-validator"
+    ]
+  },
+  "knownPublicAuthorityCutoverPaths": {
+    "prefixes": [
+      "site/modules/curriculum/public/",
+      "data/curriculum/public-generation/"
+    ],
+    "exact": [
+      "site/assets/browser/public-capability-ui.js"
+    ]
+  },
   "lanes": {
     "KP_FOCUSED": {
       "fullRegression": false,
@@ -24,7 +78,10 @@
         "TARGETED_BROWSER_E2E",
         "DIRECT_DEPENDENCY_CONTRACTS"
       ],
-      "forbiddenGates": ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY"]
+      "forbiddenGates": [
+        "FULL_NODE_REGRESSION",
+        "GLOBAL_BROWSER_REPLAY"
+      ]
     },
     "UNIT_FULL_ONCE": {
       "fullRegression": true,
@@ -36,19 +93,9 @@
         "GLOBAL_CONTRACTS",
         "UNIT_TARGETED_BROWSER_MATRIX"
       ],
-      "forbiddenGates": ["GLOBAL_BROWSER_REPLAY"]
-    },
-    "SHARED_BOUNDED": {
-      "fullRegression": true,
-      "fullRegressionFrequency": "ONCE_PER_EXACT_HEAD",
-      "globalReplay": false,
-      "requiredGates": [
-        "AFFECTED_SCOPE_TESTS",
-        "FULL_NODE_REGRESSION_ONCE",
-        "GLOBAL_CONTRACTS",
-        "TARGETED_ROUTE_REPLAY"
-      ],
-      "forbiddenGates": ["GLOBAL_BROWSER_REPLAY"]
+      "forbiddenGates": [
+        "GLOBAL_BROWSER_REPLAY"
+      ]
     },
     "GLOBAL_CERTIFICATION": {
       "fullRegression": true,
@@ -73,8 +120,12 @@
       "currentAuthorityChanged"
     ],
     "globalEscalation": {
+      "sharedExecutableChange": true,
       "legalRouteSemanticsChanged": true,
-      "affectedRoutes": ["UNBOUNDED", "UNKNOWN"],
+      "affectedRoutes": [
+        "UNBOUNDED",
+        "UNKNOWN"
+      ],
       "globalReleaseCheckpoint": true
     }
   },
@@ -96,12 +147,23 @@
     },
     "SHARED_RUNTIME": {
       "requiresSharedExecutableChange": true,
-      "boundedLane": "SHARED_BOUNDED",
-      "unboundedLane": "GLOBAL_CERTIFICATION"
+      "baseLane": "GLOBAL_CERTIFICATION"
     },
     "GLOBAL_RELEASE": {
       "requiresGlobalReleaseCheckpoint": true,
       "baseLane": "GLOBAL_CERTIFICATION"
+    }
+  },
+  "fallbacks": {
+    "governanceOnly": {
+      "derivedGate": "GOVERNANCE_FOCUSED",
+      "fullRegression": false,
+      "globalReplay": false
+    },
+    "legacyNonCurriculum": {
+      "derivedGate": "LEGACY_FULL_REGRESSION",
+      "fullRegression": true,
+      "globalReplay": false
     }
   },
   "frequencyRules": {
@@ -114,5 +176,19 @@
       "UNIT_INTEGRATION_EXACT_HEAD_MATERIALLY_CHANGED",
       "VALIDATION_LANE_LEGALLY_ESCALATED"
     ]
+  },
+  "machineRules": {
+    "scopeInflation": "POLICY_VIOLATION",
+    "unjustifiedValidationEscalation": "POLICY_VIOLATION",
+    "redundantFullRegression": "POLICY_VIOLATION",
+    "prCiMode": "READ_ONLY",
+    "terminalBarrierRequired": true,
+    "globalCertificationWithoutGlobalReplay": "FAIL_CLOSED"
+  },
+  "layer3Boundary": {
+    "prGateRouting": "ACTIVE",
+    "nodeTestPullRequestAuthority": "REMOVED",
+    "globalReplayExecution": "EXTERNAL_CANONICAL_GATE_NOT_YET_AGGREGATED_FAIL_CLOSED",
+    "requiredMergeCheckEnforcement": "PENDING_BRANCH_PROTECTION_CONFIGURATION"
   }
 }

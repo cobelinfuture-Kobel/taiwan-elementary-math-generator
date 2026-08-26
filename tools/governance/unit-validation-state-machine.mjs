@@ -52,7 +52,8 @@ export function deriveValidationLane({ policy, state, currentScope, changeImpact
   if (!policy || policy.policyId !== "UNIT_INCREMENTAL_VALIDATION_V1") fail("UIV_POLICY_INVALID", policy?.policyId);
   requireBooleanFields(changeImpact);
 
-  const globalEscalation = changeImpact.legalRouteSemanticsChanged
+  const globalEscalation = changeImpact.sharedExecutableChange
+    || changeImpact.legalRouteSemanticsChanged
     || changeImpact.globalReleaseCheckpoint
     || ["UNBOUNDED", "UNKNOWN"].includes(changeImpact.affectedRoutes);
 
@@ -78,7 +79,7 @@ export function deriveValidationLane({ policy, state, currentScope, changeImpact
 
   if (currentScope === "SHARED_RUNTIME") {
     if (!changeImpact.sharedExecutableChange) fail("UIV_SHARED_RUNTIME_FLAG_REQUIRED");
-    return globalEscalation ? "GLOBAL_CERTIFICATION" : "SHARED_BOUNDED";
+    return "GLOBAL_CERTIFICATION";
   }
 
   if (currentScope === "UNIT_INTEGRATION") {
@@ -203,7 +204,7 @@ export function transitionUnitValidationState({ machine, policy, record, event, 
     }
     case "PASS_UNIT_INTEGRATION_GATE": {
       const lane = record.lastDerivedLane;
-      if (!["UNIT_FULL_ONCE", "SHARED_BOUNDED", "GLOBAL_CERTIFICATION"].includes(lane)) {
+      if (!["UNIT_FULL_ONCE", "GLOBAL_CERTIFICATION"].includes(lane)) {
         fail("UIV_UNIT_VALIDATION_LANE_INVALID", lane);
       }
       const lanePolicy = policy.lanes[lane];
