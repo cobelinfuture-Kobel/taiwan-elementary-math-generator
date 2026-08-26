@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "status": "ACTIVE_MACHINE_CLASSIFICATION",
+  "sourceAuthority": "回歸測試成本分析.txt",
+  "validationModel": [
+    "PER_KP_FOCUSED",
+    "PER_UNIT_FULL_REGRESSION_ONCE",
+    "PER_BATCH_OR_RELEASE_GLOBAL_REPLAY"
+  ],
+  "impactManifest": {
+    "directory": "data/project/change-impact",
+    "suffix": ".impact.json",
+    "requiredPathPrefixes": [
+      "data/curriculum/",
+      "site/modules/curriculum/",
+      "site/assets/browser/",
+      "tests/curriculum/",
+      "tools/curriculum/"
+    ],
+    "requiredExactPaths": [
+      "site/index.html",
+      "site/404.html"
+    ]
+  },
+  "knownSharedExecutablePaths": {
+    "prefixes": [
+      "site/modules/curriculum/public/",
+      "data/curriculum/public-generation/"
+    ],
+    "exact": [
+      "site/assets/browser/public-capability-ui.js"
+    ],
+    "contains": [
+      "/query-state",
+      "/current-coordinator",
+      "/worksheet-router",
+      "/shared-generator",
+      "/shared-validator"
+    ]
+  },
+  "knownPublicAuthorityCutoverPaths": {
+    "prefixes": [
+      "site/modules/curriculum/public/",
+      "data/curriculum/public-generation/"
+    ],
+    "exact": [
+      "site/assets/browser/public-capability-ui.js"
+    ]
+  },
+  "scopes": {
+    "KP_LEAF": {
+      "derivedGate": "KP_FOCUSED",
+      "fullRegression": false,
+      "globalReplay": false,
+      "requiresBoundedRoutes": true,
+      "forbidSharedExecutableChange": true,
+      "forbidPublicAuthorityCutover": true,
+      "forbidLegalRouteSemanticsChange": true,
+      "forbidCurrentAuthorityChange": true,
+      "forbidGlobalReleaseCheckpoint": true
+    },
+    "UNIT_INTEGRATION": {
+      "derivedGate": "UNIT_INTEGRATION_GATE",
+      "fullRegression": true,
+      "globalReplay": false,
+      "requiresAllExpectedKnowledgePointsFocusedPass": true
+    },
+    "SHARED_RUNTIME": {
+      "boundedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+      "unboundedDerivedGate": "GLOBAL_CERTIFICATION",
+      "fullRegression": true,
+      "boundedGlobalReplay": false,
+      "unboundedGlobalReplay": true,
+      "requiresSharedExecutableChange": true
+    },
+    "GLOBAL_RELEASE": {
+      "derivedGate": "GLOBAL_CERTIFICATION",
+      "fullRegression": true,
+      "globalReplay": true,
+      "requiresGlobalReleaseCheckpoint": true
+    }
+  },
+  "globalEscalation": {
+    "whenLegalRouteSemanticsChanged": true,
+    "whenAffectedRoutes": ["UNBOUNDED", "UNKNOWN"],
+    "whenGlobalReleaseCheckpoint": true
+  },
+  "fallbacks": {
+    "governanceOnly": {
+      "derivedGate": "GOVERNANCE_FOCUSED",
+      "fullRegression": false,
+      "globalReplay": false
+    },
+    "legacyNonCurriculum": {
+      "derivedGate": "LEGACY_FULL_REGRESSION",
+      "fullRegression": true,
+      "globalReplay": false
+    }
+  },
+  "machineRules": {
+    "scopeInflation": "POLICY_VIOLATION",
+    "unjustifiedValidationEscalation": "POLICY_VIOLATION",
+    "redundantFullRegression": "POLICY_VIOLATION",
+    "sameExactHeadPassedEvidence": "MUST_REUSE",
+    "prCiMode": "READ_ONLY",
+    "terminalBarrierRequired": true
+  },
+  "uiv01Boundary": {
+    "globalReplayClassification": "MACHINE_CLASSIFIED",
+    "globalReplayExecution": "EXTERNAL_RELEASE_GATE_NOT_AGGREGATED_YET",
+    "requiredMergeCheckEnforcement": "BLOCKED_BY_BRANCH_PROTECTION_WRITE_CAPABILITY"
+  }
+}

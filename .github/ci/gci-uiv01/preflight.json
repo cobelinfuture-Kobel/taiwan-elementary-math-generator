@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "GCI-UIV01_CurrentMainIncrementalValidationMachineGatePreflight",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "baseRef": "main",
+  "baseSha": "e34b0db6138c869ca46e56e9ccd1381d3d2d54bb",
+  "status": "PASS_PREFLIGHT_IMPLEMENTATION_AUTHORIZED",
+  "sourceAuthority": "回歸測試成本分析.txt",
+  "currentEvidence": {
+    "branchProtection": {
+      "protected": false,
+      "requiredStatusChecks": []
+    },
+    "prGate": {
+      "file": ".github/workflows/pr-gate.yml",
+      "nameBefore": "PR Gate Pilot",
+      "governancePathsOnly": true,
+      "runsFullRegression": true
+    },
+    "nodeTest": {
+      "file": ".github/workflows/node-test.yml",
+      "pullRequestTriggered": true,
+      "runsFullRegression": true
+    },
+    "w4LeafWitness": {
+      "prNumber": 682,
+      "headSha": "dc09a21fb45d61b0bff0fc86bd92b747cff62e68",
+      "focusedWorkflow": "P04F Slice001 Product Acceptance",
+      "focusedWorkflowStatus": "success",
+      "nodeTestStatus": "success",
+      "prGateStatus": "success",
+      "finding": "The same W4 leaf head received focused acceptance plus two full-regression paths."
+    },
+    "staleAuthorityTransfer": {
+      "prNumber": 469,
+      "state": "open",
+      "mergeable": false,
+      "headSha": "1721d76b2ef6808c0523b4ac38a8e579c89dd150",
+      "decision": "SUPERSEDE_FROM_CURRENT_MAIN_DO_NOT_REBASE_AS_AUTHORITY"
+    }
+  },
+  "scopeLock": {
+    "allowed": [
+      ".github/ci/unit-validation-policy.json",
+      ".github/ci/gci-uiv01/preflight.json",
+      ".github/ci/workflow-registry.json",
+      ".github/workflows/pr-gate.yml",
+      ".github/workflows/node-test.yml",
+      "tools/governance/classify-unit-validation-impact.mjs",
+      "tests/governance/gci-uiv01-unit-validation-policy.test.js",
+      "tests/governance/gci-s02-pr-gate-pilot.test.js",
+      "tests/governance/global-ci-handshake-registry.test.js",
+      ".github/pull_request_template.md"
+    ],
+    "forbidden": [
+      "curriculum product runtime",
+      "generator semantics",
+      "validator semantics",
+      "renderer semantics",
+      "worksheet output",
+      "current curriculum authority",
+      "P04F1 product implementation"
+    ]
+  },
+  "implementationDecision": {
+    "reuseExistingPrGate": true,
+    "createParallelCiSystem": false,
+    "makePrGateConditionalFullRegressionAuthority": true,
+    "moveNodeTestToPostMergeOnly": true,
+    "requireChangeImpactManifestForCurriculumProductChanges": true,
+    "kpLeafFullRegression": false,
+    "unitIntegrationFullRegression": "ONCE",
+    "globalReplay": "CLASSIFY_AND_FAIL_CLOSED_UNTIL_EXTERNAL_GATE_AGGREGATION"
+  },
+  "remainingEnforcementBlocker": {
+    "type": "BRANCH_PROTECTION_WRITE_CAPABILITY",
+    "detail": "The available GitHub connector can read branch protection and rulesets but cannot enable required status checks. PR Gate can machine-fail, but repository merge blocking cannot be made mandatory in-chat in UIV01."
+  },
+  "nextTaskId": "GCI-UIV01_IncrementalValidationMachineGateImplementation"
+}

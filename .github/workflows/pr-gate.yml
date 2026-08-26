@@ -1,14 +1,8 @@
-name: PR Gate Pilot
+name: PR Gate
 
 on:
   pull_request:
     branches: [main]
-    paths:
-      - ".github/workflows/pr-gate.yml"
-      - ".github/ci/**"
-      - "docs/governance/**"
-      - "tests/governance/**"
-      - "tools/governance/**"
   workflow_dispatch:
 
 permissions:
@@ -19,19 +13,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  detect_changes:
-    name: Detect GitHub Actions changes
+  classify_validation:
+    name: Classify validation impact
     runs-on: ubuntu-latest
     outputs:
-      changed_files_json: ${{ steps.detect.outputs.changed_files_json }}
-      governance_changed: ${{ steps.detect.outputs.governance_changed }}
+      policy_conformance: ${{ steps.classify.outputs.policy_conformance }}
+      derived_gate: ${{ steps.classify.outputs.derived_gate }}
+      run_full_regression: ${{ steps.classify.outputs.run_full_regression }}
+      run_global_replay: ${{ steps.classify.outputs.run_global_replay }}
+      governance_changed: ${{ steps.classify.outputs.governance_changed }}
+      impact_manifest_path: ${{ steps.classify.outputs.impact_manifest_path }}
+      current_scope: ${{ steps.classify.outputs.current_scope }}
+      global_replay_execution_status: ${{ steps.classify.outputs.global_replay_execution_status }}
     steps:
-      - name: Checkout repository
+      - name: Checkout exact PR head
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Detect affected governance scope
-        id: detect
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Materialize changed-file inventory
         shell: bash
         run: |
           mkdir -p tmp/pr-gate
@@ -41,61 +45,66 @@ jobs:
             base_sha="$(git rev-parse HEAD^)"
           fi
           git diff --name-only "$base_sha" "${{ github.sha }}" | sort > tmp/pr-gate/changed-files.txt
-          node <<'NODE'
-          const fs = require("node:fs");
-          const files = fs.readFileSync("tmp/pr-gate/changed-files.txt", "utf8")
-            .split(/\r?\n/)
-            .filter(Boolean);
-          const governanceChanged = files.some((file) =>
-            file.startsWith(".github/")
-            || file.startsWith("docs/governance/")
-            || file.startsWith("tests/governance/")
-            || file.startsWith("tools/governance/")
-          );
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, `changed_files_json=${JSON.stringify(files)}\n`);
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, `governance_changed=${governanceChanged}\n`);
-          NODE
-      - name: Upload change inventory
+          cat tmp/pr-gate/changed-files.txt
+      - name: Classify validation policy
+        id: classify
+        shell: bash
+        run: |
+          node tools/governance/classify-unit-validation-impact.mjs \
+            --policy .github/ci/unit-validation-policy.json \
+            --changed-files tmp/pr-gate/changed-files.txt \
+            --github-output "$GITHUB_OUTPUT" \
+            --json-out tmp/pr-gate/classification.json
+      - name: Upload validation classification
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pr-gate-change-inventory
-          path: tmp/pr-gate/changed-files.txt
-          if-no-files-found: error
+          name: pr-gate-validation-classification
+          path: |
+            tmp/pr-gate/changed-files.txt
+            tmp/pr-gate/classification.json
+          if-no-files-found: warn
           retention-days: 30
 
   focused_governance:
-    name: Focused GitHub Actions governance QA
-    needs: detect_changes
+    name: Focused validation-policy governance QA
+    needs: classify_validation
+    if: needs.classify_validation.outputs.governance_changed == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout exact PR head
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Run GCI governance tests
+      - name: Run focused UIV/GCI governance tests
         shell: bash
         run: |
-          set -o pipefail
-          find tests/governance -maxdepth 1 -type f -name 'gci-*.test.js' -print0 \
-            | sort -z \
-            | xargs -0 node --test
+          node --test \
+            tests/governance/gci-uiv01-unit-validation-policy.test.js \
+            tests/governance/gci-s02-pr-gate-pilot.test.js \
+            tests/governance/global-ci-handshake-registry.test.js
 
   full_regression:
     name: Full repository regression
-    needs: detect_changes
+    needs: classify_validation
+    if: needs.classify_validation.outputs.run_full_regression == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout exact PR head
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
       - name: Install dependencies
         run: npm install
-      - name: Run full repository regression
+      - name: Run authoritative PR full regression
         shell: bash
         run: |
           mkdir -p tmp/pr-gate
@@ -114,21 +123,33 @@ jobs:
     name: PR Gate / aggregate
     if: always()
     needs:
-      - detect_changes
+      - classify_validation
       - focused_governance
       - full_regression
     runs-on: ubuntu-latest
     steps:
       - name: Enforce aggregate result
         env:
-          DETECT_RESULT: ${{ needs.detect_changes.result }}
+          CLASSIFY_RESULT: ${{ needs.classify_validation.result }}
           FOCUSED_RESULT: ${{ needs.focused_governance.result }}
           FULL_RESULT: ${{ needs.full_regression.result }}
+          DERIVED_GATE: ${{ needs.classify_validation.outputs.derived_gate }}
+          RUN_GLOBAL_REPLAY: ${{ needs.classify_validation.outputs.run_global_replay }}
+          GLOBAL_REPLAY_STATUS: ${{ needs.classify_validation.outputs.global_replay_execution_status }}
         shell: bash
         run: |
-          printf 'detect_changes=%s\n' "$DETECT_RESULT"
+          printf 'classify_validation=%s\n' "$CLASSIFY_RESULT"
           printf 'focused_governance=%s\n' "$FOCUSED_RESULT"
           printf 'full_regression=%s\n' "$FULL_RESULT"
-          [[ "$DETECT_RESULT" == "success" ]]
-          [[ "$FOCUSED_RESULT" == "success" ]]
-          [[ "$FULL_RESULT" == "success" ]]
+          printf 'derived_gate=%s\n' "$DERIVED_GATE"
+          printf 'run_global_replay=%s\n' "$RUN_GLOBAL_REPLAY"
+          printf 'global_replay_execution_status=%s\n' "$GLOBAL_REPLAY_STATUS"
+
+          [[ "$CLASSIFY_RESULT" == "success" ]]
+          [[ "$FOCUSED_RESULT" == "success" || "$FOCUSED_RESULT" == "skipped" ]]
+          [[ "$FULL_RESULT" == "success" || "$FULL_RESULT" == "skipped" ]]
+
+          if [[ "$RUN_GLOBAL_REPLAY" == "true" ]]; then
+            echo "GLOBAL_CERTIFICATION requires the external canonical global replay gate; UIV01 does not silently waive it."
+            exit 1
+          fi
