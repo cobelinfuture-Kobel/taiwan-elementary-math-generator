@@ -29,13 +29,14 @@ test("POSTG focused-gate impact detection is bounded to the current POSTG path c
   });
 });
 
-test("single-orchestrator preview retires every noncanonical direct PR trigger without editing workflow bodies", () => {
+test("single-orchestrator preview retires every noncanonical direct PR trigger only after focused coverage is active", () => {
   const before = inventoryCurrentPrWorkflows();
   assert.ok(before.summary.pullRequestWorkflowCount > 1);
 
   const stageRoot = fs.mkdtempSync(path.join(os.tmpdir(), "uiv02-cutover-"));
   try {
     const result = prepareSinglePrOrchestratorCutover({ stageRoot });
+    assert.equal(result.manifest.focusedValidationExecution, "ACTIVE_MANIFEST_PLAN");
     assert.equal(result.manifest.before.pullRequestWorkflowCount, before.summary.pullRequestWorkflowCount);
     assert.equal(result.manifest.after.pullRequestWorkflowCount, 1);
     assert.equal(result.manifest.after.prBranchWriterCount, 0);
@@ -57,6 +58,23 @@ test("single-orchestrator preview retires every noncanonical direct PR trigger w
     }
   } finally {
     fs.rmSync(stageRoot, { recursive: true, force: true });
+  }
+});
+
+test("legacy direct-PR retirement fails closed if focused execution is not active", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "uiv02-policy-"));
+  try {
+    const policyPath = path.join(root, "policy.json");
+    fs.writeFileSync(policyPath, JSON.stringify({
+      machineRules: { legacyPrTriggerRetirementWithoutFocusedCoverage: "POLICY_VIOLATION" },
+      layer3Boundary: { focusedValidationExecution: "PENDING" },
+    }));
+    assert.throws(
+      () => prepareSinglePrOrchestratorCutover({ stageRoot: path.join(root, "stage"), policyPath }),
+      /UIV02_FOCUSED_VALIDATION_COVERAGE_NOT_ACTIVE/,
+    );
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
   }
 });
 

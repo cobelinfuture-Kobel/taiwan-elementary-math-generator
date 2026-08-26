@@ -45,6 +45,20 @@ function requiresImpactManifest(policy, changedFiles) {
   });
 }
 
+function validateValidationPlanPath(policy, manifest) {
+  const requiredScopes = new Set(policy.validationPlan?.requiredScopes ?? []);
+  if (!requiredScopes.has(manifest.currentScope)) return null;
+  const value = manifest.validationPlanPath;
+  const directory = `${policy.validationPlan.directory}/`;
+  if (typeof value !== "string" || !value.startsWith(directory) || !value.endsWith(policy.validationPlan.suffix)) {
+    fail("UIV_VALIDATION_PLAN_PATH_REQUIRED", { scope: manifest.currentScope, value });
+  }
+  if (path.isAbsolute(value) || value.includes("\\") || value.split("/").includes("..")) {
+    fail("UIV_VALIDATION_PLAN_PATH_INVALID", value);
+  }
+  return value;
+}
+
 function validateManifestShape(policy, manifest) {
   if (!manifest || typeof manifest !== "object" || Array.isArray(manifest)) fail("UIV_IMPACT_MANIFEST_INVALID");
   if (manifest.schemaVersion !== "1.0.0") fail("UIV_MANIFEST_SCHEMA_VERSION_INVALID", manifest.schemaVersion);
@@ -52,6 +66,7 @@ function validateManifestShape(policy, manifest) {
   if (typeof manifest.taskId !== "string" || !manifest.taskId) fail("UIV_TASK_ID_REQUIRED");
   if (!SCOPES.has(manifest.currentScope)) fail("UIV_CURRENT_SCOPE_INVALID", manifest.currentScope);
   if (typeof manifest.expectedDerivedGate !== "string" || !manifest.expectedDerivedGate) fail("UIV_EXPECTED_DERIVED_GATE_REQUIRED");
+  validateValidationPlanPath(policy, manifest);
   const impact = manifest.changeImpact;
   if (!impact || typeof impact !== "object" || Array.isArray(impact)) fail("UIV_CHANGE_IMPACT_REQUIRED");
   for (const key of ["sharedExecutableChange", "publicAuthorityCutover", "legalRouteSemanticsChanged", "globalReleaseCheckpoint", "currentAuthorityChanged"]) {
@@ -99,9 +114,6 @@ function classifyManifest(policy, changedFiles, manifest) {
     if (typeof manifest.currentKnowledgePointId !== "string" || !manifest.unitExpectedKnowledgePointIds.includes(manifest.currentKnowledgePointId)) {
       fail("UIV_KP_LEAF_CURRENT_KP_INVALID", manifest.currentKnowledgePointId);
     }
-    if (typeof manifest.focusedValidationCheckName !== "string" || !manifest.focusedValidationCheckName) {
-      fail("UIV_KP_LEAF_FOCUSED_CHECK_REQUIRED");
-    }
   }
   if (manifest.currentScope === "UNIT_INTEGRATION") validateUnitKnowledgePoints(manifest, true);
 
@@ -124,7 +136,7 @@ function classifyManifest(policy, changedFiles, manifest) {
     derivedGate,
     runFullRegression: lane.fullRegression === true,
     runGlobalReplay: lane.globalReplay === true,
-    focusedValidationCheckName: manifest.focusedValidationCheckName ?? null,
+    validationPlanPath: validateValidationPlanPath(policy, manifest),
     pathWitness,
   };
 }
@@ -151,7 +163,7 @@ export function classifyUnitValidationImpact({ policy, changedFiles, manifest = 
       derivedGate: policy.fallbacks.governanceOnly.derivedGate,
       runFullRegression: false,
       runGlobalReplay: false,
-      focusedValidationCheckName: null,
+      validationPlanPath: null,
       pathWitness: { observedShared: false, observedPublicAuthority: false },
     };
   } else {
@@ -163,7 +175,7 @@ export function classifyUnitValidationImpact({ policy, changedFiles, manifest = 
       derivedGate: policy.fallbacks.legacyNonCurriculum.derivedGate,
       runFullRegression: true,
       runGlobalReplay: false,
-      focusedValidationCheckName: null,
+      validationPlanPath: null,
       pathWitness: { observedShared: false, observedPublicAuthority: false },
     };
   }
@@ -199,6 +211,7 @@ function writeGithubOutput(filePath, result) {
     run_global_replay: String(result.runGlobalReplay),
     governance_changed: String(result.governanceChanged),
     impact_manifest_path: result.impactManifestPath ?? "",
+    validation_plan_path: result.validationPlanPath ?? "",
     current_scope: result.currentScope ?? "",
     global_replay_execution_status: result.globalReplayExecutionStatus,
   };

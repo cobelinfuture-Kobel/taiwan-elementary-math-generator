@@ -23,6 +23,7 @@ jobs:
       run_global_replay: ${{ steps.classify.outputs.run_global_replay }}
       governance_changed: ${{ steps.classify.outputs.governance_changed }}
       impact_manifest_path: ${{ steps.classify.outputs.impact_manifest_path }}
+      validation_plan_path: ${{ steps.classify.outputs.validation_plan_path }}
       current_scope: ${{ steps.classify.outputs.current_scope }}
       global_replay_execution_status: ${{ steps.classify.outputs.global_replay_execution_status }}
       postg_changed: ${{ steps.postg.outputs.postg_changed }}
@@ -83,6 +84,52 @@ jobs:
       head_sha: ${{ github.event.pull_request.head.sha || github.sha }}
     permissions:
       contents: read
+
+  focused_product:
+    name: Focused product validation
+    needs: classify_validation
+    if: needs.classify_validation.outputs.current_scope == 'KP_LEAF' || needs.classify_validation.outputs.current_scope == 'UNIT_INTEGRATION'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install project dependencies
+        run: npm install
+      - name: Validate focused validation plan
+        id: plan
+        env:
+          VALIDATION_PLAN_PATH: ${{ needs.classify_validation.outputs.validation_plan_path }}
+          DERIVED_GATE: ${{ needs.classify_validation.outputs.derived_gate }}
+        shell: bash
+        run: |
+          node tools/governance/run-unit-validation-plan.mjs \
+            --policy .github/ci/unit-validation-policy.json \
+            --plan "$VALIDATION_PLAN_PATH" \
+            --lane "$DERIVED_GATE" \
+            --validate-only \
+            --github-output "$GITHUB_OUTPUT"
+      - name: Install targeted Chromium runtime
+        if: steps.plan.outputs.requires_playwright_chromium == 'true'
+        shell: bash
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Execute focused validation plan
+        env:
+          VALIDATION_PLAN_PATH: ${{ needs.classify_validation.outputs.validation_plan_path }}
+          DERIVED_GATE: ${{ needs.classify_validation.outputs.derived_gate }}
+        shell: bash
+        run: |
+          node tools/governance/run-unit-validation-plan.mjs \
+            --policy .github/ci/unit-validation-policy.json \
+            --plan "$VALIDATION_PLAN_PATH" \
+            --lane "$DERIVED_GATE"
 
   focused_governance:
     name: Focused validation governance QA
@@ -167,6 +214,7 @@ jobs:
     needs:
       - classify_validation
       - postg_application
+      - focused_product
       - focused_governance
       - full_regression
     runs-on: ubuntu-latest
@@ -176,6 +224,8 @@ jobs:
           CLASSIFY_RESULT: ${{ needs.classify_validation.result }}
           POSTG_RESULT: ${{ needs.postg_application.result }}
           POSTG_CHANGED: ${{ needs.classify_validation.outputs.postg_changed }}
+          PRODUCT_RESULT: ${{ needs.focused_product.result }}
+          CURRENT_SCOPE: ${{ needs.classify_validation.outputs.current_scope }}
           FOCUSED_RESULT: ${{ needs.focused_governance.result }}
           FULL_RESULT: ${{ needs.full_regression.result }}
           DERIVED_GATE: ${{ needs.classify_validation.outputs.derived_gate }}
@@ -187,6 +237,8 @@ jobs:
           printf 'classify_validation=%s\n' "$CLASSIFY_RESULT"
           printf 'postg_application=%s\n' "$POSTG_RESULT"
           printf 'postg_changed=%s\n' "$POSTG_CHANGED"
+          printf 'focused_product=%s\n' "$PRODUCT_RESULT"
+          printf 'current_scope=%s\n' "$CURRENT_SCOPE"
           printf 'focused_governance=%s\n' "$FOCUSED_RESULT"
           printf 'full_regression=%s\n' "$FULL_RESULT"
           printf 'derived_gate=%s\n' "$DERIVED_GATE"
@@ -201,6 +253,12 @@ jobs:
             [[ "$POSTG_RESULT" == "success" ]]
           else
             [[ "$POSTG_RESULT" == "skipped" ]]
+          fi
+
+          if [[ "$CURRENT_SCOPE" == "KP_LEAF" || "$CURRENT_SCOPE" == "UNIT_INTEGRATION" ]]; then
+            [[ "$PRODUCT_RESULT" == "success" ]]
+          else
+            [[ "$PRODUCT_RESULT" == "skipped" ]]
           fi
 
           if [[ "$RUN_FULL_REGRESSION" == "true" ]]; then
