@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "1.1.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "status": "ACTIVE_LAYER2_STATE_MODEL",
+  "sourceAuthority": "回歸測試成本分析.txt",
+  "layerStatus": {
+    "layer1HandshakePolicy": "LOCKED",
+    "layer2ValidationStateMachine": "ACTIVE",
+    "layer3GitHubCiEnforcement": "NOT_STARTED"
+  },
+  "validationModel": [
+    "PER_KP_FOCUSED",
+    "PER_UNIT_FULL_REGRESSION_ONCE",
+    "PER_BATCH_OR_RELEASE_GLOBAL_REPLAY"
+  ],
+  "routeBounds": ["BOUNDED", "UNBOUNDED", "UNKNOWN"],
+  "scopes": ["KP_LEAF", "UNIT_INTEGRATION", "SHARED_RUNTIME", "GLOBAL_RELEASE"],
+  "lanes": {
+    "KP_FOCUSED": {
+      "fullRegression": false,
+      "globalReplay": false,
+      "requiredGates": [
+        "FOCUSED_TEST",
+        "TARGETED_BROWSER_E2E",
+        "DIRECT_DEPENDENCY_CONTRACTS"
+      ],
+      "forbiddenGates": ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY"]
+    },
+    "UNIT_FULL_ONCE": {
+      "fullRegression": true,
+      "fullRegressionFrequency": "ONCE_PER_EXACT_HEAD",
+      "globalReplay": false,
+      "requiredGates": [
+        "UNIT_INTEGRATION_TEST",
+        "FULL_NODE_REGRESSION_ONCE",
+        "GLOBAL_CONTRACTS",
+        "UNIT_TARGETED_BROWSER_MATRIX"
+      ],
+      "forbiddenGates": ["GLOBAL_BROWSER_REPLAY"]
+    },
+    "SHARED_BOUNDED": {
+      "fullRegression": true,
+      "fullRegressionFrequency": "ONCE_PER_EXACT_HEAD",
+      "globalReplay": false,
+      "requiredGates": [
+        "AFFECTED_SCOPE_TESTS",
+        "FULL_NODE_REGRESSION_ONCE",
+        "GLOBAL_CONTRACTS",
+        "TARGETED_ROUTE_REPLAY"
+      ],
+      "forbiddenGates": ["GLOBAL_BROWSER_REPLAY"]
+    },
+    "GLOBAL_CERTIFICATION": {
+      "fullRegression": true,
+      "fullRegressionFrequency": "ONCE_PER_EXACT_HEAD",
+      "globalReplay": true,
+      "requiredGates": [
+        "FULL_NODE_REGRESSION",
+        "GLOBAL_CONTRACTS",
+        "GLOBAL_BROWSER_REPLAY",
+        "RELEASE_REQUIRED_E2E"
+      ],
+      "forbiddenGates": []
+    }
+  },
+  "changeImpact": {
+    "requiredFields": [
+      "sharedExecutableChange",
+      "publicAuthorityCutover",
+      "legalRouteSemanticsChanged",
+      "affectedRoutes",
+      "globalReleaseCheckpoint",
+      "currentAuthorityChanged"
+    ],
+    "globalEscalation": {
+      "legalRouteSemanticsChanged": true,
+      "affectedRoutes": ["UNBOUNDED", "UNKNOWN"],
+      "globalReleaseCheckpoint": true
+    }
+  },
+  "scopeRules": {
+    "KP_LEAF": {
+      "requires": {
+        "sharedExecutableChange": false,
+        "publicAuthorityCutover": false,
+        "legalRouteSemanticsChanged": false,
+        "affectedRoutes": "BOUNDED",
+        "globalReleaseCheckpoint": false,
+        "currentAuthorityChanged": false
+      },
+      "baseLane": "KP_FOCUSED"
+    },
+    "UNIT_INTEGRATION": {
+      "requiresAllExpectedKnowledgePointsFocusedPass": true,
+      "baseLane": "UNIT_FULL_ONCE"
+    },
+    "SHARED_RUNTIME": {
+      "requiresSharedExecutableChange": true,
+      "boundedLane": "SHARED_BOUNDED",
+      "unboundedLane": "GLOBAL_CERTIFICATION"
+    },
+    "GLOBAL_RELEASE": {
+      "requiresGlobalReleaseCheckpoint": true,
+      "baseLane": "GLOBAL_CERTIFICATION"
+    }
+  },
+  "frequencyRules": {
+    "perKnowledgePointFullRegressionCount": 0,
+    "perUnitIntegrationFullRegressionWaves": 1,
+    "sameExactHeadPassedEvidence": "MUST_REUSE",
+    "redundantFullRegression": "POLICY_VIOLATION",
+    "rerunAllowedWhen": [
+      "PREVIOUS_FULL_REGRESSION_FAILED_AND_VALIDATED_CONTENT_CHANGED",
+      "UNIT_INTEGRATION_EXACT_HEAD_MATERIALLY_CHANGED",
+      "VALIDATION_LANE_LEGALLY_ESCALATED"
+    ]
+  }
+}
