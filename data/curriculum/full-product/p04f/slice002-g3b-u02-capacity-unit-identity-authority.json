@@ -1,0 +1,101 @@
+{
+  "schemaName": "P04F2G3BU02CapacityUnitIdentityAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice002Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q002_r0_g3b_u02_3b02_profile_quantity_measurement_c1",
+    "queuePosition": 2,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q001_r0_g3a_u04_3a04_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true
+  },
+  "source": {
+    "sourceNodeId": "g3b_u02_3b02",
+    "unitCode": "3B-U02",
+    "unitTitle": "公升與毫升",
+    "sourcePdfTitle": "meow911_3b02_l_ml.pdf",
+    "driveFileId": "1lQheLCRMyjeEaffdLdC54K50JmrESATZ",
+    "reviewedPages": [1],
+    "primaryWitnessPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_capacity_ml_l_unit_identity",
+    "canonicalNameZh": "毫升與公升單位辨識",
+    "capabilityStatement": "學生能辨認毫升、公升及適合使用的容量單位。",
+    "reasoningInvariant": "容量單位必須與容器尺度相符，毫升用於較小容量，公升用於較大容量。",
+    "implementationBoundary": {
+      "included": [
+        "millilitre and litre unit identity",
+        "smaller-capacity uses millilitre",
+        "larger-capacity uses litre",
+        "deterministic unit-label answer"
+      ],
+      "excludedKnowledgePointIds": [
+        "kp_capacity_container_scale_reading",
+        "kp_capacity_l_ml_conversion",
+        "kp_capacity_mixed_unit_compare",
+        "kp_capacity_mixed_unit_add_sub"
+      ],
+      "containerScaleReadingAllowed": false,
+      "standaloneConversionQuestionAllowed": false,
+      "mixedUnitComparisonAllowed": false,
+      "mixedUnitArithmeticAllowed": false
+    }
+  },
+  "formalMapping": {
+    "runtimeProfileId": "profile_quantity_measurement",
+    "requiredW4CapabilityIds": [
+      "cap_quantity_domain_validator"
+    ],
+    "sharedFoundationCapabilityIds": [
+      "cap_quantity_dimension_unit_identity",
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_text_numeric_representation"
+    ],
+    "dimensionId": "CAPACITY",
+    "unitFamilyId": "METRIC_CAPACITY",
+    "canonicalUnitIds": ["millilitre", "litre"]
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g3b_u02_capacity_ml_l_unit_identity_numeric",
+    "displayName": "毫升與公升單位辨識",
+    "questionMode": "numeric",
+    "representationTag": "capacity_unit_identity"
+  },
+  "patternSpec": {
+    "patternSpecId": "ps_g3b_u02_capacity_ml_l_unit_identity_numeric",
+    "operationModelId": "op_g3b_u02_capacity_ml_l_unit_identity",
+    "operationFamilyId": "quantity_measurement",
+    "answerType": "capacity_unit_label",
+    "requestedUnknownRole": "capacityUnit",
+    "givenRoles": ["capacityScaleClass"],
+    "constraints": {
+      "allowedCapacityScaleClasses": ["smaller_capacity", "larger_capacity"],
+      "answerLabelsZh": ["毫升", "公升"],
+      "conversionRelationForbidden": true,
+      "scaleReadingForbidden": true,
+      "mixedUnitComparisonForbidden": true,
+      "mixedUnitArithmeticForbidden": true
+    },
+    "sourceBacked": true,
+    "operatorApprovedExtension": false,
+    "applicationClassification": "DIRECT_SOURCE_UNIT_IDENTITY"
+  },
+  "acceptance": {
+    "deterministicUnitLabelRequired": true,
+    "onlyMillilitreOrLitreAnswerAllowed": true,
+    "duplicatePromptRejected": true,
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "conversionLeakRejected": true,
+    "scaleReadingLeakRejected": true,
+    "mixedUnitArithmeticLeakRejected": true
+  }
+}
