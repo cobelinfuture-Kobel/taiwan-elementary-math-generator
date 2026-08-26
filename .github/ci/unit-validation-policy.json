@@ -41,7 +41,8 @@
     "ciOwnershipMigrationGovernanceExactPaths": [
       "tests/curriculum/p03f-slice022-authority-preflight.test.js",
       "tests/curriculum/p03f-slice023-authority-preflight.test.js",
-      "tests/curriculum/pgc-r07-a04-overflow-font-pagination-matrix.test.js"
+      "tests/curriculum/pgc-r07-a04-overflow-font-pagination-matrix.test.js",
+      "tests/curriculum/g4b-u04-r3d-deployed-approved-layouts-contract.test.js"
     ]
   },
   "validationPlan": {
