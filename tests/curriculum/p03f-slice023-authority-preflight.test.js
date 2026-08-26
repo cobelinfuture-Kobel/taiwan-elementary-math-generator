@@ -21,10 +21,11 @@ test("P03F23 source evidence and application boundary are explicit", () => {
   assert.equal(authority.patternSurface.applicationPatternSpecCount, 0);
   assert.equal(authority.productBoundary.globalContextOntologyExpansionAllowed, false);
 });
-test("P03F23 reuses Node Test for Chromium acceptance and artifact upload", () => {
-  const workflow = readFileSync(new URL("../../.github/workflows/node-test.yml", import.meta.url), "utf8");
-  assert.match(workflow, /Run P03F slice023 Chromium product acceptance/);
-  assert.match(workflow, /node tools\/curriculum\/render-p03f-slice023-product-acceptance\.mjs/);
-  assert.match(workflow, /name: p03f-slice023-product-acceptance/);
-  assert.match(workflow, /path: tmp\/p03f-slice023-product-acceptance/);
+test("P03F23 Chromium acceptance remains materialized independent of current CI owner", () => {
+  const runner = readFileSync(new URL("../../tools/curriculum/render-p03f-slice023-product-acceptance.mjs", import.meta.url), "utf8");
+  assert.match(runner, /P03FSlice023ChromiumProductAcceptanceReportV1/);
+  assert.match(runner, /P03F_W3DirectProductVerticalSlice023ChromiumAcceptance/);
+  assert.match(runner, /chromium\.launch/);
+  assert.match(runner, /await page\.pdf\(/);
+  assert.match(runner, /tmp\/p03f-slice023-product-acceptance/);
 });

@@ -25,10 +25,11 @@ test("P03F22 two numeric KPs have no W02 application candidate", () => {
   assert.deepEqual(rows, []);
 });
 
-test("P03F22 reuses Node Test for Chromium acceptance and artifact upload", () => {
-  const workflow = readFileSync(new URL("../../.github/workflows/node-test.yml", import.meta.url), "utf8");
-  assert.match(workflow, /Run P03F slice022 Chromium product acceptance/);
-  assert.match(workflow, /node tools\/curriculum\/render-p03f-slice022-product-acceptance\.mjs/);
-  assert.match(workflow, /name: p03f-slice022-product-acceptance/);
-  assert.match(workflow, /path: tmp\/p03f-slice022-product-acceptance/);
+test("P03F22 Chromium acceptance remains materialized independent of current CI owner", () => {
+  const runner = readFileSync(new URL("../../tools/curriculum/render-p03f-slice022-product-acceptance.mjs", import.meta.url), "utf8");
+  assert.match(runner, /P03FSlice022ChromiumProductAcceptanceReportV1/);
+  assert.match(runner, /P03F_W3DirectProductVerticalSlice022ChromiumAcceptance/);
+  assert.match(runner, /chromium\.launch/);
+  assert.match(runner, /await page\.pdf\(/);
+  assert.match(runner, /tmp\/p03f-slice022-product-acceptance/);
 });
