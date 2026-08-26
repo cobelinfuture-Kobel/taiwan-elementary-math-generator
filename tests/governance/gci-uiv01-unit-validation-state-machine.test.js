@@ -50,7 +50,7 @@ function evidence(evidenceId, gateId, exactHeadSha = SHA_A) {
 test("Layer 1 and Layer 2 remain active while Layer 3 PR routing is active", () => {
   assert.equal(POLICY.layerStatus.layer1HandshakePolicy, "LOCKED");
   assert.equal(POLICY.layerStatus.layer2ValidationStateMachine, "ACTIVE");
-  assert.equal(POLICY.layerStatus.layer3GitHubCiEnforcement, "ACTIVE_PR_ROUTING_REQUIRED_CHECK_PENDING");
+  assert.equal(POLICY.layerStatus.layer3GitHubCiEnforcement, "ACTIVE_FOCUSED_EXECUTION_REQUIRED_CHECK_PENDING");
   assert.ok(MACHINE.layerBoundary.layer3OwnsLater.includes("GITHUB_ACTIONS_ROUTING"));
   assert.ok(MACHINE.layerBoundary.layer3OwnsLater.includes("MERGE_BLOCKING"));
 });

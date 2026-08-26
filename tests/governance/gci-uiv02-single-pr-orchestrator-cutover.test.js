@@ -29,7 +29,7 @@ test("POSTG focused-gate impact detection is bounded to the current POSTG path c
   });
 });
 
-test("single-orchestrator cutover terminal state is stable and the planner is idempotent", () => {
+test("single-orchestrator cutover terminal state is stable only while focused coverage is active", () => {
   const before = inventoryCurrentPrWorkflows();
   assert.equal(before.summary.pullRequestWorkflowCount, 1);
   assert.equal(before.summary.pullRequestTargetWorkflowCount, 0);
@@ -41,6 +41,7 @@ test("single-orchestrator cutover terminal state is stable and the planner is id
   const stageRoot = fs.mkdtempSync(path.join(os.tmpdir(), "uiv02-cutover-"));
   try {
     const result = prepareSinglePrOrchestratorCutover({ stageRoot });
+    assert.equal(result.manifest.focusedValidationExecution, "ACTIVE_MANIFEST_PLAN");
     assert.equal(result.manifest.before.pullRequestWorkflowCount, 1);
     assert.equal(result.manifest.after.pullRequestWorkflowCount, 1);
     assert.equal(result.manifest.after.prBranchWriterCount, 0);
@@ -56,6 +57,23 @@ test("single-orchestrator cutover terminal state is stable and the planner is id
     assert.match(after.pullRequestWorkflowPaths[0], /\/pr-gate\.yml$/);
   } finally {
     fs.rmSync(stageRoot, { recursive: true, force: true });
+  }
+});
+
+test("legacy direct-PR retirement remains fail-closed if focused execution is not active", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "uiv02-policy-"));
+  try {
+    const policyPath = path.join(root, "policy.json");
+    fs.writeFileSync(policyPath, JSON.stringify({
+      machineRules: { legacyPrTriggerRetirementWithoutFocusedCoverage: "POLICY_VIOLATION" },
+      layer3Boundary: { focusedValidationExecution: "PENDING" },
+    }));
+    assert.throws(
+      () => prepareSinglePrOrchestratorCutover({ stageRoot: path.join(root, "stage"), policyPath }),
+      /UIV02_FOCUSED_VALIDATION_COVERAGE_NOT_ACTIVE/,
+    );
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
   }
 });
 

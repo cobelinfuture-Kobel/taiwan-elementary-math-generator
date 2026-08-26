@@ -6,6 +6,7 @@ import { inventoryCurrentPrWorkflows } from "./inventory-current-pr-workflows.mj
 
 export const CANONICAL_TOP_LEVEL_PR_WORKFLOW = ".github/workflows/pr-gate.yml";
 export const DEFAULT_STAGE_ROOT = "tmp/pr-gate/uiv02-single-orchestrator-cutover";
+export const DEFAULT_POLICY_PATH = ".github/ci/unit-validation-policy.json";
 
 function splitLines(text) {
   const newline = text.includes("\r\n") ? "\r\n" : "\n";
@@ -31,6 +32,17 @@ function blockEventIndices(lines, start, end) {
     if (match) rows.push({ event: match[1], index: i });
   }
   return rows;
+}
+
+function assertFocusedCoverageActive(policyPath) {
+  const policy = JSON.parse(fs.readFileSync(policyPath, "utf8"));
+  if (policy.layer3Boundary?.focusedValidationExecution !== "ACTIVE_MANIFEST_PLAN") {
+    throw new Error(`UIV02_FOCUSED_VALIDATION_COVERAGE_NOT_ACTIVE:${policy.layer3Boundary?.focusedValidationExecution ?? "MISSING"}`);
+  }
+  if (policy.machineRules?.legacyPrTriggerRetirementWithoutFocusedCoverage !== "POLICY_VIOLATION") {
+    throw new Error("UIV02_LEGACY_RETIREMENT_SAFETY_RULE_NOT_ACTIVE");
+  }
+  return policy;
 }
 
 export function removeDirectPullRequestTrigger(text) {
@@ -88,7 +100,9 @@ export function prepareSinglePrOrchestratorCutover({
   workflowDir = ".github/workflows",
   stageRoot = DEFAULT_STAGE_ROOT,
   canonicalWorkflow = CANONICAL_TOP_LEVEL_PR_WORKFLOW,
+  policyPath = DEFAULT_POLICY_PATH,
 } = {}) {
+  const policy = assertFocusedCoverageActive(policyPath);
   const before = inventoryCurrentPrWorkflows({ workflowDir });
   const stageWorkflowDir = path.join(stageRoot, ".github/workflows");
   fs.rmSync(stageRoot, { recursive: true, force: true });
@@ -135,9 +149,10 @@ export function prepareSinglePrOrchestratorCutover({
   }
 
   const manifest = {
-    schemaVersion: "1.0.0",
+    schemaVersion: "1.1.0",
     taskId: "GCI-UIV02_RemainingPrFanoutInventoryAndRequiredCheckEnforcement",
     mode: "TRIGGER_ONLY_RETIREMENT_PREVIEW",
+    focusedValidationExecution: policy.layer3Boundary.focusedValidationExecution,
     canonicalTopLevelPrWorkflow: canonicalWorkflow,
     before: before.summary,
     after: after.summary,

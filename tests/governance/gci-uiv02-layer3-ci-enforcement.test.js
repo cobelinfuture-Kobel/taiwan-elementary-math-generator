@@ -15,10 +15,10 @@ function manifest(overrides = {}) {
     taskId: "UIV02_TEST",
     currentScope: "KP_LEAF",
     expectedDerivedGate: "KP_FOCUSED",
+    validationPlanPath: "data/project/validation-plans/UIV02_TEST.validation.json",
     unitExpectedKnowledgePointIds: ["kp_a"],
     unitKnowledgePointGateStatus: { kp_a: "PENDING" },
     currentKnowledgePointId: "kp_a",
-    focusedValidationCheckName: "Focused Product Gate",
     changeImpact: {
       sharedExecutableChange: false,
       publicAuthorityCutover: false,
@@ -59,6 +59,7 @@ test("governance-only Layer 3 changes skip full regression", () => {
   assert.equal(result.derivedGate, "GOVERNANCE_FOCUSED");
   assert.equal(result.runFullRegression, false);
   assert.equal(result.runGlobalReplay, false);
+  assert.equal(result.validationPlanPath, null);
 });
 
 test("curriculum product change fails closed without one impact manifest", () => {
@@ -68,7 +69,7 @@ test("curriculum product change fails closed without one impact manifest", () =>
   );
 });
 
-test("KP leaf manifest produces focused lane and no full regression", () => {
+test("KP leaf manifest requires a validation plan and produces focused lane without full regression", () => {
   const changedFiles = [
     "site/modules/curriculum/batch-a/example.js",
     "data/project/change-impact/UIV02_TEST.impact.json",
@@ -77,9 +78,17 @@ test("KP leaf manifest produces focused lane and no full regression", () => {
   assert.equal(result.derivedGate, "KP_FOCUSED");
   assert.equal(result.runFullRegression, false);
   assert.equal(result.runGlobalReplay, false);
+  assert.equal(result.validationPlanPath, "data/project/validation-plans/UIV02_TEST.validation.json");
+
+  const withoutPlan = manifest();
+  delete withoutPlan.validationPlanPath;
+  assert.throws(
+    () => classifyUnitValidationImpact({ policy, changedFiles, manifest: withoutPlan }),
+    (error) => error.code === "UIV_VALIDATION_PLAN_PATH_REQUIRED",
+  );
 });
 
-test("Unit integration requires all expected KPs focused-pass and runs full regression once", () => {
+test("Unit integration requires all expected KPs focused-pass, a validation plan, and full regression once", () => {
   const m = manifest({
     currentScope: "UNIT_INTEGRATION",
     expectedDerivedGate: "UNIT_FULL_ONCE",
@@ -103,12 +112,14 @@ test("Unit integration requires all expected KPs focused-pass and runs full regr
   assert.equal(result.derivedGate, "UNIT_FULL_ONCE");
   assert.equal(result.runFullRegression, true);
   assert.equal(result.runGlobalReplay, false);
+  assert.equal(result.validationPlanPath, m.validationPlanPath);
 });
 
 test("Any shared runtime change requires global certification and replay", () => {
   const m = manifest({
     currentScope: "SHARED_RUNTIME",
     expectedDerivedGate: "GLOBAL_CERTIFICATION",
+    validationPlanPath: undefined,
     changeImpact: {
       sharedExecutableChange: true,
       publicAuthorityCutover: true,
@@ -126,6 +137,18 @@ test("Any shared runtime change requires global certification and replay", () =>
   assert.equal(result.derivedGate, "GLOBAL_CERTIFICATION");
   assert.equal(result.runFullRegression, true);
   assert.equal(result.runGlobalReplay, true);
+  assert.equal(result.validationPlanPath, null);
+});
+
+test("PR Gate executes focused product plans for KP and Unit lanes and aggregates the result", () => {
+  assert.match(prGate, /focused_product:/);
+  assert.match(prGate, /name: Focused product validation/);
+  assert.match(prGate, /run-unit-validation-plan\.mjs/);
+  assert.match(prGate, /validation_plan_path/);
+  assert.match(prGate, /requires_playwright_chromium/);
+  assert.match(prGate, /PRODUCT_RESULT/);
+  assert.match(prGate, /CURRENT_SCOPE.*KP_LEAF/);
+  assert.match(prGate, /CURRENT_SCOPE.*UNIT_INTEGRATION/);
 });
 
 test("PR Gate fails closed when global replay is required but not aggregated", () => {

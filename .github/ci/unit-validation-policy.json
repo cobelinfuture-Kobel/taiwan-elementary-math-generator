@@ -1,12 +1,12 @@
 {
-  "schemaVersion": "1.2.0",
+  "schemaVersion": "1.3.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
-  "status": "ACTIVE_LAYER3_CI_ROUTING_REQUIRED_CHECK_PENDING",
+  "status": "ACTIVE_LAYER3_FOCUSED_EXECUTION_REQUIRED_CHECK_PENDING",
   "sourceAuthority": "回歸測試成本分析.txt",
   "layerStatus": {
     "layer1HandshakePolicy": "LOCKED",
     "layer2ValidationStateMachine": "ACTIVE",
-    "layer3GitHubCiEnforcement": "ACTIVE_PR_ROUTING_REQUIRED_CHECK_PENDING"
+    "layer3GitHubCiEnforcement": "ACTIVE_FOCUSED_EXECUTION_REQUIRED_CHECK_PENDING"
   },
   "validationModel": [
     "PER_KP_FOCUSED",
@@ -43,6 +43,29 @@
       "tests/curriculum/p03f-slice023-authority-preflight.test.js",
       "tests/curriculum/pgc-r07-a04-overflow-font-pagination-matrix.test.js"
     ]
+  },
+  "validationPlan": {
+    "directory": "data/project/validation-plans",
+    "suffix": ".validation.json",
+    "requiredScopes": [
+      "KP_LEAF",
+      "UNIT_INTEGRATION"
+    ],
+    "allowedStepKinds": [
+      "NODE_TEST",
+      "NODE_RUNNER"
+    ],
+    "allowedRuntimes": [
+      "NODE_ONLY",
+      "PLAYWRIGHT_CHROMIUM"
+    ],
+    "centralizedGateIds": [
+      "FULL_NODE_REGRESSION_ONCE",
+      "FULL_NODE_REGRESSION",
+      "GLOBAL_BROWSER_REPLAY",
+      "RELEASE_REQUIRED_E2E"
+    ],
+    "arbitraryShellCommands": "FORBIDDEN"
   },
   "knownSharedExecutablePaths": {
     "prefixes": [
@@ -139,10 +162,12 @@
         "globalReleaseCheckpoint": false,
         "currentAuthorityChanged": false
       },
+      "requiresValidationPlan": true,
       "baseLane": "KP_FOCUSED"
     },
     "UNIT_INTEGRATION": {
       "requiresAllExpectedKnowledgePointsFocusedPass": true,
+      "requiresValidationPlan": true,
       "baseLane": "UNIT_FULL_ONCE"
     },
     "SHARED_RUNTIME": {
@@ -183,11 +208,16 @@
     "redundantFullRegression": "POLICY_VIOLATION",
     "prCiMode": "READ_ONLY",
     "terminalBarrierRequired": true,
+    "focusedValidationPlanRequired": true,
+    "focusedValidationArbitraryShell": "FORBIDDEN",
+    "legacyPrTriggerRetirementWithoutFocusedCoverage": "POLICY_VIOLATION",
     "globalCertificationWithoutGlobalReplay": "FAIL_CLOSED"
   },
   "layer3Boundary": {
     "prGateRouting": "ACTIVE",
+    "focusedValidationExecution": "ACTIVE_MANIFEST_PLAN",
     "nodeTestPullRequestAuthority": "REMOVED",
+    "legacyPrFanoutRetirement": "REQUIRES_FOCUSED_COVERAGE_PROOF_BEFORE_MATERIALIZATION",
     "globalReplayExecution": "EXTERNAL_CANONICAL_GATE_NOT_YET_AGGREGATED_FAIL_CLOSED",
     "requiredMergeCheckEnforcement": "PENDING_BRANCH_PROTECTION_CONFIGURATION"
   }
