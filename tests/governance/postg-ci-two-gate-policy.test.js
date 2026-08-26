@@ -9,23 +9,28 @@ const historical = [
   ...policy.historicalLegacyWorkflowPaths,
 ];
 
-test('repository pull requests use one focused POSTG gate plus conditional PR Gate', () => {
-  assert.equal(policy.schemaVersion, 'postg-ci-two-gate-policy-v3');
-  assert.equal(policy.task, 'POSTG-CI-GOV-W01W02R1_TriggerOnlyPreservingHistoricalWorkflowContracts');
-  assert.deepEqual(policy.requiredPullRequestGates, ['POSTG Application PR Gate', 'PR Gate']);
-  assert.equal(policy.maxRequiredPullRequestGateCount, 2);
+test('repository pull requests use one top-level PR Gate with reusable POSTG focused validation', () => {
+  assert.equal(policy.schemaVersion, 'postg-ci-single-orchestrator-policy-v4');
+  assert.equal(policy.task, 'GCI-UIV02_SingleTopLevelPrGatePostgReusableAggregation');
+  assert.equal(policy.topLevelPullRequestGate, 'PR Gate');
+  assert.deepEqual(policy.requiredPullRequestChecks, ['PR Gate / aggregate']);
+  assert.equal(policy.maxTopLevelPullRequestWorkflowCount, 1);
+  assert.deepEqual(policy.reusableFocusedGates, ['POSTG Application PR Gate']);
 
   const router = fs.readFileSync('.github/workflows/postg-application-pr-gate.yml', 'utf8');
   const prGate = fs.readFileSync('.github/workflows/pr-gate.yml', 'utf8');
   const nodeTest = fs.readFileSync('.github/workflows/node-test.yml', 'utf8');
 
   assert.match(router, /^name: POSTG Application PR Gate$/m);
-  assert.match(router, /\bpull_request:/);
-  assert.match(router, /concurrency:/);
-  assert.match(router, /cancel-in-progress: true/);
+  assert.doesNotMatch(router, /\bpull_request:/);
+  assert.match(router, /workflow_call:/);
+  assert.match(router, /workflow_dispatch:/);
+  assert.match(router, /contents: read/);
 
   assert.match(prGate, /^name: PR Gate$/m);
   assert.match(prGate, /\bpull_request:/);
+  assert.match(prGate, /uses: \.\/\.github\/workflows\/postg-application-pr-gate\.yml/);
+  assert.match(prGate, /detect-postg-application-impact\.mjs/);
   assert.match(prGate, /concurrency:/);
   assert.match(prGate, /cancel-in-progress: true/);
   assert.match(prGate, /classify-unit-validation-impact\.mjs/);
@@ -36,7 +41,7 @@ test('repository pull requests use one focused POSTG gate plus conditional PR Ga
   assert.match(nodeTest, /workflow_dispatch:/);
 });
 
-test('33 closed milestone workflows are trigger-only historical contracts', () => {
+test('33 closed milestone workflows remain trigger-only historical contracts', () => {
   assert.equal(policy.historicalPostgWorkflowPaths.length, 15);
   assert.equal(policy.historicalLegacyWorkflowPaths.length, 18);
   assert.equal(historical.length, 33);
@@ -85,7 +90,8 @@ test('publication and exact-head acceptance contracts remain bounded', () => {
     actionsAsIterativeDebugger: false,
     markerCommitTriggerAllowed: false,
   });
-  assert.deepEqual(policy.exactHeadAcceptance.expectedWorkflowNames, ['POSTG Application PR Gate', 'PR Gate']);
-  assert.equal(policy.exactHeadAcceptance.maximumWorkflowRunCount, 2);
+  assert.deepEqual(policy.exactHeadAcceptance.expectedTopLevelWorkflowNames, ['PR Gate']);
+  assert.equal(policy.exactHeadAcceptance.maximumTopLevelWorkflowRunCount, 1);
   assert.equal(policy.exactHeadAcceptance.unrelatedUnitWorkflowRunCount, 0);
+  assert.equal(policy.exactHeadAcceptance.postgFocusedGateExecutionMode, 'REUSABLE_JOB_INSIDE_PR_GATE');
 });

@@ -1,13 +1,16 @@
 {
-  "schemaVersion": "postg-ci-two-gate-policy-v3",
-  "task": "POSTG-CI-GOV-W01W02R1_TriggerOnlyPreservingHistoricalWorkflowContracts",
-  "status": "IMPLEMENTED_PENDING_PR_CI",
-  "scope": "repository pull-request trigger routing with historical workflow body preservation",
-  "requiredPullRequestGates": [
-    "POSTG Application PR Gate",
-    "PR Gate"
+  "schemaVersion": "postg-ci-single-orchestrator-policy-v4",
+  "task": "GCI-UIV02_SingleTopLevelPrGatePostgReusableAggregation",
+  "status": "ACTIVE_MACHINE_ENFORCED",
+  "scope": "single top-level repository pull-request orchestrator with reusable POSTG focused gate",
+  "topLevelPullRequestGate": "PR Gate",
+  "requiredPullRequestChecks": [
+    "PR Gate / aggregate"
   ],
-  "maxRequiredPullRequestGateCount": 2,
+  "maxTopLevelPullRequestWorkflowCount": 1,
+  "reusableFocusedGates": [
+    "POSTG Application PR Gate"
+  ],
   "historicalWorkflowMode": "workflow_call_and_workflow_dispatch_only",
   "historicalBodyContract": "name_permissions_concurrency_jobs_steps_preserved_trigger_only_changed",
   "historicalPostgWorkflowPaths": [
@@ -63,12 +66,12 @@
     "markerCommitTriggerAllowed": false
   },
   "exactHeadAcceptance": {
-    "expectedWorkflowNames": [
-      "POSTG Application PR Gate",
+    "expectedTopLevelWorkflowNames": [
       "PR Gate"
     ],
-    "maximumWorkflowRunCount": 2,
-    "unrelatedUnitWorkflowRunCount": 0
+    "maximumTopLevelWorkflowRunCount": 1,
+    "unrelatedUnitWorkflowRunCount": 0,
+    "postgFocusedGateExecutionMode": "REUSABLE_JOB_INSIDE_PR_GATE"
   },
   "nextShortestStep": "POSTG-APP-W02-A09A1_BatchBCanonicalKnowledgePointRegistryMaterializationAnd90CandidateReconciliation"
 }

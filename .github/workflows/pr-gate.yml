@@ -25,6 +25,7 @@ jobs:
       impact_manifest_path: ${{ steps.classify.outputs.impact_manifest_path }}
       current_scope: ${{ steps.classify.outputs.current_scope }}
       global_replay_execution_status: ${{ steps.classify.outputs.global_replay_execution_status }}
+      postg_changed: ${{ steps.postg.outputs.postg_changed }}
     steps:
       - name: Checkout exact PR head
         uses: actions/checkout@v4
@@ -48,6 +49,10 @@ jobs:
           fi
           git diff --name-only "$base_sha" "$head_sha" | sort > tmp/pr-gate/changed-files.txt
           cat tmp/pr-gate/changed-files.txt
+      - name: Detect POSTG application focused-gate impact
+        id: postg
+        shell: bash
+        run: node tools/governance/detect-postg-application-impact.mjs tmp/pr-gate/changed-files.txt "$GITHUB_OUTPUT"
       - name: Classify validation policy
         id: classify
         shell: bash
@@ -67,6 +72,17 @@ jobs:
             tmp/pr-gate/classification.json
           if-no-files-found: warn
           retention-days: 30
+
+  postg_application:
+    name: POSTG Application focused reusable gate
+    needs: classify_validation
+    if: needs.classify_validation.outputs.postg_changed == 'true'
+    uses: ./.github/workflows/postg-application-pr-gate.yml
+    with:
+      base_sha: ${{ github.event.pull_request.base.sha || '' }}
+      head_sha: ${{ github.event.pull_request.head.sha || github.sha }}
+    permissions:
+      contents: read
 
   focused_governance:
     name: Focused validation governance QA
@@ -99,6 +115,18 @@ jobs:
         with:
           name: gci-uiv02-current-pr-workflow-inventory
           path: tmp/pr-gate/current-pr-workflow-inventory.json
+          if-no-files-found: error
+          retention-days: 30
+      - name: Prepare single-orchestrator trigger-only cutover preview
+        shell: bash
+        run: node tools/governance/prepare-single-pr-orchestrator-cutover.mjs tmp/pr-gate/uiv02-single-orchestrator-cutover
+      - name: Upload single-orchestrator cutover preview
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gci-uiv02-single-orchestrator-cutover-preview
+          path: tmp/pr-gate/uiv02-single-orchestrator-cutover
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 30
 
@@ -138,6 +166,7 @@ jobs:
     if: always()
     needs:
       - classify_validation
+      - postg_application
       - focused_governance
       - full_regression
     runs-on: ubuntu-latest
@@ -145,6 +174,8 @@ jobs:
       - name: Enforce aggregate result
         env:
           CLASSIFY_RESULT: ${{ needs.classify_validation.result }}
+          POSTG_RESULT: ${{ needs.postg_application.result }}
+          POSTG_CHANGED: ${{ needs.classify_validation.outputs.postg_changed }}
           FOCUSED_RESULT: ${{ needs.focused_governance.result }}
           FULL_RESULT: ${{ needs.full_regression.result }}
           DERIVED_GATE: ${{ needs.classify_validation.outputs.derived_gate }}
@@ -154,6 +185,8 @@ jobs:
         shell: bash
         run: |
           printf 'classify_validation=%s\n' "$CLASSIFY_RESULT"
+          printf 'postg_application=%s\n' "$POSTG_RESULT"
+          printf 'postg_changed=%s\n' "$POSTG_CHANGED"
           printf 'focused_governance=%s\n' "$FOCUSED_RESULT"
           printf 'full_regression=%s\n' "$FULL_RESULT"
           printf 'derived_gate=%s\n' "$DERIVED_GATE"
@@ -163,6 +196,12 @@ jobs:
 
           [[ "$CLASSIFY_RESULT" == "success" ]]
           [[ "$FOCUSED_RESULT" == "success" || "$FOCUSED_RESULT" == "skipped" ]]
+
+          if [[ "$POSTG_CHANGED" == "true" ]]; then
+            [[ "$POSTG_RESULT" == "success" ]]
+          else
+            [[ "$POSTG_RESULT" == "skipped" ]]
+          fi
 
           if [[ "$RUN_FULL_REGRESSION" == "true" ]]; then
             [[ "$FULL_RESULT" == "success" ]]
