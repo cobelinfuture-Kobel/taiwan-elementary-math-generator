@@ -1,140 +1,28 @@
 name: PGC-R05 Capacity Contract Reconciliation D0 Closeout
 
 on:
-  pull_request:
-    paths:
-      - "tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs"
-      - "tools/curriculum/materialize-pgc-r05-reconciled-capacity-consumers.mjs"
-      - "tools/curriculum/apply-pgc-r05-d0-*.mjs"
-      - "tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs"
-      - "tools/curriculum/apply-pgc-r05-idempotent-history-patch.mjs"
-      - "tools/curriculum/apply-pgc-r05-retained-quality-*.mjs"
-      - "tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs"
-      - "tests/curriculum/pgc-r03-generator-capacity-contract.test.js"
-      - "tests/curriculum/pgc-r05-*.test.js"
-      - "data/curriculum/public-generation/generator_capacity_contract.json"
-      - "data/curriculum/public-generation/route_capacity_matrix.csv"
-      - "data/curriculum/public-generation/cross_seed_diversity_report.csv"
-      - "data/curriculum/public-generation/ui_capability_binding_contract.json"
-      - "data/curriculum/public-generation/ui_option_filter_matrix.csv"
-      - "data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json"
-      - "data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json"
-      - "data/curriculum/public-generation/application_generation_gap_inventory.csv"
-      - "site/modules/curriculum/public/public-generator-capacity-registry.js"
-      - "docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md"
-      - "docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md"
-      - "docs/curriculum/output/PGC-R05_CAPACITY_CONTRACT_RECONCILIATION_D0_CLOSEOUT.md"
-      - ".github/workflows/pgc-r05-capacity-contract-reconciliation-d0-closeout.yml"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: pgc-r05-capacity-contract-reconciliation-d0-${{ github.head_ref || github.ref_name }}
+  group: pgc-r05-capacity-contract-historical-readback-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
-  reconcile-and-close:
+  historical-readback:
+    name: Historical R05 D0 read-only acceptance
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 30
     steps:
-      - name: Checkout R05 closeout branch
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
-          fetch-depth: 0
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
-
-      - name: Detect committed R05 D0 terminal authority
-        id: r05-d0-mode
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from "node:fs";
-          const contractPath = "data/curriculum/public-generation/generator_capacity_contract.json";
-          const reportPath = "data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json";
-          let terminal = false;
-          if (fs.existsSync(contractPath) && fs.existsSync(reportPath)) {
-            const contract = JSON.parse(fs.readFileSync(contractPath, "utf8"));
-            const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
-            terminal = contract.lastReconciliation?.taskId === "PGC-R05_CapacityContractReconciliationAndD0Closeout"
-              && String(report.status ?? "").startsWith("PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_")
-              && Array.isArray(report.reconciledRouteIds)
-              && report.reconciledRouteIds.length === 211;
-          }
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, `terminal=${terminal}\n`);
-          console.log(`PGC_R05_D0_WORKFLOW_MODE=${terminal ? "D0_READ_ONLY" : "RECONCILE_AND_MATERIALIZE"}`);
-          NODE
-
-      - name: Syntax-check closeout authorities
-        run: |
-          node --check tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
-          node --check tools/curriculum/materialize-pgc-r05-reconciled-capacity-consumers.mjs
-          node --check tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
-          node --check tools/curriculum/apply-pgc-r05-d0-readback-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-idempotent-history-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-retained-quality-diagnostics-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-retained-quality-closeout-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-d0-test-status-patch.mjs
-          node --check tests/curriculum/pgc-r03-generator-capacity-contract.test.js
-          node --check tests/curriculum/pgc-r05-capacity-contract-reconciliation-d0.test.js
-
-      - name: Apply D0 capacity and retained-quality patches
-        if: steps.r05-d0-mode.outputs.terminal != 'true'
-        run: |
-          node tools/curriculum/apply-pgc-r05-d0-readback-patch.mjs
-          node tools/curriculum/apply-pgc-r05-retained-quality-diagnostics-patch.mjs
-          node tools/curriculum/apply-pgc-r05-item-set-evidence-patch.mjs
-          node tools/curriculum/apply-pgc-r05-retained-quality-closeout-patch.mjs
-          node tools/curriculum/apply-pgc-r05-idempotent-history-patch.mjs
-          node tools/curriculum/apply-pgc-r05-d0-test-status-patch.mjs
-          node --check tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
-          node --check tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
-
-      - name: Materialize pre-reconciliation 211-route live evidence
-        if: steps.r05-d0-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
-
-      - name: Require 211 of 211 live application routes before contract mutation
-        if: steps.r05-d0-mode.outputs.terminal != 'true'
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from "node:fs";
-          const report = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json", "utf8"));
-          if (report.summary.legalApplicationRouteCount !== 211
-            || report.summary.live20PassRouteCount !== 211
-            || report.summary.live20FailRouteCount !== 0
-            || report.routes.filter((route) => route.accepted20AcrossSeeds).length !== 211) {
-            throw new Error(`PGC_R05_PRE_RECONCILIATION_LIVE_GATE_FAILED:${JSON.stringify(report.summary)}`);
-          }
-          console.log(`PGC_R05_PRE_RECONCILIATION_LIVE_GATE=${JSON.stringify(report.summary)}`);
-          NODE
-
-      - name: Reconcile application capacity contract and public-surface limits
-        if: steps.r05-d0-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs
-
-      - name: Materialize reconciled capacity consumers
-        if: steps.r05-d0-mode.outputs.terminal != 'true'
-        run: |
-          node tools/curriculum/materialize-pgc-r05-reconciled-capacity-consumers.mjs
-          node tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs
-
-      - name: Rematerialize final D0 application diagnostics
-        if: steps.r05-d0-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
-
-      - name: Finalize R05 D0 closeout authority
-        if: steps.r05-d0-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs --finalize
-
       - name: Validate committed R05 D0 lineage
-        if: steps.r05-d0-mode.outputs.terminal == 'true'
         run: |
           node --input-type=module <<'NODE'
           import fs from "node:fs";
@@ -150,70 +38,9 @@ jobs:
           }
           console.log("PGC_R05_D0_LINEAGE=PASS");
           NODE
-
-      - name: Focused R05 D0 acceptance
+      - name: Focused historical R05 D0 acceptance
         run: |
           node --test tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
           node --test tests/curriculum/pgc-r03-generator-capacity-contract.test.js
           node --test tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
-          node --test tests/curriculum/pgc-r05-g5a-u02-application-diversity.test.js
-          node --test tests/curriculum/pgc-r05-g3b-u04-application-diversity.test.js
-          node --test tests/curriculum/pgc-r05-g5a-u08-application-diversity.test.js
-          node --test tests/curriculum/pgc-r05-g3a-u08-application-diversity.test.js
-          node --test tests/curriculum/pgc-r05-g3b-u07-application-diversity.test.js
-          node --test tests/curriculum/pgc-r05-g4a-u08-application-diversity.test.js
-          node --test tests/curriculum/pgc-r05-g5a-u03-application-diversity.test.js
           node --test tests/curriculum/pgc-r05-capacity-contract-reconciliation-d0.test.js
-
-      - name: Full repository regression
-        run: npm test
-
-      - name: Commit deterministic R05 D0 authorities
-        if: steps.r05-d0-mode.outputs.terminal != 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs \
-            tools/curriculum/reconcile-pgc-r05-capacity-contract.mjs \
-            tests/curriculum/pgc-r05-*.test.js \
-            data/curriculum/public-generation/generator_capacity_contract.json \
-            data/curriculum/public-generation/route_capacity_matrix.csv \
-            data/curriculum/public-generation/cross_seed_diversity_report.csv \
-            data/curriculum/public-generation/ui_capability_binding_contract.json \
-            data/curriculum/public-generation/ui_option_filter_matrix.csv \
-            data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json \
-            data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json \
-            data/curriculum/public-generation/application_generation_gap_inventory.csv \
-            site/modules/curriculum/public/public-generator-capacity-registry.js \
-            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md \
-            docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md \
-            docs/curriculum/output/PGC-R05_CAPACITY_CONTRACT_RECONCILIATION_D0_CLOSEOUT.md
-          if git diff --cached --quiet; then
-            echo "R05 D0 authorities already synchronized."
-          else
-            git commit -m "close(pgc-r05): reconcile application capacity at D0 with retained quality backlog [skip ci]"
-            git fetch origin "${{ github.head_ref || github.ref_name }}"
-            git rebase "origin/${{ github.head_ref || github.ref_name }}"
-            git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
-          fi
-
-      - name: Upload R05 D0 authorities
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pgc-r05-capacity-contract-reconciliation-d0
-          path: |
-            data/curriculum/public-generation/generator_capacity_contract.json
-            data/curriculum/public-generation/route_capacity_matrix.csv
-            data/curriculum/public-generation/cross_seed_diversity_report.csv
-            data/curriculum/public-generation/ui_capability_binding_contract.json
-            data/curriculum/public-generation/ui_option_filter_matrix.csv
-            data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json
-            data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json
-            data/curriculum/public-generation/application_generation_gap_inventory.csv
-            site/modules/curriculum/public/public-generator-capacity-registry.js
-            docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
-            docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md
-            docs/curriculum/output/PGC-R05_CAPACITY_CONTRACT_RECONCILIATION_D0_CLOSEOUT.md
-          if-no-files-found: error

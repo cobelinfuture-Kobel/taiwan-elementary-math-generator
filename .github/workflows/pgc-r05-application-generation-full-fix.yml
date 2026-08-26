@@ -1,170 +1,30 @@
 name: PGC-R05 Application Generation FullFix
 
 on:
-  pull_request:
-    paths:
-      - "tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs"
-      - "tools/curriculum/apply-pgc-r05-*.mjs"
-      - "tests/curriculum/pgc-r05-*.test.js"
-      - "data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json"
-      - "data/curriculum/public-generation/application_generation_gap_inventory.csv"
-      - "docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md"
-      - "site/assets/browser/pipeline/build-worksheet-document.js"
-      - "site/modules/curriculum/batch-a/g3b-u04-canonical-semantic-router.js"
-      - "site/modules/curriculum/batch-a/g5a-u08-application-generator-core.js"
-      - "site/modules/curriculum/batch-a/g5a-u08-application-batch-planner.js"
-      - "site/modules/curriculum/batch-a/same-denominator-fraction-compare-runtime.js"
-      - "site/modules/curriculum/batch-a/discrete-fraction-conversion-runtime.js"
-      - "site/modules/curriculum/batch-a/g4a-u08-phase2b-browser-runtime.js"
-      - "site/modules/curriculum/batch-a/g4a-u08-canonical-router.js"
-      - "site/modules/curriculum/batch-a/g4a-u08-app-cost-overlay-hidden.js"
-      - "site/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js"
-      - "site/modules/curriculum/batch-a/factor-multiple-runtime.js"
-      - "site/modules/curriculum/batch-a/slice002-fraction-runtime.js"
-      - "site/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js"
-      - "site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js"
-      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
-      - "src/curriculum/g5a-u02/**"
-      - ".github/workflows/pgc-r05-application-generation-full-fix.yml"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: pgc-r05-application-generation-full-fix-${{ github.head_ref || github.ref_name }}
+  group: pgc-r05-application-generation-historical-readback-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
-  application-fullfix:
+  historical-readback:
+    name: Historical R05 application read-only acceptance
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 30
     steps:
-      - name: Checkout R05 branch
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
-          fetch-depth: 0
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
-
-      - name: Detect committed R05 D0 terminal authority
-        id: r05-mode
-        run: |
-          node --input-type=module <<'NODE'
-          import fs from "node:fs";
-          const contractPath = "data/curriculum/public-generation/generator_capacity_contract.json";
-          const reportPath = "data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json";
-          let terminal = false;
-          if (fs.existsSync(contractPath) && fs.existsSync(reportPath)) {
-            const contract = JSON.parse(fs.readFileSync(contractPath, "utf8"));
-            const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
-            terminal = contract.lastReconciliation?.taskId === "PGC-R05_CapacityContractReconciliationAndD0Closeout"
-              && String(report.status ?? "").startsWith("PASS_R05_D0_CAPACITY_CONTRACT_RECONCILED_");
-          }
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, `terminal=${terminal}\n`);
-          console.log(`PGC_R05_APPLICATION_WORKFLOW_MODE=${terminal ? "D0_READ_ONLY" : "FULLFIX_MUTATION"}`);
-          NODE
-
-      - name: Syntax-check R05 authorities
-        run: |
-          node --check tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
-          node --check tools/curriculum/apply-pgc-r05-bounded-application-capacity-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-source-unit-application-alias-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-g5a-u02-application-diversity-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-g3b-u04-application-diversity-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-g5a-u08-application-diversity-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-g3a-u08-application-diversity-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-g3b-u07-application-diversity-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-g4a-u08-application-diversity-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-g5a-u03-application-diversity-patch.mjs
-          node --check tools/curriculum/apply-pgc-r05-progress-readback-controller-patch.mjs
-          node --check tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
-          node --check tests/curriculum/pgc-r05-bounded-application-capacity.test.js
-          node --check tests/curriculum/pgc-r05-source-unit-application-alias.test.js
-          node --check tests/curriculum/pgc-r05-g5a-u02-application-diversity.test.js
-          node --check tests/curriculum/pgc-r05-g3b-u04-application-diversity.test.js
-          node --check tests/curriculum/pgc-r05-g5a-u08-application-diversity.test.js
-          node --check tests/curriculum/pgc-r05-g3a-u08-application-diversity.test.js
-          node --check tests/curriculum/pgc-r05-g3b-u07-application-diversity.test.js
-          node --check tests/curriculum/pgc-r05-g4a-u08-application-diversity.test.js
-          node --check tests/curriculum/pgc-r05-g5a-u03-application-diversity.test.js
-
-      - name: Apply bounded application capacity FullFix
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-bounded-application-capacity-patch.mjs
-
-      - name: Apply source-unit application alias FullFix
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-source-unit-application-alias-patch.mjs
-
-      - name: Apply G5A-U02 application diversity FullFix
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-g5a-u02-application-diversity-patch.mjs
-
-      - name: Apply G3B-U04 application diversity FullFix
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-g3b-u04-application-diversity-patch.mjs
-
-      - name: Apply G5A-U08 application diversity FullFix
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-g5a-u08-application-diversity-patch.mjs
-
-      - name: Apply G3A-U08 application diversity FullFix
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-g3a-u08-application-diversity-patch.mjs
-
-      - name: Apply G3B-U07 application diversity FullFix
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-g3b-u07-application-diversity-patch.mjs
-
-      - name: Apply G4A-U08 application diversity FullFix
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-g4a-u08-application-diversity-patch.mjs
-
-      - name: Apply G5A-U03 application diversity FullFix
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-g5a-u03-application-diversity-patch.mjs
-
-      - name: Apply live progress readback controller
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/apply-pgc-r05-progress-readback-controller-patch.mjs
-
-      - name: Rebuild canonical G5A-U02 browser bundle
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: |
-          npx --yes esbuild@0.25.5 \
-            src/curriculum/g5a-u02/browser-dynamic-entry.js \
-            --bundle \
-            --format=esm \
-            --platform=browser \
-            --target=es2022 \
-            --minify \
-            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
-            --outfile=site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js
-          npx --yes esbuild@0.25.5 \
-            src/curriculum/g5a-u02/browser-dynamic-entry.js \
-            --bundle \
-            --format=esm \
-            --platform=browser \
-            --target=es2022 \
-            --minify \
-            --banner:js='/* GENERATED CANONICAL G5A-U02 RUNTIME — DO NOT EDIT */' \
-            --outfile=/tmp/g5a-u02-browser-dynamic-runtime.bundle.js
-          cmp site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js /tmp/g5a-u02-browser-dynamic-runtime.bundle.js
-
-      - name: Materialize legal application-route runtime baseline
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: node tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs
-
       - name: Validate committed R05 D0 terminal authority
-        if: steps.r05-mode.outputs.terminal == 'true'
         run: node --test tests/curriculum/pgc-r05-capacity-contract-reconciliation-d0.test.js
-
-      - name: Focused R05 acceptance
+      - name: Focused historical R05 application acceptance
         run: |
           node --test tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
           node --test tests/curriculum/pgc-r05-bounded-application-capacity.test.js
@@ -176,55 +36,3 @@ jobs:
           node --test tests/curriculum/pgc-r05-g3b-u07-application-diversity.test.js
           node --test tests/curriculum/pgc-r05-g4a-u08-application-diversity.test.js
           node --test tests/curriculum/pgc-r05-g5a-u03-application-diversity.test.js
-
-      - name: Full repository regression
-        run: npm test
-
-      - name: Commit deterministic R05 runtime and diagnostic artifacts
-        if: steps.r05-mode.outputs.terminal != 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            tools/curriculum/materialize-pgc-r05-application-gap-diagnostics.mjs \
-            site/assets/browser/pipeline/build-worksheet-document.js \
-            site/modules/curriculum/batch-a/g3b-u04-canonical-semantic-router.js \
-            site/modules/curriculum/batch-a/g5a-u08-application-generator-core.js \
-            site/modules/curriculum/batch-a/g5a-u08-application-batch-planner.js \
-            site/modules/curriculum/batch-a/same-denominator-fraction-compare-runtime.js \
-            site/modules/curriculum/batch-a/discrete-fraction-conversion-runtime.js \
-            site/modules/curriculum/batch-a/g4a-u08-phase2b-browser-runtime.js \
-            site/modules/curriculum/batch-a/g4a-u08-canonical-router.js \
-            site/modules/curriculum/batch-a/g4a-u08-app-cost-overlay-hidden.js \
-            site/modules/curriculum/batch-a/g4a-u08-all-canonical-public-router.js \
-            site/modules/curriculum/batch-a/factor-multiple-runtime.js \
-            site/modules/curriculum/batch-a/slice002-fraction-runtime.js \
-            site/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js \
-            site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js \
-            site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js \
-            src/curriculum/g5a-u02/browser-dynamic-entry.js \
-            src/curriculum/g5a-u02/hidden-worksheet-answer-key.js \
-            src/curriculum/g5a-u02/class-d-semantic-generator-validator.js \
-            src/curriculum/g5a-u02/s101-representation-runtime.js \
-            data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json \
-            data/curriculum/public-generation/application_generation_gap_inventory.csv \
-            docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md
-          if git diff --cached --quiet; then
-            echo "R05 runtime and diagnostic artifacts already synchronized."
-          else
-            git commit -m "fix(pgc-r05): sync final G5A-U03 diversity and live progress [skip ci]"
-            git fetch origin "${{ github.head_ref || github.ref_name }}"
-            git rebase "origin/${{ github.head_ref || github.ref_name }}"
-            git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
-          fi
-
-      - name: Upload R05 application diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pgc-r05-application-gap-diagnostics
-          path: |
-            data/curriculum/public-generation/PGC-R05.application-gap-diagnostics.json
-            data/curriculum/public-generation/application_generation_gap_inventory.csv
-            docs/curriculum/output/PGC-R05_application_generation_gap_diagnostics.md
-          if-no-files-found: error

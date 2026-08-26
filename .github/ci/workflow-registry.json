@@ -3,7 +3,7 @@
   "programId": "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "inventoryCompleteness": "BOOTSTRAP_PARTIAL",
-  "inventoryAsOfCommit": "500b1f5e37b1a110058462f756c17bcb0813ea06",
+  "inventoryAsOfCommit": "60262876cdebdd3a9eaf3e0e2df76df849894484",
   "policyLock": {
     "maxTopLevelPrWorkflows": 1,
     "maxRequiredPrChecks": 3,
@@ -33,7 +33,7 @@
       "retirementTaskId": null,
       "policyDisposition": "CONFORMANT",
       "evidence": {
-        "blobSha": "1c8e196d7ad3def0dd51a7ced931ec0bc7b35400",
+        "blobSha": "e4986a35b1ebbb5cfb530c7cea583c43b0387351",
         "observations": [
           "All pull requests to main are classified by UNIT_INCREMENTAL_VALIDATION_V1.",
           "KP_LEAF skips full repository regression; UNIT_INTEGRATION runs it once after all expected KPs are focused-pass.",
@@ -73,21 +73,21 @@
       "workflowId": "pgc-r05-application-generation-full-fix",
       "file": ".github/workflows/pgc-r05-application-generation-full-fix.yml",
       "displayName": "PGC-R05 Application Generation FullFix",
-      "lifecycle": "ACTIVE_OPTIONAL",
-      "triggerClasses": ["PULL_REQUEST", "WORKFLOW_DISPATCH"],
-      "pathScope": ["R05 application tools, tests, authorities and shared runtime paths"],
-      "requiredCheckStatus": "UNVERIFIED",
-      "branchProtectionEvidenceStatus": "MAIN_PROTECTION_DISABLED",
-      "writesPullRequestBranch": true,
-      "fullRegressionRole": "PR_DUPLICATE",
+      "lifecycle": "WORKFLOW_DISPATCH_ONLY",
+      "triggerClasses": ["WORKFLOW_DISPATCH"],
+      "pathScope": [],
+      "requiredCheckStatus": "NOT_APPLICABLE",
+      "branchProtectionEvidenceStatus": "NOT_APPLICABLE",
+      "writesPullRequestBranch": false,
+      "fullRegressionRole": "NONE",
       "successorWorkflowId": "pr-gate",
       "retirementTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation",
-      "policyDisposition": "NONCONFORMANT_PENDING_S03",
+      "policyDisposition": "CONFORMANT",
       "evidence": {
-        "blobSha": "10f588f3b54522f7c913ccdf5db74b77567749c5",
+        "blobSha": "fc75246e1ec6c0748cbe92a5320ca90592b0ba3f",
         "observations": [
-          "The workflow still commits, rebases, and pushes generated artifacts from pull-request CI.",
-          "It still duplicates npm test pending legacy retirement."
+          "Pull-request trigger, branch mutation, and duplicate full regression were retired.",
+          "The retained workflow_dispatch entry is read-only and runs historical focused acceptance only."
         ]
       },
       "notes": []
@@ -96,21 +96,21 @@
       "workflowId": "pgc-r05-capacity-contract-reconciliation-d0-closeout",
       "file": ".github/workflows/pgc-r05-capacity-contract-reconciliation-d0-closeout.yml",
       "displayName": "PGC-R05 Capacity Contract Reconciliation D0 Closeout",
-      "lifecycle": "ACTIVE_OPTIONAL",
-      "triggerClasses": ["PULL_REQUEST", "WORKFLOW_DISPATCH"],
-      "pathScope": ["R05 capacity, UI binding, diagnostics, tests and closeout authorities"],
-      "requiredCheckStatus": "UNVERIFIED",
-      "branchProtectionEvidenceStatus": "MAIN_PROTECTION_DISABLED",
-      "writesPullRequestBranch": true,
-      "fullRegressionRole": "PR_DUPLICATE",
+      "lifecycle": "WORKFLOW_DISPATCH_ONLY",
+      "triggerClasses": ["WORKFLOW_DISPATCH"],
+      "pathScope": [],
+      "requiredCheckStatus": "NOT_APPLICABLE",
+      "branchProtectionEvidenceStatus": "NOT_APPLICABLE",
+      "writesPullRequestBranch": false,
+      "fullRegressionRole": "NONE",
       "successorWorkflowId": "pr-gate",
       "retirementTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation",
-      "policyDisposition": "NONCONFORMANT_PENDING_S03",
+      "policyDisposition": "CONFORMANT",
       "evidence": {
-        "blobSha": "637b88712283097e5815712276ae4bb7267354bf",
+        "blobSha": "1539c2c12b1cd19ce7fd81ba5dcf0e9ecf4a2d20",
         "observations": [
-          "The workflow still commits, rebases, and pushes deterministic authorities from pull-request CI.",
-          "It still duplicates npm test pending legacy retirement."
+          "Pull-request trigger, branch mutation, and duplicate full regression were retired.",
+          "The retained workflow_dispatch entry is read-only and runs historical focused D0 acceptance only."
         ]
       },
       "notes": []
@@ -148,7 +148,7 @@
         "pgc-r05-capacity-contract-reconciliation-d0-closeout"
       ],
       "rule": "PR_BRANCH_WRITER_COUNT must be 0; pull-request CI must not commit, rebase, or push to the PR branch.",
-      "status": "OPEN",
+      "status": "CLOSED",
       "resolutionTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation"
     },
     {
@@ -158,7 +158,7 @@
         "pgc-r05-capacity-contract-reconciliation-d0-closeout"
       ],
       "rule": "FULL_REGRESSION_AUTHORITY_COUNT must be 1; focused milestone workflows must not duplicate npm test.",
-      "status": "OPEN",
+      "status": "CLOSED",
       "resolutionTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation"
     },
     {
@@ -168,9 +168,9 @@
         "pgc-r05-capacity-contract-reconciliation-d0-closeout"
       ],
       "rule": "Top-level PR workflow fan-out must converge to the PR Gate orchestrator or focused read-only workflows without duplicate full regression.",
-      "status": "OPEN",
+      "status": "CLOSED",
       "resolutionTaskId": "GCI-UIV02_LegacyPrFanoutConsolidation"
     }
   ],
-  "nextInventoryTaskId": "GCI-UIV02_LegacyPrFanoutConsolidationAndRequiredCheckEnforcement"
+  "nextInventoryTaskId": "GCI-UIV02_RemainingPrFanoutInventoryAndRequiredCheckEnforcement"
 }
