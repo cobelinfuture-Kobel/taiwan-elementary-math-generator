@@ -33,7 +33,7 @@
       "retirementTaskId": null,
       "policyDisposition": "CONFORMANT",
       "evidence": {
-        "blobSha": "04700007cf2a1cbfea60240021dc6721860f9609",
+        "blobSha": "1c8e196d7ad3def0dd51a7ced931ec0bc7b35400",
         "observations": [
           "All pull requests to main are classified by UNIT_INCREMENTAL_VALIDATION_V1.",
           "KP_LEAF classification skips full repository regression; UNIT_INTEGRATION and bounded SHARED_RUNTIME run it once.",

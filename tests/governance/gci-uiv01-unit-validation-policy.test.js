@@ -187,11 +187,12 @@ test("UIV01 curriculum product changes require exactly one changed impact manife
   );
 });
 
-test("UIV01 governance-only changes do not trigger full repository regression", () => {
+test("UIV01 governance-only changes including project governance do not trigger full repository regression", () => {
   const result = classifyUnitValidationImpact({
     policy: POLICY,
     changedFiles: [
       ".github/ci/unit-validation-policy.json",
+      "data/project/governance/postg-ci-two-gate-policy.json",
       "tools/governance/classify-unit-validation-impact.mjs",
       "tests/governance/gci-uiv01-unit-validation-policy.test.js"
     ],
@@ -220,6 +221,7 @@ test("UIV01 current PR Gate owns conditional PR regression and Node Test is post
   assert.match(prGate, /^\s{2}contents: read$/m);
   assert.match(prGate, /classify-unit-validation-impact\.mjs/);
   assert.match(prGate, /needs\.classify_validation\.outputs\.run_full_regression == 'true'/);
+  assert.match(prGate, /github\.event\.pull_request\.head\.sha/);
   assert.equal((prGate.match(/(?:^|\s)npm\s+test(?:\s|$)/gm) ?? []).length, 1);
   assert.doesNotMatch(prGate, /\bgit\s+(?:commit|push|rebase)\b/);
 

@@ -24,6 +24,7 @@ function matchesPathRule(file, rule = {}) {
 
 function isGovernanceFile(file) {
   return file.startsWith(".github/")
+    || file.startsWith("data/project/governance/")
     || file.startsWith("tests/governance/")
     || file.startsWith("tools/governance/")
     || file.startsWith("docs/governance/");

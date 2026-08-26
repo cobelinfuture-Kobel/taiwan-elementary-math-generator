@@ -4,7 +4,7 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "baseRef": "main",
   "baseSha": "e34b0db6138c869ca46e56e9ccd1381d3d2d54bb",
-  "status": "PASS_PREFLIGHT_IMPLEMENTATION_AUTHORIZED",
+  "status": "REMEDIATION_AFTER_FIRST_TERMINAL_CI",
   "sourceAuthority": "回歸測試成本分析.txt",
   "currentEvidence": {
     "branchProtection": {
@@ -49,9 +49,13 @@
       "tools/governance/classify-unit-validation-impact.mjs",
       "tests/governance/gci-uiv01-unit-validation-policy.test.js",
       "tests/governance/gci-s02-pr-gate-pilot.test.js",
+      "tests/governance/gci-s01-workflow-inventory.test.js",
       "tests/governance/global-ci-handshake-registry.test.js",
+      "data/project/governance/postg-ci-two-gate-policy.json",
+      "tests/governance/postg-ci-two-gate-policy.test.js",
       ".github/pull_request_template.md"
     ],
+    "remediationExpansionReason": "First terminal CI exposed three stale governance contracts directly caused by replacing per-PR Node Test authority with the conditional PR Gate. Only those governance assertions are added to scope.",
     "forbidden": [
       "curriculum product runtime",
       "generator semantics",
@@ -72,9 +76,32 @@
     "unitIntegrationFullRegression": "ONCE",
     "globalReplay": "CLASSIFY_AND_FAIL_CLOSED_UNTIL_EXTERNAL_GATE_AGGREGATION"
   },
+  "terminalCiFailureInventory": [
+    {
+      "runId": 32914357420,
+      "workflow": "PR Gate",
+      "failure": "Materialize changed-file inventory",
+      "rootCause": "pull_request checkout is exact head while the diff command used github.sha synthetic merge SHA; the synthetic SHA was not present in the exact-head checkout.",
+      "remediation": "diff base SHA against github.event.pull_request.head.sha"
+    },
+    {
+      "runId": 32914357357,
+      "workflow": "POSTG Application PR Gate",
+      "failure": "Validate two-gate routing contract",
+      "rootCause": "current POSTG routing policy still required Node Test as the second PR gate after UIV01 moved Node Test to post-merge only.",
+      "remediation": "reconcile the current POSTG two-gate authority to POSTG Application PR Gate + PR Gate"
+    },
+    {
+      "runId": 32914357352,
+      "workflow": "PGC-R06 A03 Capacity Public Runtime Repair Reconciliation",
+      "failure": "Existing capacity and historical authority acceptance",
+      "rootCause": "historical GCI-S01 test rematerialized old S01 authority from the current tree and still asserted node-test as PR_AUTHORITY.",
+      "remediation": "freeze S01 committed artifacts as historical evidence and assert current successor authority separately"
+    }
+  ],
   "remainingEnforcementBlocker": {
     "type": "BRANCH_PROTECTION_WRITE_CAPABILITY",
     "detail": "The available GitHub connector can read branch protection and rulesets but cannot enable required status checks. PR Gate can machine-fail, but repository merge blocking cannot be made mandatory in-chat in UIV01."
   },
-  "nextTaskId": "GCI-UIV01_IncrementalValidationMachineGateImplementation"
+  "nextTaskId": "GCI-UIV02_LegacyPrFanoutConsolidationAndRequiredCheckEnforcement"
 }

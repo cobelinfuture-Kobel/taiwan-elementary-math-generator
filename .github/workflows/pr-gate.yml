@@ -41,10 +41,12 @@ jobs:
           mkdir -p tmp/pr-gate
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             base_sha="${{ github.event.pull_request.base.sha }}"
+            head_sha="${{ github.event.pull_request.head.sha }}"
           else
+            head_sha="$(git rev-parse HEAD)"
             base_sha="$(git rev-parse HEAD^)"
           fi
-          git diff --name-only "$base_sha" "${{ github.sha }}" | sort > tmp/pr-gate/changed-files.txt
+          git diff --name-only "$base_sha" "$head_sha" | sort > tmp/pr-gate/changed-files.txt
           cat tmp/pr-gate/changed-files.txt
       - name: Classify validation policy
         id: classify
@@ -86,7 +88,9 @@ jobs:
           node --test \
             tests/governance/gci-uiv01-unit-validation-policy.test.js \
             tests/governance/gci-s02-pr-gate-pilot.test.js \
-            tests/governance/global-ci-handshake-registry.test.js
+            tests/governance/gci-s01-workflow-inventory.test.js \
+            tests/governance/global-ci-handshake-registry.test.js \
+            tests/governance/postg-ci-two-gate-policy.test.js
 
   full_regression:
     name: Full repository regression
