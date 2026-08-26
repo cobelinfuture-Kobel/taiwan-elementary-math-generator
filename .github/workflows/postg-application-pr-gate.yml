@@ -1,32 +1,21 @@
 name: POSTG Application PR Gate
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "data/curriculum/application/**"
-      - "data/curriculum/knowledge/units/*.knowledge-operation.json"
-      - "data/project/milestones/POSTG-APP-*.claim.json"
-      - "data/project/governance/postg-ci-two-gate-policy.json"
-      - "src/curriculum/application/**"
-      - "tools/curriculum/*postg-app*"
-      - "tests/curriculum/postg-app-*.test.js"
-      - "tests/governance/postg-ci-two-gate-policy.test.js"
-      - "docs/curriculum/output/POSTG_APP_*"
-      - "docs/curriculum/output/postg-app/**"
-      - "site/assets/browser/pipeline/build-worksheet-document.js"
-      - "site/modules/core/worksheet-formatting.js"
-      - ".github/workflows/postg-app-*.yml"
-      - ".github/workflows/postg-application-pr-gate.yml"
-      - ".github/workflows/node-test.yml"
-      - ".github/workflows/milestone-claim-integrity.yml"
+  workflow_call:
+    inputs:
+      base_sha:
+        required: false
+        type: string
+      head_sha:
+        required: false
+        type: string
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: postg-application-pr-${{ github.event.pull_request.number || github.ref }}
+  group: postg-application-${{ inputs.head_sha || github.sha }}
   cancel-in-progress: true
 
 jobs:
@@ -37,12 +26,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ inputs.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - name: Install dependencies
         run: npm install
-      - name: Validate two-gate routing contract
+      - name: Validate single-orchestrator routing contract
         run: node --test tests/governance/postg-ci-two-gate-policy.test.js
       - name: Run POSTG application focused suite
         run: node --test tests/curriculum/postg-app-*.test.js
@@ -50,10 +40,11 @@ jobs:
         run: node tools/curriculum/validate-postg-app-m00-master-controller.mjs
       - name: Validate milestone claims
         shell: bash
+        env:
+          BASE_SHA: ${{ inputs.base_sha }}
         run: |
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            base="${{ github.event.pull_request.base.sha }}"
-            if git diff --name-only "$base" HEAD | grep -Eq '^data/project/milestones/POSTG-APP-.*\.claim\.json$'; then
+          if [[ -n "$BASE_SHA" ]] && git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+            if git diff --name-only "$BASE_SHA" HEAD | grep -Eq '^data/project/milestones/POSTG-APP-.*\.claim\.json$'; then
               npm run governance:claims:pr
               exit 0
             fi
