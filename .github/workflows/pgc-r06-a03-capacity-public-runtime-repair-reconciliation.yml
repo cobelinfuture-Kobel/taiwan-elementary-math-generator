@@ -1,26 +1,6 @@
 name: PGC-R06 A03 Capacity Public Runtime Repair Reconciliation
 
 on:
-  pull_request:
-    paths:
-      - "tools/curriculum/apply-pgc-r06-a03-binding-identity-join-fix.mjs"
-      - "tools/curriculum/apply-pgc-r06-a03-diversity-gap-derivation-fix.mjs"
-      - "tools/curriculum/apply-pgc-r06-a03-v3-evidence-compatibility-fix.mjs"
-      - "tools/curriculum/apply-pgc-r06-a03-historical-authority-governance-compatibility-fix.mjs"
-      - "tools/curriculum/materialize-pgc-r06-a03-capacity-public-runtime-repair-reconciliation.mjs"
-      - "tests/curriculum/pgc-r03-generator-capacity-contract.test.js"
-      - "tests/curriculum/pgc-r06-a01-g4b-u04-capacity-contract-closeout.test.js"
-      - "tests/curriculum/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.test.js"
-      - "tests/governance/gci-s01-workflow-inventory.test.js"
-      - "tests/governance/gci-s02-pr-gate-pilot.test.js"
-      - "data/curriculum/public-generation/generator_capacity_contract.json"
-      - "data/curriculum/public-generation/ui_capability_binding_contract.json"
-      - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
-      - "data/curriculum/public-generation/PGC-R06-A02.g5a-u02-live-diagnostics.json"
-      - "site/modules/curriculum/public/public-generator-capacity-registry.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding.js"
-      - "docs/curriculum/output/PGC-R06-A03_CapacityPublicRuntimeRepairReconciliation.md"
-      - ".github/workflows/pgc-r06-a03-capacity-public-runtime-repair-reconciliation.yml"
   workflow_dispatch:
 
 permissions:
@@ -138,3 +118,4 @@ jobs:
             git commit -m "feat(pgc-r06): reconcile capacity public runtime and repair queue [skip ci]"
             git push origin "HEAD:${{ github.head_ref || github.ref_name }}"
           fi
+

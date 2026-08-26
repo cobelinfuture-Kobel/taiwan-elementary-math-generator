@@ -1,18 +1,6 @@
 name: G5A-U02 S97 Semantic Source Parity
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "src/curriculum/g5a-u02/**"
-      - "site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js"
-      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
-      - "tools/curriculum/run-g5a-u02-s97-bundle-audit.mjs"
-      - "tests/curriculum/g5a-u02-s97-source-parity-prompt-completeness.test.js"
-      - ".github/workflows/g5a-u02-s97-semantic-source-parity.yml"
-      - "docs/curriculum/architecture/G5AU02_S97_SourceParityPromptCompletenessAndSemanticFullFix.md"
-      - "docs/curriculum/output/G5AU02_S97_SEMANTIC_SOURCE_PARITY_PENDING.marker"
   workflow_dispatch:
 
 jobs:
@@ -79,3 +67,4 @@ jobs:
           retention-days: 7
           if-no-files-found: error
           path: /tmp/g5a-u02-s97-full-regression.log
+

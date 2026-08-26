@@ -1,26 +1,6 @@
 name: POSTG Unit Conformance Migration
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"
-      - "data/project/milestones/POSTG-MIG-*.claim.json"
-      - "data/curriculum/contracts/POSTG_MIG_*.json"
-      - "data/curriculum/golden/**"
-      - "data/curriculum/knowledge/**"
-      - "site/modules/curriculum/golden/**"
-      - "site/modules/curriculum/batch-a/global-public-source-unit-adapter*.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-question-router.js"
-      - "tools/curriculum/run-postg-unit-production-evidence.mjs"
-      - "tools/curriculum/run-postg-g4b-u01-production-evidence.mjs"
-      - "tools/curriculum/run-postg-g4b-u04-production-evidence.mjs"
-      - "tools/curriculum/export-postg-knowledge-master.py"
-      - "tests/curriculum/postg-mig-*.test.js"
-      - "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
-      - "docs/curriculum/output/POSTG_MIG_*"
-      - "docs/curriculum/output/postg/**"
-      - ".github/workflows/postg-unit-conformance-migration.yml"
   workflow_dispatch:
 
 concurrency:
@@ -300,3 +280,4 @@ jobs:
             build/reports/Golden_Knowledge_Operation_Master.xlsx
             build/reports/Golden_Knowledge_Operation_Master.summary.csv
             build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json
+

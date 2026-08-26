@@ -1,16 +1,6 @@
 name: G5A-U02 Pre-S104 Focused Readback
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "src/curriculum/g5a-u02/**"
-      - "site/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js"
-      - "site/modules/renderer/g5a-u02-s101-public-renderer.js"
-      - "site/modules/renderer/html-renderer-s73-extension.js"
-      - "tests/curriculum/g5a-u02-pre-s104-public-semantic-regeneration.test.js"
-      - ".github/workflows/g5a-u02-pre-s104-focused-readback.yml"
   workflow_dispatch:
 
 permissions:
@@ -41,3 +31,4 @@ jobs:
           retention-days: 7
           if-no-files-found: error
           path: /tmp/g5a-u02-pre-s104-focused.log
+

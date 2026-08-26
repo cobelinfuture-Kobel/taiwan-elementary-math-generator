@@ -1,23 +1,6 @@
 name: POSTG-APP W01-A06D Regenerated Review
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "src/curriculum/application/w01-a06d-production-review-runtime.mjs"
-      - "tests/curriculum/postg-app-w01-a06d-production-review.test.js"
-      - "tools/curriculum/generate-postg-app-w01-a06d-review-artifacts.mjs"
-      - "tools/curriculum/render-postg-app-w01-a06d-review-pdf.mjs"
-      - "tools/curriculum/finalize-postg-app-w01-a06d-review-evidence.mjs"
-      - "tools/governance/promote-postg-app-w01-a06d-e4-claim.mjs"
-      - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
-      - "data/curriculum/application/reviews/POSTG-APP-W01-A06_HumanReviewDecisionAndSemanticRemediation.json"
-      - "data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json"
-      - "docs/curriculum/application/contracts/POSTG_APP_W01_A06_Human_Review_Decision_And_Semantic_Remediation_V1.md"
-      - "docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READY.marker"
-      - "docs/curriculum/output/POSTG_APP_W01_A06D_E4_HUMAN_REVIEW_READBACK.md"
-      - "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW*"
-      - ".github/workflows/postg-app-w01-a06d-regenerated-review.yml"
   workflow_dispatch:
 
 permissions:
@@ -206,3 +189,4 @@ jobs:
             git commit -m "docs(application): commit A06D regenerated Human Review evidence"
             git push origin "HEAD:${GITHUB_HEAD_REF}"
           fi
+

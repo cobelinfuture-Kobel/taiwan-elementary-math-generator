@@ -1,21 +1,6 @@
 name: POSTG MIG A00 Program Foundation
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"
-      - "data/project/milestones/POSTG-MIG-A00.claim.json"
-      - "data/curriculum/contracts/POSTG_MIG_A00_ProgramContractFleetBaselineAndKnowledgeRegistryFoundation.json"
-      - "data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"
-      - "data/curriculum/knowledge/**"
-      - "site/modules/curriculum/golden/post-golden-migration-controller.js"
-      - "tools/curriculum/export-postg-knowledge-master.py"
-      - "tests/curriculum/postg-mig-a00-program-foundation.test.js"
-      - "docs/curriculum/architecture/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.md"
-      - "docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PENDING.marker"
-      - "docs/curriculum/output/POSTG_MIG_A00_FOUNDATION_PASS.marker"
-      - ".github/workflows/postg-mig-a00-program-foundation.yml"
   workflow_dispatch:
 
 permissions:
@@ -124,3 +109,4 @@ jobs:
             build/reports/Golden_Knowledge_Operation_Master.xlsx
             build/reports/Golden_Knowledge_Operation_Master.summary.csv
             build/reports/POSTG_MIG_A00_EXPORT_READBACK.json
+

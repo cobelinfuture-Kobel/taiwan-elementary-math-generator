@@ -1,16 +1,6 @@
 name: GLM-S09 Actual Column Geometry
 
 on:
-  pull_request:
-    paths:
-      - "site/assets/browser/pipeline/render-preview-frame.js"
-      - "site/modules/renderer/**"
-      - "site/assets/styles/print-styles.css"
-      - "tools/curriculum/run-glm-s09-column-geometry-shard.mjs"
-      - "tests/site/glm-s09-shared-exact-layout-preview.test.js"
-      - ".github/workflows/glm-s09-actual-column-geometry.yml"
-      - "docs/curriculum/architecture/GLM_S09_ActualColumnGeometryAuditAndRendererFullFix.md"
-      - "docs/curriculum/output/GLM_S09_ACTUAL_COLUMN_GEOMETRY_PENDING.marker"
   workflow_dispatch:
 
 jobs:
@@ -112,3 +102,4 @@ jobs:
           console.log(JSON.stringify(authority, null, 2));
           if (authority.status !== 'ALL_270_ACTUAL_COLUMN_GEOMETRY_PASS') process.exit(1);
           NODE
+

@@ -1,9 +1,7 @@
 name: P03F8 Slice008 Product Acceptance
 
 on:
-  pull_request:
-    branches: [main]
-
+  workflow_dispatch:
 permissions:
   actions: read
   contents: write
@@ -87,3 +85,4 @@ jobs:
           path: tmp/p03f-slice008-product-acceptance
           if-no-files-found: warn
           retention-days: 30
+

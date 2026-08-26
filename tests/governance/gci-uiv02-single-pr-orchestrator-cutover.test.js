@@ -29,39 +29,38 @@ test("POSTG focused-gate impact detection is bounded to the current POSTG path c
   });
 });
 
-test("single-orchestrator preview retires every noncanonical direct PR trigger only after focused coverage is active", () => {
+test("single-orchestrator cutover terminal state is stable only while focused coverage is active", () => {
   const before = inventoryCurrentPrWorkflows();
-  assert.ok(before.summary.pullRequestWorkflowCount > 1);
+  assert.equal(before.summary.pullRequestWorkflowCount, 1);
+  assert.equal(before.summary.pullRequestTargetWorkflowCount, 0);
+  assert.equal(before.summary.prBranchWriterCount, 0);
+  assert.equal(before.summary.prFullRegressionWorkflowCount, 1);
+  assert.equal(before.pullRequestWorkflowPaths.length, 1);
+  assert.match(before.pullRequestWorkflowPaths[0], /\/pr-gate\.yml$/);
 
   const stageRoot = fs.mkdtempSync(path.join(os.tmpdir(), "uiv02-cutover-"));
   try {
     const result = prepareSinglePrOrchestratorCutover({ stageRoot });
     assert.equal(result.manifest.focusedValidationExecution, "ACTIVE_MANIFEST_PLAN");
-    assert.equal(result.manifest.before.pullRequestWorkflowCount, before.summary.pullRequestWorkflowCount);
+    assert.equal(result.manifest.before.pullRequestWorkflowCount, 1);
     assert.equal(result.manifest.after.pullRequestWorkflowCount, 1);
     assert.equal(result.manifest.after.prBranchWriterCount, 0);
     assert.equal(result.manifest.after.prFullRegressionWorkflowCount, 1);
-    assert.equal(result.manifest.retiredWorkflowCount, before.summary.pullRequestWorkflowCount - 1);
+    assert.equal(result.manifest.retiredWorkflowCount, 0);
 
     const after = inventoryCurrentPrWorkflows({ workflowDir: path.join(stageRoot, ".github/workflows") });
+    assert.equal(after.summary.pullRequestWorkflowCount, 1);
+    assert.equal(after.summary.pullRequestTargetWorkflowCount, 0);
+    assert.equal(after.summary.prBranchWriterCount, 0);
+    assert.equal(after.summary.prFullRegressionWorkflowCount, 1);
     assert.equal(after.pullRequestWorkflowPaths.length, 1);
     assert.match(after.pullRequestWorkflowPaths[0], /\/pr-gate\.yml$/);
-
-    for (const row of result.manifest.retired) {
-      const source = fs.readFileSync(row.file, "utf8");
-      const staged = fs.readFileSync(path.join(stageRoot, row.file), "utf8");
-      assert.match(source, /^name: .+/m, row.file);
-      assert.match(staged, /^name: .+/m, row.file);
-      assert.match(staged, /^jobs:/m, row.file);
-      assert.doesNotMatch(staged, /\bpull_request:/, row.file);
-      assert.ok(staged.length > 100, `${row.file}: workflow body unexpectedly collapsed`);
-    }
   } finally {
     fs.rmSync(stageRoot, { recursive: true, force: true });
   }
 });
 
-test("legacy direct-PR retirement fails closed if focused execution is not active", () => {
+test("legacy direct-PR retirement remains fail-closed if focused execution is not active", () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "uiv02-policy-"));
   try {
     const policyPath = path.join(root, "policy.json");

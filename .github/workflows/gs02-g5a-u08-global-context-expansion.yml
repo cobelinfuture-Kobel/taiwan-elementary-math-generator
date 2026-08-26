@@ -1,22 +1,6 @@
 name: GS02 G5A-U08 Global Context 18 Family Expansion
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "tools/curriculum/build-gs02-g5a-u08-global-context-expansion.mjs"
-      - "tools/curriculum/validate-gs02-g5a-u08-global-context-expansion.mjs"
-      - "tests/curriculum/gs02-g5a-u08-global-context-expansion.test.js"
-      - "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json"
-      - "data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json"
-      - "data/curriculum/contracts/GS02_G5AU08_GlobalContext18FamilyExpansion.json"
-      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
-      - "data/project/milestones/GS02.claim.json"
-      - "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_COVERAGE.json"
-      - "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_EXPANSION_PENDING.marker"
-      - "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_EXPANSION_PASS.marker"
-      - "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_EXPANSION_READBACK.md"
-      - ".github/workflows/gs02-g5a-u08-global-context-expansion.yml"
   workflow_dispatch:
 
 permissions:
@@ -98,3 +82,4 @@ jobs:
           fi
           git commit -m "data(gs02): materialize 18 global context families"
           git push origin "HEAD:${GITHUB_HEAD_REF}"
+

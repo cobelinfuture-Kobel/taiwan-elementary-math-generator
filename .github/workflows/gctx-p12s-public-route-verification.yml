@@ -1,14 +1,6 @@
 name: GCTX-P12S Public Route Verification
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - ".github/workflows/gctx-p12s-public-route-verification.yml"
-      - "data/project/milestones/GCTX-P12S.claim.json"
-      - "data/curriculum/contracts/GCTX_P12S_G3BU04PagesHumanReviewArtifactPublication.json"
-      - "docs/curriculum/output/GCTX_P12S_G3BU04_PAGES_REVIEW_PUBLICATION_PASS.marker"
-      - "docs/curriculum/output/GCTX_P12S_G3BU04_PAGES_REVIEW_PUBLICATION_READBACK.md"
   workflow_dispatch:
 
 permissions:
@@ -116,3 +108,4 @@ jobs:
             /tmp/gctx-p12s-live-pdfinfo.txt
             /tmp/gctx-p12s-live-pdf.txt
           retention-days: 30
+

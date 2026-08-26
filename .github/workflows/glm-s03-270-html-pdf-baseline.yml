@@ -1,29 +1,6 @@
 name: GLM-S03 270-Scenario HTML PDF Baseline
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - .github/workflows/glm-s03-270-html-pdf-baseline.yml
-      - data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json
-      - docs/curriculum/output/GLM_S01_CURRENT_15_UNIT_LAYOUT_BEHAVIOR_BASELINE.json
-      - docs/curriculum/output/GLM_S02_UNIT_RENDERER_WORST_CASE_BASELINE.json
-      - docs/curriculum/output/smoke/S93_G5A_U02_HiddenWorksheet.html
-      - site/assets/styles/print-styles.css
-      - site/assets/browser/state/**
-      - site/assets/browser/pipeline/**
-      - site/modules/curriculum/batch-a/**
-      - site/modules/curriculum/batch-b/**
-      - site/modules/curriculum/registry/**
-      - site/modules/renderer/**
-      - tools/curriculum/glm-s03-scenario-plan.mjs
-      - tools/curriculum/run-glm-s03-html-pdf-shard.mjs
-      - tools/curriculum/inspect-glm-s03-pdfs.py
-      - tools/curriculum/aggregate-glm-s03-html-pdf-baseline.mjs
-      - tests/curriculum/glm-s03-270-html-pdf-baseline-contract.test.js
-      - docs/curriculum/architecture/GLM_S03_270ScenarioHTMLPDFBaseline.md
-      - docs/curriculum/output/GLM_S03_270_HTML_PDF_BASELINE_PENDING.marker
   workflow_dispatch:
 
 permissions:
@@ -142,3 +119,4 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           path: docs/curriculum/output/glm-s03-270-html-pdf-baseline/current.json
+

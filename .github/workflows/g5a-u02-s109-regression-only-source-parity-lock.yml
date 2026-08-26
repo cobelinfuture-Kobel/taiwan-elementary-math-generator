@@ -1,15 +1,6 @@
 name: G5A-U02 S109 Regression-Only Source Parity Lock
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - ".github/workflows/g5a-u02-s109-regression-only-source-parity-lock.yml"
-      - "data/curriculum/contracts/G5AU02_S109_P2RegressionOnlySourceParityLock.json"
-      - "docs/curriculum/architecture/G5AU02_S109_P2RegressionOnlySourceParityLock.md"
-      - "docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PENDING.marker"
-      - "docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PASS.marker"
-      - "tests/curriculum/g5a-u02-s109-regression-only-source-parity-lock.test.js"
   workflow_dispatch:
 
 concurrency:
@@ -83,3 +74,4 @@ jobs:
           retention-days: 7
           if-no-files-found: error
           path: /tmp/g5a-u02-s109-full-regression.log
+

@@ -1,21 +1,6 @@
 name: GS03 G5A-U08 Golden Contract Freeze
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "tools/curriculum/build-gs03-g5a-u08-golden-contract.mjs"
-      - "tools/curriculum/validate-gs03-g5a-u08-golden-contract.mjs"
-      - "tests/curriculum/gs03-g5a-u08-golden-contract-freeze.test.js"
-      - "data/curriculum/golden/G5AU08_GOLDEN_V1.contract.json"
-      - "data/curriculum/contracts/GS03_G5AU08_GoldenContractFreeze.json"
-      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
-      - "data/project/milestones/GS03.claim.json"
-      - "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_SNAPSHOT.json"
-      - "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_FREEZE_PENDING.marker"
-      - "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_FREEZE_PASS.marker"
-      - "docs/curriculum/output/GS03_G5AU08_GOLDEN_CONTRACT_FREEZE_READBACK.md"
-      - ".github/workflows/gs03-g5a-u08-golden-contract-freeze.yml"
   workflow_dispatch:
 
 permissions:
@@ -147,3 +132,4 @@ jobs:
             git commit -m "contract(gs03): materialize G5AU08_GOLDEN_V1 snapshot"
             git push origin "HEAD:${GITHUB_HEAD_REF}"
           fi
+

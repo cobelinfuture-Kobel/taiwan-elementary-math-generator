@@ -1,17 +1,6 @@
 name: GCTX-P12S Pages Review Publication
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "tools/governance/publish-gctx-p12s-pages-review-artifacts.mjs"
-      - "tests/governance/gctx-p12s-pages-review-publication.test.js"
-      - "data/project/milestones/GCTX-P12S.claim.json"
-      - "data/curriculum/contracts/GCTX_P12S_G3BU04PagesHumanReviewArtifactPublication.json"
-      - "docs/curriculum/output/GCTX_P12S_G3BU04_PAGES_REVIEW_PUBLICATION_PASS.marker"
-      - "docs/curriculum/output/GCTX_P12S_G3BU04_PAGES_REVIEW_PUBLICATION_READBACK.md"
-      - ".github/workflows/gctx-p12s-pages-review-publication.yml"
-      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -90,3 +79,4 @@ jobs:
           name: gctx-p12s-pages-review-publication
           path: site/review/g3b-u04
           retention-days: 30
+

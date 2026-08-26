@@ -1,22 +1,6 @@
 name: G4B-U04 R4 Source Switch Flexible Layouts
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - .github/workflows/g4b-u04-r4-source-switch-flexible-layouts.yml
-      - site/assets/browser/g4b-u04-public-controls.js
-      - site/modules/curriculum/batch-a/source-units.js
-      - site/modules/curriculum/registry/g4b-u04-worksheet-promotion.js
-      - site/modules/curriculum/batch-b/g4b-u04-layout-resolution.js
-      - tests/site/g4b-u04-r2f4-classic-layout-query-hydration.test.js
-      - tests/curriculum/g4b-u04-r3c-question-only-approved-layouts.test.js
-      - tools/curriculum/generate-g4b-u04-r4-flexible-layouts.mjs
-      - tools/curriculum/run-g4b-u04-r4-flexible-layouts.mjs
-      - tools/curriculum/run-g4b-u04-r4-public-ui-regression.mjs
-      - docs/curriculum/architecture/G4B_U04_R4_SourceSwitchAndFlexibleCustomLayoutRepair.md
-      - docs/curriculum/output/G4B_U04_R4_SOURCE_SWITCH_FLEXIBLE_LAYOUTS_PENDING.marker
   workflow_dispatch:
 
 permissions:
@@ -90,3 +74,4 @@ jobs:
             /tmp/g4b-u04-r4-site.log
             /tmp/g4b-u04-r4-browser.log
             /tmp/g4b-u04-r4-index.html
+

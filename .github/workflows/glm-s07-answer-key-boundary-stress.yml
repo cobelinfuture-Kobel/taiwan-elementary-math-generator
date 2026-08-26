@@ -1,27 +1,6 @@
 name: GLM-S07 Answer Key and Maximum Boundary Stress
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - .github/workflows/glm-s07-answer-key-boundary-stress.yml
-      - data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json
-      - site/assets/styles/print-styles.css
-      - site/assets/browser/state/**
-      - site/assets/browser/pipeline/**
-      - site/modules/curriculum/batch-a/**
-      - site/modules/curriculum/batch-b/**
-      - site/modules/curriculum/registry/**
-      - site/modules/renderer/**
-      - tools/curriculum/glm-s07-scenario-plan.mjs
-      - tools/curriculum/run-glm-s07-answer-key-boundary-shard.mjs
-      - tools/curriculum/aggregate-glm-s07-answer-key-boundary.mjs
-      - tools/curriculum/inspect-glm-s06-pdfs.py
-      - tests/curriculum/glm-s07-answer-key-boundary-stress-contract.test.js
-      - docs/curriculum/architecture/GLM_S07_AnswerKeyAndMaximumBoundaryStress.md
-      - docs/curriculum/output/GLM_S06_270_POSTFIX_HTML_PDF_ACCEPTANCE_PASS.marker
-      - docs/curriculum/output/GLM_S07_ANSWER_KEY_BOUNDARY_STRESS_PENDING.marker
   workflow_dispatch:
 
 permissions:
@@ -159,3 +138,4 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           path: docs/curriculum/output/glm-s07-answer-key-boundary-stress/current.json
+

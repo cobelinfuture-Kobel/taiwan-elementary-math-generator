@@ -2,27 +2,6 @@
 name: PGC-R03 Public Generator Capacity Contract
 
 on:
-  pull_request:
-    paths:
-      - "tools/curriculum/materialize-pgc-r03-generator-capacity-contract.mjs"
-      - "tools/curriculum/materialize-pgc-r03-generator-capacity-contract-v2.mjs"
-      - "tools/curriculum/materialize-pgc-r03-capacity-aware-reconciliation.mjs"
-      - "tools/curriculum/finalize-pgc-r03-capacity-aware-binding.mjs"
-      - "tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs"
-      - "site/modules/curriculum/public/public-generator-capacity-registry.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding.js"
-      - "site/assets/browser/public-capability-ui.js"
-      - "site/pixel/pixel-public-capability-ui.js"
-      - "tests/curriculum/pgc-r03-generator-capacity-contract.test.js"
-      - "tests/curriculum/pgc-r02-public-ui-capability-binding.test.js"
-      - "data/curriculum/public-generation/generator_capacity_contract.json"
-      - "data/curriculum/public-generation/route_capacity_matrix.csv"
-      - "data/curriculum/public-generation/cross_seed_diversity_report.csv"
-      - "data/curriculum/public-generation/ui_capability_binding_contract.json"
-      - "data/curriculum/public-generation/ui_option_filter_matrix.csv"
-      - "docs/curriculum/output/PGC-R03_capacity_mismatch_report.md"
-      - "docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md"
-      - ".github/workflows/pgc-r03-generator-capacity-contract.yml"
   workflow_dispatch:
 
 permissions:
@@ -109,3 +88,4 @@ jobs:
             docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md
             site/modules/curriculum/public/public-generator-capacity-registry.js
           if-no-files-found: error
+

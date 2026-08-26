@@ -1,20 +1,6 @@
 name: G5A-U02 Pre-S104 Worked Solution Leakage
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "src/curriculum/g5a-u02/s100-question-display.js"
-      - "src/curriculum/g5a-u02/hidden-worksheet-answer-key.js"
-      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
-      - "site/modules/renderer/g5a-u02-s101-public-renderer.js"
-      - "tests/curriculum/g5a-u02-pre-s104-worked-solution-leakage.test.js"
-      - "tests/curriculum/g5a-u02-s100-method-witness-language-reasoning.test.js"
-      - "tools/curriculum/generate-g5a-u02-pre-s104-semantic-regeneration.mjs"
-      - "docs/curriculum/architecture/G5AU02_PreS104_WorkedSolutionLeakageAndResponseSpaceFullFix.md"
-      - "docs/curriculum/output/G5AU02_PRE_S104_WORKED_SOLUTION_LEAKAGE_PENDING.marker"
-      - ".github/workflows/g5a-u02-pre-s104-worked-solution-leakage.yml"
   workflow_dispatch:
 
 permissions:
@@ -203,3 +189,4 @@ jobs:
             docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.pdf
             docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.manifest.json
             docs/curriculum/output/pre-s104/G5AU02_PreS104_Regenerated60.audit.json
+
