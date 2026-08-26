@@ -90,6 +90,17 @@ jobs:
             | sort -z \
             | xargs -0 node --test
           node --test tests/governance/postg-ci-two-gate-policy.test.js
+      - name: Materialize current PR workflow fanout inventory
+        shell: bash
+        run: node tools/governance/inventory-current-pr-workflows.mjs tmp/pr-gate/current-pr-workflow-inventory.json
+      - name: Upload current PR workflow fanout inventory
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gci-uiv02-current-pr-workflow-inventory
+          path: tmp/pr-gate/current-pr-workflow-inventory.json
+          if-no-files-found: error
+          retention-days: 30
 
   full_regression:
     name: Full repository regression
