@@ -11,11 +11,12 @@ All long-running tasks must reduce the distance to that goal. Do not expand task
 This public repository shares the same core execution policy as the private dev repository:
 
 ```text
-GitHub Actions CI readback is the authoritative verification source.
+GitHub Actions CI readback is the authoritative verification source when CI actually executes.
 Local terminal verification is not the default closeout path.
 Every long task must reduce goal distance or remove a blocker.
 Scope expansion is forbidden unless the current task explicitly requires it.
 Auto-progress is required unless a valid STOP_REASON is triggered.
+External CI runner availability is infrastructure status, not product correctness.
 ```
 
 Repo-specific differences:
@@ -31,7 +32,7 @@ Do not use public stable as an experimental scratchpad.
 
 ### CI Readback Gate Is Required
 
-GitHub Actions CI readback is the authoritative verification source for long-task closeout.
+GitHub Actions CI readback is the authoritative verification source for long-task closeout when the required workflow actually acquires a runner and executes its validation steps.
 
 Do not ask the operator to run local terminal commands as the standard closeout path:
 
@@ -49,7 +50,7 @@ commit/push or update through GitHub
 → run GitHub Actions CI readback
 → inspect workflow result
 → record actual tests/pass/fail/working-tree result
-→ close the task only if CI readback passes
+→ close the task only if required executed validation passes
 ```
 
 Local terminal commands may be requested only when one of these exceptions is true:
@@ -63,6 +64,56 @@ LOCAL_EXCEPTION_ALLOWED:
 ```
 
 If no exception applies, do not request local `git pull`, local `npm test`, or local `git status`.
+
+### External CI Execution Classification
+
+A workflow that never acquires a runner or never executes validation steps is not a product/test failure.
+
+Classify CI outcomes as follows:
+
+```text
+EXECUTED_CI_FAILURE =
+  runner acquired
+  + validation/test step executed
+  + step/job failed because of code, data, contract, assertion, runtime, browser, or deployment behavior
+
+EXTERNAL_CI_EXECUTION_BLOCKED =
+  runner_id missing / 0
+  OR runner_name empty
+  OR steps = []
+  OR queued/cancelled before validation execution
+```
+
+Rules:
+
+```text
+EXECUTED_CI_FAILURE
+→ valid STOP_REASON
+→ isolate the first real failure within the current milestone
+
+EXTERNAL_CI_EXECUTION_BLOCKED
+→ NOT PRODUCT_CI_FAILURE
+→ record as DEFERRED_INFRA_DEBT when product-focused evidence is already sufficient
+→ do not create a new governance milestone solely to recover runner availability
+→ do not block the next product milestone solely because GitHub did not execute the job
+```
+
+If a product milestone already has exact-head focused runtime/browser/worksheet evidence and the only remaining issue is external CI execution availability or governance orchestration availability, preserve the product status and continue the shortest product path. Release-wide certification may still require the deferred infrastructure debt to be cleared later.
+
+### Infrastructure Budget Rule
+
+Non-product infrastructure/governance work is bounded:
+
+```text
+INFRASTRUCTURE_BUDGET_RULE =
+1. Maximum one remediation milestone for a product-blocking infrastructure/governance issue.
+2. Maximum one remediation PR.
+3. As soon as product continuation is safe, return to product work.
+4. Remaining nonblocking issues become DEFERRED_INFRA_DEBT.
+5. Do not auto-create additional governance milestones.
+```
+
+A merged PR, closeout artifact, CI readback, or governance cleanup is never justification to expand infrastructure scope.
 
 ### Primary Public Repo Workflows
 
@@ -80,7 +131,7 @@ Use this deployment workflow for public site release validation:
 Workflow name: Deploy GitHub Pages
 ```
 
-Required CI readback fields:
+Required CI readback fields for an executed closeout:
 
 ```text
 workflow status = completed
@@ -94,7 +145,9 @@ working tree = clean
 run URL = recorded
 ```
 
-If any field is missing, unparsed, failed, or ambiguous, the closeout must not be marked PASS.
+If the workflow executes but any required field is missing, unparsed, failed, or ambiguous, the closeout must not be marked PASS.
+
+If the workflow never executes because no runner is acquired, classify it as `EXTERNAL_CI_EXECUTION_BLOCKED`, not as `CI_FAILURE`.
 
 ### Public Release Gate
 
@@ -105,7 +158,9 @@ For any task that changes production-visible site behavior, public release is va
 2. Deploy GitHub Pages = success
 ```
 
-If the deployment workflow fails, do not mark the public release task PASS even if the readback workflow passed.
+If the deployment workflow executes and fails, do not mark the public release task PASS even if the readback workflow passed.
+
+If deployment never executes because of external runner availability, production release certification remains pending, but already accepted product implementation must not be reclassified as product failure.
 
 ### Status Labels
 
@@ -116,10 +171,12 @@ For public repo readback, use:
 ```text
 <CURRENT_TASK_STATUS> = PASS_CI_SYNCED_AND_CLEAN
 VERIFICATION_SOURCE = GitHub Actions CI Readback
-PUBLIC_RELEASE_GATE = PASS / NOT_REQUIRED / FAIL
+PUBLIC_RELEASE_GATE = PASS / NOT_REQUIRED / FAIL / PENDING_EXTERNAL_CI
 ```
 
-If CI fails, do not proceed to the next long task. Open or recommend the next shortest FullFix task instead.
+If executed CI fails, do not proceed to the next long task. Open or recommend only the next shortest FullFix inside the current product milestone.
+
+If CI does not execute because of runner availability, do not create another governance remediation chain. Record the infrastructure debt and continue product work when existing product evidence is sufficient.
 
 ## Long Task Execution Protocol
 
@@ -143,7 +200,7 @@ NO_SCOPE_EXPANSION:
 - no generator work during mapping-only task
 - no validator work during PatternSpec-only task
 - no productionUse promotion before worksheet QA gate
-- no public release promotion before CI and deployment gates pass
+- no public release promotion before required executed CI and deployment gates pass
 ```
 
 ### Required Closeout
@@ -217,6 +274,7 @@ Rules:
 7. NEXT_SHORT_STEP is not a request for operator approval; it is the next immediate execution entry.
 8. After every milestone, produce a short readback, update status, then continue into NEXT_SHORT_STEP when STOP_REASON = NONE.
 9. If there is no STOP_REASON, continue execution in the same run or next available tool step.
+10. External runner queue/cancellation before validation execution is not a stop point for an already product-accepted slice.
 ```
 
 ### Allowed Stop Reasons
@@ -225,14 +283,26 @@ The assistant may stop only when one of these conditions is true:
 
 ```text
 STOP_ALLOWED_ONLY_IF:
-- CI failure
-- GitHub tool error / tool safety blocker
-- PR merge blocked
-- deployment failure for production-visible changes
+- executed CI validation failure
+- GitHub tool error / tool safety blocker that prevents the approved product action itself
+- PR merge blocked when that merge is required for the current product milestone
+- executed deployment failure for production-visible changes when deployment is required for the current milestone
 - next step is outside approved scope
 - next step would modify files explicitly forbidden by the current milestone
 - next step requires operator selection of source_ref / evidence
 - transition from planning-only to implementation requires separate approval under an existing policy
+```
+
+The following are not product stop reasons by themselves:
+
+```text
+NOT_PRODUCT_STOP_REASON:
+- runner_id = 0
+- runner_name empty
+- steps = []
+- workflow queued without execution
+- workflow cancelled before validation execution
+- deferred governance cleanup after the infrastructure budget is exhausted
 ```
 
 If stopping, the response must include:
@@ -245,6 +315,15 @@ REQUIRED_OPERATOR_ACTION = <specific operator action>
 NEXT_RESUME_TASK = <exact task to resume>
 ```
 
+If infrastructure is deferred rather than blocking product continuation, report:
+
+```text
+DEFERRED_INFRA_DEBT = [...]
+PRODUCT_BLOCKER = NONE
+STOP_REASON = NONE
+AUTO_CONTINUE_DECISION = CONTINUE
+```
+
 If not stopping, the response must include:
 
 ```text
@@ -255,7 +334,7 @@ ACTION = Immediately start NEXT_SHORT_STEP
 
 ### Anti Semi-Auto Rule
 
-Do not treat milestone closeout, PR merge, CI success, deployment success, status readback, or NEXT_SHORT_STEP output as a natural stopping point.
+Do not treat milestone closeout, PR merge, CI success, deployment success, status readback, runner queue/cancellation, or NEXT_SHORT_STEP output as a natural stopping point.
 
 Unless a valid STOP_REASON is present, continue to the next milestone. Do not ask for confirmation when the next step is already inside approved scope and does not require new source/evidence selection.
 
@@ -274,7 +353,7 @@ If the answer is no, stop and return to the current shortest path.
 
 ## CI Closeout Template
 
-Use this template for task closeout after CI readback:
+Use this template for task closeout after executed CI readback:
 
 ```text
 CI_READBACK = PASS
@@ -297,13 +376,19 @@ STOP_REASON = NONE
 ACTION = Immediately start NEXT_SHORT_STEP
 ```
 
-If the workflow has not been run, say so explicitly:
+If the workflow has not executed, distinguish the reason instead of treating every non-run as CI failure:
 
 ```text
-CI_READBACK = NOT_RUN
-STATUS = NOT_FINAL
-NEXT_SHORTEST_STEP = Run GitHub Actions CI readback workflow.
-STOP_REASON = CI_READBACK_NOT_RUN
-BLOCKER_TYPE = CI_FAILURE
-REQUIRED_OPERATOR_ACTION = Run GitHub Actions CI readback workflow.
+CI_READBACK = NOT_EXECUTED
+
+IF runner_id missing / 0 OR steps = [] OR cancelled before validation execution:
+  STATUS = EXTERNAL_CI_EXECUTION_BLOCKED
+  BLOCKER_TYPE = DEFERRED_INFRA_DEBT when product evidence is already sufficient
+  PRODUCT_BLOCKER = NONE
+  STOP_REASON = NONE
+  ACTION = Continue NEXT_SHORT_PRODUCT_STEP
+
+ELSE IF required executed validation is genuinely absent for a product milestone with no reusable evidence:
+  STATUS = NOT_FINAL
+  NEXT_SHORTEST_STEP = Obtain the required product validation evidence without expanding governance scope.
 ```
