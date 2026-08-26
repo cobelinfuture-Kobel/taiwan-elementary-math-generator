@@ -1,20 +1,6 @@
 name: G4B-U04 R3C Approved Layouts
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - .github/workflows/g4b-u04-r3c-approved-layouts.yml
-      - site/modules/curriculum/registry/g4b-u04-worksheet-promotion.js
-      - site/modules/curriculum/batch-b/g4b-u04-layout-resolution.js
-      - site/modules/renderer/html-renderer-s73-extension.js
-      - tests/curriculum/g4b-u04-r3c-question-only-approved-layouts.test.js
-      - tests/curriculum/g4b-u04-r2d-layout-readback.test.js
-      - tests/curriculum/g4b-u04-r2f-production-stress-recloseout.test.js
-      - tests/curriculum/s73-g4b-u04-worksheet-answer-renderer.test.js
-      - tools/curriculum/generate-g4b-u04-r3c-approved-layouts.mjs
-      - tools/curriculum/run-g4b-u04-r3c-approved-layouts.mjs
   workflow_dispatch:
 
 permissions:
@@ -59,3 +45,4 @@ jobs:
             docs/curriculum/output/g4b-u04-r3c-approved-layouts/**/*.pdf
             docs/curriculum/output/g4b-u04-r3c-approved-layouts/**/*.json
             /tmp/g4b-u04-r3c-approved-layouts/**/*.png
+

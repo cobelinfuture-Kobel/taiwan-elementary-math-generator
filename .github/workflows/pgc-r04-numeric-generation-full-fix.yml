@@ -1,38 +1,6 @@
 name: PGC-R04 Numeric Generation FullFix
 
 on:
-  pull_request:
-    paths:
-      - "tools/curriculum/apply-pgc-r04-public-count-contract-patch.mjs"
-      - "tools/curriculum/apply-pgc-r04-seed-parameterization-patch.mjs"
-      - "tools/curriculum/run-pgc-r04-seed-parameterization-idempotent.mjs"
-      - "tools/curriculum/apply-pgc-r04-bounded-runtime-expansion-patch.mjs"
-      - "tools/curriculum/run-pgc-r04-bounded-runtime-expansion-idempotent.mjs"
-      - "tools/curriculum/apply-pgc-r04-bounded-runtime-postfix.mjs"
-      - "tools/curriculum/fix-pgc-r04-final-patcher-literals.mjs"
-      - "tools/curriculum/apply-pgc-r04-number-theory-prepatch.mjs"
-      - "tools/curriculum/apply-pgc-r04-final-legacy-producer-patch.mjs"
-      - "tools/curriculum/apply-pgc-r04-final-12-route-patch.mjs"
-      - "tools/curriculum/apply-pgc-r04-problem-type-seed-projection-patch.mjs"
-      - "tools/curriculum/apply-pgc-r04-s102-common-factor-seed-projection-patch.mjs"
-      - "tools/curriculum/apply-pgc-r04-legacy-contract-reconciliation.mjs"
-      - "tools/curriculum/apply-pgc-r04-final-regression-reconciliation.mjs"
-      - "tools/curriculum/locate-pgc-r04-remaining-producers.mjs"
-      - "tools/curriculum/materialize-pgc-r04-numeric-gap-diagnostics.mjs"
-      - "tests/curriculum/pgc-r04-numeric-gap-diagnostics.test.js"
-      - "tests/curriculum/pgc-r04-numeric-unique-allocation.test.js"
-      - "tests/curriculum/pgc-r04-numeric-20x10-live-acceptance.test.js"
-      - "tests/curriculum/batch-a/g4a-u01-phase3-runtime-fix.test.js"
-      - "tests/curriculum/g4b-u04-r2b-prompt-deduplication.test.js"
-      - "tests/curriculum/s72-g4b-u04-promotion-resolver-selector.test.js"
-      - "data/curriculum/public-generation/PGC-R04.numeric-gap-diagnostics.json"
-      - "data/curriculum/public-generation/PGC-R04.remaining-producer-locator.json"
-      - "data/curriculum/public-generation/numeric_generation_gap_inventory.csv"
-      - "docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md"
-      - "site/modules/curriculum/**"
-      - "site/assets/browser/pipeline/**"
-      - "src/curriculum/g5a-u02/**"
-      - ".github/workflows/pgc-r04-numeric-generation-full-fix.yml"
   workflow_dispatch:
 
 permissions:
@@ -221,3 +189,4 @@ jobs:
             data/curriculum/public-generation/numeric_generation_gap_inventory.csv
             docs/curriculum/output/PGC-R04_numeric_generation_gap_diagnostics.md
           if-no-files-found: warn
+

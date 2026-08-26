@@ -1,23 +1,6 @@
 name: GCTX-P12R Runtime Renderer HTML PDF
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-runtime.js"
-      - "site/modules/curriculum/batch-a/g3b-u04-global-context-pilot-worksheet.js"
-      - "site/modules/curriculum/batch-a/g3b-u04-global-context-expansion-pilot.js"
-      - "tools/curriculum/generate-gctx-p12r-g3b-u04-runtime-rendered-artifacts.mjs"
-      - "tools/curriculum/render-gctx-p12r-after-pdf.mjs"
-      - "tools/curriculum/finalize-gctx-p12r-g3b-u04-pdf-evidence.mjs"
-      - "tools/governance/promote-gctx-p12r-e4-claim.mjs"
-      - "tests/curriculum/gctx-p12r-global-context-runtime-renderer.test.js"
-      - "data/project/milestones/GCTX-P12R.claim.json"
-      - "data/curriculum/contracts/GCTX_P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix.json"
-      - "docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_PASS.marker"
-      - "docs/curriculum/output/GCTX_P12R_G3BU04_RUNTIME_RENDERER_PDF_READBACK.md"
-      - "docs/curriculum/output/gctx/**"
-      - ".github/workflows/gctx-p12r-html-pdf.yml"
   workflow_dispatch:
 
 permissions:
@@ -149,3 +132,4 @@ jobs:
             git commit -m "docs(gctx): commit P12R production-equivalent review evidence"
             git push origin "HEAD:${GITHUB_HEAD_REF}"
           fi
+

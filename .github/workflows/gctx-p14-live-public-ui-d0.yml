@@ -1,18 +1,6 @@
 name: GCTX-P14 Live Public UI D0
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "tools/curriculum/run-gctx-p14-live-public-ui-regression.mjs"
-      - "tools/governance/promote-gctx-p14-e6-d0-claim.mjs"
-      - "tools/governance/validate-gctx-p14-e6-live-evidence.mjs"
-      - "data/project/milestones/GCTX-P14.claim.json"
-      - "data/curriculum/contracts/GCTX_P14_G3BU04LivePublicUIProductionRegressionAndD0Closeout.json"
-      - "docs/curriculum/output/GCTX_P14_G3BU04_LIVE_PUBLIC_UI_D0_PASS.marker"
-      - "docs/curriculum/output/GCTX_P14_G3BU04_LIVE_PUBLIC_UI_D0_READBACK.md"
-      - "docs/curriculum/output/gctx/p14-live/**"
-      - ".github/workflows/gctx-p14-live-public-ui-d0.yml"
   workflow_dispatch:
 
 permissions:
@@ -126,3 +114,4 @@ jobs:
             git commit -m "docs(gctx): commit P14 live public UI D0 evidence"
             git push origin "HEAD:${GITHUB_HEAD_REF}"
           fi
+

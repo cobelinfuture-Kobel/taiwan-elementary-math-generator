@@ -1,20 +1,6 @@
 name: G5A-U02 S102 Nontrivial Common Factor Witness
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "src/curriculum/g5a-u02/**"
-      - "site/modules/curriculum/batch-b/source-pattern-g5a-u02-extension.js"
-      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
-      - "data/curriculum/contracts/G5AU02_S102_AnswerModelOverlay.json"
-      - "tests/curriculum/g5a-u02-s102-nontrivial-common-factor-witness.test.js"
-      - "tests/curriculum/s84-g5a-u02-formal-mapping-hidden-pattern-materialization.test.js"
-      - "tools/curriculum/run-g5a-u02-s102-bundle-audit.mjs"
-      - "docs/curriculum/architecture/G5AU02_S102_P0NontrivialCommonFactorSamplingAndWitnessFullFix.md"
-      - "docs/curriculum/output/G5AU02_S102_P0_NONTRIVIAL_COMMON_FACTOR_WITNESS_PENDING.marker"
-      - ".github/workflows/g5a-u02-s102-nontrivial-common-factor-witness.yml"
   workflow_dispatch:
 
 jobs:
@@ -146,3 +132,4 @@ jobs:
           console.log(JSON.stringify(authority, null, 2));
           if (authority.status !== 'PASS_270_OF_270_ACTUAL_COLUMN_GEOMETRY') process.exit(1);
           NODE
+

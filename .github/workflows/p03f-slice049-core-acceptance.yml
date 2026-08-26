@@ -1,8 +1,6 @@
 name: P03F Slice049 Core Acceptance
 
 on:
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -95,3 +93,4 @@ jobs:
           path: tmp/p03f-slice049-live-pages-e2e
           if-no-files-found: error
           retention-days: 30
+

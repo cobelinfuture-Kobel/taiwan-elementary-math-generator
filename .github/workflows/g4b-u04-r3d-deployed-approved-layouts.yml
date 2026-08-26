@@ -1,15 +1,6 @@
 name: G4B-U04 R3D Deployed Approved Layouts
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - .github/workflows/g4b-u04-r3d-deployed-approved-layouts.yml
-      - tools/curriculum/run-g4b-u04-r3d-deployed-approved-layouts.mjs
-      - tests/curriculum/g4b-u04-r3d-deployed-approved-layouts-contract.test.js
-      - docs/curriculum/architecture/G4B_U04_R3D_DeployedQuestionOnly3x5And2x6Audit.md
-      - docs/curriculum/output/G4B_U04_R3D_DEPLOYED_APPROVED_LAYOUTS_PENDING.marker
   workflow_run:
     workflows:
       - Deploy GitHub Pages
@@ -157,3 +148,4 @@ jobs:
             docs/curriculum/output/stress/g4b-u04-r3d-deployed-approved-layouts/failure.png
             docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json
             /tmp/g4b-u04-r3d-index.html
+

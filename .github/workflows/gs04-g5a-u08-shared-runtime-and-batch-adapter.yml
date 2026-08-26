@@ -1,21 +1,6 @@
 name: GS04 G5A-U08 Shared Runtime and Batch Adapter
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "site/modules/curriculum/golden/shared-golden-runtime-consumer.js"
-      - "site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js"
-      - "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js"
-      - "site/assets/browser/pipeline/build-worksheet-document.js"
-      - "tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js"
-      - "data/curriculum/contracts/GS04_G5AU08_SharedRuntimeAndBatchAdapter.json"
-      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
-      - "data/project/milestones/GS04.claim.json"
-      - "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_PENDING.marker"
-      - "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_PASS.marker"
-      - "docs/curriculum/output/GS04_G5AU08_SHARED_RUNTIME_AND_BATCH_ADAPTER_READBACK.md"
-      - ".github/workflows/gs04-g5a-u08-shared-runtime-and-batch-adapter.yml"
   workflow_dispatch:
 
 permissions:
@@ -90,3 +75,4 @@ jobs:
           }
           console.log(`GS04_SCOPE_AUDIT=${JSON.stringify({ changedFileCount: files.length, driftCount: 0, files })}`);
           NODE
+

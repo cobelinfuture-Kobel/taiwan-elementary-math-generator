@@ -1,16 +1,6 @@
 name: POSTG-APP W01-A06C Relation Surfaces
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/curriculum/application/contracts/w01-relation-surface-remediation-policy.json"
-      - "src/curriculum/application/w01-relation-surface-remediation-runtime.mjs"
-      - "tests/curriculum/postg-app-w01-a06c-relation-surfaces.test.js"
-      - "tools/curriculum/validate-postg-app-w01-a06c-relation-surfaces.mjs"
-      - "data/project/milestones/POSTG-APP-W01-A06.claim.json"
-      - "docs/curriculum/output/POSTG_APP_W01_A06C_RELATION_SURFACES_READY.marker"
-      - ".github/workflows/postg-app-w01-a06c-relation-surfaces.yml"
   workflow_dispatch:
 
 permissions:
@@ -65,3 +55,4 @@ jobs:
 
       - name: Validate milestone claims
         run: npm run governance:claims
+

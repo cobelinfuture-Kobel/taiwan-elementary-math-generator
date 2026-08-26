@@ -1,34 +1,6 @@
 name: PGC-R06 A01 G4B-U04 Bounded Capacity FullFix
 
 on:
-  pull_request:
-    paths:
-      - "tools/curriculum/apply-pgc-r06-g4b-u04-inverse-capacity-patch.mjs"
-      - "tools/curriculum/apply-pgc-r06-g4b-u04-unique-pool-capacity-patch.mjs"
-      - "tools/curriculum/materialize-pgc-r06-a01-g4b-u04-bounded-capacity-diagnostics.mjs"
-      - "tools/curriculum/reconcile-pgc-r06-a01-g4b-u04-capacity-contract.mjs"
-      - "tools/curriculum/materialize-pgc-r05-reconciled-capacity-consumers.mjs"
-      - "tools/curriculum/materialize-pgc-r02-ui-capability-binding-r03.mjs"
-      - "tools/curriculum/materialize-pgc-r06-reasoning-mixed-pbl-inventory.mjs"
-      - "tests/curriculum/pgc-r06-a01-*.test.js"
-      - "site/modules/curriculum/batch-b/g4b-u04-class-c-generator.js"
-      - "site/modules/curriculum/batch-b/g4b-u04-inverse-unique-case-pool.js"
-      - "site/modules/curriculum/public/public-generator-capacity-registry.js"
-      - "data/curriculum/public-generation/generator_capacity_contract.json"
-      - "data/curriculum/public-generation/route_capacity_matrix.csv"
-      - "data/curriculum/public-generation/cross_seed_diversity_report.csv"
-      - "data/curriculum/public-generation/ui_capability_binding_contract.json"
-      - "data/curriculum/public-generation/ui_option_filter_matrix.csv"
-      - "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json"
-      - "data/curriculum/public-generation/reasoning_mixed_pbl_route_inventory.csv"
-      - "data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.json"
-      - "data/curriculum/public-generation/PGC-R06-A01.g4b-u04-bounded-capacity-diagnostics.csv"
-      - "data/curriculum/public-generation/PGC-R06-A01.g4b-u04-capacity-contract-reconciliation.json"
-      - "docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md"
-      - "docs/curriculum/output/PGC-R06_reasoning_mixed_pbl_inventory.md"
-      - "docs/curriculum/output/PGC-R06-A01_G4B_U04_bounded_capacity_diagnostics.md"
-      - "docs/curriculum/output/PGC-R06-A01_G4B_U04_CAPACITY_CONTRACT_CLOSEOUT.md"
-      - ".github/workflows/pgc-r06-a01-g4b-u04-bounded-capacity-full-fix.yml"
   workflow_dispatch:
 
 permissions:
@@ -236,3 +208,4 @@ jobs:
             docs/curriculum/output/PGC-R06-A01_G4B_U04_bounded_capacity_diagnostics.md
             docs/curriculum/output/PGC-R06-A01_G4B_U04_CAPACITY_CONTRACT_CLOSEOUT.md
           if-no-files-found: error
+

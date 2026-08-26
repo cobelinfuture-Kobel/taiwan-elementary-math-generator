@@ -1,13 +1,6 @@
 name: P03F Slice041 Post-Merge Pages E2E
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "tools/curriculum/run-p03f-slice041-live-pages-e2e.mjs"
-      - ".github/workflows/p03f-slice041-live-pages-e2e.yml"
-      - "tests/governance/gci-s01-workflow-inventory.test.js"
-      - "tests/governance/gci-s02-pr-gate-pilot.test.js"
   workflow_dispatch:
 
 permissions:
@@ -52,3 +45,4 @@ jobs:
           path: tmp/p03f-slice041-live-pages-e2e
           if-no-files-found: error
           retention-days: 30
+

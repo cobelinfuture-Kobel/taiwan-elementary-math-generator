@@ -1,26 +1,6 @@
 name: POSTG MIG A13 Program D0 Closeout
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json"
-      - "data/project/milestones/POSTG-MIG-A13.claim.json"
-      - "data/curriculum/contracts/POSTG_MIG_A13_ProgramControllerAndKnowledgeRegistryCloseout.json"
-      - "data/curriculum/golden/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.controller.json"
-      - "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json"
-      - "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json"
-      - "data/curriculum/knowledge/**"
-      - "site/modules/curriculum/golden/post-golden-migration-controller.js"
-      - "tools/curriculum/export-postg-knowledge-master.py"
-      - "tests/curriculum/postg-mig-a00-program-foundation.test.js"
-      - "tests/curriculum/postg-mig-a12-g4b-u04-conformance.test.js"
-      - "tests/curriculum/postg-mig-a13-program-closeout.test.js"
-      - "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js"
-      - "docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_PASS.marker"
-      - "docs/curriculum/output/POSTG_MIG_A13_PROGRAM_D0_READBACK.md"
-      - ".github/workflows/postg-mig-a13-program-closeout.yml"
-      - ".github/workflows/postg-unit-conformance-migration.yml"
   workflow_dispatch:
 
 permissions:
@@ -168,3 +148,4 @@ jobs:
             build/reports/Golden_Knowledge_Operation_Master.xlsx
             build/reports/Golden_Knowledge_Operation_Master.summary.csv
             build/reports/POSTG_MIG_A13_EXPORT_READBACK.json
+

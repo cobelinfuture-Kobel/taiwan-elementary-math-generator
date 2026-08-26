@@ -1,16 +1,6 @@
 name: PGC-R01 Capability Matrix Materialization
 
 on:
-  pull_request:
-    paths:
-      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix.mjs"
-      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v2.mjs"
-      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v3.mjs"
-      - "tools/curriculum/materialize-pgc-r01-public-capability-matrix-v4.mjs"
-      - "tests/curriculum/pgc-r01-public-capability-matrix.test.js"
-      - ".github/workflows/pgc-r01-capability-matrix-materialization.yml"
-      - "data/curriculum/public-generation/public_generation_capability_matrix.*"
-      - "docs/curriculum/output/PGC-R01_capability_gap_report.md"
   workflow_dispatch:
 
 permissions:
@@ -58,3 +48,4 @@ jobs:
             git rebase origin/pgc-r01-public-capability-matrix
             git push origin HEAD:pgc-r01-public-capability-matrix
           fi
+

@@ -1,18 +1,6 @@
 name: PGC-R00 Public Generation Scope Freeze
 
 on:
-  pull_request:
-    paths:
-      - "data/curriculum/public-generation/**"
-      - "docs/curriculum/output/PGC-R00_authority_boundary_readback.md"
-      - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
-      - "tests/curriculum/pgc-r00-public-generation-scope.test.js"
-      - "tests/curriculum/pgc-r08-a04-a06-capacity-shortfall.test.js"
-      - "tests/curriculum/pgc-r09-a03-public-site-smoke.test.js"
-      - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-diagnostic.mjs"
-      - "tools/curriculum/run-pgc-r08-a04-a06-capacity-shortfall-replay.mjs"
-      - "tools/curriculum/run-pgc-r09-a03-public-site-smoke.mjs"
-      - ".github/workflows/pgc-r00-public-generation-scope.yml"
   workflow_dispatch:
 
 permissions:
@@ -163,3 +151,4 @@ jobs:
             if (report.summary.browserConsoleErrorCount !== 0) throw new Error("browserConsoleErrorCount");
             if (report.summary.browserPageErrorCount !== 0) throw new Error("browserPageErrorCount");
           '
+

@@ -1,20 +1,6 @@
 name: G5A-U02 S106 Factor Pair Symmetry Masked Table
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "src/curriculum/g5a-u02/**"
-      - "site/modules/renderer/g5a-u02-s101-public-renderer.js"
-      - "site/modules/renderer/g5a-u02-s106-public-representation.js"
-      - "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
-      - "tests/curriculum/g5a-u02-s97-source-parity-prompt-completeness.test.js"
-      - "tests/curriculum/g5a-u02-s106-factor-pair-symmetry-masked-table.test.js"
-      - "tools/curriculum/run-g5a-u02-s106-bundle-audit.mjs"
-      - "docs/curriculum/architecture/G5AU02_S106_P1FactorPairSymmetryAndMaskedTableFullFix.md"
-      - "docs/curriculum/output/G5AU02_S106_P1_FACTOR_PAIR_SYMMETRY_MASKED_TABLE_PENDING.marker"
-      - ".github/workflows/g5a-u02-s106-factor-pair-symmetry-masked-table.yml"
   workflow_dispatch:
 
 permissions:
@@ -90,3 +76,4 @@ jobs:
           retention-days: 7
           if-no-files-found: error
           path: /tmp/g5a-u02-s106-full-regression.log
+

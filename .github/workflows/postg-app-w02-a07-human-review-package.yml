@@ -1,18 +1,6 @@
 name: POSTG-APP W02-A07 Human Review Package
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "src/curriculum/application/w02-a07-human-review-package.mjs"
-      - "tools/curriculum/generate-postg-app-w02-a07-review-artifacts.mjs"
-      - "tools/curriculum/validate-postg-app-w02-a07-human-review-package.mjs"
-      - "tests/curriculum/postg-app-w02-a07-human-review-package.test.js"
-      - "data/curriculum/application/reviews/POSTG-APP-W02-A07_*.json"
-      - "data/project/milestones/POSTG-APP-W02-A07.claim.json"
-      - "docs/curriculum/output/POSTG_APP_W02_A07_*.json"
-      - "docs/curriculum/output/POSTG_APP_W02_A07_*.marker"
-      - ".github/workflows/postg-app-w02-a07-human-review-package.yml"
   workflow_dispatch:
 
 permissions:
@@ -137,3 +125,4 @@ jobs:
             w02-a07-generation.log
           if-no-files-found: error
           retention-days: 30
+

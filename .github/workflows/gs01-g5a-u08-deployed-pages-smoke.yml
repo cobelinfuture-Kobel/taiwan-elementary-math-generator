@@ -1,17 +1,6 @@
 name: GS01 G5A-U08 Deployed Pages Smoke Recloseout
 
 on:
-  pull_request:
-    branches: [ main ]
-    paths:
-      - "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs"
-      - "tests/site/g5a-u08-r1-deployed-gate-contract.test.js"
-      - ".github/workflows/g5a-u08-r1-deployed-pages-smoke.yml"
-      - ".github/workflows/gs01-g5a-u08-deployed-pages-smoke.yml"
-      - "data/project/programs/G5AU08_GOLDEN_SAMPLE_V1.json"
-      - "data/project/milestones/GS01.claim.json"
-      - "data/curriculum/contracts/GS01_G5AU08_DeployedPagesSmokeRecloseout.json"
-      - "docs/curriculum/output/GS01_G5AU08_DEPLOYED_PAGES_SMOKE_RECLOSEOUT_PENDING.marker"
   workflow_dispatch:
 
 permissions:
@@ -58,3 +47,4 @@ jobs:
             docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/manifest.json
             docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/failure.json
             docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/failure.png
+

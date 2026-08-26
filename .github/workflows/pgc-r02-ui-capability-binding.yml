@@ -1,22 +1,6 @@
 name: PGC-R02 UI Capability Binding
 
 on:
-  pull_request:
-    paths:
-      - "site/modules/curriculum/public/public-ui-capability-binding.js"
-      - "site/assets/browser/public-capability-ui.js"
-      - "site/pixel/pixel-public-capability-ui.js"
-      - "site/index.html"
-      - "site/404.html"
-      - "site/pixel/index.html"
-      - "tools/curriculum/apply-pgc-r02-public-ui-entry-patch.mjs"
-      - "tools/curriculum/materialize-pgc-r02-ui-capability-binding.mjs"
-      - "tools/curriculum/render-pgc-r02-public-ui-binding-acceptance.mjs"
-      - "tests/curriculum/pgc-r02-public-ui-capability-binding.test.js"
-      - "data/curriculum/public-generation/ui_capability_binding_contract.json"
-      - "data/curriculum/public-generation/ui_option_filter_matrix.csv"
-      - "docs/curriculum/output/PGC-R02_ui_capability_binding_readback.md"
-      - ".github/workflows/pgc-r02-ui-capability-binding.yml"
   workflow_dispatch:
 
 permissions:
@@ -91,3 +75,4 @@ jobs:
           name: pgc-r02-public-ui-binding-acceptance
           path: tmp/pgc-r02-public-ui-binding-acceptance
           if-no-files-found: warn
+
