@@ -25,6 +25,8 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
+      - name: Print exact q003 frozen entry
+        run: node --input-type=module -e 'import {materializeP04EW4DirectProductVerticalSliceQueue as m} from "./src/curriculum/full-product/p04e-w4-direct-product-vertical-slice-queue.mjs"; console.log("P04F3_Q003_FROZEN="+JSON.stringify(m().queueEntries.find(x=>x.queuePosition===3)))'
       - name: Run P04F3 focused contract
         run: node --test tests/curriculum/p04f-slice003-g3b-u03-time-12-24-hour-conversion.test.js
 
