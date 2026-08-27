@@ -168,6 +168,25 @@ body.worksheet-renderer {
     page-break-inside: avoid;
   }
 
+  .worksheet-cell:has(.worksheet-cell__representation--measurement-scale) {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    gap: 2px;
+  }
+
+  .worksheet-cell:has(.worksheet-cell__representation--measurement-scale) .worksheet-cell__prompt,
+  .worksheet-cell:has(.worksheet-cell__representation--measurement-scale) .worksheet-cell__answer {
+    line-height: 1.15;
+  }
+
+  .worksheet-measurement-scale {
+    display: block;
+    width: 247px;
+    height: 140px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
   .worksheet-page + .worksheet-page {
     page-break-before: always;
     break-before: page;
