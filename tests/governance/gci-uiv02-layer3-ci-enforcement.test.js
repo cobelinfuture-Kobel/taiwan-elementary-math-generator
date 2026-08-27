@@ -139,7 +139,7 @@ test("Bounded shared runtime requires a plan but not full regression or global r
   assert.equal(result.validationPlanPath, m.validationPlanPath);
 });
 
-test("Unbounded shared runtime still requires global certification and replay", () => {
+test("Unbounded shared runtime still requires global certification and replay without a focused plan", () => {
   const m = manifest({
     currentScope: "SHARED_RUNTIME",
     expectedDerivedGate: "GLOBAL_CERTIFICATION",
@@ -173,7 +173,7 @@ test("PR Gate executes product plans for KP, Unit, and bounded Shared Runtime la
   assert.match(prGate, /PRODUCT_RESULT/);
   assert.match(prGate, /CURRENT_SCOPE.*KP_LEAF/);
   assert.match(prGate, /CURRENT_SCOPE.*UNIT_INTEGRATION/);
-  assert.match(prGate, /CURRENT_SCOPE.*SHARED_RUNTIME/);
+  assert.match(prGate, /DERIVED_GATE.*SHARED_RUNTIME_BOUNDED/);
 });
 
 test("PR Gate fails closed when global replay is required but not aggregated", () => {
