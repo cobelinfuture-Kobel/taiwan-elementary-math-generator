@@ -88,9 +88,12 @@ async function walkModuleGraph(entryPath, visited = new Set()) {
   return visited;
 }
 
-test("GitHub Pages publishes site/ only after npm test succeeds", async () => {
+test("GitHub Pages publishes site/ only after focused release checks succeed", async () => {
   const workflow = await readFile(PAGES_WORKFLOW, "utf8");
-  assert.match(workflow, /run:\s*npm test/);
+  assert.match(
+    workflow,
+    /run:\s*node --test tests\/ui\/pixel-browser-path-release-qa\.test\.js tests\/curriculum\/g3a-u08-current-capacity-renderer-ordering\.test\.js/
+  );
   assert.match(workflow, /deploy:\s*[\s\S]*?needs:\s*test/);
   assert.match(workflow, /uses:\s*actions\/upload-pages-artifact@v3[\s\S]*?path:\s*site/);
   assert.match(workflow, /uses:\s*actions\/deploy-pages@v4/);
