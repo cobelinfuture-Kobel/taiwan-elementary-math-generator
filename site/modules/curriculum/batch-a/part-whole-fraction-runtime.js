@@ -11,6 +11,13 @@ import {
 } from "../registry/g3a-u08-part-whole-fraction-selector-projection.js";
 
 const DENOMINATORS = Object.freeze([2, 3, 4, 5, 6, 8, 10, 12]);
+const PART_WHOLE_FIXTURES = Object.freeze(DENOMINATORS.flatMap((equalParts) => (
+  Array.from({ length: (equalParts - 1) * 2 }, (_, index) => Object.freeze({
+    equalParts,
+    selectedParts: index % (equalParts - 1) + 1,
+    representationIndex: Math.floor(index / (equalParts - 1)),
+  }))
+)));
 
 function hashSeed(value) {
   let acc = 2166136261;
@@ -30,6 +37,18 @@ function state(seed, index, channel) {
 }
 function fractionText(numerator, denominator) {
   return `${numerator}/${denominator}`;
+}
+function gcd(a, b) {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y) [x, y] = [y, x % y];
+  return x || 1;
+}
+function fixtureAt(index, seed) {
+  const size = PART_WHOLE_FIXTURES.length;
+  const offset = state(seed, 0, "part-whole-fixture-offset") % size;
+  const step = [79, 73, 71, 67, 61].find((candidate) => gcd(candidate, size) === 1) ?? 1;
+  return PART_WHOLE_FIXTURES[(offset + index * step) % size];
 }
 function symbols(selectedParts, equalParts, selected, unselected) {
   return [
@@ -72,9 +91,9 @@ function metadata(definition, representationMode) {
 }
 function generateQuestion(index, seed) {
   const definition = getBatchABrowserPatternDefinition(G3A_U08_PART_WHOLE_PATTERN_SPEC_ID);
-  const equalParts = DENOMINATORS[state(seed, index, "denominator") % DENOMINATORS.length];
-  const selectedParts = 1 + (state(seed, index, "selected") % (equalParts - 1));
-  const representationMode = definition.representationModes[(index - 1) % definition.representationModes.length];
+  const fixture = fixtureAt(index - 1, seed);
+  const { equalParts, selectedParts } = fixture;
+  const representationMode = definition.representationModes[fixture.representationIndex];
   const prompt = buildPrompt(representationMode, selectedParts, equalParts);
   const answerText = fractionText(selectedParts, equalParts);
   return Object.freeze({
