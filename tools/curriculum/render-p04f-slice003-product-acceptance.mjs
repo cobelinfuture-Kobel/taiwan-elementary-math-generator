@@ -9,6 +9,8 @@ import {
   G3B_U03_P04F3_KP_ID,
   G3B_U03_P04F3_SPEC_ID,
   G3B_U03_P04F3_SOURCE_ID,
+  G3B_U03_P04F3_UNIT_CONVERSION_KP_ID,
+  G3B_U03_P04F3_UNIT_CONVERSION_SPEC_ID,
 } from "../../site/modules/curriculum/registry/g3b-u03-time-12-24-conversion-selector-projection-p04f3.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -28,7 +30,7 @@ const options = {
   selectionMode: "sourceUnit",
   questionMode: "numeric",
   questionCount: 8,
-  generationSeed: "p04f3-product-time-system",
+  generationSeed: "p04f3-product-q003",
   includeAnswerKey: true,
   printLayout: {
     paperSize: "A4",
@@ -49,8 +51,8 @@ const html = renderWorksheetDocumentToHtml(document, {stylesheetHref: ""}).repla
   "</head>",
   `<style>${embeddedFontStyles}\nbody { font-family: 'Noto Sans TC', sans-serif !important; }</style><style>${printStyles}</style></head>`,
 );
-const htmlPath = path.join(OUTPUT, "time-system-conversion.html");
-const pdfPath = path.join(OUTPUT, "time-system-conversion.pdf");
+const htmlPath = path.join(OUTPUT, "time-q003.html");
+const pdfPath = path.join(OUTPUT, "time-q003.pdf");
 fs.writeFileSync(htmlPath, html);
 
 const browser = await chromium.launch({headless: true});
@@ -92,27 +94,37 @@ try {
 
 const expectedAnswer = q => {
   const direction = q.metadata?.conversionDirection;
-  const hour24 = q.metadata?.hour24;
-  const hour12 = q.metadata?.hour12;
-  const period = q.metadata?.period;
-  if (direction === "12_TO_24") return `${hour24}時`;
-  if (direction === "24_TO_12") return period === "中午" ? "中午12時" : `${period}${hour12}時`;
+  if (direction === "12_TO_24") return `${q.metadata?.hour24}時`;
+  if (direction === "24_TO_12") return q.metadata?.period === "中午" ? "中午12時" : `${q.metadata?.period}${q.metadata?.hour12}時`;
+  const source = Number(q.metadata?.sourceQuantity);
+  if (direction === "DAY_TO_HOUR") return `${source * 24}時`;
+  if (direction === "HOUR_TO_DAY_HOUR") return `${Math.floor(source / 24)}日${source % 24}時`;
+  if (direction === "HOUR_TO_MINUTE") return `${source * 60}分`;
+  if (direction === "MINUTE_TO_HOUR_MINUTE") return `${Math.floor(source / 60)}時${source % 60}分`;
   return null;
 };
-const forbidden = /跨日|隔天|經過時間|多久|幾小時|幾分鐘|幾秒|日換時|時換分|分換秒|加法|減法|加減|進位|退位|借位|時刻表|行程/;
+const forbidden = /跨日|隔天|經過時間|多久|秒|加法|減法|加減|進位|退位|借位|時刻表|行程|開始|結束/;
+const isClock = q => q.knowledgePointId === G3B_U03_P04F3_KP_ID && q.patternSpecId === G3B_U03_P04F3_SPEC_ID;
+const isUnit = q => q.knowledgePointId === G3B_U03_P04F3_UNIT_CONVERSION_KP_ID && q.patternSpecId === G3B_U03_P04F3_UNIT_CONVERSION_SPEC_ID;
 const exactAnswerMismatchCount = questions.filter(q => !expectedAnswer(q) || q.answer !== expectedAnswer(q) || q.answerText !== expectedAnswer(q) || q.finalAnswer !== expectedAnswer(q)).length;
 const crossLayerMismatchCount = questions.filter((q, index) => !document.answerKeyItems[index] || document.answerKeyItems[index].questionId !== q.id || document.answerKeyItems[index].answerText !== q.answerText || document.questionDisplayModels[index]?.promptText !== q.blankedDisplayText).length;
 const visualIdentityDuplicateCount = questions.length - new Set(questions.map(q => q.blankedDisplayText)).size;
 const forbiddenWordingCount = questions.filter(q => forbidden.test(String(q.blankedDisplayText ?? ""))).length;
-const scopeLeakCount = questions.filter(q => q.sourceId !== G3B_U03_P04F3_SOURCE_ID || q.knowledgePointId !== G3B_U03_P04F3_KP_ID || q.patternSpecId !== G3B_U03_P04F3_SPEC_ID || q.metadata?.crossDayConversion !== false || q.metadata?.elapsedTime !== false || q.metadata?.durationUnitConversion !== false || q.metadata?.timeArithmetic !== false || q.metadata?.scheduleReasoning !== false).length;
+const scopeLeakCount = questions.filter(q => {
+  if (q.sourceId !== G3B_U03_P04F3_SOURCE_ID || (!isClock(q) && !isUnit(q))) return true;
+  if (q.metadata?.crossDayConversion !== false || q.metadata?.elapsedTime !== false || q.metadata?.timeArithmetic !== false || q.metadata?.scheduleReasoning !== false) return true;
+  if (isClock(q) && q.metadata?.durationUnitConversion !== false) return true;
+  if (isUnit(q) && (q.metadata?.durationUnitConversion !== true || q.metadata?.mixedUnitNormalization !== true || q.metadata?.secondsAllowed !== false)) return true;
+  return false;
+}).length;
 const directionLabels = [...new Set(questions.map(q => q.metadata?.conversionDirection))].sort();
-const periods = [...new Set(questions.map(q => q.metadata?.period))].sort();
+const periods = [...new Set(questions.filter(isClock).map(q => q.metadata?.period))].sort();
 const registry = getCurrentPixelRegistrySnapshot();
 const source = registry.bySourceId[G3B_U03_P04F3_SOURCE_ID];
 const adapter = document.metadata?.worksheetAdapter ?? result.p04f3WorksheetAdapter;
 
 const report = {
-  schemaName: "P04FSlice003ChromiumProductAcceptanceReportV1",
+  schemaName: "P04FSlice003ChromiumProductAcceptanceReportV2",
   status: "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
   publicSourceCount: registry.sourceCount,
   visibleKnowledgePointCount: registry.visibleKnowledgePointCount,
@@ -121,7 +133,8 @@ const report = {
   sourceNotSelectableKnowledgePointCount: source?.notSelectableCount ?? 0,
   questionCount: questions.length,
   answerCount: document.answerKeyItems.length,
-  timeSystemConversionQuestionCount: questions.filter(q => q.patternSpecId === G3B_U03_P04F3_SPEC_ID).length,
+  timeSystemConversionQuestionCount: questions.filter(isClock).length,
+  timeUnitConversionQuestionCount: questions.filter(isUnit).length,
   questionPageCount: document.questionPages.length,
   answerPageCount: document.answerKeyPages.length,
   physicalPdfPageCount: physicalPages(pdfPath),
@@ -140,6 +153,8 @@ const report = {
   crossDayConversionUsed: questions.some(q => q.metadata?.crossDayConversion === true),
   elapsedTimeUsed: questions.some(q => q.metadata?.elapsedTime === true),
   durationUnitConversionUsed: questions.some(q => q.metadata?.durationUnitConversion === true),
+  mixedUnitNormalizationUsed: questions.some(q => q.metadata?.mixedUnitNormalization === true),
+  secondsUnitConversionUsed: questions.some(q => q.metadata?.secondsAllowed === true || /秒/.test(String(q.blankedDisplayText ?? ""))),
   timeArithmeticUsed: questions.some(q => q.metadata?.timeArithmetic === true),
   scheduleReasoningUsed: questions.some(q => q.metadata?.scheduleReasoning === true),
   sharedTimeRuntime: adapter?.sharedTimeRuntime === true,
@@ -151,19 +166,24 @@ const report = {
 };
 
 const pass = report.publicSourceCount === 37 &&
-  report.visibleKnowledgePointCount === 262 &&
-  report.sourceVisibleKnowledgePointCount === 1 &&
+  report.visibleKnowledgePointCount === 263 &&
+  report.sourceVisibleKnowledgePointCount === 2 &&
   report.sourceHiddenKnowledgePointCount === 0 &&
   report.sourceNotSelectableKnowledgePointCount === 0 &&
   report.questionCount === 8 &&
   report.answerCount === 8 &&
-  report.timeSystemConversionQuestionCount === 8 &&
+  report.timeSystemConversionQuestionCount === 4 &&
+  report.timeUnitConversionQuestionCount === 4 &&
   report.questionPageCount === 1 &&
   report.answerPageCount === 1 &&
   report.physicalPdfPageCount === 2 &&
   report.screenshotCount === 2 &&
   report.directionLabels.includes("12_TO_24") &&
   report.directionLabels.includes("24_TO_12") &&
+  report.directionLabels.includes("DAY_TO_HOUR") &&
+  report.directionLabels.includes("HOUR_TO_DAY_HOUR") &&
+  report.directionLabels.includes("HOUR_TO_MINUTE") &&
+  report.directionLabels.includes("MINUTE_TO_HOUR_MINUTE") &&
   report.exactAnswerMismatchCount === 0 &&
   report.crossLayerMismatchCount === 0 &&
   report.visualIdentityDuplicateCount === 0 &&
@@ -175,7 +195,9 @@ const pass = report.publicSourceCount === 37 &&
   report.directTextbookWitness &&
   !report.crossDayConversionUsed &&
   !report.elapsedTimeUsed &&
-  !report.durationUnitConversionUsed &&
+  report.durationUnitConversionUsed &&
+  report.mixedUnitNormalizationUsed &&
+  !report.secondsUnitConversionUsed &&
   !report.timeArithmeticUsed &&
   !report.scheduleReasoningUsed &&
   report.sharedTimeRuntime &&
