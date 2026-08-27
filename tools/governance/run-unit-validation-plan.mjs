@@ -6,7 +6,7 @@ import { pathToFileURL } from "node:url";
 export const DEFAULT_POLICY_PATH = ".github/ci/unit-validation-policy.json";
 export const VALIDATION_PLAN_DIRECTORY = "data/project/validation-plans";
 
-const ALLOWED_LANES = new Set(["KP_FOCUSED", "UNIT_FULL_ONCE"]);
+const ALLOWED_LANES = new Set(["KP_FOCUSED", "SHARED_RUNTIME_BOUNDED", "UNIT_FULL_ONCE"]);
 const ALLOWED_STEP_KINDS = new Set(["NODE_TEST", "NODE_RUNNER"]);
 const ALLOWED_RUNTIMES = new Set(["NODE_ONLY", "PLAYWRIGHT_CHROMIUM"]);
 const CENTRALIZED_GATE_IDS = new Set([

@@ -45,13 +45,16 @@ function requiresImpactManifest(policy, changedFiles) {
   });
 }
 
-function validateValidationPlanPath(policy, manifest) {
+function validateValidationPlanPath(policy, manifest, derivedGate = null) {
   const requiredScopes = new Set(policy.validationPlan?.requiredScopes ?? []);
-  if (!requiredScopes.has(manifest.currentScope)) return null;
+  const requiredDerivedGates = new Set(policy.validationPlan?.requiredDerivedGates ?? []);
+  const required = requiredScopes.has(manifest.currentScope)
+    || (derivedGate !== null && requiredDerivedGates.has(derivedGate));
+  if (!required) return null;
   const value = manifest.validationPlanPath;
   const directory = `${policy.validationPlan.directory}/`;
   if (typeof value !== "string" || !value.startsWith(directory) || !value.endsWith(policy.validationPlan.suffix)) {
-    fail("UIV_VALIDATION_PLAN_PATH_REQUIRED", { scope: manifest.currentScope, value });
+    fail("UIV_VALIDATION_PLAN_PATH_REQUIRED", { scope: manifest.currentScope, derivedGate, value });
   }
   if (path.isAbsolute(value) || value.includes("\\") || value.split("/").includes("..")) {
     fail("UIV_VALIDATION_PLAN_PATH_INVALID", value);
@@ -128,6 +131,7 @@ function classifyManifest(policy, changedFiles, manifest) {
   }
   const lane = policy.lanes[derivedGate];
   if (!lane) fail("UIV_DERIVED_LANE_NOT_CONFIGURED", derivedGate);
+  const validationPlanPath = validateValidationPlanPath(policy, manifest, derivedGate);
   return {
     policyConformance: "PASS",
     manifestRequired: true,
@@ -136,7 +140,7 @@ function classifyManifest(policy, changedFiles, manifest) {
     derivedGate,
     runFullRegression: lane.fullRegression === true,
     runGlobalReplay: lane.globalReplay === true,
-    validationPlanPath: validateValidationPlanPath(policy, manifest),
+    validationPlanPath,
     pathWitness,
   };
 }

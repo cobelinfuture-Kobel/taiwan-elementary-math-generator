@@ -115,7 +115,31 @@ test("Unit integration requires all expected KPs focused-pass, a validation plan
   assert.equal(result.validationPlanPath, m.validationPlanPath);
 });
 
-test("Any shared runtime change requires global certification and replay", () => {
+test("Bounded shared runtime requires a plan but not full regression or global replay", () => {
+  const m = manifest({
+    currentScope: "SHARED_RUNTIME",
+    expectedDerivedGate: "SHARED_RUNTIME_BOUNDED",
+    changeImpact: {
+      sharedExecutableChange: true,
+      publicAuthorityCutover: true,
+      legalRouteSemanticsChanged: false,
+      affectedRoutes: "BOUNDED",
+      globalReleaseCheckpoint: false,
+      currentAuthorityChanged: true,
+    },
+  });
+  const result = classifyUnitValidationImpact({
+    policy,
+    changedFiles: ["site/modules/curriculum/public/example.js", "data/project/change-impact/UIV02_TEST.impact.json"],
+    manifest: m,
+  });
+  assert.equal(result.derivedGate, "SHARED_RUNTIME_BOUNDED");
+  assert.equal(result.runFullRegression, false);
+  assert.equal(result.runGlobalReplay, false);
+  assert.equal(result.validationPlanPath, m.validationPlanPath);
+});
+
+test("Unbounded shared runtime still requires global certification and replay without a focused plan", () => {
   const m = manifest({
     currentScope: "SHARED_RUNTIME",
     expectedDerivedGate: "GLOBAL_CERTIFICATION",
@@ -124,7 +148,7 @@ test("Any shared runtime change requires global certification and replay", () =>
       sharedExecutableChange: true,
       publicAuthorityCutover: true,
       legalRouteSemanticsChanged: false,
-      affectedRoutes: "BOUNDED",
+      affectedRoutes: "UNBOUNDED",
       globalReleaseCheckpoint: false,
       currentAuthorityChanged: true,
     },
@@ -140,7 +164,7 @@ test("Any shared runtime change requires global certification and replay", () =>
   assert.equal(result.validationPlanPath, null);
 });
 
-test("PR Gate executes focused product plans for KP and Unit lanes and aggregates the result", () => {
+test("PR Gate executes product plans for KP, Unit, and bounded Shared Runtime lanes", () => {
   assert.match(prGate, /focused_product:/);
   assert.match(prGate, /name: Focused product validation/);
   assert.match(prGate, /run-unit-validation-plan\.mjs/);
@@ -149,6 +173,7 @@ test("PR Gate executes focused product plans for KP and Unit lanes and aggregate
   assert.match(prGate, /PRODUCT_RESULT/);
   assert.match(prGate, /CURRENT_SCOPE.*KP_LEAF/);
   assert.match(prGate, /CURRENT_SCOPE.*UNIT_INTEGRATION/);
+  assert.match(prGate, /DERIVED_GATE.*SHARED_RUNTIME_BOUNDED/);
 });
 
 test("PR Gate fails closed when global replay is required but not aggregated", () => {

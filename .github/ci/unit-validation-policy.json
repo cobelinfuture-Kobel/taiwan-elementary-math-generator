@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.3.0",
+  "schemaVersion": "1.4.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
   "status": "ACTIVE_LAYER3_FOCUSED_EXECUTION_REQUIRED_CHECK_PENDING",
   "sourceAuthority": "回歸測試成本分析.txt",
@@ -13,31 +13,13 @@
     "PER_UNIT_FULL_REGRESSION_ONCE",
     "PER_BATCH_OR_RELEASE_GLOBAL_REPLAY"
   ],
-  "routeBounds": [
-    "BOUNDED",
-    "UNBOUNDED",
-    "UNKNOWN"
-  ],
-  "scopes": [
-    "KP_LEAF",
-    "UNIT_INTEGRATION",
-    "SHARED_RUNTIME",
-    "GLOBAL_RELEASE"
-  ],
+  "routeBounds": ["BOUNDED", "UNBOUNDED", "UNKNOWN"],
+  "scopes": ["KP_LEAF", "UNIT_INTEGRATION", "SHARED_RUNTIME", "GLOBAL_RELEASE"],
   "impactManifest": {
     "directory": "data/project/change-impact",
     "suffix": ".impact.json",
-    "requiredPathPrefixes": [
-      "data/curriculum/",
-      "site/modules/curriculum/",
-      "site/assets/browser/",
-      "tests/curriculum/",
-      "tools/curriculum/"
-    ],
-    "requiredExactPaths": [
-      "site/index.html",
-      "site/404.html"
-    ],
+    "requiredPathPrefixes": ["data/curriculum/", "site/modules/curriculum/", "site/assets/browser/", "tests/curriculum/", "tools/curriculum/"],
+    "requiredExactPaths": ["site/index.html", "site/404.html"],
     "ciOwnershipMigrationGovernanceExactPaths": [
       "tests/curriculum/p03f-slice022-authority-preflight.test.js",
       "tests/curriculum/p03f-slice023-authority-preflight.test.js",
@@ -47,108 +29,56 @@
   "validationPlan": {
     "directory": "data/project/validation-plans",
     "suffix": ".validation.json",
-    "requiredScopes": [
-      "KP_LEAF",
-      "UNIT_INTEGRATION"
-    ],
-    "allowedStepKinds": [
-      "NODE_TEST",
-      "NODE_RUNNER"
-    ],
-    "allowedRuntimes": [
-      "NODE_ONLY",
-      "PLAYWRIGHT_CHROMIUM"
-    ],
-    "centralizedGateIds": [
-      "FULL_NODE_REGRESSION_ONCE",
-      "FULL_NODE_REGRESSION",
-      "GLOBAL_BROWSER_REPLAY",
-      "RELEASE_REQUIRED_E2E"
-    ],
+    "requiredScopes": ["KP_LEAF", "UNIT_INTEGRATION"],
+    "requiredDerivedGates": ["SHARED_RUNTIME_BOUNDED"],
+    "allowedStepKinds": ["NODE_TEST", "NODE_RUNNER"],
+    "allowedRuntimes": ["NODE_ONLY", "PLAYWRIGHT_CHROMIUM"],
+    "centralizedGateIds": ["FULL_NODE_REGRESSION_ONCE", "FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY", "RELEASE_REQUIRED_E2E"],
     "arbitraryShellCommands": "FORBIDDEN"
   },
   "knownSharedExecutablePaths": {
-    "prefixes": [
-      "site/modules/curriculum/public/",
-      "data/curriculum/public-generation/"
-    ],
-    "exact": [
-      "site/assets/browser/public-capability-ui.js"
-    ],
-    "contains": [
-      "/query-state",
-      "/current-coordinator",
-      "/worksheet-router",
-      "/shared-generator",
-      "/shared-validator"
-    ]
+    "prefixes": ["site/modules/curriculum/public/", "data/curriculum/public-generation/"],
+    "exact": ["site/assets/browser/public-capability-ui.js"],
+    "contains": ["/query-state", "/current-coordinator", "/worksheet-router", "/shared-generator", "/shared-validator"]
   },
   "knownPublicAuthorityCutoverPaths": {
-    "prefixes": [
-      "site/modules/curriculum/public/",
-      "data/curriculum/public-generation/"
-    ],
-    "exact": [
-      "site/assets/browser/public-capability-ui.js"
-    ]
+    "prefixes": ["site/modules/curriculum/public/", "data/curriculum/public-generation/"],
+    "exact": ["site/assets/browser/public-capability-ui.js"]
   },
   "lanes": {
     "KP_FOCUSED": {
       "fullRegression": false,
       "globalReplay": false,
-      "requiredGates": [
-        "FOCUSED_TEST",
-        "TARGETED_BROWSER_E2E",
-        "DIRECT_DEPENDENCY_CONTRACTS"
-      ],
-      "forbiddenGates": [
-        "FULL_NODE_REGRESSION",
-        "GLOBAL_BROWSER_REPLAY"
-      ]
+      "requiredGates": ["FOCUSED_TEST", "TARGETED_BROWSER_E2E", "DIRECT_DEPENDENCY_CONTRACTS"],
+      "forbiddenGates": ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY"]
+    },
+    "SHARED_RUNTIME_BOUNDED": {
+      "fullRegression": false,
+      "globalReplay": false,
+      "requiredGates": ["GLOBAL_CONTRACTS", "TARGETED_ROUTE_REPLAY"],
+      "forbiddenGates": ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY"]
     },
     "UNIT_FULL_ONCE": {
       "fullRegression": true,
       "fullRegressionFrequency": "ONCE_PER_EXACT_HEAD",
       "globalReplay": false,
-      "requiredGates": [
-        "UNIT_INTEGRATION_TEST",
-        "FULL_NODE_REGRESSION_ONCE",
-        "GLOBAL_CONTRACTS",
-        "UNIT_TARGETED_BROWSER_MATRIX"
-      ],
-      "forbiddenGates": [
-        "GLOBAL_BROWSER_REPLAY"
-      ]
+      "requiredGates": ["UNIT_INTEGRATION_TEST", "FULL_NODE_REGRESSION_ONCE", "GLOBAL_CONTRACTS", "UNIT_TARGETED_BROWSER_MATRIX"],
+      "forbiddenGates": ["GLOBAL_BROWSER_REPLAY"]
     },
     "GLOBAL_CERTIFICATION": {
       "fullRegression": true,
       "fullRegressionFrequency": "ONCE_PER_EXACT_HEAD",
       "globalReplay": true,
-      "requiredGates": [
-        "FULL_NODE_REGRESSION",
-        "GLOBAL_CONTRACTS",
-        "GLOBAL_BROWSER_REPLAY",
-        "RELEASE_REQUIRED_E2E"
-      ],
+      "requiredGates": ["FULL_NODE_REGRESSION", "GLOBAL_CONTRACTS", "GLOBAL_BROWSER_REPLAY", "RELEASE_REQUIRED_E2E"],
       "forbiddenGates": []
     }
   },
   "changeImpact": {
-    "requiredFields": [
-      "sharedExecutableChange",
-      "publicAuthorityCutover",
-      "legalRouteSemanticsChanged",
-      "affectedRoutes",
-      "globalReleaseCheckpoint",
-      "currentAuthorityChanged"
-    ],
+    "requiredFields": ["sharedExecutableChange", "publicAuthorityCutover", "legalRouteSemanticsChanged", "affectedRoutes", "globalReleaseCheckpoint", "currentAuthorityChanged"],
     "globalEscalation": {
-      "sharedExecutableChange": true,
+      "sharedExecutableChange": "ONLY_WITH_UNBOUNDED_OR_UNKNOWN_ROUTE_IMPACT",
       "legalRouteSemanticsChanged": true,
-      "affectedRoutes": [
-        "UNBOUNDED",
-        "UNKNOWN"
-      ],
+      "affectedRoutes": ["UNBOUNDED", "UNKNOWN"],
       "globalReleaseCheckpoint": true
     }
   },
@@ -172,7 +102,9 @@
     },
     "SHARED_RUNTIME": {
       "requiresSharedExecutableChange": true,
-      "baseLane": "GLOBAL_CERTIFICATION"
+      "requiresValidationPlanWhenBounded": true,
+      "boundedLane": "SHARED_RUNTIME_BOUNDED",
+      "globalLane": "GLOBAL_CERTIFICATION"
     },
     "GLOBAL_RELEASE": {
       "requiresGlobalReleaseCheckpoint": true,
@@ -180,27 +112,15 @@
     }
   },
   "fallbacks": {
-    "governanceOnly": {
-      "derivedGate": "GOVERNANCE_FOCUSED",
-      "fullRegression": false,
-      "globalReplay": false
-    },
-    "legacyNonCurriculum": {
-      "derivedGate": "LEGACY_FULL_REGRESSION",
-      "fullRegression": true,
-      "globalReplay": false
-    }
+    "governanceOnly": {"derivedGate": "GOVERNANCE_FOCUSED", "fullRegression": false, "globalReplay": false},
+    "legacyNonCurriculum": {"derivedGate": "LEGACY_FULL_REGRESSION", "fullRegression": true, "globalReplay": false}
   },
   "frequencyRules": {
     "perKnowledgePointFullRegressionCount": 0,
     "perUnitIntegrationFullRegressionWaves": 1,
     "sameExactHeadPassedEvidence": "MUST_REUSE",
     "redundantFullRegression": "POLICY_VIOLATION",
-    "rerunAllowedWhen": [
-      "PREVIOUS_FULL_REGRESSION_FAILED_AND_VALIDATED_CONTENT_CHANGED",
-      "UNIT_INTEGRATION_EXACT_HEAD_MATERIALLY_CHANGED",
-      "VALIDATION_LANE_LEGALLY_ESCALATED"
-    ]
+    "rerunAllowedWhen": ["PREVIOUS_FULL_REGRESSION_FAILED_AND_VALIDATED_CONTENT_CHANGED", "UNIT_INTEGRATION_EXACT_HEAD_MATERIALLY_CHANGED", "VALIDATION_LANE_LEGALLY_ESCALATED"]
   },
   "machineRules": {
     "scopeInflation": "POLICY_VIOLATION",

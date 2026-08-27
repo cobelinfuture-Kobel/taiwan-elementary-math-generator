@@ -52,8 +52,7 @@ export function deriveValidationLane({ policy, state, currentScope, changeImpact
   if (!policy || policy.policyId !== "UNIT_INCREMENTAL_VALIDATION_V1") fail("UIV_POLICY_INVALID", policy?.policyId);
   requireBooleanFields(changeImpact);
 
-  const globalEscalation = changeImpact.sharedExecutableChange
-    || changeImpact.legalRouteSemanticsChanged
+  const globalEscalation = changeImpact.legalRouteSemanticsChanged
     || changeImpact.globalReleaseCheckpoint
     || ["UNBOUNDED", "UNKNOWN"].includes(changeImpact.affectedRoutes);
 
@@ -79,7 +78,8 @@ export function deriveValidationLane({ policy, state, currentScope, changeImpact
 
   if (currentScope === "SHARED_RUNTIME") {
     if (!changeImpact.sharedExecutableChange) fail("UIV_SHARED_RUNTIME_FLAG_REQUIRED");
-    return "GLOBAL_CERTIFICATION";
+    if (globalEscalation) return "GLOBAL_CERTIFICATION";
+    return "SHARED_RUNTIME_BOUNDED";
   }
 
   if (currentScope === "UNIT_INTEGRATION") {

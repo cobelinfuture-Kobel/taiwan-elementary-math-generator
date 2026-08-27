@@ -34,6 +34,19 @@ function validPlan() {
           paths: ["tests/curriculum/example-dependency.test.js"],
         },
       ],
+      SHARED_RUNTIME_BOUNDED: [
+        {
+          gateId: "GLOBAL_CONTRACTS",
+          kind: "NODE_TEST",
+          paths: ["tests/curriculum/example-global-contract.test.js"],
+        },
+        {
+          gateId: "TARGETED_ROUTE_REPLAY",
+          kind: "NODE_RUNNER",
+          path: "tools/curriculum/run-example-targeted-route-replay.mjs",
+          runtime: "PLAYWRIGHT_CHROMIUM",
+        },
+      ],
       UNIT_FULL_ONCE: [
         {
           gateId: "UNIT_INTEGRATION_TEST",
@@ -62,6 +75,10 @@ test("focused validation plan coverage is derived from policy required gates", (
     "FOCUSED_TEST",
     "TARGETED_BROWSER_E2E",
   ]);
+  assert.deepEqual(requiredPlanGateIds(policy, "SHARED_RUNTIME_BOUNDED").sort(), [
+    "GLOBAL_CONTRACTS",
+    "TARGETED_ROUTE_REPLAY",
+  ]);
   assert.deepEqual(requiredPlanGateIds(policy, "UNIT_FULL_ONCE").sort(), [
     "GLOBAL_CONTRACTS",
     "UNIT_INTEGRATION_TEST",
@@ -74,6 +91,14 @@ test("KP focused plan requires focused tests, targeted browser E2E, and dependen
   assert.equal(result.policyConformance, "PASS");
   assert.equal(result.stepCount, 3);
   assert.equal(result.requiresPlaywrightChromium, true);
+});
+
+test("Bounded shared-runtime plan requires global contracts plus targeted route replay without centralized regression", () => {
+  const result = validateValidationPlan({ policy, plan: validPlan(), lane: "SHARED_RUNTIME_BOUNDED" });
+  assert.equal(result.policyConformance, "PASS");
+  assert.equal(result.stepCount, 2);
+  assert.equal(result.requiresPlaywrightChromium, true);
+  assert.doesNotMatch(result.requiredGateIds.join(" "), /FULL_NODE_REGRESSION|GLOBAL_BROWSER_REPLAY/);
 });
 
 test("Unit integration plan excludes centralized full regression while covering the other required gates", () => {
