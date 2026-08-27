@@ -19,7 +19,7 @@ export function validateBatchABrowserPlan(plan = {}) {
   const ids = Array.isArray(plan.patternSpecIds) ? plan.patternSpecIds : [];
   if (plan.sourceId !== G4A_U09_SOURCE_ID || ids.length !== 1 || ids[0] !== G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID) return validateBasePlan(plan);
   const errors = [];
-  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 20) errors.push(issue("p03f10_question_count_invalid", "questionCount"));
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 240) errors.push(issue("p03f10_question_count_invalid", "questionCount"));
   if (plan.questionMode !== "numeric") errors.push(issue("p03f10_application_scope_violation", "questionMode"));
   if (plan.genericFallbackAllowed !== false) errors.push(issue("p03f10_generic_fallback_must_be_disabled", "genericFallbackAllowed"));
   const definition = getBatchABrowserPatternDefinition(G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID);
