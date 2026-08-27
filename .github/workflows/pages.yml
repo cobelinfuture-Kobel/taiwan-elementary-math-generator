@@ -33,7 +33,7 @@ jobs:
         run: npm install
 
       - name: Run focused Pages release checks
-        run: node --test tests/ui/pixel-browser-path-release-qa.test.js tests/curriculum/g3a-u08-current-capacity-renderer-ordering.test.js
+        run: node --test tests/ui/pixel-browser-path-release-qa.test.js tests/curriculum/g3a-u08-current-capacity-renderer-ordering.test.js tests/curriculum/g4a-u09-current-capacity-ordering.test.js
 
   deploy:
     name: Deploy
