@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 
 import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+import { buildP04F4QuestionIdentity } from "../../site/modules/curriculum/batch-a/batch-a-browser-validator-p04f4.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
 import { getCurrentPixelRegistrySnapshot } from "../../site/pixel/pixel-registry-bridge.js";
 import {G3B_U06_P04F4_SOURCE_ID,G3B_U06_P04F4_INDIRECT_KP_ID,G3B_U06_P04F4_INDIRECT_SPEC_ID,G3B_U06_P04F4_SCALE_KP_ID,G3B_U06_P04F4_SCALE_SPEC_ID} from "../../site/modules/curriculum/registry/g3b-u06-mass-selector-projection-p04f4.js";
@@ -32,7 +33,7 @@ const isScale=q=>q.knowledgePointId===G3B_U06_P04F4_SCALE_KP_ID&&q.patternSpecId
 const forbidden=/換算|加法|減法|乘法|進位|退位|公斤換公克|公克換公斤/;
 const exactAnswerMismatchCount=questions.filter(q=>{const expected=expectedAnswer(q);if(isIndirect(q))return q.answer!==expected||q.answerText!==expected||q.finalAnswer!==expected;if(isScale(q))return q.answer!==Number(q.metadata?.pointerValue)||q.answerText!==expected||q.finalAnswer!==expected;return true;}).length;
 const crossLayerMismatchCount=questions.filter((q,index)=>!document.answerKeyItems[index]||document.answerKeyItems[index].questionId!==q.id||document.answerKeyItems[index].answerText!==q.answerText||document.questionDisplayModels[index]?.promptText!==q.blankedDisplayText||(isScale(q)&&document.questionDisplayModels[index]?.numberLine?.kind!=="measurement_scale")).length;
-const duplicatePromptCount=questions.length-new Set(questions.map(q=>q.blankedDisplayText)).size;
+const duplicatePromptCount=questions.length-new Set(questions.map(buildP04F4QuestionIdentity)).size;
 const forbiddenWordingCount=questions.filter(q=>forbidden.test(String(q.blankedDisplayText??""))).length;
 const scopeLeakCount=questions.filter(q=>q.sourceId!==G3B_U06_P04F4_SOURCE_ID||(!isIndirect(q)&&!isScale(q))||q.metadata?.kgGConversion!==false||q.metadata?.mixedUnitComparison!==false||q.metadata?.massArithmetic!==false||q.metadata?.massTimesInteger!==false||(isIndirect(q)&&q.numberLine)||(isScale(q)&&(q.numberLine?.kind!=="measurement_scale"||q.metadata?.scaleInstrument!==true))).length;
 const registry=getCurrentPixelRegistrySnapshot(),source=registry.bySourceId[G3B_U06_P04F4_SOURCE_ID],adapter=document.metadata?.worksheetAdapter??result.p04f4WorksheetAdapter;
