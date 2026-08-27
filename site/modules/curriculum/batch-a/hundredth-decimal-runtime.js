@@ -43,7 +43,7 @@ function hashSeed(value) {
   for (const char of String(value ?? "p03f10")) { acc ^= char.charCodeAt(0); acc = Math.imul(acc, 16777619) >>> 0; }
   return acc || 1;
 }
-function metadata(definition) {
+function metadata(definition, fractionalUnits = 1) {
   return Object.freeze({
     patternId: definition.patternSpecId,
     sourceId: definition.sourceId,
@@ -59,18 +59,40 @@ function metadata(definition) {
     requiredCapabilityIds: definition.requiredCapabilityIds,
     applicationClassification: "APPLICATION_NOT_APPLICABLE",
     decimalScale: 2,
-    canonicalDecimalIdentity: "1e-2",
+    canonicalDecimalIdentity: `${fractionalUnits}e-2`,
     productAdmissionTask: "P03F_W3DirectProductVerticalSlice010Implementation",
     generatorAdapterId: "SHARED_OPERATION_FAMILY_GENERATOR_V1",
     validatorAdapterId: "SHARED_OPERATION_FAMILY_VALIDATOR_V1",
   });
 }
-function buildQuestion(index, seed) {
+function decimalFromHundredths(fractionalUnits) {
+  return `${Math.floor(fractionalUnits / 100)}.${String(fractionalUnits % 100).padStart(2, "0")}`;
+}
+function expandedFractionalUnits(index, seed) {
+  const poolSize = 900;
+  const offset = hashSeed(seed) % poolSize;
+  return 1 + ((offset + (index - 1) * 37) % poolSize);
+}
+function expandedPrompt(index, fractionalUnits) {
+  const prompts = [
+    `${fractionalUnits} 個 0.01 合起來是多少？`,
+    `從 0 開始累加 ${fractionalUnits} 次 0.01，結果是多少？`,
+    `以 0.01 為一個單位，${fractionalUnits} 個單位寫成小數是多少？`,
+    `一個數有 ${fractionalUnits} 個百分之一，這個數是多少？`,
+    `百分之一累積 ${fractionalUnits} 次後，用小數表示是多少？`,
+    `把 ${fractionalUnits} 個百分位單位組成一個數，結果是多少？`,
+  ];
+  return prompts[(index - 1) % prompts.length];
+}
+function buildQuestion(index, seed, expanded = false) {
   const definition = getBatchABrowserPatternDefinition(G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID);
+  const fractionalUnits = expanded ? expandedFractionalUnits(index, seed) : 1;
   const promptPool = isPgcR04Seed(seed) ? PROMPTS : PROMPTS.slice(0, 8);
   const offset = hashSeed(seed) % promptPool.length;
-  const promptText = promptPool[(offset + index - 1) % promptPool.length];
-  const answerText = "0.01";
+  const promptText = expanded
+    ? expandedPrompt(index, fractionalUnits)
+    : promptPool[(offset + index - 1) % promptPool.length];
+  const answerText = decimalFromHundredths(fractionalUnits);
   return Object.freeze({
     id: `${G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID}-${index}`,
     sourceId: G4A_U09_SOURCE_ID,
@@ -84,12 +106,12 @@ function buildQuestion(index, seed) {
     blankedDisplayText: promptText,
     displayText: `${promptText} ${answerText}`,
     answerText,
-    whole: 0,
-    fractionalUnits: 1,
+    whole: Math.floor(fractionalUnits / 100),
+    fractionalUnits,
     placeUnit: "0.01",
-    decimalValue: "0.01",
-    finalAnswer: Object.freeze({ coefficient: "1", scale: 2, canonicalText: "0.01", exact: true }),
-    metadata: metadata(definition),
+    decimalValue: answerText,
+    finalAnswer: Object.freeze({ coefficient: String(fractionalUnits), scale: 2, canonicalText: answerText, exact: true }),
+    metadata: metadata(definition, fractionalUnits),
   });
 }
 
@@ -106,9 +128,11 @@ export function validateG4AU09HundredthDecimalQuestion(question = {}) {
   if (question.patternSpecId !== G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID || question.metadata?.patternId !== G4A_U09_HUNDREDTH_DECIMAL_PATTERN_SPEC_ID) add("p03f10_pattern_mismatch", "patternSpecId");
   if (question.metadata?.knowledgePointId !== G4A_U09_HUNDREDTH_DECIMAL_KP_ID) add("p03f10_kp_mismatch", "metadata.knowledgePointId");
   if (question.metadata?.patternGroupId !== G4A_U09_HUNDREDTH_DECIMAL_PATTERN_GROUP_ID) add("p03f10_group_mismatch", "metadata.patternGroupId");
-  if (question.whole !== 0 || question.fractionalUnits !== 1 || question.placeUnit !== "0.01") add("p03f10_place_value_roles_invalid", "whole");
-  if (question.decimalValue !== "0.01" || question.answerText !== "0.01") add("p03f10_decimal_answer_invalid", "answerText");
-  if (question.finalAnswer?.coefficient !== "1" || question.finalAnswer?.scale !== 2 || question.finalAnswer?.canonicalText !== "0.01" || question.finalAnswer?.exact !== true) add("p03f10_canonical_decimal_identity_invalid", "finalAnswer");
+  const fractionalUnits = question.fractionalUnits;
+  if (!Number.isSafeInteger(fractionalUnits) || fractionalUnits <= 0 || question.whole !== Math.floor(fractionalUnits / 100) || question.placeUnit !== "0.01") add("p03f10_place_value_roles_invalid", "whole");
+  const expectedDecimal = Number.isSafeInteger(fractionalUnits) && fractionalUnits > 0 ? decimalFromHundredths(fractionalUnits) : null;
+  if (question.decimalValue !== expectedDecimal || question.answerText !== expectedDecimal) add("p03f10_decimal_answer_invalid", "answerText");
+  if (question.finalAnswer?.coefficient !== String(fractionalUnits) || question.finalAnswer?.scale !== 2 || question.finalAnswer?.canonicalText !== expectedDecimal || question.finalAnswer?.exact !== true) add("p03f10_canonical_decimal_identity_invalid", "finalAnswer");
   const expectedCapabilities = ["cap_decimal_domain_validator", "cap_decimal_number_system"];
   if (JSON.stringify(question.metadata?.requiredCapabilityIds) !== JSON.stringify(expectedCapabilities)) add("p03f10_capability_set_invalid", "metadata.requiredCapabilityIds");
   if (question.metadata?.applicationClassification !== "APPLICATION_NOT_APPLICABLE" || question.questionMode !== "numeric") add("p03f10_application_scope_violation", "questionMode");
@@ -118,9 +142,10 @@ export function validateG4AU09HundredthDecimalQuestion(question = {}) {
 export function generateG4AU09HundredthDecimalQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG4AU09HundredthDecimalQuestions(plan)) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f10_plan_not_supported", severity: "error", path: "plan", message: "Slice010 accepts only the admitted hundredth-decimal PatternSpec." }], warnings: [] };
-  const maximumQuestionCount = isPgcR04Seed(plan.generationSeed) ? PROMPTS.length : 8;
+  const maximumQuestionCount = 240;
   if (plan.questionCount > maximumQuestionCount) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f10_question_count_exceeds_unique_witnesses", severity: "error", path: "questionCount", message: "The selected generation namespace does not provide enough unique witnesses." }], warnings: [] };
-  const questions = Array.from({ length: plan.questionCount }, (_, offset) => buildQuestion(offset + 1, plan.generationSeed));
+  const expanded = plan.questionCount > (isPgcR04Seed(plan.generationSeed) ? PROMPTS.length : 8);
+  const questions = Array.from({ length: plan.questionCount }, (_, offset) => buildQuestion(offset + 1, plan.generationSeed, expanded));
   const promptSet = new Set(questions.map((row) => row.blankedDisplayText));
   const errors = questions.flatMap((question) => validateG4AU09HundredthDecimalQuestion(question).errors);
   if (promptSet.size !== questions.length) errors.push({ code: "p03f10_duplicate_prompt_detected", severity: "error", path: "questions", message: "The worksheet contains duplicate prompts." });

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G4A_U09_DECIMAL_CAPACITY_ORDERING_BOUNDED_VALIDATION",
+  "unitId": "g4a_u09_4a09",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p03f-slice010-hundredth-decimal.test.js",
+          "tests/curriculum/p03f-slice018-decimal-compose-decompose.test.js",
+          "tests/curriculum/p03f-slice026-g4a-u09-rank8-decimal.test.js",
+          "tests/curriculum/p03f-slice034-g4a-u09-rank9-missing-digit-inequality.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g4a-u09-current-capacity-ordering.test.js"
+        ]
+      }
+    ]
+  }
+}
