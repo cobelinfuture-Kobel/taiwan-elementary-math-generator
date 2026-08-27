@@ -1,6 +1,6 @@
 {
-  "schemaName": "P04F3G3BU03Time1224HourConversionAuthorityV1",
-  "schemaVersion": 1,
+  "schemaName": "P04F3G3BU03TimeAuthorityV2",
+  "schemaVersion": 2,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P04F_W4DirectProductVerticalSlice003Implementation",
   "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
@@ -9,7 +9,8 @@
     "queuePosition": 3,
     "deliveryWaveId": "R05-W4",
     "previousSliceId": "p04e_q002_r0_g3b_u02_3b02_profile_quantity_measurement_c1",
-    "previousSliceMustBeD0Complete": true
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 2
   },
   "source": {
     "sourceNodeId": "g3b_u03_3b03",
@@ -21,39 +22,66 @@
     "primaryWitnessPages": [1],
     "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
   },
-  "knowledgePoint": {
-    "knowledgePointId": "kp_time_12_24_hour_conversion",
-    "canonicalNameZh": "十二小時制與二十四小時制換算",
-    "capabilityStatement": "學生能在十二小時制與二十四小時制之間正確轉換時刻表示。",
-    "reasoningInvariant": "上午時刻保留小時數，下午一時至十一時轉成二十四小時制時加十二；二十四小時制十三時至二十三時轉回下午時刻時減十二，零時與十二時需依教材邊界語意處理。",
-    "implementationBoundary": {
-      "included": [
-        "12-hour to 24-hour clock representation conversion",
-        "24-hour to 12-hour clock representation conversion",
-        "morning and afternoon label handling",
-        "0-hour and 12-hour boundary handling",
-        "deterministic converted-time answer"
-      ],
-      "excludedKnowledgePointIds": [
-        "kp_elapsed_time_same_day",
-        "kp_time_add_sub_with_regrouping",
-        "kp_schedule_start_end_duration",
-        "kp_g4b_u09_elapsed_time_cross_day",
-        "kp_g4b_u09_time_addition_regrouping",
-        "kp_g4b_u09_time_subtraction_borrowing"
-      ],
-      "crossDayConversionAllowed": false,
-      "elapsedTimeAllowed": false,
-      "durationUnitConversionAllowed": false,
-      "timeArithmeticAllowed": false,
-      "scheduleReasoningAllowed": false
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_time_12_24_hour_conversion",
+      "canonicalNameZh": "十二小時制與二十四小時制換算",
+      "capabilityStatement": "學生能在十二小時制與二十四小時制之間正確轉換時刻表示。",
+      "reasoningInvariant": "上午時刻保留小時數，下午一時至十一時轉成二十四小時制時加十二；二十四小時制十三時至二十三時轉回下午時刻時減十二，零時與十二時依教材邊界語意處理。",
+      "implementationBoundary": {
+        "included": [
+          "12-hour to 24-hour clock representation conversion",
+          "24-hour to 12-hour clock representation conversion",
+          "morning and afternoon label handling",
+          "0-hour and 12-hour boundary handling",
+          "deterministic converted-time answer"
+        ],
+        "crossDayConversionAllowed": false,
+        "elapsedTimeAllowed": false,
+        "durationUnitConversionAllowed": false,
+        "timeArithmeticAllowed": false,
+        "scheduleReasoningAllowed": false
+      }
+    },
+    {
+      "knowledgePointId": "kp_time_unit_conversion_day_hour_minute",
+      "canonicalNameZh": "日、時、分單位換算",
+      "capabilityStatement": "學生能運用一日等於二十四時、一時等於六十分，在日、時、分之間做整數與複名數換算。",
+      "reasoningInvariant": "日與時以二十四為換算基準，時與分以六十為換算基準；由較大單位換成較小單位使用整數倍，由較小單位換成複名數時使用商與餘數正規化。",
+      "implementationBoundary": {
+        "included": [
+          "day to hour conversion",
+          "hour to day-hour mixed-unit normalization",
+          "hour to minute conversion",
+          "minute to hour-minute mixed-unit normalization",
+          "deterministic converted-quantity answer"
+        ],
+        "secondUnitConversionAllowed": false,
+        "crossDayClockReasoningAllowed": false,
+        "elapsedTimeAllowed": false,
+        "timeArithmeticAllowed": false,
+        "scheduleReasoningAllowed": false
+      }
     }
-  },
+  ],
   "formalMapping": {
     "runtimeProfileId": "profile_time",
     "requiredW4CapabilityIds": [
-      "cap_time_system_arithmetic"
+      "cap_mixed_unit_normalization",
+      "cap_quantity_domain_validator",
+      "cap_time_system_arithmetic",
+      "cap_unit_conversion"
     ],
+    "knowledgePointCapabilityRequirements": {
+      "kp_time_12_24_hour_conversion": [
+        "cap_time_system_arithmetic"
+      ],
+      "kp_time_unit_conversion_day_hour_minute": [
+        "cap_mixed_unit_normalization",
+        "cap_quantity_domain_validator",
+        "cap_unit_conversion"
+      ]
+    },
     "sharedFoundationCapabilityIds": [
       "cap_pattern_spec_resolution",
       "cap_deterministic_answer_model",
@@ -62,37 +90,87 @@
       "cap_html_print_renderer",
       "cap_text_numeric_representation"
     ],
-    "timeSystemIds": ["CLOCK_12_HOUR", "CLOCK_24_HOUR"]
+    "timeSystemIds": ["CLOCK_12_HOUR", "CLOCK_24_HOUR"],
+    "timeUnitFactors": {
+      "hoursPerDay": 24,
+      "minutesPerHour": 60
+    }
   },
-  "patternGroup": {
-    "patternGroupId": "pg_g3b_u03_time_12_24_hour_conversion_numeric",
-    "displayName": "十二小時制與二十四小時制換算",
-    "questionMode": "numeric",
-    "representationTag": "time_system_conversion"
-  },
-  "patternSpec": {
-    "patternSpecId": "ps_g3b_u03_time_12_24_hour_conversion_numeric",
-    "operationModelId": "op_g3b_u03_time_12_24_hour_conversion",
-    "operationFamilyId": "time_system_conversion",
-    "answerType": "time_system_representation",
-    "requestedUnknownRole": "convertedTimeRepresentation",
-    "givenRoles": ["sourceTimeRepresentation", "conversionDirection"],
-    "constraints": {
-      "allowedDirections": ["12_TO_24", "24_TO_12"],
-      "crossDayForbidden": true,
-      "elapsedTimeForbidden": true,
-      "durationUnitConversionForbidden": true,
-      "timeArithmeticForbidden": true,
-      "scheduleReasoningForbidden": true
+  "patternGroups": [
+    {
+      "patternGroupId": "pg_g3b_u03_time_12_24_hour_conversion_numeric",
+      "primaryKnowledgePointId": "kp_time_12_24_hour_conversion",
+      "displayName": "十二小時制與二十四小時制換算",
+      "questionMode": "numeric",
+      "representationTag": "time_system_conversion"
     },
-    "sourceBacked": true,
-    "operatorApprovedExtension": false,
-    "applicationClassification": "DIRECT_SOURCE_TIME_SYSTEM_CONVERSION"
-  },
+    {
+      "patternGroupId": "pg_g3b_u03_time_unit_conversion_day_hour_minute_numeric",
+      "primaryKnowledgePointId": "kp_time_unit_conversion_day_hour_minute",
+      "displayName": "日、時、分單位換算",
+      "questionMode": "numeric",
+      "representationTag": "time_unit_conversion"
+    }
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g3b_u03_time_12_24_hour_conversion_numeric",
+      "knowledgePointId": "kp_time_12_24_hour_conversion",
+      "operationModelId": "op_g3b_u03_time_12_24_hour_conversion",
+      "operationFamilyId": "time_system_conversion",
+      "answerType": "time_system_representation",
+      "requestedUnknownRole": "convertedTimeRepresentation",
+      "givenRoles": ["sourceTimeRepresentation", "conversionDirection"],
+      "constraints": {
+        "allowedDirections": ["12_TO_24", "24_TO_12"],
+        "crossDayForbidden": true,
+        "elapsedTimeForbidden": true,
+        "durationUnitConversionForbidden": true,
+        "timeArithmeticForbidden": true,
+        "scheduleReasoningForbidden": true
+      },
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_TIME_SYSTEM_CONVERSION"
+    },
+    {
+      "patternSpecId": "ps_g3b_u03_time_unit_conversion_day_hour_minute_numeric",
+      "knowledgePointId": "kp_time_unit_conversion_day_hour_minute",
+      "operationModelId": "op_g3b_u03_time_unit_conversion_day_hour_minute",
+      "operationFamilyId": "time_unit_conversion",
+      "answerType": "time_unit_representation",
+      "requestedUnknownRole": "convertedTimeQuantity",
+      "givenRoles": ["sourceQuantityRepresentation", "conversionDirection"],
+      "constraints": {
+        "allowedDirections": [
+          "DAY_TO_HOUR",
+          "HOUR_TO_DAY_HOUR",
+          "HOUR_TO_MINUTE",
+          "MINUTE_TO_HOUR_MINUTE"
+        ],
+        "hoursPerDay": 24,
+        "minutesPerHour": 60,
+        "mixedUnitNormalizationRequired": true,
+        "secondsForbidden": true,
+        "elapsedTimeForbidden": true,
+        "timeArithmeticForbidden": true,
+        "scheduleReasoningForbidden": true
+      },
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_TIME_UNIT_CONVERSION"
+    }
+  ],
   "acceptance": {
-    "bothConversionDirectionsRequired": true,
+    "frozenKnowledgePointCount": 2,
+    "bothClockConversionDirectionsRequired": true,
+    "allFourUnitConversionDirectionsRequired": true,
     "morningAndAfternoonCoverageRequired": true,
     "boundaryZeroAndTwelveRequired": true,
+    "dayHourFactorRequired": 24,
+    "hourMinuteFactorRequired": 60,
+    "mixedUnitNormalizationRequired": true,
+    "secondsRejected": true,
     "duplicatePromptRejected": true,
     "genericFallbackAllowed": false,
     "parallelPipelineAllowed": false,
