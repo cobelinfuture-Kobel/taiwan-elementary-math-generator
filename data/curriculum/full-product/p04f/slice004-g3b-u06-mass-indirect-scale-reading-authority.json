@@ -52,7 +52,7 @@
   ],
   "formalMapping": {
     "runtimeProfileId": "profile_quantity_measurement",
-    "requiredW4CapabilityIds": ["cap_quantity_domain_validator", "cap_scale_instrument_representation"],
+    "requiredW4CapabilityIds": ["cap_mixed_unit_normalization", "cap_quantity_domain_validator", "cap_scale_instrument_representation", "cap_unit_conversion"],
     "knowledgePointCapabilityRequirements": {
       "kp_mass_indirect_comparison": ["cap_quantity_domain_validator"],
       "kp_mass_scale_unit_and_reading": ["cap_quantity_domain_validator", "cap_scale_instrument_representation"]
@@ -96,7 +96,8 @@
     "indirectComparisonAllRelationsRequired": true,
     "gramAndKilogramScaleWitnessRequired": true,
     "scaleInstrumentRepresentationRequired": true,
-    "duplicatePromptRejected": true,
+    "duplicateQuestionIdentityRejected": true,
+    "representationBoundPromptIdentity": true,
     "kgGConversionRejected": true,
     "mixedUnitComparisonRejected": true,
     "massArithmeticRejected": true,
