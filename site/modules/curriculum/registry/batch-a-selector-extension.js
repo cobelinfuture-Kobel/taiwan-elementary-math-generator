@@ -1,10 +1,10 @@
 export * from "./batch-a-selector-p01e-extension.js";
 
 import * as historical from "./batch-a-selector-p01e-extension.js";
-import * as current from "./batch-a-selector-p04f5-extension.js";
+import * as current from "./batch-a-selector-p04f6-extension.js";
 
 // Earlier inventory milestones run in Node and retain the exact P01E selector snapshot.
-// The actual Classic browser consumes the bounded P04F5 successor without mutating those histories.
+// The actual Classic browser consumes the bounded P04F6 successor without mutating those histories.
 const currentBrowserSelectorActive = () => typeof document !== "undefined";
 
 export const BATCH_A_SELECTOR_AVAILABILITY = currentBrowserSelectorActive()
