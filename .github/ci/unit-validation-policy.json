@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.3.0",
+  "schemaVersion": "1.4.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
   "status": "ACTIVE_LAYER3_FOCUSED_EXECUTION_REQUIRED_CHECK_PENDING",
   "sourceAuthority": "回歸測試成本分析.txt",
@@ -49,7 +49,8 @@
     "suffix": ".validation.json",
     "requiredScopes": [
       "KP_LEAF",
-      "UNIT_INTEGRATION"
+      "UNIT_INTEGRATION",
+      "SHARED_RUNTIME"
     ],
     "allowedStepKinds": [
       "NODE_TEST",
@@ -106,6 +107,18 @@
         "GLOBAL_BROWSER_REPLAY"
       ]
     },
+    "SHARED_RUNTIME_BOUNDED": {
+      "fullRegression": false,
+      "globalReplay": false,
+      "requiredGates": [
+        "GLOBAL_CONTRACTS",
+        "TARGETED_ROUTE_REPLAY"
+      ],
+      "forbiddenGates": [
+        "FULL_NODE_REGRESSION",
+        "GLOBAL_BROWSER_REPLAY"
+      ]
+    },
     "UNIT_FULL_ONCE": {
       "fullRegression": true,
       "fullRegressionFrequency": "ONCE_PER_EXACT_HEAD",
@@ -143,7 +156,7 @@
       "currentAuthorityChanged"
     ],
     "globalEscalation": {
-      "sharedExecutableChange": true,
+      "sharedExecutableChange": "ONLY_WITH_UNBOUNDED_OR_UNKNOWN_ROUTE_IMPACT",
       "legalRouteSemanticsChanged": true,
       "affectedRoutes": [
         "UNBOUNDED",
@@ -172,7 +185,9 @@
     },
     "SHARED_RUNTIME": {
       "requiresSharedExecutableChange": true,
-      "baseLane": "GLOBAL_CERTIFICATION"
+      "requiresValidationPlanWhenBounded": true,
+      "boundedLane": "SHARED_RUNTIME_BOUNDED",
+      "globalLane": "GLOBAL_CERTIFICATION"
     },
     "GLOBAL_RELEASE": {
       "requiresGlobalReleaseCheckpoint": true,
