@@ -1,0 +1,103 @@
+{
+  "schemaName": "P04F3G3BU03Time1224HourConversionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice003Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q003_r0_g3b_u03_3b03_profile_time_c1",
+    "queuePosition": 3,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q002_r0_g3b_u02_3b02_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true
+  },
+  "source": {
+    "sourceNodeId": "g3b_u03_3b03",
+    "unitCode": "3B-U03",
+    "unitTitle": "時間",
+    "sourcePdfTitle": "meow911_3b03_time.pdf",
+    "driveFileId": "1eZEJqrhcc2zymoca0H_33zRUnZgUhUfu",
+    "reviewedPages": [1, 2],
+    "primaryWitnessPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_time_12_24_hour_conversion",
+    "canonicalNameZh": "十二小時制與二十四小時制換算",
+    "capabilityStatement": "學生能在十二小時制與二十四小時制之間正確轉換時刻表示。",
+    "reasoningInvariant": "上午時刻保留小時數，下午一時至十一時轉成二十四小時制時加十二；二十四小時制十三時至二十三時轉回下午時刻時減十二，零時與十二時需依教材邊界語意處理。",
+    "implementationBoundary": {
+      "included": [
+        "12-hour to 24-hour clock representation conversion",
+        "24-hour to 12-hour clock representation conversion",
+        "morning and afternoon label handling",
+        "0-hour and 12-hour boundary handling",
+        "deterministic converted-time answer"
+      ],
+      "excludedKnowledgePointIds": [
+        "kp_elapsed_time_same_day",
+        "kp_time_add_sub_with_regrouping",
+        "kp_schedule_start_end_duration",
+        "kp_g4b_u09_elapsed_time_cross_day",
+        "kp_g4b_u09_time_addition_regrouping",
+        "kp_g4b_u09_time_subtraction_borrowing"
+      ],
+      "crossDayConversionAllowed": false,
+      "elapsedTimeAllowed": false,
+      "durationUnitConversionAllowed": false,
+      "timeArithmeticAllowed": false,
+      "scheduleReasoningAllowed": false
+    }
+  },
+  "formalMapping": {
+    "runtimeProfileId": "profile_time",
+    "requiredW4CapabilityIds": [
+      "cap_time_system_arithmetic"
+    ],
+    "sharedFoundationCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_text_numeric_representation"
+    ],
+    "timeSystemIds": ["CLOCK_12_HOUR", "CLOCK_24_HOUR"]
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g3b_u03_time_12_24_hour_conversion_numeric",
+    "displayName": "十二小時制與二十四小時制換算",
+    "questionMode": "numeric",
+    "representationTag": "time_system_conversion"
+  },
+  "patternSpec": {
+    "patternSpecId": "ps_g3b_u03_time_12_24_hour_conversion_numeric",
+    "operationModelId": "op_g3b_u03_time_12_24_hour_conversion",
+    "operationFamilyId": "time_system_conversion",
+    "answerType": "time_system_representation",
+    "requestedUnknownRole": "convertedTimeRepresentation",
+    "givenRoles": ["sourceTimeRepresentation", "conversionDirection"],
+    "constraints": {
+      "allowedDirections": ["12_TO_24", "24_TO_12"],
+      "crossDayForbidden": true,
+      "elapsedTimeForbidden": true,
+      "durationUnitConversionForbidden": true,
+      "timeArithmeticForbidden": true,
+      "scheduleReasoningForbidden": true
+    },
+    "sourceBacked": true,
+    "operatorApprovedExtension": false,
+    "applicationClassification": "DIRECT_SOURCE_TIME_SYSTEM_CONVERSION"
+  },
+  "acceptance": {
+    "bothConversionDirectionsRequired": true,
+    "morningAndAfternoonCoverageRequired": true,
+    "boundaryZeroAndTwelveRequired": true,
+    "duplicatePromptRejected": true,
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "crossDayLeakRejected": true,
+    "elapsedTimeLeakRejected": true,
+    "timeArithmeticLeakRejected": true
+  }
+}
