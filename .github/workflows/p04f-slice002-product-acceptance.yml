@@ -1,0 +1,57 @@
+name: P04F Slice002 Product Acceptance
+
+on:
+  push:
+    branches:
+      - p04f2-q002-chromium-product-acceptance
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p04f2-product-acceptance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-core-acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run P04F2 focused contract
+        run: node --test tests/curriculum/p04f-slice002-g3b-u02-capacity-unit-identity.test.js
+
+  chromium-product-acceptance:
+    needs: focused-core-acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Install Chromium and acceptance font
+        run: |
+          npm install --no-save --package-lock=false playwright@1.51.1 @fontsource/noto-sans-tc@5.2.9
+          npx playwright install --with-deps chromium
+      - name: Run P04F2 Chromium product acceptance
+        run: node tools/curriculum/render-p04f-slice002-product-acceptance.mjs
+      - name: Upload P04F2 product artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p04f-slice002-product-acceptance
+          path: tmp/p04f-slice002-product-acceptance
+          if-no-files-found: error
+          retention-days: 30
