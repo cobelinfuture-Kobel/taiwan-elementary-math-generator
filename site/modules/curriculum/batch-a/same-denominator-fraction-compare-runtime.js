@@ -26,7 +26,7 @@ const APPLICATION_FIXTURES = Object.freeze([
 ]);
 function buildPgcR05ApplicationFixtures() {
   const rows = [];
-  for (let denominator = 2; denominator <= 10; denominator += 1) {
+  for (let denominator = 2; denominator <= 20; denominator += 1) {
     rows.push(Object.freeze({ leftNumerator: denominator - 1, denominator, rightNumerator: denominator, target: "pair", relation: "<" }));
     rows.push(Object.freeze({ leftNumerator: denominator - 1, denominator, rightNumerator: denominator - 1, target: "pair", relation: "=" }));
     rows.push(Object.freeze({ leftNumerator: denominator + 1, denominator, rightNumerator: denominator - 1, target: "pair", relation: ">" }));
@@ -40,13 +40,12 @@ const PGC_R05_APPLICATION_FIXTURES = Object.freeze(buildPgcR05ApplicationFixture
 function buildNumericFixtures() {
   const rows = [];
   for (let denominator = 2; denominator <= 20; denominator += 1) {
-    for (let leftNumerator = 1; leftNumerator <= denominator + 4; leftNumerator += 1) {
-      for (let rightNumerator = 1; rightNumerator <= denominator + 4; rightNumerator += 1) {
-        if (leftNumerator === rightNumerator && leftNumerator % 2 === 0) continue;
-        rows.push(Object.freeze({ leftNumerator, denominator, rightNumerator, target: "pair", relation: leftNumerator < rightNumerator ? "<" : leftNumerator > rightNumerator ? ">" : "=" }));
-      }
-      rows.push(Object.freeze({ leftNumerator, denominator, rightNumerator: denominator, target: "one", relation: leftNumerator < denominator ? "<" : leftNumerator > denominator ? ">" : "=" }));
-    }
+    rows.push(Object.freeze({ leftNumerator: denominator - 1, denominator, rightNumerator: denominator, target: "pair", relation: "<" }));
+    rows.push(Object.freeze({ leftNumerator: denominator - 1, denominator, rightNumerator: denominator - 1, target: "pair", relation: "=" }));
+    rows.push(Object.freeze({ leftNumerator: denominator + 1, denominator, rightNumerator: denominator - 1, target: "pair", relation: ">" }));
+    rows.push(Object.freeze({ leftNumerator: denominator - 1, denominator, rightNumerator: denominator, target: "one", relation: "<" }));
+    rows.push(Object.freeze({ leftNumerator: denominator, denominator, rightNumerator: denominator, target: "one", relation: "=" }));
+    rows.push(Object.freeze({ leftNumerator: denominator + 1, denominator, rightNumerator: denominator, target: "one", relation: ">" }));
   }
   return rows;
 }
@@ -80,11 +79,9 @@ function metadata(definition, authority) {
 function buildQuestion(patternSpecId, ordinal, seed) {
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
   const authority = patternSpecId === G3A_U08_SAME_DENOMINATOR_APPLICATION_SPEC_ID ? P03F6_APPLICATION_AUTHORITY : null;
-  const fixtures = authority && isPgcR05Seed(seed)
+  const fixtures = authority
     ? PGC_R05_APPLICATION_FIXTURES
-    : authority || !isPgcR04Seed(seed)
-      ? APPLICATION_FIXTURES
-      : NUMERIC_FIXTURES;
+    : NUMERIC_FIXTURES;
   const fixture = fixtures[(ordinal + seedOffset(seed, fixtures.length)) % fixtures.length];
   const leftDenominator = fixture.denominator;
   const rightDenominator = fixture.denominator;

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G3A_U08_FRACTION_CAPACITY_RENDERER_ORDERING_BOUNDED_VALIDATION",
+  "unitId": "g3a_u08_3a08",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p03f-slice001-part-whole-fraction.test.js",
+          "tests/curriculum/p03f-slice002-fraction-quantity.test.js",
+          "tests/curriculum/p03f-slice006-same-denominator-compare.test.js",
+          "tests/curriculum/pgc-r05-g3a-u08-application-diversity.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g3a-u08-current-capacity-renderer-ordering.test.js"
+        ]
+      }
+    ]
+  }
+}

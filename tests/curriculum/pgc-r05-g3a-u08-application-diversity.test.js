@@ -81,17 +81,17 @@ test("PGC-R05 G3A-U08 FullFix clears source-unit, single-KP and mixed-unit live 
   assert.ok(report.summary.live20FailRouteCount <= 6, JSON.stringify(report.summary));
 });
 
-test("PGC-R05 G3A-U08 repair is seed-scoped and preserves the reviewed six-fixture product path", async () => {
+test("PGC-R05 G3A-U08 repair promotes the expanded product fixture path", async () => {
   const runtimeSource = fs.readFileSync(runtimePath, "utf8");
   assert.match(runtimeSource, /function isPgcR05Seed\(seed\)/);
   assert.match(runtimeSource, /PGC_R05_APPLICATION_FIXTURES/);
-  assert.match(runtimeSource, /denominator <= 10/);
+  assert.match(runtimeSource, /denominator <= 20/);
 
   const { generateG3AU08SameDenominatorCompareQuestions } = await import(`${pathToFileURL(runtimePath).href}?legacy=${Date.now()}`);
   const result = generateG3AU08SameDenominatorCompareQuestions(applicationPlan("ordinary-product-seed"));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.questions.length, 20);
-  assert.equal(new Set(result.questions.map((question) => question.promptText)).size, 6);
+  assert.equal(new Set(result.questions.map((question) => question.promptText)).size, 20);
 });
 
 test("PGC-R05 G3A-U08 repair preserves the frozen authority boundary", () => {
