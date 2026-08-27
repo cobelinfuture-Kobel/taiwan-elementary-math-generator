@@ -12,7 +12,7 @@ export function validateBatchABrowserPlan(plan = {}) {
   const slice018 = plan.sourceId === G4A_U09_DECIMAL_COMPOSE_SOURCE_ID && Array.isArray(plan.patternSpecIds) && plan.patternSpecIds.length === 1 && plan.patternSpecIds[0] === G4A_U09_DECIMAL_COMPOSE_PATTERN_SPEC_ID;
   if (!slice018) return validateBasePlan(plan);
   const errors = [];
-  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 18) errors.push(issue("p03f18_question_count_invalid", "questionCount"));
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount <= 0 || plan.questionCount > 240) errors.push(issue("p03f18_question_count_invalid", "questionCount"));
   if (plan.questionMode !== "numeric") errors.push(issue("p03f18_question_mode_mismatch", "questionMode"));
   if (plan.genericFallbackAllowed !== false) errors.push(issue("p03f18_generic_fallback_must_be_disabled", "genericFallbackAllowed"));
   if (!getBatchABrowserPatternDefinition(G4A_U09_DECIMAL_COMPOSE_PATTERN_SPEC_ID)) errors.push(issue("p03f18_pattern_definition_invalid", "patternSpecIds"));

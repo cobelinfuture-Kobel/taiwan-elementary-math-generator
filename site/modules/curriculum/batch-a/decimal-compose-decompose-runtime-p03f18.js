@@ -20,9 +20,16 @@ function hashSeed(value) {
 function canonicalDecimal(whole, tenths, hundredths) {
   return `${whole}.${tenths}${hundredths}`;
 }
-function buildQuestion(index, seed = "p03f18") {
+function expandedCase(index, seed) {
+  const poolSize = 5000;
+  const value = (hashSeed(seed) % poolSize + (index - 1) * 37) % poolSize;
+  return [Math.floor(value / 100), Math.floor((value % 100) / 10), value % 10];
+}
+function buildQuestion(index, seed = "p03f18", expanded = false) {
   const offset = hashSeed(seed) % CASES.length;
-  const [whole, tenths, hundredths] = CASES[(offset + index - 1) % CASES.length];
+  const [whole, tenths, hundredths] = expanded
+    ? expandedCase(index, seed)
+    : CASES[(offset + index - 1) % CASES.length];
   const answerText = canonicalDecimal(whole, tenths, hundredths);
   const promptText = `${whole} 個一、${tenths} 個 0.1 和 ${hundredths} 個 0.01 合起來是多少？`;
   return Object.freeze({
@@ -94,8 +101,9 @@ export function generateG4AU09DecimalComposeSlice018Questions(options = {}) {
   const generationSeed = String(options.generationSeed ?? "p03f18");
   const plan = options.plan ?? { sourceId: options.sourceId, patternSpecIds: options.patternSpecIds, questionCount, generationSeed };
   if (!canGenerateG4AU09DecimalComposeSlice018Questions(plan)) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f18_plan_not_supported", severity: "error", path: "plan", message: "Slice018 accepts only the admitted G4A-U09 decimal compose/decompose PatternSpec." }], warnings: [] };
-  if (!Number.isInteger(questionCount) || questionCount <= 0 || questionCount > CASES.length) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f18_question_count_invalid", severity: "error", path: "questionCount", message: "Question count must be between 1 and 18." }], warnings: [] };
-  const questions = Array.from({ length: questionCount }, (_, offset) => buildQuestion(offset + 1, generationSeed));
+  if (!Number.isInteger(questionCount) || questionCount <= 0 || questionCount > 240) return { ok: false, plan, questions: [], allocation: [], errors: [{ code: "p03f18_question_count_invalid", severity: "error", path: "questionCount", message: "Question count must be between 1 and 240." }], warnings: [] };
+  const expanded = questionCount > CASES.length;
+  const questions = Array.from({ length: questionCount }, (_, offset) => buildQuestion(offset + 1, generationSeed, expanded));
   const errors = questions.flatMap((question) => validateG4AU09DecimalComposeSlice018Question(question).errors);
   if (new Set(questions.map((row) => row.blankedDisplayText)).size !== questions.length) errors.push({ code: "p03f18_duplicate_prompt_detected", severity: "error", path: "questions", message: "Duplicate prompts are forbidden." });
   return { ok: errors.length === 0, plan, questions, allocation: [{ patternSpecId: G4A_U09_DECIMAL_COMPOSE_PATTERN_SPEC_ID, questionCount }], errors, warnings: [] };
