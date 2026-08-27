@@ -12,7 +12,32 @@ import {
 } from "../registry/g3a-u08-slice002-selector-projection.js";
 
 const Q2_IDS = new Set(G3A_U08_SLICE002_PATTERN_SPEC_IDS);
-const DENOMINATORS = Object.freeze([2, 3, 4, 6]);
+const UNIT_FRACTION_FIXTURES = Object.freeze(
+  Array.from({ length: 11 }, (_, index) => index + 2)
+    .flatMap((denominator) => Array.from(
+      { length: denominator - 1 },
+      (_, numeratorIndex) => Object.freeze({
+        numerator: numeratorIndex + 1,
+        denominator,
+      }),
+    )),
+);
+const ITEMS_PER_WHOLE_OPTIONS = Object.freeze([6, 8, 10, 12, 15, 16, 18, 20, 24, 30]);
+const DISCRETE_FIXTURES = Object.freeze(
+  ITEMS_PER_WHOLE_OPTIONS.flatMap((itemsPerWhole) => (
+    Array.from({ length: 11 }, (_, index) => index + 2)
+      .filter((denominator) => itemsPerWhole % denominator === 0)
+      .flatMap((denominator) => Array.from(
+        { length: (denominator - 1) * 3 },
+        (_, fixtureIndex) => Object.freeze({
+          itemsPerWhole,
+          denominator,
+          numerator: fixtureIndex % (denominator - 1) + 1,
+          wholeUnits: Math.floor(fixtureIndex / (denominator - 1)),
+        }),
+      ))
+  )),
+);
 const UNIT_FRACTION_APPLICATION_SURFACES = Object.freeze([
   "運動會補給站把一份水果平均分成 {{denominator}} 小份。小安取得 {{count}} 小份，共是一份水果的幾分之幾？",
   "校園健康活動把一份點心平均分成 {{denominator}} 小份。參與者拿到 {{count}} 小份，占整份的幾分之幾？",
@@ -23,7 +48,6 @@ const UNIT_FRACTION_APPLICATION_SURFACES = Object.freeze([
   "校慶接力活動把一份飲水補給平均分成 {{denominator}} 份。分出 {{count}} 份，占全部的幾分之幾？",
   "戶外活動把一份補給品平均切成 {{denominator}} 份。隊員拿走 {{count}} 份，拿走全份的幾分之幾？",
 ]);
-const ITEMS_PER_WHOLE = 12;
 const gcd = (a, b) => { let x = Math.abs(a); let y = Math.abs(b); while (y) [x, y] = [y, x % y]; return x || 1; };
 const fraction = (n, d) => { const g = gcd(n, d); return Object.freeze({ numerator: n / g, denominator: d / g }); };
 const fractionText = (value) => `${value.numerator}/${value.denominator}`;
@@ -86,16 +110,37 @@ function metadata(definition, authority = null) {
   });
 }
 function mixedText(wholeUnits, numerator, denominator) { return wholeUnits > 0 ? `${wholeUnits}又${numerator}/${denominator}` : `${numerator}/${denominator}`; }
+function coprimeStep(size) {
+  for (const candidate of [97, 89, 83, 79, 73, 71, 67, 61]) {
+    if (gcd(candidate, size) === 1) return candidate;
+  }
+  return 1;
+}
+function fixtureAt(fixtures, ordinal, seed, channel) {
+  const offset = state(seed, 0, `${channel}:offset`) % fixtures.length;
+  const index = (offset + ordinal * coprimeStep(fixtures.length)) % fixtures.length;
+  return fixtures[index];
+}
 function buildQuestion(patternSpecId, ordinal, seed, variantOffset = 0) {
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
-  const sampleIndex = ordinal + variantOffset * 97;
-  const denominator = DENOMINATORS[state(seed, sampleIndex, `${patternSpecId}:denominator`) % DENOMINATORS.length];
-  const numerator = 1 + state(seed, sampleIndex, `${patternSpecId}:numerator`) % (denominator - 1);
+  const sampleIndex = ordinal + variantOffset;
+  const isUnitFraction = [
+    G3A_U08_UNIT_FRACTION_NUMERIC_SPEC_ID,
+    G3A_U08_UNIT_FRACTION_APPLICATION_SPEC_ID,
+  ].includes(patternSpecId);
+  const fixture = fixtureAt(
+    isUnitFraction ? UNIT_FRACTION_FIXTURES : DISCRETE_FIXTURES,
+    sampleIndex,
+    seed,
+    patternSpecId,
+  );
+  const { denominator, numerator } = fixture;
   const unitFractionCount = numerator;
-  const wholeUnits = state(seed, sampleIndex, `${patternSpecId}:whole`) % 2;
-  const partialItemCount = numerator * ITEMS_PER_WHOLE / denominator;
-  const itemCount = wholeUnits * ITEMS_PER_WHOLE + partialItemCount;
-  const fractionalUnits = fraction(itemCount, ITEMS_PER_WHOLE);
+  const wholeUnits = fixture.wholeUnits ?? 0;
+  const itemsPerWhole = fixture.itemsPerWhole ?? 12;
+  const partialItemCount = numerator * itemsPerWhole / denominator;
+  const itemCount = wholeUnits * itemsPerWhole + partialItemCount;
+  const fractionalUnits = fraction(itemCount, itemsPerWhole);
   const authority = P03F2_APPLICATION_AUTHORITIES[patternSpecId] ?? null;
   let promptText;
   let answerText;
@@ -120,13 +165,13 @@ function buildQuestion(patternSpecId, ordinal, seed, variantOffset = 0) {
     finalAnswer = fraction(unitFractionCount, denominator); answerText = fractionText(finalAnswer);
   } else if ([G3A_U08_DISCRETE_ITEM_COUNT_NUMERIC_SPEC_ID, G3A_U08_DISCRETE_ITEM_COUNT_APPLICATION_SPEC_ID].includes(patternSpecId)) {
     promptText = patternSpecId === G3A_U08_DISCRETE_ITEM_COUNT_APPLICATION_SPEC_ID
-      ? `古代市集每盒交易籌碼有 ${ITEMS_PER_WHOLE} 枚。商人準備 ${mixedText(wholeUnits, numerator, denominator)} 盒，共有幾枚？`
-      : `每個大單位有 ${ITEMS_PER_WHOLE} 個，${mixedText(wholeUnits, numerator, denominator)} 個大單位共有幾個？`;
+      ? `古代市集每盒交易籌碼有 ${itemsPerWhole} 枚。商人準備 ${mixedText(wholeUnits, numerator, denominator)} 盒，共有幾枚？`
+      : `每個大單位有 ${itemsPerWhole} 個，${mixedText(wholeUnits, numerator, denominator)} 個大單位共有幾個？`;
     finalAnswer = itemCount; answerText = `${itemCount}`;
   } else {
     promptText = patternSpecId === G3A_U08_DISCRETE_FRACTIONAL_UNITS_APPLICATION_SPEC_ID
-      ? `家中每完成 ${ITEMS_PER_WHOLE} 張家務卡算 1 組。完成 ${itemCount} 張相當於幾組？`
-      : `每 ${ITEMS_PER_WHOLE} 個為 1 個大單位，${itemCount} 個相當於多少個大單位？`;
+      ? `家中每完成 ${itemsPerWhole} 張家務卡算 1 組。完成 ${itemCount} 張相當於幾組？`
+      : `每 ${itemsPerWhole} 個為 1 個大單位，${itemCount} 個相當於多少個大單位？`;
     finalAnswer = fractionalUnits; answerText = fractionText(fractionalUnits);
   }
   return Object.freeze({
@@ -135,7 +180,7 @@ function buildQuestion(patternSpecId, ordinal, seed, variantOffset = 0) {
     questionMode: definition.questionMode, mode: definition.mode,
     promptText, questionText: promptText, blankedDisplayText: promptText, displayText: `${promptText} ${answerText}`,
     answerText, finalAnswer, numerator, denominator, unitFractionCount, wholeUnits,
-    itemsPerWhole: ITEMS_PER_WHOLE, itemCount, fractionalUnits,
+    itemsPerWhole, itemCount, fractionalUnits,
     metadata: metadata(definition, authority),
     globalContextProduction: authority ? Object.freeze({ status: "GLOBAL_CONTEXT_BOUND", ...authority }) : null,
   });
@@ -156,7 +201,7 @@ export function validateG3AU08Slice002Question(question = {}) {
   if (!Q2_IDS.has(id) || !definition) add("p03f2_pattern_invalid", "patternSpecId");
   if (question.sourceId !== G3A_U08_SOURCE_ID || question.metadata?.sourceId !== G3A_U08_SOURCE_ID) add("p03f2_source_mismatch", "sourceId");
   if (question.metadata?.knowledgePointId !== definition?.knowledgePointId || question.metadata?.patternGroupId !== definition?.patternGroupId) add("p03f2_lineage_mismatch", "metadata");
-  if (!Number.isSafeInteger(question.denominator) || !DENOMINATORS.includes(question.denominator)) add("p03f2_denominator_invalid", "denominator");
+  if (!Number.isSafeInteger(question.denominator) || question.denominator < 2 || question.denominator > 12) add("p03f2_denominator_invalid", "denominator");
   if (!Number.isSafeInteger(question.numerator) || question.numerator <= 0 || question.numerator >= question.denominator) add("p03f2_numerator_invalid", "numerator");
   if (definition?.operationFamilyId === "fraction_accumulation") {
     const expected = fraction(question.unitFractionCount, question.denominator);
