@@ -88,7 +88,7 @@ jobs:
   focused_product:
     name: Focused product validation
     needs: classify_validation
-    if: needs.classify_validation.outputs.current_scope == 'KP_LEAF' || needs.classify_validation.outputs.current_scope == 'UNIT_INTEGRATION' || needs.classify_validation.outputs.current_scope == 'SHARED_RUNTIME'
+    if: needs.classify_validation.outputs.current_scope == 'KP_LEAF' || needs.classify_validation.outputs.current_scope == 'UNIT_INTEGRATION' || needs.classify_validation.outputs.derived_gate == 'SHARED_RUNTIME_BOUNDED'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout exact PR head
@@ -255,7 +255,7 @@ jobs:
             [[ "$POSTG_RESULT" == "skipped" ]]
           fi
 
-          if [[ "$CURRENT_SCOPE" == "KP_LEAF" || "$CURRENT_SCOPE" == "UNIT_INTEGRATION" || "$CURRENT_SCOPE" == "SHARED_RUNTIME" ]]; then
+          if [[ "$CURRENT_SCOPE" == "KP_LEAF" || "$CURRENT_SCOPE" == "UNIT_INTEGRATION" || "$DERIVED_GATE" == "SHARED_RUNTIME_BOUNDED" ]]; then
             [[ "$PRODUCT_RESULT" == "success" ]]
           else
             [[ "$PRODUCT_RESULT" == "skipped" ]]
