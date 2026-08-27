@@ -112,13 +112,24 @@ test("Same exact-head full regression PASS must be reused", () => {
   assert.equal(changedHead.action, "RUN_REQUIRED");
 });
 
-test("Any shared runtime change derives GLOBAL_CERTIFICATION per mandatory source authority", () => {
-  assert.equal(
-    deriveValidationLane({ policy: POLICY, state: "KP_VALIDATING", currentScope: "SHARED_RUNTIME", changeImpact: impact({ sharedExecutableChange: true }) }),
-    "GLOBAL_CERTIFICATION",
+test("Bounded shared runtime uses targeted lane while unbounded or semantic changes require global certification", () => {
+  const bounded = deriveValidationLane({
+    policy: POLICY,
+    state: "KP_VALIDATING",
+    currentScope: "SHARED_RUNTIME",
+    changeImpact: impact({ sharedExecutableChange: true, publicAuthorityCutover: true, currentAuthorityChanged: true }),
+  });
+  assert.equal(bounded, "SHARED_RUNTIME_BOUNDED");
+  assert.deepEqual(
+    decideFullRegressionExecution({ policy: POLICY, lane: bounded, exactHeadSha: SHA_A, evidenceLedger: [] }),
+    { action: "FORBIDDEN", runFullRegression: false, reason: "LANE_FORBIDS_FULL_REGRESSION" },
   );
   assert.equal(
     deriveValidationLane({ policy: POLICY, state: "KP_VALIDATING", currentScope: "SHARED_RUNTIME", changeImpact: impact({ sharedExecutableChange: true, affectedRoutes: "UNBOUNDED" }) }),
+    "GLOBAL_CERTIFICATION",
+  );
+  assert.equal(
+    deriveValidationLane({ policy: POLICY, state: "KP_VALIDATING", currentScope: "SHARED_RUNTIME", changeImpact: impact({ sharedExecutableChange: true, legalRouteSemanticsChanged: true }) }),
     "GLOBAL_CERTIFICATION",
   );
   assert.equal(
