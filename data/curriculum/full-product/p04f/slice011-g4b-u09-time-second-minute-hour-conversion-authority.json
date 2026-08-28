@@ -1,0 +1,111 @@
+{
+  "schemaName": "P04F11G4BU09TimeSecondMinuteHourConversionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice011Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q011_r1_g4b_u09_4b09_profile_time_c1",
+    "queuePosition": 11,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q010_r1_g4a_u10_4a10_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 1
+  },
+  "source": {
+    "sourceNodeId": "g4b_u09_4b09",
+    "unitCode": "4B-U09",
+    "unitTitle": "時間的計算",
+    "sourcePdfTitle": "meow911_4b09_source.pdf",
+    "driveFileId": "project-source:g4b_u09_4b09",
+    "reviewedPages": [1, 2, 3],
+    "primaryWitnessPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_REUSED_FROM_R02"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g4b_u09_time_second_minute_hour_conversion",
+    "canonicalNameZh": "時分秒換算",
+    "capabilityStatement": "學生能在時、分、秒間進行等值換算。",
+    "reasoningInvariant": "1時等於60分、1分等於60秒，換算保持總時間。",
+    "implementationBoundary": {
+      "included": [
+        "hour to minute integer conversion",
+        "minute to hour exact integer conversion",
+        "minute to second integer conversion",
+        "second to minute exact integer conversion",
+        "1 hour equals 60 minutes",
+        "1 minute equals 60 seconds",
+        "deterministic converted-time answer"
+      ],
+      "excludedKnowledgePointIds": [
+        "kp_g4b_u09_time_addition_regrouping",
+        "kp_g4b_u09_time_subtraction_borrowing",
+        "kp_g4b_u09_elapsed_time_cross_day",
+        "kp_g4b_u09_timetable_schedule_reasoning"
+      ],
+      "directHourSecondConversionAllowed": false,
+      "timeArithmeticAllowed": false,
+      "crossDayElapsedTimeAllowed": false,
+      "timetableReasoningAllowed": false
+    }
+  },
+  "formalMapping": {
+    "runtimeProfileId": "profile_time",
+    "requiredW4CapabilityIds": [
+      "cap_mixed_unit_normalization",
+      "cap_quantity_domain_validator",
+      "cap_time_system_arithmetic",
+      "cap_unit_conversion"
+    ],
+    "sharedFoundationCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_text_numeric_representation"
+    ],
+    "minutesPerHour": 60,
+    "secondsPerMinute": 60
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g4b_u09_time_second_minute_hour_conversion_numeric",
+    "displayName": "時分秒換算",
+    "questionMode": "numeric",
+    "representationTag": "time_unit_conversion"
+  },
+  "patternSpec": {
+    "patternSpecId": "ps_g4b_u09_time_second_minute_hour_conversion_numeric",
+    "operationModelId": "op_g4b_u09_time_second_minute_hour_conversion",
+    "operationFamilyId": "time_unit_conversion",
+    "answerType": "time_unit_representation",
+    "requestedUnknownRole": "convertedTimeQuantity",
+    "givenRoles": ["sourceQuantityRepresentation", "conversionDirection"],
+    "constraints": {
+      "allowedDirections": ["HOUR_TO_MINUTE", "MINUTE_TO_HOUR", "MINUTE_TO_SECOND", "SECOND_TO_MINUTE"],
+      "minutesPerHour": 60,
+      "secondsPerMinute": 60,
+      "exactIntegerConversionRequired": true,
+      "directHourSecondConversionForbidden": true,
+      "timeArithmeticForbidden": true,
+      "crossDayElapsedTimeForbidden": true,
+      "timetableReasoningForbidden": true
+    },
+    "sourceBacked": true,
+    "operatorApprovedExtension": false,
+    "applicationClassification": "DIRECT_SOURCE_TIME_UNIT_CONVERSION"
+  },
+  "acceptance": {
+    "allFourAdjacentDirectionsRequired": true,
+    "minutesPerHourRequired": 60,
+    "secondsPerMinuteRequired": 60,
+    "exactIntegerAnswersRequired": true,
+    "duplicatePromptRejected": true,
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "directHourSecondLeakRejected": true,
+    "timeArithmeticLeakRejected": true,
+    "crossDayLeakRejected": true,
+    "timetableLeakRejected": true
+  }
+}
