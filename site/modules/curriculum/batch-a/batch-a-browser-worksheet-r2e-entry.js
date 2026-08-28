@@ -4,4 +4,6 @@ import {buildBatchABrowserWorksheetDocument as buildP04F11WorksheetDocument} fro
 import {requestsP04F11} from "./batch-a-browser-generator-p04f11.js";
 import {buildBatchABrowserWorksheetDocument as buildP04F12WorksheetDocument} from "./batch-a-browser-worksheet-p04f12-extension.js";
 import {requestsP04F12} from "./batch-a-browser-generator-p04f12.js";
-export function buildBatchABrowserWorksheetDocument(options={}){return requestsP04F12(options)?buildP04F12WorksheetDocument(options):requestsP04F11(options)?buildP04F11WorksheetDocument(options):buildP04F10R2EWorksheetDocument(options);}
+import {buildBatchABrowserWorksheetDocument as buildP04F13WorksheetDocument} from "./batch-a-browser-worksheet-p04f13-extension.js";
+import {requestsP04F13} from "./batch-a-browser-generator-p04f13.js";
+export function buildBatchABrowserWorksheetDocument(options={}){return requestsP04F13(options)?buildP04F13WorksheetDocument(options):requestsP04F12(options)?buildP04F12WorksheetDocument(options):requestsP04F11(options)?buildP04F11WorksheetDocument(options):buildP04F10R2EWorksheetDocument(options);}
