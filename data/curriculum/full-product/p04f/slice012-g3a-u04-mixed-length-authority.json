@@ -1,0 +1,103 @@
+{
+  "schemaName": "P04F12G3AU04MixedLengthAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice012Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q012_r2_g3a_u04_3a04_profile_quantity_measurement_c1",
+    "queuePosition": 12,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q011_r1_g4b_u09_4b09_profile_time_c1",
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 2
+  },
+  "source": {
+    "sourceNodeId": "g3a_u04_3a04",
+    "unitCode": "3A-U04",
+    "unitTitle": "毫米與數線",
+    "sourcePdfTitle": "meow911_3a04_mm_number_line.pdf",
+    "driveFileId": "1HJzA1iS7XS81ia-FfhCmxqDV4Se6WrGA",
+    "reviewedPages": [1, 2],
+    "primaryWitnessPages": [1, 2],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_REUSED_FROM_P04F1_P04F6"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_length_mixed_unit_compare",
+      "canonicalNameZh": "公分毫米混合量比較",
+      "capabilityStatement": "學生能先換成共同單位，再比較以公分、毫米表示的長度。",
+      "reasoningInvariant": "比較不同單位量時，必須先建立等值表示，再比較數值。",
+      "implementationBoundary": {
+        "included": ["centimeter-millimeter mixed representation comparison", "normalize both quantities to millimeters", "less-than equal greater-than relation"],
+        "excluded": ["meter or kilometer conversion", "word-problem semantics", "mixed-unit arithmetic"]
+      }
+    },
+    {
+      "knowledgePointId": "kp_length_mixed_unit_add_sub",
+      "canonicalNameZh": "公分毫米混合量加減",
+      "capabilityStatement": "學生能統一或正規化公分、毫米後進行長度加減。",
+      "reasoningInvariant": "加減前後必須保持總長度等值，10毫米可進位成1公分。",
+      "implementationBoundary": {
+        "included": ["centimeter-millimeter mixed addition", "centimeter-millimeter mixed subtraction", "millimeter carry to centimeter", "centimeter borrow to millimeter"],
+        "excluded": ["meter or kilometer conversion", "word-problem semantics", "negative length results"]
+      }
+    }
+  ],
+  "formalMapping": {
+    "runtimeProfileId": "profile_quantity_measurement",
+    "dimensionId": "LENGTH",
+    "unitFamilyId": "METRIC_LENGTH",
+    "millimetersPerCentimeter": 10,
+    "compareRequiredW4CapabilityIds": ["cap_mixed_unit_normalization", "cap_quantity_domain_validator", "cap_unit_conversion", "cap_quantity_semantic_role_binding"],
+    "addSubRequiredW4CapabilityIds": ["cap_integer_add_sub", "cap_mixed_unit_normalization", "cap_quantity_domain_validator", "cap_unit_conversion", "cap_quantity_semantic_role_binding"],
+    "sharedFoundationCapabilityIds": ["cap_quantity_dimension_unit_identity", "cap_pattern_spec_resolution", "cap_deterministic_answer_model", "cap_worksheet_document_assembly", "cap_answer_key_projection", "cap_html_print_renderer", "cap_text_numeric_representation"]
+  },
+  "patternGroups": [
+    {"patternGroupId": "pg_g3a_u04_length_mixed_unit_compare_numeric", "displayName": "公分毫米混合量比較", "knowledgePointId": "kp_length_mixed_unit_compare", "questionMode": "numeric", "representationTag": "length_mixed_unit_compare"},
+    {"patternGroupId": "pg_g3a_u04_length_mixed_unit_add_sub_numeric", "displayName": "公分毫米混合量加減", "knowledgePointId": "kp_length_mixed_unit_add_sub", "questionMode": "numeric", "representationTag": "length_mixed_unit_add_sub"}
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g3a_u04_length_mixed_unit_compare_numeric",
+      "operationModelId": "op_g3a_u04_length_mixed_unit_compare",
+      "operationFamilyId": "quantity_measurement",
+      "answerType": "length_comparison_relation",
+      "requestedUnknownRole": "comparisonRelation",
+      "givenRoles": ["leftLengthQuantity", "rightLengthQuantity"],
+      "constraints": {"millimetersPerCentimeter": 10, "relations": ["LESS_THAN", "EQUAL", "GREATER_THAN"], "commonUnit": "MILLIMETER", "metersForbidden": true, "kilometersForbidden": true},
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_MIXED_LENGTH_COMPARISON"
+    },
+    {
+      "patternSpecId": "ps_g3a_u04_length_mixed_unit_add_sub_numeric",
+      "operationModelId": "op_g3a_u04_length_mixed_unit_add_sub",
+      "operationFamilyId": "quantity_measurement",
+      "answerType": "mixed_length_quantity_cm_mm",
+      "requestedUnknownRole": "resultLengthQuantity",
+      "givenRoles": ["leftLengthQuantity", "rightLengthQuantity", "operation"],
+      "constraints": {"millimetersPerCentimeter": 10, "operations": ["ADD", "SUBTRACT"], "regrouping": ["CARRY", "BORROW"], "negativeResultForbidden": true, "metersForbidden": true, "kilometersForbidden": true},
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_MIXED_LENGTH_ARITHMETIC"
+    }
+  ],
+  "acceptance": {
+    "expectedPublicSourceCount": 40,
+    "expectedPublicKnowledgePointCount": 276,
+    "expectedG3AU04VisibleCount": 4,
+    "expectedG3AU04HiddenCount": 0,
+    "expectedG3AU04NotSelectableCount": 0,
+    "q001SingleKnowledgePointMaxQuestionCount": 39,
+    "q006SingleKnowledgePointMaxQuestionCount": 24,
+    "q012SingleKnowledgePointMaxQuestionCount": 24,
+    "sourceUnitMaxQuestionCount": 24,
+    "compareRelationCoverageRequired": ["LESS_THAN", "EQUAL", "GREATER_THAN"],
+    "addSubOperationCoverageRequired": ["ADD", "SUBTRACT"],
+    "addSubRegroupingCoverageRequired": ["CARRY", "BORROW"],
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "globalContextExpansionAllowed": false
+  }
+}
