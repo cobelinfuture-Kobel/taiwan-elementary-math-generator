@@ -2,7 +2,7 @@
   "schemaVersion": "s76r2-deployed-pages-smoke-v1",
   "task": "S76R2_G4A_U08_DeployedPagesAndFreshMainD0Closeout",
   "status": "FAIL",
-  "deploymentSha": "0fb1b2a0f0fb34fb0968a66f47716cce25e7da99",
+  "deploymentSha": "8808284bde5d11f165d51dda8175941173522d80",
   "message": "S76R2_DEPLOYED_PREVIEW_META_MISMATCH",
   "details": {
     "label": "加法交換、結合與湊整",
@@ -10,16 +10,18 @@
     "expected": "Batch A 4A-U08 整數四則 canonical 全題組｜8 題｜含答案頁"
   },
   "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?sourceId=g4a_u08_4a08&questionCount=8&ordering=groupedByPattern&answerKey=1&generationSeed=s76r2-g4a-u08-per-kp&columns=3&rowsPerPage=5&questionMode=numeric&selectionMode=singleKnowledgePoint&kp=kp_g4a_u08_num_add_group_round&pg=pg_g4a_u08_num_add_group_round",
-  "consoleErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 503 ()"
+  ],
   "pageErrors": [],
   "workflow": "S76R2 G4A-U08 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "33139515733",
-    "number": "517",
+    "id": "33139574652",
+    "number": "520",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/33139515733"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/33139574652"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-08-28T03:39:52.969Z"
+  "verifiedAt": "2026-08-28T03:41:14.543Z"
 }
