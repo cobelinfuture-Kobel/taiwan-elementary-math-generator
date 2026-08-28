@@ -1,0 +1,106 @@
+{
+  "schemaName": "P04F14G3BU03ScheduleStartEndDurationAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice014Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q014_r2_g3b_u03_3b03_profile_time_c1",
+    "queuePosition": 14,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q013_r2_g3b_u02_3b02_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 1
+  },
+  "source": {
+    "sourceNodeId": "g3b_u03_3b03",
+    "unitCode": "3B-U03",
+    "unitTitle": "時間",
+    "sourcePdfTitle": "meow911_3b03_time.pdf",
+    "driveFileId": "1eZEJqrhcc2zymoca0H_33zRUnZgUhUfu",
+    "reviewedPages": [2],
+    "primaryWitnessPages": [2],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_REUSED_FROM_P04F8_BOUNDARY_PAGE"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_schedule_start_end_duration",
+      "canonicalNameZh": "開始、結束與經過時間",
+      "capabilityStatement": "學生能在同一天內依開始時刻、結束時刻與經過時間三者的關係，已知其中兩項求第三項。",
+      "reasoningInvariant": "同日排程中，結束時刻等於開始時刻加經過時間；三者可在總分鐘表示下互相逆推。",
+      "implementationBoundary": {
+        "included": [
+          "solve elapsed duration from start and end",
+          "solve end clock time from start and duration",
+          "solve start clock time from end and duration",
+          "same-day schedule arithmetic only"
+        ],
+        "excluded": [
+          "cross-day clock reasoning",
+          "seconds",
+          "global-context word-problem expansion"
+        ]
+      }
+    }
+  ],
+  "formalMapping": {
+    "runtimeProfileId": "profile_time",
+    "requiredW4CapabilityIds": [
+      "cap_mixed_unit_normalization",
+      "cap_quantity_domain_validator",
+      "cap_time_system_arithmetic"
+    ],
+    "minutesPerHour": 60,
+    "hoursPerDay": 24,
+    "minutesPerDay": 1440,
+    "scheduleInvariant": "endTotalMinutes = startTotalMinutes + elapsedMinutes",
+    "sameDayRequired": true
+  },
+  "patternGroups": [
+    {
+      "patternGroupId": "pg_g3b_u03_schedule_start_end_duration_numeric",
+      "knowledgePointId": "kp_schedule_start_end_duration",
+      "displayName": "開始、結束與經過時間",
+      "questionMode": "numeric",
+      "representationTag": "schedule_start_end_duration"
+    }
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g3b_u03_schedule_start_end_duration_numeric",
+      "knowledgePointId": "kp_schedule_start_end_duration",
+      "operationModelId": "op_g3b_u03_schedule_start_end_duration",
+      "operationFamilyId": "time_arithmetic",
+      "answerType": "time_schedule_result",
+      "requestedUnknownRole": "scheduleUnknown",
+      "givenRoles": ["startClockTime", "endClockTime", "elapsedDuration", "unknownRole"],
+      "constraints": {
+        "allowedUnknownRoles": ["ELAPSED_DURATION", "END_CLOCK_TIME", "START_CLOCK_TIME"],
+        "exactlyOneUnknownRequired": true,
+        "minutesPerHour": 60,
+        "hoursPerDay": 24,
+        "sameDayRequired": true,
+        "secondsForbidden": true,
+        "crossDayForbidden": true
+      },
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_SAME_DAY_SCHEDULE_START_END_DURATION"
+    }
+  ],
+  "acceptance": {
+    "expectedPublicSourceCount": 40,
+    "expectedPublicKnowledgePointCount": 279,
+    "expectedG3BU03VisibleCount": 5,
+    "expectedG3BU03HiddenCount": 0,
+    "expectedG3BU03NotSelectableCount": 0,
+    "existingSingleKnowledgePointMaxQuestionCount": 24,
+    "q014SingleKnowledgePointMaxQuestionCount": 24,
+    "sourceUnitMaxQuestionCount": 24,
+    "requiredUnknownRoleCoverage": ["ELAPSED_DURATION", "END_CLOCK_TIME", "START_CLOCK_TIME"],
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "crossDayExpansionAllowed": false,
+    "globalContextExpansionAllowed": false
+  }
+}
