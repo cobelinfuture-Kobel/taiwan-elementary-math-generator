@@ -1,4 +1,4 @@
-import { getVisibleBatchAKnowledgePoint, getVisiblePatternGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/batch-a-selector-p04f24-extension.js";
+import { getVisibleBatchAKnowledgePoint, getVisiblePatternGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/batch-a-selector-p04f25-extension.js";
 import { listW01PublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w01-public-application-groups.js";
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/fifteen-unit-public-application-groups.js";
 import { listW1FullProductPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w1-full-product-public-application-groups.js";
