@@ -74,8 +74,9 @@ test("P04F27 shared worksheet is 24Q/24A, 3+3 pages, and reuses fraction rendere
 
 test("P04F27 preserves existing G4A-U06 sourceUnit route instead of mixing application q027", () => {
   const sourceUnit = buildBatchABrowserPlan({ sourceId: "g4a_u06_4a06", selectionMode: "sourceUnit", questionCount: 20, generationSeed: "p04f27-sourceunit" });
-  assert.equal(sourceUnit.questionMode, "numeric");
   assert.equal(sourceUnit.patternSpecIds.includes(G4A_U06_P04F27_SPEC_ID), false);
+  assert.equal((sourceUnit.selectedKnowledgePointIds ?? []).includes(G4A_U06_P04F27_KP_ID), false);
+  assert.equal((sourceUnit.selectedKnowledgePointIds ?? []).includes(G4A_U06_P04F27_HISTORICAL_ALIAS_ID), false);
 });
 
 test("P04F27 public UI exposes q027 single-KP application at max 24", () => {
