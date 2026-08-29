@@ -21,6 +21,14 @@
       "allowedTargetRoleIds": ["TOTAL_ROUTE_DISTANCE"]
     },
     {
+      "knowledgePointId": "kp_g5a_u04_fraction_measurement_segments",
+      "relationFamilyId": "SOURCE_DECLARED_QUANTITY_RELATION",
+      "knownRoleIds": ["KNOWN_QUANTITY_A", "KNOWN_QUANTITY_B"],
+      "targetRoleId": "SOURCE_DECLARED_TARGET_QUANTITY",
+      "targetRoleMode": "SOURCE_DECLARED_ONLY",
+      "allowedTargetRoleIds": ["PER_GROUP_QUANTITY", "GROUP_COUNT"]
+    },
+    {
       "knowledgePointId": "kp_g5b_u10a_large_unit_estimation_application",
       "relationFamilyId": "QUANTITY_ESTIMATION_DECISION",
       "knownRoleIds": ["SOURCE_QUANTITY", "ESTIMATION_RULE"],
