@@ -1,0 +1,74 @@
+{
+  "schemaName": "P04F27G4AU06FractionTimesIntegerQuantityAuthorityV1",
+  "schemaVersion": 1,
+  "taskId": "P04F_W4DirectProductVerticalSlice027Implementation",
+  "queue": {
+    "sliceId": "p04e_q027_r6_g4a_u06_4a06_profile_quantity_measurement_c1",
+    "queuePosition": 27,
+    "previousSliceId": "p04e_q026_r6_g3b_u09_3b09_profile_quantity_measurement_c1",
+    "nextSliceId": "p04e_q028_r6_g5a_u04_5a04_profile_quantity_measurement_c1"
+  },
+  "source": {
+    "sourceNodeId": "g4a_u06_4a06",
+    "sourceTitle": "假分數與帶分數",
+    "sourceFileName": "meow911_4a06_source.pdf",
+    "sourceDriveFileId": "1LOwfJPvEx618g96oniWL43qLjfQZ1UGE",
+    "reviewedPages": [1, 2, 3],
+    "primaryWitnessPages": [3],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "page3Witness": [
+      "6/10 公尺 × 4 張",
+      "4 2/5 公斤 × 4 箱"
+    ]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_fraction_times_integer_quantity",
+      "historicalHiddenAliasId": "kp_g4a_u06_fraction_times_integer_quantity",
+      "name": "分數量乘以整數倍",
+      "applicationClassification": "APPLICATION_REQUIRED"
+    }
+  ],
+  "aliasReconciliation": {
+    "frozenQueueAuthorityId": "kp_fraction_times_integer_quantity",
+    "p02eExactBindingId": "kp_fraction_times_integer_quantity",
+    "historicalHiddenSelectorAliasId": "kp_g4a_u06_fraction_times_integer_quantity",
+    "resolution": "PROMOTE_FROZEN_ID_AND_REMOVE_HISTORICAL_HIDDEN_ALIAS_FROM_CURRENT_AVAILABILITY_ONLY",
+    "historicalFilesMutated": false
+  },
+  "formalMapping": {
+    "primaryRuntimeProfileId": "profile_quantity_measurement",
+    "relationFamilyId": "FRACTIONAL_QUANTITY_SCALING",
+    "knownRoleIds": ["BASE_FRACTIONAL_QUANTITY", "INTEGER_MULTIPLIER"],
+    "targetRoleId": "SCALED_QUANTITY",
+    "targetRoleMode": "FIXED",
+    "quantityDimensions": ["LENGTH", "MASS"],
+    "unitIds": ["m", "kg"],
+    "exactRationalArithmeticRequired": true,
+    "roundingAllowed": false
+  },
+  "patternSpec": {
+    "patternGroupId": "pg_g4a_u06_fraction_times_integer_quantity_application",
+    "patternSpecId": "ps_g4a_u06_fraction_times_integer_quantity_application",
+    "questionMode": "application",
+    "presentationFamilyIds": [
+      "PROPER_FRACTION_LENGTH_TIMES_INTEGER",
+      "MIXED_NUMBER_MASS_TIMES_INTEGER"
+    ]
+  },
+  "implementationBoundary": {
+    "sharedG4AU06FractionCoordinatorRequired": true,
+    "sharedFractionRendererRequired": true,
+    "sharedPaginationRequired": true,
+    "parallelFractionEngineAllowed": false,
+    "parallelRendererAllowed": false,
+    "q028Touched": false
+  },
+  "publicTarget": {
+    "sourceCount": 42,
+    "visibleKnowledgePointCount": 297,
+    "g4aU06VisibleKnowledgePointCount": 6,
+    "g4aU06HiddenKnowledgePointCount": 0,
+    "g4aU06NotSelectableKnowledgePointCount": 0
+  }
+}
