@@ -2,6 +2,7 @@
   "schemaName": "P04F28G5AU04FractionMeasurementSegmentsFormalMappingAuthorityV1",
   "schemaVersion": 1,
   "taskId": "P04F28_Q028_FormalMappingRelationReconciliation",
+  "implementationTaskId": "P04F28_Q028_PatternSpecAndImplementation",
   "queue": {
     "sliceId": "p04e_q028_r6_g5a_u04_5a04_profile_quantity_measurement_c1",
     "queuePosition": 28,
@@ -50,14 +51,46 @@
       }
     ]
   },
+  "patternSpecs": [
+    {
+      "patternSpecId": "pat_g5a_u04_fraction_measurement_segments_per_group_quantity",
+      "patternFamilyId": "PER_GROUP_QUANTITY",
+      "semanticRelation": "PARTITIVE_DIVISION",
+      "knownRoleIds": ["TOTAL_QUANTITY", "GROUP_COUNT"],
+      "targetRoleId": "PER_GROUP_QUANTITY",
+      "questionMode": "application",
+      "answerModel": "exact_rational_quantity"
+    },
+    {
+      "patternSpecId": "pat_g5a_u04_fraction_measurement_segments_group_count",
+      "patternFamilyId": "GROUP_COUNT",
+      "semanticRelation": "QUOTATIVE_DIVISION",
+      "knownRoleIds": ["TOTAL_QUANTITY", "PER_GROUP_QUANTITY"],
+      "targetRoleId": "GROUP_COUNT",
+      "questionMode": "application",
+      "answerModel": "exact_rational_group_count"
+    }
+  ],
+  "implementation": {
+    "patternGroupId": "pg_g5a_u04_fraction_measurement_segments_application",
+    "runtimeModule": "site/modules/curriculum/batch-a/fraction-measurement-segments-runtime-p04f28.js",
+    "generatorModule": "site/modules/curriculum/batch-a/batch-a-browser-generator-p04f28.js",
+    "validatorModule": "site/modules/curriculum/batch-a/batch-a-browser-validator-p04f28.js",
+    "selectorModule": "site/modules/curriculum/registry/batch-a-selector-p04f28-extension.js",
+    "worksheetModule": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p04f28-extension.js",
+    "sharedFractionRenderer": true,
+    "sharedQuantitySemantics": true,
+    "exactRationalArithmetic": true,
+    "roundingAllowed": false
+  },
   "authorityBoundary": {
     "p02eHistoricalDependentInventoryMutable": false,
     "p02eExactOverrideRequired": false,
     "p02eConsumerResolutionRequired": false,
-    "patternSpecMaterialized": false,
-    "generatorMaterialized": false,
-    "selectorPromoted": false,
-    "worksheetEnabled": false,
+    "patternSpecMaterialized": true,
+    "generatorMaterialized": true,
+    "selectorPromoted": true,
+    "worksheetEnabled": true,
     "q029Touched": false
   }
 }
