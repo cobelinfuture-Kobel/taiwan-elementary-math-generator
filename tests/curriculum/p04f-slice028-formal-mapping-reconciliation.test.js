@@ -1,16 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import {
-  getP02EQuantitySemanticRoleBinding,
-  resolveP02EQuantitySemanticRoleBinding,
-} from "../../src/curriculum/full-product/p02e-quantity-semantic-role-binding-consumer.mjs";
 
 const sourceAuthority = JSON.parse(fs.readFileSync(new URL("../../data/curriculum/knowledge/units/g5a_u04_5a04.knowledge-operation.json", import.meta.url), "utf8"));
-const overrides = JSON.parse(fs.readFileSync(new URL("../../data/curriculum/full-product/p02e/quantity-semantic-role-overrides.json", import.meta.url), "utf8"));
+const sliceAuthority = JSON.parse(fs.readFileSync(new URL("../../data/curriculum/full-product/p04f/slice028-g5a-u04-fraction-measurement-segments-formal-mapping-authority.json", import.meta.url), "utf8"));
+const p02eOverrides = JSON.parse(fs.readFileSync(new URL("../../data/curriculum/full-product/p02e/quantity-semantic-role-overrides.json", import.meta.url), "utf8"));
 
 const KP_ID = "kp_g5a_u04_fraction_measurement_segments";
-const SOURCE_ID = "g5a_u04_5a04";
 
 test("P04F28 q028 remains one source-authority KP with page-2 application-required scope", () => {
   const kp = sourceAuthority.knowledgePoints.find((row) => row.candidateId === KP_ID);
@@ -22,47 +18,43 @@ test("P04F28 q028 remains one source-authority KP with page-2 application-requir
   assert.match(kp.scope, /容量求所需單位數/);
 });
 
-test("P04F28 q028 exact override uses one source-declared relation with two allowed targets", () => {
-  const override = overrides.bindings.find((row) => row.knowledgePointId === KP_ID);
-  assert.ok(override);
-  assert.equal(override.relationFamilyId, "SOURCE_DECLARED_QUANTITY_RELATION");
-  assert.deepEqual(override.knownRoleIds, ["KNOWN_QUANTITY_A", "KNOWN_QUANTITY_B"]);
-  assert.equal(override.targetRoleId, "SOURCE_DECLARED_TARGET_QUANTITY");
-  assert.equal(override.targetRoleMode, "SOURCE_DECLARED_ONLY");
-  assert.deepEqual(override.allowedTargetRoleIds, ["PER_GROUP_QUANTITY", "GROUP_COUNT"]);
+test("P04F28 q028 uses slice-local source-declared FormalMapping and does not mutate P02E historical overrides", () => {
+  assert.equal(sliceAuthority.queue.sliceId, "p04e_q028_r6_g5a_u04_5a04_profile_quantity_measurement_c1");
+  assert.deepEqual(sliceAuthority.source.primaryWitnessPages, [2]);
+  assert.equal(sliceAuthority.knowledgePoints.length, 1);
+  assert.equal(sliceAuthority.knowledgePoints[0].knowledgePointId, KP_ID);
+  assert.equal(sliceAuthority.knowledgePoints[0].kpSplitAllowed, false);
+  assert.equal(sliceAuthority.formalMapping.authorityMode, "P04F_SLICE_LOCAL_EXACT");
+  assert.equal(sliceAuthority.formalMapping.relationFamilyId, "SOURCE_DECLARED_QUANTITY_RELATION");
+  assert.deepEqual(sliceAuthority.formalMapping.knownRoleIds, ["KNOWN_QUANTITY_A", "KNOWN_QUANTITY_B"]);
+  assert.equal(sliceAuthority.formalMapping.targetRoleId, "SOURCE_DECLARED_TARGET_QUANTITY");
+  assert.equal(sliceAuthority.formalMapping.targetRoleMode, "SOURCE_DECLARED_ONLY");
+  assert.deepEqual(sliceAuthority.formalMapping.allowedTargetRoleIds, ["PER_GROUP_QUANTITY", "GROUP_COUNT"]);
+  assert.equal(p02eOverrides.bindings.some((row) => row.knowledgePointId === KP_ID), false);
+  assert.equal(sliceAuthority.authorityBoundary.p02eHistoricalDependentInventoryMutable, false);
+  assert.equal(sliceAuthority.authorityBoundary.p02eExactOverrideRequired, false);
+  assert.equal(sliceAuthority.authorityBoundary.p02eConsumerResolutionRequired, false);
 });
 
-test("P04F28 q028 P02E consumer resolves both pattern targets and fails closed on unrelated target", () => {
-  const binding = getP02EQuantitySemanticRoleBinding(KP_ID);
-  assert.ok(binding);
-  assert.equal(binding.classificationRuleId, `override:${KP_ID}`);
-  assert.equal(binding.relationFamilyId, "SOURCE_DECLARED_QUANTITY_RELATION");
-  assert.equal(binding.targetRoleMode, "SOURCE_DECLARED_ONLY");
-  assert.deepEqual(binding.allowedTargetRoleIds, ["PER_GROUP_QUANTITY", "GROUP_COUNT"]);
-
-  const perGroup = resolveP02EQuantitySemanticRoleBinding({
-    knowledgePointId: KP_ID,
-    sourceNodeId: SOURCE_ID,
-    assertedRelationFamilyId: "SOURCE_DECLARED_QUANTITY_RELATION",
-    assertedTargetRoleId: "PER_GROUP_QUANTITY",
+test("P04F28 q028 locks exactly two pattern target contracts without materializing PatternSpec yet", () => {
+  const contracts = sliceAuthority.formalMapping.patternTargetContracts;
+  assert.equal(contracts.length, 2);
+  assert.deepEqual(contracts.map((row) => row.targetRoleId), ["PER_GROUP_QUANTITY", "GROUP_COUNT"]);
+  assert.deepEqual(contracts[0], {
+    patternFamilyId: "PER_GROUP_QUANTITY",
+    semanticRelation: "PARTITIVE_DIVISION",
+    knownRoleIds: ["TOTAL_QUANTITY", "GROUP_COUNT"],
+    targetRoleId: "PER_GROUP_QUANTITY",
   });
-  assert.equal(perGroup.ok, true, JSON.stringify(perGroup.errors));
-
-  const groupCount = resolveP02EQuantitySemanticRoleBinding({
-    knowledgePointId: KP_ID,
-    sourceNodeId: SOURCE_ID,
-    assertedRelationFamilyId: "SOURCE_DECLARED_QUANTITY_RELATION",
-    assertedTargetRoleId: "GROUP_COUNT",
+  assert.deepEqual(contracts[1], {
+    patternFamilyId: "GROUP_COUNT",
+    semanticRelation: "QUOTATIVE_DIVISION",
+    knownRoleIds: ["TOTAL_QUANTITY", "PER_GROUP_QUANTITY"],
+    targetRoleId: "GROUP_COUNT",
   });
-  assert.equal(groupCount.ok, true, JSON.stringify(groupCount.errors));
-
-  const unrelated = resolveP02EQuantitySemanticRoleBinding({
-    knowledgePointId: KP_ID,
-    sourceNodeId: SOURCE_ID,
-    assertedRelationFamilyId: "SOURCE_DECLARED_QUANTITY_RELATION",
-    assertedTargetRoleId: "TOTAL_QUANTITY",
-  });
-  assert.equal(unrelated.ok, false);
-  assert.equal(unrelated.blocked, true);
-  assert.equal(unrelated.errors.some((code) => code.startsWith(`P02E_TARGET_ROLE_MISMATCH:${KP_ID}:TOTAL_QUANTITY`)), true);
+  assert.equal(sliceAuthority.authorityBoundary.patternSpecMaterialized, false);
+  assert.equal(sliceAuthority.authorityBoundary.generatorMaterialized, false);
+  assert.equal(sliceAuthority.authorityBoundary.selectorPromoted, false);
+  assert.equal(sliceAuthority.authorityBoundary.worksheetEnabled, false);
+  assert.equal(sliceAuthority.authorityBoundary.q029Touched, false);
 });
