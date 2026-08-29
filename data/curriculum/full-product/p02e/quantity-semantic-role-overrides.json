@@ -45,6 +45,14 @@
       "allowedTargetRoleIds": ["TOTAL_TIME_QUANTITY"]
     },
     {
+      "knowledgePointId": "kp_g5b_u09_repeated_schedule_time",
+      "relationFamilyId": "REPEATED_SCHEDULE_TIME_ACCUMULATION",
+      "knownRoleIds": ["SCHEDULE_STAGE_TIME_QUANTITIES", "STAGE_REPEAT_COUNTS", "INCLUDED_WAIT_REST_TIME_QUANTITIES"],
+      "targetRoleId": "TOTAL_SCHEDULE_TIME_QUANTITY",
+      "targetRoleMode": "FIXED",
+      "allowedTargetRoleIds": ["TOTAL_SCHEDULE_TIME_QUANTITY"]
+    },
+    {
       "knowledgePointId": "kp_time_add_sub_with_regrouping",
       "relationFamilyId": "TIME_QUANTITY_ADDITIVE_CHANGE",
       "knownRoleIds": ["INITIAL_TIME_QUANTITY", "CHANGE_TIME_QUANTITY"],
