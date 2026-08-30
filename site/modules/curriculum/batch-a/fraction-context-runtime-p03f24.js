@@ -16,9 +16,49 @@ const add = (a, b) => rational(a.numerator * b.denominator + b.numerator * a.den
 const sub = (a, b) => rational(a.numerator * b.denominator - b.numerator * a.denominator, a.denominator * b.denominator);
 const cmp = (a, b) => a.numerator * b.denominator - b.numerator * a.denominator;
 const fractionText = (value) => value.denominator === 1 ? String(value.numerator) : `${value.numerator}/${value.denominator}`;
-const seedOffset = (seed, size) => [...String(seed ?? "p03f24")].reduce((sum, char) => (sum + char.charCodeAt(0)) % size, 0);
+const hashSeed = (value) => {
+  let hash = 2166136261;
+  for (const character of String(value ?? "p03f24")) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+};
 const isApplication = (patternSpecId) => APP_IDS.has(patternSpecId);
-const roleFor = (patternSpecId) => patternSpecId.includes("_difference_") ? "difference" : patternSpecId.includes("_original_") ? "original" : patternSpecId.includes("_total_") ? "total" : "result";
+const roleFor = (patternSpecId) => patternSpecId.match(/_(total|original|difference)_(?:numeric|application)$/)?.[1] ?? "result";
+const fixtureAt = (fixtures, ordinal, seed, namespace) => fixtures[(hashSeed(`${seed}:${namespace}`) + ordinal) % fixtures.length];
+
+const WHOLE_FRACTION_FIXTURES = Object.freeze(Array.from({ length: 22 }, (_, index) => index + 3).flatMap((denominator) =>
+  Array.from({ length: 12 }, (_, index) => index + 1).flatMap((whole) =>
+    Array.from({ length: denominator - 1 }, (_, index) => index + 1).flatMap((numerator) => [
+      Object.freeze({ denominator, whole, numerator, operator: "add" }),
+      Object.freeze({ denominator, whole, numerator, operator: "sub" }),
+    ]),
+  ),
+));
+
+const FRACTION_PAIR_FIXTURES = Object.freeze(Array.from({ length: 22 }, (_, index) => index + 3).flatMap((denominator) =>
+  Array.from({ length: denominator - 1 }, (_, index) => index + 1).flatMap((leftNumerator) =>
+    Array.from({ length: denominator - 1 }, (_, index) => Object.freeze({
+      denominator,
+      leftNumerator,
+      rightNumerator: index + 1,
+    })),
+  ),
+));
+
+const FRACTION_PLUS_COUNT_FIXTURES = Object.freeze(Array.from({ length: 33 }, (_, index) => index + 4).flatMap((itemsPerWhole) =>
+  Array.from({ length: Math.min(12, itemsPerWhole) - 1 }, (_, index) => index + 2)
+    .filter((denominator) => itemsPerWhole % denominator === 0)
+    .flatMap((denominator) => Array.from({ length: denominator - 1 }, (_, index) => index + 1).flatMap((numerator) =>
+      Array.from({ length: itemsPerWhole }, (_, index) => Object.freeze({
+        itemsPerWhole,
+        denominator,
+        numerator,
+        count: index + 1,
+      })),
+    )),
+));
 
 export const P03F24_APPLICATION_AUTHORITY = Object.freeze(Object.fromEntries(G3B_U07_P03F24_APPLICATION_SPEC_IDS.map((patternSpecId) => [patternSpecId, Object.freeze({
   applicationQuestionRecordId: `app_qr_w02_${patternSpecId}`,
@@ -60,10 +100,8 @@ function metadata(definition) {
 }
 
 function wholeFractionQuestion(definition, ordinal, seed) {
-  const denominator = 3 + ((ordinal + seedOffset(seed, 8)) % 8);
-  const fractionNumerator = 1 + ((ordinal * 3 + seedOffset(seed, denominator - 1)) % (denominator - 1));
-  const whole = 1 + ((ordinal + seedOffset(seed, 2)) % 3);
-  const operator = (ordinal + seedOffset(seed, 2)) % 2 === 0 ? "add" : "sub";
+  const fixture = fixtureAt(WHOLE_FRACTION_FIXTURES, ordinal, seed, definition.patternSpecId);
+  const { denominator, whole, numerator: fractionNumerator, operator } = fixture;
   const left = rational(whole, 1);
   const right = rational(fractionNumerator, denominator);
   const answer = operator === "add" ? add(left, right) : sub(left, right);
@@ -77,11 +115,9 @@ function wholeFractionQuestion(definition, ordinal, seed) {
 }
 
 function combinedQuestion(definition, ordinal, seed) {
-  const denominator = 4 + ((ordinal + seedOffset(seed, 7)) % 7);
-  const a = 1 + ((ordinal * 2 + 1) % Math.max(2, denominator - 1));
-  const b = 1 + ((ordinal * 3 + 2) % Math.max(2, denominator - 1));
-  const first = rational(a, denominator);
-  const second = rational(b, denominator);
+  const fixture = fixtureAt(FRACTION_PAIR_FIXTURES, ordinal, seed, definition.patternSpecId);
+  const first = rational(fixture.leftNumerator, fixture.denominator);
+  const second = rational(fixture.rightNumerator, fixture.denominator);
   const role = definition.requestedUnknownRole;
   const answer = role === "difference" ? (cmp(first, second) >= 0 ? sub(first, second) : sub(second, first)) : add(first, second);
   const application = definition.questionMode === "application";
@@ -94,10 +130,8 @@ function combinedQuestion(definition, ordinal, seed) {
 }
 
 function fractionPlusCountQuestion(definition, ordinal, seed) {
-  const itemsPerWhole = 8 + 4 * ((ordinal + seedOffset(seed, 5)) % 5);
-  const denominator = [2, 4][(ordinal + seedOffset(seed, 2)) % 2];
-  const fractionNumerator = 1 + (ordinal % (denominator - 1));
-  const count = Math.max(1, Math.floor(itemsPerWhole / denominator));
+  const fixture = fixtureAt(FRACTION_PLUS_COUNT_FIXTURES, ordinal, seed, definition.patternSpecId);
+  const { itemsPerWhole, denominator, numerator: fractionNumerator, count } = fixture;
   const fractionQuantity = rational(fractionNumerator, denominator);
   const countQuantity = rational(count, itemsPerWhole);
   const role = definition.requestedUnknownRole;
@@ -112,9 +146,9 @@ function fractionPlusCountQuestion(definition, ordinal, seed) {
 }
 
 function originalDifferenceQuestion(definition, ordinal, seed) {
-  const denominator = 5 + ((ordinal + seedOffset(seed, 6)) % 6);
-  const used = rational(1 + (ordinal % Math.max(2, denominator - 2)), denominator);
-  const remaining = rational(1 + ((ordinal * 2 + 1) % Math.max(2, denominator - 2)), denominator);
+  const fixture = fixtureAt(FRACTION_PAIR_FIXTURES, ordinal, seed, definition.patternSpecId);
+  const used = rational(fixture.leftNumerator, fixture.denominator);
+  const remaining = rational(fixture.rightNumerator, fixture.denominator);
   const role = definition.requestedUnknownRole;
   const answer = role === "difference" ? (cmp(used, remaining) >= 0 ? sub(used, remaining) : sub(remaining, used)) : add(used, remaining);
   const application = definition.questionMode === "application";
@@ -201,7 +235,13 @@ export function generateG3BU07P03F24Questions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG3BU07P03F24Questions(plan)) return Object.freeze({ ok: false, errors: Object.freeze([{ code: "p03f24_plan_not_supported", severity: "error", path: "patternSpecIds", message: "p03f24_plan_not_supported" }]), warnings: Object.freeze([]), questions: Object.freeze([]), plan });
   const count = Number.isInteger(plan.questionCount) ? plan.questionCount : Math.max(20, plan.patternSpecIds.length);
-  const questions = Array.from({ length: count }, (_, index) => buildQuestion(plan.patternSpecIds[index % plan.patternSpecIds.length], index, plan.generationSeed));
+  const occurrenceByPattern = new Map(plan.patternSpecIds.map((patternSpecId) => [patternSpecId, 0]));
+  const questions = Array.from({ length: count }, (_, index) => {
+    const patternSpecId = plan.patternSpecIds[index % plan.patternSpecIds.length];
+    const occurrence = occurrenceByPattern.get(patternSpecId) ?? 0;
+    occurrenceByPattern.set(patternSpecId, occurrence + 1);
+    return buildQuestion(patternSpecId, occurrence, plan.generationSeed);
+  });
   const validationErrors = questions.flatMap((question, index) => validateG3BU07P03F24Question(question).errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
   const allocation = plan.patternSpecIds.map((patternSpecId) => Object.freeze({ patternSpecId, questionCount: questions.filter((question) => question.patternSpecId === patternSpecId).length }));
   return Object.freeze({ ok: validationErrors.length === 0, errors: Object.freeze(validationErrors), warnings: Object.freeze([]), questions: Object.freeze(questions), plan: Object.freeze(plan), allocation: Object.freeze(allocation) });

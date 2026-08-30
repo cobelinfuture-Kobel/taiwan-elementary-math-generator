@@ -32,8 +32,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install targeted Chromium runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Validate G3B-U07 focused validation plan
+        run: node tools/governance/run-unit-validation-plan.mjs --plan data/project/validation-plans/G3B_U07_FRACTION_CAPACITY_RENDERING_ORDERING.validation.json --lane SHARED_RUNTIME_BOUNDED --validate-only
+
       - name: Run focused Pages release checks
-        run: node --test tests/ui/pixel-browser-path-release-qa.test.js tests/curriculum/g3a-u08-current-capacity-renderer-ordering.test.js tests/curriculum/g4a-u09-current-capacity-ordering.test.js tests/curriculum/g4a-u06-fraction-times-integer-capacity-mixing.test.js
+        run: node tools/governance/run-unit-validation-plan.mjs --plan data/project/validation-plans/G3B_U07_FRACTION_CAPACITY_RENDERING_ORDERING.validation.json --lane SHARED_RUNTIME_BOUNDED
 
   deploy:
     name: Deploy
