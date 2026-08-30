@@ -10,7 +10,7 @@
   "unitKnowledgePointGateStatus": {
     "kp_g5b_u09_average_time": "PENDING"
   },
-  "expectedDerivedGate": "KP_LEAF_ONLY",
+  "expectedDerivedGate": "KP_FOCUSED",
   "validationPlanPath": "data/project/validation-plans/P04F29_Q029_PREFLIGHT.validation.json",
   "changeImpact": {
     "sharedExecutableChange": false,
