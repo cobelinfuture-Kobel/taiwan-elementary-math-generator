@@ -7,10 +7,10 @@
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "changeImpact": {
     "sharedExecutableChange": true,
-    "publicAuthorityCutover": true,
+    "publicAuthorityCutover": false,
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
-    "currentAuthorityChanged": true
+    "currentAuthorityChanged": false
   }
 }
