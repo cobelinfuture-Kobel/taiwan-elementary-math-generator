@@ -42,10 +42,12 @@
     "knownRoleIds": ["BASE_FRACTIONAL_QUANTITY", "INTEGER_MULTIPLIER"],
     "targetRoleId": "SCALED_QUANTITY",
     "targetRoleMode": "FIXED",
-    "quantityDimensions": ["LENGTH", "MASS"],
-    "unitIds": ["m", "kg"],
+    "quantityDimensions": ["LENGTH", "MASS", "CAPACITY"],
+    "unitIds": ["m", "kg", "L"],
     "exactRationalArithmeticRequired": true,
-    "roundingAllowed": false
+    "roundingAllowed": false,
+    "unitConversionAllowed": false,
+    "operatorApprovedCapacityExtension": true
   },
   "patternSpec": {
     "patternGroupId": "pg_g4a_u06_fraction_times_integer_quantity_application",
@@ -53,13 +55,16 @@
     "questionMode": "application",
     "presentationFamilyIds": [
       "PROPER_FRACTION_LENGTH_TIMES_INTEGER",
-      "MIXED_NUMBER_MASS_TIMES_INTEGER"
+      "MIXED_NUMBER_MASS_TIMES_INTEGER",
+      "FRACTION_CAPACITY_TIMES_INTEGER"
     ]
   },
   "implementationBoundary": {
     "sharedG4AU06FractionCoordinatorRequired": true,
     "sharedFractionRendererRequired": true,
     "sharedPaginationRequired": true,
+    "sameUnitMixedWithNumericKnowledgePoints": true,
+    "singleKnowledgePointMaximum": 240,
     "parallelFractionEngineAllowed": false,
     "parallelRendererAllowed": false,
     "q028Touched": false

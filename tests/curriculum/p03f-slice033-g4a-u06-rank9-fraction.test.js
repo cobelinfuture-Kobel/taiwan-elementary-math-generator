@@ -96,7 +96,7 @@ test("P03F33 shared worksheet produces 24 questions + 24 answers on 3 + 3 pages"
   assert.equal(result.worksheetDocument.questionPages.length,3);
   assert.equal(result.worksheetDocument.answerKeyPages.length,3);
   assert.equal(result.worksheetDocument.metadata.applicationExpansion,false);
-  assert.equal(result.worksheetDocument.metadata.hiddenApplicationLineagePreserved,true);
+  assert.equal(result.worksheetDocument.metadata.unitConversion,false);
   assert.equal(result.worksheetDocument.metadata.worksheetAdapter.sharedPagination,true);
   assert.equal(result.worksheetDocument.metadata.worksheetAdapter.sharedRenderer,true);
   assert.equal(result.worksheetDocument.metadata.worksheetAdapter.parallelPipeline,false);

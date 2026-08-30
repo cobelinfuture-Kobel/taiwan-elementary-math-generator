@@ -18,6 +18,11 @@ import {
 } from "./g4a-u06-rank9-fraction-runtime-p03f33.js";
 
 import {
+  generateG4AU06P04F27FractionTimesIntegerQuantityQuestions,
+  validateG4AU06P04F27Question,
+} from "./fraction-times-integer-quantity-runtime-p04f27.js";
+
+import {
   G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
   G4A_U06_FRACTION_CLASSIFICATION_PATTERN_SPEC_IDS,
   G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID,
@@ -31,6 +36,11 @@ import {
 import {
   G4A_U06_P03F33_SURFACES,
 } from "../registry/g4a-u06-rank9-fraction-selector-projection-p03f33.js";
+
+import {
+  G4A_U06_P04F27_KP_ID,
+  G4A_U06_P04F27_SPEC_ID,
+} from "../registry/g4a-u06-fraction-times-integer-quantity-selector-projection-p04f27.js";
 
 const SOURCE_ID =
   G4A_U06_FRACTION_CLASSIFICATION_SOURCE_ID;
@@ -59,6 +69,9 @@ const SPEC_IDS_BY_KP = Object.freeze({
       Object.freeze([...surface.patternSpecIds]),
     ]),
   ),
+
+  [G4A_U06_P04F27_KP_ID]:
+    Object.freeze([G4A_U06_P04F27_SPEC_ID]),
 });
 
 export const G4A_U06_CURRENT_KP_IDS =
@@ -89,6 +102,9 @@ const SLICE033_SPEC_SET =
       (surface) => surface.patternSpecIds,
     ),
   );
+
+const P04F27_SPEC_SET =
+  new Set([G4A_U06_P04F27_SPEC_ID]);
 
 function uniqueStrings(values = []) {
   return [
@@ -268,6 +284,18 @@ export function buildG4AU06CurrentPlan(options = {}) {
         SPEC_IDS_BY_KP[knowledgePointId] ?? [],
     );
 
+  const includesApplication =
+    selectedKnowledgePointIds.includes(
+      G4A_U06_P04F27_KP_ID,
+    );
+
+  const questionMode =
+    includesApplication
+      ? selectedKnowledgePointIds.length > 1
+        ? "mixed"
+        : "application"
+      : "numeric";
+
   return Object.freeze({
     ...legacyPlan,
 
@@ -305,7 +333,9 @@ export function buildG4AU06CurrentPlan(options = {}) {
         ?? 20,
       ),
 
-    questionMode: "numeric",
+    questionMode,
+
+    requestedQuestionType: questionMode,
 
     ordering:
       options.ordering
@@ -346,6 +376,27 @@ export function validateG4AU06CurrentPlan(plan = {}) {
       issue(
         "g4a_u06_current_question_count_invalid",
         "questionCount",
+      ),
+    );
+  }
+
+  const includesApplication =
+    plan.selectedKnowledgePointIds?.includes(
+      G4A_U06_P04F27_KP_ID,
+    );
+
+  const expectedQuestionMode =
+    includesApplication
+      ? plan.selectedKnowledgePointIds.length > 1
+        ? "mixed"
+        : "application"
+      : "numeric";
+
+  if (plan.questionMode !== expectedQuestionMode) {
+    errors.push(
+      issue(
+        "g4a_u06_current_question_mode_invalid",
+        "questionMode",
       ),
     );
   }
@@ -399,6 +450,10 @@ function generatorForKnowledgePoint(
     return generateG4AU06FractionClassificationSlice017Questions;
   }
 
+  if (knowledgePointId === G4A_U06_P04F27_KP_ID) {
+    return generateG4AU06P04F27FractionTimesIntegerQuantityQuestions;
+  }
+
   if (
     knowledgePointId
     === G4A_U06_P03F25_KP_ID
@@ -432,6 +487,11 @@ export function validateG4AU06CurrentQuestion(
     return validateG4AU06P03F33Question(
       question,
     );
+  }
+
+
+  if (P04F27_SPEC_SET.has(patternSpecId)) {
+    return validateG4AU06P04F27Question(question);
   }
 
   return Object.freeze({
@@ -533,6 +593,11 @@ export function generateG4AU06CurrentQuestions(
         entry.knowledgePointId,
       );
 
+    const entryQuestionMode =
+      entry.knowledgePointId === G4A_U06_P04F27_KP_ID
+        ? "application"
+        : "numeric";
+
     const generation = generator({
       ...options,
 
@@ -548,9 +613,12 @@ export function generateG4AU06CurrentQuestions(
       ],
 
       selectedPatternGroupIds: [],
-      patternSpecIds: undefined,
+      patternSpecIds:
+        entry.knowledgePointId === G4A_U06_P04F27_KP_ID
+          ? [G4A_U06_P04F27_SPEC_ID]
+          : undefined,
 
-      questionMode: "numeric",
+      questionMode: entryQuestionMode,
 
       questionCount:
         entry.questionCount,
