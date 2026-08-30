@@ -24,14 +24,16 @@ function buildG3BU07CurrentWorksheetDocument(options = {}) {
   const validation = validateG3BU07CurrentQuestions(generation.questions ?? []);
   if (!generation.ok || !validation.ok) return { ok: false, errors: [...(generation.errors ?? []), ...(validation.errors ?? [])], warnings: [], worksheetDocument: null, plan, generation, validation };
   const requested = options.printLayout ?? {};
+  const isApplication = plan.questionMode === "application";
+  const maxRowsPerPage = isApplication ? 3 : 5;
   const layout = Object.freeze({
     paperSize: requested.paperSize ?? "A4",
     columns: Math.min(Number.isInteger(requested.columns) ? requested.columns : 2, 2),
-    rowsPerPage: Math.min(Number.isInteger(requested.rowsPerPage) ? requested.rowsPerPage : 5, 5),
+    rowsPerPage: Math.min(Number.isInteger(requested.rowsPerPage) ? requested.rowsPerPage : maxRowsPerPage, maxRowsPerPage),
     showQuestionNumbers: requested.showQuestionNumbers !== false,
     showAnswerKeyPage: options.includeAnswerKey !== false && requested.showAnswerKeyPage !== false,
     longTextCardPolicy: "avoidSplit",
-    questionMode: "numeric",
+    questionMode: plan.questionMode,
   });
   const models = generation.questions.map((question, index) => Object.freeze({
     questionId: question.id,
@@ -46,7 +48,7 @@ function buildG3BU07CurrentWorksheetDocument(options = {}) {
     answerText: question.answerText,
     promptInlineMath: buildG3BU07InlineMathModel({ sourceId: G3B_U07_SOURCE_ID, plainText: question.blankedDisplayText }),
     metadataSnapshot: question.metadata,
-    layoutHints: Object.freeze({ estimatedTextLength: question.blankedDisplayText.length, hasGrouping: false, avoidPageBreakInside: true, representation: "g3b_u07_structured_fraction", longTextCardPolicy: "avoidSplit" }),
+    layoutHints: Object.freeze({ estimatedTextLength: question.blankedDisplayText.length, hasGrouping: false, avoidPageBreakInside: true, representation: isApplication ? "fraction_unit_conversion_application" : "g3b_u07_structured_fraction", longTextCardPolicy: "avoidSplit" }),
   }));
   const answers = layout.showAnswerKeyPage ? generation.questions.map((question, index) => Object.freeze({
     questionId: question.id,
@@ -62,14 +64,16 @@ function buildG3BU07CurrentWorksheetDocument(options = {}) {
     layoutHints: Object.freeze({ avoidPageBreakInside: true, representation: "g3b_u07_structured_fraction_answer" }),
   })) : [];
   const questionPages = paginateQuestionDisplayModels(models, layout);
-  const answerKeyPages = layout.showAnswerKeyPage ? paginateAnswerKeyItems(answers, { ...layout, columns: 2, rowsPerPage: 5 }) : [];
+  const answerKeyPages = layout.showAnswerKeyPage ? paginateAnswerKeyItems(answers, { ...layout, columns: 2, rowsPerPage: maxRowsPerPage }) : [];
+  const numericQuestionCount = isApplication ? 0 : generation.questions.length;
+  const applicationQuestionCount = isApplication ? generation.questions.length : 0;
   const document = Object.freeze({
     schemaVersion: "worksheet-document-v1",
     version: "1",
-    worksheetId: `g3b-u07-current-${plan.questionCount}-${plan.generationSeed}`,
+    worksheetId: `g3b-u07-current-${plan.questionMode}-${plan.questionCount}-${plan.generationSeed}`,
     worksheetKind: "batchAWorksheet",
-    title: options.title ?? "三年級下｜分數的加減｜單元練習",
-    subtitle: "分數表示、單位換算、同分母加減比較與情境關係",
+    title: options.title ?? (isApplication ? "三年級｜單位分數與離散單位換算｜應用題" : "三年級下｜分數的加減｜單元練習"),
+    subtitle: isApplication ? "依每大單位所含個數，在分數單位與個數間換算" : "分數表示、單位換算、同分母加減比較與情境關係",
     generatedAt: "DETERMINISTIC",
     configSnapshot: Object.freeze({ ...plan, printLayout: layout }),
     orderingMode: plan.ordering,
@@ -81,12 +85,12 @@ function buildG3BU07CurrentWorksheetDocument(options = {}) {
     questions: Object.freeze(generation.questions),
     questionDisplayModels: Object.freeze(models),
     answerKeyItems: Object.freeze(answers),
-    printOptions: Object.freeze({ ...layout, answerKeyColumns: 2, answerKeyRowsPerPage: 5, showAnswerKey: layout.showAnswerKeyPage, answerKeyPlacement: layout.showAnswerKeyPage ? "afterQuestions" : "none" }),
-    publicControls: Object.freeze({ sourceId: G3B_U07_SOURCE_ID, questionMode: "numeric", requestedQuestionType: "numeric", productAdmissionTask: P03F24_WORKSHEET_ADAPTER.task, globalContextRegistry: null }),
-    metadata: Object.freeze({ sourceId: G3B_U07_SOURCE_ID, knowledgePointIds: plan.selectedKnowledgePointIds, structuredFractionDisplay: true, worksheetAdapter: P03F24_WORKSHEET_ADAPTER }),
-    batchA: Object.freeze({ sourceId: G3B_U07_SOURCE_ID, questionMode: "numeric", selectionMode: plan.selectionMode }),
+    printOptions: Object.freeze({ ...layout, answerKeyColumns: 2, answerKeyRowsPerPage: maxRowsPerPage, showAnswerKey: layout.showAnswerKeyPage, answerKeyPlacement: layout.showAnswerKeyPage ? "afterQuestions" : "none" }),
+    publicControls: Object.freeze({ sourceId: G3B_U07_SOURCE_ID, questionMode: plan.questionMode, requestedQuestionType: plan.questionMode, productAdmissionTask: P03F24_WORKSHEET_ADAPTER.task, globalContextRegistry: isApplication ? "W02_ATOMIC_CONTEXT_BINDING" : null }),
+    metadata: Object.freeze({ sourceId: G3B_U07_SOURCE_ID, knowledgePointIds: plan.selectedKnowledgePointIds, structuredFractionDisplay: true, applicationExpansion: isApplication, worksheetAdapter: P03F24_WORKSHEET_ADAPTER }),
+    batchA: Object.freeze({ sourceId: G3B_U07_SOURCE_ID, questionMode: plan.questionMode, selectionMode: plan.selectionMode }),
     report: Object.freeze({ ok: true, errors: Object.freeze([]), warnings: Object.freeze([]), summary: Object.freeze({ questionCount: generation.questions.length, questionPageCount: questionPages.length, answerKeyPageCount: answerKeyPages.length }) }),
-    summary: Object.freeze({ questionCount: generation.questions.length, questionPageCount: questionPages.length, answerKeyPageCount: answerKeyPages.length, numericQuestionCount: generation.questions.length, applicationQuestionCount: 0 }),
+    summary: Object.freeze({ questionCount: generation.questions.length, questionPageCount: questionPages.length, answerKeyPageCount: answerKeyPages.length, numericQuestionCount, applicationQuestionCount }),
   });
   return Object.freeze({ ok: true, errors: Object.freeze([]), warnings: Object.freeze([]), worksheetDocument: document, plan, generation, validation, g3bU07CurrentWorksheetAdapter: P03F24_WORKSHEET_ADAPTER });
 }

@@ -194,11 +194,7 @@ export function generateG3BU07FractionUnitConversionQuestions(options = {}) {
   const plan = buildBatchABrowserPlan(options);
   if (!canGenerateG3BU07FractionUnitConversionQuestions(plan)) return { ok: false, errors: [{ code: "p03f7_plan_not_supported", severity: "error", path: "patternSpecIds", message: "p03f7_plan_not_supported" }], warnings: [], questions: [], allocation: [], plan };
   const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 6;
-  const fixturePool = plan.questionMode === "application" && isPgcR05Seed(plan.generationSeed)
-    ? PGC_R05_APPLICATION_FIXTURES
-    : plan.questionMode === "application"
-      ? APPLICATION_FIXTURES
-      : NUMERIC_FIXTURES;
+  const fixturePool = plan.questionMode === "application" ? PGC_R05_APPLICATION_FIXTURES : NUMERIC_FIXTURES;
   const offset = seedOffset(plan.generationSeed, fixturePool.length);
   const questions = Array.from({ length: count }, (_, index) => buildQuestion(plan.questionMode, resolveFixture(fixturePool[(index + offset) % fixturePool.length]), index));
   const errors = questions.flatMap((q, i) => validateG3BU07FractionUnitConversionQuestion(q).errors.map((e) => ({ ...e, path: `questions[${i}].${e.path}` })));

@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   G3B_U07_CURRENT_KP_IDS,
   generateG3BU07CurrentQuestions,
+  requestsG3BU07CurrentWorksheet,
 } from "../../site/modules/curriculum/batch-a/g3b-u07-current-coordinator.js";
 import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
@@ -14,8 +15,9 @@ import {
 import { resolvePublicUiCapabilityBinding } from "../../site/modules/curriculum/public/public-ui-capability-binding-p04f30.js";
 
 const SOURCE_ID = "g3b_u07_3b07";
+const FRACTION_UNIT_CONVERSION_KP_ID = "kp_g3b_u07_fraction_unit_conversion";
 const TARGET_CAPACITY_KP_IDS = Object.freeze([
-  "kp_g3b_u07_fraction_unit_conversion",
+  FRACTION_UNIT_CONVERSION_KP_ID,
   "kp_g3b_u07_same_denominator_add_sub",
   "kp_g3b_u07_same_denominator_compare",
   "kp_g3b_u07_original_or_difference_context",
@@ -59,6 +61,48 @@ for (const knowledgePointId of TARGET_CAPACITY_KP_IDS) {
     }
   });
 }
+
+test("fraction-unit conversion application produces 120 and 121 distinct questions", () => {
+  for (const questionCount of [120, 121]) {
+    const result = generateG3BU07CurrentQuestions(options([FRACTION_UNIT_CONVERSION_KP_ID], {
+      questionMode: "application",
+      questionCount,
+      generationSeed: `g3b-u07-application-${questionCount}`,
+      printLayout: { paperSize: "A4", columns: 2, rowsPerPage: 3, showQuestionNumbers: true, showAnswerKeyPage: true },
+    }));
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(result.questions.length, questionCount);
+    assert.equal(new Set(result.questions.map(prompt)).size, questionCount);
+    assert.equal(result.questions.every((question) => question.metadata.knowledgePointId === FRACTION_UNIT_CONVERSION_KP_ID), true);
+    assert.equal(result.questions.every((question) => question.questionMode === "application"), true);
+  }
+});
+
+test("public worksheet keeps numeric capacity and routes only fraction-unit conversion application through current coordinator", () => {
+  const otherKnowledgePointIds = G3B_U07_CURRENT_KP_IDS.filter((id) => id !== FRACTION_UNIT_CONVERSION_KP_ID);
+  assert.equal(requestsG3BU07CurrentWorksheet(options([FRACTION_UNIT_CONVERSION_KP_ID], { questionMode: "application" })), true);
+  for (const knowledgePointId of otherKnowledgePointIds) {
+    assert.equal(requestsG3BU07CurrentWorksheet(options([knowledgePointId], { questionMode: "application" })), false, knowledgePointId);
+  }
+
+  for (const questionMode of ["numeric", "application"]) {
+    const result = buildBatchABrowserWorksheetDocument(options([FRACTION_UNIT_CONVERSION_KP_ID], {
+      questionMode,
+      questionCount: 121,
+      generationSeed: `public-${questionMode}-121`,
+      printLayout: { paperSize: "A4", columns: 2, rowsPerPage: questionMode === "application" ? 3 : 5, showQuestionNumbers: true, showAnswerKeyPage: true },
+    }));
+    assert.equal(result.ok, true, `${questionMode}:${JSON.stringify(result.errors)}`);
+    const document = result.worksheetDocument;
+    assert.equal(document.questions.length, 121, questionMode);
+    assert.equal(document.answerKeyItems.length, 121, questionMode);
+    assert.equal(new Set(document.questions.map(prompt)).size, 121, questionMode);
+    assert.equal(document.publicControls.questionMode, questionMode);
+    assert.equal(document.summary.numericQuestionCount, questionMode === "numeric" ? 121 : 0);
+    assert.equal(document.summary.applicationQuestionCount, questionMode === "application" ? 121 : 0);
+    assert.equal(document.questions.every((question) => question.questionMode === questionMode), true, questionMode);
+  }
+});
 
 test("all eight KPs produce 121 distinct questions individually", () => {
   for (const knowledgePointId of G3B_U07_CURRENT_KP_IDS) {
