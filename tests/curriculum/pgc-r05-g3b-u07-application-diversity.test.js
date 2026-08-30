@@ -85,17 +85,18 @@ test("PGC-R05 G3B-U07 FullFix clears source-unit, single-KP and mixed-unit live 
   assert.equal(report.summary.live20PassRouteCount + report.summary.live20FailRouteCount, 211);
 });
 
-test("PGC-R05 G3B-U07 repair is seed-scoped and preserves the reviewed six-fixture product path", async () => {
+test("PGC-R05 G3B-U07 high-capacity application fixture pool is shared with the ordinary product path", async () => {
   const runtimeSource = fs.readFileSync(runtimePath, "utf8");
-  assert.match(runtimeSource, /function isPgcR05Seed\(seed\)/);
   assert.match(runtimeSource, /PGC_R05_APPLICATION_FIXTURES/);
   assert.match(runtimeSource, /roleInterleaving|fractionalUnitRows/);
 
-  const { generateG3BU07FractionUnitConversionQuestions } = await import(`${pathToFileURL(runtimePath).href}?legacy=${Date.now()}`);
-  const result = generateG3BU07FractionUnitConversionQuestions(applicationPlan("ordinary-product-seed"));
+  const { generateG3BU07FractionUnitConversionQuestions } = await import(`${pathToFileURL(runtimePath).href}?product=${Date.now()}`);
+  const result = generateG3BU07FractionUnitConversionQuestions(applicationPlan("ordinary-product-seed", 121));
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.questions.length, 20);
-  assert.equal(new Set(result.questions.map((question) => question.promptText)).size, 6);
+  assert.equal(result.questions.length, 121);
+  assert.equal(new Set(result.questions.map((question) => question.promptText)).size, 121);
+  assert.deepEqual([...new Set(result.questions.map((question) => question.requestedUnknownRole))].sort(), ["fractionalUnits", "itemCount"]);
+  assert.deepEqual([...new Set(result.questions.map((question) => question.patternSpecId))].sort(), [...SPEC_IDS].sort());
 });
 
 test("PGC-R05 G3B-U07 repair preserves the frozen authority boundary", () => {
