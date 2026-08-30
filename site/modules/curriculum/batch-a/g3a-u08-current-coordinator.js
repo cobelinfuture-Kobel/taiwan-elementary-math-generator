@@ -73,25 +73,15 @@ function uniqueStrings(values = []) {
 }
 
 function specIdsByKp(questionMode) {
-  if (questionMode === "application") {
-    return APPLICATION_SPEC_IDS_BY_KP;
-  }
-
-  if (questionMode === "mixed") {
-    return Object.freeze(
-      Object.fromEntries(
-        G3A_U08_CURRENT_KP_IDS.map((knowledgePointId) => [
-          knowledgePointId,
-          Object.freeze([
-            ...(NUMERIC_SPEC_IDS_BY_KP[knowledgePointId] ?? []),
-            ...(APPLICATION_SPEC_IDS_BY_KP[knowledgePointId] ?? []),
-          ]),
-        ]),
-      ),
-    );
-  }
-
-  return NUMERIC_SPEC_IDS_BY_KP;
+  if (questionMode === "application") return APPLICATION_SPEC_IDS_BY_KP;
+  if (questionMode !== "mixed") return NUMERIC_SPEC_IDS_BY_KP;
+  return Object.freeze(Object.fromEntries(G3A_U08_CURRENT_KP_IDS.map((knowledgePointId) => [
+    knowledgePointId,
+    Object.freeze([
+      ...(NUMERIC_SPEC_IDS_BY_KP[knowledgePointId] ?? []),
+      ...(APPLICATION_SPEC_IDS_BY_KP[knowledgePointId] ?? []),
+    ]),
+  ])));
 }
 
 function resolveSelectedKnowledgePointIds(options, questionMode) {
@@ -115,74 +105,6 @@ function allocateAcrossKnowledgePoints(knowledgePointIds, questionCount) {
     if (remainder > 0) remainder -= 1;
     return Object.freeze({ knowledgePointId, questionCount: allocated });
   }).filter((entry) => entry.questionCount > 0);
-}
-function addQuestionModeToAllocation(
-  allocation,
-  questionMode,
-) {
-  return allocation.map((entry) =>
-    Object.freeze({
-      ...entry,
-      questionMode,
-    }),
-  );
-}
-
-function buildGenerationAllocation(plan) {
-  if (plan.questionMode !== "mixed") {
-    return Object.freeze(
-      addQuestionModeToAllocation(
-        allocateAcrossKnowledgePoints(
-          plan.selectedKnowledgePointIds,
-          plan.questionCount,
-        ),
-        plan.questionMode,
-      ),
-    );
-  }
-
-  const numericKnowledgePointIds =
-    plan.selectedKnowledgePointIds.filter(
-      (knowledgePointId) =>
-        (NUMERIC_SPEC_IDS_BY_KP[knowledgePointId] ?? [])
-          .length > 0,
-    );
-
-  const applicationKnowledgePointIds =
-    plan.selectedKnowledgePointIds.filter(
-      (knowledgePointId) =>
-        (APPLICATION_SPEC_IDS_BY_KP[knowledgePointId] ?? [])
-          .length > 0,
-    );
-
-  const numericQuestionCount =
-    Math.ceil(plan.questionCount / 2);
-
-  const applicationQuestionCount =
-    plan.questionCount - numericQuestionCount;
-
-  const numericAllocation =
-    addQuestionModeToAllocation(
-      allocateAcrossKnowledgePoints(
-        numericKnowledgePointIds,
-        numericQuestionCount,
-      ),
-      "numeric",
-    );
-
-  const applicationAllocation =
-    addQuestionModeToAllocation(
-      allocateAcrossKnowledgePoints(
-        applicationKnowledgePointIds,
-        applicationQuestionCount,
-      ),
-      "application",
-    );
-
-  return Object.freeze([
-    ...numericAllocation,
-    ...applicationAllocation,
-  ]);
 }
 
 function hashSeed(value) {
@@ -225,7 +147,9 @@ function applyOrdering(questions, plan) {
 
 export function buildG3AU08CurrentPlan(options = {}) {
   const legacyPlan = buildLegacyPlan(options);
-  const questionMode = options.questionMode === "application" ? "application" : "numeric" : "mixed";
+  const questionMode = ["numeric", "application", "mixed"].includes(options.questionMode)
+    ? options.questionMode
+    : "numeric";
   const selectedKnowledgePointIds = resolveSelectedKnowledgePointIds(options, questionMode);
   const specs = specIdsByKp(questionMode);
   const patternSpecIds = selectedKnowledgePointIds.flatMap((id) => specs[id] ?? []);
@@ -302,28 +226,40 @@ export function generateG3AU08CurrentQuestions(options = {}) {
     ok: false, errors: planValidation.errors, warnings: planValidation.warnings,
     questions: Object.freeze([]), allocation: Object.freeze([]), knowledgePointAllocation: Object.freeze([]), plan,
   });
-  const generationAllocation = buildGenerationAllocation(plan);
+  const knowledgePointAllocation = allocateAcrossKnowledgePoints(plan.selectedKnowledgePointIds, plan.questionCount);
   const generatedQuestions = [];
   const errors = [];
-  for (const entry of generationAllocation) {
-    const generation = generatorForKnowledgePoint(entry.knowledgePointId)({
-      ...options,
-      plan: undefined,
-      sourceId: G3A_U08_SOURCE_ID,
-      selectionMode: "singleKnowledgePoint",
-      selectedKnowledgePointIds: [entry.knowledgePointId],
-      selectedPatternGroupIds: [],
-      patternSpecIds: undefined,
-      questionMode: entry.questionMode,
-      questionCount: entry.questionCount,
-      ordering: "groupedByPattern",
-      generationSeed:`${plan.generationSeed}:${entry.knowledgePointId}:${entry.questionMode}`,
-    });
-    if (!generation.ok) {
-      errors.push(...generation.errors.map((error) => ({ ...error, path: `${entry.knowledgePointId}.${error.path}` })));
-      continue;
+  for (const entry of knowledgePointAllocation) {
+    const questionModes = plan.questionMode === "mixed"
+      ? (APPLICATION_SPEC_IDS_BY_KP[entry.knowledgePointId]?.length > 0 ? ["numeric", "application"] : ["numeric"])
+      : [plan.questionMode];
+    const baseCount = Math.floor(entry.questionCount / questionModes.length);
+    let remainder = entry.questionCount % questionModes.length;
+    for (const questionMode of questionModes) {
+      const questionCount = baseCount + (remainder > 0 ? 1 : 0);
+      if (remainder > 0) remainder -= 1;
+      if (questionCount < 1) continue;
+      const generation = generatorForKnowledgePoint(entry.knowledgePointId)({
+        ...options,
+        plan: undefined,
+        sourceId: G3A_U08_SOURCE_ID,
+        selectionMode: "singleKnowledgePoint",
+        selectedKnowledgePointIds: [entry.knowledgePointId],
+        selectedPatternGroupIds: [],
+        patternSpecIds: undefined,
+        questionMode,
+        questionCount,
+        ordering: "groupedByPattern",
+        generationSeed: plan.questionMode === "mixed"
+          ? `${plan.generationSeed}:${entry.knowledgePointId}:${questionMode}`
+          : `${plan.generationSeed}:${entry.knowledgePointId}`,
+      });
+      if (!generation.ok) {
+        errors.push(...generation.errors.map((error) => ({ ...error, path: `${entry.knowledgePointId}.${error.path}` })));
+        continue;
+      }
+      generatedQuestions.push(...generation.questions);
     }
-    generatedQuestions.push(...generation.questions);
   }
   if (generatedQuestions.length !== plan.questionCount) errors.push(issue("g3a_u08_current_output_count_mismatch", "questions"));
   const orderedQuestions = applyOrdering(generatedQuestions, plan);
