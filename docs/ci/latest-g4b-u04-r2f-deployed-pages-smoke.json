@@ -2,7 +2,7 @@
   "schemaVersion": "g4b-u04-r2f-deployed-pages-smoke-v1",
   "task": "G4B_U04_R2F_ProductionStressAndD0Recloseout",
   "status": "FAIL",
-  "deploymentSha": "ad24373260199913e78d0cdeeba4aac4b6bc70ae",
+  "deploymentSha": "6754ad2823d41c185a3635fea82d8ac1bb4bc60d",
   "message": "G4B_U04_R2F_CONTEXT_QUERY_MISMATCH",
   "details": {
     "contextMode": "daily_life",
@@ -13,12 +13,12 @@
   "pageErrors": [],
   "workflow": "G4B-U04 R2F Deployed Pages Smoke",
   "run": {
-    "id": "33285273056",
-    "number": "522",
+    "id": "33292840088",
+    "number": "523",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/33285273056"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/33292840088"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-08-30T01:16:38.240Z"
+  "verifiedAt": "2026-08-30T04:36:35.306Z"
 }
