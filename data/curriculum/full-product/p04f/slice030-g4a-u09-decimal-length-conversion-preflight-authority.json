@@ -1,8 +1,8 @@
 {
-  "schemaName": "P04F30G4AU09DecimalLengthConversionPreflightAuthorityV1",
+  "schemaName": "P04F30G4AU09DecimalLengthConversionAuthorityV1",
   "schemaVersion": 1,
-  "taskId": "P04F30_Q030_ExactAuthorityAndFormalMappingPreflight",
-  "status": "PREFLIGHT_AUTHORITY_LOCKED_IMPLEMENTATION_NOT_STARTED",
+  "taskId": "P04F30_Q030_PatternSpecAndImplementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_PENDING_ACCEPTANCE",
   "queue": {
     "sliceId": "p04e_q030_r7_g4a_u09_4a09_profile_quantity_measurement_c1",
     "queuePosition": 30,
@@ -19,54 +19,34 @@
     "primaryWitnessPages": [2],
     "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
     "sourceTitleReconciliation": "PDF filename/source node are 4a09; embedded heading says 二位小數 and links meow911.com/4a07. The frozen queue remains the slice identity authority.",
-    "page2Witness": [
-      "用小數來表達長度",
-      "805公分=( )公尺",
-      "5公尺19公分=( )公尺",
-      "30公分=( )公尺",
-      "2公尺7公分=( )公尺",
-      "6公分=( )公尺",
-      "920公分=( )公尺"
-    ]
+    "page2Witness": ["用小數來表達長度","805公分=( )公尺","5公尺19公分=( )公尺","30公分=( )公尺","2公尺7公分=( )公尺","6公分=( )公尺","920公分=( )公尺"]
   },
-  "knowledgePoints": [
-    {
-      "knowledgePointId": "kp_g4a_u09_decimal_length_conversion",
-      "canonicalNameZh": "小數長度換算",
-      "knowledgePointCount": 1,
-      "kpSplitAllowed": false
-    }
-  ],
-  "formalMappingCandidate": {
-    "authorityMode": "P04F_SLICE_LOCAL_EXACT_CANDIDATE",
+  "knowledgePoints": [{"knowledgePointId":"kp_g4a_u09_decimal_length_conversion","canonicalNameZh":"小數長度換算","knowledgePointCount":1,"kpSplitAllowed":false}],
+  "formalMapping": {
+    "authorityMode": "P04F_SLICE_LOCAL_EXACT",
     "relationFamilyId": "DECIMAL_LENGTH_EQUIVALENT_REPRESENTATION",
     "knownRoleIds": ["SOURCE_LENGTH_REPRESENTATION"],
     "targetRoleId": "EQUIVALENT_LENGTH_REPRESENTATION",
     "targetRoleMode": "FIXED",
     "allowedDirections": ["CM_TO_M_DECIMAL", "M_CM_TO_M_DECIMAL"],
-    "unitInvariant": {
-      "centimetersPerMeter": 100,
-      "CM_TO_M_DECIMAL": "targetMeters = sourceCentimeters / 100",
-      "M_CM_TO_M_DECIMAL": "targetMeters = wholeMeters + remainingCentimeters / 100"
-    },
+    "unitInvariant": {"centimetersPerMeter":100,"CM_TO_M_DECIMAL":"targetMeters = sourceCentimeters / 100","M_CM_TO_M_DECIMAL":"targetMeters = wholeMeters + remainingCentimeters / 100"},
     "representationInvariant": "decimal meters preserve exact centimeter equivalence",
     "exactConversionRequired": true,
     "roundingAllowed": false
   },
-  "reconciliation": {
-    "frozenQueueProfileQuantityMeasurement": true,
-    "p02eExactOverridePresent": false,
-    "existingG4AU09DecimalRuntimePrecedentPresent": true,
-    "sourceWitnessSupportsCentimeterToDecimalMeter": true,
-    "sourceWitnessSupportsMixedMeterCentimeterToDecimalMeter": true
+  "patternSpecs": [{"patternSpecId":"ps_g4a_u09_decimal_length_equivalent_representation_numeric","patternFamilyId":"DECIMAL_LENGTH_EQUIVALENT_REPRESENTATION","knownRoleIds":["SOURCE_LENGTH_REPRESENTATION"],"targetRoleId":"EQUIVALENT_LENGTH_REPRESENTATION","allowedDirections":["CM_TO_M_DECIMAL","M_CM_TO_M_DECIMAL"],"questionMode":"numeric","answerModel":"exact_decimal_meters","sourceEvidencePages":[2]}],
+  "implementation": {
+    "runtimeModule": "site/modules/curriculum/batch-a/g4a-u09-decimal-length-conversion-runtime-p04f30.js",
+    "coordinatorModule": "site/modules/curriculum/batch-a/g4a-u09-current-coordinator-p04f30.js",
+    "generatorModule": "site/modules/curriculum/batch-a/batch-a-browser-generator-p04f30.js",
+    "selectorModule": "site/modules/curriculum/registry/batch-a-selector-p04f30-extension.js",
+    "worksheetModule": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p04f30-extension.js",
+    "publicBindingModule": "site/modules/curriculum/public/public-ui-capability-binding-p04f30.js",
+    "sharedDecimalSemantics": true,
+    "sharedPagination": true,
+    "sharedRenderer": true,
+    "parallelPipeline": false
   },
-  "boundary": {
-    "patternSpecMaterialized": false,
-    "generatorMaterialized": false,
-    "validatorMaterialized": false,
-    "selectorPromoted": false,
-    "worksheetEnabled": false,
-    "q031Touched": false,
-    "implementationApprovalRequired": true
-  }
+  "reconciliation": {"frozenQueueProfileQuantityMeasurement":true,"p02eExactOverridePresent":false,"existingG4AU09DecimalRuntimePrecedentPresent":true,"sourceWitnessSupportsCentimeterToDecimalMeter":true,"sourceWitnessSupportsMixedMeterCentimeterToDecimalMeter":true},
+  "boundary": {"patternSpecMaterialized":true,"generatorMaterialized":true,"validatorMaterialized":true,"selectorPromoted":true,"worksheetEnabled":true,"q031Touched":false,"implementationApprovalRequired":false}
 }
