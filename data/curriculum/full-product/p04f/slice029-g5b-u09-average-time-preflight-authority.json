@@ -1,69 +1,15 @@
 {
-  "schemaName": "P04F29G5BU09AverageTimePreflightAuthorityV1",
+  "schemaName": "P04F29G5BU09AverageTimeAuthorityV1",
   "schemaVersion": 1,
   "taskId": "P04F29_Q029_ExactAuthorityAndFormalMappingPreflight",
-  "status": "PREFLIGHT_AUTHORITY_LOCKED_IMPLEMENTATION_NOT_STARTED",
-  "queue": {
-    "sliceId": "p04e_q029_r6_g5b_u09_5b09_profile_number_representation_c1",
-    "queuePosition": 29,
-    "previousSliceId": "p04e_q028_r6_g5a_u04_5a04_profile_quantity_measurement_c1",
-    "nextSliceId": "p04e_q030_r7_g4a_u09_4a09_profile_quantity_measurement_c1",
-    "primaryRuntimeProfileId": "profile_number_representation"
-  },
-  "source": {
-    "sourceNodeId": "g5b_u09_5b09",
-    "unitCode": "5B-U09",
-    "unitTitle": "時間的乘除",
-    "sourcePdfTitle": "meow911_5b09_source.pdf",
-    "driveFileId": "1lpORAkw7vvgyqF1oSdT_KI7l6--vB3a2",
-    "reviewedPages": [1, 2, 3],
-    "primaryWitnessPages": [2],
-    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
-    "page2Witness": [
-      "座標相減 = 間隔數量",
-      "1次的時間 = 經過時間 ÷ 間隔數量",
-      "毛毛蟲從座標4爬到座標14，共花76分40秒，平均爬一格要花多少時間"
-    ]
-  },
-  "knowledgePoints": [
-    {
-      "knowledgePointId": "kp_g5b_u09_average_time",
-      "canonicalNameZh": "平均時間",
-      "knowledgePointCount": 1,
-      "kpSplitAllowed": false
-    }
-  ],
-  "formalMappingCandidate": {
-    "authorityMode": "P04F_SLICE_LOCAL_EXACT_CANDIDATE",
-    "relationFamilyId": "AVERAGE_TIME_PER_NUMBER_LINE_INTERVAL",
-    "knownRoleIds": ["TOTAL_ELAPSED_TIME", "START_COORDINATE", "END_COORDINATE"],
-    "derivedRole": {
-      "roleId": "INTERVAL_COUNT",
-      "derivation": "END_COORDINATE - START_COORDINATE",
-      "mustBePositiveInteger": true
-    },
-    "targetRoleId": "AVERAGE_INTERVAL_TIME",
-    "targetRoleMode": "FIXED",
-    "arithmeticInvariant": "averageIntervalSeconds = totalElapsedSeconds / intervalCount",
-    "secondsPerMinute": 60,
-    "minutesPerHour": 60,
-    "exactDivisionRequired": true,
-    "roundingAllowed": false
-  },
-  "reconciliation": {
-    "frozenQueueProfileTime": false,
-    "frozenQueueProfileNumberRepresentation": true,
-    "p02eExactOverridePresent": false,
-    "q025RelationReusedDirectly": false,
-    "q025RelationReason": "q025 receives GROUP_COUNT directly; q029 derives INTERVAL_COUNT from number-line coordinates before time division"
-  },
-  "boundary": {
-    "patternSpecMaterialized": false,
-    "generatorMaterialized": false,
-    "validatorMaterialized": false,
-    "selectorPromoted": false,
-    "worksheetEnabled": false,
-    "q030Touched": false,
-    "implementationApprovalRequired": true
-  }
+  "implementationTaskId": "P04F29_Q029_PatternSpecAndImplementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_PENDING_ACCEPTANCE",
+  "queue": {"sliceId":"p04e_q029_r6_g5b_u09_5b09_profile_number_representation_c1","queuePosition":29,"previousSliceId":"p04e_q028_r6_g5a_u04_5a04_profile_quantity_measurement_c1","nextSliceId":"p04e_q030_r7_g4a_u09_4a09_profile_quantity_measurement_c1","primaryRuntimeProfileId":"profile_number_representation"},
+  "source": {"sourceNodeId":"g5b_u09_5b09","unitCode":"5B-U09","unitTitle":"時間的乘除","sourcePdfTitle":"meow911_5b09_source.pdf","driveFileId":"1lpORAkw7vvgyqF1oSdT_KI7l6--vB3a2","reviewedPages":[1,2,3],"primaryWitnessPages":[2],"reviewMethod":"FULL_PAGE_VISUAL_READBACK","page2Witness":["座標相減 = 間隔數量","1次的時間 = 經過時間 ÷ 間隔數量","毛毛蟲從座標4爬到座標14，共花76分40秒，平均爬一格要花多少時間"]},
+  "knowledgePoints": [{"knowledgePointId":"kp_g5b_u09_average_time","canonicalNameZh":"平均時間","knowledgePointCount":1,"kpSplitAllowed":false}],
+  "formalMapping": {"authorityMode":"P04F_SLICE_LOCAL_EXACT","relationFamilyId":"AVERAGE_TIME_PER_NUMBER_LINE_INTERVAL","knownRoleIds":["TOTAL_ELAPSED_TIME","START_COORDINATE","END_COORDINATE"],"derivedRole":{"roleId":"INTERVAL_COUNT","derivation":"END_COORDINATE - START_COORDINATE","mustBePositiveInteger":true},"targetRoleId":"AVERAGE_INTERVAL_TIME","targetRoleMode":"FIXED","arithmeticInvariant":"averageIntervalSeconds = totalElapsedSeconds / intervalCount","secondsPerMinute":60,"minutesPerHour":60,"exactDivisionRequired":true,"roundingAllowed":false},
+  "patternSpecs": [{"patternSpecId":"pat_g5b_u09_average_time_number_line_interval","patternFamilyId":"AVERAGE_TIME_PER_NUMBER_LINE_INTERVAL","semanticRelation":"AVERAGE_TIME_PER_NUMBER_LINE_INTERVAL","knownRoleIds":["TOTAL_ELAPSED_TIME","START_COORDINATE","END_COORDINATE"],"derivedRoleId":"INTERVAL_COUNT","targetRoleId":"AVERAGE_INTERVAL_TIME","questionMode":"application","answerModel":"exact_time_quantity","sourceEvidencePages":[2]}],
+  "implementation": {"patternGroupId":"pg_g5b_u09_average_time_number_line_interval","runtimeModule":"site/modules/curriculum/batch-a/average-time-number-line-runtime-p04f29.js","generatorModule":"site/modules/curriculum/batch-a/batch-a-browser-generator-p04f29.js","validatorModule":"site/modules/curriculum/batch-a/batch-a-browser-validator-p04f29.js","selectorModule":"site/modules/curriculum/registry/batch-a-selector-p04f29-extension.js","worksheetModule":"site/modules/curriculum/batch-a/batch-a-browser-worksheet-p04f29-extension.js","sharedTimeSemantics":true,"sharedPagination":true,"sharedRenderer":true,"parallelPipeline":false},
+  "reconciliation": {"frozenQueueProfileTime":false,"frozenQueueProfileNumberRepresentation":true,"p02eExactOverridePresent":false,"q025RelationReusedDirectly":false,"q025RelationReason":"q025 receives GROUP_COUNT directly; q029 derives INTERVAL_COUNT from number-line coordinates before time division"},
+  "boundary": {"patternSpecMaterialized":true,"generatorMaterialized":true,"validatorMaterialized":true,"selectorPromoted":true,"worksheetEnabled":true,"q030Touched":false,"implementationApprovalRequired":false}
 }
