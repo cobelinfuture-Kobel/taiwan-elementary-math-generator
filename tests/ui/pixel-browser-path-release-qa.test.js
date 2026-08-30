@@ -92,7 +92,7 @@ test("GitHub Pages publishes site/ only after focused release checks succeed", a
   const workflow = await readFile(PAGES_WORKFLOW, "utf8");
   assert.match(
     workflow,
-    /run:\s*node --test tests\/ui\/pixel-browser-path-release-qa\.test\.js tests\/curriculum\/g3a-u08-current-capacity-renderer-ordering\.test\.js tests\/curriculum\/g4a-u09-current-capacity-ordering\.test\.js/
+    /run:\s*node --test tests\/ui\/pixel-browser-path-release-qa\.test\.js tests\/curriculum\/g3a-u08-current-capacity-renderer-ordering\.test\.js tests\/curriculum\/g4a-u09-current-capacity-ordering\.test\.js tests\/curriculum\/g4a-u06-fraction-times-integer-capacity-mixing\.test\.js/
   );
   assert.match(workflow, /deploy:\s*[\s\S]*?needs:\s*test/);
   assert.match(workflow, /uses:\s*actions\/upload-pages-artifact@v3[\s\S]*?path:\s*site/);
