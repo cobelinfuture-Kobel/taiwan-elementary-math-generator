@@ -5,10 +5,94 @@ import { generateBatchABrowserQuestions } from "./batch-a-browser-question-route
 import { validateBatchABrowserPlan, validateBatchABrowserQuestions } from "./batch-a-browser-validator-p03f24.js";
 import { G3B_U07_SOURCE_ID } from "../registry/g3b-u07-quotient-fraction-selector-projection.js";
 import { G3B_U07_P03F24_KP_IDS } from "../registry/g3b-u07-fraction-context-selector-projection-p03f24.js";
+import { buildG3BU07InlineMathModel } from "./g3b-u07-inline-fraction-display.js";
+import {
+  buildG3BU07CurrentPlan,
+  generateG3BU07CurrentQuestions,
+  requestsG3BU07CurrentWorksheet,
+  validateG3BU07CurrentPlan,
+  validateG3BU07CurrentQuestions,
+} from "./g3b-u07-current-coordinator.js";
 
 export const P03F24_WORKSHEET_ADAPTER = Object.freeze({ task: "P03F_W3DirectProductVerticalSlice024Implementation", status: "bounded_shared_rank8_fraction_context_connected", sourceId: G3B_U07_SOURCE_ID, knowledgePointCount: 4, patternGroupCount: 8, patternSpecCount: 20, sharedPagination: true, sharedRenderer: true, existingW02ContextLineage: true, parallelPipeline: false });
 
+function buildG3BU07CurrentWorksheetDocument(options = {}) {
+  const plan = buildG3BU07CurrentPlan(options);
+  const planValidation = validateG3BU07CurrentPlan(plan);
+  if (!planValidation.ok) return { ok: false, errors: planValidation.errors, warnings: planValidation.warnings, worksheetDocument: null, plan, validation: planValidation };
+  const generation = generateG3BU07CurrentQuestions({ ...options, plan });
+  const validation = validateG3BU07CurrentQuestions(generation.questions ?? []);
+  if (!generation.ok || !validation.ok) return { ok: false, errors: [...(generation.errors ?? []), ...(validation.errors ?? [])], warnings: [], worksheetDocument: null, plan, generation, validation };
+  const requested = options.printLayout ?? {};
+  const layout = Object.freeze({
+    paperSize: requested.paperSize ?? "A4",
+    columns: Math.min(Number.isInteger(requested.columns) ? requested.columns : 2, 2),
+    rowsPerPage: Math.min(Number.isInteger(requested.rowsPerPage) ? requested.rowsPerPage : 5, 5),
+    showQuestionNumbers: requested.showQuestionNumbers !== false,
+    showAnswerKeyPage: options.includeAnswerKey !== false && requested.showAnswerKeyPage !== false,
+    longTextCardPolicy: "avoidSplit",
+    questionMode: "numeric",
+  });
+  const models = generation.questions.map((question, index) => Object.freeze({
+    questionId: question.id,
+    questionNumber: index + 1,
+    patternId: question.patternSpecId,
+    knowledgePointId: question.metadata.knowledgePointId,
+    patternGroupId: question.metadata.patternGroupId,
+    questionNumberText: layout.showQuestionNumbers ? `${index + 1}.` : null,
+    promptText: question.blankedDisplayText,
+    displayText: question.displayText,
+    blankedDisplayText: question.blankedDisplayText,
+    answerText: question.answerText,
+    promptInlineMath: buildG3BU07InlineMathModel({ sourceId: G3B_U07_SOURCE_ID, plainText: question.blankedDisplayText }),
+    metadataSnapshot: question.metadata,
+    layoutHints: Object.freeze({ estimatedTextLength: question.blankedDisplayText.length, hasGrouping: false, avoidPageBreakInside: true, representation: "g3b_u07_structured_fraction", longTextCardPolicy: "avoidSplit" }),
+  }));
+  const answers = layout.showAnswerKeyPage ? generation.questions.map((question, index) => Object.freeze({
+    questionId: question.id,
+    questionNumber: index + 1,
+    patternId: question.patternSpecId,
+    knowledgePointId: question.metadata.knowledgePointId,
+    patternGroupId: question.metadata.patternGroupId,
+    promptText: question.blankedDisplayText,
+    answerText: question.answerText,
+    promptInlineMath: buildG3BU07InlineMathModel({ sourceId: G3B_U07_SOURCE_ID, plainText: question.blankedDisplayText }),
+    answerInlineMath: buildG3BU07InlineMathModel({ sourceId: G3B_U07_SOURCE_ID, plainText: question.answerText }),
+    metadataSnapshot: question.metadata,
+    layoutHints: Object.freeze({ avoidPageBreakInside: true, representation: "g3b_u07_structured_fraction_answer" }),
+  })) : [];
+  const questionPages = paginateQuestionDisplayModels(models, layout);
+  const answerKeyPages = layout.showAnswerKeyPage ? paginateAnswerKeyItems(answers, { ...layout, columns: 2, rowsPerPage: 5 }) : [];
+  const document = Object.freeze({
+    schemaVersion: "worksheet-document-v1",
+    version: "1",
+    worksheetId: `g3b-u07-current-${plan.questionCount}-${plan.generationSeed}`,
+    worksheetKind: "batchAWorksheet",
+    title: options.title ?? "三年級下｜分數的加減｜單元練習",
+    subtitle: "分數表示、單位換算、同分母加減比較與情境關係",
+    generatedAt: "DETERMINISTIC",
+    configSnapshot: Object.freeze({ ...plan, printLayout: layout }),
+    orderingMode: plan.ordering,
+    questionCount: generation.questions.length,
+    questionPages: Object.freeze(questionPages),
+    answerKeyPages: Object.freeze(answerKeyPages),
+    sections: Object.freeze([]),
+    generatedQuestions: Object.freeze(generation.questions),
+    questions: Object.freeze(generation.questions),
+    questionDisplayModels: Object.freeze(models),
+    answerKeyItems: Object.freeze(answers),
+    printOptions: Object.freeze({ ...layout, answerKeyColumns: 2, answerKeyRowsPerPage: 5, showAnswerKey: layout.showAnswerKeyPage, answerKeyPlacement: layout.showAnswerKeyPage ? "afterQuestions" : "none" }),
+    publicControls: Object.freeze({ sourceId: G3B_U07_SOURCE_ID, questionMode: "numeric", requestedQuestionType: "numeric", productAdmissionTask: P03F24_WORKSHEET_ADAPTER.task, globalContextRegistry: null }),
+    metadata: Object.freeze({ sourceId: G3B_U07_SOURCE_ID, knowledgePointIds: plan.selectedKnowledgePointIds, structuredFractionDisplay: true, worksheetAdapter: P03F24_WORKSHEET_ADAPTER }),
+    batchA: Object.freeze({ sourceId: G3B_U07_SOURCE_ID, questionMode: "numeric", selectionMode: plan.selectionMode }),
+    report: Object.freeze({ ok: true, errors: Object.freeze([]), warnings: Object.freeze([]), summary: Object.freeze({ questionCount: generation.questions.length, questionPageCount: questionPages.length, answerKeyPageCount: answerKeyPages.length }) }),
+    summary: Object.freeze({ questionCount: generation.questions.length, questionPageCount: questionPages.length, answerKeyPageCount: answerKeyPages.length, numericQuestionCount: generation.questions.length, applicationQuestionCount: 0 }),
+  });
+  return Object.freeze({ ok: true, errors: Object.freeze([]), warnings: Object.freeze([]), worksheetDocument: document, plan, generation, validation, g3bU07CurrentWorksheetAdapter: P03F24_WORKSHEET_ADAPTER });
+}
+
 export function buildBatchABrowserWorksheetDocument(options = {}) {
+  if (requestsG3BU07CurrentWorksheet(options)) return buildG3BU07CurrentWorksheetDocument(options);
   if (!requestsP03F24(options)) return baseBuild(options);
   const plan = buildBatchABrowserPlan(options);
   const planValidation = validateBatchABrowserPlan(plan);
@@ -18,8 +102,8 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
   if (!generation.ok || !validation.ok) return { ok: false, errors: [...(generation.errors ?? []), ...(validation.errors ?? [])], warnings: [], worksheetDocument: null, plan, generation, validation };
   const hasApplication = generation.questions.some((question) => question.questionMode === "application");
   const layout = Object.freeze({ paperSize: options.printLayout?.paperSize ?? "A4", columns: Math.min(options.printLayout?.columns ?? 2, 2), rowsPerPage: Math.min(options.printLayout?.rowsPerPage ?? (hasApplication ? 4 : 5), hasApplication ? 4 : 5), showQuestionNumbers: options.printLayout?.showQuestionNumbers !== false, showAnswerKeyPage: options.includeAnswerKey !== false && options.printLayout?.showAnswerKeyPage !== false, longTextCardPolicy: "avoidSplit", questionMode: plan.questionMode });
-  const models = generation.questions.map((question, index) => Object.freeze({ questionId: question.id, questionNumber: index + 1, patternId: question.patternSpecId, knowledgePointId: question.metadata.knowledgePointId, patternGroupId: question.metadata.patternGroupId, questionNumberText: layout.showQuestionNumbers ? `${index + 1}.` : null, promptText: question.blankedDisplayText, displayText: question.displayText, blankedDisplayText: question.blankedDisplayText, answerText: question.answerText, metadataSnapshot: question.metadata, layoutHints: Object.freeze({ estimatedTextLength: question.blankedDisplayText.length, hasGrouping: false, avoidPageBreakInside: true, representation: question.questionMode === "application" ? "fraction_context_application" : "fraction_context_numeric", longTextCardPolicy: "avoidSplit" }) }));
-  const answers = layout.showAnswerKeyPage ? generation.questions.map((question, index) => Object.freeze({ questionId: question.id, questionNumber: index + 1, patternId: question.patternSpecId, knowledgePointId: question.metadata.knowledgePointId, patternGroupId: question.metadata.patternGroupId, promptText: question.blankedDisplayText, answerText: question.answerText, metadataSnapshot: question.metadata, layoutHints: Object.freeze({ avoidPageBreakInside: true, representation: "fraction_context_answer" }) })) : [];
+  const models = generation.questions.map((question, index) => Object.freeze({ questionId: question.id, questionNumber: index + 1, patternId: question.patternSpecId, knowledgePointId: question.metadata.knowledgePointId, patternGroupId: question.metadata.patternGroupId, questionNumberText: layout.showQuestionNumbers ? `${index + 1}.` : null, promptText: question.blankedDisplayText, displayText: question.displayText, blankedDisplayText: question.blankedDisplayText, answerText: question.answerText, promptInlineMath: buildG3BU07InlineMathModel({ sourceId: G3B_U07_SOURCE_ID, plainText: question.blankedDisplayText }), metadataSnapshot: question.metadata, layoutHints: Object.freeze({ estimatedTextLength: question.blankedDisplayText.length, hasGrouping: false, avoidPageBreakInside: true, representation: question.questionMode === "application" ? "fraction_context_application" : "fraction_context_numeric", longTextCardPolicy: "avoidSplit" }) }));
+  const answers = layout.showAnswerKeyPage ? generation.questions.map((question, index) => Object.freeze({ questionId: question.id, questionNumber: index + 1, patternId: question.patternSpecId, knowledgePointId: question.metadata.knowledgePointId, patternGroupId: question.metadata.patternGroupId, promptText: question.blankedDisplayText, answerText: question.answerText, promptInlineMath: buildG3BU07InlineMathModel({ sourceId: G3B_U07_SOURCE_ID, plainText: question.blankedDisplayText }), answerInlineMath: buildG3BU07InlineMathModel({ sourceId: G3B_U07_SOURCE_ID, plainText: question.answerText }), metadataSnapshot: question.metadata, layoutHints: Object.freeze({ avoidPageBreakInside: true, representation: "fraction_context_answer" }) })) : [];
   const questionPages = paginateQuestionDisplayModels(models, layout);
   const answerKeyPages = layout.showAnswerKeyPage ? paginateAnswerKeyItems(answers, { ...layout, columns: 2, rowsPerPage: 4 }) : [];
   const numericQuestionCount = generation.questions.filter((question) => question.questionMode === "numeric").length;
