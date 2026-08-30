@@ -8,9 +8,6 @@ import {
   G3B_U07_FRACTION_UNIT_CONVERSION_APPLICATION_SPEC_IDS, G3B_U07_FRACTION_UNIT_CONVERSION_PATTERN_SPEC_IDS,
 } from "../registry/g3b-u07-fraction-unit-conversion-selector-projection.js";
 const IDS = new Set(G3B_U07_FRACTION_UNIT_CONVERSION_PATTERN_SPEC_IDS);
-function isPgcR04Seed(seed) {
-  return String(seed ?? "").includes("pgc-r04");
-}
 function isPgcR05Seed(seed) {
   return String(seed ?? "").includes("pgc-r05");
 }
@@ -66,15 +63,22 @@ function buildPgcR05ApplicationFixtures() {
 }
 const PGC_R05_APPLICATION_FIXTURES = Object.freeze(buildPgcR05ApplicationFixtures());
 function buildNumericFixtures() {
-  const rows = [];
+  const itemCountRows = [];
+  const fractionalUnitRows = [];
   for (let itemsPerWhole = 4; itemsPerWhole <= 24; itemsPerWhole += 1) {
     for (let denominator = 2; denominator <= Math.min(12, itemsPerWhole); denominator += 1) {
       if (itemsPerWhole % denominator !== 0) continue;
       for (let numerator = 1; numerator < denominator; numerator += 1) {
-        for (let wholeUnits = 0; wholeUnits <= 3; wholeUnits += 1) rows.push(Object.freeze({ role: "itemCount", itemsPerWhole, wholeUnits, numerator, denominator, itemLabel: "個", unitLabel: "大單位" }));
+        for (let wholeUnits = 0; wholeUnits <= 3; wholeUnits += 1) itemCountRows.push(Object.freeze({ role: "itemCount", itemsPerWhole, wholeUnits, numerator, denominator, itemLabel: "個", unitLabel: "大單位" }));
       }
     }
-    for (let itemCount = 1; itemCount <= itemsPerWhole * 3; itemCount += 1) rows.push(Object.freeze({ role: "fractionalUnits", itemsPerWhole, itemCount, itemLabel: "個", unitLabel: "大單位" }));
+    for (let itemCount = 1; itemCount <= itemsPerWhole * 3; itemCount += 1) fractionalUnitRows.push(Object.freeze({ role: "fractionalUnits", itemsPerWhole, itemCount, itemLabel: "個", unitLabel: "大單位" }));
+  }
+  const rows = [];
+  const cycleLength = Math.max(itemCountRows.length, fractionalUnitRows.length);
+  for (let index = 0; index < cycleLength; index += 1) {
+    rows.push(itemCountRows[index % itemCountRows.length]);
+    rows.push(fractionalUnitRows[index % fractionalUnitRows.length]);
   }
   return rows;
 }
@@ -192,7 +196,7 @@ export function generateG3BU07FractionUnitConversionQuestions(options = {}) {
   const count = Number.isInteger(plan.questionCount) ? plan.questionCount : 6;
   const fixturePool = plan.questionMode === "application" && isPgcR05Seed(plan.generationSeed)
     ? PGC_R05_APPLICATION_FIXTURES
-    : plan.questionMode === "application" || !isPgcR04Seed(plan.generationSeed)
+    : plan.questionMode === "application"
       ? APPLICATION_FIXTURES
       : NUMERIC_FIXTURES;
   const offset = seedOffset(plan.generationSeed, fixturePool.length);

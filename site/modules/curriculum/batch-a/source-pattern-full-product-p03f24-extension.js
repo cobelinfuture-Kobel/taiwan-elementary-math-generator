@@ -10,7 +10,7 @@ import {
 
 export { P03F24_REQUIRED_CAPABILITY_IDS };
 const groupsBySpec = new Map(G3B_U07_P03F24_PATTERN_GROUPS.flatMap((group) => group.patternSpecIds.map((id) => [id, group])));
-const roleFor = (id) => id.includes("_difference_") ? "difference" : id.includes("_original_") ? "original" : id.includes("_total_") ? "total" : "result";
+const roleFor = (id) => id.match(/_(total|original|difference)_(?:numeric|application)$/)?.[1] ?? "result";
 const modeFor = (id) => id.endsWith("_application") ? "APPLICATION" : "NUMERIC";
 const givenRolesFor = (role, family) => {
   if (family === "fraction_add_sub") return Object.freeze(["leftNumerator", "leftDenominator", "rightNumerator", "rightDenominator", "operator"]);
