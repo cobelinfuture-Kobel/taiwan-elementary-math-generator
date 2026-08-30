@@ -139,7 +139,7 @@ function applyOrdering(questions, plan) {
 
 export function buildG3AU08CurrentPlan(options = {}) {
   const legacyPlan = buildLegacyPlan(options);
-  const questionMode = options.questionMode === "application" ? "application" : "numeric";
+  const questionMode = options.questionMode === "application" ? "application" : "numeric" : "mixed";
   const selectedKnowledgePointIds = resolveSelectedKnowledgePointIds(options, questionMode);
   const specs = specIdsByKp(questionMode);
   const patternSpecIds = selectedKnowledgePointIds.flatMap((id) => specs[id] ?? []);
