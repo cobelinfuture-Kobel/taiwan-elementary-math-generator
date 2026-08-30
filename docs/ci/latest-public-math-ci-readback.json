@@ -8,12 +8,12 @@
   "eventName": "push",
   "ref": "refs/heads/main",
   "refName": "main",
-  "sha": "41271185f8eed410ae6e310af120419feeeaf29e",
+  "sha": "21e9156f41064564d9d50773c4641c58f61cc215",
   "run": {
-    "id": "33320529249",
-    "number": "3348",
+    "id": "33321190740",
+    "number": "3349",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/33320529249"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/33321190740"
   },
   "checks": {
     "npmTestExitCode": {
@@ -48,8 +48,8 @@
   },
   "diagnostics": {
     "failingTestsExcerpt": "",
-    "npmOutputTail": "\n> math-worksheet-generator@0.0.0 pretest\n> node --input-type=module -e \"import fs from 'node:fs';import {auditFifteenUnitPublicWorksheetCloseout as a} from './tools/curriculum/audit-15-unit-public-worksheet-closeout-v2.mjs';const r=a();fs.mkdirSync('tmp',{recursive:true});fs.writeFileSync('tmp/15-unit-public-worksheet-closeout-report.json',JSON.stringify(r,null,2));console.log('CLOSEOUT_METRICS='+JSON.stringify(r.metrics));console.log('CLOSEOUT_BLOCKERS='+JSON.stringify(r.rows.filter(x=>x.blockers.length).map(({sourceId,blockers})=>({sourceId,blockers}))));\"\n\nfile:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/site/modules/curriculum/batch-a/g3a-u08-current-coordinator.js:142\n  const questionMode = options.questionMode === \"application\" ? \"application\" : \"numeric\" : \"mixed\";\n                                                                                          ^\n\nSyntaxError: Unexpected token ':'\n    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)\n    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)\n    at #translate (node:internal/modules/esm/loader:497:12)\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)\n\nNode.js v20.20.2\n",
+    "npmOutputTail": "\n> math-worksheet-generator@0.0.0 pretest\n> node --input-type=module -e \"import fs from 'node:fs';import {auditFifteenUnitPublicWorksheetCloseout as a} from './tools/curriculum/audit-15-unit-public-worksheet-closeout-v2.mjs';const r=a();fs.mkdirSync('tmp',{recursive:true});fs.writeFileSync('tmp/15-unit-public-worksheet-closeout-report.json',JSON.stringify(r,null,2));console.log('CLOSEOUT_METRICS='+JSON.stringify(r.metrics));console.log('CLOSEOUT_BLOCKERS='+JSON.stringify(r.rows.filter(x=>x.blockers.length).map(({sourceId,blockers})=>({sourceId,blockers}))));\"\n\nfile:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/site/modules/curriculum/batch-a/g3a-u08-current-coordinator.js:228\n  const questionMode = options.questionMode === \"application\" ? \"application\" : \"numeric\" : \"mixed\";\n                                                                                          ^\n\nSyntaxError: Unexpected token ':'\n    at compileSourceTextModule (node:internal/modules/esm/utils:346:16)\n    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)\n    at #translate (node:internal/modules/esm/loader:497:12)\n    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:544:27)\n\nNode.js v20.20.2\n",
     "failureContext": ""
   },
-  "updatedAt": "2026-08-30T15:45:56.119165Z"
+  "updatedAt": "2026-08-30T16:00:13.330565Z"
 }
