@@ -73,7 +73,25 @@ function uniqueStrings(values = []) {
 }
 
 function specIdsByKp(questionMode) {
-  return questionMode === "application" ? APPLICATION_SPEC_IDS_BY_KP : NUMERIC_SPEC_IDS_BY_KP;
+  if (questionMode === "application") {
+    return APPLICATION_SPEC_IDS_BY_KP;
+  }
+
+  if (questionMode === "mixed") {
+    return Object.freeze(
+      Object.fromEntries(
+        G3A_U08_CURRENT_KP_IDS.map((knowledgePointId) => [
+          knowledgePointId,
+          Object.freeze([
+            ...(NUMERIC_SPEC_IDS_BY_KP[knowledgePointId] ?? []),
+            ...(APPLICATION_SPEC_IDS_BY_KP[knowledgePointId] ?? []),
+          ]),
+        ]),
+      ),
+    );
+  }
+
+  return NUMERIC_SPEC_IDS_BY_KP;
 }
 
 function resolveSelectedKnowledgePointIds(options, questionMode) {
@@ -97,6 +115,74 @@ function allocateAcrossKnowledgePoints(knowledgePointIds, questionCount) {
     if (remainder > 0) remainder -= 1;
     return Object.freeze({ knowledgePointId, questionCount: allocated });
   }).filter((entry) => entry.questionCount > 0);
+}
+function addQuestionModeToAllocation(
+  allocation,
+  questionMode,
+) {
+  return allocation.map((entry) =>
+    Object.freeze({
+      ...entry,
+      questionMode,
+    }),
+  );
+}
+
+function buildGenerationAllocation(plan) {
+  if (plan.questionMode !== "mixed") {
+    return Object.freeze(
+      addQuestionModeToAllocation(
+        allocateAcrossKnowledgePoints(
+          plan.selectedKnowledgePointIds,
+          plan.questionCount,
+        ),
+        plan.questionMode,
+      ),
+    );
+  }
+
+  const numericKnowledgePointIds =
+    plan.selectedKnowledgePointIds.filter(
+      (knowledgePointId) =>
+        (NUMERIC_SPEC_IDS_BY_KP[knowledgePointId] ?? [])
+          .length > 0,
+    );
+
+  const applicationKnowledgePointIds =
+    plan.selectedKnowledgePointIds.filter(
+      (knowledgePointId) =>
+        (APPLICATION_SPEC_IDS_BY_KP[knowledgePointId] ?? [])
+          .length > 0,
+    );
+
+  const numericQuestionCount =
+    Math.ceil(plan.questionCount / 2);
+
+  const applicationQuestionCount =
+    plan.questionCount - numericQuestionCount;
+
+  const numericAllocation =
+    addQuestionModeToAllocation(
+      allocateAcrossKnowledgePoints(
+        numericKnowledgePointIds,
+        numericQuestionCount,
+      ),
+      "numeric",
+    );
+
+  const applicationAllocation =
+    addQuestionModeToAllocation(
+      allocateAcrossKnowledgePoints(
+        applicationKnowledgePointIds,
+        applicationQuestionCount,
+      ),
+      "application",
+    );
+
+  return Object.freeze([
+    ...numericAllocation,
+    ...applicationAllocation,
+  ]);
 }
 
 function hashSeed(value) {
@@ -216,10 +302,10 @@ export function generateG3AU08CurrentQuestions(options = {}) {
     ok: false, errors: planValidation.errors, warnings: planValidation.warnings,
     questions: Object.freeze([]), allocation: Object.freeze([]), knowledgePointAllocation: Object.freeze([]), plan,
   });
-  const knowledgePointAllocation = allocateAcrossKnowledgePoints(plan.selectedKnowledgePointIds, plan.questionCount);
+  const generationAllocation = buildGenerationAllocation(plan);
   const generatedQuestions = [];
   const errors = [];
-  for (const entry of knowledgePointAllocation) {
+  for (const entry of generationAllocation) {
     const generation = generatorForKnowledgePoint(entry.knowledgePointId)({
       ...options,
       plan: undefined,
@@ -228,10 +314,10 @@ export function generateG3AU08CurrentQuestions(options = {}) {
       selectedKnowledgePointIds: [entry.knowledgePointId],
       selectedPatternGroupIds: [],
       patternSpecIds: undefined,
-      questionMode: plan.questionMode,
+      questionMode: entry.questionMode,
       questionCount: entry.questionCount,
       ordering: "groupedByPattern",
-      generationSeed: `${plan.generationSeed}:${entry.knowledgePointId}`,
+      generationSeed:`${plan.generationSeed}:${entry.knowledgePointId}:${entry.questionMode}`,
     });
     if (!generation.ok) {
       errors.push(...generation.errors.map((error) => ({ ...error, path: `${entry.knowledgePointId}.${error.path}` })));
