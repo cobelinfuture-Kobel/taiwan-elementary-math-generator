@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P04F31_Q031_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "g5b_u02_5b02",
+  "expectedKnowledgePointIds": ["kp_g5b_u02_fraction_times_integer"],
+  "lanes": {
+    "KP_LEAF_ONLY": [
+      {
+        "gateId": "FOCUSED_NODE",
+        "kind": "NODE_TEST",
+        "paths": ["tests/curriculum/p04f-slice031-g5b-u02-fraction-times-integer-preflight.test.js"]
+      }
+    ]
+  }
+}
