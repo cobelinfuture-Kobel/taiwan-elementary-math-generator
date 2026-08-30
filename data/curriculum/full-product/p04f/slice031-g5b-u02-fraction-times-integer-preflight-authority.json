@@ -1,0 +1,56 @@
+{
+  "schemaName": "P04F31G5BU02FractionTimesIntegerPreflightAuthorityV1",
+  "schemaVersion": 1,
+  "taskId": "P04F31_Q031_ExactAuthorityAndFormalMappingPreflight",
+  "status": "PREFLIGHT_AUTHORITY_LOCKED_IMPLEMENTATION_NOT_STARTED",
+  "queue": {
+    "queuePosition": 31,
+    "sliceId": "p04e_q031_r7_g5b_u02_5b02_profile_fraction_c1",
+    "previousSliceId": "p04e_q030_r7_g4a_u09_4a09_profile_quantity_measurement_c1",
+    "nextSliceId": "p04e_q032_r8_g5b_u02_5b02_profile_fraction_c1",
+    "primarySourceNodeId": "g5b_u02_5b02",
+    "intraWavePrerequisiteRank": 7,
+    "primaryRuntimeProfileId": "profile_fraction",
+    "knowledgePointIds": ["kp_g5b_u02_fraction_times_integer"]
+  },
+  "sourceAuthority": {
+    "sourceFile": "meow911_5b02_source.pdf",
+    "driveFileId": "1HuX8603UDlSKj2odW1mcJjByyd8FCDdr",
+    "sourceTitle": "分數的計算",
+    "publisherAlignment": ["康軒5下第2課", "翰林5下第2課", "南一5下第1課"],
+    "sourceTopicWitness": "分數×整數",
+    "sourceGuideWitness": ["分數×分數", "分數×整數", "帶分數×整數", "分數乘積變化", "分數÷整數"]
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g5b_u02_fraction_times_integer",
+    "canonicalNameZh": "分數乘以整數",
+    "knowledgePointCount": 1,
+    "kpSplitAllowed": false
+  },
+  "formalMappingCandidate": {
+    "relationFamilyId": "FRACTION_TIMES_INTEGER_PRODUCT",
+    "knownRoleIds": ["SOURCE_FRACTION", "INTEGER_MULTIPLIER"],
+    "targetRoleId": "PRODUCT_FRACTION",
+    "invariants": {
+      "equation": "product = sourceFraction * integerMultiplier",
+      "exactRationalArithmeticRequired": true,
+      "equivalentFractionReductionAllowed": true,
+      "roundingAllowed": false
+    }
+  },
+  "reconciliation": {
+    "p02eExactOverridePresent": false,
+    "q027QuantityScalingRelationReusedDirectly": false,
+    "q027Distinction": "q027 is quantity/application scaling; q031 is fraction-domain numeric multiplication",
+    "q032Touched": false
+  },
+  "boundary": {
+    "patternSpecMaterialized": false,
+    "generatorMaterialized": false,
+    "validatorMaterialized": false,
+    "selectorPromoted": false,
+    "worksheetEnabled": false,
+    "q032Touched": false,
+    "implementationApprovalRequired": true
+  }
+}
