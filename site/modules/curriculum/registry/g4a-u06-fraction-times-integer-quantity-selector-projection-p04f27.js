@@ -32,6 +32,7 @@ export const G4A_U06_P04F27_PATTERN_GROUP = Object.freeze({
     "fraction",
     "mixed_number",
     "quantity_scaling",
+    "capacity",
     "exact_rational",
   ]),
   patternSpecIds: Object.freeze([G4A_U06_P04F27_SPEC_ID]),

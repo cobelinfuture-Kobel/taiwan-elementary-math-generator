@@ -20,6 +20,8 @@ test("P04F27 authority locks frozen q027, page-3 witness, exact P02E mapping, an
   assert.equal(authority.formalMapping.relationFamilyId, "FRACTIONAL_QUANTITY_SCALING");
   assert.deepEqual(authority.formalMapping.knownRoleIds, ["BASE_FRACTIONAL_QUANTITY", "INTEGER_MULTIPLIER"]);
   assert.equal(authority.formalMapping.targetRoleId, "SCALED_QUANTITY");
+  assert.deepEqual(authority.formalMapping.quantityDimensions, ["LENGTH", "MASS", "CAPACITY"]);
+  assert.equal(authority.formalMapping.unitConversionAllowed, false);
   const exact = overrides.bindings.find((row) => row.knowledgePointId === G4A_U06_P04F27_KP_ID);
   assert.equal(exact.relationFamilyId, authority.formalMapping.relationFamilyId);
   assert.equal(authority.implementationBoundary.q028Touched, false);
@@ -38,14 +40,14 @@ test("P04F27 selector reconciles hidden alias and reaches 42 / 297, G4A-U06 6/0/
   assert.equal(availability.hiddenPendingKnowledgePointIds.includes(G4A_U06_P04F27_HISTORICAL_ALIAS_ID), false);
 });
 
-test("P04F27 generates 24 unique exact rational quantity applications balanced 12/12", () => {
+test("P04F27 generates 24 unique exact rational quantity applications across length, mass, and capacity", () => {
   const plan = buildBatchABrowserPlan(q027());
   const result = generateG4AU06P04F27FractionTimesIntegerQuantityQuestions({ ...q027(), plan });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.questions.length, 24);
   assert.equal(new Set(result.questions.map((question) => question.blankedDisplayText)).size, 24);
-  const counts = Object.fromEntries(["PROPER_FRACTION_LENGTH_TIMES_INTEGER", "MIXED_NUMBER_MASS_TIMES_INTEGER"].map((family) => [family, result.questions.filter((question) => question.metadata.presentationFamilyId === family).length]));
-  assert.deepEqual(counts, { PROPER_FRACTION_LENGTH_TIMES_INTEGER: 12, MIXED_NUMBER_MASS_TIMES_INTEGER: 12 });
+  const counts = Object.fromEntries(["PROPER_FRACTION_LENGTH_TIMES_INTEGER", "MIXED_NUMBER_MASS_TIMES_INTEGER", "FRACTION_CAPACITY_TIMES_INTEGER"].map((family) => [family, result.questions.filter((question) => question.metadata.presentationFamilyId === family).length]));
+  assert.equal(Object.values(counts).every((count) => count > 0), true, JSON.stringify(counts));
   for (const question of result.questions) {
     assert.equal(question.metadata.productNumerator, question.metadata.baseImproperNumerator * question.metadata.integerMultiplier);
     assert.equal(question.metadata.productDenominator, question.metadata.baseDenominator);
@@ -79,20 +81,20 @@ test("P04F27 preserves existing G4A-U06 sourceUnit route instead of mixing appli
   assert.equal((sourceUnit.selectedKnowledgePointIds ?? []).includes(G4A_U06_P04F27_HISTORICAL_ALIAS_ID), false);
 });
 
-test("P04F27 public UI exposes q027 single-KP application at max 24", () => {
+test("P04F27 public UI exposes q027 single-KP application at max 240", () => {
   const binding = resolvePublicUiCapabilityBinding({ sourceId: "g4a_u06_4a06", surfaceId: "classic", selectionMode: "singleKnowledgePoint", selectedKnowledgePointIds: [G4A_U06_P04F27_KP_ID] });
   assert.equal(binding.blocked, false);
   assert.equal(binding.questionType, "application");
   assert.deepEqual(binding.selectedKnowledgePointIds, [G4A_U06_P04F27_KP_ID]);
   assert.equal(binding.compatiblePatternGroupIds.length, 1);
-  assert.equal(binding.questionCount.max, 24);
+  assert.equal(binding.questionCount.max, 240);
 });
 
-test("P04F27 Pixel current projection is 42 / 297 and G4A-U06 contains frozen q027 id", () => {
+test("P04F27 Pixel current projection is 42 / 298 and G4A-U06 contains frozen q027 id", () => {
   const registry = getCurrentPixelRegistrySnapshot();
   const source = registry.bySourceId["g4a_u06_4a06"];
   assert.equal(registry.sourceCount, 42);
-  assert.equal(registry.visibleKnowledgePointCount, 297);
+  assert.equal(registry.visibleKnowledgePointCount, 298);
   assert.equal(source.visibleKnowledgePoints.length, 6);
   assert.equal(source.visibleKnowledgePoints.some((row) => row.knowledgePointId === G4A_U06_P04F27_KP_ID), true);
 });

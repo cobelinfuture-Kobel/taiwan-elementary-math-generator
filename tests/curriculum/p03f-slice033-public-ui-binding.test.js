@@ -55,15 +55,15 @@ test("P03F33 mixed-same-unit binding composes all three rank9 KPs without applic
   for (const hiddenSpecId of G4A_U06_P03F33_HIDDEN_APPLICATION_SPEC_IDS) assert.equal(serialized.includes(hiddenSpecId), false);
 });
 
-test("P03F33 pattern-group state remains intact while current Pixel registry advances through Slice053 to 34 sources / 259 KPs", () => {
+test("P03F33 pattern-group state remains intact while current Pixel registry includes q027", () => {
   for (const knowledgePointId of G4A_U06_P03F33_KP_IDS) {
     const choices = listPublicPatternGroupChoices([knowledgePointId]);
     assert.deepEqual(choices.map((row) => row.patternGroupId), [groupByKnowledgePoint.get(knowledgePointId)]);
   }
   const snapshot = getCurrentPixelRegistrySnapshot();
-  assert.equal(snapshot.sourceCount, 35);
-  assert.equal(snapshot.visibleKnowledgePointCount, 260);
-  assert.equal(snapshot.bySourceId[G4A_U06_P03F33_SOURCE_ID].visibleKnowledgePoints.length, 5);
+  assert.equal(snapshot.sourceCount, 42);
+  assert.equal(snapshot.visibleKnowledgePointCount, 298);
+  assert.equal(snapshot.bySourceId[G4A_U06_P03F33_SOURCE_ID].visibleKnowledgePoints.length, 6);
 });
 
 test("P03F33 public capability audit remains fail-closed and gap-free", () => {

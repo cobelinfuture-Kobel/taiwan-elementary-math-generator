@@ -133,16 +133,15 @@ test("P03F17 shared worksheet produces questions and answer key without applicat
   assert.equal(result.worksheetDocument.metadata.applicationExpansion, false);
 });
 
-test("P03F17 historical selector remains one KP while current Pixel advances G4A-U06 through Slice033 to five", () => {
+test("P03F17 historical selector remains one KP while current Pixel advances G4A-U06 through q027 to six", () => {
   const historicalRows = listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === SOURCE_ID);
   assert.equal(historicalRows.length, 1);
   assert.equal(historicalRows[0].knowledgePointId, G4A_U06_FRACTION_CLASSIFICATION_KP_ID);
   const snapshot = getCurrentPixelRegistrySnapshot();
   assert.ok(snapshot.bySourceId[SOURCE_ID]);
-  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 5);
-  assert.deepEqual(new Set(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.map((row) => row.knowledgePointId)), new Set([
-    G4A_U06_FRACTION_CLASSIFICATION_KP_ID,
-    G4A_U06_P03F25_KP_ID,
-    ...G4A_U06_P03F33_KP_IDS,
-  ]));
+  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.length, 6);
+  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.some((row) => row.knowledgePointId === G4A_U06_FRACTION_CLASSIFICATION_KP_ID), true);
+  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.some((row) => row.knowledgePointId === G4A_U06_P03F25_KP_ID), true);
+  assert.equal(G4A_U06_P03F33_KP_IDS.every((id) => snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.some((row) => row.knowledgePointId === id)), true);
+  assert.equal(snapshot.bySourceId[SOURCE_ID].visibleKnowledgePoints.some((row) => row.knowledgePointId === "kp_fraction_times_integer_quantity"), true);
 });

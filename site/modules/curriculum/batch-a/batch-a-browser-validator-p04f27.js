@@ -9,7 +9,7 @@ export function validateBatchABrowserPlan(plan = {}) {
   if (plan.sourceId !== G4A_U06_P04F27_SOURCE_ID || !plan.patternSpecIds?.includes(G4A_U06_P04F27_SPEC_ID)) return basePlan(plan);
   const errors = [];
   if (plan.questionMode !== "application" || JSON.stringify(plan.patternSpecIds) !== JSON.stringify([G4A_U06_P04F27_SPEC_ID])) errors.push(issue("p04f27_plan_pattern_invalid", "patternSpecIds"));
-  if (!Number.isInteger(plan.questionCount) || plan.questionCount < 1 || plan.questionCount > 24) errors.push(issue("p04f27_question_count_invalid", "questionCount"));
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount < 1 || plan.questionCount > 240) errors.push(issue("p04f27_question_count_invalid", "questionCount"));
   if (plan.genericFallbackAllowed !== false) errors.push(issue("p04f27_generic_fallback_must_be_disabled", "genericFallbackAllowed"));
   return { ok: errors.length === 0, errors, warnings: [] };
 }

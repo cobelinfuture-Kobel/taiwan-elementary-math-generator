@@ -4,6 +4,7 @@ import { buildBatchABrowserPlan, requestsP04F27 } from "./batch-a-browser-genera
 import { generateBatchABrowserQuestions } from "./batch-a-browser-question-router-p04f27.js";
 import { validateBatchABrowserPlan, validateBatchABrowserQuestions } from "./batch-a-browser-validator-p04f27.js";
 import { buildG4AU06InlineMathModel } from "./g4a-u06-inline-fraction-display.js";
+import { buildBatchABrowserWorksheetDocument as buildG4AU06CurrentWorksheetDocument } from "./batch-a-browser-worksheet-p03f33-extension.js";
 import { G4A_U06_P04F27_SOURCE_ID, G4A_U06_P04F27_KP_ID } from "../registry/g4a-u06-fraction-times-integer-quantity-selector-projection-p04f27.js";
 export const P04F27_WORKSHEET_ADAPTER = Object.freeze({
   task: "P04F_W4DirectProductVerticalSlice027Implementation",
@@ -20,6 +21,9 @@ export const P04F27_WORKSHEET_ADAPTER = Object.freeze({
 });
 export function buildBatchABrowserWorksheetDocument(options = {}) {
   if (!requestsP04F27(options)) return baseBuild(options);
+  if (options.selectionMode === "mixedKnowledgePointsSameUnit" && (options.selectedKnowledgePointIds ?? []).length > 1) {
+    return buildG4AU06CurrentWorksheetDocument(options);
+  }
   const plan = buildBatchABrowserPlan(options);
   const planValidation = validateBatchABrowserPlan(plan);
   if (!planValidation.ok) return { ok: false, errors: planValidation.errors, warnings: planValidation.warnings, worksheetDocument: null, plan, validation: planValidation };
