@@ -1,0 +1,72 @@
+{
+  "schemaName": "P04F30G4AU09DecimalLengthConversionPreflightAuthorityV1",
+  "schemaVersion": 1,
+  "taskId": "P04F30_Q030_ExactAuthorityAndFormalMappingPreflight",
+  "status": "PREFLIGHT_AUTHORITY_LOCKED_IMPLEMENTATION_NOT_STARTED",
+  "queue": {
+    "sliceId": "p04e_q030_r7_g4a_u09_4a09_profile_quantity_measurement_c1",
+    "queuePosition": 30,
+    "previousSliceId": "p04e_q029_r6_g5b_u09_5b09_profile_number_representation_c1",
+    "nextSliceId": "p04e_q031_r7_g5b_u02_5b02_profile_fraction_c1",
+    "primaryRuntimeProfileId": "profile_quantity_measurement"
+  },
+  "source": {
+    "sourceNodeId": "g4a_u09_4a09",
+    "unitCode": "4A-U09",
+    "sourcePdfTitle": "meow911_4a09_source.pdf",
+    "driveFileId": "1UTeIt3juNA_gtsGWMs114FWPvAKnkMRT",
+    "reviewedPages": [1, 2],
+    "primaryWitnessPages": [2],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceTitleReconciliation": "PDF filename/source node are 4a09; embedded heading says 二位小數 and links meow911.com/4a07. The frozen queue remains the slice identity authority.",
+    "page2Witness": [
+      "用小數來表達長度",
+      "805公分=( )公尺",
+      "5公尺19公分=( )公尺",
+      "30公分=( )公尺",
+      "2公尺7公分=( )公尺",
+      "6公分=( )公尺",
+      "920公分=( )公尺"
+    ]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_length_conversion",
+      "canonicalNameZh": "小數長度換算",
+      "knowledgePointCount": 1,
+      "kpSplitAllowed": false
+    }
+  ],
+  "formalMappingCandidate": {
+    "authorityMode": "P04F_SLICE_LOCAL_EXACT_CANDIDATE",
+    "relationFamilyId": "DECIMAL_LENGTH_EQUIVALENT_REPRESENTATION",
+    "knownRoleIds": ["SOURCE_LENGTH_REPRESENTATION"],
+    "targetRoleId": "EQUIVALENT_LENGTH_REPRESENTATION",
+    "targetRoleMode": "FIXED",
+    "allowedDirections": ["CM_TO_M_DECIMAL", "M_CM_TO_M_DECIMAL"],
+    "unitInvariant": {
+      "centimetersPerMeter": 100,
+      "CM_TO_M_DECIMAL": "targetMeters = sourceCentimeters / 100",
+      "M_CM_TO_M_DECIMAL": "targetMeters = wholeMeters + remainingCentimeters / 100"
+    },
+    "representationInvariant": "decimal meters preserve exact centimeter equivalence",
+    "exactConversionRequired": true,
+    "roundingAllowed": false
+  },
+  "reconciliation": {
+    "frozenQueueProfileQuantityMeasurement": true,
+    "p02eExactOverridePresent": false,
+    "existingG4AU09DecimalRuntimePrecedentPresent": true,
+    "sourceWitnessSupportsCentimeterToDecimalMeter": true,
+    "sourceWitnessSupportsMixedMeterCentimeterToDecimalMeter": true
+  },
+  "boundary": {
+    "patternSpecMaterialized": false,
+    "generatorMaterialized": false,
+    "validatorMaterialized": false,
+    "selectorPromoted": false,
+    "worksheetEnabled": false,
+    "q031Touched": false,
+    "implementationApprovalRequired": true
+  }
+}
