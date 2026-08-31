@@ -6,14 +6,14 @@
   "lanes": {
     "SHARED_RUNTIME_BOUNDED": [
       {
-        "gateId": "TARGET_KP_FOCUSED",
+        "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/g3a-u08-discrete-proper-fraction-capacity.test.js"
         ]
       },
       {
-        "gateId": "CURRENT_G3A_U08_ROUTE_GUARD",
+        "gateId": "TARGETED_ROUTE_REPLAY",
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/g3a-u08-current-capacity-renderer-ordering.test.js"
