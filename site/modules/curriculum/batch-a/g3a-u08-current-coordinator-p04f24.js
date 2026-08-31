@@ -10,7 +10,7 @@ export const G3A_U08_P04F24_CURRENT_KP_IDS=Object.freeze([...base.G3A_U08_CURREN
 const CURRENT_KP_SET=new Set(G3A_U08_P04F24_CURRENT_KP_IDS);
 
 const requestsQ024=(options={})=>options.sourceId===G3A_U08_SOURCE_ID&&((options.selectedKnowledgePointIds??[]).includes(G3A_U08_P04F24_KP_ID)||(options.patternSpecIds??[]).includes(G3A_U08_P04F24_SPEC_ID)||(options.selectedPatternGroupIds??[]).includes(G3A_U08_P04F24_GROUP_ID));
-const requestsMixedQ024=(options={})=>options.sourceId===G3A_U08_SOURCE_ID&&options.selectionMode==="mixedKnowledgePointsSameUnit"&&options.questionMode==="mixed"&&(options.selectedKnowledgePointIds??[]).includes(G3A_U08_P04F24_KP_ID)&&(options.selectedKnowledgePointIds??[]).some(id=>BASE_KP_SET.has(id));
+const requestsMixedQ024=(options={})=>options.sourceId===G3A_U08_SOURCE_ID&&options.selectionMode==="mixedKnowledgePointsSameUnit"&&["mixed","numeric"].includes(options.questionMode)&&(options.selectedKnowledgePointIds??[]).includes(G3A_U08_P04F24_KP_ID)&&(options.selectedKnowledgePointIds??[]).some(id=>BASE_KP_SET.has(id));
 const planIsMixedQ024=(plan={})=>plan.sourceId===G3A_U08_SOURCE_ID&&plan.selectionMode==="mixedKnowledgePointsSameUnit"&&plan.questionMode==="mixed"&&Array.isArray(plan.selectedKnowledgePointIds)&&plan.selectedKnowledgePointIds.includes(G3A_U08_P04F24_KP_ID)&&plan.selectedKnowledgePointIds.some(id=>BASE_KP_SET.has(id))&&Array.isArray(plan.patternSpecIds)&&plan.patternSpecIds.includes(G3A_U08_P04F24_SPEC_ID);
 const planIsSingleQ024=(plan={})=>plan.sourceId===G3A_U08_SOURCE_ID&&plan.selectionMode==="singleKnowledgePoint"&&Array.isArray(plan.patternSpecIds)&&plan.patternSpecIds.length===1&&plan.patternSpecIds[0]===G3A_U08_P04F24_SPEC_ID;
 
