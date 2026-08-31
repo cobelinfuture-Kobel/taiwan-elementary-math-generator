@@ -21,10 +21,20 @@
     <section class="app-shell__controls" aria-label="練習題設定">
       <div class="control-group">
         <h2>單元選擇</h2>
-        <label class="field">
-          <span>選擇單元</span>
-          <select id="batch-a-source-select" name="batchASourceId"></select>
-        </label>
+        <div class="control-grid">
+          <label class="field">
+            <span>年級</span>
+            <select id="batch-a-grade-select"></select>
+          </label>
+          <label class="field">
+            <span>學期</span>
+            <select id="batch-a-semester-select"></select>
+          </label>
+          <label class="field">
+            <span>單元</span>
+            <select id="batch-a-source-select" name="batchASourceId"></select>
+          </label>
+        </div>
         <p class="help-text" id="batch-a-source-help">正在讀取可用單元...</p>
       </div>
 
