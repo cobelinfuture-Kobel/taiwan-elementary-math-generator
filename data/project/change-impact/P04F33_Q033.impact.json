@@ -1,0 +1,12 @@
+{
+  "schemaVersion":"1.0.0",
+  "policyId":"UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId":"P04F33_Q033",
+  "currentScope":"SHARED_RUNTIME",
+  "currentKnowledgePointId":"kp_g6a_u02_fraction_divided_by_integer",
+  "unitExpectedKnowledgePointIds":["kp_g6a_u02_fraction_divided_by_integer"],
+  "unitKnowledgePointGateStatus":{"kp_g6a_u02_fraction_divided_by_integer":"PENDING"},
+  "expectedDerivedGate":"SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath":"data/project/validation-plans/P04F33_Q033.validation.json",
+  "changeImpact":{"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":false,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true}
+}
