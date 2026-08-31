@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P04F32_Q032_PREFLIGHT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g5b_u02_fraction_multi_step_calculation",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5b_u02_fraction_multi_step_calculation",
+    "kp_g5b_u02_fraction_multiplication_simplification",
+    "kp_g5b_u02_fraction_of_quantity",
+    "kp_g5b_u02_integer_times_fraction"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5b_u02_fraction_multi_step_calculation": "PENDING",
+    "kp_g5b_u02_fraction_multiplication_simplification": "PENDING",
+    "kp_g5b_u02_fraction_of_quantity": "PENDING",
+    "kp_g5b_u02_integer_times_fraction": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P04F32_Q032_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
