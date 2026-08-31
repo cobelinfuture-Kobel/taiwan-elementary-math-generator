@@ -34,7 +34,7 @@ const NUMERIC_SPECS = [
 const queueEntries = listP04EW4DirectProductVerticalSlices();
 const queueEntry = queueEntries.find((row) => row.queuePosition === 34);
 const evidenceRecord = evidenceInventory.records.find((row) => row.sourceNodeId === "g5a_u06_5a06");
-const knowledgePoint = knowledgeOperation.candidates.find((row) => row.knowledgePointId === TARGET_KP || row.candidateId === TARGET_KP);
+const knowledgePoint = knowledgeOperation.knowledgePoints.find((row) => row.candidateId === TARGET_KP);
 const canonicalKnowledgePoint = canonicalOperation.knowledgePoints.find((row) => row.knowledgePointId === TARGET_KP);
 const hiddenKnowledgePoint = hiddenPatternSpec.knowledgePoints.find((row) => row.knowledgePointId === TARGET_KP);
 
@@ -72,7 +72,7 @@ test("q034 current source authority is hash-locked and full-page reviewed", () =
 
 test("q034 exact KnowledgePoint and canonical operation model are source-backed", () => {
   assert.ok(knowledgePoint);
-  assert.equal(knowledgePoint.knowledgePointName, "異分母測量量的合併與差");
+  assert.equal(knowledgePoint.name, "異分母測量量的合併與差");
   assert.equal(knowledgePoint.scope, "由兩段長度或份量求合計、較長量或差量。");
   assert.deepEqual(knowledgePoint.evidencePages, [1, 2]);
   assert.equal(knowledgePoint.applicationClassification, "APPLICATION_REQUIRED");
