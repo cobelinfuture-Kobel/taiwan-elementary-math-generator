@@ -1,0 +1,95 @@
+{
+  "schemaName": "P04F33G6AU02FractionDivisionByIntegerPreflightAuthorityV1",
+  "schemaVersion": 1,
+  "taskId": "P04F33_Q033_ExactAuthorityAndFormalMappingPreflight",
+  "status": "PREFLIGHT_AUTHORITY_LOCKED_IMPLEMENTATION_NOT_STARTED",
+  "queue": {
+    "queuePosition": 33,
+    "sliceId": "p04e_q033_r8_g6a_u02_6a02_profile_fraction_c1",
+    "previousSliceId": "p04e_q032_r8_g5b_u02_5b02_profile_fraction_c1",
+    "nextSliceId": "p04e_q034_r9_g5a_u06_5a06_profile_quantity_measurement_c1",
+    "primarySourceNodeId": "g6a_u02_6a02",
+    "intraWavePrerequisiteRank": 8,
+    "primaryRuntimeProfileId": "profile_fraction",
+    "knowledgePointIds": [
+      "kp_g6a_u02_fraction_divided_by_integer"
+    ]
+  },
+  "sourceAuthority": {
+    "sourceFile": "meow911_6a02_source.pdf",
+    "driveFileId": "1izlK6HrAU4m76SvYmH_ZUy-yvrqc9idM",
+    "sourceTitle": "分數除法",
+    "publisherAlignment": ["康軒6上第2課", "翰林6上第2課", "南一6上第2課"],
+    "reviewedPages": [1, 2],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_PLUS_R02_CANONICAL_SEMANTICS",
+    "visualVerificationStatus": "PASS_CURRENT_TASK",
+    "r02AuthorityPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+    "sourceGuideWitness": [
+      "把除法寫成分數型態",
+      "同分母分數除法",
+      "異分母分數除法",
+      "有餘數的分數除法",
+      "分數除法應用",
+      "÷m 商的變化"
+    ],
+    "q033SemanticWitness": "page 1 explicitly rewrites division as multiplication by the divisor reciprocal; R02 binds that reciprocal transform to fraction divided by integer"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g6a_u02_fraction_divided_by_integer",
+      "canonicalNameZh": "分數除以整數",
+      "capabilityStatement": "學生能將分數除以整數並化簡。",
+      "reasoningInvariant": "除以整數等於乘其倒數。"
+    }
+  ],
+  "formalMappings": [
+    {
+      "knowledgePointId": "kp_g6a_u02_fraction_divided_by_integer",
+      "classification": "NEW_RELATION_CANDIDATE",
+      "relationFamilyId": "FRACTION_DIVIDED_BY_INTEGER_QUOTIENT",
+      "knownRoleIds": ["DIVIDEND_FRACTION", "INTEGER_DIVISOR"],
+      "targetRoleId": "QUOTIENT_FRACTION",
+      "invariants": {
+        "integerDivisorMustBeNonzero": true,
+        "divisionByIntegerEqualsMultiplyByReciprocal": true,
+        "quotientTimesDivisorReconstructsDividend": true,
+        "exactRationalArithmeticRequired": true,
+        "equivalentFractionReductionAllowed": true,
+        "roundingAllowed": false
+      },
+      "supportingCapability": "RECIPROCAL_OF_NONZERO_INTEGER",
+      "reuseDecision": "NO_ACTIVE_FORMAL_MAPPING_HAS_THE_SAME_FRACTION_DIVIDEND_INTEGER_DIVISOR_AND_RECIPROCAL_TRANSFORM_SEMANTICS"
+    }
+  ],
+  "reconciliation": {
+    "activeRelationReuseCount": 0,
+    "newRelationCandidateCount": 1,
+    "q025PartitiveTimeDivisionRelationReused": false,
+    "q046DecimalDividedByIntegerRelationReused": false,
+    "q031FractionTimesIntegerRelationReused": false,
+    "q031Q032FractionMultiplicationPrimitiveReuseDeferredToImplementation": true,
+    "reciprocalConceptPromotedAsStandaloneKnowledgePoint": false,
+    "futureG6AU02KnowledgePointIds": [
+      "kp_g6a_u02_integer_divided_by_fraction",
+      "kp_g6a_u02_fraction_divided_by_fraction",
+      "kp_g6a_u02_fraction_division_application"
+    ],
+    "q034Touched": false,
+    "q035Touched": false,
+    "q036Touched": false,
+    "q037Touched": false
+  },
+  "boundary": {
+    "planningOnly": true,
+    "patternSpecMaterialized": false,
+    "generatorMaterialized": false,
+    "validatorMaterialized": false,
+    "selectorPromoted": false,
+    "worksheetEnabled": false,
+    "q034Touched": false,
+    "q035Touched": false,
+    "q036Touched": false,
+    "q037Touched": false,
+    "implementationApprovalRequired": true
+  }
+}
