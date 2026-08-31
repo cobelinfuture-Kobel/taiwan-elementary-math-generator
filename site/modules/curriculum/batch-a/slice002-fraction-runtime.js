@@ -28,12 +28,12 @@ const DISCRETE_FIXTURES = Object.freeze(
     Array.from({ length: 11 }, (_, index) => index + 2)
       .filter((denominator) => itemsPerWhole % denominator === 0)
       .flatMap((denominator) => Array.from(
-        { length: (denominator - 1) * 3 },
-        (_, fixtureIndex) => Object.freeze({
+        { length: denominator - 1 },
+        (_, numeratorIndex) => Object.freeze({
           itemsPerWhole,
           denominator,
-          numerator: fixtureIndex % (denominator - 1) + 1,
-          wholeUnits: Math.floor(fixtureIndex / (denominator - 1)),
+          numerator: numeratorIndex + 1,
+          wholeUnits: 0,
         }),
       ))
   )),
@@ -109,7 +109,6 @@ function metadata(definition, authority = null) {
     contextLineage: authority?.contextLineage ?? null, fixtureId: authority?.fixtureId ?? null,
   });
 }
-function mixedText(wholeUnits, numerator, denominator) { return wholeUnits > 0 ? `${wholeUnits}又${numerator}/${denominator}` : `${numerator}/${denominator}`; }
 function coprimeStep(size) {
   for (const candidate of [97, 89, 83, 79, 73, 71, 67, 61]) {
     if (gcd(candidate, size) === 1) return candidate;
@@ -164,9 +163,10 @@ function buildQuestion(patternSpecId, ordinal, seed, variantOffset = 0) {
       .replace("{{count}}", String(unitFractionCount));
     finalAnswer = fraction(unitFractionCount, denominator); answerText = fractionText(finalAnswer);
   } else if ([G3A_U08_DISCRETE_ITEM_COUNT_NUMERIC_SPEC_ID, G3A_U08_DISCRETE_ITEM_COUNT_APPLICATION_SPEC_ID].includes(patternSpecId)) {
+    const properFractionText = `${numerator}/${denominator}`;
     promptText = patternSpecId === G3A_U08_DISCRETE_ITEM_COUNT_APPLICATION_SPEC_ID
-      ? `古代市集每盒交易籌碼有 ${itemsPerWhole} 枚。商人準備 ${mixedText(wholeUnits, numerator, denominator)} 盒，共有幾枚？`
-      : `每個大單位有 ${itemsPerWhole} 個，${mixedText(wholeUnits, numerator, denominator)} 個大單位共有幾個？`;
+      ? `古代市集每盒交易籌碼有 ${itemsPerWhole} 枚。商人準備 ${properFractionText} 盒，共有幾枚？`
+      : `每個大單位有 ${itemsPerWhole} 個，${properFractionText} 個大單位共有幾個？`;
     finalAnswer = itemCount; answerText = `${itemCount}`;
   } else {
     promptText = patternSpecId === G3A_U08_DISCRETE_FRACTIONAL_UNITS_APPLICATION_SPEC_ID
