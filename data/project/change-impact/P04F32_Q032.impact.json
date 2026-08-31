@@ -1,0 +1,22 @@
+{
+  "schemaVersion":"1.0.0",
+  "policyId":"UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId":"P04F32_Q032",
+  "currentScope":"SHARED_RUNTIME",
+  "currentKnowledgePointId":"kp_g5b_u02_fraction_multi_step_calculation",
+  "unitExpectedKnowledgePointIds":[
+    "kp_g5b_u02_fraction_multi_step_calculation",
+    "kp_g5b_u02_fraction_multiplication_simplification",
+    "kp_g5b_u02_fraction_of_quantity",
+    "kp_g5b_u02_integer_times_fraction"
+  ],
+  "unitKnowledgePointGateStatus":{
+    "kp_g5b_u02_fraction_multi_step_calculation":"PENDING",
+    "kp_g5b_u02_fraction_multiplication_simplification":"PENDING",
+    "kp_g5b_u02_fraction_of_quantity":"PENDING",
+    "kp_g5b_u02_integer_times_fraction":"PENDING"
+  },
+  "expectedDerivedGate":"SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath":"data/project/validation-plans/P04F32_Q032.validation.json",
+  "changeImpact":{"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":false,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true}
+}
