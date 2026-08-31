@@ -34,7 +34,25 @@ import { printPreviewFrame, renderPreviewFrame } from "./pipeline/render-preview
 const queryState = parseQueryState();
 const state = createConfigState({ queryState });
 const sourceUnits = listBatchASourceUnits();
+const semesterOrder = {
+  upper: 0,
+  lower: 1
+};
 
+function unitNumber(unitCode = "") {
+  const match = unitCode.match(/U(\d+)/i);
+  return match ? Number(match[1]) : 999;
+}
+
+const sortedSourceUnits = [...sourceUnits].sort((a, b) =>
+  a.grade - b.grade
+  || (semesterOrder[a.semester] ?? 99) - (semesterOrder[b.semester] ?? 99)
+  || unitNumber(a.unitCode) - unitNumber(b.unitCode)
+  || a.unitCode.localeCompare(b.unitCode)
+);
+
+const gradeSelect = document.getElementById("batch-a-grade-select");
+const semesterSelect = document.getElementById("batch-a-semester-select");
 const sourceSelect = document.getElementById("batch-a-source-select");
 const sourceHelp = document.getElementById("batch-a-source-help");
 const selectionModeSelect = document.getElementById("batch-a-selection-mode-select");
@@ -120,15 +138,84 @@ function updateSourceHelp() {
   sourceHelp.textContent = `${unit.unitCode}｜${unit.title}｜${unit.grade} 年級${unit.semester === "upper" ? "上學期" : "下學期"}`;
 }
 
-function populateSourceSelect() {
+function semesterLabel(semester) {
+  return semester === "upper" ? "上學期" : "下學期";
+}
+
+function populateGradeSelect(selectedGrade) {
+  if (!gradeSelect) return;
+
+  const grades = [...new Set(sortedSourceUnits.map((unit) => unit.grade))].sort((a, b) => a - b);
+  gradeSelect.replaceChildren();
+
+  for (const grade of grades) {
+    const option = document.createElement("option");
+    option.value = String(grade);
+    option.textContent = `${grade} 年級`;
+    gradeSelect.append(option);
+  }
+
+  gradeSelect.value = String(selectedGrade ?? grades[0]);
+}
+
+function populateSemesterSelect(grade, selectedSemester) {
+  if (!semesterSelect) return;
+
+  const semesters = [...new Set(
+    sortedSourceUnits
+      .filter((unit) => unit.grade === Number(grade))
+      .map((unit) => unit.semester)
+  )].sort((a, b) => (semesterOrder[a] ?? 99) - (semesterOrder[b] ?? 99));
+
+  semesterSelect.replaceChildren();
+
+  for (const semester of semesters) {
+    const option = document.createElement("option");
+    option.value = semester;
+    option.textContent = semesterLabel(semester);
+    semesterSelect.append(option);
+  }
+
+  semesterSelect.value = semesters.includes(selectedSemester)
+    ? selectedSemester
+    : semesters[0];
+}
+
+function populateSourceSelect(
+  grade = gradeSelect?.value,
+  semester = semesterSelect?.value,
+  selectedSourceId = state.batchA.sourceId
+) {
   if (!sourceSelect) return;
+
+  const units = sortedSourceUnits.filter(
+    (unit) => unit.grade === Number(grade) && unit.semester === semester
+  );
+
   sourceSelect.replaceChildren();
-  for (const unit of sourceUnits) {
+
+  for (const unit of units) {
     const option = document.createElement("option");
     option.value = unit.sourceId;
     option.textContent = `${unit.unitCode} ${unit.title}`;
     sourceSelect.append(option);
   }
+
+  if (units.some((unit) => unit.sourceId === selectedSourceId)) {
+    sourceSelect.value = selectedSourceId;
+  } else if (units[0]) {
+    sourceSelect.value = units[0].sourceId;
+  }
+}
+
+function initializeSourceSelectors() {
+  const currentUnit = sortedSourceUnits.find((unit) => unit.sourceId === state.batchA.sourceId)
+    ?? sortedSourceUnits[0];
+  if (!currentUnit) return;
+
+  populateGradeSelect(currentUnit.grade);
+  populateSemesterSelect(currentUnit.grade, currentUnit.semester);
+  populateSourceSelect(currentUnit.grade, currentUnit.semester, currentUnit.sourceId);
 }
 
 function syncSelectionModeOptions() {
@@ -403,6 +490,17 @@ function regenerate() {
 }
 
 function bindControls() {
+  gradeSelect?.addEventListener("change", () => {
+    populateSemesterSelect(Number(gradeSelect.value));
+    populateSourceSelect();
+    sourceSelect?.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+
+  semesterSelect?.addEventListener("change", () => {
+    populateSourceSelect();
+    sourceSelect?.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+
   for (const element of [
     sourceSelect,
     selectionModeSelect,
@@ -487,7 +585,7 @@ function bindControls() {
   });
 }
 
-populateSourceSelect();
+initializeSourceSelectors();
 normalizeCurrentPatternGroups();
 syncControlsFromState();
 bindControls();
