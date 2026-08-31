@@ -1,0 +1,128 @@
+{
+  "schemaName": "P04F34G5AU06MeasurementDifferenceContextPreflightAuthorityV1",
+  "schemaVersion": 1,
+  "taskId": "P04F34_Q034_ExactAuthorityAndFormalMappingPreflight",
+  "status": "PREFLIGHT_AUTHORITY_LOCKED_IMPLEMENTATION_NOT_STARTED",
+  "queue": {
+    "queuePosition": 34,
+    "sliceId": "p04e_q034_r9_g5a_u06_5a06_profile_quantity_measurement_c1",
+    "previousSliceId": "p04e_q033_r8_g6a_u02_6a02_profile_fraction_c1",
+    "nextSliceId": "p04e_q035_r9_g6a_u02_6a02_profile_fraction_c1",
+    "primarySourceNodeId": "g5a_u06_5a06",
+    "intraWavePrerequisiteRank": 9,
+    "primaryRuntimeProfileId": "profile_quantity_measurement",
+    "knowledgePointIds": [
+      "kp_g5a_u06_measurement_difference_context"
+    ]
+  },
+  "sourceAuthority": {
+    "sourceTitle": "異分母分數加減",
+    "sourceFile": "meow911_5a06_source.pdf",
+    "driveFileId": "1E6TqH-QfF7UMiSgUL1hl5_luge50rPy3",
+    "sourceSha256": "670d4916c1627177cbd483942b5829fb4dab3dc622fc832b9f2a7abba2e30f83",
+    "pageCount": 2,
+    "reviewedPages": [1, 2],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_REUSED_FROM_CURRENT_SOURCE_AUTHORITY",
+    "sourceEvidenceInventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g5a_u06_5a06.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g5a_u06_5a06.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g5a_u06_5a06.hidden-pattern-spec.json"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u06_measurement_difference_context",
+      "canonicalNameZh": "異分母測量量的合併與差",
+      "scope": "由兩段長度或份量求合計、較長量或差量。",
+      "evidencePages": [1, 2],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源以線段與緞帶長度建立加數、被減數及差量角色。"
+    }
+  ],
+  "formalMapping": {
+    "knowledgePointId": "kp_g5a_u06_measurement_difference_context",
+    "classification": "SOURCE_BACKED_MULTI_TARGET_RELATION_CANDIDATE",
+    "relationFamilyId": "FRACTION_MEASUREMENT_QUANTITY_RELATION",
+    "sourceOperationModelId": "op_g5a_u06_measurement_difference_context",
+    "sourceOperationFamilyId": "fraction_context_total",
+    "answerType": "fraction_measure",
+    "relationVariants": [
+      {
+        "variantId": "JOIN_TOTAL",
+        "canonicalExpression": "total = firstQuantity + secondQuantity",
+        "knownRoleIds": ["FIRST_FRACTION_MEASURE", "SECOND_FRACTION_MEASURE"],
+        "targetRoleId": "TOTAL_FRACTION_MEASURE"
+      },
+      {
+        "variantId": "PART_WHOLE_RECONSTRUCTION",
+        "canonicalExpression": "original = used + remaining",
+        "knownRoleIds": ["USED_FRACTION_MEASURE", "REMAINING_FRACTION_MEASURE"],
+        "targetRoleId": "ORIGINAL_FRACTION_MEASURE"
+      },
+      {
+        "variantId": "COMPARISON_DIFFERENCE",
+        "canonicalExpression": "difference = larger - smaller",
+        "knownRoleIds": ["LARGER_FRACTION_MEASURE", "SMALLER_FRACTION_MEASURE"],
+        "targetRoleId": "DIFFERENCE_FRACTION_MEASURE"
+      }
+    ],
+    "invariants": {
+      "commonMeasurementUnitRequiredBeforeArithmetic": true,
+      "exactRationalArithmeticRequired": true,
+      "resultMustBeNonnegative": true,
+      "measurementUnitConsistencyRequired": true,
+      "quantityRelationMustMatchRequestedTargetRole": true,
+      "roundingAllowed": false
+    },
+    "reuseDecision": "NO_SINGLE_ACTIVE_P04F_FORMAL_MAPPING_COVERS_ALL_THREE_SOURCE_BACKED_TARGET_ROLES_WITH_THE_FRACTION_MEASUREMENT_UNIT_INVARIANT",
+    "supportingAuthorities": [
+      {
+        "path": "data/curriculum/application/operations/w02/g5a_u06_5a06.canonical-operation.json",
+        "role": "EXACT_SOURCE_BACKED_OPERATION_MODEL"
+      },
+      {
+        "path": "data/curriculum/full-product/p02e/quantity-semantic-role-binding-policy.json",
+        "role": "SHARED_QUANTITY_ROLE_FOUNDATION_NOT_EXACT_Q034_FORMAL_MAPPING"
+      }
+    ]
+  },
+  "patternSurfacePlan": {
+    "applicationRequired": true,
+    "publicImplementationCandidatePatternSpecIds": [
+      "ps_g5a_u06_measurement_difference_context_total_application",
+      "ps_g5a_u06_measurement_difference_context_original_application",
+      "ps_g5a_u06_measurement_difference_context_difference_application"
+    ],
+    "structuralNumericPatternSpecIdsRemainHidden": [
+      "ps_g5a_u06_measurement_difference_context_total_numeric",
+      "ps_g5a_u06_measurement_difference_context_original_numeric",
+      "ps_g5a_u06_measurement_difference_context_difference_numeric"
+    ],
+    "contextBindingRequired": true,
+    "currentContextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+    "globalContextExpansionAllowedInPreflight": false
+  },
+  "reconciliation": {
+    "sourceBackedCanonicalOperationReused": true,
+    "existingHiddenPatternSpecsReusedAsImplementationCandidates": true,
+    "q024FractionOfQuantityRelationReused": false,
+    "p02eQuantitySemanticRolePolicyTreatedAsExactFormalMapping": false,
+    "parallelFractionEngineAllowed": false,
+    "parallelQuantityEngineAllowed": false,
+    "q035Touched": false,
+    "q036Touched": false,
+    "q037Touched": false
+  },
+  "boundary": {
+    "planningOnly": true,
+    "patternSpecLifecyclePromoted": false,
+    "generatorMaterialized": false,
+    "validatorMaterialized": false,
+    "selectorPromoted": false,
+    "worksheetEnabled": false,
+    "globalContextRegistryModified": false,
+    "q035Touched": false,
+    "q036Touched": false,
+    "q037Touched": false,
+    "implementationApprovalRequired": true
+  }
+}
