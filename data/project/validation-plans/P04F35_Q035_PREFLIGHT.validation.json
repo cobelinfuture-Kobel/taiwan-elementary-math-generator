@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P04F35_Q035_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "g6a_u02_6a02",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p04f-slice035-g6a-u02-integer-divided-by-fraction-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p04f-slice035-g6a-u02-integer-divided-by-fraction-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/render-p04f-slice034-product-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}
