@@ -1,5 +1,5 @@
-export * from "./batch-a-browser-validator-p04f33.js";
-import {validateBatchABrowserPlan as basePlan,validateBatchABrowserQuestion as baseQuestion,validateBatchABrowserQuestions as baseQuestions} from "./batch-a-browser-validator-p04f33.js";
+export * from "./batch-a-browser-validator-p04f29.js";
+import {validateBatchABrowserPlan as basePlan,validateBatchABrowserQuestion as baseQuestion,validateBatchABrowserQuestions as baseQuestions} from "./batch-a-browser-validator-p04f29.js";
 import {validateG5AU06P04F34Question} from "./g5a-u06-measurement-difference-context-runtime-p04f34.js";
 import {G5A_U06_P04F34_SOURCE_ID,G5A_U06_P04F34_SPEC_IDS} from "../registry/g5a-u06-measurement-difference-context-selector-projection-p04f34.js";
 const id=q=>q.patternSpecId??q.metadata?.patternId,issue=(code,path)=>({code,severity:"error",path,message:code}),isQ034=q=>q.sourceId===G5A_U06_P04F34_SOURCE_ID&&G5A_U06_P04F34_SPEC_IDS.includes(id(q));
