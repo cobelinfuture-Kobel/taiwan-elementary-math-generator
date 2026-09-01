@@ -1,0 +1,16 @@
+{
+  "schemaName":"P04F34G5AU06MeasurementDifferenceContextAuthorityV1",
+  "schemaVersion":1,
+  "programId":"FULL_PRODUCT_LINE_D0_V1",
+  "taskId":"P04F_W4DirectProductVerticalSlice034Implementation",
+  "status":"SOURCE_BACKED_APPLICATION_IMPLEMENTATION_MATERIALIZED",
+  "queue":{"queuePosition":34,"sliceId":"p04e_q034_r9_g5a_u06_5a06_profile_quantity_measurement_c1","previousSliceId":"p04e_q033_r8_g6a_u02_6a02_profile_fraction_c1","nextSliceId":"p04e_q035_r9_g6a_u02_6a02_profile_fraction_c1"},
+  "source":{"sourceNodeId":"g5a_u06_5a06","unitCode":"5A-U06","unitTitle":"異分母分數加減","sourceFile":"meow911_5a06_source.pdf","driveFileId":"1E6TqH-QfF7UMiSgUL1hl5_luge50rPy3","sourceSha256":"670d4916c1627177cbd483942b5829fb4dab3dc622fc832b9f2a7abba2e30f83","reviewedPages":[1,2]},
+  "knowledgePoint":{"knowledgePointId":"kp_g5a_u06_measurement_difference_context","canonicalNameZh":"異分母測量量的合併與差","applicationClassification":"APPLICATION_REQUIRED"},
+  "formalMapping":{"relationFamilyId":"FRACTION_MEASUREMENT_QUANTITY_RELATION","operationModelId":"op_g5a_u06_measurement_difference_context","operationFamilyId":"fraction_context_total","answerType":"fraction_measure","relationVariants":[{"variantId":"JOIN_TOTAL","expression":"total = firstQuantity + secondQuantity","targetRoleId":"TOTAL_FRACTION_MEASURE"},{"variantId":"PART_WHOLE_RECONSTRUCTION","expression":"original = used + remaining","targetRoleId":"ORIGINAL_FRACTION_MEASURE"},{"variantId":"COMPARISON_DIFFERENCE","expression":"difference = larger - smaller","targetRoleId":"DIFFERENCE_FRACTION_MEASURE"}],"invariants":{"unlikeDenominatorsRequired":true,"sameMeasurementUnitRequired":true,"exactRationalArithmeticRequired":true,"nonnegativeResultRequired":true,"roundingAllowed":false}},
+  "patternGroup":{"patternGroupId":"pg_g5a_u06_measurement_difference_context_application","mode":"application"},
+  "publicApplicationPatternSpecIds":["ps_g5a_u06_measurement_difference_context_total_application","ps_g5a_u06_measurement_difference_context_original_application","ps_g5a_u06_measurement_difference_context_difference_application"],
+  "hiddenNumericPatternSpecIds":["ps_g5a_u06_measurement_difference_context_total_numeric","ps_g5a_u06_measurement_difference_context_original_numeric","ps_g5a_u06_measurement_difference_context_difference_numeric"],
+  "implementationBoundary":{"singleKnowledgePointApplicationOnly":true,"sourceUnitPriorBehaviorPreserved":true,"sourceFaithfulBoundedContextTemplates":true,"globalContextRegistryModified":false,"parallelFractionEngine":false,"q035Touched":false,"q036Touched":false,"q037Touched":false},
+  "acceptance":{"publicSourceCountTarget":43,"publicKnowledgePointCountTarget":307,"g5aU06VisibleKnowledgePointCountTarget":6,"g5aU06HiddenKnowledgePointCountTarget":1,"g5aU06NotSelectableKnowledgePointCountTarget":1,"questionCapacityTarget":240,"targetedBrowserReplayRequired":true}
+}
