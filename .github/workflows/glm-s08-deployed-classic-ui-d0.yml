@@ -75,7 +75,7 @@ jobs:
           exit 1
 
       - name: Run deployed Classic UI D0 audit
-        run: node tools/curriculum/run-glm-s08-deployed-classic-ui-d0.mjs
+        run: node tools/curriculum/run-glm-s08-deployed-classic-ui-d0-v2.mjs
 
       - name: Write deployed authority and D0 markers
         if: success()
