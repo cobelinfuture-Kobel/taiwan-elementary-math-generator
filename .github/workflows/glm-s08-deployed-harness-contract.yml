@@ -28,6 +28,7 @@ jobs:
           node --test tests/curriculum/glm-s08-deployed-classic-ui-d0-contract.test.js
           node tools/curriculum/glm-s08-deployed-scenario-plan.mjs
           node --check tools/curriculum/run-glm-s08-deployed-classic-ui-d0.mjs
+          node --check tools/curriculum/run-glm-s08-deployed-classic-ui-d0-v2.mjs
           test -f docs/curriculum/output/GLM_S07_ANSWER_KEY_BOUNDARY_STRESS_PASS.marker
           test -f docs/curriculum/output/GLM_S08_DEPLOYED_CLASSIC_UI_D0_PENDING.marker
 
