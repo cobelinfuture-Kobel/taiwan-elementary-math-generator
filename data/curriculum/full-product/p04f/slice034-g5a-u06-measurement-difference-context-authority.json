@@ -11,6 +11,6 @@
   "patternGroup":{"patternGroupId":"pg_g5a_u06_measurement_difference_context_application","mode":"application"},
   "publicApplicationPatternSpecIds":["ps_g5a_u06_measurement_difference_context_total_application","ps_g5a_u06_measurement_difference_context_original_application","ps_g5a_u06_measurement_difference_context_difference_application"],
   "hiddenNumericPatternSpecIds":["ps_g5a_u06_measurement_difference_context_total_numeric","ps_g5a_u06_measurement_difference_context_original_numeric","ps_g5a_u06_measurement_difference_context_difference_numeric"],
-  "implementationBoundary":{"singleKnowledgePointApplicationOnly":true,"sourceUnitPriorBehaviorPreserved":true,"sourceFaithfulBoundedContextTemplates":true,"globalContextRegistryModified":false,"parallelFractionEngine":false,"q035Touched":false,"q036Touched":false,"q037Touched":false},
+  "implementationBoundary":{"singleKnowledgePointApplicationOnly":true,"sourceUnitPriorBehaviorPreserved":true,"directSourceBackedApplication":true,"sourceFaithfulBoundedContextTemplates":true,"legacyGlobalAtomicEpisodeBindingMandatoryPrerequisite":false,"globalContextRegistryModified":false,"parallelFractionEngine":false,"q024RelationReused":false,"q035Touched":false,"q036Touched":false,"q037Touched":false},
   "acceptance":{"publicSourceCountTarget":43,"publicKnowledgePointCountTarget":307,"g5aU06VisibleKnowledgePointCountTarget":6,"g5aU06HiddenKnowledgePointCountTarget":1,"g5aU06NotSelectableKnowledgePointCountTarget":1,"questionCapacityTarget":240,"targetedBrowserReplayRequired":true}
 }
