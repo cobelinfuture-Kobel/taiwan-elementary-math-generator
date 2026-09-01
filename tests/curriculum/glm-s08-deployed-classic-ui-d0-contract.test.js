@@ -72,3 +72,16 @@ test("GLM-S08 harness validates deployed identity, query replay, preview and pri
   assert.doesNotMatch(runner, /genericFallback:\s*true/);
   assert.doesNotMatch(runner, /freeFormAI:\s*true/);
 });
+
+test("GLM-S08 deployed bridge follows grade-semester-source cascading selector contract", () => {
+  const bridge = readFileSync("tools/curriculum/run-glm-s08-deployed-classic-ui-d0-v2.mjs", "utf8");
+  const workflow = readFileSync(".github/workflows/glm-s08-deployed-classic-ui-d0.yml", "utf8");
+  assert.match(bridge, /batch-a-grade-select/);
+  assert.match(bridge, /batch-a-semester-select/);
+  assert.match(bridge, /selectSourceViaHierarchy/);
+  assert.match(bridge, /expectedUnitsForCoordinates/);
+  assert.match(bridge, /extraVisibleSourceIds/);
+  assert.match(bridge, /GLM_S08_DEPLOYED_SOURCE_BUCKET_ID_MISMATCH/);
+  assert.doesNotMatch(bridge, /source\?\.options\?\.length === 15/);
+  assert.match(workflow, /run-glm-s08-deployed-classic-ui-d0-v2\.mjs/);
+});
