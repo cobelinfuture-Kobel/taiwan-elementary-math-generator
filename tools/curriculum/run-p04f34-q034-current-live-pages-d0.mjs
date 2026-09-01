@@ -16,28 +16,169 @@ function cacheBustedUrl() {
   return url.toString();
 }
 
+function writeReport(payload) {
+  fs.writeFileSync(path.join(OUTPUT, "report.json"), `${JSON.stringify(payload, null, 2)}\n`);
+  console.log(`P04F34_Q034_CURRENT_LIVE_PAGES_D0=${JSON.stringify(payload)}`);
+}
+
+async function collectBootSnapshot(page) {
+  return page.evaluate(() => ({
+    readyState: document.readyState,
+    currentUrl: location.href,
+    moduleScripts: [...document.querySelectorAll("script[type='module']")].map((node) => ({
+      src: node.src,
+      textLength: String(node.textContent ?? "").length,
+    })),
+    gradeOptions: [...document.querySelectorAll("#batch-a-grade-select option")].map((option) => ({ value: option.value, text: option.textContent })),
+    semesterOptions: [...document.querySelectorAll("#batch-a-semester-select option")].map((option) => ({ value: option.value, text: option.textContent })),
+    sourceOptions: [...document.querySelectorAll("#batch-a-source-select option")].map((option) => ({ value: option.value, text: option.textContent })),
+    statusText: document.querySelector("#status-panel")?.textContent ?? "",
+    validationText: document.querySelector("#validation-panel")?.textContent ?? "",
+    resourceEntries: performance.getEntriesByType("resource")
+      .map((entry) => ({ name: entry.name, initiatorType: entry.initiatorType, duration: Math.round(entry.duration) }))
+      .filter((entry) => entry.name.includes("/assets/browser/") || entry.name.includes("/modules/curriculum/"))
+      .slice(-300),
+  }));
+}
+
+async function crawlStaticModuleGraph(page) {
+  return page.evaluate(async () => {
+    const startUrl = new URL("./assets/browser/main.js", location.href).href;
+    const queue = [startUrl];
+    const seen = new Set();
+    const records = [];
+    const importPattern = /(?:import|export)\s+(?:[^'\"]*?\sfrom\s*)?["']([^"']+)["']/g;
+    while (queue.length > 0 && seen.size < 500) {
+      const url = queue.shift();
+      if (!url || seen.has(url)) continue;
+      seen.add(url);
+      try {
+        const response = await fetch(url, { cache: "no-store" });
+        const contentType = response.headers.get("content-type") ?? "";
+        const text = await response.text();
+        const imports = [];
+        if (response.ok && /javascript|ecmascript|text\/plain/i.test(contentType)) {
+          for (const match of text.matchAll(importPattern)) {
+            const specifier = match[1];
+            if (!specifier?.startsWith(".")) continue;
+            const resolved = new URL(specifier, url).href;
+            imports.push(resolved);
+            if (!seen.has(resolved)) queue.push(resolved);
+          }
+        }
+        records.push({ url, status: response.status, ok: response.ok, contentType, byteLength: text.length, imports });
+      } catch (error) {
+        records.push({ url, status: null, ok: false, contentType: null, byteLength: 0, imports: [], fetchError: String(error) });
+      }
+    }
+    return {
+      startUrl,
+      moduleCount: records.length,
+      failedModules: records.filter((record) => !record.ok),
+      nonJavascriptModules: records.filter((record) => record.ok && !/javascript|ecmascript|text\/plain/i.test(record.contentType ?? "")),
+      records,
+    };
+  });
+}
+
+async function probeExplicitMainImport(page) {
+  return page.evaluate(async () => {
+    const url = new URL("./assets/browser/main.js", location.href);
+    url.searchParams.set("p04f34_boot_probe", String(Date.now()));
+    try {
+      await import(url.href);
+      return { ok: true, url: url.href, error: null };
+    } catch (error) {
+      return { ok: false, url: url.href, error: String(error?.stack ?? error) };
+    }
+  });
+}
+
 const consoleErrors = [];
+const consoleMessages = [];
 const pageErrors = [];
 const requestFailures = [];
+const httpFailures = [];
+const javascriptResponses = [];
 let report = null;
 const browser = await chromium.launch({ headless: true });
 
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
   page.on("console", (message) => {
+    const row = { type: message.type(), text: message.text() };
+    consoleMessages.push(row);
     if (message.type() === "error") consoleErrors.push(message.text());
   });
-  page.on("pageerror", (error) => pageErrors.push(String(error)));
+  page.on("pageerror", (error) => pageErrors.push(String(error?.stack ?? error)));
   page.on("requestfailed", (request) => requestFailures.push({
     url: request.url(),
+    resourceType: request.resourceType(),
     failure: request.failure()?.errorText ?? "unknown",
   }));
+  page.on("response", (response) => {
+    const request = response.request();
+    const row = {
+      url: response.url(),
+      status: response.status(),
+      resourceType: request.resourceType(),
+      contentType: response.headers()["content-type"] ?? null,
+    };
+    if (response.status() >= 400) httpFailures.push(row);
+    if (request.resourceType() === "script" || /\.(?:m?js)(?:\?|$)/i.test(response.url())) javascriptResponses.push(row);
+  });
 
   const requestedUrl = cacheBustedUrl();
   const response = await page.goto(requestedUrl, { waitUntil: "domcontentloaded", timeout: 60_000 });
   await page.waitForSelector("#batch-a-grade-select", { timeout: 30_000 });
   await page.waitForSelector("#batch-a-semester-select", { timeout: 30_000 });
   await page.waitForSelector("#batch-a-source-select", { timeout: 30_000 });
+
+  let bootReady = true;
+  try {
+    await page.waitForFunction(() => [...document.querySelectorAll("#batch-a-grade-select option")]
+      .some((option) => option.value === "5"), { timeout: 15_000 });
+  } catch {
+    bootReady = false;
+  }
+
+  const bootSnapshotBeforeProbe = await collectBootSnapshot(page);
+  let staticModuleGraph = null;
+  let explicitMainImportProbe = null;
+  let bootSnapshotAfterProbe = null;
+  if (!bootReady) {
+    staticModuleGraph = await crawlStaticModuleGraph(page);
+    explicitMainImportProbe = await probeExplicitMainImport(page);
+    await page.waitForTimeout(500);
+    bootSnapshotAfterProbe = await collectBootSnapshot(page);
+    report = {
+      schemaName: "P04F34Q034CurrentLivePagesFocusedD0AcceptanceV2",
+      phase: "CLASSIC_UI_BOOT",
+      siteUrl: SITE_URL,
+      requestedUrl,
+      httpStatus: response?.status() ?? null,
+      bootReady,
+      bootSnapshotBeforeProbe,
+      explicitMainImportProbe,
+      bootSnapshotAfterProbe,
+      staticModuleGraphSummary: staticModuleGraph ? {
+        startUrl: staticModuleGraph.startUrl,
+        moduleCount: staticModuleGraph.moduleCount,
+        failedModules: staticModuleGraph.failedModules,
+        nonJavascriptModules: staticModuleGraph.nonJavascriptModules,
+      } : null,
+      javascriptResponses,
+      httpFailures,
+      consoleErrors,
+      consoleMessages,
+      pageErrors,
+      requestFailures,
+      status: "FAIL",
+    };
+    writeReport(report);
+    await page.screenshot({ path: path.join(OUTPUT, "failure.png"), fullPage: true });
+    throw new Error(`P04F34_Q034_CLASSIC_UI_BOOT_FAILED:${JSON.stringify(report)}`);
+  }
 
   await page.selectOption("#batch-a-grade-select", "5");
   await page.waitForFunction(() => [...document.querySelectorAll("#batch-a-semester-select option")]
@@ -106,13 +247,19 @@ try {
   });
 
   report = {
-    schemaName: "P04F34Q034CurrentLivePagesFocusedD0AcceptanceV1",
+    schemaName: "P04F34Q034CurrentLivePagesFocusedD0AcceptanceV2",
+    phase: "Q034_GENERATION",
     siteUrl: SITE_URL,
     requestedUrl,
     httpStatus: response?.status() ?? null,
+    bootReady,
+    bootSnapshotBeforeProbe,
     preGenerate,
     postGenerate,
+    javascriptResponses,
+    httpFailures,
     consoleErrors,
+    consoleMessages,
     pageErrors,
     requestFailures,
   };
@@ -132,8 +279,7 @@ try {
     && postGenerate.worksheetPageCount > 0
     && pageErrors.length === 0;
 
-  fs.writeFileSync(path.join(OUTPUT, "report.json"), `${JSON.stringify({ ...report, status: pass ? "PASS" : "FAIL" }, null, 2)}\n`);
-  console.log(`P04F34_Q034_CURRENT_LIVE_PAGES_D0=${JSON.stringify({ ...report, status: pass ? "PASS" : "FAIL" })}`);
+  writeReport({ ...report, status: pass ? "PASS" : "FAIL" });
 
   if (!pass) {
     await page.screenshot({ path: path.join(OUTPUT, "failure.png"), fullPage: true });
@@ -142,14 +288,19 @@ try {
 } catch (error) {
   if (!report) {
     report = {
-      schemaName: "P04F34Q034CurrentLivePagesFocusedD0AcceptanceV1",
+      schemaName: "P04F34Q034CurrentLivePagesFocusedD0AcceptanceV2",
+      phase: "UNCLASSIFIED_FATAL",
       siteUrl: SITE_URL,
+      javascriptResponses,
+      httpFailures,
       consoleErrors,
+      consoleMessages,
       pageErrors,
       requestFailures,
       fatalError: String(error?.stack ?? error),
+      status: "FAIL",
     };
-    fs.writeFileSync(path.join(OUTPUT, "report.json"), `${JSON.stringify({ ...report, status: "FAIL" }, null, 2)}\n`);
+    writeReport(report);
   }
   throw error;
 } finally {
