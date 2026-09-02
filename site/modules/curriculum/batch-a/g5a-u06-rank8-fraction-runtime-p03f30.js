@@ -7,10 +7,6 @@ import {
 } from "../registry/g5a-u06-rank8-fraction-selector-projection-p03f30.js";
 
 const ALL_IDS = new Set(G5A_U06_P03F30_NUMERIC_PATTERN_SPEC_IDS);
-const DENOMINATOR_PAIRS = Object.freeze([[3,4],[4,5],[5,6],[5,8],[6,7],[7,9],[8,12],[9,10],[10,12],[11,12]]);
-const UNIT_DENOMINATOR_PAIRS = Object.freeze([[2,3],[3,4],[3,5],[4,5],[4,7],[5,6],[5,8],[6,7],[7,8],[8,9],[9,10],[10,12]]);
-const EQUAL_COMPARE = Object.freeze([[1,2,2,4],[2,3,4,6],[3,4,6,8],[2,5,4,10],[3,5,6,10],[5,6,10,12]]);
-const seedOffset = (seed, size) => [...String(seed ?? "p03f30")].reduce((sum, char) => (sum + char.charCodeAt(0)) % Math.max(1, size), 0);
 const gcd = (a, b) => { let x = Math.abs(a), y = Math.abs(b); while (y) [x, y] = [y, x % y]; return x || 1; };
 function normalize(numerator, denominator) {
   if (denominator === 0) throw new Error("P03F30_ZERO_DENOMINATOR");
@@ -24,37 +20,114 @@ const fractionText = ({ numerator, denominator }) => denominator === 1 ? String(
 const compareProducts = (ln, ld, rn, rd) => ln * rd < rn * ld ? "<" : ln * rd > rn * ld ? ">" : "=";
 const issue = (code, path) => ({ code, severity: "error", path, message: code });
 
-function fractionFixture(ordinal, seed, operation) {
-  const offset = seedOffset(seed, 97);
-  let [leftDenominator, rightDenominator] = DENOMINATOR_PAIRS[(ordinal + offset) % DENOMINATOR_PAIRS.length];
-  let leftNumerator = 1 + ((ordinal * 5 + offset + 1) % (leftDenominator + 2));
-  let rightNumerator = 1 + ((ordinal * 7 + offset + 2) % (rightDenominator + 2));
-  if (operation === "sub" && compareProducts(leftNumerator, leftDenominator, rightNumerator, rightDenominator) === "<") {
-    [leftNumerator, leftDenominator, rightNumerator, rightDenominator] = [rightNumerator, rightDenominator, leftNumerator, leftDenominator];
+function hashSeed(value) {
+  let hash = 2166136261;
+  for (const character of String(value ?? "p03f30")) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
   }
-  if (operation === "sub" && compareProducts(leftNumerator, leftDenominator, rightNumerator, rightDenominator) === "=") leftNumerator += 1;
-  return { leftNumerator, leftDenominator, rightNumerator, rightDenominator };
+  return hash >>> 0;
 }
 
-function compareFixture(ordinal, seed) {
-  const offset = seedOffset(seed, 83);
-  if (ordinal % 5 === 4) {
-    const row = EQUAL_COMPARE[(Math.floor(ordinal / 5) + offset) % EQUAL_COMPARE.length];
-    return { leftNumerator: row[0], leftDenominator: row[1], rightNumerator: row[2], rightDenominator: row[3] };
-  }
-  const fixture = fractionFixture(ordinal, seed, "add");
-  if (compareProducts(fixture.leftNumerator, fixture.leftDenominator, fixture.rightNumerator, fixture.rightDenominator) === "=") fixture.rightNumerator += 1;
-  const target = ordinal % 2 === 0 ? "<" : ">";
-  if (compareProducts(fixture.leftNumerator, fixture.leftDenominator, fixture.rightNumerator, fixture.rightDenominator) !== target) {
-    [fixture.leftNumerator, fixture.leftDenominator, fixture.rightNumerator, fixture.rightDenominator] = [fixture.rightNumerator, fixture.rightDenominator, fixture.leftNumerator, fixture.leftDenominator];
-  }
-  return fixture;
+function rotate(rows, seed) {
+  const offset = hashSeed(seed) % rows.length;
+  return Object.freeze([...rows.slice(offset), ...rows.slice(0, offset)]);
 }
 
-function reciprocalFixture(ordinal, seed) {
-  const offset = seedOffset(seed, 71);
-  const [firstDenominator, secondDenominator] = UNIT_DENOMINATOR_PAIRS[(ordinal * 5 + offset) % UNIT_DENOMINATOR_PAIRS.length];
-  return { firstDenominator, secondDenominator };
+function buildArithmeticCasePool(operation) {
+  const rows = [];
+  const seen = new Set();
+  for (let leftDenominator = 2; leftDenominator <= 18; leftDenominator += 1) {
+    for (let rightDenominator = leftDenominator + 1; rightDenominator <= 18; rightDenominator += 1) {
+      for (let leftNumerator = 1; leftNumerator <= leftDenominator + 2; leftNumerator += 1) {
+        if (gcd(leftNumerator, leftDenominator) !== 1) continue;
+        for (let rightNumerator = 1; rightNumerator <= rightDenominator + 2; rightNumerator += 1) {
+          if (gcd(rightNumerator, rightDenominator) !== 1) continue;
+          let row = { leftNumerator, leftDenominator, rightNumerator, rightDenominator };
+          const relation = compareProducts(leftNumerator, leftDenominator, rightNumerator, rightDenominator);
+          if (operation === "sub" && relation === "=") continue;
+          if (operation === "sub" && relation === "<") row = {
+            leftNumerator: rightNumerator,
+            leftDenominator: rightDenominator,
+            rightNumerator: leftNumerator,
+            rightDenominator: leftDenominator,
+          };
+          const key = `${row.leftNumerator}/${row.leftDenominator}|${row.rightNumerator}/${row.rightDenominator}`;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          rows.push(Object.freeze(row));
+        }
+      }
+    }
+  }
+  return Object.freeze(rows);
+}
+
+function buildReciprocalCasePool() {
+  const rows = [];
+  for (let firstDenominator = 2; firstDenominator <= 25; firstDenominator += 1) {
+    for (let secondDenominator = firstDenominator + 1; secondDenominator <= 25; secondDenominator += 1) {
+      rows.push(Object.freeze({ firstDenominator, secondDenominator }));
+    }
+  }
+  return Object.freeze(rows);
+}
+
+function buildCompareCasePool() {
+  const nonEqual = buildArithmeticCasePool("add").filter((row) => compareProducts(
+    row.leftNumerator, row.leftDenominator, row.rightNumerator, row.rightDenominator,
+  ) !== "=");
+  const equal = [];
+  for (let denominator = 2; denominator <= 12; denominator += 1) {
+    for (let numerator = 1; numerator < denominator; numerator += 1) {
+      if (gcd(numerator, denominator) !== 1) continue;
+      for (let scale = 2; scale <= 5 && denominator * scale <= 30; scale += 1) {
+        equal.push(Object.freeze({
+          leftNumerator: numerator,
+          leftDenominator: denominator,
+          rightNumerator: numerator * scale,
+          rightDenominator: denominator * scale,
+        }));
+      }
+    }
+  }
+  const rows = [];
+  let nonEqualIndex = 0;
+  let equalIndex = 0;
+  while (rows.length < 480) {
+    if (rows.length % 5 === 4) {
+      rows.push(equal[equalIndex % equal.length]);
+      equalIndex += 1;
+    } else {
+      const row = nonEqual[nonEqualIndex % nonEqual.length];
+      rows.push(nonEqualIndex % 2 === 0 ? row : Object.freeze({
+        leftNumerator: row.rightNumerator,
+        leftDenominator: row.rightDenominator,
+        rightNumerator: row.leftNumerator,
+        rightDenominator: row.leftDenominator,
+      }));
+      nonEqualIndex += 1;
+    }
+  }
+  return Object.freeze(rows);
+}
+
+const RECIPROCAL_CASE_POOL = buildReciprocalCasePool();
+const ADD_CASE_POOL = buildArithmeticCasePool("add");
+const SUB_CASE_POOL = buildArithmeticCasePool("sub");
+const COMPARE_CASE_POOL = buildCompareCasePool();
+export const P03F30_DISTINCT_CAPACITY_BY_PATTERN = Object.freeze({
+  [G5A_U06_P03F30_NUMERIC_PATTERN_SPEC_IDS[0]]: RECIPROCAL_CASE_POOL.length,
+  [G5A_U06_P03F30_NUMERIC_PATTERN_SPEC_IDS[1]]: ADD_CASE_POOL.length,
+  [G5A_U06_P03F30_NUMERIC_PATTERN_SPEC_IDS[2]]: COMPARE_CASE_POOL.length,
+  [G5A_U06_P03F30_NUMERIC_PATTERN_SPEC_IDS[3]]: SUB_CASE_POOL.length,
+});
+
+function casePoolForPattern(patternSpecId) {
+  if (patternSpecId === G5A_U06_P03F30_NUMERIC_PATTERN_SPEC_IDS[0]) return RECIPROCAL_CASE_POOL;
+  if (patternSpecId === G5A_U06_P03F30_NUMERIC_PATTERN_SPEC_IDS[1]) return ADD_CASE_POOL;
+  if (patternSpecId === G5A_U06_P03F30_NUMERIC_PATTERN_SPEC_IDS[2]) return COMPARE_CASE_POOL;
+  return SUB_CASE_POOL;
 }
 
 function metadata(definition) {
@@ -79,23 +152,20 @@ function metadata(definition) {
   });
 }
 
-function buildQuestion(patternSpecId, ordinal, seed) {
+function buildQuestion(patternSpecId, ordinal, fixture) {
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
   if (definition.operationFamilyId === "reciprocal_sum") {
-    const fixture = reciprocalFixture(ordinal, seed);
     const result = normalize(fixture.firstDenominator + fixture.secondDenominator, fixture.firstDenominator * fixture.secondDenominator);
     const answerText = fractionText(result);
     const promptText = `1/${fixture.firstDenominator} + 1/${fixture.secondDenominator} = ?`;
     return Object.freeze({ id:`${patternSpecId}-${ordinal+1}`, sourceId:G5A_U06_P03F30_SOURCE_ID, patternSpecId, kind:definition.kind, operation:"reciprocal_sum", operationFamilyId:"reciprocal_sum", questionMode:"numeric", mode:"NUMERIC", promptText, questionText:promptText, blankedDisplayText:promptText, displayText:`${promptText} ${answerText}`, answerText, finalAnswer:answerText, ...fixture, resultNumerator:result.numerator, resultDenominator:result.denominator, metadata:metadata(definition), globalContextProduction:null });
   }
   if (definition.operationFamilyId === "fraction_compare") {
-    const fixture = compareFixture(ordinal, seed);
     const answerText = compareProducts(fixture.leftNumerator, fixture.leftDenominator, fixture.rightNumerator, fixture.rightDenominator);
     const promptText = `${fixture.leftNumerator}/${fixture.leftDenominator} ○ ${fixture.rightNumerator}/${fixture.rightDenominator}，請填入 <、= 或 >。`;
     return Object.freeze({ id:`${patternSpecId}-${ordinal+1}`, sourceId:G5A_U06_P03F30_SOURCE_ID, patternSpecId, kind:definition.kind, operation:"fraction_compare", operationFamilyId:"fraction_compare", questionMode:"numeric", mode:"NUMERIC", promptText, questionText:promptText, blankedDisplayText:promptText, displayText:`${promptText} ${answerText}`, answerText, finalAnswer:answerText, ...fixture, comparison:answerText, metadata:metadata(definition), globalContextProduction:null });
   }
   const arithmeticOperation = definition.knowledgePointId.endsWith("_add") ? "add" : "sub";
-  const fixture = fractionFixture(ordinal, seed, arithmeticOperation);
   const rawNumerator = arithmeticOperation === "add"
     ? fixture.leftNumerator * fixture.rightDenominator + fixture.rightNumerator * fixture.leftDenominator
     : fixture.leftNumerator * fixture.rightDenominator - fixture.rightNumerator * fixture.leftDenominator;
@@ -151,11 +221,16 @@ export function generateG5AU06P03F30Questions(options = {}) {
   const count = Number(options.questionCount ?? plan.questionCount ?? 24);
   if (!Number.isInteger(count) || count < 1 || count > 240) return { ok:false, errors:[issue("p03f30_question_count_invalid","questionCount")], warnings:[], questions:[], plan };
   const occurrenceBySpec = new Map(plan.patternSpecIds.map((id) => [id, 0]));
+  const requiredPerSpec = new Map(plan.patternSpecIds.map((id, index) => [id, Math.floor(count / plan.patternSpecIds.length) + (index < count % plan.patternSpecIds.length ? 1 : 0)]));
+  const insufficient = [...requiredPerSpec].find(([id, required]) => required > (P03F30_DISTINCT_CAPACITY_BY_PATTERN[id] ?? 0));
+  if (insufficient) return { ok:false, errors:[issue("p03f30_distinct_capacity_exceeded",`patternSpecIds.${insufficient[0]}`)], warnings:[], questions:[], plan };
+  const seed = options.generationSeed ?? plan.generationSeed;
+  const fixturesBySpec = new Map(plan.patternSpecIds.map((id) => [id, rotate(casePoolForPattern(id), `${seed}:${id}`)]));
   const questions = Array.from({ length: count }, (_, index) => {
     const patternSpecId = plan.patternSpecIds[index % plan.patternSpecIds.length];
     const ordinal = occurrenceBySpec.get(patternSpecId) ?? 0;
     occurrenceBySpec.set(patternSpecId, ordinal + 1);
-    return buildQuestion(patternSpecId, ordinal, options.generationSeed ?? plan.generationSeed);
+    return buildQuestion(patternSpecId, ordinal, fixturesBySpec.get(patternSpecId)[ordinal]);
   });
   const errors = questions.flatMap((question, index) => validateG5AU06P03F30Question(question).errors.map((error) => ({ ...error, path:`questions[${index}].${error.path}` })));
   if (new Set(questions.map((question) => question.blankedDisplayText)).size !== questions.length) errors.push(issue("p03f30_duplicate_prompt_detected", "questions"));
