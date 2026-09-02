@@ -1,0 +1,71 @@
+{
+  "schemaName": "P04F35G6AU02IntegerDivisionByFractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F35_Q035_SourceBackedNumericImplementation",
+  "status": "SOURCE_BACKED_NUMERIC_IMPLEMENTATION_MATERIALIZED",
+  "queue": {
+    "queuePosition": 35,
+    "sliceId": "p04e_q035_r9_g6a_u02_6a02_profile_fraction_c1",
+    "previousSliceId": "p04e_q034_r9_g5a_u06_5a06_profile_quantity_measurement_c1",
+    "nextSliceId": "p04e_q036_r10_g6a_u02_6a02_profile_fraction_c1"
+  },
+  "source": {
+    "sourceNodeId": "g6a_u02_6a02",
+    "unitCode": "6A-U02",
+    "unitTitle": "分數除法",
+    "sourceFile": "meow911_6a02_source.pdf",
+    "driveFileId": "1izlK6HrAU4m76SvYmH_ZUy-yvrqc9idM",
+    "reviewedPages": [1, 2],
+    "preflightAuthorityPath": "data/curriculum/full-product/p04f/slice035-g6a-u02-integer-divided-by-fraction-preflight-authority.json"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g6a_u02_integer_divided_by_fraction",
+    "canonicalNameZh": "整數除以分數",
+    "applicationClassification": "APPLICATION_COMPATIBLE_BUT_NOT_ADMITTED"
+  },
+  "formalMapping": {
+    "relationFamilyId": "INTEGER_DIVIDED_BY_FRACTION_QUOTIENT",
+    "knownRoleIds": ["DIVIDEND_INTEGER", "DIVISOR_FRACTION"],
+    "targetRoleId": "QUOTIENT_FRACTION",
+    "answerType": "exact_reduced_fraction",
+    "invariants": {
+      "divisorFractionMustBeNonzero": true,
+      "divisionByFractionEqualsMultiplyByReciprocal": true,
+      "quotientTimesDivisorReconstructsDividend": true,
+      "exactRationalArithmeticRequired": true,
+      "equivalentFractionReductionAllowed": true,
+      "roundingAllowed": false
+    }
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g6a_u02_integer_divided_by_fraction_numeric",
+    "mode": "numeric"
+  },
+  "publicNumericPatternSpecIds": [
+    "ps_g6a_u02_integer_divided_by_fraction_quotient_numeric"
+  ],
+  "implementationBoundary": {
+    "singleKnowledgePointNumericOnly": true,
+    "sourceUnitPriorBehaviorPreserved": true,
+    "mixedKnowledgePointsPriorBehaviorPreserved": true,
+    "sourceBackedNumeric": true,
+    "structuredFractionDisplay": true,
+    "q033RuntimeTouched": false,
+    "q034Touched": false,
+    "q036Touched": false,
+    "q037Touched": false
+  },
+  "acceptance": {
+    "publicSourceCountTarget": 43,
+    "publicKnowledgePointCountTarget": 308,
+    "g6aU02VisibleKnowledgePointCountTarget": 3,
+    "g6aU02HiddenKnowledgePointCountTarget": 2,
+    "g6aU02NotSelectableKnowledgePointCountTarget": 2,
+    "questionCapacityTarget": 240,
+    "questionCountWitness": 24,
+    "answerCountWitness": 24,
+    "stackedFractionPromptAndAnswerRequired": true,
+    "targetedBrowserReplayRequired": true
+  }
+}
