@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G5A_U06_P03F30_CAPACITY_MIXED_FRACTION_DISPLAY_BOUNDED_VALIDATION",
+  "unitId": "g5a_u06_5a06",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g5a-u06-p03f30-capacity-current-mix-fraction-display.test.js",
+          "tests/curriculum/p04f-slice034-g5a-u06-measurement-difference-context.test.js",
+          "tests/renderer/g4a-u06-structured-fraction-renderer.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g5a-u06-p03f30-capacity-current-mix-fraction-display.test.js"
+        ]
+      }
+    ]
+  }
+}
