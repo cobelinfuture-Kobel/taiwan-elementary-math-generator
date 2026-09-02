@@ -1,0 +1,98 @@
+{
+  "schemaName": "P04F36G6AU02FractionDivisionByFractionPreflightAuthorityV1",
+  "schemaVersion": 1,
+  "taskId": "P04F36_Q036_ExactAuthorityAndFormalMappingPreflight",
+  "status": "PREFLIGHT_AUTHORITY_LOCKED_IMPLEMENTATION_NOT_STARTED",
+  "queue": {
+    "queuePosition": 36,
+    "sliceId": "p04e_q036_r10_g6a_u02_6a02_profile_fraction_c1",
+    "previousSliceId": "p04e_q035_r9_g6a_u02_6a02_profile_fraction_c1",
+    "nextSliceId": "p04e_q037_r11_g6a_u02_6a02_profile_fraction_c1",
+    "primarySourceNodeId": "g6a_u02_6a02",
+    "intraWavePrerequisiteRank": 10,
+    "primaryRuntimeProfileId": "profile_fraction",
+    "knowledgePointIds": [
+      "kp_g6a_u02_fraction_divided_by_fraction"
+    ]
+  },
+  "sourceAuthority": {
+    "sourceFile": "meow911_6a02_source.pdf",
+    "driveFileId": "1izlK6HrAU4m76SvYmH_ZUy-yvrqc9idM",
+    "sourceTitle": "分數除法",
+    "publisherAlignment": ["康軒6上第2課", "翰林6上第2課", "南一6上第2課"],
+    "reviewedPages": [1, 2],
+    "reviewMethod": "REUSE_P04F33_FULL_PAGE_VISUAL_READBACK_PLUS_R02_CANONICAL_SEMANTICS",
+    "visualVerificationStatus": "REUSED_FROM_P04F33_FULL_PAGE_VISUAL_READBACK",
+    "r02AuthorityPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+    "predecessorPreflightAuthorityPath": "data/curriculum/full-product/p04f/slice035-g6a-u02-integer-divided-by-fraction-preflight-authority.json",
+    "predecessorImplementationAuthorityPath": "data/curriculum/full-product/p04f/slice035-g6a-u02-integer-divided-by-fraction-authority.json",
+    "sourceGuideWitness": [
+      "把除法寫成分數型態",
+      "同分母分數除法",
+      "異分母分數除法",
+      "有餘數的分數除法",
+      "分數除法應用",
+      "÷m 商的變化"
+    ],
+    "q036SemanticWitness": "R02 reviewed source candidate binds fraction divided by fraction to multiplication by the divisor reciprocal and requires quotient-times-divisor reconstruction, with evidence on pages 1-2."
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g6a_u02_fraction_divided_by_fraction",
+      "canonicalNameZh": "分數除以分數",
+      "capabilityStatement": "學生能以乘倒數完成分數除法。",
+      "reasoningInvariant": "商乘除數必須重建被除數。"
+    }
+  ],
+  "formalMappings": [
+    {
+      "knowledgePointId": "kp_g6a_u02_fraction_divided_by_fraction",
+      "classification": "NEW_RELATION_CANDIDATE",
+      "relationFamilyId": "FRACTION_DIVIDED_BY_FRACTION_QUOTIENT",
+      "knownRoleIds": ["DIVIDEND_FRACTION", "DIVISOR_FRACTION"],
+      "targetRoleId": "QUOTIENT_FRACTION",
+      "invariants": {
+        "divisorFractionMustBeNonzero": true,
+        "divisionByFractionEqualsMultiplyByReciprocal": true,
+        "quotientTimesDivisorReconstructsDividend": true,
+        "exactRationalArithmeticRequired": true,
+        "equivalentFractionReductionAllowed": true,
+        "roundingAllowed": false
+      },
+      "supportingCapability": "RECIPROCAL_OF_NONZERO_FRACTION",
+      "reuseDecision": "Q035_HAS_INTEGER_DIVIDEND_AND_FRACTION_DIVISOR_ROLES; Q036_REQUIRES_FRACTION_DIVIDEND_AND_FRACTION_DIVISOR_ROLES, SO THE RELATION_IS_DISTINCT_WHILE_EXACT_RATIONAL_AND_RECIPROCAL_PRIMITIVES_ARE_SHARED_RUNTIME_BOUNDED_CANDIDATES"
+    }
+  ],
+  "reconciliation": {
+    "activeRelationReuseCount": 0,
+    "newRelationCandidateCount": 1,
+    "q033FractionDividedByIntegerRelationReused": false,
+    "q035IntegerDividedByFractionRelationReused": false,
+    "reciprocalTransformContractReuseCandidate": true,
+    "exactRationalPrimitiveReuseCandidate": true,
+    "recommendedImplementationScope": "SHARED_RUNTIME_BOUNDED",
+    "predecessorG6AU02KnowledgePointIds": [
+      "kp_g6a_u02_reciprocal_concept",
+      "kp_g6a_u02_fraction_divided_by_integer",
+      "kp_g6a_u02_integer_divided_by_fraction"
+    ],
+    "futureG6AU02KnowledgePointIds": [
+      "kp_g6a_u02_fraction_division_application"
+    ],
+    "q033Touched": false,
+    "q035Touched": false,
+    "q037Touched": false
+  },
+  "boundary": {
+    "planningOnly": true,
+    "patternSpecMaterialized": false,
+    "generatorMaterialized": false,
+    "validatorMaterialized": false,
+    "selectorPromoted": false,
+    "worksheetEnabled": false,
+    "q033RuntimeTouched": false,
+    "q035RuntimeTouched": false,
+    "q037Touched": false,
+    "implementationApprovalRequired": true
+  }
+}
