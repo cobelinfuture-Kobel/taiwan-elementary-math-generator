@@ -3,6 +3,7 @@ import { buildBatchABrowserWorksheetDocument as baseBuild } from "./batch-a-brow
 import { buildBatchABrowserPlan, requestsP03F30 } from "./batch-a-browser-generator-p03f30.js";
 import { generateBatchABrowserQuestions } from "./batch-a-browser-question-router-p03f30.js";
 import { validateBatchABrowserPlan, validateBatchABrowserQuestions } from "./batch-a-browser-validator-p03f30.js";
+import { buildG5AU06InlineMathModel } from "./g5a-u06-inline-fraction-display.js";
 import {
   G5A_U06_P03F30_KP_IDS,
   G5A_U06_P03F30_NUMERIC_PATTERN_SPEC_IDS,
@@ -52,6 +53,7 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     displayText: question.displayText,
     blankedDisplayText: question.blankedDisplayText,
     answerText: question.answerText,
+    promptInlineMath: buildG5AU06InlineMathModel({ sourceId:G5A_U06_P03F30_SOURCE_ID, plainText:question.blankedDisplayText }),
     metadataSnapshot: question.metadata,
     layoutHints: Object.freeze({ estimatedTextLength:question.blankedDisplayText.length, hasGrouping:false, avoidPageBreakInside:true, representation:"fraction_numeric", longTextCardPolicy:"avoidSplit" }),
   }));
@@ -63,6 +65,8 @@ export function buildBatchABrowserWorksheetDocument(options = {}) {
     patternGroupId: question.metadata.patternGroupId,
     promptText: question.blankedDisplayText,
     answerText: question.answerText,
+    promptInlineMath: buildG5AU06InlineMathModel({ sourceId:G5A_U06_P03F30_SOURCE_ID, plainText:question.blankedDisplayText }),
+    answerInlineMath: buildG5AU06InlineMathModel({ sourceId:G5A_U06_P03F30_SOURCE_ID, plainText:question.answerText }),
     metadataSnapshot: question.metadata,
     layoutHints: Object.freeze({ avoidPageBreakInside:true, representation:"fraction_numeric_answer" }),
   })) : [];
