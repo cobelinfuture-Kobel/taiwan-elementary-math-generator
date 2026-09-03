@@ -8,6 +8,13 @@ import {
   buildPath1ManualWorksheet,
 } from "../../site/assets/browser/pipeline/build-path1-manual-worksheet.js";
 
+function answerKeyItemCount(worksheetDocument) {
+  return (worksheetDocument.answerKeyPages ?? [])
+    .flatMap((page) => page.cells ?? [])
+    .filter((cell) => cell.cellType === "answerKey" && cell.answerKeyItem)
+    .length;
+}
+
 test("Path1 manual menu exposes exactly P1-01 through P1-27", () => {
   assert.equal(PATH1_PUBLIC_WORKSHEET_BLOCKS.length, 27);
   assert.deepEqual(
@@ -26,9 +33,9 @@ test("P1-09 is a non-KP difficulty expansion with valid four-digit by two-digit 
     includeAnswerKey: true,
   });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assert.equal(result.worksheetDocument.generatedQuestions.length, 20);
-  assert.equal(result.worksheetDocument.answerKeyItems.length, 20);
-  const questions = result.worksheetDocument.generatedQuestions;
+  assert.equal(result.worksheetDocument.questions.length, 20);
+  assert.equal(answerKeyItemCount(result.worksheetDocument), 20);
+  const questions = result.worksheetDocument.questions;
   assert.equal(new Set(questions.map((question) => question.prompt)).size, 20);
   for (const question of questions) {
     assert.equal(question.knowledgePointId ?? null, null);
@@ -53,12 +60,13 @@ test("every Path1 block can materialize a focused printable worksheet", () => {
     });
     assert.equal(result.ok, true, `${block.blockId}: ${JSON.stringify(result.errors)}`);
     assert.ok(result.worksheetDocument, block.blockId);
-    assert.equal(result.worksheetDocument.generatedQuestions.length, questionCount, block.blockId);
-    assert.equal(result.worksheetDocument.answerKeyItems.length, questionCount, block.blockId);
-    assert.match(result.worksheetDocument.title, new RegExp(block.blockId));
-    assert.equal(result.worksheetDocument.metadata.path1BlockId, block.blockId);
-    assert.equal(result.worksheetDocument.metadata.manualProgression, true);
-    assert.equal(result.worksheetDocument.metadata.automaticNPlus1, false);
+    assert.equal(result.worksheetDocument.questions.length, questionCount, block.blockId);
+    assert.equal(answerKeyItemCount(result.worksheetDocument), questionCount, block.blockId);
+    assert.match(result.worksheetDocument.configSnapshot.title, new RegExp(block.blockId));
+    assert.equal(result.worksheetDocument.configSnapshot.metadata.path1BlockId, block.blockId);
+    assert.equal(result.worksheetDocument.configSnapshot.metadata.manualProgression, true);
+    assert.equal(result.worksheetDocument.configSnapshot.metadata.automaticNPlus1, false);
+    assert.equal(result.worksheetDocument.report.summary.questionCount, questionCount, block.blockId);
   }
 });
 
