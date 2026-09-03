@@ -1,0 +1,224 @@
+{
+  "schemaName": "Path1CurriculumMatrixV1",
+  "schemaVersion": 1,
+  "pathId": "PATH1_INTEGER_FOUNDATIONS",
+  "title": "Path 1 整數四則與整數結構",
+  "purpose": "將既有 canonical KnowledgePoints 編排為每日 N→N+1 自學順序；LearningBlock 不創造新的 canonical KP。",
+  "authority": {
+    "canonicalKnowledgePointAuthority": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "prerequisiteGraphAuthority": "data/curriculum/global/graph/r03/global-kp-prerequisite-graph.manifest.json",
+    "policy": [
+      "CANONICAL_KP_AUTHORITY_REMAINS_482_NODE_R02_R03_GRAPH",
+      "LEARNING_BLOCK_IS_TEACHING_SEQUENCE_AUTHORITY_NOT_KP_AUTHORITY",
+      "DIFFICULTY_EXPANSION_MUST_NOT_MINT_NEW_KP",
+      "INTEGRATION_BLOCK_MUST_REUSE_EXISTING_KP"
+    ]
+  },
+  "controllerContract": {
+    "order": "ASCENDING_BLOCK_ID",
+    "nextStep": "FIRST_UNMASTERED_BLOCK_WITH_ALL_REQUIRED_PREREQUISITES_SATISFIED",
+    "requiredPrerequisiteMode": "AND",
+    "supportingKnowledgePointsBlockUnlock": false,
+    "diagnosticBlockId": "P1-00"
+  },
+  "blockTypes": ["DIAGNOSTIC", "DIRECT_KP", "COMPOSITE_KP", "DIFFICULTY_EXPANSION", "INTEGRATION"],
+  "patternExpansionKinds": ["EXISTING_PATTERN_REF", "DESCRIPTIVE_DIFFICULTY_EXPANSION", "FUSION_PATTERN_CANDIDATE"],
+  "blocks": [
+    {
+      "blockId":"P1-00","title":"入口診斷","blockType":"DIAGNOSTIC","primaryKnowledgePointIds":[],
+      "requiredPrerequisites":{"blockIds":[],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":[],
+      "patternExpansion":[{"kind":"FUSION_PATTERN_CANDIDATE","id":"path1_diagnostic_frontier_scan","description":"以已掌握 KP 與 Path1 順序定位第一個未通過 Block。"}],
+      "masteryGate":{"mode":"DIAGNOSTIC_COMPLETE","requiredKnowledgePointIds":[],"requiredPatternIds":["path1_diagnostic_frontier_scan"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-01","title":"十進位乘法原理","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g3a_u03_10_multiple_by_1digit"],
+      "requiredPrerequisites":{"blockIds":["P1-00"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g3a_u03_2digit_by_1digit_carry"],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"place_value_times_one_digit","description":"由整十倍數連到位值對齊，不另建 KP。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g3a_u03_10_multiple_by_1digit"],"requiredPatternIds":["place_value_times_one_digit"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-02","title":"多位數×一位數","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g3a_u03_2digit_by_1digit_carry","kp_g3a_u03_3digit_by_1digit"],
+      "requiredPrerequisites":{"blockIds":["P1-01"],"knowledgePointIds":["kp_g3a_u03_10_multiple_by_1digit"]},"optionalSupportingKnowledgePointIds":["kp_g3a_u03_3digit_zero_middle_by_1digit"],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"multi_digit_by_one_digit_progression","description":"二位→三位，維持同一位值乘法結構。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g3a_u03_2digit_by_1digit_carry","kp_g3a_u03_3digit_by_1digit"],"requiredPatternIds":["multi_digit_by_one_digit_progression"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-03","title":"二位數×二位數","blockType":"DIRECT_KP","primaryKnowledgePointIds":["kp_g4a_u02_2digit_by_2digit"],
+      "requiredPrerequisites":{"blockIds":["P1-02"],"knowledgePointIds":["kp_g3a_u03_3digit_by_1digit"]},"optionalSupportingKnowledgePointIds":[],
+      "patternExpansion":[{"kind":"EXISTING_PATTERN_REF","id":"ps_g4a_u02_2digit_by_2digit","description":"部分積與十位位移。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g4a_u02_2digit_by_2digit"],"requiredPatternIds":["ps_g4a_u02_2digit_by_2digit"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-04","title":"多位數×多位數","blockType":"DIFFICULTY_EXPANSION","primaryKnowledgePointIds":["kp_g4a_u02_2digit_by_3digit","kp_g4a_u02_3digit_by_2digit"],
+      "requiredPrerequisites":{"blockIds":["P1-03"],"knowledgePointIds":["kp_g4a_u02_2digit_by_2digit"]},"optionalSupportingKnowledgePointIds":[],
+      "patternExpansion":[{"kind":"EXISTING_PATTERN_REF","id":"ps_g4a_u02_2digit_by_3digit","description":"二位×三位。"},{"kind":"EXISTING_PATTERN_REF","id":"ps_g4a_u02_3digit_by_2digit","description":"三位×二位。"},{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"larger_operand_same_partial_product_rule","description":"擴大位數只增加負荷，不新增數學能力。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g4a_u02_2digit_by_3digit","kp_g4a_u02_3digit_by_2digit"],"requiredPatternIds":["ps_g4a_u02_2digit_by_3digit","ps_g4a_u02_3digit_by_2digit"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-05","title":"0 特殊情況","blockType":"DIRECT_KP","primaryKnowledgePointIds":["kp_g3a_u03_3digit_zero_middle_by_1digit"],
+      "requiredPrerequisites":{"blockIds":["P1-04"],"knowledgePointIds":["kp_g3a_u03_3digit_by_1digit"]},"optionalSupportingKnowledgePointIds":["kp_g4a_u02_3digit_by_1digit_review"],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"zero_place_holder_cases","description":"中間0、尾0與跨位0 placeholder；只有既有 validator boundary 才視為 KP。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g3a_u03_3digit_zero_middle_by_1digit"],"requiredPatternIds":["zero_place_holder_cases"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-06","title":"估商","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g4a_u04_3digit_by_2digit_tens_sufficient","kp_g4a_u04_3digit_by_2digit_tens_insufficient"],
+      "requiredPrerequisites":{"blockIds":["P1-05"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor"],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"estimate_trial_quotient","description":"以除數量級與前位關係估商、試商；不宣告新的 canonical KP。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g4a_u04_3digit_by_2digit_tens_sufficient","kp_g4a_u04_3digit_by_2digit_tens_insufficient"],"requiredPatternIds":["estimate_trial_quotient"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-07","title":"商的位值","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g3b_u01_2digit_division_place_value_cases","kp_g3b_u01_3digit_division_place_value_cases"],
+      "requiredPrerequisites":{"blockIds":["P1-06"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g3b_u01_quotient_zero_cases"],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"quotient_start_place_cases","description":"依前位夠除/不夠除判斷商起始位。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g3b_u01_2digit_division_place_value_cases","kp_g3b_u01_3digit_division_place_value_cases"],"requiredPatternIds":["quotient_start_place_cases"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-08","title":"二位數除數","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor","kp_g4a_u04_3digit_by_2digit_tens_sufficient","kp_g4a_u04_3digit_by_2digit_tens_insufficient"],
+      "requiredPrerequisites":{"blockIds":["P1-07"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":[],
+      "patternExpansion":[{"kind":"EXISTING_PATTERN_REF","id":"ps_g4a_u04_3digit_by_2digit_tens_sufficient","description":"十位夠除。"},{"kind":"EXISTING_PATTERN_REF","id":"ps_g4a_u04_3digit_by_2digit_tens_insufficient","description":"十位不夠除。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor","kp_g4a_u04_3digit_by_2digit_tens_sufficient","kp_g4a_u04_3digit_by_2digit_tens_insufficient"],"requiredPatternIds":["ps_g4a_u04_3digit_by_2digit_tens_sufficient","ps_g4a_u04_3digit_by_2digit_tens_insufficient"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-09","title":"多位數÷二位數","blockType":"DIFFICULTY_EXPANSION","primaryKnowledgePointIds":["kp_g4a_u04_3digit_by_2digit_tens_sufficient","kp_g4a_u04_3digit_by_2digit_tens_insufficient"],
+      "requiredPrerequisites":{"blockIds":["P1-08"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":[],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"larger_dividend_two_digit_divisor","description":"增加被除數位數但維持估商、試商與商位值規則。"}],
+      "masteryGate":{"mode":"REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":[],"requiredPatternIds":["larger_dividend_two_digit_divisor"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-10","title":"多位數÷三位數","blockType":"DIFFICULTY_EXPANSION","primaryKnowledgePointIds":["kp_g4a_u04_3digit_by_2digit_tens_sufficient","kp_g4a_u04_3digit_by_2digit_tens_insufficient"],
+      "requiredPrerequisites":{"blockIds":["P1-09"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":[],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"three_digit_divisor_same_long_division_rule","description":"三位數除數視為既有長除法規則的 difficulty expansion，除非日後 authority 證明有新 validator boundary。"}],
+      "masteryGate":{"mode":"REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":[],"requiredPatternIds":["three_digit_divisor_same_long_division_rule"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-11","title":"餘數與驗算","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g4a_u04_division_check_with_remainder","kp_g3b_u01_division_with_remainder"],
+      "requiredPrerequisites":{"blockIds":["P1-10"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g3b_u01_wp_remainder_interpretation"],
+      "patternExpansion":[{"kind":"EXISTING_PATTERN_REF","id":"ps_g4a_u04_division_check_with_remainder","description":"dividend = divisor × quotient + remainder。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g4a_u04_division_check_with_remainder","kp_g3b_u01_division_with_remainder"],"requiredPatternIds":["ps_g4a_u04_division_check_with_remainder"]},
+      "fusionGate":{"mode":"OPTIONAL_TRANSFER","requiredBlockIds":["P1-08"],"requiredKnowledgePointIds":["kp_g3b_u01_wp_remainder_interpretation"]}
+    },
+    {
+      "blockId":"P1-12","title":"乘除互逆","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g3b_u08_total_from_groups","kp_g3b_u08_group_count_from_total","kp_g3b_u08_per_group_from_total"],
+      "requiredPrerequisites":{"blockIds":["P1-11"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g3b_u08_reverse_base_from_multiple"],
+      "patternExpansion":[{"kind":"FUSION_PATTERN_CANDIDATE","id":"multiply_divide_inverse_relation","description":"total = amountPerGroup × groupCount，並在兩種除法未知角色間轉換。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g3b_u08_total_from_groups","kp_g3b_u08_group_count_from_total","kp_g3b_u08_per_group_from_total"],"requiredPatternIds":["multiply_divide_inverse_relation"]},
+      "fusionGate":{"mode":"REQUIRED","requiredBlockIds":["P1-02","P1-08"],"requiredKnowledgePointIds":["kp_g3b_u08_total_from_groups","kp_g3b_u08_group_count_from_total","kp_g3b_u08_per_group_from_total"]}
+    },
+    {
+      "blockId":"P1-13","title":"同級混合","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g4a_u08_num_add_sub_left_assoc","kp_g4a_u08_num_mul_div_left_assoc"],
+      "requiredPrerequisites":{"blockIds":["P1-12"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g4a_u08_num_signed_term_move","kp_g4a_u08_num_repeated_divide_group"],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"same_precedence_left_to_right","description":"加減同級與乘除同級各自由左至右。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g4a_u08_num_add_sub_left_assoc","kp_g4a_u08_num_mul_div_left_assoc"],"requiredPatternIds":["same_precedence_left_to_right"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-14","title":"乘除優先","blockType":"DIRECT_KP","primaryKnowledgePointIds":["kp_g4a_u08_num_mul_div_before_add_sub"],
+      "requiredPrerequisites":{"blockIds":["P1-13"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g5a_u08_mixed_operation_order"],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"mixed_precedence_without_parentheses","description":"先乘除後加減。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g4a_u08_num_mul_div_before_add_sub"],"requiredPatternIds":["mixed_precedence_without_parentheses"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-15","title":"括號","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g4a_u08_num_parentheses_first","kp_g4a_u08_num_parentheses_change_precedence"],
+      "requiredPrerequisites":{"blockIds":["P1-14"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g4a_u08_num_compound_parentheses"],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"parentheses_ast_progression","description":"單組括號→改變預設 AST→多組括號。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g4a_u08_num_parentheses_first","kp_g4a_u08_num_parentheses_change_precedence"],"requiredPatternIds":["parentheses_ast_progression"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-16","title":"交換律＋結合律","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g4a_u08_num_add_group_round","kp_g4a_u08_num_mul_div_safe_reorder","kp_g5a_u08_add_sub_equivalent_regroup","kp_g5a_u08_mul_div_equivalent_regroup"],
+      "requiredPrerequisites":{"blockIds":["P1-15"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g4a_u08_num_signed_term_move"],
+      "patternExpansion":[{"kind":"EXISTING_PATTERN_REF","id":"ps_g5a_u08_add_sub_signed_regroup","description":"加減等值重組。"},{"kind":"EXISTING_PATTERN_REF","id":"ps_g5a_u08_mul_div_factor_regroup","description":"乘除因數等值重組。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g4a_u08_num_add_group_round","kp_g4a_u08_num_mul_div_safe_reorder","kp_g5a_u08_add_sub_equivalent_regroup","kp_g5a_u08_mul_div_equivalent_regroup"],"requiredPatternIds":["ps_g5a_u08_add_sub_signed_regroup","ps_g5a_u08_mul_div_factor_regroup"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-17","title":"分配律","blockType":"DIRECT_KP","primaryKnowledgePointIds":["kp_g5a_u08_distributive_expand"],
+      "requiredPrerequisites":{"blockIds":["P1-16"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":[],
+      "patternExpansion":[{"kind":"EXISTING_PATTERN_REF","id":"ps_g5a_u08_distributive_expand_add","description":"a(b+c)=ab+ac。"},{"kind":"EXISTING_PATTERN_REF","id":"ps_g5a_u08_distributive_expand_sub","description":"a(b-c)=ab-ac。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g5a_u08_distributive_expand"],"requiredPatternIds":["ps_g5a_u08_distributive_expand_add","ps_g5a_u08_distributive_expand_sub"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-18","title":"分配律反向＋簡算","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g5a_u08_common_factor_extract"],
+      "requiredPrerequisites":{"blockIds":["P1-17"],"knowledgePointIds":["kp_g5a_u08_distributive_expand"]},"optionalSupportingKnowledgePointIds":["kp_g5a_u08_near_round_multiply_compensation"],
+      "patternExpansion":[{"kind":"EXISTING_PATTERN_REF","id":"ps_g5a_u08_common_factor_add","description":"共同因數反向抽取。"},{"kind":"EXISTING_PATTERN_REF","id":"ps_g5a_u08_common_factor_sub","description":"差式共同因數抽取。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g5a_u08_common_factor_extract"],"requiredPatternIds":["ps_g5a_u08_common_factor_add","ps_g5a_u08_common_factor_sub"]},
+      "fusionGate":{"mode":"REQUIRED","requiredBlockIds":["P1-16","P1-17"],"requiredKnowledgePointIds":["kp_g5a_u08_distributive_expand","kp_g5a_u08_common_factor_extract"]}
+    },
+    {
+      "blockId":"P1-19","title":"整除／因數／倍數","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g5a_u02_factor_criterion_multiplication_division_equivalence","kp_g5a_u02_factor_enumeration_by_division","kp_g5a_u03a_multiple_identify_enumerate","kp_g5a_u03a_divisibility_rules","kp_g5a_u03a_factor_multiple_relation"],
+      "requiredPrerequisites":{"blockIds":["P1-18"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g5a_u03a_exact_grouping_feasibility","kp_g5a_u02_divisibility_factor_membership_judgement"],
+      "patternExpansion":[{"kind":"EXISTING_PATTERN_REF","id":"ps_g5a_u02_factor_relation_equivalence","description":"因數判準。"},{"kind":"EXISTING_PATTERN_REF","id":"ps_g5a_u02_factor_enumeration_trial_division","description":"因數列舉。"},{"kind":"FUSION_PATTERN_CANDIDATE","id":"factor_multiple_relation_fusion","description":"整除、因數、倍數語言與算式互換。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g5a_u02_factor_criterion_multiplication_division_equivalence","kp_g5a_u02_factor_enumeration_by_division","kp_g5a_u03a_multiple_identify_enumerate","kp_g5a_u03a_divisibility_rules","kp_g5a_u03a_factor_multiple_relation"],"requiredPatternIds":["factor_multiple_relation_fusion"]},
+      "fusionGate":{"mode":"REQUIRED","requiredBlockIds":["P1-12"],"requiredKnowledgePointIds":["kp_g5a_u02_factor_criterion_multiplication_division_equivalence","kp_g5a_u03a_factor_multiple_relation"]}
+    },
+    {
+      "blockId":"P1-20","title":"公因數／公倍數","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g5a_u02_common_factor_concept","kp_g5a_u02_common_factor_enumeration","kp_g5a_u03a1_common_multiple_lcm","kp_g5a_u03a1_bounded_common_multiples"],
+      "requiredPrerequisites":{"blockIds":["P1-19"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g5a_u02_greatest_common_factor","kp_g5a_u03a1_grouping_constraints"],
+      "patternExpansion":[{"kind":"EXISTING_PATTERN_REF","id":"ps_g5a_u02_common_factor_enumeration","description":"公因數列舉。"},{"kind":"FUSION_PATTERN_CANDIDATE","id":"common_factor_common_multiple_contrast","description":"同一組數分辨公因數路徑與公倍數路徑。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g5a_u02_common_factor_concept","kp_g5a_u02_common_factor_enumeration","kp_g5a_u03a1_common_multiple_lcm","kp_g5a_u03a1_bounded_common_multiples"],"requiredPatternIds":["common_factor_common_multiple_contrast"]},
+      "fusionGate":{"mode":"REQUIRED","requiredBlockIds":["P1-19"],"requiredKnowledgePointIds":["kp_g5a_u02_common_factor_concept","kp_g5a_u03a1_common_multiple_lcm"]}
+    },
+    {
+      "blockId":"P1-21","title":"質數／合數／質因數","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g6a_u01_prime_composite_classification"],
+      "requiredPrerequisites":{"blockIds":["P1-20"],"knowledgePointIds":["kp_g5a_u02_factor_enumeration_by_division"]},"optionalSupportingKnowledgePointIds":["kp_g6a_u01_prime_factorization"],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"prime_composite_factor_language","description":"以正因數個數分類並辨認質因數語言。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g6a_u01_prime_composite_classification"],"requiredPatternIds":["prime_composite_factor_language"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-22","title":"質因數分解","blockType":"DIRECT_KP","primaryKnowledgePointIds":["kp_g6a_u01_prime_factorization"],
+      "requiredPrerequisites":{"blockIds":["P1-21"],"knowledgePointIds":["kp_g6a_u01_prime_composite_classification"]},"optionalSupportingKnowledgePointIds":[],
+      "patternExpansion":[{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"prime_factorization_product","description":"質因數乘積表示。"},{"kind":"DESCRIPTIVE_DIFFICULTY_EXPANSION","id":"prime_factorization_exponents","description":"重複質因數改寫為指數。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g6a_u01_prime_factorization"],"requiredPatternIds":["prime_factorization_product","prime_factorization_exponents"]},
+      "fusionGate":{"mode":"NOT_APPLICABLE","requiredBlockIds":[],"requiredKnowledgePointIds":[]}
+    },
+    {
+      "blockId":"P1-23","title":"GCD","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g6a_u01_greatest_common_factor"],
+      "requiredPrerequisites":{"blockIds":["P1-22"],"knowledgePointIds":["kp_g5a_u02_common_factor_concept","kp_g6a_u01_prime_factorization"]},"optionalSupportingKnowledgePointIds":["kp_g6a_u01_short_division_common_factors","kp_g5a_u02_greatest_common_factor"],
+      "patternExpansion":[{"kind":"FUSION_PATTERN_CANDIDATE","id":"gcd_factor_list_prime_factorization_routes","description":"因數列舉、質因數分解與短除路徑得到同一 GCD。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g6a_u01_greatest_common_factor"],"requiredPatternIds":["gcd_factor_list_prime_factorization_routes"]},
+      "fusionGate":{"mode":"REQUIRED","requiredBlockIds":["P1-20","P1-22"],"requiredKnowledgePointIds":["kp_g5a_u02_common_factor_concept","kp_g6a_u01_prime_factorization","kp_g6a_u01_greatest_common_factor"]}
+    },
+    {
+      "blockId":"P1-24","title":"LCM","blockType":"COMPOSITE_KP","primaryKnowledgePointIds":["kp_g6a_u01_least_common_multiple"],
+      "requiredPrerequisites":{"blockIds":["P1-23"],"knowledgePointIds":["kp_g5a_u03a1_common_multiple_lcm","kp_g6a_u01_prime_factorization"]},"optionalSupportingKnowledgePointIds":["kp_g6a_u01_short_division_common_factors","kp_g5a_u03a1_bounded_common_multiples"],
+      "patternExpansion":[{"kind":"FUSION_PATTERN_CANDIDATE","id":"lcm_multiple_list_prime_factorization_routes","description":"倍數列舉與質因數分解路徑得到同一 LCM。"}],
+      "masteryGate":{"mode":"ALL_PRIMARY_KP_MASTERED_AND_REQUIRED_PATTERN_COVERED","requiredKnowledgePointIds":["kp_g6a_u01_least_common_multiple"],"requiredPatternIds":["lcm_multiple_list_prime_factorization_routes"]},
+      "fusionGate":{"mode":"REQUIRED","requiredBlockIds":["P1-20","P1-22"],"requiredKnowledgePointIds":["kp_g5a_u03a1_common_multiple_lcm","kp_g6a_u01_prime_factorization","kp_g6a_u01_least_common_multiple"]}
+    },
+    {
+      "blockId":"P1-25","title":"整數四則綜合","blockType":"INTEGRATION","primaryKnowledgePointIds":[],
+      "requiredPrerequisites":{"blockIds":["P1-24"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g5a_u08_mixed_operation_order","kp_g5a_u08_distributive_expand","kp_g5a_u08_common_factor_extract"],
+      "patternExpansion":[{"kind":"FUSION_PATTERN_CANDIDATE","id":"integer_four_operations_integration","description":"運算順序、括號、等值重組、分配律與簡算的 integrated multi-KP pattern。"}],
+      "masteryGate":{"mode":"FUSION_GATE_PASS","requiredKnowledgePointIds":[],"requiredPatternIds":["integer_four_operations_integration"]},
+      "fusionGate":{"mode":"REQUIRED","requiredBlockIds":["P1-13","P1-14","P1-15","P1-16","P1-17","P1-18"],"requiredKnowledgePointIds":["kp_g4a_u08_num_mul_div_before_add_sub","kp_g4a_u08_num_parentheses_change_precedence","kp_g5a_u08_distributive_expand","kp_g5a_u08_common_factor_extract"]}
+    },
+    {
+      "blockId":"P1-26","title":"整數結構綜合","blockType":"INTEGRATION","primaryKnowledgePointIds":[],
+      "requiredPrerequisites":{"blockIds":["P1-25"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g5a_u02_common_factor_concept","kp_g5a_u03a1_common_multiple_lcm","kp_g6a_u01_prime_factorization","kp_g6a_u01_greatest_common_factor","kp_g6a_u01_least_common_multiple"],
+      "patternExpansion":[{"kind":"FUSION_PATTERN_CANDIDATE","id":"integer_number_structure_integration","description":"因數、倍數、質因數、GCD、LCM 的 integrated multi-KP pattern。"}],
+      "masteryGate":{"mode":"FUSION_GATE_PASS","requiredKnowledgePointIds":[],"requiredPatternIds":["integer_number_structure_integration"]},
+      "fusionGate":{"mode":"REQUIRED","requiredBlockIds":["P1-19","P1-20","P1-21","P1-22","P1-23","P1-24"],"requiredKnowledgePointIds":["kp_g5a_u02_common_factor_concept","kp_g5a_u03a1_common_multiple_lcm","kp_g6a_u01_prime_factorization","kp_g6a_u01_greatest_common_factor","kp_g6a_u01_least_common_multiple"]}
+    },
+    {
+      "blockId":"P1-27","title":"Cross-KP 應用","blockType":"INTEGRATION","primaryKnowledgePointIds":[],
+      "requiredPrerequisites":{"blockIds":["P1-26"],"knowledgePointIds":[]},"optionalSupportingKnowledgePointIds":["kp_g3b_u08_total_from_groups","kp_g3b_u08_group_count_from_total","kp_g3b_u08_per_group_from_total","kp_g5a_u02_maximum_equal_grouping_gcf_application","kp_g5a_u03a1_grouping_constraints"],
+      "patternExpansion":[{"kind":"FUSION_PATTERN_CANDIDATE","id":"path1_cross_kp_application","description":"至少跨兩個既有 canonical KP 的情境題；不得以題目複雜度建立新 KP。"}],
+      "masteryGate":{"mode":"FUSION_GATE_PASS","requiredKnowledgePointIds":[],"requiredPatternIds":["path1_cross_kp_application"]},
+      "fusionGate":{"mode":"REQUIRED","requiredBlockIds":["P1-25","P1-26"],"requiredKnowledgePointIds":["kp_g3b_u08_total_from_groups","kp_g5a_u08_mixed_operation_order","kp_g6a_u01_greatest_common_factor","kp_g6a_u01_least_common_multiple"]}
+    }
+  ]
+}
