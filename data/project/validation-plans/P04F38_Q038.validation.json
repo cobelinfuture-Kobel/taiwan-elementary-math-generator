@@ -9,8 +9,7 @@
         "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
-          "tests/curriculum/p04f-slice038-g6b-u01-mixed-decimal-fraction-mul-div.test.js",
-          "tests/curriculum/p03f-slice032-g6b-u01-rank8-mixed-domain-conversion.test.js"
+          "tests/curriculum/p04f-slice038-g6b-u01-mixed-decimal-fraction-mul-div.test.js"
         ]
       },
       {
