@@ -1,6 +1,6 @@
 export * from "./batch-a-selector-p04f33-base.js";
 import * as base from "./batch-a-selector-p04f33-base.js";
-import * as current from "./batch-a-selector-p04f38-extension.js";
+import * as current from "./batch-a-selector-p04f39-extension.js";
 const currentBrowserSelectorActive=()=>typeof document!=="undefined";
 export const BATCH_A_SELECTOR_AVAILABILITY=currentBrowserSelectorActive()?current.BATCH_A_SELECTOR_AVAILABILITY:base.BATCH_A_SELECTOR_AVAILABILITY;
 export function listVisibleBatchAKnowledgePoints(){return currentBrowserSelectorActive()?current.listVisibleBatchAKnowledgePoints():base.listVisibleBatchAKnowledgePoints();}
