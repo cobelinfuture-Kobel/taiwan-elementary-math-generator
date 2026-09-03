@@ -1,3 +1,4 @@
+import { renderAnglePartsDiagram } from "./angle-parts-diagram.js";
 import { renderFractionNumberLine } from "./fraction-number-line.js";
 import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderMeasurementScale } from "./measurement-scale.js";
@@ -68,7 +69,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
+export { renderAnglePartsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -110,6 +111,7 @@ export function renderQuestionCell(cell, options = {}) {
     displayModel.questionNumberText ? `<div class="worksheet-cell__number">${escapeHtml(displayModel.questionNumberText)}</div>` : "",
     `<div class="worksheet-cell__prompt">${renderStructuredText(displayModel.promptInlineMath, displayModel.blankedDisplayText)}</div>`,
     displayModel.numberLine ? renderNumberLine(displayModel.numberLine) : "",
+    displayModel.geometryDiagram ? renderAnglePartsDiagram(displayModel.geometryDiagram) : "",
     "</article>",
   ].join("");
 }
@@ -131,6 +133,7 @@ export function renderAnswerKeyCell(cell, options = {}) {
     `<div class="worksheet-cell__number">${escapeHtml(`${answerKeyItem.questionNumber}.`)}</div>`,
     `<div class="worksheet-cell__prompt">${renderStructuredText(answerKeyItem.promptInlineMath, answerKeyItem.promptText)}</div>`,
     answerKeyItem.numberLine ? renderNumberLine(answerKeyItem.numberLine) : "",
+    answerKeyItem.geometryDiagram ? renderAnglePartsDiagram(answerKeyItem.geometryDiagram) : "",
     `<div class="worksheet-cell__answer">${renderStructuredText(answerKeyItem.answerInlineMath, answerKeyItem.answerText)}</div>`,
     "</article>",
   ].join("");
