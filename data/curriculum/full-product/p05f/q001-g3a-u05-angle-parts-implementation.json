@@ -1,0 +1,102 @@
+{
+  "schemaName": "P05FW5Q001AnglePartsImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice001Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 1,
+    "sliceId": "p05e_q001_r0_g3a_u05_3a05_profile_geometry_property_c1",
+    "sourceId": "g3a_u05_3a05",
+    "runtimeProfileId": "profile_geometry_property",
+    "knowledgePointId": "kp_angle_parts_identification"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q001-g3a-u05-angle-parts-source-authority-preflight.json",
+    "sourceTitle": "角與形狀",
+    "sourcePdfTitle": "meow911_3a05_angles.pdf",
+    "sourcePage": 1,
+    "sourcePanel": "TOP_LEFT_ANGLE_COMPOSITION",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "visibleLabels": ["頂點", "邊1", "邊2", "角"],
+    "directSourceStatement": "兩條邊+1個頂點",
+    "learnerFacingVocabulary": ["角", "頂點", "邊"],
+    "learnerFacingForbiddenVocabulary": ["射線"]
+  },
+  "formalMapping": {
+    "mappingId": "fm_g3a_u05_angle_parts_identification_p05f1",
+    "relationFamily": "ANGLE_PART_IDENTIFICATION",
+    "answerDomain": ["頂點", "邊", "角"],
+    "includedRelations": [
+      "IDENTIFY_VERTEX",
+      "IDENTIFY_SIDE",
+      "IDENTIFY_ANGLE_MARKER",
+      "MATCH_ANGLE_PART_LABEL_TO_DIAGRAM"
+    ],
+    "excludedRelations": [
+      "COMPARE_ANGLE_SIZE",
+      "RECOGNIZE_RIGHT_ANGLE",
+      "CLASSIFY_ACUTE_RIGHT_OBTUSE",
+      "COUNT_QUADRILATERAL_ANGLES",
+      "RECTANGLE_SQUARE_PROPERTY_REASONING",
+      "ANGLE_MEASURE_NUMERIC",
+      "ANGLE_CONSTRUCTION",
+      "APPLICATION_CONTEXT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g3a_u05_angle_parts_identification",
+    "patternSpecIds": [
+      "ps_g3a_u05_identify_vertex_from_marker",
+      "ps_g3a_u05_identify_side_from_highlight",
+      "ps_g3a_u05_identify_angle_from_arc",
+      "ps_g3a_u05_match_part_label_to_diagram_marker"
+    ],
+    "questionMode": "diagram",
+    "applicationSuitability": "APPLICATION_NOT_APPLICABLE",
+    "maxQuestionCount": 240,
+    "requiresDiagramRepresentation": true
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g3a-u05-angle-parts-runtime-p05f1.js",
+    "validator": "validateG3AU05P05F1Question",
+    "diagramRenderer": "site/modules/renderer/angle-parts-diagram.js",
+    "htmlRenderer": "site/modules/renderer/html-renderer.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f1.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f1-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 43,
+    "sourceCountAfter": 44,
+    "visibleKnowledgePointCountBefore": 312,
+    "visibleKnowledgePointCountAfter": 313,
+    "g3aU05VisibleCount": 1,
+    "g3aU05HiddenPendingCount": 3,
+    "g3aU05NotSelectableCount": 3,
+    "questionTypeValue": "diagram",
+    "questionTypeLabel": "圖形題",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice001-g3a-u05-angle-parts.test.js",
+    "targetedRouteReplay": "tools/curriculum/render-p05f-w5-slice001-product-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q002Touched": false,
+    "rightAngleImplementationTouched": false,
+    "angleSizeComparisonTouched": false,
+    "constructionTouched": false,
+    "applicationContextTouched": false
+  }
+}
