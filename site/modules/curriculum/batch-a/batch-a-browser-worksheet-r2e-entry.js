@@ -8,7 +8,9 @@ import {buildBatchABrowserWorksheetDocument as buildP04F36WorksheetDocument} fro
 import {requestsP04F36} from "./batch-a-browser-generator-p04f36.js";
 import {buildBatchABrowserWorksheetDocument as buildP04F37WorksheetDocument} from "./batch-a-browser-worksheet-p04f37-extension.js";
 import {requestsP04F37} from "./batch-a-browser-generator-p04f37.js";
+import {buildBatchABrowserWorksheetDocument as buildP04F38WorksheetDocument} from "./batch-a-browser-worksheet-p04f38-extension.js";
+import {requestsP04F38} from "./batch-a-browser-generator-p04f38.js";
 import {buildG5AU06CurrentMixedWorksheetDocument} from "./batch-a-browser-worksheet-g5a-u06-current-p04f34.js";
 import {requestsG5AU06CurrentNumericApplicationMix} from "./g5a-u06-current-coordinator-p04f34.js";
 import {applyG5AU06StructuredFractionDisplay} from "./g5a-u06-structured-fraction-worksheet.js";
-export function buildBatchABrowserWorksheetDocument(options={}){const result=requestsP04F37(options)?buildP04F37WorksheetDocument(options):requestsP04F36(options)?buildP04F36WorksheetDocument(options):requestsP04F35(options)?buildP04F35WorksheetDocument(options):requestsG5AU06CurrentNumericApplicationMix(options)?buildG5AU06CurrentMixedWorksheetDocument(options):requestsP04F34(options)?buildP04F34WorksheetDocument(options):baseBuild(options);return applyG5AU06StructuredFractionDisplay(result);}
+export function buildBatchABrowserWorksheetDocument(options={}){const result=requestsP04F38(options)?buildP04F38WorksheetDocument(options):requestsP04F37(options)?buildP04F37WorksheetDocument(options):requestsP04F36(options)?buildP04F36WorksheetDocument(options):requestsP04F35(options)?buildP04F35WorksheetDocument(options):requestsG5AU06CurrentNumericApplicationMix(options)?buildG5AU06CurrentMixedWorksheetDocument(options):requestsP04F34(options)?buildP04F34WorksheetDocument(options):baseBuild(options);return applyG5AU06StructuredFractionDisplay(result);}
