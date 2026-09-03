@@ -106,18 +106,21 @@ function generate() {
     return;
   }
 
-  renderPreviewFrame(previewFrame, result.worksheetDocument, {
-    title: result.worksheetDocument.title,
+  const worksheetDocument = result.worksheetDocument;
+  const worksheetTitle = worksheetDocument.configSnapshot?.title ?? `Path 1｜${blockId}`;
+  renderPreviewFrame(previewFrame, worksheetDocument, {
+    title: worksheetTitle,
     outputMode: "studentPrint",
     stylesheetHref: "../assets/styles/print-styles.css",
   });
-  const count = result.worksheetDocument.summary?.questionCount
-    ?? result.worksheetDocument.generatedQuestions?.length
+  const count = worksheetDocument.report?.summary?.questionCount
+    ?? worksheetDocument.questionCount
+    ?? worksheetDocument.questions?.length
     ?? 0;
   hasGeneratedWorksheet = true;
   printButton.disabled = false;
   setPanel(statusPanel, `${blockId} 已產生 ${count} 題。可直接列印，或在瀏覽器列印視窗選「另存為 PDF」。`, "success");
-  previewMeta.textContent = `${result.worksheetDocument.title}｜${count} 題｜${answerKeyInput.checked ? "含答案頁" : "不含答案頁"}`;
+  previewMeta.textContent = `${worksheetTitle}｜${count} 題｜${answerKeyInput.checked ? "含答案頁" : "不含答案頁"}`;
 }
 
 populateBlocks();
