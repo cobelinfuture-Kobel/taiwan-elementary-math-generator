@@ -1,0 +1,28 @@
+{
+  "schemaName": "P05EW5DirectProductVerticalSliceQueueManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05E_W5DirectProductVerticalSliceQueueFreeze",
+  "status": "W5_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_DERIVATION_READY",
+  "targetDeliveryWaveId": "R05-W5",
+  "expectedKnowledgePointCount": 79,
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "frozenQueue": null,
+  "exactAcceptance": null,
+  "scope": {
+    "queueFreezeOnly": true,
+    "w5ImplementationStarted": false,
+    "productionAdmissionChanged": false
+  },
+  "authorityPaths": {
+    "policyPath": "data/curriculum/full-product/p05e/w5-direct-product-vertical-slice-queue-policy.json",
+    "queueRegistryPath": "data/curriculum/full-product/p05e/w5-direct-product-vertical-slice-queue.json",
+    "runtimePath": "src/curriculum/full-product/p05e-w5-direct-product-vertical-slice-queue.mjs",
+    "testPath": "tests/curriculum/p05e-w5-direct-product-vertical-slice-queue.test.js"
+  },
+  "mainlineBoundary": {
+    "productionConsumerChanged": false,
+    "parallelRuntimePipelineAllowed": false,
+    "nextTaskAfterFreeze": "P05F_W5DirectProductVerticalSlice001Implementation"
+  }
+}
