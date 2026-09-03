@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P04F38_Q038_BOUNDED_VALIDATION",
+  "unitId": "g6b_u01_6b01",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p04f-slice038-g6b-u01-mixed-decimal-fraction-mul-div.test.js",
+          "tests/curriculum/p03f-slice032-g6b-u01-rank8-mixed-domain-conversion.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/render-p04f-slice038-product-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}
