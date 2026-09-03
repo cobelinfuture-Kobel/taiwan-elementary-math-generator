@@ -3,11 +3,24 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P05E_W5DirectProductVerticalSliceQueueFreeze",
-  "status": "W5_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_DERIVATION_READY",
+  "status": "W5_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FROZEN",
   "targetDeliveryWaveId": "R05-W5",
   "expectedKnowledgePointCount": 79,
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "frozenQueue": null,
+  "frozenQueue": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueSliceCount": 63,
+    "directW5KnowledgePointCount": 79,
+    "directW5SourceNodeCount": 20,
+    "directW5RuntimeProfileCount": 4,
+    "directW5PrerequisiteRankCount": 9,
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "firstExecutableSliceId": "p05e_q001_r0_g3a_u05_3a05_profile_geometry_property_c1",
+    "firstExecutableKnowledgePointIds": [
+      "kp_angle_parts_identification"
+    ],
+    "lastSliceId": "p05e_q063_r9_g5a_u06_5a06_profile_geometry_property_c1"
+  },
   "exactAcceptance": null,
   "scope": {
     "queueFreezeOnly": true,
