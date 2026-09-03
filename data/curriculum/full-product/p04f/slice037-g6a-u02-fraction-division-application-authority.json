@@ -1,0 +1,94 @@
+{
+  "schemaName": "P04F37G6AU02FractionDivisionApplicationAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F37_Q037_SourceBackedApplicationImplementation",
+  "status": "SOURCE_BACKED_APPLICATION_IMPLEMENTATION_MATERIALIZED",
+  "queue": {
+    "queuePosition": 37,
+    "sliceId": "p04e_q037_r11_g6a_u02_6a02_profile_fraction_c1",
+    "previousSliceId": "p04e_q036_r10_g6a_u02_6a02_profile_fraction_c1",
+    "nextSliceId": "p04e_q038_r12_g6b_u01_6b01_profile_mixed_number_domain_c1"
+  },
+  "source": {
+    "sourceNodeId": "g6a_u02_6a02",
+    "unitCode": "6A-U02",
+    "unitTitle": "分數除法",
+    "sourceFile": "meow911_6a02_source.pdf",
+    "driveFileId": "1izlK6HrAU4m76SvYmH_ZUy-yvrqc9idM",
+    "reviewedPages": [1, 2],
+    "preflightAuthorityPath": "data/curriculum/full-product/p04f/slice037-g6a-u02-fraction-division-application-preflight-authority.json"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g6a_u02_fraction_division_application",
+    "canonicalNameZh": "分數除法包含除與等分除",
+    "applicationClassification": "APPLICATION_REQUIRED"
+  },
+  "formalMapping": {
+    "relationFamilyId": "FRACTION_DIVISION_APPLICATION_RELATION",
+    "relationVariants": [
+      {
+        "variantId": "QUOTATIVE_DIVISION_GROUP_COUNT",
+        "relationFamilyId": "QUOTATIVE_DIVISION",
+        "knownRoleIds": ["TOTAL_QUANTITY", "PER_GROUP_QUANTITY"],
+        "targetRoleId": "GROUP_COUNT",
+        "canonicalExpression": "groupCount = totalQuantity / perGroupQuantity",
+        "reconstructionExpression": "totalQuantity = perGroupQuantity * groupCount"
+      },
+      {
+        "variantId": "PARTITIVE_DIVISION_PER_GROUP",
+        "relationFamilyId": "PARTITIVE_DIVISION",
+        "knownRoleIds": ["TOTAL_QUANTITY", "GROUP_COUNT"],
+        "targetRoleId": "PER_GROUP_QUANTITY",
+        "canonicalExpression": "perGroupQuantity = totalQuantity / groupCount",
+        "reconstructionExpression": "totalQuantity = perGroupQuantity * groupCount"
+      }
+    ],
+    "invariants": {
+      "positiveQuantityRequired": true,
+      "divisorMustBeNonzero": true,
+      "totalAndPerGroupDimensionMustMatch": true,
+      "answerUnitMustMatchTargetRole": true,
+      "divisionRelationMustReconstructTotal": true,
+      "exactRationalArithmeticRequired": true,
+      "equivalentFractionReductionAllowed": true,
+      "roundingAllowed": false
+    }
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g6a_u02_fraction_division_application",
+    "mode": "application",
+    "allocationPolicy": "balanced_relation_variants"
+  },
+  "publicApplicationPatternSpecIds": [
+    "ps_g6a_u02_fraction_division_quotative_application",
+    "ps_g6a_u02_fraction_division_partitive_application"
+  ],
+  "implementationBoundary": {
+    "singleKnowledgePointApplicationOnly": true,
+    "unitNumericAndApplicationSurfacesCoexist": true,
+    "mixedQuestionModeAdmission": false,
+    "sourceUnitPriorBehaviorPreserved": true,
+    "sourceFaithfulBoundedContextTemplates": true,
+    "globalContextRegistryModified": false,
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "structuredFractionDisplay": true,
+    "q033RuntimeTouched": false,
+    "q035RuntimeTouched": false,
+    "q036RuntimeTouched": false,
+    "q038Touched": false
+  },
+  "acceptance": {
+    "publicSourceCountTarget": 43,
+    "publicKnowledgePointCountTarget": 310,
+    "g6aU02VisibleKnowledgePointCountTarget": 5,
+    "g6aU02HiddenKnowledgePointCountTarget": 0,
+    "g6aU02NotSelectableKnowledgePointCountTarget": 0,
+    "questionCapacityTargetPerPatternSpec": 240,
+    "questionCountWitness": 24,
+    "answerCountWitness": 24,
+    "balancedRelationVariantWitness": true,
+    "stackedFractionPromptAndAnswerRequired": true,
+    "targetedBrowserReplayRequired": true
+  }
+}
