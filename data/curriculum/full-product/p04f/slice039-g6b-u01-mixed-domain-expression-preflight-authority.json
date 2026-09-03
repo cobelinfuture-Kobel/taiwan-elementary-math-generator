@@ -1,0 +1,102 @@
+{
+  "schemaName": "P04F39G6BU01MixedDomainExpressionPreflightAuthorityV1",
+  "schemaVersion": 1,
+  "taskId": "P04F39_Q039_ExactAuthorityAndFormalMappingPreflight",
+  "status": "PREFLIGHT_AUTHORITY_LOCKED_IMPLEMENTATION_NOT_STARTED",
+  "queue": {
+    "queuePosition": 39,
+    "sliceId": "p04e_q039_r13_g6b_u01_6b01_profile_mixed_number_domain_c1",
+    "previousSliceId": "p04e_q038_r12_g6b_u01_6b01_profile_mixed_number_domain_c1",
+    "nextSliceId": null,
+    "primarySourceNodeId": "g6b_u01_6b01",
+    "intraWavePrerequisiteRank": 13,
+    "primaryRuntimeProfileId": "profile_mixed_number_domain",
+    "knowledgePointIds": [
+      "kp_g6b_u01_mixed_domain_expression"
+    ],
+    "isFinalQueueSlice": true
+  },
+  "sourceAuthority": {
+    "sourceFile": "meow911_6b01_source.pdf",
+    "sourceTitle": "小數與分數的計算",
+    "reviewedPages": [1],
+    "reviewMethod": "REUSE_P04F38_FULL_PAGE_VISUAL_READBACK_PLUS_R02_REVIEWED_CANDIDATE",
+    "visualVerificationStatus": "REUSED_FROM_P04F38_FULL_PAGE_VISUAL_READBACK",
+    "r02AuthorityPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "predecessorImplementationAuthorityPath": "data/curriculum/full-product/p04f/slice038-g6b-u01-mixed-decimal-fraction-mul-div-authority.json",
+    "sourceGuideWitness": [
+      "小數與分數混合運算",
+      "小數簡化計算",
+      "分數簡化計算",
+      "小數使用乘法分配律簡化計算",
+      "分數使用乘法分配律簡化計算"
+    ],
+    "q039SemanticWitness": "R02 reviewed candidate binds mixed-domain expression evaluation to exact value-preserving conversions and operation order, including parentheses and multiplication/division precedence, with evidence on page 1."
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g6b_u01_mixed_domain_expression",
+      "canonicalNameZh": "小數分數混合算式",
+      "capabilityStatement": "學生能依運算順序完成含小數與分數的算式。",
+      "reasoningInvariant": "每步轉換與運算皆須等值並遵守括號及乘除優先。"
+    }
+  ],
+  "formalMappings": [
+    {
+      "knowledgePointId": "kp_g6b_u01_mixed_domain_expression",
+      "classification": "NEW_RELATION_CANDIDATE",
+      "relationFamilyId": "MIXED_DOMAIN_EXPRESSION_EVALUATION",
+      "knownRoleIds": [
+        "MIXED_DOMAIN_OPERANDS",
+        "ORDERED_ARITHMETIC_OPERATORS",
+        "OPTIONAL_PARENTHESES"
+      ],
+      "targetRoleId": "EXACT_RATIONAL_RESULT",
+      "invariants": {
+        "valuePreservingRepresentationConversionRequired": true,
+        "parenthesesEvaluatedFirst": true,
+        "multiplicationDivisionBeforeAdditionSubtraction": true,
+        "samePrecedenceEvaluatedLeftToRight": true,
+        "divisionByZeroForbidden": true,
+        "exactRationalArithmeticRequired": true,
+        "equivalentFractionReductionAllowed": true,
+        "roundingAllowed": false
+      },
+      "supportingCapabilities": [
+        "MIXED_DECIMAL_FRACTION_CONVERSION",
+        "MIXED_DECIMAL_FRACTION_ADD_SUBTRACT",
+        "MIXED_DECIMAL_FRACTION_MULTIPLY_DIVIDE",
+        "ARITHMETIC_OPERATION_PRECEDENCE"
+      ],
+      "reuseDecision": "Q038 covers one binary mixed decimal/fraction multiplication or division relation; Q039 requires a distinct multi-step expression relation that composes exact mixed-domain operations under precedence and optional parentheses. Shared exact-rational and mixed-domain normalization primitives remain bounded reuse candidates."
+    }
+  ],
+  "reconciliation": {
+    "activeRelationReuseCount": 0,
+    "newRelationCandidateCount": 1,
+    "q038BinaryMulDivRelationReusedAsQ039Relation": false,
+    "exactRationalPrimitiveReuseCandidate": true,
+    "mixedDomainNormalizerReuseCandidate": true,
+    "recommendedImplementationScope": "SHARED_RUNTIME_BOUNDED",
+    "predecessorG6BU01KnowledgePointIds": [
+      "kp_g6b_u01_decimal_fraction_conversion",
+      "kp_g6b_u01_mixed_decimal_fraction_add_sub",
+      "kp_g6b_u01_mixed_decimal_fraction_mul_div",
+      "kp_g6b_u01_mixed_number_domain_order"
+    ],
+    "futureG6BU01KnowledgePointIds": [],
+    "q038Touched": false
+  },
+  "boundary": {
+    "planningOnly": true,
+    "patternSpecMaterialized": false,
+    "generatorMaterialized": false,
+    "validatorMaterialized": false,
+    "selectorPromoted": false,
+    "worksheetEnabled": false,
+    "q038RuntimeTouched": false,
+    "implementationApprovalRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false
+  }
+}
