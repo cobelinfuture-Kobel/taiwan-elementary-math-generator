@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q001_BOUNDED_VALIDATION",
+  "unitId": "g3a_u05_3a05",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-q001-angle-parts-source-authority-preflight.test.js",
+          "tests/curriculum/p05f-w5-slice001-g3a-u05-angle-parts.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/render-p05f-w5-slice001-product-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}
