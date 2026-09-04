@@ -11,7 +11,7 @@
         "paths": [
           "tests/curriculum/p05f-w5-slice003-g3b-u05-square-centimeter-unit.test.js",
           "tests/curriculum/p05f-w5-q003-square-centimeter-area-unit-source-authority-preflight.test.js",
-          "tests/curriculum/p05f-w5-slice002-g3a-u09-circle-parts.test.js"
+          "tests/curriculum/p05f-w5-slice003-q002-direct-dependency.test.js"
         ]
       },
       {
