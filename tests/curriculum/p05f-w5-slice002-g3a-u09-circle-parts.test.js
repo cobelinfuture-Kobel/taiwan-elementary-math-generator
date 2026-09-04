@@ -41,7 +41,7 @@ test("P05F W5 Q002 preserves exact queue, Q001 predecessor D0 evidence, and sour
   assert.deepEqual(preflight.queueAuthority.knowledgePointIds,[G3A_U09_P05F2_KP_ID]);
   assert.equal(preflight.sourceAuthority.page1DirectEvidence.panelTitle,"圓的各部位名稱");
   assert.deepEqual(preflight.sourceAuthority.page1DirectEvidence.targetKnowledgePointLabels,["圓心","半徑","直徑"]);
-  assert.equal(preflight.sourceConstraintReconciliation.sourceRefAmbiguity,false);
+  assert.equal(preflight.sourceAuthority.sourceIdentityAnomaly.sourceRefAmbiguity,false);
   assert.equal(implementation.status,"IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI");
   assert.equal(implementation.previousSliceD0Evidence.status,"PASS_E6_D0_COMPLETE");
   assert.equal(implementation.previousSliceD0Evidence.exactPostMergePagesE2ERunId,"33879084977");
