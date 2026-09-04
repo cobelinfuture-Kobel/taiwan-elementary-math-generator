@@ -140,7 +140,7 @@ test("P05F W5 Q001 stable browser selector and binding wrappers cut over without
     const selector=await import(`../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js?p05f1=${Date.now()}`);
     const bindingModule=await import(`../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js?p05f1=${Date.now()}`);
     assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.sourceCount,45);
-    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount,313);
+    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount,314);
     assert.equal(selector.getVisibleBatchAKnowledgePoint(G3A_U05_P05F1_KP_ID)?.sourceId,G3A_U05_P05F1_SOURCE_ID);
     const binding=bindingModule.resolvePublicUiCapabilityBinding(options);
     assert.equal(binding.questionType,"diagram");
