@@ -21,16 +21,12 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: npm ci
-
       - name: Measure current Path1 pattern and repeated-practice diversity
         run: |
           mkdir -p tmp/path1-question-diversity-inventory-v1
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
 
-          // Force the selector facade onto the same current-browser branch used by /path1/.
           globalThis.document = {};
 
           const { listPath1PublicWorksheetBlocks } = await import('./site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js');
