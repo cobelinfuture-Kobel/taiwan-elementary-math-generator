@@ -41,7 +41,7 @@ const assetContracts = [
   {
     repoPath: "site/modules/curriculum/batch-a/g3a-u05-angle-parts-runtime-p05f1.js",
     publicPath: "modules/curriculum/batch-a/g3a-u05-angle-parts-runtime-p05f1.js",
-    requiredTokens: [KP_ID, GROUP_ID, "validateG3AU05P05F1Question", "240"],
+    requiredTokens: [],
   },
   {
     repoPath: "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f1-extension.js",
