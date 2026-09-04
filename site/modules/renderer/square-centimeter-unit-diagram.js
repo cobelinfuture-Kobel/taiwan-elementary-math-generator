@@ -39,8 +39,8 @@ export function renderSquareCentimeterUnitDiagram(model) {
   }
 
   const sideLabels = showSideLabels ? [
-    `<text class="square-centimeter-unit-diagram__side-label square-centimeter-unit-diagram__side-label--top" x="${fixed(centerX)}" y="${fixed(y - 7)}" text-anchor="middle" font-size="12">1 公分</text>`,
-    `<text class="square-centimeter-unit-diagram__side-label square-centimeter-unit-diagram__side-label--left" x="${fixed(x - 8)}" y="${fixed(centerY + 4)}" text-anchor="end" font-size="12">1 公分</text>`,
+    `<text class="square-centimeter-unit-diagram__side-label unit-square-side-label--top" x="${fixed(centerX)}" y="${fixed(y - 7)}" text-anchor="middle" font-size="12">1 公分</text>`,
+    `<text class="square-centimeter-unit-diagram__side-label unit-square-side-label--left" x="${fixed(x - 8)}" y="${fixed(centerY + 4)}" text-anchor="end" font-size="12">1 公分</text>`,
   ] : [];
 
   return [
