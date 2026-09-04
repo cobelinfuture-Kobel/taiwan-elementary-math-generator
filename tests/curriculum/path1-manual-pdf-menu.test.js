@@ -8,26 +8,40 @@ import {
   buildPath1ManualWorksheet,
 } from "../../site/assets/browser/pipeline/build-path1-manual-worksheet.js";
 
-function answerKeyItemCount(worksheetDocument) {
+function questionDisplayModelsFromPages(worksheetDocument) {
+  return (worksheetDocument.questionPages ?? [])
+    .flatMap((page) => page.cells ?? [])
+    .filter((cell) => cell.cellType === "question" && cell.displayModel)
+    .map((cell) => cell.displayModel);
+}
+
+function answerKeyItemsFromPages(worksheetDocument) {
   return (worksheetDocument.answerKeyPages ?? [])
     .flatMap((page) => page.cells ?? [])
     .filter((cell) => cell.cellType === "answerKey" && cell.answerKeyItem)
-    .length;
+    .map((cell) => cell.answerKeyItem);
+}
+
+function answerKeyItemCount(worksheetDocument) {
+  return answerKeyItemsFromPages(worksheetDocument).length;
 }
 
 function assertNonEmptyRenderableBodies(worksheetDocument, expectedCount, label) {
+  const displayModels = questionDisplayModelsFromPages(worksheetDocument);
+  const answerKeyItems = answerKeyItemsFromPages(worksheetDocument);
   assert.equal(worksheetDocument.questions.length, expectedCount, `${label}: question count`);
-  assert.equal(worksheetDocument.questionDisplayModels.length, expectedCount, `${label}: display-model count`);
-  assert.equal(worksheetDocument.answerKeyItems.length, expectedCount, `${label}: answer-item count`);
+  assert.equal(displayModels.length, expectedCount, `${label}: rendered display-model count`);
+  assert.equal(answerKeyItems.length, expectedCount, `${label}: rendered answer-item count`);
   for (let index = 0; index < expectedCount; index += 1) {
     const question = worksheetDocument.questions[index];
-    const displayModel = worksheetDocument.questionDisplayModels[index];
-    const answer = worksheetDocument.answerKeyItems[index];
+    const displayModel = displayModels[index];
+    const answer = answerKeyItems[index];
     assert.ok(String(question?.prompt ?? "").trim().length > 0, `${label}: question ${index + 1} raw prompt empty`);
     assert.ok(String(question?.answerText ?? "").trim().length > 0, `${label}: question ${index + 1} raw answer empty`);
     assert.ok(String(displayModel?.blankedDisplayText ?? "").trim().length > 0, `${label}: question ${index + 1} rendered body empty`);
     assert.ok(String(answer?.answerText ?? "").trim().length > 0, `${label}: answer ${index + 1} rendered body empty`);
   }
+  return { displayModels, answerKeyItems };
 }
 
 test("Path1 manual menu exposes exactly P1-01 through P1-27", () => {
@@ -48,8 +62,8 @@ test("P1-01 projects expression questions into non-empty renderable bodies", () 
     includeAnswerKey: true,
   });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  assertNonEmptyRenderableBodies(result.worksheetDocument, 6, "P1-01");
-  assert.match(result.worksheetDocument.questionDisplayModels[0].blankedDisplayText, /×/);
+  const { displayModels } = assertNonEmptyRenderableBodies(result.worksheetDocument, 6, "P1-01");
+  assert.match(displayModels[0].blankedDisplayText, /×/);
 });
 
 test("P1-09 is a non-KP difficulty expansion with valid four-digit by two-digit division", () => {
