@@ -13,6 +13,7 @@ const EXPECTED_CAPS = [
   "cap_geometry_diagram_representation",
   "cap_geometry_domain_validator",
   "cap_geometry_formula_evaluation",
+  "cap_geometry_property_reasoning",
 ];
 
 test("P05F W5 Q003 frozen queue identity remains exact and Q002 D0 is satisfied", () => {
