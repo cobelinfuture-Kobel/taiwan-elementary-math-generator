@@ -8,11 +8,40 @@ import {
   buildPath1ManualWorksheet,
 } from "../../site/assets/browser/pipeline/build-path1-manual-worksheet.js";
 
-function answerKeyItemCount(worksheetDocument) {
+function questionDisplayModelsFromPages(worksheetDocument) {
+  return (worksheetDocument.questionPages ?? [])
+    .flatMap((page) => page.cells ?? [])
+    .filter((cell) => cell.cellType === "question" && cell.displayModel)
+    .map((cell) => cell.displayModel);
+}
+
+function answerKeyItemsFromPages(worksheetDocument) {
   return (worksheetDocument.answerKeyPages ?? [])
     .flatMap((page) => page.cells ?? [])
     .filter((cell) => cell.cellType === "answerKey" && cell.answerKeyItem)
-    .length;
+    .map((cell) => cell.answerKeyItem);
+}
+
+function answerKeyItemCount(worksheetDocument) {
+  return answerKeyItemsFromPages(worksheetDocument).length;
+}
+
+function assertNonEmptyRenderableBodies(worksheetDocument, expectedCount, label) {
+  const displayModels = questionDisplayModelsFromPages(worksheetDocument);
+  const answerKeyItems = answerKeyItemsFromPages(worksheetDocument);
+  assert.equal(worksheetDocument.questions.length, expectedCount, `${label}: question count`);
+  assert.equal(displayModels.length, expectedCount, `${label}: rendered display-model count`);
+  assert.equal(answerKeyItems.length, expectedCount, `${label}: rendered answer-item count`);
+  for (let index = 0; index < expectedCount; index += 1) {
+    const question = worksheetDocument.questions[index];
+    const displayModel = displayModels[index];
+    const answer = answerKeyItems[index];
+    assert.ok(String(question?.prompt ?? "").trim().length > 0, `${label}: question ${index + 1} raw prompt empty`);
+    assert.ok(String(question?.answerText ?? "").trim().length > 0, `${label}: question ${index + 1} raw answer empty`);
+    assert.ok(String(displayModel?.blankedDisplayText ?? "").trim().length > 0, `${label}: question ${index + 1} rendered body empty`);
+    assert.ok(String(answer?.answerText ?? "").trim().length > 0, `${label}: answer ${index + 1} rendered body empty`);
+  }
+  return { displayModels, answerKeyItems };
 }
 
 test("Path1 manual menu exposes exactly P1-01 through P1-27", () => {
@@ -23,6 +52,18 @@ test("Path1 manual menu exposes exactly P1-01 through P1-27", () => {
   );
   assert.equal(new Set(PATH1_PUBLIC_WORKSHEET_BLOCKS.map((block) => block.blockId)).size, 27);
   assert.equal(PATH1_PUBLIC_WORKSHEET_BLOCKS.some((block) => block.blockId === "P1-00"), false);
+});
+
+test("P1-01 projects expression questions into non-empty renderable bodies", () => {
+  const result = buildPath1ManualWorksheet({
+    blockId: "P1-01",
+    questionCount: 6,
+    generationSeed: "path1-p1-01-renderable-body-gate",
+    includeAnswerKey: true,
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const { displayModels } = assertNonEmptyRenderableBodies(result.worksheetDocument, 6, "P1-01");
+  assert.match(displayModels[0].blankedDisplayText, /×/);
 });
 
 test("P1-09 is a non-KP difficulty expansion with valid four-digit by two-digit division", () => {
@@ -46,9 +87,10 @@ test("P1-09 is a non-KP difficulty expansion with valid four-digit by two-digit 
     assert.ok(question.metadata.divisor >= 10 && question.metadata.divisor <= 99);
     assert.ok(question.metadata.remainder >= 0 && question.metadata.remainder < question.metadata.divisor);
   }
+  assertNonEmptyRenderableBodies(result.worksheetDocument, 20, "P1-09");
 });
 
-test("every Path1 block can materialize a focused printable worksheet", () => {
+test("every Path1 block can materialize a focused printable worksheet with non-empty question and answer bodies", () => {
   for (const block of PATH1_PUBLIC_WORKSHEET_BLOCKS) {
     const questionCount = Math.max(6, block.knowledgePointIds.length);
     const result = buildPath1ManualWorksheet({
@@ -62,6 +104,7 @@ test("every Path1 block can materialize a focused printable worksheet", () => {
     assert.ok(result.worksheetDocument, block.blockId);
     assert.equal(result.worksheetDocument.questions.length, questionCount, block.blockId);
     assert.equal(answerKeyItemCount(result.worksheetDocument), questionCount, block.blockId);
+    assertNonEmptyRenderableBodies(result.worksheetDocument, questionCount, block.blockId);
     assert.match(result.worksheetDocument.configSnapshot.title, new RegExp(block.blockId));
     assert.equal(result.worksheetDocument.configSnapshot.metadata.path1BlockId, block.blockId);
     assert.equal(result.worksheetDocument.configSnapshot.metadata.manualProgression, true);
