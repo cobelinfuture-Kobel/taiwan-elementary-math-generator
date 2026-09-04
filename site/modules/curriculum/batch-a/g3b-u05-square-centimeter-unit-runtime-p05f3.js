@@ -114,8 +114,8 @@ export function validateG3BU05P05F3Question(question) {
     if (!SIDE_SIZES.includes(d.sidePx)||!X_SHIFTS.includes(d.shiftX)||!Y_SHIFTS.includes(d.shiftY)) errors.push("P05F3_DIAGRAM_GEOMETRY_INVALID");
     if (!MARKER_MODES.includes(d.markerMode)||spec?.markerMode!==d.markerMode) errors.push("P05F3_MARKER_MODE_INVALID");
     if (d.sideLengthCm!==1) errors.push("P05F3_SIDE_LENGTH_INVALID");
-    if (question?.answerText!==answerFor(spec)) errors.push("P05F3_ANSWER_INVALID");
-    if (question?.promptText!==promptFor(spec)) errors.push("P05F3_PROMPT_INVALID");
+    if (spec&&question?.answerText!==answerFor(spec)) errors.push("P05F3_ANSWER_INVALID");
+    if (spec&&question?.promptText!==promptFor(spec)) errors.push("P05F3_PROMPT_INVALID");
     if (question?.questionSignature!==signatureFor(question)) errors.push("P05F3_SIGNATURE_INVALID");
   }
   const learnerText=`${question?.promptText??""} ${question?.answerText??""}`;
