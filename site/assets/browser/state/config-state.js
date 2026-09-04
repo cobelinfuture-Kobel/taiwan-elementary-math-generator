@@ -19,9 +19,13 @@ import {
 import { getPublicControlProfile } from "../../../modules/curriculum/registry/public-control-profiles.js";
 
 const P05F1_G3A_U05_SOURCE_ID = "g3a_u05_3a05";
+const P05F2_G3A_U09_SOURCE_ID = "g3a_u09_3a09";
+function isP05FDiagramSourceId(sourceId) {
+  return sourceId === P05F1_G3A_U05_SOURCE_ID || sourceId === P05F2_G3A_U09_SOURCE_ID;
+}
 
 function normalizedControls(sourceId, input = {}) {
-  if (sourceId === P05F1_G3A_U05_SOURCE_ID) return { questionMode: "diagram" };
+  if (isP05FDiagramSourceId(sourceId)) return { questionMode: "diagram" };
   const profile = getFullProductPublicControlProfile(sourceId);
   const normalized = {};
   if (profile?.questionTypeControl.supported) normalized.questionMode = normalizeFullProductPublicControlValue(profile, "questionTypeControl", input.questionMode);
@@ -99,7 +103,7 @@ export function getBatchAWorksheetPlan(state) {
     printLayout: { ...plan.printLayout, columns: input.columns, rowsPerPage: input.rowsPerPage },
     globalLayoutNormalization: globalLayout,
   };
-  if (plan.sourceId === P05F1_G3A_U05_SOURCE_ID) {
+  if (isP05FDiagramSourceId(plan.sourceId)) {
     return { ...common, questionMode: "diagram", publicControls: { questionMode: "diagram" }, genericFallback: false, freeFormAI: false };
   }
   const profile = getFullProductPublicControlProfile(plan.sourceId);
@@ -122,7 +126,7 @@ export function getBatchAWorksheetPlan(state) {
 
 function setControl(state, field, value, controlName) {
   if (!state?.batchA) return state;
-  if (state.batchA.sourceId === P05F1_G3A_U05_SOURCE_ID && field === "questionMode") {
+  if (isP05FDiagramSourceId(state.batchA.sourceId) && field === "questionMode") {
     state.batchA.questionMode = "diagram";
   } else if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "layoutMode") {
     if (G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value)) state.batchA[field] = value;

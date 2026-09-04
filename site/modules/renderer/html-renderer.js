@@ -1,4 +1,5 @@
 import { renderAnglePartsDiagram } from "./angle-parts-diagram.js";
+import { renderCirclePartsDiagram } from "./circle-parts-diagram.js";
 import { renderFractionNumberLine } from "./fraction-number-line.js";
 import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderMeasurementScale } from "./measurement-scale.js";
@@ -69,12 +70,18 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
   if (model?.kind === "measurement_scale") return renderMeasurementScale(model);
   return renderDecimalNumberLine(model);
+}
+
+function renderGeometryDiagram(model) {
+  if (model?.kind === "angle_parts_diagram") return renderAnglePartsDiagram(model);
+  if (model?.kind === "circle_parts_diagram") return renderCirclePartsDiagram(model);
+  throw createRendererError("geometry_diagram_invalid", `Unsupported geometry diagram kind '${model?.kind ?? "missing"}'.`);
 }
 
 function renderPageSection(title, pagesHtml, sectionClassName, options) {
@@ -111,7 +118,7 @@ export function renderQuestionCell(cell, options = {}) {
     displayModel.questionNumberText ? `<div class="worksheet-cell__number">${escapeHtml(displayModel.questionNumberText)}</div>` : "",
     `<div class="worksheet-cell__prompt">${renderStructuredText(displayModel.promptInlineMath, displayModel.blankedDisplayText)}</div>`,
     displayModel.numberLine ? renderNumberLine(displayModel.numberLine) : "",
-    displayModel.geometryDiagram ? renderAnglePartsDiagram(displayModel.geometryDiagram) : "",
+    displayModel.geometryDiagram ? renderGeometryDiagram(displayModel.geometryDiagram) : "",
     "</article>",
   ].join("");
 }
@@ -133,7 +140,7 @@ export function renderAnswerKeyCell(cell, options = {}) {
     `<div class="worksheet-cell__number">${escapeHtml(`${answerKeyItem.questionNumber}.`)}</div>`,
     `<div class="worksheet-cell__prompt">${renderStructuredText(answerKeyItem.promptInlineMath, answerKeyItem.promptText)}</div>`,
     answerKeyItem.numberLine ? renderNumberLine(answerKeyItem.numberLine) : "",
-    answerKeyItem.geometryDiagram ? renderAnglePartsDiagram(answerKeyItem.geometryDiagram) : "",
+    answerKeyItem.geometryDiagram ? renderGeometryDiagram(answerKeyItem.geometryDiagram) : "",
     `<div class="worksheet-cell__answer">${renderStructuredText(answerKeyItem.answerInlineMath, answerKeyItem.answerText)}</div>`,
     "</article>",
   ].join("");

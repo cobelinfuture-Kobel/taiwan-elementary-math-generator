@@ -1,0 +1,121 @@
+{
+  "schemaName": "P05FW5Q002CirclePartsImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice002Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 2,
+    "sliceId": "p05e_q002_r0_g3a_u09_3a09_profile_geometry_property_c1",
+    "sourceId": "g3a_u09_3a09",
+    "runtimeProfileId": "profile_geometry_property",
+    "knowledgePointId": "kp_circle_center_radius_diameter"
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q001_r0_g3a_u05_3a05_profile_geometry_property_c1",
+    "mergeSha": "f95225d2f76f5072dc71411f94d6fdce66173c20",
+    "exactPostMergePagesE2ERunId": "33879084977",
+    "evidenceArtifactId": "9939080280",
+    "evidenceArtifactDigest": "sha256:8662bb794ab1f9088f5979302bf1624807301330b23f33e4d3a4d1729401d909",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q002-g3a-u09-circle-parts-source-authority-preflight.json",
+    "sourceTitle": "圓",
+    "sourcePdfTitle": "meow911_3a09_circle.pdf",
+    "sourcePages": [1, 2],
+    "sourcePanel": "TOP_LEFT_CIRCLE_PART_NAMES",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "targetLabels": ["圓心", "半徑", "直徑"],
+    "visibleButOutsideQ002Labels": ["圓周"],
+    "directSourceStatements": ["直徑=半徑×2", "這條不是直徑"],
+    "embeddedHeaderUrlMismatchDisposition": "RECORDED_NON_BLOCKING_EMBEDDED_HEADER_URL_MISMATCH"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g3a_u09_circle_center_radius_diameter_p05f2",
+    "relationFamily": "CIRCLE_PART_IDENTIFICATION",
+    "partAnswerDomain": ["圓心", "半徑", "直徑"],
+    "diameterDecisionAnswerDomain": ["是直徑", "不是直徑"],
+    "includedRelations": [
+      "IDENTIFY_CIRCLE_CENTER",
+      "IDENTIFY_RADIUS",
+      "IDENTIFY_DIAMETER",
+      "MATCH_CIRCLE_PART_LABEL_TO_DIAGRAM",
+      "DISTINGUISH_DIAMETER_FROM_NONCENTER_CHORD"
+    ],
+    "excludedRelations": [
+      "IDENTIFY_CIRCUMFERENCE_AS_TARGET_KP",
+      "COMPASS_CONSTRUCTION",
+      "CONCENTRIC_CIRCLE_CONSTRUCTION",
+      "RADIUS_DIAMETER_MEASUREMENT",
+      "COMPUTE_RADIUS_FROM_DIAMETER",
+      "COMPUTE_DIAMETER_FROM_RADIUS",
+      "COMPARE_RADIUS_DIAMETER_MEASUREMENTS",
+      "CIRCLE_POINT_POSITION",
+      "TWO_CIRCLE_INTERSECTION",
+      "TWO_CIRCLE_TANGENCY",
+      "COMPASS_LENGTH_COMPARISON",
+      "APPLICATION_CONTEXT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g3a_u09_circle_parts_identification",
+    "patternSpecIds": [
+      "ps_g3a_u09_identify_circle_center",
+      "ps_g3a_u09_identify_radius",
+      "ps_g3a_u09_identify_diameter",
+      "ps_g3a_u09_match_circle_part_label_to_diagram",
+      "ps_g3a_u09_distinguish_diameter_from_noncenter_segment"
+    ],
+    "questionMode": "diagram",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false,
+    "maxQuestionCount": 240,
+    "requiresDiagramRepresentation": true
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g3a-u09-circle-parts-runtime-p05f2.js",
+    "validator": "validateG3AU09P05F2Question",
+    "diagramRenderer": "site/modules/renderer/circle-parts-diagram.js",
+    "htmlRenderer": "site/modules/renderer/html-renderer.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f2.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f2-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 44,
+    "sourceCountAfter": 45,
+    "visibleKnowledgePointCountBefore": 313,
+    "visibleKnowledgePointCountAfter": 314,
+    "g3aU09VisibleCount": 1,
+    "g3aU09HiddenPendingCount": 3,
+    "g3aU09NotSelectableCount": 3,
+    "questionTypeValue": "diagram",
+    "questionTypeLabel": "圖形題",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice002-g3a-u09-circle-parts.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice002-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q001SemanticsTouched": false,
+    "circumferenceTargetTouched": false,
+    "compassConstructionTouched": false,
+    "radiusDiameterMeasurementTouched": false,
+    "numericRadiusDiameterSolveTouched": false,
+    "circleIntersectionOrTangencyTouched": false,
+    "applicationContextTouched": false
+  }
+}
