@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P05F_W5_Q002_PostMergeMainPagesE2E_ExactMergedEvidence",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_circle_center_radius_diameter",
+  "unitExpectedKnowledgePointIds": [
+    "kp_circle_center_radius_diameter"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_circle_center_radius_diameter": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P05F_W5_Q002_PostMergeMainPagesE2E.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false,
+    "productionRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "selectorSemanticsChanged": false,
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  }
+}
