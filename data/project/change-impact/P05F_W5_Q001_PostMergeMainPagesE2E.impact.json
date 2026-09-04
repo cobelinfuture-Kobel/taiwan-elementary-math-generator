@@ -2,14 +2,21 @@
   "schemaVersion": "1.0.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
   "taskId": "P05F_W5_Q001_PostMergeMainPagesE2EEvidence",
-  "currentScope": "EVIDENCE_ONLY",
+  "currentScope": "KP_LEAF",
   "currentKnowledgePointId": "kp_angle_parts_identification",
-  "expectedDerivedGate": "EVIDENCE_ONLY_BOUNDED",
+  "unitExpectedKnowledgePointIds": [
+    "kp_angle_parts_identification"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_angle_parts_identification": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P05F_W5_Q001_PostMergeMainPagesE2E.validation.json",
   "changeImpact": {
     "sharedExecutableChange": false,
     "publicAuthorityCutover": false,
     "legalRouteSemanticsChanged": false,
-    "affectedRoutes": "Q001_EXACT_DEPLOYED_ROUTE_ONLY",
+    "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
     "currentAuthorityChanged": false,
     "productionRuntimeChanged": false,
