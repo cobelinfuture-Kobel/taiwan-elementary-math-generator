@@ -1,0 +1,128 @@
+{
+  "schemaName": "P05FW5Q003SquareCentimeterAreaUnitSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q003_SquareCentimeterAreaUnit_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 3,
+    "sliceId": "p05e_q003_r0_g3b_u05_3b05_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice003Implementation",
+    "previousSliceId": "p05e_q002_r0_g3a_u09_3a09_profile_geometry_property_c1",
+    "primarySourceNodeId": "g3b_u05_3b05",
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "knowledgePointIds": ["kp_area_square_centimeter_unit"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q002_r0_g3a_u09_3a09_profile_geometry_property_c1",
+    "productMergeSha": "e7c35eb7779ed2881330b527227eb0ea45f09be7",
+    "evidenceDefinitionMergeSha": "fb0b24399d13a20144f2e505397e02016f868d3f",
+    "exactPagesRunId": "33884662896",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g3b_u05_3b05",
+    "sourceTitle": "面積與平方公分",
+    "sourcePdfTitle": "meow911_3b05_cm2_area.pdf",
+    "sourcePdfDriveFileId": "1JqksZyiKwD_cnZUN_zfmGlXwRpa_0w-8",
+    "sourceMetadataDriveFileId": "1MAikylRPat5hR2LMFx87mOOD0Sfir-O5",
+    "verificationNotesDriveFileId": "1BWQvqOYz1UXAuqfYh-l8WB6WUVMOLDni",
+    "sourceUrlFromMetadata": "https://meow911.com/3b05/",
+    "embeddedHeaderUrlFromDriveText": "https://meow911.com/3a06/",
+    "pageCount": 1,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "reviewedPages": [1],
+    "directReviewedConcepts": [
+      "ONE_CENTIMETER_BY_ONE_CENTIMETER_SQUARE",
+      "ONE_SQUARE_CENTIMETER_AREA_UNIT",
+      "AREA_AS_TWO_DIMENSIONAL_COVERAGE",
+      "AREA_UNIT_DISTINCT_FROM_PERIMETER_UNIT"
+    ],
+    "sourceIdentityAnomaly": {
+      "embeddedHeaderUrl": "https://meow911.com/3a06/",
+      "metadataSourceUrl": "https://meow911.com/3b05/",
+      "queueSourceNodeId": "g3b_u05_3b05",
+      "fileName": "meow911_3b05_cm2_area.pdf",
+      "disposition": "RECORDED_NON_BLOCKING_EMBEDDED_HEADER_URL_MISMATCH",
+      "sourceRefAmbiguity": false
+    },
+    "driveMetadataReadback": {
+      "metadataManualReviewed": false,
+      "metadataExtractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g3b_u05_3b05",
+    "reviewedPages": [1],
+    "knowledgePointId": "kp_area_square_centimeter_unit",
+    "canonicalNameZh": "平方公分面積單位",
+    "capabilityStatement": "學生能理解邊長1公分正方形的面積是1平方公分。",
+    "reasoningInvariant": "面積單位由二維覆蓋單位形成，不等同於周長單位。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "q003ScopeLock": {
+    "includedRelations": [
+      "IDENTIFY_ONE_SQUARE_CENTIMETER",
+      "MATCH_ONE_CM_BY_ONE_CM_SQUARE_TO_ONE_CM2",
+      "DISTINGUISH_AREA_UNIT_FROM_LENGTH_OR_PERIMETER_UNIT",
+      "RECOGNIZE_CM2_AS_AREA_UNIT"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_area_grid_counting",
+      "kp_area_conservation_cut_rearrange",
+      "kp_irregular_grid_area",
+      "kp_area_compare_same_perimeter"
+    ],
+    "excludedRelations": [
+      "COUNT_AREA_GRID_SQUARES",
+      "COMPUTE_IRREGULAR_GRID_AREA",
+      "CUT_REARRANGE_AREA_CONSERVATION",
+      "COMPARE_AREA_UNDER_SAME_PERIMETER",
+      "RECTANGLE_AREA_FORMULA",
+      "SQUARE_AREA_FORMULA",
+      "PERIMETER_COMPUTATION",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresDiagramRepresentation": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false
+  },
+  "postMergeEvidenceTriggerPolicy": {
+    "effectiveFromQueuePosition": 3,
+    "singlePullRequestOrchestratorMustRemain": true,
+    "postMergeWorkflowPullRequestTriggerAllowed": false,
+    "perQWorkflowRunTriggerAllowed": false,
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "qSpecificPathsMustBeDerivedFromExactImplementationDiff": true,
+    "broadHistoricalSharedPathFanoutForbidden": true,
+    "mustWaitForMatchingPagesDeployment": true,
+    "mustVerifyExactDeployedBytesBySha256": true,
+    "mustExerciseClassicUiGeneratorValidatorWorksheetRendererPrintArtifact": true,
+    "materializeWorkflowDuringImplementationOrPostMergeEvidenceTask": true
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ003ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice003Implementation"
+  }
+}
