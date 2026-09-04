@@ -87,7 +87,38 @@ try {
       ?? page.frames().find((candidate) => candidate !== page.mainFrame());
     const worksheetPages = frame ? await frame.locator(".worksheet-page").count() : 0;
     if (worksheetPages < 1) throw new Error(`PATH1_PREVIEW_EMPTY:${blockId}`);
-    blockReports.push({ blockId, worksheetPages, statusText });
+
+    const questionCells = frame ? frame.locator(".worksheet-section--questions .worksheet-cell--question") : null;
+    const questionCellCount = questionCells ? await questionCells.count() : 0;
+    if (questionCellCount !== 6) throw new Error(`PATH1_VISIBLE_QUESTION_COUNT_MISMATCH:${blockId}:${questionCellCount}`);
+    const questionBodies = questionCells
+      ? await questionCells.locator(".worksheet-cell__prompt").evaluateAll((nodes) => nodes.map((node) => String(node.textContent ?? "").trim()))
+      : [];
+    const nonEmptyQuestionBodyCount = questionBodies.filter((text) => text.length > 0).length;
+    if (nonEmptyQuestionBodyCount !== 6) {
+      throw new Error(`PATH1_VISIBLE_QUESTION_BODY_EMPTY:${blockId}:${JSON.stringify(questionBodies)}`);
+    }
+
+    const answerCells = frame ? frame.locator(".worksheet-section--answer-key .worksheet-cell--answer-key") : null;
+    const answerCellCount = answerCells ? await answerCells.count() : 0;
+    if (answerCellCount !== 6) throw new Error(`PATH1_VISIBLE_ANSWER_COUNT_MISMATCH:${blockId}:${answerCellCount}`);
+    const answerBodies = answerCells
+      ? await answerCells.locator(".worksheet-cell__answer").evaluateAll((nodes) => nodes.map((node) => String(node.textContent ?? "").trim()))
+      : [];
+    const nonEmptyAnswerBodyCount = answerBodies.filter((text) => text.length > 0).length;
+    if (nonEmptyAnswerBodyCount !== 6) {
+      throw new Error(`PATH1_VISIBLE_ANSWER_BODY_EMPTY:${blockId}:${JSON.stringify(answerBodies)}`);
+    }
+
+    blockReports.push({
+      blockId,
+      worksheetPages,
+      questionCellCount,
+      nonEmptyQuestionBodyCount,
+      answerCellCount,
+      nonEmptyAnswerBodyCount,
+      statusText,
+    });
   }
 
   const lastFrame = page.frames().find((candidate) => candidate !== page.mainFrame() && candidate.url() === "about:srcdoc")
@@ -101,19 +132,33 @@ try {
   await pdfPage.close();
   if (!fs.existsSync(pdfPath) || fs.statSync(pdfPath).size < 1000) throw new Error("PATH1_FOCUSED_PDF_NOT_MATERIALIZED");
 
+  const totalNonEmptyQuestionBodies = blockReports.reduce((sum, report) => sum + report.nonEmptyQuestionBodyCount, 0);
+  const totalNonEmptyAnswerBodies = blockReports.reduce((sum, report) => sum + report.nonEmptyAnswerBodyCount, 0);
+  const expectedVisibleBodies = expected.length * 6;
   const report = {
     schemaName: "Path1ManualPdfMenuFocusedV1",
     status: "PASS",
     blockCount: blockReports.length,
     firstBlockId: blockReports[0]?.blockId,
     lastBlockId: blockReports.at(-1)?.blockId,
+    requestedQuestionCountPerBlock: 6,
+    visibleNonEmptyQuestionBodyCount: totalNonEmptyQuestionBodies,
+    visibleNonEmptyAnswerBodyCount: totalNonEmptyAnswerBodies,
+    expectedVisibleBodyCount: expectedVisibleBodies,
     consoleErrorCount: consoleErrors.length,
     pageErrorCount: pageErrors.length,
     pdfBytes: fs.statSync(pdfPath).size,
     automaticNPlus1: false,
     manualProgression: true,
   };
-  if (consoleErrors.length > 0 || pageErrors.length > 0 || report.blockCount !== 27 || report.lastBlockId !== "P1-27") {
+  if (
+    consoleErrors.length > 0
+    || pageErrors.length > 0
+    || report.blockCount !== 27
+    || report.lastBlockId !== "P1-27"
+    || totalNonEmptyQuestionBodies !== expectedVisibleBodies
+    || totalNonEmptyAnswerBodies !== expectedVisibleBodies
+  ) {
     throw new Error(`PATH1_FOCUSED_REPLAY_FAILED:${JSON.stringify(report)}`);
   }
   fs.writeFileSync(path.join(OUTPUT, "report.json"), `${JSON.stringify(report, null, 2)}\n`);
