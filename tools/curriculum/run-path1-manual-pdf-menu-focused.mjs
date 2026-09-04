@@ -43,6 +43,7 @@ const baseUrl = `http://127.0.0.1:${address.port}`;
 const consoleErrors = [];
 const pageErrors = [];
 const blockReports = [];
+let p101CapacityReport = null;
 
 const browser = await chromium.launch({ headless: true });
 try {
@@ -62,6 +63,55 @@ try {
   if (JSON.stringify(optionValues) !== JSON.stringify(expected)) {
     throw new Error(`PATH1_OPTION_SEQUENCE_MISMATCH:${JSON.stringify(optionValues)}`);
   }
+
+  // P1-01 capacity/diversity hard gate: the public 120-question ceiling must be genuinely printable.
+  await page.locator("#path1-block-select").selectOption("P1-01");
+  await page.locator("#path1-question-count").fill("120");
+  await page.locator("#path1-generation-seed").fill("path1-p1-01-browser-capacity-120");
+  await page.locator("#path1-generate-button").click();
+  await page.waitForFunction(() => {
+    const panel = document.querySelector("#path1-status-panel");
+    return panel?.dataset?.tone === "success" || panel?.dataset?.tone === "error";
+  });
+  const p101Tone = await page.locator("#path1-status-panel").getAttribute("data-tone");
+  const p101Status = await page.locator("#path1-status-panel").textContent();
+  if (p101Tone !== "success") throw new Error(`PATH1_P1_01_120_UI_FAILED:${p101Status}`);
+  const p101Meta = await page.locator("#path1-preview-meta").textContent();
+  if (!p101Meta?.includes("P1-01") || !p101Meta.includes("120 題")) {
+    throw new Error(`PATH1_P1_01_120_META_MISMATCH:${p101Meta}`);
+  }
+  const p101Frame = page.frames().find((candidate) => candidate !== page.mainFrame() && candidate.url() === "about:srcdoc")
+    ?? page.frames().find((candidate) => candidate !== page.mainFrame());
+  const p101QuestionCells = p101Frame ? p101Frame.locator(".worksheet-section--questions .worksheet-cell--question") : null;
+  const p101AnswerCells = p101Frame ? p101Frame.locator(".worksheet-section--answer-key .worksheet-cell--answer-key") : null;
+  const p101QuestionBodies = p101QuestionCells
+    ? await p101QuestionCells.locator(".worksheet-cell__prompt").evaluateAll((nodes) => nodes.map((node) => String(node.textContent ?? "").trim()))
+    : [];
+  const p101AnswerBodies = p101AnswerCells
+    ? await p101AnswerCells.locator(".worksheet-cell__answer").evaluateAll((nodes) => nodes.map((node) => String(node.textContent ?? "").trim()))
+    : [];
+  const p101UniquePrompts = new Set(p101QuestionBodies);
+  if (p101QuestionBodies.length !== 120 || p101QuestionBodies.filter(Boolean).length !== 120) {
+    throw new Error(`PATH1_P1_01_120_QUESTION_BODY_INVALID:${p101QuestionBodies.length}`);
+  }
+  if (p101AnswerBodies.length !== 120 || p101AnswerBodies.filter(Boolean).length !== 120) {
+    throw new Error(`PATH1_P1_01_120_ANSWER_BODY_INVALID:${p101AnswerBodies.length}`);
+  }
+  if (p101UniquePrompts.size !== 120) {
+    throw new Error(`PATH1_P1_01_120_PROMPT_DIVERSITY_INVALID:${p101UniquePrompts.size}`);
+  }
+  for (const witness of ["所以", "個十", "× 10", "□", "這個答案正確嗎"]) {
+    if (!p101QuestionBodies.some((text) => text.includes(witness))) {
+      throw new Error(`PATH1_P1_01_DIVERSITY_WITNESS_MISSING:${witness}`);
+    }
+  }
+  p101CapacityReport = {
+    requestedQuestionCount: 120,
+    visibleQuestionBodyCount: p101QuestionBodies.length,
+    visibleAnswerBodyCount: p101AnswerBodies.length,
+    uniquePromptCount: p101UniquePrompts.size,
+    c1ToC5Witnesses: ["所以", "個十", "× 10", "□", "這個答案正確嗎"],
+  };
 
   await page.locator("#path1-question-count").fill("6");
   await page.locator("#path1-generation-seed").fill("path1-focused-pages");
@@ -145,6 +195,7 @@ try {
     visibleNonEmptyQuestionBodyCount: totalNonEmptyQuestionBodies,
     visibleNonEmptyAnswerBodyCount: totalNonEmptyAnswerBodies,
     expectedVisibleBodyCount: expectedVisibleBodies,
+    p101CapacityReport,
     consoleErrorCount: consoleErrors.length,
     pageErrorCount: pageErrors.length,
     pdfBytes: fs.statSync(pdfPath).size,
@@ -158,6 +209,7 @@ try {
     || report.lastBlockId !== "P1-27"
     || totalNonEmptyQuestionBodies !== expectedVisibleBodies
     || totalNonEmptyAnswerBodies !== expectedVisibleBodies
+    || p101CapacityReport?.uniquePromptCount !== 120
   ) {
     throw new Error(`PATH1_FOCUSED_REPLAY_FAILED:${JSON.stringify(report)}`);
   }

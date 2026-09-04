@@ -5,8 +5,23 @@ import {
   PATH1_PUBLIC_WORKSHEET_BLOCKS,
 } from "../../site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js";
 import {
+  P1_01_TENS_MULTIPLICATION_DIVERSITY_PATTERN_IDS,
+  getVisiblePatternGroupsForKnowledgePoint,
+} from "../../site/modules/curriculum/registry/batch-a-selector-extension.js";
+import {
   buildPath1ManualWorksheet,
 } from "../../site/assets/browser/pipeline/build-path1-manual-worksheet.js";
+
+const P1_01_KP_ID = "kp_g3a_u03_10_multiple_by_1digit";
+const P1_01_C0_PATTERN_ID = "ps_g3a_u03_10_multiple_by_1digit";
+const P1_01_ALL_PATTERN_IDS = Object.freeze([
+  P1_01_C0_PATTERN_ID,
+  ...P1_01_TENS_MULTIPLICATION_DIVERSITY_PATTERN_IDS,
+]);
+const P1_02_PATTERN_IDS = new Set([
+  "ps_g3a_u03_2digit_by_1digit_carry",
+  "ps_g3a_u03_3digit_by_1digit",
+]);
 
 function questionDisplayModelsFromPages(worksheetDocument) {
   return (worksheetDocument.questionPages ?? [])
@@ -64,6 +79,64 @@ test("P1-01 projects expression questions into non-empty renderable bodies", () 
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const { displayModels } = assertNonEmptyRenderableBodies(result.worksheetDocument, 6, "P1-01");
   assert.match(displayModels[0].blankedDisplayText, /×/);
+});
+
+test("P1-01 keeps C0 and materializes approved C1-C5 diversity without crossing into P1-02", () => {
+  const block = PATH1_PUBLIC_WORKSHEET_BLOCKS.find((entry) => entry.blockId === "P1-01");
+  assert.deepEqual(block.knowledgePointIds, [P1_01_KP_ID]);
+
+  const patternIds = [...new Set(
+    getVisiblePatternGroupsForKnowledgePoint(P1_01_KP_ID)
+      .flatMap((group) => group.patternSpecIds ?? []),
+  )];
+  for (const patternId of P1_01_ALL_PATTERN_IDS) {
+    assert.ok(patternIds.includes(patternId), `P1-01 missing ${patternId}`);
+  }
+  assert.equal(patternIds.some((patternId) => P1_02_PATTERN_IDS.has(patternId)), false, JSON.stringify(patternIds));
+
+  const result = buildPath1ManualWorksheet({
+    blockId: "P1-01",
+    questionCount: 120,
+    generationSeed: "path1-p1-01-diversity-capacity-120",
+    includeAnswerKey: true,
+    printLayout: { paperSize: "A4", columns: 3, rowsPerPage: 5, showQuestionNumbers: true },
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const { displayModels, answerKeyItems } = assertNonEmptyRenderableBodies(result.worksheetDocument, 120, "P1-01 diversity 120");
+  const generatedPatternIds = new Set(result.worksheetDocument.questions.map((question) => question.patternSpecId ?? question.metadata?.patternId));
+  for (const patternId of P1_01_ALL_PATTERN_IDS) {
+    assert.ok(generatedPatternIds.has(patternId), `P1-01 120-question worksheet did not exercise ${patternId}`);
+  }
+  assert.equal([...generatedPatternIds].some((patternId) => P1_02_PATTERN_IDS.has(patternId)), false);
+  assert.equal(new Set(displayModels.map((model) => model.blankedDisplayText)).size, 120, "P1-01 120 rendered prompts must be distinct");
+  assert.equal(answerKeyItems.length, 120);
+
+  const c1 = displayModels.find((model) => model.patternId === "ps_g3a_u03_10_multiple_base_fact_scale");
+  const c2 = displayModels.find((model) => model.patternId === "ps_g3a_u03_10_multiple_number_of_tens");
+  const c3 = displayModels.find((model) => model.patternId === "ps_g3a_u03_10_multiple_decomposition");
+  const c4 = displayModels.find((model) => model.patternId === "ps_g3a_u03_10_multiple_missing_digit");
+  const c5 = displayModels.find((model) => model.patternId === "ps_g3a_u03_10_multiple_misconception_diagnosis");
+  assert.match(c1.blankedDisplayText, /所以/);
+  assert.match(c2.blankedDisplayText, /個十/);
+  assert.match(c3.blankedDisplayText, /× 10/);
+  assert.match(c4.blankedDisplayText, /□/);
+  assert.match(c5.blankedDisplayText, /這個答案正確嗎/);
+});
+
+test("P1-01 diversity reaches at least 240 distinct rendered prompts across repeated practice seeds", () => {
+  const prompts = new Set();
+  for (const seed of ["A", "B", "C", "D"]) {
+    const result = buildPath1ManualWorksheet({
+      blockId: "P1-01",
+      questionCount: 120,
+      generationSeed: `path1-p1-01-repeated-practice-${seed}`,
+      includeAnswerKey: true,
+    });
+    assert.equal(result.ok, true, `${seed}: ${JSON.stringify(result.errors)}`);
+    const { displayModels } = assertNonEmptyRenderableBodies(result.worksheetDocument, 120, `P1-01 repeated ${seed}`);
+    for (const model of displayModels) prompts.add(model.blankedDisplayText);
+  }
+  assert.ok(prompts.size >= 240, `expected >=240 distinct P1-01 prompts across seeds; got ${prompts.size}`);
 });
 
 test("P1-09 is a non-KP difficulty expansion with valid four-digit by two-digit division", () => {

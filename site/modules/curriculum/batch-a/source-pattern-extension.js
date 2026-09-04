@@ -12,6 +12,36 @@ const SUB_MISSING_SPEC_ID = "ps_g3a_u02_sub_missing_digit_operand";
 const ADD_EQUATION_SPEC_ID = "ps_g3a_u02_add_missing_digit_equation";
 const SUB_EQUATION_SPEC_ID = "ps_g3a_u02_sub_missing_digit_equation";
 
+const G3A_U03_SOURCE_ID = "g3a_u03_3a03";
+const G3A_U03_TENS_DIVERSITY_SPECS = Object.freeze([
+  Object.freeze({ id: "ps_g3a_u03_10_multiple_base_fact_scale", title: "基本乘法連結十倍縮放", family: "C1_BASE_FACT_SCALE" }),
+  Object.freeze({ id: "ps_g3a_u03_10_multiple_number_of_tens", title: "幾個十的乘法表示", family: "C2_NUMBER_OF_TENS" }),
+  Object.freeze({ id: "ps_g3a_u03_10_multiple_decomposition", title: "十倍分解等值式", family: "C3_DECOMPOSITION" }),
+  Object.freeze({ id: "ps_g3a_u03_10_multiple_missing_digit", title: "十倍乘積缺位", family: "C4_PARTIAL_PRODUCT_MISSING_DIGIT" }),
+  Object.freeze({ id: "ps_g3a_u03_10_multiple_misconception_diagnosis", title: "十倍乘法錯誤診斷", family: "C5_MISCONCEPTION_DIAGNOSIS" }),
+]);
+
+function tensDiversityDefinition(spec) {
+  return Object.freeze({
+    patternSpecId: spec.id,
+    sourceId: G3A_U03_SOURCE_ID,
+    title: spec.title,
+    kind: "expression",
+    ranges: Object.freeze([Object.freeze([10, 90]), Object.freeze([2, 9])]),
+    operators: Object.freeze([Object.freeze(["multiply"])]),
+    answerConstraint: Object.freeze({ min: 20, max: 810, allowZero: false, allowNegative: false, requireInteger: true }),
+    canonicalSkillIds: Object.freeze(["integer_multiplication"]),
+    skillTags: Object.freeze(["integer_multiplication", "tens_multiple", "place_value_scaling", spec.family]),
+    difficultyTags: Object.freeze(["batch_a_browser_bridge", "path1_p1_01_diversity", spec.family]),
+    diversityFamily: spec.family,
+    diversityExpansionId: "path1_p1_01_tens_multiplication_c1_c5",
+  });
+}
+
+const G3A_U03_TENS_DIVERSITY_DEFINITIONS = Object.freeze(Object.fromEntries(
+  G3A_U03_TENS_DIVERSITY_SPECS.map((spec) => [spec.id, tensDiversityDefinition(spec)]),
+));
+
 const WORD_PROBLEM_DEFINITION = Object.freeze({
   patternSpecId: WORD_SPEC_ID,
   sourceId: SOURCE_ID,
@@ -71,6 +101,7 @@ const ADD_EQUATION_DEFINITION = missingDigitEquationDefinition(ADD_EQUATION_SPEC
 const SUB_EQUATION_DEFINITION = missingDigitEquationDefinition(SUB_EQUATION_SPEC_ID, "減法等式缺位填空", "subtract");
 
 export function getBatchABrowserPatternDefinition(patternSpecId) {
+  if (G3A_U03_TENS_DIVERSITY_DEFINITIONS[patternSpecId]) return G3A_U03_TENS_DIVERSITY_DEFINITIONS[patternSpecId];
   if (patternSpecId === WORD_SPEC_ID) return WORD_PROBLEM_DEFINITION;
   if (patternSpecId === ADD_MISSING_SPEC_ID) return ADD_MISSING_DEFINITION;
   if (patternSpecId === SUB_MISSING_SPEC_ID) return SUB_MISSING_DEFINITION;
