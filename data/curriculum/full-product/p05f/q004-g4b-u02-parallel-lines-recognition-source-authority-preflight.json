@@ -1,0 +1,131 @@
+{
+  "schemaName": "P05FW5Q004ParallelLinesRecognitionSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q004_ParallelLinesRecognition_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 4,
+    "sliceId": "p05e_q004_r0_g4b_u02_4b02_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice004Implementation",
+    "previousSliceId": "p05e_q003_r0_g3b_u05_3b05_profile_geometry_formula_c1",
+    "primarySourceNodeId": "g4b_u02_4b02",
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "knowledgePointIds": ["kp_g4b_u02_parallel_lines_recognition"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q003_r0_g3b_u05_3b05_profile_geometry_formula_c1",
+    "productMergeSha": "c55cc1039d0b5f09bc3ce5666406d9229690874f",
+    "exactPagesRunId": "33926418642",
+    "pagesDeploymentRunId": "33926418572",
+    "evidenceArtifactId": "9956971302",
+    "evidenceArtifactDigest": "sha256:e278c875f1811aae1f3fe83bd882843b0a514936f8a4e02021b1f214873af313",
+    "postMergeTriggerEvent": "push",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g4b_u02_4b02",
+    "sourceTitle": "垂直平行與四邊形",
+    "sourcePdfTitle": "meow911_4b02_source.pdf",
+    "sourcePdfDriveFileId": "1ysaTTFTY37MC_gNzt1uh6yo2W34OGjIU",
+    "sourceMetadataDriveFileId": "1UfUX4Z9LCwI0tOYgT1s3CNvTdt68s_Dn",
+    "verificationNotesDriveFileId": "14udBZgATyNSvLfkInWb3lFKSlPWrWDXI",
+    "originalFileNameFromMetadata": "題型總覽-4b02-垂直平行與四邊形.pdf",
+    "sourceUrlFromMetadata": "https://meow911.com/4b02/",
+    "embeddedHeaderUrlFromDriveText": "https://meow911.com/4b02/",
+    "pageCount": 2,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "reviewedPages": [1, 2],
+    "directReviewedConcepts": [
+      "PARALLEL_LINE_PAIR_IDENTIFICATION",
+      "COPLANAR_NONINTERSECTION",
+      "NONINTERSECTION_UNDER_EXTENSION",
+      "CONSISTENT_DIRECTION"
+    ],
+    "sourceIdentityAnomaly": {
+      "embeddedHeaderUrl": "https://meow911.com/4b02/",
+      "metadataSourceUrl": "https://meow911.com/4b02/",
+      "queueSourceNodeId": "g4b_u02_4b02",
+      "fileName": "meow911_4b02_source.pdf",
+      "disposition": "NONE_MATCHING_SOURCE_IDENTITY",
+      "sourceRefAmbiguity": false
+    },
+    "driveMetadataReadback": {
+      "metadataManualReviewed": false,
+      "metadataExtractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g4b_u02_4b02",
+    "reviewedPages": [1, 2],
+    "knowledgePointId": "kp_g4b_u02_parallel_lines_recognition",
+    "canonicalNameZh": "平行線辨識",
+    "capabilityStatement": "學生能辨認同平面內不相交且距離固定的直線。",
+    "reasoningInvariant": "平行線延伸後仍不相交，方向保持一致。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "q004ScopeLock": {
+    "includedRelations": [
+      "IDENTIFY_PARALLEL_LINE_PAIR",
+      "RECOGNIZE_COPLANAR_NONINTERSECTING_LINES",
+      "RECOGNIZE_PARALLEL_LINES_REMAIN_NONINTERSECTING_WHEN_EXTENDED",
+      "RECOGNIZE_CONSISTENT_DIRECTION"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g4b_u02_perpendicular_lines_recognition",
+      "kp_g4b_u02_parallel_distance_construction",
+      "kp_g4b_u02_quadrilateral_classification",
+      "kp_g4b_u02_quadrilateral_inclusion_relation"
+    ],
+    "excludedRelations": [
+      "PERPENDICULAR_LINE_RECOGNITION",
+      "PARALLEL_DISTANCE_MEASUREMENT",
+      "PARALLEL_LINE_CONSTRUCTION",
+      "QUADRILATERAL_CLASSIFICATION",
+      "QUADRILATERAL_INCLUSION_RELATION",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresDiagramRepresentation": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false
+  },
+  "postMergeEvidenceTriggerPolicy": {
+    "effectiveFromQueuePosition": 3,
+    "inheritedFromQ003ProvenRunId": "33926418642",
+    "singlePullRequestOrchestratorMustRemain": true,
+    "postMergeWorkflowPullRequestTriggerAllowed": false,
+    "perQWorkflowRunTriggerAllowed": false,
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "qSpecificPathsMustBeDerivedFromExactImplementationDiff": true,
+    "broadHistoricalSharedPathFanoutForbidden": true,
+    "mustWaitForMatchingPagesDeployment": true,
+    "mustVerifyExactDeployedBytesBySha256": true,
+    "mustExerciseClassicUiGeneratorValidatorWorksheetRendererPrintArtifact": true,
+    "materializeWorkflowDuringImplementationOrPostMergeEvidenceTask": true
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ004ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice004Implementation"
+  }
+}
