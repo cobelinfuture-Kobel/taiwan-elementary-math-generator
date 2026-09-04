@@ -1,5 +1,6 @@
 import { renderAnglePartsDiagram } from "./angle-parts-diagram.js";
 import { renderCirclePartsDiagram } from "./circle-parts-diagram.js";
+import { renderSquareCentimeterUnitDiagram } from "./square-centimeter-unit-diagram.js";
 import { renderFractionNumberLine } from "./fraction-number-line.js";
 import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderMeasurementScale } from "./measurement-scale.js";
@@ -70,7 +71,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -81,6 +82,7 @@ export function renderNumberLine(model) {
 function renderGeometryDiagram(model) {
   if (model?.kind === "angle_parts_diagram") return renderAnglePartsDiagram(model);
   if (model?.kind === "circle_parts_diagram") return renderCirclePartsDiagram(model);
+  if (model?.kind === "square_centimeter_unit_diagram") return renderSquareCentimeterUnitDiagram(model);
   throw createRendererError("geometry_diagram_invalid", `Unsupported geometry diagram kind '${model?.kind ?? "missing"}'.`);
 }
 
