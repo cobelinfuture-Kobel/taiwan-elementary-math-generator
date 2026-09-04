@@ -48,18 +48,26 @@ function selectedGroupsForKnowledgePoint(knowledgePointId, questionMode) {
   return nonApplicationGroups.length > 0 ? nonApplicationGroups : groups;
 }
 
+function firstNonEmptyText(...values) {
+  for (const value of values) {
+    if (value === undefined || value === null) continue;
+    const text = String(value);
+    if (text.trim().length > 0) return text;
+  }
+  return "";
+}
+
 function normalizeGeneratedQuestion(question, prefix, index) {
   return {
     ...question,
     generatedItemId: `${prefix}-${question.generatedItemId ?? question.id ?? index + 1}`,
-    prompt: String(
-      question.prompt
-      ?? question.blankedDisplayText
-      ?? question.promptText
-      ?? question.displayText
-      ?? "",
+    prompt: firstNonEmptyText(
+      question.prompt,
+      question.blankedDisplayText,
+      question.promptText,
+      question.displayText,
     ),
-    answerText: String(question.answerText ?? question.answer ?? ""),
+    answerText: firstNonEmptyText(question.answerText, question.answer),
     mode: question.mode ?? question.questionMode ?? "numeric",
     operationFamilyId: question.operationFamilyId ?? question.metadata?.operationFamilyId ?? "PATH1_EXISTING_RUNTIME",
     sourceNodeId: question.sourceNodeId ?? question.sourceId ?? null,
@@ -67,10 +75,100 @@ function normalizeGeneratedQuestion(question, prefix, index) {
   };
 }
 
+function recordForQuestion(records, question, index) {
+  if (!Array.isArray(records) || records.length === 0) return null;
+  const questionId = question?.generatedItemId ?? question?.id ?? null;
+  if (questionId !== null) {
+    const matched = records.find((record) => (
+      record?.questionId === questionId
+      || record?.generatedItemId === questionId
+      || record?.id === questionId
+    ));
+    if (matched) return matched;
+  }
+  return records[index] ?? null;
+}
+
+function validateRenderableBodies(questions = []) {
+  const failures = [];
+  for (let index = 0; index < questions.length; index += 1) {
+    const question = questions[index];
+    const missing = [];
+    if (!firstNonEmptyText(question?.prompt, question?.blankedDisplayText, question?.promptText, question?.displayText)) {
+      missing.push("questionBody");
+    }
+    if (!firstNonEmptyText(question?.answerText, question?.answer)) {
+      missing.push("answerBody");
+    }
+    if (missing.length > 0) {
+      failures.push({
+        questionNumber: index + 1,
+        questionId: question?.generatedItemId ?? question?.id ?? null,
+        missing,
+      });
+    }
+  }
+  return failures;
+}
+
 function extractSubplanQuestions(worksheetDocument = {}) {
   const directQuestions = worksheetDocument.generatedQuestions ?? worksheetDocument.questions;
   if (Array.isArray(directQuestions)) {
-    return { ok: true, questions: directQuestions, errors: [] };
+    const displayModels = Array.isArray(worksheetDocument.questionDisplayModels)
+      ? worksheetDocument.questionDisplayModels
+      : [];
+    const answerKeyItems = Array.isArray(worksheetDocument.answerKeyItems)
+      ? worksheetDocument.answerKeyItems
+      : [];
+    if (displayModels.length > 0 && displayModels.length !== directQuestions.length) {
+      return {
+        ok: false,
+        questions: [],
+        errors: [{
+          code: "PATH1_SUBPLAN_DISPLAY_COUNT_MISMATCH",
+          expected: directQuestions.length,
+          actual: displayModels.length,
+        }],
+      };
+    }
+
+    const projectedQuestions = directQuestions.map((question, index) => {
+      const displayModel = recordForQuestion(displayModels, question, index);
+      const answerKeyItem = recordForQuestion(answerKeyItems, question, index);
+      return {
+        ...question,
+        prompt: firstNonEmptyText(
+          displayModel?.blankedDisplayText,
+          displayModel?.promptText,
+          question?.prompt,
+          question?.blankedDisplayText,
+          question?.promptText,
+          question?.displayText,
+        ),
+        answerText: firstNonEmptyText(
+          answerKeyItem?.answerText,
+          displayModel?.answerText,
+          question?.answerText,
+          question?.answer,
+        ),
+        metadata: {
+          ...(question?.metadata ?? {}),
+          path1RenderableProjection: displayModel ? "questionDisplayModels" : "rawQuestion",
+        },
+      };
+    });
+    const renderableFailures = validateRenderableBodies(projectedQuestions);
+    if (renderableFailures.length > 0) {
+      return {
+        ok: false,
+        questions: [],
+        errors: [{
+          code: "PATH1_SUBPLAN_RENDERABLE_BODY_MISSING",
+          failures: renderableFailures,
+        }],
+      };
+    }
+    return { ok: true, questions: projectedQuestions, errors: [] };
   }
 
   const questionItems = worksheetDocument.questionItems;
@@ -107,12 +205,18 @@ function extractSubplanQuestions(worksheetDocument = {}) {
       generatedItemId: question.generatedItemId
         ?? question.id
         ?? `${question.patternSpecId ?? "subplan-question"}-${questionNumber}`,
-      prompt: String(question.prompt ?? question.promptText ?? ""),
-      answerText: String(answer?.answerText ?? ""),
+      prompt: firstNonEmptyText(
+        question.blankedDisplayText,
+        question.prompt,
+        question.promptText,
+        question.displayText,
+      ),
+      answerText: firstNonEmptyText(answer?.answerText, question.answerText, question.answer),
       metadata: {
         ...(question.metadata ?? {}),
         sourceIds: question.sourceIds ?? [],
         answerModelId: question.answerModelId ?? answer?.answerModelId ?? null,
+        path1RenderableProjection: "questionItems+answerKeyItems",
       },
     };
   });
@@ -124,6 +228,17 @@ function extractSubplanQuestions(worksheetDocument = {}) {
       errors: [{
         code: "PATH1_SUBPLAN_ANSWER_BINDING_MISSING",
         questionNumbers: missingAnswerNumbers,
+      }],
+    };
+  }
+  const renderableFailures = validateRenderableBodies(questions);
+  if (renderableFailures.length > 0) {
+    return {
+      ok: false,
+      questions: [],
+      errors: [{
+        code: "PATH1_SUBPLAN_RENDERABLE_BODY_MISSING",
+        failures: renderableFailures,
       }],
     };
   }
@@ -294,6 +409,15 @@ export function buildPath1ManualWorksheet({
       )));
       warnings.push(...(result.warnings ?? []));
     }
+  }
+
+  const renderableFailures = validateRenderableBodies(generatedItems);
+  if (renderableFailures.length > 0) {
+    return failed(blockId, [{
+      code: "PATH1_RENDERABLE_BODY_MISSING",
+      blockId,
+      failures: renderableFailures,
+    }], warnings);
   }
 
   const documentResult = buildWorksheetDocumentFromGeneratedItems({
