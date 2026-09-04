@@ -1,0 +1,161 @@
+{
+  "schemaName": "P05FW5Q003SquareCentimeterUnitSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q003_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 3,
+    "sliceId": "p05e_q003_r0_g3b_u05_3b05_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice003Implementation",
+    "previousSliceId": "p05e_q002_r0_g3a_u09_3a09_profile_geometry_property_c1",
+    "primarySourceNodeId": "g3b_u05_3b05",
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "knowledgePointIds": [
+      "kp_area_square_centimeter_unit"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q002_r0_g3a_u09_3a09_profile_geometry_property_c1",
+    "implementationPr": 772,
+    "productMergeSha": "e7c35eb7779ed2881330b527227eb0ea45f09be7",
+    "exactPagesDeploymentRunId": 33884662896,
+    "postMergeEvidencePr": 773,
+    "postMergeEvidenceMergeSha": "fb0b24399d13a20144f2e505397e02016f868d3f",
+    "exactPostMergePagesE2ERunId": 33887577813,
+    "evidenceArtifactId": 9942505386,
+    "evidenceArtifactDigest": "sha256:1d53e115a508763f1dd53677362f979111c0823f42f48ce22ff252755ee48460",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g3b_u05_3b05",
+    "sourceTitle": "面積與平方公分",
+    "sourcePdfTitle": "meow911_3b05_cm2_area.pdf",
+    "sourcePdfDriveFileId": "1JqksZyiKwD_cnZUN_zfmGlXwRpa_0w-8",
+    "embeddedSourceUrl": "https://meow911.com/3a06/",
+    "pageCount": 1,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_PLUS_CURRENT_DRIVE_IDENTITY_READBACK",
+    "reviewedPages": [
+      1
+    ],
+    "currentDriveIdentityReadback": {
+      "driveFileId": "1JqksZyiKwD_cnZUN_zfmGlXwRpa_0w-8",
+      "mimeType": "application/pdf",
+      "title": "meow911_3b05_cm2_area.pdf",
+      "headerText": "面積與平方公分《康軒 3 上第 6 課》《翰林 3 下第 9 課》《南一 3 下第 5 課》https://meow911.com/3a06/",
+      "pageCountFromCurrentTextReadback": 1
+    },
+    "sourceIdentityAnomaly": {
+      "queueSourceNodeId": "g3b_u05_3b05",
+      "r02SourceNodeId": "g3b_u05_3b05",
+      "sourcePdfTitle": "meow911_3b05_cm2_area.pdf",
+      "embeddedHeaderUrl": "https://meow911.com/3a06/",
+      "embeddedHeaderPublisherLocations": [
+        "康軒 3 上第 6 課",
+        "翰林 3 下第 9 課",
+        "南一 3 下第 5 課"
+      ],
+      "disposition": "RECORDED_NON_BLOCKING_CROSS_PUBLISHER_SOURCE_SLUG_MISMATCH",
+      "reason": "The source page explicitly aggregates the same topic across three publishers; the current R02 authority and frozen W5 queue both bind this PDF to g3b_u05_3b05.",
+      "sourceRefAmbiguity": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g3b_u05_3b05",
+    "reviewedPages": [
+      1
+    ],
+    "knowledgePointId": "kp_area_square_centimeter_unit",
+    "canonicalNameZh": "平方公分面積單位",
+    "capabilityStatement": "學生能理解邊長1公分正方形的面積是1平方公分。",
+    "reasoningInvariant": "面積單位由二維覆蓋單位形成，不等同於周長單位。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "sourceSiblingKnowledgePointsExcludedFromQ003": [
+    "kp_area_grid_counting",
+    "kp_area_conservation_cut_rearrange",
+    "kp_irregular_grid_area",
+    "kp_area_compare_same_perimeter"
+  ],
+  "sourceConstraintReconciliation": {
+    "directReviewedPdfSupportsR02KnowledgePointIdentity": true,
+    "directReviewedPdfSupportsOneCentimeterByOneCentimeterUnitSquareMeaning": true,
+    "directReviewedPdfSupportsAreaAsTwoDimensionalUnit": true,
+    "directReviewedPdfDistinguishesAreaUnitFromPerimeterUnit": true,
+    "frozenRuntimeProfileDoesNotAuthorizeAdditionalFormulaKnowledgePoints": true,
+    "applicationSuitabilityDoesNotAuthorizeApplicationImplementationInQ003": true,
+    "embeddedSourceSlugMismatchIsNonBlocking": true
+  },
+  "q003ScopeLock": {
+    "includedRelations": [
+      "RECOGNIZE_SQUARE_CENTIMETER_AS_AREA_UNIT",
+      "IDENTIFY_ONE_SQUARE_CENTIMETER_AS_AREA_OF_ONE_CM_BY_ONE_CM_SQUARE",
+      "MATCH_UNIT_SQUARE_REPRESENTATION_TO_ONE_SQUARE_CENTIMETER",
+      "DISTINGUISH_AREA_UNIT_FROM_LINEAR_OR_PERIMETER_UNIT"
+    ],
+    "excludedRelations": [
+      "GRID_AREA_COUNTING",
+      "AREA_CONSERVATION_CUT_REARRANGE",
+      "IRREGULAR_GRID_AREA",
+      "SAME_PERIMETER_AREA_COMPARISON",
+      "RECTANGLE_SQUARE_AREA_FORMULA",
+      "COMPOSITE_AREA",
+      "AREA_UNIT_CONVERSION",
+      "PERIMETER_COMPUTATION",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresDiagramRepresentation": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false
+  },
+  "postMergeEvidenceTriggerPolicy": {
+    "effectiveFromQueuePosition": 3,
+    "policyId": "W5_Q_SPECIFIC_MAIN_PUSH_POSTMERGE_EVIDENCE_V1",
+    "prStageOrchestrator": "PR_GATE_ONLY",
+    "allowedTriggerEvents": [
+      "push_to_main_with_q_specific_paths",
+      "workflow_dispatch_fallback"
+    ],
+    "forbiddenTriggerEvents": [
+      "pull_request",
+      "workflow_run_pages_fanout"
+    ],
+    "qSpecificPathRule": "Use Q003-owned product paths as trigger anchors. Do not use generic shared files as the only paths filter because later slices could wake old Q003 evidence workflows.",
+    "pagesSynchronizationRule": "The Q003 evidence runner waits for exact deployed-byte SHA256 parity after the main push; it does not subscribe to every Pages workflow completion.",
+    "evidenceSequence": [
+      "WAIT_FOR_PAGES_EXACT_BYTES",
+      "SHA256_EXACT_DEPLOYED_BYTES",
+      "CLASSIC_UI",
+      "GENERATOR",
+      "VALIDATOR",
+      "WORKSHEET",
+      "RENDERER",
+      "PRINT",
+      "ARTIFACT"
+    ],
+    "workflowMaterializationDeferredUntilQ003ProductPathsExist": true,
+    "secondPullRequestWorkflowAllowed": false
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ003ImplementationPlanning": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "postMergeTriggerPolicyLocked": true,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice003Implementation"
+  }
+}
