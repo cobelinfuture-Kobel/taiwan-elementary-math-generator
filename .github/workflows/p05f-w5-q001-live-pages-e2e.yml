@@ -1,11 +1,6 @@
 name: P05F W5 Q001 Post-Merge Pages E2E
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "tools/curriculum/run-p05f-w5-q001-live-pages-e2e.mjs"
-      - ".github/workflows/p05f-w5-q001-live-pages-e2e.yml"
   workflow_dispatch:
 
 permissions:
