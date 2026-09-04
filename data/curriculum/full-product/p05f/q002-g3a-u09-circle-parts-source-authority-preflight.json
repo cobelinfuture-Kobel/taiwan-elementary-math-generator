@@ -1,0 +1,171 @@
+{
+  "schemaName": "P05FW5Q002CirclePartsSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q002_CircleParts_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 2,
+    "sliceId": "p05e_q002_r0_g3a_u09_3a09_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice002Implementation",
+    "previousSliceId": "p05e_q001_r0_g3a_u05_3a05_profile_geometry_property_c1",
+    "primarySourceNodeId": "g3a_u09_3a09",
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "knowledgePointIds": [
+      "kp_circle_center_radius_diameter"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q001_r0_g3a_u05_3a05_profile_geometry_property_c1",
+    "mergeSha": "f95225d2f76f5072dc71411f94d6fdce66173c20",
+    "exactPostMergePagesE2ERunId": "33879084977",
+    "evidenceArtifactId": "9939080280",
+    "evidenceArtifactDigest": "sha256:8662bb794ab1f9088f5979302bf1624807301330b23f33e4d3a4d1729401d909",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g3a_u09_3a09",
+    "sourceTitle": "圓",
+    "sourcePdfTitle": "meow911_3a09_circle.pdf",
+    "sourcePdfDriveFileId": "1nvx2cakQe_A5HqTi6u6MWhVrPi6D32IL",
+    "sourceUrl": "https://meow911.com/3a09/",
+    "pageCount": 2,
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "page1DirectEvidence": {
+      "targetPanel": "TOP_LEFT_CIRCLE_PART_NAMES",
+      "panelTitle": "圓的各部位名稱",
+      "visibleLabels": [
+        "直徑",
+        "圓周",
+        "圓心",
+        "半徑"
+      ],
+      "targetKnowledgePointLabels": [
+        "圓心",
+        "半徑",
+        "直徑"
+      ],
+      "visibleButOutsideQ002Labels": [
+        "圓周"
+      ],
+      "diameterPropertyPanelTitle": "圓的半徑與直徑",
+      "visibleStatement": "直徑=半徑×2",
+      "nonDiameterStatement": "這條不是直徑",
+      "directlySupportedConcepts": [
+        "CIRCLE_CENTER",
+        "RADIUS",
+        "DIAMETER",
+        "DIAMETER_PASSES_CENTER",
+        "DIAMETER_EQUALS_TWO_RADII",
+        "CIRCLE_PART_LABEL_IDENTIFICATION"
+      ],
+      "panelsExplicitlyOutsideQ002": [
+        "COMPASS_CONSTRUCTION",
+        "CONCENTRIC_CIRCLE_CONSTRUCTION",
+        "RADIUS_DIAMETER_MEASUREMENT",
+        "COMPASS_SEGMENT_COMPARISON",
+        "FOLD_LINE_RADIUS_CONSTRUCTION",
+        "TWO_CIRCLE_INTERNAL_TANGENCY"
+      ]
+    },
+    "page2DirectEvidence": {
+      "visiblePanels": [
+        "兩個圓 共用半徑",
+        "兩個圓外切"
+      ],
+      "panelsExplicitlyOutsideQ002": [
+        "TWO_CIRCLE_SHARED_RADIUS_RELATION",
+        "TWO_CIRCLE_EXTERNAL_TANGENCY"
+      ]
+    },
+    "sourceIdentityAnomaly": {
+      "embeddedHeaderUrl": "https://meow911.com/3b06/",
+      "queueAndDriveSourceUrl": "https://meow911.com/3a09/",
+      "queueAndDriveSourceNodeId": "g3a_u09_3a09",
+      "fileName": "meow911_3a09_circle.pdf",
+      "disposition": "RECORDED_NON_BLOCKING_EMBEDDED_HEADER_URL_MISMATCH",
+      "sourceRefAmbiguity": false
+    },
+    "driveMetadataReadback": {
+      "sourceMetadataDriveFileId": "1yih0bHxQUSuGCyD_9lp9Ey4ULy7QBp6o",
+      "verificationNotesDriveFileId": "10vibFtZAvwGu3PscBZE7X4qyQ2gNyKVC",
+      "metadataManualReviewed": false,
+      "metadataExtractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g3a_u09_3a09",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "knowledgePointId": "kp_circle_center_radius_diameter",
+    "canonicalNameZh": "圓心、半徑與直徑",
+    "capabilityStatement": "學生能辨認圓心、半徑、直徑及其名稱。",
+    "reasoningInvariant": "所有半徑等長，直徑通過圓心且等於兩個半徑。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "sourceConstraintReconciliation": {
+    "directPdfSupportsR02KnowledgePointIdentity": true,
+    "directPdfSupportsCenterRadiusAndDiameterLabels": true,
+    "directPdfSupportsDiameterPassesCenterInvariant": true,
+    "directPdfSupportsDiameterEqualsTwoRadiiInvariant": true,
+    "circumferenceLabelAppearsButIsOutsideQ002KnowledgePoint": true,
+    "directPdfContainsApplicationStoryContext": false,
+    "embeddedHeaderUrlMismatchIsNonBlocking": true
+  },
+  "q002ScopeLock": {
+    "includedRelations": [
+      "IDENTIFY_CIRCLE_CENTER",
+      "IDENTIFY_RADIUS",
+      "IDENTIFY_DIAMETER",
+      "MATCH_CIRCLE_PART_LABEL_TO_DIAGRAM",
+      "DISTINGUISH_DIAMETER_FROM_NONCENTER_CHORD"
+    ],
+    "excludedRelations": [
+      "IDENTIFY_CIRCUMFERENCE_AS_TARGET_KP",
+      "COMPASS_CONSTRUCTION",
+      "CONCENTRIC_CIRCLE_CONSTRUCTION",
+      "RADIUS_DIAMETER_MEASUREMENT",
+      "COMPUTE_RADIUS_FROM_DIAMETER",
+      "COMPUTE_DIAMETER_FROM_RADIUS",
+      "COMPARE_RADIUS_DIAMETER_MEASUREMENTS",
+      "CIRCLE_POINT_POSITION",
+      "TWO_CIRCLE_INTERSECTION",
+      "TWO_CIRCLE_TANGENCY",
+      "COMPASS_LENGTH_COMPARISON",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresDiagramRepresentation": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationContextSupportedByDirectPdf": false,
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ002ImplementationPlanning": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice002Implementation"
+  }
+}
