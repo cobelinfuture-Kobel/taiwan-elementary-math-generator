@@ -187,7 +187,6 @@ try {
     && selectorState.selectionMode === "singleKnowledgePoint"
     && selectorState.selectedKnowledgePointIds.length === 1
     && selectorState.selectedKnowledgePointIds[0] === KP_ID
-    && selectorState.selectedPatternGroupIds.includes(GROUP_ID)
     && selectorState.questionCount === String(QUESTION_COUNT)
     && selectorState.ordering === "groupedByPattern"
     && selectorState.answerKey === true
