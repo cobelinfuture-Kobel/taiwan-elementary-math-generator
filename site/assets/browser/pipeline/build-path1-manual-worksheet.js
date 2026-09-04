@@ -67,6 +67,69 @@ function normalizeGeneratedQuestion(question, prefix, index) {
   };
 }
 
+function extractSubplanQuestions(worksheetDocument = {}) {
+  const directQuestions = worksheetDocument.generatedQuestions ?? worksheetDocument.questions;
+  if (Array.isArray(directQuestions)) {
+    return { ok: true, questions: directQuestions, errors: [] };
+  }
+
+  const questionItems = worksheetDocument.questionItems;
+  if (!Array.isArray(questionItems)) {
+    return { ok: true, questions: [], errors: [] };
+  }
+
+  const answerKeyItems = Array.isArray(worksheetDocument.answerKeyItems)
+    ? worksheetDocument.answerKeyItems
+    : [];
+  if (answerKeyItems.length !== questionItems.length) {
+    return {
+      ok: false,
+      questions: [],
+      errors: [{
+        code: "PATH1_SUBPLAN_ANSWER_COUNT_MISMATCH",
+        expected: questionItems.length,
+        actual: answerKeyItems.length,
+      }],
+    };
+  }
+
+  const answersByNumber = new Map(answerKeyItems.map((answer, index) => [
+    answer.questionNumber ?? index + 1,
+    answer,
+  ]));
+  const missingAnswerNumbers = [];
+  const questions = questionItems.map((question, index) => {
+    const questionNumber = question.questionNumber ?? index + 1;
+    const answer = answersByNumber.get(questionNumber);
+    if (!answer) missingAnswerNumbers.push(questionNumber);
+    return {
+      ...question,
+      generatedItemId: question.generatedItemId
+        ?? question.id
+        ?? `${question.patternSpecId ?? "subplan-question"}-${questionNumber}`,
+      prompt: String(question.prompt ?? question.promptText ?? ""),
+      answerText: String(answer?.answerText ?? ""),
+      metadata: {
+        ...(question.metadata ?? {}),
+        sourceIds: question.sourceIds ?? [],
+        answerModelId: question.answerModelId ?? answer?.answerModelId ?? null,
+      },
+    };
+  });
+
+  if (missingAnswerNumbers.length > 0) {
+    return {
+      ok: false,
+      questions: [],
+      errors: [{
+        code: "PATH1_SUBPLAN_ANSWER_BINDING_MISSING",
+        questionNumbers: missingAnswerNumbers,
+      }],
+    };
+  }
+  return { ok: true, questions, errors: [] };
+}
+
 function hashSeed(input) {
   let hash = 2166136261;
   for (const char of String(input)) {
@@ -178,6 +241,7 @@ export function buildPath1ManualWorksheet({
       if (groups.length === 0) {
         return failed(blockId, [{ code: "PATH1_KP_HAS_NO_VISIBLE_PATTERN_GROUP", blockId, knowledgePointId }]);
       }
+      const requiresProjectedAnswerJoin = source.sourceId === "g5a_u02_5a02";
       const subPlan = {
         sourceId: source.sourceId,
         selectionMode: "singleKnowledgePoint",
@@ -186,13 +250,13 @@ export function buildPath1ManualWorksheet({
         questionCount: allocations[index],
         generationSeed: `${generationSeed}:${blockId}:${knowledgePointId}`,
         ordering: "shuffleAcrossPatterns",
-        includeAnswerKey: false,
+        includeAnswerKey: requiresProjectedAnswerJoin,
         printLayout: {
           paperSize: "A4",
           columns: 2,
           rowsPerPage: 4,
           showQuestionNumbers: true,
-          showAnswerKeyPage: false,
+          showAnswerKeyPage: requiresProjectedAnswerJoin,
         },
         ...(block.questionMode ? { questionMode: block.questionMode } : {}),
       };
@@ -206,9 +270,16 @@ export function buildPath1ManualWorksheet({
           errors: result?.errors ?? [],
         }], result?.warnings ?? []);
       }
-      const questions = result.worksheetDocument.generatedQuestions
-        ?? result.worksheetDocument.questions
-        ?? [];
+      const extracted = extractSubplanQuestions(result.worksheetDocument);
+      if (!extracted.ok) {
+        return failed(blockId, extracted.errors.map((error) => ({
+          ...error,
+          blockId,
+          knowledgePointId,
+          sourceId: source.sourceId,
+        })));
+      }
+      const questions = extracted.questions;
       if (questions.length !== allocations[index]) {
         return failed(blockId, [{
           code: "PATH1_SUBPLAN_QUESTION_COUNT_MISMATCH",
