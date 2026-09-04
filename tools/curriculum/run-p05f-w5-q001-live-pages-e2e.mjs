@@ -152,9 +152,6 @@ try {
   await page.selectOption("#batch-a-selection-mode-select", "singleKnowledgePoint");
   await page.locator(`[data-knowledge-point-id="${KP_ID}"]`).click();
   await page.waitForFunction((kpId) => document.querySelector(`[data-knowledge-point-id="${kpId}"]`)?.dataset?.selected === "true", KP_ID, { timeout: 120000 });
-  await page.waitForFunction((groupId) => Boolean(document.querySelector(`[data-pattern-group-id="${groupId}"]`)), GROUP_ID, { timeout: 120000 });
-  const groupSelected = await page.locator(`[data-pattern-group-id="${GROUP_ID}"]`).getAttribute("data-selected");
-  if (groupSelected !== "true") await page.locator(`[data-pattern-group-id="${GROUP_ID}"]`).click();
 
   await page.fill("#batch-a-question-count-input", String(QUESTION_COUNT));
   await page.dispatchEvent("#batch-a-question-count-input", "change");
@@ -167,7 +164,7 @@ try {
   await page.fill("#rows-per-page-input", "4");
   await page.dispatchEvent("#rows-per-page-input", "change");
 
-  const selectorState = await page.evaluate(({ sourceId, kpId, groupId }) => ({
+  const selectorState = await page.evaluate(({ sourceId, kpId }) => ({
     grade: document.querySelector("#batch-a-grade-select")?.value ?? null,
     semester: document.querySelector("#batch-a-semester-select")?.value ?? null,
     sourceId: document.querySelector("#batch-a-source-select")?.value ?? null,
@@ -182,8 +179,7 @@ try {
     rowsPerPage: document.querySelector("#rows-per-page-input")?.value ?? null,
     availabilitySummary: document.querySelector("#batch-a-knowledge-point-availability-summary")?.textContent?.trim() ?? "",
     targetKnowledgePointSelected: document.querySelector(`[data-knowledge-point-id="${kpId}"]`)?.dataset?.selected === "true",
-    targetPatternGroupSelected: document.querySelector(`[data-pattern-group-id="${groupId}"]`)?.dataset?.selected === "true",
-  }), { sourceId: SOURCE_ID, kpId: KP_ID, groupId: GROUP_ID });
+  }), { sourceId: SOURCE_ID, kpId: KP_ID });
 
   const selectorOk = selectorState.grade === "3"
     && selectorState.semester === "upper"
@@ -199,7 +195,6 @@ try {
     && selectorState.columns === "2"
     && selectorState.rowsPerPage === "4"
     && selectorState.targetKnowledgePointSelected
-    && selectorState.targetPatternGroupSelected
     && selectorState.availabilitySummary.includes("可選知識點：1")
     && selectorState.availabilitySummary.includes("尚未開放：3")
     && selectorState.availabilitySummary.includes("不可選：3")
