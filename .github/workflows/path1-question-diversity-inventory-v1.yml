@@ -1,0 +1,140 @@
+name: Path1 Question Diversity Inventory V1
+
+on:
+  push:
+    branches:
+      - path1-question-diversity-inventory-v1
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout inventory branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Measure current Path1 pattern and repeated-practice diversity
+        run: |
+          mkdir -p tmp/path1-question-diversity-inventory-v1
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          // Force the selector facade onto the same current-browser branch used by /path1/.
+          globalThis.document = {};
+
+          const { listPath1PublicWorksheetBlocks } = await import('./site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js');
+          const { resolveVisiblePatternSpecIdsForKnowledgePoint } = await import('./site/modules/curriculum/registry/batch-a-selector-extension.js');
+          const { buildPath1ManualWorksheet } = await import('./site/assets/browser/pipeline/build-path1-manual-worksheet.js');
+
+          const seeds = ['diversity-a', 'diversity-b', 'diversity-c', 'diversity-d', 'diversity-e'];
+          const perSeedCount = 120;
+          const rows = [];
+
+          function questionSignature(question = {}) {
+            return String(
+              question.prompt
+              ?? question.blankedDisplayText
+              ?? question.promptText
+              ?? question.displayText
+              ?? ''
+            ).replace(/\s+/g, ' ').trim();
+          }
+
+          for (const block of listPath1PublicWorksheetBlocks()) {
+            const resolvedSpecIds = block.generationKind === 'DIFFICULTY_EXPANSION'
+              ? [block.difficultyExpansionId ?? 'PATH1_DIFFICULTY_EXPANSION']
+              : [...new Set(block.knowledgePointIds.flatMap((knowledgePointId) => (
+                  resolveVisiblePatternSpecIdsForKnowledgePoint(knowledgePointId, block.questionMode ?? null) ?? []
+                )))];
+
+            const allSignatures = [];
+            const distinctPerSeed = [];
+            const failures = [];
+            for (const seed of seeds) {
+              const result = buildPath1ManualWorksheet({
+                blockId: block.blockId,
+                questionCount: perSeedCount,
+                generationSeed: `${seed}:${block.blockId}`,
+                includeAnswerKey: true,
+              });
+              if (!result?.ok || !result?.worksheetDocument) {
+                failures.push({ seed, errors: result?.errors ?? [] });
+                continue;
+              }
+              const questions = result.worksheetDocument.questions ?? [];
+              const signatures = questions.map(questionSignature).filter(Boolean);
+              allSignatures.push(...signatures);
+              distinctPerSeed.push(new Set(signatures).size);
+            }
+
+            const expectedGenerated = seeds.length * perSeedCount;
+            const observedDistinct = new Set(allSignatures).size;
+            rows.push({
+              blockId: block.blockId,
+              title: block.title,
+              generationKind: block.generationKind,
+              questionMode: block.questionMode,
+              knowledgePointCount: block.knowledgePointIds.length,
+              currentPatternSpecCount: resolvedSpecIds.length,
+              currentPatternSpecIds: resolvedSpecIds,
+              publicWorksheetCeiling: 120,
+              measuredSeeds: seeds.length,
+              questionsPerSeed: perSeedCount,
+              expectedGenerated,
+              actualGenerated: allSignatures.length,
+              observedDistinctAcrossFive120: observedDistinct,
+              observedDistinctLowerBound: observedDistinct,
+              repeatedPromptCountAcrossFive120: Math.max(0, allSignatures.length - observedDistinct),
+              crossSessionRepeatRate: allSignatures.length > 0
+                ? Number(((allSignatures.length - observedDistinct) / allSignatures.length).toFixed(4))
+                : null,
+              minDistinctWithin120: distinctPerSeed.length ? Math.min(...distinctPerSeed) : 0,
+              maxDistinctWithin120: distinctPerSeed.length ? Math.max(...distinctPerSeed) : 0,
+              every120WorksheetInternallyDistinct: distinctPerSeed.length === seeds.length && distinctPerSeed.every((value) => value === perSeedCount),
+              capacity120Pass: failures.length === 0 && allSignatures.length === expectedGenerated,
+              failures,
+            });
+          }
+
+          const report = {
+            schemaName: 'Path1QuestionDiversityInventoryV1',
+            measurementKind: 'CURRENT_MAIN_EMPIRICAL_BASELINE',
+            note: 'observedDistinctLowerBound is empirical across five deterministic 120-question sessions; it is not a proof of theoretical maximum capacity.',
+            blockCount: rows.length,
+            seeds,
+            rows,
+          };
+          fs.writeFileSync('tmp/path1-question-diversity-inventory-v1/current-baseline.json', JSON.stringify(report, null, 2) + '\n');
+          console.log('PATH1_QUESTION_DIVERSITY_INVENTORY_V1=' + JSON.stringify({
+            blockCount: rows.length,
+            capacity120PassCount: rows.filter((row) => row.capacity120Pass).length,
+            every120InternallyDistinctCount: rows.filter((row) => row.every120WorksheetInternallyDistinct).length,
+            rows: rows.map(({ blockId, currentPatternSpecCount, observedDistinctAcrossFive120, crossSessionRepeatRate, capacity120Pass, every120WorksheetInternallyDistinct }) => ({
+              blockId,
+              currentPatternSpecCount,
+              observedDistinctAcrossFive120,
+              crossSessionRepeatRate,
+              capacity120Pass,
+              every120WorksheetInternallyDistinct,
+            })),
+          }));
+          NODE
+
+      - name: Upload inventory evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: path1-question-diversity-inventory-v1
+          path: tmp/path1-question-diversity-inventory-v1
+          if-no-files-found: error
