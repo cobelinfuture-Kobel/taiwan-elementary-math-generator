@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q003_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "g3b_u05_3b05",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-q003-square-centimeter-unit-source-authority-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/read-p05f-w5-q003-square-centimeter-unit-source-authority-preflight.mjs",
+        "runtime": "NODE_ONLY"
+      }
+    ]
+  }
+}
