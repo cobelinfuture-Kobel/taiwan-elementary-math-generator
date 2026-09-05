@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q007_BOUNDED_VALIDATION",
+  "unitId": "g5a_u10_5a10a",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {"gateId":"GLOBAL_CONTRACTS","kind":"NODE_TEST","paths":["tests/curriculum/p05f-w5-slice007-g5a-u10a-solid-shape-classification.test.js","tests/curriculum/p05f-w5-q007-solid-shape-classification-source-authority-preflight.test.js","tests/curriculum/p05f-w5-slice007-q006-direct-dependency.test.js"]},
+      {"gateId":"TARGETED_ROUTE_REPLAY","kind":"NODE_RUNNER","path":"tools/curriculum/run-p05f-w5-slice007-classic-ui-acceptance.mjs","runtime":"PLAYWRIGHT_CHROMIUM"}
+    ]
+  }
+}
