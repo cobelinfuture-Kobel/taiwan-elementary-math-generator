@@ -1,0 +1,166 @@
+{
+  "schemaName": "P05FW5Q007SolidShapeClassificationSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q007_SolidShapeClassification_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 7,
+    "sliceId": "p05e_q007_r0_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice007Implementation",
+    "previousSliceId": "p05e_q006_r0_g5a_u07_5a07_profile_geometry_property_c1",
+    "primarySourceNodeId": "g5a_u10_5a10a",
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "knowledgePointIds": [
+      "kp_g5a_u10a_solid_shape_classification"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q006_r0_g5a_u07_5a07_profile_geometry_property_c1",
+    "productMergeSha": "0f386d75c86b98fc0998f797ef3f5850fa20ef6b",
+    "exactPagesRunId": "33950114817",
+    "pagesDeploymentRunId": "33950114802",
+    "evidenceArtifactId": "9964549168",
+    "evidenceArtifactDigest": "sha256:0a99461f4a59ae62154925a398af3ad8dc75f29e09c87e1bee9a2ceadc517c69",
+    "postMergeTriggerEvent": "push",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5a_u10_5a10a",
+    "sourceTitle": "柱體錐體和球",
+    "sourcePdfTitle": "meow911_5a10a_source.pdf",
+    "sourcePdfDriveFileId": "1ErBCKyfIoXn0yswNUpNzlBcMNb8wkaqq",
+    "sourceMetadataDriveFileId": "1EPSIaZ3lj01KlT-6YPExiRk-jS4MoNT2",
+    "verificationNotesDriveFileId": "1mQvjboJNScUEnLbrIBxABAvmbT1Ynr5n",
+    "originalFileNameFromMetadata": "題型總覽-5a10a-柱體錐體和球.pdf",
+    "sourceUrlFromMetadata": "https://meow911.com/5a10a/",
+    "pageCount": 2,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "directReviewedConcepts": [
+      "SOLID_SHAPE_CLASSIFICATION_BY_BASE_SIDE_VERTEX_FEATURES",
+      "COLUMN_HAS_TWO_CONGRUENT_PARALLEL_BASES",
+      "CONE_CONVERGES_TO_ONE_APEX",
+      "SPHERE_HAS_NO_PLANE_BASE"
+    ],
+    "sourceIdentityAnomaly": {
+      "metadataSourceUrl": "https://meow911.com/5a10a/",
+      "queueSourceNodeId": "g5a_u10_5a10a",
+      "fileName": "meow911_5a10a_source.pdf",
+      "metadataSourceTitle": "柱體錐體和球",
+      "r02SourceTitle": "柱體錐體和球",
+      "disposition": "NONE_MATCHING_SOURCE_IDENTITY",
+      "sourceRefAmbiguity": false
+    },
+    "driveMetadataReadback": {
+      "metadataManualReviewed": false,
+      "metadataExtractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5a_u10_5a10a",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "knowledgePointId": "kp_g5a_u10a_solid_shape_classification",
+    "canonicalNameZh": "柱體錐體與球分類",
+    "capabilityStatement": "學生能依底面、側面與頂點特徵分類立體形體。",
+    "reasoningInvariant": "柱體有兩個全等平行底面，錐體向一頂點收斂，球無平面底面。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "profileId": "profile_spatial_solid",
+    "profileRequiredCapabilityIds": [
+      "cap_spatial_solid_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_solid_geometry_representation"
+    ],
+    "dependencyClosureAddedCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "q007ScopeLock": {
+    "includedRelations": [
+      "CLASSIFY_SOLIDS_BY_BASE_SIDE_VERTEX_FEATURES",
+      "DISTINGUISH_COLUMN_CONE_SPHERE",
+      "RECOGNIZE_DEFINING_SOLID_FEATURES"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5a_u10a_prism_pyramid_elements",
+      "kp_g5a_u10a_solid_net_correspondence",
+      "kp_g5a_u10a_solid_cross_section",
+      "kp_g5a_u10a_solid_viewpoint_representation"
+    ],
+    "excludedRelations": [
+      "SOLID_ELEMENTS_NAMING_OR_COUNT",
+      "SOLID_NET_CORRESPONDENCE",
+      "SOLID_CROSS_SECTION",
+      "SOLID_VIEWPOINT_REPRESENTATION",
+      "CUBE_CUBOID_SPECIAL_CASE_REASONING",
+      "SOLID_MEASUREMENT_OR_FORMULA",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresSolidGeometryRepresentation": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false
+  },
+  "postMergeEvidenceTriggerPolicy": {
+    "effectiveFromQueuePosition": 3,
+    "provenPriorRunIds": [
+      "33926418642",
+      "33934940413",
+      "33937587482",
+      "33950114817"
+    ],
+    "latestProvenRunId": "33950114817",
+    "singlePullRequestOrchestratorMustRemain": true,
+    "postMergeWorkflowPullRequestTriggerAllowed": false,
+    "perQWorkflowRunTriggerAllowed": false,
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "qSpecificPathsMustBeDerivedFromExactImplementationDiff": true,
+    "broadHistoricalSharedPathFanoutForbidden": true,
+    "mustWaitForMatchingPagesDeployment": true,
+    "mustVerifyExactDeployedBytesBySha256": true,
+    "mustExerciseClassicUiGeneratorValidatorWorksheetRendererPrintArtifact": true,
+    "materializeWorkflowDuringImplementationOrPostMergeEvidenceTask": true
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ007ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice007Implementation"
+  }
+}
