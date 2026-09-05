@@ -11,6 +11,12 @@
         "paths": [
           "tests/curriculum/path1-p1-02-assessment-family-candidates.test.js"
         ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-path1-p1-02-assessment-family-candidates-focused.mjs",
+        "runtime": "NODE_ONLY"
       }
     ]
   }
