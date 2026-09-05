@@ -1,0 +1,200 @@
+name: Path1 P1-01 Exact SHA Live Readback
+
+on:
+  push:
+    branches:
+      - path1-p1-01-live-readback-69567058
+
+permissions:
+  contents: read
+
+jobs:
+  live-readback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact deployed merge SHA
+        uses: actions/checkout@v4
+        with:
+          ref: 695670586d3658d3ac2ddf1f0a5807d4a35c93fb
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install targeted Chromium runtime
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Run exact-SHA deployed P1-01 acceptance
+        env:
+          PATH1_EXPECTED_MERGE_SHA: 695670586d3658d3ac2ddf1f0a5807d4a35c93fb
+          PATH1_SITE_ROOT: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import { createHash } from 'node:crypto';
+          import { chromium } from 'playwright';
+
+          const expectedSha = process.env.PATH1_EXPECTED_MERGE_SHA;
+          const rootUrl = process.env.PATH1_SITE_ROOT;
+          const out = 'tmp/path1-p1-01-exact-sha-live-readback';
+          fs.mkdirSync(out, { recursive: true });
+
+          const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
+          const criticalAssets = [
+            'assets/browser/pipeline/build-path1-manual-worksheet.js',
+            'modules/curriculum/learning-paths/path1-public-worksheet-binding.js',
+            'modules/curriculum/learning-paths/path1-p1-01-diversity.js',
+          ];
+          const assetEvidence = [];
+          for (const asset of criticalAssets) {
+            const localBytes = fs.readFileSync(path.join('site', asset));
+            const remote = new URL(asset, rootUrl);
+            remote.searchParams.set('exactSha', `${expectedSha}-${Date.now()}-${assetEvidence.length}`);
+            const response = await fetch(remote, { cache: 'no-store' });
+            if (!response.ok) throw new Error(`P1_01_LIVE_ASSET_FETCH_FAILED:${asset}:${response.status}`);
+            const remoteBytes = Buffer.from(await response.arrayBuffer());
+            const row = {
+              asset,
+              localBytes: localBytes.length,
+              remoteBytes: remoteBytes.length,
+              localSha256: digest(localBytes),
+              remoteSha256: digest(remoteBytes),
+            };
+            row.exact = row.localBytes === row.remoteBytes && row.localSha256 === row.remoteSha256;
+            if (!row.exact) throw new Error(`P1_01_LIVE_ASSET_IDENTITY_MISMATCH:${JSON.stringify(row)}`);
+            assetEvidence.push(row);
+          }
+
+          const browser = await chromium.launch({ headless: true });
+          const consoleErrors = [];
+          const pageErrors = [];
+          try {
+            const page = await browser.newPage({ viewport: { width: 1365, height: 900 } });
+            page.on('console', (message) => {
+              if (message.type() === 'error') consoleErrors.push(message.text());
+            });
+            page.on('pageerror', (error) => pageErrors.push(String(error?.message ?? error)));
+
+            const liveUrl = new URL('path1/', rootUrl);
+            liveUrl.searchParams.set('path1LiveSha', expectedSha);
+            liveUrl.searchParams.set('cacheBust', Date.now().toString());
+            await page.goto(liveUrl.href, { waitUntil: 'networkidle', timeout: 120000 });
+
+            await page.locator('#path1-block-select').selectOption('P1-01');
+            await page.locator('#path1-question-count').fill('120');
+            await page.locator('#path1-generation-seed').fill(`p1-01-live-${expectedSha.slice(0, 8)}`);
+            await page.locator('#path1-generate-button').click();
+            await page.waitForFunction(() => {
+              const panel = document.querySelector('#path1-status-panel');
+              const meta = document.querySelector('#path1-preview-meta')?.textContent ?? '';
+              return panel?.dataset?.tone === 'error'
+                || (panel?.dataset?.tone === 'success' && meta.includes('P1-01') && meta.includes('120 題'));
+            }, { timeout: 120000 });
+
+            const tone = await page.locator('#path1-status-panel').getAttribute('data-tone');
+            const statusText = (await page.locator('#path1-status-panel').textContent())?.trim() ?? '';
+            if (tone !== 'success') throw new Error(`P1_01_LIVE_UI_FAILED:${statusText}`);
+            if (await page.locator('#path1-print-button').isDisabled()) throw new Error('P1_01_LIVE_PRINT_DISABLED');
+
+            const frame = page.frames().find((candidate) => candidate !== page.mainFrame() && candidate.url() === 'about:srcdoc')
+              ?? page.frames().find((candidate) => candidate !== page.mainFrame());
+            if (!frame) throw new Error('P1_01_LIVE_PREVIEW_FRAME_MISSING');
+
+            const questionCells = frame.locator('.worksheet-section--questions .worksheet-cell--question');
+            const answerCells = frame.locator('.worksheet-section--answer-key .worksheet-cell--answer-key');
+            const questionCellCount = await questionCells.count();
+            const answerCellCount = await answerCells.count();
+            if (questionCellCount !== 120) throw new Error(`P1_01_LIVE_QUESTION_COUNT_MISMATCH:${questionCellCount}`);
+            if (answerCellCount !== 120) throw new Error(`P1_01_LIVE_ANSWER_COUNT_MISMATCH:${answerCellCount}`);
+
+            const questionBodies = await questionCells.locator('.worksheet-cell__prompt').evaluateAll(
+              (nodes) => nodes.map((node) => String(node.textContent ?? '').trim()),
+            );
+            const answerBodies = await answerCells.locator('.worksheet-cell__answer').evaluateAll(
+              (nodes) => nodes.map((node) => String(node.textContent ?? '').trim()),
+            );
+            const nonEmptyQuestionBodyCount = questionBodies.filter(Boolean).length;
+            const nonEmptyAnswerBodyCount = answerBodies.filter(Boolean).length;
+            const distinctQuestionBodyCount = new Set(questionBodies).size;
+            if (nonEmptyQuestionBodyCount !== 120) throw new Error(`P1_01_LIVE_QUESTION_BODY_EMPTY:${nonEmptyQuestionBodyCount}`);
+            if (nonEmptyAnswerBodyCount !== 120) throw new Error(`P1_01_LIVE_ANSWER_BODY_EMPTY:${nonEmptyAnswerBodyCount}`);
+            if (distinctQuestionBodyCount !== 120) throw new Error(`P1_01_LIVE_PROMPT_DUPLICATION:${distinctQuestionBodyCount}`);
+
+            const familyCounts = {
+              C0_DIRECT_TENS_MULTIPLICATION: 0,
+              C1_BASE_FACT_TO_TENS_SCALE: 0,
+              C2_NUMBER_OF_TENS_REPRESENTATION: 0,
+              C3_DECOMPOSITION_EQUIVALENT_EXPRESSION: 0,
+              C4_PARTIAL_PRODUCT_MISSING_DIGIT: 0,
+              C5_MISCONCEPTION_DIAGNOSIS: 0,
+            };
+            for (const text of questionBodies) {
+              if (text.includes('有人寫成')) familyCounts.C5_MISCONCEPTION_DIAGNOSIS += 1;
+              else if (text.includes('□ =')) familyCounts.C4_PARTIAL_PRODUCT_MISSING_DIGIT += 1;
+              else if (text.includes(') × 10')) familyCounts.C3_DECOMPOSITION_EQUIVALENT_EXPRESSION += 1;
+              else if (text.includes('個十 ×')) familyCounts.C2_NUMBER_OF_TENS_REPRESENTATION += 1;
+              else if (text.includes('所以')) familyCounts.C1_BASE_FACT_TO_TENS_SCALE += 1;
+              else familyCounts.C0_DIRECT_TENS_MULTIPLICATION += 1;
+            }
+            for (const [familyId, count] of Object.entries(familyCounts)) {
+              if (count !== 20) throw new Error(`P1_01_LIVE_FAMILY_COUNT_MISMATCH:${familyId}:${count}`);
+            }
+
+            await page.locator('#path1-preview-frame').screenshot({ path: `${out}/P1-01-live-preview.png` });
+            const html = await frame.content();
+            const pdfPage = await browser.newPage();
+            await pdfPage.setContent(html, { waitUntil: 'networkidle' });
+            const pdfPath = `${out}/P1-01-live-120.pdf`;
+            await pdfPage.pdf({ path: pdfPath, format: 'A4', printBackground: true, preferCSSPageSize: true });
+            await pdfPage.close();
+            const pdfBytes = fs.statSync(pdfPath).size;
+            if (pdfBytes < 10000) throw new Error(`P1_01_LIVE_PDF_TOO_SMALL:${pdfBytes}`);
+
+            const report = {
+              schemaName: 'Path1P101ExactShaLiveAcceptanceV1',
+              status: 'PASS',
+              expectedMergeSha: expectedSha,
+              deployedRoot: rootUrl,
+              blockId: 'P1-01',
+              requestedQuestionCount: 120,
+              visibleQuestionCount: questionCellCount,
+              visibleAnswerCount: answerCellCount,
+              visibleNonEmptyQuestionBodyCount: nonEmptyQuestionBodyCount,
+              visibleNonEmptyAnswerBodyCount: nonEmptyAnswerBodyCount,
+              distinctQuestionBodyCount,
+              familyCounts,
+              familyCount: Object.keys(familyCounts).length,
+              criticalAssetExactCount: assetEvidence.filter((row) => row.exact).length,
+              criticalAssetCount: assetEvidence.length,
+              consoleErrorCount: consoleErrors.length,
+              pageErrorCount: pageErrors.length,
+              pdfBytes,
+              fullRegression: 'NOT_REQUESTED',
+              globalReplay: 'NOT_RUN',
+            };
+            if (
+              report.familyCount !== 6
+              || report.criticalAssetExactCount !== report.criticalAssetCount
+              || consoleErrors.length !== 0
+              || pageErrors.length !== 0
+            ) throw new Error(`P1_01_LIVE_ACCEPTANCE_FAILED:${JSON.stringify(report)}`);
+
+            fs.writeFileSync(`${out}/report.json`, `${JSON.stringify({ ...report, assetEvidence, questionBodies, answerBodies }, null, 2)}\n`);
+            console.log(`PATH1_P1_01_EXACT_SHA_LIVE_ACCEPTANCE=${JSON.stringify(report)}`);
+          } finally {
+            await browser.close();
+          }
+          NODE
+
+      - name: Upload live acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: path1-p1-01-exact-sha-live-readback-69567058
+          path: tmp/path1-p1-01-exact-sha-live-readback
+          if-no-files-found: error
