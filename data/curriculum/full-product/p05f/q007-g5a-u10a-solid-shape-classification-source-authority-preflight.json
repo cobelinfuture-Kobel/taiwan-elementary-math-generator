@@ -19,6 +19,7 @@
     ],
     "requiredW5CapabilityIds": [
       "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
       "cap_solid_geometry_representation",
       "cap_spatial_solid_reasoning"
     ]
@@ -95,9 +96,12 @@
       "cap_geometry_domain_validator",
       "cap_solid_geometry_representation"
     ],
-    "dependencyClosureAddedCapabilityIds": [],
+    "dependencyClosureAddedCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
     "exactFrozenQueueRequiredW5CapabilityIds": [
       "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
       "cap_solid_geometry_representation",
       "cap_spatial_solid_reasoning"
     ]
