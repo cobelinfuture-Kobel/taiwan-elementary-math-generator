@@ -7,6 +7,11 @@ import {
   listPath1PublicWorksheetBlocks,
 } from "../../../modules/curriculum/learning-paths/path1-public-worksheet-binding.js";
 import {
+  buildPath1P101DiversityItems,
+  PATH1_P1_01_DIVERSITY_PROFILE_ID,
+  PATH1_P1_01_KNOWLEDGE_POINT_ID,
+} from "../../../modules/curriculum/learning-paths/path1-p1-01-diversity.js";
+import {
   buildWorksheetDocumentFromGeneratedItems,
   buildWorksheetDocumentFromPlan,
 } from "./build-worksheet-document.js";
@@ -327,12 +332,37 @@ export function buildPath1ManualWorksheet({
   if (!block) return failed(blockId, [{ code: "PATH1_BLOCK_NOT_FOUND", blockId }]);
   const count = Math.max(1, Math.min(120, Number(questionCount) || 20));
   let generatedItems = [];
+  let diversitySummary = null;
   const warnings = [];
 
   if (block.generationKind === "DIFFICULTY_EXPANSION") {
     const difficulty = buildFourDigitByTwoDigitItems({ count, seed: generationSeed, blockId });
     if (!difficulty.ok) return failed(blockId, difficulty.errors);
     generatedItems = difficulty.items;
+  } else if (block.diversityProfileId === PATH1_P1_01_DIVERSITY_PROFILE_ID) {
+    const visibility = visibleEntryByKnowledgePointId();
+    const missing = block.knowledgePointIds.filter((knowledgePointId) => !visibility.has(knowledgePointId));
+    if (missing.length > 0) {
+      return failed(blockId, [{ code: "PATH1_KP_NOT_PUBLICLY_VISIBLE", blockId, knowledgePointIds: missing }]);
+    }
+    if (
+      block.knowledgePointIds.length !== 1
+      || block.knowledgePointIds[0] !== PATH1_P1_01_KNOWLEDGE_POINT_ID
+    ) {
+      return failed(blockId, [{
+        code: "PATH1_DIVERSITY_PROFILE_KP_MISMATCH",
+        blockId,
+        diversityProfileId: block.diversityProfileId,
+        knowledgePointIds: block.knowledgePointIds,
+      }]);
+    }
+    const diversity = buildPath1P101DiversityItems({
+      count,
+      seed: `${generationSeed}:${blockId}`,
+    });
+    if (!diversity.ok) return failed(blockId, diversity.errors);
+    generatedItems = diversity.items;
+    diversitySummary = diversity.summary;
   } else {
     const visibility = visibleEntryByKnowledgePointId();
     const missing = block.knowledgePointIds.filter((knowledgePointId) => !visibility.has(knowledgePointId));
@@ -436,6 +466,12 @@ export function buildPath1ManualWorksheet({
         questionCount: generatedItems.length,
         path1BlockId: blockId,
         generationKind: block.generationKind,
+        ...(diversitySummary ? {
+          diversityProfileId: block.diversityProfileId,
+          patternFamilyCount: diversitySummary.patternFamilyCount,
+          distinctPromptCapacity: diversitySummary.distinctPromptCapacity,
+          familyCounts: diversitySummary.familyCounts,
+        } : {}),
       },
       warnings,
       errors: [],
@@ -445,6 +481,7 @@ export function buildPath1ManualWorksheet({
       path1BlockId: blockId,
       path1BlockTitle: block.title,
       path1GenerationKind: block.generationKind,
+      path1DiversityProfileId: block.diversityProfileId ?? null,
       manualProgression: true,
       automaticNPlus1: false,
     },
