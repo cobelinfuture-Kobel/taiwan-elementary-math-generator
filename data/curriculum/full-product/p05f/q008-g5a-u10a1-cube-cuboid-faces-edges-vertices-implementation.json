@@ -1,0 +1,113 @@
+{
+  "schemaName": "P05FW5Q008CubeCuboidFacesEdgesVerticesImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice008Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 8,
+    "sliceId": "p05e_q008_r0_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "sourceId": "g5a_u10_5a10a1",
+    "runtimeProfileId": "profile_spatial_solid",
+    "knowledgePointId": "kp_g5a_u10a1_cube_cuboid_faces_edges_vertices",
+    "requiredW5CapabilityIds": ["cap_geometry_domain_validator","cap_geometry_property_reasoning","cap_solid_geometry_representation","cap_spatial_solid_reasoning"]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q007_r0_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "productMergeSha": "0b978af92e463785b6cce6ddc614e260b9ccde18",
+    "exactPagesRunId": "33953512923",
+    "pagesDeploymentRunId": "33953512905",
+    "evidenceArtifactId": "9965609917",
+    "evidenceArtifactDigest": "sha256:6078271f601714ae1806572f2692f689627e58239fe3d33149a80d8a703afd35",
+    "postMergeTriggerEvent": "push",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q008-g5a-u10a1-cube-cuboid-faces-edges-vertices-source-authority-preflight.json",
+    "sourceTitle": "正方體和長方體",
+    "sourcePdfTitle": "meow911_5a10a1_source.pdf",
+    "sourcePages": [1,2],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "directReviewedConcepts": ["CUBE_CUBOID_FACES_EDGES_VERTICES_IDENTIFICATION","CUBE_CUBOID_FIXED_ELEMENT_COUNTS_6_12_8","CUBE_CUBOID_ELEMENT_STRUCTURE_CONDITIONS"],
+    "sourceIdentityAnomalyDisposition": "NON_BLOCKING_EMBEDDED_URL_ALIAS_MATCHING_TITLE_FILE_AND_R02_SOURCE_IDENTITY"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g5a_u10a1_cube_cuboid_faces_edges_vertices_p05f8",
+    "relationFamily": "CUBE_CUBOID_ELEMENT_STRUCTURE",
+    "answerDomain": ["面","稜","頂點","6個面","12條稜","8個頂點","正方體","長方體"],
+    "includedRelations": ["IDENTIFY_CUBE_CUBOID_FACES_EDGES_VERTICES","RECOGNIZE_CUBE_CUBOID_FIXED_ELEMENT_COUNTS","DISTINGUISH_CUBE_CUBOID_ELEMENT_STRUCTURE"],
+    "excludedRelations": ["CUBE_CUBOID_FACE_RELATIONSHIP","CUBE_CUBOID_NET","CUBE_CUBOID_EDGE_LENGTH_RELATION","CUBE_CUBOID_SPATIAL_REASONING","SOLID_MEASUREMENT_OR_FORMULA","APPLICATION_CONTEXT"]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g5a_u10a1_cube_cuboid_elements",
+    "patternSpecIds": ["ps_g5a_u10a1_identify_faces_edges_vertices","ps_g5a_u10a1_recognize_fixed_element_counts","ps_g5a_u10a1_distinguish_cube_cuboid_structure"],
+    "questionMode": "diagram",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false,
+    "maxQuestionCount": 240,
+    "requiresSolidGeometryRepresentation": true
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g5a-u10a1-cube-cuboid-elements-runtime-p05f8.js",
+    "validator": "validateG5AU10A1P05F8Question",
+    "diagramRenderer": "site/modules/renderer/cube-cuboid-elements-diagram.js",
+    "htmlRenderer": "site/modules/renderer/html-renderer.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f8.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f8-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 50,
+    "sourceCountAfter": 51,
+    "visibleKnowledgePointCountBefore": 319,
+    "visibleKnowledgePointCountAfter": 320,
+    "g5aU10a1VisibleCount": 1,
+    "g5aU10a1HiddenPendingCount": 4,
+    "g5aU10a1NotSelectableCount": 4,
+    "questionTypeValue": "diagram",
+    "questionTypeLabel": "圖形題",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "postMergeEvidence": {
+    "workflow": ".github/workflows/p05f-w5-q008-live-pages-e2e.yml",
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "pullRequestTrigger": false,
+    "workflowRunTrigger": false,
+    "waitForExactPagesBytes": true,
+    "sha256ExactDeployedBytes": true,
+    "classicUiGeneratorValidatorWorksheetRendererPrintArtifact": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice008-g5a-u10a1-cube-cuboid-elements.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice008-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q001SemanticsTouched": false,
+    "q002SemanticsTouched": false,
+    "q003SemanticsTouched": false,
+    "q004SemanticsTouched": false,
+    "q005SemanticsTouched": false,
+    "q006SemanticsTouched": false,
+    "q007SemanticsTouched": false,
+    "faceRelationshipTouched": false,
+    "netTouched": false,
+    "edgeLengthRelationTouched": false,
+    "broaderSpatialReasoningTouched": false,
+    "solidMeasurementOrFormulaTouched": false,
+    "applicationContextTouched": false,
+    "q009Touched": false,
+    "frozenQueueAuthorityTouched": false
+  }
+}
