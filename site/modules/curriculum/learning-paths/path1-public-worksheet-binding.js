@@ -13,7 +13,7 @@ export const PATH1_PUBLIC_WORKSHEET_BLOCKS = Object.freeze([
     diversityProfileId: "PATH1_P1_01_TENS_MULTIPLICATION_DIVERSITY_V1",
   }),
   block("P1-02", "多位數×一位數", ["kp_g3a_u03_2digit_by_1digit_carry", "kp_g3a_u03_3digit_by_1digit"], {
-    diversityProfileId: "PATH1_P1_02_MULTI_DIGIT_BY_ONE_DIGIT_DIVERSITY_V1",
+    diversityProfileId: "PATH1_P1_02_MULTI_DIGIT_BY_ONE_DIGIT_DIVERSITY_V2",
   }),
   block("P1-03", "二位數×二位數", ["kp_g4a_u02_2digit_by_2digit"], {
     diversityProfileId: "PATH1_P1_03_TWO_DIGIT_BY_TWO_DIGIT_DIVERSITY_V1",
