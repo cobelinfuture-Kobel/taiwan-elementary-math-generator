@@ -11,6 +11,7 @@ const preflight = JSON.parse(readFileSync(
 
 const EXPECTED_CAPS = [
   "cap_geometry_domain_validator",
+  "cap_geometry_property_reasoning",
   "cap_solid_geometry_representation",
   "cap_spatial_solid_reasoning",
 ];
@@ -94,7 +95,9 @@ test("P05F W5 Q007 locks the spatial-solid runtime profile and exact W5 capabili
     "cap_geometry_domain_validator",
     "cap_solid_geometry_representation",
   ]);
-  assert.deepEqual(runtime.dependencyClosureAddedCapabilityIds, []);
+  assert.deepEqual(runtime.dependencyClosureAddedCapabilityIds, [
+    "cap_geometry_property_reasoning",
+  ]);
   assert.deepEqual(runtime.exactFrozenQueueRequiredW5CapabilityIds, EXPECTED_CAPS);
 });
 
