@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q006_BOUNDED_VALIDATION",
+  "unitId": "g5a_u07_5a07",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {"gateId":"GLOBAL_CONTRACTS","kind":"NODE_TEST","paths":["tests/curriculum/p05f-w5-slice006-g5a-u07-line-symmetry-recognition.test.js","tests/curriculum/p05f-w5-q006-line-symmetry-recognition-source-authority-preflight.test.js","tests/curriculum/p05f-w5-slice006-q005-direct-dependency.test.js"]},
+      {"gateId":"TARGETED_ROUTE_REPLAY","kind":"NODE_RUNNER","path":"tools/curriculum/run-p05f-w5-slice006-classic-ui-acceptance.mjs","runtime":"PLAYWRIGHT_CHROMIUM"}
+    ]
+  }
+}

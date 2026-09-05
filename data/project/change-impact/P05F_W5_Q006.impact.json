@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P05F_W5_Q006",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointId": "kp_g5a_u07_line_symmetry_recognition",
+  "unitExpectedKnowledgePointIds": ["kp_g5a_u07_line_symmetry_recognition"],
+  "unitKnowledgePointGateStatus": {"kp_g5a_u07_line_symmetry_recognition":"PENDING"},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P05F_W5_Q006.validation.json",
+  "changeImpact": {"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":false,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true}
+}
