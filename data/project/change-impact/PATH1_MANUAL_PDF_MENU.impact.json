@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
-  "taskId": "PATH1_P1_03_QUESTION_DIVERSITY_EXPANSION_V1",
+  "taskId": "PATH1_P1_02_ASSESSMENT_FAMILY_CANDIDATE_IMPLEMENTATION_V1",
   "currentScope": "SHARED_RUNTIME",
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/PATH1_MANUAL_PDF_MENU.validation.json",
@@ -11,6 +11,6 @@
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
-    "currentAuthorityChanged": true
+    "currentAuthorityChanged": false
   }
 }
