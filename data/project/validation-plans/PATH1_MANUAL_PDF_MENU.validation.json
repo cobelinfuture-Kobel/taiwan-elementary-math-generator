@@ -1,23 +1,16 @@
 {
   "schemaVersion": "1.0.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
-  "planId": "PATH1_MANUAL_PDF_MENU_BOUNDED_VALIDATION",
-  "unitId": "path1_integer_foundations_manual_pdf",
+  "planId": "PATH1_P1_02_ASSESSMENT_FAMILY_CANDIDATES_BOUNDED_VALIDATION",
+  "unitId": "path1_p1_02_multi_digit_by_one_digit",
   "lanes": {
     "SHARED_RUNTIME_BOUNDED": [
       {
         "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
-          "tests/curriculum/path1-manual-pdf-menu.test.js",
-          "tests/curriculum/path1-p1-03-question-diversity.test.js"
+          "tests/curriculum/path1-p1-02-assessment-family-candidates.test.js"
         ]
-      },
-      {
-        "gateId": "TARGETED_ROUTE_REPLAY",
-        "kind": "NODE_RUNNER",
-        "path": "tools/curriculum/run-path1-manual-pdf-menu-focused.mjs",
-        "runtime": "PLAYWRIGHT_CHROMIUM"
       }
     ]
   }
