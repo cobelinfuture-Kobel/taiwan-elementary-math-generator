@@ -12,6 +12,11 @@ import {
   PATH1_P1_01_KNOWLEDGE_POINT_ID,
 } from "../../../modules/curriculum/learning-paths/path1-p1-01-diversity.js";
 import {
+  buildPath1P102DiversityItems,
+  PATH1_P1_02_DIVERSITY_PROFILE_ID,
+  PATH1_P1_02_KNOWLEDGE_POINT_IDS,
+} from "../../../modules/curriculum/learning-paths/path1-p1-02-diversity.js";
+import {
   buildWorksheetDocumentFromGeneratedItems,
   buildWorksheetDocumentFromPlan,
 } from "./build-worksheet-document.js";
@@ -357,6 +362,32 @@ export function buildPath1ManualWorksheet({
       }]);
     }
     const diversity = buildPath1P101DiversityItems({
+      count,
+      seed: `${generationSeed}:${blockId}`,
+    });
+    if (!diversity.ok) return failed(blockId, diversity.errors);
+    generatedItems = diversity.items;
+    diversitySummary = diversity.summary;
+  } else if (block.diversityProfileId === PATH1_P1_02_DIVERSITY_PROFILE_ID) {
+    const visibility = visibleEntryByKnowledgePointId();
+    const missing = block.knowledgePointIds.filter((knowledgePointId) => !visibility.has(knowledgePointId));
+    if (missing.length > 0) {
+      return failed(blockId, [{ code: "PATH1_KP_NOT_PUBLICLY_VISIBLE", blockId, knowledgePointIds: missing }]);
+    }
+    if (
+      block.knowledgePointIds.length !== PATH1_P1_02_KNOWLEDGE_POINT_IDS.length
+      || block.knowledgePointIds.some((knowledgePointId, index) => (
+        knowledgePointId !== PATH1_P1_02_KNOWLEDGE_POINT_IDS[index]
+      ))
+    ) {
+      return failed(blockId, [{
+        code: "PATH1_DIVERSITY_PROFILE_KP_MISMATCH",
+        blockId,
+        diversityProfileId: block.diversityProfileId,
+        knowledgePointIds: block.knowledgePointIds,
+      }]);
+    }
+    const diversity = buildPath1P102DiversityItems({
       count,
       seed: `${generationSeed}:${blockId}`,
     });
