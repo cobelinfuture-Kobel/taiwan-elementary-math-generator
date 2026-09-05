@@ -3,6 +3,7 @@ import {
   listPath1ManualWorksheetBlocks as listBasePath1ManualWorksheetBlocks,
 } from "./build-path1-manual-worksheet.js";
 import { buildWorksheetDocumentFromGeneratedItems } from "./build-worksheet-document.js";
+import { listVisibleBatchAKnowledgePoints } from "../../../modules/curriculum/registry/batch-a-selector-extension.js";
 import { getPath1PublicWorksheetBlock } from "../../../modules/curriculum/learning-paths/path1-public-worksheet-binding.js";
 import {
   buildPath1P103DiversityItems,
@@ -59,6 +60,17 @@ export function buildPath1ManualWorksheet({
       blockId,
       diversityProfileId: block.diversityProfileId,
       knowledgePointIds: block.knowledgePointIds,
+    }]);
+  }
+
+  const visibleKnowledgePointIds = new Set(
+    listVisibleBatchAKnowledgePoints().map((entry) => entry.knowledgePointId),
+  );
+  if (!visibleKnowledgePointIds.has(PATH1_P1_03_KNOWLEDGE_POINT_ID)) {
+    return failed(blockId, [{
+      code: "PATH1_KP_NOT_PUBLICLY_VISIBLE",
+      blockId,
+      knowledgePointIds: [PATH1_P1_03_KNOWLEDGE_POINT_ID],
     }]);
   }
 
