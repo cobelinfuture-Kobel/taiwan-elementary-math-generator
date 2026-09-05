@@ -12,10 +12,12 @@ import {
   PATH1_P1_01_KNOWLEDGE_POINT_ID,
 } from "../../../modules/curriculum/learning-paths/path1-p1-01-diversity.js";
 import {
-  buildPath1P102DiversityItems,
-  PATH1_P1_02_DIVERSITY_PROFILE_ID,
   PATH1_P1_02_KNOWLEDGE_POINT_IDS,
 } from "../../../modules/curriculum/learning-paths/path1-p1-02-diversity.js";
+import {
+  buildPath1P102PublicDiversityItems,
+  PATH1_P1_02_PUBLIC_DIVERSITY_PROFILE_ID,
+} from "../../../modules/curriculum/learning-paths/path1-p1-02-public-diversity-v2.js";
 import {
   buildWorksheetDocumentFromGeneratedItems,
   buildWorksheetDocumentFromPlan,
@@ -368,7 +370,7 @@ export function buildPath1ManualWorksheet({
     if (!diversity.ok) return failed(blockId, diversity.errors);
     generatedItems = diversity.items;
     diversitySummary = diversity.summary;
-  } else if (block.diversityProfileId === PATH1_P1_02_DIVERSITY_PROFILE_ID) {
+  } else if (block.diversityProfileId === PATH1_P1_02_PUBLIC_DIVERSITY_PROFILE_ID) {
     const visibility = visibleEntryByKnowledgePointId();
     const missing = block.knowledgePointIds.filter((knowledgePointId) => !visibility.has(knowledgePointId));
     if (missing.length > 0) {
@@ -387,7 +389,7 @@ export function buildPath1ManualWorksheet({
         knowledgePointIds: block.knowledgePointIds,
       }]);
     }
-    const diversity = buildPath1P102DiversityItems({
+    const diversity = buildPath1P102PublicDiversityItems({
       count,
       seed: `${generationSeed}:${blockId}`,
     });
