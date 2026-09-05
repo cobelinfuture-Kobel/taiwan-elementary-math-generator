@@ -9,7 +9,8 @@
         "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
-          "tests/curriculum/path1-manual-pdf-menu.test.js"
+          "tests/curriculum/path1-manual-pdf-menu.test.js",
+          "tests/curriculum/path1-p1-03-question-diversity.test.js"
         ]
       },
       {

@@ -1,7 +1,7 @@
 import {
   buildPath1ManualWorksheet,
   listPath1ManualWorksheetBlocks,
-} from "./pipeline/build-path1-manual-worksheet.js";
+} from "./pipeline/build-path1-manual-worksheet-p1-03-extension.js";
 import { printPreviewFrame, renderPreviewFrame } from "./pipeline/render-preview-frame.js";
 
 const blockSelect = document.getElementById("path1-block-select");
