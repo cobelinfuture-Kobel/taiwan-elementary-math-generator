@@ -12,7 +12,9 @@ export const PATH1_PUBLIC_WORKSHEET_BLOCKS = Object.freeze([
   block("P1-01", "十進位乘法原理", ["kp_g3a_u03_10_multiple_by_1digit"], {
     diversityProfileId: "PATH1_P1_01_TENS_MULTIPLICATION_DIVERSITY_V1",
   }),
-  block("P1-02", "多位數×一位數", ["kp_g3a_u03_2digit_by_1digit_carry", "kp_g3a_u03_3digit_by_1digit"]),
+  block("P1-02", "多位數×一位數", ["kp_g3a_u03_2digit_by_1digit_carry", "kp_g3a_u03_3digit_by_1digit"], {
+    diversityProfileId: "PATH1_P1_02_MULTI_DIGIT_BY_ONE_DIGIT_DIVERSITY_V1",
+  }),
   block("P1-03", "二位數×二位數", ["kp_g4a_u02_2digit_by_2digit"]),
   block("P1-04", "多位數×多位數", [
     "kp_g4a_u02_2digit_by_3digit",
