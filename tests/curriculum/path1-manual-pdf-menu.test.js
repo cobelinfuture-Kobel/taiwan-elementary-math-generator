@@ -13,6 +13,15 @@ import {
   validatePath1P101DiversityItem,
 } from "../../site/modules/curriculum/learning-paths/path1-p1-01-diversity.js";
 import {
+  buildPath1P102DiversityItems,
+  PATH1_P1_02_DISTINCT_PROMPT_CAPACITY,
+  PATH1_P1_02_DIVERSITY_PROFILE_ID,
+  PATH1_P1_02_KNOWLEDGE_POINT_IDS,
+  PATH1_P1_02_PATTERN_FAMILIES,
+  PATH1_P1_02_RELATION_MODES,
+  validatePath1P102DiversityItem,
+} from "../../site/modules/curriculum/learning-paths/path1-p1-02-diversity.js";
+import {
   buildPath1ManualWorksheet,
 } from "../../site/assets/browser/pipeline/build-path1-manual-worksheet.js";
 
@@ -50,6 +59,22 @@ function assertNonEmptyRenderableBodies(worksheetDocument, expectedCount, label)
     assert.ok(String(answer?.answerText ?? "").trim().length > 0, `${label}: answer ${index + 1} rendered body empty`);
   }
   return { displayModels, answerKeyItems };
+}
+
+function assertP102OperandScope(knowledgePointId, operand, label) {
+  assert.ok(operand, `${label}: operand missing`);
+  assert.ok(Number.isInteger(operand.multiplicand), `${label}: multiplicand`);
+  assert.ok(Number.isInteger(operand.digit), `${label}: digit`);
+  assert.equal(operand.product, operand.multiplicand * operand.digit, `${label}: product invariant`);
+  assert.ok(operand.digit >= 2 && operand.digit <= 9, `${label}: one-digit multiplier`);
+  if (knowledgePointId === PATH1_P1_02_KNOWLEDGE_POINT_IDS[0]) {
+    assert.ok(operand.multiplicand >= 10 && operand.multiplicand <= 99, `${label}: two-digit range`);
+    assert.ok((operand.multiplicand % 10) * operand.digit >= 10, `${label}: source-backed direct carry`);
+  } else {
+    assert.ok(operand.multiplicand >= 100 && operand.multiplicand <= 999, `${label}: three-digit range`);
+    assert.notEqual(Math.floor(operand.multiplicand / 10) % 10, 0, `${label}: zero-middle routed to P1-05`);
+    assert.notEqual(operand.multiplicand % 10, 0, `${label}: trailing-zero special excluded from P1-02`);
+  }
 }
 
 test("Path1 manual menu exposes exactly P1-01 through P1-27", () => {
@@ -146,6 +171,104 @@ test("P1-01 six-question browser smoke input covers every approved diversity fam
   assert.equal(new Set(result.worksheetDocument.questions.map((question) => question.metadata.path1PatternFamilyId)).size, 6);
   assert.ok(displayModels.some((displayModel) => displayModel.blankedDisplayText.includes("判斷並改正")));
   assert.ok(displayModels.every((displayModel) => String(displayModel.blankedDisplayText ?? "").trim().length > 0));
+});
+
+test("P1-02 stays anchored to the two canonical multi-digit-by-one-digit KPs and approved C0-C1 only", () => {
+  const block = PATH1_PUBLIC_WORKSHEET_BLOCKS.find((entry) => entry.blockId === "P1-02");
+  assert.ok(block);
+  assert.deepEqual(block.knowledgePointIds, PATH1_P1_02_KNOWLEDGE_POINT_IDS);
+  assert.equal(block.diversityProfileId, PATH1_P1_02_DIVERSITY_PROFILE_ID);
+  assert.deepEqual(
+    PATH1_P1_02_PATTERN_FAMILIES.map((family) => family.familyId),
+    ["C0_DIRECT_MULTI_DIGIT_BY_ONE_DIGIT", "C1_PRODUCT_RELATION_SELECTION"],
+  );
+  assert.equal(PATH1_P1_02_PATTERN_FAMILIES.some((family) => family.familyId.includes("MISCONCEPTION")), false);
+  assert.ok(PATH1_P1_02_DISTINCT_PROMPT_CAPACITY >= 120);
+});
+
+test("P1-02 diversity generator supports 120 distinct questions with balanced KP and C0-C1 coverage", () => {
+  const result = buildPath1P102DiversityItems({
+    count: 120,
+    seed: "path1-p1-02-capacity-gate",
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.items.length, 120);
+  assert.equal(new Set(result.items.map((entry) => entry.prompt)).size, 120);
+  assert.equal(result.summary.patternFamilyCount, 2);
+  assert.ok(result.summary.distinctPromptCapacity >= 120);
+  assert.deepEqual(Object.values(result.summary.familyCounts), [60, 60]);
+  assert.deepEqual(Object.values(result.summary.knowledgePointCounts), [60, 60]);
+  for (const relationMode of PATH1_P1_02_RELATION_MODES) {
+    assert.ok(result.summary.relationModeCounts[relationMode] > 0, relationMode);
+  }
+
+  for (const entry of result.items) {
+    assert.equal(entry.metadata.canonicalKnowledgePointMinted, false);
+    assert.equal(entry.metadata.missingDigitInferenceUsed, false);
+    assert.equal(entry.metadata.zeroSpecialCaseRoutedHere, false);
+    assert.equal(validatePath1P102DiversityItem(entry).ok, true, JSON.stringify(entry));
+    if (entry.metadata.path1PatternFamilyId === "C0_DIRECT_MULTI_DIGIT_BY_ONE_DIGIT") {
+      assertP102OperandScope(entry.knowledgePointId, {
+        multiplicand: entry.metadata.multiplicand,
+        digit: entry.metadata.digit,
+        product: entry.metadata.product,
+      }, entry.generatedItemId);
+    } else {
+      assertP102OperandScope(entry.knowledgePointId, entry.metadata.left, `${entry.generatedItemId}:left`);
+      assertP102OperandScope(entry.knowledgePointId, entry.metadata.right, `${entry.generatedItemId}:right`);
+      assert.ok(PATH1_P1_02_RELATION_MODES.includes(entry.metadata.relationMode));
+    }
+  }
+
+  const second = buildPath1P102DiversityItems({
+    count: 120,
+    seed: "path1-p1-02-capacity-gate-second-session",
+  });
+  assert.equal(second.ok, true, JSON.stringify(second.errors));
+  const repeatedPracticeUnion = new Set([
+    ...result.items.map((entry) => entry.prompt),
+    ...second.items.map((entry) => entry.prompt),
+  ]);
+  assert.ok(repeatedPracticeUnion.size >= 180, `repeated-practice union=${repeatedPracticeUnion.size}`);
+});
+
+test("P1-02 public worksheet materializes 120 distinct printable questions without P1-05 or missing-digit leakage", () => {
+  const result = buildPath1ManualWorksheet({
+    blockId: "P1-02",
+    questionCount: 120,
+    generationSeed: "path1-p1-02-public-120",
+    includeAnswerKey: true,
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const questions = result.worksheetDocument.questions;
+  assert.equal(questions.length, 120);
+  assert.equal(new Set(questions.map((question) => question.prompt)).size, 120);
+  assert.deepEqual(
+    [...new Set(questions.map((question) => question.metadata.path1PatternFamilyId))].sort(),
+    PATH1_P1_02_PATTERN_FAMILIES.map((family) => family.familyId).sort(),
+  );
+  assert.deepEqual(Object.values(result.worksheetDocument.report.summary.familyCounts), [60, 60]);
+  assert.equal(result.worksheetDocument.report.summary.diversityProfileId, PATH1_P1_02_DIVERSITY_PROFILE_ID);
+  assert.ok(result.worksheetDocument.report.summary.distinctPromptCapacity >= 120);
+  assert.equal(questions.some((question) => question.knowledgePointId === "kp_g3a_u03_3digit_zero_middle_by_1digit"), false);
+  assert.equal(questions.some((question) => question.knowledgePointId === "kp_g3a_u03_multiplication_missing_digit_inference"), false);
+  assert.ok(questions.every((question) => question.metadata.missingDigitInferenceUsed === false));
+  assertNonEmptyRenderableBodies(result.worksheetDocument, 120, "P1-02-120");
+});
+
+test("P1-02 six-question browser smoke input renders both approved families", () => {
+  const result = buildPath1ManualWorksheet({
+    blockId: "P1-02",
+    questionCount: 6,
+    generationSeed: "path1-p1-02-renderable-body-gate",
+    includeAnswerKey: true,
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  const { displayModels } = assertNonEmptyRenderableBodies(result.worksheetDocument, 6, "P1-02");
+  assert.equal(new Set(result.worksheetDocument.questions.map((question) => question.metadata.path1PatternFamilyId)).size, 2);
+  assert.ok(displayModels.some((displayModel) => (
+    displayModel.blankedDisplayText.includes("○") || displayModel.blankedDisplayText.includes("相同／不同")
+  )));
 });
 
 test("P1-09 is a non-KP difficulty expansion with valid four-digit by two-digit division", () => {
