@@ -21,8 +21,9 @@ import { getPublicControlProfile } from "../../../modules/curriculum/registry/pu
 const P05F1_G3A_U05_SOURCE_ID = "g3a_u05_3a05";
 const P05F2_G3A_U09_SOURCE_ID = "g3a_u09_3a09";
 const P05F3_G3B_U05_SOURCE_ID = "g3b_u05_3b05";
+const P05F4_G4B_U02_SOURCE_ID = "g4b_u02_4b02";
 function isP05FDiagramSourceId(sourceId) {
-  return sourceId === P05F1_G3A_U05_SOURCE_ID || sourceId === P05F2_G3A_U09_SOURCE_ID || sourceId === P05F3_G3B_U05_SOURCE_ID;
+  return sourceId === P05F1_G3A_U05_SOURCE_ID || sourceId === P05F2_G3A_U09_SOURCE_ID || sourceId === P05F3_G3B_U05_SOURCE_ID || sourceId === P05F4_G4B_U02_SOURCE_ID;
 }
 
 function normalizedControls(sourceId, input = {}) {
