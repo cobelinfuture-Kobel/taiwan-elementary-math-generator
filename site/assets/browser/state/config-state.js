@@ -25,8 +25,9 @@ const P05F4_G4B_U02_SOURCE_ID = "g4b_u02_4b02";
 const P05F5_G4B_U10_SOURCE_ID = "g4b_u10_4b10";
 const P05F6_G5A_U07_SOURCE_ID = "g5a_u07_5a07";
 const P05F7_G5A_U10A_SOURCE_ID = "g5a_u10_5a10a";
+const P05F8_G5A_U10A1_SOURCE_ID = "g5a_u10_5a10a1";
 function isP05FDiagramSourceId(sourceId) {
-  return sourceId === P05F1_G3A_U05_SOURCE_ID || sourceId === P05F2_G3A_U09_SOURCE_ID || sourceId === P05F3_G3B_U05_SOURCE_ID || sourceId === P05F4_G4B_U02_SOURCE_ID || sourceId === P05F5_G4B_U10_SOURCE_ID || sourceId === P05F6_G5A_U07_SOURCE_ID || sourceId === P05F7_G5A_U10A_SOURCE_ID;
+  return sourceId === P05F1_G3A_U05_SOURCE_ID || sourceId === P05F2_G3A_U09_SOURCE_ID || sourceId === P05F3_G3B_U05_SOURCE_ID || sourceId === P05F4_G4B_U02_SOURCE_ID || sourceId === P05F5_G4B_U10_SOURCE_ID || sourceId === P05F6_G5A_U07_SOURCE_ID || sourceId === P05F7_G5A_U10A_SOURCE_ID || sourceId === P05F8_G5A_U10A1_SOURCE_ID;
 }
 
 function normalizedControls(sourceId, input = {}) {
