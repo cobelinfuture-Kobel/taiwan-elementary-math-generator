@@ -1,0 +1,137 @@
+{
+  "schemaName": "P05FW5Q006LineSymmetryRecognitionImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice006Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 6,
+    "sliceId": "p05e_q006_r0_g5a_u07_5a07_profile_geometry_property_c1",
+    "sourceId": "g5a_u07_5a07",
+    "runtimeProfileId": "profile_geometry_property",
+    "knowledgePointId": "kp_g5a_u07_line_symmetry_recognition",
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q005_r0_g4b_u10_4b10_profile_spatial_solid_c1",
+    "productMergeSha": "4c25827b55d463892ff165f93227c2a6c82971e8",
+    "exactPagesRunId": "33937587482",
+    "pagesDeploymentRunId": "33937587466",
+    "evidenceArtifactId": "9960703026",
+    "evidenceArtifactDigest": "sha256:af97a7fe0fc90218f65aa89d64352071dc8c93295b9eced81ad0dfd195664787",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q006-g5a-u07-line-symmetry-recognition-source-authority-preflight.json",
+    "sourceTitle": "線對稱圖形",
+    "sourcePdfTitle": "meow911_5a07_source.pdf",
+    "sourcePages": [1],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "directReviewedConcepts": [
+      "LINE_SYMMETRIC_FIGURE_RECOGNITION",
+      "FOLD_OVERLAP_CRITERION",
+      "LINE_SYMMETRIC_VS_NON_SYMMETRIC_CLASSIFICATION"
+    ],
+    "sourceIdentityAnomalyDisposition": "NONE_MATCHING_SOURCE_IDENTITY"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g5a_u07_line_symmetry_recognition_p05f6",
+    "relationFamily": "LINE_SYMMETRY_RECOGNITION",
+    "answerDomain": ["是", "不是", "可以"],
+    "includedRelations": [
+      "IDENTIFY_LINE_SYMMETRIC_FIGURE",
+      "DISTINGUISH_LINE_SYMMETRIC_FROM_NON_SYMMETRIC_FIGURE",
+      "RECOGNIZE_FOLD_OVERLAP_AS_LINE_SYMMETRY_CRITERION"
+    ],
+    "excludedRelations": [
+      "SYMMETRY_AXIS_COUNT",
+      "SYMMETRY_AXIS_LOCATION_OR_CONSTRUCTION",
+      "SYMMETRIC_POINT_DISTANCE",
+      "SYMMETRIC_CORRESPONDING_PARTS_QUANTITATIVE_REASONING",
+      "COMPLETE_SYMMETRIC_FIGURE",
+      "COORDINATE_REFLECTION",
+      "DRAW_OR_CONSTRUCT_SYMMETRIC_FIGURE",
+      "APPLICATION_CONTEXT",
+      "GEOMETRY_FORMULA_OR_MEASUREMENT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g5a_u07_line_symmetry_recognition",
+    "patternSpecIds": [
+      "ps_g5a_u07_identify_line_symmetric_figure",
+      "ps_g5a_u07_distinguish_non_symmetric_figure",
+      "ps_g5a_u07_fold_overlap_criterion"
+    ],
+    "questionMode": "diagram",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false,
+    "maxQuestionCount": 240,
+    "requiresDiagramRepresentation": true
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g5a-u07-line-symmetry-recognition-runtime-p05f6.js",
+    "validator": "validateG5AU07P05F6Question",
+    "diagramRenderer": "site/modules/renderer/line-symmetry-recognition-diagram.js",
+    "htmlRenderer": "site/modules/renderer/html-renderer.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f6.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f6-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 48,
+    "sourceCountAfter": 49,
+    "visibleKnowledgePointCountBefore": 317,
+    "visibleKnowledgePointCountAfter": 318,
+    "g5aU07VisibleCount": 1,
+    "g5aU07HiddenPendingCount": 4,
+    "g5aU07NotSelectableCount": 4,
+    "questionTypeValue": "diagram",
+    "questionTypeLabel": "圖形題",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "postMergeEvidence": {
+    "workflow": ".github/workflows/p05f-w5-q006-live-pages-e2e.yml",
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "pullRequestTrigger": false,
+    "workflowRunTrigger": false,
+    "waitForExactPagesBytes": true,
+    "sha256ExactDeployedBytes": true,
+    "classicUiGeneratorValidatorWorksheetRendererPrintArtifact": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice006-g5a-u07-line-symmetry-recognition.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice006-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q001SemanticsTouched": false,
+    "q002SemanticsTouched": false,
+    "q003SemanticsTouched": false,
+    "q004SemanticsTouched": false,
+    "q005SemanticsTouched": false,
+    "symmetryAxisCountTouched": false,
+    "symmetryAxisLocationOrConstructionTouched": false,
+    "symmetricPointDistanceTouched": false,
+    "completeSymmetricFigureTouched": false,
+    "coordinateReflectionTouched": false,
+    "applicationContextTouched": false,
+    "geometryFormulaOrMeasurementTouched": false,
+    "q007Touched": false,
+    "frozenQueueAuthorityTouched": false
+  }
+}
