@@ -175,7 +175,10 @@ test("P1-03 public 120-question modeling keeps four families and distinct prompt
     new Set(questions.map((item) => item.patternSpecId)),
     new Set(PATH1_P1_03_MULTIPLICATIVE_MODELING_PATTERN_SPEC_IDS),
   );
-  assert.equal(result.worksheetDocument.answerKeyItems.length, 120);
+  const answerKeyCellCount = result.worksheetDocument.answerKeyPages
+    .flatMap((page) => page.cells ?? [])
+    .filter((cell) => cell.cellType === "answerKey").length;
+  assert.equal(answerKeyCellCount, 120);
 });
 
 test("P1-01/P1-02 equalGroupsTransfer remains accepted and unchanged", () => {
