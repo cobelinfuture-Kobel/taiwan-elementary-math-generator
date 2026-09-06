@@ -8,6 +8,7 @@ import { renderSolidShapeClassificationDiagram } from "./solid-shape-classificat
 import { renderCubeCuboidElementsDiagram } from "./cube-cuboid-elements-diagram.js";
 import { renderLargeAreaUnitScaleDiagram } from "./large-area-unit-scale-diagram.js";
 import { renderRightAngleRecognitionDiagram } from "./right-angle-recognition-diagram.js";
+import { renderCircleGeometryPropertyDiagram } from "./circle-geometry-property-diagram.js";
 import { renderFractionNumberLine } from "./fraction-number-line.js";
 import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderMeasurementScale } from "./measurement-scale.js";
@@ -78,7 +79,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderCircleGeometryPropertyDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -97,6 +98,7 @@ function renderGeometryDiagram(model) {
   if (model?.kind === "cube_cuboid_elements_diagram") return renderCubeCuboidElementsDiagram(model);
   if (model?.kind === "large_area_unit_scale_diagram") return renderLargeAreaUnitScaleDiagram(model);
   if (model?.kind === "right_angle_recognition_diagram") return renderRightAngleRecognitionDiagram(model);
+  if (model?.kind === "circle_geometry_property_diagram") return renderCircleGeometryPropertyDiagram(model);
   throw createRendererError("geometry_diagram_invalid", `Unsupported geometry diagram kind '${model?.kind ?? "missing"}'.`);
 }
 
