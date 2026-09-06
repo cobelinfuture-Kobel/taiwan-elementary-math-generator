@@ -1,0 +1,43 @@
+name: Path1 P1-03 Deployed Public Acceptance V1
+
+on:
+  push:
+    branches:
+      - qa-path1-p103-deployed-acceptance-7b44edad
+
+permissions:
+  contents: read
+
+jobs:
+  deployed-acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout QA branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Run deployed P1-03 public acceptance
+        env:
+          PATH1_P103_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/path1/
+          PATH1_P103_DEPLOYMENT_SHA: 7b44edadb519fe430e3403d248d78f8dcb03ba76
+        run: node tools/curriculum/run-path1-p103-deployed-public-acceptance-v1.mjs | tee path1-p103-deployed-public-acceptance-v1.json
+
+      - name: Upload acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: path1-p103-deployed-public-acceptance-v1
+          path: path1-p103-deployed-public-acceptance-v1.json
+          if-no-files-found: error
