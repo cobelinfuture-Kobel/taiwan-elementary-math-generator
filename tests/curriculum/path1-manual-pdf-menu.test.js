@@ -13,14 +13,16 @@ import {
   validatePath1P101DiversityItem,
 } from "../../site/modules/curriculum/learning-paths/path1-p1-01-diversity.js";
 import {
-  buildPath1P102DiversityItems,
-  PATH1_P1_02_DISTINCT_PROMPT_CAPACITY,
-  PATH1_P1_02_DIVERSITY_PROFILE_ID,
   PATH1_P1_02_KNOWLEDGE_POINT_IDS,
-  PATH1_P1_02_PATTERN_FAMILIES,
   PATH1_P1_02_RELATION_MODES,
-  validatePath1P102DiversityItem,
 } from "../../site/modules/curriculum/learning-paths/path1-p1-02-diversity.js";
+import {
+  buildPath1P102PublicDiversityItems,
+  PATH1_P1_02_PUBLIC_DISTINCT_PROMPT_CAPACITY,
+  PATH1_P1_02_PUBLIC_DIVERSITY_PROFILE_ID,
+  PATH1_P1_02_PUBLIC_PATTERN_FAMILIES,
+  validatePath1P102PublicDiversityItem,
+} from "../../site/modules/curriculum/learning-paths/path1-p1-02-public-diversity-v2.js";
 import {
   buildPath1ManualWorksheet,
 } from "../../site/assets/browser/pipeline/build-path1-manual-worksheet.js";
@@ -173,56 +175,72 @@ test("P1-01 six-question browser smoke input covers every approved diversity fam
   assert.ok(displayModels.every((displayModel) => String(displayModel.blankedDisplayText ?? "").trim().length > 0));
 });
 
-test("P1-02 stays anchored to the two canonical multi-digit-by-one-digit KPs and approved C0-C1 only", () => {
+test("P1-02 stays anchored to two canonical KPs and the approved public C0-C3 diversity profile", () => {
   const block = PATH1_PUBLIC_WORKSHEET_BLOCKS.find((entry) => entry.blockId === "P1-02");
   assert.ok(block);
   assert.deepEqual(block.knowledgePointIds, PATH1_P1_02_KNOWLEDGE_POINT_IDS);
-  assert.equal(block.diversityProfileId, PATH1_P1_02_DIVERSITY_PROFILE_ID);
+  assert.equal(block.diversityProfileId, PATH1_P1_02_PUBLIC_DIVERSITY_PROFILE_ID);
   assert.deepEqual(
-    PATH1_P1_02_PATTERN_FAMILIES.map((family) => family.familyId),
-    ["C0_DIRECT_MULTI_DIGIT_BY_ONE_DIGIT", "C1_PRODUCT_RELATION_SELECTION"],
+    PATH1_P1_02_PUBLIC_PATTERN_FAMILIES.map((family) => family.familyId),
+    [
+      "C0_DIRECT_MULTI_DIGIT_BY_ONE_DIGIT",
+      "C1_PRODUCT_RELATION_SELECTION",
+      "C2_PLACE_VALUE_DECOMPOSITION_PRODUCT",
+      "C3_COLUMN_CARRY_TRACE_PRODUCT",
+    ],
   );
-  assert.equal(PATH1_P1_02_PATTERN_FAMILIES.some((family) => family.familyId.includes("MISCONCEPTION")), false);
-  assert.ok(PATH1_P1_02_DISTINCT_PROMPT_CAPACITY >= 120);
+  assert.ok(PATH1_P1_02_PUBLIC_DISTINCT_PROMPT_CAPACITY >= 240);
 });
 
-test("P1-02 diversity generator supports 120 distinct questions with balanced KP and C0-C1 coverage", () => {
-  const result = buildPath1P102DiversityItems({
+test("P1-02 public diversity V2 supports 120 distinct questions with balanced KP and C0-C3 coverage", () => {
+  const result = buildPath1P102PublicDiversityItems({
     count: 120,
-    seed: "path1-p1-02-capacity-gate",
+    seed: "path1-p1-02-public-v2-capacity-gate",
   });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.items.length, 120);
   assert.equal(new Set(result.items.map((entry) => entry.prompt)).size, 120);
-  assert.equal(result.summary.patternFamilyCount, 2);
-  assert.ok(result.summary.distinctPromptCapacity >= 120);
-  assert.deepEqual(Object.values(result.summary.familyCounts), [60, 60]);
+  assert.equal(result.summary.patternFamilyCount, 4);
+  assert.ok(result.summary.distinctPromptCapacity >= 240);
+  assert.deepEqual(Object.values(result.summary.familyCounts), [30, 30, 30, 30]);
   assert.deepEqual(Object.values(result.summary.knowledgePointCounts), [60, 60]);
-  for (const relationMode of PATH1_P1_02_RELATION_MODES) {
-    assert.ok(result.summary.relationModeCounts[relationMode] > 0, relationMode);
-  }
 
+  const relationModeCounts = Object.fromEntries(PATH1_P1_02_RELATION_MODES.map((mode) => [mode, 0]));
   for (const entry of result.items) {
     assert.equal(entry.metadata.canonicalKnowledgePointMinted, false);
     assert.equal(entry.metadata.missingDigitInferenceUsed, false);
     assert.equal(entry.metadata.zeroSpecialCaseRoutedHere, false);
-    assert.equal(validatePath1P102DiversityItem(entry).ok, true, JSON.stringify(entry));
-    if (entry.metadata.path1PatternFamilyId === "C0_DIRECT_MULTI_DIGIT_BY_ONE_DIGIT") {
+    assert.equal(entry.metadata.candidateOnly, false);
+    assert.equal(entry.metadata.publicCutoverApproved, true);
+    assert.equal(validatePath1P102PublicDiversityItem(entry).ok, true, JSON.stringify(entry));
+
+    const familyId = entry.metadata.path1PatternFamilyId;
+    if (familyId === "C0_DIRECT_MULTI_DIGIT_BY_ONE_DIGIT") {
       assertP102OperandScope(entry.knowledgePointId, {
         multiplicand: entry.metadata.multiplicand,
         digit: entry.metadata.digit,
         product: entry.metadata.product,
       }, entry.generatedItemId);
-    } else {
+    } else if (familyId === "C1_PRODUCT_RELATION_SELECTION") {
       assertP102OperandScope(entry.knowledgePointId, entry.metadata.left, `${entry.generatedItemId}:left`);
       assertP102OperandScope(entry.knowledgePointId, entry.metadata.right, `${entry.generatedItemId}:right`);
       assert.ok(PATH1_P1_02_RELATION_MODES.includes(entry.metadata.relationMode));
+      relationModeCounts[entry.metadata.relationMode] += 1;
+    } else {
+      assertP102OperandScope(entry.knowledgePointId, {
+        multiplicand: entry.metadata.multiplicand,
+        digit: entry.metadata.digit,
+        product: entry.metadata.product,
+      }, entry.generatedItemId);
     }
   }
+  for (const relationMode of PATH1_P1_02_RELATION_MODES) {
+    assert.ok(relationModeCounts[relationMode] > 0, relationMode);
+  }
 
-  const second = buildPath1P102DiversityItems({
+  const second = buildPath1P102PublicDiversityItems({
     count: 120,
-    seed: "path1-p1-02-capacity-gate-second-session",
+    seed: "path1-p1-02-public-v2-capacity-gate-second-session",
   });
   assert.equal(second.ok, true, JSON.stringify(second.errors));
   const repeatedPracticeUnion = new Set([
@@ -232,11 +250,11 @@ test("P1-02 diversity generator supports 120 distinct questions with balanced KP
   assert.ok(repeatedPracticeUnion.size >= 180, `repeated-practice union=${repeatedPracticeUnion.size}`);
 });
 
-test("P1-02 public worksheet materializes 120 distinct printable questions without P1-05 or missing-digit leakage", () => {
+test("P1-02 public worksheet materializes C0-C3 at 120 distinct questions without P1-05 or missing-digit leakage", () => {
   const result = buildPath1ManualWorksheet({
     blockId: "P1-02",
     questionCount: 120,
-    generationSeed: "path1-p1-02-public-120",
+    generationSeed: "path1-p1-02-public-v2-120",
     includeAnswerKey: true,
   });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
@@ -245,30 +263,33 @@ test("P1-02 public worksheet materializes 120 distinct printable questions witho
   assert.equal(new Set(questions.map((question) => question.prompt)).size, 120);
   assert.deepEqual(
     [...new Set(questions.map((question) => question.metadata.path1PatternFamilyId))].sort(),
-    PATH1_P1_02_PATTERN_FAMILIES.map((family) => family.familyId).sort(),
+    PATH1_P1_02_PUBLIC_PATTERN_FAMILIES.map((family) => family.familyId).sort(),
   );
-  assert.deepEqual(Object.values(result.worksheetDocument.report.summary.familyCounts), [60, 60]);
-  assert.equal(result.worksheetDocument.report.summary.diversityProfileId, PATH1_P1_02_DIVERSITY_PROFILE_ID);
-  assert.ok(result.worksheetDocument.report.summary.distinctPromptCapacity >= 120);
+  assert.deepEqual(Object.values(result.worksheetDocument.report.summary.familyCounts), [30, 30, 30, 30]);
+  assert.equal(result.worksheetDocument.report.summary.diversityProfileId, PATH1_P1_02_PUBLIC_DIVERSITY_PROFILE_ID);
+  assert.ok(result.worksheetDocument.report.summary.distinctPromptCapacity >= 240);
   assert.equal(questions.some((question) => question.knowledgePointId === "kp_g3a_u03_3digit_zero_middle_by_1digit"), false);
   assert.equal(questions.some((question) => question.knowledgePointId === "kp_g3a_u03_multiplication_missing_digit_inference"), false);
   assert.ok(questions.every((question) => question.metadata.missingDigitInferenceUsed === false));
-  assertNonEmptyRenderableBodies(result.worksheetDocument, 120, "P1-02-120");
+  assert.ok(questions.every((question) => question.metadata.publicCutoverApproved === true));
+  assertNonEmptyRenderableBodies(result.worksheetDocument, 120, "P1-02-V2-120");
 });
 
-test("P1-02 six-question browser smoke input renders both approved families", () => {
+test("P1-02 eight-question browser smoke input renders all four approved public families", () => {
   const result = buildPath1ManualWorksheet({
     blockId: "P1-02",
-    questionCount: 6,
-    generationSeed: "path1-p1-02-renderable-body-gate",
+    questionCount: 8,
+    generationSeed: "path1-p1-02-v2-renderable-body-gate",
     includeAnswerKey: true,
   });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
-  const { displayModels } = assertNonEmptyRenderableBodies(result.worksheetDocument, 6, "P1-02");
-  assert.equal(new Set(result.worksheetDocument.questions.map((question) => question.metadata.path1PatternFamilyId)).size, 2);
-  assert.ok(displayModels.some((displayModel) => (
-    displayModel.blankedDisplayText.includes("○") || displayModel.blankedDisplayText.includes("相同／不同")
-  )));
+  const { displayModels } = assertNonEmptyRenderableBodies(result.worksheetDocument, 8, "P1-02-V2");
+  const familyIds = new Set(result.worksheetDocument.questions.map((question) => question.metadata.path1PatternFamilyId));
+  assert.equal(familyIds.size, 4);
+  assert.ok(familyIds.has("C2_PLACE_VALUE_DECOMPOSITION_PRODUCT"));
+  assert.ok(familyIds.has("C3_COLUMN_CARRY_TRACE_PRODUCT"));
+  assert.ok(displayModels.some((displayModel) => displayModel.blankedDisplayText.includes(" + ")));
+  assert.ok(displayModels.some((displayModel) => displayModel.blankedDisplayText.includes("乘積")));
 });
 
 test("P1-09 is a non-KP difficulty expansion with valid four-digit by two-digit division", () => {
