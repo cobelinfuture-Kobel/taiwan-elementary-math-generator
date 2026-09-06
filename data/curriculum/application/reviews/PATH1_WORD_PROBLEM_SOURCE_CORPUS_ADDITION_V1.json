@@ -1,0 +1,79 @@
+{
+  "schemaName": "Path1WordProblemSourceCorpusAdditionV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_SOURCE_CORPUS_ADDITION_V1",
+  "status": "SOURCE_CORPUS_REGISTERED",
+  "implementationAllowed": false,
+  "taxonomyMutationAllowed": false,
+  "canonicalKnowledgePointMutationAllowed": false,
+  "purpose": "Register two operator-approved Google Drive source corpora for future Path1 word-problem modeling evidence mining without changing the existing taxonomy, canonical KP authority, runtime, validator, renderer, or public route.",
+  "currentPath1Anchor": {
+    "blockId": "P1-12",
+    "title": "乘除互逆",
+    "blockType": "COMPOSITE_KP",
+    "relationKernel": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "unknownRoleRotation": ["totalAmount", "groupCount", "amountPerGroup"],
+    "primaryKnowledgePointIds": ["kp_g3b_u08_total_from_groups", "kp_g3b_u08_group_count_from_total", "kp_g3b_u08_per_group_from_total"],
+    "path1Authority": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json"
+  },
+  "sourceCorpora": [
+    {
+      "sourceCorpusId": "LI_TEACHER_MATH_THINKING_G1_G6",
+      "folderId": "1VHxb5jEkw_xP683wP528HEYFC-_zFIKk",
+      "folderUrl": "https://drive.google.com/drive/folders/1VHxb5jEkw_xP683wP528HEYFC-_zFIKk",
+      "sourceRole": ["STRUCTURED_PROBLEM_SOLVING_PATTERN_EVIDENCE", "RELATION_ROLE_SURFACE_EVIDENCE", "LANGUAGE_AND_SCAFFOLDING_EVIDENCE"],
+      "currentPath1ActiveGrades": [3,4,5,6],
+      "registeredButNotCurrentPath1PriorityGrades": [1,2],
+      "observedTopLevelFiles": [
+        {"fileId":"1q3TLW8vYlDC-zO2N2zOKT5aUJ0Q6snq8","title":"厉老师三年级数学思维讲义.pdf"},
+        {"fileId":"1YGF0ffKRpDglm2cg2-Tr8Ejmr2ktt-x3","title":"厉老师三年级数学思维配套练习题.pdf"},
+        {"fileId":"1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR","title":"厉老师四年级数学思维讲义.pdf"},
+        {"fileId":"1ewWwnh4GayBL9dC-GPLZAJaDJ7egsHKU","title":"厉老师四年级数学思维配套练习题.pdf"},
+        {"fileId":"1ciie6Or7i1bQCVy0Il-pAWhRMfK9pno-","title":"厉老师五年级数学思维课讲义.pdf"},
+        {"fileId":"1wKTQiD40R8-GekxhL3PrBuFiMrLXHHlQ","title":"厉老师五年级数学思维课练习题.pdf"},
+        {"fileId":"1-P0eytL1R3Svoc_C86rJuaMAxcHt9gwz","title":"厉老师六年级数学思维课講義.pdf"},
+        {"fileId":"1y1CVEeeuwaqGrvrVHZYDGMsiyIfY-Ru2","title":"厉老师六年级数学思维课练习题.pdf"},
+        {"fileId":"1Vs69wx801tmqDDo6M1eWsHdNXDgXKxuw","title":"厉老师一年级数学思维课讲义.pdf"},
+        {"fileId":"1NnEEwK9MSg9OfBAdmUvVEq6YfrGdgG9M","title":"厉老师一年级数学思维课练习题.pdf"},
+        {"fileId":"103PF5Jmfkx8V43En2-L98YuizPqay4ws","title":"厉老师二年级数学思维课讲义.pdf"},
+        {"fileId":"1fBHyCRbsY_-_w6CKC7mRQNs3Ebi-uU3x","title":"厉老师二年级数学思维课练习题.pdf"}
+      ]
+    },
+    {
+      "sourceCorpusId": "MULTI_SCHOOL_EXAM_CORPUS_G03_G09",
+      "folderId": "1m8ljMOMb0ugFQCsC76Q1hX9UMRj0Hxpr",
+      "folderUrl": "https://drive.google.com/drive/folders/1m8ljMOMb0ugFQCsC76Q1hX9UMRj0Hxpr",
+      "sourceRole": ["MULTI_SCHOOL_BREADTH_EVIDENCE", "MULTI_PUBLISHER_BREADTH_EVIDENCE", "MULTI_YEAR_EXAM_PHRASE_AND_PATTERN_EVIDENCE"],
+      "currentElementaryActiveGrades": [3,4,5,6],
+      "registeredButOutsideCurrentElementaryScopeGrades": [7,8,9],
+      "observedGradeFolders": [
+        {"grade":3,"folderId":"1cvVIv2IqwCrfHsXnfl4ctlqebcKQY_CT","title":"G03","semesterFolders":["semester_1","semester_2"]},
+        {"grade":4,"folderId":"1X_x2YT0ExzWWYGeL2qPUHhRmdr76TF7y","title":"G04","semesterFolders":["semester_1","semester_2"]},
+        {"grade":5,"folderId":"1Misf8ykEvnffgNLuNPkq1unI3loK_vmj","title":"G05","semesterFolders":["semester_1","semester_2"]},
+        {"grade":6,"folderId":"1M_AnOcwqAbz1oj2A7qnrnrjc2Bz-Tazx","title":"G06","semesterFolders":["semester_1","semester_2"]},
+        {"grade":7,"folderId":"1z-GUHRfDOGfdn-ls-8eOwPCKS6DZ9Hl7","title":"G07","scopeStatus":"REGISTERED_INACTIVE_CURRENT_ELEMENTARY"},
+        {"grade":8,"folderId":"1NdGOq4ojXj738O-2Zn5Q6sJtByrqR7o9","title":"G08","scopeStatus":"REGISTERED_INACTIVE_CURRENT_ELEMENTARY"},
+        {"grade":9,"folderId":"1j7lNm6naccmpf7Tps-aH2JK8js3NK21-","title":"G09","scopeStatus":"REGISTERED_INACTIVE_CURRENT_ELEMENTARY"}
+      ],
+      "observedExamHierarchy": "grade -> semester_1/semester_2 -> midterm/final -> exam files"
+    }
+  ],
+  "authorityBoundary": {
+    "canonicalMathAuthorityRemains": ["482-node R02/R03 canonical KP authority", "Path1 curriculum matrix", "existing G3B-U08 equal-groups KnowledgeOperation authority"],
+    "newSourcesMaySupport": ["pattern breadth mining", "wording and context variation mining", "quantity-role evidence", "unknown-role distribution evidence", "difficulty/scaffolding evidence"],
+    "newSourcesMustNotByThemselves": ["mint a new canonical KnowledgePoint", "override an existing FormalMapping", "expand a numeric envelope without separate authority", "activate a production route", "change Path1 mastery semantics"]
+  },
+  "antiScopeCreep": {
+    "taxonomyReplanning": false,
+    "p101P102PublicSliceModification": false,
+    "p103P104Modification": false,
+    "w5QueueMixing": false,
+    "g07ToG09CurrentElementaryMining": false
+  },
+  "nextUse": {
+    "task": "PATH1_WORD_PROBLEM_P1_12_INVERSE_EQUAL_GROUPS_TRANSFER_PREFLIGHT_V1",
+    "allowedAction": "Use these registered corpora as supplementary evidence while reconciling the already-existing P1-12 authority for total/groupCount/amountPerGroup unknown-role rotation.",
+    "implementationStillRequiresSeparateApproval": true
+  }
+}
