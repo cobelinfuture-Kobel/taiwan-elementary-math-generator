@@ -1,12 +1,15 @@
 export const PATH1_MANUAL_DEFAULT_BLOCK_ID = "P1-01";
 export const PATH1_MANUAL_DEFAULT_PRACTICE_MODE = "arithmetic";
 export const PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE = "equalGroupsTransfer";
+export const PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE = "multiplicativeModelingTransfer";
 
 const PATH1_MANUAL_PRACTICE_MODES = Object.freeze([
   PATH1_MANUAL_DEFAULT_PRACTICE_MODE,
   PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE,
+  PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE,
 ]);
-const TRANSFER_BLOCK_IDS = new Set(["P1-01", "P1-02"]);
+const EQUAL_GROUPS_TRANSFER_BLOCK_IDS = new Set(["P1-01", "P1-02"]);
+const P103_MULTIPLICATIVE_MODELING_BLOCK_IDS = new Set(["P1-03"]);
 
 function warning(code, details = {}) {
   return Object.freeze({ code, ...details });
@@ -47,9 +50,21 @@ export function normalizePath1ManualQueryState(
 
   if (
     normalizedPracticeMode === PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE
-    && !TRANSFER_BLOCK_IDS.has(normalizedBlockId)
+    && !EQUAL_GROUPS_TRANSFER_BLOCK_IDS.has(normalizedBlockId)
   ) {
     warnings.push(warning("PATH1_PUBLIC_TRANSFER_MODE_BLOCK_NOT_SUPPORTED", {
+      path1BlockId: normalizedBlockId,
+      requestedPracticeMode: normalizedPracticeMode,
+      normalized: PATH1_MANUAL_DEFAULT_PRACTICE_MODE,
+    }));
+    normalizedPracticeMode = PATH1_MANUAL_DEFAULT_PRACTICE_MODE;
+  }
+
+  if (
+    normalizedPracticeMode === PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE
+    && !P103_MULTIPLICATIVE_MODELING_BLOCK_IDS.has(normalizedBlockId)
+  ) {
+    warnings.push(warning("PATH1_PUBLIC_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED", {
       path1BlockId: normalizedBlockId,
       requestedPracticeMode: normalizedPracticeMode,
       normalized: PATH1_MANUAL_DEFAULT_PRACTICE_MODE,
@@ -90,5 +105,9 @@ export function serializePath1ManualQueryState(
 }
 
 export function path1ManualBlockSupportsEqualGroupsTransfer(path1BlockId) {
-  return TRANSFER_BLOCK_IDS.has(path1BlockId);
+  return EQUAL_GROUPS_TRANSFER_BLOCK_IDS.has(path1BlockId);
+}
+
+export function path1ManualBlockSupportsP103MultiplicativeModeling(path1BlockId) {
+  return P103_MULTIPLICATIVE_MODELING_BLOCK_IDS.has(path1BlockId);
 }
