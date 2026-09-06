@@ -6,14 +6,15 @@ const ALLOWED_AREA_UNITS=new Set(["公畝","公頃","平方公里"]);
 const ALLOWED_LENGTH_UNITS=new Set(["公尺","公里","公分"]);
 const ALLOWED_SCALE_CLASSES=new Set(["SMALL_LAND","LARGE_LAND","REGION"]);
 const SCALE_LABELS={SMALL_LAND:"較小土地尺度",LARGE_LAND:"大片土地尺度",REGION:"地區範圍尺度"};
+const PROFILE_CORNER_RADII=Object.freeze([2,3.5,5,6.5,8,9.5,11,12.5,14,15.5]);
 function escapeHtml(value){return String(value).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");}
 function valid(model){return Boolean(model)&&model.kind==="large_area_unit_scale_diagram"&&ALLOWED_PROFILES.has(model.profileIndex)&&ALLOWED_SCALES.has(model.scale)&&ALLOWED_SHIFTS.has(model.shiftX)&&ALLOWED_MODES.has(model.diagramMode)&&ALLOWED_AREA_UNITS.has(model.targetUnit)&&ALLOWED_LENGTH_UNITS.has(model.distractorUnit)&&ALLOWED_SCALE_CLASSES.has(model.scaleClass)&&model.scaleLabel===SCALE_LABELS[model.scaleClass]&&[0,1].includes(model.badgeOrder);}
-function rect(x,y,w,h,klass){return `<rect class="${klass}" x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="none" stroke="currentColor" stroke-width="2"/>`;}
+function rect(x,y,w,h,klass,rx=6){return `<rect class="${klass}" x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="none" stroke="currentColor" stroke-width="2"/>`;}
 export function renderLargeAreaUnitScaleDiagram(model){
   if(!valid(model)){const error=new Error("Large-area-unit scale diagram representation is invalid.");error.code="large_area_unit_scale_diagram_invalid";throw error;}
-  const dx=model.shiftX,scale=model.scale,baseW=Math.round(84*scale),baseH=Math.round(42*scale),x=120-baseW/2+dx,y=50-baseH/2;
+  const dx=model.shiftX,scale=model.scale,baseW=Math.round(84*scale),baseH=Math.round(42*scale),x=120-baseW/2+dx,y=50-baseH/2,parcelRadius=PROFILE_CORNER_RADII[model.profileIndex];
   const body=[];
-  body.push(rect(x.toFixed(1),y.toFixed(1),baseW,baseH,"large-area-unit-diagram__area-shape"));
+  body.push(rect(x.toFixed(1),y.toFixed(1),baseW,baseH,"large-area-unit-diagram__area-shape",parcelRadius));
   if(model.diagramMode==="RECOGNIZE_AREA_UNIT"){
     body.push(`<text class="large-area-unit-diagram__unit-token" x="${120+dx}" y="55" text-anchor="middle" font-size="18" font-weight="700">${escapeHtml(model.targetUnit)}</text>`);
   }else if(model.diagramMode==="SELECT_UNIT_BY_SCALE"){
