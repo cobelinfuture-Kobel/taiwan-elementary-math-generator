@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "PATH1_WORD_PROBLEM_P1_12_INVERSE_EQUAL_GROUPS_IMPLEMENTATION_V1_BOUNDED_VALIDATION",
+  "unitId": "path1_p1_12_inverse_equal_groups_transfer",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-word-problem-p1-12-inverse-equal-groups-implementation-v1.test.js",
+          "tests/curriculum/path1-word-problem-p1-12-inverse-equal-groups-transfer-preflight-v1.test.js",
+          "tests/curriculum/path1-word-problem-equal-groups-implementation-v1.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-path1-word-problem-p1-12-inverse-equal-groups-implementation-v1-focused.mjs",
+        "runtime": "NODE_ONLY"
+      },
+      {
+        "gateId": "PATH1_MATRIX_AUTHORITY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-curriculum-matrix.test.js"
+        ]
+      }
+    ]
+  }
+}
