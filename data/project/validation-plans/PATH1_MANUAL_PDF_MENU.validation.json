@@ -1,22 +1,22 @@
 {
   "schemaVersion": "1.0.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
-  "planId": "PATH1_P1_02_PUBLIC_CUTOVER_V2_BOUNDED_VALIDATION",
-  "unitId": "path1_p1_02_multi_digit_by_one_digit",
+  "planId": "PATH1_P1_03_ASSESSMENT_FAMILY_CANDIDATES_V2_BOUNDED_VALIDATION",
+  "unitId": "path1_p1_03_two_digit_by_two_digit",
   "lanes": {
     "SHARED_RUNTIME_BOUNDED": [
       {
         "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
-          "tests/curriculum/path1-p1-02-public-cutover-v2.test.js"
+          "tests/curriculum/path1-p1-03-assessment-family-candidates-v2.test.js"
         ]
       },
       {
         "gateId": "TARGETED_ROUTE_REPLAY",
         "kind": "NODE_RUNNER",
-        "path": "tools/curriculum/run-path1-p1-02-public-cutover-v2-focused.mjs",
-        "runtime": "PLAYWRIGHT_CHROMIUM"
+        "path": "tools/curriculum/run-path1-p1-03-assessment-family-candidates-v2-focused.mjs",
+        "runtime": "NODE_ONLY"
       }
     ]
   }
