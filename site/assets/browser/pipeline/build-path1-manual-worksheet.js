@@ -19,6 +19,14 @@ import {
   PATH1_P1_02_PUBLIC_DIVERSITY_PROFILE_ID,
 } from "../../../modules/curriculum/learning-paths/path1-p1-02-public-diversity-v2.js";
 import {
+  buildPath1EqualGroupsTransferItems,
+  PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE,
+  PATH1_EQUAL_GROUPS_TRANSFER_RELATION_KP_ID,
+} from "../../../modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js";
+import {
+  validatePath1EqualGroupsTransferItems,
+} from "../../../modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js";
+import {
   buildWorksheetDocumentFromGeneratedItems,
   buildWorksheetDocumentFromPlan,
 } from "./build-worksheet-document.js";
@@ -334,15 +342,40 @@ export function buildPath1ManualWorksheet({
   generationSeed = "path1-manual",
   includeAnswerKey = true,
   printLayout = { paperSize: "A4", columns: 3, rowsPerPage: 5, showQuestionNumbers: true },
+  practiceMode = "arithmetic",
 } = {}) {
   const block = getPath1PublicWorksheetBlock(blockId);
   if (!block) return failed(blockId, [{ code: "PATH1_BLOCK_NOT_FOUND", blockId }]);
   const count = Math.max(1, Math.min(120, Number(questionCount) || 20));
   let generatedItems = [];
   let diversitySummary = null;
+  let transferSummary = null;
   const warnings = [];
 
-  if (block.generationKind === "DIFFICULTY_EXPANSION") {
+  if (practiceMode === PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE) {
+    if (!["P1-01", "P1-02"].includes(blockId)) {
+      return failed(blockId, [{ code: "PATH1_TRANSFER_MODE_BLOCK_NOT_SUPPORTED", blockId }]);
+    }
+    const transfer = buildPath1EqualGroupsTransferItems({
+      blockId,
+      count,
+      seed: `${generationSeed}:${blockId}:equal-groups-transfer`,
+      practiceMode,
+    });
+    if (!transfer.ok) return failed(blockId, transfer.errors);
+    const validation = validatePath1EqualGroupsTransferItems(transfer.items);
+    if (!validation.ok) {
+      return failed(blockId, [{
+        code: "PATH1_TRANSFER_VALIDATION_FAILED",
+        blockId,
+        failures: validation.errors,
+      }]);
+    }
+    generatedItems = [...transfer.items];
+    transferSummary = transfer.summary;
+  } else if (practiceMode !== "arithmetic") {
+    return failed(blockId, [{ code: "PATH1_PRACTICE_MODE_NOT_SUPPORTED", blockId, practiceMode }]);
+  } else if (block.generationKind === "DIFFICULTY_EXPANSION") {
     const difficulty = buildFourDigitByTwoDigitItems({ count, seed: generationSeed, blockId });
     if (!difficulty.ok) return failed(blockId, difficulty.errors);
     generatedItems = difficulty.items;
@@ -505,6 +538,14 @@ export function buildPath1ManualWorksheet({
           distinctPromptCapacity: diversitySummary.distinctPromptCapacity,
           familyCounts: diversitySummary.familyCounts,
         } : {}),
+        ...(transferSummary ? {
+          practiceMode: PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE,
+          relationKnowledgePointId: PATH1_EQUAL_GROUPS_TRANSFER_RELATION_KP_ID,
+          semanticPatternSpecIdsUsed: transferSummary.semanticPatternSpecIdsUsed,
+          semanticPatternSpecCounts: transferSummary.semanticPatternSpecCounts,
+          arithmeticKnowledgePointCounts: transferSummary.arithmeticKnowledgePointCounts,
+          distinctPromptCount: transferSummary.distinctPromptCount,
+        } : {}),
       },
       warnings,
       errors: [],
@@ -517,6 +558,11 @@ export function buildPath1ManualWorksheet({
       path1DiversityProfileId: block.diversityProfileId ?? null,
       manualProgression: true,
       automaticNPlus1: false,
+      ...(transferSummary ? {
+        practiceMode: PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE,
+        relationKnowledgePointId: PATH1_EQUAL_GROUPS_TRANSFER_RELATION_KP_ID,
+        semanticPatternSpecIdsUsed: transferSummary.semanticPatternSpecIdsUsed,
+      } : {}),
     },
   });
 
