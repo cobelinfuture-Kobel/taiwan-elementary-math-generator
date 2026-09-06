@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_WORD_PROBLEM_CAPABILITY_INVENTORY_V1_CI_GOVERNANCE_MANIFEST_FIX",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_CURRICULUM_MATRIX_V1.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "planningReadOnlyClassification": {
+    "planningReadOnly": true,
+    "runtimeFilesChanged": false,
+    "taxonomySemanticsChangedByThisRepair": false,
+    "newCanonicalKnowledgePointMinted": false,
+    "publicCutoverPerformed": false,
+    "note": "The active validation classifier has no planning-only curriculum scope. SHARED_RUNTIME_BOUNDED is reused only as the existing bounded no-full-regression/no-global-replay lane for a data/curriculum planning artifact; this manifest does not authorize or claim a runtime modification in PR #795."
+  }
+}
