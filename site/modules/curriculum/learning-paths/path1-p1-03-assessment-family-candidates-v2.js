@@ -158,12 +158,14 @@ function baseMetadata(familyId, facts, answerRole) {
   };
 }
 
-function slotCompletionItem(leftFactor, rightFactor) {
+function slotCompletionItem(leftFactor, rightFactor, forcedMissingSlot = null) {
   const familyId = "C2_PARTIAL_PRODUCT_SLOT_COMPLETION";
   const facts = partialProductFacts(leftFactor, rightFactor);
-  const missingSlot = hashSeed(`${leftFactor}:${rightFactor}:slot`) % 2 === 0
-    ? "TENS_PARTIAL_PRODUCT"
-    : "ONES_PARTIAL_PRODUCT";
+  const missingSlot = forcedMissingSlot ?? (
+    hashSeed(`${leftFactor}:${rightFactor}:slot`) % 2 === 0
+      ? "TENS_PARTIAL_PRODUCT"
+      : "ONES_PARTIAL_PRODUCT"
+  );
   const expectedSlotValue = missingSlot === "TENS_PARTIAL_PRODUCT"
     ? facts.tensPartialProduct
     : facts.onesPartialProduct;
@@ -171,7 +173,7 @@ function slotCompletionItem(leftFactor, rightFactor) {
     ? `${leftFactor} × ${rightFactor}：${leftFactor} × ${facts.tensFactor} = ______；${leftFactor} × ${facts.onesFactor} = ${facts.onesPartialProduct}；最後乘積 = ${facts.product}`
     : `${leftFactor} × ${rightFactor}：${leftFactor} × ${facts.tensFactor} = ${facts.tensPartialProduct}；${leftFactor} × ${facts.onesFactor} = ______；最後乘積 = ${facts.product}`;
   return Object.freeze({
-    generatedItemId: `path1-p1-03-candidate-${familyId}-${leftFactor}-${rightFactor}`,
+    generatedItemId: `path1-p1-03-candidate-${familyId}-${leftFactor}-${rightFactor}-${missingSlot}`,
     prompt,
     answerText: String(expectedSlotValue),
     mode: "numeric",
@@ -245,7 +247,7 @@ function equivalentExpressionItem(leftFactor, rightFactor) {
   });
 }
 
-function alignmentChoices(leftFactor, rightFactor) {
+function alignmentChoices(leftFactor, rightFactor, forcedCorrectLabel = null) {
   const facts = partialProductFacts(leftFactor, rightFactor);
   const correct = {
     text: `十位部分積用 ${leftFactor} × ${facts.tensFactor} = ${facts.tensPartialProduct}，並從十位位置開始對齊`,
@@ -255,22 +257,25 @@ function alignmentChoices(leftFactor, rightFactor) {
     text: `十位部分積只算 ${leftFactor} × ${facts.tensDigit} = ${leftFactor * facts.tensDigit}，並從個位位置開始對齊`,
     isCorrect: false,
   };
-  const ordered = hashSeed(`${leftFactor}:${rightFactor}:alignment`) % 2 === 0
-    ? [correct, wrong]
-    : [wrong, correct];
+  const correctFirst = forcedCorrectLabel === "甲"
+    ? true
+    : forcedCorrectLabel === "乙"
+      ? false
+      : hashSeed(`${leftFactor}:${rightFactor}:alignment`) % 2 === 0;
+  const ordered = correctFirst ? [correct, wrong] : [wrong, correct];
   return ordered.map((choice, index) => Object.freeze({
     label: index === 0 ? "甲" : "乙",
     ...choice,
   }));
 }
 
-function alignmentJudgementItem(leftFactor, rightFactor) {
+function alignmentJudgementItem(leftFactor, rightFactor, forcedCorrectLabel = null) {
   const familyId = "C4_TENS_PARTIAL_PRODUCT_ALIGNMENT_JUDGEMENT";
   const facts = partialProductFacts(leftFactor, rightFactor);
-  const choices = alignmentChoices(leftFactor, rightFactor);
+  const choices = alignmentChoices(leftFactor, rightFactor, forcedCorrectLabel);
   const correct = choices.find((choice) => choice.isCorrect);
   return Object.freeze({
-    generatedItemId: `path1-p1-03-candidate-${familyId}-${leftFactor}-${rightFactor}`,
+    generatedItemId: `path1-p1-03-candidate-${familyId}-${leftFactor}-${rightFactor}-${correct.label}`,
     prompt: `${leftFactor} × ${rightFactor} 的十位部分積，哪個作法正確？甲：${choices[0].text}；乙：${choices[1].text}`,
     answerText: correct.label,
     mode: "choice",
@@ -379,6 +384,24 @@ export function validatePath1P103AssessmentFamilyCandidate(entry) {
   return { ok: errors.length === 0, errors };
 }
 
+function rebalanceFamilySubvariants(familyId, items) {
+  if (familyId === "C2_PARTIAL_PRODUCT_SLOT_COMPLETION") {
+    return items.map((entry, index) => slotCompletionItem(
+      entry.metadata.leftFactor,
+      entry.metadata.rightFactor,
+      index % 2 === 0 ? "TENS_PARTIAL_PRODUCT" : "ONES_PARTIAL_PRODUCT",
+    ));
+  }
+  if (familyId === "C4_TENS_PARTIAL_PRODUCT_ALIGNMENT_JUDGEMENT") {
+    return items.map((entry, index) => alignmentJudgementItem(
+      entry.metadata.leftFactor,
+      entry.metadata.rightFactor,
+      index % 2 === 0 ? "甲" : "乙",
+    ));
+  }
+  return items;
+}
+
 export function buildPath1P103AssessmentFamilyCandidates({
   count = 20,
   seed = "path1-p1-03-assessment-candidates-v2",
@@ -402,7 +425,8 @@ export function buildPath1P103AssessmentFamilyCandidates({
         errors: [{ code: "PATH1_P1_03_ASSESSMENT_CANDIDATE_CAPACITY_FAILED", familyId, requested: needed, available: pool.length }],
       };
     }
-    selected.push(...seededShuffle(pool, `${seed}:${familyId}`).slice(0, needed));
+    const sampled = seededShuffle(pool, `${seed}:${familyId}`).slice(0, needed);
+    selected.push(...rebalanceFamilySubvariants(familyId, sampled));
   }
 
   const items = seededShuffle(selected, `${seed}:cross-family`);
