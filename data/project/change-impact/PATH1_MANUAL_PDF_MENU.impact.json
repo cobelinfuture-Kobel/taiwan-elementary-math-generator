@@ -1,16 +1,16 @@
 {
   "schemaVersion": "1.0.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
-  "taskId": "PATH1_P1_02_ASSESSMENT_FAMILY_PUBLIC_CUTOVER_V1",
+  "taskId": "PATH1_P1_03_ASSESSMENT_FAMILY_CANDIDATES_IMPLEMENTATION_V2",
   "currentScope": "SHARED_RUNTIME",
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/PATH1_MANUAL_PDF_MENU.validation.json",
   "changeImpact": {
     "sharedExecutableChange": true,
-    "publicAuthorityCutover": true,
+    "publicAuthorityCutover": false,
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
-    "currentAuthorityChanged": true
+    "currentAuthorityChanged": false
   }
 }
