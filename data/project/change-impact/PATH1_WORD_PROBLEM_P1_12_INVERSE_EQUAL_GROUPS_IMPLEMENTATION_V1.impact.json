@@ -5,11 +5,11 @@
   "currentScope": "SHARED_RUNTIME",
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/PATH1_WORD_PROBLEM_P1_12_INVERSE_EQUAL_GROUPS_IMPLEMENTATION_V1.validation.json",
-  "classificationNote": "This is a bounded Path1-local runtime addition for P1-12 only. It adds a dedicated inverse equal-groups generator, fail-closed validator, and non-public worksheet adapter. It does not change existing public query state, public Path1 cutover, P1-01/P1-02 transfer semantics, P1-03/P1-04, the Path1 matrix, or canonical G3B-U08 runtime.",
+  "classificationNote": "This is a bounded additive Path1-local runtime capability for P1-12 only. The new generator, fail-closed validator, and non-public worksheet adapter are not wired into any existing public or legal route in this implementation slice. Existing public query state, public Path1 cutover, P1-01/P1-02 transfer semantics, P1-03/P1-04, the Path1 matrix, and canonical G3B-U08 runtime remain unchanged.",
   "changeImpact": {
     "sharedExecutableChange": true,
     "publicAuthorityCutover": false,
-    "legalRouteSemanticsChanged": true,
+    "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
     "currentAuthorityChanged": false
