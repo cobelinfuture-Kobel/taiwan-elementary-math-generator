@@ -12,7 +12,9 @@ const preflight = JSON.parse(fs.readFileSync(
 ));
 const queue = materializeP05EW5DirectProductVerticalSliceQueue();
 const slice = queue.queueEntries[10];
-const mapping = getR04KnowledgePointCapabilityMapping("kp_circle_compass_construction");
+const mappings = Object.fromEntries(
+  (slice?.knowledgePointIds ?? []).map((kpId) => [kpId, getR04KnowledgePointCapabilityMapping(kpId)]),
+);
 
 const report = {
   schemaName: "P05FW5Q011SourceAuthorityPreflightReadbackV1",
@@ -25,9 +27,13 @@ const report = {
   previousSliceExactPagesRunId: preflight.previousSliceD0Evidence.exactPagesRunId,
   primarySourceNodeId: slice?.primarySourceNodeId ?? null,
   runtimeProfileId: slice?.primaryRuntimeProfileId ?? null,
-  r04ClassificationRuleId: mapping?.classificationRuleId ?? null,
-  r04AppliedModifierIds: mapping?.appliedModifierIds ?? [],
+  knowledgePointCount: slice?.knowledgePointCount ?? null,
   knowledgePointIds: slice?.knowledgePointIds ?? [],
+  r04Mappings: Object.fromEntries(Object.entries(mappings).map(([kpId, mapping]) => [kpId, {
+    primaryRuntimeProfileId: mapping?.primaryRuntimeProfileId ?? null,
+    classificationRuleId: mapping?.classificationRuleId ?? null,
+    appliedModifierIds: mapping?.appliedModifierIds ?? [],
+  }])),
   requiredW5CapabilityIds: slice?.requiredW5CapabilityIds ?? [],
   runtimeCapabilityAuthority: preflight.runtimeCapabilityAuthority,
   sourcePdfTitle: preflight.sourceAuthority.sourcePdfTitle,
@@ -35,17 +41,19 @@ const report = {
   sourceUrlFromMetadata: preflight.sourceAuthority.sourceUrlFromMetadata,
   sourceIdentityDisposition: preflight.sourceAuthority.sourceIdentityAnomaly.disposition,
   reviewedPages: preflight.sourceAuthority.reviewedPages,
-  sourcePanelTitle: preflight.sourceAuthority.page1DirectEvidence.panelTitle,
-  sourceDirectConcepts: preflight.sourceAuthority.page1DirectEvidence.directlySupportedConcepts,
-  canonicalNameZh: preflight.r02ReviewedCandidateAuthority.canonicalNameZh,
-  capabilityStatement: preflight.r02ReviewedCandidateAuthority.capabilityStatement,
-  reasoningInvariant: preflight.r02ReviewedCandidateAuthority.reasoningInvariant,
-  r02Category: preflight.r02ReviewedCandidateAuthority.category,
-  applicationSuitability: preflight.r02ReviewedCandidateAuthority.applicationSuitability,
+  sourceEvidence: {
+    compassConstructionPanelTitle: preflight.sourceAuthority.page1DirectEvidence.compassConstruction.panelTitle,
+    radiusDiameterMeasureCompare: preflight.sourceAuthority.page1DirectEvidence.radiusDiameterMeasureCompare,
+    pointPositionAndIntersectionPage1: preflight.sourceAuthority.page1DirectEvidence.pointPositionAndIntersection,
+    page2: preflight.sourceAuthority.page2DirectEvidence,
+  },
+  r02ReviewedCandidateAuthorities: preflight.r02ReviewedCandidateAuthorities,
   includedRelations: preflight.q011ScopeLock.includedRelations,
+  protectedExistingSameSourceKnowledgePointIds: preflight.q011ScopeLock.protectedExistingSameSourceKnowledgePointIds,
   excludedKnowledgePointIdsFromSameSource: preflight.q011ScopeLock.excludedKnowledgePointIdsFromSameSource,
   sourceRefAmbiguity: preflight.preflightDecision.sourceRefAmbiguity,
   manualSourceChoiceRequired: preflight.preflightDecision.manualSourceChoiceRequired,
+  atomicThreeKnowledgePointSliceLocked: preflight.preflightDecision.atomicThreeKnowledgePointSliceLocked,
   postMergeEvidenceTriggerPolicy: preflight.postMergeEvidenceTriggerPolicy,
   nextTaskRequiresSeparateImplementationApproval: preflight.preflightDecision.nextTaskRequiresSeparateImplementationApproval,
   nextTask: preflight.preflightDecision.nextTask,
