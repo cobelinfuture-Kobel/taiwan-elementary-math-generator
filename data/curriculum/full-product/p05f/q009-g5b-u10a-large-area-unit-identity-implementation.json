@@ -1,0 +1,134 @@
+{
+  "schemaName": "P05FW5Q009LargeAreaUnitIdentityImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice009Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 9,
+    "sliceId": "p05e_q009_r0_g5b_u10_5b10a_profile_geometry_formula_c1",
+    "sourceId": "g5b_u10_5b10a",
+    "runtimeProfileId": "profile_geometry_formula",
+    "knowledgePointId": "kp_g5b_u10a_large_area_unit_identity",
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q008_r0_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "productMergeSha": "80e6463ef66abbcafdeec4f4931f3536403a92a9",
+    "exactPagesRunId": "34000572190",
+    "pagesDeploymentRunId": "34000572146",
+    "evidenceArtifactId": "9979367617",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q009-g5b-u10a-large-area-unit-identity-source-authority-preflight.json",
+    "sourceTitle": "生活中的大單位",
+    "sourcePdfTitle": "meow911_5b10a_source.pdf",
+    "sourcePages": [1],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "directReviewedConcepts": [
+      "ARE_HECTARE_SQUARE_KILOMETER_AS_LARGE_AREA_UNITS",
+      "LAND_OR_REGION_AREA_UNIT_SCALE_FIT",
+      "AREA_UNIT_DISTINCT_FROM_LENGTH_UNIT"
+    ],
+    "sourceIdentityDisposition": "MATCHING_QUEUE_R02_DRIVE_METADATA_AND_PDF_FILE_IDENTITY"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g5b_u10a_large_area_unit_identity_p05f9",
+    "relationFamily": "LARGE_AREA_UNIT_IDENTITY",
+    "answerDomain": ["公畝", "公頃", "平方公里"],
+    "includedRelations": [
+      "RECOGNIZE_ARE_HECTARE_SQUARE_KILOMETER_AS_AREA_UNITS",
+      "SELECT_LARGE_AREA_UNIT_BY_LAND_OR_REGION_SCALE",
+      "DISTINGUISH_LARGE_AREA_UNIT_FROM_LENGTH_UNIT"
+    ],
+    "excludedRelations": [
+      "HECTARE_SQUARE_METER_CONVERSION",
+      "SQUARE_KILOMETER_HECTARE_CONVERSION",
+      "METRIC_TON_KILOGRAM_CONVERSION",
+      "LARGE_UNIT_ESTIMATION_APPLICATION",
+      "AREA_UNIT_CONVERSION_ARITHMETIC",
+      "AREA_FORMULA_CALCULATION",
+      "APPLICATION_CONTEXT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g5b_u10a_large_area_unit_identity",
+    "patternSpecIds": [
+      "ps_g5b_u10a_recognize_large_area_units",
+      "ps_g5b_u10a_select_large_area_unit_by_scale",
+      "ps_g5b_u10a_distinguish_area_unit_from_length_unit"
+    ],
+    "questionMode": "diagram",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false,
+    "maxQuestionCount": 240,
+    "requiresGeometryDiagramRepresentation": true,
+    "frozenProfileCategoryMismatchAcknowledged": true
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g5b-u10a-large-area-unit-identity-runtime-p05f9.js",
+    "validator": "validateG5BU10AP05F9Question",
+    "diagramRenderer": "site/modules/renderer/large-area-unit-scale-diagram.js",
+    "htmlRenderer": "site/modules/renderer/html-renderer.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f9.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f9-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 51,
+    "sourceCountAfter": 51,
+    "visibleKnowledgePointCountBefore": 320,
+    "visibleKnowledgePointCountAfter": 321,
+    "g5bU10aVisibleCount": 2,
+    "g5bU10aHiddenPendingCount": 3,
+    "g5bU10aNotSelectableCount": 3,
+    "existingSourceUnitNumericRoutePreserved": true,
+    "questionTypeValue": "diagram",
+    "questionTypeLabel": "圖形題",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "postMergeEvidence": {
+    "workflow": ".github/workflows/p05f-w5-q009-live-pages-e2e.yml",
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "pullRequestTrigger": false,
+    "workflowRunTrigger": false,
+    "waitForExactPagesBytes": true,
+    "sha256ExactDeployedBytes": true,
+    "classicUiGeneratorValidatorWorksheetRendererPrintArtifact": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice009-g5b-u10a-large-area-unit-identity.test.js",
+    "directDependencyTest": "tests/curriculum/p05f-w5-slice009-direct-dependencies.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice009-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q008SemanticsTouched": false,
+    "p04f19MetricTonSemanticsTouched": false,
+    "hectareSquareMeterConversionTouched": false,
+    "squareKilometerHectareConversionTouched": false,
+    "largeUnitEstimationApplicationTouched": false,
+    "areaUnitConversionArithmeticTouched": false,
+    "areaFormulaCalculationTouched": false,
+    "applicationContextTouched": false,
+    "q010Touched": false,
+    "frozenQueueAuthorityTouched": false
+  }
+}
