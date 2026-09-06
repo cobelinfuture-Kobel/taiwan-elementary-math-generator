@@ -56,6 +56,12 @@ async function waitForGenerated(page, count) {
   return frameBody.innerText();
 }
 
+async function transferOptionDisabled(page) {
+  return page
+    .locator('#path1-practice-mode option[value="equalGroupsTransfer"]')
+    .evaluate((option) => option.disabled);
+}
+
 const server = createStaticServer();
 await new Promise((resolve, reject) => {
   server.once("error", reject);
@@ -75,7 +81,7 @@ try {
   await page.goto(`${baseUrl}/path1/`, { waitUntil: "networkidle" });
   invariant(await page.locator("#path1-block-select").inputValue() === "P1-01", "PATH1_BROWSER_DEFAULT_BLOCK_MISMATCH");
   invariant(await page.locator("#path1-practice-mode").inputValue() === "arithmetic", "PATH1_BROWSER_DEFAULT_PRACTICE_MODE_MISMATCH");
-  invariant(!(await page.locator('#path1-practice-mode option[value="equalGroupsTransfer"]').isDisabled()), "PATH1_BROWSER_P101_TRANSFER_SHOULD_BE_ENABLED");
+  invariant(!(await transferOptionDisabled(page)), "PATH1_BROWSER_P101_TRANSFER_SHOULD_BE_ENABLED");
 
   await page.locator("#path1-question-count").fill("8");
   await page.locator("#path1-practice-mode").selectOption("equalGroupsTransfer");
@@ -87,14 +93,14 @@ try {
 
   await page.locator("#path1-block-select").selectOption("P1-03");
   invariant(await page.locator("#path1-practice-mode").inputValue() === "arithmetic", "PATH1_BROWSER_UNSUPPORTED_BLOCK_NOT_NORMALIZED");
-  invariant(await page.locator('#path1-practice-mode option[value="equalGroupsTransfer"]').isDisabled(), "PATH1_BROWSER_P103_TRANSFER_NOT_DISABLED");
+  invariant(await transferOptionDisabled(page), "PATH1_BROWSER_P103_TRANSFER_NOT_DISABLED");
   const p103Url = new URL(page.url());
   invariant(p103Url.searchParams.get("path1BlockId") === "P1-03", "PATH1_BROWSER_P103_QUERY_BLOCK_MISMATCH");
   invariant(p103Url.searchParams.get("practiceMode") === "arithmetic", "PATH1_BROWSER_P103_QUERY_MODE_NOT_NORMALIZED");
   invariant((await page.locator("#path1-status-panel").innerText()).includes("已切回算式練習"), "PATH1_BROWSER_NORMALIZATION_STATUS_MISSING");
 
   await page.locator("#path1-block-select").selectOption("P1-04");
-  invariant(await page.locator('#path1-practice-mode option[value="equalGroupsTransfer"]').isDisabled(), "PATH1_BROWSER_P104_TRANSFER_NOT_DISABLED");
+  invariant(await transferOptionDisabled(page), "PATH1_BROWSER_P104_TRANSFER_NOT_DISABLED");
 
   await page.goto(`${baseUrl}/path1/?path1BlockId=P1-02&practiceMode=equalGroupsTransfer`, { waitUntil: "networkidle" });
   invariant(await page.locator("#path1-block-select").inputValue() === "P1-02", "PATH1_BROWSER_QUERY_BLOCK_RESTORE_FAILED");
