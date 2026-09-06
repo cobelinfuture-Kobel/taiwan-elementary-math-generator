@@ -26,12 +26,16 @@ const P05F5_G4B_U10_SOURCE_ID = "g4b_u10_4b10";
 const P05F6_G5A_U07_SOURCE_ID = "g5a_u07_5a07";
 const P05F7_G5A_U10A_SOURCE_ID = "g5a_u10_5a10a";
 const P05F8_G5A_U10A1_SOURCE_ID = "g5a_u10_5a10a1";
-function isP05FDiagramSourceId(sourceId) {
-  return sourceId === P05F1_G3A_U05_SOURCE_ID || sourceId === P05F2_G3A_U09_SOURCE_ID || sourceId === P05F3_G3B_U05_SOURCE_ID || sourceId === P05F4_G4B_U02_SOURCE_ID || sourceId === P05F5_G4B_U10_SOURCE_ID || sourceId === P05F6_G5A_U07_SOURCE_ID || sourceId === P05F7_G5A_U10A_SOURCE_ID || sourceId === P05F8_G5A_U10A1_SOURCE_ID;
+const P05F9_G5B_U10A_SOURCE_ID = "g5b_u10_5b10a";
+const P05F9_G5B_U10A_KP_ID = "kp_g5b_u10a_large_area_unit_identity";
+function isP05FDiagramSelection(sourceId, input = {}) {
+  if (sourceId === P05F1_G3A_U05_SOURCE_ID || sourceId === P05F2_G3A_U09_SOURCE_ID || sourceId === P05F3_G3B_U05_SOURCE_ID || sourceId === P05F4_G4B_U02_SOURCE_ID || sourceId === P05F5_G4B_U10_SOURCE_ID || sourceId === P05F6_G5A_U07_SOURCE_ID || sourceId === P05F7_G5A_U10A_SOURCE_ID || sourceId === P05F8_G5A_U10A1_SOURCE_ID) return true;
+  const selected = input.selectedKnowledgePointIds ?? input.knowledgePointIds ?? [];
+  return sourceId === P05F9_G5B_U10A_SOURCE_ID && input.selectionMode !== "sourceUnit" && selected.includes(P05F9_G5B_U10A_KP_ID);
 }
 
 function normalizedControls(sourceId, input = {}) {
-  if (isP05FDiagramSourceId(sourceId)) return { questionMode: "diagram" };
+  if (isP05FDiagramSelection(sourceId, input)) return { questionMode: "diagram" };
   const profile = getFullProductPublicControlProfile(sourceId);
   const normalized = {};
   if (profile?.questionTypeControl.supported) normalized.questionMode = normalizeFullProductPublicControlValue(profile, "questionTypeControl", input.questionMode);
@@ -81,10 +85,14 @@ function browserContextMode() {
 
 export function createConfigState(options = {}) {
   const state = core.createConfigState(options);
-  applyControlsToState(state, options.queryState ?? {});
+  applyControlsToState(state, { ...(options.queryState ?? {}), ...(state.batchA ?? {}) });
   return applyGlobalLayoutToState(state, options.queryState ?? {}, { suppressInitialDefaultMigration: true });
 }
-export function setBatchASourceId(state, sourceId) { core.setBatchASourceId(state, sourceId); return applyControlsToState(state, {}); }
+export function setBatchASourceId(state, sourceId) { core.setBatchASourceId(state, sourceId); return applyControlsToState(state, state.batchA ?? {}); }
+export function setBatchASelectionMode(state, value) { core.setBatchASelectionMode(state, value); return applyControlsToState(state, state.batchA ?? {}); }
+export function setBatchASelectedKnowledgePointIds(state, value = []) { core.setBatchASelectedKnowledgePointIds(state, value); return applyControlsToState(state, state.batchA ?? {}); }
+export function setBatchASelectedPatternGroupIds(state, value = []) { core.setBatchASelectedPatternGroupIds(state, value); return applyControlsToState(state, state.batchA ?? {}); }
+export function setBatchASelectorSelection(state, patch = {}) { core.setBatchASelectorSelection(state, patch); return applyControlsToState(state, state.batchA ?? {}); }
 export function setBatchAPrintLayout(state, patch = {}) {
   applyGlobalLayoutToState(state, { columns: patch.columns ?? state?.batchA?.columns, rowsPerPage: patch.rowsPerPage ?? state?.batchA?.rowsPerPage });
   if (state?.batchA?.sourceId === G4B_U04_SOURCE_ID) {
@@ -109,7 +117,7 @@ export function getBatchAWorksheetPlan(state) {
     printLayout: { ...plan.printLayout, columns: input.columns, rowsPerPage: input.rowsPerPage },
     globalLayoutNormalization: globalLayout,
   };
-  if (isP05FDiagramSourceId(plan.sourceId)) {
+  if (isP05FDiagramSelection(plan.sourceId, input)) {
     return { ...common, questionMode: "diagram", publicControls: { questionMode: "diagram" }, genericFallback: false, freeFormAI: false };
   }
   const profile = getFullProductPublicControlProfile(plan.sourceId);
@@ -132,7 +140,7 @@ export function getBatchAWorksheetPlan(state) {
 
 function setControl(state, field, value, controlName) {
   if (!state?.batchA) return state;
-  if (isP05FDiagramSourceId(state.batchA.sourceId) && field === "questionMode") {
+  if (isP05FDiagramSelection(state.batchA.sourceId, state.batchA) && field === "questionMode") {
     state.batchA.questionMode = "diagram";
   } else if (state.batchA.sourceId === G4B_U04_SOURCE_ID && field === "layoutMode") {
     if (G4B_U04_PUBLIC_CONTROLS.layoutModes.includes(value)) state.batchA[field] = value;
