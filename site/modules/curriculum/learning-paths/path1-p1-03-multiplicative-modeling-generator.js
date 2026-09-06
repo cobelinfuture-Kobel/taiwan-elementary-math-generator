@@ -12,6 +12,18 @@ import {
 } from "./path1-p1-03-multiplicative-modeling-patterns.js";
 import { validatePath1P103MultiplicativeModelingItem } from "./path1-p1-03-multiplicative-modeling-validator.js";
 
+export const PATH1_P1_03_MULTIPLICATIVE_MODELING_BLOCK_ID = "P1-03";
+export const PATH1_P1_03_MULTIPLICATIVE_MODELING_ARITHMETIC_SOURCE_ID = "g4a_u02_4a02";
+export const PATH1_P1_03_MULTIPLICATIVE_MODELING_SEMANTIC_SOURCE_ID = "g3b_u08_3b08";
+
+function issue(code, details = {}) {
+  return Object.freeze({ code, ...details });
+}
+
+function failed(errors) {
+  return Object.freeze({ ok: false, items: Object.freeze([]), errors: Object.freeze(errors), summary: null });
+}
+
 function hashSeed(input) {
   let hash = 2166136261;
   for (const char of String(input)) {
@@ -34,7 +46,6 @@ function seededShuffle(values, seed) {
 
 function allocateCounts(total, itemCount, seed) {
   const counts = Array.from({ length: itemCount }, () => 0);
-  if (total < 1 || itemCount < 1) return counts;
   const base = Math.floor(total / itemCount);
   const remainder = total % itemCount;
   counts.fill(base);
@@ -53,7 +64,7 @@ const TWO_DIGIT_FACTOR_PAIRS = Object.freeze(
     }))),
 );
 
-function buildItem({ patternSpec, familyIndex, pair }) {
+function materializeItem({ patternSpec, familyIndex, pair, sequenceNumber }) {
   const amountPerGroup = pair.leftFactor;
   const groupCount = pair.rightFactor;
   const totalAmount = amountPerGroup * groupCount;
@@ -69,8 +80,15 @@ function buildItem({ patternSpec, familyIndex, pair }) {
     amountPerGroup,
     groupCount,
   });
+  const equationModel = `${amountPerGroup} × ${groupCount} = ${totalAmount}`;
+  const answerText = `${equationModel}；答：${totalAmount}${contextEntry.answerUnit}`;
+  const semanticRoleBinding = Object.freeze({
+    leftFactor: "amountPerGroup",
+    rightFactor: "groupCount",
+    product: "totalAmount",
+  });
   const metadata = Object.freeze({
-    path1BlockId: "P1-03",
+    path1BlockId: PATH1_P1_03_MULTIPLICATIVE_MODELING_BLOCK_ID,
     practiceMode: PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
     patternSpecId: patternSpec.patternSpecId,
     sourceParentPatternSpecId: patternSpec.sourceParentPatternSpecId,
@@ -94,19 +112,18 @@ function buildItem({ patternSpec, familyIndex, pair }) {
     groupUnit: contextEntry.groupUnit,
     answerUnit: contextEntry.answerUnit,
     equation: `${amountPerGroup} * ${groupCount} = ${totalAmount}`,
-    semanticRoleBinding: Object.freeze({
-      leftFactor: "amountPerGroup",
-      rightFactor: "groupCount",
-      product: "totalAmount",
-    }),
+    semanticRoleBinding,
     semanticCommutativeRoleSwapAllowed: false,
+    keywordToOperationSelectionAllowed: false,
     singleRelationOnly: true,
     unitConversionUsed: false,
     applicationPromptUsed: true,
     relationPromptUsed: true,
+    canonicalKnowledgePointMinted: false,
     masteryCredit: PATH1_P1_03_MULTIPLICATIVE_MODELING_MASTERY_CREDIT,
     publicCutoverApplied: false,
   });
+
   return Object.freeze({
     generatedItemId: [
       "path1-p1-03-modeling",
@@ -114,24 +131,60 @@ function buildItem({ patternSpec, familyIndex, pair }) {
       contextEntry.contextVariantId,
       amountPerGroup,
       groupCount,
+      sequenceNumber,
     ].join("-"),
     prompt,
-    answerText: `${totalAmount}${contextEntry.answerUnit}`,
-    mode: "semantic",
+    answerText,
+    mode: "application",
     operationFamilyId: PATH1_P1_03_MULTIPLICATIVE_MODELING_OPERATION_FAMILY_ID,
-    sourceNodeId: "g4a_u02_4a02",
+    sourceNodeId: PATH1_P1_03_MULTIPLICATIVE_MODELING_ARITHMETIC_SOURCE_ID,
+    sourceIds: Object.freeze([
+      PATH1_P1_03_MULTIPLICATIVE_MODELING_ARITHMETIC_SOURCE_ID,
+      PATH1_P1_03_MULTIPLICATIVE_MODELING_SEMANTIC_SOURCE_ID,
+    ]),
     knowledgePointId: PATH1_P1_03_MULTIPLICATIVE_MODELING_ARITHMETIC_KP_ID,
+    patternSpecId: patternSpec.patternSpecId,
+    path1BlockId: PATH1_P1_03_MULTIPLICATIVE_MODELING_BLOCK_ID,
+    arithmeticKnowledgePointId: PATH1_P1_03_MULTIPLICATIVE_MODELING_ARITHMETIC_KP_ID,
+    relationKnowledgePointId: PATH1_P1_03_MULTIPLICATIVE_MODELING_RELATION_KP_ID,
+    relationId: PATH1_P1_03_MULTIPLICATIVE_MODELING_RELATION_ID,
+    contextVariantId: contextEntry.contextVariantId,
+    unknownRole: "totalAmount",
+    amountPerGroup,
+    groupCount,
+    totalAmount,
+    leftFactor: amountPerGroup,
+    rightFactor: groupCount,
+    product: totalAmount,
+    equationModel,
+    finalAnswer: totalAmount,
+    finalAnswerUnit: contextEntry.answerUnit,
+    semanticRoleBinding,
     metadata,
   });
 }
 
 export function buildPath1P103MultiplicativeModelingItems({
+  blockId = PATH1_P1_03_MULTIPLICATIVE_MODELING_BLOCK_ID,
   count = 20,
-  seed = "path1-p1-03-multiplicative-modeling",
+  seed,
+  practiceMode = PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
 } = {}) {
-  const requested = Math.max(1, Math.min(120, Number(count) || 20));
+  if (blockId !== PATH1_P1_03_MULTIPLICATIVE_MODELING_BLOCK_ID) {
+    return failed([issue("PATH1_P103_MODELING_BLOCK_NOT_SUPPORTED", { blockId })]);
+  }
+  if (practiceMode !== PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE) {
+    return failed([issue("PATH1_P103_MODELING_PRACTICE_MODE_INVALID", { practiceMode })]);
+  }
+  if (!Number.isInteger(count) || count < 1 || count > 120) {
+    return failed([issue("PATH1_P103_MODELING_COUNT_INVALID", { count })]);
+  }
+  if (typeof seed !== "string" || seed.trim().length === 0) {
+    return failed([issue("PATH1_P103_MODELING_SEED_REQUIRED")]);
+  }
+
   const familyCounts = allocateCounts(
-    requested,
+    count,
     PATH1_P1_03_MULTIPLICATIVE_MODELING_PATTERN_SPECS.length,
     `${seed}:families`,
   );
@@ -144,36 +197,33 @@ export function buildPath1P103MultiplicativeModelingItems({
       TWO_DIGIT_FACTOR_PAIRS,
       `${seed}:${patternSpec.patternSpecId}:pairs`,
     ).slice(0, needed);
-    selected.push(...pairs.map((pair) => buildItem({ patternSpec, familyIndex, pair })));
+    selected.push(...pairs.map((pair) => ({ patternSpec, familyIndex, pair })));
   }
 
-  const items = seededShuffle(selected, `${seed}:cross-family`);
+  const ordered = seededShuffle(selected, `${seed}:cross-family`);
+  const items = ordered.map((candidate, index) => materializeItem({
+    ...candidate,
+    sequenceNumber: index + 1,
+  }));
   const validationFailures = items
     .map((entry, index) => ({ index, validation: validatePath1P103MultiplicativeModelingItem(entry) }))
     .filter(({ validation }) => !validation.ok);
   if (validationFailures.length > 0) {
-    return Object.freeze({
-      ok: false,
-      items: Object.freeze([]),
-      errors: Object.freeze([{ code: "PATH1_P1_03_MODELING_VALIDATION_FAILED", failures: validationFailures }]),
-      summary: null,
-    });
+    return failed([issue("PATH1_P103_MODELING_VALIDATION_FAILED", { failures: validationFailures })]);
   }
 
-  const duplicatePromptCount = items.length - new Set(items.map((entry) => entry.prompt)).size;
-  if (duplicatePromptCount !== 0) {
-    return Object.freeze({
-      ok: false,
-      items: Object.freeze([]),
-      errors: Object.freeze([{ code: "PATH1_P1_03_MODELING_DUPLICATE_PROMPT", duplicatePromptCount }]),
-      summary: null,
-    });
+  const distinctPromptCount = new Set(items.map((entry) => entry.prompt)).size;
+  if (distinctPromptCount !== items.length) {
+    return failed([issue("PATH1_P103_MODELING_DUPLICATE_PROMPT", {
+      generated: items.length,
+      distinct: distinctPromptCount,
+    })]);
   }
 
   const familySummary = Object.fromEntries(
     PATH1_P1_03_MULTIPLICATIVE_MODELING_PATTERN_SPECS.map(({ patternSpecId }) => [
       patternSpecId,
-      items.filter((entry) => entry.metadata.patternSpecId === patternSpecId).length,
+      items.filter((entry) => entry.patternSpecId === patternSpecId).length,
     ]),
   );
   const contextSummary = Object.fromEntries(
@@ -181,8 +231,8 @@ export function buildPath1P103MultiplicativeModelingItems({
       patternSpec.contexts.map(({ contextVariantId }) => {
         const key = `${patternSpec.patternSpecId}:${contextVariantId}`;
         return [key, items.filter((entry) => (
-          entry.metadata.patternSpecId === patternSpec.patternSpecId
-          && entry.metadata.contextVariantId === contextVariantId
+          entry.patternSpecId === patternSpec.patternSpecId
+          && entry.contextVariantId === contextVariantId
         )).length];
       })),
   );
@@ -192,20 +242,21 @@ export function buildPath1P103MultiplicativeModelingItems({
     items: Object.freeze(items),
     errors: Object.freeze([]),
     summary: Object.freeze({
-      requested,
+      blockId: PATH1_P1_03_MULTIPLICATIVE_MODELING_BLOCK_ID,
+      practiceMode: PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+      requested: count,
       generated: items.length,
       patternFamilyCount: PATH1_P1_03_MULTIPLICATIVE_MODELING_PATTERN_SPECS.length,
+      patternSpecIdsUsed: Object.freeze(Object.keys(familySummary).filter((key) => familySummary[key] > 0)),
       familyCounts: Object.freeze(familySummary),
       contextCounts: Object.freeze(contextSummary),
-      distinctPromptCount: new Set(items.map((entry) => entry.prompt)).size,
+      distinctPromptCount,
       relationId: PATH1_P1_03_MULTIPLICATIVE_MODELING_RELATION_ID,
       unknownRole: "totalAmount",
       arithmeticKnowledgePointId: PATH1_P1_03_MULTIPLICATIVE_MODELING_ARITHMETIC_KP_ID,
       relationKnowledgePointId: PATH1_P1_03_MULTIPLICATIVE_MODELING_RELATION_KP_ID,
-      minAmountPerGroup: Math.min(...items.map((entry) => entry.metadata.amountPerGroup)),
-      maxAmountPerGroup: Math.max(...items.map((entry) => entry.metadata.amountPerGroup)),
-      minGroupCount: Math.min(...items.map((entry) => entry.metadata.groupCount)),
-      maxGroupCount: Math.max(...items.map((entry) => entry.metadata.groupCount)),
+      deterministicReplay: true,
+      canonicalKnowledgePointMinted: false,
     }),
   });
 }
