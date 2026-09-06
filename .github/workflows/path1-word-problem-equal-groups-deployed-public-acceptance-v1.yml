@@ -1,0 +1,53 @@
+name: Path1 Equal Groups Deployed Public Acceptance V1
+
+on:
+  push:
+    branches:
+      - path1-word-problem-equal-groups-deployed-public-acceptance-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PATH1_EQUAL_GROUPS_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/path1/
+  PATH1_EQUAL_GROUPS_DEPLOYMENT_SHA: 74cff6c0388fcf26ac91935eb9f4d9a500a59a5b
+
+jobs:
+  deployed-public-acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout acceptance harness
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Confirm deployed Path1 URL is reachable
+        run: |
+          curl --fail --silent --show-error --location \
+            "${PATH1_EQUAL_GROUPS_SITE_URL}?acceptance=PATH1_WORD_PROBLEM_EQUAL_GROUPS_DEPLOYED_PUBLIC_ACCEPTANCE_V1" \
+            > /tmp/path1-deployed.html
+          test -s /tmp/path1-deployed.html
+          grep -q "Path 1" /tmp/path1-deployed.html
+
+      - name: Run deployed Path1 equal-groups focused acceptance
+        run: node tools/curriculum/run-path1-word-problem-equal-groups-deployed-public-acceptance-v1.mjs
+
+      - name: Upload acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: path1-word-problem-equal-groups-deployed-public-acceptance-v1
+          if-no-files-found: warn
+          retention-days: 30
+          path: artifacts/path1-word-problem-equal-groups-deployed-public-acceptance-v1/
