@@ -1,0 +1,229 @@
+{
+  "schemaName": "P05FW5Q011CircleCompassConstructionSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q011_CircleCompassConstruction_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 11,
+    "sliceId": "p05e_q011_r1_g3a_u09_3a09_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice011Implementation",
+    "previousSliceId": "p05e_q010_r1_g3a_u05_3a05_profile_geometry_property_c1",
+    "primarySourceNodeId": "g3a_u09_3a09",
+    "intraWavePrerequisiteRank": 1,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "knowledgePointIds": [
+      "kp_circle_compass_construction"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_construction",
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q010_r1_g3a_u05_3a05_profile_geometry_property_c1",
+    "productMergeSha": "5d8b37c17474259f223b1751ec77a23ce5d316f2",
+    "exactPagesRunId": "34028015591",
+    "pagesDeploymentRunId": "34028015568",
+    "evidenceArtifactId": "9987690405",
+    "evidenceArtifactDigest": "sha256:cac179e8a85d393adac21510ebcc2ffea3fe68efa9eeeecad17e21d8f1d21b0e",
+    "postMergeTriggerEvent": "push",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g3a_u09_3a09",
+    "sourceTitle": "圓",
+    "sourcePdfTitle": "meow911_3a09_circle.pdf",
+    "sourcePdfDriveFileId": "1nvx2cakQe_A5HqTi6u6MWhVrPi6D32IL",
+    "sourceMetadataDriveFileId": "1yih0bHxQUSuGCyD_9lp9Ey4ULy7QBp6o",
+    "verificationNotesDriveFileId": "10vibFtZAvwGu3PscBZE7X4qyQ2gNyKVC",
+    "sourceUrlFromMetadata": "https://meow911.com/3a09/",
+    "pageCount": 2,
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "page1DirectEvidence": {
+      "targetPanel": "MIDDLE_RIGHT_COMPASS_CIRCLE_CONSTRUCTION",
+      "panelTitle": "畫圓的方法",
+      "visibleLabels": [
+        "尖針",
+        "半徑",
+        "鉛筆心"
+      ],
+      "constructionDiagramObserved": true,
+      "directlySupportedConcepts": [
+        "COMPASS_POINT_FIXED_AT_CENTER",
+        "COMPASS_OPENING_EQUALS_RADIUS",
+        "COMPASS_ROTATION_TRACES_CIRCLE"
+      ],
+      "supportingConstructionPanelsVisible": [
+        "CONCENTRIC_CIRCLE_CONSTRUCTION",
+        "FOLD_LINE_RADIUS_CONSTRUCTION"
+      ],
+      "samePagePanelsExplicitlyOutsideQ011": [
+        "CIRCLE_PART_NAMES",
+        "RADIUS_DIAMETER_PROPERTY",
+        "RADIUS_DIAMETER_MEASUREMENT",
+        "COMPASS_SEGMENT_MEASUREMENT",
+        "COMPASS_SEGMENT_COMPARISON",
+        "TWO_CIRCLE_INTERNAL_TANGENCY"
+      ]
+    },
+    "page2BoundaryEvidence": {
+      "targetConstructionEvidencePresent": false,
+      "visiblePanels": [
+        "兩個圓 共用半徑",
+        "兩個圓外切"
+      ],
+      "panelsExplicitlyOutsideQ011": [
+        "TWO_CIRCLE_SHARED_RADIUS_RELATION",
+        "TWO_CIRCLE_INTERSECTION_RELATION",
+        "TWO_CIRCLE_EXTERNAL_TANGENCY"
+      ]
+    },
+    "sourceIdentityAnomaly": {
+      "embeddedHeaderUrl": "https://meow911.com/3b06/",
+      "queueAndDriveSourceUrl": "https://meow911.com/3a09/",
+      "queueAndDriveSourceNodeId": "g3a_u09_3a09",
+      "fileName": "meow911_3a09_circle.pdf",
+      "disposition": "RECORDED_NON_BLOCKING_EMBEDDED_HEADER_URL_MISMATCH",
+      "sourceRefAmbiguity": false
+    },
+    "driveMetadataReadback": {
+      "metadataManualReviewed": false,
+      "metadataExtractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g3a_u09_3a09",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "knowledgePointId": "kp_circle_compass_construction",
+    "canonicalNameZh": "用圓規畫圓",
+    "capabilityStatement": "學生能以指定圓心與半徑使用圓規畫圓。",
+    "reasoningInvariant": "圓規針腳固定於圓心，筆尖與圓心距離始終等於半徑。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_NOT_APPLICABLE"
+  },
+  "sourceConstraintReconciliation": {
+    "directPdfSupportsR02KnowledgePointIdentity": true,
+    "directPdfSupportsCompassPointFixedAtCenter": true,
+    "directPdfSupportsRadiusAsCompassOpening": true,
+    "directPdfSupportsCompassRotationConstruction": true,
+    "directConstructionEvidenceConcentratedOnPage1": true,
+    "page2ReviewedForScopeBoundaryOnly": true,
+    "concentricAndFoldLineConstructionVariantsAppearOnPage1": true,
+    "concentricAndFoldLineVariantsAllowedByThisPreflight": false,
+    "embeddedHeaderUrlMismatchIsNonBlocking": true
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_geometry_property",
+    "profileRequiredCapabilityIds": [
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "appliedModifierIds": [
+      "mod_geometry_construction"
+    ],
+    "modifierAddedRequiredCapabilityIds": [
+      "cap_geometry_construction"
+    ],
+    "dependencyClosureAddedCapabilityIds": [],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_construction",
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "r02CandidateCategory": "geometry",
+    "frozenProfileClassificationRule": "rule_geometry_property",
+    "profileCategoryMismatchAcknowledged": false,
+    "profileCategoryMismatchDisposition": "NONE"
+  },
+  "q011ScopeLock": {
+    "includedRelations": [
+      "CONSTRUCT_CIRCLE_WITH_COMPASS_FROM_SPECIFIED_CENTER_AND_RADIUS",
+      "KEEP_COMPASS_POINT_FIXED_AT_CENTER",
+      "KEEP_COMPASS_OPENING_EQUAL_TO_RADIUS",
+      "ROTATE_COMPASS_TO_TRACE_CIRCLE"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": [
+      "kp_circle_center_radius_diameter"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_circle_center_radius_diameter",
+      "kp_circle_radius_diameter_measure_compare",
+      "kp_circle_point_position_and_intersection"
+    ],
+    "excludedRelations": [
+      "CIRCLE_PART_LABEL_IDENTIFICATION",
+      "RADIUS_DIAMETER_MEASUREMENT",
+      "COMPUTE_RADIUS_FROM_DIAMETER",
+      "COMPUTE_DIAMETER_FROM_RADIUS",
+      "COMPARE_RADIUS_DIAMETER_MEASUREMENTS",
+      "CIRCLE_POINT_POSITION",
+      "TWO_CIRCLE_INTERSECTION",
+      "TWO_CIRCLE_TANGENCY",
+      "COMPASS_LENGTH_COMPARISON",
+      "CONCENTRIC_CIRCLE_CONSTRUCTION",
+      "FOLD_LINE_RADIUS_CONSTRUCTION",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresGeometryDiagramRepresentation": true,
+    "requiresGeometryConstructionCapability": true,
+    "applicationSuitabilityFromR02": "APPLICATION_NOT_APPLICABLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q002SameSourceProductSemanticsTouched": false,
+    "q012OrLaterTouched": false
+  },
+  "postMergeEvidenceTriggerPolicy": {
+    "effectiveFromQueuePosition": 3,
+    "provenPriorRunIds": [
+      "33926418642",
+      "33934940413",
+      "33937587482",
+      "33950114817",
+      "33953512923",
+      "34000572190",
+      "34013051969",
+      "34028015591"
+    ],
+    "latestProvenRunId": "34028015591",
+    "singlePullRequestOrchestratorMustRemain": true,
+    "postMergeWorkflowPullRequestTriggerAllowed": false,
+    "perQWorkflowRunTriggerAllowed": false,
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "qSpecificPathsMustBeDerivedFromExactImplementationDiff": true,
+    "broadHistoricalSharedPathFanoutForbidden": true,
+    "mustWaitForMatchingPagesDeployment": true,
+    "mustVerifyExactDeployedBytesBySha256": true,
+    "mustExerciseClassicUiGeneratorValidatorWorksheetRendererPrintArtifact": true,
+    "materializeWorkflowDuringImplementationOrPostMergeEvidenceTask": true
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ011ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice011Implementation"
+  }
+}
