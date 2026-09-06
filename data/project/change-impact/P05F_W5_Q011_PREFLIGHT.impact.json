@@ -5,10 +5,14 @@
   "currentScope": "SHARED_RUNTIME",
   "currentKnowledgePointId": "kp_circle_compass_construction",
   "unitExpectedKnowledgePointIds": [
-    "kp_circle_compass_construction"
+    "kp_circle_compass_construction",
+    "kp_circle_point_position_and_intersection",
+    "kp_circle_radius_diameter_measure_compare"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_circle_compass_construction": "PREFLIGHT_ONLY"
+    "kp_circle_compass_construction": "PREFLIGHT_ONLY",
+    "kp_circle_point_position_and_intersection": "PREFLIGHT_ONLY",
+    "kp_circle_radius_diameter_measure_compare": "PREFLIGHT_ONLY"
   },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P05F_W5_Q011_PREFLIGHT.validation.json",
