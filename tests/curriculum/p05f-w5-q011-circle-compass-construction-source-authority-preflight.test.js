@@ -14,6 +14,12 @@ const r02Chunk = JSON.parse(readFileSync(
   "utf8",
 ));
 
+const EXPECTED_KPS = [
+  "kp_circle_compass_construction",
+  "kp_circle_point_position_and_intersection",
+  "kp_circle_radius_diameter_measure_compare",
+];
+
 const EXPECTED_CAPS = [
   "cap_geometry_construction",
   "cap_geometry_diagram_representation",
@@ -45,7 +51,9 @@ test("P05F W5 Q011 frozen queue identity remains exact and Q010 D0 is satisfied"
   assert.equal(slice.primarySourceNodeId, "g3a_u09_3a09");
   assert.equal(slice.intraWavePrerequisiteRank, 1);
   assert.equal(slice.primaryRuntimeProfileId, "profile_geometry_property");
-  assert.deepEqual(slice.knowledgePointIds, ["kp_circle_compass_construction"]);
+  assert.equal(slice.knowledgePointCount, 3);
+  assert.deepEqual(slice.knowledgePointIds, EXPECTED_KPS);
+  assert.deepEqual(preflight.queueAuthority.knowledgePointIds, EXPECTED_KPS);
   assert.deepEqual(slice.requiredW5CapabilityIds, EXPECTED_CAPS);
   assert.deepEqual(preflight.queueAuthority.requiredW5CapabilityIds, EXPECTED_CAPS);
 
@@ -69,16 +77,21 @@ test("P05F W5 Q011 locks the current Drive PDF identity and full-page visual sou
   assert.equal(preflight.sourceAuthority.sourceUrlFromMetadata, "https://meow911.com/3a09/");
   assert.equal(preflight.sourceAuthority.reviewMethod, "FULL_PAGE_VISUAL_READBACK");
   assert.deepEqual(preflight.sourceAuthority.reviewedPages, [1, 2]);
-  assert.equal(preflight.sourceAuthority.page1DirectEvidence.targetPanel, "MIDDLE_RIGHT_COMPASS_CIRCLE_CONSTRUCTION");
-  assert.equal(preflight.sourceAuthority.page1DirectEvidence.panelTitle, "畫圓的方法");
-  assert.deepEqual(preflight.sourceAuthority.page1DirectEvidence.visibleLabels, ["尖針", "半徑", "鉛筆心"]);
-  assert.equal(preflight.sourceAuthority.page1DirectEvidence.constructionDiagramObserved, true);
-  assert.deepEqual(preflight.sourceAuthority.page1DirectEvidence.directlySupportedConcepts, [
+
+  const construction = preflight.sourceAuthority.page1DirectEvidence.compassConstruction;
+  assert.equal(construction.targetPanel, "MIDDLE_RIGHT_COMPASS_CIRCLE_CONSTRUCTION");
+  assert.equal(construction.panelTitle, "畫圓的方法");
+  assert.deepEqual(construction.visibleLabels, ["尖針", "半徑", "鉛筆心"]);
+  assert.equal(construction.constructionDiagramObserved, true);
+  assert.deepEqual(construction.directlySupportedConcepts, [
     "COMPASS_POINT_FIXED_AT_CENTER",
     "COMPASS_OPENING_EQUALS_RADIUS",
     "COMPASS_ROTATION_TRACES_CIRCLE",
   ]);
-  assert.equal(preflight.sourceAuthority.page2BoundaryEvidence.targetConstructionEvidencePresent, false);
+
+  assert.ok(preflight.sourceAuthority.page1DirectEvidence.radiusDiameterMeasureCompare.visiblePanels.includes("圓的半徑與直徑"));
+  assert.ok(preflight.sourceAuthority.page1DirectEvidence.pointPositionAndIntersection.visiblePanels.includes("TWO_CIRCLE_INTERNAL_TANGENCY"));
+  assert.deepEqual(preflight.sourceAuthority.page2DirectEvidence.visiblePanels, ["兩個圓 共用半徑", "兩個圓外切"]);
   assert.equal(preflight.sourceAuthority.sourceIdentityAnomaly.disposition, "RECORDED_NON_BLOCKING_EMBEDDED_HEADER_URL_MISMATCH");
   assert.equal(preflight.sourceAuthority.sourceIdentityAnomaly.sourceRefAmbiguity, false);
   assert.equal(preflight.sourceAuthority.driveMetadataReadback.metadataManualReviewed, false);
@@ -87,7 +100,7 @@ test("P05F W5 Q011 locks the current Drive PDF identity and full-page visual sou
   assert.equal(preflight.sourceAuthority.driveMetadataReadback.reviewStatusUse, "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF");
 });
 
-test("P05F W5 Q011 locks the exact R02 compass-construction candidate and excludes sibling source candidates", () => {
+test("P05F W5 Q011 locks all three exact R02 candidates and protects only the already-shipped Q002 sibling", () => {
   const source = r02Chunk.sourceRecords.find((row) => row.sourceNodeId === "g3a_u09_3a09");
   assert.ok(source);
   assert.equal(source.sourceTitle, "圓");
@@ -95,70 +108,101 @@ test("P05F W5 Q011 locks the exact R02 compass-construction candidate and exclud
   assert.equal(source.pageCount, 2);
   assert.deepEqual(source.reviewedPages, [1, 2]);
 
-  const candidate = source.candidates.find((row) => row.knowledgePointId === "kp_circle_compass_construction");
-  assert.ok(candidate);
-  assert.equal(candidate.canonicalNameZh, "用圓規畫圓");
-  assert.equal(candidate.capabilityStatement, "學生能以指定圓心與半徑使用圓規畫圓。");
-  assert.equal(candidate.reasoningInvariant, "圓規針腳固定於圓心，筆尖與圓心距離始終等於半徑。");
-  assert.equal(candidate.category, "geometry");
-  assert.deepEqual(candidate.evidencePages, [1, 2]);
-  assert.equal(candidate.applicationSuitability, "APPLICATION_NOT_APPLICABLE");
+  const expected = {
+    kp_circle_compass_construction: {
+      canonicalNameZh: "用圓規畫圓",
+      capabilityStatement: "學生能以指定圓心與半徑使用圓規畫圓。",
+      reasoningInvariant: "圓規針腳固定於圓心，筆尖與圓心距離始終等於半徑。",
+      applicationSuitability: "APPLICATION_NOT_APPLICABLE",
+    },
+    kp_circle_point_position_and_intersection: {
+      canonicalNameZh: "圓內外與圓的相交關係",
+      capabilityStatement: "學生能判斷點在圓內、圓上或圓外，並辨認兩圓相交、相切或分離。",
+      reasoningInvariant: "點到圓心距離與半徑的比較決定位置；兩圓圓心距離決定交會狀態。",
+      applicationSuitability: "APPLICATION_COMPATIBLE",
+    },
+    kp_circle_radius_diameter_measure_compare: {
+      canonicalNameZh: "半徑直徑測量與比較",
+      capabilityStatement: "學生能由圖形測量、比較或反求圓的半徑與直徑。",
+      reasoningInvariant: "直徑等於半徑的2倍，測量線段必須通過圓心。",
+      applicationSuitability: "APPLICATION_COMPATIBLE",
+    },
+  };
 
-  assert.equal(preflight.r02ReviewedCandidateAuthority.canonicalNameZh, candidate.canonicalNameZh);
-  assert.equal(preflight.r02ReviewedCandidateAuthority.capabilityStatement, candidate.capabilityStatement);
-  assert.equal(preflight.r02ReviewedCandidateAuthority.reasoningInvariant, candidate.reasoningInvariant);
-
-  for (const forbiddenKp of [
-    "kp_circle_center_radius_diameter",
-    "kp_circle_radius_diameter_measure_compare",
-    "kp_circle_point_position_and_intersection",
-  ]) {
-    assert.ok(preflight.q011ScopeLock.excludedKnowledgePointIdsFromSameSource.includes(forbiddenKp));
+  for (const kpId of EXPECTED_KPS) {
+    const candidate = source.candidates.find((row) => row.knowledgePointId === kpId);
+    const locked = preflight.r02ReviewedCandidateAuthorities.find((row) => row.knowledgePointId === kpId);
+    assert.ok(candidate);
+    assert.ok(locked);
+    assert.equal(candidate.canonicalNameZh, expected[kpId].canonicalNameZh);
+    assert.equal(candidate.capabilityStatement, expected[kpId].capabilityStatement);
+    assert.equal(candidate.reasoningInvariant, expected[kpId].reasoningInvariant);
+    assert.equal(candidate.category, "geometry");
+    assert.deepEqual(candidate.evidencePages, [1, 2]);
+    assert.equal(candidate.applicationSuitability, expected[kpId].applicationSuitability);
+    assert.equal(locked.canonicalNameZh, candidate.canonicalNameZh);
+    assert.equal(locked.capabilityStatement, candidate.capabilityStatement);
+    assert.equal(locked.reasoningInvariant, candidate.reasoningInvariant);
+    assert.equal(locked.applicationSuitability, candidate.applicationSuitability);
   }
+
+  assert.deepEqual(preflight.q011ScopeLock.includedKnowledgePointIds, EXPECTED_KPS);
+  assert.deepEqual(preflight.q011ScopeLock.protectedExistingSameSourceKnowledgePointIds, ["kp_circle_center_radius_diameter"]);
+  assert.deepEqual(preflight.q011ScopeLock.excludedKnowledgePointIdsFromSameSource, ["kp_circle_center_radius_diameter"]);
 });
 
-test("P05F W5 Q011 reconciles direct PDF construction evidence without admitting sibling construction variants", () => {
+test("P05F W5 Q011 reconciles direct visual evidence with R02 where point-position wording is not explicit", () => {
   const reconciliation = preflight.sourceConstraintReconciliation;
-  assert.equal(reconciliation.directPdfSupportsR02KnowledgePointIdentity, true);
+  assert.equal(reconciliation.directPdfSupportsAllThreeQ011KnowledgePointIdentities, true);
   assert.equal(reconciliation.directPdfSupportsCompassPointFixedAtCenter, true);
   assert.equal(reconciliation.directPdfSupportsRadiusAsCompassOpening, true);
   assert.equal(reconciliation.directPdfSupportsCompassRotationConstruction, true);
-  assert.equal(reconciliation.directConstructionEvidenceConcentratedOnPage1, true);
-  assert.equal(reconciliation.page2ReviewedForScopeBoundaryOnly, true);
+  assert.equal(reconciliation.directPdfSupportsRadiusDiameterMeasureCompare, true);
+  assert.equal(reconciliation.directPdfSupportsTwoCircleIntersectionOrTangencyRelations, true);
+  assert.equal(reconciliation.pointPositionSubrelationExplicitlyObservedInCurrentVisualReadback, false);
+  assert.equal(reconciliation.pointPositionSubrelationAuthority, "R02_REVIEWED_CANDIDATE_REASONING_INVARIANT");
   assert.equal(reconciliation.concentricAndFoldLineConstructionVariantsAppearOnPage1, true);
   assert.equal(reconciliation.concentricAndFoldLineVariantsAllowedByThisPreflight, false);
+  assert.equal(reconciliation.genericCompassSegmentComparisonAllowedByThisPreflight, false);
   assert.equal(reconciliation.embeddedHeaderUrlMismatchIsNonBlocking, true);
 });
 
-test("P05F W5 Q011 locks compass construction only and preserves Q002 plus future same-source semantics", () => {
-  assert.deepEqual(preflight.q011ScopeLock.includedRelations, [
-    "CONSTRUCT_CIRCLE_WITH_COMPASS_FROM_SPECIFIED_CENTER_AND_RADIUS",
-    "KEEP_COMPASS_POINT_FIXED_AT_CENTER",
-    "KEEP_COMPASS_OPENING_EQUAL_TO_RADIUS",
-    "ROTATE_COMPASS_TO_TRACE_CIRCLE",
-  ]);
-  assert.deepEqual(preflight.q011ScopeLock.protectedExistingSameSourceKnowledgePointIds, [
-    "kp_circle_center_radius_diameter",
-  ]);
+test("P05F W5 Q011 locks the atomic three-KP semantic surface and preserves Q002 plus Q012-or-later", () => {
+  const included = preflight.q011ScopeLock.includedRelations;
   for (const relation of [
-    "CIRCLE_PART_LABEL_IDENTIFICATION",
-    "RADIUS_DIAMETER_MEASUREMENT",
+    "CONSTRUCT_CIRCLE_WITH_COMPASS_FROM_SPECIFIED_CENTER_AND_RADIUS",
+    "CLASSIFY_POINT_INSIDE_ON_OUTSIDE_CIRCLE",
+    "CLASSIFY_TWO_CIRCLE_INTERSECTION",
+    "CLASSIFY_TWO_CIRCLE_TANGENCY",
+    "CLASSIFY_TWO_CIRCLE_SEPARATION",
+    "MEASURE_CIRCLE_RADIUS_FROM_DIAGRAM",
+    "MEASURE_CIRCLE_DIAMETER_FROM_DIAGRAM",
     "COMPUTE_RADIUS_FROM_DIAMETER",
     "COMPUTE_DIAMETER_FROM_RADIUS",
     "COMPARE_RADIUS_DIAMETER_MEASUREMENTS",
-    "CIRCLE_POINT_POSITION",
-    "TWO_CIRCLE_INTERSECTION",
-    "TWO_CIRCLE_TANGENCY",
-    "COMPASS_LENGTH_COMPARISON",
+  ]) {
+    assert.ok(included.includes(relation));
+  }
+  for (const relation of [
+    "CIRCLE_PART_LABEL_IDENTIFICATION_AS_TARGET_KP",
+    "IDENTIFY_CIRCUMFERENCE_AS_TARGET_KP",
+    "GENERIC_COMPASS_SEGMENT_LENGTH_MEASUREMENT",
+    "GENERIC_COMPASS_SEGMENT_LENGTH_COMPARISON",
     "CONCENTRIC_CIRCLE_CONSTRUCTION",
     "FOLD_LINE_RADIUS_CONSTRUCTION",
+    "CIRCLE_CIRCUMFERENCE_FORMULA",
+    "CIRCLE_AREA_FORMULA",
     "APPLICATION_CONTEXT",
   ]) {
     assert.ok(preflight.q011ScopeLock.excludedRelations.includes(relation));
   }
   assert.equal(preflight.q011ScopeLock.requiresGeometryDiagramRepresentation, true);
   assert.equal(preflight.q011ScopeLock.requiresGeometryConstructionCapability, true);
-  assert.equal(preflight.q011ScopeLock.applicationSuitabilityFromR02, "APPLICATION_NOT_APPLICABLE");
+  assert.deepEqual(preflight.q011ScopeLock.applicationSuitabilityByKnowledgePointId, {
+    kp_circle_compass_construction: "APPLICATION_NOT_APPLICABLE",
+    kp_circle_point_position_and_intersection: "APPLICATION_COMPATIBLE",
+    kp_circle_radius_diameter_measure_compare: "APPLICATION_COMPATIBLE",
+  });
   assert.equal(preflight.q011ScopeLock.applicationImplementationAllowedByThisPreflight, false);
   assert.equal(preflight.q011ScopeLock.implementationAllowedByThisPreflight, false);
   assert.equal(preflight.q011ScopeLock.publicProductAdmissionAllowedByThisPreflight, false);
@@ -166,12 +210,20 @@ test("P05F W5 Q011 locks compass construction only and preserves Q002 plus futur
   assert.equal(preflight.q011ScopeLock.q012OrLaterTouched, false);
 });
 
-test("P05F W5 Q011 preserves the frozen geometry-property profile plus construction modifier and exact capability closure", () => {
-  const mapping = getR04KnowledgePointCapabilityMapping("kp_circle_compass_construction");
-  assert.ok(mapping);
-  assert.equal(mapping.primaryRuntimeProfileId, "profile_geometry_property");
-  assert.equal(mapping.classificationRuleId, "rule_geometry_property");
-  assert.deepEqual(mapping.appliedModifierIds, ["mod_geometry_construction"]);
+test("P05F W5 Q011 preserves per-KP R04 mappings and exact union capability closure", () => {
+  const expectedModifiers = {
+    kp_circle_compass_construction: ["mod_geometry_construction"],
+    kp_circle_point_position_and_intersection: [],
+    kp_circle_radius_diameter_measure_compare: [],
+  };
+
+  for (const kpId of EXPECTED_KPS) {
+    const mapping = getR04KnowledgePointCapabilityMapping(kpId);
+    assert.ok(mapping);
+    assert.equal(mapping.primaryRuntimeProfileId, "profile_geometry_property");
+    assert.equal(mapping.classificationRuleId, "rule_geometry_property");
+    assert.deepEqual(mapping.appliedModifierIds, expectedModifiers[kpId]);
+  }
 
   const runtime = preflight.runtimeCapabilityAuthority;
   assert.equal(runtime.profileId, "profile_geometry_property");
@@ -180,11 +232,11 @@ test("P05F W5 Q011 preserves the frozen geometry-property profile plus construct
     "cap_geometry_domain_validator",
     "cap_geometry_diagram_representation",
   ]);
-  assert.deepEqual(runtime.appliedModifierIds, ["mod_geometry_construction"]);
+  assert.deepEqual(runtime.unionAppliedModifierIds, ["mod_geometry_construction"]);
   assert.deepEqual(runtime.modifierAddedRequiredCapabilityIds, ["cap_geometry_construction"]);
   assert.deepEqual(runtime.dependencyClosureAddedCapabilityIds, []);
   assert.deepEqual(runtime.exactFrozenQueueRequiredW5CapabilityIds, EXPECTED_CAPS);
-  assert.equal(runtime.r02CandidateCategory, "geometry");
+  assert.deepEqual(runtime.r02CandidateCategories, ["geometry", "geometry", "geometry"]);
   assert.equal(runtime.frozenProfileClassificationRule, "rule_geometry_property");
   assert.equal(runtime.profileCategoryMismatchAcknowledged, false);
   assert.equal(runtime.profileCategoryMismatchDisposition, "NONE");
@@ -208,10 +260,11 @@ test("P05F W5 Q011 inherits the proven Q003-Q010 Q-specific post-merge evidence 
   assert.equal(policy.materializeWorkflowDuringImplementationOrPostMergeEvidenceTask, true);
 });
 
-test("P05F W5 Q011 preflight permits implementation planning only and requires separate implementation approval", () => {
+test("P05F W5 Q011 preflight permits three-KP implementation planning only and requires separate implementation approval", () => {
   assert.equal(preflight.preflightDecision.sourceAuthoritySufficientForQ011ImplementationPlanning, true);
   assert.equal(preflight.preflightDecision.previousSliceD0Satisfied, true);
   assert.equal(preflight.preflightDecision.runtimeCapabilityContractLocked, true);
+  assert.equal(preflight.preflightDecision.atomicThreeKnowledgePointSliceLocked, true);
   assert.equal(preflight.preflightDecision.manualSourceChoiceRequired, false);
   assert.equal(preflight.preflightDecision.sourceRefAmbiguity, false);
   assert.equal(preflight.preflightDecision.nextTaskRequiresSeparateImplementationApproval, true);
