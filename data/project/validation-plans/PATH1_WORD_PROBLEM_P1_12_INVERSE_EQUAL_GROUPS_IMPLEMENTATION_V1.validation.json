@@ -11,7 +11,8 @@
         "paths": [
           "tests/curriculum/path1-word-problem-p1-12-inverse-equal-groups-implementation-v1.test.js",
           "tests/curriculum/path1-word-problem-p1-12-inverse-equal-groups-transfer-preflight-v1.test.js",
-          "tests/curriculum/path1-word-problem-equal-groups-implementation-v1.test.js"
+          "tests/curriculum/path1-word-problem-equal-groups-implementation-v1.test.js",
+          "tests/curriculum/path1-curriculum-matrix.test.js"
         ]
       },
       {
@@ -19,13 +20,6 @@
         "kind": "NODE_RUNNER",
         "path": "tools/curriculum/run-path1-word-problem-p1-12-inverse-equal-groups-implementation-v1-focused.mjs",
         "runtime": "NODE_ONLY"
-      },
-      {
-        "gateId": "PATH1_MATRIX_AUTHORITY",
-        "kind": "NODE_TEST",
-        "paths": [
-          "tests/curriculum/path1-curriculum-matrix.test.js"
-        ]
       }
     ]
   }
