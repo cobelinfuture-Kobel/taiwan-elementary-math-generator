@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q011_POSTMERGE_REPAIR_BOUNDED_VALIDATION",
+  "unitId": "g3a_u05_3a05",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-slice010-g3a-u05-right-angle-recognition.test.js",
+          "tests/curriculum/p05f-w5-slice011-g3a-u09-circle-geometry-property.test.js"
+        ]
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-slice011-direct-dependencies.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p05f-w5-slice011-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}
