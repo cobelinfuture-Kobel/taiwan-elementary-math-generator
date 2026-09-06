@@ -1,0 +1,221 @@
+{
+  "schemaName": "Path1WordProblemEqualGroupsPublicCutoverPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_PUBLIC_CUTOVER_PREFLIGHT_V1",
+  "status": "PUBLIC_CUTOVER_PREFLIGHT_LOCKED_NO_VISIBLE_UI_CHANGE",
+  "implementationAllowed": false,
+  "visibleUiChanged": false,
+  "publicCutoverApplied": false,
+  "runtimeSemanticsChanged": false,
+  "prerequisite": {
+    "taskId": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_IMPLEMENTATION_V1",
+    "mergeSha": "31278870fd9950990d595b75b4741244c44bbce3",
+    "generatorPath": "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+    "validatorPath": "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+    "worksheetBuilderPath": "site/assets/browser/pipeline/build-path1-manual-worksheet.js"
+  },
+  "scope": {
+    "includedPathBlocks": ["P1-01", "P1-02"],
+    "excludedPathBlocks": ["P1-03", "P1-04"],
+    "practiceModes": ["arithmetic", "equalGroupsTransfer"],
+    "defaultPracticeMode": "arithmetic",
+    "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT",
+    "excluded": [
+      "visible UI mutation in this preflight",
+      "P1-03/P1-04 transfer exposure",
+      "P1-03/P1-04 runtime modification",
+      "Path1 canonical curriculum-matrix mastery-gate mutation",
+      "automatic N-to-N+1 progression implementation",
+      "mastery scoring implementation",
+      "inverse unknown-role rotation",
+      "A05 production-registry promotion",
+      "Classic query-state mutation",
+      "full regression",
+      "global replay"
+    ]
+  },
+  "currentStateObservations": {
+    "path1PublicPage": "site/path1/index.html",
+    "path1BrowserController": "site/assets/browser/path1-manual.js",
+    "currentEntrypoint": "site/assets/browser/pipeline/build-path1-manual-worksheet-p1-03-extension.js",
+    "implementedTransferBuilder": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "facts": [
+      "The Path1 public page currently exposes block, count, seed, layout and answer-key controls but no practiceMode control.",
+      "The Path1 browser controller currently does not parse or write Path1-local query state and does not pass practiceMode into worksheet generation.",
+      "The public browser controller imports the P1-03 extension entrypoint rather than the base Path1 worksheet builder.",
+      "The P1-03 extension entrypoint currently delegates non-P1-03 blocks without forwarding a practiceMode argument.",
+      "The base Path1 worksheet builder already supports practiceMode=equalGroupsTransfer for P1-01/P1-02 and fails closed for unsupported blocks.",
+      "The Path1 manual page explicitly uses manual progression and does not implement automatic N-to-N+1 mastery advancement."
+    ]
+  },
+  "architectureDecision": {
+    "selectedStrategy": "PATH1_LOCAL_PRACTICE_MODE_PUBLIC_ADAPTER",
+    "summary": "Add a Path1-local public adapter in the future cutover implementation. Arithmetic requests continue through the existing P1-03 extension entrypoint; equalGroupsTransfer requests for P1-01/P1-02 call the already implemented base transfer route directly. This avoids changing P1-03/P1-04 runtime semantics.",
+    "futureAdapterPath": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "arithmeticDelegate": "site/assets/browser/pipeline/build-path1-manual-worksheet-p1-03-extension.js",
+    "equalGroupsTransferDelegate": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "p103ExtensionMutationRequired": false,
+    "baseTransferRuntimeMutationRequired": false,
+    "classicPublicBindingMutationRequired": false,
+    "globalQueryStateMutationRequired": false
+  },
+  "futurePublicControlContract": {
+    "pagePath": "site/path1/index.html",
+    "controllerPath": "site/assets/browser/path1-manual.js",
+    "controlId": "path1-practice-mode",
+    "controlName": "path1PracticeMode",
+    "labelZh": "練習類型",
+    "controlKind": "select",
+    "values": [
+      {
+        "value": "arithmetic",
+        "labelZh": "算式練習",
+        "supportedBlocks": "ALL_EXISTING_PATH1_BLOCKS"
+      },
+      {
+        "value": "equalGroupsTransfer",
+        "labelZh": "文字建模練習",
+        "supportedBlocks": ["P1-01", "P1-02"]
+      }
+    ],
+    "defaultValue": "arithmetic",
+    "unsupportedBlockUiRule": "Keep the control visible but disable equalGroupsTransfer outside P1-01/P1-02. If block selection changes while transfer is selected, normalize to arithmetic and surface one bounded status message.",
+    "mustNotChange": [
+      "existing block order",
+      "existing question-count control",
+      "existing seed control",
+      "existing answer-key control",
+      "existing print-layout controls",
+      "existing previous/next manual navigation semantics"
+    ]
+  },
+  "futureQueryStateContract": {
+    "strategy": "PATH1_LOCAL_QUERY_STATE",
+    "modulePath": "site/assets/browser/state/path1-manual-query-state.js",
+    "mustNotModify": "site/assets/browser/state/query-state.js",
+    "parameters": {
+      "path1BlockId": {
+        "allowed": "existing Path1 public worksheet block ids",
+        "default": "P1-01"
+      },
+      "practiceMode": {
+        "allowed": ["arithmetic", "equalGroupsTransfer"],
+        "default": "arithmetic"
+      }
+    },
+    "parseRules": [
+      "Absent parameters resolve to P1-01 + arithmetic.",
+      "Unknown block ids normalize to P1-01 and emit PATH1_PUBLIC_BLOCK_QUERY_FALLBACK.",
+      "Unknown practiceMode normalizes to arithmetic and emits PATH1_PUBLIC_PRACTICE_MODE_QUERY_FALLBACK.",
+      "equalGroupsTransfer paired with any block other than P1-01/P1-02 normalizes to arithmetic and emits PATH1_PUBLIC_TRANSFER_MODE_BLOCK_NOT_SUPPORTED."
+    ],
+    "writeRules": [
+      "Write path1BlockId and normalized practiceMode together so legality is reproducible.",
+      "Do not serialize Path1 state through the Classic sourceId/questionMode selector query contract.",
+      "A block-change normalization must update both the control value and URL state."
+    ]
+  },
+  "modelingTransferGateContract": {
+    "gateId": "PATH1_EQUAL_GROUPS_MODELING_TRANSFER_CHECKPOINT_V1",
+    "placement": "AFTER_BLOCK_ARITHMETIC_MASTERY_BEFORE_NEXT_BLOCK_RECOMMENDATION",
+    "appliesToBlocks": ["P1-01", "P1-02"],
+    "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+    "unknownRole": "totalAmount",
+    "stagesPracticed": [
+      "WP01_QUANTITY_EXTRACTION",
+      "WP02_QUANTITY_TYPING_AND_UNIT_FLOW",
+      "WP03_ROLE_ASSIGNMENT",
+      "WP04_RELATION_RECOGNITION",
+      "WP05_UNKNOWN_ROLE_IDENTIFICATION",
+      "WP06_EQUATION_CONSTRUCTION",
+      "WP07_ARITHMETIC_EXECUTION",
+      "WP08_CONTEXT_INTERPRETATION_AND_VALIDATION"
+    ],
+    "publicCutoverEnforcement": "PRACTICE_CHECKPOINT_NOT_MASTERY_BLOCKING",
+    "reason": "The current Path1 page is a manual worksheet route with no mastery scorer or automatic N-to-N+1 controller. Generating or printing a transfer worksheet is practice evidence, not mastery evidence.",
+    "canonicalMatrixMutationRequired": false,
+    "p101P102MasteryGateMutationRequired": false,
+    "p112AuthorityPreserved": "P1-12 remains the formal required fusion point for total/number-of-groups/per-group unknown-role rotation.",
+    "futureMasteryUpgradeRequiresSeparateApproval": true
+  },
+  "futurePublicAdapterContract": {
+    "modulePath": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "exportNames": ["buildPath1ManualWorksheet", "listPath1ManualWorksheetBlocks"],
+    "routing": {
+      "arithmetic": "delegate unchanged to build-path1-manual-worksheet-p1-03-extension.js",
+      "equalGroupsTransfer_P1-01_P1-02": "delegate to build-path1-manual-worksheet.js with practiceMode=equalGroupsTransfer",
+      "equalGroupsTransfer_other_block": "fail closed with PATH1_TRANSFER_MODE_BLOCK_NOT_SUPPORTED"
+    },
+    "metadataProjection": {
+      "canonicalLocation": "worksheetDocument.configSnapshot.metadata",
+      "requiredForBothModes": ["path1BlockId", "practiceMode"],
+      "requiredForTransfer": ["relationKnowledgePointId", "semanticPatternSpecIdsUsed"],
+      "additionalFields": {
+        "modelingTransferGateId": "PATH1_EQUAL_GROUPS_MODELING_TRANSFER_CHECKPOINT_V1",
+        "modelingTransferMasteryCredit": "NONE_GENERATION_ONLY"
+      }
+    },
+    "defaultArithmeticBehaviorMustRemainUnchangedExceptAdditiveMetadata": true,
+    "p103P104SemanticsMustRemainUnchanged": true
+  },
+  "futureCutoverImplementationBoundary": {
+    "allowedFiles": [
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html",
+      "focused tests/runners/validation-plan/impact-manifest"
+    ],
+    "forbiddenFiles": [
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-p1-03-extension.js",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "site/assets/browser/state/query-state.js",
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "P1-03/P1-04 runtime modules",
+      "site/index.html",
+      "site/404.html"
+    ],
+    "visibleUiImplementationRequiresNextApproval": true
+  },
+  "focusedFutureAcceptance": {
+    "node": [
+      "Path1-local query parser/writer round-trips P1-01/P1-02 arithmetic and equalGroupsTransfer.",
+      "Invalid practiceMode and unsupported block/mode combinations normalize at the public query layer with bounded warnings.",
+      "Public adapter routes arithmetic through the existing P1-03 extension entrypoint.",
+      "Public adapter routes P1-01/P1-02 transfer through the existing implemented transfer builder.",
+      "Direct unsupported transfer requests fail closed.",
+      "Worksheet metadata records normalized practiceMode for both modes and preserves transfer relation metadata.",
+      "Default arithmetic question content remains unchanged aside from additive metadata.",
+      "P1-03/P1-04 output remains unchanged and never exposes transfer mode."
+    ],
+    "browser": [
+      "Path1 page shows one practice-mode control with arithmetic default.",
+      "P1-01/P1-02 enable equalGroupsTransfer and generate application prompts with equation-bearing answer keys.",
+      "P1-03/P1-04 disable transfer selection and remain arithmetic-only.",
+      "Changing from P1-01/P1-02 transfer to an unsupported block normalizes the control and query state to arithmetic without runtime error.",
+      "Refresh restores path1BlockId + practiceMode from the Path1-local query contract.",
+      "Print preview question/answer counts remain aligned."
+    ],
+    "fullRegressionRequired": false,
+    "globalReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P101_P102_EQUAL_GROUPS_GENERATOR_VALIDATOR_WORKSHEET_ROUTE_USABLE",
+    "goalDistanceAfterTarget": "D1_P101_P102_EQUAL_GROUPS_PUBLIC_CUTOVER_CONTRACT_READY",
+    "distanceReduced": "The remaining public-access ambiguity is reduced to one bounded Path1-local adapter + control + query-state cutover. The transfer runtime itself is not reopened.",
+    "remainingBlockers": [
+      "public cutover implementation approval required",
+      "Path1 local public adapter not implemented",
+      "Path1 practiceMode control not visible",
+      "Path1 local query-state not implemented",
+      "targeted browser acceptance not completed",
+      "mastery scoring remains outside current scope",
+      "P1-03/P1-04 transfer remains outside scope"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_PUBLIC_CUTOVER_IMPLEMENTATION_V1"
+  }
+}
