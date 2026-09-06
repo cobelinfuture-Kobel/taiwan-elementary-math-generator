@@ -6,9 +6,11 @@ import { printPreviewFrame, renderPreviewFrame } from "./pipeline/render-preview
 import {
   PATH1_MANUAL_DEFAULT_PRACTICE_MODE,
   PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE,
+  PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE,
   normalizePath1ManualQueryState,
   parsePath1ManualQueryState,
   path1ManualBlockSupportsEqualGroupsTransfer,
+  path1ManualBlockSupportsP103MultiplicativeModeling,
   serializePath1ManualQueryState,
 } from "./state/path1-manual-query-state.js";
 
@@ -52,8 +54,13 @@ function selectedIndex() {
   return Math.max(0, blocks.findIndex((block) => block.blockId === blockSelect.value));
 }
 
+function isModelingPracticeMode(practiceMode) {
+  return practiceMode === PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE
+    || practiceMode === PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE;
+}
+
 function practiceModeLabel() {
-  return practiceModeSelect.value === PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE
+  return isModelingPracticeMode(practiceModeSelect.value)
     ? "文字建模練習"
     : "算式練習";
 }
@@ -61,7 +68,10 @@ function practiceModeLabel() {
 function warningMessage(warnings = []) {
   const codes = new Set(warnings.map((entry) => entry.code));
   if (codes.has("PATH1_PUBLIC_TRANSFER_MODE_BLOCK_NOT_SUPPORTED")) {
-    return "文字建模練習目前只開放 P1-01、P1-02；此 Block 已切回算式練習。";
+    return "P1-01、P1-02 的文字建模模式不支援此 Block，已切回算式練習。";
+  }
+  if (codes.has("PATH1_PUBLIC_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED")) {
+    return "P1-03 的文字建模模式不支援此 Block，已切回算式練習。";
   }
   if (codes.has("PATH1_PUBLIC_BLOCK_QUERY_FALLBACK")) {
     return "網址中的 Path 1 Block 無效，已切回 P1-01。";
@@ -72,13 +82,27 @@ function warningMessage(warnings = []) {
   return "";
 }
 
+function syncModeOption(option, enabled) {
+  if (!option) return;
+  option.disabled = !enabled;
+  option.hidden = !enabled;
+}
+
 function syncPracticeModeAvailability() {
-  const transferOption = practiceModeSelect.querySelector(
+  const equalGroupsOption = practiceModeSelect.querySelector(
     `option[value="${PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE}"]`,
   );
-  if (transferOption) {
-    transferOption.disabled = !path1ManualBlockSupportsEqualGroupsTransfer(blockSelect.value);
-  }
+  const p103Option = practiceModeSelect.querySelector(
+    `option[value="${PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE}"]`,
+  );
+  syncModeOption(
+    equalGroupsOption,
+    path1ManualBlockSupportsEqualGroupsTransfer(blockSelect.value),
+  );
+  syncModeOption(
+    p103Option,
+    path1ManualBlockSupportsP103MultiplicativeModeling(blockSelect.value),
+  );
 }
 
 function syncNavigation(message = "") {
