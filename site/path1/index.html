@@ -25,7 +25,14 @@
           <span>Path 1 Block</span>
           <select id="path1-block-select" name="path1BlockId"></select>
         </label>
-        <p class="help-text">P1-00 是入口診斷，不屬於練習 PDF；此頁從 P1-01 開始，一直到 P1-27。完成一份後由你手動切到下一個 Block。</p>
+        <label class="field">
+          <span>練習類型</span>
+          <select id="path1-practice-mode" name="path1PracticeMode">
+            <option value="arithmetic">算式練習</option>
+            <option value="equalGroupsTransfer">文字建模練習</option>
+          </select>
+        </label>
+        <p class="help-text">文字建模練習目前開放 P1-01、P1-02；其他 Block 維持算式練習。P1-00 是入口診斷，不屬於練習 PDF；此頁從 P1-01 開始，一直到 P1-27。</p>
         <div class="toolbar">
           <button id="path1-previous-button" class="button" type="button">上一關</button>
           <button id="path1-next-button" class="button" type="button">下一關</button>
