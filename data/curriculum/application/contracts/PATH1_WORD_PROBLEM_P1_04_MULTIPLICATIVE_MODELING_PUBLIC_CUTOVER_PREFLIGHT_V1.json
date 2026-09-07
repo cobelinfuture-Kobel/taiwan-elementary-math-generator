@@ -1,0 +1,272 @@
+{
+  "schemaName": "Path1WordProblemP104MultiplicativeModelingPublicCutoverPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_V1",
+  "status": "P1_04_PUBLIC_CUTOVER_PREFLIGHT_LOCKED_NO_PRODUCT_CHANGE",
+  "operatorApproval": "APPROVED_FOR_PREFLIGHT_ONLY",
+  "implementationAllowed": false,
+  "publicCutoverApplied": false,
+  "productRuntimeChanged": false,
+  "visibleUiChanged": false,
+  "queryStateChanged": false,
+  "publicBindingChanged": false,
+  "path1MatrixChanged": false,
+  "sourceSemanticsChanged": false,
+  "p104GeneratorChanged": false,
+  "p104ValidatorChanged": false,
+  "p104PatternSpecsChanged": false,
+  "p103ModelingChanged": false,
+  "p101P102TransferChanged": false,
+  "p112PublicRouteChanged": false,
+  "classicRuntimeChanged": false,
+  "authorityRefs": {
+    "p104Implementation": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1.json",
+    "p104BindingReconciliation": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_04_PUBLIC_BINDING_RECONCILIATION_PREFLIGHT_V1.json",
+    "p104PatternRegistry": "data/curriculum/pattern_specs/PATH1_P1_04_MultiplicativeModelingPatternSpecRegistry.json",
+    "p104Generator": "site/modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-generator.js",
+    "p104Validator": "site/modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-validator.js",
+    "p104WorksheetAdapter": "site/assets/browser/pipeline/build-path1-p1-04-multiplicative-modeling-worksheet.js",
+    "p103PublicCutoverPreflight": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_V1.json",
+    "p103PublicCutoverImplementation": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_IMPLEMENTATION_V1.json",
+    "publicBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "publicPracticeEntry": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "publicQueryState": "site/assets/browser/state/path1-manual-query-state.js",
+    "publicController": "site/assets/browser/path1-manual.js",
+    "publicHtml": "site/path1/index.html",
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json"
+  },
+  "currentState": {
+    "mainAtPreflightStart": "d043ed322b3e3f3f07c342d505fa6ff1b3761cfb",
+    "requiredBindingReconciliationMergeSha": "f9179b43aa1c3670f5eff26188b178514a296dfe",
+    "bindingReconciliationIsAncestorOfPreflightBase": true,
+    "p104ImplementationStatus": "D1_NON_PUBLIC_GENERATOR_VALIDATOR_WORKSHEET_USABLE",
+    "p104PracticeMode": "multiplicativeModelingTransfer",
+    "p104PublicCutoverApplied": false,
+    "p104PublicBlockAlreadyListed": true,
+    "newPublicBlockExposureRequired": false,
+    "publicBlockListingReason": "The current Path1 public worksheet binding already contains P1-04 and the public controller populates the selector from the complete block list. This milestone therefore does not need to add P1-04 to the block selector; it only governs practice-mode availability and dispatch.",
+    "publicMultiplicativeModelingModeIdNow": "multiplicativeModelingTransfer",
+    "publicMultiplicativeModelingSupportedBlocksNow": ["P1-03"],
+    "publicEqualGroupsTransferBlocksNow": ["P1-01", "P1-02"],
+    "p104ModelingModePubliclySelectableNow": false,
+    "p104ModelingDeepLinkAcceptedNow": false,
+    "p103ModelingModePubliclySelectableNow": true,
+    "p103ModelingDeepLinkAcceptedNow": true,
+    "p104DedicatedWorksheetMetadata": {
+      "publicCutoverApplied": false,
+      "publicBindingReconciled": false,
+      "g4bU01ModelingExpanded": false,
+      "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+    },
+    "publicArithmeticCompatibilityException": {
+      "status": "PRESERVED_EXISTING_BEHAVIOR",
+      "p104ArithmeticKnowledgePointIds": [
+        "kp_g4a_u02_2digit_by_3digit",
+        "kp_g4a_u02_3digit_by_2digit",
+        "kp_g4b_u01_3digit_by_3digit",
+        "kp_g4b_u01_4digit_by_3digit"
+      ],
+      "modelingMayInheritTheseFourIds": false
+    }
+  },
+  "cutoverDecision": {
+    "decision": "AUTHORIZE_FUTURE_BOUNDED_P104_PUBLIC_PATH1_ROUTE_ONLY_AFTER_SEPARATE_IMPLEMENTATION_APPROVAL",
+    "publicPracticeModeId": "multiplicativeModelingTransfer",
+    "publicPracticeModeLabel": "文字建模練習",
+    "reuseExistingModeId": true,
+    "doNotCreateP104SpecificQueryModeId": true,
+    "supportedBlockIdsAfterCutover": ["P1-03", "P1-04"],
+    "blockAwareDispatchRequired": true,
+    "dispatchMap": {
+      "P1-03": "site/assets/browser/pipeline/build-path1-p1-03-multiplicative-modeling-worksheet.js",
+      "P1-04": "site/assets/browser/pipeline/build-path1-p1-04-multiplicative-modeling-worksheet.js"
+    },
+    "unsupportedBlocksFailSafeTo": "arithmetic",
+    "unsupportedBlocksMustEmitWarning": true,
+    "doNotAliasToEqualGroupsTransfer": true,
+    "arithmeticDefaultUnchanged": true,
+    "p103SemanticsUnchanged": true,
+    "p104ArithmeticCompatibilityBreadthUnchanged": true,
+    "crossBlockModeCarryover": "P1-03 <-> P1-04 may retain multiplicativeModelingTransfer because both blocks support the exact same public mode id. Carrying equalGroupsTransfer into P1-03/P1-04 or carrying multiplicativeModelingTransfer into unsupported blocks must normalize to arithmetic with a warning; do not auto-convert between modeling mode ids.",
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "publicMetadataProjection": {
+    "mustBeBlockAware": true,
+    "p103PublicCutoverGateId": "PATH1_P103_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1",
+    "p104PublicCutoverGateId": "PATH1_P104_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1",
+    "p104GateMustDifferFromP103Gate": true,
+    "worksheetConfigSnapshotPublicCutoverApplied": true,
+    "publicRoute": "path1-manual",
+    "practiceMode": "multiplicativeModelingTransfer",
+    "p104Path1BlockId": "P1-04",
+    "generatedItemMetadataMustRemainSemanticallyUnmodified": true,
+    "dedicatedAdapterPublicCutoverFlagMayRemainFalseInternally": true,
+    "reason": "The public wrapper is responsible for route-level cutover metadata. It must not stamp the P1-03 gate identity on P1-04 merely because both blocks share the same practiceMode string."
+  },
+  "futureImplementationPlan": {
+    "allowedProductFiles": [
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html"
+    ],
+    "requiredChanges": [
+      {
+        "path": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+        "action": "Import the existing dedicated P1-04 modeling worksheet adapter. Keep multiplicativeModelingTransfer as one public mode, dispatch P1-03 to the existing P1-03 adapter and P1-04 to the P1-04 adapter, fail closed for every other block, and project a distinct P1-04 public cutover gate id at configSnapshot metadata level without mutating generated-item semantics."
+      },
+      {
+        "path": "site/assets/browser/state/path1-manual-query-state.js",
+        "action": "Extend multiplicativeModelingTransfer support from P1-03 only to P1-03 and P1-04 while preserving equalGroupsTransfer support only at P1-01/P1-02. Preserve arithmetic as universal fallback. Existing exports may be retained as compatibility aliases; any new generic helper/warning wording must not weaken unsupported block/mode normalization."
+      },
+      {
+        "path": "site/assets/browser/path1-manual.js",
+        "action": "Show/enable the multiplicativeModelingTransfer option for both P1-03 and P1-04, preserve the same user-facing label 文字建模練習, generalize warning text so it is not P1-03-only, preserve explicit mode identity, and allow P1-03 <-> P1-04 navigation to retain the mode while unsupported destinations normalize to arithmetic."
+      },
+      {
+        "path": "site/path1/index.html",
+        "action": "Keep the single multiplicativeModelingTransfer option and update help text to state that P1-03 and P1-04 use their own bounded multiplicative modeling adapters. Do not add a duplicate P1-04 practice-mode option."
+      }
+    ],
+    "mustNotModify": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "data/curriculum/pattern_specs/PATH1_P1_04_MultiplicativeModelingPatternSpecRegistry.json",
+      "site/modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-patterns.js",
+      "site/modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-generator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-validator.js",
+      "site/assets/browser/pipeline/build-path1-p1-04-multiplicative-modeling-worksheet.js",
+      "data/curriculum/pattern_specs/PATH1_P1_03_MultiplicativeModelingPatternSpecRegistry.json",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-patterns.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-generator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-validator.js",
+      "site/assets/browser/pipeline/build-path1-p1-03-multiplicative-modeling-worksheet.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-p1-03-extension.js",
+      "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js"
+    ],
+    "p112PublicRouteMustRemainUntouched": true,
+    "classicRuntimeMustRemainUntouched": true
+  },
+  "p104ModelingAuthority": {
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "unknownRole": "totalAmount",
+    "matrixAuthoritativeKnowledgePointIds": [
+      "kp_g4a_u02_2digit_by_3digit",
+      "kp_g4a_u02_3digit_by_2digit"
+    ],
+    "forbiddenModelingKnowledgePointIds": [
+      "kp_g4b_u01_3digit_by_3digit",
+      "kp_g4b_u01_4digit_by_3digit"
+    ],
+    "arithmeticForms": [
+      {
+        "formId": "P104_2D_BY_3D",
+        "arithmeticKnowledgePointId": "kp_g4a_u02_2digit_by_3digit",
+        "amountPerGroup": "integer 10..99",
+        "groupCount": "integer 100..999",
+        "totalAmount": "amountPerGroup * groupCount; integer 1000..98901"
+      },
+      {
+        "formId": "P104_3D_BY_2D",
+        "arithmeticKnowledgePointId": "kp_g4a_u02_3digit_by_2digit",
+        "amountPerGroup": "integer 100..999",
+        "groupCount": "integer 10..99",
+        "totalAmount": "amountPerGroup * groupCount; integer 1000..98901"
+      }
+    ],
+    "semanticCommutativeRoleSwapAllowed": false,
+    "unitConversionAllowed": false,
+    "multiRelationAllowed": false,
+    "inverseUnknownRolesAllowed": false,
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT",
+    "numericEnvelopeExpansionAllowed": false
+  },
+  "focusedAcceptanceContract": {
+    "node": [
+      "P1-04 arithmetic mode remains unchanged and continues to use the existing four-KP public arithmetic compatibility binding",
+      "P1-04 multiplicativeModelingTransfer public dispatch returns the existing dedicated P1-04 worksheet result without changing generator/validator semantics",
+      "P1-04 public query-state round trip accepts multiplicativeModelingTransfer",
+      "P1-03 public multiplicativeModelingTransfer remains accepted and routes to the existing P1-03 adapter with its existing P1-03 gate identity",
+      "P1-03 <-> P1-04 navigation may retain multiplicativeModelingTransfer because both blocks support it",
+      "P1-01/P1-02 equalGroupsTransfer remain accepted and unchanged",
+      "P1-01/P1-02 plus multiplicativeModelingTransfer normalize to arithmetic with warning",
+      "P1-05 and other unsupported blocks plus multiplicativeModelingTransfer normalize to arithmetic with warning",
+      "P1-04 plus equalGroupsTransfer normalizes to arithmetic with warning",
+      "P1-04 public modeling supports 1/20/120 and 120 prompts remain distinct",
+      "all four P1-04 modeling Pattern families and both arithmetic forms remain represented at 120",
+      "all modeled P1-04 items contain only the two G4A-U02 matrix-authoritative arithmetic KPs",
+      "the two extra G4B-U01 public arithmetic compatibility KPs never appear in P1-04 modeling mode",
+      "worksheet answer key keeps role-preserving equation plus semantic answer unit",
+      "P1-04 public config metadata stamps PATH1_P104_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1 while generated-item semantic metadata remains unchanged",
+      "pre-push relative static imports exist at repository HEAD"
+    ],
+    "targetedBrowser": [
+      "default /path1 remains P1-01 arithmetic",
+      "P1-03 multiplicativeModelingTransfer still generates successfully",
+      "P1-04 arithmetic generates successfully with current compatibility behavior",
+      "select P1-04 文字建模練習 and generate at least 40 questions with 40 answers",
+      "P1-04 modeling output contains both approved arithmetic forms and excludes both G4B-U01 modeling-forbidden KPs",
+      "deep-link ?path1BlockId=P1-04&practiceMode=multiplicativeModelingTransfer survives refresh",
+      "switch between P1-03 and P1-04 while multiplicativeModelingTransfer is selected and verify the mode remains selected",
+      "switch from P1-04 modeling to P1-05 and verify safe arithmetic normalization plus warning",
+      "P1-01/P1-02 equalGroupsTransfer remains selectable and generates",
+      "preview and print contain the same question/answer counts",
+      "no pageErrors and no product consoleErrors"
+    ],
+    "deployedPagesRequiredAfterImplementation": true,
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "antiScopeCreep": {
+    "newKnowledgePointAllowed": false,
+    "newRelationAllowed": false,
+    "newPatternSpecAllowed": false,
+    "numericEnvelopeExpansionAllowed": false,
+    "sourceMiningRequired": false,
+    "publicBindingMutationAllowed": false,
+    "path1MatrixMutationAllowed": false,
+    "p104GeneratorMutationAllowed": false,
+    "p104ValidatorMutationAllowed": false,
+    "p104PatternSpecMutationAllowed": false,
+    "p103SemanticMutationAllowed": false,
+    "p101P102TransferMutationAllowed": false,
+    "p112CutoverAllowed": false,
+    "classicChangesAllowed": false,
+    "masteryIntegrationAllowed": false,
+    "fullRegressionAllowed": false,
+    "globalReplayAllowed": false,
+    "reasonSourceMiningNotRequired": "This milestone only locks public exposure of the already source-backed P1-04 modeling implementation after the binding reconciliation decision. It does not alter semantic or numeric authority."
+  },
+  "implementationApprovalBoundary": {
+    "separateApprovalRequired": true,
+    "nextTask": "PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_IMPLEMENTATION_V1",
+    "stopAfterPreflightMerge": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P104_ARITHMETIC_COMPATIBILITY_EXCEPTION_AND_MODELING_AUTHORITY_SEPARATION_LOCKED",
+    "goalDistanceAfterTarget": "D1_P104_PUBLIC_CUTOVER_ROUTE_QUERY_UI_AND_ACCEPTANCE_CONTRACT_LOCKED_IMPLEMENTATION_NOT_STARTED",
+    "distanceReduced": "The remaining P1-04 public exposure ambiguity is converted into an exact four-file cutover plan: reuse the existing multiplicativeModelingTransfer mode, add block-aware P1-03/P1-04 dispatch, keep arithmetic compatibility breadth isolated, assign a distinct P1-04 public gate identity, and lock deployed acceptance without changing product runtime.",
+    "systemNodeAdvanced": "P104_PUBLIC_CUTOVER_CONTRACT",
+    "blockersRemoved": [
+      "P104_PUBLIC_CUTOVER_PREFLIGHT_NOT_COMPLETED",
+      "P104_PUBLIC_QUERY_UI_ROUTE_NOT_LOCKED",
+      "P104_PUBLIC_GATE_IDENTITY_NOT_LOCKED",
+      "P104_MODE_CARRYOVER_BEHAVIOR_NOT_LOCKED"
+    ],
+    "remainingBlockers": [
+      "P1-04 public cutover implementation approval required",
+      "P1-04 public route/query/UI not yet modified",
+      "P1-04 deployed Pages acceptance not yet completed",
+      "P1-04 arithmetic binding matrix alignment remains separate compatibility debt",
+      "P1-04 mastery integration remains separate"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_IMPLEMENTATION_V1"
+  }
+}
