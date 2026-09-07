@@ -9,7 +9,7 @@ const PATH1_MANUAL_PRACTICE_MODES = Object.freeze([
   PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE,
 ]);
 const EQUAL_GROUPS_TRANSFER_BLOCK_IDS = new Set(["P1-01", "P1-02"]);
-const P103_MULTIPLICATIVE_MODELING_BLOCK_IDS = new Set(["P1-03"]);
+const MULTIPLICATIVE_MODELING_BLOCK_IDS = new Set(["P1-03", "P1-04"]);
 
 function warning(code, details = {}) {
   return Object.freeze({ code, ...details });
@@ -62,7 +62,7 @@ export function normalizePath1ManualQueryState(
 
   if (
     normalizedPracticeMode === PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE
-    && !P103_MULTIPLICATIVE_MODELING_BLOCK_IDS.has(normalizedBlockId)
+    && !MULTIPLICATIVE_MODELING_BLOCK_IDS.has(normalizedBlockId)
   ) {
     warnings.push(warning("PATH1_PUBLIC_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED", {
       path1BlockId: normalizedBlockId,
@@ -108,6 +108,10 @@ export function path1ManualBlockSupportsEqualGroupsTransfer(path1BlockId) {
   return EQUAL_GROUPS_TRANSFER_BLOCK_IDS.has(path1BlockId);
 }
 
+export function path1ManualBlockSupportsMultiplicativeModeling(path1BlockId) {
+  return MULTIPLICATIVE_MODELING_BLOCK_IDS.has(path1BlockId);
+}
+
 export function path1ManualBlockSupportsP103MultiplicativeModeling(path1BlockId) {
-  return P103_MULTIPLICATIVE_MODELING_BLOCK_IDS.has(path1BlockId);
+  return path1ManualBlockSupportsMultiplicativeModeling(path1BlockId);
 }

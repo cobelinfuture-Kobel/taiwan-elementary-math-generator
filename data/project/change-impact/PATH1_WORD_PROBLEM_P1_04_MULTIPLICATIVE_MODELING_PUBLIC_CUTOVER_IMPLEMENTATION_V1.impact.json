@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_IMPLEMENTATION_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_IMPLEMENTATION_V1.validation.json",
+  "classificationNote": "Visible Path1-local public cutover for P1-04 only. Extends the existing multiplicativeModelingTransfer public route from P1-03 to P1-03/P1-04 and dispatches P1-04 to its already validated dedicated adapter. Preserves P1-04 arithmetic compatibility, P1-03 modeling semantics, P1-01/P1-02 equalGroupsTransfer, P1-12, Classic, Path1 matrix, P1-04 generator/validator/PatternSpecs, and canonical G3B-U08 authority.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

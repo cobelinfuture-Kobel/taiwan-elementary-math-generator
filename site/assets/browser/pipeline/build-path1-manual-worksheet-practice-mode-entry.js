@@ -9,11 +9,17 @@ import {
   buildPath1P103MultiplicativeModelingWorksheet,
 } from "./build-path1-p1-03-multiplicative-modeling-worksheet.js";
 import {
+  buildPath1P104MultiplicativeModelingWorksheet,
+} from "./build-path1-p1-04-multiplicative-modeling-worksheet.js";
+import {
   PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE,
 } from "../../../modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js";
 import {
   PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
 } from "../../../modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-patterns.js";
+import {
+  PATH1_P1_04_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-patterns.js";
 
 export const PATH1_MANUAL_ARITHMETIC_PRACTICE_MODE = "arithmetic";
 export const PATH1_EQUAL_GROUPS_MODELING_TRANSFER_GATE_ID =
@@ -22,6 +28,8 @@ export const PATH1_EQUAL_GROUPS_MODELING_TRANSFER_MASTERY_CREDIT =
   "NONE_GENERATION_ONLY";
 export const PATH1_P103_MODELING_PUBLIC_CUTOVER_GATE_ID =
   "PATH1_P103_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
+export const PATH1_P104_MODELING_PUBLIC_CUTOVER_GATE_ID =
+  "PATH1_P104_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
 
 function failed(blockId, practiceMode, code) {
   return Object.freeze({
@@ -34,11 +42,20 @@ function failed(blockId, practiceMode, code) {
   });
 }
 
+function modelingPublicCutoverGateId(blockId) {
+  if (blockId === "P1-03") return PATH1_P103_MODELING_PUBLIC_CUTOVER_GATE_ID;
+  if (blockId === "P1-04") return PATH1_P104_MODELING_PUBLIC_CUTOVER_GATE_ID;
+  return null;
+}
+
 function attachPracticeMetadata(result, { blockId, practiceMode }) {
   if (!result?.ok || !result.worksheetDocument) return result;
   const worksheetDocument = result.worksheetDocument;
   const configSnapshot = worksheetDocument.configSnapshot ?? {};
   const currentMetadata = configSnapshot.metadata ?? {};
+  const publicCutoverGateId = practiceMode === PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE
+    ? modelingPublicCutoverGateId(blockId)
+    : null;
   const metadata = Object.freeze({
     ...currentMetadata,
     path1BlockId: blockId,
@@ -47,10 +64,10 @@ function attachPracticeMetadata(result, { blockId, practiceMode }) {
       modelingTransferGateId: PATH1_EQUAL_GROUPS_MODELING_TRANSFER_GATE_ID,
       modelingTransferMasteryCredit: PATH1_EQUAL_GROUPS_MODELING_TRANSFER_MASTERY_CREDIT,
     } : {}),
-    ...(practiceMode === PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE ? {
+    ...(publicCutoverGateId ? {
       publicCutoverApplied: true,
       publicRoute: "path1-manual",
-      publicCutoverGateId: PATH1_P103_MODELING_PUBLIC_CUTOVER_GATE_ID,
+      publicCutoverGateId,
     } : {}),
   });
   const projectedDocument = Object.freeze({
@@ -87,15 +104,23 @@ export function buildPath1ManualWorksheet(options = {}) {
   }
 
   if (practiceMode === PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE) {
-    if (blockId !== "P1-03") {
-      return failed(blockId, practiceMode, "PATH1_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED");
+    if (blockId === "P1-03") {
+      const result = buildPath1P103MultiplicativeModelingWorksheet({
+        blockId,
+        ...rest,
+        practiceMode: PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+      });
+      return attachPracticeMetadata(result, { blockId, practiceMode });
     }
-    const result = buildPath1P103MultiplicativeModelingWorksheet({
-      blockId,
-      ...rest,
-      practiceMode: PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
-    });
-    return attachPracticeMetadata(result, { blockId, practiceMode });
+    if (blockId === "P1-04") {
+      const result = buildPath1P104MultiplicativeModelingWorksheet({
+        blockId,
+        ...rest,
+        practiceMode: PATH1_P1_04_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+      });
+      return attachPracticeMetadata(result, { blockId, practiceMode });
+    }
+    return failed(blockId, practiceMode, "PATH1_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED");
   }
 
   return failed(blockId, practiceMode, "PATH1_PRACTICE_MODE_NOT_SUPPORTED");
