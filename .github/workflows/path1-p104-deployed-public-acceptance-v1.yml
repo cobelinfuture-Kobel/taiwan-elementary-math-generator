@@ -15,7 +15,7 @@ env:
 jobs:
   deployed-public-acceptance:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 20
     steps:
       - name: Checkout QA harness
         uses: actions/checkout@v4
@@ -27,11 +27,11 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install browser dependencies
+      - name: Install browser runtime
         run: |
           npm install --no-package-lock
           npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
 
       - name: Wait for exact deployed Path1 surface
         shell: bash
