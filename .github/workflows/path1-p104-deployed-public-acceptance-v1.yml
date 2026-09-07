@@ -1,0 +1,64 @@
+name: Path1 P1-04 Deployed Public Acceptance V1
+
+on:
+  push:
+    branches:
+      - path1-p104-deployed-public-acceptance-v1
+
+permissions:
+  contents: read
+
+env:
+  PATH1_P104_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/path1/
+  PATH1_P104_DEPLOYMENT_SHA: c4d87079d7a221130f0f2c4703b445accfc52775
+
+jobs:
+  deployed-public-acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout QA harness
+        uses: actions/checkout@v4
+        with:
+          ref: path1-p104-deployed-public-acceptance-v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Wait for exact deployed Path1 surface
+        shell: bash
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error \
+              "${PATH1_P104_SITE_URL}?deployment=${PATH1_P104_DEPLOYMENT_SHA}-${attempt}" > /tmp/path1-p104-index.html; then
+              test -s /tmp/path1-p104-index.html
+              grep -q "P1-04" /tmp/path1-p104-index.html
+              exit 0
+            fi
+            sleep 10
+          done
+          exit 1
+
+      - name: Run deployed P1-04 public acceptance
+        run: node tools/curriculum/run-path1-p104-deployed-public-acceptance-v1.mjs
+
+      - name: Upload deployed acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: path1-p104-deployed-public-acceptance-v1
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            docs/curriculum/output/stress/path1-p104-deployed-public-acceptance/manifest.json
+            docs/curriculum/output/stress/path1-p104-deployed-public-acceptance/failure.json
+            docs/curriculum/output/stress/path1-p104-deployed-public-acceptance/failure.png
+            /tmp/path1-p104-index.html
