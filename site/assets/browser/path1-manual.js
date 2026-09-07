@@ -10,7 +10,7 @@ import {
   normalizePath1ManualQueryState,
   parsePath1ManualQueryState,
   path1ManualBlockSupportsEqualGroupsTransfer,
-  path1ManualBlockSupportsP103MultiplicativeModeling,
+  path1ManualBlockSupportsMultiplicativeModeling,
   serializePath1ManualQueryState,
 } from "./state/path1-manual-query-state.js";
 
@@ -71,7 +71,7 @@ function warningMessage(warnings = []) {
     return "P1-01、P1-02 的文字建模模式不支援此 Block，已切回算式練習。";
   }
   if (codes.has("PATH1_PUBLIC_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED")) {
-    return "P1-03 的文字建模模式不支援此 Block，已切回算式練習。";
+    return "P1-03、P1-04 的文字建模模式不支援此 Block，已切回算式練習。";
   }
   if (codes.has("PATH1_PUBLIC_BLOCK_QUERY_FALLBACK")) {
     return "網址中的 Path 1 Block 無效，已切回 P1-01。";
@@ -92,7 +92,7 @@ function syncPracticeModeAvailability() {
   const equalGroupsOption = practiceModeSelect.querySelector(
     `option[value="${PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE}"]`,
   );
-  const p103Option = practiceModeSelect.querySelector(
+  const multiplicativeModelingOption = practiceModeSelect.querySelector(
     `option[value="${PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE}"]`,
   );
   syncModeOption(
@@ -100,8 +100,8 @@ function syncPracticeModeAvailability() {
     path1ManualBlockSupportsEqualGroupsTransfer(blockSelect.value),
   );
   syncModeOption(
-    p103Option,
-    path1ManualBlockSupportsP103MultiplicativeModeling(blockSelect.value),
+    multiplicativeModelingOption,
+    path1ManualBlockSupportsMultiplicativeModeling(blockSelect.value),
   );
 }
 
