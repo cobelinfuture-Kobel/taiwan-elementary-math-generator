@@ -184,16 +184,16 @@ test("P05F W5 Q011 worksheet and HTML renderer preserve 24 questions, 24 answers
   }
 });
 
-test("P05F W5 Q011 stable browser selector/binding wrappers expose all three new leaves",async()=>{
+test("P05F W5 Q011 stable browser selector/binding wrappers continue to expose all three Q011 leaves after successor cutovers",async()=>{
   globalThis.document={};
   try{
     const selector=await import(`../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js?p05f11=${Date.now()}`);
     const bindingModule=await import(`../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js?p05f11=${Date.now()}`);
-    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.sourceCount,51);
-    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount,325);
+    const source=selector.listBatchAKnowledgePointAvailabilityBySource(G3A_U09_P05F11_SOURCE_ID);
     for(let index=0;index<G3A_U09_P05F11_KP_IDS.length;index+=1){
       const kp=G3A_U09_P05F11_KP_IDS[index];
       assert.equal(selector.getVisibleBatchAKnowledgePoint(kp)?.sourceId,G3A_U09_P05F11_SOURCE_ID);
+      assert.equal(source.visibleKnowledgePointIds.includes(kp),true);
       const binding=bindingModule.resolvePublicUiCapabilityBinding(optionsFor(index));
       assert.equal(binding.questionType,"diagram");
       assert.equal(binding.questionCount.max,240);
