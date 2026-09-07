@@ -43,12 +43,15 @@ async function buildViaDeployedPublicAdapter(page, options) {
     const mod = await import(moduleUrl.href);
     const result = mod.buildPath1ManualWorksheet(rawOptions);
     const doc = result?.worksheetDocument ?? null;
+    const answerCount = (doc?.answerKeyPages ?? [])
+      .flatMap((pageEntry) => pageEntry.cells ?? [])
+      .filter((cell) => cell.cellType === "answerKey").length;
     return {
       ok: Boolean(result?.ok),
       errors: result?.errors ?? [],
       warnings: result?.warnings ?? [],
       questionCount: doc?.questions?.length ?? 0,
-      answerCount: doc?.answerKeyItems?.length ?? 0,
+      answerCount,
       metadata: doc?.configSnapshot?.metadata ?? null,
       questions: (doc?.questions ?? []).map((item) => ({
         prompt: item.prompt,
