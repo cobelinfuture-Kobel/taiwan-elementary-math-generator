@@ -1,0 +1,188 @@
+{
+  "schemaName": "Path1WordProblemP104MultiplicativeModelingImplementationV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1",
+  "status": "P1_04_MODELING_IMPLEMENTATION_MATERIALIZED_NON_PUBLIC",
+  "operatorApproval": "APPROVED",
+  "preflightAuthority": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_04_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.json",
+  "publicCutoverApplied": false,
+  "visibleUiChanged": false,
+  "queryStateChanged": false,
+  "publicBindingChanged": false,
+  "path1MatrixChanged": false,
+  "g3bU08CanonicalAuthorityChanged": false,
+  "g4bU01ModelingExpanded": false,
+  "p101P102P103TransfersChanged": false,
+  "p105Changed": false,
+  "p112PublicRouteChanged": false,
+  "classicRuntimeChanged": false,
+  "implementation": {
+    "path1BlockId": "P1-04",
+    "practiceMode": "multiplicativeModelingTransfer",
+    "arithmeticSourceId": "g4a_u02_4a02",
+    "relationId": "R03_EQUAL_GROUPS",
+    "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+    "semanticSourceId": "g3b_u08_3b08",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "unknownRole": "totalAmount",
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT",
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL",
+    "arithmeticForms": [
+      {
+        "formId": "P104_2D_BY_3D",
+        "arithmeticKnowledgePointId": "kp_g4a_u02_2digit_by_3digit",
+        "arithmeticOperationModelId": "op_g4a_u02_2digit_by_3digit",
+        "arithmeticPatternSpecId": "ps_g4a_u02_2digit_by_3digit",
+        "amountPerGroup": "integer 10..99",
+        "groupCount": "integer 100..999",
+        "totalAmount": "amountPerGroup * groupCount; integer 1000..98901"
+      },
+      {
+        "formId": "P104_3D_BY_2D",
+        "arithmeticKnowledgePointId": "kp_g4a_u02_3digit_by_2digit",
+        "arithmeticOperationModelId": "op_g4a_u02_3digit_by_2digit",
+        "arithmeticPatternSpecId": "ps_g4a_u02_3digit_by_2digit",
+        "amountPerGroup": "integer 100..999",
+        "groupCount": "integer 10..99",
+        "totalAmount": "amountPerGroup * groupCount; integer 1000..98901"
+      }
+    ],
+    "semanticRoleBinding": {
+      "leftFactor": "amountPerGroup",
+      "rightFactor": "groupCount",
+      "product": "totalAmount",
+      "commutativeSemanticRoleSwapAllowed": false
+    }
+  },
+  "materializedArtifacts": {
+    "patternSpecRegistry": "data/curriculum/pattern_specs/PATH1_P1_04_MultiplicativeModelingPatternSpecRegistry.json",
+    "patternRuntime": "site/modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-patterns.js",
+    "generator": "site/modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-generator.js",
+    "validator": "site/modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-validator.js",
+    "nonPublicWorksheetAdapter": "site/assets/browser/pipeline/build-path1-p1-04-multiplicative-modeling-worksheet.js"
+  },
+  "patternSpecs": [
+    {"patternSpecId":"P104_R03_ITEMS_PER_PACKAGE_TOTAL","sourceParentPatternSpecId":"ps_g3b_u08_total_items_per_package","allowedArithmeticFormIds":["P104_2D_BY_3D","P104_3D_BY_2D"],"sourceParentNumericAuthorityReused":false},
+    {"patternSpecId":"P104_R03_MATERIAL_PER_PRODUCT_TOTAL","sourceParentPatternSpecId":"ps_g3b_u08_total_material_per_product","allowedArithmeticFormIds":["P104_2D_BY_3D","P104_3D_BY_2D"],"sourceParentNumericAuthorityReused":false},
+    {"patternSpecId":"P104_R03_SCORE_PER_EVENT_TOTAL","sourceParentPatternSpecId":"ps_g3b_u08_total_score_per_success","allowedArithmeticFormIds":["P104_2D_BY_3D","P104_3D_BY_2D"],"sourceParentNumericAuthorityReused":false},
+    {"patternSpecId":"P104_R03_AMOUNT_PER_PERIOD_TOTAL","sourceParentPatternSpecId":"ps_g3b_u08_total_daily_saving_accumulation","allowedArithmeticFormIds":["P104_2D_BY_3D","P104_3D_BY_2D"],"sourceParentNumericAuthorityReused":false}
+  ],
+  "generatorContract": {
+    "countRange": "1..120",
+    "deterministicSeedRequired": true,
+    "balancedAcrossFourPatternFamilies": true,
+    "balancedAcrossTwoArithmeticForms": true,
+    "balancedAcrossEightFamilyFormCellsAt120": true,
+    "distinctPromptsRequired": true,
+    "questionMode": "application",
+    "answerFormat": "role-preserving equation plus semantic answer with unit",
+    "failClosedOutsideP104": true,
+    "failClosedOnInvalidPracticeMode": true
+  },
+  "validatorContract": {
+    "failClosed": true,
+    "reconstructPrompt": true,
+    "recomputeProduct": true,
+    "validateArithmeticFormWhitelist": true,
+    "validateArithmeticKpOperationAndPatternByForm": true,
+    "validateRoleOrderedEnvelope": true,
+    "validateEquationDirection": true,
+    "validateAnswerUnit": true,
+    "validatePatternAndContextWhitelist": true,
+    "validateSemanticRoleBinding": true,
+    "rejectInverseUnknownRoles": true,
+    "rejectUnitConversion": true,
+    "rejectMultiRelationMetadata": true,
+    "rejectSemanticRoleSwap": true,
+    "rejectG4BU01ModelingExpansion": true,
+    "rejectP105ZeroSpecialCapabilityLeak": true,
+    "rejectPublicCutoverLeak": true
+  },
+  "worksheetContract": {
+    "routeStatus": "NON_PUBLIC_DIRECT_ADAPTER_ONLY",
+    "questionCountRange": "1..120",
+    "answerKeySupported": true,
+    "publicPracticeEntryWired": false,
+    "publicQueryStateWired": false,
+    "publicUiWired": false,
+    "publicBindingReconciled": false,
+    "publicCutover": "SEPARATE_LATER_MILESTONE_AFTER_BINDING_DECISION"
+  },
+  "sourceEvidenceBoundary": {
+    "schoolExamWitness": {
+      "sourceFileId": "1x_dh_7JMpxdiWI7Yc_4R0KOwWdQapoOO",
+      "relationWitness": "60 * 110 = 6600",
+      "use": "P1-04 role-ordered 2-digit-by-3-digit direct equal-groups total envelope witness"
+    },
+    "liTeacherWitness": {
+      "sourceFileId": "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+      "use": "per-unit reasoning structure only; two-step 归一归总 remains excluded from P1-04 V1"
+    },
+    "explicitlyExcluded": [
+      "two multiplicative subtotals plus addition",
+      "three-factor multiplication chains",
+      "inverse unknown roles",
+      "R05 as a second relation kernel",
+      "implicit or explicit unit conversion",
+      "multi-relation composition"
+    ]
+  },
+  "publicBindingBoundary": {
+    "status": "OBSERVED_NOT_ADOPTED_FOR_P104_MODELING_TRANSFER",
+    "matrixAuthoritativeKnowledgePointIds": ["kp_g4a_u02_2digit_by_3digit","kp_g4a_u02_3digit_by_2digit"],
+    "extraPublicBindingKnowledgePointIdsNotImplemented": ["kp_g4b_u01_3digit_by_3digit","kp_g4b_u01_4digit_by_3digit"],
+    "publicBindingMutationApplied": false,
+    "publicCutoverBlockedPendingSeparateDecision": true
+  },
+  "protectedAuthority": {
+    "mustRemainUnmodified": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-generator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-validator.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html"
+    ],
+    "p105RuntimeUntouched": true,
+    "p112PublicRouteUntouched": true,
+    "classicRuntimeUntouched": true
+  },
+  "focusedAcceptance": {
+    "counts": [1,20,120],
+    "require120DistinctPrompts": true,
+    "requireAllFourPatternFamiliesAt120": true,
+    "requireBothArithmeticFormsAt120": true,
+    "requireEightFamilyFormCellsAt120": true,
+    "requireDeterministicReplay": true,
+    "requireDifferentSeedVariation": true,
+    "requireWorksheetQuestionsAndAnswerKeys": true,
+    "requireStaticImportSmoke": true,
+    "requireP101P102P103Preservation": true,
+    "requireP105Preservation": true,
+    "requireP112DeferredPreservation": true,
+    "requirePublicBindingUntouched": true,
+    "fullRegressionRequired": false,
+    "globalReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_P104_TRANSFER_RELATION_ROLE_ORDERED_NUMERIC_ENVELOPE_AND_BINDING_BOUNDARY_PREFLIGHT_LOCKED",
+    "goalDistanceAfterTarget": "D1_P104_PATH1_LOCAL_PATTERN_GENERATOR_VALIDATOR_WORKSHEET_USABLE",
+    "distanceReduced": "P1-04 advances from a locked transfer contract to executable Path1-local PatternSpecs, role-ordered generator, fail-closed form-aware validator, and non-public worksheet output without changing public binding or canonical authority.",
+    "remainingBlockers": [
+      "P1-04 public binding reconciliation/decision not completed",
+      "P1-04 public practice-mode cutover preflight not completed",
+      "P1-04 public query/UI route not cut over",
+      "P1-04 deployed public acceptance not completed",
+      "P1-04 mastery integration remains separate"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_04_PUBLIC_BINDING_RECONCILIATION_PREFLIGHT_V1"
+  }
+}
