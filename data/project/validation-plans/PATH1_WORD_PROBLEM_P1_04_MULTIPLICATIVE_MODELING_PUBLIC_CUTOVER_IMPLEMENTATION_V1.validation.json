@@ -10,8 +10,6 @@
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/path1-word-problem-p1-04-multiplicative-modeling-public-cutover-implementation-v1.test.js",
-          "tests/curriculum/path1-word-problem-p1-04-multiplicative-modeling-implementation-v1.test.js",
-          "tests/curriculum/path1-word-problem-p1-04-public-binding-reconciliation-preflight-v1.test.js",
           "tests/curriculum/path1-word-problem-equal-groups-public-cutover-implementation-v1.test.js"
         ]
       },
