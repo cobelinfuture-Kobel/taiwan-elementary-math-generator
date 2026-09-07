@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_WORD_PROBLEM_P1_04_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_WORD_PROBLEM_P1_04_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Governance classifier has no planning-only scope. sharedExecutableChange=true is a lane-selection shim for bounded focused CI only. This PR adds a static P1-04 capability/transfer preflight contract and tests. It does not modify runtime, public behavior, canonical KnowledgePoints, relation semantics, G3B-U08 numeric authority, the Path1 matrix, the observed Path1 public binding, P1-01/P1-02/P1-03 deployed modeling, P1-05, or P1-12 public routing.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
