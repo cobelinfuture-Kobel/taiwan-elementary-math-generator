@@ -9,7 +9,7 @@ const PATH1_MANUAL_PRACTICE_MODES = Object.freeze([
   PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE,
 ]);
 const EQUAL_GROUPS_TRANSFER_BLOCK_IDS = new Set(["P1-01", "P1-02"]);
-const MULTIPLICATIVE_MODELING_BLOCK_IDS = new Set(["P1-03", "P1-04"]);
+const MULTIPLICATIVE_MODELING_BLOCK_IDS = new Set(["P1-03", "P1-04", "P1-05"]);
 
 function warning(code, details = {}) {
   return Object.freeze({ code, ...details });
