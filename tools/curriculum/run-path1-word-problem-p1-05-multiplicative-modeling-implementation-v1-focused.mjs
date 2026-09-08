@@ -19,6 +19,10 @@ import {
   buildPath1P104MultiplicativeModelingItems,
 } from "../../site/modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-generator.js";
 
+function countCells(pages, cellType) {
+  return (pages ?? []).flatMap((page) => page.cells ?? []).filter((cell) => cell.cellType === cellType).length;
+}
+
 const generated = buildPath1P105MultiplicativeModelingItems({
   blockId: "P1-05",
   count: 120,
@@ -49,12 +53,14 @@ const worksheet = buildPath1P105MultiplicativeModelingWorksheet({
   includeAnswerKey: true,
 });
 assert.equal(worksheet.ok, true, JSON.stringify(worksheet.errors));
-assert.equal(worksheet.worksheetDocument.questionCount, 36);
-assert.equal(worksheet.worksheetDocument.questionDisplayModels.length, 36);
-assert.equal(worksheet.worksheetDocument.answerKeyItems.length, 36);
-assert.equal(worksheet.worksheetDocument.metadata.publicCutoverApplied, false);
-assert.equal(worksheet.worksheetDocument.metadata.publicBindingReconciled, false);
-assert.ok(worksheet.worksheetDocument.answerKeyItems.every((entry) => /×/.test(entry.answerText) && /答：/.test(entry.answerText)));
+const worksheetDocument = worksheet.worksheetDocument;
+assert.equal(worksheetDocument.questionCount, 36);
+assert.equal(worksheetDocument.questions.length, 36);
+assert.equal(countCells(worksheetDocument.questionPages, "question"), 36);
+assert.equal(countCells(worksheetDocument.answerKeyPages, "answerKey"), 36);
+assert.equal(worksheetDocument.configSnapshot.metadata.publicCutoverApplied, false);
+assert.equal(worksheetDocument.configSnapshot.metadata.publicBindingReconciled, false);
+assert.ok(worksheetDocument.questions.every((entry) => /×/.test(entry.answerText) && /答：/.test(entry.answerText)));
 
 const unsupported = buildPath1P105MultiplicativeModelingItems({ blockId: "P1-06", count: 8, seed: "p105-unsupported" });
 assert.equal(unsupported.ok, false);
@@ -78,8 +84,8 @@ console.log(JSON.stringify({
   includesTotalAbove999: generated.summary.includesTotalAbove999,
   includesLowBoundary: generated.summary.includesLowBoundary,
   includesHighBoundary: generated.summary.includesHighBoundary,
-  worksheetQuestions: worksheet.worksheetDocument.questionCount,
-  worksheetAnswers: worksheet.worksheetDocument.answerKeyItems.length,
+  worksheetQuestions: worksheetDocument.questionCount,
+  worksheetAnswers: countCells(worksheetDocument.answerKeyPages, "answerKey"),
   publicCutoverApplied: false,
   publicBindingReconciled: false,
   g4bU01ModelingExpanded: false,
