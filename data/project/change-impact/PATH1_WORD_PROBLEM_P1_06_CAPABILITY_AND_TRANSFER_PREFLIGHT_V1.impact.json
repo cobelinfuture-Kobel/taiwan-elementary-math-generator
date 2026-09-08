@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_WORD_PROBLEM_P1_06_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1",
+  "currentScope": "KP_LEAF",
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_WORD_PROBLEM_P1_06_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Planning/source-backed P1-06 capability preflight only. Adds a contract and focused governance test that lock the existing two canonical G4A-U04 P1-06 KPs, estimate/trial-quotient representation candidates, school-exam evidence, adjacent-block boundaries, and the decision not to pull word-problem relation modeling forward. No shared executable, public authority, legal route, current authority, Path1 matrix, generator, validator, public binding, or UI is changed.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
