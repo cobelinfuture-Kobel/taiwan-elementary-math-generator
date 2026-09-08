@@ -14,7 +14,7 @@
   },
   "expectedDerivedGate": "KP_FOCUSED",
   "validationPlanPath": "data/project/validation-plans/PATH1_P1_07_QUOTIENT_START_PLACE_PREFLIGHT_V1.validation.json",
-  "classificationNote": "Planning/source-authority P1-07 composite preflight only. The KP_LEAF lane uses the first matrix-primary KP as machine currentKnowledgePointId while retaining both P1-07 primary KPs as PENDING because no runtime/product completion is claimed. No shared executable, public authority, legal route, current authority, Path1 matrix, canonical G3B-U01 authority, public binding, query state, UI, generator, validator, or renderer is changed.",
+  "classificationNote": "Planning/source-authority P1-07 composite preflight only, now consuming the merged three-lane cloud provenance reconciliation. The first matrix-primary KP remains the machine currentKnowledgePointId while both primary KPs remain PENDING because no runtime/product completion is claimed. Cloud evidence repairs provenance and the P1-07/P1-08 semantic boundary only; no shared executable, public authority, legal route, current authority, Path1 matrix, canonical G3B-U01 authority, public binding, query state, UI, generator, validator, renderer, or numeric runtime envelope is changed.",
   "changeImpact": {
     "sharedExecutableChange": false,
     "publicAuthorityCutover": false,

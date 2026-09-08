@@ -1,0 +1,60 @@
+name: P05F W5 Q015 Post-Merge Pages E2E
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/curriculum/full-product/p05f/q015-g5a-u05a1-sector-elements-implementation.json'
+      - 'site/modules/curriculum/registry/g5a-u05a1-sector-elements-selector-projection-p05f15.js'
+      - 'site/modules/curriculum/registry/batch-a-selector-p05f15-extension.js'
+      - 'site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js'
+      - 'site/modules/curriculum/public/public-ui-capability-binding-p05f15.js'
+      - 'site/modules/curriculum/public/public-ui-capability-binding-p04f33.js'
+      - 'site/modules/curriculum/batch-a/g5a-u05a1-sector-elements-runtime-p05f15.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f15.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f15-extension.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js'
+      - 'site/modules/curriculum/batch-a/source-units.js'
+      - 'site/assets/browser/state/config-state.js'
+      - 'site/modules/renderer/sector-elements-diagram.js'
+      - 'site/modules/renderer/html-renderer.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p05f-w5-q015-postmerge-pages-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-pages-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout exact merged main head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Run Q015 exact deployed Main/Pages E2E
+        env:
+          P05F15_DEPLOYMENT_RETRIES: "36"
+          P05F15_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+        run: node tools/curriculum/run-p05f-w5-q015-live-pages-e2e.mjs
+      - name: Upload Q015 Main/Pages E2E evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p05f-w5-q015-postmerge-main-pages-e2e
+          path: tmp/p05f-w5-q015-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30

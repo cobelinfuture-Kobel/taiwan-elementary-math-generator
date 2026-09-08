@@ -13,7 +13,7 @@
         ]
       },
       {
-        "gateId": "TARGETED_PREDECESSOR_CONTRACT",
+        "gateId": "TARGETED_BROWSER_E2E",
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/path1-p1-06-estimate-trial-quotient-public-cutover-implementation-v1.test.js"

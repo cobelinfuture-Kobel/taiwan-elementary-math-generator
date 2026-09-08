@@ -1,0 +1,121 @@
+{
+  "schemaName": "P05FW5Q015SectorElementsImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice015Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 15,
+    "sliceId": "p05e_q015_r1_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "sourceId": "g5a_u05_5a05a1",
+    "runtimeProfileId": "profile_geometry_property",
+    "knowledgePointId": "kp_g5a_u05a1_sector_center_radius_arc",
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q014_r1_g4b_u10_4b10_profile_spatial_solid_c1",
+    "implementationPrNumber": 831,
+    "productMergeSha": "946a572c1a75c582ce15669e5545b03e191b2a89",
+    "prGateRunId": "34208599698",
+    "exactPagesRunId": "34208781995",
+    "pagesDeploymentRunId": "34208781840",
+    "evidenceArtifactId": "10048934921",
+    "evidenceArtifactDigest": "sha256:5f3fc9fefb6b6054a77754ba49148fd40c43270350587dbb9aab005197447d15",
+    "postMergeGlobalCIAttribution": "BASELINE_ONLY_125_FAILURE_IDENTITIES_NEW_0",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q015-g5a-u05a1-sector-elements-source-authority-preflight.json",
+    "sourceTitle": "扇形與圓心角",
+    "sourcePdfTitle": "meow911_5a05a1_source.pdf",
+    "reviewedPages": [1, 2],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK",
+    "metadataUrl": "https://meow911.com/5a05a1/",
+    "embeddedPdfHeaderUrl": "https://meow911.com/5a05b/",
+    "sourceHeaderMismatchPreserved": true,
+    "sourceRefAmbiguity": false
+  },
+  "formalMapping": {
+    "mappingId": "fm_g5a_u05a1_sector_elements_p05f15",
+    "relationFamily": "SECTOR_ELEMENTS",
+    "includedRelations": [
+      "IDENTIFY_SECTOR_CENTER",
+      "IDENTIFY_SECTOR_RADII",
+      "IDENTIFY_SECTOR_CENTRAL_ANGLE",
+      "IDENTIFY_SECTOR_ARC",
+      "PRESERVE_TWO_RADII_AND_CORRESPONDING_ARC_SECTOR_STRUCTURE"
+    ],
+    "excludedRelations": [
+      "MEASURE_OR_CALCULATE_CENTRAL_ANGLE",
+      "SECTOR_FRACTION_OF_FULL_CIRCLE",
+      "COMPARE_SECTOR_SIZE_IN_SAME_CIRCLE",
+      "SOLVE_COMBINED_SECTOR_ANGLES",
+      "GEOMETRY_CONSTRUCTION",
+      "APPLICATION_CONTEXT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g5a_u05a1_sector_elements",
+    "patternSpecIds": [
+      "ps_g5a_u05a1_identify_sector_center",
+      "ps_g5a_u05a1_identify_sector_radii",
+      "ps_g5a_u05a1_identify_sector_central_angle",
+      "ps_g5a_u05a1_identify_sector_arc",
+      "ps_g5a_u05a1_preserve_sector_structure"
+    ],
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "requiresGeometryDiagramRepresentation": true,
+    "applicationImplementationAllowed": false
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g5a-u05a1-sector-elements-runtime-p05f15.js",
+    "validator": "validateG5AU05A1P05F15Question",
+    "diagramRenderer": "site/modules/renderer/sector-elements-diagram.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f15.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f15-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 52,
+    "sourceCountAfter": 53,
+    "visibleKnowledgePointCountBefore": 328,
+    "visibleKnowledgePointCountAfter": 329,
+    "g5aU05a1VisibleCount": 1,
+    "g5aU05a1HiddenPendingCount": 4,
+    "g5aU05a1NotSelectableCount": 4,
+    "sourceUnitOwnerKnowledgePointId": "kp_g5a_u05a1_sector_center_radius_arc",
+    "questionTypeValue": "diagram",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice015-g5a-u05a1-sector-elements.test.js",
+    "directDependencyTest": "tests/curriculum/p05f-w5-slice015-direct-dependencies.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice015-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "centralAngleMeasurementTouched": false,
+    "sectorFractionTouched": false,
+    "sectorComparisonTouched": false,
+    "combinedSectorAngleTouched": false,
+    "geometryConstructionTouched": false,
+    "applicationContextTouched": false,
+    "q016OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  }
+}

@@ -3,9 +3,11 @@
   "schemaVersion": 1,
   "taskId": "PATH1_P1_07_QUOTIENT_START_PLACE_PREFLIGHT_V1",
   "resumeAuthority": "PATH1_P1_07_PUBLIC_PATH_CONTINUATION_PREFLIGHT_OR_CURRENT_PATH1_QUEUE_AUTHORITY",
-  "status": "P1_07_QUOTIENT_START_PLACE_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "cloudProvenanceReconciliationTaskId": "PATH1_P1_05_P1_07_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1",
+  "status": "P1_07_QUOTIENT_START_PLACE_PREFLIGHT_CLOUD_PROVENANCE_RECONCILED_NO_RUNTIME",
   "operatorScope": "APPROVED_PREFLIGHT_ONLY",
   "mainAtTaskStart": "63c0eb02074db10ac7d8bd510fb6c4a24b8313ba",
+  "cloudProvenanceMergeSha": "0333cc608ad29a154eaedafb9eb2508332894a59",
   "implementationAllowed": false,
   "runtimeChanged": false,
   "publicCutoverAllowed": false,
@@ -17,10 +19,10 @@
   "scope": {
     "includedPathBlock": "P1-07",
     "title": "商的位值",
-    "goal": "Lock the current queue, source authority, canonical KP boundary, Path1-local representation candidates, and fail-closed validator contract for P1-07 before any implementation.",
+    "goal": "Lock the current queue, canonical source authority, all three mandatory cloud evidence lanes, semantic P1-07/P1-08 boundary, Path1-local V1 representation candidates, and fail-closed validator contract before implementation.",
     "excluded": [
       "P1-01 through P1-06 replanning or runtime changes",
-      "P1-08 二位數除數 implementation or authority changes",
+      "P1-08 full two-digit-divisor implementation or authority changes",
       "P1-09 or later division-envelope expansion",
       "P1-11 remainder/checking interpretation",
       "P1-12 inverse equal-groups relation transfer",
@@ -29,6 +31,7 @@
       "public binding mutation",
       "public query/UI changes",
       "word-problem relation minting",
+      "two-digit-divisor P1-07 runtime extension without separate approval",
       "mastery integration",
       "full repository regression",
       "global browser replay"
@@ -39,6 +42,8 @@
     "g3bU01KnowledgeOperation": "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json",
     "g3bU01PatternDefinitions": "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
     "path1PublicBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "cloudSourceRegistryV2": "data/curriculum/application/reviews/PATH1_CLOUD_SOURCE_CORPUS_REGISTRY_V2.json",
+    "cloudSourceReconciliation": "data/curriculum/application/reviews/PATH1_P1_05_P1_07_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1.json",
     "validationPolicy": ".github/ci/unit-validation-policy.json"
   },
   "currentQueueAuthority": {
@@ -69,6 +74,7 @@
     "sourceId": "g3b_u01_3b01",
     "sourceFileName": "batchA_01-題型總覽-3b01-除法.pdf",
     "sourceDriveFileId": "1V-QZ7va_76f6V1O5HsrKCxoJj04KQMXT",
+    "v1RuntimeDivisorEnvelope": "one-digit divisors 2..9 only",
     "primaryModels": [
       {
         "knowledgePointId": "kp_g3b_u01_2digit_division_place_value_cases",
@@ -134,7 +140,50 @@
         ]
       }
     ],
-    "sourceInterpretation": "The source directly separates quotient starting-place cases by whether the dividend's highest current place is sufficient to divide by the one-digit divisor. This is the P1-07 learning target; quotient-zero cases are visible but remain an optional supporting KP rather than a V1 primary requirement."
+    "sourceInterpretation": "The canonical G3B-U01 source directly separates quotient starting-place cases for one-digit divisors. It remains the P1-07 V1 runtime arithmetic authority; cloud exam evidence broadens representation evidence but does not silently expand this runtime envelope."
+  },
+  "mandatoryCloudEvidence": {
+    "allThreeLanesEvaluated": true,
+    "learningMaps": {
+      "sourceCorpusId": "TAIWAN_G3_G6_LEARNING_MAPS",
+      "evidenceStatus": "CURRICULUM_BOUNDARY_ONLY",
+      "reviewedFileIds": [
+        "1OpYq57SRbQhfrkvqucR5eL2FJzd71SNd",
+        "1B4lCR5BQngMGVNIMN-DGcfqMfC7y0jWI"
+      ],
+      "observedWitnesses": [
+        "3下除法：二、三位數除以一位數的問題",
+        "4上整數的除法：二到四位數÷二位數"
+      ],
+      "authorityUse": "Curriculum progression evidence showing quotient-place reasoning exists across the one-digit-divisor to two-digit-divisor progression."
+    },
+    "liTeacher": {
+      "sourceCorpusId": "LI_TEACHER_MATH_THINKING_G1_G6",
+      "evidenceStatus": "NO_DIRECT_WITNESS",
+      "reviewedFileIds": [
+        "1q3TLW8vYlDC-zO2N2zOKT5aUJ0Q6snq8",
+        "1YGF0ffKRpDglm2cg2-Tr8Ejmr2ktt-x3",
+        "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+        "1ewWwnh4GayBL9dC-GPLZAJaDJ7egsHKU"
+      ],
+      "observedWitnessesOrNoWitnessReason": "No reviewed direct 商是幾位數 / quotient-start-place teaching witness was identified in the G3/G4 Li Teacher corpus.",
+      "authorityUse": "Explicit negative evidence; no P1-07 Pattern admission or runtime authority."
+    },
+    "schoolExams": {
+      "sourceCorpusId": "MULTI_SCHOOL_EXAM_CORPUS_G03_G09",
+      "evidenceStatus": "DIRECT_WITNESS",
+      "reviewedFileIds": [
+        "1ZcSC_R_O-ffR4VdC8mT4o8r8m9D0zKHE",
+        "1WlXVM_G-gk_A9gvjof2j0C4cekL8umdw",
+        "1ZLTZRGPTIFlYe9hIZBelgb-niUc8h1jx"
+      ],
+      "observedWitnesses": [
+        "573÷57，商是（ ）位數",
+        "302÷42，商是（ ）位數",
+        "□36÷78 的商是二位數，選擇可能的百位數字"
+      ],
+      "authorityUse": "Direct assessment representation evidence for quotient-start-place / quotient-digit-count classification, including two-digit-divisor surfaces."
+    }
   },
   "formalMapping": {
     "capabilityId": "QUOTIENT_START_PLACE_AND_DIGIT_COUNT_CLASSIFICATION",
@@ -165,7 +214,12 @@
         "expectedStartPlace": "HUNDREDS",
         "expectedQuotientDigits": 3
       }
-    ]
+    ],
+    "twoDigitDivisorSemanticTransferEvidence": {
+      "supportedBySchoolExamCorpus": true,
+      "admittedToV1Runtime": false,
+      "reason": "The same quotient-place capability is directly assessed with two-digit divisors, but current matrix-primary P1-07 V1 authority remains the G3B-U01 one-digit-divisor KPs."
+    }
   },
   "representationDecision": {
     "strategy": "PATH1_LOCAL_QUOTIENT_START_PLACE_REPRESENTATION_LAYER",
@@ -186,7 +240,12 @@
     "newRelationRequired": false,
     "newContextFamilyRequired": false,
     "multipleChoicePresentationMayBeLocal": true,
-    "quotientZeroCasesPrimaryInV1": false
+    "quotientZeroCasesPrimaryInV1": false,
+    "twoDigitDivisorRepresentationExtension": {
+      "status": "DEFERRED_REQUIRES_SEPARATE_APPROVAL",
+      "semanticEvidencePresent": true,
+      "materializedInThisPreflight": false
+    }
   },
   "optionalSupportingBoundary": {
     "knowledgePointId": "kp_g3b_u01_quotient_zero_cases",
@@ -208,7 +267,7 @@
   },
   "boundaryWithAdjacentBlocks": {
     "P1-06": "P1-06 owns two-digit-divisor estimation/trial-quotient strategy; P1-07 must not add estimation semantics.",
-    "P1-08": "P1-08 owns the broader two-digit-divisor stage; P1-07 V1 remains one-digit divisors from G3B-U01.",
+    "P1-08": "P1-07 owns quotient-start-place / quotient-digit-count semantics. Current P1-07 V1 runtime stays on one-digit divisors; two-digit-divisor quotient-place exam items are representation evidence only until separately approved. P1-08 owns full two-digit-divisor arithmetic execution/practice.",
     "P1-11": "P1-11 owns remainder/checking emphasis; P1-07 V1 remains exact division and does not interpret remainders.",
     "P1-12": "P1-12 owns inverse equal-groups relation semantics; P1-07 does not mint word-problem relations."
   },
@@ -218,6 +277,8 @@
     "implementationRequiresSeparateOperatorApproval": true,
     "mustReuseCanonicalArithmeticAuthority": true,
     "mustNotCreateWordProblemRelation": true,
+    "v1DivisorEnvelope": "2..9 one-digit divisors only",
+    "twoDigitDivisorRepresentationExtensionAllowed": false,
     "mustNotModify": [
       "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
       "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json",
@@ -236,13 +297,14 @@
     "requiredChecks": [
       "block is exactly P1-07",
       "knowledgePointId is one of the two matrix-primary G3B-U01 P1-07 KPs",
-      "divisor is a one-digit integer from 2 through 9",
+      "V1 runtime divisor is a one-digit integer from 2 through 9",
       "division is exact",
       "2-digit items use 10..99 dividends and classify start place from tensDigit compared with divisor",
       "3-digit items use 100..999 dividends and classify start place from hundredsDigit compared with divisor",
       "reported quotient digit count is consistent with the classified start place",
       "primary V1 items do not require quotient-zero placeholder reasoning",
-      "no two-digit divisor, divisor estimation, remainder interpretation, word-problem relation, or new canonical KP is introduced"
+      "two-digit-divisor quotient-place evidence must not leak into V1 runtime without separately approved extension",
+      "no divisor estimation, remainder interpretation, word-problem relation, or new canonical KP is introduced"
     ]
   },
   "validationPolicy": {
@@ -258,13 +320,18 @@
     "affectedRoutes": "BOUNDED",
     "currentAuthorityChanged": false,
     "derivedGate": "KP_FOCUSED",
+    "requiredGateIds": [
+      "FOCUSED_TEST",
+      "TARGETED_BROWSER_E2E",
+      "DIRECT_DEPENDENCY_CONTRACTS"
+    ],
     "fullRepositoryRegressionRequired": false,
     "globalBrowserReplayRequired": false
   },
   "distance": {
-    "goalDistanceBefore": "D3_P107_MATRIX_KP_MAPPING_EXISTS_NO_PATH1_LOCAL_PATTERN_VALIDATOR_CONTRACT",
-    "goalDistanceAfter": "D2_P107_SOURCE_MAPPING_PATTERN_VALIDATOR_CONTRACT_LOCKED_NO_RUNTIME",
-    "distanceReduced": "D3_TO_D2_BY_LOCKING_SOURCE_AUTHORITY_FORMAL_MAPPING_PATTERN_CANDIDATES_AND_FAIL_CLOSED_VALIDATOR_BOUNDARY",
+    "goalDistanceBefore": "D3_P107_MATRIX_KP_MAPPING_EXISTS_WITH_CLOUD_PROVENANCE_GAP_AND_P107_P108_BOUNDARY_CONFLICT",
+    "goalDistanceAfter": "D2_P107_THREE_LANE_SOURCE_MAPPING_PATTERN_VALIDATOR_BOUNDARY_LOCKED_NO_RUNTIME",
+    "distanceReduced": "D3_TO_D2_BY_CONSUMING_ALL_THREE_CLOUD_EVIDENCE_LANES_RESOLVING_P107_P108_SEMANTIC_EXECUTION_BOUNDARY_AND_LOCKING_V1_RUNTIME_SCOPE",
     "remainingBlockers": [
       "P1-07 non-public local generator/validator/worksheet layer not implemented",
       "P1-07 public cutover not preflighted or approved",
