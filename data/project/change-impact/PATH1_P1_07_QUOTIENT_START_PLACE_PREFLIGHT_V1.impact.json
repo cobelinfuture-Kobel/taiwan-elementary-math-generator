@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_P1_07_QUOTIENT_START_PLACE_PREFLIGHT_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g3b_u01_2digit_division_place_value_cases",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3b_u01_2digit_division_place_value_cases",
+    "kp_g3b_u01_3digit_division_place_value_cases"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3b_u01_2digit_division_place_value_cases": "PENDING",
+    "kp_g3b_u01_3digit_division_place_value_cases": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_P1_07_QUOTIENT_START_PLACE_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Planning/source-authority P1-07 composite preflight only. The KP_LEAF lane uses the first matrix-primary KP as machine currentKnowledgePointId while retaining both P1-07 primary KPs as PENDING because no runtime/product completion is claimed. No shared executable, public authority, legal route, current authority, Path1 matrix, canonical G3B-U01 authority, public binding, query state, UI, generator, validator, or renderer is changed.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

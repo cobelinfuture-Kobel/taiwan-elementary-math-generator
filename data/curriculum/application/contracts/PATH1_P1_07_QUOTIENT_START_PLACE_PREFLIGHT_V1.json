@@ -1,0 +1,275 @@
+{
+  "schemaName": "Path1P107QuotientStartPlacePreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_07_QUOTIENT_START_PLACE_PREFLIGHT_V1",
+  "resumeAuthority": "PATH1_P1_07_PUBLIC_PATH_CONTINUATION_PREFLIGHT_OR_CURRENT_PATH1_QUEUE_AUTHORITY",
+  "status": "P1_07_QUOTIENT_START_PLACE_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "operatorScope": "APPROVED_PREFLIGHT_ONLY",
+  "mainAtTaskStart": "63c0eb02074db10ac7d8bd510fb6c4a24b8313ba",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicCutoverAllowed": false,
+  "publicBindingMutationAllowed": false,
+  "path1MatrixChanged": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "newRelationMinted": false,
+  "newPatternSpecMaterialized": false,
+  "scope": {
+    "includedPathBlock": "P1-07",
+    "title": "商的位值",
+    "goal": "Lock the current queue, source authority, canonical KP boundary, Path1-local representation candidates, and fail-closed validator contract for P1-07 before any implementation.",
+    "excluded": [
+      "P1-01 through P1-06 replanning or runtime changes",
+      "P1-08 二位數除數 implementation or authority changes",
+      "P1-09 or later division-envelope expansion",
+      "P1-11 remainder/checking interpretation",
+      "P1-12 inverse equal-groups relation transfer",
+      "G3B-U01 canonical KnowledgePoint or PatternSpec mutation",
+      "Path1 matrix mutation",
+      "public binding mutation",
+      "public query/UI changes",
+      "word-problem relation minting",
+      "mastery integration",
+      "full repository regression",
+      "global browser replay"
+    ]
+  },
+  "authorityRefs": {
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "g3bU01KnowledgeOperation": "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json",
+    "g3bU01PatternDefinitions": "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
+    "path1PublicBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "validationPolicy": ".github/ci/unit-validation-policy.json"
+  },
+  "currentQueueAuthority": {
+    "previousCompletedBlock": "P1-06",
+    "currentBlock": "P1-07",
+    "nextBlock": "P1-08",
+    "currentBlockTitle": "商的位值",
+    "currentBlockType": "COMPOSITE_KP",
+    "requiredPrerequisiteBlockIds": ["P1-06"],
+    "queueDecision": "P1_07_IS_THE_CURRENT_SHORTEST_PATH1_BLOCK_AFTER_P1_06_D0"
+  },
+  "currentMatrixAuthority": {
+    "blockId": "P1-07",
+    "blockType": "COMPOSITE_KP",
+    "primaryKnowledgePointIds": [
+      "kp_g3b_u01_2digit_division_place_value_cases",
+      "kp_g3b_u01_3digit_division_place_value_cases"
+    ],
+    "requiredPrerequisiteBlockIds": ["P1-06"],
+    "optionalSupportingKnowledgePointIds": [
+      "kp_g3b_u01_quotient_zero_cases"
+    ],
+    "requiredPatternId": "quotient_start_place_cases",
+    "patternExpansionKind": "DESCRIPTIVE_DIFFICULTY_EXPANSION",
+    "patternExpansionDescription": "依前位夠除/不夠除判斷商起始位。"
+  },
+  "canonicalArithmeticAuthority": {
+    "sourceId": "g3b_u01_3b01",
+    "sourceFileName": "batchA_01-題型總覽-3b01-除法.pdf",
+    "sourceDriveFileId": "1V-QZ7va_76f6V1O5HsrKCxoJj04KQMXT",
+    "primaryModels": [
+      {
+        "knowledgePointId": "kp_g3b_u01_2digit_division_place_value_cases",
+        "knowledgePointName": "二位數除以一位數商位判斷",
+        "operationModelId": "op_g3b_u01_two_digit_exact_division_place_value",
+        "numberConstraints": [
+          "10 <= dividend <= 99",
+          "2 <= divisor <= 9",
+          "dividend % divisor = 0",
+          "leading digit relation selects quotient place-value case"
+        ],
+        "validationInvariants": [
+          "division is exact",
+          "quotient place count matches the leading-digit case",
+          "quotient is an integer"
+        ]
+      },
+      {
+        "knowledgePointId": "kp_g3b_u01_3digit_division_place_value_cases",
+        "knowledgePointName": "三位數除以一位數商位判斷",
+        "operationModelId": "op_g3b_u01_three_digit_exact_division_place_value",
+        "numberConstraints": [
+          "100 <= dividend <= 999",
+          "2 <= divisor <= 9",
+          "dividend % divisor = 0",
+          "hundreds digit relation selects quotient place-value case"
+        ],
+        "validationInvariants": [
+          "division is exact",
+          "quotient place count matches the hundreds-digit case",
+          "quotient is an integer"
+        ]
+      }
+    ],
+    "existingSemanticParentPatternSpecIds": [
+      "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+      "ps_g3b_u01_2digit_leading_digit_insufficient",
+      "ps_g3b_u01_2digit_leading_digit_exact",
+      "ps_g3b_u01_3digit_by_1digit_regroup_hundreds",
+      "ps_g3b_u01_3digit_hundreds_insufficient",
+      "ps_g3b_u01_3digit_hundreds_exact"
+    ]
+  },
+  "primarySourceEvidence": {
+    "sourceId": "g3b_u01_3b01",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_OF_CONFIGURED_SOURCE_PDF",
+    "pageWitnesses": [
+      {
+        "page": 1,
+        "supports": [
+          "商寫在個位",
+          "商寫在十位",
+          "2位數÷1位數第1種類型：最高位不夠除"
+        ]
+      },
+      {
+        "page": 2,
+        "supports": [
+          "2位數÷1位數第2種類型：最高位夠除",
+          "3位數÷1位數第1種類型：最高位不夠除",
+          "3位數÷1位數第2種類型：最高位夠除",
+          "商要補0的情況"
+        ]
+      }
+    ],
+    "sourceInterpretation": "The source directly separates quotient starting-place cases by whether the dividend's highest current place is sufficient to divide by the one-digit divisor. This is the P1-07 learning target; quotient-zero cases are visible but remain an optional supporting KP rather than a V1 primary requirement."
+  },
+  "formalMapping": {
+    "capabilityId": "QUOTIENT_START_PLACE_AND_DIGIT_COUNT_CLASSIFICATION",
+    "notANewCanonicalKnowledgePoint": true,
+    "notANewRelation": true,
+    "caseRules": [
+      {
+        "caseId": "P107_2DIGIT_LEADING_INSUFFICIENT",
+        "condition": "tensDigit < divisor",
+        "expectedStartPlace": "ONES",
+        "expectedQuotientDigits": 1
+      },
+      {
+        "caseId": "P107_2DIGIT_LEADING_SUFFICIENT",
+        "condition": "tensDigit >= divisor",
+        "expectedStartPlace": "TENS",
+        "expectedQuotientDigits": 2
+      },
+      {
+        "caseId": "P107_3DIGIT_HUNDREDS_INSUFFICIENT",
+        "condition": "hundredsDigit < divisor",
+        "expectedStartPlace": "TENS",
+        "expectedQuotientDigits": 2
+      },
+      {
+        "caseId": "P107_3DIGIT_HUNDREDS_SUFFICIENT",
+        "condition": "hundredsDigit >= divisor",
+        "expectedStartPlace": "HUNDREDS",
+        "expectedQuotientDigits": 3
+      }
+    ]
+  },
+  "representationDecision": {
+    "strategy": "PATH1_LOCAL_QUOTIENT_START_PLACE_REPRESENTATION_LAYER",
+    "candidateLocalPatternSpecIds": [
+      "P107_2DIGIT_START_PLACE_SELECT",
+      "P107_2DIGIT_QUOTIENT_DIGIT_COUNT",
+      "P107_3DIGIT_START_PLACE_SELECT",
+      "P107_3DIGIT_QUOTIENT_DIGIT_COUNT"
+    ],
+    "candidateMeaning": [
+      "Given an exact 2-digit by 1-digit division, choose whether the quotient starts in the tens or ones place.",
+      "Given an exact 2-digit by 1-digit division, choose the quotient digit count from the leading-digit relation.",
+      "Given an exact 3-digit by 1-digit division, choose whether the quotient starts in the hundreds or tens place.",
+      "Given an exact 3-digit by 1-digit division, choose the quotient digit count from the hundreds-digit relation."
+    ],
+    "mustReuseExistingSemanticParents": true,
+    "newCanonicalKnowledgePointRequired": false,
+    "newRelationRequired": false,
+    "newContextFamilyRequired": false,
+    "multipleChoicePresentationMayBeLocal": true,
+    "quotientZeroCasesPrimaryInV1": false
+  },
+  "optionalSupportingBoundary": {
+    "knowledgePointId": "kp_g3b_u01_quotient_zero_cases",
+    "status": "DEFERRED_FROM_P107_PRIMARY_V1",
+    "reason": "The Path1 matrix marks quotient-zero cases optional; the P1-07 mastery gate requires only the two place-value primary KPs and quotient_start_place_cases. V1 must not silently promote the optional KP into a required primary family.",
+    "implementationConstraint": "Primary P1-07 local generator candidates should avoid quotient-zero items unless a later separately approved extension explicitly admits the optional supporting KP."
+  },
+  "publicBindingReconciliation": {
+    "matrixPrimaryKnowledgePointIds": [
+      "kp_g3b_u01_2digit_division_place_value_cases",
+      "kp_g3b_u01_3digit_division_place_value_cases"
+    ],
+    "currentPublicBindingKnowledgePointIds": [
+      "kp_g3b_u01_2digit_division_place_value_cases",
+      "kp_g3b_u01_3digit_division_place_value_cases"
+    ],
+    "status": "ALIGNED_NO_BINDING_DRIFT",
+    "publicBindingChangeRequired": false
+  },
+  "boundaryWithAdjacentBlocks": {
+    "P1-06": "P1-06 owns two-digit-divisor estimation/trial-quotient strategy; P1-07 must not add estimation semantics.",
+    "P1-08": "P1-08 owns the broader two-digit-divisor stage; P1-07 V1 remains one-digit divisors from G3B-U01.",
+    "P1-11": "P1-11 owns remainder/checking emphasis; P1-07 V1 remains exact division and does not interpret remainders.",
+    "P1-12": "P1-12 owns inverse equal-groups relation semantics; P1-07 does not mint word-problem relations."
+  },
+  "futureImplementationContract": {
+    "taskId": "PATH1_P1_07_QUOTIENT_START_PLACE_IMPLEMENTATION_V1",
+    "implementationType": "NON_PUBLIC_PATH1_LOCAL_REPRESENTATION_AND_VALIDATION_LAYER",
+    "implementationRequiresSeparateOperatorApproval": true,
+    "mustReuseCanonicalArithmeticAuthority": true,
+    "mustNotCreateWordProblemRelation": true,
+    "mustNotModify": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html",
+      "P1-08 or later runtime",
+      "P1-01 through P1-06 runtime"
+    ]
+  },
+  "futureValidatorContract": {
+    "failClosed": true,
+    "requiredChecks": [
+      "block is exactly P1-07",
+      "knowledgePointId is one of the two matrix-primary G3B-U01 P1-07 KPs",
+      "divisor is a one-digit integer from 2 through 9",
+      "division is exact",
+      "2-digit items use 10..99 dividends and classify start place from tensDigit compared with divisor",
+      "3-digit items use 100..999 dividends and classify start place from hundredsDigit compared with divisor",
+      "reported quotient digit count is consistent with the classified start place",
+      "primary V1 items do not require quotient-zero placeholder reasoning",
+      "no two-digit divisor, divisor estimation, remainder interpretation, word-problem relation, or new canonical KP is introduced"
+    ]
+  },
+  "validationPolicy": {
+    "currentScope": "KP_LEAF",
+    "currentKnowledgePointId": "kp_g3b_u01_2digit_division_place_value_cases",
+    "unitExpectedKnowledgePointIds": [
+      "kp_g3b_u01_2digit_division_place_value_cases",
+      "kp_g3b_u01_3digit_division_place_value_cases"
+    ],
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "currentAuthorityChanged": false,
+    "derivedGate": "KP_FOCUSED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_P107_MATRIX_KP_MAPPING_EXISTS_NO_PATH1_LOCAL_PATTERN_VALIDATOR_CONTRACT",
+    "goalDistanceAfter": "D2_P107_SOURCE_MAPPING_PATTERN_VALIDATOR_CONTRACT_LOCKED_NO_RUNTIME",
+    "distanceReduced": "D3_TO_D2_BY_LOCKING_SOURCE_AUTHORITY_FORMAL_MAPPING_PATTERN_CANDIDATES_AND_FAIL_CLOSED_VALIDATOR_BOUNDARY",
+    "remainingBlockers": [
+      "P1-07 non-public local generator/validator/worksheet layer not implemented",
+      "P1-07 public cutover not preflighted or approved",
+      "P1-07 deployed public acceptance not completed"
+    ],
+    "nextShortestStep": "PATH1_P1_07_QUOTIENT_START_PLACE_IMPLEMENTATION_V1"
+  }
+}
