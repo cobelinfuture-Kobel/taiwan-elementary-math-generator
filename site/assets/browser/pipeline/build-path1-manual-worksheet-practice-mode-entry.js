@@ -12,6 +12,9 @@ import {
   buildPath1P104MultiplicativeModelingWorksheet,
 } from "./build-path1-p1-04-multiplicative-modeling-worksheet.js";
 import {
+  buildPath1P105MultiplicativeModelingWorksheet,
+} from "./build-path1-p1-05-zero-special-multiplicative-modeling-worksheet.js";
+import {
   PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE,
 } from "../../../modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js";
 import {
@@ -20,6 +23,9 @@ import {
 import {
   PATH1_P1_04_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
 } from "../../../modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-patterns.js";
+import {
+  PATH1_P1_05_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-p1-05-zero-special-multiplicative-modeling-patterns.js";
 
 export const PATH1_MANUAL_ARITHMETIC_PRACTICE_MODE = "arithmetic";
 export const PATH1_EQUAL_GROUPS_MODELING_TRANSFER_GATE_ID =
@@ -30,6 +36,8 @@ export const PATH1_P103_MODELING_PUBLIC_CUTOVER_GATE_ID =
   "PATH1_P103_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
 export const PATH1_P104_MODELING_PUBLIC_CUTOVER_GATE_ID =
   "PATH1_P104_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
+export const PATH1_P105_MODELING_PUBLIC_CUTOVER_GATE_ID =
+  "PATH1_P105_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
 
 function failed(blockId, practiceMode, code) {
   return Object.freeze({
@@ -45,6 +53,7 @@ function failed(blockId, practiceMode, code) {
 function modelingPublicCutoverGateId(blockId) {
   if (blockId === "P1-03") return PATH1_P103_MODELING_PUBLIC_CUTOVER_GATE_ID;
   if (blockId === "P1-04") return PATH1_P104_MODELING_PUBLIC_CUTOVER_GATE_ID;
+  if (blockId === "P1-05") return PATH1_P105_MODELING_PUBLIC_CUTOVER_GATE_ID;
   return null;
 }
 
@@ -117,6 +126,14 @@ export function buildPath1ManualWorksheet(options = {}) {
         blockId,
         ...rest,
         practiceMode: PATH1_P1_04_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+      });
+      return attachPracticeMetadata(result, { blockId, practiceMode });
+    }
+    if (blockId === "P1-05") {
+      const result = buildPath1P105MultiplicativeModelingWorksheet({
+        blockId,
+        ...rest,
+        practiceMode: PATH1_P1_05_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
       });
       return attachPracticeMetadata(result, { blockId, practiceMode });
     }
