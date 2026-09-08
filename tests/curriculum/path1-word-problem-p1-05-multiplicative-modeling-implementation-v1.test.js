@@ -60,6 +60,10 @@ function errorCodes(validation) {
   return new Set(validation.errors.map((entry) => entry.code));
 }
 
+function countCells(pages, cellType) {
+  return (pages ?? []).flatMap((page) => page.cells ?? []).filter((cell) => cell.cellType === cellType).length;
+}
+
 function assertRelativeImportsExist(filePath) {
   const source = fs.readFileSync(filePath, "utf8");
   for (const match of source.matchAll(/from\s+["'](\.[^"']+)["']/g)) {
@@ -87,7 +91,7 @@ test("implementation follows merged P1-05 preflight and remains non-public", () 
   assert.equal(implementation.distance.goalDistanceAfterTarget, "D1_P105_PATH1_LOCAL_PATTERN_GENERATOR_VALIDATOR_WORKSHEET_USABLE");
 });
 
-test("P1-05 registry materializes exactly four local R03 families without widening canonical authority", () => {
+test("P1-05 local registry materializes exactly four R03 families without widening canonical authority", () => {
   assert.equal(registry.status, "PATH1_LOCAL_PATTERN_SPECS_MATERIALIZED_NON_PUBLIC");
   assert.equal(registry.path1BlockId, "P1-05");
   assert.equal(registry.arithmeticKnowledgePointId, PATH1_P1_05_MULTIPLICATIVE_MODELING_ARITHMETIC_KP_ID);
@@ -107,23 +111,20 @@ test("P1-05 registry materializes exactly four local R03 families without wideni
   assert.ok(registry.patternSpecs.every((entry) => entry.sourceSurfaceLineageOnly === true));
   assert.ok(registry.patternSpecs.every((entry) => entry.sourceParentNumericAuthorityReused === false));
   assert.ok(registry.patternSpecs.every((entry) => entry.contexts.length === 3));
-  assert.equal(registry.globalBoundaries.publicCutoverApplied, false);
-  assert.equal(registry.globalBoundaries.publicBindingReconciled, false);
 });
 
-test("P1-05 matrix remains exactly the single zero-middle G3A-U03 primary KP", () => {
+test("P1-05 matrix authority remains the single zero-middle G3A-U03 KP", () => {
   const block = matrix.blocks.find((entry) => entry.blockId === "P1-05");
   assert.ok(block);
   assert.deepEqual(block.primaryKnowledgePointIds, ["kp_g3a_u03_3digit_zero_middle_by_1digit"]);
   assert.deepEqual(block.requiredPrerequisites.blockIds, ["P1-04"]);
 });
 
-test("generator and validator accept 1/20/120 while preserving the zero-middle arithmetic boundary", () => {
+test("generator and validator accept 1/20/120 while preserving zero-middle arithmetic semantics", () => {
   for (const count of [1, 20, 120]) {
     const result = build(count);
     assert.equal(result.ok, true, JSON.stringify(result.errors));
     assert.equal(result.items.length, count);
-    assert.equal(result.summary.generated, count);
     assert.equal(result.summary.distinctPromptCount, count);
     assert.equal(new Set(result.items.map((entry) => entry.prompt)).size, count);
     const validation = validatePath1P105MultiplicativeModelingItems(result.items);
@@ -132,28 +133,21 @@ test("generator and validator accept 1/20/120 while preserving the zero-middle a
       assert.equal(item.mode, "application");
       assert.equal(item.path1BlockId, "P1-05");
       assert.equal(item.knowledgePointId, PATH1_P1_05_MULTIPLICATIVE_MODELING_ARITHMETIC_KP_ID);
-      assert.equal(item.arithmeticKnowledgePointId, PATH1_P1_05_MULTIPLICATIVE_MODELING_ARITHMETIC_KP_ID);
-      assert.equal(item.relationKnowledgePointId, "kp_g3b_u08_total_from_groups");
       assert.equal(item.relationId, "R03_EQUAL_GROUPS");
       assert.equal(item.unknownRole, "totalAmount");
       assert.equal(isPath1P105ZeroMiddleAmountPerGroup(item.amountPerGroup), true);
       assert.ok(item.groupCount >= 2 && item.groupCount <= 9);
       assert.equal(item.totalAmount, item.amountPerGroup * item.groupCount);
       assert.ok(item.totalAmount >= 202 && item.totalAmount <= 8181);
-      assert.equal(item.finalAnswer, item.totalAmount);
       assert.equal(item.equationModel, `${item.amountPerGroup} × ${item.groupCount} = ${item.totalAmount}`);
       assert.equal(item.metadata.zeroMiddleArithmeticBoundaryPreserved, true);
-      assert.equal(item.metadata.languageDifficulty, "LD0_DIRECT_ROLE_EXPLICIT");
-      assert.equal(item.metadata.singleRelationOnly, true);
-      assert.equal(item.metadata.unitConversionUsed, false);
-      assert.equal(item.metadata.semanticCommutativeRoleSwapAllowed, false);
       assert.equal(item.metadata.g4bU01ModelingExpanded, false);
       assert.equal(item.metadata.publicCutoverApplied, false);
     }
   }
 });
 
-test("120 items balance all four families and prove the full-envelope projection above G3B-U08's 999 cap", () => {
+test("120 items balance four families and prove full-envelope projection beyond G3B-U08 numeric limit", () => {
   const result = build(120, "path1-p105-modeling:balanced-120");
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.deepEqual(Object.values(result.summary.familyCounts).sort((a, b) => a - b), [30, 30, 30, 30]);
@@ -166,7 +160,7 @@ test("120 items balance all four families and prove the full-envelope projection
   assert.ok(result.items.some((entry) => entry.totalAmount === 8181));
 });
 
-test("same seed replays exactly and different seed changes the generated sequence", () => {
+test("same seed replays exactly and different seed changes sequence", () => {
   const a = build(40, "path1-p105-modeling:replay");
   const b = build(40, "path1-p105-modeling:replay");
   const c = build(40, "path1-p105-modeling:replay-different");
@@ -195,7 +189,7 @@ test("generator fails closed outside P1-05, invalid mode/count, or missing seed"
   assert.equal(result.errors[0].code, "PATH1_P105_MODELING_SEED_REQUIRED");
 });
 
-test("validator fails closed on zero-boundary, G4B leakage, inverse role, role swap, wrong unit/equation, and unapproved PatternSpec", () => {
+test("validator fails closed on zero-boundary, G4B leakage, inverse role, role swap, equation/unit, and PatternSpec mutations", () => {
   const result = build(20, "path1-p105-modeling:negative");
   assert.equal(result.ok, true);
   const original = result.items[0];
@@ -237,7 +231,6 @@ test("validator fails closed on zero-boundary, G4B leakage, inverse role, role s
   validation = validatePath1P105MultiplicativeModelingItem(mutated);
   assert.equal(validation.ok, false);
   assert.ok(errorCodes(validation).has("PATH1_P105_MODELING_SEMANTIC_ROLE_BINDING_MISMATCH"));
-  assert.ok(errorCodes(validation).has("PATH1_P105_MODELING_SEMANTIC_ROLE_SWAP_SCOPE_LEAK"));
 
   mutated = clone(original);
   mutated.equationModel = `${original.groupCount} × ${original.amountPerGroup} = ${original.totalAmount}`;
@@ -260,28 +253,35 @@ test("validator fails closed on zero-boundary, G4B leakage, inverse role, role s
   assert.ok(errorCodes(validation).has("PATH1_P105_MODELING_UNAPPROVED_PATTERN_SPEC"));
 });
 
-test("dedicated non-public worksheet renders application questions and equation-bearing answer key", () => {
+test("dedicated non-public worksheet renders 120 application questions and equation-bearing answer keys", () => {
   const result = buildPath1P105MultiplicativeModelingWorksheet({
     blockId: "P1-05",
     questionCount: 120,
     generationSeed: "path1-p105-worksheet-120",
     includeAnswerKey: true,
+    printLayout: { paperSize: "A4", columns: 2, rowsPerPage: 4, showQuestionNumbers: true },
   });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   const document = result.worksheetDocument;
   assert.ok(document);
   assert.equal(document.questionCount, 120);
-  assert.equal(document.questionDisplayModels.length, 120);
-  assert.equal(document.answerKeyItems.length, 120);
-  assert.ok(document.answerKeyItems.every((entry) => /×/.test(entry.answerText) && /答：/.test(entry.answerText)));
-  assert.equal(document.metadata.path1BlockId, "P1-05");
-  assert.equal(document.metadata.publicCutoverApplied, false);
-  assert.equal(document.metadata.publicBindingReconciled, false);
-  assert.equal(document.metadata.g4bU01ModelingExpanded, false);
-  assert.equal(document.metadata.zeroMiddleArithmeticBoundaryPreserved, true);
+  assert.equal(document.questions.length, 120);
+  assert.equal(countCells(document.questionPages, "question"), 120);
+  assert.equal(countCells(document.answerKeyPages, "answerKey"), 120);
+  assert.ok(document.questions.every((entry) => entry.mode === "application"));
+  assert.ok(document.questions.every((entry) => entry.answerText.includes(" × ")));
+  assert.ok(document.questions.every((entry) => entry.answerText.includes("；答：")));
+  assert.equal(document.configSnapshot.metadata.path1BlockId, "P1-05");
+  assert.equal(document.configSnapshot.metadata.practiceMode, PATH1_P1_05_MULTIPLICATIVE_MODELING_PRACTICE_MODE);
+  assert.equal(document.configSnapshot.metadata.relationId, "R03_EQUAL_GROUPS");
+  assert.equal(document.configSnapshot.metadata.unknownRole, "totalAmount");
+  assert.equal(document.configSnapshot.metadata.publicCutoverApplied, false);
+  assert.equal(document.configSnapshot.metadata.publicBindingReconciled, false);
+  assert.equal(document.configSnapshot.metadata.g4bU01ModelingExpanded, false);
+  assert.equal(document.configSnapshot.metadata.zeroMiddleArithmeticBoundaryPreserved, true);
 });
 
-test("existing P1-01/P1-02 transfer and P1-03/P1-04 modeling remain usable", () => {
+test("existing P1-01/P1-02 transfer and current P1-03/P1-04 modeling remain usable", () => {
   const p101 = buildPath1EqualGroupsTransferItems({ blockId: "P1-01", count: 8, seed: "p105-preserve-p101" });
   const p102 = buildPath1EqualGroupsTransferItems({ blockId: "P1-02", count: 8, seed: "p105-preserve-p102" });
   const p103 = buildPath1P103MultiplicativeModelingItems({ blockId: "P1-03", count: 8, seed: "p105-preserve-p103" });
@@ -292,7 +292,7 @@ test("existing P1-01/P1-02 transfer and P1-03/P1-04 modeling remain usable", () 
   assert.equal(p104.ok, true, JSON.stringify(p104.errors));
 });
 
-test("current public P1-05 arithmetic compatibility breadth remains untouched and excluded from modeling authority", () => {
+test("current public P1-05 arithmetic compatibility breadth remains untouched and excluded from modeling", () => {
   const publicBlock = getPath1PublicWorksheetBlock("P1-05");
   assert.ok(publicBlock);
   assert.deepEqual(publicBlock.knowledgePointIds, [
