@@ -11,6 +11,7 @@ import { renderRightAngleRecognitionDiagram } from "./right-angle-recognition-di
 import { renderCircleGeometryPropertyDiagram } from "./circle-geometry-property-diagram.js";
 import { renderAreaGridCountingDiagram } from "./area-grid-counting-diagram.js";
 import { renderTriangleElementsNamingDiagram } from "./triangle-elements-naming-diagram.js";
+import { renderSectorElementsDiagram } from "./sector-elements-diagram.js";
 import { renderFractionNumberLine } from "./fraction-number-line.js";
 import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderMeasurementScale } from "./measurement-scale.js";
@@ -81,7 +82,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderTriangleElementsNamingDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -103,6 +104,7 @@ function renderGeometryDiagram(model) {
   if (model?.kind === "circle_geometry_property_diagram") return renderCircleGeometryPropertyDiagram(model);
   if (model?.kind === "area_grid_counting_diagram") return renderAreaGridCountingDiagram(model);
   if (model?.kind === "triangle_elements_naming_diagram") return renderTriangleElementsNamingDiagram(model);
+  if (model?.kind === "sector_elements_diagram") return renderSectorElementsDiagram(model);
   throw createRendererError("geometry_diagram_invalid", `Unsupported geometry diagram kind '${model?.kind ?? "missing"}'.`);
 }
 
