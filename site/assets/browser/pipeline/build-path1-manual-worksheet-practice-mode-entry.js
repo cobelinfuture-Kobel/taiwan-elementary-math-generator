@@ -15,6 +15,9 @@ import {
   buildPath1P105MultiplicativeModelingWorksheet,
 } from "./build-path1-p1-05-zero-special-multiplicative-modeling-worksheet.js";
 import {
+  buildPath1P106EstimateTrialQuotientWorksheet,
+} from "./build-path1-p1-06-estimate-trial-quotient-worksheet.js";
+import {
   PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE,
 } from "../../../modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js";
 import {
@@ -26,6 +29,9 @@ import {
 import {
   PATH1_P1_05_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
 } from "../../../modules/curriculum/learning-paths/path1-p1-05-zero-special-multiplicative-modeling-patterns.js";
+import {
+  PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-patterns.js";
 
 export const PATH1_MANUAL_ARITHMETIC_PRACTICE_MODE = "arithmetic";
 export const PATH1_EQUAL_GROUPS_MODELING_TRANSFER_GATE_ID =
@@ -38,6 +44,8 @@ export const PATH1_P104_MODELING_PUBLIC_CUTOVER_GATE_ID =
   "PATH1_P104_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
 export const PATH1_P105_MODELING_PUBLIC_CUTOVER_GATE_ID =
   "PATH1_P105_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
+export const PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_GATE_ID =
+  "PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_V1";
 
 function failed(blockId, practiceMode, code) {
   return Object.freeze({
@@ -57,14 +65,25 @@ function modelingPublicCutoverGateId(blockId) {
   return null;
 }
 
+function publicCutoverGateId(blockId, practiceMode) {
+  if (practiceMode === PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE) {
+    return modelingPublicCutoverGateId(blockId);
+  }
+  if (
+    practiceMode === PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE
+    && blockId === "P1-06"
+  ) {
+    return PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_GATE_ID;
+  }
+  return null;
+}
+
 function attachPracticeMetadata(result, { blockId, practiceMode }) {
   if (!result?.ok || !result.worksheetDocument) return result;
   const worksheetDocument = result.worksheetDocument;
   const configSnapshot = worksheetDocument.configSnapshot ?? {};
   const currentMetadata = configSnapshot.metadata ?? {};
-  const publicCutoverGateId = practiceMode === PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE
-    ? modelingPublicCutoverGateId(blockId)
-    : null;
+  const cutoverGateId = publicCutoverGateId(blockId, practiceMode);
   const metadata = Object.freeze({
     ...currentMetadata,
     path1BlockId: blockId,
@@ -73,10 +92,10 @@ function attachPracticeMetadata(result, { blockId, practiceMode }) {
       modelingTransferGateId: PATH1_EQUAL_GROUPS_MODELING_TRANSFER_GATE_ID,
       modelingTransferMasteryCredit: PATH1_EQUAL_GROUPS_MODELING_TRANSFER_MASTERY_CREDIT,
     } : {}),
-    ...(publicCutoverGateId ? {
+    ...(cutoverGateId ? {
       publicCutoverApplied: true,
       publicRoute: "path1-manual",
-      publicCutoverGateId,
+      publicCutoverGateId: cutoverGateId,
     } : {}),
   });
   const projectedDocument = Object.freeze({
@@ -138,6 +157,18 @@ export function buildPath1ManualWorksheet(options = {}) {
       return attachPracticeMetadata(result, { blockId, practiceMode });
     }
     return failed(blockId, practiceMode, "PATH1_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED");
+  }
+
+  if (practiceMode === PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE) {
+    if (blockId !== "P1-06") {
+      return failed(blockId, practiceMode, "PATH1_P106_ESTIMATE_MODE_BLOCK_NOT_SUPPORTED");
+    }
+    const result = buildPath1P106EstimateTrialQuotientWorksheet({
+      blockId,
+      ...rest,
+      practiceMode: PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE,
+    });
+    return attachPracticeMetadata(result, { blockId, practiceMode });
   }
 
   return failed(blockId, practiceMode, "PATH1_PRACTICE_MODE_NOT_SUPPORTED");

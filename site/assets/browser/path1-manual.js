@@ -7,10 +7,12 @@ import {
   PATH1_MANUAL_DEFAULT_PRACTICE_MODE,
   PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE,
   PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE,
+  PATH1_MANUAL_P106_ESTIMATE_TRIAL_QUOTIENT_MODE,
   normalizePath1ManualQueryState,
   parsePath1ManualQueryState,
   path1ManualBlockSupportsEqualGroupsTransfer,
   path1ManualBlockSupportsMultiplicativeModeling,
+  path1ManualBlockSupportsEstimateTrialQuotient,
   serializePath1ManualQueryState,
 } from "./state/path1-manual-query-state.js";
 
@@ -60,6 +62,9 @@ function isModelingPracticeMode(practiceMode) {
 }
 
 function practiceModeLabel() {
+  if (practiceModeSelect.value === PATH1_MANUAL_P106_ESTIMATE_TRIAL_QUOTIENT_MODE) {
+    return "估商與試商練習";
+  }
   return isModelingPracticeMode(practiceModeSelect.value)
     ? "文字建模練習"
     : "算式練習";
@@ -72,6 +77,9 @@ function warningMessage(warnings = []) {
   }
   if (codes.has("PATH1_PUBLIC_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED")) {
     return "P1-03、P1-04、P1-05 的文字建模模式不支援此 Block，已切回算式練習。";
+  }
+  if (codes.has("PATH1_PUBLIC_P106_ESTIMATE_MODE_BLOCK_NOT_SUPPORTED")) {
+    return "P1-06 的估商與試商練習不支援此 Block，已切回算式練習。";
   }
   if (codes.has("PATH1_PUBLIC_BLOCK_QUERY_FALLBACK")) {
     return "網址中的 Path 1 Block 無效，已切回 P1-01。";
@@ -95,6 +103,9 @@ function syncPracticeModeAvailability() {
   const multiplicativeModelingOption = practiceModeSelect.querySelector(
     `option[value="${PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE}"]`,
   );
+  const estimateTrialQuotientOption = practiceModeSelect.querySelector(
+    `option[value="${PATH1_MANUAL_P106_ESTIMATE_TRIAL_QUOTIENT_MODE}"]`,
+  );
   syncModeOption(
     equalGroupsOption,
     path1ManualBlockSupportsEqualGroupsTransfer(blockSelect.value),
@@ -102,6 +113,10 @@ function syncPracticeModeAvailability() {
   syncModeOption(
     multiplicativeModelingOption,
     path1ManualBlockSupportsMultiplicativeModeling(blockSelect.value),
+  );
+  syncModeOption(
+    estimateTrialQuotientOption,
+    path1ManualBlockSupportsEstimateTrialQuotient(blockSelect.value),
   );
 }
 
