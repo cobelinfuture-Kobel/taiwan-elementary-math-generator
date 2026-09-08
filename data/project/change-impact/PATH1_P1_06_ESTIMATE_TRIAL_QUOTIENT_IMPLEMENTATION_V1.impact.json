@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_IMPLEMENTATION_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_IMPLEMENTATION_V1.validation.json",
+  "classificationNote": "Additive non-public Path1 P1-06 representation runtime only: local representation PatternSpecs, generator, fail-closed validator, and dedicated worksheet adapter. No public route/query/UI, Path1 matrix, G4A-U04 canonical generator/validator/registry, P1-07+, P1-12, Classic, mastery, or word-problem relation semantics are changed.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
