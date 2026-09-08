@@ -11,7 +11,6 @@
         "paths": [
           "tests/curriculum/path1-word-problem-p1-05-multiplicative-modeling-implementation-v1.test.js",
           "tests/curriculum/path1-word-problem-p1-05-capability-and-transfer-preflight-v1.test.js",
-          "tests/curriculum/path1-word-problem-p1-04-multiplicative-modeling-implementation-v1.test.js",
           "tests/curriculum/path1-word-problem-equal-groups-transfer-contract-v1.test.js"
         ]
       },
