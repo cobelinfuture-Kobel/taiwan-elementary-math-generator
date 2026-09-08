@@ -1,0 +1,120 @@
+{
+  "schemaName": "Path1P106EstimateTrialQuotientDeployedPublicAcceptanceV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_DEPLOYED_PUBLIC_ACCEPTANCE_V1",
+  "status": "P1_06_DEPLOYED_PUBLIC_ACCEPTANCE_MATERIALIZED_AWAITING_CI",
+  "operatorApproval": "APPROVED_VIA_PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PR836_MERGE_AND_DEPLOYED_ACCEPTANCE_V1",
+  "implementationAuthority": "data/curriculum/application/contracts/PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_IMPLEMENTATION_V1.json",
+  "implementationPr": 836,
+  "implementationHeadSha": "0fe9adabda30dfb2232dad328fdb4cbd3d1fcbe8",
+  "implementationMergeSha": "df1ec7d4b4b31f7c02236472129bbfb69b4f620d",
+  "pagesDeployment": {
+    "workflow": "Deploy GitHub Pages",
+    "runId": 34241131866,
+    "runNumber": 2122,
+    "headSha": "df1ec7d4b4b31f7c02236472129bbfb69b4f620d",
+    "conclusion": "success",
+    "siteRoot": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+    "path1Url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/path1/"
+  },
+  "acceptanceBaseMain": "8a83fce996c4ea5af26e41d71a96cb7b2659abd2",
+  "acceptanceBaseRelation": {
+    "implementationMergeIsAncestor": true,
+    "commitsAfterImplementationMerge": 5,
+    "siteFilesChangedAfterImplementationMerge": false,
+    "onlyPostMergeEvidenceFilesChanged": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json"
+    ]
+  },
+  "acceptanceScope": {
+    "route": "/path1/",
+    "blockId": "P1-06",
+    "practiceMode": "estimateTrialQuotient",
+    "userFacingLabel": "估商與試商練習",
+    "publicCutoverGateId": "PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_V1",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "path1MatrixChanged": false,
+    "p106GeneratorChanged": false,
+    "p106ValidatorChanged": false,
+    "p106PatternSpecsChanged": false,
+    "p106DedicatedAdapterChanged": false
+  },
+  "exactDeploymentIdentity": {
+    "required": true,
+    "referenceSha": "df1ec7d4b4b31f7c02236472129bbfb69b4f620d",
+    "files": [
+      "site/path1/index.html",
+      "site/assets/browser/path1-manual.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js"
+    ],
+    "comparison": "LIVE_PAGES_BYTES_SHA256_EQUALS_RAW_GITHUB_REFERENCE_SHA_BYTES"
+  },
+  "deployedAcceptance": {
+    "defaultRoute": "P1-01/arithmetic",
+    "p105ModelingPreserved": true,
+    "p106ArithmeticQuestionCount": 8,
+    "p106EstimateQuestionCount": 40,
+    "p106SemanticWitnessQuestionCount": 120,
+    "p106DeepLinkRefreshRequired": true,
+    "unsupportedEstimateModeNormalizationBlocks": ["P1-05", "P1-07"],
+    "equalGroupsTransferBlocksPreserved": ["P1-01", "P1-02"],
+    "multiplicativeModelingBlocksPreserved": ["P1-03", "P1-04", "P1-05"],
+    "previewPrintParityRequired": true,
+    "pageErrorsAllowed": 0,
+    "consoleErrorsAllowed": 0,
+    "knowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "patternSpecIds": [
+      "P106_ESTIMATE_DIVISOR_TENS_SELECT",
+      "P106_ESTIMATE_DIVISOR_TENS_FILL",
+      "P106_ESTIMATE_THEN_DIVIDE_TENS_SUFFICIENT",
+      "P106_ESTIMATE_THEN_DIVIDE_TENS_INSUFFICIENT"
+    ],
+    "sourceAnchors": ["11->10", "38->40", "47->50", "92->90"],
+    "allowedDivisorOnesDigits": [1, 2, 3, 4, 6, 7, 8, 9],
+    "endingFiveDeferred": true,
+    "endingZeroEstimateWitnessExcluded": true,
+    "exactDivisionInvariantRequired": true,
+    "generatedItemSemanticMetadataMustRemainNonPublic": true,
+    "wordProblemRelationAllowed": false,
+    "quotientPlaceTeachingAllowed": false,
+    "remainderContextInterpretationAllowed": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedLane": "SHARED_RUNTIME_BOUNDED",
+    "validationPlanPath": "data/project/validation-plans/PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_DEPLOYED_PUBLIC_ACCEPTANCE_V1.validation.json",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "antiScopeCreep": {
+    "productFileModificationAllowed": false,
+    "newKnowledgePointAllowed": false,
+    "newRelationAllowed": false,
+    "newPatternSpecAllowed": false,
+    "numericEnvelopeExpansionAllowed": false,
+    "publicBindingMutationAllowed": false,
+    "path1MatrixMutationAllowed": false,
+    "masteryIntegrationAllowed": false,
+    "p107OrLaterImplementationAllowed": false,
+    "classicChangesAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P106_PUBLIC_CUTOVER_IMPLEMENTED_AND_FOCUSED_CI_ACCEPTED",
+    "goalDistanceAfterTarget": "D0_P106_PUBLIC_PATH1_ESTIMATE_TRIAL_QUOTIENT_ROUTE_DEPLOYED_AND_ACCEPTED",
+    "distanceReduced": "Prove that the exact PR #836 merge was successfully deployed and that the live Path1 route preserves the bounded P1-06 estimate/trial-quotient contract end to end.",
+    "remainingBlockers": [
+      "deployed acceptance CI not yet accepted",
+      "deployed acceptance evidence PR not yet merged"
+    ],
+    "nextShortestStep": "PATH1_P1_07_PUBLIC_PATH_CONTINUATION_PREFLIGHT_OR_CURRENT_PATH1_QUEUE_AUTHORITY"
+  }
+}
