@@ -311,10 +311,14 @@ test("dedicated non-public worksheet renders 120 numeric questions and answer-ke
   assert.equal(document.configSnapshot.metadata.remainderContextInterpretationUsed, false);
 });
 
-test("P1-06 local adapter is not wired into the current public practice entry", () => {
-  const publicEntry = fs.readFileSync(PUBLIC_ENTRY_PATH, "utf8");
-  assert.equal(publicEntry.includes("path1-p1-06-estimate-trial-quotient"), false);
+test("P1-06 dedicated implementation remains non-public semantic authority after wrapper-level public cutover", () => {
+  assert.equal(implementation.scope.implementationType, "NON_PUBLIC_PATH1_LOCAL_REPRESENTATION_AND_VALIDATION_LAYER");
   assert.equal(implementation.scope.publicRoute, "NOT_CONNECTED");
+  assert.equal(implementation.publicCutoverApplied, false);
+  assert.equal(implementation.worksheetContract.public, false);
+  assert.equal(implementation.worksheetContract.publicCutoverApplied, false);
+  assert.equal(implementation.wordProblemRelationMinted, false);
+  assert.equal(implementation.g4aU04CanonicalAuthorityChanged, false);
 });
 
 test("new executable files pass relative static-import smoke", () => {
