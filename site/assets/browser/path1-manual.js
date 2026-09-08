@@ -71,7 +71,7 @@ function warningMessage(warnings = []) {
     return "P1-01、P1-02 的文字建模模式不支援此 Block，已切回算式練習。";
   }
   if (codes.has("PATH1_PUBLIC_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED")) {
-    return "P1-03、P1-04 的文字建模模式不支援此 Block，已切回算式練習。";
+    return "P1-03、P1-04、P1-05 的文字建模模式不支援此 Block，已切回算式練習。";
   }
   if (codes.has("PATH1_PUBLIC_BLOCK_QUERY_FALLBACK")) {
     return "網址中的 Path 1 Block 無效，已切回 P1-01。";
