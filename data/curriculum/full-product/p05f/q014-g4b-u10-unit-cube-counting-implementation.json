@@ -1,0 +1,112 @@
+{
+  "schemaName": "P05FW5Q014UnitCubeCountingImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice014Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 14,
+    "sliceId": "p05e_q014_r1_g4b_u10_4b10_profile_spatial_solid_c1",
+    "sourceId": "g4b_u10_4b10",
+    "runtimeProfileId": "profile_spatial_solid",
+    "knowledgePointId": "kp_g4b_u10_unit_cube_counting",
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q013_r1_g4a_u05_4a05_profile_geometry_property_c1",
+    "implementationPrNumber": 828,
+    "productMergeSha": "09fb4090b5b6745aa5c1d69c96e12ee3688b18d8",
+    "exactPagesRunId": "34205138270",
+    "pagesDeploymentRunId": "34205138367",
+    "evidenceArtifactId": "10047468598",
+    "evidenceArtifactDigest": "sha256:156bfcb80a9d6114af3c642261b8b57ae8b0869ebabb77b13301531396564fec",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q014-g4b-u10-unit-cube-counting-source-authority-preflight.json",
+    "sourceTitle": "立方公分與體積",
+    "sourcePdfTitle": "meow911_4b10_source.pdf",
+    "reviewedPages": [1, 2],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE_FROM_Q005",
+    "sourceRefAmbiguity": false
+  },
+  "formalMapping": {
+    "mappingId": "fm_g4b_u10_unit_cube_counting_p05f14",
+    "relationFamily": "UNIT_CUBE_COUNTING",
+    "includedRelations": [
+      "COUNT_UNIT_CUBES_IN_SOLID",
+      "ACCOUNT_FOR_VISIBLE_AND_HIDDEN_UNIT_CUBES",
+      "MAP_TOTAL_UNIT_CUBE_COUNT_TO_VOLUME",
+      "PRESERVE_NON_OVERLAPPING_UNIT_CUBE_CONTRIBUTION"
+    ],
+    "excludedRelations": [
+      "LAYERED_CUBE_MULTIPLICATION",
+      "VOLUME_CONSERVATION_REARRANGEMENT",
+      "RECTANGULAR_PRISM_LENGTH_WIDTH_HEIGHT_FORMULA",
+      "APPLICATION_CONTEXT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g4b_u10_unit_cube_counting",
+    "patternSpecIds": [
+      "ps_g4b_u10_count_unit_cubes_in_solid",
+      "ps_g4b_u10_account_for_visible_and_hidden_unit_cubes",
+      "ps_g4b_u10_map_total_unit_cube_count_to_volume",
+      "ps_g4b_u10_preserve_non_overlapping_unit_cube_contribution"
+    ],
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "requiresSolidGeometryRepresentation": true,
+    "applicationImplementationAllowed": false
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g4b-u10-unit-cube-counting-runtime-p05f14.js",
+    "validator": "validateG4BU10P05F14Question",
+    "diagramRenderer": "site/modules/renderer/cubic-centimeter-unit-diagram.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f14.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f14-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 52,
+    "sourceCountAfter": 52,
+    "visibleKnowledgePointCountBefore": 327,
+    "visibleKnowledgePointCountAfter": 328,
+    "g4bU10VisibleCount": 2,
+    "g4bU10HiddenPendingCount": 3,
+    "g4bU10NotSelectableCount": 3,
+    "sourceUnitOwnerKnowledgePointId": "kp_g4b_u10_cubic_centimeter_unit",
+    "questionTypeValue": "diagram",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice014-g4b-u10-unit-cube-counting.test.js",
+    "directDependencyTest": "tests/curriculum/p05f-w5-slice014-direct-dependencies.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice014-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q005CubicCentimeterSemanticsModified": false,
+    "layeredCubeCountingTouched": false,
+    "volumeConservationRearrangementTouched": false,
+    "rectangularPrismFormulaTouched": false,
+    "applicationContextTouched": false,
+    "q015OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  }
+}
