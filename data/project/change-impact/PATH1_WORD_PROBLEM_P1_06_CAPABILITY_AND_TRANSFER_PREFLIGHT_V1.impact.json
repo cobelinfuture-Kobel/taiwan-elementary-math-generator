@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_WORD_PROBLEM_P1_06_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient": "PENDING",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_WORD_PROBLEM_P1_06_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Planning/source-backed P1-06 composite capability preflight only. The KP_LEAF lane uses the first matrix-primary KP as the machine currentKnowledgePointId while retaining both P1-06 matrix-primary KPs in the unit expected/status set. Both remain PENDING because this preflight does not claim focused product completion. No shared executable, public authority, legal route, current authority, Path1 matrix, generator, validator, public binding, or UI is changed.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
