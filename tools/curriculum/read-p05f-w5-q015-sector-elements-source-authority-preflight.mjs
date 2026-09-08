@@ -1,0 +1,11 @@
+import {readFileSync} from "node:fs";
+import {materializeP05EW5DirectProductVerticalSliceQueue} from "../../src/curriculum/full-product/p05e-w5-direct-product-vertical-slice-queue.mjs";
+import {getR04KnowledgePointCapabilityMapping} from "../../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
+const preflight=JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p05f/q015-g5a-u05a1-sector-elements-source-authority-preflight.json",import.meta.url),"utf8"));
+const queue=materializeP05EW5DirectProductVerticalSliceQueue();
+const slice=queue.queueEntries[14];
+const mapping=getR04KnowledgePointCapabilityMapping("kp_g5a_u05a1_sector_center_radius_arc");
+const attribution=preflight.previousSliceD0Evidence.postMergeGlobalCIAttribution;
+const result={schemaName:"P05FW5Q015SourceAuthorityPreflightReadbackV1",status:preflight.status,queueFrozen:queue.queueFrozen,queuePosition:slice?.queuePosition,sliceId:slice?.sliceId,sourceId:slice?.primarySourceNodeId,knowledgePointIds:slice?.knowledgePointIds,runtimeProfile:slice?.primaryRuntimeProfileId,requiredW5CapabilityIds:slice?.requiredW5CapabilityIds,r04ClassificationRuleId:mapping?.classificationRuleId,r04AppliedModifierIds:mapping?.appliedModifierIds,previousSliceD0Status:preflight.previousSliceD0Evidence.status,postQ014GlobalCIDisposition:attribution?.disposition,postQ014NewFailureCount:attribution?.newFailureCount,sourceHeaderMismatchPreserved:preflight.sourceAuthority.sourceHeaderMismatch.preservedWithoutRewrite,sourceRefAmbiguity:preflight.preflightDecision.sourceRefAmbiguity,manualSourceChoiceRequired:preflight.preflightDecision.manualSourceChoiceRequired,nextTask:preflight.preflightDecision.nextTask};
+if(!result.queueFrozen||result.status!=="PASS_SOURCE_AUTHORITY_PREFLIGHT"||result.queuePosition!==15||result.previousSliceD0Status!=="PASS_E6_D0_COMPLETE"||result.postQ014GlobalCIDisposition!=="BASELINE_ONLY"||result.postQ014NewFailureCount!==0||!result.sourceHeaderMismatchPreserved||result.sourceRefAmbiguity||result.manualSourceChoiceRequired)throw new Error(`P05F_Q015_PREFLIGHT_READBACK_FAILED:${JSON.stringify(result)}`);
+console.log(`P05F_Q015_PREFLIGHT_READBACK=${JSON.stringify(result)}`);
