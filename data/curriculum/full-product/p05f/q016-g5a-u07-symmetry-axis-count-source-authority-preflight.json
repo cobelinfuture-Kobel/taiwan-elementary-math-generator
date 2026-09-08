@@ -1,0 +1,191 @@
+{
+  "schemaName": "P05FW5Q016SymmetryAxisCountSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q016_SymmetryAxisCount_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 16,
+    "sliceId": "p05e_q016_r1_g5a_u07_5a07_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice016Implementation",
+    "previousSliceId": "p05e_q015_r1_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "primarySourceNodeId": "g5a_u07_5a07",
+    "intraWavePrerequisiteRank": 1,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "knowledgePointCount": 1,
+    "knowledgePointIds": ["kp_g5a_u07_symmetry_axis_count"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q015_r1_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "implementationPrNumber": 839,
+    "implementationHeadSha": "952d9e315b84197c6ca4a07319731b6bde5926c5",
+    "productMergeSha": "2e997246c52de7bb063074d21953b1d66b9a13b1",
+    "prGateRunId": "34248578838",
+    "exactPagesRunId": "34248747945",
+    "pagesDeploymentRunId": "34248747920",
+    "evidenceArtifactId": "10065150991",
+    "evidenceArtifactDigest": "sha256:cf935cbeed384fe350913e80cab4b834ce9c7c8273b832416d2e26677e16629b",
+    "status": "PASS_E6_D0_COMPLETE",
+    "postMergeGlobalCIAttribution": {
+      "workflowName": "Node Test Post-Merge",
+      "comparisonMethod": "EXACT_NOT_OK_TITLE_SET",
+      "baselineRunId": "34208781884",
+      "baselineSha": "946a572c1a75c582ce15669e5545b03e191b2a89",
+      "baselineTestCount": 4368,
+      "baselinePassCount": 4243,
+      "baselineFailureCount": 125,
+      "postMergeRunId": "34248747940",
+      "postMergeSha": "2e997246c52de7bb063074d21953b1d66b9a13b1",
+      "postMergeTestCount": 4429,
+      "postMergePassCount": 4304,
+      "postMergeFailureCount": 125,
+      "newFailureCount": 0,
+      "resolvedFailureCount": 0,
+      "overlapFailureCount": 125,
+      "q015NamedSubtestCount": 18,
+      "q015NamedPassedSubtestCount": 18,
+      "q015NamedFailedSubtestCount": 0,
+      "interveningNonQ015PassingTestIncrease": 43,
+      "diagnosticArtifactId": "10065300572",
+      "diagnosticArtifactDigest": "sha256:7a552965612b5becfe7637b28f7290645905fabce44115b5f18b88e7896e7e49",
+      "disposition": "BASELINE_ONLY"
+    }
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5a_u07_5a07",
+    "sourceTitle": "線對稱圖形",
+    "sourcePdfTitle": "meow911_5a07_source.pdf",
+    "sourcePdfDriveFileId": "1JPwhBQDMYUusVKd8mWFb1ZrO05-HFIQc",
+    "sourceMetadataDriveFileId": "1tcwVjjjRVwJr0mVOiacOTEzkaJiDYUMQ",
+    "verificationNotesDriveFileId": "1f_sRdp9ASamJbRAwdMnbW4FQo90vJXUB",
+    "sourceUrlFromMetadata": "https://meow911.com/5a07/",
+    "pageCount": 1,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "reviewedPages": [1],
+    "sourceIdentityAnomaly": {
+      "metadataSourceUrl": "https://meow911.com/5a07/",
+      "queueSourceNodeId": "g5a_u07_5a07",
+      "fileName": "meow911_5a07_source.pdf",
+      "metadataSourceTitle": "線對稱圖形",
+      "r02SourceTitle": "線對稱圖形",
+      "disposition": "NONE_MATCHING_SOURCE_IDENTITY",
+      "sourceRefAmbiguity": false
+    },
+    "verificationStateReconciliation": {
+      "driveMetadataManualReviewed": false,
+      "driveMetadataExtractionStatus": "pending",
+      "driveVerificationNoteStatus": "pending",
+      "r02ManifestStatus": "FIFTY_MISSING_SOURCE_NODES_FULL_PAGE_REVIEWED",
+      "r02FullPageReviewIsCurrentSemanticAuthority": true,
+      "legacyPendingNotesRetainedAsProvenanceOnly": true
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5a_u07_5a07",
+    "sourceTitle": "線對稱圖形",
+    "sourcePdfTitle": "meow911_5a07_source.pdf",
+    "reviewedPages": [1],
+    "knowledgePointId": "kp_g5a_u07_symmetry_axis_count",
+    "canonicalNameZh": "對稱軸數量",
+    "capabilityStatement": "學生能找出圖形所有對稱軸。",
+    "reasoningInvariant": "每條對稱軸都必須使整個圖形完全重合。",
+    "category": "geometry",
+    "evidencePages": [1],
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "profileId": "profile_geometry_property",
+    "classificationRuleId": "rule_geometry_property",
+    "appliedModifierIds": [],
+    "profileRequiredCapabilityIds": [
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "dependencyClosureAddedCapabilityIds": [],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "q016ScopeLock": {
+    "includedKnowledgePointIds": ["kp_g5a_u07_symmetry_axis_count"],
+    "includedRelations": [
+      "IDENTIFY_ALL_SYMMETRY_AXES",
+      "COUNT_SYMMETRY_AXES"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": ["kp_g5a_u07_line_symmetry_recognition"],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5a_u07_symmetric_point_distance",
+      "kp_g5a_u07_complete_symmetric_figure",
+      "kp_g5a_u07_coordinate_reflection"
+    ],
+    "excludedRelations": [
+      "LINE_SYMMETRIC_FIGURE_CLASSIFICATION",
+      "SYMMETRIC_POINT_DISTANCE",
+      "SYMMETRIC_CORRESPONDING_PARTS_QUANTITATIVE_REASONING",
+      "COMPLETE_SYMMETRIC_FIGURE",
+      "COORDINATE_REFLECTION",
+      "DRAW_OR_CONSTRUCT_SYMMETRIC_FIGURE",
+      "APPLICATION_CONTEXT",
+      "GEOMETRY_FORMULA_OR_MEASUREMENT"
+    ],
+    "reusesExistingFoldOverlapCriterionWithoutReowning": true,
+    "requiresDiagramRepresentation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresGeometryPropertyReasoning": true,
+    "symmetryAxisConstructionAllowedByThisPreflight": false,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q017OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  },
+  "siblingProtection": {
+    "currentStableSelectorModule": "site/modules/curriculum/registry/batch-a-selector-p05f15-extension.js",
+    "protectedExistingPublicKnowledgePointId": "kp_g5a_u07_line_symmetry_recognition",
+    "protectedExistingPublicKnowledgePointStillVisible": true,
+    "targetCurrentlyPubliclyVisible": false,
+    "laterSameSourceCandidatesRemainUnadmitted": true,
+    "futureQueueSemanticsMayNotBePulledForward": true,
+    "currentSameSourceVisibleCount": 1,
+    "currentSameSourceHiddenPendingCount": 4,
+    "currentSameSourceNotSelectableCount": 4,
+    "currentGlobalPublicSourceCount": 53,
+    "currentGlobalVisibleKnowledgePointCount": 329
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": ["GLOBAL_CONTRACTS", "TARGETED_ROUTE_REPLAY"],
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_PREFLIGHT",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_PREFLIGHT"
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ016ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "previousSliceGlobalCIFailureAttributionSatisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "singleKnowledgePointSliceLocked": true,
+    "protectedExistingSameSourcePublicSemanticsLocked": true,
+    "laterSameSourceSiblingProtectionLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice016Implementation"
+  }
+}
