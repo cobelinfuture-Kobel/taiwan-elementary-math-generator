@@ -1,0 +1,186 @@
+{
+  "schemaName": "Path1WordProblemP105PublicBindingReconciliationPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_05_PUBLIC_BINDING_RECONCILIATION_PREFLIGHT_V1",
+  "status": "P1_05_PUBLIC_BINDING_RECONCILIATION_LOCKED_NO_RUNTIME",
+  "operatorApproval": "APPROVED_PREFLIGHT_ONLY",
+  "mainAtTaskStart": "0001760dbe90f9808a11770fa943b745552f8042",
+  "p105ImplementationMergeSha": "6eb0d05877a9d2c11f1d0eb8cdc01cfa8b6f3db4",
+  "runtimeChanged": false,
+  "publicBindingChanged": false,
+  "path1MatrixChanged": false,
+  "publicCutoverApplied": false,
+  "visibleUiChanged": false,
+  "queryStateChanged": false,
+  "implementationChanged": false,
+  "authorityRefs": {
+    "p105Preflight": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_05_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.json",
+    "p105Implementation": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_05_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1.json",
+    "p104ReconciliationPrecedent": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_04_PUBLIC_BINDING_RECONCILIATION_PREFLIGHT_V1.json",
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "publicBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "baseArithmeticWorksheet": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "practiceModeEntry": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "queryState": "site/assets/browser/state/path1-manual-query-state.js",
+    "g4bU01KnowledgeOperation": "data/curriculum/knowledge/units/g4b_u01_4b01.knowledge-operation.json"
+  },
+  "reconciliationProblem": {
+    "path1BlockId": "P1-05",
+    "title": "0 特殊情況",
+    "matrixBlockType": "DIRECT_KP",
+    "matrixAuthoritativeKnowledgePointIds": [
+      "kp_g3a_u03_3digit_zero_middle_by_1digit"
+    ],
+    "currentPublicArithmeticBindingKnowledgePointIds": [
+      "kp_g3a_u03_3digit_zero_middle_by_1digit",
+      "kp_g4b_u01_multiplier_internal_zero",
+      "kp_g4b_u01_trailing_zero_multiplication"
+    ],
+    "extraPublicArithmeticKnowledgePointIds": [
+      "kp_g4b_u01_multiplier_internal_zero",
+      "kp_g4b_u01_trailing_zero_multiplication"
+    ],
+    "currentPublicBindingGenerationKind": "CANONICAL_KP_DEFAULT",
+    "matrixGenerationMeaning": "DIRECT_KP_WITH_DESCRIPTIVE_ZERO_PLACEHOLDER_DIFFICULTY_EXPANSION",
+    "runtimeConsequence": "P1-05 arithmetic mode currently allocates and generates over all three public-binding KPs, so the mismatch is existing deployed arithmetic behavior rather than metadata-only drift.",
+    "p105ModelingImplementationKnowledgePointIds": [
+      "kp_g3a_u03_3digit_zero_middle_by_1digit"
+    ],
+    "extraKpSemanticDifference": {
+      "kp_g4b_u01_multiplier_internal_zero": "The zero is inside a three- or four-digit multiplier; the P1-05 modeling implementation instead binds a three-digit zero-middle amountPerGroup multiplied by a one-digit groupCount.",
+      "kp_g4b_u01_trailing_zero_multiplication": "The capability includes trailing-zero and power-of-ten scaling cases; those are not part of the approved P1-05 zero-middle modeling numeric envelope."
+    }
+  },
+  "optionsConsidered": [
+    {
+      "optionId": "A_SHRINK_PUBLIC_ARITHMETIC_BINDING_TO_MATRIX_SINGLE_KP",
+      "decision": "REJECT_FOR_P105_MODELING_CUTOVER_PATH",
+      "reason": "This would change existing deployed arithmetic behavior by removing two currently exposed G4B-U01 compatibility KPs. That compatibility-impacting arithmetic cut is not required to expose the bounded P1-05 modeling engine and needs a separate authority and acceptance task if pursued."
+    },
+    {
+      "optionId": "B_PRESERVE_ARITHMETIC_COMPATIBILITY_BREADTH_BUT_WALL_OFF_MODELING_AUTHORITY",
+      "decision": "SELECTED",
+      "reason": "This is the shortest safe path and matches the established P1-04 reconciliation pattern: preserve existing arithmetic behavior while declaring the modeling route independently governed by the Path1 matrix-authoritative G3A-U03 KP and the dedicated P1-05 modeling adapter."
+    },
+    {
+      "optionId": "C_EXPAND_PATH1_MATRIX_OR_MODELING_TO_G4B_U01_ZERO_KPS",
+      "decision": "REJECT",
+      "reason": "That would silently expand curriculum and modeling authority to distinct G4B-U01 zero structures, alter the approved numeric/role envelope, and violate the P1-05 source-backed implementation scope."
+    }
+  ],
+  "selectedReconciliation": {
+    "strategy": "PRESERVE_EXISTING_ARITHMETIC_COMPATIBILITY_BREADTH_AND_SEPARATE_MODELING_AUTHORITY",
+    "publicArithmeticBindingStatus": "LEGACY_COMPATIBILITY_BREADTH_PRESERVED_NOT_ENDORSED_AS_MODELING_AUTHORITY",
+    "publicArithmeticBindingMutationRequiredForModelingCutover": false,
+    "path1MatrixMutationRequiredForModelingCutover": false,
+    "modelingMayInheritPublicArithmeticBindingKnowledgePointIds": false,
+    "modelingMustUseDedicatedP105Adapter": true,
+    "modelingAuthorityKnowledgePointIds": [
+      "kp_g3a_u03_3digit_zero_middle_by_1digit"
+    ],
+    "modelingForbiddenKnowledgePointIds": [
+      "kp_g4b_u01_multiplier_internal_zero",
+      "kp_g4b_u01_trailing_zero_multiplication"
+    ],
+    "reason": "The P1-05 modeling implementation already fails closed around the zero-middle three-digit-by-one-digit arithmetic boundary. A future public modeling wrapper can dispatch directly to that adapter and therefore does not need to consume the broader arithmetic binding."
+  },
+  "compatibilityExceptionContract": {
+    "exceptionId": "P105_PUBLIC_ARITHMETIC_BINDING_BREADTH_COMPATIBILITY_EXCEPTION_V1",
+    "scope": "ARITHMETIC_MODE_ONLY",
+    "status": "KNOWN_EXISTING_COMPATIBILITY_EXCEPTION",
+    "notCurriculumAuthority": true,
+    "notModelingAuthority": true,
+    "doesNotAuthorizeNewPatternSpecs": true,
+    "doesNotAuthorizeG4BU01Modeling": true,
+    "doesNotAuthorizeNumericEnvelopeExpansion": true,
+    "separateDebtRemains": true,
+    "separateDebtDescription": "The public P1-05 arithmetic binding and Path1 matrix remain structurally misaligned. Reconciliation of that arithmetic compatibility debt is deferred because changing it could alter deployed arithmetic behavior."
+  },
+  "futurePublicModelingRouteContract": {
+    "candidatePracticeMode": "multiplicativeModelingTransfer",
+    "supportedBlockId": "P1-05",
+    "dispatchTarget": "site/assets/browser/pipeline/build-path1-p1-05-zero-special-multiplicative-modeling-worksheet.js",
+    "mustNotRouteThrough": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "mustNotUseBaseArithmeticAllocationForModeling": true,
+    "mustPreserveP105ArithmeticModeAsCurrentlyDeployed": true,
+    "mustPreserveP103P104ModelingRoutes": true,
+    "mustPreserveP101P102EqualGroupsTransfer": true,
+    "mustFailSafeUnsupportedBlockModePairsToArithmetic": true,
+    "queryDeepLinkAndRefreshPolicy": "LOCK_IN_NEXT_PUBLIC_CUTOVER_PREFLIGHT",
+    "uiVisibilityPolicy": "LOCK_IN_NEXT_PUBLIC_CUTOVER_PREFLIGHT",
+    "publicCutoverImplementationAllowedNow": false
+  },
+  "protectedSemantics": {
+    "arithmeticKnowledgePointId": "kp_g3a_u03_3digit_zero_middle_by_1digit",
+    "arithmeticOperationModelId": "op_g3a_u03_zero_middle_by_1digit",
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "unknownRole": "totalAmount",
+    "amountPerGroup": "integer 101..909 with nonzero hundreds and ones digits and tens digit exactly 0",
+    "groupCount": "integer 2..9",
+    "totalAmount": "integer 202..8181 equal to amountPerGroup * groupCount",
+    "semanticCommutativeRoleSwapAllowed": false,
+    "unitConversionAllowed": false,
+    "multiRelationAllowed": false,
+    "r05Included": false,
+    "inverseUnknownRolesIncluded": false,
+    "g4bU01ModelingIncluded": false,
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "futurePublicCutoverPreflightMustLock": [
+    "practice-mode dispatch so multiplicativeModelingTransfer routes P1-03/P1-04 to their existing adapters and P1-05 to the dedicated P1-05 adapter",
+    "query-state acceptance for P1-05 multiplicativeModelingTransfer without weakening unsupported-block fail-safe behavior",
+    "UI option visibility and availability for P1-05 while retaining P1-03/P1-04 behavior",
+    "deep-link and refresh restoration for P1-05 modeling",
+    "public metadata gate identity for P1-05 distinct from P1-03/P1-04",
+    "P1-05 arithmetic preservation over the current three-KP compatibility binding",
+    "deployed focused acceptance proving P1-05 modeling questions contain only kp_g3a_u03_3digit_zero_middle_by_1digit",
+    "deployed focused acceptance proving the two extra G4B-U01 KPs never appear in P1-05 modeling mode"
+  ],
+  "antiScopeCreep": {
+    "publicBindingMutationAllowed": false,
+    "path1MatrixMutationAllowed": false,
+    "publicRouteMutationAllowed": false,
+    "queryStateMutationAllowed": false,
+    "uiMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "patternSpecMutationAllowed": false,
+    "g4bU01ModelingExpansionAllowed": false,
+    "p106OrLaterImplementationAllowed": false,
+    "p112CutoverAllowed": false,
+    "classicChangesAllowed": false,
+    "fullRegressionAllowed": false,
+    "globalReplayAllowed": false
+  },
+  "acceptanceContract": {
+    "mustProveCurrentMatrixSingleKp": true,
+    "mustProveCurrentPublicArithmeticThreeKpBreadth": true,
+    "mustProveTwoExtraG4bKpsAreNotMatrixPrimaryAuthority": true,
+    "mustProveP105ImplementationUsesOnlyMatrixPrimaryKp": true,
+    "mustProveCurrentArithmeticBuilderConsumesPublicBindingKps": true,
+    "mustProveCurrentModelingPracticeModeIsNotYetPublicForP105": true,
+    "mustProveNoRuntimeFilesChangedByThisPreflight": true,
+    "fullRegressionRequired": false,
+    "globalReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P105_MODELING_ENGINE_USABLE_BUT_PUBLIC_BINDING_SCOPE_DRIFT_BLOCKS_CUTOVER_DESIGN",
+    "goalDistanceAfterTarget": "D1_P105_ARITHMETIC_COMPATIBILITY_EXCEPTION_AND_MODELING_AUTHORITY_SEPARATION_LOCKED",
+    "distanceReduced": "The P1-05 public-binding drift is converted from an unresolved cutover blocker into an explicit arithmetic compatibility exception. Existing arithmetic breadth remains deployed, while future modeling is contractually isolated to the matrix-authoritative P1-05 adapter.",
+    "systemNodeAdvanced": "P105_PUBLIC_BINDING_RECONCILIATION_CONTRACT",
+    "blockersRemoved": [
+      "P105_PUBLIC_BINDING_RECONCILIATION_DECISION_UNRESOLVED",
+      "P105_MODELING_INHERITANCE_FROM_THREE_KP_PUBLIC_BINDING_AMBIGUOUS",
+      "P105_PUBLIC_CUTOVER_DEPENDENCY_ON_BINDING_MUTATION_AMBIGUOUS"
+    ],
+    "remainingBlockers": [
+      "P105_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_NOT_COMPLETED",
+      "P105_PUBLIC_QUERY_UI_ROUTE_NOT_LOCKED",
+      "P105_PUBLIC_ROUTE_NOT_IMPLEMENTED",
+      "P105_DEPLOYED_PUBLIC_ACCEPTANCE_NOT_COMPLETED",
+      "P105_ARITHMETIC_BINDING_MATRIX_ALIGNMENT_REMAINS_SEPARATE_COMPATIBILITY_DEBT"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_05_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_V1"
+  }
+}
