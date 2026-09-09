@@ -1,0 +1,146 @@
+{
+  "schemaName": "Path1P107QuotientStartPlaceDeployedPublicAcceptanceV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_07_QUOTIENT_START_PLACE_DEPLOYED_PUBLIC_ACCEPTANCE_V1",
+  "status": "P1_07_DEPLOYED_PUBLIC_ACCEPTANCE_MATERIALIZED_AWAITING_CI",
+  "operatorApproval": "APPROVED_AS_CONTINUATION_OF_PATH1_P1_07_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_IMPLEMENTATION_V1",
+  "implementationPr": 847,
+  "implementationHeadSha": "37083d2edb4c0416fd8a9bbbde686608a54071af",
+  "implementationMergeSha": "732589ba5507128ca89514de69e624ebf3f50ac7",
+  "pagesDeployment": {
+    "workflow": "Deploy GitHub Pages",
+    "runId": 34307225340,
+    "runNumber": 2133,
+    "headSha": "732589ba5507128ca89514de69e624ebf3f50ac7",
+    "status": "completed",
+    "conclusion": "success",
+    "deploymentShaMatchesImplementation": true
+  },
+  "acceptanceBaseMain": "ea9d4f81ef578f3b5fd9312144b764b47306f613",
+  "acceptanceBaseRelation": {
+    "implementationMergeIsAncestor": true,
+    "commitsAfterImplementationMerge": 5,
+    "siteFilesChangedAfterImplementationMerge": false,
+    "onlyDocsCiEvidenceChangedAfterImplementationMerge": true
+  },
+  "acceptanceScope": {
+    "route": "/path1/",
+    "deployedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/path1/",
+    "blockId": "P1-07",
+    "practiceMode": "quotientStartPlace",
+    "userFacingLabel": "商的位值練習",
+    "publicCutoverGateId": "PATH1_P107_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_V1",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "path1MatrixChanged": false,
+    "p107GeneratorChanged": false,
+    "p107ValidatorChanged": false,
+    "p107PatternSpecsChanged": false,
+    "p107DedicatedAdapterChanged": false,
+    "sourceSemanticsChanged": false,
+    "masteryChanged": false
+  },
+  "exactDeploymentIdentity": {
+    "required": true,
+    "referenceSha": "732589ba5507128ca89514de69e624ebf3f50ac7",
+    "files": [
+      "site/path1/index.html",
+      "site/assets/browser/path1-manual.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js"
+    ],
+    "method": "SHA256_COMPARE_RAW_GITHUB_IMPLEMENTATION_MERGE_TO_LIVE_PAGES_ASSET"
+  },
+  "sourceProvenanceBoundary": {
+    "allThreeCloudEvidenceLanesRetained": true,
+    "learningMapsUse": "CURRICULUM_PROGRESSION_BOUNDARY",
+    "liTeacherUse": "NO_DIRECT_WITNESS_NO_PATTERN_ADMISSION",
+    "schoolExamUse": "DIRECT_QUOTIENT_DIGIT_COUNT_REPRESENTATION_WITNESS",
+    "twoDigitDivisorExamEvidencePresent": true,
+    "twoDigitDivisorRuntimeAdmitted": false
+  },
+  "deployedAcceptance": {
+    "defaultRoute": "P1-01/arithmetic",
+    "p106EstimateRoutePreserved": true,
+    "p107ArithmeticQuestionCount": 8,
+    "p107QuotientStartPlaceQuestionCount": 40,
+    "p107SemanticWitnessQuestionCount": 120,
+    "p107DeepLinkRefreshRequired": true,
+    "unsupportedQuotientStartPlaceNormalizationBlocks": [
+      "P1-06",
+      "P1-08"
+    ],
+    "equalGroupsTransferBlocksPreserved": [
+      "P1-01",
+      "P1-02"
+    ],
+    "multiplicativeModelingBlocksPreserved": [
+      "P1-03",
+      "P1-04",
+      "P1-05"
+    ],
+    "primaryKnowledgePointIds": [
+      "kp_g3b_u01_2digit_division_place_value_cases",
+      "kp_g3b_u01_3digit_division_place_value_cases"
+    ],
+    "patternSpecIds": [
+      "P107_2DIGIT_START_PLACE_SELECT",
+      "P107_2DIGIT_QUOTIENT_DIGIT_COUNT",
+      "P107_3DIGIT_START_PLACE_SELECT",
+      "P107_3DIGIT_QUOTIENT_DIGIT_COUNT"
+    ],
+    "formalCaseIds": [
+      "P107_2DIGIT_LEADING_INSUFFICIENT",
+      "P107_2DIGIT_LEADING_SUFFICIENT",
+      "P107_3DIGIT_HUNDREDS_INSUFFICIENT",
+      "P107_3DIGIT_HUNDREDS_SUFFICIENT"
+    ],
+    "divisorDomain": "2..9 one-digit only",
+    "exactDivisionOnly": true,
+    "distinctPromptsAt120": 120,
+    "quotientZeroPrimaryV1Used": false,
+    "twoDigitDivisorRuntimeUsed": false,
+    "divisorEstimationUsed": false,
+    "remainderContextInterpretationUsed": false,
+    "wordProblemRelationUsed": false,
+    "generatedItemPublicCutoverFlagMustRemain": false,
+    "previewPrintParityRequired": true,
+    "pageErrorsAllowed": 0,
+    "consoleErrorsAllowed": 0
+  },
+  "antiScopeCreep": {
+    "productRuntimeMutationAllowed": false,
+    "publicBindingMutationAllowed": false,
+    "path1MatrixMutationAllowed": false,
+    "sourceAuthorityMutationAllowed": false,
+    "p107GeneratorMutationAllowed": false,
+    "p107ValidatorMutationAllowed": false,
+    "p107PatternSpecMutationAllowed": false,
+    "p107DedicatedAdapterMutationAllowed": false,
+    "newKnowledgePointAllowed": false,
+    "newRelationAllowed": false,
+    "newPatternSpecAllowed": false,
+    "twoDigitDivisorRuntimeExpansionAllowed": false,
+    "quotientZeroPrimaryExpansionAllowed": false,
+    "masteryIntegrationAllowed": false,
+    "p108OrLaterImplementationAllowed": false,
+    "classicChangesAllowed": false
+  },
+  "validation": {
+    "expectedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false,
+    "livePagesAcceptanceRequired": true,
+    "exactDeploymentIdentityRequired": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P107_PUBLIC_ROUTE_MERGED_EXACT_PAGES_DEPLOYED_ACCEPTANCE_PENDING",
+    "goalDistanceAfterTarget": "D0_P107_PUBLIC_PATH1_QUOTIENT_START_PLACE_ROUTE_DEPLOYED_AND_ACCEPTED",
+    "distanceReduced": "Prove the exact P1-07 public-cutover merge is what Pages serves and that the live route preserves the approved source-backed quotient-place semantics, prior public modes, query fallback, worksheet parity, and fail-closed runtime boundaries.",
+    "remainingBlockers": [
+      "deployed acceptance focused CI not yet accepted",
+      "deployed acceptance PR not yet merged"
+    ],
+    "nextShortestStep": "PATH1_P1_08_PUBLIC_PATH_CONTINUATION_PREFLIGHT_OR_CURRENT_PATH1_QUEUE_AUTHORITY"
+  }
+}
