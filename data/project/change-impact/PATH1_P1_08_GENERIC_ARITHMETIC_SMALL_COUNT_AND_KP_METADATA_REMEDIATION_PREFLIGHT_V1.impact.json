@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor": "PENDING_REMEDIATION",
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient": "PENDING_REMEDIATION",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient": "PENDING_REMEDIATION"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Planning-only remediation preflight. It locks the future generic small-count and KP metadata ownership policy but does not modify executable runtime. The separately approved future implementation is classified SHARED_RUNTIME_BOUNDED because it will touch the generic Path1 worksheet builder with bounded Path1-route impact.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "futureImplementationImpact": {
+    "currentScope": "SHARED_RUNTIME",
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false,
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  }
+}
