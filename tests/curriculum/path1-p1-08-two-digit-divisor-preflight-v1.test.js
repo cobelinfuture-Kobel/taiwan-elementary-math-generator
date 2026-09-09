@@ -147,7 +147,11 @@ test("incremental validation is exactly KP_FOCUSED and does not request reposito
   assert.equal(impact.policyId, "UNIT_INCREMENTAL_VALIDATION_V1");
   assert.equal(impact.currentScope, "KP_LEAF");
   assert.equal(impact.expectedDerivedGate, "KP_FOCUSED");
-  assert.equal(impact.expectedKnowledgePoints.length, 3);
+  assert.deepEqual(impact.unitExpectedKnowledgePointIds, PRIMARY_KPS);
+  assert.deepEqual(Object.keys(impact.unitKnowledgePointGateStatus), PRIMARY_KPS);
+  for (const id of PRIMARY_KPS) {
+    assert.equal(impact.unitKnowledgePointGateStatus[id], "PENDING", id);
+  }
   assert.equal(impact.changeImpact.sharedExecutableChange, false);
   assert.equal(impact.changeImpact.publicAuthorityCutover, false);
   assert.equal(impact.changeImpact.currentAuthorityChanged, false);
