@@ -8,6 +8,13 @@ const KP = "kp_g5a_u10a_solid_cross_section";
 const COUNT = 24;
 const SEED = "p05f17r-classic-ui";
 const OUT = path.resolve("tmp/p05f-w5-q017-parity-remediation-classic-ui");
+const EXPECTED_SOLID_CUT_PAIRS = Object.freeze([
+  "PRISM:PARALLEL_BASE",
+  "PRISM:PERPENDICULAR_BASE",
+  "PYRAMID:PARALLEL_BASE",
+  "PYRAMID:THROUGH_APEX",
+  "SPHERE:PLANE",
+]);
 
 mkdirSync(OUT, { recursive: true });
 
@@ -144,6 +151,7 @@ try {
       diagramCount: document.querySelectorAll(".worksheet-solid-cross-section-diagram").length,
       solidKinds: [...new Set(representations.map((node) => node.dataset.solidKind))].sort(),
       cutModes: [...new Set(representations.map((node) => node.dataset.cutMode))].sort(),
+      solidCutPairs: [...new Set(representations.map((node) => `${node.dataset.solidKind}:${node.dataset.cutMode}`))].sort(),
       answers: answers.map((node) => node.querySelector(".worksheet-cell__answer")?.textContent?.trim() ?? ""),
       signatures: questions.map((node) => `${node.querySelector(".worksheet-cell__prompt")?.textContent ?? ""}::${node.querySelector("svg")?.outerHTML ?? ""}`),
       overflow: pages.filter((node) => node.scrollHeight > node.clientHeight + 1 || node.scrollWidth > node.clientWidth + 1).length,
@@ -157,7 +165,8 @@ try {
     || worksheet.answerCount !== COUNT
     || worksheet.diagramCount !== COUNT * 2
     || JSON.stringify(worksheet.solidKinds) !== JSON.stringify(["PRISM", "PYRAMID", "SPHERE"])
-    || worksheet.cutModes.length !== 5
+    || JSON.stringify(worksheet.cutModes) !== JSON.stringify(["PARALLEL_BASE", "PERPENDICULAR_BASE", "PLANE", "THROUGH_APEX"])
+    || JSON.stringify(worksheet.solidCutPairs) !== JSON.stringify(EXPECTED_SOLID_CUT_PAIRS)
     || !answerSet.has("圓形")
     || !answerSet.has("長方形")
     || !answerSet.has("三角形")
@@ -170,6 +179,7 @@ try {
       diagramCount: worksheet.diagramCount,
       solidKinds: worksheet.solidKinds,
       cutModes: worksheet.cutModes,
+      solidCutPairs: worksheet.solidCutPairs,
       duplicates,
       overflow: worksheet.overflow,
       answers: [...answerSet],
@@ -203,6 +213,7 @@ try {
       diagramCount: worksheet.diagramCount,
       solidKinds: worksheet.solidKinds,
       cutModes: worksheet.cutModes,
+      solidCutPairs: worksheet.solidCutPairs,
       duplicates,
       overflow: worksheet.overflow,
     },
