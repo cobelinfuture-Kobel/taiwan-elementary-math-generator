@@ -13,7 +13,16 @@ const readText = (relativePath) => fs.readFileSync(path.join(ROOT, relativePath)
 const contract = readJson("data/curriculum/application/contracts/PATH1_P1_07_QUOTIENT_START_PLACE_PREFLIGHT_V1.json");
 const matrix = readJson("data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json");
 const g3bU01 = readJson("data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json");
-const sourcePatternText = readText("site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js");
+const sourcePatternTextsByPath = new Map([
+  [
+    "site/modules/curriculum/batch-a/source-pattern-index.js",
+    readText("site/modules/curriculum/batch-a/source-pattern-index.js"),
+  ],
+  [
+    "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
+    readText("site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js"),
+  ],
+]);
 const cloudRegistry = readJson("data/curriculum/application/reviews/PATH1_CLOUD_SOURCE_CORPUS_REGISTRY_V2.json");
 const cloudReview = readJson("data/curriculum/application/reviews/PATH1_P1_05_P1_07_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1.json");
 
@@ -30,6 +39,15 @@ const semanticParents = [
   "ps_g3b_u01_3digit_hundreds_insufficient",
   "ps_g3b_u01_3digit_hundreds_exact",
 ];
+
+const semanticParentProducerPaths = {
+  ps_g3b_u01_2digit_by_1digit_regroup_tens: "site/modules/curriculum/batch-a/source-pattern-index.js",
+  ps_g3b_u01_2digit_leading_digit_insufficient: "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
+  ps_g3b_u01_2digit_leading_digit_exact: "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
+  ps_g3b_u01_3digit_by_1digit_regroup_hundreds: "site/modules/curriculum/batch-a/source-pattern-index.js",
+  ps_g3b_u01_3digit_hundreds_insufficient: "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
+  ps_g3b_u01_3digit_hundreds_exact: "site/modules/curriculum/batch-a/source-pattern-submiddle-extension.js",
+};
 
 test("P1-07 preflight consumes merged cloud provenance and remains planning-only", () => {
   assert.equal(contract.taskId, "PATH1_P1_07_QUOTIENT_START_PLACE_PREFLIGHT_V1");
@@ -86,9 +104,20 @@ test("G3B-U01 remains the canonical one-digit-divisor V1 arithmetic authority", 
   assert.ok(threeDigit.operationModels[0].validationInvariants.includes("division is exact"));
 });
 
-test("existing G3B-U01 PatternSpecs are semantic parents rather than newly minted canonical authority", () => {
+test("existing G3B-U01 PatternSpecs are semantic parents and use their canonical producer paths", () => {
   assert.deepEqual(contract.canonicalArithmeticAuthority.existingSemanticParentPatternSpecIds, semanticParents);
-  for (const patternSpecId of semanticParents) assert.ok(sourcePatternText.includes(patternSpecId), patternSpecId);
+  const bindingByPatternSpecId = new Map(g3bU01.existingQuestionBindings.map((entry) => [entry.questionId, entry]));
+
+  for (const patternSpecId of semanticParents) {
+    const binding = bindingByPatternSpecId.get(patternSpecId);
+    assert.ok(binding, `${patternSpecId} must exist in canonical existingQuestionBindings`);
+    const expectedSourcePath = semanticParentProducerPaths[patternSpecId];
+    assert.equal(binding.sourcePath, expectedSourcePath, `${patternSpecId} canonical producer path`);
+    const producerText = sourcePatternTextsByPath.get(binding.sourcePath);
+    assert.ok(producerText, `${patternSpecId} producer file must be explicitly loaded`);
+    assert.ok(producerText.includes(patternSpecId), `${patternSpecId} must exist in ${binding.sourcePath}`);
+  }
+
   assert.equal(contract.newCanonicalKnowledgePointMinted, false);
   assert.equal(contract.newPatternSpecMaterialized, false);
   assert.equal(contract.representationDecision.mustReuseExistingSemanticParents, true);
