@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q017_BOUNDED_VALIDATION",
+  "unitId": "g5a_u10_5a10a",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-slice017-g5a-u10a-prism-pyramid-elements.test.js",
+          "tests/curriculum/p05f-w5-q017-prism-pyramid-elements-source-authority-preflight.test.js",
+          "tests/curriculum/p05f-w5-slice017-direct-dependencies.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p05f-w5-slice017-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}

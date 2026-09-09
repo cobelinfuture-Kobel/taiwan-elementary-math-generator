@@ -1,0 +1,51 @@
+name: P05F W5 Q017 Post-Merge Pages E2E
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/curriculum/full-product/p05f/q017-g5a-u10a-prism-pyramid-elements-implementation.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p05f-w5-q017-postmerge-pages-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-pages-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact merged main head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Run Q017 exact deployed Main/Pages E2E
+        env:
+          P05F17_DEPLOYMENT_RETRIES: "36"
+          P05F17_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+        run: node tools/curriculum/run-p05f-w5-q017-live-pages-e2e.mjs
+
+      - name: Upload Q017 Main/Pages E2E evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p05f-w5-q017-postmerge-main-pages-e2e
+          path: tmp/p05f-w5-q017-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30

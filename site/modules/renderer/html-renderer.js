@@ -13,6 +13,7 @@ import { renderAreaGridCountingDiagram } from "./area-grid-counting-diagram.js";
 import { renderTriangleElementsNamingDiagram } from "./triangle-elements-naming-diagram.js";
 import { renderSectorElementsDiagram } from "./sector-elements-diagram.js";
 import { renderSymmetryAxisCountDiagram } from "./symmetry-axis-count-diagram.js";
+import { renderPrismPyramidElementsDiagram } from "./prism-pyramid-elements-diagram.js";
 import { renderFractionNumberLine } from "./fraction-number-line.js";
 import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderMeasurementScale } from "./measurement-scale.js";
@@ -83,7 +84,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -107,6 +108,7 @@ function renderGeometryDiagram(model) {
   if (model?.kind === "triangle_elements_naming_diagram") return renderTriangleElementsNamingDiagram(model);
   if (model?.kind === "sector_elements_diagram") return renderSectorElementsDiagram(model);
   if (model?.kind === "symmetry_axis_count_diagram") return renderSymmetryAxisCountDiagram(model);
+  if (model?.kind === "prism_pyramid_elements_diagram") return renderPrismPyramidElementsDiagram(model);
   throw createRendererError("geometry_diagram_invalid", `Unsupported geometry diagram kind '${model?.kind ?? "missing"}'.`);
 }
 
