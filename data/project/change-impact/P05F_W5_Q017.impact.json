@@ -1,19 +1,12 @@
 {
-  "schemaVersion": "1.0.0",
-  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
-  "taskId": "P05F_W5_Q017",
-  "currentScope": "SHARED_RUNTIME",
-  "currentKnowledgePointId": "kp_g5a_u10a_prism_pyramid_elements",
-  "unitExpectedKnowledgePointIds": ["kp_g5a_u10a_prism_pyramid_elements"],
-  "unitKnowledgePointGateStatus": {"kp_g5a_u10a_prism_pyramid_elements":"PENDING"},
-  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
-  "validationPlanPath": "data/project/validation-plans/P05F_W5_Q017.validation.json",
-  "changeImpact": {
-    "sharedExecutableChange": true,
-    "publicAuthorityCutover": true,
-    "legalRouteSemanticsChanged": false,
-    "affectedRoutes": "BOUNDED",
-    "globalReleaseCheckpoint": false,
-    "currentAuthorityChanged": true
-  }
+  "schemaVersion":"1.0.0",
+  "policyId":"UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId":"P05F_W5_Q017_PARITY_REMEDIATION_IMPLEMENTATION",
+  "currentScope":"SHARED_RUNTIME",
+  "currentKnowledgePointId":"kp_g5a_u10a_solid_cross_section",
+  "unitExpectedKnowledgePointIds":["kp_g5a_u10a_prism_pyramid_elements","kp_g5a_u10a_solid_cross_section"],
+  "unitKnowledgePointGateStatus":{"kp_g5a_u10a_prism_pyramid_elements":"FOCUSED_PASS","kp_g5a_u10a_solid_cross_section":"PENDING"},
+  "expectedDerivedGate":"SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath":"data/project/validation-plans/P05F_W5_Q017.validation.json",
+  "changeImpact":{"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":false,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true}
 }

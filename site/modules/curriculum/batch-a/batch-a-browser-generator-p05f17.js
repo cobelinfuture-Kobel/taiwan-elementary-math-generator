@@ -1,43 +1,10 @@
 import {buildBatchABrowserPlan as baseBuildPlan} from "./batch-a-browser-generator-p05f16.js";
 import {generateG5AU10AP05F17Questions,G5A_U10A_P05F17_MAX_QUESTION_COUNT} from "./g5a-u10a-prism-pyramid-elements-runtime-p05f17.js";
+import {generateG5AU10AP05F17RCrossSectionQuestions,G5A_U10A_P05F17R_MAX_QUESTION_COUNT} from "./g5a-u10a-solid-cross-section-runtime-p05f17-remediation.js";
 import {G5A_U10A_P05F17_GROUP_ID,G5A_U10A_P05F17_KP_ID,G5A_U10A_P05F17_SOURCE_ID,G5A_U10A_P05F17_SPEC_IDS} from "../registry/g5a-u10a-prism-pyramid-elements-selector-projection-p05f17.js";
-
-export function requestsP05F17(options={}){
-  if(options.sourceId!==G5A_U10A_P05F17_SOURCE_ID||options.selectionMode==="sourceUnit"||options.selectionMode==="mixedKnowledgePointsSameUnit"||options.selectionMode==="mixedKnowledgePointsCrossUnit")return false;
-  const ids=options.selectedKnowledgePointIds??options.knowledgePointIds??[];
-  return ids.includes(G5A_U10A_P05F17_KP_ID)||(options.selectedPatternGroupIds??[]).includes(G5A_U10A_P05F17_GROUP_ID)||(options.patternSpecIds??[]).some(id=>G5A_U10A_P05F17_SPEC_IDS.includes(id));
-}
-export function buildBatchABrowserPlan(options={}){
-  const basePlan=baseBuildPlan(options);
-  if(!requestsP05F17(options))return basePlan;
-  const requested=Array.isArray(options.patternSpecIds)?G5A_U10A_P05F17_SPEC_IDS.filter(id=>options.patternSpecIds.includes(id)):[];
-  const patternSpecIds=requested.length?requested:[...G5A_U10A_P05F17_SPEC_IDS];
-  return Object.freeze({...basePlan,
-    sourceId:G5A_U10A_P05F17_SOURCE_ID,
-    sourceUnit:Object.freeze({sourceId:G5A_U10A_P05F17_SOURCE_ID,grade:5,semester:"upper",unitCode:"5A-U10A",title:"柱體錐體和球",domain:"spatial_solid"}),
-    selectionMode:"singleKnowledgePoint",
-    selectedKnowledgePointIds:Object.freeze([G5A_U10A_P05F17_KP_ID]),
-    knowledgePointIds:Object.freeze([G5A_U10A_P05F17_KP_ID]),
-    requestedKnowledgePointIds:Object.freeze([G5A_U10A_P05F17_KP_ID]),
-    selectedPatternGroupIds:Object.freeze([G5A_U10A_P05F17_GROUP_ID]),
-    requestedPatternGroupIds:Object.freeze([G5A_U10A_P05F17_GROUP_ID]),
-    patternSpecIds:Object.freeze([...patternSpecIds]),
-    questionMode:"diagram",
-    requestedQuestionType:"diagram",
-    questionCount:Number.isInteger(options.questionCount)?options.questionCount:20,
-    questionCountMax:G5A_U10A_P05F17_MAX_QUESTION_COUNT,
-    generationSeed:String(options.generationSeed??"p05f17-g5a-u10a-prism-pyramid-elements"),
-    publicControls:Object.freeze({sourceId:G5A_U10A_P05F17_SOURCE_ID,questionMode:"diagram",requestedQuestionType:"diagram",productWave:"P05F",productAdmissionTask:"P05F_W5DirectProductVerticalSlice017Implementation"}),
-    publicPatternSpecInjectionUsed:false,
-    genericFallback:false,
-    genericFallbackAllowed:false,
-    freeFormAI:false,
-    sharedRuntimeScope:"SHARED_RUNTIME_BOUNDED",
-  });
-}
+import {G5A_U10A_P05F17R_GROUP_ID,G5A_U10A_P05F17R_KP_ID,G5A_U10A_P05F17R_SPEC_IDS} from "../registry/g5a-u10a-solid-cross-section-selector-projection-p05f17-remediation.js";
+function detectTarget(options={}){if(options.sourceId!==G5A_U10A_P05F17_SOURCE_ID||options.selectionMode==="sourceUnit"||options.selectionMode==="mixedKnowledgePointsSameUnit"||options.selectionMode==="mixedKnowledgePointsCrossUnit")return null;const ids=options.selectedKnowledgePointIds??options.knowledgePointIds??[],groups=options.selectedPatternGroupIds??[],specs=options.patternSpecIds??[];const prism=ids.includes(G5A_U10A_P05F17_KP_ID)||groups.includes(G5A_U10A_P05F17_GROUP_ID)||specs.some(id=>G5A_U10A_P05F17_SPEC_IDS.includes(id));const cross=ids.includes(G5A_U10A_P05F17R_KP_ID)||groups.includes(G5A_U10A_P05F17R_GROUP_ID)||specs.some(id=>G5A_U10A_P05F17R_SPEC_IDS.includes(id));return prism&&cross?"AMBIGUOUS":prism?"PRISM":cross?"CROSS":null;}
+export function requestsP05F17(options={}){return detectTarget(options)!==null;}
+export function buildBatchABrowserPlan(options={}){const basePlan=baseBuildPlan(options),target=detectTarget(options);if(!target)return basePlan;if(target==="AMBIGUOUS")return Object.freeze({...basePlan,selectionMode:"singleKnowledgePoint",genericFallback:false,genericFallbackAllowed:false,p05f17AmbiguousSelection:true});const cross=target==="CROSS",specIds=cross?G5A_U10A_P05F17R_SPEC_IDS:G5A_U10A_P05F17_SPEC_IDS,requested=Array.isArray(options.patternSpecIds)?specIds.filter(id=>options.patternSpecIds.includes(id)):[],patternSpecIds=requested.length?requested:[...specIds],kpId=cross?G5A_U10A_P05F17R_KP_ID:G5A_U10A_P05F17_KP_ID,groupId=cross?G5A_U10A_P05F17R_GROUP_ID:G5A_U10A_P05F17_GROUP_ID;return Object.freeze({...basePlan,sourceId:G5A_U10A_P05F17_SOURCE_ID,sourceUnit:Object.freeze({sourceId:G5A_U10A_P05F17_SOURCE_ID,grade:5,semester:"upper",unitCode:"5A-U10A",title:"柱體錐體和球",domain:"spatial_solid"}),selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:Object.freeze([kpId]),knowledgePointIds:Object.freeze([kpId]),requestedKnowledgePointIds:Object.freeze([kpId]),selectedPatternGroupIds:Object.freeze([groupId]),requestedPatternGroupIds:Object.freeze([groupId]),patternSpecIds:Object.freeze([...patternSpecIds]),questionMode:"diagram",requestedQuestionType:"diagram",questionCount:Number.isInteger(options.questionCount)?options.questionCount:20,questionCountMax:cross?G5A_U10A_P05F17R_MAX_QUESTION_COUNT:G5A_U10A_P05F17_MAX_QUESTION_COUNT,generationSeed:String(options.generationSeed??(cross?"p05f17r-g5a-u10a-solid-cross-section":"p05f17-g5a-u10a-prism-pyramid-elements")),publicControls:Object.freeze({sourceId:G5A_U10A_P05F17_SOURCE_ID,questionMode:"diagram",requestedQuestionType:"diagram",productWave:"P05F",productAdmissionTask:cross?"P05F_W5_Q017_FrozenQueueParityRemediation_Implementation":"P05F_W5DirectProductVerticalSlice017Implementation"}),publicPatternSpecInjectionUsed:false,genericFallback:false,genericFallbackAllowed:false,freeFormAI:false,sharedRuntimeScope:"SHARED_RUNTIME_BOUNDED",p05f17Target:target});}
 export const buildBatchABrowserGenerationPlan=buildBatchABrowserPlan;
-export function generateBatchABrowserQuestions(options={}){
-  if(!requestsP05F17(options))return Object.freeze({ok:false,questions:Object.freeze([]),errors:Object.freeze(["P05F17_REQUEST_NOT_MATCHED"]),warnings:Object.freeze([])});
-  const plan=buildBatchABrowserPlan(options),generated=generateG5AU10AP05F17Questions(plan);
-  return Object.freeze({...generated,plan,sourceId:G5A_U10A_P05F17_SOURCE_ID,questionMode:"diagram"});
-}
+export function generateBatchABrowserQuestions(options={}){const target=detectTarget(options);if(!target)return Object.freeze({ok:false,questions:Object.freeze([]),errors:Object.freeze(["P05F17_REQUEST_NOT_MATCHED"]),warnings:Object.freeze([])});if(target==="AMBIGUOUS")return Object.freeze({ok:false,questions:Object.freeze([]),errors:Object.freeze(["P05F17_MIXED_KP_NOT_ADMITTED"]),warnings:Object.freeze([])});const plan=buildBatchABrowserPlan(options),generated=target==="CROSS"?generateG5AU10AP05F17RCrossSectionQuestions(plan):generateG5AU10AP05F17Questions(plan);return Object.freeze({...generated,plan,sourceId:G5A_U10A_P05F17_SOURCE_ID,questionMode:"diagram"});}

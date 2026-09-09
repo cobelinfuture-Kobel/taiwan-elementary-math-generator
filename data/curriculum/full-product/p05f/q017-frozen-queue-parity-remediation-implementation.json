@@ -1,0 +1,18 @@
+{
+  "schemaName":"P05FW5Q017FrozenQueueParityRemediationImplementationV1",
+  "schemaVersion":1,
+  "programId":"FULL_PRODUCT_LINE_D0_V1",
+  "taskId":"P05F_W5_Q017_FrozenQueueParityRemediation_Implementation",
+  "status":"MATERIALIZED_AWAITING_FOCUSED_CI_AND_EXACT_PAGES_E2E",
+  "preflightAuthority":"data/curriculum/full-product/p05f/q017-frozen-queue-parity-remediation-preflight.json",
+  "queueAuthority":{"queuePosition":17,"sliceId":"p05e_q017_r1_g5a_u10_5a10a_profile_spatial_solid_c1","sourceId":"g5a_u10_5a10a","runtimeProfileId":"profile_spatial_solid","knowledgePointIds":["kp_g5a_u10a_prism_pyramid_elements","kp_g5a_u10a_solid_cross_section"]},
+  "preservedKnowledgePointId":"kp_g5a_u10a_prism_pyramid_elements",
+  "remediationTargetKnowledgePointId":"kp_g5a_u10a_solid_cross_section",
+  "formalMapping":{"canonicalNameZh":"立體截面辨識","capabilityStatement":"學生能判斷平面切割柱體、錐體或球可能形成的截面。","reasoningInvariant":"截面形狀由切割方向與立體表面交線決定。","includedRelations":["RECOGNIZE_POSSIBLE_CROSS_SECTION_FROM_SOLID_AND_CUT_DIRECTION","PRESERVE_CUT_SURFACE_INTERSECTION_INVARIANT"]},
+  "patternSpecs":{"count":5,"maxDistinctPerPatternSpec":240,"ids":["ps_g5a_u10a_cross_section_prism_parallel_base","ps_g5a_u10a_cross_section_prism_perpendicular_base","ps_g5a_u10a_cross_section_pyramid_parallel_base","ps_g5a_u10a_cross_section_pyramid_through_apex","ps_g5a_u10a_cross_section_sphere_plane"]},
+  "productChain":{"selectorProjection":"site/modules/curriculum/registry/g5a-u10a-solid-cross-section-selector-projection-p05f17-remediation.js","publicSelector":"site/modules/curriculum/registry/batch-a-selector-p05f17-remediation-extension.js","runtime":"site/modules/curriculum/batch-a/g5a-u10a-solid-cross-section-runtime-p05f17-remediation.js","generator":"site/modules/curriculum/batch-a/batch-a-browser-generator-p05f17.js","validator":"validateG5AU10AP05F17RCrossSectionQuestion","worksheet":"site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f17-extension.js","renderer":"site/modules/renderer/prism-pyramid-elements-diagram.js","publicBinding":"site/modules/curriculum/public/public-ui-capability-binding-p05f17.js"},
+  "publicTarget":{"sourceCount":53,"visibleKnowledgePointCount":332,"g5aU10aVisibleCount":3,"g5aU10aHiddenPendingCount":2,"g5aU10aNotSelectableCount":2,"sourceUnitOwnerKnowledgePointId":"kp_g5a_u10a_solid_shape_classification","sourceUnitActivationForCrossSection":false,"mixedKnowledgePointActivation":false},
+  "protectedBoundaries":{"frozenQueueAuthorityTouched":false,"q018SemanticsTouched":false,"solidNetCorrespondenceTouched":false,"solidViewpointRepresentationTouched":false,"applicationContextTouched":false,"geometryFormulaOrMeasurementTouched":false,"prismPyramidElementsSemanticsRewritten":false},
+  "validation":{"policyId":"UNIT_INCREMENTAL_VALIDATION_V1","lane":"SHARED_RUNTIME_BOUNDED","fullRepositoryRegression":"FORBIDDEN","globalBrowserReplay":"FORBIDDEN","focusedTest":"tests/curriculum/p05f-w5-q017-frozen-queue-parity-remediation.test.js","targetedClassicUiRunner":"tools/curriculum/run-p05f-w5-q017-parity-remediation-classic-ui-acceptance.mjs","exactPagesRunner":"tools/curriculum/run-p05f-w5-q017-parity-remediation-live-pages-e2e.mjs"},
+  "goalDistance":{"before":"D2_Q017_EXACT_TWO_KP_SLICE_AND_REMEDIATION_CONTRACT_LOCKED","afterCandidate":"D1_Q017_TRUE_TWO_KP_RUNTIME_PUBLIC_PRODUCT_MATERIALIZED","d0Requires":"FOCUSED_CI_MERGE_AND_EXACT_DEPLOYED_PAGES_E2E"}
+}
