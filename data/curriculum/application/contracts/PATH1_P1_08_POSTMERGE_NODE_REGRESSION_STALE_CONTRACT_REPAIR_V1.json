@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "PATH1_P1_08_POSTMERGE_NODE_REGRESSION_STALE_CONTRACT_REPAIR_V1",
+  "status": "EXACT_STALE_SOURCE_ASSERTION_ISOLATED_TEST_ONLY_REPAIR",
+  "operatorScope": "POSTMERGE_FAILURE_ISOLATION_AND_TEST_CONTRACT_REPAIR",
+  "sourceFailure": {
+    "workflowName": "Node Test Post-Merge",
+    "runId": 34333705795,
+    "jobId": 102408017130,
+    "headSha": "ef741a934566b93190bb6b75101febb0e901e22a",
+    "artifactId": 10097008687,
+    "artifactName": "node-test-post-merge-diagnostics",
+    "testSummary": {
+      "tests": 4576,
+      "pass": 4450,
+      "fail": 126
+    }
+  },
+  "exactIsolation": {
+    "causallyAffectedSubtest": "base arithmetic builder consumes public binding knowledgePointIds, so drift is deployed runtime behavior",
+    "testFile": "tests/curriculum/path1-word-problem-p1-05-public-binding-reconciliation-preflight-v1.test.js",
+    "testLine": 91,
+    "failureType": "STALE_SOURCE_TEXT_ASSERTION",
+    "obsoleteAssertion": "allocateCounts(count, block.knowledgePointIds.length)",
+    "currentApprovedRuntimeShape": [
+      "selectedKnowledgePointIds = selectKnowledgePointsForCount(block.knowledgePointIds, count, blockId, generationSeed)",
+      "allocateCounts(count, selectedKnowledgePointIds.length)"
+    ],
+    "rootCause": "The historical P1-05 reconciliation test asserted the old direct-allocation source shape. P1-08 remediation intentionally inserted deterministic small-count KP selection before allocation, so the source-text assertion became stale while the public-binding consumption contract remained true.",
+    "runtimeDefectIdentified": false,
+    "mathSemanticRegressionIdentified": false,
+    "p108FocusedAcceptanceWasGreenBeforeMerge": true,
+    "remainingSuiteFailuresRequireSeparateBaselineAttribution": true
+  },
+  "repair": {
+    "mutationClass": "TEST_ONLY",
+    "allowedMutation": [
+      "tests/curriculum/path1-word-problem-p1-05-public-binding-reconciliation-preflight-v1.test.js"
+    ],
+    "newAssertionContract": [
+      "the generic builder passes block.knowledgePointIds into selectKnowledgePointsForCount",
+      "allocation uses selectedKnowledgePointIds.length"
+    ],
+    "forbiddenMutation": [
+      "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "G4A-U04 generator semantics",
+      "P1-08 PatternSpecs",
+      "public UI/query semantics",
+      "P1-09+ semantics"
+    ]
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "currentScope": "KP_LEAF",
+    "expectedDerivedGate": "KP_FOCUSED",
+    "fullRepositoryRegressionRequested": false,
+    "globalBrowserReplayRequested": false,
+    "postMergeNodeWorkflowMayStillReportHistoricalBaselineFailures": true,
+    "acceptanceRequirement": "The repaired historical test and P1-08 focused contracts/browser acceptance must pass; any remaining post-merge suite failures must be attributed separately rather than repaired by scope expansion."
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P108_RUNTIME_REMEDIATED_FOCUSED_ACCEPTANCE_GREEN_POSTMERGE_CI_BLOCKED",
+    "targetGoalDistanceAfter": "D0_P108_POSTMERGE_CAUSAL_REGRESSION_REMOVED_BASELINE_ONLY_OR_GREEN",
+    "nextShortestStep": "PATH1_P1_08_POSTMERGE_NODE_REGRESSION_STALE_CONTRACT_REPAIR_CI"
+  }
+}
