@@ -10,9 +10,9 @@
     "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor": "PASS",
-    "kp_g4a_u04_3digit_by_2digit_tens_sufficient": "PASS",
-    "kp_g4a_u04_3digit_by_2digit_tens_insufficient": "PASS"
+    "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor": "FOCUSED_PASS",
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient": "FOCUSED_PASS",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient": "FOCUSED_PASS"
   },
   "expectedDerivedGate": "KP_FOCUSED",
   "validationPlanPath": "data/project/validation-plans/PATH1_P1_08_POSTMERGE_NODE_REGRESSION_STALE_CONTRACT_REPAIR_V1.validation.json",
