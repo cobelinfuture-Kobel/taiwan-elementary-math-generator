@@ -91,7 +91,8 @@ test("current public P1-05 arithmetic binding has three KPs and defaults to cano
 test("base arithmetic builder consumes public binding knowledgePointIds, so drift is deployed runtime behavior", () => {
   assert.match(baseBuilderText, /getPath1PublicWorksheetBlock/);
   assert.match(baseBuilderText, /block\.knowledgePointIds/);
-  assert.match(baseBuilderText, /allocateCounts\(count, block\.knowledgePointIds\.length\)/);
+  assert.match(baseBuilderText, /const selectedKnowledgePointIds = selectKnowledgePointsForCount\(\s*block\.knowledgePointIds,/);
+  assert.match(baseBuilderText, /allocateCounts\(count, selectedKnowledgePointIds\.length\)/);
   assert.match(publicBindingText, /kp_g4b_u01_multiplier_internal_zero/);
   assert.match(publicBindingText, /kp_g4b_u01_trailing_zero_multiplication/);
   assert.match(contract.reconciliationProblem.runtimeConsequence, /existing deployed arithmetic behavior/);
