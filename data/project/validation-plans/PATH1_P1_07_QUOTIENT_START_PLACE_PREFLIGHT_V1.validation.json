@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "PATH1_P1_07_QUOTIENT_START_PLACE_PREFLIGHT_V1_KP_FOCUSED_VALIDATION",
+  "unitId": "path1_p1_07_quotient_start_place_preflight",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-p1-07-quotient-start-place-preflight-v1.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-p1-06-estimate-trial-quotient-public-cutover-implementation-v1.test.js"
+        ]
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-curriculum-matrix.test.js"
+        ]
+      }
+    ]
+  }
+}
