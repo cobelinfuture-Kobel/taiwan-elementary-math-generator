@@ -18,6 +18,9 @@ import {
   buildPath1P106EstimateTrialQuotientWorksheet,
 } from "./build-path1-p1-06-estimate-trial-quotient-worksheet.js";
 import {
+  buildPath1P107QuotientStartPlaceWorksheet,
+} from "./build-path1-p1-07-quotient-start-place-worksheet.js";
+import {
   PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE,
 } from "../../../modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js";
 import {
@@ -32,6 +35,9 @@ import {
 import {
   PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE,
 } from "../../../modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-patterns.js";
+import {
+  PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-p1-07-quotient-start-place-patterns.js";
 
 export const PATH1_MANUAL_ARITHMETIC_PRACTICE_MODE = "arithmetic";
 export const PATH1_EQUAL_GROUPS_MODELING_TRANSFER_GATE_ID =
@@ -46,6 +52,8 @@ export const PATH1_P105_MODELING_PUBLIC_CUTOVER_GATE_ID =
   "PATH1_P105_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
 export const PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_GATE_ID =
   "PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_V1";
+export const PATH1_P107_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_GATE_ID =
+  "PATH1_P107_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_V1";
 
 function failed(blockId, practiceMode, code) {
   return Object.freeze({
@@ -74,6 +82,12 @@ function publicCutoverGateId(blockId, practiceMode) {
     && blockId === "P1-06"
   ) {
     return PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_GATE_ID;
+  }
+  if (
+    practiceMode === PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE
+    && blockId === "P1-07"
+  ) {
+    return PATH1_P107_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_GATE_ID;
   }
   return null;
 }
@@ -167,6 +181,18 @@ export function buildPath1ManualWorksheet(options = {}) {
       blockId,
       ...rest,
       practiceMode: PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE,
+    });
+    return attachPracticeMetadata(result, { blockId, practiceMode });
+  }
+
+  if (practiceMode === PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE) {
+    if (blockId !== "P1-07") {
+      return failed(blockId, practiceMode, "PATH1_P107_QUOTIENT_PLACE_MODE_BLOCK_NOT_SUPPORTED");
+    }
+    const result = buildPath1P107QuotientStartPlaceWorksheet({
+      blockId,
+      ...rest,
+      practiceMode: PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE,
     });
     return attachPracticeMetadata(result, { blockId, practiceMode });
   }

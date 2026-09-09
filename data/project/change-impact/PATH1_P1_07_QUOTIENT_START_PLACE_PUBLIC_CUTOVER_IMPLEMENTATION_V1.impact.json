@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_P1_07_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_IMPLEMENTATION_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_P1_07_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_IMPLEMENTATION_V1.validation.json",
+  "classificationNote": "Visible Path1-local public cutover for P1-07 quotient-start-place only. Registers the existing quotientStartPlace mode, dispatches P1-07 directly to its already validated dedicated adapter, and projects route-level public metadata. Preserves P1-07 arithmetic binding, Path1 matrix, P1-07 PatternSpecs/generator/validator/adapter, P1-06 estimate route, P1-01..P1-05 modeling routes, P1-08+, remainder/word-problem semantics, Classic, and canonical G3B-U01 authority.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

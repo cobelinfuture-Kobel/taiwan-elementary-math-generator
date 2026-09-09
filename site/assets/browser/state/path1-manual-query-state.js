@@ -3,16 +3,19 @@ export const PATH1_MANUAL_DEFAULT_PRACTICE_MODE = "arithmetic";
 export const PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE = "equalGroupsTransfer";
 export const PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE = "multiplicativeModelingTransfer";
 export const PATH1_MANUAL_P106_ESTIMATE_TRIAL_QUOTIENT_MODE = "estimateTrialQuotient";
+export const PATH1_MANUAL_P107_QUOTIENT_START_PLACE_MODE = "quotientStartPlace";
 
 const PATH1_MANUAL_PRACTICE_MODES = Object.freeze([
   PATH1_MANUAL_DEFAULT_PRACTICE_MODE,
   PATH1_MANUAL_EQUAL_GROUPS_TRANSFER_MODE,
   PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE,
   PATH1_MANUAL_P106_ESTIMATE_TRIAL_QUOTIENT_MODE,
+  PATH1_MANUAL_P107_QUOTIENT_START_PLACE_MODE,
 ]);
 const EQUAL_GROUPS_TRANSFER_BLOCK_IDS = new Set(["P1-01", "P1-02"]);
 const MULTIPLICATIVE_MODELING_BLOCK_IDS = new Set(["P1-03", "P1-04", "P1-05"]);
 const ESTIMATE_TRIAL_QUOTIENT_BLOCK_IDS = new Set(["P1-06"]);
+const QUOTIENT_START_PLACE_BLOCK_IDS = new Set(["P1-07"]);
 
 function warning(code, details = {}) {
   return Object.freeze({ code, ...details });
@@ -87,6 +90,18 @@ export function normalizePath1ManualQueryState(
     normalizedPracticeMode = PATH1_MANUAL_DEFAULT_PRACTICE_MODE;
   }
 
+  if (
+    normalizedPracticeMode === PATH1_MANUAL_P107_QUOTIENT_START_PLACE_MODE
+    && !QUOTIENT_START_PLACE_BLOCK_IDS.has(normalizedBlockId)
+  ) {
+    warnings.push(warning("PATH1_PUBLIC_P107_QUOTIENT_PLACE_MODE_BLOCK_NOT_SUPPORTED", {
+      path1BlockId: normalizedBlockId,
+      requestedPracticeMode: normalizedPracticeMode,
+      normalized: PATH1_MANUAL_DEFAULT_PRACTICE_MODE,
+    }));
+    normalizedPracticeMode = PATH1_MANUAL_DEFAULT_PRACTICE_MODE;
+  }
+
   return Object.freeze({
     path1BlockId: normalizedBlockId,
     practiceMode: normalizedPracticeMode,
@@ -133,4 +148,8 @@ export function path1ManualBlockSupportsP103MultiplicativeModeling(path1BlockId)
 
 export function path1ManualBlockSupportsEstimateTrialQuotient(path1BlockId) {
   return ESTIMATE_TRIAL_QUOTIENT_BLOCK_IDS.has(path1BlockId);
+}
+
+export function path1ManualBlockSupportsQuotientStartPlace(path1BlockId) {
+  return QUOTIENT_START_PLACE_BLOCK_IDS.has(path1BlockId);
 }
