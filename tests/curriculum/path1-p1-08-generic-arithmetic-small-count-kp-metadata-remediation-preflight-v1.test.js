@@ -6,14 +6,29 @@ import { getPath1PublicWorksheetBlock } from "../../site/modules/curriculum/lear
 import { generateG4AU04DivisionQuestions } from "../../site/modules/curriculum/batch-a/g4a-u04-division-generator.js";
 
 const CONTRACT_PATH = "data/curriculum/application/contracts/PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT_V1.json";
+const IMPLEMENTATION_PATH = "data/curriculum/application/contracts/PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_IMPLEMENTATION_V1.json";
 const IMPACT_PATH = "data/project/change-impact/PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT_V1.impact.json";
 const PLAN_PATH = "data/project/validation-plans/PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT_V1.validation.json";
 
 const contract = JSON.parse(fs.readFileSync(CONTRACT_PATH, "utf8"));
+const implementation = JSON.parse(fs.readFileSync(IMPLEMENTATION_PATH, "utf8"));
 const impact = JSON.parse(fs.readFileSync(IMPACT_PATH, "utf8"));
 const plan = JSON.parse(fs.readFileSync(PLAN_PATH, "utf8"));
 
-test("P1-08 remediation preflight stays planning-only and locks both isolated blockers", () => {
+const PRIMARY_KPS = [
+  "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+  "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+  "kp_g4a_u04_3digit_by_2digit_tens_insufficient",
+];
+
+function generatedQuestions(result) {
+  return result?.worksheetDocument?.generatedQuestions
+    ?? result?.worksheetDocument?.questions
+    ?? result?.worksheetDocument?.questionItems
+    ?? [];
+}
+
+test("P1-08 remediation preflight remains immutable historical planning evidence", () => {
   assert.equal(contract.taskId, "PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT_V1");
   assert.equal(contract.operatorScope, "APPROVED_PREFLIGHT_ONLY");
   assert.equal(contract.implementationAllowed, false);
@@ -25,9 +40,10 @@ test("P1-08 remediation preflight stays planning-only and locks both isolated bl
       "P108_RUNTIME_KP_METADATA_NOT_EMITTED",
     ],
   );
+  assert.equal(implementation.taskId, contract.futureImplementationBoundary.taskId);
 });
 
-test("small-count policy allows partial composite-KP coverage without weakening normal-count coverage", () => {
+test("preflight small-count decision is exactly the policy implemented by the approved implementation", () => {
   const decision = contract.smallCountPolicyDecision;
   assert.equal(decision.decision, "ALLOW_PARTIAL_KP_COVERAGE_ONLY_WHEN_QUESTION_COUNT_IS_BELOW_SELECTED_KP_COUNT");
   assert.match(decision.fullCoverageRule, /questionCount >= selectedKnowledgePointCount/);
@@ -35,9 +51,10 @@ test("small-count policy allows partial composite-KP coverage without weakening 
   assert.match(decision.allocationRule, /deterministic seed-derived rotation/);
   assert.match(decision.normalCountPreservation, /7\/7\/6/);
   assert.match(decision.normalCountPreservation, /40\/40\/40/);
+  assert.equal(implementation.implementation.smallCountPolicyId, decision.policyId);
 });
 
-test("KP metadata ownership is locked to generic subplan normalization, not the G4A-U04 generator", () => {
+test("preflight KP metadata ownership remains generic subplan normalization rather than the G4A-U04 generator", () => {
   const decision = contract.knowledgePointMetadataDecision;
   assert.equal(decision.ownerLayer, "normalizeGeneratedQuestion in the generic Path1 builder");
   assert.deepEqual(decision.fallbackOrder, [
@@ -47,45 +64,47 @@ test("KP metadata ownership is locked to generic subplan normalization, not the 
   ]);
   assert.equal(decision.generatorMutationRequired, false);
   assert.equal(decision.canonicalG4aU04GeneratorMutationAllowed, false);
-  assert.equal(decision.topLevelKnowledgePointIdRequired, true);
+  assert.deepEqual(implementation.implementation.knowledgePointIdFallbackOrder, decision.fallbackOrder);
 });
 
-test("current runtime witness proves count=1 is blocked by generic coverage policy while the canonical generator itself can generate one item", () => {
+test("current runtime realizes the preflight count=1 decision while canonical G4A-U04 generator remains independently capable", () => {
   const block = getPath1PublicWorksheetBlock("P1-08");
-  assert.equal(block.knowledgePointIds.length, 3);
+  assert.deepEqual(block.knowledgePointIds, PRIMARY_KPS);
 
   const publicResult = buildPath1ManualWorksheet({
     blockId: "P1-08",
     questionCount: 1,
-    generationSeed: "p108-remediation-preflight",
+    generationSeed: "p108-remediation-preflight-transition",
     practiceMode: "arithmetic",
   });
-  assert.equal(publicResult.ok, false);
-  assert.equal(publicResult.errors?.[0]?.code, "PATH1_QUESTION_COUNT_BELOW_KP_COVERAGE");
+  assert.equal(publicResult.ok, true, JSON.stringify(publicResult.errors ?? []));
+  const publicQuestions = generatedQuestions(publicResult);
+  assert.equal(publicQuestions.length, 1);
+  assert.equal(PRIMARY_KPS.includes(publicQuestions[0].knowledgePointId), true);
 
   const generatorResult = generateG4AU04DivisionQuestions({
     sourceId: "g4a_u04_4a04",
     questionCount: 1,
-    generationSeed: "p108-remediation-preflight",
+    generationSeed: "p108-remediation-preflight-transition",
   });
   assert.equal(generatorResult.ok, true);
   assert.equal(generatorResult.questions.length, 1);
 });
 
-test("current generic P1-08 normalization still exposes the metadata gap at normal count", () => {
+test("current normal-count generic output now carries exact non-null KP metadata", () => {
   const result = buildPath1ManualWorksheet({
     blockId: "P1-08",
     questionCount: 20,
     generationSeed: "path1-p1-08-generic-arithmetic-acceptance-v1",
     practiceMode: "arithmetic",
   });
-  assert.equal(result.ok, true);
-  const questions = result.worksheetDocument?.generatedQuestions ?? result.worksheetDocument?.questions ?? [];
+  assert.equal(result.ok, true, JSON.stringify(result.errors ?? []));
+  const questions = generatedQuestions(result);
   assert.equal(questions.length, 20);
-  assert.ok(questions.some((question) => question.knowledgePointId == null));
+  assert.equal(questions.every((question) => PRIMARY_KPS.includes(question.knowledgePointId)), true);
 });
 
-test("future implementation is bounded shared runtime and does not request full regression or global replay", () => {
+test("historical preflight validation classification remains bounded and never requested full regression or global replay", () => {
   assert.equal(impact.currentScope, "KP_LEAF");
   assert.equal(impact.changeImpact.sharedExecutableChange, false);
   assert.equal(impact.futureImplementationImpact.currentScope, "SHARED_RUNTIME");

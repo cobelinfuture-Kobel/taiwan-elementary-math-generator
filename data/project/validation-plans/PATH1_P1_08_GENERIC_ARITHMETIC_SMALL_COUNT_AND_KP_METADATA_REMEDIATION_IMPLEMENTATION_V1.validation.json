@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_IMPLEMENTATION_V1_SHARED_RUNTIME_BOUNDED_VALIDATION",
+  "unitId": "path1_p1_08_generic_arithmetic_small_count_and_kp_metadata_remediation_implementation",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-p1-08-generic-arithmetic-small-count-kp-metadata-remediation-implementation-v1.test.js",
+          "tests/curriculum/path1-p1-08-two-digit-divisor-generic-arithmetic-acceptance-v1.test.js",
+          "tests/curriculum/path1-p1-08-generic-arithmetic-small-count-kp-metadata-remediation-preflight-v1.test.js",
+          "tests/curriculum/path1-p1-08-two-digit-divisor-preflight-v1.test.js",
+          "tests/curriculum/path1-curriculum-matrix.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-path1-p1-08-generic-arithmetic-small-count-kp-metadata-remediation-implementation-v1.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}
