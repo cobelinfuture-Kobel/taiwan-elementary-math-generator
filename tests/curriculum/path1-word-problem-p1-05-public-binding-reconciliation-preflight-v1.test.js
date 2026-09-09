@@ -134,25 +134,30 @@ test("reconciliation rejects both shrinking deployed arithmetic breadth and expa
   assert.equal(contract.compatibilityExceptionContract.separateDebtRemains, true);
 });
 
-test("P1-05 multiplicativeModelingTransfer is not yet public before the separate cutover preflight", () => {
+test("historical P1-05 pre-cutover guard is superseded by the completed public cutover", () => {
   const validBlockIds = ["P1-01", "P1-02", "P1-03", "P1-04", "P1-05"];
   const normalized = normalizePath1ManualQueryState({
     path1BlockId: "P1-05",
     practiceMode: PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE,
   }, { validBlockIds });
   assert.equal(normalized.path1BlockId, "P1-05");
-  assert.equal(normalized.practiceMode, "arithmetic");
-  assert.ok(normalized.warnings.some((entry) => entry.code === "PATH1_PUBLIC_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED"));
+  assert.equal(normalized.practiceMode, PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE);
+  assert.equal(normalized.warnings.length, 0);
 
   const result = buildPath1ManualWorksheet({
     blockId: "P1-05",
     practiceMode: PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE,
     questionCount: 1,
-    generationSeed: "p105-binding-reconciliation-no-public-cutover",
+    generationSeed: "p105-binding-reconciliation-post-public-cutover",
   });
-  assert.equal(result.ok, false);
-  assert.equal(result.errors[0].code, "PATH1_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED");
-  assert.doesNotMatch(practiceEntryText, /buildPath1P105MultiplicativeModelingWorksheet/);
+  assert.equal(result.ok, true, JSON.stringify(result.errors));
+  assert.equal(result.worksheetDocument.questionCount, 1);
+  assert.equal(
+    result.worksheetDocument.configSnapshot.metadata.practiceMode,
+    PATH1_MANUAL_P103_MULTIPLICATIVE_MODELING_MODE,
+  );
+  assert.equal(result.worksheetDocument.configSnapshot.metadata.publicCutoverApplied, true);
+  assert.match(practiceEntryText, /buildPath1P105MultiplicativeModelingWorksheet/);
   assert.equal(contract.futurePublicModelingRouteContract.publicCutoverImplementationAllowedNow, false);
 });
 
