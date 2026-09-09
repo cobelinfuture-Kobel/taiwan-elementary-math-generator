@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "PATH1_P1_08_TWO_DIGIT_DIVISOR_GENERIC_ARITHMETIC_ACCEPTANCE_V1",
+  "status": "P1_08_GENERIC_ARITHMETIC_ACCEPTANCE_GAPS_ISOLATED",
+  "operatorScope": "APPROVED_DIAGNOSTIC_ACCEPTANCE_ONLY",
+  "acceptanceScope": {
+    "blockId": "P1-08",
+    "blockTitle": "二位數除數",
+    "practiceMode": "arithmetic",
+    "runExistingPublicArithmeticRouteOnly": true,
+    "requiredQuestionCounts": [1, 20, 120],
+    "implementationAllowed": false,
+    "runtimeChanged": false,
+    "publicBindingMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "patternSpecMutationAllowed": false,
+    "path1MatrixChanged": false,
+    "canonicalKnowledgeAuthorityChanged": false,
+    "publicUiChanged": false
+  },
+  "canonicalAuthority": {
+    "sourceId": "g4a_u04_4a04",
+    "unitId": "4A-U04",
+    "primaryKnowledgePointIds": [
+      "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "patternSpecIds": [
+      "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ]
+  },
+  "diagnosticAcceptance": {
+    "count1": {
+      "expectedOk": false,
+      "expectedErrorCode": "PATH1_QUESTION_COUNT_BELOW_KP_COVERAGE",
+      "classification": "P108_GENERIC_ARITHMETIC_COUNT1_KP_COVERAGE_CONFLICT"
+    },
+    "count20": {
+      "expectedOk": true,
+      "expectedGeneratedCount": 20,
+      "requireAllThreePatterns": true
+    },
+    "count120": {
+      "expectedOk": true,
+      "expectedGeneratedCount": 120,
+      "requireAllThreePatterns": true
+    },
+    "runtimeKnowledgePointMetadata": {
+      "expectedPerQuestionKnowledgePointId": null,
+      "classification": "P108_RUNTIME_KP_METADATA_NOT_EMITTED",
+      "routeSelectionStillMustExposeExactSelectedKnowledgePointIds": true
+    },
+    "arithmeticParityRequired": true,
+    "noFallbackOutsideP108Patterns": true
+  },
+  "sourceProvenanceBoundary": {
+    "learningMapsUse": "CURRICULUM_BOUNDARY_ONLY",
+    "liTeacherUse": "NO_DIRECT_WITNESS",
+    "schoolExamUse": "DIRECT_WITNESS",
+    "cloudEvidenceMayMutateRuntime": false
+  },
+  "antiScopeCreep": {
+    "modifyGenericBuilder": false,
+    "modifyG4aU04Generator": false,
+    "modifyPublicBinding": false,
+    "modifyPatternSpecs": false,
+    "modifyPath1Matrix": false,
+    "modifyCanonicalKnowledgePoints": false,
+    "modifyP101ThroughP107": false,
+    "modifyP109Plus": false
+  },
+  "validation": {
+    "lane": "KP_FOCUSED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P108_SOURCE_AUTHORITY_LOCKED_GENERIC_ARITHMETIC_ACCEPTANCE_PENDING",
+    "goalDistanceAfterTarget": "D1_P108_GENERIC_ARITHMETIC_ACCEPTANCE_GAPS_ISOLATED",
+    "nextShortestStep": "PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT_V1"
+  },
+  "runtimeRemediation": "NOT_AUTHORIZED_BY_THIS_ACCEPTANCE; ISOLATE_FAILURE_AND_REQUEST_SEPARATE_SCOPE"
+}
