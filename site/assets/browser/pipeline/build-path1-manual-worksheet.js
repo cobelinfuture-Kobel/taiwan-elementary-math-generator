@@ -77,7 +77,7 @@ function firstNonEmptyText(...values) {
   return "";
 }
 
-function normalizeGeneratedQuestion(question, prefix, index) {
+function normalizeGeneratedQuestion(question, prefix, index, enclosingSubplanKnowledgePointId = null) {
   return {
     ...question,
     generatedItemId: `${prefix}-${question.generatedItemId ?? question.id ?? index + 1}`,
@@ -91,7 +91,10 @@ function normalizeGeneratedQuestion(question, prefix, index) {
     mode: question.mode ?? question.questionMode ?? "numeric",
     operationFamilyId: question.operationFamilyId ?? question.metadata?.operationFamilyId ?? "PATH1_EXISTING_RUNTIME",
     sourceNodeId: question.sourceNodeId ?? question.sourceId ?? null,
-    knowledgePointId: question.knowledgePointId ?? question.metadata?.knowledgePointId ?? null,
+    knowledgePointId: question.knowledgePointId
+      ?? question.metadata?.knowledgePointId
+      ?? enclosingSubplanKnowledgePointId
+      ?? null,
   };
 }
 
@@ -274,6 +277,16 @@ function hashSeed(input) {
   return hash >>> 0;
 }
 
+function selectKnowledgePointsForCount(knowledgePointIds, questionCount, blockId, generationSeed) {
+  if (questionCount >= knowledgePointIds.length) return [...knowledgePointIds];
+  const startIndex = hashSeed(`${generationSeed}:${blockId}:${questionCount}:small-count-kp`)
+    % knowledgePointIds.length;
+  return Array.from(
+    { length: questionCount },
+    (_, index) => knowledgePointIds[(startIndex + index) % knowledgePointIds.length],
+  );
+}
+
 function buildFourDigitByTwoDigitItems({ count, seed, blockId }) {
   const items = [];
   const used = new Set();
@@ -435,18 +448,16 @@ export function buildPath1ManualWorksheet({
     if (missing.length > 0) {
       return failed(blockId, [{ code: "PATH1_KP_NOT_PUBLICLY_VISIBLE", blockId, knowledgePointIds: missing }]);
     }
-    if (count < block.knowledgePointIds.length) {
-      return failed(blockId, [{
-        code: "PATH1_QUESTION_COUNT_BELOW_KP_COVERAGE",
-        blockId,
-        questionCount: count,
-        requiredMinimum: block.knowledgePointIds.length,
-      }]);
-    }
 
-    const allocations = allocateCounts(count, block.knowledgePointIds.length);
-    for (let index = 0; index < block.knowledgePointIds.length; index += 1) {
-      const knowledgePointId = block.knowledgePointIds[index];
+    const selectedKnowledgePointIds = selectKnowledgePointsForCount(
+      block.knowledgePointIds,
+      count,
+      blockId,
+      generationSeed,
+    );
+    const allocations = allocateCounts(count, selectedKnowledgePointIds.length);
+    for (let index = 0; index < selectedKnowledgePointIds.length; index += 1) {
+      const knowledgePointId = selectedKnowledgePointIds[index];
       const source = visibility.get(knowledgePointId);
       const groups = selectedGroupsForKnowledgePoint(knowledgePointId, block.questionMode);
       if (groups.length === 0) {
@@ -501,7 +512,12 @@ export function buildPath1ManualWorksheet({
         }]);
       }
       generatedItems.push(...questions.map((question, questionIndex) => (
-        normalizeGeneratedQuestion(question, `${blockId}-${knowledgePointId}`, questionIndex)
+        normalizeGeneratedQuestion(
+          question,
+          `${blockId}-${knowledgePointId}`,
+          questionIndex,
+          knowledgePointId,
+        )
       )));
       warnings.push(...(result.warnings ?? []));
     }
