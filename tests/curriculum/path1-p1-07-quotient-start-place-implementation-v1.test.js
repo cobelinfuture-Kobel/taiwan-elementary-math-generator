@@ -314,11 +314,11 @@ test("dedicated non-public worksheet renders 120 numeric questions and answer-ke
   assert.equal(document.questions.length, 120);
   assert.equal(countCells(document.questionPages, "question"), 120);
   assert.equal(countCells(document.answerKeyPages, "answerKey"), 120);
-  assert.equal(document.metadata.path1BlockId, "P1-07");
-  assert.equal(document.metadata.practiceMode, PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE);
-  assert.equal(document.metadata.publicCutoverApplied, false);
-  assert.equal(document.metadata.twoDigitDivisorRepresentationUsed, false);
-  assert.equal(document.metadata.quotientZeroCaseUsed, false);
+  assert.equal(document.configSnapshot.metadata.path1BlockId, "P1-07");
+  assert.equal(document.configSnapshot.metadata.practiceMode, PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE);
+  assert.equal(document.configSnapshot.metadata.publicCutoverApplied, false);
+  assert.equal(document.configSnapshot.metadata.twoDigitDivisorRepresentationUsed, false);
+  assert.equal(document.configSnapshot.metadata.quotientZeroCaseUsed, false);
 });
 
 test("implementation is additive/non-public and new executable files pass relative static-import smoke", () => {
