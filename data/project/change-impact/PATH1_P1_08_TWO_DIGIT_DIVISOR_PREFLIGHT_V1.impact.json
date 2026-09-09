@@ -4,20 +4,16 @@
   "taskId": "PATH1_P1_08_TWO_DIGIT_DIVISOR_PREFLIGHT_V1",
   "currentScope": "KP_LEAF",
   "currentKnowledgePointId": "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
-  "expectedKnowledgePoints": [
-    {
-      "knowledgePointId": "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
-      "status": "PENDING"
-    },
-    {
-      "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
-      "status": "PENDING"
-    },
-    {
-      "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_insufficient",
-      "status": "PENDING"
-    }
+  "unitExpectedKnowledgePointIds": [
+    "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
   ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor": "PENDING",
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient": "PENDING",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient": "PENDING"
+  },
   "expectedDerivedGate": "KP_FOCUSED",
   "validationPlanPath": "data/project/validation-plans/PATH1_P1_08_TWO_DIGIT_DIVISOR_PREFLIGHT_V1.validation.json",
   "classificationNote": "Planning/source-authority preflight only for Path1 P1-08. Locks current queue, canonical G4A-U04 source/KP/PatternSpec mapping, mandatory three-lane cloud provenance, existing generic arithmetic route, and adjacent boundaries. No executable product runtime, public authority, matrix, canonical semantic, route, mastery, or PatternSpec change.",
