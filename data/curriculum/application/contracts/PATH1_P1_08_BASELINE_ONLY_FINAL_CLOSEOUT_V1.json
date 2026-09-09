@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "PATH1_P1_08_BASELINE_ONLY_FINAL_CLOSEOUT_V1",
+  "status": "P1_08_D0_BASELINE_ONLY_FINAL_CLOSEOUT_MATERIALIZED_AWAITING_CI",
+  "operatorApproval": "APPROVED_PATH1_P1_08_BASELINE_ONLY_FINAL_CLOSEOUT_V1",
+  "scope": {
+    "blockId": "P1-08",
+    "title": "二位數除數",
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "path1MatrixChanged": false,
+    "patternSpecsChanged": false,
+    "canonicalKnowledgePointsChanged": false,
+    "publicUiOrQueryChanged": false,
+    "p109OrLaterChanged": false
+  },
+  "canonicalAuthority": {
+    "sourceId": "g4a_u04_4a04",
+    "sourceFile": "batchA_02-題型總覽-4a04-整數的除法.pdf",
+    "route": "arithmetic",
+    "primaryKnowledgePointIds": [
+      "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "patternSpecIds": [
+      "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "arithmeticInvariant": "dividend = divisor * quotient + remainder; 0 <= remainder < divisor"
+  },
+  "sourceProvenance": {
+    "allThreeMandatoryCloudLanesReviewed": true,
+    "learningMaps": "CURRICULUM_BOUNDARY_ONLY",
+    "liTeacher": "NO_DIRECT_WITNESS",
+    "taiwanMultiSchoolExams": "DIRECT_WITNESS",
+    "cloudEvidenceMintedKnowledgePoint": false,
+    "cloudEvidenceMintedPatternSpec": false,
+    "cloudEvidenceExpandedRuntimeEnvelope": false
+  },
+  "implementationChain": [
+    {
+      "pr": 850,
+      "role": "SOURCE_AUTHORITY_PREFLIGHT",
+      "mergeSha": "bcef8e451988af3001f7e6b2063084e2c19d8034"
+    },
+    {
+      "pr": 854,
+      "role": "GENERIC_ARITHMETIC_DIAGNOSTIC_ACCEPTANCE",
+      "mergeSha": "e9bfb85961803ee3f7ff405556f3e03f745688e6"
+    },
+    {
+      "pr": 855,
+      "role": "SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT",
+      "mergeSha": "fb3d053dbfa59171d7ee04af4adefdbd4c8981a2"
+    },
+    {
+      "pr": 856,
+      "role": "GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION",
+      "mergeSha": "ef741a934566b93190bb6b75101febb0e901e22a"
+    },
+    {
+      "pr": 857,
+      "role": "POSTMERGE_STALE_CONTRACT_TEST_ONLY_REPAIR",
+      "mergeSha": "5bad9ec43a8675a9d87d0014bf1892d5994e15cb"
+    }
+  ],
+  "pagesDeployment": {
+    "workflow": "Deploy GitHub Pages",
+    "runId": 34333705796,
+    "runNumber": 2141,
+    "headSha": "ef741a934566b93190bb6b75101febb0e901e22a",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "focusedAcceptance": {
+    "count1Succeeds": true,
+    "count1ExactOneKnowledgePoint": true,
+    "count1SameSeedDeterministic": true,
+    "count1CrossSeedKnowledgePointReachability": true,
+    "count20Allocation": [7, 7, 6],
+    "count120Allocation": [40, 40, 40],
+    "allGeneratedRowsTopLevelKnowledgePointIdNonNull": true,
+    "allGeneratedRowsKnowledgePointMembershipExact": true,
+    "canonicalPatternsPreserved": true,
+    "canonicalSourcePreserved": true
+  },
+  "postMergeRegressionAttribution": {
+    "baselineBeforeP108RuntimeImplementation": {
+      "workflowRunId": 34328972302,
+      "headSha": "fb3d053dbfa59171d7ee04af4adefdbd4c8981a2",
+      "artifactId": 10095127003,
+      "artifactDigest": "sha256:c6b84b725cb712b58b693119d3b58abb75336588515ac14857740f021e64554b",
+      "tests": 4567,
+      "pass": 4442,
+      "fail": 125,
+      "failureTitleSetSha256": "0e6570c73367d56b08f64b70b7a2b11a70fffb4247840facea46a0c7f4b1d36b"
+    },
+    "afterP108ImplementationBeforeStaleRepair": {
+      "workflowRunId": 34333705795,
+      "headSha": "ef741a934566b93190bb6b75101febb0e901e22a",
+      "artifactId": 10097008687,
+      "artifactDigest": "sha256:91f70762a0b233f9f326d470abc4af50cc992fc1a94b9bf67b6e306b8d74e46c",
+      "tests": 4576,
+      "pass": 4450,
+      "fail": 126,
+      "failureTitleSetSha256": "e78ff2cd5d910daa82357c6d03bf8e550df21378dbc266a6dc11ef4bb41251e7"
+    },
+    "afterStaleRepair": {
+      "workflowRunId": 34374433745,
+      "headSha": "5bad9ec43a8675a9d87d0014bf1892d5994e15cb",
+      "artifactId": 10113363719,
+      "artifactDigest": "sha256:4303d43188951afbd1e5323749f0b001bda33fee86bf4f44b698a410183443f4",
+      "tests": 4576,
+      "pass": 4452,
+      "fail": 124,
+      "failureTitleSetSha256": "70b3f4cab1bf140dece50221d63cfd5616cb4021ce05d61523fd7d38a1993fad"
+    },
+    "exactSetDelta": {
+      "implementationToRepairRemovedFailures": 2,
+      "implementationToRepairAddedFailures": 0,
+      "baselineToRepairOverlapFailures": 124,
+      "baselineToRepairRemovedFailures": 1,
+      "baselineToRepairAddedFailures": 0,
+      "p108CausalNewFailures": 0
+    },
+    "disposition": "BASELINE_ONLY",
+    "p108SharedRuntimeRegression": "NONE_FOUND",
+    "remainingFailureCount": 124,
+    "remainingFailuresOwnership": "PRE_EXISTING_REPOSITORY_BASELINE_SCOPE_EXTERNAL_TO_P1_08"
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "e8e7f57963e2e71c42efbd41cef7db4cdb1961ad",
+    "p108RepairMergeSha": "5bad9ec43a8675a9d87d0014bf1892d5994e15cb",
+    "commitsAfterRepair": 6,
+    "siteFilesChangedAfterRepair": false,
+    "curriculumRuntimeFilesChangedAfterRepair": false,
+    "onlyCiEvidenceFilesChangedAfterRepair": true
+  },
+  "antiScopeCreep": {
+    "repairRemainingRepositoryBaselineFailures": false,
+    "modifyP105Runtime": false,
+    "modifyP108Runtime": false,
+    "modifyPatternSpecs": false,
+    "modifyPublicBinding": false,
+    "modifyPath1Matrix": false,
+    "modifyP109OrLater": false,
+    "runFullRepositoryRegression": false,
+    "runGlobalBrowserReplay": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P108_CAUSAL_REGRESSION_CLEARED_BASELINE_ONLY_GLOBAL_CI_RED",
+    "goalDistanceAfter": "D0_P108_GENERIC_ARITHMETIC_ROUTE_STABLE_ACCEPTED_BASELINE_ONLY",
+    "distanceReduced": "P1-08 implementation, focused browser acceptance, exact Pages deployment, and post-merge failure-title-set attribution are now sufficient to separate 124 pre-existing repository failures from P1-08 and close the block at D0 without scope expansion.",
+    "remainingP108Blockers": [],
+    "scopeExternalDebt": [
+      "124 pre-existing repository Node Test failures remain outside P1-08 scope"
+    ],
+    "nextShortestStep": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_AUTHORITY_PREFLIGHT_V1",
+    "nextTaskRequiresSeparateOperatorApproval": true
+  }
+}
