@@ -1,0 +1,12 @@
+{
+  "schemaVersion":"1.0.0",
+  "policyId":"UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId":"P05F_W5_Q021_IMPLEMENTATION",
+  "currentScope":"SHARED_RUNTIME",
+  "currentKnowledgePointIds":["kp_g5b_u10a_hectare_square_meter_conversion","kp_g5b_u10a_square_kilometer_hectare_conversion"],
+  "unitExpectedKnowledgePointIds":["kp_g5b_u10a_hectare_square_meter_conversion","kp_g5b_u10a_square_kilometer_hectare_conversion"],
+  "unitKnowledgePointGateStatus":{"kp_g5b_u10a_hectare_square_meter_conversion":"PENDING","kp_g5b_u10a_square_kilometer_hectare_conversion":"PENDING"},
+  "expectedDerivedGate":"SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath":"data/project/validation-plans/P05F_W5_Q021.validation.json",
+  "changeImpact":{"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":false,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true}
+}
