@@ -1,0 +1,110 @@
+{
+  "schemaName": "P05FW5Q026RectangleSquareAreaFormulaImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice026Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 26,
+    "sliceId": "p05e_q026_r2_g4b_u07_4b07_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice026Implementation",
+    "previousSliceId": "p05e_q025_r2_g4b_u02_4b02_profile_geometry_property_c1",
+    "sourceId": "g4b_u07_4b07",
+    "runtimeProfileId": "profile_geometry_formula",
+    "knowledgePointIds": ["kp_g4b_u07_rectangle_square_area_formula"],
+    "requiredW5CapabilityIds": ["cap_geometry_diagram_representation","cap_geometry_domain_validator","cap_geometry_formula_evaluation","cap_geometry_property_reasoning"],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "previousSliceD0Evidence": {
+    "productPrNumber": 882,
+    "productMergeSha": "946ac0221aefa9c6b0aac2515752270ba2410909",
+    "prGateRunId": "34502165965",
+    "pagesDeploymentRunId": "34502372333",
+    "exactPagesRunId": "34502372626",
+    "evidenceArtifactId": "10162429517",
+    "evidenceArtifactDigest": "sha256:9fad5db90fb3d7df802788a065a50fdf6ac76a1667244a8bcc862f9298d0ab35",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q026-g4b-u07-rectangle-square-area-formula-source-authority-preflight.json",
+    "sourceTitle": "周長與面積",
+    "sourcePdfTitle": "meow911_4b07_source.pdf",
+    "directVisualEvidencePages": [1],
+    "r02RecordedEvidencePages": [3],
+    "r02EvidencePointerMismatchReconciled": true,
+    "embeddedHeaderUrlMismatchObserved": true,
+    "sourceRefAmbiguity": false
+  },
+  "formalMapping": {
+    "mappingId": "fm_g4b_u07_rectangle_square_area_formula_p05f26",
+    "relationFamily": "RECTANGLE_SQUARE_AREA_FORMULA",
+    "includedRelations": ["COMPUTE_RECTANGLE_AREA_AS_LENGTH_TIMES_WIDTH","COMPUTE_SQUARE_AREA_AS_SIDE_TIMES_SIDE","PRESERVE_AREA_AS_ROW_COUNT_TIMES_COLUMN_COUNT"],
+    "excludedRelations": ["PERIMETER_PATH_SUM_AS_TARGET_KP","RECTANGLE_SQUARE_PERIMETER_FORMULA_AS_TARGET_KP","COMPOSITE_PERIMETER_AS_TARGET_KP","COMPOSITE_RECTILINEAR_AREA_AS_TARGET_KP","AREA_UNIT_CONVERSION","SAME_PERIMETER_AREA_COMPARISON","EQUAL_AREA_PERIMETER_COMPARISON","APPLICATION_CONTEXT_IMPLEMENTATION","Q027_OR_LATER_SEMANTICS"]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g4b_u07_rectangle_square_area_formula",
+    "patternSpecIds": ["ps_g4b_u07_rectangle_area_length_width","ps_g4b_u07_square_area_side_squared","ps_g4b_u07_area_row_column_product"],
+    "questionMode": "diagram",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false,
+    "maxQuestionCount": 240,
+    "distinctCapacityPerPatternSpec": 240,
+    "requiresGeometryDiagramRepresentation": true,
+    "requiresGeometryFormulaEvaluation": true
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g4b-u07-rectangle-square-area-formula-runtime-p05f26.js",
+    "validator": "validateG4BU07P05F26Question",
+    "diagramRenderer": "site/modules/renderer/rectangle-square-area-formula-diagram.js",
+    "htmlRenderer": "site/modules/renderer/html-renderer.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f26.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f26-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "existingSourceUnitRoutePreserved": true,
+    "questionTypeValue": "diagram",
+    "questionTypeLabel": "圖形題",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false,
+    "expectedGlobalVisibleKnowledgePointDelta": 1,
+    "sameSourceRemainingFutureKnowledgePointCount": 4
+  },
+  "postMergeEvidence": {
+    "workflow": ".github/workflows/p05f-w5-q026-live-pages-e2e.yml",
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "waitForExactPagesBytes": true,
+    "sha256ExactDeployedBytes": true,
+    "classicUiGeneratorValidatorWorksheetRendererPrintArtifact": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice026-g4b-u07-rectangle-square-area-formula.test.js",
+    "sourcePreflightTest": "tests/curriculum/p05f-w5-q026-rectangle-square-area-formula-source-authority-preflight.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-q026-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "perimeterPathSumTouched": false,
+    "perimeterFormulaTouched": false,
+    "compositePerimeterTouched": false,
+    "compositeRectilinearAreaTouched": false,
+    "areaUnitConversionTouched": false,
+    "samePerimeterAreaComparisonTouched": false,
+    "equalAreaPerimeterComparisonTouched": false,
+    "applicationContextTouched": false,
+    "q027OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false
+  }
+}
