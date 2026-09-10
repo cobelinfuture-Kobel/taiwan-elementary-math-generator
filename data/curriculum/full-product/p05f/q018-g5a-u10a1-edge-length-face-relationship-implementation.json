@@ -1,0 +1,101 @@
+{
+  "schemaName": "P05FW5Q018CubeCuboidEdgeLengthFaceRelationshipImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice018Implementation",
+  "status": "MATERIALIZED_AWAITING_FOCUSED_CI_AND_EXACT_PAGES_E2E",
+  "preflightAuthority": "data/curriculum/full-product/p05f/q018-g5a-u10a1-edge-length-face-relationship-source-authority-preflight.json",
+  "queueAuthority": {
+    "queuePosition": 18,
+    "sliceId": "p05e_q018_r1_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "sourceId": "g5a_u10_5a10a1",
+    "runtimeProfileId": "profile_spatial_solid",
+    "knowledgePointIds": [
+      "kp_g5a_u10a1_cube_cuboid_edge_length",
+      "kp_g5a_u10a1_cube_cuboid_face_relationship"
+    ]
+  },
+  "formalMappings": [
+    {
+      "knowledgePointId": "kp_g5a_u10a1_cube_cuboid_edge_length",
+      "canonicalNameZh": "稜長關係",
+      "capabilityStatement": "學生能由長、寬、高辨認各組平行等長稜。",
+      "reasoningInvariant": "長方體三組稜各有4條等長，正方體12條稜等長。",
+      "includedRelations": [
+        "RELATE_CUBOID_LENGTH_WIDTH_HEIGHT_TO_THREE_GROUPS_OF_FOUR_EQUAL_EDGES",
+        "RECOGNIZE_CUBE_TWELVE_EQUAL_EDGES"
+      ],
+      "targetElementSemantic": "EDGE"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u10a1_cube_cuboid_face_relationship",
+      "canonicalNameZh": "相對面與相鄰面",
+      "capabilityStatement": "學生能辨認立體中的相對面、相鄰面與垂直關係。",
+      "reasoningInvariant": "相對面不相交且平行，相鄰面共用一條稜。",
+      "includedRelations": [
+        "IDENTIFY_OPPOSITE_FACES",
+        "IDENTIFY_ADJACENT_FACES",
+        "RECOGNIZE_OPPOSITE_FACES_PARALLEL",
+        "RECOGNIZE_ADJACENT_FACES_SHARE_EDGE",
+        "RECOGNIZE_FACE_PERPENDICULAR_RELATIONSHIP"
+      ],
+      "targetElementSemantic": "FACE"
+    }
+  ],
+  "patternSpecs": {
+    "count": 7,
+    "maxDistinctPerPatternSpec": 240,
+    "edgeCount": 2,
+    "faceCount": 5
+  },
+  "semanticRepair": {
+    "taskId": "Q018_FACE_TARGET_ELEMENT_SEMANTIC_REPAIR",
+    "edgeKnowledgePointTargetElement": "EDGE",
+    "faceKnowledgePointTargetElement": "FACE",
+    "validatorEnforcesKnowledgePointSpecificTargetElement": true,
+    "previousGlobalEdgeTargetSemanticsRetained": false
+  },
+  "productChain": {
+    "selectorProjection": "site/modules/curriculum/registry/g5a-u10a1-cube-cuboid-edge-face-selector-projection-p05f18.js",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p05f18-extension.js",
+    "runtime": "site/modules/curriculum/batch-a/g5a-u10a1-cube-cuboid-edge-face-runtime-p05f18.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f18.js",
+    "validator": "validateG5AU10A1P05F18Question",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f18-extension.js",
+    "renderer": "site/modules/renderer/cube-cuboid-elements-diagram.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p05f18.js"
+  },
+  "publicTarget": {
+    "sourceCount": 53,
+    "visibleKnowledgePointCount": 334,
+    "g5aU10a1VisibleCount": 3,
+    "g5aU10a1HiddenPendingCount": 2,
+    "g5aU10a1NotSelectableCount": 2,
+    "sourceUnitOwnerKnowledgePointId": "kp_g5a_u10a1_cube_cuboid_faces_edges_vertices",
+    "sourceUnitActivationForQ018": false,
+    "mixedKnowledgePointActivation": false
+  },
+  "protectedBoundaries": {
+    "frozenQueueAuthorityTouched": false,
+    "q008ElementIdentityCountSemanticsTouched": false,
+    "cubeCuboidNetTouched": false,
+    "genericSpatialReasoningTouched": false,
+    "applicationContextTouched": false,
+    "geometryFormulaOrMeasurementTouched": false,
+    "q019OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN",
+    "globalBrowserReplay": "FORBIDDEN",
+    "focusedTest": "tests/curriculum/p05f-w5-slice018-g5a-u10a1-cube-cuboid-edge-face.test.js",
+    "targetedClassicUiRunner": "tools/curriculum/run-p05f-w5-q018-classic-ui-acceptance.mjs",
+    "exactPagesRunner": "tools/curriculum/run-p05f-w5-q018-live-pages-e2e.mjs"
+  },
+  "goalDistance": {
+    "before": "D2_Q018_TWO_KP_RUNTIME_EXISTS_BUT_FACE_TARGET_SEMANTICS_INCORRECT",
+    "afterCandidate": "D1_Q018_TRUE_TWO_KP_RUNTIME_PUBLIC_PRODUCT_WITH_KP_SPECIFIC_TARGET_SEMANTICS",
+    "d0Requires": "FOCUSED_CI_MERGE_AND_EXACT_DEPLOYED_PAGES_E2E"
+  }
+}
