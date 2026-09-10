@@ -15,10 +15,35 @@ const TARGET_KPS = [
   "kp_acute_obtuse_angle_qualitative_classification",
   "kp_rectangle_square_right_angle_properties",
 ];
-const REQUIRED_CAPS = [
+const FROZEN_W5_CAPS = [
   "cap_geometry_diagram_representation",
   "cap_geometry_domain_validator",
   "cap_geometry_property_reasoning",
+];
+const R04_REQUIRED_CAPS = [
+  "cap_pattern_spec_resolution",
+  "cap_deterministic_answer_model",
+  "cap_worksheet_document_assembly",
+  "cap_answer_key_projection",
+  "cap_html_print_renderer",
+  "cap_geometry_property_reasoning",
+  "cap_geometry_domain_validator",
+  "cap_geometry_diagram_representation",
+];
+const REQUIRED_PRODUCT_NODES = [
+  "SOURCE_EVIDENCE",
+  "KNOWLEDGE_POINT_IDENTITY",
+  "TAG_REGISTRY_BINDING",
+  "FORMAL_MAPPING",
+  "PATTERN_SPEC",
+  "SHARED_GENERATOR_BINDING",
+  "DETERMINISTIC_VALIDATOR_BINDING",
+  "PUBLIC_SOURCE_ADAPTER",
+  "PUBLIC_UI_SELECTION",
+  "WORKSHEET_AND_ANSWER_KEY",
+  "PRODUCTION_HTML",
+  "CHROMIUM_PDF_AND_PRINT",
+  "PRODUCT_ADMISSION_CLAIM",
 ];
 
 test("Q022 preflight binds the exact frozen queue-position-22 row", () => {
@@ -32,18 +57,22 @@ test("Q022 preflight binds the exact frozen queue-position-22 row", () => {
   assert.equal(row.implementationTaskId, "P05F_W5DirectProductVerticalSlice022Implementation");
   assert.equal(row.previousSliceId, "p05e_q021_r1_g5b_u10_5b10a_profile_geometry_formula_c1");
   assert.equal(row.primarySourceNodeId, "g3a_u05_3a05");
-  assert.deepEqual(row.supportingSourceNodeIds, []);
+  assert.deepEqual(row.supportingSourceNodeIds, ["g3a_u05_3a05"]);
   assert.equal(row.primaryRuntimeProfileId, "profile_geometry_property");
   assert.equal(row.intraWavePrerequisiteRank, 2);
   assert.equal(row.chunkIndex, 1);
   assert.equal(row.knowledgePointCount, 2);
   assert.deepEqual(row.knowledgePointIds, TARGET_KPS);
-  assert.deepEqual([...row.requiredW5CapabilityIds].sort(), [...REQUIRED_CAPS].sort());
-  assert.equal(row.targetEvidenceLevel, "D0");
-  assert.deepEqual(row.requiredProductNodes, ["patternSpec", "generator", "validator", "renderer", "worksheetOutput"]);
+  assert.deepEqual([...row.requiredW5CapabilityIds].sort(), [...FROZEN_W5_CAPS].sort());
+  assert.equal(row.targetEvidenceLevel, "E6_D0_COMPLETE");
+  assert.deepEqual(row.requiredProductNodes, REQUIRED_PRODUCT_NODES);
   assert.equal(preflight.queueAuthority.queueVersion, queue.derivedRegistrySnapshot.queueVersion);
   assert.equal(preflight.queueAuthority.queueDigest, queue.derivedRegistrySnapshot.queueDigest);
+  assert.deepEqual(preflight.queueAuthority.supportingSourceNodeIds, row.supportingSourceNodeIds);
   assert.deepEqual(preflight.queueAuthority.knowledgePointIds, row.knowledgePointIds);
+  assert.deepEqual(preflight.queueAuthority.requiredW5CapabilityIds, row.requiredW5CapabilityIds);
+  assert.equal(preflight.queueAuthority.targetEvidenceLevel, row.targetEvidenceLevel);
+  assert.deepEqual(preflight.queueAuthority.requiredProductNodes, row.requiredProductNodes);
 });
 
 test("Q022 preflight binds exact R02 reviewed candidates and protects same-source prior targets", () => {
@@ -90,7 +119,7 @@ test("Q022 reuses the already-reviewed Q010 source identity without creating a n
   assert.ok(q010.sourceAuthority.page1DirectEvidence.samePagePanelsExplicitlyOutsideQ010.includes("RECTANGLE_SQUARE_SIDES_AND_ANGLES"));
 });
 
-test("Q022 binds current R04 geometry-property mappings with no modifier or category mismatch", () => {
+test("Q022 binds current R04 geometry-property mappings and distinguishes the frozen W5 contract-only subset", () => {
   const r04 = materializeR04SharedRuntimeCapabilityMatrix();
   for (const id of TARGET_KPS) {
     const mapping = r04.getMapping(id);
@@ -98,16 +127,24 @@ test("Q022 binds current R04 geometry-property mappings with no modifier or cate
     assert.equal(mapping.primaryRuntimeProfileId, "profile_geometry_property");
     assert.equal(mapping.classificationRuleId, "rule_geometry_property");
     assert.deepEqual(mapping.appliedModifierIds, []);
-    assert.deepEqual([...mapping.requiredRuntimeCapabilityIds].sort(), [...REQUIRED_CAPS].sort());
+    assert.deepEqual(mapping.requiredRuntimeCapabilityIds, R04_REQUIRED_CAPS);
     assert.deepEqual(mapping.optionalRuntimeCapabilityIds, ["cap_geometry_construction"]);
     assert.deepEqual(mapping.forbiddenRuntimeCapabilityIds, []);
-    assert.equal(mapping.runtimeCapabilityDeliveryState, "partial");
-    assert.deepEqual([...mapping.undeliveredRequiredCapabilityIds].sort(), [...REQUIRED_CAPS].sort());
+    assert.equal(mapping.runtimeCapabilityDeliveryState, "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES");
+    assert.deepEqual([...mapping.undeliveredRequiredCapabilityIds].sort(), [...FROZEN_W5_CAPS].sort());
+    for (const capabilityId of FROZEN_W5_CAPS) assert.ok(mapping.requiredRuntimeCapabilityIds.includes(capabilityId), capabilityId);
+    assert.ok(mapping.requiredRuntimeCapabilityIds.length > FROZEN_W5_CAPS.length);
   }
   assert.equal(preflight.runtimeCapabilityAuthority.profileId, "profile_geometry_property");
   assert.equal(preflight.runtimeCapabilityAuthority.classificationRuleId, "rule_geometry_property");
   assert.deepEqual(preflight.runtimeCapabilityAuthority.appliedModifierIds, []);
-  assert.deepEqual([...preflight.runtimeCapabilityAuthority.exactFrozenQueueRequiredW5CapabilityIds].sort(), [...REQUIRED_CAPS].sort());
+  assert.deepEqual(preflight.runtimeCapabilityAuthority.exactR04RequiredRuntimeCapabilityIds, R04_REQUIRED_CAPS);
+  assert.deepEqual(preflight.runtimeCapabilityAuthority.optionalRuntimeCapabilityIds, ["cap_geometry_construction"]);
+  assert.deepEqual(preflight.runtimeCapabilityAuthority.forbiddenRuntimeCapabilityIds, []);
+  assert.equal(preflight.runtimeCapabilityAuthority.runtimeCapabilityDeliveryState, "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES");
+  assert.deepEqual([...preflight.runtimeCapabilityAuthority.undeliveredRequiredCapabilityIds].sort(), [...FROZEN_W5_CAPS].sort());
+  assert.deepEqual([...preflight.runtimeCapabilityAuthority.exactFrozenQueueRequiredW5CapabilityIds].sort(), [...FROZEN_W5_CAPS].sort());
+  assert.equal(preflight.runtimeCapabilityAuthority.frozenW5CapabilityInterpretation, "CONTRACT_ONLY_UNDELIVERED_SUBSET_OF_R04_REQUIRED_RUNTIME_CAPABILITIES");
   assert.equal(preflight.runtimeCapabilityAuthority.r02CandidateCategory, "geometry");
   assert.equal(preflight.runtimeCapabilityAuthority.r02CategoryAlignedWithFrozenProfile, true);
   assert.equal(preflight.runtimeCapabilityAuthority.profileCategoryMismatchAcknowledged, false);
