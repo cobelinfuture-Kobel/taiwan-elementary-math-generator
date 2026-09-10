@@ -1,0 +1,18 @@
+import {buildBatchABrowserPlan as baseBuildPlan} from "./batch-a-browser-generator-p05f20.js";
+import {generateG5BU10AP05F21Questions,G5B_U10A_P05F21_MAX_QUESTION_COUNT} from "./g5b-u10a-large-area-conversion-runtime-p05f21.js";
+import {G5B_U10A_P05F21_GROUP_IDS,G5B_U10A_P05F21_KP_IDS,G5B_U10A_P05F21_PATTERN_SPECS,G5B_U10A_P05F21_SOURCE_ID,G5B_U10A_P05F21_SPEC_IDS} from "../registry/g5b-u10a-large-area-conversion-selector-projection-p05f21.js";
+function resolveKp(options={}){
+  if(options.sourceId!==G5B_U10A_P05F21_SOURCE_ID||["sourceUnit","mixedKnowledgePointsSameUnit","mixedKnowledgePointsCrossUnit"].includes(options.selectionMode))return null;
+  const ids=[...new Set((options.selectedKnowledgePointIds??options.knowledgePointIds??[]).filter(id=>G5B_U10A_P05F21_KP_IDS.includes(id)))];if(ids.length===1)return ids[0];if(ids.length>1)return null;
+  const groups=(options.selectedPatternGroupIds??[]).filter(id=>G5B_U10A_P05F21_GROUP_IDS.includes(id));if(groups.length===1)return G5B_U10A_P05F21_PATTERN_SPECS.find(s=>s.patternGroupId===groups[0])?.knowledgePointId??null;
+  const specs=(options.patternSpecIds??[]).filter(id=>G5B_U10A_P05F21_SPEC_IDS.includes(id));const kps=[...new Set(specs.map(id=>G5B_U10A_P05F21_PATTERN_SPECS.find(s=>s.patternSpecId===id)?.knowledgePointId).filter(Boolean))];return kps.length===1?kps[0]:null;
+}
+export function requestsP05F21(options={}){return Boolean(resolveKp(options));}
+export function buildBatchABrowserPlan(options={}){
+  const basePlan=baseBuildPlan(options),kp=resolveKp(options);if(!kp)return basePlan;
+  const specIds=G5B_U10A_P05F21_PATTERN_SPECS.filter(s=>s.knowledgePointId===kp).map(s=>s.patternSpecId),requested=Array.isArray(options.patternSpecIds)?specIds.filter(id=>options.patternSpecIds.includes(id)):[],patternSpecIds=requested.length?requested:specIds;
+  const groupId=G5B_U10A_P05F21_PATTERN_SPECS.find(s=>s.knowledgePointId===kp).patternGroupId;
+  return Object.freeze({...basePlan,sourceId:G5B_U10A_P05F21_SOURCE_ID,sourceUnit:Object.freeze({sourceId:G5B_U10A_P05F21_SOURCE_ID,grade:5,semester:"lower",unitCode:"5B-U10A",title:"生活中的大單位",domain:"quantity_measurement"}),selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:Object.freeze([kp]),knowledgePointIds:Object.freeze([kp]),requestedKnowledgePointIds:Object.freeze([kp]),selectedPatternGroupIds:Object.freeze([groupId]),requestedPatternGroupIds:Object.freeze([groupId]),patternSpecIds:Object.freeze([...patternSpecIds]),questionMode:"diagram",requestedQuestionType:"diagram",questionCount:Number.isInteger(options.questionCount)?options.questionCount:20,questionCountMax:G5B_U10A_P05F21_MAX_QUESTION_COUNT,generationSeed:String(options.generationSeed??"p05f21-g5b-u10a-large-area-conversion"),publicControls:Object.freeze({sourceId:G5B_U10A_P05F21_SOURCE_ID,questionMode:"diagram",requestedQuestionType:"diagram",productWave:"P05F",productAdmissionTask:"P05F_W5DirectProductVerticalSlice021Implementation"}),publicPatternSpecInjectionUsed:false,genericFallback:false,genericFallbackAllowed:false,freeFormAI:false,sharedRuntimeScope:"SHARED_RUNTIME_BOUNDED"});
+}
+export const buildBatchABrowserGenerationPlan=buildBatchABrowserPlan;
+export function generateBatchABrowserQuestions(options={}){const kp=resolveKp(options);if(!kp)return Object.freeze({ok:false,questions:Object.freeze([]),errors:Object.freeze(["P05F21_REQUEST_NOT_MATCHED"]),warnings:Object.freeze([])});const plan=buildBatchABrowserPlan(options),generated=generateG5BU10AP05F21Questions({...plan,knowledgePointId:kp});return Object.freeze({...generated,plan,sourceId:G5B_U10A_P05F21_SOURCE_ID,questionMode:"diagram"});}
