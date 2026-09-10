@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q023_BOUNDED_VALIDATION",
+  "unitId": "g3b_u05_3b05",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-slice023-g3b-u05-area-conservation-irregular-grid.test.js",
+          "tests/curriculum/p05f-w5-q023-area-conservation-irregular-grid-source-authority-preflight.test.js",
+          "tests/curriculum/p05f-w5-slice012-g3b-u05-area-grid-counting.test.js",
+          "tests/curriculum/p05f-w5-slice022-g3a-u05-angle-properties.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p05f-w5-q023-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}
