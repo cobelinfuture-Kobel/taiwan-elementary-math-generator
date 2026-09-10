@@ -1,0 +1,200 @@
+{
+  "schemaName": "P05FW5Q019VolumeUnitConversionSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q019_VolumeUnitConversion_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 19,
+    "sliceId": "p05e_q019_r1_g5b_u01_5b01_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice019Implementation",
+    "previousSliceId": "p05e_q018_r1_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "primarySourceNodeId": "g5b_u01_5b01",
+    "intraWavePrerequisiteRank": 1,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g5b_u01_volume_unit_conversion"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q018_r1_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "productPrNumber": 862,
+    "productMergeSha": "bd6db262c73e1078c61f07bb896cc742eb397021",
+    "prGateRunId": "34424464958",
+    "pagesDeploymentRunId": "34426815467",
+    "exactPagesRunId": "34426815557",
+    "evidenceArtifactId": "10133004774",
+    "evidenceArtifactDigest": "sha256:937f830c9fef96ecad55f5399cde1faa4c504ed45e662fb26872fa77beabc373",
+    "status": "PASS_E6_D0_COMPLETE",
+    "exactPagesMachineStatus": "PASS_E6_D0_COMPLETE",
+    "exactDeployedBytesVerified": true
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5b_u01_5b01",
+    "sourceTitle": "長方體和正方體的體積",
+    "sourcePdfTitle": "meow911_5b01_source.pdf",
+    "sourcePdfDriveFileId": "1IYHtSOWSxqbjcyEi94rmMEyqtOflGQ2f",
+    "sourceUrl": "https://meow911.com/5b01/",
+    "publisherUnitLabels": [
+      "康軒 5 下第 1 課",
+      "翰林 5 下第 3 課",
+      "南一 5 下第 4 課"
+    ],
+    "pageCount": 2,
+    "reviewMethod": "R02_REVIEWED_SOURCE_PAGES_PLUS_DRIVE_IDENTITY_READBACK",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "sourceIdentityCrossCheck": {
+      "queueSourceNodeId": "g5b_u01_5b01",
+      "r02SourceNodeId": "g5b_u01_5b01",
+      "drivePdfTitle": "meow911_5b01_source.pdf",
+      "drivePdfFileId": "1IYHtSOWSxqbjcyEi94rmMEyqtOflGQ2f",
+      "sourceUrl": "https://meow911.com/5b01/",
+      "sourceRefAmbiguity": false,
+      "disposition": "MATCHING_QUEUE_R02_AND_DRIVE_SOURCE_IDENTITY"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "sourceNodeId": "g5b_u01_5b01",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "knowledgePointId": "kp_g5b_u01_volume_unit_conversion",
+    "canonicalNameZh": "立方公分與立方公尺換算",
+    "capabilityStatement": "學生能在常用體積單位間進行等值換算。",
+    "reasoningInvariant": "單位邊長倍率須在三個維度同時作用。",
+    "category": "geometry",
+    "evidencePages": [
+      1,
+      2
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "sourceConstraintReconciliation": {
+    "r02SupportsVolumeUnitConversionIdentity": true,
+    "r02SupportsEquivalentValueConversion": true,
+    "r02RequiresThreeDimensionalScaleReasoning": true,
+    "rectangularPrismVolumeFormulaIsSameSourceSibling": true,
+    "cubeVolumeFormulaIsSameSourceSibling": true,
+    "compositeRectangularVolumeIsSameSourceSibling": true,
+    "volumeUnknownDimensionIsSameSourceSibling": true,
+    "sameSourceSiblingAbsorptionAllowedByThisPreflight": false,
+    "capacityOrContainerConversionAllowedByThisPreflight": false,
+    "applicationImplementationAllowedByThisPreflight": false,
+    "generalUnitConversionPolicyRewriteAllowedByThisPreflight": false
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_geometry_formula",
+    "profileRequiredCapabilityIds": [
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "perKnowledgePointMappings": [
+      {
+        "knowledgePointId": "kp_g5b_u01_volume_unit_conversion",
+        "classificationRuleId": "rule_geometry_formula",
+        "appliedModifierIds": []
+      }
+    ],
+    "unionAppliedModifierIds": [],
+    "modifierAddedRequiredCapabilityIds": [],
+    "dependencyClosureAddedCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "r02CandidateCategories": [
+      "geometry"
+    ],
+    "frozenProfileClassificationRule": "rule_geometry_formula",
+    "profileCategoryMismatchAcknowledged": false,
+    "profileCategoryMismatchDisposition": "NONE",
+    "modifierEligibilityObservation": {
+      "conversionModifierId": "mod_unit_conversion",
+      "eligibleProfileIds": [
+        "profile_quantity_measurement",
+        "profile_time",
+        "profile_speed_rate"
+      ],
+      "q019ProfileEligible": false,
+      "disposition": "PRESERVE_CURRENT_FROZEN_R04_POLICY_NO_MODIFIER"
+    }
+  },
+  "q019ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g5b_u01_volume_unit_conversion"
+    ],
+    "includedRelations": [
+      "CONVERT_COMMON_VOLUME_UNITS_BY_EQUIVALENT_VALUE",
+      "APPLY_LINEAR_UNIT_SCALE_FACTOR_ACROSS_THREE_DIMENSIONS",
+      "PRESERVE_VOLUME_VALUE_UNDER_UNIT_CONVERSION"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5b_u01_rectangular_prism_volume_formula",
+      "kp_g5b_u01_cube_volume_formula",
+      "kp_g5b_u01_composite_rectangular_volume",
+      "kp_g5b_u01_volume_unknown_dimension"
+    ],
+    "excludedRelations": [
+      "DERIVE_OR_APPLY_RECTANGULAR_PRISM_VOLUME_FORMULA_AS_TARGET_KP",
+      "DERIVE_OR_APPLY_CUBE_VOLUME_FORMULA_AS_TARGET_KP",
+      "COMPOSITE_RECTANGULAR_VOLUME_DECOMPOSITION_OR_COMPLETION",
+      "SOLVE_UNKNOWN_LENGTH_WIDTH_OR_HEIGHT_FROM_VOLUME",
+      "CAPACITY_OR_CONTAINER_VOLUME_CONVERSION",
+      "APPLICATION_CONTEXT",
+      "GENERAL_UNIT_CONVERSION_FRAMEWORK_REDESIGN",
+      "Q020_OR_LATER_SEMANTICS"
+    ],
+    "requiresGeometryDiagramRepresentation": true,
+    "requiresGeometryFormulaEvaluation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresGeometryPropertyReasoning": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "sameSourceSiblingSemanticsTouched": false,
+    "q020OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicCutoverAllowed": false
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ019ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "singleKnowledgePointSliceLocked": true,
+    "sameSourceSiblingProtectionLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice019Implementation"
+  }
+}
