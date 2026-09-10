@@ -10,8 +10,7 @@
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/p05f-w5-slice025-g4b-u02-perpendicular-lines-recognition.test.js",
-          "tests/curriculum/p05f-w5-q025-perpendicular-lines-recognition-source-authority-preflight.test.js",
-          "tests/curriculum/p05f-w5-slice004-g4b-u02-parallel-lines-recognition.test.js"
+          "tests/curriculum/p05f-w5-q025-perpendicular-lines-recognition-source-authority-preflight.test.js"
         ]
       },
       {
