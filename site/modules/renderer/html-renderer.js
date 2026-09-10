@@ -8,6 +8,7 @@ import { renderSolidShapeClassificationDiagram } from "./solid-shape-classificat
 import { renderCubeCuboidElementsDiagram } from "./cube-cuboid-elements-diagram.js";
 import { renderLargeAreaUnitScaleDiagram } from "./large-area-unit-scale-diagram.js";
 import { renderRightAngleRecognitionDiagram } from "./right-angle-recognition-diagram.js";
+import { renderAnglePropertiesDiagram } from "./angle-properties-diagram.js";
 import { renderCircleGeometryPropertyDiagram } from "./circle-geometry-property-diagram.js";
 import { renderAreaGridCountingDiagram } from "./area-grid-counting-diagram.js";
 import { renderTriangleElementsNamingDiagram } from "./triangle-elements-naming-diagram.js";
@@ -84,7 +85,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -103,6 +104,7 @@ function renderGeometryDiagram(model) {
   if (model?.kind === "cube_cuboid_elements_diagram") return renderCubeCuboidElementsDiagram(model);
   if (model?.kind === "large_area_unit_scale_diagram") return renderLargeAreaUnitScaleDiagram(model);
   if (model?.kind === "right_angle_recognition_diagram") return renderRightAngleRecognitionDiagram(model);
+  if (model?.kind === "angle_properties_diagram") return renderAnglePropertiesDiagram(model);
   if (model?.kind === "circle_geometry_property_diagram") return renderCircleGeometryPropertyDiagram(model);
   if (model?.kind === "area_grid_counting_diagram") return renderAreaGridCountingDiagram(model);
   if (model?.kind === "triangle_elements_naming_diagram") return renderTriangleElementsNamingDiagram(model);
