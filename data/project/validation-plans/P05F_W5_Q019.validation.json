@@ -1,0 +1,7 @@
+{
+  "schemaVersion":"1.0.0",
+  "policyId":"UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId":"P05F_W5_Q019_BOUNDED_VALIDATION",
+  "unitId":"g5b_u01_5b01",
+  "lanes":{"SHARED_RUNTIME_BOUNDED":[{"gateId":"GLOBAL_CONTRACTS","kind":"NODE_TEST","paths":["tests/curriculum/p05f-w5-slice019-g5b-u01-volume-unit-conversion.test.js","tests/curriculum/p05f-w5-q019-volume-unit-conversion-source-authority-preflight.test.js"]},{"gateId":"TARGETED_ROUTE_REPLAY","kind":"NODE_RUNNER","path":"tools/curriculum/run-p05f-w5-q019-classic-ui-acceptance.mjs","runtime":"PLAYWRIGHT_CHROMIUM"}]}
+}
