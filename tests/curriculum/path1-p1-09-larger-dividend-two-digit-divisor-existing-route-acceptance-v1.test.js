@@ -9,7 +9,6 @@ const PREFLIGHT_PATH = "data/curriculum/application/contracts/PATH1_P1_09_LARGER
 const IMPACT_PATH = "data/project/change-impact/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_EXISTING_ROUTE_ACCEPTANCE_V1.impact.json";
 const PLAN_PATH = "data/project/validation-plans/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_EXISTING_ROUTE_ACCEPTANCE_V1.validation.json";
 const MATRIX_PATH = "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json";
-const BUILDER_PATH = "site/assets/browser/pipeline/build-path1-manual-worksheet.js";
 const RUNNER_PATH = "tools/curriculum/run-path1-p1-09-larger-dividend-two-digit-divisor-existing-route-acceptance-v1.mjs";
 
 const contract = JSON.parse(fs.readFileSync(CONTRACT_PATH, "utf8"));
@@ -17,7 +16,6 @@ const preflight = JSON.parse(fs.readFileSync(PREFLIGHT_PATH, "utf8"));
 const impact = JSON.parse(fs.readFileSync(IMPACT_PATH, "utf8"));
 const plan = JSON.parse(fs.readFileSync(PLAN_PATH, "utf8"));
 const matrix = JSON.parse(fs.readFileSync(MATRIX_PATH, "utf8"));
-const builderSource = fs.readFileSync(BUILDER_PATH, "utf8");
 
 function generatedQuestions(result) {
   return result?.worksheetDocument?.generatedQuestions
@@ -68,8 +66,8 @@ function buildAndAssertCurrentRoute(questionCount, generationSeed) {
     assert.ok(Number.isInteger(quotient));
     assert.ok(Number.isInteger(remainder));
     assert.ok(dividend >= 1000 && dividend <= 9999);
-    assert.ok(divisor >= 21 && divisor <= 89);
-    assert.ok(quotient >= 20 && quotient <= 99);
+    assert.ok(divisor >= 10 && divisor <= 99);
+    assert.ok(quotient >= 10 && quotient <= 999);
     assert.ok(remainder >= 0 && remainder < divisor);
     assert.equal(dividend, divisor * quotient + remainder);
     assert.equal(metadata.invariantPassed, true);
@@ -85,7 +83,7 @@ function buildAndAssertCurrentRoute(questionCount, generationSeed) {
   return { result, questions };
 }
 
-test("P1-09 acceptance is diagnostic-only and preserves the source-authority preflight boundary", () => {
+test("P1-09 acceptance remains a historical diagnostic contract and preserves the source-authority preflight boundary", () => {
   assert.equal(contract.taskId, "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_EXISTING_ROUTE_ACCEPTANCE_V1");
   assert.equal(contract.status, "P1_09_EXISTING_ROUTE_ACCEPTANCE_GAPS_ISOLATED");
   assert.equal(contract.operatorScope, "APPROVED_DIAGNOSTIC_ACCEPTANCE_ONLY");
@@ -105,7 +103,7 @@ test("P1-09 public binding remains a no-KP difficulty expansion on the existing 
   assert.deepEqual(block.knowledgePointIds, []);
 });
 
-test("P1-09 existing route materializes one printable quotient-remainder item deterministically", () => {
+test("P1-09 current route materializes one printable quotient-remainder item deterministically", () => {
   const first = buildAndAssertCurrentRoute(1, "p109-existing-route-acceptance-1");
   const repeat = buildAndAssertCurrentRoute(1, "p109-existing-route-acceptance-1");
   assert.deepEqual(
@@ -114,30 +112,17 @@ test("P1-09 existing route materializes one printable quotient-remainder item de
   );
 });
 
-test("P1-09 existing route materializes 20 printable valid items", () => {
+test("P1-09 current route materializes 20 printable valid items", () => {
   buildAndAssertCurrentRoute(20, "p109-existing-route-acceptance-20");
 });
 
-test("P1-09 existing route materializes 120 distinct printable valid items", () => {
+test("P1-09 current route materializes 120 distinct printable valid items", () => {
   const { questions } = buildAndAssertCurrentRoute(120, "p109-existing-route-acceptance-120");
   assert.equal(new Set(questions.map((question) => question.prompt)).size, 120);
   assert.equal(new Set(questions.map((question) => `${question.metadata.dividend}/${question.metadata.divisor}`)).size, 120);
 });
 
-test("P1-09 dynamic acceptance isolates the divisor-envelope gap and three-digit-quotient gap", () => {
-  assert.match(builderSource, /const divisor = 21 \+ \(cursor % 69\)/);
-  assert.match(builderSource, /const quotient = 20 \+ \(cursor % 80\)/);
-
-  const { questions } = buildAndAssertCurrentRoute(120, "p109-source-parity-diagnostic-120");
-  assert.equal(questions.every((question) => question.metadata.divisor >= 21 && question.metadata.divisor <= 89), true);
-  assert.equal(questions.some((question) => question.metadata.divisor <= 20 || question.metadata.divisor >= 90), false);
-  assert.equal(questions.every((question) => question.metadata.quotient >= 20 && question.metadata.quotient <= 99), true);
-  assert.equal(questions.some((question) => question.metadata.quotient >= 100), false);
-  assert.equal(
-    questions.some((question) => firstTwoDividendDigits(question.metadata.dividend) >= question.metadata.divisor),
-    false,
-  );
-
+test("historical diagnostic evidence remains frozen while the current runtime closes both recorded source-parity gaps", () => {
   assert.equal(contract.sourceParityDiagnosis.runtimeDivisorEnvelope, "21..89");
   assert.equal(contract.sourceParityDiagnosis.sourceBackedDivisorEnvelope, "10..99");
   assert.equal(contract.sourceParityDiagnosis.divisorEnvelopeClassification, "P109_DIVISOR_ENVELOPE_NARROWER_THAN_SOURCE");
@@ -148,6 +133,14 @@ test("P1-09 dynamic acceptance isolates the divisor-envelope gap and three-digit
   assert.equal(contract.sourceParityDiagnosis.directSourceWitness.runtimeEquivalentCapabilityReachable, false);
   assert.equal(contract.sourceParityDiagnosis.formalCaseCoverage.P109_4DIGIT_HUNDREDS_SUFFICIENT, "MISSING_IN_CURRENT_ROUTE");
   assert.equal(contract.sourceParityDiagnosis.formalCaseCoverage.P109_4DIGIT_HUNDREDS_INSUFFICIENT, "PRESENT_IN_CURRENT_ROUTE");
+
+  const { questions } = buildAndAssertCurrentRoute(120, "p109-source-parity-diagnostic-120");
+  assert.ok(questions.some((question) => question.metadata.divisor === 10));
+  assert.ok(questions.some((question) => question.metadata.divisor === 99));
+  assert.ok(questions.some((question) => question.metadata.quotient >= 100));
+  assert.ok(questions.some((question) => question.metadata.quotient <= 99));
+  assert.ok(questions.some((question) => firstTwoDividendDigits(question.metadata.dividend) >= question.metadata.divisor));
+  assert.ok(questions.some((question) => firstTwoDividendDigits(question.metadata.dividend) < question.metadata.divisor));
 });
 
 test("P1-09 acceptance binds the matrix/runtime expansion ids as one bounded alias without matrix mutation", () => {
@@ -160,7 +153,7 @@ test("P1-09 acceptance binds the matrix/runtime expansion ids as one bounded ali
   assert.equal(contract.difficultyExpansionIdentity.matrixMutationRequiredForAlias, false);
 });
 
-test("P1-09 acceptance keeps P1-10 and P1-11 boundaries closed and routes only to remediation preflight", () => {
+test("P1-09 current route keeps P1-10 and P1-11 boundaries closed", () => {
   const { questions } = buildAndAssertCurrentRoute(20, "p109-boundary-acceptance-20");
   assert.equal(questions.every((question) => question.metadata.divisor <= 99), true);
   assert.equal(questions.every((question) => !String(question.prompt).includes("驗算")), true);
@@ -172,7 +165,7 @@ test("P1-09 acceptance keeps P1-10 and P1-11 boundaries closed and routes only t
   );
 });
 
-test("UNIT_INCREMENTAL_VALIDATION_V1 keeps P1-09 existing-route acceptance KP-focused", () => {
+test("UNIT_INCREMENTAL_VALIDATION_V1 keeps the historical P1-09 existing-route acceptance KP-focused", () => {
   assert.equal(impact.policyId, "UNIT_INCREMENTAL_VALIDATION_V1");
   assert.equal(impact.currentScope, "KP_LEAF");
   assert.equal(impact.expectedDerivedGate, "KP_FOCUSED");
