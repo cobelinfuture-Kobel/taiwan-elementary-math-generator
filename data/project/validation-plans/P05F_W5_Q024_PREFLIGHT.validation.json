@@ -9,6 +9,7 @@
         "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
+          "tests/curriculum/p05f-w5-q024-triangle-side-classification-source-authority-preflight.test.js",
           "tests/curriculum/p05e-w5-direct-product-vertical-slice-queue.test.js"
         ]
       },
