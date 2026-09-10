@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_IMPLEMENTATION_V1",
+  "status": "P1_09_SOURCE_PARITY_REMEDIATION_IMPLEMENTED_AWAITING_CI",
+  "operatorScope": "APPROVED_IMPLEMENTATION",
+  "authority": {
+    "implementationBaseMain": "cc6b2a0c1515b6f2618db5ef99211a09bf2b0b3e",
+    "preflightContractPath": "data/curriculum/application/contracts/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_PREFLIGHT_V1.json",
+    "sourceAuthorityPreflightPath": "data/curriculum/application/contracts/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_AUTHORITY_PREFLIGHT_V1.json",
+    "existingRouteAcceptancePath": "data/curriculum/application/contracts/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_EXISTING_ROUTE_ACCEPTANCE_V1.json",
+    "runtimeFile": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "runtimeFunction": "buildFourDigitByTwoDigitItems"
+  },
+  "scope": {
+    "blockId": "P1-09",
+    "title": "多位數÷二位數",
+    "generationKind": "DIFFICULTY_EXPANSION",
+    "runtimeDifficultyExpansionId": "path1_four_digit_by_two_digit_division",
+    "matrixDifficultyExpansionId": "larger_dividend_two_digit_divisor",
+    "requiredQuestionCounts": [1, 20, 120],
+    "productRuntimeMutation": [
+      "site/assets/browser/pipeline/build-path1-manual-worksheet.js"
+    ],
+    "publicBindingChanged": false,
+    "path1MatrixChanged": false,
+    "canonicalKnowledgePointMinted": false,
+    "canonicalPatternSpecMinted": false,
+    "publicUiOrQueryChanged": false
+  },
+  "acceptedDiagnosis": {
+    "divisorEnvelopeBefore": "21..89",
+    "divisorEnvelopeTarget": "10..99",
+    "quotientEnvelopeBefore": "20..99",
+    "missingFormalCaseBefore": "P109_4DIGIT_HUNDREDS_SUFFICIENT",
+    "presentFormalCaseBefore": "P109_4DIGIT_HUNDREDS_INSUFFICIENT",
+    "directSourceWitness": "4024÷23 = 174 餘 22",
+    "exactWitnessReproductionRequired": false
+  },
+  "implementation": {
+    "dividendEnvelope": "1000..9999",
+    "divisorEnvelope": "10..99",
+    "answerType": "quotient_remainder",
+    "arithmeticInvariant": "dividend = divisor * quotient + remainder AND 0 <= remainder < divisor",
+    "constructiveGeneration": true,
+    "sameSeedDeterministic": true,
+    "formalCaseScheduling": "alternate HUNDREDS-start and TENS-start by accepted item index; for count >= 2 both cases are guaranteed",
+    "boundaryReachability": {
+      "forCountAtLeast2": {
+        "firstAcceptedDivisor": 10,
+        "secondAcceptedDivisor": 99
+      },
+      "lowerBoundaryReachable": true,
+      "upperBoundaryReachable": true
+    },
+    "formalCases": [
+      {
+        "caseId": "P109_4DIGIT_HUNDREDS_SUFFICIENT",
+        "quotientDigits": 3,
+        "quotientStartPlace": "HUNDREDS",
+        "reachable": true
+      },
+      {
+        "caseId": "P109_4DIGIT_HUNDREDS_INSUFFICIENT",
+        "quotientDigits": 2,
+        "quotientStartPlace": "TENS",
+        "reachable": true
+      }
+    ],
+    "metadataIdentityPreserved": true,
+    "operationFamilyId": "INTEGER_LONG_DIVISION_DIFFICULTY_EXPANSION",
+    "sourceNodeId": "path1_four_digit_by_two_digit_division",
+    "knowledgePointId": null,
+    "canonicalKnowledgePointMinted": false
+  },
+  "acceptance": {
+    "count1": {
+      "mustSucceed": true,
+      "expectedQuestionCount": 1,
+      "sameSeedDeterministic": true
+    },
+    "count2ContractProbe": {
+      "mustSucceed": true,
+      "bothFormalCasesRequired": true,
+      "divisor10Required": true,
+      "divisor99Required": true
+    },
+    "count20": {
+      "mustSucceed": true,
+      "expectedQuestionCount": 20,
+      "bothFormalCasesRequired": true,
+      "divisor10And99Reachable": true
+    },
+    "count120": {
+      "mustSucceed": true,
+      "expectedQuestionCount": 120,
+      "distinctPromptsRequired": 120,
+      "bothFormalCasesRequired": true,
+      "divisor10And99Reachable": true
+    },
+    "preservation": [
+      "all generated dividends remain four-digit",
+      "all generated divisors remain two-digit",
+      "P1-09 remains a no-KP difficulty expansion",
+      "runtime and matrix difficulty-expansion ids remain the accepted bounded alias",
+      "no P1-10 three-digit-divisor leakage",
+      "no P1-11 checking promotion",
+      "worksheet question/answer render parity remains exact"
+    ]
+  },
+  "historicalContractReconciliation": {
+    "required": true,
+    "reason": "The source-authority and existing-route diagnostic tests intentionally asserted the pre-remediation 21..89 and 20..99 runtime shape. Their historical contracts remain unchanged, while test assertions are reconciled so they continue to verify historical evidence without demanding the superseded runtime behavior."
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "scope": "SHARED_RUNTIME",
+    "derivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false,
+    "focusedNodeTest": "tests/curriculum/path1-p1-09-larger-dividend-two-digit-divisor-source-parity-remediation-implementation-v1.test.js",
+    "targetedBrowserRunner": "tools/curriculum/run-path1-p1-09-larger-dividend-two-digit-divisor-source-parity-remediation-implementation-v1.mjs"
+  },
+  "antiScopeCreep": {
+    "modifyP101ThroughP108Allowed": false,
+    "modifyP110OrLaterAllowed": false,
+    "modifyPublicBindingAllowed": false,
+    "modifyPath1MatrixAllowed": false,
+    "modifyCanonicalKnowledgePointsAllowed": false,
+    "modifyCanonicalPatternSpecsAllowed": false,
+    "modifyPublicUiAllowed": false,
+    "runFullRepositoryRegression": false,
+    "runGlobalBrowserReplay": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_P109_SOURCE_PARITY_REMEDIATION_SCOPE_AND_ACCEPTANCE_CONTRACT_LOCKED",
+    "targetGoalDistanceAfter": "D1_P109_SOURCE_PARITY_GENERATOR_VALIDATOR_WORKSHEET_USABLE_NON_FINAL",
+    "remainingBeforeCi": [
+      "P109_IMPLEMENTATION_FOCUSED_CI_NOT_GREEN",
+      "P109_IMPLEMENTATION_PR_NOT_MERGED",
+      "P109_POSTMERGE_PAGES_ACCEPTANCE_PENDING"
+    ],
+    "nextShortestStepAfterGreenMerge": "PATH1_P1_09_SOURCE_PARITY_POSTMERGE_PAGES_ACCEPTANCE_V1"
+  }
+}
