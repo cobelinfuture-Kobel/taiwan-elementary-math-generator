@@ -68,12 +68,18 @@
   },
   "publicAdmission": {
     "existingSourceUnitRoutePreserved": true,
+    "publicSelectorBaselineSourceRowPresentBeforeQ026": false,
+    "publicSelectorSourceRowMaterializedByQ026": true,
+    "firstNewSourceAdmissionUsesEmptyAvailabilityBaseline": true,
     "questionTypeValue": "diagram",
     "questionTypeLabel": "圖形題",
     "questionCountMax": 240,
     "mixedQuestionModeAdmission": false,
     "applicationContextAdmission": false,
+    "expectedGlobalPublicSourceDelta": 1,
     "expectedGlobalVisibleKnowledgePointDelta": 1,
+    "expectedGlobalHiddenPendingKnowledgePointDelta": 4,
+    "expectedGlobalNotSelectableKnowledgePointDelta": 4,
     "sameSourceRemainingFutureKnowledgePointCount": 4
   },
   "postMergeEvidence": {
