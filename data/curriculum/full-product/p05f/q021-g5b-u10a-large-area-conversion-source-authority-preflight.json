@@ -1,0 +1,218 @@
+{
+  "schemaName": "P05FW5Q021LargeAreaConversionSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q021_LargeAreaConversion_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 21,
+    "sliceId": "p05e_q021_r1_g5b_u10_5b10a_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice021Implementation",
+    "previousSliceId": "p05e_q020_r1_g5b_u03_5b03_profile_geometry_formula_c1",
+    "primarySourceNodeId": "g5b_u10_5b10a",
+    "intraWavePrerequisiteRank": 1,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_g5b_u10a_hectare_square_meter_conversion",
+      "kp_g5b_u10a_square_kilometer_hectare_conversion"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q020_r1_g5b_u03_5b03_profile_geometry_formula_c1",
+    "productPrNumber": 870,
+    "productMergeSha": "1577f468c50ef1e0a11e099782391ba06bbead9a",
+    "prGateRunId": "34440190133",
+    "pagesDeploymentRunId": "34440304100",
+    "exactPagesRunId": "34440304139",
+    "evidenceArtifactId": "10137701415",
+    "evidenceArtifactDigest": "sha256:c7b7efb531e2e0d9dd1bdc4b7c696eca2d33c0b19bc69eb46d3a9f7637ddaeb5",
+    "status": "PASS_E6_D0_COMPLETE",
+    "exactPagesWorkflowConclusion": "success",
+    "exactPagesEvidenceUploaded": true
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5b_u10_5b10a",
+    "sourceTitle": "生活中的大單位",
+    "sourcePdfTitle": "meow911_5b10a_source.pdf",
+    "sourcePdfDriveFileId": "1pCtllVtZRsUAO4WFCqJlgMOMk_QNA5X8",
+    "sourceUrl": "https://meow911.com/5b10a/",
+    "pageCount": 1,
+    "reviewMethod": "R02_REVIEWED_SOURCE_PAGES_PLUS_DRIVE_IDENTITY_READBACK",
+    "reviewedPages": [
+      1
+    ],
+    "sourceIdentityCrossCheck": {
+      "queueSourceNodeId": "g5b_u10_5b10a",
+      "r02SourceNodeId": "g5b_u10_5b10a",
+      "drivePdfTitle": "meow911_5b10a_source.pdf",
+      "drivePdfFileId": "1pCtllVtZRsUAO4WFCqJlgMOMk_QNA5X8",
+      "sourceUrl": "https://meow911.com/5b10a/",
+      "sourceRefAmbiguity": false,
+      "disposition": "MATCHING_QUEUE_R02_AND_DRIVE_SOURCE_IDENTITY"
+    },
+    "legacyMetadataObservation": {
+      "sourceMetadataDriveFileId": "1Edjv6m2SkPhpuQTPaXmr5py77vyAZmXa",
+      "verificationNotesDriveFileId": "1ommruKq16k7kjn2B3fnFncGeIxUqqQ-p",
+      "legacyManualReviewed": false,
+      "legacyExtractionStatus": "pending",
+      "disposition": "LEGACY_SOURCE_ADDRESS_METADATA_DOES_NOT_DOWNGRADE_CURRENT_R02_FULL_PAGE_REVIEW_AUTHORITY"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+    "sourceNodeId": "g5b_u10_5b10a",
+    "reviewedPages": [
+      1
+    ],
+    "knowledgePoints": [
+      {
+        "knowledgePointId": "kp_g5b_u10a_hectare_square_meter_conversion",
+        "canonicalNameZh": "公頃與平方公尺換算",
+        "capabilityStatement": "學生能運用1公頃等於10000平方公尺。",
+        "reasoningInvariant": "同一面積換單位時實際覆蓋範圍不變。",
+        "category": "measurement",
+        "evidencePages": [
+          1
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_g5b_u10a_square_kilometer_hectare_conversion",
+        "canonicalNameZh": "平方公里與公頃換算",
+        "capabilityStatement": "學生能在平方公里與公頃間換算。",
+        "reasoningInvariant": "1平方公里等於100公頃，換算保持面積等值。",
+        "category": "measurement",
+        "evidencePages": [
+          1
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ]
+  },
+  "sourceConstraintReconciliation": {
+    "r02SupportsHectareSquareMeterConversion": true,
+    "r02SupportsSquareKilometerHectareConversion": true,
+    "hectareSquareMeterEquivalence": "1公頃=10000平方公尺",
+    "squareKilometerHectareEquivalence": "1平方公里=100公頃",
+    "areaEquivalenceMustBePreservedAcrossRepresentations": true,
+    "largeAreaUnitIdentityIsSameSourceSibling": true,
+    "metricTonKilogramConversionIsSameSourceSibling": true,
+    "largeUnitEstimationIsSameSourceSibling": true,
+    "sameSourceSiblingAbsorptionAllowedByThisPreflight": false,
+    "generalUnitConversionPolicyRewriteAllowedByThisPreflight": false,
+    "applicationImplementationAllowedByThisPreflight": false
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_geometry_formula",
+    "profileRequiredCapabilityIds": [
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "perKnowledgePointMappings": [
+      {
+        "knowledgePointId": "kp_g5b_u10a_hectare_square_meter_conversion",
+        "classificationRuleId": "rule_geometry_formula",
+        "appliedModifierIds": []
+      },
+      {
+        "knowledgePointId": "kp_g5b_u10a_square_kilometer_hectare_conversion",
+        "classificationRuleId": "rule_geometry_formula",
+        "appliedModifierIds": []
+      }
+    ],
+    "unionAppliedModifierIds": [],
+    "modifierAddedRequiredCapabilityIds": [],
+    "dependencyClosureAddedCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "r02CandidateCategories": [
+      "measurement"
+    ],
+    "frozenProfileClassificationRule": "rule_geometry_formula",
+    "profileCategoryMismatchAcknowledged": true,
+    "profileCategoryMismatchDisposition": "R02_MEASUREMENT_CATEGORY_DOES_NOT_OVERRIDE_FROZEN_QUEUE_OR_CURRENT_R04_GEOMETRY_FORMULA_PROFILE",
+    "modifierEligibilityObservation": {
+      "conversionModifierId": "mod_unit_conversion",
+      "eligibleProfileIds": [
+        "profile_quantity_measurement",
+        "profile_time",
+        "profile_speed_rate"
+      ],
+      "q021ProfileEligible": false,
+      "disposition": "PRESERVE_CURRENT_FROZEN_R04_POLICY_NO_MODIFIER"
+    }
+  },
+  "q021ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g5b_u10a_hectare_square_meter_conversion",
+      "kp_g5b_u10a_square_kilometer_hectare_conversion"
+    ],
+    "includedRelations": [
+      "CONVERT_HECTARE_AND_SQUARE_METER_BY_SOURCE_EQUIVALENCE",
+      "CONVERT_SQUARE_KILOMETER_AND_HECTARE_BY_SOURCE_EQUIVALENCE",
+      "PRESERVE_AREA_EQUIVALENCE_ACROSS_UNIT_REPRESENTATIONS"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5b_u10a_large_area_unit_identity",
+      "kp_g5b_u10a_metric_ton_kilogram_conversion",
+      "kp_g5b_u10a_large_unit_estimation_application"
+    ],
+    "excludedRelations": [
+      "LARGE_AREA_UNIT_IDENTITY_AS_TARGET_KP",
+      "METRIC_TON_KILOGRAM_CONVERSION_AS_TARGET_KP",
+      "LARGE_UNIT_ESTIMATION_AS_TARGET_KP",
+      "GENERAL_UNIT_CONVERSION_FRAMEWORK_REDESIGN",
+      "Q022_OR_LATER_SEMANTICS"
+    ],
+    "requiresGeometryDiagramRepresentation": true,
+    "requiresGeometryFormulaEvaluation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresGeometryPropertyReasoning": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "sameSourceSiblingSemanticsTouched": false,
+    "q022OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicCutoverAllowed": false
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ021ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "twoKnowledgePointSliceLocked": true,
+    "sameSourceSiblingProtectionLocked": true,
+    "runtimeProfileCategoryMismatchExplicitlyBounded": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice021Implementation"
+  }
+}
