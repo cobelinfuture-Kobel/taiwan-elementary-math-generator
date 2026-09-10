@@ -292,14 +292,31 @@ function buildFourDigitByTwoDigitItems({ count, seed, blockId }) {
   const used = new Set();
   let cursor = hashSeed(`${seed}:${blockId}`);
   let attempts = 0;
-  while (items.length < count && attempts < count * 40) {
+  while (items.length < count && attempts < count * 80) {
     attempts += 1;
     cursor = (Math.imul(cursor, 1664525) + 1013904223) >>> 0;
-    const divisor = 21 + (cursor % 69);
+    const hundredsStartCase = items.length % 2 === 0;
+    let divisor;
+    if (count >= 2 && items.length === 0) divisor = 10;
+    else if (count >= 2 && items.length === 1) divisor = 99;
+    else divisor = 10 + (cursor % 90);
+
     cursor = (Math.imul(cursor, 1664525) + 1013904223) >>> 0;
-    const quotient = 20 + (cursor % 80);
+    let quotient;
+    if (hundredsStartCase) {
+      const maxQuotient = Math.min(999, Math.floor(9999 / divisor));
+      if (maxQuotient < 100) continue;
+      quotient = 100 + (cursor % (maxQuotient - 99));
+    } else {
+      const minQuotient = Math.max(10, Math.ceil(1000 / divisor));
+      if (minQuotient > 99) continue;
+      quotient = minQuotient + (cursor % (100 - minQuotient));
+    }
+
     cursor = (Math.imul(cursor, 1664525) + 1013904223) >>> 0;
-    const remainder = cursor % divisor;
+    const maxRemainder = Math.min(divisor - 1, 9999 - divisor * quotient);
+    if (maxRemainder < 0) continue;
+    const remainder = cursor % (maxRemainder + 1);
     const dividend = divisor * quotient + remainder;
     if (dividend < 1000 || dividend > 9999) continue;
     const key = `${dividend}/${divisor}`;

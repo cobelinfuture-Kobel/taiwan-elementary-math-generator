@@ -112,13 +112,10 @@ test("formal P1-09 expansion locks four-digit dividend, two-digit divisor, and b
   assert.ok(formal.cases.every((entry) => entry.pedagogicalOwnership.includes("P1-07")));
 });
 
-test("existing public P1-09 route is present but preflight records its source-parity gaps without mutating it", () => {
+test("historical source-authority preflight records the superseded runtime gaps without freezing their old source text", () => {
   assert.match(bindingSource, /block\("P1-09", "多位數÷二位數", \[\], \{/);
   assert.match(bindingSource, /difficultyExpansionId: "path1_four_digit_by_two_digit_division"/);
   assert.match(builderSource, /function buildFourDigitByTwoDigitItems\(/);
-  assert.match(builderSource, /const divisor = 21 \+ \(cursor % 69\)/);
-  assert.match(builderSource, /const quotient = 20 \+ \(cursor % 80\)/);
-  assert.match(builderSource, /if \(dividend < 1000 \|\| dividend > 9999\) continue/);
   assert.match(builderSource, /knowledgePointId: null/);
   assert.match(builderSource, /canonicalKnowledgePointMinted: false/);
 
