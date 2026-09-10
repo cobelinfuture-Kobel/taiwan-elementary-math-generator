@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q025_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "g4b_u02_4b02",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-q025-perpendicular-lines-recognition-source-authority-preflight.test.js",
+          "tests/curriculum/p05e-w5-direct-product-vertical-slice-queue.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/read-p05f-w5-q025-source-authority-preflight.mjs",
+        "runtime": "NODE_ONLY"
+      }
+    ]
+  }
+}
