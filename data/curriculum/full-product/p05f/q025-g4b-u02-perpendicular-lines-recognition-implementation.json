@@ -1,0 +1,153 @@
+{
+  "schemaName": "P05FW5Q025PerpendicularLinesRecognitionImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice025Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 25,
+    "sliceId": "p05e_q025_r2_g4b_u02_4b02_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice025Implementation",
+    "previousSliceId": "p05e_q024_r2_g4a_u05_4a05_profile_geometry_property_c1",
+    "sourceId": "g4b_u02_4b02",
+    "runtimeProfileId": "profile_geometry_property",
+    "knowledgePointIds": ["kp_g4b_u02_perpendicular_lines_recognition"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredProductNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q024_r2_g4a_u05_4a05_profile_geometry_property_c1",
+    "productPrNumber": 878,
+    "productMergeSha": "2e228def835e8a8c3b1581769de92868b3b5a7d2",
+    "samplingRepairPrNumber": 879,
+    "samplingRepairMergeSha": "344dc75608948bcee2e84be736ddc3c65f13b333",
+    "triggerRepairPrNumber": 880,
+    "finalAcceptanceMergeSha": "7591c3343f11aa7b115ac519a39823ed6694de57",
+    "pagesDeploymentRunId": "34489781907",
+    "exactPagesRunId": "34489782013",
+    "evidenceArtifactId": "10157243610",
+    "evidenceArtifactDigest": "sha256:beb618563ed05513381a433313cbcfada3ef837ab9bb26d27c42021aa4c4e945",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q025-g4b-u02-perpendicular-lines-recognition-source-authority-preflight.json",
+    "sourceTitle": "垂直平行與四邊形",
+    "sourcePdfTitle": "meow911_4b02_source.pdf",
+    "sourcePages": [1, 2],
+    "authorityMethod": "FROZEN_QUEUE_PLUS_R02_REVIEWED_CANDIDATE_WITH_Q004_SAME_SOURCE_IDENTITY_REUSE",
+    "sourceRefAmbiguity": false
+  },
+  "formalMapping": {
+    "mappingId": "fm_g4b_u02_perpendicular_lines_recognition_p05f25",
+    "relationFamily": "PERPENDICULAR_LINE_RECOGNITION",
+    "answerDomain": ["垂直", "是，互相垂直", "不變，仍然垂直"],
+    "includedRelations": [
+      "RECOGNIZE_INTERSECTING_LINES_FORMING_A_RIGHT_ANGLE_AS_PERPENDICULAR",
+      "USE_90_DEGREE_INTERSECTION_AS_PERPENDICULARITY_INVARIANT",
+      "PRESERVE_PERPENDICULAR_CLASSIFICATION_INDEPENDENT_OF_SEGMENT_LENGTH"
+    ],
+    "excludedRelations": [
+      "PARALLEL_LINES_RECOGNITION_AS_TARGET_KP",
+      "PARALLEL_DISTANCE_MEASUREMENT",
+      "PARALLEL_LINE_CONSTRUCTION",
+      "QUADRILATERAL_CLASSIFICATION",
+      "QUADRILATERAL_INCLUSION_RELATION",
+      "NUMERIC_ANGLE_MEASUREMENT",
+      "GEOMETRY_CONSTRUCTION",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "Q026_OR_LATER_SEMANTICS"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g4b_u02_perpendicular_lines_recognition",
+    "patternSpecIds": [
+      "ps_g4b_u02_perpendicular_right_angle_intersection",
+      "ps_g4b_u02_perpendicular_90_degree_invariant",
+      "ps_g4b_u02_perpendicular_segment_length_invariant"
+    ],
+    "questionMode": "diagram",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false,
+    "numericAngleMeasurementAllowed": false,
+    "maxQuestionCount": 240,
+    "distinctCapacityPerPatternSpec": 240,
+    "requiresGeometryDiagramRepresentation": true
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g4b-u02-perpendicular-lines-recognition-runtime-p05f25.js",
+    "validator": "validateG4BU02P05F25Question",
+    "diagramRenderer": "site/modules/renderer/perpendicular-lines-recognition-diagram.js",
+    "htmlRenderer": "site/modules/renderer/html-renderer.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f25.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f25-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "existingSourceUnitRoutePreserved": true,
+    "g4bU02VisibleCountAfter": 2,
+    "g4bU02HiddenPendingCountAfter": 3,
+    "g4bU02NotSelectableCountAfter": 3,
+    "questionTypeValue": "diagram",
+    "questionTypeLabel": "圖形題",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "postMergeEvidence": {
+    "workflow": ".github/workflows/p05f-w5-q025-live-pages-e2e.yml",
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "pullRequestTrigger": false,
+    "workflowRunTrigger": false,
+    "waitForExactPagesBytes": true,
+    "sha256ExactDeployedBytes": true,
+    "classicUiGeneratorValidatorWorksheetRendererPrintArtifact": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice025-g4b-u02-perpendicular-lines-recognition.test.js",
+    "sourcePreflightTest": "tests/curriculum/p05f-w5-q025-perpendicular-lines-recognition-source-authority-preflight.test.js",
+    "directDependencyTest": "tests/curriculum/p05f-w5-slice004-g4b-u02-parallel-lines-recognition.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-q025-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "parallelLinesRecognitionTargetTouched": false,
+    "parallelDistanceMeasurementTouched": false,
+    "parallelLineConstructionTouched": false,
+    "quadrilateralClassificationTouched": false,
+    "quadrilateralInclusionTouched": false,
+    "numericAngleMeasurementTouched": false,
+    "geometryConstructionTouched": false,
+    "applicationContextTouched": false,
+    "q026OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r04AuthorityTouched": false
+  }
+}
