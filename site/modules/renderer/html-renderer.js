@@ -2,6 +2,7 @@ import { renderAnglePartsDiagram } from "./angle-parts-diagram.js";
 import { renderCirclePartsDiagram } from "./circle-parts-diagram.js";
 import { renderSquareCentimeterUnitDiagram } from "./square-centimeter-unit-diagram.js";
 import { renderParallelLinesRecognitionDiagram } from "./parallel-lines-recognition-diagram.js";
+import { renderPerpendicularLinesRecognitionDiagram } from "./perpendicular-lines-recognition-diagram.js";
 import { renderCubicCentimeterUnitDiagram } from "./cubic-centimeter-unit-diagram.js";
 import { renderLineSymmetryRecognitionDiagram } from "./line-symmetry-recognition-diagram.js";
 import { renderSolidShapeClassificationDiagram } from "./solid-shape-classification-diagram.js";
@@ -85,7 +86,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -98,6 +99,7 @@ function renderGeometryDiagram(model) {
   if (model?.kind === "circle_parts_diagram") return renderCirclePartsDiagram(model);
   if (model?.kind === "square_centimeter_unit_diagram") return renderSquareCentimeterUnitDiagram(model);
   if (model?.kind === "parallel_lines_recognition_diagram") return renderParallelLinesRecognitionDiagram(model);
+  if (model?.kind === "perpendicular_lines_recognition_diagram") return renderPerpendicularLinesRecognitionDiagram(model);
   if (model?.kind === "cubic_centimeter_unit_diagram") return renderCubicCentimeterUnitDiagram(model);
   if (model?.kind === "line_symmetry_recognition_diagram") return renderLineSymmetryRecognitionDiagram(model);
   if (model?.kind === "solid_shape_classification_diagram") return renderSolidShapeClassificationDiagram(model);
