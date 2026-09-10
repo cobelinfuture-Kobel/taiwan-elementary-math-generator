@@ -1,0 +1,176 @@
+{
+  "schemaName": "Path1P109LargerDividendTwoDigitDivisorSourceParityRemediationPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_PREFLIGHT_V1",
+  "resumeAuthority": "OPERATOR_APPROVED_PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_PREFLIGHT_V1",
+  "status": "P1_09_SOURCE_PARITY_REMEDIATION_PREFLIGHT_LOCKED_IMPLEMENTATION_APPROVAL_PENDING",
+  "operatorScope": "APPROVED_PREFLIGHT_ONLY",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicBindingMutationAllowed": false,
+  "path1MatrixChanged": false,
+  "canonicalKnowledgeAuthorityChanged": false,
+  "patternSpecMutationAllowed": false,
+  "publicUiChanged": false,
+  "authority": {
+    "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+    "preflightBaseMain": "bfadc50fbc7f00ae0faacd87b73d3f85819bbe26",
+    "sourceAuthorityPreflightPath": "data/curriculum/application/contracts/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_AUTHORITY_PREFLIGHT_V1.json",
+    "existingRouteAcceptancePath": "data/curriculum/application/contracts/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_EXISTING_ROUTE_ACCEPTANCE_V1.json",
+    "publicWorksheetBuilderPath": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "publicBindingPath": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "path1MatrixPath": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json"
+  },
+  "acceptedDiagnosis": {
+    "existingRouteStatus": "P1_09_EXISTING_ROUTE_ACCEPTANCE_GAPS_ISOLATED",
+    "acceptedCurrentSubset": {
+      "questionCounts": [1, 20, 120],
+      "deterministicReplay": true,
+      "distinctPromptsAt120": true,
+      "printableQuestionAnswerParity": true,
+      "arithmeticInvariant": true,
+      "runtimeDifficultyExpansionId": "path1_four_digit_by_two_digit_division",
+      "matrixDifficultyExpansionId": "larger_dividend_two_digit_divisor",
+      "matrixRuntimeAliasStatus": "ACCEPTED_P109_BOUNDED_ALIAS"
+    },
+    "sourceParityBlockers": [
+      {
+        "id": "P109_DIVISOR_ENVELOPE_NARROWER_THAN_SOURCE",
+        "runtime": "21..89",
+        "sourceBackedTarget": "10..99"
+      },
+      {
+        "id": "P109_THREE_DIGIT_QUOTIENT_CASE_UNREACHABLE",
+        "runtime": "20..99",
+        "sourceBackedTarget": "both 2-digit and 3-digit quotient cases",
+        "missingFormalCase": "P109_4DIGIT_HUNDREDS_SUFFICIENT"
+      }
+    ]
+  },
+  "remediationTargetContract": {
+    "blockId": "P1-09",
+    "blockTitle": "多位數÷二位數",
+    "generationKind": "DIFFICULTY_EXPANSION",
+    "difficultyExpansionId": "path1_four_digit_by_two_digit_division",
+    "matrixDifficultyExpansionId": "larger_dividend_two_digit_divisor",
+    "dividendEnvelope": "1000..9999",
+    "divisorEnvelope": "10..99",
+    "answerType": "quotient_remainder",
+    "arithmeticInvariant": "dividend = divisor * quotient + remainder AND 0 <= remainder < divisor",
+    "requiredFormalCases": [
+      {
+        "caseId": "P109_4DIGIT_HUNDREDS_SUFFICIENT",
+        "quotientDigits": 3,
+        "quotientStartPlace": "HUNDREDS",
+        "requiredReachability": true
+      },
+      {
+        "caseId": "P109_4DIGIT_HUNDREDS_INSUFFICIENT",
+        "quotientDigits": 2,
+        "quotientStartPlace": "TENS",
+        "requiredReachability": true
+      }
+    ],
+    "sourceEquivalentCapabilityRequirement": "must generate a four-digit dividend divided by a two-digit divisor with a three-digit quotient and valid remainder; exact school-exam expression reproduction is not required",
+    "canonicalKnowledgePointMinted": false,
+    "newPatternSpecMaterialized": false,
+    "newPracticeModeAdded": false
+  },
+  "plannedImplementationBoundary": {
+    "taskId": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_IMPLEMENTATION_V1",
+    "separateOperatorApprovalRequired": true,
+    "allowedProductFiles": [
+      "site/assets/browser/pipeline/build-path1-manual-worksheet.js"
+    ],
+    "allowedProductFunction": "buildFourDigitByTwoDigitItems",
+    "allowedBehavioralChanges": [
+      "expand reachable divisor values from 21..89 to the full two-digit envelope 10..99",
+      "make both two-digit-quotient and three-digit-quotient four-digit-dividend cases reachable",
+      "preserve deterministic seed replay and 120-item distinct capacity",
+      "preserve current quotient-and-remainder prompt/answer rendering and difficulty-expansion metadata identity"
+    ],
+    "implementationStrategyConstraints": [
+      "generation must remain deterministic for the same blockId, seed, and count",
+      "for count >= 2, generated coverage must include both formal quotient-digit cases",
+      "the full divisor envelope must be behaviorally reachable; focused acceptance must prove lower and upper two-digit boundaries are reachable without source-text assertions",
+      "all generated dividends must remain four-digit and all divisors must remain two-digit",
+      "derive dividend from divisor, quotient, and remainder so the arithmetic invariant is constructive rather than repaired after generation",
+      "do not depend on reproducing the exact 4024÷23 source item"
+    ],
+    "forbiddenProductFiles": [
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json"
+    ],
+    "forbiddenSemanticChanges": [
+      "mint canonical KP",
+      "mint canonical PatternSpec",
+      "change P1-08 authority",
+      "change P1-10 three-digit-divisor semantics",
+      "change P1-11 checking/remainder-context semantics",
+      "add a new public practice mode",
+      "change public UI/query contract"
+    ]
+  },
+  "sharedRuntimeRiskClassification": {
+    "classification": "SHARED_RUNTIME_BOUNDED_P109_DEDICATED_FUNCTION",
+    "basis": [
+      "the allowed mutation is inside the shared Path1 worksheet builder file",
+      "the mutable function is the existing four-digit-by-two-digit difficulty-expansion generator",
+      "current public binding contains exactly one DIFFICULTY_EXPANSION block, P1-09",
+      "P1-01 through P1-08 and P1-10 onward use other generation branches under the current binding"
+    ],
+    "requiresFullRepositoryRegression": false,
+    "requiresGlobalBrowserReplay": false
+  },
+  "implementationAcceptanceContract": {
+    "requiredQuestionCounts": [1, 20, 120],
+    "requiredChecks": [
+      "same-seed deterministic replay",
+      "four-digit dividend only",
+      "two-digit divisor only",
+      "divisor 10 reachable",
+      "divisor 99 reachable",
+      "both two-digit and three-digit quotient cases reachable",
+      "for count >= 2 both formal cases represented",
+      "three-digit quotient source-equivalent capability witness present",
+      "120 distinct prompts",
+      "dividend = divisor * quotient + remainder",
+      "0 <= remainder < divisor",
+      "difficulty-expansion metadata identity unchanged",
+      "canonicalKnowledgePointId remains null / no canonical KP mint",
+      "no P1-10 three-digit-divisor leakage",
+      "no P1-11 checking promotion",
+      "printable worksheet question/answer parity"
+    ],
+    "publicBindingMutationRequired": false,
+    "path1MatrixMutationRequired": false
+  },
+  "antiScopeCreep": {
+    "modifyP101ThroughP108Allowed": false,
+    "modifyP110OrLaterAllowed": false,
+    "modifyPublicBindingAllowed": false,
+    "modifyPath1MatrixAllowed": false,
+    "modifyCanonicalKnowledgePointsAllowed": false,
+    "modifyCanonicalPatternSpecsAllowed": false,
+    "modifyPublicUiAllowed": false,
+    "runFullRepositoryRegression": false,
+    "runGlobalBrowserReplay": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedLane": "KP_FOCUSED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_P109_EXISTING_ROUTE_ACCEPTED_FOR_CURRENT_SUBSET_SOURCE_PARITY_GAPS_EXACTLY_ISOLATED",
+    "goalDistanceAfterTarget": "D2_P109_SOURCE_PARITY_REMEDIATION_SCOPE_AND_ACCEPTANCE_CONTRACT_LOCKED",
+    "distanceReduced": "Convert the two accepted source-parity gaps into one bounded executable mutation contract with exact numeric, formal-case, file/function, validation, and anti-scope-creep boundaries.",
+    "remainingBlockers": [
+      "P1-09 source-parity implementation not yet approved",
+      "P1-09 source-parity implementation not yet materialized",
+      "post-implementation focused acceptance and Pages acceptance pending"
+    ],
+    "nextShortestStep": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_IMPLEMENTATION_V1"
+  }
+}
