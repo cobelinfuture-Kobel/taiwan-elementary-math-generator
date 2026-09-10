@@ -172,7 +172,7 @@
     "excludedKnowledgePointIdsFromSameSource": [
       "kp_g5b_u10a_large_area_unit_identity",
       "kp_g5b_u10a_metric_ton_kilogram_conversion",
-      "kp_g5b_u10a_large_unit_estimation"
+      "kp_g5b_u10a_large_unit_estimation_application"
     ],
     "excludedRelations": [
       "LARGE_AREA_UNIT_IDENTITY_AS_TARGET_KP",
