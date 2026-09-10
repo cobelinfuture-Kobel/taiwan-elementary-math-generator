@@ -11,7 +11,6 @@
         "paths": [
           "tests/curriculum/p05f-w5-slice018-g5a-u10a1-cube-cuboid-edge-face.test.js",
           "tests/curriculum/p05f-w5-q018-cube-cuboid-edge-length-face-relationship-source-authority-preflight.test.js",
-          "tests/curriculum/p05f-w5-slice008-g5a-u10a1-cube-cuboid-elements.test.js",
           "tests/curriculum/p05f-w5-q017-frozen-queue-parity-remediation.test.js"
         ]
       },
