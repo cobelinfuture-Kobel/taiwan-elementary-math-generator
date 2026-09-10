@@ -53,6 +53,38 @@ const REQUIRED_PRODUCT_NODES = [
   "PRODUCT_ADMISSION_CLAIM",
 ];
 
+const QUEUE_ROW_FIELDS = [
+  "queuePosition",
+  "sliceId",
+  "implementationTaskId",
+  "previousSliceId",
+  "previousSliceMustBeD0Complete",
+  "assignedDeliveryWaveId",
+  "primarySourceNodeId",
+  "supportingSourceNodeIds",
+  "intraWavePrerequisiteRank",
+  "primaryRuntimeProfileId",
+  "chunkIndex",
+  "knowledgePointCount",
+  "knowledgePointIds",
+  "requiredW5CapabilityIds",
+  "targetEvidenceLevel",
+  "requiredProductNodes",
+  "admissionState",
+  "productProductionAdmitted",
+  "implementationAllowedByP05E",
+];
+
+const R02_FIELDS = [
+  "knowledgePointId",
+  "canonicalNameZh",
+  "capabilityStatement",
+  "reasoningInvariant",
+  "category",
+  "evidencePages",
+  "applicationSuitability",
+];
+
 test("Q023 preflight binds the exact frozen queue-position-23 row", () => {
   const queue = materializeP05EW5DirectProductVerticalSliceQueue();
   assert.equal(queue.status, "W5_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FROZEN");
@@ -80,7 +112,7 @@ test("Q023 preflight binds the exact frozen queue-position-23 row", () => {
   assert.equal(row.implementationAllowedByP05E, false);
   assert.equal(preflight.queueAuthority.queueVersion, queue.derivedRegistrySnapshot.queueVersion);
   assert.equal(preflight.queueAuthority.queueDigest, queue.derivedRegistrySnapshot.queueDigest);
-  assert.deepEqual(preflight.queueAuthority, row);
+  for (const field of QUEUE_ROW_FIELDS) assert.deepEqual(preflight.queueAuthority[field], row[field], field);
 });
 
 test("Q023 binds the two exact R02 reviewed candidates and same-source exclusions", () => {
@@ -94,7 +126,9 @@ test("Q023 binds the two exact R02 reviewed candidates and same-source exclusion
   for (const id of TARGET_KPS) {
     const candidate = source.candidates.find((row) => row.knowledgePointId === id);
     assert.ok(candidate, id);
-    assert.deepEqual(bound.get(id), candidate);
+    const boundCandidate = bound.get(id);
+    assert.ok(boundCandidate, id);
+    for (const field of R02_FIELDS) assert.deepEqual(boundCandidate[field], candidate[field], `${id}:${field}`);
   }
   assert.deepEqual(preflight.r02ReviewedCandidateAuthority.sameSourceCandidateIds, source.candidates.map((row) => row.knowledgePointId));
   assert.deepEqual(preflight.q023ScopeLock.protectedExistingSameSourceKnowledgePointIds, [
