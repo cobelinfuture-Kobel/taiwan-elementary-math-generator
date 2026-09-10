@@ -3,6 +3,18 @@
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
   "taskId": "P05F_W5_Q023_PREFLIGHT",
   "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_area_conservation_cut_rearrange",
+    "kp_irregular_grid_area"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_area_conservation_cut_rearrange",
+    "kp_irregular_grid_area"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_area_conservation_cut_rearrange": "PREFLIGHT_ONLY",
+    "kp_irregular_grid_area": "PREFLIGHT_ONLY"
+  },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P05F_W5_Q023_PREFLIGHT.validation.json",
   "changeImpact": {
