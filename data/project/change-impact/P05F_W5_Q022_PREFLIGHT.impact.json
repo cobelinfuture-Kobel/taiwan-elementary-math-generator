@@ -3,6 +3,18 @@
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
   "taskId": "P05F_W5_Q022_PREFLIGHT",
   "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_acute_obtuse_angle_qualitative_classification",
+    "kp_rectangle_square_right_angle_properties"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_acute_obtuse_angle_qualitative_classification",
+    "kp_rectangle_square_right_angle_properties"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_acute_obtuse_angle_qualitative_classification": "PREFLIGHT_ONLY",
+    "kp_rectangle_square_right_angle_properties": "PREFLIGHT_ONLY"
+  },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P05F_W5_Q022_PREFLIGHT.validation.json",
   "changeImpact": {
