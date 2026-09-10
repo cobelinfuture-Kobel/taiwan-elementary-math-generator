@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'data/curriculum/full-product/p05f/q024-g4a-u05-triangle-side-classification-implementation.json'
+      - 'tools/curriculum/run-p05f-w5-q024-live-pages-e2e.mjs'
+      - '.github/workflows/p05f-w5-q024-live-pages-e2e.yml'
   workflow_dispatch:
 
 permissions:
