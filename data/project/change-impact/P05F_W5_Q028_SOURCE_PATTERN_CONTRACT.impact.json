@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P05F_W5_Q028_SOURCE_PATTERN_CONTRACT",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": ["kp_g5a_u10a_solid_net_correspondence"],
+  "unitExpectedKnowledgePointIds": ["kp_g5a_u10a_solid_net_correspondence"],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5a_u10a_solid_net_correspondence": "SOURCE_SEMANTIC_PATTERN_CONTRACT_ONLY"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P05F_W5_Q028_SOURCE_PATTERN_CONTRACT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  }
+}
