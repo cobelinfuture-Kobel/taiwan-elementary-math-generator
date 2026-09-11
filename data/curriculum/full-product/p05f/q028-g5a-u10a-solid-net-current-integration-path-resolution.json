@@ -18,6 +18,7 @@
     "primaryRuntimeProfileId": "profile_spatial_solid",
     "knowledgePointIds": ["kp_g5a_u10a_solid_net_correspondence"],
     "requiredW5CapabilityIds": [
+      "cap_geometry_construction",
       "cap_geometry_domain_validator",
       "cap_geometry_property_reasoning",
       "cap_solid_geometry_representation",
