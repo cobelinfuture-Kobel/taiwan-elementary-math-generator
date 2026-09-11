@@ -1,0 +1,52 @@
+{
+  "schemaName": "P05FW5Q027LayeredCubeVolumeConservationImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice027Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_ACCEPTANCE",
+  "queueAuthority": {
+    "queuePosition": 27,
+    "sliceId": "p05e_q027_r2_g4b_u10_4b10_profile_spatial_solid_c1",
+    "sourceId": "g4b_u10_4b10",
+    "runtimeProfileId": "profile_spatial_solid",
+    "knowledgePointIds": [
+      "kp_g4b_u10_layered_cube_counting",
+      "kp_g4b_u10_volume_conservation_rearrangement"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ],
+    "preflightPath": "data/curriculum/full-product/p05f/q027-g4b-u10-layered-cube-volume-conservation-source-authority-preflight.json"
+  },
+  "productContract": {
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "patternGroupCount": 2,
+    "patternSpecCount": 6,
+    "deterministicGenerator": true,
+    "failClosedValidator": true,
+    "sharedSolidGeometryRenderer": true,
+    "publicSourceCatalogMutation": false,
+    "sourceUnitOwnershipTransfer": false,
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED"
+  },
+  "scopeGuard": {
+    "q005SemanticsModified": false,
+    "q014SemanticsModified": false,
+    "rectangularPrismFormulaUsed": false,
+    "applicationContextUsed": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q028OrLaterTouched": false,
+    "fullRepositoryRegressionRequested": false,
+    "globalBrowserReplayRequested": false
+  },
+  "goalDistance": {
+    "before": "D2_Q027_SOURCE_SCOPE_RUNTIME_VALIDATION_CONTRACT_LOCKED",
+    "afterTarget": "D0_Q027_E6_PRODUCT_ADMISSION_COMPLETE"
+  }
+}
