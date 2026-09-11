@@ -1,0 +1,77 @@
+{
+  "schemaName": "P05FW5Q028CurrentIntegrationPathResolutionV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice028Implementation_CurrentIntegrationPathResolution",
+  "status": "CURRENT_INTEGRATION_PATH_RESOLVED",
+  "goalDistanceBefore": "D3_Q028_FROZEN_ROW_KNOWN_CURRENT_INTEGRATION_PATH_UNRESOLVED",
+  "goalDistanceAfter": "D2_Q028_CURRENT_INTEGRATION_PATH_AND_REUSE_BOUNDARY_LOCKED",
+  "baselineMainSha": "5a8b182f72a25f05cf6444a1f3502c1add6b3606",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 28,
+    "sliceId": "p05e_q028_r2_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice028Implementation",
+    "previousSliceId": "p05e_q027_r2_g4b_u10_4b10_profile_spatial_solid_c1",
+    "primarySourceNodeId": "g5a_u10_5a10a",
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "knowledgePointIds": ["kp_g5a_u10a_solid_net_correspondence"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "predecessorEvidence": {
+    "q027ImplementationPr": 886,
+    "q027ImplementationMergeSha": "3e7891427df879e3132375e55e6753ee386a204a",
+    "predecessorProductSemanticsTouched": false
+  },
+  "currentIntegrationBaseline": {
+    "currentSelectorExtension": "site/modules/curriculum/registry/batch-a-selector-p05f27-extension.js",
+    "legacyBrowserSelectorAlias": "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+    "currentPublicCapabilityBinding": "site/modules/curriculum/public/public-ui-capability-binding-p05f27.js",
+    "legacyBrowserCapabilityAlias": "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+    "currentWorksheetEntry": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js",
+    "sameSourceExistingRuntime": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f17.js",
+    "sameSourceExistingSelector": "site/modules/curriculum/registry/batch-a-selector-p05f17-remediation-extension.js",
+    "sameSourceExistingRenderer": "site/modules/renderer/prism-pyramid-elements-diagram.js",
+    "sharedHtmlRenderer": "site/modules/renderer/html-renderer.js"
+  },
+  "integrationDecision": {
+    "selectorStrategy": "CREATE_P05F28_EXTENSION_OVER_CURRENT_P05F27_CHAIN",
+    "publicBindingStrategy": "CREATE_P05F28_BINDING_OVER_CURRENT_P05F27_CHAIN_AND_ADVANCE_BROWSER_ALIAS",
+    "generatorStrategy": "CREATE_P05F28_GENERATOR_OVER_P05F27_AND_MATCH_ONLY_EXPLICIT_Q028_SELECTION",
+    "worksheetStrategy": "CREATE_P05F28_WORKSHEET_EXTENSION_AND_DISPATCH_BEFORE_P05F27",
+    "rendererStrategy": "DEDICATED_SOLID_NET_RENDERER_REQUIRED",
+    "rendererReuseReason": "Existing prism_pyramid_elements_diagram validates prism/pyramid elements and solid cross-section modes only; it has no solid-net mode.",
+    "sourceUnitOwnershipKnowledgePointId": "kp_g5a_u10a_solid_shape_classification",
+    "sourceUnitOwnershipTransferAllowed": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "genericFallbackAllowed": false,
+    "freeFormAIAllowed": false
+  },
+  "plannedCurrentPaths": {
+    "selectorProjection": "site/modules/curriculum/registry/g5a-u10a-solid-net-correspondence-selector-projection-p05f28.js",
+    "selectorExtension": "site/modules/curriculum/registry/batch-a-selector-p05f28-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p05f28.js",
+    "runtime": "site/modules/curriculum/batch-a/g5a-u10a-solid-net-correspondence-runtime-p05f28.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f28.js",
+    "worksheetExtension": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f28-extension.js",
+    "diagramRenderer": "site/modules/renderer/solid-net-correspondence-diagram.js"
+  },
+  "scopeGuard": {
+    "q007SourceUnitOwnershipTouched": false,
+    "q017PrismPyramidElementsTouched": false,
+    "q017SolidCrossSectionTouched": false,
+    "solidViewpointRepresentationTouched": false,
+    "q029OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false
+  },
+  "nextTask": "P05F_W5DirectProductVerticalSlice028Implementation_SourceSemanticAndPatternContractMaterialization"
+}
