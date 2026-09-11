@@ -1,0 +1,245 @@
+{
+  "schemaName": "P05FW5Q028SolidNetSourceSemanticPatternContractV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice028Implementation_SourceSemanticAndPatternContractMaterialization",
+  "status": "SOURCE_SEMANTIC_PATTERN_CONTRACT_MATERIALIZED",
+  "goalDistance": {
+    "before": "D2_Q028_CURRENT_INTEGRATION_PATH_AND_REUSE_BOUNDARY_LOCKED",
+    "after": "D2_Q028_SOURCE_SEMANTIC_PATTERN_AND_VALIDATOR_CONTRACT_LOCKED",
+    "reduced": "D2_INTERNAL_CONTRACT_DISTANCE_REDUCED"
+  },
+  "baselineMainSha": "81932f0f1bae17abac838e17944ff0587c03f49e",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 28,
+    "sliceId": "p05e_q028_r2_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice028Implementation",
+    "primarySourceNodeId": "g5a_u10_5a10a",
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "knowledgePointIds": ["kp_g5a_u10a_solid_net_correspondence"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_construction",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5a_u10_5a10a",
+    "sourceTitle": "柱體錐體和球",
+    "sourcePdfTitle": "meow911_5a10a_source.pdf",
+    "sourcePdfDriveFileId": "1ErBCKyfIoXn0yswNUpNzlBcMNb8wkaqq",
+    "sourceUrl": "https://drive.google.com/file/d/1ErBCKyfIoXn0yswNUpNzlBcMNb8wkaqq/view?usp=drivesdk",
+    "pageCount": 2,
+    "reviewedPages": [1, 2],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE_PLUS_Q028_EXACT_PDF_RENDER_VISUAL_CONFIRMATION",
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false,
+    "sourceIdentityReuse": {
+      "q007AuthorityPath": "data/curriculum/full-product/p05f/q007-g5a-u10a-solid-shape-classification-source-authority-preflight.json",
+      "q017AuthorityPath": "data/curriculum/full-product/p05f/q017-g5a-u10a-prism-pyramid-elements-source-authority-preflight.json",
+      "sameSourceNodeConfirmed": true,
+      "samePdfDriveFileIdConfirmed": true,
+      "q017ExcludedQ028Semantics": true,
+      "disposition": "REUSE_SOURCE_IDENTITY_ONLY_AND_BIND_Q028_SEMANTICS_TO_R02_CANDIDATE_PLUS_EXACT_Q028_VISUAL_READBACK"
+    },
+    "directVisualEvidence": {
+      "page1": {
+        "panelTitle": "角柱、角錐的展開圖",
+        "observedNetLabels": [
+          "三角柱",
+          "正方體",
+          "長方體",
+          "五角柱",
+          "六角柱",
+          "三角錐",
+          "四角錐",
+          "五角錐",
+          "六角錐"
+        ],
+        "q028AdmittedFamiliesFromThisPanel": [
+          "TRIANGULAR_PRISM",
+          "PENTAGONAL_PRISM",
+          "HEXAGONAL_PRISM",
+          "TRIANGULAR_PYRAMID",
+          "QUADRILATERAL_PYRAMID",
+          "PENTAGONAL_PYRAMID",
+          "HEXAGONAL_PYRAMID"
+        ],
+        "deferredToQ029DespiteVisualPresence": ["CUBE", "CUBOID"]
+      },
+      "page2": {
+        "panelTitle": "圓柱與圓錐",
+        "observedNetStructures": [
+          "圓柱：一個長方形側面展開與兩個圓形底面",
+          "圓錐：一個扇形側面展開與一個圓形底面"
+        ],
+        "q028AdmittedFamiliesFromThisPanel": ["CYLINDER", "CONE"]
+      }
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "sourceNodeId": "g5a_u10_5a10a",
+    "sourceTitle": "柱體錐體和球",
+    "sourcePdfTitle": "meow911_5a10a_source.pdf",
+    "reviewedPages": [1, 2],
+    "knowledgePointId": "kp_g5a_u10a_solid_net_correspondence",
+    "canonicalNameZh": "立體與展開圖對應",
+    "capabilityStatement": "學生能判斷展開圖是否能摺成立體。",
+    "reasoningInvariant": "相鄰面與邊的連接關係在摺疊前後必須一致。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "semanticContract": {
+    "relationFamily": "SOLID_NET_CORRESPONDENCE_AND_FOLDABILITY",
+    "sourceDerivedRelations": [
+      "MATCH_SOURCE_SHOWN_NET_TO_SOLID_FAMILY",
+      "JUDGE_WHETHER_NET_CAN_FOLD_TO_SOLID",
+      "PRESERVE_FACE_ADJACENCY_THROUGH_FOLDING",
+      "PRESERVE_EDGE_CONNECTION_RELATIONSHIPS_THROUGH_FOLDING"
+    ],
+    "admittedSolidFamilies": [
+      "TRIANGULAR_PRISM",
+      "PENTAGONAL_PRISM",
+      "HEXAGONAL_PRISM",
+      "TRIANGULAR_PYRAMID",
+      "QUADRILATERAL_PYRAMID",
+      "PENTAGONAL_PYRAMID",
+      "HEXAGONAL_PYRAMID",
+      "CYLINDER",
+      "CONE"
+    ],
+    "explicitlyDeferredSolidFamilies": ["CUBE", "CUBOID"],
+    "deferredQueuePosition": 29,
+    "deferredKnowledgePointId": "kp_g5a_u10a1_cube_cuboid_net",
+    "applicationContextImplementationAllowed": false,
+    "surfaceAreaRelationsAllowed": false,
+    "volumeRelationsAllowed": false,
+    "viewpointRepresentationAllowed": false
+  },
+  "patternContract": {
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "patternGroupId": "pg_g5a_u10a_solid_net_correspondence",
+    "patternSpecs": [
+      {
+        "patternSpecId": "ps_g5a_u10a_prism_pyramid_net_correspondence",
+        "task": "MATCH_NET_TO_SOLID_FAMILY",
+        "evidenceClass": "DIRECT_VISUAL_SOURCE_SUPPORTED",
+        "allowedSolidFamilies": [
+          "TRIANGULAR_PRISM",
+          "PENTAGONAL_PRISM",
+          "HEXAGONAL_PRISM",
+          "TRIANGULAR_PYRAMID",
+          "QUADRILATERAL_PYRAMID",
+          "PENTAGONAL_PYRAMID",
+          "HEXAGONAL_PYRAMID"
+        ],
+        "answerDomain": "SOLID_FAMILY_ENUM"
+      },
+      {
+        "patternSpecId": "ps_g5a_u10a_cylinder_cone_net_correspondence",
+        "task": "MATCH_NET_TO_SOLID_FAMILY",
+        "evidenceClass": "DIRECT_VISUAL_SOURCE_SUPPORTED",
+        "allowedSolidFamilies": ["CYLINDER", "CONE"],
+        "answerDomain": "SOLID_FAMILY_ENUM"
+      },
+      {
+        "patternSpecId": "ps_g5a_u10a_solid_net_foldability_judgement",
+        "task": "JUDGE_NET_FOLDABILITY",
+        "evidenceClass": "R02_CAPABILITY_AND_REASONING_INVARIANT_SUPPORTED",
+        "allowedSolidFamilies": [
+          "TRIANGULAR_PRISM",
+          "PENTAGONAL_PRISM",
+          "HEXAGONAL_PRISM",
+          "TRIANGULAR_PYRAMID",
+          "QUADRILATERAL_PYRAMID",
+          "PENTAGONAL_PYRAMID",
+          "HEXAGONAL_PYRAMID",
+          "CYLINDER",
+          "CONE"
+        ],
+        "answerDomain": "BOOLEAN",
+        "negativeExampleGeneration": {
+          "sourceShowsInvalidExamplesDirectly": false,
+          "derivedMutationAllowed": true,
+          "allowedMutationReasons": ["FACE_ADJACENCY_MISMATCH", "EDGE_CONNECTION_MISMATCH"],
+          "mutationMustBeValidatedAgainstReasoningInvariant": true
+        }
+      }
+    ]
+  },
+  "rendererDataContract": {
+    "dedicatedRendererPath": "site/modules/renderer/solid-net-correspondence-diagram.js",
+    "requiredFields": [
+      "diagramKind",
+      "solidFamily",
+      "surfacePieces",
+      "connections",
+      "netTransform",
+      "foldability"
+    ],
+    "diagramKind": "SOLID_NET_CORRESPONDENCE",
+    "allowedNetTransforms": ["ROTATE_0", "ROTATE_90", "ROTATE_180", "ROTATE_270", "REFLECT_HORIZONTAL"],
+    "transformMayNotChangeTopologicalAnswer": true,
+    "q017RendererMutationAllowed": false
+  },
+  "validatorContract": {
+    "validatorName": "validateG5AU10P05F28SolidNetQuestion",
+    "failClosed": true,
+    "requiredChecks": [
+      "EXACT_Q028_KNOWLEDGE_POINT_ID",
+      "KNOWN_Q028_PATTERN_SPEC",
+      "ALLOWED_SOLID_FAMILY_ONLY",
+      "NONEMPTY_SURFACE_PIECES",
+      "NONEMPTY_CONNECTION_MODEL",
+      "ANSWER_DOMAIN_MATCHES_PATTERN",
+      "FACE_ADJACENCY_PRESERVED_FOR_VALID_NET",
+      "EDGE_CONNECTION_PRESERVED_FOR_VALID_NET",
+      "NEGATIVE_MUTATION_BREAKS_AT_LEAST_ONE_R02_INVARIANT",
+      "CUBE_CUBOID_REJECTED_AS_Q029_OWNED",
+      "DETERMINISTIC_SEED_REPRODUCIBLE"
+    ],
+    "genericFallbackAllowed": false,
+    "freeFormAIAllowed": false
+  },
+  "implementationBoundary": {
+    "sourceCatalogMutationRequired": false,
+    "sourceUnitOwnershipKnowledgePointId": "kp_g5a_u10a_solid_shape_classification",
+    "sourceUnitOwnershipTransferAllowed": false,
+    "selectionMode": "EXPLICIT_KP_PATTERN_GROUP_OR_PATTERN_SPEC_ONLY",
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "publicCutoverPerformedByThisMilestone": false,
+    "generatorMaterializedByThisMilestone": false,
+    "rendererMaterializedByThisMilestone": false,
+    "worksheetMaterializedByThisMilestone": false
+  },
+  "scopeGuard": {
+    "q007ClassificationSemanticsTouched": false,
+    "q017PrismPyramidElementsTouched": false,
+    "q017SolidCrossSectionTouched": false,
+    "q029CubeCuboidNetTouched": false,
+    "solidViewpointRepresentationTouched": false,
+    "surfaceAreaTouched": false,
+    "volumeTouched": false,
+    "applicationContextTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-q028-solid-net-source-semantic-pattern-contract.test.js",
+    "readbackRunner": "tools/curriculum/read-p05f-w5-q028-solid-net-source-semantic-pattern-contract.mjs",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_MILESTONE",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_MILESTONE"
+  },
+  "nextTask": "P05F_W5DirectProductVerticalSlice028Implementation_RuntimeRendererValidatorMaterialization"
+}
