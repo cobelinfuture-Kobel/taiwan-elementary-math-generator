@@ -1,0 +1,13 @@
+{
+  "schemaVersion":"1.0.0",
+  "policyId":"UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId":"P05F_W5_Q028_TEST_REPAIR_FOCUSED_VALIDATION",
+  "unitId":"g5a_u10_5a10a",
+  "lanes":{
+    "KP_FOCUSED":[
+      {"gateId":"FOCUSED_TEST","kind":"NODE_TEST","paths":["tests/curriculum/p05f-w5-q028-current-integration-path-resolution.test.js","tests/curriculum/p05f-w5-slice027-g4b-u10-layered-cube-volume.test.js"]},
+      {"gateId":"TARGETED_BROWSER_E2E","kind":"NODE_TEST","paths":["tests/curriculum/p05f-w5-slice028-g5a-u10a-solid-net-correspondence.test.js"]},
+      {"gateId":"DIRECT_DEPENDENCY_CONTRACTS","kind":"NODE_TEST","paths":["tests/curriculum/p05f-w5-q028-solid-net-source-semantic-pattern-contract.test.js"]}
+    ]
+  }
+}

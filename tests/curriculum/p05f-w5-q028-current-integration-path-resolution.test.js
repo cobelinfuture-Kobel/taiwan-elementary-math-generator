@@ -57,9 +57,12 @@ test("Q028 must advance the current cumulative selector and binding chain rather
   const selectorAlias = read("site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js");
   const bindingAlias = read("site/modules/curriculum/public/public-ui-capability-binding-p04f33.js");
   const worksheetEntry = read("site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js");
-  assert.match(selectorAlias, /batch-a-selector-p05f27-extension\.js/);
-  assert.match(bindingAlias, /public-ui-capability-binding-p05f27\.js/);
+  assert.match(selectorAlias, /batch-a-selector-p05f28-extension\.js/);
+  assert.match(bindingAlias, /public-ui-capability-binding-p05f28\.js/);
+  assert.match(worksheetEntry, /requestsP05F28/);
   assert.match(worksheetEntry, /requestsP05F27/);
+  assert.ok(worksheetEntry.indexOf("requestsP05F28") < worksheetEntry.indexOf("requestsP05F27"));
+  assert.doesNotMatch(worksheetEntry, /requestsP05F29/);
   assert.equal(resolution.integrationDecision.selectorStrategy, "CREATE_P05F28_EXTENSION_OVER_CURRENT_P05F27_CHAIN");
   assert.equal(resolution.integrationDecision.generatorStrategy, "CREATE_P05F28_GENERATOR_OVER_P05F27_AND_MATCH_ONLY_EXPLICIT_Q028_SELECTION");
   assert.equal(resolution.integrationDecision.worksheetStrategy, "CREATE_P05F28_WORKSHEET_EXTENSION_AND_DISPATCH_BEFORE_P05F27");
@@ -67,10 +70,14 @@ test("Q028 must advance the current cumulative selector and binding chain rather
 
 test("Q028 requires a dedicated solid-net renderer instead of widening the Q017 renderer implicitly", () => {
   const prismRenderer = read("site/modules/renderer/prism-pyramid-elements-diagram.js");
+  const solidNetRenderer = read("site/modules/renderer/solid-net-correspondence-diagram.js");
   const htmlRenderer = read("site/modules/renderer/html-renderer.js");
   assert.match(prismRenderer, /SOLID_CROSS_SECTION/);
   assert.doesNotMatch(prismRenderer, /SOLID_NET/);
-  assert.doesNotMatch(htmlRenderer, /solid_net_correspondence_diagram/);
+  assert.match(solidNetRenderer, /solid_net_correspondence_diagram/);
+  assert.match(solidNetRenderer, /renderSolidNetCorrespondenceDiagram/);
+  assert.match(htmlRenderer, /solid-net-correspondence-diagram\.js/);
+  assert.match(htmlRenderer, /renderSolidNetCorrespondenceDiagram/);
   assert.equal(resolution.integrationDecision.rendererStrategy, "DEDICATED_SOLID_NET_RENDERER_REQUIRED");
 });
 
