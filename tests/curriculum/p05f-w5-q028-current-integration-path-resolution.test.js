@@ -15,6 +15,7 @@ const resolution = readJson("data/curriculum/full-product/p05f/q028-g5a-u10a-sol
 const SOURCE = "g5a_u10_5a10a";
 const KP = "kp_g5a_u10a_solid_net_correspondence";
 const REQUIRED_W5 = [
+  "cap_geometry_construction",
   "cap_geometry_domain_validator",
   "cap_geometry_property_reasoning",
   "cap_solid_geometry_representation",
@@ -36,6 +37,7 @@ test("Q028 integration resolution binds the exact frozen queue row", () => {
   assert.deepEqual([...row.requiredW5CapabilityIds].sort(), [...REQUIRED_W5].sort());
   assert.equal(resolution.queueAuthority.sliceId, row.sliceId);
   assert.deepEqual(resolution.queueAuthority.knowledgePointIds, row.knowledgePointIds);
+  assert.deepEqual([...resolution.queueAuthority.requiredW5CapabilityIds].sort(), [...row.requiredW5CapabilityIds].sort());
 });
 
 test("Q028 current selector baseline keeps solid-net hidden and preserves Q007 sourceUnit ownership boundary", () => {
