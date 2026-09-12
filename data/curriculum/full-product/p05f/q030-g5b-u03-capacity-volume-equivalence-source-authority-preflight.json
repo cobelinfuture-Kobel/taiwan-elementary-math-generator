@@ -1,0 +1,267 @@
+{
+  "schemaName": "P05FW5Q030CapacityVolumeEquivalenceSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q030_CapacityVolumeEquivalence_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q030_FROZEN_QUEUE_ROW_AVAILABLE_SOURCE_SCOPE_UNMATERIALIZED",
+    "after": "D2_Q030_SOURCE_SCOPE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "96cb8323c04e60b3fa540a1453f3f954b5e5a7f4",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 30,
+    "sliceId": "p05e_q030_r2_g5b_u03_5b03_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice030Implementation",
+    "previousSliceId": "p05e_q029_r2_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W5",
+    "primarySourceNodeId": "g5b_u03_5b03",
+    "supportingSourceNodeIds": ["g5b_u03_5b03"],
+    "intraWavePrerequisiteRank": 2,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_g5b_u03_l_dm3_equivalence",
+      "kp_g5b_u03_ml_cm3_equivalence"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredProductNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ],
+    "admissionState": "QUEUE_FROZEN_IMPLEMENTATION_NOT_STARTED",
+    "productProductionAdmitted": false,
+    "implementationAllowedByP05E": false
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q029_r2_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "productPrNumber": 896,
+    "productMergeSha": "55b7d9c2ea56a311fe047109e7d90953962a2178",
+    "pagesHarnessPrNumber": 897,
+    "pagesHarnessMergeSha": "2517c478baea696d00f1a7b3179d4cee5cfafc84",
+    "prGateRunId": "34677351265",
+    "exactPagesRunId": "34677707862",
+    "evidenceArtifactId": "10292474250",
+    "evidenceArtifactName": "p05f-w5-q029-pages-e2e",
+    "evidenceArtifactDigest": "sha256:5852c1c516d7ab2f94d63fe62bd811ca8eabc1ef6700a3d0aea6d7fa3e43aa77",
+    "status": "PASS_E6_D0_COMPLETE",
+    "prGateConclusion": "success",
+    "exactPagesWorkflowConclusion": "success",
+    "exactPagesEvidenceUploaded": true
+  },
+  "sourceAuthority": {
+    "chosenSourceRef": "Q020_VERIFIED_SOURCE_IDENTITY_REUSE_PLUS_R02_FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5b_u03_5b03",
+    "sourceTitle": "容積和容量",
+    "sourcePdfTitle": "meow911_5b03_source.pdf",
+    "sourcePdfDriveFileId": "1k87iKFmra0RQ17__kXRPwuPbezKvtiPG",
+    "sourceUrl": "https://meow911.com/5b03/",
+    "pageCount": 2,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE_PLUS_Q020_VERIFIED_SOURCE_IDENTITY",
+    "reviewedPages": [1, 2],
+    "sourceIdentityReuse": {
+      "q020AuthorityPreflightPath": "data/curriculum/full-product/p05f/q020-g5b-u03-container-volume-capacity-distinction-source-authority-preflight.json",
+      "sameSourceNodeConfirmed": true,
+      "samePdfDriveFileIdConfirmed": true,
+      "sameSourceUrlConfirmed": true,
+      "sourceRefAmbiguity": false,
+      "disposition": "REUSE_VERIFIED_G5B_U03_SOURCE_IDENTITY_AND_BIND_Q030_TO_TWO_EXACT_R02_EQUIVALENCE_CANDIDATES"
+    },
+    "evidenceBoundary": {
+      "authorityBasis": "R02_REVIEWED_SOURCE_PAGES_1_2",
+      "directlySupportedRelations": [
+        "ONE_MILLILITER_EQUALS_ONE_CUBIC_CENTIMETER",
+        "ONE_LITER_EQUALS_ONE_CUBIC_DECIMETER",
+        "EQUIVALENT_CAPACITY_AND_VOLUME_UNITS_REPRESENT_THE_SAME_SPATIAL_QUANTITY"
+      ],
+      "notClaimedByThisPreflight": [
+        "COMPOUND_MULTI_UNIT_CONVERSION",
+        "CONTAINER_FILL_OR_DISPLACEMENT",
+        "GENERAL_UNIT_CONVERSION_FRAMEWORK_REDESIGN",
+        "APPLICATION_CONTEXT_IMPLEMENTATION"
+      ]
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-04.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5b_u03_5b03",
+    "sourceTitle": "容積和容量",
+    "sourcePdfTitle": "meow911_5b03_source.pdf",
+    "reviewedPages": [1, 2],
+    "knowledgePoints": [
+      {
+        "knowledgePointId": "kp_g5b_u03_l_dm3_equivalence",
+        "canonicalNameZh": "公升與立方公寸等價",
+        "capabilityStatement": "學生能運用1公升等於1立方公寸。",
+        "reasoningInvariant": "容量與體積單位等價時代表同一空間量。",
+        "category": "measurement",
+        "evidencePages": [1, 2],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_g5b_u03_ml_cm3_equivalence",
+        "canonicalNameZh": "毫升與立方公分等價",
+        "capabilityStatement": "學生能運用1毫升等於1立方公分。",
+        "reasoningInvariant": "相同內部空間以液量或體積表示時數值相等。",
+        "category": "measurement",
+        "evidencePages": [1, 2],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ],
+    "sameSourceCandidateIds": [
+      "kp_g5b_u03_container_volume_capacity_distinction",
+      "kp_g5b_u03_ml_cm3_equivalence",
+      "kp_g5b_u03_l_dm3_equivalence",
+      "kp_g5b_u03_capacity_volume_conversion",
+      "kp_g5b_u03_container_fill_displacement"
+    ]
+  },
+  "sourceConstraintReconciliation": {
+    "mlCm3EquivalenceDirectlySupported": true,
+    "lDm3EquivalenceDirectlySupported": true,
+    "equivalencePreservesSameSpatialQuantity": true,
+    "containerVolumeCapacityDistinctionAlreadyOwnedByQ020": true,
+    "compoundCapacityVolumeConversionIsSameSourceSibling": true,
+    "containerFillDisplacementIsSameSourceSibling": true,
+    "sameSourceSiblingAbsorptionAllowedByThisPreflight": false,
+    "generalUnitConversionPolicyRewriteAllowedByThisPreflight": false,
+    "applicationImplementationAllowedByThisPreflight": false
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "classificationPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "profileId": "profile_geometry_formula",
+    "classificationRuleId": "rule_geometry_formula",
+    "profileRequiredCapabilityIds": [
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "perKnowledgePointMappings": [
+      {
+        "knowledgePointId": "kp_g5b_u03_l_dm3_equivalence",
+        "classificationRuleId": "rule_geometry_formula",
+        "appliedModifierIds": []
+      },
+      {
+        "knowledgePointId": "kp_g5b_u03_ml_cm3_equivalence",
+        "classificationRuleId": "rule_geometry_formula",
+        "appliedModifierIds": []
+      }
+    ],
+    "unionAppliedModifierIds": [],
+    "modifierAddedRequiredCapabilityIds": [],
+    "dependencyClosureAddedCapabilityIds": ["cap_geometry_property_reasoning"],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "r02CandidateCategories": ["measurement", "measurement"],
+    "frozenProfileClassificationRule": "rule_geometry_formula",
+    "profileCategoryMismatchAcknowledged": true,
+    "profileCategoryMismatchDisposition": "R02_MEASUREMENT_CATEGORY_DOES_NOT_OVERRIDE_FROZEN_QUEUE_OR_CURRENT_R04_GEOMETRY_FORMULA_PROFILE",
+    "modifierEligibilityObservation": {
+      "conversionModifierId": "mod_unit_conversion",
+      "eligibleProfileIds": [
+        "profile_quantity_measurement",
+        "profile_time",
+        "profile_speed_rate"
+      ],
+      "q030ProfileEligible": false,
+      "disposition": "PRESERVE_CURRENT_FROZEN_R04_POLICY_NO_MODIFIER"
+    },
+    "r04AuthorityTouched": false
+  },
+  "q030ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g5b_u03_l_dm3_equivalence",
+      "kp_g5b_u03_ml_cm3_equivalence"
+    ],
+    "includedRelations": [
+      "ASSERT_ONE_LITER_EQUALS_ONE_CUBIC_DECIMETER",
+      "ASSERT_ONE_MILLILITER_EQUALS_ONE_CUBIC_CENTIMETER",
+      "PRESERVE_EQUIVALENT_SPATIAL_QUANTITY_ACROSS_CAPACITY_AND_VOLUME_REPRESENTATIONS"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": [
+      "kp_g5b_u03_container_volume_capacity_distinction"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5b_u03_capacity_volume_conversion",
+      "kp_g5b_u03_container_fill_displacement"
+    ],
+    "excludedRelations": [
+      "REOWN_CONTAINER_VOLUME_CAPACITY_DISTINCTION",
+      "COMPOUND_CAPACITY_VOLUME_CONVERSION_AS_TARGET_KP",
+      "CONTAINER_FILL_OR_DISPLACEMENT_AS_TARGET_KP",
+      "GENERAL_UNIT_CONVERSION_FRAMEWORK_REDESIGN",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "Q031_OR_LATER_SEMANTICS"
+    ],
+    "requiresGeometryDiagramRepresentation": true,
+    "requiresGeometryFormulaEvaluation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresGeometryPropertyReasoning": true,
+    "q020SemanticsMustRemainUnchanged": true,
+    "applicationSuitabilityFromR02": ["APPLICATION_COMPATIBLE", "APPLICATION_COMPATIBLE"],
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "sameSourceSiblingSemanticsTouched": false,
+    "q031OrLaterTouched": false,
+    "sourceUnitOwnershipTransferAllowed": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicCutoverAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "sourceAuthoritySufficientForQ030ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "twoKnowledgePointSliceLocked": true,
+    "sourceEvidenceBoundaryLocked": true,
+    "sameSourceSiblingProtectionLocked": true,
+    "runtimeProfileCategoryMismatchExplicitlyBounded": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice030Implementation"
+  }
+}

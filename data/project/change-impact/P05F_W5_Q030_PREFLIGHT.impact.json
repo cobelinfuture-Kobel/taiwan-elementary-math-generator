@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P05F_W5_Q030_PREFLIGHT",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5b_u03_l_dm3_equivalence",
+    "kp_g5b_u03_ml_cm3_equivalence"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5b_u03_l_dm3_equivalence",
+    "kp_g5b_u03_ml_cm3_equivalence"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5b_u03_l_dm3_equivalence": "PREFLIGHT_ONLY",
+    "kp_g5b_u03_ml_cm3_equivalence": "PREFLIGHT_ONLY"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P05F_W5_Q030_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  }
+}
