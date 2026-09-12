@@ -32,8 +32,12 @@ const mapping = r04.getMapping(q031.knowledgePointIds[0]);
 if (!mapping) throw new Error(`Q031_R04_MAPPING_MISSING:${q031.knowledgePointIds[0]}`);
 if (mapping.primaryRuntimeProfileId !== q031.primaryRuntimeProfileId) throw new Error("Q031_R04_PROFILE_MISMATCH");
 if (mapping.classificationRuleId !== "rule_quantity_measurement") throw new Error("Q031_R04_CLASSIFICATION_RULE_MISMATCH");
-if (JSON.stringify(mapping.appliedModifierIds) !== JSON.stringify(["mod_quantity_relation_semantics", "mod_application_semantics"])) {
+const expectedModifiers = ["mod_unit_conversion", "mod_quantity_relation_semantics", "mod_application_semantics"];
+if (JSON.stringify(mapping.appliedModifierIds) !== JSON.stringify(expectedModifiers)) {
   throw new Error(`Q031_R04_MODIFIERS:${mapping.appliedModifierIds.join(",")}`);
+}
+if (JSON.stringify(mapping.requiredRuntimeCapabilityIds) !== JSON.stringify(preflight.runtimeCapabilityAuthority.exactRequiredRuntimeCapabilityIds)) {
+  throw new Error("Q031_R04_REQUIRED_CAPABILITY_MISMATCH");
 }
 
 const report = {

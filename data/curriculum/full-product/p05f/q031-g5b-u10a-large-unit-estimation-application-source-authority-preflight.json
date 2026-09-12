@@ -133,6 +133,7 @@
     "largeAreaUnitIdentityAlreadyOwnedByQ009": true,
     "areaUnitConversionsAlreadyOwnedByQ021": true,
     "metricTonKilogramConversionAlreadyOwnedByP04F19": true,
+    "currentR04UnitConversionModifierMustBePreserved": true,
     "sameSourceSiblingAbsorptionAllowedByThisPreflight": false,
     "generalUnitConversionPolicyRewriteAllowedByThisPreflight": false,
     "globalContextExpansionAllowedByThisPreflight": false,
@@ -150,10 +151,13 @@
       "cap_text_numeric_representation"
     ],
     "appliedModifierIds": [
+      "mod_unit_conversion",
       "mod_quantity_relation_semantics",
       "mod_application_semantics"
     ],
     "modifierAddedRequiredCapabilityIds": [
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization",
       "cap_quantity_semantic_role_binding",
       "cap_relation_model_binding",
       "cap_word_problem_semantic_validation",
@@ -168,6 +172,8 @@
       "cap_quantity_dimension_unit_identity",
       "cap_quantity_domain_validator",
       "cap_text_numeric_representation",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization",
       "cap_quantity_semantic_role_binding",
       "cap_relation_model_binding",
       "cap_word_problem_semantic_validation",
@@ -177,8 +183,8 @@
     "emptyDirectW5CapabilitySubsetAcknowledged": true,
     "r02CandidateCategory": "measurement",
     "frozenProfileCategoryAligned": true,
-    "unitConversionModifierApplied": false,
-    "unitConversionModifierDisposition": "NO_CONVERSION_MODIFIER_FOR_ESTIMATION_APPLICATION_KP",
+    "unitConversionModifierApplied": true,
+    "unitConversionModifierDisposition": "PRESERVE_CURRENT_R04_MOD_UNIT_CONVERSION_BECAUSE_REASONING_INVARIANT_CONTAINS_UNIT_CONVERSION_BOUNDARY_SEMANTICS",
     "r04AuthorityTouched": false
   },
   "q031ScopeLock": {
@@ -205,8 +211,11 @@
     ],
     "requiresQuantityDimensionUnitIdentity": true,
     "requiresQuantityDomainValidator": true,
+    "requiresUnitConversionByCurrentR04": true,
+    "requiresMixedUnitNormalizationByCurrentR04": true,
     "requiresQuantitySemanticRoleBinding": true,
     "requiresApplicationSemanticValidation": true,
+    "unitConversionSemanticsBoundedToReviewedQ031Evidence": true,
     "implementationAllowedByThisPreflight": false,
     "publicProductAdmissionAllowedByThisPreflight": false,
     "sameSourceSiblingSemanticsTouched": false,

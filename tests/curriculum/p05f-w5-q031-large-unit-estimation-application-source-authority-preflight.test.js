@@ -32,10 +32,17 @@ const REQUIRED_RUNTIME_CAPS = [
   "cap_quantity_dimension_unit_identity",
   "cap_quantity_domain_validator",
   "cap_text_numeric_representation",
+  "cap_unit_conversion",
+  "cap_mixed_unit_normalization",
   "cap_quantity_semantic_role_binding",
   "cap_relation_model_binding",
   "cap_word_problem_semantic_validation",
   "cap_text_application_representation",
+];
+const EXPECTED_MODIFIERS = [
+  "mod_unit_conversion",
+  "mod_quantity_relation_semantics",
+  "mod_application_semantics",
 ];
 const PROTECTED_SIBLINGS = [
   "kp_g5b_u10a_large_area_unit_identity",
@@ -121,15 +128,12 @@ test("P05F W5 Q031 locks exactly the R02 large-unit estimation/application candi
   assert.equal(preflight.q031ScopeLock.sameSourceSiblingSemanticsTouched, false);
 });
 
-test("P05F W5 Q031 preserves current R04 quantity-measurement classification and exact application modifiers", () => {
+test("P05F W5 Q031 preserves current R04 quantity-measurement classification and exact modifiers", () => {
   const mapping = getR04KnowledgePointCapabilityMapping(TARGET_KP);
   assert.ok(mapping);
   assert.equal(mapping.primaryRuntimeProfileId, "profile_quantity_measurement");
   assert.equal(mapping.classificationRuleId, "rule_quantity_measurement");
-  assert.deepEqual(mapping.appliedModifierIds, [
-    "mod_quantity_relation_semantics",
-    "mod_application_semantics",
-  ]);
+  assert.deepEqual(mapping.appliedModifierIds, EXPECTED_MODIFIERS);
   assert.deepEqual(mapping.requiredRuntimeCapabilityIds, REQUIRED_RUNTIME_CAPS);
 
   const runtime = preflight.runtimeCapabilityAuthority;
@@ -140,8 +144,12 @@ test("P05F W5 Q031 preserves current R04 quantity-measurement classification and
   assert.deepEqual(runtime.exactFrozenQueueRequiredW5CapabilityIds, []);
   assert.equal(runtime.emptyDirectW5CapabilitySubsetAcknowledged, true);
   assert.equal(runtime.frozenProfileCategoryAligned, true);
-  assert.equal(runtime.unitConversionModifierApplied, false);
+  assert.equal(runtime.unitConversionModifierApplied, true);
   assert.equal(runtime.r04AuthorityTouched, false);
+  assert.equal(preflight.sourceConstraintReconciliation.currentR04UnitConversionModifierMustBePreserved, true);
+  assert.equal(preflight.q031ScopeLock.requiresUnitConversionByCurrentR04, true);
+  assert.equal(preflight.q031ScopeLock.requiresMixedUnitNormalizationByCurrentR04, true);
+  assert.equal(preflight.q031ScopeLock.unitConversionSemanticsBoundedToReviewedQ031Evidence, true);
 });
 
 test("P05F W5 Q031 evidence boundary admits only large-unit estimation/application and excludes re-ownership or later semantics", () => {
