@@ -1,0 +1,171 @@
+name: P05F W5 Q031 Post-Merge Pages E2E
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p05f-w5-q031-live-pages-e2e.yml'
+      - 'data/curriculum/full-product/p05f/q031-g5b-u10a-large-unit-estimation-application-implementation.json'
+      - 'site/modules/curriculum/registry/g5b-u10a-large-unit-estimation-application-selector-projection-p05f31.js'
+      - 'site/modules/curriculum/registry/batch-a-selector-p05f31-extension.js'
+      - 'site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js'
+      - 'site/modules/curriculum/public/public-ui-capability-binding-p05f31.js'
+      - 'site/modules/curriculum/public/public-ui-capability-binding-p04f33.js'
+      - 'site/modules/curriculum/batch-a/g5b-u10a-large-unit-estimation-application-runtime-p05f31.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f31.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f31-extension.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p05f-w5-q031-postmerge-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-pages-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      P05F31_BASE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/
+      Q031_PRODUCT_MERGE_SHA: 1bd85e2613c528ae7d2436fe310b1f68915130aa
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Wait for exact Q031 Pages deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p tmp/p05f-w5-q031-live-pages-e2e
+          assets=(
+            'site/modules/curriculum/registry/g5b-u10a-large-unit-estimation-application-selector-projection-p05f31.js|modules/curriculum/registry/g5b-u10a-large-unit-estimation-application-selector-projection-p05f31.js'
+            'site/modules/curriculum/registry/batch-a-selector-p05f31-extension.js|modules/curriculum/registry/batch-a-selector-p05f31-extension.js'
+            'site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js|modules/curriculum/registry/batch-a-selector-p04f33-extension.js'
+            'site/modules/curriculum/public/public-ui-capability-binding-p05f31.js|modules/curriculum/public/public-ui-capability-binding-p05f31.js'
+            'site/modules/curriculum/public/public-ui-capability-binding-p04f33.js|modules/curriculum/public/public-ui-capability-binding-p04f33.js'
+            'site/modules/curriculum/batch-a/g5b-u10a-large-unit-estimation-application-runtime-p05f31.js|modules/curriculum/batch-a/g5b-u10a-large-unit-estimation-application-runtime-p05f31.js'
+            'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f31.js|modules/curriculum/batch-a/batch-a-browser-generator-p05f31.js'
+            'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f31-extension.js|modules/curriculum/batch-a/batch-a-browser-worksheet-p05f31-extension.js'
+            'site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js|modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js'
+            'site/assets/styles/print-styles.css|assets/styles/print-styles.css'
+          )
+          : > tmp/p05f-w5-q031-live-pages-e2e/deployment-hashes.txt
+          for attempt in $(seq 1 36); do
+            all_match=1
+            : > tmp/p05f-w5-q031-live-pages-e2e/deployment-hashes.txt
+            for mapping in "${assets[@]}"; do
+              repo_path="${mapping%%|*}"
+              public_path="${mapping#*|}"
+              expected="$(sha256sum "$repo_path" | awk '{print $1}')"
+              live_file="$(mktemp)"
+              if ! curl --fail --silent --show-error --location --header 'Cache-Control: no-cache' "${P05F31_BASE_URL}${public_path}?q031=${GITHUB_SHA}-${attempt}" --output "$live_file"; then
+                all_match=0
+                rm -f "$live_file"
+                break
+              fi
+              actual="$(sha256sum "$live_file" | awk '{print $1}')"
+              rm -f "$live_file"
+              printf '%s %s %s\n' "$public_path" "$expected" "$actual" >> tmp/p05f-w5-q031-live-pages-e2e/deployment-hashes.txt
+              if [ "$expected" != "$actual" ]; then all_match=0; break; fi
+            done
+            if [ "$all_match" = 1 ]; then
+              echo "Q031 exact deployment observed on attempt $attempt"
+              exit 0
+            fi
+            if [ "$attempt" -lt 36 ]; then sleep 15; fi
+          done
+          echo 'Q031 exact deployment was not observed within the bounded retry window.' >&2
+          cat tmp/p05f-w5-q031-live-pages-e2e/deployment-hashes.txt >&2 || true
+          exit 1
+
+      - name: Validate Q031 live runtime authority
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          import { mkdirSync, writeFileSync } from 'node:fs';
+          const base=process.env.P05F31_BASE_URL,head=process.env.GITHUB_SHA,count=120;
+          const cases=[
+            'ps_g5b_u10a_large_unit_estimation_land_hectare_application',
+            'ps_g5b_u10a_large_unit_estimation_region_square_km_application',
+            'ps_g5b_u10a_large_unit_estimation_distance_km_application',
+            'ps_g5b_u10a_large_unit_estimation_mass_ton_application'
+          ];
+          const browser=await chromium.launch({headless:true}),page=await browser.newPage();
+          try {
+            const report=await page.evaluate(async({base,head,count,cases})=>{
+              const runtime=await import(`${base}modules/curriculum/batch-a/g5b-u10a-large-unit-estimation-application-runtime-p05f31.js?sha=${head}`);
+              const rows=[];
+              for(const specId of cases){
+                const generated=runtime.generateG5BU10AP05F31Questions({patternSpecIds:[specId],questionCount:count,generationSeed:`live-q031-${specId}`});
+                const first=generated.questions[0];
+                const tampered=first?{...first,answerText:'約 999999 錯誤單位'}:null;
+                rows.push({
+                  patternSpecId:specId,
+                  ok:generated.ok,
+                  count:generated.questions.length,
+                  distinctIds:new Set(generated.questions.map(q=>q.id)).size,
+                  distinctPrompts:new Set(generated.questions.map(q=>q.blankedDisplayText)).size,
+                  allValid:generated.questions.every(q=>runtime.validateG5BU10AP05F31Question(q).ok),
+                  tamperRejected:tampered?!runtime.validateG5BU10AP05F31Question(tampered).ok:false,
+                  allNonBoundary:generated.questions.every(q=>q.rawAmount%q.boundaryFactor!==0),
+                  unitConversionModifiers:[...new Set(generated.questions.map(q=>q.metadata?.unitConversionModifierApplied))],
+                  mixedUnitNormalization:[...new Set(generated.questions.map(q=>q.metadata?.mixedUnitNormalizationApplied))],
+                  implementationChoiceSourceStatus:[...new Set(generated.questions.map(q=>q.metadata?.implementationChoiceSourceStatus))],
+                  siblingOwnershipTouched:[...new Set(generated.questions.map(q=>q.metadata?.largeAreaUnitIdentityTargetTouched||q.metadata?.areaUnitConversionTargetsTouched||q.metadata?.metricTonKilogramConversionTargetTouched))],
+                  generalFrameworkTouched:[...new Set(generated.questions.map(q=>q.metadata?.generalUnitConversionFrameworkTouched))],
+                  q032OrLaterTouched:[...new Set(generated.questions.map(q=>q.metadata?.q032OrLaterTouched))]
+                });
+              }
+              return rows;
+            },{base,head,count,cases});
+            if(report.some(row=>!row.ok||row.count!==count||row.distinctIds!==count||row.distinctPrompts!==count||!row.allValid||!row.tamperRejected||!row.allNonBoundary||row.unitConversionModifiers.join(',')!=='true'||row.mixedUnitNormalization.join(',')!=='true'||row.implementationChoiceSourceStatus.join(',')!=='BOUNDED_IMPLEMENTATION_DECISION_NOT_LITERAL_SOURCE_RULE'||row.siblingOwnershipTouched.join(',')!=='false'||row.generalFrameworkTouched.join(',')!=='false'||row.q032OrLaterTouched.join(',')!=='false'))throw new Error(`P05F31_LIVE_RUNTIME:${JSON.stringify(report)}`);
+            mkdirSync('tmp/p05f-w5-q031-live-pages-e2e',{recursive:true});
+            writeFileSync('tmp/p05f-w5-q031-live-pages-e2e/direct-runtime.json',`${JSON.stringify(report,null,2)}\n`);
+            console.log(`P05F31_LIVE_RUNTIME=${JSON.stringify(report)}`);
+          } finally { await page.close(); await browser.close(); }
+          NODE
+
+      - name: Run Q031 exact deployed Classic UI acceptance
+        env:
+          P05F31_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html
+        shell: bash
+        run: |
+          set -o pipefail
+          node tools/curriculum/run-p05f-w5-q031-classic-ui-acceptance.mjs | tee tmp/p05f-w5-q031-live-pages-e2e/classic-ui.stdout.txt
+
+      - name: Materialize Q031 D0 Pages report
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync,writeFileSync} from 'node:fs';
+          const runtime=JSON.parse(readFileSync('tmp/p05f-w5-q031-live-pages-e2e/direct-runtime.json','utf8'));
+          const stdout=readFileSync('tmp/p05f-w5-q031-live-pages-e2e/classic-ui.stdout.txt','utf8');
+          const line=stdout.split(/\r?\n/).find(row=>row.startsWith('P05F31_CLASSIC_UI_ACCEPTANCE='));
+          if(!line)throw new Error('P05F31_CLASSIC_UI_REPORT_MISSING');
+          const ui=JSON.parse(line.slice('P05F31_CLASSIC_UI_ACCEPTANCE='.length));
+          if(ui.status!=='PASS_Q031_CLASSIC_UI')throw new Error(`P05F31_CLASSIC_UI_STATUS:${ui.status}`);
+          const report={schemaName:'P05FW5Q031LivePagesE2EV1',taskId:'P05F_W5DirectProductVerticalSlice031Implementation',status:'PASS_E6_D0_COMPLETE',exactValidationHeadSha:process.env.GITHUB_SHA,productMergeSha:process.env.Q031_PRODUCT_MERGE_SHA,queuePosition:31,sourceId:'g5b_u10_5b10a',knowledgePointIds:['kp_g5b_u10a_large_unit_estimation_application'],runtime,ui,deploymentHashEvidence:'deployment-hashes.txt',scopeGuard:{sameSourceSiblingOwnershipChanged:false,generalUnitConversionFrameworkTouched:false,globalContextRegistryTouched:false,pblTaskSetTouched:false,q032OrLaterTouched:false,frozenQueueAuthorityTouched:false,r02AuthorityTouched:false,r04AuthorityTouched:false}};
+          writeFileSync('tmp/p05f-w5-q031-live-pages-e2e/report.json',`${JSON.stringify(report,null,2)}\n`);
+          console.log(`P05F31_LIVE_PAGES_E2E=${JSON.stringify(report)}`);
+          NODE
+
+      - name: Upload Q031 exact Pages evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p05f-w5-q031-pages-e2e
+          path: tmp/p05f-w5-q031-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30
