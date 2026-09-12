@@ -1,0 +1,207 @@
+name: P05F W5 Q029 Post-Merge Pages E2E
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p05f-w5-q029-live-pages-e2e.yml'
+      - 'data/curriculum/full-product/p05f/q029-g5a-u10a1-cube-cuboid-net-implementation.json'
+      - 'site/modules/curriculum/registry/g5a-u10a1-cube-cuboid-net-selector-projection-p05f29.js'
+      - 'site/modules/curriculum/registry/batch-a-selector-p05f29-extension.js'
+      - 'site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js'
+      - 'site/modules/curriculum/public/public-ui-capability-binding-p05f29.js'
+      - 'site/modules/curriculum/public/public-ui-capability-binding-p04f33.js'
+      - 'site/modules/curriculum/batch-a/g5a-u10a1-cube-cuboid-net-runtime-p05f29.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f29.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f29-extension.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js'
+      - 'site/modules/renderer/cube-cuboid-net-diagram.js'
+      - 'site/modules/renderer/html-renderer.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p05f-w5-q029-postmerge-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-pages-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      P05F29_BASE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/
+      Q029_PRODUCT_MERGE_SHA: 55b7d9c2ea56a311fe047109e7d90953962a2178
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Wait for exact Q029 Pages deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p tmp/p05f-w5-q029-live-pages-e2e
+          assets=(
+            'site/modules/curriculum/registry/g5a-u10a1-cube-cuboid-net-selector-projection-p05f29.js|modules/curriculum/registry/g5a-u10a1-cube-cuboid-net-selector-projection-p05f29.js'
+            'site/modules/curriculum/registry/batch-a-selector-p05f29-extension.js|modules/curriculum/registry/batch-a-selector-p05f29-extension.js'
+            'site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js|modules/curriculum/registry/batch-a-selector-p04f33-extension.js'
+            'site/modules/curriculum/public/public-ui-capability-binding-p05f29.js|modules/curriculum/public/public-ui-capability-binding-p05f29.js'
+            'site/modules/curriculum/public/public-ui-capability-binding-p04f33.js|modules/curriculum/public/public-ui-capability-binding-p04f33.js'
+            'site/modules/curriculum/batch-a/g5a-u10a1-cube-cuboid-net-runtime-p05f29.js|modules/curriculum/batch-a/g5a-u10a1-cube-cuboid-net-runtime-p05f29.js'
+            'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f29.js|modules/curriculum/batch-a/batch-a-browser-generator-p05f29.js'
+            'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f29-extension.js|modules/curriculum/batch-a/batch-a-browser-worksheet-p05f29-extension.js'
+            'site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js|modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js'
+            'site/modules/renderer/cube-cuboid-net-diagram.js|modules/renderer/cube-cuboid-net-diagram.js'
+            'site/modules/renderer/html-renderer.js|modules/renderer/html-renderer.js'
+          )
+          : > tmp/p05f-w5-q029-live-pages-e2e/deployment-hashes.txt
+          for attempt in $(seq 1 36); do
+            all_match=1
+            : > tmp/p05f-w5-q029-live-pages-e2e/deployment-hashes.txt
+            for mapping in "${assets[@]}"; do
+              repo_path="${mapping%%|*}"
+              public_path="${mapping#*|}"
+              expected="$(sha256sum "$repo_path" | awk '{print $1}')"
+              live_file="$(mktemp)"
+              if ! curl --fail --silent --show-error --location --header 'Cache-Control: no-cache' "${P05F29_BASE_URL}${public_path}?q029=${GITHUB_SHA}-${attempt}" --output "$live_file"; then
+                all_match=0
+                rm -f "$live_file"
+                break
+              fi
+              actual="$(sha256sum "$live_file" | awk '{print $1}')"
+              rm -f "$live_file"
+              printf '%s %s %s\n' "$public_path" "$expected" "$actual" >> tmp/p05f-w5-q029-live-pages-e2e/deployment-hashes.txt
+              if [ "$expected" != "$actual" ]; then
+                all_match=0
+                break
+              fi
+            done
+            if [ "$all_match" = 1 ]; then
+              echo "Q029 exact deployment observed on attempt $attempt"
+              exit 0
+            fi
+            if [ "$attempt" -lt 36 ]; then sleep 15; fi
+          done
+          echo 'Q029 exact deployment was not observed within the bounded retry window.' >&2
+          cat tmp/p05f-w5-q029-live-pages-e2e/deployment-hashes.txt >&2 || true
+          exit 1
+
+      - name: Validate Q029 live runtime authority
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          import { mkdirSync, writeFileSync } from 'node:fs';
+          const base = process.env.P05F29_BASE_URL;
+          const head = process.env.GITHUB_SHA;
+          const count = 120;
+          const specs = [
+            'ps_g5a_u10a1_cube_net_foldability',
+            'ps_g5a_u10a1_cuboid_net_foldability',
+            'ps_g5a_u10a1_cube_cuboid_net_completion',
+          ];
+          const browser = await chromium.launch({ headless: true });
+          const page = await browser.newPage();
+          try {
+            const report = await page.evaluate(async ({ base, head, count, specs }) => {
+              const runtime = await import(`${base}modules/curriculum/batch-a/g5a-u10a1-cube-cuboid-net-runtime-p05f29.js?sha=${head}`);
+              const kp = 'kp_g5a_u10a1_cube_cuboid_net';
+              const rows = [];
+              for (const specId of specs) {
+                const generated = runtime.generateG5AU10A1P05F29Questions({
+                  knowledgePointId: kp,
+                  patternSpecIds: [specId],
+                  questionCount: count,
+                  generationSeed: `live-q029-${specId}`,
+                });
+                const first = generated.questions[0];
+                const tampered = first ? { ...first, knowledgePointId: 'kp_invalid_q029' } : null;
+                rows.push({
+                  patternSpecId: specId,
+                  ok: generated.ok,
+                  count: generated.questions.length,
+                  distinct: new Set(generated.questions.map((q) => q.questionSignature)).size,
+                  allValid: generated.questions.every((q) => runtime.validateG5AU10A1P05F29CubeCuboidNetQuestion(q).ok),
+                  tamperRejected: tampered ? !runtime.validateG5AU10A1P05F29CubeCuboidNetQuestion(tampered).ok : false,
+                  runtimeProfiles: [...new Set(generated.questions.map((q) => q.metadata?.frozenRuntimeProfile))],
+                });
+              }
+              return rows;
+            }, { base, head, count, specs });
+            if (report.some((row) => !row.ok || row.count !== count || row.distinct !== count || !row.allValid || !row.tamperRejected || row.runtimeProfiles.join(',') !== 'profile_spatial_solid')) {
+              throw new Error(`P05F29_LIVE_RUNTIME:${JSON.stringify(report)}`);
+            }
+            mkdirSync('tmp/p05f-w5-q029-live-pages-e2e', { recursive: true });
+            writeFileSync('tmp/p05f-w5-q029-live-pages-e2e/direct-runtime.json', `${JSON.stringify(report, null, 2)}\n`);
+            console.log(`P05F29_LIVE_RUNTIME=${JSON.stringify(report)}`);
+          } finally {
+            await page.close();
+            await browser.close();
+          }
+          NODE
+
+      - name: Run Q029 exact deployed Classic UI acceptance
+        env:
+          P05F29_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html
+        run: |
+          node tools/curriculum/run-p05f-w5-q029-classic-ui-acceptance.mjs | tee tmp/p05f-w5-q029-live-pages-e2e/classic-ui.stdout.txt
+
+      - name: Materialize Q029 D0 Pages report
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+          const runtime = JSON.parse(readFileSync('tmp/p05f-w5-q029-live-pages-e2e/direct-runtime.json', 'utf8'));
+          const stdout = readFileSync('tmp/p05f-w5-q029-live-pages-e2e/classic-ui.stdout.txt', 'utf8');
+          const line = stdout.split(/\r?\n/).find((row) => row.startsWith('P05F29_CLASSIC_UI_ACCEPTANCE='));
+          if (!line) throw new Error('P05F29_CLASSIC_UI_REPORT_MISSING');
+          const ui = JSON.parse(line.slice('P05F29_CLASSIC_UI_ACCEPTANCE='.length));
+          if (ui.status !== 'PASS_Q029_CLASSIC_UI') throw new Error(`P05F29_CLASSIC_UI_STATUS:${ui.status}`);
+          const report = {
+            schemaName: 'P05FW5Q029LivePagesE2EV1',
+            taskId: 'P05F_W5DirectProductVerticalSlice029Implementation',
+            status: 'PASS_E6_D0_COMPLETE',
+            exactValidationHeadSha: process.env.GITHUB_SHA,
+            productMergeSha: process.env.Q029_PRODUCT_MERGE_SHA,
+            queuePosition: 29,
+            sourceId: 'g5a_u10_5a10a1',
+            knowledgePointIds: ['kp_g5a_u10a1_cube_cuboid_net'],
+            runtime,
+            ui,
+            deploymentHashEvidence: 'deployment-hashes.txt',
+            scopeGuard: {
+              q008ElementIdentityTouched: false,
+              q018EdgeLengthTouched: false,
+              q018FaceRelationshipTouched: false,
+              q028SolidNetSemanticsTouched: false,
+              q038CubeCuboidSpatialReasoningTouched: false,
+              surfaceAreaTouched: false,
+              volumeTouched: false,
+              viewpointTouched: false,
+              applicationContextTouched: false,
+              frozenQueueAuthorityTouched: false,
+              r02AuthorityTouched: false,
+              r04AuthorityTouched: false
+            }
+          };
+          writeFileSync('tmp/p05f-w5-q029-live-pages-e2e/report.json', `${JSON.stringify(report, null, 2)}\n`);
+          console.log(`P05F29_LIVE_PAGES_E2E=${JSON.stringify(report)}`);
+          NODE
+
+      - name: Upload Q029 exact Pages evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p05f-w5-q029-pages-e2e
+          path: tmp/p05f-w5-q029-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30
