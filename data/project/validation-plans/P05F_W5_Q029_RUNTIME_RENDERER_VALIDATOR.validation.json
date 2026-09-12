@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q029_RUNTIME_RENDERER_VALIDATOR_BOUNDED_VALIDATION",
+  "unitId": "g5a_u10_5a10a1",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-slice029-g5a-u10a1-cube-cuboid-net.test.js",
+          "tests/curriculum/p05f-w5-q029-cube-cuboid-net-source-visual-pattern-contract.test.js",
+          "tests/curriculum/p05f-w5-slice028-g5a-u10a-solid-net-correspondence.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p05f-w5-q029-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}
