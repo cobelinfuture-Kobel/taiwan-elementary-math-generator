@@ -1,0 +1,220 @@
+{
+  "schemaName": "P05FW5Q029CubeCuboidNetSourceVisualPatternContractV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "Q029_EXACT_SOURCE_PDF_VISUAL_CONFIRMATION_AND_PATTERN_CONTRACT_PREFLIGHT",
+  "status": "PASS_SOURCE_VISUAL_PATTERN_CONTRACT",
+  "goalDistance": {
+    "before": "D2_Q029_EXACT_QUEUE_SOURCE_KP_RUNTIME_CONTRACT_LOCKED",
+    "after": "D2_Q029_SOURCE_VISUAL_SEMANTIC_PATTERN_VALIDATOR_BOUNDARY_LOCKED",
+    "reduced": "D2_INTERNAL_PATTERN_CONTRACT_DISTANCE_REDUCED"
+  },
+  "baselineMainSha": "7f1f581797f31665e71afc1ac9a59aee3ca7251d",
+  "preflightAuthorityPath": "data/curriculum/full-product/p05f/q029-g5a-u10a1-cube-cuboid-net-source-derivation-preflight.json",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 29,
+    "sliceId": "p05e_q029_r2_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice029Implementation",
+    "primarySourceNodeId": "g5a_u10_5a10a1",
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "knowledgePointIds": ["kp_g5a_u10a1_cube_cuboid_net"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_construction",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5a_u10_5a10a1",
+    "sourceTitle": "正方體和長方體",
+    "sourcePdfTitle": "meow911_5a10a1_source.pdf",
+    "sourcePdfDriveFileId": "1LVpCn7I1t17SpWbwCXLfHjghTBQ7lwL5",
+    "pageCount": 2,
+    "reviewedPages": [1, 2],
+    "reviewMethod": "Q029_EXACT_PDF_RENDER_FULL_PAGE_VISUAL_CONFIRMATION",
+    "renderDpi": 200,
+    "sourceRefAmbiguity": false,
+    "knownEmbeddedHeaderAlias": "https://meow911.com/5a10b/",
+    "directVisualEvidence": {
+      "page1": {
+        "observedPanels": [
+          "正方體的點、線、面",
+          "正方體的展開圖",
+          "骰子六面與相對面數字關係",
+          "正方體表面積",
+          "正方體禮物盒包裝繩應用",
+          "正方體切割後表面積變化",
+          "長方體的點、線、面",
+          "找出正確的長方體展開圖"
+        ],
+        "q029DirectlySupportedConcepts": [
+          "VALID_CUBE_NET_STRUCTURES",
+          "CUBE_NET_FACE_ADJACENCY_AFTER_FOLDING",
+          "SELECT_VALID_CUBOID_NET_FROM_CANDIDATES",
+          "CUBOID_NET_FOLDABILITY"
+        ],
+        "explicitVisualWitnesses": {
+          "cubeNetPanel": "正方體的展開圖",
+          "cuboidNetPanel": "找出正確的長方體展開圖"
+        }
+      },
+      "page2": {
+        "observedPanels": [
+          "求長方體展開圖的表面積",
+          "長方體無展開圖的表面積算法",
+          "長方體表面積拆盒子算法",
+          "骰子相對面點數完成",
+          "由正方體三個視圖在展開圖標色",
+          "正方體禮物盒繩長應用",
+          "平行與垂直情境題"
+        ],
+        "q029DirectlySupportedConcepts": [],
+        "scopeSeparationEvidence": [
+          "SURFACE_AREA_IS_NOT_Q029",
+          "VIEWPOINT_COLOR_MAPPING_IS_NOT_Q029",
+          "DICE_OPPOSITE_FACE_NUMBER_RELATION_IS_NOT_Q029",
+          "APPLICATION_MEASUREMENT_IS_NOT_Q029"
+        ]
+      }
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "knowledgePointId": "kp_g5a_u10a1_cube_cuboid_net",
+    "canonicalNameZh": "正方體長方體展開圖",
+    "capabilityStatement": "學生能判斷或完成可摺成立體的展開圖。",
+    "reasoningInvariant": "六個面摺疊後不得重疊且所有相鄰邊正確接合。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "semanticContract": {
+    "relationFamily": "CUBE_CUBOID_NET_FOLDABILITY_AND_COMPLETION",
+    "sourceDerivedRelations": [
+      "JUDGE_CUBE_NET_FOLDABILITY",
+      "JUDGE_CUBOID_NET_FOLDABILITY",
+      "PRESERVE_FACE_NON_OVERLAP_AFTER_FOLDING",
+      "PRESERVE_REQUIRED_EDGE_ADJACENCY_AFTER_FOLDING"
+    ],
+    "r02CapabilityDerivedRelations": [
+      "COMPLETE_PARTIAL_CUBE_CUBOID_NET"
+    ],
+    "allowedSolidFamilies": ["CUBE", "CUBOID"],
+    "surfaceAreaRelationsAllowed": false,
+    "volumeRelationsAllowed": false,
+    "viewpointRepresentationAllowed": false,
+    "faceNumberOrColorAssignmentAllowed": false,
+    "applicationContextImplementationAllowed": false
+  },
+  "patternContract": {
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "patternGroupId": "pg_g5a_u10a1_cube_cuboid_net",
+    "patternSpecs": [
+      {
+        "patternSpecId": "ps_g5a_u10a1_cube_net_foldability",
+        "task": "JUDGE_NET_FOLDABILITY",
+        "evidenceClass": "DIRECT_VISUAL_SOURCE_SUPPORTED",
+        "solidFamily": "CUBE",
+        "answerDomain": "BOOLEAN_OR_CANDIDATE_INDEX",
+        "requiredInvariantChecks": [
+          "SIX_FACES_PRESENT",
+          "NO_FACE_OVERLAP_AFTER_FOLDING",
+          "ALL_REQUIRED_EDGE_ADJACENCIES_CLOSE"
+        ]
+      },
+      {
+        "patternSpecId": "ps_g5a_u10a1_cuboid_net_foldability",
+        "task": "SELECT_OR_JUDGE_VALID_NET",
+        "evidenceClass": "DIRECT_VISUAL_SOURCE_SUPPORTED",
+        "solidFamily": "CUBOID",
+        "answerDomain": "BOOLEAN_OR_CANDIDATE_INDEX",
+        "requiredInvariantChecks": [
+          "SIX_FACES_PRESENT",
+          "OPPOSITE_FACE_DIMENSIONS_MATCH",
+          "NO_FACE_OVERLAP_AFTER_FOLDING",
+          "ALL_REQUIRED_EDGE_ADJACENCIES_CLOSE"
+        ]
+      },
+      {
+        "patternSpecId": "ps_g5a_u10a1_cube_cuboid_net_completion",
+        "task": "COMPLETE_PARTIAL_NET",
+        "evidenceClass": "R02_CAPABILITY_AND_REASONING_INVARIANT_SUPPORTED",
+        "solidFamilies": ["CUBE", "CUBOID"],
+        "answerDomain": "BOUNDED_FACE_PLACEMENT",
+        "requiredInvariantChecks": [
+          "FINAL_NET_HAS_SIX_FACES",
+          "NO_FACE_OVERLAP_AFTER_FOLDING",
+          "ALL_REQUIRED_EDGE_ADJACENCIES_CLOSE"
+        ],
+        "sourceShowsMissingFaceGeometryCompletionDirectly": false,
+        "derivedCompletionAllowed": true
+      }
+    ]
+  },
+  "rendererDataContract": {
+    "diagramKind": "CUBE_CUBOID_NET",
+    "requiredFields": [
+      "solidFamily",
+      "faces",
+      "adjacencyEdges",
+      "netCoordinates",
+      "foldability"
+    ],
+    "allowedTransforms": ["ROTATE_0", "ROTATE_90", "ROTATE_180", "ROTATE_270", "REFLECT_HORIZONTAL"],
+    "transformMayNotChangeTopologicalAnswer": true,
+    "reuseQ028SolidNetRendererMayBeEvaluatedButQ028SemanticsMustNotBeWidened": true
+  },
+  "validatorContract": {
+    "futureValidatorName": "validateG5AU10A1P05F29CubeCuboidNetQuestion",
+    "failClosed": true,
+    "requiredChecks": [
+      "EXACT_Q029_KNOWLEDGE_POINT_ID",
+      "KNOWN_Q029_PATTERN_SPEC",
+      "CUBE_OR_CUBOID_ONLY",
+      "EXACT_SIX_FACE_TOPOLOGY",
+      "NO_OVERLAP_FOR_VALID_NET",
+      "REQUIRED_EDGE_ADJACENCY_CLOSURE",
+      "CUBOID_OPPOSITE_FACE_DIMENSION_COMPATIBILITY",
+      "ANSWER_DOMAIN_MATCHES_PATTERN",
+      "DERIVED_COMPLETION_SATISFIES_R02_INVARIANT",
+      "DETERMINISTIC_SEED_REPRODUCIBLE"
+    ],
+    "genericFallbackAllowed": false,
+    "freeFormAIAllowed": false
+  },
+  "scopeGuard": {
+    "q008ElementIdentityTouched": false,
+    "q018EdgeLengthTouched": false,
+    "q018FaceRelationshipTouched": false,
+    "q028SolidNetSemanticsTouched": false,
+    "q038CubeCuboidSpatialReasoningTouched": false,
+    "surfaceAreaTouched": false,
+    "volumeTouched": false,
+    "viewpointTouched": false,
+    "applicationContextTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false
+  },
+  "implementationBoundary": {
+    "sourceCatalogMutationRequired": false,
+    "sourceUnitOwnershipTransferAllowed": false,
+    "generatorMaterializedByThisMilestone": false,
+    "rendererMaterializedByThisMilestone": false,
+    "worksheetMaterializedByThisMilestone": false,
+    "publicCutoverPerformedByThisMilestone": false,
+    "implementationAllowedByThisMilestone": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_MILESTONE",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_MILESTONE"
+  },
+  "nextTask": "P05F_W5DirectProductVerticalSlice029Implementation_CurrentIntegrationPathResolution",
+  "nextTaskRequiresSeparateImplementationApproval": true
+}
