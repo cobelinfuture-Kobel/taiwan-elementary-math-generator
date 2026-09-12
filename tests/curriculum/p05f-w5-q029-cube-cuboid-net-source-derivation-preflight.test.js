@@ -78,7 +78,7 @@ test("Q029 reuses verified G5A-U10a1 source identity and preserves the known non
   assert.equal(preflight.preflightDecision.sourceRefAmbiguity, false);
 });
 
-test("Q029 maps to spatial-solid plus construction modifier and exact frozen W5 capability closure", () => {
+test("Q029 maps to spatial-solid plus construction modifier while frozen W5 closes dependencies", () => {
   const r04 = materializeR04SharedRuntimeCapabilityMatrix();
   const mapping = r04.getMapping(KP);
   assert.ok(mapping);
@@ -90,8 +90,8 @@ test("Q029 maps to spatial-solid plus construction modifier and exact frozen W5 
     "cap_geometry_domain_validator",
     "cap_solid_geometry_representation",
     "cap_geometry_construction",
-    "cap_geometry_property_reasoning",
   ]) assert.ok(mapping.requiredRuntimeCapabilityIds.includes(id), id);
+  assert.deepEqual(preflight.runtimeCapabilityAuthority.dependencyClosureAddedCapabilityIds, ["cap_geometry_property_reasoning"]);
   assert.deepEqual([...preflight.runtimeCapabilityAuthority.exactFrozenQueueRequiredW5CapabilityIds].sort(), [...REQUIRED_W5].sort());
 });
 
