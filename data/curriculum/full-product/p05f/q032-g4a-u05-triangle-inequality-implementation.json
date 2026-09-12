@@ -1,0 +1,95 @@
+{
+  "schemaName": "P05FW5Q032TriangleInequalityImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice032Implementation",
+  "status": "IMPLEMENTED_PENDING_EXACT_PAGES_E6",
+  "sourceAuthorityPath": "data/curriculum/full-product/p05f/q032-g4a-u05-triangle-inequality-source-authority-preflight.json",
+  "queueAuthority": {
+    "queuePosition": 32,
+    "sliceId": "p05e_q032_r3_g4a_u05_4a05_profile_geometry_property_c1",
+    "sourceId": "g4a_u05_4a05",
+    "knowledgePointId": "kp_g4a_u05_triangle_inequality",
+    "runtimeProfileId": "profile_geometry_property",
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g4a_u05_triangle_inequality_p05f32",
+    "canonicalNameZh": "三角形成立條件",
+    "capabilityStatement": "學生能判斷三段長度是否能組成三角形。",
+    "reasoningInvariant": "任意兩邊長度和必須大於第三邊。",
+    "includedRelations": [
+      "TEST_TRIANGLE_EXISTENCE_BY_SUM_OF_TWO_SIDES",
+      "REJECT_EQUALITY_OR_SHORTFALL_DEGENERATE_CASES"
+    ]
+  },
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g4a_u05_triangle_inequality_existence",
+      "relation": "TEST_TRIANGLE_EXISTENCE_BY_SUM_OF_TWO_SIDES",
+      "questionMode": "diagram"
+    },
+    {
+      "patternSpecId": "ps_g4a_u05_triangle_inequality_boundary",
+      "relation": "REJECT_EQUALITY_OR_SHORTFALL_DEGENERATE_CASES",
+      "questionMode": "diagram"
+    }
+  ],
+  "runtimeContract": {
+    "maxQuestionCount": 240,
+    "deterministic": true,
+    "strictInequality": true,
+    "allThreePairwiseChecks": true,
+    "equalityRejected": true,
+    "positiveIntegerSideLengths": true,
+    "validCandidateDiagramRenderer": "site/modules/renderer/triangle-elements-naming-diagram.js",
+    "invalidCandidateDiagramOmittedToAvoidFalseGeometry": true,
+    "invalidCandidateDiagramOmissionStatus": "BOUNDED_IMPLEMENTATION_DECISION_NOT_LITERAL_SOURCE_RULE",
+    "requiredCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "publicAdmission": {
+    "selectorVisible": true,
+    "selectionMode": "singleKnowledgePoint",
+    "questionMode": "diagram",
+    "questionCountMin": 1,
+    "questionCountMax": 240,
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false,
+    "sameUnitMixAllowed": false,
+    "crossUnitMixAllowed": false
+  },
+  "productPaths": {
+    "selectorProjection": "site/modules/curriculum/registry/g4a-u05-triangle-inequality-selector-projection-p05f32.js",
+    "selectorExtension": "site/modules/curriculum/registry/batch-a-selector-p05f32-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p05f32.js",
+    "runtime": "site/modules/curriculum/batch-a/g4a-u05-triangle-inequality-runtime-p05f32.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f32.js",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f32-extension.js",
+    "stableWorksheetEntry": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js"
+  },
+  "scopeGuards": {
+    "triangleElementsNamingTargetTouched": false,
+    "triangleSideClassificationTargetTouched": false,
+    "triangleAngleClassificationTouched": false,
+    "congruentTriangleCorrespondenceTouched": false,
+    "geometryConstructionTouched": false,
+    "applicationContextImplementationTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q033OrLaterTouched": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeContractRequired": true,
+    "targetedClassicUiRequired": true,
+    "fullRepositoryRegressionRequested": false,
+    "globalBrowserReplayRequested": false,
+    "exactPagesE6RequiredAfterMerge": true
+  }
+}
