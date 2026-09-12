@@ -60,6 +60,7 @@ jobs:
             'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f30.js|modules/curriculum/batch-a/batch-a-browser-generator-p05f30.js'
             'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f30-extension.js|modules/curriculum/batch-a/batch-a-browser-worksheet-p05f30-extension.js'
             'site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js|modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js'
+            'site/assets/styles/print-styles.css|assets/styles/print-styles.css'
           )
           : > tmp/p05f-w5-q030-live-pages-e2e/deployment-hashes.txt
           for attempt in $(seq 1 36); do
@@ -124,7 +125,9 @@ jobs:
       - name: Run Q030 exact deployed Classic UI acceptance
         env:
           P05F30_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html
+        shell: bash
         run: |
+          set -o pipefail
           node tools/curriculum/run-p05f-w5-q030-classic-ui-acceptance.mjs | tee tmp/p05f-w5-q030-live-pages-e2e/classic-ui.stdout.txt
 
       - name: Materialize Q030 D0 Pages report
