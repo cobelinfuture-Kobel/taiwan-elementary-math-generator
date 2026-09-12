@@ -1,0 +1,152 @@
+name: P05F W5 Q030 Post-Merge Pages E2E
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/p05f-w5-q030-live-pages-e2e.yml'
+      - 'data/curriculum/full-product/p05f/q030-g5b-u03-capacity-volume-equivalence-implementation.json'
+      - 'site/modules/curriculum/registry/g5b-u03-capacity-volume-equivalence-selector-projection-p05f30.js'
+      - 'site/modules/curriculum/registry/batch-a-selector-p05f30-extension.js'
+      - 'site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js'
+      - 'site/modules/curriculum/public/public-ui-capability-binding-p05f30.js'
+      - 'site/modules/curriculum/public/public-ui-capability-binding-p04f33.js'
+      - 'site/modules/curriculum/batch-a/g5b-u03-capacity-volume-equivalence-runtime-p05f30.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f30.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f30-extension.js'
+      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: p05f-w5-q030-postmerge-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-pages-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      P05F30_BASE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/
+      Q030_PRODUCT_MERGE_SHA: 813bdf225ba1dc8fa0f18101905edf7e31524d4f
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Wait for exact Q030 Pages deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p tmp/p05f-w5-q030-live-pages-e2e
+          assets=(
+            'site/modules/curriculum/registry/g5b-u03-capacity-volume-equivalence-selector-projection-p05f30.js|modules/curriculum/registry/g5b-u03-capacity-volume-equivalence-selector-projection-p05f30.js'
+            'site/modules/curriculum/registry/batch-a-selector-p05f30-extension.js|modules/curriculum/registry/batch-a-selector-p05f30-extension.js'
+            'site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js|modules/curriculum/registry/batch-a-selector-p04f33-extension.js'
+            'site/modules/curriculum/public/public-ui-capability-binding-p05f30.js|modules/curriculum/public/public-ui-capability-binding-p05f30.js'
+            'site/modules/curriculum/public/public-ui-capability-binding-p04f33.js|modules/curriculum/public/public-ui-capability-binding-p04f33.js'
+            'site/modules/curriculum/batch-a/g5b-u03-capacity-volume-equivalence-runtime-p05f30.js|modules/curriculum/batch-a/g5b-u03-capacity-volume-equivalence-runtime-p05f30.js'
+            'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f30.js|modules/curriculum/batch-a/batch-a-browser-generator-p05f30.js'
+            'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f30-extension.js|modules/curriculum/batch-a/batch-a-browser-worksheet-p05f30-extension.js'
+            'site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js|modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js'
+          )
+          : > tmp/p05f-w5-q030-live-pages-e2e/deployment-hashes.txt
+          for attempt in $(seq 1 36); do
+            all_match=1
+            : > tmp/p05f-w5-q030-live-pages-e2e/deployment-hashes.txt
+            for mapping in "${assets[@]}"; do
+              repo_path="${mapping%%|*}"
+              public_path="${mapping#*|}"
+              expected="$(sha256sum "$repo_path" | awk '{print $1}')"
+              live_file="$(mktemp)"
+              if ! curl --fail --silent --show-error --location --header 'Cache-Control: no-cache' "${P05F30_BASE_URL}${public_path}?q030=${GITHUB_SHA}-${attempt}" --output "$live_file"; then
+                all_match=0
+                rm -f "$live_file"
+                break
+              fi
+              actual="$(sha256sum "$live_file" | awk '{print $1}')"
+              rm -f "$live_file"
+              printf '%s %s %s\n' "$public_path" "$expected" "$actual" >> tmp/p05f-w5-q030-live-pages-e2e/deployment-hashes.txt
+              if [ "$expected" != "$actual" ]; then all_match=0; break; fi
+            done
+            if [ "$all_match" = 1 ]; then
+              echo "Q030 exact deployment observed on attempt $attempt"
+              exit 0
+            fi
+            if [ "$attempt" -lt 36 ]; then sleep 15; fi
+          done
+          echo 'Q030 exact deployment was not observed within the bounded retry window.' >&2
+          cat tmp/p05f-w5-q030-live-pages-e2e/deployment-hashes.txt >&2 || true
+          exit 1
+
+      - name: Validate Q030 live runtime authority
+        run: |
+          node --input-type=module <<'NODE'
+          import { chromium } from 'playwright';
+          import { mkdirSync, writeFileSync } from 'node:fs';
+          const base=process.env.P05F30_BASE_URL,head=process.env.GITHUB_SHA,count=120;
+          const cases=[
+            ['kp_g5b_u03_l_dm3_equivalence','ps_g5b_u03_l_to_dm3_equivalence'],
+            ['kp_g5b_u03_l_dm3_equivalence','ps_g5b_u03_dm3_to_l_equivalence'],
+            ['kp_g5b_u03_ml_cm3_equivalence','ps_g5b_u03_ml_to_cm3_equivalence'],
+            ['kp_g5b_u03_ml_cm3_equivalence','ps_g5b_u03_cm3_to_ml_equivalence']
+          ];
+          const browser=await chromium.launch({headless:true}),page=await browser.newPage();
+          try {
+            const report=await page.evaluate(async({base,head,count,cases})=>{
+              const runtime=await import(`${base}modules/curriculum/batch-a/g5b-u03-capacity-volume-equivalence-runtime-p05f30.js?sha=${head}`);
+              const rows=[];
+              for(const [kp,specId] of cases){
+                const generated=runtime.generateG5BU03P05F30Questions({knowledgePointId:kp,patternSpecIds:[specId],questionCount:count,generationSeed:`live-q030-${specId}`});
+                const first=generated.questions[0],tampered=first?{...first,answerText:'999'}:null;
+                rows.push({knowledgePointId:kp,patternSpecId:specId,ok:generated.ok,count:generated.questions.length,distinct:new Set(generated.questions.map(q=>q.questionSignature)).size,allValid:generated.questions.every(q=>runtime.validateG5BU03P05F30Question(q).ok),tamperRejected:tampered?!runtime.validateG5BU03P05F30Question(tampered).ok:false,runtimeProfiles:[...new Set(generated.questions.map(q=>q.metadata?.frozenRuntimeProfile))],unitConversionModifiers:[...new Set(generated.questions.map(q=>q.metadata?.unitConversionModifierApplied))]});
+              }
+              return rows;
+            },{base,head,count,cases});
+            if(report.some(row=>!row.ok||row.count!==count||row.distinct!==count||!row.allValid||!row.tamperRejected||row.runtimeProfiles.join(',')!=='profile_geometry_formula'||row.unitConversionModifiers.join(',')!=='false'))throw new Error(`P05F30_LIVE_RUNTIME:${JSON.stringify(report)}`);
+            mkdirSync('tmp/p05f-w5-q030-live-pages-e2e',{recursive:true});
+            writeFileSync('tmp/p05f-w5-q030-live-pages-e2e/direct-runtime.json',`${JSON.stringify(report,null,2)}\n`);
+            console.log(`P05F30_LIVE_RUNTIME=${JSON.stringify(report)}`);
+          } finally { await page.close(); await browser.close(); }
+          NODE
+
+      - name: Run Q030 exact deployed Classic UI acceptance
+        env:
+          P05F30_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html
+        run: |
+          node tools/curriculum/run-p05f-w5-q030-classic-ui-acceptance.mjs | tee tmp/p05f-w5-q030-live-pages-e2e/classic-ui.stdout.txt
+
+      - name: Materialize Q030 D0 Pages report
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync,writeFileSync} from 'node:fs';
+          const runtime=JSON.parse(readFileSync('tmp/p05f-w5-q030-live-pages-e2e/direct-runtime.json','utf8'));
+          const stdout=readFileSync('tmp/p05f-w5-q030-live-pages-e2e/classic-ui.stdout.txt','utf8');
+          const line=stdout.split(/\r?\n/).find(row=>row.startsWith('P05F30_CLASSIC_UI_ACCEPTANCE='));
+          if(!line)throw new Error('P05F30_CLASSIC_UI_REPORT_MISSING');
+          const ui=JSON.parse(line.slice('P05F30_CLASSIC_UI_ACCEPTANCE='.length));
+          if(ui.status!=='PASS_Q030_CLASSIC_UI')throw new Error(`P05F30_CLASSIC_UI_STATUS:${ui.status}`);
+          const report={schemaName:'P05FW5Q030LivePagesE2EV1',taskId:'P05F_W5DirectProductVerticalSlice030Implementation',status:'PASS_E6_D0_COMPLETE',exactValidationHeadSha:process.env.GITHUB_SHA,productMergeSha:process.env.Q030_PRODUCT_MERGE_SHA,queuePosition:30,sourceId:'g5b_u03_5b03',knowledgePointIds:['kp_g5b_u03_l_dm3_equivalence','kp_g5b_u03_ml_cm3_equivalence'],runtime,ui,deploymentHashEvidence:'deployment-hashes.txt',scopeGuard:{q020ContainerVolumeCapacityDistinctionTouched:false,capacityVolumeConversionTouched:false,containerFillDisplacementTouched:false,applicationContextTouched:false,generalUnitConversionFrameworkTouched:false,unitConversionModifierApplied:false,mixedKnowledgePointAdmission:false,q031OrLaterTouched:false,frozenQueueAuthorityTouched:false,r02AuthorityTouched:false,r04AuthorityTouched:false}};
+          writeFileSync('tmp/p05f-w5-q030-live-pages-e2e/report.json',`${JSON.stringify(report,null,2)}\n`);
+          console.log(`P05F30_LIVE_PAGES_E2E=${JSON.stringify(report)}`);
+          NODE
+
+      - name: Upload Q030 exact Pages evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p05f-w5-q030-pages-e2e
+          path: tmp/p05f-w5-q030-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30
