@@ -1,0 +1,17 @@
+import fs from "node:fs";
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+import {materializeP05EW5DirectProductVerticalSliceQueue} from "../../src/curriculum/full-product/p05e-w5-direct-product-vertical-slice-queue.mjs";
+import {materializeR04SharedRuntimeCapabilityMatrix} from "../../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"../..");
+const read=p=>JSON.parse(fs.readFileSync(path.join(ROOT,p),"utf8"));
+const queue=materializeP05EW5DirectProductVerticalSliceQueue();
+const row=queue.queueEntries.find(x=>x.queuePosition===32);
+if(!row||row.implementationTaskId!=="P05F_W5DirectProductVerticalSlice032Implementation") throw new Error("Q032_FROZEN_ROW_INVALID");
+const r02=read("data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json");
+const source=r02.sourceRecords.find(x=>x.sourceNodeId===row.primarySourceNodeId);
+const candidate=source?.candidates.find(x=>x.knowledgePointId==="kp_g4a_u05_triangle_inequality");
+if(!candidate) throw new Error("Q032_R02_CANDIDATE_MISSING");
+const mapping=materializeR04SharedRuntimeCapabilityMatrix().getMapping(candidate.knowledgePointId);
+if(!mapping) throw new Error("Q032_R04_MAPPING_MISSING");
+process.stdout.write(`P05F32_PREFLIGHT_READBACK=${JSON.stringify({status:"PASS_Q032_EXACT_AUTHORITY_READBACK",queue:row,r02:{sourceNodeId:source.sourceNodeId,sourceTitle:source.sourceTitle,sourcePdfTitle:source.sourcePdfTitle,reviewedPages:source.reviewedPages,candidate},r04:{mappingId:mapping.mappingId,profileId:mapping.primaryRuntimeProfileId,classificationRuleId:mapping.classificationRuleId,appliedModifierIds:mapping.appliedModifierIds,requiredRuntimeCapabilityIds:mapping.requiredRuntimeCapabilityIds,optionalRuntimeCapabilityIds:mapping.optionalRuntimeCapabilityIds,runtimeCapabilityDeliveryState:mapping.runtimeCapabilityDeliveryState}})}\n`);
