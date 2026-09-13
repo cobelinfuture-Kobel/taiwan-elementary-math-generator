@@ -1,0 +1,12 @@
+{
+  "schemaVersion":"1.0.0",
+  "policyId":"UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId":"P05F_W5_Q033",
+  "currentScope":"SHARED_RUNTIME",
+  "currentKnowledgePointIds":["kp_g4b_u02_parallel_distance_construction","kp_g4b_u02_quadrilateral_classification"],
+  "unitExpectedKnowledgePointIds":["kp_g4b_u02_parallel_distance_construction","kp_g4b_u02_quadrilateral_classification"],
+  "unitKnowledgePointGateStatus":{"kp_g4b_u02_parallel_distance_construction":"PENDING","kp_g4b_u02_quadrilateral_classification":"PENDING"},
+  "expectedDerivedGate":"SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath":"data/project/validation-plans/P05F_W5_Q033.validation.json",
+  "changeImpact":{"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":false,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true}
+}
