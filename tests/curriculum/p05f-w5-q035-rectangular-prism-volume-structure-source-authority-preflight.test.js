@@ -15,6 +15,7 @@ const r02=read("data/curriculum/global/candidates/r02/chunks/reviewed-source-can
 const KP="kp_g4b_u10_rectangular_prism_volume_structure";
 const REQUIRED_W5=["cap_geometry_domain_validator","cap_geometry_property_reasoning","cap_solid_geometry_representation","cap_spatial_solid_reasoning"];
 const PROFILE_REQUIRED=["cap_spatial_solid_reasoning","cap_geometry_domain_validator","cap_solid_geometry_representation"];
+const PROFILE_OPTIONAL=["cap_geometry_construction"];
 const PROTECTED=["kp_g4b_u10_cubic_centimeter_unit","kp_g4b_u10_unit_cube_counting","kp_g4b_u10_layered_cube_counting","kp_g4b_u10_volume_conservation_rearrangement"];
 const sorted=values=>[...values].sort();
 
@@ -97,13 +98,19 @@ test("Q035 binds current R04 spatial-solid mapping and exact R05 dependency-clos
   const r04=materializeR04SharedRuntimeCapabilityMatrix();
   const r05=materializeR05DeliveryWaveRebase();
   const mapping=r04.getMapping(KP); assert.ok(mapping);
+  const profile=r04.profiles.find(x=>x.profileId==="profile_spatial_solid"); assert.ok(profile);
   assert.equal(mapping.mappingId,"r04map_g4b_u10_rectangular_prism_volume_structure");
   assert.equal(mapping.primaryRuntimeProfileId,"profile_spatial_solid");
   assert.equal(mapping.classificationRuleId,"rule_spatial_solid");
   assert.deepEqual(mapping.appliedModifierIds,[]);
   for(const capabilityId of PROFILE_REQUIRED) assert.ok(mapping.requiredRuntimeCapabilityIds.includes(capabilityId),capabilityId);
-  assert.deepEqual(mapping.optionalRuntimeCapabilityIds,[]);
+  assert.deepEqual(profile.optionalCapabilityIds,PROFILE_OPTIONAL);
+  assert.deepEqual(mapping.optionalRuntimeCapabilityIds,PROFILE_OPTIONAL);
   assert.deepEqual(mapping.forbiddenRuntimeCapabilityIds,[]);
+  assert.deepEqual(preflight.runtimeCapabilityAuthority.mapping.requiredRuntimeCapabilityIds,mapping.requiredRuntimeCapabilityIds);
+  assert.deepEqual(preflight.runtimeCapabilityAuthority.mapping.optionalRuntimeCapabilityIds,mapping.optionalRuntimeCapabilityIds);
+  assert.deepEqual(preflight.runtimeCapabilityAuthority.mapping.forbiddenRuntimeCapabilityIds,mapping.forbiddenRuntimeCapabilityIds);
+  assert.deepEqual(preflight.runtimeCapabilityAuthority.profileOptionalCapabilityIds,PROFILE_OPTIONAL);
   const assignment=r05.getAssignment(KP); assert.ok(assignment);
   assert.equal(assignment.deliveryWaveId,"R05-W5");
   assert.equal(assignment.intraWavePrerequisiteRank,3);
