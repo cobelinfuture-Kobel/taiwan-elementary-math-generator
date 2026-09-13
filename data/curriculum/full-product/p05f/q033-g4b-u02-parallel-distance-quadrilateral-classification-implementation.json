@@ -1,0 +1,30 @@
+{
+  "schemaName": "P05FW5Q033ParallelDistanceQuadrilateralClassificationImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice033Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {"before":"D2_Q033_TWO_KP_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED","after":"D1_Q033_TWO_KP_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6","reduced":"D2_TO_D1"},
+  "preflightPath": "data/curriculum/full-product/p05f/q033-g4b-u02-parallel-distance-quadrilateral-classification-source-authority-preflight.json",
+  "queueAuthority": {
+    "queuePosition": 33,
+    "sliceId": "p05e_q033_r3_g4b_u02_4b02_profile_geometry_property_c1",
+    "sourceId": "g4b_u02_4b02",
+    "runtimeProfileId": "profile_geometry_property",
+    "knowledgePointIds": ["kp_g4b_u02_parallel_distance_construction","kp_g4b_u02_quadrilateral_classification"],
+    "requiredW5CapabilityIds": ["cap_geometry_construction","cap_geometry_diagram_representation","cap_geometry_domain_validator","cap_geometry_property_reasoning"],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "previousSliceD0Evidence": {"sliceId":"p05e_q032_r3_g4a_u05_4a05_profile_geometry_property_c1","productPrNumber":906,"productMergeSha":"ce9df0bd4ccaf5a1508abce4c9c7e6b9fb1fe45d","exactPagesRunId":"34724619952","evidenceArtifactId":"10307870696","status":"PASS_E6_D0_COMPLETE"},
+  "sourceAuthority": {"sourceTitle":"垂直平行與四邊形","sourcePdfTitle":"meow911_4b02_source.pdf","sourcePages":[1,2],"reviewMethod":"R02_FULL_PAGE_VISUAL_REVIEW_WITH_Q004_Q025_SOURCE_IDENTITY_REUSE","sourceRefAmbiguity":false},
+  "formalMapping": {
+    "parallelDistanceConstruction": {"mappingId":"fm_g4b_u02_parallel_distance_construction_p05f33","relations":["MEASURE_PARALLEL_LINE_DISTANCE_BY_PERPENDICULAR_SEGMENT","CONSTRUCT_PARALLEL_LINE_AT_SPECIFIED_PERPENDICULAR_DISTANCE","PRESERVE_CONSTANT_PERPENDICULAR_DISTANCE_BETWEEN_PARALLEL_LINES"],"reasoningInvariant":"兩平行線間的垂直距離處處相等。"},
+    "quadrilateralClassification": {"mappingId":"fm_g4b_u02_quadrilateral_classification_p05f33","relations":["CLASSIFY_QUADRILATERAL_BY_PARALLEL_EQUAL_SIDE_AND_RIGHT_ANGLE_PROPERTIES","DISTINGUISH_TRAPEZOID_PARALLELOGRAM_RECTANGLE_RHOMBUS_AND_SQUARE"],"reasoningInvariant":"分類必須同時檢查平行邊、等長邊與直角條件。","inclusionRelationAdmitted":false}
+  },
+  "patternContract": {"patternGroupCount":2,"patternSpecCount":8,"parallelDistancePatternSpecCount":3,"quadrilateralClassificationPatternSpecCount":5,"questionMode":"diagram","maxQuestionCountPerSingleKnowledgePoint":240,"applicationImplementationAllowed":false,"sameUnitMixedAdmission":false,"crossUnitMixedAdmission":false},
+  "runtimeContract": {"projection":"site/modules/curriculum/registry/g4b-u02-parallel-distance-quadrilateral-classification-selector-projection-p05f33.js","generatorValidator":"site/modules/curriculum/batch-a/g4b-u02-parallel-distance-quadrilateral-classification-runtime-p05f33.js","browserGenerator":"site/modules/curriculum/batch-a/batch-a-browser-generator-p05f33.js","worksheetAdapter":"site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f33-extension.js","diagramRenderer":"site/modules/renderer/g4b-u02-geometry-property-diagram-p05f33.js","legacyDispatcherCompatibilityEnvelope":"site/modules/renderer/parallel-lines-recognition-diagram.js","sharedRuntimeScope":"SHARED_RUNTIME_BOUNDED","genericFallback":false,"freeFormAI":false},
+  "publicAdmission": {"g4bU02VisibleCountBefore":2,"g4bU02VisibleCountAfter":4,"g4bU02HiddenPendingCountBefore":3,"g4bU02HiddenPendingCountAfter":1,"g4bU02NotSelectableCountBefore":3,"g4bU02NotSelectableCountAfter":1,"remainingHiddenKnowledgePointIds":["kp_g4b_u02_quadrilateral_inclusion_relation"],"questionTypeValue":"diagram","questionCountMax":240},
+  "compatibilityBridge": {"reason":"stable worksheet dispatcher currently enters the latest P05F32 top slot","modifiedFiles":["site/modules/curriculum/batch-a/batch-a-browser-generator-p05f32.js","site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f32-extension.js"],"q032BehaviorPreserved":true,"q033DelegationOnly":true},
+  "validationBoundary": {"policyId":"UNIT_INCREMENTAL_VALIDATION_V1","derivedGate":"SHARED_RUNTIME_BOUNDED","fullRepositoryRegression":"FORBIDDEN_FOR_THIS_BOUNDED_SLICE","globalBrowserReplay":"FORBIDDEN_FOR_THIS_BOUNDED_SLICE","focusedNodeTest":"tests/curriculum/p05f-w5-slice033-g4b-u02-parallel-distance-quadrilateral-classification.test.js","targetedRouteReplay":"tools/curriculum/run-p05f-w5-slice033-classic-ui-acceptance.mjs"},
+  "scopeGuard": {"parallelLinesRecognitionReowned":false,"perpendicularLinesRecognitionReowned":false,"quadrilateralInclusionTouched":false,"numericAngleMeasurementTouched":false,"areaPerimeterFormulaTouched":false,"applicationContextTouched":false,"q034OrLaterTouched":false,"frozenQueueAuthorityTouched":false,"r02AuthorityTouched":false,"r04AuthorityTouched":false}
+}

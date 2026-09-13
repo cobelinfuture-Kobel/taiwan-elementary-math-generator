@@ -1,3 +1,4 @@
+import {isG4BU02Q033Diagram,renderG4BU02Q033Diagram} from "./g4b-u02-geometry-property-diagram-p05f33.js";
 const ALLOWED_ORIENTATIONS = new Set([-45,-30,-15,0,15,30,45,60,75,90]);
 const ALLOWED_GAPS = new Set([22,26,30,34,38,42,46,50]);
 const ALLOWED_X_SHIFTS = new Set([-12,0,12]);
@@ -27,6 +28,7 @@ function lineMarkup(point,sign,from,to,className,extra="") {
 }
 
 export function renderParallelLinesRecognitionDiagram(model) {
+  if (isG4BU02Q033Diagram(model)) return renderG4BU02Q033Diagram(model);
   if (!validModel(model)) {
     const error = new Error("Parallel-lines recognition diagram representation is invalid.");
     error.code = "parallel_lines_recognition_diagram_invalid";
