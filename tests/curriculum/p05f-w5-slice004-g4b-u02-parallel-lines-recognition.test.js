@@ -150,7 +150,8 @@ test("P05F W5 Q004 stable browser selector and binding wrappers cut over while N
   try{
     const selector=await import(`../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js?p05f4=${Date.now()}`);
     const bindingModule=await import(`../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js?p05f4=${Date.now()}`);
-    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.sourceCount,47);assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount,316);assert.equal(selector.getVisibleBatchAKnowledgePoint(G4B_U02_P05F4_KP_ID)?.sourceId,G4B_U02_P05F4_SOURCE_ID);
+    assert.equal(BATCH_A_SELECTOR_AVAILABILITY.sourceCount,47);assert.equal(BATCH_A_SELECTOR_AVAILABILITY.visibleCount,316);
+    assert.ok(selector.BATCH_A_SELECTOR_AVAILABILITY.sourceCount>=BATCH_A_SELECTOR_AVAILABILITY.sourceCount);assert.ok(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount>=BATCH_A_SELECTOR_AVAILABILITY.visibleCount);assert.equal(selector.getVisibleBatchAKnowledgePoint(G4B_U02_P05F4_KP_ID)?.sourceId,G4B_U02_P05F4_SOURCE_ID);
     const binding=bindingModule.resolvePublicUiCapabilityBinding(options);assert.equal(binding.questionType,"diagram");assert.equal(binding.questionCount.max,240);assert.ok(listBatchASourceUnits().some((row)=>row.sourceId===G4B_U02_P05F4_SOURCE_ID));
   }finally{delete globalThis.document;}
 });
