@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q034_BOUNDED_VALIDATION",
+  "unitId": "g4b_u07_4b07",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-slice034-g4b-u07-composite-area-perimeter-path.test.js",
+          "tests/curriculum/p05f-w5-q034-composite-area-perimeter-path-source-authority-preflight.test.js",
+          "tests/curriculum/p05f-w5-slice026-g4b-u07-rectangle-square-area-formula.test.js",
+          "tests/curriculum/p05f-w5-slice033-g4b-u02-parallel-distance-quadrilateral-classification.test.js",
+          "tests/curriculum/p05e-w5-direct-product-vertical-slice-queue.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p05f-w5-slice034-classic-ui-acceptance.mjs",
+        "runtime": "CHROMIUM"
+      }
+    ]
+  }
+}
