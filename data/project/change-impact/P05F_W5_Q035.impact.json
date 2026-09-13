@@ -8,5 +8,5 @@
   "unitKnowledgePointGateStatus":{"kp_g4b_u10_rectangular_prism_volume_structure":"IMPLEMENTATION_AND_PUBLIC_CUTOVER"},
   "expectedDerivedGate":"SHARED_RUNTIME_BOUNDED",
   "validationPlanPath":"data/project/validation-plans/P05F_W5_Q035.validation.json",
-  "changeImpact":{"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":true,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true}
+  "changeImpact":{"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":false,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true}
 }
