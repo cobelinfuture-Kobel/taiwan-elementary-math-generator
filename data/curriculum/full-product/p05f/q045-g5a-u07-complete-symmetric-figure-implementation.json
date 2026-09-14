@@ -1,0 +1,17 @@
+{
+  "schemaName":"P05FW5Q045CompleteSymmetricFigureImplementationV1",
+  "schemaVersion":1,
+  "programId":"FULL_PRODUCT_LINE_D0_V1",
+  "taskId":"P05F_W5DirectProductVerticalSlice045Implementation",
+  "status":"IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance":{"before":"D2_Q045_COMPLETE_SYMMETRIC_FIGURE_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED","after":"D1_Q045_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6","reduced":"D2_TO_D1"},
+  "baselineMainSha":"f59338bd301142020a9c5810da6d4ba939b238b6",
+  "preflightMergeSha":"9b1a920604b3e0cf524197dcd8332b0652c40d95",
+  "queueAuthority":{"queuePosition":45,"sliceId":"p05e_q045_r4_g5a_u07_5a07_profile_geometry_property_c1","knowledgePointId":"kp_g5a_u07_complete_symmetric_figure","sourceId":"g5a_u07_5a07","runtimeProfileId":"profile_geometry_property","targetEvidenceLevel":"E6_D0_COMPLETE"},
+  "formalMapping":{"mappingId":"fm_g5a_u07_complete_symmetric_figure_p05f45","includedRelations":["COMPLETE_MISSING_HALF_ACROSS_GIVEN_SYMMETRY_AXIS","MAP_EACH_CONTROL_POINT_TO_EQUAL_DISTANCE_OPPOSITE_SIDE","CONNECT_REFLECTED_POINTS_TO_COMPLETE_SYMMETRIC_FIGURE"],"r02EvidencePages":[1],"requiredCapabilityIds":["cap_geometry_construction","cap_geometry_diagram_representation","cap_geometry_domain_validator","cap_geometry_property_reasoning"]},
+  "patternSpecs":["ps_g5a_u07_complete_vertical_half","ps_g5a_u07_complete_horizontal_half","ps_g5a_u07_complete_multipoint_profile"],
+  "runtime":{"maxQuestionCount":240,"deterministicDistinctVariantsPerPatternSpec":240,"questionMode":"diagram","failClosedValidator":true,"questionDiagramIsIncomplete":true,"answerDiagramIsCompleted":true},
+  "publicAdmission":{"expectedGlobalPublicSourceDelta":0,"expectedGlobalVisibleKnowledgePointDelta":1,"sourceVisibleKnowledgePointIds":["kp_g5a_u07_line_symmetry_recognition","kp_g5a_u07_symmetry_axis_count","kp_g5a_u07_symmetric_point_distance","kp_g5a_u07_complete_symmetric_figure"],"sourceHiddenPendingKnowledgePointIds":["kp_g5a_u07_coordinate_reflection"],"singleKnowledgePointOnly":true,"sameUnitMixed":false,"crossUnitMixed":false,"applicationContext":false},
+  "productNodes":{"FORMAL_MAPPING":"MATERIALIZED","PATTERN_SPEC":"MATERIALIZED","SHARED_GENERATOR_BINDING":"MATERIALIZED","DETERMINISTIC_VALIDATOR_BINDING":"MATERIALIZED","PUBLIC_SOURCE_ADAPTER":"REUSED_EXISTING_SOURCE","PUBLIC_UI_SELECTION":"MATERIALIZED","WORKSHEET_AND_ANSWER_KEY":"MATERIALIZED","PRODUCTION_HTML":"MATERIALIZED","CHROMIUM_PDF_AND_PRINT":"FOCUSED_ACCEPTANCE_REQUIRED","PRODUCT_ADMISSION_CLAIM":"LIVE_E6_REQUIRED"},
+  "scopeGuard":{"q006SemanticsModified":false,"q016SemanticsModified":false,"q036SemanticsModified":false,"coordinateReflectionTouched":false,"applicationContextTouched":false,"sameUnitMixedTouched":false,"crossUnitMixedTouched":false,"q046OrLaterTouched":false,"frozenQueueAuthorityTouched":false,"r02AuthorityTouched":false,"r04AuthorityTouched":false,"r05AuthorityTouched":false}
+}
