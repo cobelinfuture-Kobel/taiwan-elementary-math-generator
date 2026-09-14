@@ -113,13 +113,15 @@ test("Q046 binds current R04 geometry-formula mappings and exact R05 W5 closure"
     assert.equal(mapping.mappingId,`r04map_${kp.replace(/^kp_/,"")}`);
     assert.equal(mapping.primaryRuntimeProfileId,"profile_geometry_formula");
     assert.equal(mapping.classificationRuleId,"rule_geometry_formula");
-    assert.deepEqual(mapping.appliedModifierIds,[]);
+    assert.deepEqual(mapping.appliedModifierIds,["mod_integer_division"]);
     for(const capabilityId of PROFILE_REQUIRED) assert.ok(mapping.requiredRuntimeCapabilityIds.includes(capabilityId),`${kp}:${capabilityId}`);
+    assert.ok(mapping.requiredRuntimeCapabilityIds.includes("cap_integer_division"),`${kp}:cap_integer_division`);
     assert.deepEqual(mapping.optionalRuntimeCapabilityIds,[]);
     assert.deepEqual(mapping.forbiddenRuntimeCapabilityIds,[]);
     assert.equal(mapping.runtimeCapabilityDeliveryState,"BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES");
     assert.deepEqual(sorted(mapping.undeliveredRequiredCapabilityIds),sorted(DIRECT_CONTRACT_ONLY));
     const bound=preflight.runtimeCapabilityAuthority.mappings.find(x=>x.knowledgePointId===kp); assert.ok(bound,kp);
+    assert.deepEqual(bound.appliedModifierIds,mapping.appliedModifierIds);
     assert.deepEqual(bound.requiredRuntimeCapabilityIds,mapping.requiredRuntimeCapabilityIds);
     assert.deepEqual(bound.optionalRuntimeCapabilityIds,mapping.optionalRuntimeCapabilityIds);
     assert.deepEqual(bound.forbiddenRuntimeCapabilityIds,mapping.forbiddenRuntimeCapabilityIds);
