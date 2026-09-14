@@ -1,0 +1,345 @@
+{
+  "schemaName": "P05FW5Q046TriangleTrapezoidAreaFormulasSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q046_TriangleTrapezoidAreaFormulas_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q046_FROZEN_QUEUE_ROW_AVAILABLE_SOURCE_SCOPE_UNMATERIALIZED",
+    "after": "D2_Q046_TRIANGLE_TRAPEZOID_AREA_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "e72cdda0d7460fa9f941b5b246bc3203d91b0230",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 46,
+    "sliceId": "p05e_q046_r4_g5a_u09_5a09_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice046Implementation",
+    "previousSliceId": "p05e_q045_r4_g5a_u07_5a07_profile_geometry_property_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W5",
+    "primarySourceNodeId": "g5a_u09_5a09",
+    "supportingSourceNodeIds": [
+      "g5a_u09_5a09"
+    ],
+    "intraWavePrerequisiteRank": 4,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_g5a_u09_trapezoid_area_formula",
+      "kp_g5a_u09_triangle_area_formula"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredProductNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q045_r4_g5a_u07_5a07_profile_geometry_property_c1",
+    "preflightPrNumber": 932,
+    "productPrNumber": 933,
+    "productHeadSha": "7bad8a5b167d4727efc14392436543319a09d64c",
+    "productMergeSha": "0581b6de445bbe8deeaeecffc98bb4d81186fcea",
+    "prGateRunId": "34817079931",
+    "exactPagesRunId": "34817196760",
+    "evidenceArtifactId": "10336632695",
+    "evidenceArtifactName": "p05f-w5-q045-pages-e2e",
+    "evidenceArtifactDigest": "sha256:3cab69a0ec24b2e23b3c430e29471dcb9f00c90417b58adad1aa72d93814c3a0",
+    "postMergeTestContractRepairPrNumber": 934,
+    "postMergeTestContractRepairMergeSha": "11c1278e0601b891ad2a96c3b0bd76beee2e000f",
+    "status": "PASS_E6_D0_COMPLETE",
+    "prGateConclusion": "success",
+    "exactPagesWorkflowConclusion": "success",
+    "exactPagesEvidenceUploaded": true,
+    "exactPagesEvidenceBoundToProductMergeSha": true
+  },
+  "sourceAuthority": {
+    "chosenSourceRef": "R02_FULL_PAGE_REVIEW_PLUS_Q037_SAME_SOURCE_IDENTITY_REUSE",
+    "sourceNodeId": "g5a_u09_5a09",
+    "sourceTitle": "平行四邊形三角形梯形面積",
+    "metadataSourceTitle": "面積",
+    "sourcePdfTitle": "meow911_5a09_source.pdf",
+    "sourcePdfDriveFileId": "1fvDY9emawKVJgMNyt5oN-TbHvaRtpUy9",
+    "sourceMetadataDriveFileId": "1wWfnemvRk-X5As2l4UvEc2zKHGanlH0y",
+    "verificationNotesDriveFileId": "1NMsQLNSSWLbPbiQcWDXFhdn-Rzg9-iOo",
+    "originalFileNameFromMetadata": "題型總覽-5a09-面積.pdf",
+    "sourceUrlFromMetadata": "https://meow911.com/5a09/",
+    "pageCount": 4,
+    "reviewedPages": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "authorityMethod": "FROZEN_QUEUE_PLUS_R02_FULL_PAGE_VISUAL_READBACK_WITH_Q037_CURRENT_SAME_FILE_IDENTITY_REUSE",
+    "targetEvidenceReconciliation": {
+      "triangleAreaFormula": {
+        "knowledgePointId": "kp_g5a_u09_triangle_area_formula",
+        "r02EvidencePages": [
+          2
+        ],
+        "r02CapabilityStatement": "學生能以底乘高除以2求三角形面積。",
+        "r02ReasoningInvariant": "同底等高三角形面積是平行四邊形的一半。",
+        "currentSemanticAuthority": "R02_FULL_PAGE_VISUAL_READBACK",
+        "samePdfIdentityAlreadyCorroboratedByQ037": true,
+        "newTargetVisualReplayRequiredForPreflight": false,
+        "disposition": "R02_PAGE_2_CURRENT_SEMANTIC_AUTHORITY"
+      },
+      "trapezoidAreaFormula": {
+        "knowledgePointId": "kp_g5a_u09_trapezoid_area_formula",
+        "r02EvidencePages": [
+          3
+        ],
+        "r02CapabilityStatement": "學生能以上下底和乘高除以2求梯形面積。",
+        "r02ReasoningInvariant": "兩個全等梯形可拼成底為上下底和的平行四邊形。",
+        "currentSemanticAuthority": "R02_FULL_PAGE_VISUAL_READBACK",
+        "samePdfIdentityAlreadyCorroboratedByQ037": true,
+        "newTargetVisualReplayRequiredForPreflight": false,
+        "disposition": "R02_PAGE_3_CURRENT_SEMANTIC_AUTHORITY"
+      },
+      "r02AuthorityModified": false
+    },
+    "verificationStateReconciliation": {
+      "r02FullPageReviewIsCurrentSemanticAuthority": true,
+      "q037SameSourcePdfIdentityAlreadyVerified": true,
+      "legacyPendingMetadataNotesRetainedAsProvenanceOnly": true,
+      "ocrUsedAsAuthority": false
+    },
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "chunkBlobSha": "ca7ff0b9aca2878e7b1887fa788060871e5a8b39",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5a_u09_5a09",
+    "sourceTitle": "平行四邊形三角形梯形面積",
+    "sourcePdfTitle": "meow911_5a09_source.pdf",
+    "reviewedPages": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "knowledgePoints": [
+      {
+        "knowledgePointId": "kp_g5a_u09_trapezoid_area_formula",
+        "canonicalNameZh": "梯形面積",
+        "capabilityStatement": "學生能以上下底和乘高除以2求梯形面積。",
+        "reasoningInvariant": "兩個全等梯形可拼成底為上下底和的平行四邊形。",
+        "category": "geometry",
+        "evidencePages": [
+          3
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_g5a_u09_triangle_area_formula",
+        "canonicalNameZh": "三角形面積",
+        "capabilityStatement": "學生能以底乘高除以2求三角形面積。",
+        "reasoningInvariant": "同底等高三角形面積是平行四邊形的一半。",
+        "category": "geometry",
+        "evidencePages": [
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ],
+    "sameSourceCandidateIds": [
+      "kp_g5a_u09_parallelogram_area_formula",
+      "kp_g5a_u09_triangle_area_formula",
+      "kp_g5a_u09_trapezoid_area_formula",
+      "kp_g5a_u09_area_unknown_dimension",
+      "kp_g5a_u09_composite_polygon_area"
+    ]
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "runtimeMatrixModulePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "profileId": "profile_geometry_formula",
+    "classificationRuleId": "rule_geometry_formula",
+    "mappings": [
+      {
+        "knowledgePointId": "kp_g5a_u09_trapezoid_area_formula",
+        "mappingId": "r04map_g5a_u09_trapezoid_area_formula",
+        "primaryRuntimeProfileId": "profile_geometry_formula",
+        "classificationRuleId": "rule_geometry_formula",
+        "appliedModifierIds": [],
+        "requiredRuntimeCapabilityIds": [
+          "cap_pattern_spec_resolution",
+          "cap_deterministic_answer_model",
+          "cap_worksheet_document_assembly",
+          "cap_answer_key_projection",
+          "cap_html_print_renderer",
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ],
+        "optionalRuntimeCapabilityIds": [],
+        "forbiddenRuntimeCapabilityIds": [],
+        "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+        "undeliveredRequiredCapabilityIds": [
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ]
+      },
+      {
+        "knowledgePointId": "kp_g5a_u09_triangle_area_formula",
+        "mappingId": "r04map_g5a_u09_triangle_area_formula",
+        "primaryRuntimeProfileId": "profile_geometry_formula",
+        "classificationRuleId": "rule_geometry_formula",
+        "appliedModifierIds": [],
+        "requiredRuntimeCapabilityIds": [
+          "cap_pattern_spec_resolution",
+          "cap_deterministic_answer_model",
+          "cap_worksheet_document_assembly",
+          "cap_answer_key_projection",
+          "cap_html_print_renderer",
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ],
+        "optionalRuntimeCapabilityIds": [],
+        "forbiddenRuntimeCapabilityIds": [],
+        "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+        "undeliveredRequiredCapabilityIds": [
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ]
+      }
+    ],
+    "directR04ContractOnlyCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation"
+    ],
+    "r05DependencyClosureCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "r02CandidateCategory": "geometry",
+    "r02CategoryAlignedWithFrozenProfile": true,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false
+  },
+  "q046ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g5a_u09_trapezoid_area_formula",
+      "kp_g5a_u09_triangle_area_formula"
+    ],
+    "includedRelations": [
+      "COMPUTE_TRIANGLE_AREA_AS_BASE_TIMES_PERPENDICULAR_HEIGHT_DIVIDED_BY_TWO",
+      "DERIVE_TRIANGLE_AREA_AS_HALF_OF_EQUAL_BASE_HEIGHT_PARALLELOGRAM",
+      "COMPUTE_TRAPEZOID_AREA_AS_SUM_OF_PARALLEL_BASES_TIMES_PERPENDICULAR_HEIGHT_DIVIDED_BY_TWO",
+      "DERIVE_TRAPEZOID_AREA_BY_PAIRING_TWO_CONGRUENT_TRAPEZOIDS_INTO_PARALLELOGRAM",
+      "REQUIRE_HEIGHT_PERPENDICULAR_TO_SELECTED_BASE_OR_BASE_EXTENSION"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": [
+      "kp_g5a_u09_parallelogram_area_formula"
+    ],
+    "excludedSameSourceKnowledgePointIds": [
+      "kp_g5a_u09_area_unknown_dimension",
+      "kp_g5a_u09_composite_polygon_area"
+    ],
+    "deferredFrozenQueueOwnership": {
+      "kp_g5a_u09_area_unknown_dimension": "Q057",
+      "kp_g5a_u09_composite_polygon_area": "Q062"
+    },
+    "excludedRelations": [
+      "REOWN_PARALLELOGRAM_AREA_FORMULA",
+      "AREA_UNKNOWN_BASE_OR_HEIGHT",
+      "COMPOSITE_POLYGON_AREA",
+      "RHOMBUS_SPECIFIC_AREA_FORMULA",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "Q047_OR_LATER_SEMANTICS"
+    ],
+    "q037ParallelogramAreaSemanticsMayBeReusedAsPrerequisiteButNotReowned": true,
+    "triangleAreaMustUseOneHalfOfBaseTimesPerpendicularHeight": true,
+    "trapezoidAreaMustUseOneHalfOfParallelBaseSumTimesPerpendicularHeight": true,
+    "selectedHeightMustBePerpendicularToSelectedBaseOrBaseExtension": true,
+    "requiresDiagramRepresentation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresGeometryFormulaEvaluation": true,
+    "requiresGeometryPropertyReasoningViaDependencyClosure": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q047OrLaterTouched": false
+  },
+  "publicBaselineProtection": {
+    "sourceAlreadyPublicFromQ037": true,
+    "newSourceAdmissionRequiredForQ046": false,
+    "existingVisibleKnowledgePointIdsToPreserve": [
+      "kp_g5a_u09_parallelogram_area_formula"
+    ],
+    "futureSameSourceKnowledgePointIdsRemainHidden": [
+      "kp_g5a_u09_area_unknown_dimension",
+      "kp_g5a_u09_composite_polygon_area"
+    ]
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "sourceAuthoritySufficientForQ046ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "r02AuthorityBoundForAllTargetKnowledgePoints": true,
+    "runtimeCapabilityContractLockedForAllTargetKnowledgePoints": true,
+    "q037SameSourcePredecessorSemanticsProtected": true,
+    "futureSameSourceSiblingProtectionLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalSatisfiedByCurrentOperatorInstruction": false,
+    "nextTaskRequiresNewOperatorApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice046Implementation"
+  }
+}
