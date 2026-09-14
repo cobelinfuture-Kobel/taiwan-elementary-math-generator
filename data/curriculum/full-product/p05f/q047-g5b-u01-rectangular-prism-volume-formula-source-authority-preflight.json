@@ -1,0 +1,259 @@
+{
+  "schemaName": "P05FW5Q047RectangularPrismVolumeFormulaSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q047_RectangularPrismVolumeFormula_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q047_FROZEN_QUEUE_ROW_AVAILABLE_SOURCE_SCOPE_UNMATERIALIZED",
+    "after": "D2_Q047_RECTANGULAR_PRISM_VOLUME_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "08c975ae4072e836f64a8d381daaa17900a2bc0e",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 47,
+    "sliceId": "p05e_q047_r4_g5b_u01_5b01_profile_spatial_solid_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice047Implementation",
+    "previousSliceId": "p05e_q046_r4_g5a_u09_5a09_profile_geometry_formula_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W5",
+    "primarySourceNodeId": "g5b_u01_5b01",
+    "supportingSourceNodeIds": ["g5b_u01_5b01"],
+    "intraWavePrerequisiteRank": 4,
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": ["kp_g5b_u01_rectangular_prism_volume_formula"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredProductNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q046_r4_g5a_u09_5a09_profile_geometry_formula_c1",
+    "preflightPrNumber": 935,
+    "productPrNumber": 936,
+    "productHeadSha": "25aa335cbc751f9d9bc10b21f7dbd34d76dfa95b",
+    "productMergeSha": "525f698242e4c9f7014723693b6818c72c4593ed",
+    "prGateRunId": "34827144328",
+    "pagesDeploymentRunId": "34849444705",
+    "exactPagesRunId": "34849444628",
+    "evidenceArtifactId": "10350190444",
+    "evidenceArtifactName": "p05f-w5-q046-pages-e2e",
+    "evidenceArtifactDigest": "sha256:7f68c3b77b41f2216d8ab2ad45b3d9a233c1c5d03d92532e4bae1092492fa548",
+    "status": "PASS_E6_D0_COMPLETE",
+    "prGateConclusion": "success",
+    "pagesDeploymentConclusion": "success",
+    "exactPagesWorkflowConclusion": "success",
+    "exactPagesEvidenceUploaded": true,
+    "exactPagesEvidenceBoundToProductMergeSha": true
+  },
+  "sourceAuthority": {
+    "chosenSourceRef": "R02_FULL_PAGE_REVIEW_PLUS_Q019_SAME_SOURCE_IDENTITY_REUSE",
+    "sourceNodeId": "g5b_u01_5b01",
+    "sourceTitle": "長方體和正方體的體積",
+    "sourcePdfTitle": "meow911_5b01_source.pdf",
+    "sourcePdfDriveFileId": "1IYHtSOWSxqbjcyEi94rmMEyqtOflGQ2f",
+    "sourceUrl": "https://meow911.com/5b01/",
+    "pageCount": 2,
+    "reviewedPages": [1, 2],
+    "authorityMethod": "FROZEN_QUEUE_PLUS_R02_FULL_PAGE_REVIEW_WITH_Q019_CURRENT_SAME_FILE_IDENTITY_REUSE",
+    "sameSourcePriorAuthorityPaths": [
+      "data/curriculum/full-product/p05f/q019-g5b-u01-volume-unit-conversion-source-authority-preflight.json"
+    ],
+    "targetEvidenceReconciliation": {
+      "rectangularPrismVolumeFormula": {
+        "knowledgePointId": "kp_g5b_u01_rectangular_prism_volume_formula",
+        "r02EvidencePages": [1, 2],
+        "r02CapabilityStatement": "學生能以長乘寬乘高求長方體體積。",
+        "r02ReasoningInvariant": "每層單位方塊數為長乘寬，總層數為高。",
+        "currentSemanticAuthority": "R02_FULL_PAGE_VISUAL_READBACK",
+        "samePdfIdentityAlreadyCorroboratedByQ019": true,
+        "newTargetVisualReplayRequiredForPreflight": false,
+        "disposition": "R02_PAGES_1_2_CURRENT_SEMANTIC_AUTHORITY"
+      },
+      "r02AuthorityModified": false
+    },
+    "sourceIdentityReuse": {
+      "q019AuthorityConfirmed": true,
+      "sameSourceNodeConfirmed": true,
+      "samePdfDriveFileIdConfirmed": true,
+      "sameSourceUrlConfirmed": true,
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "disposition": "REUSE_VERIFIED_G5B_U01_SOURCE_IDENTITY_AND_BIND_Q047_TO_EXACT_R02_RECTANGULAR_PRISM_VOLUME_FORMULA_CANDIDATE"
+    },
+    "ocrUsedAsAuthority": false,
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "chunkBlobSha": "ca7ff0b9aca2878e7b1887fa788060871e5a8b39",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5b_u01_5b01",
+    "sourceTitle": "長方體和正方體的體積",
+    "sourcePdfTitle": "meow911_5b01_source.pdf",
+    "reviewedPages": [1, 2],
+    "knowledgePoint": {
+      "knowledgePointId": "kp_g5b_u01_rectangular_prism_volume_formula",
+      "canonicalNameZh": "長方體體積公式",
+      "capabilityStatement": "學生能以長乘寬乘高求長方體體積。",
+      "reasoningInvariant": "每層單位方塊數為長乘寬，總層數為高。",
+      "category": "geometry",
+      "evidencePages": [1, 2],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "sameSourceCandidateIds": [
+      "kp_g5b_u01_rectangular_prism_volume_formula",
+      "kp_g5b_u01_cube_volume_formula",
+      "kp_g5b_u01_volume_unit_conversion",
+      "kp_g5b_u01_composite_rectangular_volume",
+      "kp_g5b_u01_volume_unknown_dimension"
+    ]
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "runtimeMatrixModulePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "profileId": "profile_spatial_solid",
+    "classificationRuleId": "rule_spatial_solid",
+    "mapping": {
+      "knowledgePointId": "kp_g5b_u01_rectangular_prism_volume_formula",
+      "mappingId": "r04map_g5b_u01_rectangular_prism_volume_formula",
+      "primaryRuntimeProfileId": "profile_spatial_solid",
+      "classificationRuleId": "rule_spatial_solid",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_spatial_solid_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_solid_geometry_representation"
+      ],
+      "optionalRuntimeCapabilityIds": ["cap_geometry_construction"],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "profileRequiredCapabilityIds": [
+      "cap_spatial_solid_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_solid_geometry_representation"
+    ],
+    "profileOptionalCapabilityIds": ["cap_geometry_construction"],
+    "r05DependencyClosureCapabilityIds": ["cap_geometry_property_reasoning"],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ],
+    "r02CandidateCategory": "geometry",
+    "r02CategoryAlignedWithFrozenProfile": true,
+    "mappingPolicyModifierMatchCount": 0,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false
+  },
+  "q047ScopeLock": {
+    "includedKnowledgePointIds": ["kp_g5b_u01_rectangular_prism_volume_formula"],
+    "includedRelations": [
+      "COMPUTE_RECTANGULAR_PRISM_VOLUME_AS_LENGTH_TIMES_WIDTH_TIMES_HEIGHT",
+      "DERIVE_RECTANGULAR_PRISM_VOLUME_AS_UNITS_PER_LAYER_TIMES_NUMBER_OF_LAYERS",
+      "INTERPRET_LENGTH_TIMES_WIDTH_AS_UNIT_CUBE_COUNT_PER_LAYER",
+      "PRESERVE_LAYER_COUNT_AS_HEIGHT_IN_RECTANGULAR_PRISM_MODEL"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": ["kp_g5b_u01_volume_unit_conversion"],
+    "protectedFrozenQueueOwnership": {
+      "kp_g5b_u01_volume_unit_conversion": "Q019",
+      "kp_g5b_u01_cube_volume_formula": "Q052",
+      "kp_g5b_u01_composite_rectangular_volume": "Q052",
+      "kp_g5b_u01_volume_unknown_dimension": "Q058"
+    },
+    "excludedSameSourceKnowledgePointIds": [
+      "kp_g5b_u01_cube_volume_formula",
+      "kp_g5b_u01_volume_unit_conversion",
+      "kp_g5b_u01_composite_rectangular_volume",
+      "kp_g5b_u01_volume_unknown_dimension"
+    ],
+    "excludedRelations": [
+      "REOWN_VOLUME_UNIT_CONVERSION",
+      "DERIVE_OR_APPLY_CUBE_VOLUME_FORMULA_AS_TARGET_KP",
+      "COMPOSITE_RECTANGULAR_VOLUME_DECOMPOSITION_OR_COMPLETION",
+      "SOLVE_UNKNOWN_LENGTH_WIDTH_OR_HEIGHT_FROM_VOLUME",
+      "SURFACE_AREA_FORMULA_OR_ARITHMETIC",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "Q048_OR_LATER_SEMANTICS"
+    ],
+    "q019VolumeUnitConversionMayBeUsedAsSupportingUnitKnowledgeButNotReowned": true,
+    "rectangularPrismVolumeMustEqualLengthTimesWidthTimesHeight": true,
+    "layerModelMustInterpretLengthTimesWidthAsUnitCubesPerLayer": true,
+    "layerModelMustInterpretHeightAsLayerCount": true,
+    "requiresSolidGeometryRepresentation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresSpatialSolidReasoning": true,
+    "requiresGeometryPropertyReasoningViaDependencyClosure": true,
+    "geometryConstructionRemainsOptionalNotW5Required": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "sameSourceSiblingSemanticsTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q048OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": ["GLOBAL_CONTRACTS", "TARGETED_ROUTE_REPLAY"],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "sourceAuthoritySufficientForQ047ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "r02AuthorityBoundForTargetKnowledgePoint": true,
+    "runtimeCapabilityContractLockedForTargetKnowledgePoint": true,
+    "sameSourcePriorSliceOwnershipProtected": true,
+    "futureSameSourceOwnershipProtected": true,
+    "q019SameSourceIdentityReusedWithoutReclassification": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalSatisfiedByCurrentOperatorInstruction": false,
+    "nextTaskRequiresNewOperatorApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice047Implementation"
+  }
+}
