@@ -6,6 +6,7 @@ import {buildBatchABrowserWorksheetDocument as buildCurrentWorksheet} from "../.
 import {requestsP05F47} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f47.js";
 import {generateG5BU01P05F47Questions,validateG5BU01P05F47Question} from "../../site/modules/curriculum/batch-a/g5b-u01-rectangular-prism-volume-formula-runtime-p05f47.js";
 import {renderWorksheetDocumentToHtml} from "../../site/modules/renderer/html-renderer.js";
+import {validateLayeredCubeVolumeDiagramModel} from "../../site/modules/renderer/cubic-centimeter-unit-diagram.js";
 import {auditG5BU01P05F47Projection,G5B_U01_P05F47_FORMAL_MAPPING,G5B_U01_P05F47_KP_ID,G5B_U01_P05F47_PATTERN_GROUP_ID,G5B_U01_P05F47_SOURCE_ID,G5B_U01_P05F47_SPEC_IDS,G5B_U01_P05F47_REMAINING_FUTURE_KP_IDS} from "../../site/modules/curriculum/registry/g5b-u01-rectangular-prism-volume-formula-selector-projection-p05f47.js";
 import {auditP05F47PublicSelectorComposition,getVisibleBatchAKnowledgePoint,listBatchAKnowledgePointAvailabilityBySource,resolveVisiblePatternSpecIdsForKnowledgePoint} from "../../site/modules/curriculum/registry/batch-a-selector-p05f46-extension.js";
 import {auditPublicUiCapabilityBinding,resolvePublicUiCapabilityBinding} from "../../site/modules/curriculum/public/public-ui-capability-binding-p05f46.js";
@@ -78,6 +79,7 @@ test("Q047 generates deterministic source-backed formula questions",()=>{
   assert.equal(new Set(a.questions.map(q=>q.questionSignature)).size,24);
   for(const q of a.questions){
     assert.equal(validateG5BU01P05F47Question(q).ok,true);
+    assert.equal(validateLayeredCubeVolumeDiagramModel(q.geometryDiagram).ok,true);
     assert.equal(q.answerValue,q.geometryDiagram.length*q.geometryDiagram.width*q.geometryDiagram.height);
     assert.equal(q.geometryDiagram.layerCubeCount,q.geometryDiagram.length*q.geometryDiagram.width);
     assert.equal(q.geometryDiagram.totalCubeCount,q.geometryDiagram.layerCubeCount*q.geometryDiagram.height);
@@ -89,12 +91,13 @@ test("Q047 generates deterministic source-backed formula questions",()=>{
   }
 });
 
-test("Q047 proves 240 deterministic variants for every PatternSpec",()=>{
+test("Q047 proves 240 deterministic variants for every PatternSpec and shared renderer contract",()=>{
   for(const patternSpecId of G5B_U01_P05F47_SPEC_IDS){
     const r=generateG5BU01P05F47Questions({knowledgePointId:G5B_U01_P05F47_KP_ID,questionCount:240,patternSpecIds:[patternSpecId],generationSeed:`capacity-${patternSpecId}`});
     assert.equal(r.ok,true,`${patternSpecId}:${r.errors.join("\n")}`);
     assert.equal(r.questions.length,240);
     assert.equal(new Set(r.questions.map(q=>q.questionSignature)).size,240);
+    for(const q of r.questions) assert.equal(validateLayeredCubeVolumeDiagramModel(q.geometryDiagram).ok,true,`${patternSpecId}:${q.geometryDiagram.variantIndex}:${q.geometryDiagram.shiftX}`);
   }
 });
 
@@ -108,8 +111,7 @@ test("Q047 validator fails closed on geometry answer and provenance tampering",(
 test("Q047 worksheet reuses layered unit-cube renderer for questions and answers",()=>{
   const r=buildQ047Worksheet(opts(16));
   assert.equal(r.ok,true,r.errors.join("\n"));
-  assert.equal(
-    r.worksheetDocument.questionCount,16);
+  assert.equal(r.worksheetDocument.questionCount,16);
   assert.equal(r.worksheetDocument.answerKeyItems.length,16);
   const html=renderWorksheetDocumentToHtml(r.worksheetDocument,{stylesheetHref:"",title:r.worksheetDocument.title,debugDataAttributes:false});
   assert.equal(occurrences(html,'data-representation="layered-cube-volume-diagram"'),32);
@@ -119,9 +121,9 @@ test("Q047 worksheet reuses layered unit-cube renderer for questions and answers
 
 test("Q047 current top-slot bridge reaches rectangular-prism formula worksheet",()=>{
   const r=buildCurrentWorksheet(opts(8));
-  assert.equal( r.ok,true,r.errors.join("\n"));
+  assert.equal(r.ok,true,r.errors.join("\n"));
   assert.equal(r.p05f47Implemented,true);
-  assert.equal( r.worksheetDocument.metadata.knowledgePointId,G5B_U01_P05F47_KP_ID);
+  assert.equal(r.worksheetDocument.metadata.knowledgePointId,G5B_U01_P05F47_KP_ID);
 });
 
 test("Q047 browser current selector and binding wrappers expose target without future leakage",async()=>{
