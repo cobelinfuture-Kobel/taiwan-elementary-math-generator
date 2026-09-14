@@ -8,5 +8,6 @@
   "unitKnowledgePointGateStatus":{"kp_g5a_u07_complete_symmetric_figure":"IMPLEMENTATION"},
   "expectedDerivedGate":"SHARED_RUNTIME_BOUNDED",
   "validationPlanPath":"data/project/validation-plans/P05F_W5_Q045.validation.json",
-  "changeImpact":{"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":false,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true}
+  "changeImpact":{"sharedExecutableChange":true,"publicAuthorityCutover":true,"legalRouteSemanticsChanged":false,"affectedRoutes":"BOUNDED","globalReleaseCheckpoint":false,"currentAuthorityChanged":true},
+  "postMergeRepair":{"kind":"STALE_PREDECESSOR_TEST_CONTRACT","affectedTest":"tests/curriculum/p05f-w5-slice044-g5a-u05-polygon-definition-classification.test.js","productRuntimeChanged":false,"exactDeployedProductSha":"0581b6de445bbe8deeaeecffc98bb4d81186fcea"}
 }
