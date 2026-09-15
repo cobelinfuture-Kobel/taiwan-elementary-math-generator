@@ -14,7 +14,7 @@ const preflight=JSON.parse(readFileSync(new URL("../../data/curriculum/full-prod
 const implementation=JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p05f/q048-g5b-u07-cube-cuboid-surface-area-implementation.json",import.meta.url),"utf8"));
 const impact=JSON.parse(readFileSync(new URL("../../data/project/change-impact/P05F_W5_Q048.impact.json",import.meta.url),"utf8"));
 const plan=JSON.parse(readFileSync(new URL("../../data/project/validation-plans/P05F_W5_Q048.validation.json",import.meta.url),"utf8"));
-const Q040="kp_g5b_u07_surface_area_from_net",[CUBE,CUBOID]=G5B_U07_P05F48_KP_IDS;
+const Q040="kp_g5b_u07_surface_area_from_net",[CUBE,CUBOID]=G5B_U07_P05F48_KP_IDS,[Q054,Q059]=G5B_U07_P05F48_FUTURE_KP_IDS;
 const opts=(kp,count=24)=>({sourceId:G5B_U07_P05F48_SOURCE_ID,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[kp],selectedPatternGroupIds:[G5B_U07_P05F48_GROUP_BY_KP[kp]],patternSpecIds:[...G5B_U07_P05F48_SPECS_BY_KP[kp]],questionMode:"diagram",requestedQuestionType:"diagram",questionCount:count,generationSeed:`p05f48-focused-${kp}`,includeAnswerKey:true,printLayout:{paperSize:"A4",columns:2,rowsPerPage:4,showQuestionNumbers:true,showAnswerKeyPage:true}});
 const occurrences=(text,token)=>text.split(token).length-1;
 
@@ -137,7 +137,8 @@ test("Q048 current top-slot selector, binding and worksheet bridges reach the tw
       assert.equal(b.cuboidSurfaceAreaAdmission,kp===CUBOID);
     }
     assert.ok(selector.getVisibleBatchAKnowledgePoint(Q040));
-    for(const id of G5B_U07_P05F48_FUTURE_KP_IDS) assert.equal(selector.getVisibleBatchAKnowledgePoint(id),null,id);
+    assert.equal(selector.getVisibleBatchAKnowledgePoint(Q054)?.sourceId,G5B_U07_P05F48_SOURCE_ID,Q054);
+    assert.equal(selector.getVisibleBatchAKnowledgePoint(Q059),null,Q059);
   }finally{delete globalThis.document;}
 });
 
