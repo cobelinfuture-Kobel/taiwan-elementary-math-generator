@@ -17,6 +17,8 @@ const impact=JSON.parse(readFileSync(new URL("../../data/project/change-impact/P
 const plan=JSON.parse(readFileSync(new URL("../../data/project/validation-plans/P05F_W5_Q049.validation.json",import.meta.url),"utf8"));
 const opts=(count=24)=>({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[KP],selectedPatternGroupIds:[GROUP],patternSpecIds:[...SPECS],questionMode:"diagram",requestedQuestionType:"diagram",questionCount:count,generationSeed:"p05f49-focused-prism-surface-area",includeAnswerKey:true,printLayout:{paperSize:"A4",columns:2,rowsPerPage:4,showQuestionNumbers:true,showAnswerKeyPage:true}});
 const occurrences=(text,token)=>text.split(token).length-1;
+const CURRENT_SUCCESSOR=PROTECTED[0];
+const STILL_PROTECTED=PROTECTED.slice(1);
 
 test("Q049 exact frozen identity and implementation manifest remain bounded",()=>{
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
@@ -120,7 +122,7 @@ test("Q049 worksheet renders questions and answers through the shared prism rend
   assert.equal(html.includes("ps_g6b_u03_"),false);
 });
 
-test("Q049 current top-slot selector, binding and worksheet bridges reach the new 6B-U03 target",async()=>{
+test("Q049 current top-slot selector, binding and worksheet bridges keep Q049 visible while Q055 becomes the legal successor",async()=>{
   const r=buildCurrentWorksheet(opts(8));
   assert.equal(r.ok,true,r.errors.join("\n"));
   assert.equal(r.p05f49Implemented,true);
@@ -131,7 +133,8 @@ test("Q049 current top-slot selector, binding and worksheet bridges reach the ne
     const binding=await import(`../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js?p05f49=${Date.now()}`);
     assert.equal(selector.getVisibleBatchAKnowledgePoint(KP)?.sourceId,SRC);
     assert.equal(binding.resolvePublicUiCapabilityBinding(opts()).prismSurfaceAreaAdmission,true);
-    for(const id of PROTECTED) assert.equal(selector.getVisibleBatchAKnowledgePoint(id),null,id);
+    assert.equal(selector.getVisibleBatchAKnowledgePoint(CURRENT_SUCCESSOR)?.sourceId,SRC);
+    for(const id of STILL_PROTECTED) assert.equal(selector.getVisibleBatchAKnowledgePoint(id),null,id);
   }finally{delete globalThis.document;}
 });
 
