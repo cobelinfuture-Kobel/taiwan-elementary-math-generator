@@ -1,5 +1,6 @@
 import {isG4BU02Q033Diagram,renderG4BU02Q033Diagram} from "./g4b-u02-geometry-property-diagram-p05f33.js";
 import {isG5AU05Q044Diagram,renderG5AU05Q044Diagram} from "./g5a-u05-polygon-definition-classification-diagram-p05f44.js";
+import {isG5AU05Q051Diagram,renderG5AU05Q051Diagram} from "./g5a-u05-polygon-diagonal-regular-properties-diagram-p05f51.js";
 const ALLOWED_ORIENTATIONS = new Set([-45,-30,-15,0,15,30,45,60,75,90]);
 const ALLOWED_GAPS = new Set([22,26,30,34,38,42,46,50]);
 const ALLOWED_X_SHIFTS = new Set([-12,0,12]);
@@ -9,6 +10,7 @@ function fixed(value) { return Number(value).toFixed(2); }
 function geometry(model) {const radians=model.orientationDeg*Math.PI/180;const ux=Math.cos(radians),uy=Math.sin(radians);const nx=-uy,ny=ux;const centerX=120+model.shiftX,centerY=70;const halfGap=model.gapPx/2;const point=(sign,along)=>({x:centerX+nx*sign*halfGap+ux*along,y:centerY+ny*sign*halfGap+uy*along});return {point,centerX,centerY};}
 function lineMarkup(point,sign,from,to,className,extra="") {const a=point(sign,from),b=point(sign,to);return `<line class="${className}" x1="${fixed(a.x)}" y1="${fixed(a.y)}" x2="${fixed(b.x)}" y2="${fixed(b.y)}" ${extra}/>`;}
 export function renderParallelLinesRecognitionDiagram(model) {
+  if (isG5AU05Q051Diagram(model)) return renderG5AU05Q051Diagram(model);
   if (isG5AU05Q044Diagram(model)) return renderG5AU05Q044Diagram(model);
   if (isG4BU02Q033Diagram(model)) return renderG4BU02Q033Diagram(model);
   if (!validModel(model)) {const error = new Error("Parallel-lines recognition diagram representation is invalid.");error.code = "parallel_lines_recognition_diagram_invalid";throw error;}
