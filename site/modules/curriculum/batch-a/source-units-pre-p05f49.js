@@ -1,0 +1,164 @@
+export * from "./source-units-pre-p04f11.js";
+import * as base from "./source-units-pre-p04f11.js";
+
+export const W4_SLICE011_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g4b_u09_4b09", grade: 4, semester: "lower", unitCode: "4B-U09", title: "時間的計算", domain: "time", lifecycle: "public_full_product_w4_slice011_candidate" })
+]);
+export const W5_SLICE001_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g3a_u05_3a05", grade: 3, semester: "upper", unitCode: "3A-U05", title: "角與形狀", domain: "geometry_property", lifecycle: "public_full_product_w5_slice001_candidate" })
+]);
+export const W5_SLICE002_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g3a_u09_3a09", grade: 3, semester: "upper", unitCode: "3A-U09", title: "圓", domain: "geometry_property", lifecycle: "public_full_product_w5_slice002_candidate" })
+]);
+export const W5_SLICE003_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g3b_u05_3b05", grade: 3, semester: "lower", unitCode: "3B-U05", title: "面積與平方公分", domain: "geometry_formula", lifecycle: "public_full_product_w5_slice003_candidate" })
+]);
+export const W5_SLICE004_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g4b_u02_4b02", grade: 4, semester: "lower", unitCode: "4B-U02", title: "垂直平行與四邊形", domain: "geometry_property", lifecycle: "public_full_product_w5_slice004_candidate" })
+]);
+export const W5_SLICE005_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g4b_u10_4b10", grade: 4, semester: "lower", unitCode: "4B-U10", title: "立方公分與體積", domain: "spatial_solid", lifecycle: "public_full_product_w5_slice005_candidate" })
+]);
+export const W5_SLICE006_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5a_u07_5a07", grade: 5, semester: "upper", unitCode: "5A-U07", title: "線對稱圖形", domain: "geometry_property", lifecycle: "public_full_product_w5_slice006_candidate" })
+]);
+export const W5_SLICE007_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5a_u10_5a10a", grade: 5, semester: "upper", unitCode: "5A-U10A", title: "柱體錐體和球", domain: "spatial_solid", lifecycle: "public_full_product_w5_slice007_candidate" })
+]);
+export const W5_SLICE008_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5a_u10_5a10a1", grade: 5, semester: "upper", unitCode: "5A-U10A1", title: "正方體和長方體", domain: "spatial_solid", lifecycle: "public_full_product_w5_slice008_candidate" })
+]);
+export const W5_SLICE009_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5b_u10_5b10a", grade: 5, semester: "lower", unitCode: "5B-U10A", title: "生活中的大單位", domain: "quantity_measurement", lifecycle: "public_full_product_w5_slice009_candidate" })
+]);
+export const W5_SLICE013_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g4a_u05_4a05", grade: 4, semester: "upper", unitCode: "4A-U05", title: "三角形與全等", domain: "geometry_property", lifecycle: "public_full_product_w5_slice013_candidate" })
+]);
+export const W5_SLICE015_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5a_u05_5a05a1", grade: 5, semester: "upper", unitCode: "5A-U05A1", title: "扇形與圓心角", domain: "geometry_property", lifecycle: "public_full_product_w5_slice015_candidate" })
+]);
+export const W5_SLICE019_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5b_u01_5b01", grade: 5, semester: "lower", unitCode: "5B-U01", title: "長方體和正方體的體積", domain: "geometry_formula", lifecycle: "public_full_product_w5_slice019_candidate" })
+]);
+export const W5_SLICE020_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5b_u03_5b03", grade: 5, semester: "lower", unitCode: "5B-U03", title: "容積和容量", domain: "geometry_formula", lifecycle: "public_full_product_w5_slice020_candidate" })
+]);
+export const W5_SLICE026_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g4b_u07_4b07", grade: 4, semester: "lower", unitCode: "4B-U07", title: "周長與面積", domain: "geometry_formula", lifecycle: "public_full_product_w5_slice026_candidate" })
+]);
+export const W5_SLICE037_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5a_u09_5a09", grade: 5, semester: "upper", unitCode: "5A-U09", title: "平行四邊形三角形梯形面積", domain: "geometry_formula", lifecycle: "public_full_product_w5_slice037_candidate" })
+]);
+export const W5_SLICE040_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5b_u07_5b07", grade: 5, semester: "lower", unitCode: "5B-U07", title: "表面積", domain: "geometry_formula", lifecycle: "public_full_product_w5_slice040_candidate" })
+]);
+export const W5_SLICE044_PUBLIC_SOURCE_UNITS = Object.freeze([
+  Object.freeze({ sourceId: "g5a_u05_5a05a", grade: 5, semester: "upper", unitCode: "5A-U05", title: "多邊形與平面圖形", domain: "geometry_property", lifecycle: "public_full_product_w5_slice044_candidate" })
+]);
+
+const q011 = W4_SLICE011_PUBLIC_SOURCE_UNITS[0];
+const q001 = W5_SLICE001_PUBLIC_SOURCE_UNITS[0];
+const q002 = W5_SLICE002_PUBLIC_SOURCE_UNITS[0];
+const q003 = W5_SLICE003_PUBLIC_SOURCE_UNITS[0];
+const q004 = W5_SLICE004_PUBLIC_SOURCE_UNITS[0];
+const q005 = W5_SLICE005_PUBLIC_SOURCE_UNITS[0];
+const q006 = W5_SLICE006_PUBLIC_SOURCE_UNITS[0];
+const q007 = W5_SLICE007_PUBLIC_SOURCE_UNITS[0];
+const q008 = W5_SLICE008_PUBLIC_SOURCE_UNITS[0];
+const q009 = W5_SLICE009_PUBLIC_SOURCE_UNITS[0];
+const q013 = W5_SLICE013_PUBLIC_SOURCE_UNITS[0];
+const q015 = W5_SLICE015_PUBLIC_SOURCE_UNITS[0];
+const q019 = W5_SLICE019_PUBLIC_SOURCE_UNITS[0];
+const q020 = W5_SLICE020_PUBLIC_SOURCE_UNITS[0];
+const q026 = W5_SLICE026_PUBLIC_SOURCE_UNITS[0];
+const q037 = W5_SLICE037_PUBLIC_SOURCE_UNITS[0];
+const q040 = W5_SLICE040_PUBLIC_SOURCE_UNITS[0];
+const q044 = W5_SLICE044_PUBLIC_SOURCE_UNITS[0];
+
+export function listBatchASourceUnits(options = {}) {
+  let units = base.listBatchASourceUnits(options);
+  const browserDefault = typeof document !== "undefined";
+  const defaultPublic = browserDefault && options.includeFullProductPublic === undefined && options.includePublicCandidates === undefined;
+  const includeW4 = options.includeW4Slice011 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q001 = options.includeW5Slice001 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q002 = options.includeW5Slice002 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q003 = options.includeW5Slice003 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q004 = options.includeW5Slice004 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q005 = options.includeW5Slice005 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q006 = options.includeW5Slice006 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q007 = options.includeW5Slice007 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q008 = options.includeW5Slice008 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q009 = options.includeW5Slice009 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q013 = options.includeW5Slice013 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q015 = options.includeW5Slice015 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q019 = options.includeW5Slice019 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q020 = options.includeW5Slice020 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q026 = options.includeW5Slice026 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q037 = options.includeW5Slice037 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q040 = options.includeW5Slice040 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+  const includeW5Q044 = options.includeW5Slice044 ?? options.includeCurrentFullProductPublic ?? defaultPublic;
+
+  if (includeW4 && !units.some((unit) => unit.sourceId === q011.sourceId)) units = [...units, { ...q011 }];
+  if (includeW5Q001 && !units.some((unit) => unit.sourceId === q001.sourceId)) units = [...units, { ...q001 }];
+  if (includeW5Q002 && !units.some((unit) => unit.sourceId === q002.sourceId)) units = [...units, { ...q002 }];
+  if (includeW5Q003 && !units.some((unit) => unit.sourceId === q003.sourceId)) units = [...units, { ...q003 }];
+  if (includeW5Q004 && !units.some((unit) => unit.sourceId === q004.sourceId)) units = [...units, { ...q004 }];
+  if (includeW5Q005 && !units.some((unit) => unit.sourceId === q005.sourceId)) units = [...units, { ...q005 }];
+  if (includeW5Q006 && !units.some((unit) => unit.sourceId === q006.sourceId)) units = [...units, { ...q006 }];
+  if (includeW5Q007 && !units.some((unit) => unit.sourceId === q007.sourceId)) units = [...units, { ...q007 }];
+  if (includeW5Q008 && !units.some((unit) => unit.sourceId === q008.sourceId)) units = [...units, { ...q008 }];
+  if (includeW5Q009 && !units.some((unit) => unit.sourceId === q009.sourceId)) units = [...units, { ...q009 }];
+  if (includeW5Q013 && !units.some((unit) => unit.sourceId === q013.sourceId)) units = [...units, { ...q013 }];
+  if (includeW5Q015 && !units.some((unit) => unit.sourceId === q015.sourceId)) units = [...units, { ...q015 }];
+  if (includeW5Q019 && !units.some((unit) => unit.sourceId === q019.sourceId)) units = [...units, { ...q019 }];
+  if (includeW5Q020 && !units.some((unit) => unit.sourceId === q020.sourceId)) units = [...units, { ...q020 }];
+  if (includeW5Q026 && !units.some((unit) => unit.sourceId === q026.sourceId)) units = [...units, { ...q026 }];
+  if (includeW5Q037 && !units.some((unit) => unit.sourceId === q037.sourceId)) units = [...units, { ...q037 }];
+  if (includeW5Q040 && !units.some((unit) => unit.sourceId === q040.sourceId)) units = [...units, { ...q040 }];
+  if (includeW5Q044 && !units.some((unit) => unit.sourceId === q044.sourceId)) units = [...units, { ...q044 }];
+  return units;
+}
+
+export function getBatchASourceUnit(sourceId) {
+  if (sourceId === q044.sourceId) return { ...q044 };
+  if (sourceId === q040.sourceId) return { ...q040 };
+  if (sourceId === q037.sourceId) return { ...q037 };
+  if (sourceId === q026.sourceId) return { ...q026 };
+  if (sourceId === q020.sourceId) return { ...q020 };
+  if (sourceId === q019.sourceId) return { ...q019 };
+  if (sourceId === q015.sourceId) return { ...q015 };
+  if (sourceId === q013.sourceId) return { ...q013 };
+  if (sourceId === q009.sourceId) return { ...q009 };
+  if (sourceId === q008.sourceId) return { ...q008 };
+  if (sourceId === q007.sourceId) return { ...q007 };
+  if (sourceId === q006.sourceId) return { ...q006 };
+  if (sourceId === q005.sourceId) return { ...q005 };
+  if (sourceId === q004.sourceId) return { ...q004 };
+  if (sourceId === q003.sourceId) return { ...q003 };
+  if (sourceId === q002.sourceId) return { ...q002 };
+  if (sourceId === q001.sourceId) return { ...q001 };
+  if (sourceId === q011.sourceId) return { ...q011 };
+  return base.getBatchASourceUnit(sourceId);
+}
+
+export function isBatchASourceId(sourceId) {
+  return sourceId === q044.sourceId
+    || sourceId === q040.sourceId
+    || sourceId === q037.sourceId
+    || sourceId === q026.sourceId
+    || sourceId === q020.sourceId
+    || sourceId === q019.sourceId
+    || sourceId === q015.sourceId
+    || sourceId === q013.sourceId
+    || sourceId === q009.sourceId
+    || sourceId === q008.sourceId
+    || sourceId === q007.sourceId
+    || sourceId === q006.sourceId
+    || sourceId === q005.sourceId
+    || sourceId === q004.sourceId
+    || sourceId === q003.sourceId
+    || sourceId === q002.sourceId
+    || sourceId === q001.sourceId
+    || sourceId === q011.sourceId
+    || base.isBatchASourceId(sourceId);
+}
