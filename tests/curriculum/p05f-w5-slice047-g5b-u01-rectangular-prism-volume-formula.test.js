@@ -126,7 +126,7 @@ test("Q047 current top-slot bridge reaches rectangular-prism formula worksheet",
   assert.equal(r.worksheetDocument.metadata.knowledgePointId,G5B_U01_P05F47_KP_ID);
 });
 
-test("Q047 browser current selector and binding wrappers expose target without future leakage",async()=>{
+test("Q047 browser current selector and binding wrappers preserve Q047/Q019 while admitting Q052 successors and deferring Q058",async()=>{
   globalThis.document={};
   try{
     const selector=await import(`../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js?p05f47=${Date.now()}`);
@@ -134,6 +134,8 @@ test("Q047 browser current selector and binding wrappers expose target without f
     assert.equal(selector.getVisibleBatchAKnowledgePoint(G5B_U01_P05F47_KP_ID)?.sourceId,G5B_U01_P05F47_SOURCE_ID);
     assert.equal(binding.resolvePublicUiCapabilityBinding(opts()).rectangularPrismVolumeFormulaTarget,true);
     assert.ok(selector.getVisibleBatchAKnowledgePoint(Q019));
-    for(const id of G5B_U01_P05F47_REMAINING_FUTURE_KP_IDS) assert.equal(selector.getVisibleBatchAKnowledgePoint(id),null,id);
+    const [cubeVolume,compositeVolume,unknownDimension]=G5B_U01_P05F47_REMAINING_FUTURE_KP_IDS;
+    for(const id of [cubeVolume,compositeVolume]) assert.equal(selector.getVisibleBatchAKnowledgePoint(id)?.sourceId,G5B_U01_P05F47_SOURCE_ID,id);
+    assert.equal(selector.getVisibleBatchAKnowledgePoint(unknownDimension),null,unknownDimension);
   }finally{delete globalThis.document;}
 });
