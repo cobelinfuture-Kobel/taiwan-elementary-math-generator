@@ -138,7 +138,7 @@ test("Q048 current top-slot selector, binding and worksheet bridges reach the tw
     }
     assert.ok(selector.getVisibleBatchAKnowledgePoint(Q040));
     assert.equal(selector.getVisibleBatchAKnowledgePoint(Q054)?.sourceId,G5B_U07_P05F48_SOURCE_ID,Q054);
-    assert.equal(selector.getVisibleBatchAKnowledgePoint(Q059),null,Q059);
+    assert.equal(selector.getVisibleBatchAKnowledgePoint(Q059)?.sourceId,G5B_U07_P05F48_SOURCE_ID,Q059);
   }finally{delete globalThis.document;}
 });
 
