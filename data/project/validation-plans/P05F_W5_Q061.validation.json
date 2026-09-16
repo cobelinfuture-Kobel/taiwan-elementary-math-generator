@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q061_BOUNDED_VALIDATION",
+  "unitId": "g5a_u03_5a03a1",
+  "lanes": {"SHARED_RUNTIME_BOUNDED": [
+    {"gateId":"GLOBAL_CONTRACTS","kind":"NODE_TEST","paths":["tests/curriculum/p05f-w5-slice061-g5a-u03a1-rectangle-square-tiling.test.js","tests/curriculum/p05f-w5-q061-rectangle-square-tiling-source-authority-preflight.test.js","tests/curriculum/p05e-w5-direct-product-vertical-slice-queue.test.js"]},
+    {"gateId":"TARGETED_ROUTE_REPLAY","kind":"PLAYWRIGHT","paths":["tools/curriculum/run-p05f-w5-slice061-classic-ui-acceptance.mjs"]}
+  ]}
+}
