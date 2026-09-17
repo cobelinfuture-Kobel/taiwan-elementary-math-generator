@@ -3,15 +3,30 @@
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
   "taskId": "P06F_W6_Q001_PREFLIGHT",
   "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_arithmetic_sequence_extension",
+    "kp_repeating_visual_pattern",
+    "kp_spatial_growth_pattern_count"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_arithmetic_sequence_extension",
+    "kp_repeating_visual_pattern",
+    "kp_spatial_growth_pattern_count"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_arithmetic_sequence_extension": "PREFLIGHT_ONLY",
+    "kp_repeating_visual_pattern": "PREFLIGHT_ONLY",
+    "kp_spatial_growth_pattern_count": "PREFLIGHT_ONLY"
+  },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P06F_W6_Q001_PREFLIGHT.validation.json",
   "changeImpact": {
-    "sharedExecutableChange": false,
+    "sharedExecutableChange": true,
     "publicAuthorityCutover": false,
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
-    "currentAuthorityChanged": false,
+    "currentAuthorityChanged": true,
     "planningAuthorityAdded": true
   },
   "scopeGuards": {
