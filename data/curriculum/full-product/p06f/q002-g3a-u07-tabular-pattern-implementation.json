@@ -1,0 +1,106 @@
+{
+  "schemaName": "P06FW6Q002TabularPatternImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6DirectProductVerticalSlice002Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q002_TABLE_DATA_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "after": "D1_Q002_TABLE_DATA_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "c73d6543793fbbedcb87524ec7426a6f2a09c6c3",
+  "preflight": {
+    "prNumber": 974,
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p06f/q002-g3a-u07-tabular-pattern-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "queuePosition": 1,
+    "prNumber": 973,
+    "mergeSha": "cd0c4ee98994f1efd1a5dbbbd234286efc8fef62",
+    "postMergeWorkflowRunId": 35286547413,
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "queueAuthority": {
+    "queuePosition": 2,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q002_r0_g3a_u07_3a07_profile_table_data_c1",
+    "sourceId": "g3a_u07_3a07",
+    "knowledgePointIds": [
+      "kp_tabular_pattern_rule"
+    ],
+    "runtimeProfileId": "profile_table_data",
+    "requiredW6CapabilityIds": [
+      "cap_data_domain_validator",
+      "cap_table_data_model",
+      "cap_table_representation"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_3a07_patterns.pdf",
+    "sourcePdfDriveFileId": "1HzOOsMf5y7R5nXWMnlulfdQlu7KG-1iv",
+    "reviewedPages": [
+      1,
+      2,
+      3
+    ],
+    "canonicalEvidencePages": [
+      1
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceIdentity": "尋找規律",
+    "sourceRefAmbiguity": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g3a_u07_tabular_pattern_complete_output",
+      "ps_g3a_u07_tabular_pattern_complete_input",
+      "ps_g3a_u07_tabular_pattern_infer_output"
+    ],
+    "includedRelations": [
+      "ORGANIZE_STAGE_INDEX_AND_QUANTITY_AS_TABLE_PAIRS",
+      "READ_OR_COMPLETE_A_TABULAR_PATTERN_PAIR",
+      "INFER_ONE_CONSISTENT_TABULAR_CORRESPONDENCE_RULE"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentation": "tabular-pattern-table",
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "INTEGER",
+    "tableCorrespondenceInvariantRequired": true
+  },
+  "scopeGuard": {
+    "q001ProductMutation": false,
+    "q001PatternRelationReowned": false,
+    "genericOneWayTableReadingUsed": false,
+    "twoWayTableAnalysisUsed": false,
+    "chartInterpretationUsed": false,
+    "symbolicNthTermFormulaUsed": false,
+    "linearEquationUnknownUsed": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q003OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}
