@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P06F_W6_Q002_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "g3a_u07_3a07",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p06f-w6-q002-tabular-pattern-source-authority-preflight.test.js",
+          "tests/curriculum/p06e-w6-direct-product-vertical-slice-queue.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/read-p06f-w6-q002-tabular-pattern-source-authority-preflight.mjs",
+        "runtime": "NODE_ONLY"
+      }
+    ]
+  }
+}
