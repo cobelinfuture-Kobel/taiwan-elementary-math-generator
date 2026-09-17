@@ -38,7 +38,7 @@ test("W6 Q002 preflight binds the exact second frozen queue successor and reuses
   assert.equal(preflight.predecessorD0Evidence.postMergeWorkflowConclusion,"success");
   assert.equal(preflight.predecessorD0Evidence.liveReportStatus,"PASS_E6_D0_COMPLETE");
   assert.equal(preflight.predecessorD0Evidence.q002ProtectedDuringQ001,true);
-  assert.equal(q001.scopeGuards.q002OrLaterTouched,false);
+  assert.equal(q001.scopeGuard.q002OrLaterTouched,false);
 });
 
 test("W6 Q002 source evidence binds the exact R02 reviewed tabular-pattern candidate",()=>{
