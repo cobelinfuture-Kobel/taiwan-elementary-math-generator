@@ -1,0 +1,83 @@
+{
+  "schemaName": "P05FW5Q063MissingAddendStructureImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice063Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q063_FRACTION_MISSING_ADDEND_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "after": "D1_Q063_FRACTION_MISSING_ADDEND_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "3b86a13e6c872250eac250ac265abbe0b5c4e6bd",
+  "preflight": {
+    "prNumber": 969,
+    "headSha": "d1147e73ba7078736ee117cc5212106f4d3d1023",
+    "mergeSha": "20a7542f536d1e34cab615b9d1e28fa82d8a34b6",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT"
+  },
+  "queueAuthority": {
+    "queuePosition": 63,
+    "sliceId": "p05e_q063_r9_g5a_u06_5a06_profile_geometry_property_c1",
+    "sourceId": "g5a_u06_5a06",
+    "knowledgePointIds": ["kp_g5a_u06_missing_addend_structure"],
+    "runtimeProfileId": "profile_geometry_property",
+    "requiredW5CapabilityIds": ["cap_geometry_diagram_representation","cap_geometry_domain_validator","cap_geometry_property_reasoning"],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "finalFrozenW5Slice": true
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q063-g5a-u06-missing-addend-structure-source-authority-preflight.json",
+    "sourcePdfTitle": "meow911_5a06_source.pdf",
+    "sourcePdfDriveFileId": "1E6TqH-QfF7UMiSgUL1hl5_luge50rPy3",
+    "reviewedPages": [1,2],
+    "targetEvidencePages": [1,2],
+    "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+    "sourceIdentity": "分數和的缺項推理",
+    "capabilityStatement": "學生能由總和與已知分數求未知加數，含三角形配置。",
+    "reasoningInvariant": "未知加數與已知分數相加後必須精確重建給定總和；三角形配置只承載同一分數關係。"
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 2,
+    "patternSpecIds": ["ps_g5a_u06_missing_addend_equation","ps_g5a_u06_missing_addend_triangle_configuration"],
+    "includedRelations": ["FRACTION_SUM_MISSING_ADDEND_INVERSE_RELATION","UNKNOWN_ADDEND_PLUS_KNOWN_FRACTION_MUST_RECONSTRUCT_GIVEN_TOTAL","TRIANGLE_CONFIGURATION_PRESERVES_THE_SAME_SOURCE_BACKED_MISSING_ADDEND_RELATION"],
+    "questionMode": "diagram",
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "exactRationalArithmetic": true,
+    "equivalentFractionAnswersAccepted": true,
+    "unknownAddendReconstructsTotal": true,
+    "triangleConfigurationRole": "REPRESENTATION_ONLY",
+    "genericTriangleGeometryValidation": false,
+    "answerModel": "EXACT_RATIONAL_FRACTION",
+    "rendererRepresentation": "fraction-missing-addend-diagram"
+  },
+  "scopeGuard": {
+    "unlikeFractionAdditionReowned": false,
+    "unlikeFractionSubtractionReowned": false,
+    "mixedImproperAddSubReowned": false,
+    "measurementDifferenceContextReowned": false,
+    "reciprocalUnitFractionSumReowned": false,
+    "unlikeFractionCompareReowned": false,
+    "genericGeometryPropertyUsed": false,
+    "triangleSideOrAnglePropertyUsed": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "postW5QueueTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": ["FOCUSED_PR_GATE_PASS","PR_MERGED","EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY","CLASSIC_UI_ACCEPTANCE_PASS"]
+  }
+}
