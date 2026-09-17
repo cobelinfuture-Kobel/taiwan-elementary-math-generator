@@ -1,0 +1,29 @@
+{
+  "schemaName": "P06EW6DirectProductVerticalSliceQueueManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06E_W6DirectProductVerticalSliceQueueFreeze",
+  "status": "W6_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_DERIVATION_READY",
+  "targetDeliveryWaveId": "R05-W6",
+  "expectedKnowledgePointCount": 33,
+  "expectedCapabilityPlanCount": 9,
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "frozenQueue": null,
+  "exactAcceptance": null,
+  "scope": {
+    "queueFreezeOnly": true,
+    "w6ImplementationStarted": false,
+    "productionAdmissionChanged": false
+  },
+  "authorityPaths": {
+    "policyPath": "data/curriculum/full-product/p06e/w6-direct-product-vertical-slice-queue-policy.json",
+    "queueRegistryPath": "data/curriculum/full-product/p06e/w6-direct-product-vertical-slice-queue.json",
+    "runtimePath": "src/curriculum/full-product/p06e-w6-direct-product-vertical-slice-queue.mjs",
+    "testPath": "tests/curriculum/p06e-w6-direct-product-vertical-slice-queue.test.js"
+  },
+  "mainlineBoundary": {
+    "productionConsumerChanged": false,
+    "parallelRuntimePipelineAllowed": false,
+    "nextTaskAfterFreeze": "P06F_W6DirectProductVerticalSlice001Implementation"
+  }
+}
