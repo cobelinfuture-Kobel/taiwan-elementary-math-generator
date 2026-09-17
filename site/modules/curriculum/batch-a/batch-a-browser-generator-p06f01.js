@@ -1,4 +1,4 @@
-import {buildBatchABrowserPlan as baseBuildPlan} from "./batch-a-browser-generator-p05f60.js";
+import {buildBatchABrowserPlan as baseBuildPlan} from "./batch-a-browser-generator-p05f31.js";
 import {generateG3AU07P06F01Questions,G3A_U07_P06F01_MAX_QUESTION_COUNT} from "./g3a-u07-pattern-relation-runtime-p06f01.js";
 import {G3A_U07_P06F01_PATTERN_GROUPS as GROUPS,G3A_U07_P06F01_PATTERN_SPECS as SPECS,G3A_U07_P06F01_SOURCE_ID as SRC,G3A_U07_P06F01_TARGET_KP_IDS as TARGETS} from "../registry/g3a-u07-pattern-relation-selector-projection-p06f01.js";
 const GROUP_TO_KP=new Map(GROUPS.map(x=>[x.patternGroupId,x.primaryKnowledgePointId])),SPEC_TO_KP=new Map(SPECS.map(x=>[x.patternSpecId,x.knowledgePointId]));
