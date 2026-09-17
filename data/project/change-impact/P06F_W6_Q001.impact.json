@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P06F_W6_Q001",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_arithmetic_sequence_extension",
+    "kp_repeating_visual_pattern",
+    "kp_spatial_growth_pattern_count"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_arithmetic_sequence_extension",
+    "kp_repeating_visual_pattern",
+    "kp_spatial_growth_pattern_count"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_arithmetic_sequence_extension": "IMPLEMENTATION_MATERIALIZED",
+    "kp_repeating_visual_pattern": "IMPLEMENTATION_MATERIALIZED",
+    "kp_spatial_growth_pattern_count": "IMPLEMENTATION_MATERIALIZED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P06F_W6_Q001.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  }
+}
