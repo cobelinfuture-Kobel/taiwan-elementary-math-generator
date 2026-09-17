@@ -22,6 +22,7 @@ import { renderCubeCuboidNetDiagram } from "./cube-cuboid-net-diagram.js";
 import { renderFractionNumberLine } from "./fraction-number-line.js";
 import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderMeasurementScale } from "./measurement-scale.js";
+import { renderTabularPatternTable } from "./tabular-pattern-table.js";
 import { renderInlineMathModel } from "./inline-math.js";
 
 function escapeHtml(value) {
@@ -89,7 +90,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -157,6 +158,7 @@ export function renderQuestionCell(cell, options = {}) {
     `<div class="worksheet-cell__prompt">${renderStructuredText(displayModel.promptInlineMath, displayModel.blankedDisplayText)}</div>`,
     displayModel.numberLine ? renderNumberLine(displayModel.numberLine) : "",
     displayModel.geometryDiagram ? renderGeometryDiagram(displayModel.geometryDiagram) : "",
+    displayModel.tableData ? renderTabularPatternTable(displayModel.tableData) : "",
     "</article>",
   ].join("");
 }
@@ -179,6 +181,7 @@ export function renderAnswerKeyCell(cell, options = {}) {
     `<div class="worksheet-cell__prompt">${renderStructuredText(answerKeyItem.promptInlineMath, answerKeyItem.promptText)}</div>`,
     answerKeyItem.numberLine ? renderNumberLine(answerKeyItem.numberLine) : "",
     answerKeyItem.geometryDiagram ? renderGeometryDiagram(answerKeyItem.geometryDiagram) : "",
+    answerKeyItem.tableData ? renderTabularPatternTable(answerKeyItem.tableData) : "",
     `<div class="worksheet-cell__answer">${renderStructuredText(answerKeyItem.answerInlineMath, answerKeyItem.answerText)}</div>`,
     "</article>",
   ].join("");

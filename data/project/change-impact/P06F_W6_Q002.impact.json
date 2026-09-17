@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P06F_W6_Q002",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_tabular_pattern_rule"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_tabular_pattern_rule"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_tabular_pattern_rule": "IMPLEMENTATION_MATERIALIZED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P06F_W6_Q002.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q001ProductMutation": false,
+    "q003OrLater": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false
+  }
+}
