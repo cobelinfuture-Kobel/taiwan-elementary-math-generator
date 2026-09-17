@@ -14,7 +14,7 @@ const policy=read("data/curriculum/global/runtime/r04/runtime-capability-mapping
 const r02ProjectionSource=text("src/curriculum/global/r02-global-kp-candidate-reconciliation.mjs");
 const impact=read("data/project/change-impact/P06F_W6_Q003_PREFLIGHT.impact.json");
 const validation=read("data/project/validation-plans/P06F_W6_Q003_PREFLIGHT.validation.json");
-const KP="kp_one_way_table_reading",SLICE="p06e_q003_r0_g3b_u10_3b10_profile_chart_data_c1",CAPS=["cap_chart_data_model","cap_chart_representation","cap_data_domain_validator"];
+const KP="kp_one_way_table_reading",SLICE="p06e_q003_r0_g3b_u10_3b10_profile_chart_data_c1",CAPS=["cap_chart_data_model","cap_chart_representation","cap_data_domain_validator","cap_table_data_model"];
 
 test("W6 Q003 preflight binds the exact third executable queue slice after Q002 D0",()=>{
   const materialized=materializeP06EW6DirectProductVerticalSliceQueue(),slice=materialized.queueEntries[2];
@@ -42,7 +42,7 @@ test("W6 Q003 explicitly locks the historical chart-profile term collision witho
   const mapping=getR04KnowledgePointCapabilityMapping(KP),profile=profiles.profiles.find(row=>row.profileId==="profile_chart_data");
   assert.ok(mapping);assert.equal(mapping.primaryRuntimeProfileId,"profile_chart_data");assert.equal(mapping.classificationRuleId,"rule_chart_data");
   assert.deepEqual(profile.requiredCapabilityIds,["cap_chart_data_model","cap_data_domain_validator","cap_chart_representation"]);
-  assert.deepEqual(preflight.runtimeCapabilityAuthority.exactFrozenQueueRequiredW6CapabilityIds,CAPS);
+  assert.deepEqual(preflight.runtimeCapabilityAuthority.exactFrozenQueueRequiredW6CapabilityIds,CAPS);assert.deepEqual(preflight.runtimeCapabilityAuthority.dependencyClosureCapabilityIds,["cap_table_data_model"]);assert.equal(preflight.runtimeCapabilityAuthority.dependencyClosureBasis.capabilityId,"cap_chart_data_model");assert.deepEqual(preflight.runtimeCapabilityAuthority.dependencyClosureBasis.dependsOnCapabilityIds,["cap_table_data_model"]);
   const chartIndex=policy.classificationRules.findIndex(row=>row.ruleId==="rule_chart_data"),tableIndex=policy.classificationRules.findIndex(row=>row.ruleId==="rule_table_data");
   assert.ok(chartIndex>=0&&tableIndex>chartIndex);
   assert.ok(policy.classificationRules[chartIndex].anyTerms.includes("圖表"));assert.ok(policy.classificationRules[tableIndex].anyTerms.includes("one_way_table"));assert.ok(policy.classificationRules[tableIndex].anyTerms.includes("統計表"));
@@ -51,7 +51,7 @@ test("W6 Q003 explicitly locks the historical chart-profile term collision witho
   assert.equal(preflight.semanticProfileArtifactLock.classification,"HISTORICAL_GENERIC_DATA_PROFILE_TERM_COLLISION");
   assert.equal(preflight.semanticProfileArtifactLock.implementationSemanticLock.oneWayTableReadingIsCore,true);
   assert.equal(preflight.semanticProfileArtifactLock.implementationSemanticLock.chartConstructionIsCore,false);
-  assert.equal(preflight.semanticProfileArtifactLock.implementationSemanticLock.frozenQueueMayNotBeSilentlyReclassified,true);
+  assert.equal(preflight.semanticProfileArtifactLock.implementationSemanticLock.frozenQueueMayNotBeSilentlyReclassified,true);assert.equal(preflight.semanticProfileArtifactLock.implementationSemanticLock.tableDataModelDependencyRequiredByFrozenCapabilityClosure,true);
 });
 
 test("W6 Q003 protects Q004 and later table/chart semantics and remains planning-only",()=>{

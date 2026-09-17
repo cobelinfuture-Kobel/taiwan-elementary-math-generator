@@ -51,7 +51,8 @@
     "requiredW6CapabilityIds": [
       "cap_chart_data_model",
       "cap_chart_representation",
-      "cap_data_domain_validator"
+      "cap_data_domain_validator",
+      "cap_table_data_model"
     ],
     "targetEvidenceLevel": "E6_D0_COMPLETE"
   },
@@ -151,9 +152,21 @@
     "exactFrozenQueueRequiredW6CapabilityIds": [
       "cap_chart_data_model",
       "cap_chart_representation",
-      "cap_data_domain_validator"
+      "cap_data_domain_validator",
+      "cap_table_data_model"
     ],
-    "runtimeProfileReclassificationAllowed": false
+    "runtimeProfileReclassificationAllowed": false,
+    "dependencyClosureCapabilityIds": [
+      "cap_table_data_model"
+    ],
+    "dependencyClosureBasis": {
+      "capabilityId": "cap_chart_data_model",
+      "dependsOnCapabilityIds": [
+        "cap_table_data_model"
+      ],
+      "closureSource": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "closureRequiredByFrozenQueueMaterialization": true
+    }
   },
   "semanticProfileArtifactLock": {
     "present": true,
@@ -183,7 +196,8 @@
       "barLinePieChartReadingIsCore": false,
       "frozenProfileMayNotRedefineSourceSemantics": true,
       "frozenQueueMayNotBeSilentlyReclassified": true,
-      "q003ImplementationMustPreserveTableSemanticsEvenIfRuntimeEnvelopeRemainsChartData": true
+      "q003ImplementationMustPreserveTableSemanticsEvenIfRuntimeEnvelopeRemainsChartData": true,
+      "tableDataModelDependencyRequiredByFrozenCapabilityClosure": true
     }
   },
   "q003ScopeLock": {
