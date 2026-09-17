@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "site/modules/curriculum/batch-a/source-units.js"
       - "site/modules/curriculum/registry/g3a-u07-pattern-relation-selector-projection-p06f01.js"
       - "site/modules/curriculum/registry/batch-a-selector-p06f01-extension.js"
       - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"

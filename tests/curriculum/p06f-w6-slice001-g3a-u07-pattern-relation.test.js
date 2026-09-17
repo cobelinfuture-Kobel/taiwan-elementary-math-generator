@@ -8,6 +8,7 @@ import {auditPublicUiCapabilityBinding,resolvePublicUiCapabilityBinding} from ".
 import {buildG3AU07P06F01Question,generateG3AU07P06F01Questions,validateG3AU07P06F01Answer,validateG3AU07P06F01Question} from "../../site/modules/curriculum/batch-a/g3a-u07-pattern-relation-runtime-p06f01.js";
 import {buildBatchABrowserPlan,generateBatchABrowserQuestions} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js";
 import {buildBatchABrowserWorksheetDocument} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js";
+import {getBatchASourceUnit,listBatchASourceUnits} from "../../site/modules/curriculum/batch-a/source-units.js";
 const read=p=>JSON.parse(readFileSync(new URL(`../../${p}`,import.meta.url),"utf8"));
 const implementation=read("data/curriculum/full-product/p06f/q001-g3a-u07-pattern-implementation.json");
 const impact=read("data/project/change-impact/P06F_W6_Q001.impact.json");
@@ -27,13 +28,11 @@ test("W6 Q001 materializes exactly three source-backed pattern KPs and five Patt
 
 test("W6 Q001 promotes only the three Q001 pattern KPs and keeps Q002 tabular semantics hidden",()=>{
   const before=preQ001Selector.listBatchAKnowledgePointAvailabilityBySource(SRC);
-  assert.ok(before);
-  for(const id of TARGETS){
-    assert.equal(preQ001Selector.getVisibleBatchAKnowledgePoint(id),null);
-    assert.ok(before.hiddenPendingKnowledgePointIds.includes(id),id);
-    assert.ok(before.notSelectableKnowledgePointIds.includes(id),id);
-  }
+  assert.equal(before,null);
+  for(const id of TARGETS)assert.equal(preQ001Selector.getVisibleBatchAKnowledgePoint(id),null);
   assert.equal(preQ001Selector.getVisibleBatchAKnowledgePoint(Q002),null);
+  assert.equal(getBatchASourceUnit(SRC)?.title,"尋找規律");
+  assert.ok(listBatchASourceUnits({includeW6Slice001:true}).some(x=>x.sourceId===SRC));
   const a=auditP06F01PublicSelectorComposition();
   assert.equal(a.ok,true,a.errors.join("\n"));
   const after=listBatchAKnowledgePointAvailabilityBySource(SRC);
