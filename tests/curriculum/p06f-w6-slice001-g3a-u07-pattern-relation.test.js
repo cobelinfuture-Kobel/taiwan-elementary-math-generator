@@ -28,7 +28,10 @@ test("W6 Q001 materializes exactly three source-backed pattern KPs and five Patt
 
 test("W6 Q001 promotes only the three Q001 pattern KPs and keeps Q002 tabular semantics hidden",()=>{
   const before=preQ001Selector.listBatchAKnowledgePointAvailabilityBySource(SRC);
-  assert.equal(before,null);
+  assert.equal(before?.sourceId,SRC);
+  assert.equal(before?.visibleCount,0);
+  assert.equal(before?.hiddenPendingCount,0);
+  assert.equal(before?.notSelectableCount,0);
   for(const id of TARGETS)assert.equal(preQ001Selector.getVisibleBatchAKnowledgePoint(id),null);
   assert.equal(preQ001Selector.getVisibleBatchAKnowledgePoint(Q002),null);
   assert.equal(getBatchASourceUnit(SRC)?.title,"尋找規律");
