@@ -1,0 +1,87 @@
+{
+  "schemaName": "P06EW6DirectProductVerticalSliceQueuePolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06E_W6DirectProductVerticalSliceQueueFreeze",
+  "status": "W6_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_POLICY_READY",
+  "authorities": {
+    "deliveryWaveAuthority": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "deliveryWavePolicy": "data/curriculum/global/delivery/r05/delivery-wave-policy.json",
+    "assignedDeliveryWaveId": "R05-W6"
+  },
+  "cohortRules": {
+    "assignedDeliveryWaveId": "R05-W6",
+    "expectedKnowledgePointCount": 33,
+    "protectedExistingD0Excluded": true,
+    "requiredProductionAdmissionState": "PLANNED_NOT_ADMITTED"
+  },
+  "w6CapabilityIds": [
+    "cap_table_data_model",
+    "cap_chart_data_model",
+    "cap_table_representation",
+    "cap_chart_representation",
+    "cap_coordinate_map_representation",
+    "cap_pattern_sequence_reasoning",
+    "cap_symbolic_relation_reasoning",
+    "cap_data_domain_validator",
+    "cap_pattern_relation_validator"
+  ],
+  "sliceRules": {
+    "primarySourceNodeSelection": "LEXICOGRAPHIC_FIRST_CANONICAL_SOURCE_NODE_ID",
+    "doNotMixPrimarySourceNodes": true,
+    "doNotMixIntraWavePrerequisiteRanks": true,
+    "doNotMixPrimaryRuntimeProfiles": true,
+    "maxKnowledgePointsPerSlice": 8,
+    "knowledgePointOrder": [
+      "intraWavePrerequisiteRank_ASC",
+      "primarySourceNodeId_ASC",
+      "primaryRuntimeProfileId_ASC",
+      "knowledgePointId_ASC"
+    ],
+    "sliceOrder": [
+      "intraWavePrerequisiteRank_ASC",
+      "primarySourceNodeId_ASC",
+      "primaryRuntimeProfileId_ASC",
+      "chunkIndex_ASC"
+    ],
+    "executionMode": "STRICT_SINGLE_SLICE_SERIAL",
+    "oneImplementationMilestoneMayConsumeAtMostOneSlice": true,
+    "previousSliceMustBeD0BeforeNextSliceStarts": true,
+    "silentReorderAllowed": false,
+    "queueChangeRequiresExplicitReconciliationTask": true
+  },
+  "verticalSliceD0Gate": {
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ],
+    "admissionFailClosedUntilEveryRequiredNodePasses": true,
+    "partialSliceAdmissionAllowed": false
+  },
+  "scopeBoundary": {
+    "queueFreezeOnly": true,
+    "productImplementationAllowed": false,
+    "formalMappingImplementationAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "generatorImplementationAllowed": false,
+    "validatorImplementationAllowed": false,
+    "publicAdapterImplementationAllowed": false,
+    "publicUiImplementationAllowed": false,
+    "worksheetRendererImplementationAllowed": false,
+    "newProductAdmissionAllowed": false,
+    "visibleOutputChangeExpected": false
+  },
+  "nextTaskTemplate": "P06F_W6DirectProductVerticalSlice{NNN}Implementation"
+}
