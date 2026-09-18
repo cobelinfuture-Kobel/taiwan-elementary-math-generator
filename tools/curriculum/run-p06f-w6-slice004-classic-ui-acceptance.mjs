@@ -11,11 +11,27 @@ async function ready(){let last;for(let i=0;i<50;i++){try{const r=await fetch(BA
 const errors={console:[],page:[],request:[],http:[]};
 async function generateFor(page,kp,count,seed){
   const targetButton=page.locator(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`);
+  await page.evaluate(id=>{
+    const panel=document.querySelector("#batch-a-knowledge-point-panel");
+    window.__P06F04_CLICK_TRACE__=[];
+    panel?.addEventListener("click",(event)=>{
+      const path=(event.composedPath?.()??[]).map(node=>({
+        tag:node?.tagName??node?.nodeName??null,
+        kp:node?.dataset?.knowledgePointId??null
+      }));
+      window.__P06F04_CLICK_TRACE__.push({
+        requested:id,
+        targetTag:event.target?.tagName??event.target?.nodeName??null,
+        targetKp:event.target?.dataset?.knowledgePointId??null,
+        path
+      });
+    },{capture:true,once:true});
+  },kp);
   await targetButton.click();
   try{
     await page.waitForFunction(id=>{const s=[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId);return s.length===1&&s[0]===id;},kp,{timeout:5000});
   }catch(error){
-    const diagnostic=await page.evaluate(id=>({requested:id,selectionMode:document.querySelector("#batch-a-selection-mode-select")?.value,visible:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id]")].map(n=>({id:n.dataset.knowledgePointId,selected:n.dataset.selected,disabled:Boolean(n.disabled),pressed:n.getAttribute("aria-pressed")})),warnings:document.querySelector("#batch-a-knowledge-point-warning-list")?.innerText??"",url:location.href}),kp);
+    const diagnostic=await page.evaluate(id=>({requested:id,selectionMode:document.querySelector("#batch-a-selection-mode-select")?.value,visible:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id]")].map(n=>({id:n.dataset.knowledgePointId,selected:n.dataset.selected,disabled:Boolean(n.disabled),pressed:n.getAttribute("aria-pressed")})),warnings:document.querySelector("#batch-a-knowledge-point-warning-list")?.innerText??"",clickTrace:window.__P06F04_CLICK_TRACE__??[],url:location.href}),kp);
     throw new Error(`P06F04_KP_SELECTION_NOT_MATERIALIZED:${JSON.stringify(diagnostic)}\n${String(error)}`);
   }
   await page.fill("#batch-a-question-count-input",String(count));await page.dispatchEvent("#batch-a-question-count-input","change");
