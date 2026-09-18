@@ -25,6 +25,7 @@ import { renderMeasurementScale } from "./measurement-scale.js";
 import { renderTabularPatternTable } from "./tabular-pattern-table.js";
 import { renderOneWayStatisticsTable } from "./one-way-statistics-table.js";
 import { renderTwoWayStatisticsTable } from "./two-way-statistics-table.js";
+import { renderBarChartData } from "./bar-chart-data.js";
 import { renderInlineMathModel } from "./inline-math.js";
 
 function escapeHtml(value) {
@@ -92,7 +93,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -131,6 +132,10 @@ function renderTableData(model) {
   if (model?.kind === "two_way_statistics_table") return renderTwoWayStatisticsTable(model);
   throw createRendererError("table_data_invalid", "Unsupported table data kind: " + (model?.kind ?? "missing"));
 }
+function renderChartData(model) {
+  if (model?.kind === "bar_chart_data") return renderBarChartData(model);
+  throw createRendererError("chart_data_invalid", "Unsupported chart data kind: " + (model?.kind ?? "missing"));
+}
 function renderPageSection(title, pagesHtml, sectionClassName, options) {
   return [
     `<section class="worksheet-section ${sectionClassName}">`,
@@ -167,6 +172,7 @@ export function renderQuestionCell(cell, options = {}) {
     displayModel.numberLine ? renderNumberLine(displayModel.numberLine) : "",
     displayModel.geometryDiagram ? renderGeometryDiagram(displayModel.geometryDiagram) : "",
     displayModel.tableData ? renderTableData(displayModel.tableData) : "",
+    displayModel.chartData ? renderChartData(displayModel.chartData) : "",
     "</article>",
   ].join("");
 }
@@ -190,6 +196,7 @@ export function renderAnswerKeyCell(cell, options = {}) {
     answerKeyItem.numberLine ? renderNumberLine(answerKeyItem.numberLine) : "",
     answerKeyItem.geometryDiagram ? renderGeometryDiagram(answerKeyItem.geometryDiagram) : "",
     answerKeyItem.tableData ? renderTableData(answerKeyItem.tableData) : "",
+    answerKeyItem.chartData ? renderChartData(answerKeyItem.chartData) : "",
     `<div class="worksheet-cell__answer">${renderStructuredText(answerKeyItem.answerInlineMath, answerKeyItem.answerText)}</div>`,
     "</article>",
   ].join("");
