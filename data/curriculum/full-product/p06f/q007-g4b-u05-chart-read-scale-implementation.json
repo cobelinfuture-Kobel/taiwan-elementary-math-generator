@@ -1,0 +1,115 @@
+{
+  "schemaName": "P06FW6Q007G4BU05ChartReadScaleImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6DirectProductVerticalSlice007Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q007_G4BU05_BAR_CHART_READ_SCALE_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_BOUNDARY_LOCKED",
+    "after": "D1_Q007_G4BU05_BAR_CHART_READ_SCALE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "2cb93d156b81ac7a1551ac66c288638010a32af6",
+  "preflight": {
+    "prNumber": 984,
+    "mergeSha": "4544eb842749ab61d1855bba0697581303e95020",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p06f/q007-g4b-u05-chart-read-scale-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "queuePosition": 6,
+    "prNumber": 983,
+    "mergeSha": "5935607b872cfda455e3fd92166e2c8ae7a0ccc8",
+    "postMergeWorkflowRunId": 35344768307,
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "queueAuthority": {
+    "queuePosition": 7,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q007_r1_g4b_u05_4b05_profile_chart_data_c1",
+    "sourceId": "g4b_u05_4b05",
+    "knowledgePointIds": [
+      "kp_g4b_u05_bar_chart_reading",
+      "kp_g4b_u05_chart_scale_interpretation"
+    ],
+    "runtimeProfileId": "profile_chart_data",
+    "requiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_4b05_source.pdf",
+    "sourcePdfDriveFileId": "11iHvRfLxyJSFP3a1A9BWiOyQrhDoGgsO",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceIdentity": "統計圖表",
+    "sourceRefAmbiguity": false
+  },
+  "productContract": {
+    "formalMappingCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 2,
+    "patternSpecIds": [
+      "ps_g4b_u05_bar_chart_read_value",
+      "ps_g4b_u05_chart_scale_interval"
+    ],
+    "includedRelations": [
+      "READ_BAR_VALUE_FROM_AXIS_AND_SCALE",
+      "INTERPRET_NON_UNIT_CHART_SCALE"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentation": "bar-chart",
+    "applicationContextMode": "NOT_ADMITTED",
+    "sameUnitMixedMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "INTEGER",
+    "chartScaleInvariantRequired": true,
+    "nonUnitScaleSupported": true
+  },
+  "semanticProfileLock": {
+    "barChartReadingIsCore": true,
+    "titleAxisAndScaleMustBeInterpreted": true,
+    "barHeightMustResolveThroughAxisScale": true,
+    "nonUnitScaleMustBeSupported": true,
+    "chartConstructionIsCore": false,
+    "multiCategoryComparisonIsCore": false,
+    "missingValueFromTotalIsCore": false,
+    "lineChartReadingIsCore": false,
+    "pieChartReadingIsCore": false
+  },
+  "scopeGuard": {
+    "q001ToQ006ProductMutationAllowed": false,
+    "chartConstructionUsed": false,
+    "multiCategoryComparisonUsed": false,
+    "missingValueTotalUsed": false,
+    "lineChartUsed": false,
+    "pieChartUsed": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q008OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}
