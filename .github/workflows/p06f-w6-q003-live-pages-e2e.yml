@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "site/modules/curriculum/batch-a/source-units.js"
       - "site/modules/renderer/html-renderer.js"
       - "site/modules/renderer/one-way-statistics-table.js"
       - "site/modules/curriculum/registry/g3b-u10-one-way-table-selector-projection-p06f03.js"

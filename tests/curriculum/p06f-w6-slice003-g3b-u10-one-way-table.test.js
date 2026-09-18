@@ -9,6 +9,7 @@ import {buildG3BU10P06F03Question,generateG3BU10P06F03Questions,validateG3BU10P0
 import {buildBatchABrowserPlan,generateBatchABrowserQuestions} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js";
 import {buildBatchABrowserWorksheetDocument} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js";
 import {renderWorksheetDocumentToHtml} from "../../site/modules/renderer/html-renderer.js";
+import {getBatchASourceUnit,listBatchASourceUnits} from "../../site/modules/curriculum/batch-a/source-units.js";
 
 const read=p=>JSON.parse(readFileSync(new URL(`../../${p}`,import.meta.url),"utf8"));
 const implementation=read("data/curriculum/full-product/p06f/q003-g3b-u10-one-way-table-implementation.json");
@@ -27,6 +28,15 @@ test("W6 Q003 materializes exactly one source-backed one-way-table KP",()=>{
   assert.deepEqual(auditG3BU10P06F03Projection(),{ok:true,errors:[],counts:{knowledgePoints:1,patternGroups:1,patternSpecs:2,formalMappings:1}});
   assert.equal(implementation.semanticProfileLock.sourceSemanticCore,"ONE_WAY_STATISTICAL_TABLE_READING");
   assert.equal(implementation.semanticProfileLock.chartRepresentationRendered,false);
+});
+
+test("W6 Q003 publishes the source unit through the Classic source registry",()=>{
+  const unit=getBatchASourceUnit(SRC);
+  assert.equal(unit?.sourceId,SRC);
+  assert.equal(unit?.grade,3);
+  assert.equal(unit?.semester,"lower");
+  assert.equal(unit?.unitCode,"3B-U10");
+  assert.ok(listBatchASourceUnits({includeW6Slice003:true}).some(x=>x.sourceId===SRC));
 });
 
 test("W6 Q003 promotes only one-way table reading and keeps Q004+ source KPs hidden",()=>{
