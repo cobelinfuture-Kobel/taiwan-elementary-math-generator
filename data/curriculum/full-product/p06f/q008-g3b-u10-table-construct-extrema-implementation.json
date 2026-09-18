@@ -1,0 +1,118 @@
+{
+  "schemaName": "P06FW6Q008G3BU10TableConstructExtremaImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6DirectProductVerticalSlice008Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q008_G3BU10_TABLE_CONSTRUCT_EXTREMA_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_ARTIFACT_LOCKED",
+    "after": "D1_Q008_G3BU10_TABLE_CONSTRUCT_EXTREMA_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "1d5b054da186f4c9265ddad9beca8b8ff4890123",
+  "preflight": {
+    "prNumber": 986,
+    "mergeSha": "659ede073ca958a627f91879625434e1fbe292c7",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p06f/q008-g3b-u10-table-construct-extrema-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "queuePosition": 7,
+    "prNumber": 985,
+    "mergeSha": "a4f45ae6c8637adbff35b6fcb0435c5c01fca930",
+    "postMergeWorkflowRunId": 35348774519,
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "queueAuthority": {
+    "queuePosition": 8,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q008_r2_g3b_u10_3b10_profile_chart_data_c1",
+    "sourceId": "g3b_u10_3b10",
+    "knowledgePointIds": [
+      "kp_construct_two_way_table",
+      "kp_table_extrema_and_missing_value"
+    ],
+    "runtimeProfileId": "profile_chart_data",
+    "requiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_3b10_statistics_table.pdf",
+    "sourcePdfDriveFileId": "1JjSBJxw3dHDTwsJKcBLd7obmomNm6GjQ",
+    "reviewedPages": [
+      1
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceRefAmbiguity": false
+  },
+  "semanticProfileLock": {
+    "classification": "HISTORICAL_GENERIC_DATA_PROFILE_TERM_COLLISION",
+    "frozenRuntimeEnvelope": "profile_chart_data",
+    "actualRepresentations": {
+      "kp_construct_two_way_table": "two_way_statistics_table",
+      "kp_table_extrema_and_missing_value": "one_way_statistics_table"
+    },
+    "chartRepresentationRendered": false,
+    "r04ReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g3b_u10_construct_two_way_fill_intersection",
+      "ps_g3b_u10_table_extrema_max_value",
+      "ps_g3b_u10_table_missing_from_total"
+    ],
+    "includedRelations": [
+      "CONSTRUCT_TWO_WAY_TABLE_FROM_TWO_CLASSIFICATION_CONDITIONS",
+      "REASON_TABLE_EXTREMA_TOTAL_AND_MISSING_VALUE"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentations": [
+      "two-way-statistics-table",
+      "one-way-statistics-table"
+    ],
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "NONNEGATIVE_INTEGER",
+    "chartReasoningUsed": false,
+    "sameUnitMixedMode": "NOT_ADMITTED"
+  },
+  "scopeGuard": {
+    "q001ToQ007ProductMutation": false,
+    "oneWayTableReadingReowned": false,
+    "tableComparisonReowned": false,
+    "twoWayStructureReowned": false,
+    "barChartReadingUsed": false,
+    "lineChartReadingUsed": false,
+    "pieChartReadingUsed": false,
+    "chartScaleInterpretationUsed": false,
+    "chartConstructionUsed": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q009OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}
