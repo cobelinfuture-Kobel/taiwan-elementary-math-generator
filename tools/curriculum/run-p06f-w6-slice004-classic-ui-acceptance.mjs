@@ -8,30 +8,68 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 let server=null,browser=null,serverOut="",serverErr="";
 if(!REMOTE){server=spawn(process.execPath,["tools/site/serve-site.js"],{env:{...process.env,SITE_PORT:String(PORT),SITE_HOST:"127.0.0.1"},stdio:["ignore","pipe","pipe"]});server.stdout.on("data",c=>serverOut+=c);server.stderr.on("data",c=>serverErr+=c);}
 async function ready(){let last;for(let i=0;i<50;i++){try{const r=await fetch(BASE,{cache:"no-store"});if(r.ok)return;}catch(e){last=e;}await sleep(250);}throw new Error(`P06F04_SITE_NOT_READY:${last?.message??"unknown"}`);}
-const errors={console:[],page:[],request:[],http:[]};
+const errors={console:[],page:[],request:[],http:[]};const navigationTrace=[];
 async function generateFor(page,kp,count,seed){
   const targetButton=page.locator(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`);
-  await page.evaluate(id=>{
+  await targetButton.waitFor({state:"visible",timeout:10000});
+  const box=await targetButton.boundingBox();
+  const before=await page.evaluate(({id,box})=>{
     const panel=document.querySelector("#batch-a-knowledge-point-panel");
+    const target=document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${id}"]`);
+    const rect=target?.getBoundingClientRect?.();
+    const center=box?{x:box.x+box.width/2,y:box.y+box.height/2}:rect?{x:rect.x+rect.width/2,y:rect.y+rect.height/2}:null;
+    const hit=center?document.elementFromPoint(center.x,center.y):null;
     window.__P06F04_CLICK_TRACE__=[];
-    panel?.addEventListener("click",(event)=>{
-      const path=(event.composedPath?.()??[]).map(node=>({
-        tag:node?.tagName??node?.nodeName??null,
-        kp:node?.dataset?.knowledgePointId??null
-      }));
-      window.__P06F04_CLICK_TRACE__.push({
-        requested:id,
-        targetTag:event.target?.tagName??event.target?.nodeName??null,
-        targetKp:event.target?.dataset?.knowledgePointId??null,
-        path
-      });
-    },{capture:true,once:true});
-  },kp);
-  await targetButton.click();
+    window.__P06F04_PANEL_REF__=panel;
+    window.__P06F04_PAGE_EPOCH__=(window.__P06F04_PAGE_EPOCH__??0)+1;
+    const record=(scope,type,event)=>{
+      const path=(event.composedPath?.()??[]).map(node=>({tag:node?.tagName??node?.nodeName??null,kp:node?.dataset?.knowledgePointId??null}));
+      window.__P06F04_CLICK_TRACE__.push({scope,type,requested:id,targetTag:event.target?.tagName??event.target?.nodeName??null,targetKp:event.target?.dataset?.knowledgePointId??null,path,url:location.href});
+    };
+    for(const type of ["pointerdown","mousedown","mouseup","click"]){
+      document.addEventListener(type,event=>record("document",type,event),{capture:true,once:true});
+      panel?.addEventListener(type,event=>record("panel",type,event),{capture:true,once:true});
+    }
+    return {
+      requested:id,
+      epoch:window.__P06F04_PAGE_EPOCH__,
+      panelConnected:Boolean(panel?.isConnected),
+      targetConnected:Boolean(target?.isConnected),
+      targetTag:target?.tagName??null,
+      targetHtml:target?.outerHTML??null,
+      rect:rect?{x:rect.x,y:rect.y,width:rect.width,height:rect.height}:null,
+      center,
+      hitTag:hit?.tagName??null,
+      hitKp:hit?.closest?.("[data-knowledge-point-id]")?.dataset?.knowledgePointId??null,
+      hitHtml:hit?.outerHTML??null,
+      pointerEvents:target?getComputedStyle(target).pointerEvents:null,
+      visibility:target?getComputedStyle(target).visibility:null,
+      display:target?getComputedStyle(target).display:null,
+      url:location.href
+    };
+  },{id:kp,box});
+  let trialError=null;
+  try{await targetButton.click({trial:true,timeout:5000});}catch(error){trialError=String(error);}
+  let clickError=null;
+  try{await targetButton.click({timeout:5000});}catch(error){clickError=String(error);}
+  const afterPhysical=await page.evaluate(id=>({
+    requested:id,
+    epoch:window.__P06F04_PAGE_EPOCH__??null,
+    panelSame:window.__P06F04_PANEL_REF__===document.querySelector("#batch-a-knowledge-point-panel"),
+    trace:window.__P06F04_CLICK_TRACE__??[],
+    selected:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId),
+    url:location.href
+  }),kp);
   try{
     await page.waitForFunction(id=>{const s=[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId);return s.length===1&&s[0]===id;},kp,{timeout:5000});
   }catch(error){
-    const diagnostic=await page.evaluate(id=>({requested:id,selectionMode:document.querySelector("#batch-a-selection-mode-select")?.value,visible:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id]")].map(n=>({id:n.dataset.knowledgePointId,selected:n.dataset.selected,disabled:Boolean(n.disabled),pressed:n.getAttribute("aria-pressed")})),warnings:document.querySelector("#batch-a-knowledge-point-warning-list")?.innerText??"",clickTrace:window.__P06F04_CLICK_TRACE__??[],url:location.href}),kp);
+    const beforeDispatch=await page.evaluate(id=>({selected:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId),url:location.href}),kp);
+    let dispatchError=null;
+    try{await targetButton.dispatchEvent("click");}catch(dispatch){dispatchError=String(dispatch);}
+    await page.waitForTimeout(50);
+    const afterDispatch=await page.evaluate(id=>({selected:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId),trace:window.__P06F04_CLICK_TRACE__??[],panelSame:window.__P06F04_PANEL_REF__===document.querySelector("#batch-a-knowledge-point-panel"),epoch:window.__P06F04_PAGE_EPOCH__??null,url:location.href}),kp);
+    const diagnostic=await page.evaluate(id=>({requested:id,selectionMode:document.querySelector("#batch-a-selection-mode-select")?.value,visible:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id]")].map(n=>({id:n.dataset.knowledgePointId,selected:n.dataset.selected,disabled:Boolean(n.disabled),pressed:n.getAttribute("aria-pressed")})),warnings:document.querySelector("#batch-a-knowledge-point-warning-list")?.innerText??"",url:location.href}),kp);
+    diagnostic.pointer={before,trialError,clickError,afterPhysical,beforeDispatch,dispatchError,afterDispatch,navigationTrace:[...navigationTrace]};
     throw new Error(`P06F04_KP_SELECTION_NOT_MATERIALIZED:${JSON.stringify(diagnostic)}\n${String(error)}`);
   }
   await page.fill("#batch-a-question-count-input",String(count));await page.dispatchEvent("#batch-a-question-count-input","change");
@@ -48,7 +86,7 @@ async function generateFor(page,kp,count,seed){
 }
 async function run(){
   const page=await browser.newPage({viewport:{width:1440,height:1100},deviceScaleFactor:1});
-  page.on("console",m=>{if(m.type()==="error")errors.console.push(m.text());});page.on("pageerror",e=>errors.page.push(String(e?.stack??e)));page.on("requestfailed",r=>errors.request.push({url:r.url(),failure:r.failure()?.errorText??"unknown"}));page.on("response",r=>{if(r.status()>=400&&(/\.(?:m?js|css)(?:\?|$)/i.test(r.url())||r.url().includes("/modules/")||r.url().includes("/assets/")))errors.http.push({url:r.url(),status:r.status()});});
+  page.on("console",m=>{if(m.type()==="error")errors.console.push(m.text());});page.on("pageerror",e=>errors.page.push(String(e?.stack??e)));page.on("requestfailed",r=>errors.request.push({url:r.url(),failure:r.failure()?.errorText??"unknown"}));page.on("framenavigated",frame=>{if(frame===page.mainFrame())navigationTrace.push({url:frame.url(),at:Date.now()});});page.on("response",r=>{if(r.status()>=400&&(/\.(?:m?js|css)(?:\?|$)/i.test(r.url())||r.url().includes("/modules/")||r.url().includes("/assets/")))errors.http.push({url:r.url(),status:r.status()});});
   const url=new URL(BASE);url.searchParams.set("p06f04",String(Date.now()));const response=await page.goto(url.href,{waitUntil:"networkidle",timeout:120000});if(!response?.ok())throw new Error(`P06F04_MAIN_HTTP:${response?.status()??"none"}`);
   await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-grade-select option")].some(o=>o.value==="3"),null,{timeout:120000});await page.selectOption("#batch-a-grade-select","3");
   await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-semester-select option")].some(o=>o.value==="lower"),null,{timeout:120000});await page.selectOption("#batch-a-semester-select","lower");

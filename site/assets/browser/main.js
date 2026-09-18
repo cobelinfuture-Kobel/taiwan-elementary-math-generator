@@ -523,11 +523,7 @@ function bindControls() {
   }
 
   knowledgePointPanel?.addEventListener("click", (event) => {
-    const item = event.composedPath?.().find?.(
-      (node) => node instanceof HTMLButtonElement && node.dataset?.knowledgePointId
-    ) ?? (event.target instanceof Element
-      ? event.target.closest("[data-knowledge-point-id]")
-      : null);
+    const item = event.target.closest?.("[data-knowledge-point-id]");
     if (!item || item.disabled) return;
     const knowledgePointId = item.dataset.knowledgePointId;
     const visibleIds = new Set(visibleKnowledgePointsForSource(state.batchA.sourceId).map((entry) => entry.knowledgePointId));
