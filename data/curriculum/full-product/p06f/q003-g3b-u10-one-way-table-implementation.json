@@ -1,0 +1,115 @@
+{
+  "schemaName": "P06FW6Q003OneWayTableImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6DirectProductVerticalSlice003Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q003_ONE_WAY_TABLE_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_ARTIFACT_LOCKED",
+    "after": "D1_Q003_ONE_WAY_TABLE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "4d236680652cf678c24bca3dc489024b1bbc052e",
+  "preflight": {
+    "prNumber": 976,
+    "mergeSha": "78df2b9dd0a3d7637c8d868eac013870d6841d41",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p06f/q003-g3b-u10-one-way-table-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "queuePosition": 2,
+    "prNumber": 975,
+    "mergeSha": "57012017b040c8c4c41fc5092bf7f450cfdf13ba",
+    "postMergeWorkflowRunId": 35288199556,
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "queueAuthority": {
+    "queuePosition": 3,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q003_r0_g3b_u10_3b10_profile_chart_data_c1",
+    "sourceId": "g3b_u10_3b10",
+    "knowledgePointIds": [
+      "kp_one_way_table_reading"
+    ],
+    "runtimeProfileId": "profile_chart_data",
+    "requiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_3b10_statistics_table.pdf",
+    "sourcePdfDriveFileId": "1JjSBJxw3dHDTwsJKcBLd7obmomNm6GjQ",
+    "reviewedPages": [
+      1
+    ],
+    "canonicalEvidencePages": [
+      1
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceSemanticIdentity": "ONE_WAY_STATISTICAL_TABLE_READING",
+    "sourceRefAmbiguity": false
+  },
+  "semanticProfileLock": {
+    "classification": "HISTORICAL_GENERIC_DATA_PROFILE_TERM_COLLISION",
+    "sourceSemanticCore": "ONE_WAY_STATISTICAL_TABLE_READING",
+    "frozenRuntimeEnvelope": "profile_chart_data",
+    "actualRepresentation": "one_way_statistics_table",
+    "chartRepresentationRendered": false,
+    "r04ReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 2,
+    "patternSpecIds": [
+      "ps_g3b_u10_one_way_table_read_by_header_row",
+      "ps_g3b_u10_one_way_table_match_category_value"
+    ],
+    "includedRelations": [
+      "READ_ONE_WAY_TABLE_BY_HEADER_AND_ROW",
+      "MATCH_ONE_CATEGORY_TO_ITS_NUMERIC_VALUE"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentation": "one-way-statistics-table",
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "NONNEGATIVE_INTEGER",
+    "directLookupInvariantRequired": true,
+    "chartReasoningUsed": false
+  },
+  "scopeGuard": {
+    "q001OrQ002ProductMutation": false,
+    "tableDataComparisonUsed": false,
+    "twoWayTableUsed": false,
+    "tableExtremaOrMissingValueUsed": false,
+    "constructTwoWayTableUsed": false,
+    "barChartReadingUsed": false,
+    "lineChartReadingUsed": false,
+    "pieChartReadingUsed": false,
+    "chartScaleInterpretationUsed": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q004OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}
