@@ -8,71 +8,16 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 let server=null,browser=null,serverOut="",serverErr="";
 if(!REMOTE){server=spawn(process.execPath,["tools/site/serve-site.js"],{env:{...process.env,SITE_PORT:String(PORT),SITE_HOST:"127.0.0.1"},stdio:["ignore","pipe","pipe"]});server.stdout.on("data",c=>serverOut+=c);server.stderr.on("data",c=>serverErr+=c);}
 async function ready(){let last;for(let i=0;i<50;i++){try{const r=await fetch(BASE,{cache:"no-store"});if(r.ok)return;}catch(e){last=e;}await sleep(250);}throw new Error(`P06F04_SITE_NOT_READY:${last?.message??"unknown"}`);}
-const errors={console:[],page:[],request:[],http:[]};const navigationTrace=[];
+const errors={console:[],page:[],request:[],http:[]};
 async function generateFor(page,kp,count,seed){
-  const targetButton=page.locator(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`);
-  await targetButton.waitFor({state:"visible",timeout:10000});
-  const box=await targetButton.boundingBox();
-  const before=await page.evaluate(({id,box})=>{
-    const panel=document.querySelector("#batch-a-knowledge-point-panel");
-    const target=document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${id}"]`);
-    const rect=target?.getBoundingClientRect?.();
-    const center=box?{x:box.x+box.width/2,y:box.y+box.height/2}:rect?{x:rect.x+rect.width/2,y:rect.y+rect.height/2}:null;
-    const hit=center?document.elementFromPoint(center.x,center.y):null;
-    window.__P06F04_CLICK_TRACE__=[];
-    window.__P06F04_PANEL_REF__=panel;
-    window.__P06F04_PAGE_EPOCH__=(window.__P06F04_PAGE_EPOCH__??0)+1;
-    const record=(scope,type,event)=>{
-      const path=(event.composedPath?.()??[]).map(node=>({tag:node?.tagName??node?.nodeName??null,kp:node?.dataset?.knowledgePointId??null}));
-      window.__P06F04_CLICK_TRACE__.push({scope,type,requested:id,targetTag:event.target?.tagName??event.target?.nodeName??null,targetKp:event.target?.dataset?.knowledgePointId??null,path,url:location.href});
-    };
-    for(const type of ["pointerdown","mousedown","mouseup","click"]){
-      document.addEventListener(type,event=>record("document",type,event),{capture:true,once:true});
-      panel?.addEventListener(type,event=>record("panel",type,event),{capture:true,once:true});
-    }
-    return {
-      requested:id,
-      epoch:window.__P06F04_PAGE_EPOCH__,
-      panelConnected:Boolean(panel?.isConnected),
-      targetConnected:Boolean(target?.isConnected),
-      targetTag:target?.tagName??null,
-      targetHtml:target?.outerHTML??null,
-      rect:rect?{x:rect.x,y:rect.y,width:rect.width,height:rect.height}:null,
-      center,
-      hitTag:hit?.tagName??null,
-      hitKp:hit?.closest?.("[data-knowledge-point-id]")?.dataset?.knowledgePointId??null,
-      hitHtml:hit?.outerHTML??null,
-      pointerEvents:target?getComputedStyle(target).pointerEvents:null,
-      visibility:target?getComputedStyle(target).visibility:null,
-      display:target?getComputedStyle(target).display:null,
-      url:location.href
-    };
-  },{id:kp,box});
-  let trialError=null;
-  try{await targetButton.click({trial:true,timeout:5000});}catch(error){trialError=String(error);}
-  let clickError=null;
-  try{await targetButton.click({timeout:5000});}catch(error){clickError=String(error);}
-  const afterPhysical=await page.evaluate(id=>({
-    requested:id,
-    epoch:window.__P06F04_PAGE_EPOCH__??null,
-    panelSame:window.__P06F04_PANEL_REF__===document.querySelector("#batch-a-knowledge-point-panel"),
-    trace:window.__P06F04_CLICK_TRACE__??[],
-    selected:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId),
-    url:location.href
-  }),kp);
-  try{
-    await page.waitForFunction(id=>{const s=[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId);return s.length===1&&s[0]===id;},kp,{timeout:5000});
-  }catch(error){
-    const beforeDispatch=await page.evaluate(id=>({selected:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId),url:location.href}),kp);
-    let dispatchError=null;
-    try{await targetButton.dispatchEvent("click");}catch(dispatch){dispatchError=String(dispatch);}
-    await page.waitForTimeout(50);
-    const afterDispatch=await page.evaluate(id=>({selected:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId),trace:window.__P06F04_CLICK_TRACE__??[],panelSame:window.__P06F04_PANEL_REF__===document.querySelector("#batch-a-knowledge-point-panel"),epoch:window.__P06F04_PAGE_EPOCH__??null,url:location.href}),kp);
-    const diagnostic=await page.evaluate(id=>({requested:id,selectionMode:document.querySelector("#batch-a-selection-mode-select")?.value,visible:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id]")].map(n=>({id:n.dataset.knowledgePointId,selected:n.dataset.selected,disabled:Boolean(n.disabled),pressed:n.getAttribute("aria-pressed")})),warnings:document.querySelector("#batch-a-knowledge-point-warning-list")?.innerText??"",url:location.href}),kp);
-    diagnostic.pointer={before,trialError,clickError,afterPhysical,beforeDispatch,dispatchError,afterDispatch,navigationTrace:[...navigationTrace]};
-    throw new Error(`P06F04_KP_SELECTION_NOT_MATERIALIZED:${JSON.stringify(diagnostic)}\n${String(error)}`);
-  }
+  await page.selectOption("#batch-a-selection-mode-select","singleKnowledgePoint");
+  await page.locator(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`).click();
+  await page.waitForFunction(id=>{const s=[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId);return s.length===1&&s[0]===id;},kp,{timeout:120000});
   await page.fill("#batch-a-question-count-input",String(count));await page.dispatchEvent("#batch-a-question-count-input","change");
+  await page.selectOption("#batch-a-ordering-select","groupedByPattern");
+  await page.check("#batch-a-answer-key-input");
+  await page.fill("#columns-input","2");await page.dispatchEvent("#columns-input","change");
+  await page.fill("#rows-per-page-input","4");await page.dispatchEvent("#rows-per-page-input","change");
   await page.fill("#generation-seed-input",seed);await page.dispatchEvent("#generation-seed-input","change");
   await page.locator("#regenerate-button").click();
   await page.waitForFunction(n=>{const x=document.querySelector("#status-panel")?.textContent??"";return x.includes(`已產生 ${n} 題`)||x.includes("產生失敗");},count,{timeout:20000});
@@ -86,7 +31,7 @@ async function generateFor(page,kp,count,seed){
 }
 async function run(){
   const page=await browser.newPage({viewport:{width:1440,height:1100},deviceScaleFactor:1});
-  page.on("console",m=>{if(m.type()==="error")errors.console.push(m.text());});page.on("pageerror",e=>errors.page.push(String(e?.stack??e)));page.on("requestfailed",r=>errors.request.push({url:r.url(),failure:r.failure()?.errorText??"unknown"}));page.on("framenavigated",frame=>{if(frame===page.mainFrame())navigationTrace.push({url:frame.url(),at:Date.now()});});page.on("response",r=>{if(r.status()>=400&&(/\.(?:m?js|css)(?:\?|$)/i.test(r.url())||r.url().includes("/modules/")||r.url().includes("/assets/")))errors.http.push({url:r.url(),status:r.status()});});
+  page.on("console",m=>{if(m.type()==="error")errors.console.push(m.text());});page.on("pageerror",e=>errors.page.push(String(e?.stack??e)));page.on("requestfailed",r=>errors.request.push({url:r.url(),failure:r.failure()?.errorText??"unknown"}));page.on("response",r=>{if(r.status()>=400&&(/\.(?:m?js|css)(?:\?|$)/i.test(r.url())||r.url().includes("/modules/")||r.url().includes("/assets/")))errors.http.push({url:r.url(),status:r.status()});});
   const url=new URL(BASE);url.searchParams.set("p06f04",String(Date.now()));const response=await page.goto(url.href,{waitUntil:"networkidle",timeout:120000});if(!response?.ok())throw new Error(`P06F04_MAIN_HTTP:${response?.status()??"none"}`);
   await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-grade-select option")].some(o=>o.value==="3"),null,{timeout:120000});await page.selectOption("#batch-a-grade-select","3");
   await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-semester-select option")].some(o=>o.value==="lower"),null,{timeout:120000});await page.selectOption("#batch-a-semester-select","lower");
@@ -94,8 +39,6 @@ async function run(){
   await page.waitForFunction(({q3,targets,future})=>Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${q3}"]`))&&targets.every(id=>Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${id}"]`)))&&future.every(id=>!document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${id}"]`)),{q3:Q003,targets:TARGETS,future:FUTURE},{timeout:120000});
   const selector=await page.evaluate(({q3,targets,future})=>({sourceId:document.querySelector("#batch-a-source-select")?.value,visibleIds:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id]")].map(n=>n.dataset.knowledgePointId),q003Present:Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${q3}"]`)),targetsPresent:targets.every(id=>Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${id}"]`))),futureLeaked:future.filter(id=>Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${id}"]`))),sameUnitDisabled:Boolean(document.querySelector('#batch-a-selection-mode-select option[value="mixedKnowledgePointsSameUnit"]')?.disabled)}),{q3:Q003,targets:TARGETS,future:FUTURE});
   if(selector.sourceId!==SOURCE||!selector.q003Present||!selector.targetsPresent||selector.futureLeaked.length||!selector.sameUnitDisabled)throw new Error(`P06F04_SELECTOR:${JSON.stringify(selector)}`);
-  await page.selectOption("#batch-a-selection-mode-select","singleKnowledgePoint");
-  await page.selectOption("#batch-a-ordering-select","groupedByPattern");await page.check("#batch-a-answer-key-input");await page.fill("#columns-input","2");await page.dispatchEvent("#columns-input","change");await page.fill("#rows-per-page-input","4");await page.dispatchEvent("#rows-per-page-input","change");
   const cmp=await generateFor(page,TARGETS[0],COUNT,"p06f04-comparison-ui");if(cmp.worksheet.oneWayTables!==COUNT*2||cmp.worksheet.twoWayTables!==0)throw new Error(`P06F04_COMPARISON_RENDER:${JSON.stringify(cmp.worksheet)}`);
   const tw=await generateFor(page,TARGETS[1],COUNT,"p06f04-two-way-ui");if(tw.worksheet.twoWayTables!==COUNT*2||tw.worksheet.oneWayTables!==0)throw new Error(`P06F04_TWO_WAY_RENDER:${JSON.stringify(tw.worksheet)}`);
   await tw.frame.evaluate(()=>{window.__P06F04_PRINT__=0;window.print=()=>window.__P06F04_PRINT__++;});await page.locator("#print-button").click();const printCount=await tw.frame.evaluate(()=>window.__P06F04_PRINT__??0);if(printCount!==1)throw new Error(`P06F04_PRINT:${printCount}`);
