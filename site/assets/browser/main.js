@@ -222,7 +222,7 @@ function syncSelectionModeOptions() {
   if (!selectionModeSelect) return;
   const sourceAvailability = listBatchAKnowledgePointAvailabilityBySource(state.batchA.sourceId);
   const hasVisibleKnowledgePoint = sourceAvailability.visibleCount > 0;
-  const hasSameUnitKnowledgePointMix = sourceAvailability.visibleCount >= 2;
+  const hasSameUnitKnowledgePointMix = sourceAvailability.visibleCount >= 2 && sourceAvailability.sameUnitMixedAllowed !== false;
   for (const option of selectionModeSelect.options) {
     if (option.value === BATCH_A_SELECTION_MODES.SOURCE_UNIT) {
       option.disabled = false;
@@ -309,7 +309,7 @@ function renderPatternGroupChoices() {
   patternGroupSection.dataset.visible = visible ? "true" : "false";
   if (!visible) {
     patternGroupHelp.textContent = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT
-      ? "切換到知識點模式後，可選擇計算題或應用題。"
+      ? "切換到知識點模式後，可選擇已開放的單一知識點。"
       : "目前選取的知識點只有一種題目形式，系統已自動套用。";
     return;
   }
