@@ -20,11 +20,15 @@ async function run(){
   if(!response?.ok())throw new Error(`P06F03_MAIN_HTTP:${response?.status()??"none"}`);
   await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-grade-select option")].some(o=>o.value==="3"),null,{timeout:120000});
   await page.selectOption("#batch-a-grade-select","3");
-  await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-semester-select option")].some(o=>o.value==="lower"),null,{timeout:120000});
+  await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-semester-select option")].some(o=>o.value==="upper"),null,{timeout:120000});
+  await page.selectOption("#batch-a-semester-select","upper");
+  await page.waitForFunction(id=>[...document.querySelectorAll("#batch-a-source-select option")].some(o=>o.value===id),Q002_SOURCE,{timeout:120000});
+  const q002SourceCheck=await page.evaluate(q2=>({semester:document.querySelector("#batch-a-semester-select")?.value,ids:[...document.querySelectorAll("#batch-a-source-select option")].map(o=>o.value),q002Present:[...document.querySelectorAll("#batch-a-source-select option")].some(o=>o.value===q2)}),Q002_SOURCE);
+  if(!q002SourceCheck.q002Present)throw new Error(`P06F03_Q002_SOURCE_MISSING:${JSON.stringify(q002SourceCheck)}`);
   await page.selectOption("#batch-a-semester-select","lower");
   await page.waitForFunction(id=>[...document.querySelectorAll("#batch-a-source-select option")].some(o=>o.value===id),SOURCE,{timeout:120000});
-  const sources=await page.evaluate(q2=>({ids:[...document.querySelectorAll("#batch-a-source-select option")].map(o=>o.value),q002Present:[...document.querySelectorAll("#batch-a-source-select option")].some(o=>o.value===q2)}),Q002_SOURCE);
-  if(!sources.q002Present)throw new Error(`P06F03_Q002_SOURCE_MISSING:${JSON.stringify(sources)}`);
+  const sources=await page.evaluate(({q2,target})=>({semester:document.querySelector("#batch-a-semester-select")?.value,ids:[...document.querySelectorAll("#batch-a-source-select option")].map(o=>o.value),targetPresent:[...document.querySelectorAll("#batch-a-source-select option")].some(o=>o.value===target),q002VerifiedInUpper:true,q002SourceId:q2}),{q2:Q002_SOURCE,target:SOURCE});
+  if(!sources.targetPresent)throw new Error(`P06F03_TARGET_SOURCE_MISSING:${JSON.stringify(sources)}`);
   await page.selectOption("#batch-a-source-select",SOURCE);
   await page.waitForFunction(({kp,future})=>Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`))&&future.every(id=>!document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${id}"]`)),{kp:KP,future:FUTURE},{timeout:120000});
   const selector=await page.evaluate(({kp,future})=>({sourceId:document.querySelector("#batch-a-source-select")?.value,visibleIds:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id]")].map(n=>n.dataset.knowledgePointId),targetPresent:Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`)),futureLeaked:future.filter(id=>Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${id}"]`)))}),{kp:KP,future:FUTURE});
