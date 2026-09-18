@@ -1,0 +1,279 @@
+{
+  "schemaName": "P06FW6Q010G5BU11BarLineReadBrokenAxisSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6_Q010_G5BU11_BarLineReadBrokenAxis_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q010_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q010_G5BU11_BAR_LINE_READ_BROKEN_AXIS_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "6b92dadb8e4407154c76e1dde2711895ba2fee45",
+  "predecessorD0Evidence": {
+    "queuePosition": 9,
+    "sliceId": "p06e_q009_r2_g4b_u05_4b05_profile_chart_data_c1",
+    "implementationTaskId": "P06F_W6DirectProductVerticalSlice009Implementation",
+    "prNumber": 989,
+    "mergeSha": "bfe59b138418b03e5441becc5e61c6201e27c912",
+    "postMergeWorkflowName": "P06F W6 Q009 Post-Merge Pages E2E",
+    "postMergeWorkflowRunId": 35362709946,
+    "postMergeWorkflowRunNumber": 1,
+    "postMergeWorkflowConclusion": "success",
+    "liveReportStatus": "PASS_E6_D0_COMPLETE",
+    "exactDeployedHeadSha": "bfe59b138418b03e5441becc5e61c6201e27c912",
+    "classicUiAcceptanceStatus": "PASS_P06F_W6_Q009_CLASSIC_UI_ACCEPTANCE",
+    "q010UntouchedDuringQ009": true
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p06e/w6-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p06e-w6-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "9e22094dee0d66e459848741894a3347df1c985ec8720cdabb3efc2e5a68e1be",
+    "queuePosition": 10,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q010_r2_g5b_u11_5b11_profile_chart_data_c1",
+    "implementationTaskId": "P06F_W6DirectProductVerticalSlice010Implementation",
+    "previousSliceId": "p06e_q009_r2_g4b_u05_4b05_profile_chart_data_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W6",
+    "primarySourceNodeId": "g5b_u11_5b11",
+    "supportingSourceNodeIds": [
+      "g5b_u11_5b11"
+    ],
+    "intraWavePrerequisiteRank": 2,
+    "primaryRuntimeProfileId": "profile_chart_data",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_g5b_u11_bar_line_chart_reading",
+      "kp_g5b_u11_chart_scale_broken_axis"
+    ],
+    "requiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5b_u11_5b11",
+    "sourceCode": "5b11",
+    "sourceTitle": "長條圖與折線圖",
+    "sourcePdfTitle": "meow911_5b11_source.pdf",
+    "originalFileName": "題型總覽-5b11-長條圖與折線圖.pdf",
+    "sourcePdfDriveFileId": "1iGM9Ji-q4SBcoG7y1Wza_UYtjvjxPsMX",
+    "sourcePdfSizeBytes": 508730,
+    "sourcePdfSha256": null,
+    "checksumStatus": "NOT_EXPOSED_BY_DRIVE_CONNECTOR",
+    "driveMetadataFileId": "1Hk8PWaGEMFgKWZmb8SZyMyMsmQc0XnOK",
+    "driveVerificationNotesFileId": "1W_yzOg3LEz_ZxY_5Tva1E23mtZGCdLem",
+    "metadataSourceUrl": "https://meow911.com/5b11/",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "reviewAuthorityPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "ocrUsedAsAuthority": false,
+    "directPageEvidence": {
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "directlySupports": [
+        "kp_g5b_u11_bar_line_chart_reading",
+        "kp_g5b_u11_chart_scale_broken_axis"
+      ],
+      "sourceSemanticIdentities": [
+        "BAR_LINE_CHART_VALUE_READING",
+        "CHART_SCALE_AND_OMITTED_AXIS_INTERPRETATION"
+      ]
+    },
+    "driveMetadataReadback": {
+      "sourceId": "g5b_u11_5b11",
+      "sourceTitle": "長條圖與折線圖",
+      "sourceType": "external_pdf",
+      "sourceFile": "meow911_5b11_source.pdf",
+      "sourceUrl": "https://meow911.com/5b11/",
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5b_u11_5b11",
+    "sourceTitle": "長條圖與折線圖",
+    "sourcePdfTitle": "meow911_5b11_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetCandidates": [
+      {
+        "knowledgePointId": "kp_g5b_u11_bar_line_chart_reading",
+        "canonicalNameZh": "長條圖折線圖報讀",
+        "capabilityStatement": "學生能依標題、座標軸與圖例讀取資料。",
+        "reasoningInvariant": "每個點或長條必須依正確刻度對應數值。",
+        "category": "data",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_g5b_u11_chart_scale_broken_axis",
+        "canonicalNameZh": "圖表尺度與省略刻度",
+        "capabilityStatement": "學生能處理每格非1或有省略起點的圖表。",
+        "reasoningInvariant": "數值必須依標示尺度換算，視覺高度不能直接當數值。",
+        "category": "data",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ],
+    "protectedSameSourceFutureCandidates": [
+      {
+        "knowledgePointId": "kp_g5b_u11_compare_two_data_series",
+        "canonicalNameZh": "雙資料系列比較",
+        "futureQueuePosition": 12,
+        "futureSliceId": "p06e_q012_r3_g5b_u11_5b11_profile_chart_data_c1"
+      },
+      {
+        "knowledgePointId": "kp_g5b_u11_construct_line_chart",
+        "canonicalNameZh": "繪製折線圖",
+        "futureQueuePosition": 12,
+        "futureSliceId": "p06e_q012_r3_g5b_u11_5b11_profile_chart_data_c1"
+      },
+      {
+        "knowledgePointId": "kp_g5b_u11_line_chart_trend",
+        "canonicalNameZh": "折線圖趨勢判讀",
+        "futureQueuePosition": 12,
+        "futureSliceId": "p06e_q012_r3_g5b_u11_5b11_profile_chart_data_c1"
+      }
+    ]
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r02ProjectionPath": "src/curriculum/global/r02-global-kp-candidate-reconciliation.mjs",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "profileId": "profile_chart_data",
+    "classificationRuleId": "rule_chart_data",
+    "profileRequiredCapabilityIds": [
+      "cap_chart_data_model",
+      "cap_data_domain_validator",
+      "cap_chart_representation"
+    ],
+    "profileOptionalCapabilityIds": [],
+    "exactFrozenQueueRequiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "dependencyClosureCapabilityIds": [
+      "cap_table_data_model"
+    ],
+    "dependencyClosureBasis": {
+      "capabilityId": "cap_chart_data_model",
+      "dependsOnCapabilityIds": [
+        "cap_table_data_model"
+      ],
+      "closureSource": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "closureRequiredByFrozenQueueMaterialization": true
+    },
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "classification": "NATIVE_CHART_DATA_RUNTIME_WITH_SOURCE_BACKED_BAR_LINE_READING_AND_BROKEN_AXIS_SEMANTICS",
+    "frozenRuntimeEnvelope": "profile_chart_data",
+    "targetSemanticCores": {
+      "kp_g5b_u11_bar_line_chart_reading": "BAR_LINE_CHART_VALUE_READING",
+      "kp_g5b_u11_chart_scale_broken_axis": "CHART_SCALE_AND_OMITTED_AXIS_INTERPRETATION"
+    },
+    "implementationSemanticLock": {
+      "barAndLineChartValueReadingIsCore": true,
+      "titleAxisLegendReadingRequired": true,
+      "everyPointOrBarMustResolveThroughLabeledScale": true,
+      "nonUnitScaleMustBeSupported": true,
+      "omittedAxisStartMustBeSupported": true,
+      "visualHeightMayNotSubstituteForScaleValue": true,
+      "lineChartPointReadingIsCore": true,
+      "lineChartTrendAsTargetIsCore": false,
+      "twoSeriesComparisonAsTargetIsCore": false,
+      "lineChartConstructionAsTargetIsCore": false,
+      "q012FutureKpReownershipAllowed": false,
+      "applicationContextIsCore": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "q010ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g5b_u11_bar_line_chart_reading",
+      "kp_g5b_u11_chart_scale_broken_axis"
+    ],
+    "includedRelations": [
+      "READ_BAR_OR_LINE_CHART_VALUE_FROM_TITLE_AXES_LEGEND_AND_SCALE",
+      "INTERPRET_NON_UNIT_OR_OMITTED_AXIS_SCALE"
+    ],
+    "excludedRelations": [
+      "LINE_CHART_TREND_AS_TARGET",
+      "TWO_DATA_SERIES_COMPARE_AS_TARGET",
+      "LINE_CHART_CONSTRUCTION_AS_TARGET",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q011_OR_LATER_IMPLEMENTATION"
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE_BUT_NOT_ADMITTED_BY_PREFLIGHT",
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q001ToQ009ProductMutationAllowed": false,
+    "q011OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "predecessorD0EvidenceMustBeReused": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ009D0Verified": true,
+    "sourceAuthoritySufficientForQ010ImplementationPlanning": true,
+    "fullPageVisualEvidenceBound": true,
+    "r02ReviewedCandidatesBound": true,
+    "runtimeCapabilityContractLocked": true,
+    "semanticProfileLockBound": true,
+    "sameSourceFutureCandidatesProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P06F_W6DirectProductVerticalSlice010Implementation"
+  }
+}
