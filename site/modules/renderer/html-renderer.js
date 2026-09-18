@@ -24,6 +24,7 @@ import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderMeasurementScale } from "./measurement-scale.js";
 import { renderTabularPatternTable } from "./tabular-pattern-table.js";
 import { renderOneWayStatisticsTable } from "./one-way-statistics-table.js";
+import { renderTwoWayStatisticsTable } from "./two-way-statistics-table.js";
 import { renderInlineMathModel } from "./inline-math.js";
 
 function escapeHtml(value) {
@@ -91,7 +92,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -127,6 +128,7 @@ function renderGeometryDiagram(model) {
 function renderTableData(model) {
   if (model?.kind === "tabular_pattern_table") return renderTabularPatternTable(model);
   if (model?.kind === "one_way_statistics_table") return renderOneWayStatisticsTable(model);
+  if (model?.kind === "two_way_statistics_table") return renderTwoWayStatisticsTable(model);
   throw createRendererError("table_data_invalid", "Unsupported table data kind: " + (model?.kind ?? "missing"));
 }
 function renderPageSection(title, pagesHtml, sectionClassName, options) {

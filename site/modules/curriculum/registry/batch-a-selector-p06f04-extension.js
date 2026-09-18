@@ -1,6 +1,6 @@
 export * from "./batch-a-selector-p06f03-extension.js";
 import * as base from "./batch-a-selector-p06f03-extension.js";
-import {G3B_U10_P06F03_KP_ID as Q003_KP,auditP06F03PublicSelectorComposition as auditBase} from "./g3b-u10-one-way-table-selector-projection-p06f03.js";
+import {G3B_U10_P06F03_KP_ID as Q003_KP} from "./g3b-u10-one-way-table-selector-projection-p06f03.js";
 import {G3B_U10_P06F04_PROTECTED_FUTURE_KP_IDS as FUTURE,G3B_U10_P06F04_SOURCE_ID as SRC,G3B_U10_P06F04_TARGET_KP_IDS as TARGETS,getG3BU10P06F04SelectorRow as row,listG3BU10P06F04PatternGroups as groups,resolveG3BU10P06F04PatternSpecIds as specs} from "./g3b-u10-table-structure-comparison-selector-projection-p06f04.js";
 const clone=v=>v==null?v:JSON.parse(JSON.stringify(v)),b=base.BATCH_A_SELECTOR_AVAILABILITY,p=b.bySourceId?.[SRC]??null;
 if(!p)throw new Error("P06F04_G3B_U10_SOURCE_MISSING");
