@@ -111,7 +111,7 @@ test("W6 Q005 shared browser path generates worksheet and print-safe HTML for bo
     assert.equal(w.worksheetDocument.answerKeyItems.length,8);
     assert.equal(w.worksheetDocument.metadata.geometryPropertyReasoningUsed,false);
     assert.equal(w.worksheetDocument.metadata.q006OrLaterTouched,false);
-    const html=renderWorksheetDocumentToHtml(w.worksheetDocument,{stylesheetHref:""});
+    const html=renderWorksheetDocumentToHtml(w.worksheetDocument,{stylesheetHref:"",debugDataAttributes:false});
     assert.ok(html.includes("worksheet-document"));
     assert.equal(html.includes("kp_g4a_u07_"),false);
     assert.equal(html.includes("ps_g4a_u07_"),false);
