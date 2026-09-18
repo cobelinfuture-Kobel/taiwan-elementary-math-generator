@@ -10,8 +10,14 @@ if(!REMOTE){server=spawn(process.execPath,["tools/site/serve-site.js"],{env:{...
 async function ready(){let last;for(let i=0;i<50;i++){try{const r=await fetch(BASE,{cache:"no-store"});if(r.ok)return;}catch(e){last=e;}await sleep(250);}throw new Error(`P06F04_SITE_NOT_READY:${last?.message??"unknown"}`);}
 const errors={console:[],page:[],request:[],http:[]};
 async function generateFor(page,kp,count,seed){
-  await page.locator(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`).click();
-  await page.waitForFunction(id=>{const s=[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId);return s.length===1&&s[0]===id;},kp,{timeout:120000});
+  const targetButton=page.locator(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`);
+  await targetButton.click();
+  try{
+    await page.waitForFunction(id=>{const s=[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId);return s.length===1&&s[0]===id;},kp,{timeout:5000});
+  }catch(error){
+    const diagnostic=await page.evaluate(id=>({requested:id,selectionMode:document.querySelector("#batch-a-selection-mode-select")?.value,visible:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id]")].map(n=>({id:n.dataset.knowledgePointId,selected:n.dataset.selected,disabled:Boolean(n.disabled),pressed:n.getAttribute("aria-pressed")})),warnings:document.querySelector("#batch-a-knowledge-point-warning-list")?.innerText??"",url:location.href}),kp);
+    throw new Error(`P06F04_KP_SELECTION_NOT_MATERIALIZED:${JSON.stringify(diagnostic)}\n${String(error)}`);
+  }
   await page.fill("#batch-a-question-count-input",String(count));await page.dispatchEvent("#batch-a-question-count-input","change");
   await page.fill("#generation-seed-input",seed);await page.dispatchEvent("#generation-seed-input","change");
   await page.locator("#regenerate-button").click();
