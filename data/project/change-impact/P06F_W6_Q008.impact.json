@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P06F_W6_Q008",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_construct_two_way_table",
+    "kp_table_extrema_and_missing_value"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_construct_two_way_table",
+    "kp_table_extrema_and_missing_value"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_construct_two_way_table": "IMPLEMENTED",
+    "kp_table_extrema_and_missing_value": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P06F_W6_Q008.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "q001ToQ007ProductMutation": false,
+    "q009OrLater": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false
+  }
+}
