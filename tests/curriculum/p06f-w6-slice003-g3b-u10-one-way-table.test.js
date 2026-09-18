@@ -30,11 +30,11 @@ test("W6 Q003 materializes exactly one source-backed one-way-table KP",()=>{
 });
 
 test("W6 Q003 promotes only one-way table reading and keeps Q004+ source KPs hidden",()=>{
-  const before=preQ003Selector.listBatchAKnowledgePointAvailabilityBySource(SRC);
-  if(before){
-    assert.equal(preQ003Selector.getVisibleBatchAKnowledgePoint(KP),null);
-    assert.ok(before.hiddenPendingKnowledgePointIds.includes(KP));
-    assert.ok(before.notSelectableKnowledgePointIds.includes(KP));
+  const beforeSource=preQ003Selector.BATCH_A_SELECTOR_AVAILABILITY.bySourceId?.[SRC]??null;
+  assert.equal(preQ003Selector.getVisibleBatchAKnowledgePoint(KP),null);
+  if(beforeSource){
+    assert.ok((beforeSource.hiddenPendingKnowledgePointIds??[]).includes(KP));
+    assert.ok((beforeSource.notSelectableKnowledgePointIds??[]).includes(KP));
   }
   const a=auditP06F03PublicSelectorComposition();
   assert.equal(a.ok,true,a.errors.join("\n"));
