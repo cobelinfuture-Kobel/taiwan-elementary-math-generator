@@ -1,0 +1,306 @@
+{
+  "schemaName": "P06FW6Q013G4AU07MissingTermSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6_Q013_G4AU07_MissingTerm_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q013_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q013_G4AU07_MISSING_TERM_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "d57fbc70167f467f2438a4d60fafdb5eef8b74e1",
+  "predecessorD0Evidence": {
+    "immediatePredecessor": {
+      "queuePosition": 12,
+      "sliceId": "p06e_q012_r3_g5b_u11_5b11_profile_chart_data_c1",
+      "implementationTaskId": "P06F_W6DirectProductVerticalSlice012Implementation",
+      "prNumber": 995,
+      "mergeSha": "516ff2b34169bee9ba8eeb937909144f8219fd41",
+      "postMergeWorkflowName": "P06F W6 Q012 Post-Merge Pages E2E",
+      "postMergeWorkflowRunId": 35512569108,
+      "postMergeWorkflowRunNumber": 1,
+      "postMergeWorkflowConclusion": "success",
+      "liveReportStatus": "PASS_E6_D0_COMPLETE",
+      "exactDeployedHeadSha": "516ff2b34169bee9ba8eeb937909144f8219fd41",
+      "classicUiAcceptanceStatus": "PASS_P06F_W6_Q012_CLASSIC_UI_ACCEPTANCE"
+    },
+    "sameSourceProductPredecessors": [
+      {
+        "queuePosition": 5,
+        "sliceId": "p06e_q005_r1_g4a_u07_4a07_profile_pattern_relation_c1",
+        "implementationTaskId": "P06F_W6DirectProductVerticalSlice005Implementation",
+        "prNumber": 981,
+        "mergeSha": "99e166ea0cd224d112d3a23f33a88e3481c5ea2a",
+        "knowledgePointIds": [
+          "kp_g4a_u07_geometric_arrangement_count",
+          "kp_g4a_u07_quantity_additive_pattern"
+        ]
+      },
+      {
+        "queuePosition": 6,
+        "sliceId": "p06e_q006_r1_g4a_u07_4a07_profile_table_data_c1",
+        "implementationTaskId": "P06F_W6DirectProductVerticalSlice006Implementation",
+        "prNumber": 983,
+        "mergeSha": "5935607b872cfda455e3fd92166e2c8ae7a0ccc8",
+        "knowledgePointIds": [
+          "kp_g4a_u07_input_output_table_rule"
+        ]
+      },
+      {
+        "queuePosition": 11,
+        "sliceId": "p06e_q011_r3_g4a_u07_4a07_profile_pattern_relation_c1",
+        "implementationTaskId": "P06F_W6DirectProductVerticalSlice011Implementation",
+        "prNumber": 993,
+        "mergeSha": "160a1bedf9f9c460fe0c43effaa641104eab4890",
+        "postMergeWorkflowRunId": 35498111953,
+        "liveReportStatus": "PASS_E6_D0_COMPLETE",
+        "knowledgePointIds": [
+          "kp_g4a_u07_quantity_multiplicative_pattern"
+        ]
+      }
+    ]
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p06e/w6-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p06e-w6-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "9e22094dee0d66e459848741894a3347df1c985ec8720cdabb3efc2e5a68e1be",
+    "queuePosition": 13,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q013_r4_g4a_u07_4a07_profile_pattern_relation_c1",
+    "implementationTaskId": "P06F_W6DirectProductVerticalSlice013Implementation",
+    "previousSliceId": "p06e_q012_r3_g5b_u11_5b11_profile_chart_data_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W6",
+    "primarySourceNodeId": "g4a_u07_4a07",
+    "supportingSourceNodeIds": [
+      "g4a_u07_4a07"
+    ],
+    "intraWavePrerequisiteRank": 4,
+    "primaryRuntimeProfileId": "profile_pattern_relation",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g4a_u07_pattern_missing_term_reasoning"
+    ],
+    "requiredW6CapabilityIds": [
+      "cap_pattern_relation_validator",
+      "cap_pattern_sequence_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g4a_u07_4a07",
+    "sourceCode": "4a07",
+    "sourceTitleCanonicalForPreflight": "數量關係與規律",
+    "driveMetadataSourceTitle": "數量規律",
+    "sourcePdfTitle": "meow911_4a07_source.pdf",
+    "originalFileName": "題型總覽-4a07-數量規律.pdf",
+    "sourcePdfDriveFileId": "1NKZfif1y-iujwps73SB6P6LtcdDWWdsd",
+    "sourcePdfSizeBytes": 555941,
+    "sourcePdfSha256": null,
+    "checksumStatus": "NOT_EXPOSED_BY_DRIVE_CONNECTOR",
+    "driveMetadataFileId": "1eAqAJCRK8c_5aawop1qi1_EYCWaSRzNI",
+    "driveVerificationNotesFileId": "1WR2Wg73KxB1NhDSZxIPzZuFZO9NRfV6W",
+    "metadataSourceUrl": "https://meow911.com/4a07/",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "reviewAuthorityPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "ocrUsedAsAuthority": false,
+    "reusedFromQ005Q006Q011SourceAuthority": true,
+    "directPageEvidence": {
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "directlySupports": [
+        "kp_g4a_u07_pattern_missing_term_reasoning"
+      ],
+      "sourceSemanticIdentities": [
+        "PATTERN_MISSING_TERM_BIDIRECTIONAL_REASONING"
+      ]
+    },
+    "sourceIdentityArtifactLock": {
+      "titleNormalizationDifference": {
+        "present": true,
+        "r02SourceTitle": "數量關係與規律",
+        "driveMetadataSourceTitle": "數量規律",
+        "classification": "NON_BLOCKING_SOURCE_TITLE_NORMALIZATION_DIFFERENCE"
+      },
+      "embeddedHeaderUrlMismatch": {
+        "present": true,
+        "pdfTextReadbackUrl": "https://meow911.com/4b04/",
+        "queueAndDriveSourceNode": "g4a_u07_4a07",
+        "driveMetadataSourceUrl": "https://meow911.com/4a07/",
+        "classification": "NON_BLOCKING_SOURCE_DOCUMENT_HEADER_URL_MISMATCH",
+        "resolutionBasis": [
+          "FROZEN_W6_QUEUE_SOURCE_NODE",
+          "DRIVE_SOURCE_FILENAME_AND_METADATA",
+          "R02_FULL_PAGE_REVIEWED_CANDIDATE_AUTHORITY",
+          "Q005_Q006_Q011_SAME_SOURCE_AUTHORITY"
+        ],
+        "sourceRefAmbiguity": false,
+        "manualSourceChoiceRequired": false,
+        "silentRewriteAllowed": false
+      }
+    },
+    "driveMetadataReadback": {
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g4a_u07_4a07",
+    "sourceTitle": "數量關係與規律",
+    "sourcePdfTitle": "meow911_4a07_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g4a_u07_pattern_missing_term_reasoning",
+      "canonicalNameZh": "規律缺項推理",
+      "capabilityStatement": "學生能由前後項與規則求中間或指定位置的未知量。",
+      "reasoningInvariant": "未知項必須同時滿足其前後相鄰關係。",
+      "category": "pattern",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "protectedPredecessorKnowledgePointIds": [
+      "kp_g4a_u07_quantity_additive_pattern",
+      "kp_g4a_u07_quantity_multiplicative_pattern",
+      "kp_g4a_u07_input_output_table_rule",
+      "kp_g4a_u07_geometric_arrangement_count"
+    ],
+    "sameSourceCandidateKnowledgePointIds": [
+      "kp_g4a_u07_quantity_additive_pattern",
+      "kp_g4a_u07_quantity_multiplicative_pattern",
+      "kp_g4a_u07_input_output_table_rule",
+      "kp_g4a_u07_geometric_arrangement_count",
+      "kp_g4a_u07_pattern_missing_term_reasoning"
+    ],
+    "sameSourceCandidateSetCompleteAfterQ013": true
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r02ProjectionPath": "src/curriculum/global/r02-global-kp-candidate-reconciliation.mjs",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "profileId": "profile_pattern_relation",
+    "classificationRuleId": "rule_pattern_relation",
+    "profileRequiredCapabilityIds": [
+      "cap_pattern_sequence_reasoning",
+      "cap_pattern_relation_validator",
+      "cap_text_numeric_representation"
+    ],
+    "profileOptionalCapabilityIds": [
+      "cap_symbolic_relation_reasoning"
+    ],
+    "exactFrozenQueueRequiredW6CapabilityIds": [
+      "cap_pattern_relation_validator",
+      "cap_pattern_sequence_reasoning"
+    ],
+    "runtimeProfileReclassificationAllowed": false,
+    "symbolicRelationReasoningRequiredForQ013": false,
+    "tableDataCapabilityReownershipAllowed": false,
+    "geometryPropertyCapabilityRequiredForQ013": false
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "classification": "PROFILE_MATCHES_SOURCE_BIDIRECTIONAL_MISSING_TERM_PATTERN_REASONING",
+    "frozenRuntimeEnvelope": "profile_pattern_relation",
+    "targetSemanticCore": "PATTERN_MISSING_TERM_BIDIRECTIONAL_REASONING",
+    "implementationSemanticLock": {
+      "missingTermReasoningIsCore": true,
+      "unknownMustSatisfyPreviousAdjacency": true,
+      "unknownMustSatisfyNextAdjacency": true,
+      "bothNeighborConstraintsMustAgree": true,
+      "additiveRuleFamilyMayBeSupportingEvidence": true,
+      "multiplicativeRuleFamilyMayBeSupportingEvidence": true,
+      "additivePatternAsTargetIsCore": false,
+      "multiplicativePatternAsTargetIsCore": false,
+      "geometricArrangementAsTargetIsCore": false,
+      "inputOutputTableRuleAsTargetIsCore": false,
+      "q005PredecessorReownershipAllowed": false,
+      "q006PredecessorReownershipAllowed": false,
+      "q011PredecessorReownershipAllowed": false,
+      "symbolicNthTermFormulaIsCore": false,
+      "applicationContextIsCore": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "q013ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g4a_u07_pattern_missing_term_reasoning"
+    ],
+    "includedRelations": [
+      "SOLVE_PATTERN_MISSING_TERM_FROM_BIDIRECTIONAL_ADJACENCY",
+      "VERIFY_MISSING_TERM_AGAINST_BOTH_NEIGHBOR_RELATIONS"
+    ],
+    "excludedRelations": [
+      "REOWN_Q005_ADDITIVE_OR_GEOMETRIC_PATTERN_KPS",
+      "REOWN_Q006_INPUT_OUTPUT_TABLE_RULE",
+      "REOWN_Q011_MULTIPLICATIVE_PATTERN_KP",
+      "GENERAL_SYMBOLIC_NTH_TERM_FORMULA",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q014_OR_LATER_IMPLEMENTATION"
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE_BUT_NOT_ADMITTED_BY_PREFLIGHT",
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q001ToQ012ProductMutationAllowed": false,
+    "q014OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "immediatePredecessorD0EvidenceMustBeReused": true,
+    "sameSourceAuthorityEvidenceMustBeReused": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ012D0Verified": true,
+    "sameSourceQ005Q006Q011AuthorityReused": true,
+    "sourceAuthoritySufficientForQ013ImplementationPlanning": true,
+    "fullPageVisualEvidenceBound": true,
+    "r02ReviewedCandidateBound": true,
+    "runtimeCapabilityContractLocked": true,
+    "semanticProfileLockBound": true,
+    "q005Q006Q011ProductBoundariesProtected": true,
+    "sameSourceCandidateSetCompleteAfterQ013": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P06F_W6DirectProductVerticalSlice013Implementation"
+  }
+}
