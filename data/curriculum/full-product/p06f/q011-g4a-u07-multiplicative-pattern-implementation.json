@@ -1,0 +1,105 @@
+{
+  "schemaName": "P06FW6Q011G4AU07MultiplicativePatternImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6DirectProductVerticalSlice011Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q011_G4AU07_MULTIPLICATIVE_PATTERN_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_BOUNDARY_LOCKED",
+    "after": "D1_Q011_G4AU07_MULTIPLICATIVE_PATTERN_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "22e0eded6b926f397d0235f4eb023029e5111d4f",
+  "preflight": {
+    "prNumber": 992,
+    "mergeSha": "0f917b03f8fff134a2b680314896fc79f916751d",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p06f/q011-g4a-u07-multiplicative-pattern-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "queuePosition": 10,
+    "prNumber": 991,
+    "mergeSha": "8a30a528e7a7fccd577cf2d12ae4336699c31ac1",
+    "postMergeWorkflowRunId": 35496589216,
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "queueAuthority": {
+    "queuePosition": 11,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q011_r3_g4a_u07_4a07_profile_pattern_relation_c1",
+    "sourceId": "g4a_u07_4a07",
+    "knowledgePointIds": [
+      "kp_g4a_u07_quantity_multiplicative_pattern"
+    ],
+    "runtimeProfileId": "profile_pattern_relation",
+    "requiredW6CapabilityIds": [
+      "cap_pattern_relation_validator",
+      "cap_pattern_sequence_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_4a07_source.pdf",
+    "sourcePdfDriveFileId": "1NKZfif1y-iujwps73SB6P6LtcdDWWdsd",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "reusedFromQ005AndQ006": true,
+    "sourceRefAmbiguity": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 2,
+    "patternSpecIds": [
+      "ps_g4a_u07_multiplicative_factor_identify",
+      "ps_g4a_u07_multiplicative_extend"
+    ],
+    "includedRelations": [
+      "IDENTIFY_CONSTANT_MULTIPLICATIVE_FACTOR",
+      "EXTEND_FIXED_MULTIPLICATIVE_QUANTITY_PATTERN"
+    ],
+    "questionMode": "numeric",
+    "representation": "text_numeric_pattern",
+    "applicationContextMode": "NOT_ADMITTED",
+    "sameUnitMixedMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "INTEGER"
+  },
+  "semanticProfileLock": {
+    "fixedMultiplicativeFactorIsCore": true,
+    "adjacentStageRatioMustRemainConstant": true,
+    "multiplicativeGrowthOrShrinkAllowed": true,
+    "q005PredecessorReownershipAllowed": false,
+    "q006PredecessorReownershipAllowed": false,
+    "q013FutureKpReownershipAllowed": false,
+    "symbolicNthTermFormulaUsed": false
+  },
+  "scopeGuard": {
+    "q001ToQ010ProductMutationAllowed": false,
+    "q005Q006PredecessorReownership": false,
+    "q013FutureKpReownership": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q012OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}
