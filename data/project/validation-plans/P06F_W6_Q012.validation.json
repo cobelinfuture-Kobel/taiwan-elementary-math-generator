@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P06F_W6_Q012_BOUNDED_VALIDATION",
+  "unitId": "g5b_u11_5b11",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p06f-w6-slice012-g5b-u11-compare-construct-trend.test.js",
+          "tests/curriculum/p06f-w6-q012-g5b-u11-compare-construct-trend-source-authority-preflight.test.js",
+          "tests/curriculum/p06f-w6-slice010-g5b-u11-bar-line-read-broken-axis.test.js",
+          "tests/curriculum/p06f-w6-slice011-g4a-u07-multiplicative-pattern.test.js",
+          "tests/curriculum/p06e-w6-direct-product-vertical-slice-queue.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p06f-w6-slice012-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}
