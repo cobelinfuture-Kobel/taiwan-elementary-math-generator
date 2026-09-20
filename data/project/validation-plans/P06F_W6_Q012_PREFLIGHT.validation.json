@@ -9,8 +9,7 @@
         "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
-          "tests/curriculum/p06f-w6-q012-g5b-u11-compare-construct-trend-source-authority-preflight.test.js",
-          "tests/curriculum/p06f-w6-q011-g4a-u07-multiplicative-pattern-source-authority-preflight.test.js",
+          "tests/curriculum/p06f-w6-q012-g5b-u11-two-series-line-chart-source-authority-preflight.test.js",
           "tests/curriculum/p06f-w6-q010-g5b-u11-bar-line-read-broken-axis-source-authority-preflight.test.js",
           "tests/curriculum/p06e-w6-direct-product-vertical-slice-queue.test.js"
         ]
@@ -18,7 +17,7 @@
       {
         "gateId": "TARGETED_ROUTE_REPLAY",
         "kind": "NODE_RUNNER",
-        "path": "tools/curriculum/read-p06f-w6-q012-g5b-u11-compare-construct-trend-source-authority-preflight.mjs",
+        "path": "tools/curriculum/read-p06f-w6-q012-g5b-u11-two-series-line-chart-source-authority-preflight.mjs",
         "runtime": "NODE_ONLY"
       }
     ]
