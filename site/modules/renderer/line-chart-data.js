@@ -1,0 +1,22 @@
+function escapeHtml(value){return String(value).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");}
+const CORES=Object.freeze(["BAR_LINE_CHART_VALUE_READING","CHART_SCALE_AND_OMITTED_AXIS_INTERPRETATION"]);
+export function validateLineChartData(model){
+  if(!model||model.kind!=="line_chart_data")return false;
+  if(typeof model.title!=="string"||typeof model.xAxisLabel!=="string"||typeof model.yAxisLabel!=="string"||typeof model.legendLabel!=="string")return false;
+  const axisStart=Number.isInteger(model.axisStart)?model.axisStart:0;
+  if(!Number.isInteger(model.scaleStep)||model.scaleStep<=0||!Number.isInteger(model.tickCount)||model.tickCount<2||model.tickCount>8||axisStart<0||model.maxValue!==axisStart+model.scaleStep*model.tickCount)return false;
+  if(model.omittedAxisStart!==(axisStart>0))return false;
+  if(!CORES.includes(model.semanticCore)||!Array.isArray(model.points)||model.points.length<2||model.points.length>6)return false;
+  return model.points.every(p=>p&&typeof p.label==="string"&&Number.isInteger(p.value)&&p.value>=axisStart&&p.value<=model.maxValue&&(p.value-axisStart)%model.scaleStep===0&&(p.highlighted===undefined||typeof p.highlighted==="boolean"));
+}
+export function renderLineChartData(model){
+  if(!validateLineChartData(model)){const error=new Error("Line chart representation is invalid.");error.code="line_chart_data_invalid";throw error;}
+  const width=360,height=200,left=52,right=342,top=34,bottom=154,axisStart=model.axisStart??0,plotH=bottom-top,plotW=right-left,n=model.points.length,slot=n>1?plotW/(n-1):plotW;
+  const y=v=>bottom-((v-axisStart)/(model.maxValue-axisStart))*plotH;
+  const x=i=>left+slot*i;
+  const grid=Array.from({length:model.tickCount+1},(_,i)=>{const value=axisStart+i*model.scaleStep,yy=y(value).toFixed(2);return `<g class="worksheet-line-chart__tick"><line x1="${left}" y1="${yy}" x2="${right}" y2="${yy}" stroke="currentColor" stroke-opacity=".25" stroke-width="1"/><text x="${left-7}" y="${(Number(yy)+3).toFixed(2)}" text-anchor="end" font-size="9">${escapeHtml(value)}</text></g>`;}).join("");
+  const coords=model.points.map((p,i)=>`${x(i).toFixed(2)},${y(p.value).toFixed(2)}`).join(" ");
+  const points=model.points.map((p,i)=>{const xx=x(i),yy=y(p.value),cls=p.highlighted?" worksheet-line-chart__point--highlighted":"";return `<g class="worksheet-line-chart__point${cls}" data-point-index="${i}"><circle cx="${xx.toFixed(2)}" cy="${yy.toFixed(2)}" r="${p.highlighted?5:3.5}" fill="currentColor"/><text x="${xx.toFixed(2)}" y="${bottom+15}" text-anchor="middle" font-size="10">${escapeHtml(p.label)}</text></g>`;}).join("");
+  const broken=model.omittedAxisStart?'<path class="worksheet-line-chart__axis-break" d="M47 144 l5 -5 l-5 -5 l5 -5" fill="none" stroke="currentColor" stroke-width="1.6"/>':"";
+  return ['<div class="worksheet-cell__representation worksheet-cell__representation--chart" data-representation="line-chart">',`<svg class="worksheet-line-chart" data-scale-step="${model.scaleStep}" data-axis-start="${axisStart}" data-omitted-axis-start="${model.omittedAxisStart}" data-semantic-core="${escapeHtml(model.semanticCore)}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(model.ariaLabel??model.title)}" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;max-width:360px;height:auto;margin:.2rem auto;">`,`<title>${escapeHtml(model.title)}</title>`,`<text x="${width/2}" y="14" text-anchor="middle" font-size="11" font-weight="700">${escapeHtml(model.title)}</text>`,`<g class="worksheet-line-chart__legend"><line x1="250" y1="25" x2="270" y2="25" stroke="currentColor" stroke-width="2"/><circle cx="260" cy="25" r="3" fill="currentColor"/><text x="276" y="28" font-size="9">${escapeHtml(model.legendLabel)}</text></g>`,grid,`<line x1="${left}" y1="${top}" x2="${left}" y2="${bottom}" stroke="currentColor" stroke-width="1.5"/><line x1="${left}" y1="${bottom}" x2="${right}" y2="${bottom}" stroke="currentColor" stroke-width="1.5"/>`,broken,`<polyline class="worksheet-line-chart__series" points="${coords}" fill="none" stroke="currentColor" stroke-width="2"/>`,points,`<text x="12" y="${(top+bottom)/2}" text-anchor="middle" font-size="9" transform="rotate(-90 12 ${(top+bottom)/2})">${escapeHtml(model.yAxisLabel)}</text>`,`<text x="${(left+right)/2}" y="194" text-anchor="middle" font-size="9">${escapeHtml(model.xAxisLabel)}</text>`,"</svg>","</div>"].join("");
+}
