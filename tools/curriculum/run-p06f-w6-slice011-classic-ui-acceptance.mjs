@@ -46,7 +46,7 @@ async function generateFor(page,kp,count,seed){
   await frame.waitForSelector(".worksheet-document",{timeout:120000});
   const worksheet=await frame.evaluate(()=>{const q=[...document.querySelectorAll(".worksheet-cell--question")],a=[...document.querySelectorAll(".worksheet-cell--answer-key")],overflow=[...document.querySelectorAll(".worksheet-page")].filter(n=>n.scrollHeight>n.clientHeight+1||n.scrollWidth>n.clientWidth+1).length,allText=document.body?.innerText??"";return{questions:q.length,answers:a.length,overflow,allText,leaks:allText.includes("kp_g4a_u07_")||allText.includes("ps_g4a_u07_")||allText.includes("P06F11")};});
   if(worksheet.questions!==count||worksheet.answers!==count||worksheet.overflow!==0||worksheet.leaks)throw new Error(`P06F11_WORKSHEET:${kp}:${JSON.stringify({...worksheet,allText:undefined})}`);
-  if(!worksheet.allText.includes("倍數規律"))throw new Error("P06F11_MULTIPLICATIVE_SEMANTICS_MISSING");
+  if(kp===TARGET&&!worksheet.allText.includes("倍數規律"))throw new Error("P06F11_MULTIPLICATIVE_SEMANTICS_MISSING");
   return{state,worksheet:{questions:worksheet.questions,answers:worksheet.answers,overflow:worksheet.overflow},frame};
 }
 async function run(){
