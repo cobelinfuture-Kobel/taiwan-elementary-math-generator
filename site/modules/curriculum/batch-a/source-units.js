@@ -28,6 +28,9 @@ export const W6_SLICE015_PUBLIC_SOURCE_UNITS=Object.freeze([
 export const W6_SLICE019_PUBLIC_SOURCE_UNITS=Object.freeze([
   Object.freeze({sourceId:"g6b_u05_6b05",grade:6,semester:"lower",unitCode:"6B-U05",title:"怎樣解題",domain:"problem_solving",lifecycle:"public_full_product_w6_slice019_candidate"})
 ]);
+export const W7_SLICE001_PUBLIC_SOURCE_UNITS=Object.freeze([
+  Object.freeze({sourceId:"g6a_u05_6a05",grade:6,semester:"upper",unitCode:"6A-U05",title:"比和比值",domain:"ratio",lifecycle:"public_full_product_w7_slice001_candidate"})
+]);
 const q049=W5_SLICE049_PUBLIC_SOURCE_UNITS[0],qW6_001=W6_SLICE001_PUBLIC_SOURCE_UNITS[0],qW6_003=W6_SLICE003_PUBLIC_SOURCE_UNITS[0],qW6_005=W6_SLICE005_PUBLIC_SOURCE_UNITS[0],qW6_007=W6_SLICE007_PUBLIC_SOURCE_UNITS[0],qW6_010=W6_SLICE010_PUBLIC_SOURCE_UNITS[0],qW6_014=W6_SLICE014_PUBLIC_SOURCE_UNITS[0],qW6_015=W6_SLICE015_PUBLIC_SOURCE_UNITS[0],qW6_019=W6_SLICE019_PUBLIC_SOURCE_UNITS[0],qW7_001=W7_SLICE001_PUBLIC_SOURCE_UNITS[0];
 
 export function listBatchASourceUnits(options={}){
@@ -53,6 +56,7 @@ export function listBatchASourceUnits(options={}){
   if(includeW6Q014&&!units.some(unit=>unit.sourceId===qW6_014.sourceId))units=[...units,{...qW6_014}];
   if(includeW6Q015&&!units.some(unit=>unit.sourceId===qW6_015.sourceId))units=[...units,{...qW6_015}];
   if(includeW6Q019&&!units.some(unit=>unit.sourceId===qW6_019.sourceId))units=[...units,{...qW6_019}];
+  if(includeW7Q001&&!units.some(unit=>unit.sourceId===qW7_001.sourceId))units=[...units,{...qW7_001}];
   return units;
 }
 export function getBatchASourceUnit(sourceId){if(sourceId===qW7_001.sourceId)return {...qW7_001};if(sourceId===qW6_019.sourceId)return {...qW6_019};if(sourceId===qW6_015.sourceId)return {...qW6_015};if(sourceId===qW6_014.sourceId)return {...qW6_014};if(sourceId===qW6_010.sourceId)return {...qW6_010};if(sourceId===qW6_007.sourceId)return {...qW6_007};if(sourceId===qW6_005.sourceId)return {...qW6_005};if(sourceId===qW6_003.sourceId)return {...qW6_003};if(sourceId===qW6_001.sourceId)return {...qW6_001};return sourceId===q049.sourceId?{...q049}:base.getBatchASourceUnit(sourceId);}
