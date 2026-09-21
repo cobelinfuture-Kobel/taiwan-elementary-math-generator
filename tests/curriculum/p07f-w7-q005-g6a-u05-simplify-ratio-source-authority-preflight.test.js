@@ -1,0 +1,118 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+import {materializeP07EW7DirectProductVerticalSliceQueue} from "../../src/curriculum/full-product/p07e-w7-direct-product-vertical-slice-queue.mjs";
+import {materializeR04SharedRuntimeCapabilityMatrix,getR04KnowledgePointCapabilityMapping} from "../../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
+import {getR05DeliveryWaveAssignment} from "../../src/curriculum/global/r05-delivery-wave-rebase.mjs";
+
+const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"));
+const p=read("data/curriculum/full-product/p07f/q005-g6a-u05-simplify-ratio-source-authority-preflight.json");
+const r02=read("data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json");
+const KP="kp_g6a_u05_simplify_ratio";
+
+test("W7 Q005 preflight binds exact fifth frozen queue slice after Q004 D0",()=>{
+  const result=materializeP07EW7DirectProductVerticalSliceQueue(),slice=result.queueEntries[4];
+  assert.equal(p.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
+  assert.equal(result.queueEntries.length,26);assert.equal(result.queueRegistryParity,true);
+  assert.equal(slice.queuePosition,5);
+  assert.equal(slice.sliceId,"p07e_q005_r8_g6a_u05_6a05_profile_factor_multiple_c1");
+  assert.equal(slice.implementationTaskId,"P07F_W7DirectProductVerticalSlice005Implementation");
+  assert.equal(slice.previousSliceId,"p07e_q004_r7_g6a_u06_6a06_profile_geometry_formula_c1");
+  assert.equal(slice.previousSliceMustBeD0Complete,true);
+  assert.equal(slice.primarySourceNodeId,"g6a_u05_6a05");
+  assert.deepEqual(slice.supportingSourceNodeIds,["g6a_u05_6a05"]);
+  assert.equal(slice.intraWavePrerequisiteRank,8);
+  assert.equal(slice.primaryRuntimeProfileId,"profile_factor_multiple");
+  assert.equal(slice.chunkIndex,1);
+  assert.deepEqual(slice.knowledgePointIds,[KP]);
+  assert.deepEqual(slice.requiredW7CapabilityIds,[]);
+  assert.equal(p.predecessorD0Evidence.q004Status,"PASS_E6_D0_COMPLETE");
+  assert.equal(p.predecessorD0Evidence.q004MergeSha,"937b28c457df245a5e808017831a011d4a966562");
+  assert.equal(p.predecessorD0Evidence.q004PostMergeWorkflowRunId,35609190929);
+  assert.equal(p.predecessorD0Evidence.exactDeployedAssetDigestParity,true);
+});
+
+test("W7 Q005 binds reviewed simplest-integer-ratio candidate and preserves visual page-localization mismatch explicitly",()=>{
+  const source=r02.sourceRecords.find(row=>row.sourceNodeId==="g6a_u05_6a05");assert.ok(source);
+  const target=source.candidates.find(row=>row.knowledgePointId===KP);assert.ok(target);
+  assert.equal(target.canonicalNameZh,"最簡整數比");
+  assert.equal(target.capabilityStatement,"學生能將比化為互質整數比。");
+  assert.equal(target.reasoningInvariant,"化簡前後比值相同且前後項無大於1公因數。");
+  assert.deepEqual(target.evidencePages,[4]);assert.equal(target.category,"ratio");
+  assert.equal(p.sourceAuthority.sourcePdfDriveFileId,"1f2VouY0XucxQ_jjVHzi1CbHklyQhpnAF");
+  assert.equal(p.sourceAuthority.sourcePdfSizeBytes,1463604);
+  assert.equal(p.sourceAuthority.sourcePdfSha256,"282b7ee25093afdd3b50c1077c168c30da0118bac4010f98aed09471e1ae5e4c");
+  assert.ok(p.sourceAuthority.currentVisualReadbackAuthority.page1VisibleFamilies.includes("INTEGER_RATIO_SIMPLIFICATION"));
+  assert.equal(p.sourceAuthority.currentVisualReadbackAuthority.literalSimplestIntegerRatioFamilyIdentifiedOnR02EvidencePage4,false);
+  assert.equal(p.sourceAuthority.evidenceResolution.evidencePageLocalizationMismatchPreservedExplicitly,true);
+  assert.equal(p.sourceAuthority.evidenceResolution.semanticConflictDetected,false);
+  assert.equal(p.sourceAuthority.evidenceResolution.sourceRefConflictDetected,false);
+  assert.equal(p.sourceAuthority.sourceIdentityArtifactLock.sourceRefAmbiguity,false);
+});
+
+test("W7 Q005 executable R04 factor-multiple envelope and R05 prerequisite escalation match frozen queue",()=>{
+  const r04=getR04KnowledgePointCapabilityMapping(KP);assert.ok(r04);
+  const r05=getR05DeliveryWaveAssignment(KP);assert.ok(r05);
+  assert.equal(r04.primaryRuntimeProfileId,"profile_factor_multiple");
+  assert.equal(r04.classificationRuleId,"rule_factor_multiple");
+  assert.deepEqual(r04.appliedModifierIds,[]);
+  assert.deepEqual(r04.requiredRuntimeCapabilityIds,p.runtimeCapabilityAuthority.requiredRuntimeCapabilityIds);
+  assert.deepEqual(r04.optionalRuntimeCapabilityIds,[]);
+  assert.deepEqual(r04.forbiddenRuntimeCapabilityIds,[]);
+  assert.equal(r05.baseDeliveryWaveId,p.r05AssignmentAuthority.expectedBaseDeliveryWaveId);
+  assert.equal(r05.deliveryWaveId,p.r05AssignmentAuthority.expectedDeliveryWaveId);
+  assert.equal(r05.waveEscalatedByPrerequisite,p.r05AssignmentAuthority.expectedWaveEscalatedByPrerequisite);
+  assert.equal(r05.prerequisiteWaveLowerBound,p.r05AssignmentAuthority.expectedPrerequisiteWaveLowerBound);
+  assert.equal(r05.intraWavePrerequisiteRank,p.r05AssignmentAuthority.expectedIntraWavePrerequisiteRank);
+  assert.equal(r04.primaryRuntimeProfileId,r05.primaryRuntimeProfileId);
+  const graph=materializeR04SharedRuntimeCapabilityMatrix().prerequisiteGraph;
+  const incoming=graph.incomingByTarget.get(KP)??[];
+  assert.ok(incoming.some(edge=>edge.fromKnowledgePointId==="kp_g6a_u05_equivalent_ratio"&&edge.distanceBearing));
+  assert.equal(p.runtimeCapabilityAuthority.runtimeProfileReclassificationAllowed,false);
+});
+
+test("W7 Q005 semantic lock owns coprime integer-ratio reduction while protecting Q001 Q002 Q003 and Q009",()=>{
+  const s=p.semanticProfileLock.implementationSemanticLock;
+  assert.equal(p.semanticProfileLock.targetSemanticCore,"SIMPLIFY_RATIO_TO_COPRIME_POSITIVE_INTEGER_TERMS");
+  assert.equal(s.q001OrderedAntecedentConsequentRolesRemainPrerequisite,true);
+  assert.equal(s.q002RatioValueEqualityRemainsPrerequisite,true);
+  assert.equal(s.q003EquivalentRatioInvarianceRemainsPrerequisite,true);
+  assert.equal(s.positiveIntegerInputRatioOnlyForInitialGenerator,true);
+  assert.equal(s.commonDivisorMustDivideBothTermsExactly,true);
+  assert.equal(s.directGcdDivisionAllowed,true);
+  assert.equal(s.repeatedCommonFactorDivisionAllowed,true);
+  assert.equal(s.outputTermsMustBePositiveIntegers,true);
+  assert.equal(s.outputTermsMustBeCoprime,true);
+  assert.equal(s.finalGcdMustEqualOne,true);
+  assert.equal(s.ratioValueMustRemainInvariant,true);
+  assert.equal(s.antecedentConsequentOrderMustRemainFixed,true);
+  assert.equal(s.q001RatioNotationTeachingReownershipAllowed,false);
+  assert.equal(s.q002RatioValueTeachingReownershipAllowed,false);
+  assert.equal(s.q003EquivalentRatioTeachingReownershipAllowed,false);
+  assert.equal(s.decimalRatioInputNormalizationAllowed,false);
+  assert.equal(s.fractionRatioInputNormalizationAllowed,false);
+  assert.equal(s.ratioPartitionApplicationAllowed,false);
+  assert.equal(s.percentConversionAllowed,false);
+  assert.equal(s.applicationContextAllowed,false);
+  assert.equal(s.sameUnitMixedModeAllowed,false);
+  assert.equal(s.crossUnitMixedModeAllowed,false);
+});
+
+test("W7 Q005 preflight stays planning-only SHARED_RUNTIME_BOUNDED",()=>{
+  const impact=read("data/project/change-impact/P07F_W7_Q005_PREFLIGHT.impact.json");
+  const validation=read("data/project/validation-plans/P07F_W7_Q005_PREFLIGHT.validation.json");
+  assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");
+  assert.equal(impact.scopeGuards.productImplementation,false);
+  assert.equal(impact.scopeGuards.publicAdmission,false);
+  assert.equal(impact.scopeGuards.q001Q002Q003ProductMutation,false);
+  assert.equal(impact.scopeGuards.q004ProductMutation,false);
+  assert.equal(impact.scopeGuards.q006OrLater,false);
+  assert.equal(p.q005ScopeLock.implementationAllowedByThisPreflight,false);
+  assert.equal(p.q005ScopeLock.publicProductAdmissionAllowedByThisPreflight,false);
+  assert.deepEqual(validation.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);
+  assert.equal(validation.lanes.SHARED_RUNTIME_BOUNDED[1].runtime,"NODE_ONLY");
+  assert.equal(p.preflightValidationBoundary.fullRepositoryRegressionAllowed,false);
+  assert.equal(p.preflightValidationBoundary.globalBrowserReplayAllowed,false);
+  assert.equal(p.preflightDecision.separateImplementationApprovalRequired,true);
+  assert.equal(p.preflightDecision.nextTask,"P07F_W7DirectProductVerticalSlice005Implementation");
+});
