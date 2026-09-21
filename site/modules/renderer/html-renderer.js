@@ -27,6 +27,7 @@ import { renderOneWayStatisticsTable } from "./one-way-statistics-table.js";
 import { renderTwoWayStatisticsTable } from "./two-way-statistics-table.js";
 import { renderBarChartData } from "./bar-chart-data.js";
 import { renderLineChartData } from "./line-chart-data.js";
+import { renderPieChartData } from "./pie-chart-data.js";
 import { renderInlineMathModel } from "./inline-math.js";
 
 function escapeHtml(value) {
@@ -136,6 +137,7 @@ function renderTableData(model) {
 function renderChartData(model) {
   if (model?.kind === "bar_chart_data") return renderBarChartData(model);
   if (model?.kind === "line_chart_data") return renderLineChartData(model);
+  if (model?.kind === "pie_chart_data") return renderPieChartData(model);
   throw createRendererError("chart_data_invalid", "Unsupported chart data kind: " + (model?.kind ?? "missing"));
 }
 function renderPageSection(title, pagesHtml, sectionClassName, options) {
