@@ -41,7 +41,7 @@ test("W7 Q001 FormalMapping and three PatternSpecs lock ordered ratio roles only
 
 test("W7 Q001 adds G6A-U05 source and promotes only ratio-notation KP while later same-source KPs stay hidden",()=>{
   const before=preSelector.listBatchAKnowledgePointAvailabilityBySource(SRC);
-  if(before){assert.equal(before.visibleKnowledgePointIds.includes(KP),false);assert.ok(PROTECTED.every(id=>!before.visibleKnowledgePointIds.includes(id)));}
+  if(before){const beforeVisible=before.visibleKnowledgePointIds??[];assert.equal(beforeVisible.includes(KP),false);assert.ok(PROTECTED.every(id=>!beforeVisible.includes(id)));}
   assert.equal(getBatchASourceUnit(SRC)?.title,"比和比值");
   assert.ok(listBatchASourceUnits({includeW7Slice001:true}).some(x=>x.sourceId===SRC));
   const a=selector.auditP07F01PublicSelectorComposition();assert.equal(a.ok,true,a.errors.join(","));
