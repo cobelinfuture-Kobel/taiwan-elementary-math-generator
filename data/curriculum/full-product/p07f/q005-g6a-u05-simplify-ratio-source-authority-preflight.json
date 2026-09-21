@@ -222,7 +222,25 @@
     "forbiddenRuntimeCapabilityIds": [],
     "executableParityRequiredAtValidation": true,
     "runtimeProfileReclassificationAllowed": false,
-    "semanticProfileInterpretation": "FACTOR_MULTIPLE_EXECUTION_ENVELOPE_ALIGNED_WITH_COPRIME_RATIO_SIMPLIFICATION"
+    "semanticProfileInterpretation": "FACTOR_MULTIPLE_EXECUTION_ENVELOPE_ALIGNED_WITH_COPRIME_RATIO_SIMPLIFICATION",
+    "executableR04Mapping": {
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "classificationRuleId": "rule_factor_multiple",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR04MappingVerified": true
   },
   "r05AssignmentAuthority": {
     "expectedBaseDeliveryWaveId": "R05-W1",
@@ -230,7 +248,15 @@
     "expectedWaveEscalatedByPrerequisite": true,
     "expectedPrerequisiteWaveLowerBound": 7,
     "expectedIntraWavePrerequisiteRank": 8,
-    "exactParityRequiredAtValidation": true
+    "exactParityRequiredAtValidation": true,
+    "exactR05Assignment": {
+      "baseDeliveryWaveId": "R05-W1",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": true,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 8
+    },
+    "exactR05AssignmentVerified": true
   },
   "semanticProfileLock": {
     "present": true,
@@ -260,7 +286,8 @@
       "applicationContextAllowed": false,
       "sameUnitMixedModeAllowed": false,
       "crossUnitMixedModeAllowed": false,
-      "frozenQueueMayNotBeSilentlyReclassified": true
+      "frozenQueueMayNotBeSilentlyReclassified": true,
+      "greatestCommonFactorPrerequisiteRequired": true
     }
   },
   "q005ScopeLock": {
@@ -329,6 +356,27 @@
     "manualSourceChoiceRequired": false,
     "sourceRefAmbiguity": false,
     "separateImplementationApprovalRequired": true,
-    "nextTask": "P07F_W7DirectProductVerticalSlice005Implementation"
+    "nextTask": "P07F_W7DirectProductVerticalSlice005Implementation",
+    "exactPrerequisiteGraphBound": true
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "fromKnowledgePointId": "kp_g5a_u02_greatest_common_factor",
+        "dependencyStrength": "required",
+        "distanceBearing": true
+      },
+      {
+        "fromKnowledgePointId": "kp_g6a_u05_equivalent_ratio",
+        "dependencyStrength": "required",
+        "distanceBearing": true
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g5a_u02_greatest_common_factor",
+      "kp_g6a_u05_equivalent_ratio"
+    ],
+    "greatestCommonFactorPrerequisiteRequired": true,
+    "equivalentRatioPrerequisiteRequired": true
   }
 }
