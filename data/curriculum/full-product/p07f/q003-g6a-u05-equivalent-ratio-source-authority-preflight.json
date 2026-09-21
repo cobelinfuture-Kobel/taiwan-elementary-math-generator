@@ -1,0 +1,289 @@
+{
+  "schemaName": "P07FW7Q003G6AU05EquivalentRatioSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q003_G6AU05_EquivalentRatio_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q003_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q003_G6AU05_EQUIVALENT_RATIO_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "d0c4dfe6c4cb4a3ee2c5b2b5da9169f7aeb821f2",
+  "predecessorD0Evidence": {
+    "q002TaskId": "P07F_W7DirectProductVerticalSlice002Implementation",
+    "q002Status": "PASS_E6_D0_COMPLETE",
+    "q002MergeSha": "43b622b851b9d242b6bddcc95f45d0faf2444d73",
+    "q002PostMergeWorkflowRunId": 35591837212,
+    "q002PostMergeWorkflowRunAttempt": 1,
+    "q002ArtifactId": 10634404370,
+    "q002ArtifactDigest": "sha256:4a7089428683a4524a7751a98bac224c397e7e70459e1d0792cd99ecb93308f6",
+    "exactDeployedAssetDigestParity": true,
+    "exactDeployedAssetCount": 10,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q002_CLASSIC_UI_ACCEPTANCE",
+    "currentMainCompatibilityReadback": {
+      "currentMainShaAtPreflight": "d0c4dfe6c4cb4a3ee2c5b2b5da9169f7aeb821f2",
+      "comparedFromQ002MergeSha": "43b622b851b9d242b6bddcc95f45d0faf2444d73",
+      "commitsAhead": 6,
+      "changedPaths": [
+        "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+        "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+        "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+        "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+        "docs/ci/latest-public-math-ci-readback.json",
+        "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+      ],
+      "q003AuthorityOrQ002ProductRuntimePathsChanged": false,
+      "classification": "DOCS_ONLY_PARALLEL_CI_READBACK_ADVANCE_NON_BLOCKING"
+    }
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "ad37a23f07b3de22a088f5bf9f59e2b45f13cc3c350bb84def21860d21135843",
+    "queueFreezePrNumber": 1014,
+    "queueFreezeMergeSha": "90043456eecae2d65f170c884762fcddb862cc33",
+    "queueFreezeValidationRunId": 35571981057,
+    "queuePosition": 3,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q003_r7_g6a_u05_6a05_profile_integer_operations_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice003Implementation",
+    "previousSliceId": "p07e_q002_r6_g6a_u05_6a05_profile_ratio_percent_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "baseDeliveryWaveId": "R05-W1",
+    "waveEscalatedByPrerequisite": true,
+    "prerequisiteWaveLowerBound": 7,
+    "primarySourceNodeId": "g6a_u05_6a05",
+    "supportingSourceNodeIds": [
+      "g6a_u05_6a05"
+    ],
+    "intraWavePrerequisiteRank": 7,
+    "primaryRuntimeProfileId": "profile_integer_operations",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6a_u05_equivalent_ratio"
+    ],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6a_u05_6a05",
+    "sourceCode": "6a05",
+    "sourceTitle": "比和比值",
+    "sourcePdfTitle": "meow911_6a05_source.pdf",
+    "originalFileName": "題型總覽-6a05-比和比值.pdf",
+    "sourcePdfDriveFileId": "1f2VouY0XucxQ_jjVHzi1CbHklyQhpnAF",
+    "sourcePdfSizeBytes": 1463604,
+    "sourcePdfSha256": "282b7ee25093afdd3b50c1077c168c30da0118bac4010f98aed09471e1ae5e4c",
+    "pageCount": 4,
+    "reviewedPages": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "currentVisualReadbackAuthority": {
+      "reusedFromPreflightPath": "data/curriculum/full-product/p07f/q001-g6a-u05-ratio-notation-order-source-authority-preflight.json",
+      "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+      "immutableSourceIdentityMatchRequired": true,
+      "driveFileIdMatch": true,
+      "sizeMatch": true,
+      "sha256Match": true,
+      "ocrUsedAsAuthority": false
+    },
+    "directPageEvidence": {
+      "page3": {
+        "q003DirectEvidenceResolution": "EQUIVALENT_RATIO_COMMON_SCALE_FACTOR_ONLY",
+        "semanticIdentity": "EQUIVALENT_RATIO_PRESERVES_RATIO_VALUE_UNDER_COMMON_NONZERO_SCALE_FACTOR",
+        "directlySupports": [
+          "kp_g6a_u05_equivalent_ratio"
+        ],
+        "prerequisiteSemanticsConsumed": [
+          "ORDERED_RATIO_NOTATION_WITH_FIXED_ANTECEDENT_CONSEQUENT_ROLES",
+          "RATIO_VALUE_EQUALS_ANTECEDENT_DIVIDED_BY_NONZERO_CONSEQUENT"
+        ],
+        "forbiddenExpansion": [
+          "SIMPLIFY_TO_COPRIME_INTEGER_RATIO",
+          "RATIO_PARTITION_APPLICATION",
+          "PROPORTION_CROSS_MULTIPLICATION_AS_TAUGHT_METHOD",
+          "PERCENT_CONVERSION"
+        ]
+      }
+    },
+    "evidenceResolution": {
+      "r02CandidateEvidencePagesRemain": [
+        3
+      ],
+      "exactQ003DirectVisualAnchorPages": [
+        3
+      ],
+      "q001OrderedRatioNotationMayBeConsumedAsPrerequisite": true,
+      "q002RatioValueMayBeConsumedAsPrerequisite": true,
+      "q001AndQ002MayNotBeReowned": true,
+      "page4SimplestRatioRemainsQ005Owned": true,
+      "pages1To4MayNotExpandQ003IntoLaterRatioSkills": true
+    },
+    "sourceIdentityArtifactLock": {
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g6a_u05_6a05",
+    "sourceTitle": "比和比值",
+    "sourcePdfTitle": "meow911_6a05_source.pdf",
+    "reviewedPages": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g6a_u05_equivalent_ratio",
+      "canonicalNameZh": "相等的比",
+      "capabilityStatement": "學生能以同比例乘除建立相等的比。",
+      "reasoningInvariant": "前後項同乘或同除非零數時比值不變。",
+      "category": "ratio",
+      "evidencePages": [
+        3
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "predecessorOwnedKnowledgePointRows": [
+      {
+        "knowledgePointId": "kp_g6a_u05_ratio_notation_order",
+        "queuePosition": 1,
+        "status": "PASS_E6_D0_COMPLETE"
+      },
+      {
+        "knowledgePointId": "kp_g6a_u05_ratio_value",
+        "queuePosition": 2,
+        "status": "PASS_E6_D0_COMPLETE"
+      }
+    ],
+    "futureOwnedKnowledgePointRows": [
+      {
+        "knowledgePointId": "kp_g6a_u05_simplify_ratio",
+        "queuePosition": 5,
+        "sliceId": "p07e_q005_r8_g6a_u05_6a05_profile_factor_multiple_c1"
+      },
+      {
+        "knowledgePointId": "kp_g6a_u05_ratio_partition_application",
+        "queuePosition": 9,
+        "sliceId": "p07e_q009_r9_g6a_u05_6a05_profile_ratio_percent_c1"
+      }
+    ]
+  },
+  "runtimeCapabilityAuthority": {
+    "queueFrozenProfileId": "profile_integer_operations",
+    "queueFrozenRequiredW7CapabilityIds": [],
+    "queueProfileSource": "P07E_W7_FINAL / R05 assignment frozen at PR1014",
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "executableParityRequiredAtValidation": true,
+    "runtimeProfileReclassificationAllowed": false,
+    "semanticProfileInterpretation": "EXECUTION_ENVELOPE_ONLY_NOT_KNOWLEDGE_POINT_SEMANTIC_OWNER",
+    "genericIntegerOperationsSemanticReownershipAllowed": false
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "EQUIVALENT_RATIO_PRESERVES_RATIO_VALUE_UNDER_COMMON_NONZERO_SCALE_FACTOR",
+    "implementationSemanticLock": {
+      "q001OrderedAntecedentConsequentRolesRemainPrerequisite": true,
+      "q002RatioValueEqualityRemainsPrerequisite": true,
+      "commonScaleFactorMustBeAppliedToBothTerms": true,
+      "commonScaleFactorMustBeNonzero": true,
+      "forwardCommonIntegerMultiplicationAllowed": true,
+      "reverseCommonIntegerDivisionAllowedOnlyWhenExactOnBothTerms": true,
+      "ratioValueMustRemainInvariant": true,
+      "crossProductEqualityMayBeUsedByValidatorInternally": true,
+      "crossMultiplicationMayNotBeTaughtOrSurfacedAsQ003Method": true,
+      "q001RatioNotationTeachingReownershipAllowed": false,
+      "q002RatioValueTeachingReownershipAllowed": false,
+      "simplestIntegerRatioFinalFormRequired": false,
+      "simplifyToCoprimeRatioAllowed": false,
+      "ratioPartitionApplicationAllowed": false,
+      "percentConversionAllowed": false,
+      "applicationContextAllowed": false,
+      "genericIntegerOperationsDrillAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "q003ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6a_u05_equivalent_ratio"
+    ],
+    "includedRelations": [
+      "ESTABLISH_EQUIVALENT_RATIO_BY_COMMON_NONZERO_MULTIPLICATION",
+      "ESTABLISH_EQUIVALENT_RATIO_BY_EXACT_COMMON_NONZERO_DIVISION",
+      "VERIFY_RATIO_VALUE_INVARIANCE",
+      "PRESERVE_ANTECEDENT_CONSEQUENT_ROLE_ORDER"
+    ],
+    "excludedRelations": [
+      "GENERIC_INTEGER_OPERATION_DRILL",
+      "Q001_RATIO_NOTATION_ROLE_TEACHING_REOWNERSHIP",
+      "Q002_RATIO_VALUE_TEACHING_REOWNERSHIP",
+      "SIMPLIFY_TO_COPRIME_INTEGER_RATIO",
+      "RATIO_PARTITION_APPLICATION",
+      "PROPORTION_CROSS_MULTIPLICATION_AS_TAUGHT_METHOD",
+      "DIRECT_PROPORTION_TABLE_OR_GRAPH",
+      "PERCENT_CONVERSION",
+      "APPLICATION_CONTEXT",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q004_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q001ProductTouched": false,
+    "q002ProductTouched": false,
+    "q004OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "r02ReviewedSourceAuthorityMustBeReused": true,
+    "currentFullPageVisualReadbackMustBeBound": true,
+    "r05FrozenQueueRuntimeParityMustPass": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ002D0Verified": true,
+    "sourceAuthoritySufficientForQ003ImplementationPlanning": true,
+    "exactQ003VisualEvidenceBound": true,
+    "r02ReviewedCandidateBound": true,
+    "frozenIntegerOperationsProfileTreatedAsExecutionEnvelopeOnly": true,
+    "semanticProfileLockBound": true,
+    "q001Q002OwnershipProtected": true,
+    "futureSameSourceOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice003Implementation"
+  }
+}
