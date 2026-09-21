@@ -107,8 +107,8 @@
     "r02AuthorityTouched": false,
     "r04AuthorityTouched": false,
     "q003OrLaterProductTouched": false,
-    "q001CurrentPointerCompatibilityTestOnlyMutationAllowed": true,
-    "q020CurrentPointerCompatibilityTestOnlyMutationAllowed": true
+    "q020CurrentPointerCompatibilityTestOnlyMutationAllowed": true,
+    "q001CompatibilityTestAndAcceptanceOnlyMutationAllowed": true
   },
   "validation": {
     "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
