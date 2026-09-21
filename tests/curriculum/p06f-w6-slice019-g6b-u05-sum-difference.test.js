@@ -9,6 +9,7 @@ import {buildG6BU05P06F19Question,generateG6BU05P06F19Questions,validateG6BU05P0
 import {buildBatchABrowserPlan,generateBatchABrowserQuestions} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js";
 import {buildBatchABrowserWorksheetDocument} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js";
 import {renderWorksheetDocumentToHtml} from "../../site/modules/renderer/html-renderer.js";
+import {listBatchASourceUnits,getBatchASourceUnit,isBatchASourceId} from "../../site/modules/curriculum/batch-a/source-units.js";
 
 const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"));
 const impl=read("data/curriculum/full-product/p06f/q019-g6b-u05-sum-difference-implementation.json");
@@ -33,6 +34,13 @@ test("Q019 FormalMapping and two PatternSpecs keep profile_decimal as envelope o
   assert.deepEqual(a.counts,{knowledgePoints:1,patternGroups:1,patternSpecs:2,formalMappings:1});
   assert.deepEqual(REQUIRED,["cap_decimal_number_system","cap_decimal_domain_validator","cap_text_numeric_representation"]);
   assert.ok(SPECS.every(x=>x.semanticCore==="SUM_DIFFERENCE_TWO_QUANTITY_DECOMPOSITION"&&x.knownSumAndDifferenceRequired&&x.sumReconstructionRequired&&x.differenceReconstructionRequired&&x.exactIntegerPartitionRequired&&x.decimalProfileEnvelopeOnly&&!x.decimalPlaceValueReasoningCore&&!x.decimalNotationCore&&x.sourceContextRepresentationOnly&&!x.sumMultipleProblemReownershipAllowed&&!x.differenceMultipleProblemReownershipAllowed&&!x.ageOrRepeatedRelationProblemReownershipAllowed&&!x.workOrDistributionStrategyReownershipAllowed&&!x.applicationImplementationAllowed&&!x.sameUnitMixedAllowed&&!x.crossUnitMixedAllowed));
+});
+
+test("Q019 public source catalog exposes G6B-U05 only through the approved W6 slice019 path",()=>{
+  const units=listBatchASourceUnits({includeW6Slice019:true});
+  const unit=units.find(x=>x.sourceId===SRC);
+  assert.ok(unit);assert.equal(unit.grade,6);assert.equal(unit.semester,"lower");assert.equal(unit.unitCode,"6B-U05");assert.equal(unit.title,"怎樣解題");
+  assert.equal(getBatchASourceUnit(SRC).sourceId,SRC);assert.equal(isBatchASourceId(SRC),true);
 });
 
 test("Q019 public selector creates G6B-U05 route while all later same-source capabilities stay hidden",()=>{
