@@ -67,7 +67,13 @@ test("W7 Q005 executable R04 factor-multiple envelope and R05 prerequisite escal
   assert.equal(r04.primaryRuntimeProfileId,r05.primaryRuntimeProfileId);
   const graph=materializeR04SharedRuntimeCapabilityMatrix().prerequisiteGraph;
   const incoming=graph.incomingByTarget.get(KP)??[];
-  assert.ok(incoming.some(edge=>edge.fromKnowledgePointId==="kp_g6a_u05_equivalent_ratio"&&edge.distanceBearing));
+  assert.ok(incoming.some(edge=>edge.fromKnowledgePointId==="kp_g5a_u02_greatest_common_factor"&&edge.distanceBearing&&edge.dependencyStrength==="required"));
+  assert.ok(incoming.some(edge=>edge.fromKnowledgePointId==="kp_g6a_u05_equivalent_ratio"&&edge.distanceBearing&&edge.dependencyStrength==="required"));
+  assert.deepEqual(p.prerequisiteGraphAuthority.requiredPrerequisiteKnowledgePointIds,["kp_g5a_u02_greatest_common_factor","kp_g6a_u05_equivalent_ratio"]);
+  assert.equal(p.prerequisiteGraphAuthority.greatestCommonFactorPrerequisiteRequired,true);
+  assert.equal(p.prerequisiteGraphAuthority.equivalentRatioPrerequisiteRequired,true);
+  assert.deepEqual(p.runtimeCapabilityAuthority.executableR04Mapping,{primaryRuntimeProfileId:r04.primaryRuntimeProfileId,classificationRuleId:r04.classificationRuleId,appliedModifierIds:[...r04.appliedModifierIds],requiredRuntimeCapabilityIds:[...r04.requiredRuntimeCapabilityIds],optionalRuntimeCapabilityIds:[...r04.optionalRuntimeCapabilityIds],forbiddenRuntimeCapabilityIds:[...r04.forbiddenRuntimeCapabilityIds]});
+  assert.deepEqual(p.r05AssignmentAuthority.exactR05Assignment,{baseDeliveryWaveId:r05.baseDeliveryWaveId,deliveryWaveId:r05.deliveryWaveId,waveEscalatedByPrerequisite:r05.waveEscalatedByPrerequisite,prerequisiteWaveLowerBound:r05.prerequisiteWaveLowerBound,intraWavePrerequisiteRank:r05.intraWavePrerequisiteRank});
   assert.equal(p.runtimeCapabilityAuthority.runtimeProfileReclassificationAllowed,false);
 });
 
@@ -77,6 +83,7 @@ test("W7 Q005 semantic lock owns coprime integer-ratio reduction while protectin
   assert.equal(s.q001OrderedAntecedentConsequentRolesRemainPrerequisite,true);
   assert.equal(s.q002RatioValueEqualityRemainsPrerequisite,true);
   assert.equal(s.q003EquivalentRatioInvarianceRemainsPrerequisite,true);
+  assert.equal(s.greatestCommonFactorPrerequisiteRequired,true);
   assert.equal(s.positiveIntegerInputRatioOnlyForInitialGenerator,true);
   assert.equal(s.commonDivisorMustDivideBothTermsExactly,true);
   assert.equal(s.directGcdDivisionAllowed,true);
