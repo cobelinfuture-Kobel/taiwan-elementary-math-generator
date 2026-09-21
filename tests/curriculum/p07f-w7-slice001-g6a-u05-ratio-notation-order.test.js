@@ -92,13 +92,13 @@ test("W7 Q001 aggregate generator worksheet renderer expose all three ordered-ra
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[KP,PROTECTED[0]],questionMode:"numeric",questionCount:4,generationSeed:"mixed-not-admitted"});assert.equal(mixed.ok,false);
 });
 
-test("W7 Q001 current browser pointers advance to P07F01 while W6 Q020 stays reachable",()=>{
+test("W7 Q001 remains reachable after current browser pointers advance to P07F02",()=>{
   const selectorText=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8");
   const bindingText=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const generatorText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const worksheetText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selectorText,/batch-a-selector-p07f01-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f01/);
-  assert.match(generatorText,/requestsP07F01/);assert.match(generatorText,/requestsP06F20/);assert.match(worksheetText,/buildP07F01Worksheet/);assert.match(worksheetText,/buildP06F20Worksheet/);
+  assert.match(selectorText,/batch-a-selector-p07f02-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f02/);
+  assert.match(generatorText,/requestsP07F02/);assert.match(generatorText,/requestsP07F01/);assert.match(generatorText,/requestsP06F20/);assert.match(worksheetText,/buildP07F02Worksheet/);assert.match(worksheetText,/buildP07F01Worksheet/);assert.match(worksheetText,/buildP06F20Worksheet/);
 });
 
 test("W7 Q001 validation contract stays SHARED_RUNTIME_BOUNDED",()=>{
