@@ -11,6 +11,7 @@ const HEAD=process.env.GITHUB_SHA||"LOCAL_MANUAL_FALLBACK";
 const RETRIES=Number(process.env.P06F19_DEPLOYMENT_RETRIES||"40");
 const DELAY=Number(process.env.P06F19_DEPLOYMENT_RETRY_DELAY_MS||"15000");
 const FILES=[
+  "modules/curriculum/batch-a/source-units.js",
   "modules/curriculum/registry/g6b-u05-sum-difference-selector-projection-p06f19.js",
   "modules/curriculum/registry/batch-a-selector-p06f19-extension.js",
   "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
