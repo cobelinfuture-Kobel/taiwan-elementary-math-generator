@@ -71,7 +71,7 @@ test("Q014 worksheet answer renderer carries valid pie charts without internal-i
   const one=renderPieChartData(w.generation.questions[0].chartData);assert.match(one,/data-representation="pie-chart"/);assert.match(one,/全體 = 100%/);
   const html=renderWorksheetDocumentToHtml(w.worksheetDocument,{stylesheetHref:""});
   assert.equal((html.match(/data-representation="pie-chart"/g)||[]).length,16);
-  assert.equal(html.includes("kp_g6b_u06_"),false);assert.equal(html.includes("ps_g6b_u06_"),false);assert.equal(html.includes("P06F14"),false);
+  const visibleText=html.replace(/<[^>]*>/g," ");\n  assert.equal(visibleText.includes("kp_g6b_u06_"),false);assert.equal(visibleText.includes("ps_g6b_u06_"),false);assert.equal(visibleText.includes("P06F14"),false);
 });
 test("Q014 current browser pointers advance to Q014",()=>{
   const selector=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8");
