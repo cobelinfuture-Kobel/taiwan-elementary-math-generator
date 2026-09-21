@@ -1,0 +1,125 @@
+{
+  "schemaName": "P07FW7Q002RatioValueImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice002Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q002_G6AU05_RATIO_VALUE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q002_G6AU05_RATIO_VALUE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "44074211328c6e5960b682595282010b7b4e88fe",
+  "preflight": {
+    "prNumber": 1017,
+    "mergeSha": "ef36d150e8e7a70cb9cf75c91233906760c4b01e",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q002-g6a-u05-ratio-value-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q001Status": "PASS_E6_D0_COMPLETE",
+    "q001MergeSha": "843c06eacf7018f49c5a26b48f4440a778d79639",
+    "q001PostMergeWorkflowRunId": 35583148993,
+    "q001PostMergeWorkflowRunAttempt": 2,
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q001_CLASSIC_UI_ACCEPTANCE"
+  },
+  "currentMainCompatibilityReadback": {
+    "comparedFromPreflightMergeSha": "ef36d150e8e7a70cb9cf75c91233906760c4b01e",
+    "commitsAhead": 2,
+    "changedPaths": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json"
+    ],
+    "onlyDocsCiReadbackChanged": true
+  },
+  "queueAuthority": {
+    "queuePosition": 2,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q002_r6_g6a_u05_6a05_profile_ratio_percent_c1",
+    "previousSliceId": "p07e_q001_r5_g6a_u05_6a05_profile_ratio_percent_c1",
+    "sourceId": "g6a_u05_6a05",
+    "knowledgePointIds": [
+      "kp_g6a_u05_ratio_value"
+    ],
+    "runtimeProfileId": "profile_ratio_percent",
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_6a05_source.pdf",
+    "sourcePdfDriveFileId": "1f2VouY0XucxQ_jjVHzi1CbHklyQhpnAF",
+    "sourcePdfSha256": "282b7ee25093afdd3b50c1077c168c30da0118bac4010f98aed09471e1ae5e4c",
+    "reviewedPages": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "targetEvidencePages": [
+      2
+    ],
+    "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI_REUSED_FROM_Q001_IMMUTABLE_SOURCE_IDENTITY",
+    "sourceIdentity": "比和比值",
+    "sourceRefAmbiguity": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g6a_u05_ratio_value_fraction",
+      "ps_g6a_u05_ratio_value_integer",
+      "ps_g6a_u05_ratio_value_decimal"
+    ],
+    "includedRelations": [
+      "COMPUTE_RATIO_VALUE_AS_ANTECEDENT_DIVIDED_BY_CONSEQUENT",
+      "REQUIRE_NONZERO_CONSEQUENT",
+      "PRESERVE_Q001_ANTECEDENT_CONSEQUENT_ORDER",
+      "PRESERVE_RATIO_VALUE_EQUIVALENCE_WITH_FRACTION_A_OVER_B"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentation": "text-numeric-ratio-value",
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "EXACT_FRACTION_OR_NUMERIC_QUOTIENT",
+    "q001OrderedRolePrerequisiteRequired": true,
+    "consequentNonzeroRequired": true,
+    "quotientDirection": "ANTECEDENT_DIVIDED_BY_CONSEQUENT",
+    "fractionEquivalenceRequired": true
+  },
+  "scopeGuard": {
+    "q001RatioNotationReowned": false,
+    "equivalentRatioReowned": false,
+    "simplestIntegerRatioReowned": false,
+    "ratioPartitionApplicationReowned": false,
+    "proportionCrossMultiplicationReowned": false,
+    "directProportionTableOrGraphReowned": false,
+    "percentConversionReowned": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q003OrLaterProductTouched": false,
+    "q001CurrentPointerCompatibilityTestOnlyMutationAllowed": true,
+    "q020CurrentPointerCompatibilityTestOnlyMutationAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}
