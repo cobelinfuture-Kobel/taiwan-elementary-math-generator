@@ -95,14 +95,14 @@ test("W7 Q002 aggregate generator worksheet renderer expose all three ratio-valu
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[Q001[0],KP],questionMode:"numeric",questionCount:4,generationSeed:"mixed-not-admitted"});assert.equal(mixed.ok,false);
 });
 
-test("W7 Q002 remains reachable after current browser pointers advance to P07F04",()=>{
+test("W7 Q002 remains reachable after current browser pointers advance to P07F05",()=>{
   const selectorText=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8");
   const bindingText=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const generatorText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const worksheetText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selectorText,/batch-a-selector-p07f04-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f04/);
-  assert.match(generatorText,/requestsP07F04/);assert.match(generatorText,/requestsP07F03/);assert.match(generatorText,/requestsP07F02/);assert.match(generatorText,/requestsP07F01/);assert.match(generatorText,/requestsP06F20/);
-  assert.match(worksheetText,/buildP07F04Worksheet/);assert.match(worksheetText,/buildP07F03Worksheet/);assert.match(worksheetText,/buildP07F02Worksheet/);assert.match(worksheetText,/buildP07F01Worksheet/);assert.match(worksheetText,/buildP06F20Worksheet/);
+  assert.match(selectorText,/batch-a-selector-p07f05-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f05/);
+  assert.match(generatorText,/requestsP07F05/);assert.match(generatorText,/requestsP07F04/);assert.match(generatorText,/requestsP07F03/);assert.match(generatorText,/requestsP07F02/);assert.match(generatorText,/requestsP07F01/);assert.match(generatorText,/requestsP06F20/);
+  assert.match(worksheetText,/buildP07F05Worksheet/);assert.match(worksheetText,/buildP07F04Worksheet/);assert.match(worksheetText,/buildP07F03Worksheet/);assert.match(worksheetText,/buildP07F02Worksheet/);assert.match(worksheetText,/buildP07F01Worksheet/);assert.match(worksheetText,/buildP06F20Worksheet/);
 });
 
 test("W7 Q002 validation contract stays SHARED_RUNTIME_BOUNDED",()=>{
