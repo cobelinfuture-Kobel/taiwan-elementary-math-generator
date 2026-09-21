@@ -187,24 +187,37 @@
     "queueFrozenProfileId": "profile_geometry_formula",
     "queueFrozenRequiredW7CapabilityIds": [],
     "classificationRuleId": "rule_geometry_formula",
-    "predictedAppliedModifierIds": [
-      "mod_integer_division"
-    ],
-    "predictedRequiredRuntimeCapabilityIds": [
-      "cap_pattern_spec_resolution",
-      "cap_deterministic_answer_model",
-      "cap_worksheet_document_assembly",
-      "cap_answer_key_projection",
-      "cap_html_print_renderer",
-      "cap_geometry_formula_evaluation",
-      "cap_geometry_domain_validator",
-      "cap_geometry_diagram_representation",
-      "cap_integer_division"
-    ],
-    "predictedOptionalRuntimeCapabilityIds": [],
     "executableParityRequiredAtValidation": true,
     "runtimeProfileReclassificationAllowed": false,
-    "semanticProfileInterpretation": "GEOMETRY_RELATION_EXECUTION_ENVELOPE_NOT_Q006_FORMULA_APPLICATION_OWNER"
+    "semanticProfileInterpretation": "GEOMETRY_RELATION_EXECUTION_ENVELOPE_NOT_Q006_FORMULA_APPLICATION_OWNER",
+    "executableR04Mapping": {
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "classificationRuleId": "rule_geometry_formula",
+      "appliedModifierIds": [
+        "mod_integer_division"
+      ],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation",
+        "cap_integer_division"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "r05Assignment": {
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": true,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 7
+    },
+    "exactR04R05ProfileParityVerified": true
   },
   "semanticProfileLock": {
     "present": true,
