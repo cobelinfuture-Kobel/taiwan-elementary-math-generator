@@ -42,7 +42,8 @@ export function listBatchASourceUnits(options={}){
   const includeW6Q010=options.includeW6Slice010??options.includeCurrentFullProductPublic??defaultPublic;
   const includeW6Q014=options.includeW6Slice014??options.includeCurrentFullProductPublic??defaultPublic;
   const includeW6Q015=options.includeW6Slice015??options.includeCurrentFullProductPublic??defaultPublic;
-  const includeW6Q019=options.includeW6Slice019??options.includeCurrentFullProductPublic??defaultPublic;\n  const includeW7Q001=options.includeW7Slice001??options.includeCurrentFullProductPublic??defaultPublic;
+  const includeW6Q019=options.includeW6Slice019??options.includeCurrentFullProductPublic??defaultPublic;
+  const includeW7Q001=options.includeW7Slice001??options.includeCurrentFullProductPublic??defaultPublic;
   if(includeQ049&&!units.some(unit=>unit.sourceId===q049.sourceId))units=[...units,{...q049}];
   if(includeW6Q001&&!units.some(unit=>unit.sourceId===qW6_001.sourceId))units=[...units,{...qW6_001}];
   if(includeW6Q003&&!units.some(unit=>unit.sourceId===qW6_003.sourceId))units=[...units,{...qW6_003}];
