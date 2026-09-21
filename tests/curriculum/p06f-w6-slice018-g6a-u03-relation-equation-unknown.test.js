@@ -89,12 +89,13 @@ test("Q018 browser generator and worksheet preserve all predecessor routes and r
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[...PREV,KP],questionMode:"numeric",questionCount:4,generationSeed:"mixed-not-admitted"});assert.equal(mixed.ok,false);
 });
 
-test("Q018 current browser pointers advance to Q018 while Q015-Q017 routes remain present",()=>{
+test("Q018 remains preserved when current browser pointers advance to successors",()=>{
   const selector=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8");
   const binding=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const generator=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const worksheet=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selector,/batch-a-selector-p06f18-extension/);assert.match(binding,/public-ui-capability-binding-p06f18/);
+  const sm=selector.match(/batch-a-selector-p06f(\d+)-extension/),bm=binding.match(/public-ui-capability-binding-p06f(\d+)/);
+  assert.ok(sm&&Number(sm[1])>=18);assert.ok(bm&&Number(bm[1])>=18);
   assert.match(generator,/requestsP06F18/);assert.match(generator,/requestsP06F17/);assert.match(generator,/requestsP06F16/);assert.match(generator,/requestsP06F15/);
   assert.match(worksheet,/buildP06F18Worksheet/);assert.match(worksheet,/buildP06F17Worksheet/);assert.match(worksheet,/buildP06F16Worksheet/);assert.match(worksheet,/buildP06F15Worksheet/);
 });
