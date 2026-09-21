@@ -192,7 +192,29 @@
     "executableParityRequiredAtValidation": true,
     "runtimeProfileReclassificationAllowed": false,
     "semanticProfileInterpretation": "EXECUTION_ENVELOPE_ONLY_NOT_KNOWLEDGE_POINT_SEMANTIC_OWNER",
-    "genericIntegerOperationsSemanticReownershipAllowed": false
+    "genericIntegerOperationsSemanticReownershipAllowed": false,
+    "executableR04Mapping": {
+      "primaryRuntimeProfileId": "profile_integer_operations",
+      "classificationRuleId": "rule_integer_operations",
+      "appliedModifierIds": [
+        "mod_integer_add_sub",
+        "mod_integer_multiplication"
+      ],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_integer_domain_validator",
+        "cap_text_numeric_representation",
+        "cap_integer_add_sub",
+        "cap_integer_multiplication"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR04R05ProfileParityVerified": true
   },
   "semanticProfileLock": {
     "present": true,
