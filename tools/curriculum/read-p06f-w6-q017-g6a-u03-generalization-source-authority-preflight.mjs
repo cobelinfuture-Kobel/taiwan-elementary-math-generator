@@ -4,7 +4,7 @@ import {getR04KnowledgePointCapabilityMapping} from "../../src/curriculum/global
 
 const p=JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p06f/q017-g6a-u03-generalization-source-authority-preflight.json",import.meta.url),"utf8"));
 const slice=materializeP06EW6DirectProductVerticalSliceQueue().queueEntries[16];
-const targets=["kp_g6a_u03_geometric_count_generalization","kp_g6a_u03_input_output_general_rule"];
+const targets=["kp_g6a_u03_geometric_count_generalization","kp_g6a_u03_input_output_general_rule","kp_g6a_u03_linear_pattern_nth_term"];
 
 if(p.status!=="PASS_SOURCE_AUTHORITY_PREFLIGHT")throw new Error("P06F_W6_Q017_PREFLIGHT_STATUS");
 if(slice?.sliceId!=="p06e_q017_r7_g6a_u03_6a03_profile_pattern_relation_c1")throw new Error("P06F_W6_Q017_QUEUE_IDENTITY");
