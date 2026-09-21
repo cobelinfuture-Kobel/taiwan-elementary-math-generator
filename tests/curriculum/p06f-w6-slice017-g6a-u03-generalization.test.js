@@ -89,12 +89,23 @@ test("Q017 browser and worksheet routes all three targets and preserves Q015 pre
   assert.equal(mixed.ok,false);
 });
 
-test("Q017 current browser pointers advance to Q017 while Q014-Q016 routes remain present",()=>{
-  const selector=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8");
-  const binding=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
-  const generator=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
-  const worksheet=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selector,/batch-a-selector-p06f17-extension/);assert.match(binding,/public-ui-capability-binding-p06f17/);
+test("Q017 remains reachable through the current browser successor chain while Q014-Q016 routes stay present",()=>{
+  const readRepo=rel=>readFileSync(new URL("../../"+rel,import.meta.url),"utf8");
+  const chainContains=(start,target,prefix)=>{
+    const stack=[start],seen=new Set();
+    while(stack.length){
+      const rel=stack.pop();if(seen.has(rel))continue;seen.add(rel);
+      const source=readRepo(rel);if(source.includes(target))return true;
+      for(const match of source.matchAll(/["']\.\/([^"']+\.js)["']/g)){
+        const name=match[1];if(name.startsWith(prefix)){const dir=rel.slice(0,rel.lastIndexOf("/")+1);stack.push(dir+name);}
+      }
+    }
+    return false;
+  };
+  assert.equal(chainContains("site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js","batch-a-selector-p06f17-extension.js","batch-a-selector-p06f"),true);
+  assert.equal(chainContains("site/modules/curriculum/public/public-ui-capability-binding-p04f33.js","public-ui-capability-binding-p06f17.js","public-ui-capability-binding-p06f"),true);
+  const generator=readRepo("site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js");
+  const worksheet=readRepo("site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js");
   assert.match(generator,/requestsP06F17/);assert.match(generator,/requestsP06F16/);assert.match(generator,/requestsP06F15/);assert.match(generator,/requestsP06F14/);
   assert.match(worksheet,/buildP06F17Worksheet/);assert.match(worksheet,/buildP06F16Worksheet/);assert.match(worksheet,/buildP06F15Worksheet/);assert.match(worksheet,/buildP06F14Worksheet/);
 });
