@@ -27,13 +27,13 @@
     "sameUnitMixedImplementation": false,
     "crossUnitMixedImplementation": false,
     "q001ProductMutation": false,
-    "q001CurrentPointerCompatibilityTestOnlyMutation": true,
     "q020CurrentPointerCompatibilityTestOnlyMutation": true,
     "q003OrLaterProductMutation": false,
     "frozenQueueMutation": false,
     "r02Mutation": false,
     "r04Mutation": false,
     "r05Mutation": false,
-    "applicationContext": false
+    "applicationContext": false,
+    "q001CompatibilityTestAndAcceptanceOnlyMutation": true
   }
 }
