@@ -10,8 +10,8 @@ const r02=read("data/curriculum/global/candidates/r02/chunks/reviewed-source-can
 const profiles=read("data/curriculum/global/runtime/r04/runtime-capability-profiles.json");
 const impact=read("data/project/change-impact/P06F_W6_Q017_PREFLIGHT.impact.json");
 const validation=read("data/project/validation-plans/P06F_W6_Q017_PREFLIGHT.validation.json");
-const GEO="kp_g6a_u03_geometric_count_generalization",IO="kp_g6a_u03_input_output_general_rule";
-const TARGETS=[GEO,IO],CAPS=["cap_pattern_relation_validator","cap_pattern_sequence_reasoning"],Q018=["kp_g6a_u03_linear_pattern_nth_term","kp_g6a_u03_relation_equation_unknown"];
+const GEO="kp_g6a_u03_geometric_count_generalization",IO="kp_g6a_u03_input_output_general_rule",LINEAR="kp_g6a_u03_linear_pattern_nth_term";
+const TARGETS=[GEO,IO,LINEAR],CAPS=["cap_pattern_relation_validator","cap_pattern_sequence_reasoning"],Q018=["kp_g6a_u03_relation_equation_unknown"];
 
 test("W6 Q017 preflight binds exact frozen queue position 17 after Q016 D0",()=>{
   const slice=materializeP06EW6DirectProductVerticalSliceQueue().queueEntries[16];
@@ -34,7 +34,7 @@ test("W6 Q017 preflight binds exact frozen queue position 17 after Q016 D0",()=>
   assert.equal(p.predecessorD0Evidence.immediatePredecessor.liveReportStatus,"PASS_E6_D0_COMPLETE");
 });
 
-test("W6 Q017 reuses G6A-U03 full-page reviewed authority and binds both target candidates",()=>{
+test("W6 Q017 reuses G6A-U03 full-page reviewed authority and binds all three target candidates",()=>{
   const source=r02.sourceRecords.find(row=>row.sourceNodeId==="g6a_u03_6a03");
   assert.ok(source);
   assert.equal(source.sourceTitle,"數量關係與規律問題");
@@ -42,6 +42,7 @@ test("W6 Q017 reuses G6A-U03 full-page reviewed authority and binds both target 
   assert.deepEqual(source.reviewedPages,[1,2,3]);
   const geo=source.candidates.find(row=>row.knowledgePointId===GEO);
   const io=source.candidates.find(row=>row.knowledgePointId===IO);
+  const linear=source.candidates.find(row=>row.knowledgePointId===LINEAR);
   assert.equal(geo.canonicalNameZh,"圖形規律一般化");
   assert.equal(geo.capabilityStatement,"學生能將階段圖形數量表示成項次公式。");
   assert.equal(geo.reasoningInvariant,"公式須分離固定部分與每階段新增部分。");
@@ -50,6 +51,10 @@ test("W6 Q017 reuses G6A-U03 full-page reviewed authority and binds both target 
   assert.equal(io.capabilityStatement,"學生能由多組對應值歸納一般規則。");
   assert.equal(io.reasoningInvariant,"一般式必須解釋所有已知輸入輸出對。");
   assert.deepEqual(io.evidencePages,[2]);
+  assert.equal(linear.canonicalNameZh,"線性規律第n項");
+  assert.equal(linear.capabilityStatement,"學生能由固定差與首項求指定項。");
+  assert.equal(linear.reasoningInvariant,"第n項等於首項加n減1個固定差。");
+  assert.deepEqual(linear.evidencePages,[3]);
   assert.equal(p.sourceAuthority.sourcePdfDriveFileId,"19GD5TcGJKNpJQTHnOKB8eSQsQu73YN-N");
   assert.equal(p.sourceAuthority.sourcePdfSizeBytes,1179557);
   assert.equal(p.sourceAuthority.reviewMethod,"FULL_PAGE_VISUAL_READBACK");
@@ -75,7 +80,7 @@ test("W6 Q017 locks both targets to profile_pattern_relation and frozen W6 capab
   assert.equal(p.runtimeCapabilityAuthority.runtimeProfileReclassificationAllowed,false);
 });
 
-test("W6 Q017 semantic locks separate geometric generalization and input-output rule from Q015/Q018 ownership",()=>{
+test("W6 Q017 semantic locks separate three target capabilities from Q015/Q018 ownership",()=>{
   const g=p.semanticProfileLock.knowledgePointSemanticLocks[GEO];
   assert.equal(g.stageFigureCountGeneralizationIsCore,true);
   assert.equal(g.stageIndexFormulaRepresentationIsCore,true);
@@ -90,9 +95,20 @@ test("W6 Q017 semantic locks separate geometric generalization and input-output 
   assert.equal(io.directNthTermSequenceReasoningIsCore,false);
   assert.equal(io.relationEquationUnknownSolvingIsCore,false);
   assert.equal(io.genericSymbolicQuantityRelationReownershipAllowed,false);
+  const linear=p.semanticProfileLock.knowledgePointSemanticLocks[LINEAR];
+  assert.equal(linear.fixedDifferenceAndFirstTermAreCore,true);
+  assert.equal(linear.nthTermFormulaIsCore,true);
+  assert.equal(linear.nthTermMustEqualFirstTermPlusNMinusOneTimesFixedDifference,true);
+  assert.equal(linear.geometricStageFigureGeneralizationReownershipAllowed,false);
+  assert.equal(linear.inputOutputGeneralRuleReownershipAllowed,false);
+  assert.equal(linear.relationEquationUnknownSolvingIsCore,false);
+  assert.equal(linear.genericSymbolicQuantityRelationReownershipAllowed,false);
   assert.deepEqual([...p.r02ReviewedCandidateAuthority.reservedQ018KnowledgePointIds].sort(),[...Q018].sort());
   assert.deepEqual(p.r02ReviewedCandidateAuthority.predecessorOwnedKnowledgePointIds,["kp_g6a_u03_symbolic_quantity_relation"]);
-  assert.equal(p.r02ReviewedCandidateAuthority.remainingCandidateCountAfterQ017,2);
+  assert.equal(p.r02ReviewedCandidateAuthority.remainingCandidateCountAfterQ017,1);
+  const nextSlice=materializeP06EW6DirectProductVerticalSliceQueue().queueEntries[17];
+  assert.equal(nextSlice.sliceId,"p06e_q018_r9_g6a_u03_6a03_profile_pattern_relation_c1");
+  assert.deepEqual(nextSlice.knowledgePointIds,Q018);
 });
 
 test("W6 Q017 remains planning-only SHARED_RUNTIME_BOUNDED",()=>{
