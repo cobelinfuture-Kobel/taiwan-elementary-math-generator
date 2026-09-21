@@ -36,7 +36,12 @@ test("Q019 FormalMapping and two PatternSpecs keep profile_decimal as envelope o
 });
 
 test("Q019 public selector creates G6B-U05 route while all later same-source capabilities stay hidden",()=>{
-  assert.equal(preSelector.listBatchAKnowledgePointAvailabilityBySource(SRC),null);
+  const before=preSelector.listBatchAKnowledgePointAvailabilityBySource(SRC);
+  assert.ok(before);
+  assert.equal(before.sourceId,SRC);
+  assert.equal(before.visibleCount,0);
+  assert.equal(before.hiddenPendingCount,0);
+  assert.equal(before.notSelectableCount,0);
   assert.equal(preSelector.getVisibleBatchAKnowledgePoint(KP),null);
   const a=selector.auditP06F19PublicSelectorComposition();assert.equal(a.ok,true,a.errors.join(","));
   const after=selector.listBatchAKnowledgePointAvailabilityBySource(SRC),ids=selector.listVisibleBatchAKnowledgePoints().filter(x=>x.sourceId===SRC).map(x=>x.knowledgePointId);
