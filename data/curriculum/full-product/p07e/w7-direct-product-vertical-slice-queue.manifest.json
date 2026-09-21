@@ -3,12 +3,27 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07E_W7DirectProductVerticalSliceQueueFreeze",
-  "status": "W7_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_DERIVATION_IN_PROGRESS",
+  "status": "W7_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FROZEN",
   "targetDeliveryWaveId": "R05-W7",
   "expectedKnowledgePointCount": 32,
   "expectedCapabilityPlanCount": 3,
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "frozenQueue": null,
+  "frozenQueue": {
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queueSliceCount": 26,
+    "directW7KnowledgePointCount": 32,
+    "directW7CapabilityPlanCount": 3,
+    "directW7PrimarySourceNodeCount": 10,
+    "directW7SupportingAuthoritySourceNodeCount": 11,
+    "directW7RuntimeProfileCount": 7,
+    "directW7PrerequisiteRankCount": 11,
+    "queueDigest": "ad37a23f07b3de22a088f5bf9f59e2b45f13cc3c350bb84def21860d21135843",
+    "firstExecutableSliceId": "p07e_q001_r5_g6a_u05_6a05_profile_ratio_percent_c1",
+    "firstExecutableKnowledgePointIds": [
+      "kp_g6a_u05_ratio_notation_order"
+    ],
+    "lastSliceId": "p07e_q026_r15_g6a_u08_6a08_profile_speed_rate_c1"
+  },
   "exactAcceptance": null,
   "scope": {
     "queueFreezeOnly": true,
@@ -24,6 +39,6 @@
   "mainlineBoundary": {
     "productionConsumerChanged": false,
     "parallelRuntimePipelineAllowed": false,
-    "nextTaskAfterFreeze": null
+    "nextTaskAfterFreeze": "P07F_W7DirectProductVerticalSlice001Implementation"
   }
 }
