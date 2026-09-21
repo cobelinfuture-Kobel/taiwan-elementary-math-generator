@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "site/modules/curriculum/batch-a/source-units.js"
       - "site/modules/curriculum/registry/g6b-u05-sum-difference-selector-projection-p06f19.js"
       - "site/modules/curriculum/registry/batch-a-selector-p06f19-extension.js"
       - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
