@@ -21,7 +21,8 @@ if(slice?.previousSliceId!=="p07e_q004_r7_g6a_u06_6a06_profile_geometry_formula_
 if(r04?.primaryRuntimeProfileId!=="profile_factor_multiple"||r05?.primaryRuntimeProfileId!=="profile_factor_multiple")throw new Error("P07F_W7_Q005_PROFILE");
 if(JSON.stringify(r04?.requiredRuntimeCapabilityIds)!==JSON.stringify(p.runtimeCapabilityAuthority.requiredRuntimeCapabilityIds))throw new Error("P07F_W7_Q005_RUNTIME_CAPABILITY_PARITY");
 if(r05?.baseDeliveryWaveId!==p.r05AssignmentAuthority.expectedBaseDeliveryWaveId||r05?.deliveryWaveId!==p.r05AssignmentAuthority.expectedDeliveryWaveId||r05?.prerequisiteWaveLowerBound!==p.r05AssignmentAuthority.expectedPrerequisiteWaveLowerBound||r05?.intraWavePrerequisiteRank!==p.r05AssignmentAuthority.expectedIntraWavePrerequisiteRank)throw new Error("P07F_W7_Q005_R05_PARITY");
-if(!incoming.some(edge=>edge.fromKnowledgePointId==="kp_g6a_u05_equivalent_ratio"&&edge.distanceBearing))throw new Error("P07F_W7_Q005_Q003_PREREQUISITE_MISSING");
+if(!incoming.some(edge=>edge.fromKnowledgePointId==="kp_g5a_u02_greatest_common_factor"&&edge.distanceBearing&&edge.dependencyStrength==="required"))throw new Error("P07F_W7_Q005_GCF_PREREQUISITE_MISSING");
+if(!incoming.some(edge=>edge.fromKnowledgePointId==="kp_g6a_u05_equivalent_ratio"&&edge.distanceBearing&&edge.dependencyStrength==="required"))throw new Error("P07F_W7_Q005_Q003_PREREQUISITE_MISSING");
 if(p.semanticProfileLock.targetSemanticCore!=="SIMPLIFY_RATIO_TO_COPRIME_POSITIVE_INTEGER_TERMS")throw new Error("P07F_W7_Q005_SEMANTIC_CORE");
 if(p.q005ScopeLock.implementationAllowedByThisPreflight!==false||p.q005ScopeLock.publicProductAdmissionAllowedByThisPreflight!==false)throw new Error("P07F_W7_Q005_SCOPE");
 console.log(JSON.stringify({
