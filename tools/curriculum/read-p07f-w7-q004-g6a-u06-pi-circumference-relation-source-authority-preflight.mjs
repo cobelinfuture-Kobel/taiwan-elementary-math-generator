@@ -12,8 +12,8 @@ if(p.status!=="PASS_SOURCE_AUTHORITY_PREFLIGHT")throw new Error("P07F_W7_Q004_PR
 if(slice?.sliceId!=="p07e_q004_r7_g6a_u06_6a06_profile_geometry_formula_c1")throw new Error("P07F_W7_Q004_QUEUE_IDENTITY");
 if(slice?.previousSliceId!=="p07e_q003_r7_g6a_u05_6a05_profile_integer_operations_c1")throw new Error("P07F_W7_Q004_PREDECESSOR_IDENTITY");
 if(r04?.primaryRuntimeProfileId!=="profile_geometry_formula"||r05?.primaryRuntimeProfileId!=="profile_geometry_formula")throw new Error("P07F_W7_Q004_PROFILE");
-if(JSON.stringify(r04?.appliedModifierIds)!==JSON.stringify(p.runtimeCapabilityAuthority.predictedAppliedModifierIds))throw new Error("P07F_W7_Q004_MODIFIER_PARITY");
-if(JSON.stringify(r04?.requiredRuntimeCapabilityIds)!==JSON.stringify(p.runtimeCapabilityAuthority.predictedRequiredRuntimeCapabilityIds))throw new Error("P07F_W7_Q004_RUNTIME_CAPABILITY_PARITY");
+if(JSON.stringify(r04?.appliedModifierIds)!==JSON.stringify(p.runtimeCapabilityAuthority.executableR04Mapping.appliedModifierIds))throw new Error("P07F_W7_Q004_MODIFIER_PARITY");
+if(JSON.stringify(r04?.requiredRuntimeCapabilityIds)!==JSON.stringify(p.runtimeCapabilityAuthority.executableR04Mapping.requiredRuntimeCapabilityIds))throw new Error("P07F_W7_Q004_RUNTIME_CAPABILITY_PARITY");
 if(p.semanticProfileLock.targetSemanticCore!=="CIRCUMFERENCE_DIVIDED_BY_DIAMETER_APPROX_PI")throw new Error("P07F_W7_Q004_SEMANTIC_CORE");
 if(p.q004ScopeLock.implementationAllowedByThisPreflight!==false||p.q004ScopeLock.publicProductAdmissionAllowedByThisPreflight!==false)throw new Error("P07F_W7_Q004_SCOPE");
 console.log(JSON.stringify({
