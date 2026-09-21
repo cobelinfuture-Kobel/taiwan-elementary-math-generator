@@ -1,0 +1,159 @@
+{
+  "schemaName": "P06FW6Q020G6BU05AgeRepeatedRelationImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6DirectProductVerticalSlice020Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q020_G6BU05_AGE_DIFFERENCE_INVARIANT_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q020_G6BU05_AGE_RELATION_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "5be83a50031bb7ad77faa4f8a361869e3e962761",
+  "preflight": {
+    "prNumber": 1012,
+    "mergeSha": "cb2784901cd3b7c67883c5317e4a676d3db786b9",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p06f/q020-g6b-u05-age-repeated-relation-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "queuePosition": 19,
+    "implementationPrNumber": 1010,
+    "d0TriggerRepairPrNumber": 1011,
+    "exactDeployedHeadSha": "708541e019225168e3e7520c10db319140092330",
+    "postMergeWorkflowRunId": 35564642690,
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "queueAuthority": {
+    "queuePosition": 20,
+    "queueSliceCount": 20,
+    "isFinalFrozenW6Slice": true,
+    "sliceId": "p06e_q020_r11_g6b_u05_6b05_profile_word_problem_c1",
+    "sourceId": "g6b_u05_6b05",
+    "knowledgePointIds": [
+      "kp_g6b_u05_age_or_repeated_relation_problem"
+    ],
+    "runtimeProfileId": "profile_word_problem",
+    "requiredW6CapabilityIds": [
+      "cap_symbolic_relation_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_6b05_source.pdf",
+    "sourcePdfDriveFileId": "19lrR3_bvpKIoJq5DsKaiQOUecsCzNDsl",
+    "sourcePdfSha256": "1be6a253b422a427bf4a20a09ee478400f39a11e9b817c1acee308e5f6b9403b",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetEvidencePages": [
+      1
+    ],
+    "reviewMethod": "REUSED_CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI_FROM_Q019",
+    "sourceRefAmbiguity": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 2,
+    "patternSpecIds": [
+      "ps_g6b_u05_age_relation_future_multiple",
+      "ps_g6b_u05_age_relation_past_multiple"
+    ],
+    "includedRelations": [
+      "PRESERVE_AGE_DIFFERENCE_UNDER_EQUAL_TIME_SHIFT",
+      "SATISFY_SOURCE_GIVEN_SHIFTED_AGE_RELATION",
+      "BACK_SUBSTITUTE_CURRENT_AND_SHIFTED_AGE_RELATIONS"
+    ],
+    "questionMode": "numeric",
+    "representation": "text_numeric_age_relation",
+    "sourceWordProblemContextMode": "SEMANTIC_CORE",
+    "genericApplicationOverlayMode": "NOT_ADMITTED",
+    "sameUnitMixedMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "variantsPerPatternSpec": 240,
+    "answerModel": "POSITIVE_INTEGER_AGE"
+  },
+  "semanticProfileLock": {
+    "profileId": "profile_word_problem",
+    "requiredCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_symbolic_relation_reasoning",
+      "cap_relation_model_binding",
+      "cap_word_problem_semantic_validation",
+      "cap_text_application_representation"
+    ],
+    "optionalCapabilityIds": [
+      "cap_global_context_binding",
+      "cap_pbl_task_set_projection"
+    ],
+    "queueRequiredW6CapabilityIds": [
+      "cap_symbolic_relation_reasoning"
+    ],
+    "ageContextIsSemanticCore": true,
+    "bothAgesUseSameTimeShift": true,
+    "ageDifferenceMustRemainInvariant": true,
+    "shiftedMultiplicativeRelationRequired": true,
+    "currentAndShiftedBackSubstitutionRequired": true,
+    "positiveAgeStateRequired": true,
+    "q019SumDifferenceCoreReownershipAllowed": false,
+    "generalSumMultipleProblemReownershipAllowed": false,
+    "generalDifferenceMultipleProblemReownershipAllowed": false,
+    "workOrDistributionStrategyReownershipAllowed": false,
+    "genericSequenceOrRecurrenceReownershipAllowed": false,
+    "genericApplicationOverlayUsed": false,
+    "globalContextBindingUsed": false,
+    "pblProjectionUsed": false,
+    "sameUnitMixedUsed": false,
+    "crossUnitMixedUsed": false
+  },
+  "sameSourceCandidateSet": {
+    "sourceId": "g6b_u05_6b05",
+    "candidateCount": 5,
+    "visibleAfterQ020": 2,
+    "predecessorOwnedKnowledgePointIds": [
+      "kp_g6b_u05_sum_difference_problem"
+    ],
+    "q020KnowledgePointIds": [
+      "kp_g6b_u05_age_or_repeated_relation_problem"
+    ],
+    "remainingProtectedKnowledgePointIds": [
+      "kp_g6b_u05_sum_multiple_problem",
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_work_or_distribution_strategy"
+    ],
+    "remainingCandidateCountAfterQ020": 3,
+    "sameSourceCandidateSetComplete": false,
+    "w6FrozenQueueComplete": true
+  },
+  "scopeGuard": {
+    "q001ToQ019ProductMutationAllowed": false,
+    "q019CompatibilityTestAndAcceptanceOnlyMutationAllowed": true,
+    "predecessorProductOwnershipPreserved": true,
+    "genericApplicationOverlayTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "laterW6SliceTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}
