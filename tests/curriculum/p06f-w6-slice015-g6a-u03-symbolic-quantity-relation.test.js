@@ -74,10 +74,29 @@ test("Q015 worksheet answer print HTML contains learner symbols but no visible i
   assert.match(visibleText,/符號/);assert.match(visibleText,/[△○□◇]/);
   assert.equal(visibleText.includes("kp_g6a_u03_"),false);assert.equal(visibleText.includes("ps_g6a_u03_"),false);assert.equal(visibleText.includes("P06F15"),false);
 });
-test("Q015 current browser pointers advance to Q015",()=>{
-  const selector=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8");
-  const binding=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
-  const generator=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
-  const worksheet=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selector,/batch-a-selector-p06f15-extension/);assert.match(binding,/public-ui-capability-binding-p06f15/);assert.match(generator,/requestsP06F15/);assert.match(worksheet,/buildP06F15Worksheet/);
+test("Q015 remains reachable through the current browser successor chain",()=>{
+  const readRepo=rel=>readFileSync(new URL("../../"+rel,import.meta.url),"utf8");
+  const chainContains=(start,target,prefix)=>{
+    const stack=[start],seen=new Set();
+    while(stack.length){
+      const rel=stack.pop();
+      if(seen.has(rel))continue;
+      seen.add(rel);
+      const source=readRepo(rel);
+      if(source.includes(target))return true;
+      for(const match of source.matchAll(/["']\.\/([^"']+\.js)["']/g)){
+        const name=match[1];
+        if(name.startsWith(prefix)){
+          const dir=rel.slice(0,rel.lastIndexOf("/")+1);
+          stack.push(dir+name);
+        }
+      }
+    }
+    return false;
+  };
+  assert.equal(chainContains("site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js","batch-a-selector-p06f15-extension.js","batch-a-selector-p06f"),true);
+  assert.equal(chainContains("site/modules/curriculum/public/public-ui-capability-binding-p04f33.js","public-ui-capability-binding-p06f15.js","public-ui-capability-binding-p06f"),true);
+  const generator=readRepo("site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js");
+  const worksheet=readRepo("site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js");
+  assert.match(generator,/requestsP06F15/);assert.match(worksheet,/buildP06F15Worksheet/);
 });
