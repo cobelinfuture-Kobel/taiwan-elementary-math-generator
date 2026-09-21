@@ -109,5 +109,5 @@ test("W7 Q002 validation contract stays SHARED_RUNTIME_BOUNDED",()=>{
   assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");assert.equal(validation.policyId,"UNIT_INCREMENTAL_VALIDATION_V1");
   assert.deepEqual(validation.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);
   assert.equal(JSON.stringify(validation).includes("FULL_REPOSITORY"),false);assert.equal(JSON.stringify(validation).includes("GLOBAL_BROWSER_REPLAY"),false);
-  assert.equal(impact.scopeGuards.q001ProductMutation,false);assert.equal(impact.scopeGuards.q001CurrentPointerCompatibilityTestOnlyMutation,true);assert.equal(impact.scopeGuards.q020CurrentPointerCompatibilityTestOnlyMutation,true);assert.equal(impact.scopeGuards.q003OrLaterProductMutation,false);
+  assert.equal(impact.scopeGuards.q001ProductMutation,false);assert.equal(impact.scopeGuards.q001CompatibilityTestAndAcceptanceOnlyMutation,true);assert.equal(impact.scopeGuards.q020CurrentPointerCompatibilityTestOnlyMutation,true);assert.equal(impact.scopeGuards.q003OrLaterProductMutation,false);
 });
