@@ -1,0 +1,193 @@
+{
+  "schemaName": "P07EW7SourceAuthorityIndexV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07E_W7DirectProductVerticalSliceQueueFreeze",
+  "status": "W7_R02_REVIEWED_SOURCE_AUTHORITY_INDEX_LOCKED",
+  "authority": "R02_G3toG6_79SourceNodeKnowledgePointCandidateReconciliation",
+  "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+  "primarySourceNodeCount": 10,
+  "supportingAuthoritySourceNodeCount": 11,
+  "directW7KnowledgePointCount": 32,
+  "sources": [
+    {
+      "sourceNodeId": "g5b_u08_5b08",
+      "role": "PRIMARY",
+      "sourceTitle": "比率與百分率",
+      "sourcePdfTitle": "meow911_5b08_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w7KnowledgePointIds": [
+        "kp_g5b_u08_ratio_fraction_decimal_percent_conversion",
+        "kp_g5b_u08_find_percentage_rate",
+        "kp_g5b_u08_percentage_of_quantity",
+        "kp_g5b_u08_find_base_quantity_percent",
+        "kp_g5b_u08_percent_discount_increase_application"
+      ]
+    },
+    {
+      "sourceNodeId": "g6a_u05_6a05",
+      "role": "PRIMARY",
+      "sourceTitle": "比和比值",
+      "sourcePdfTitle": "meow911_6a05_source.pdf",
+      "reviewedPages": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "w7KnowledgePointIds": [
+        "kp_g6a_u05_ratio_notation_order",
+        "kp_g6a_u05_ratio_value",
+        "kp_g6a_u05_equivalent_ratio",
+        "kp_g6a_u05_simplify_ratio",
+        "kp_g6a_u05_ratio_partition_application"
+      ]
+    },
+    {
+      "sourceNodeId": "g6a_u06_6a06",
+      "role": "PRIMARY",
+      "sourceTitle": "圓周長與扇形周長",
+      "sourcePdfTitle": "meow911_6a06_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w7KnowledgePointIds": [
+        "kp_g6a_u06_pi_circumference_relation",
+        "kp_g6a_u06_circle_circumference_formula",
+        "kp_g6a_u06_semicircle_perimeter"
+      ]
+    },
+    {
+      "sourceNodeId": "g6a_u07_6a07",
+      "role": "PRIMARY",
+      "sourceTitle": "圓面積和扇形面積",
+      "sourcePdfTitle": "meow911_6a07_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w7KnowledgePointIds": [
+        "kp_g6a_u07_circle_area_derivation",
+        "kp_g6a_u07_circle_area_formula",
+        "kp_g6a_u07_annulus_area"
+      ]
+    },
+    {
+      "sourceNodeId": "g6a_u08_6a08",
+      "role": "PRIMARY",
+      "sourceTitle": "認識速率",
+      "sourcePdfTitle": "meow911_6a08_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w7KnowledgePointIds": [
+        "kp_speed_distance_time_relation",
+        "kp_average_speed_total_distance_time",
+        "kp_relative_speed_meeting_chasing",
+        "kp_effective_speed_current_wind"
+      ]
+    },
+    {
+      "sourceNodeId": "g6a_u09_6a09",
+      "role": "PRIMARY",
+      "sourceTitle": "放大圖縮圖與比例尺",
+      "sourcePdfTitle": "meow911_6a09_source.pdf",
+      "reviewedPages": [
+        1
+      ],
+      "w7KnowledgePointIds": [
+        "kp_g6a_u09_scale_factor_length",
+        "kp_g6a_u09_scale_area_change"
+      ]
+    },
+    {
+      "sourceNodeId": "g6b_u03_6b03",
+      "role": "PRIMARY",
+      "sourceTitle": "柱體體積與表面積",
+      "sourcePdfTitle": "meow911_6b03_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w7KnowledgePointIds": [
+        "kp_g6b_u03_cylinder_volume"
+      ]
+    },
+    {
+      "sourceNodeId": "g6b_u04_6b04",
+      "role": "PRIMARY",
+      "sourceTitle": "基準量與比較量",
+      "sourcePdfTitle": "meow911_6b04_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w7KnowledgePointIds": [
+        "kp_g6b_u04_base_comparison_rate_roles",
+        "kp_g6b_u04_find_base_quantity",
+        "kp_g6b_u04_find_comparison_quantity",
+        "kp_g6b_u04_find_rate_from_quantities",
+        "kp_g6b_u04_successive_rate_change"
+      ]
+    },
+    {
+      "sourceNodeId": "g6b_u05_6b05",
+      "role": "PRIMARY",
+      "sourceTitle": "怎樣解題",
+      "sourcePdfTitle": "meow911_6b05_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w7KnowledgePointIds": [
+        "kp_g6b_u05_difference_multiple_problem",
+        "kp_g6b_u05_sum_multiple_problem",
+        "kp_g6b_u05_work_or_distribution_strategy"
+      ]
+    },
+    {
+      "sourceNodeId": "g6b_u06_6b06",
+      "role": "PRIMARY",
+      "sourceTitle": "圓形圖",
+      "sourcePdfTitle": "meow911_6b06_source.pdf",
+      "reviewedPages": [
+        1
+      ],
+      "w7KnowledgePointIds": [
+        "kp_g6b_u06_pie_chart_quantity_from_rate"
+      ]
+    },
+    {
+      "sourceNodeId": "g6b_u02_6b02",
+      "role": "SUPPORTING_FOR_G6A_U08_SPEED_ROWS",
+      "sourceTitle": "認識速率",
+      "sourcePdfTitle": "meow911_6b02_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w7KnowledgePointIds": [
+        "kp_speed_distance_time_relation",
+        "kp_average_speed_total_distance_time",
+        "kp_relative_speed_meeting_chasing",
+        "kp_effective_speed_current_wind"
+      ]
+    }
+  ],
+  "notes": {
+    "waveTheme": "RATIO_RATE_CROSS_DOMAIN",
+    "ratioRateCapabilities": [
+      "cap_ratio_percent_reasoning",
+      "cap_speed_rate_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "prerequisiteEscalationMayPlaceNonRatioRuntimeProfilesInW7": true,
+    "legacyBatchUsedForAssignment": false,
+    "sourceAuthorityMutationAllowed": false
+  }
+}
