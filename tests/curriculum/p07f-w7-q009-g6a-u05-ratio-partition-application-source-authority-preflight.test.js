@@ -12,7 +12,7 @@ const KP="kp_g6a_u05_ratio_partition_application";
 
 test("W7 Q009 preflight binds frozen ninth queue slice after Q008 D0",()=>{
   const result=materializeP07EW7DirectProductVerticalSliceQueue(),slice=result.queueEntries[8];
-  assert.ok(["PREFLIGHT_MATERIALIZED_AWAITING_EXECUTABLE_RUNTIME_READBACK","PASS_SOURCE_AUTHORITY_PREFLIGHT"].includes(p.status));
+  assert.equal(p.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
   assert.equal(result.queueEntries.length,26);assert.equal(result.queueRegistryParity,true);
   assert.equal(slice.queuePosition,9);
   assert.equal(slice.sliceId,"p07e_q009_r9_g6a_u05_6a05_profile_ratio_percent_c1");
@@ -23,7 +23,10 @@ test("W7 Q009 preflight binds frozen ninth queue slice after Q008 D0",()=>{
   assert.ok(slice.supportingSourceNodeIds.includes("g6a_u05_6a05"));
   assert.equal(slice.intraWavePrerequisiteRank,9);
   assert.equal(slice.primaryRuntimeProfileId,"profile_ratio_percent");
-  assert.ok(slice.knowledgePointIds.includes(KP));
+  assert.deepEqual(slice.knowledgePointIds,[KP]);
+  assert.deepEqual(slice.requiredW7CapabilityIds,["cap_ratio_percent_reasoning","cap_ratio_rate_validator"]);
+  assert.deepEqual(p.queueAuthority.knowledgePointIds,[KP]);
+  assert.deepEqual(p.queueAuthority.requiredW7CapabilityIds,["cap_ratio_percent_reasoning","cap_ratio_rate_validator"]);
   assert.equal(p.predecessorD0Evidence.q008Status,"PASS_E6_D0_COMPLETE");
   assert.equal(p.predecessorD0Evidence.q008PostMergeWorkflowRunId,35706697557);
 });
@@ -52,6 +55,11 @@ test("W7 Q009 runtime readback resolves frozen ratio-percent profile without rec
   assert.ok(r04);assert.ok(r05);
   assert.equal(r04.primaryRuntimeProfileId,"profile_ratio_percent");
   assert.equal(r05.primaryRuntimeProfileId,"profile_ratio_percent");
+  assert.deepEqual(p.runtimeCapabilityAuthority.executableR04Mapping,{primaryRuntimeProfileId:r04.primaryRuntimeProfileId,classificationRuleId:r04.classificationRuleId,appliedModifierIds:[...r04.appliedModifierIds],requiredRuntimeCapabilityIds:[...r04.requiredRuntimeCapabilityIds],optionalRuntimeCapabilityIds:[...r04.optionalRuntimeCapabilityIds],forbiddenRuntimeCapabilityIds:[...r04.forbiddenRuntimeCapabilityIds]});
+  assert.deepEqual(p.r05AssignmentAuthority.exactR05Assignment,{baseDeliveryWaveId:r05.baseDeliveryWaveId,deliveryWaveId:r05.deliveryWaveId,waveEscalatedByPrerequisite:r05.waveEscalatedByPrerequisite,prerequisiteWaveLowerBound:r05.prerequisiteWaveLowerBound,intraWavePrerequisiteRank:r05.intraWavePrerequisiteRank});
+  assert.deepEqual(r04.appliedModifierIds,["mod_application_semantics"]);
+  assert.equal(p.runtimeCapabilityAuthority.exactR04MappingVerified,true);
+  assert.equal(p.r05AssignmentAuthority.exactR05AssignmentVerified,true);
   assert.equal(r05.deliveryWaveId,"R05-W7");
   assert.equal(r05.intraWavePrerequisiteRank,9);
   assert.equal(p.runtimeCapabilityAuthority.runtimeProfileReclassificationAllowed,false);
@@ -60,6 +68,14 @@ test("W7 Q009 runtime readback resolves frozen ratio-percent profile without rec
 test("W7 Q009 semantic lock owns ratio partition with total conservation only",()=>{
   const s=p.semanticProfileLock.implementationSemanticLock;
   assert.equal(p.semanticProfileLock.targetSemanticCore,"PARTITION_TOTAL_BY_GIVEN_RATIO_WITH_SUM_CONSERVATION");
+  assert.equal(s.fractionOfQuantityPrerequisiteRequired,true);
+  assert.equal(s.ratioValuePrerequisiteRequired,true);
+  assert.deepEqual(p.prerequisiteGraphAuthority.requiredPrerequisiteKnowledgePointIds,["kp_g5b_u02_fraction_of_quantity","kp_g6a_u05_ratio_value"]);
+  assert.equal(p.prerequisiteGraphAuthority.fractionOfQuantityPrerequisiteRequired,true);
+  assert.equal(p.prerequisiteGraphAuthority.ratioValuePrerequisiteRequired,true);
+  assert.equal(p.prerequisiteGraphAuthority.ratioNotationPrerequisiteRequired,false);
+  assert.equal(p.prerequisiteGraphAuthority.equivalentRatioPrerequisiteRequired,false);
+  assert.equal(p.prerequisiteGraphAuthority.simplifyRatioPrerequisiteRequired,false);
   assert.equal(s.givenTotalQuantityRequired,true);
   assert.equal(s.givenOrderedRatioTermsRequired,true);
   assert.equal(s.ratioTermsMustBePositiveForInitialGenerator,true);
@@ -84,6 +100,9 @@ test("W7 Q009 semantic lock owns ratio partition with total conservation only",(
   assert.equal(s.ratioScaleApplicationAllowed,false);
   assert.equal(s.sameUnitMixedModeAllowed,false);
   assert.equal(s.crossUnitMixedModeAllowed,false);
+  assert.deepEqual(p.sameSourceQueueAuthority.exactPriorSlices.map(x=>x.queuePosition),[1,2,3,5]);
+  assert.deepEqual(p.sameSourceQueueAuthority.exactFutureSlices,[]);
+  assert.equal(p.sameSourceQueueAuthority.q009ClosesFrozenSameSourceCandidateSet,true);
 });
 
 test("W7 Q009 preflight remains planning-only SHARED_RUNTIME_BOUNDED",()=>{
