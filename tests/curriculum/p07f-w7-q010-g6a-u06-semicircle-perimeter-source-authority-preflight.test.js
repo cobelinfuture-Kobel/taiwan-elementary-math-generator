@@ -2,14 +2,17 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {materializeP07EW7DirectProductVerticalSliceQueue} from "../../src/curriculum/full-product/p07e-w7-direct-product-vertical-slice-queue.mjs";
+import {materializeR04SharedRuntimeCapabilityMatrix,getR04KnowledgePointCapabilityMapping} from "../../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
+import {getR05DeliveryWaveAssignment} from "../../src/curriculum/global/r05-delivery-wave-rebase.mjs";
 
 const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"));
 const p=read("data/curriculum/full-product/p07f/q010-g6a-u06-semicircle-perimeter-source-authority-preflight.json");
 const r02=read("data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json");
 const KP="kp_g6a_u06_semicircle_perimeter";
 
-test("W7 Q010 provisional preflight binds frozen tenth queue slice after Q009 D0",()=>{
+test("W7 Q010 preflight binds frozen tenth queue slice after Q009 D0",()=>{
   const result=materializeP07EW7DirectProductVerticalSliceQueue(),slice=result.queueEntries[9];
+  assert.equal(p.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
   assert.equal(result.queueEntries.length,26);assert.equal(result.queueRegistryParity,true);
   assert.equal(slice.queuePosition,10);
   assert.equal(slice.sliceId,"p07e_q010_r9_g6a_u06_6a06_profile_geometry_formula_c1");
@@ -22,11 +25,14 @@ test("W7 Q010 provisional preflight binds frozen tenth queue slice after Q009 D0
   assert.equal(slice.primaryRuntimeProfileId,"profile_geometry_formula");
   assert.deepEqual(slice.knowledgePointIds,[KP]);
   assert.deepEqual(slice.requiredW7CapabilityIds,[]);
+  assert.deepEqual(p.queueAuthority.knowledgePointIds,[KP]);
+  assert.deepEqual(p.queueAuthority.requiredW7CapabilityIds,[]);
   assert.equal(p.predecessorD0Evidence.q009Status,"PASS_E6_D0_COMPLETE");
   assert.equal(p.predecessorD0Evidence.q009PostMergeWorkflowRunId,35740000242);
+  assert.equal(p.predecessorD0Evidence.q009ArtifactId,10698379182);
 });
 
-test("W7 Q010 binds R02 semicircle perimeter candidate to existing full-page visual authority",()=>{
+test("W7 Q010 binds R02 semicircle perimeter candidate to current full-page visual authority",()=>{
   const source=r02.sourceRecords.find(row=>row.sourceNodeId==="g6a_u06_6a06");assert.ok(source);
   const target=source.candidates.find(row=>row.knowledgePointId===KP);assert.ok(target);
   assert.equal(target.canonicalNameZh,"半圓周長");
@@ -44,18 +50,61 @@ test("W7 Q010 binds R02 semicircle perimeter candidate to existing full-page vis
   assert.equal(p.sourceAuthority.sourceIdentityArtifactLock.sourceRefAmbiguity,false);
 });
 
-test("W7 Q010 provisional semantic lock owns semicircle boundary only",()=>{
+test("W7 Q010 exact runtime, wave, and prerequisite readback match executable authority",()=>{
+  const r04=getR04KnowledgePointCapabilityMapping(KP),r05=getR05DeliveryWaveAssignment(KP);
+  const graph=materializeR04SharedRuntimeCapabilityMatrix().prerequisiteGraph;
+  const incoming=(graph.incomingByTarget.get(KP)??[]).map(edge=>({
+    fromKnowledgePointId:edge.fromKnowledgePointId,
+    dependencyStrength:edge.dependencyStrength,
+    dependencyRole:edge.dependencyRole,
+    distanceBearing:edge.distanceBearing,
+    alternativeGroupId:edge.alternativeGroupId??null
+  }));
+  assert.ok(r04);assert.ok(r05);
+  assert.deepEqual(p.runtimeCapabilityAuthority.executableR04Mapping,{
+    primaryRuntimeProfileId:r04.primaryRuntimeProfileId,
+    classificationRuleId:r04.classificationRuleId,
+    appliedModifierIds:[...r04.appliedModifierIds],
+    requiredRuntimeCapabilityIds:[...r04.requiredRuntimeCapabilityIds],
+    optionalRuntimeCapabilityIds:[...r04.optionalRuntimeCapabilityIds],
+    forbiddenRuntimeCapabilityIds:[...r04.forbiddenRuntimeCapabilityIds]
+  });
+  assert.deepEqual(p.r05AssignmentAuthority.exactR05Assignment,{
+    baseDeliveryWaveId:r05.baseDeliveryWaveId,
+    deliveryWaveId:r05.deliveryWaveId,
+    waveEscalatedByPrerequisite:r05.waveEscalatedByPrerequisite,
+    prerequisiteWaveLowerBound:r05.prerequisiteWaveLowerBound,
+    intraWavePrerequisiteRank:r05.intraWavePrerequisiteRank
+  });
+  assert.deepEqual(p.prerequisiteGraphAuthority.exactIncomingRequiredDistanceBearingEdges,incoming);
+  assert.deepEqual(p.prerequisiteGraphAuthority.requiredPrerequisiteKnowledgePointIds,["kp_g6a_u06_circle_circumference_formula"]);
+  assert.deepEqual(r04.appliedModifierIds,[]);
+  assert.equal(r04.primaryRuntimeProfileId,"profile_geometry_formula");
+  assert.equal(r05.deliveryWaveId,"R05-W7");
+  assert.equal(r05.intraWavePrerequisiteRank,9);
+  assert.equal(p.runtimeCapabilityAuthority.exactR04MappingVerified,true);
+  assert.equal(p.r05AssignmentAuthority.exactR05AssignmentVerified,true);
+});
+
+test("W7 Q010 semantic lock owns half-circle arc plus diameter only",()=>{
   const s=p.semanticProfileLock.implementationSemanticLock;
   assert.equal(p.semanticProfileLock.targetSemanticCore,"SEMICIRCLE_PERIMETER_EQUALS_HALF_CIRCUMFERENCE_PLUS_DIAMETER");
   assert.equal(s.q006CircleCircumferenceFormulaPrerequisiteRequired,true);
+  assert.equal(p.prerequisiteGraphAuthority.q006CircleCircumferenceFormulaPrerequisiteRequired,true);
+  assert.equal(p.prerequisiteGraphAuthority.q004PiCircumferenceRelationPrerequisiteRequired,false);
   assert.equal(s.semicircleBoundaryMustIncludeArcAndDiameter,true);
   assert.equal(s.halfCircumferenceArcRequired,true);
   assert.equal(s.diameterStraightEdgeRequired,true);
+  assert.equal(s.computeFullCircumferenceAsIntermediateAllowed,true);
+  assert.equal(s.computeHalfCircumferenceArcAllowed,true);
   assert.equal(s.addDiameterToArcRequired,true);
   assert.equal(s.q004PiRelationTeachingReownershipAllowed,false);
   assert.equal(s.q006CircleCircumferenceFormulaTeachingReownershipAllowed,false);
   assert.equal(s.sectorArcLengthAllowed,false);
   assert.equal(s.compositeArcPerimeterAllowed,false);
+  assert.equal(s.stadiumCapsulePerimeterAllowed,false);
+  assert.equal(s.rollingWheelDistanceApplicationAllowed,false);
+  assert.equal(s.squareInscribedCircleBoundaryAllowed,false);
   assert.equal(s.sameUnitMixedModeAllowed,false);
   assert.equal(s.crossUnitMixedModeAllowed,false);
   assert.deepEqual(p.sameSourceQueueAuthority.exactPriorSlices.map(x=>x.queuePosition),[4,6]);
@@ -63,16 +112,20 @@ test("W7 Q010 provisional semantic lock owns semicircle boundary only",()=>{
   assert.equal(p.sameSourceQueueAuthority.q010ClosesFrozenSameSourceCandidateSet,true);
 });
 
-test("W7 Q010 provisional preflight remains planning-only SHARED_RUNTIME_BOUNDED",()=>{
+test("W7 Q010 preflight is exact, planning-only, and SHARED_RUNTIME_BOUNDED",()=>{
   const impact=read("data/project/change-impact/P07F_W7_Q010_PREFLIGHT.impact.json");
   const validation=read("data/project/validation-plans/P07F_W7_Q010_PREFLIGHT.validation.json");
-  assert.equal(p.status,"PREFLIGHT_EXECUTABLE_READBACK_PENDING");
   assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");
   assert.equal(impact.scopeGuards.productImplementation,false);
   assert.equal(impact.scopeGuards.publicAdmission,false);
   assert.equal(p.q010ScopeLock.implementationAllowedByThisPreflight,false);
   assert.equal(p.q010ScopeLock.publicProductAdmissionAllowedByThisPreflight,false);
+  assert.equal(p.preflightDecision.executableRuntimeReadbackRequiredBeforeMerge,false);
+  assert.equal(p.preflightDecision.exactRuntimeMappingBound,true);
+  assert.equal(p.preflightDecision.exactR05AssignmentBound,true);
+  assert.equal(p.preflightDecision.exactPrerequisiteGraphBound,true);
   assert.deepEqual(validation.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);
   assert.equal(validation.lanes.SHARED_RUNTIME_BOUNDED[1].runtime,"NODE_ONLY");
-  assert.equal(p.preflightDecision.executableRuntimeReadbackRequiredBeforeMerge,true);
+  assert.equal(p.preflightValidationBoundary.fullRepositoryRegressionAllowed,false);
+  assert.equal(p.preflightValidationBoundary.globalBrowserReplayAllowed,false);
 });
