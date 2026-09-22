@@ -6,15 +6,10 @@ on:
       - "site/modules/renderer/line-chart-data.js"
       - "site/modules/curriculum/registry/g5b-u11-compare-construct-trend-selector-projection-p06f12.js"
       - "site/modules/curriculum/registry/batch-a-selector-p06f12-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p06f12.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g5b-u11-compare-construct-trend-runtime-p06f12.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p06f12.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p06f12-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - ".github/workflows/p06f-w6-q012-live-pages-e2e.yml"
 permissions:
   contents: read
 jobs:
