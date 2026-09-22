@@ -16,30 +16,31 @@ const items = fs.readFileSync(
 
 test("3上期中 source preflight preserves bounded source authority", () => {
   assert.equal(preflight.schemaName, "ExamSourceAuthorityPreflight");
-  assert.equal(preflight.scope.grade, 3);
-  assert.equal(preflight.scope.semester, "上");
-  assert.equal(preflight.scope.examType, "期中");
-  assert.equal(preflight.scope.selectedSourceCount, 3);
-  assert.equal(preflight.scope.selectedAtomicItemCount, 18);
+  assert.equal(preflight.currentScope.grade, 3);
+  assert.equal(preflight.currentScope.semester, "upper");
+  assert.equal(preflight.currentScope.assessmentType, "midterm");
+  assert.equal(preflight.currentScope.selectedSourceCount, 3);
+  assert.equal(preflight.currentScope.selectedAtomicItemCount, 18);
   assert.equal(preflight.status, "PARTIAL_PASS_WITH_EXPLICIT_BLOCKERS");
-  assert.deepEqual(preflight.forbiddenChanges, [
+  assert.deepEqual(preflight.currentScope.forbiddenChanges, [
     "Generator",
     "Validator runtime",
     "Renderer",
-    "website UI",
-    "PatternSpec",
-    "production admission",
+    "Website UI",
+    "public production admission",
   ]);
 });
 
 test("atomic pilot is traceable, non-production, and complete", () => {
   assert.equal(items.length, 18);
   assert.equal(new Set(items.map((item) => item.atomicItemId)).size, 18);
-  assert.ok(items.every((item) => item.sourceRole === "source_example"));
+  assert.ok(items.every((item) => item.sourceId));
+  assert.ok(items.every((item) => item.sourceRef?.questionNo));
   assert.ok(items.every((item) => item.productionUse === "forbidden"));
   assert.ok(items.every((item) => item.annotationStatus === "atomic_candidate_reviewed"));
   assert.ok(items.every((item) => item.sourceTextPolicy === "exact wording remains in Drive; GitHub stores a semantic summary"));
   assert.equal(items.filter((item) => item.knowledgePointResolution?.status === "CANDIDATE").length, 13);
   assert.equal(items.filter((item) => item.knowledgePointResolution?.status === "UNRESOLVED").length, 5);
-  assert.ok(items.every((item) => item.sourceRef?.driveFileId));
+  const selectedSourceIds = new Set(preflight.selectedSources.map((source) => source.sourceId));
+  assert.ok(items.every((item) => selectedSourceIds.has(item.sourceId)));
 });
