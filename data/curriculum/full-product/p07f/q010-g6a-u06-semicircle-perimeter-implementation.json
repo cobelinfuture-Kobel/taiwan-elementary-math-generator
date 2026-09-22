@@ -29,17 +29,15 @@
     "classicUiAcceptanceStatus": "PASS_P07F_W7_Q009_CLASSIC_UI_ACCEPTANCE"
   },
   "currentMainCompatibilityReadback": {
-    "currentMainShaAtImplementation": "e41c09787b66415bae8f7b4765b1416cb96f0112",
-    "comparedFromPreflightMergeSha": "b49577842af094370e6b796f39845385b68c9e80",
-    "commitsAhead": 4,
+    "currentMainShaAtImplementation": "51200840b8c1300a8ee271003a76004213899c87",
+    "comparedFromImplementationBaselineSha": "e41c09787b66415bae8f7b4765b1416cb96f0112",
+    "commitsAhead": 1,
     "changedPaths": [
-      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
-      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
-      "docs/ci/latest-s76r2-deployed-pages-smoke.json",
-      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json"
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json"
     ],
     "onlyDocsCiReadbackChanged": true,
-    "q010AuthorityOrQ009ProductRuntimePathsChanged": false
+    "q010AuthorityOrQ009ProductRuntimePathsChanged": false,
+    "compatibilityDecision": "SAFE_TO_OPEN_Q010_PR_WITHOUT_PRODUCT_REBASE"
   },
   "queueAuthority": {
     "queuePosition": 10,
