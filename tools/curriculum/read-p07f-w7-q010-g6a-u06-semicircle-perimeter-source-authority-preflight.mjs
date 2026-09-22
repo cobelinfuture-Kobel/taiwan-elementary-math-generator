@@ -23,6 +23,8 @@ const sameSourcePriorSlices=queue.queueEntries.filter(row=>row.queuePosition<10&
   primaryRuntimeProfileId:row.primaryRuntimeProfileId,
   knowledgePointIds:[...row.knowledgePointIds]
 }));
+if(JSON.stringify(p.runtimeCapabilityAuthority.executableR04Mapping)!==JSON.stringify({primaryRuntimeProfileId:r04.primaryRuntimeProfileId,classificationRuleId:r04.classificationRuleId,appliedModifierIds:[...r04.appliedModifierIds],requiredRuntimeCapabilityIds:[...r04.requiredRuntimeCapabilityIds],optionalRuntimeCapabilityIds:[...r04.optionalRuntimeCapabilityIds],forbiddenRuntimeCapabilityIds:[...r04.forbiddenRuntimeCapabilityIds]}))throw new Error("P07F_W7_Q010_R04_MAPPING_PARITY");
+if(JSON.stringify(p.prerequisiteGraphAuthority.exactIncomingRequiredDistanceBearingEdges)!==JSON.stringify(incoming))throw new Error("P07F_W7_Q010_PREREQUISITE_PARITY");
 const sameSourceFutureSlices=queue.queueEntries.filter(row=>row.queuePosition>10&&row.supportingSourceNodeIds.includes("g6a_u06_6a06")).map(row=>({
   queuePosition:row.queuePosition,
   sliceId:row.sliceId,
@@ -33,6 +35,8 @@ if(slice?.sliceId!=="p07e_q010_r9_g6a_u06_6a06_profile_geometry_formula_c1")thro
 if(slice?.previousSliceId!=="p07e_q009_r9_g6a_u05_6a05_profile_ratio_percent_c1")throw new Error("P07F_W7_Q010_PREDECESSOR_IDENTITY");
 if(!slice?.knowledgePointIds.includes(kp))throw new Error("P07F_W7_Q010_KP_MEMBERSHIP");
 if(!r04||!r05)throw new Error("P07F_W7_Q010_RUNTIME_OR_WAVE_MISSING");
+if(r04?.primaryRuntimeProfileId!=="profile_geometry_formula"||r05?.primaryRuntimeProfileId!=="profile_geometry_formula")throw new Error("P07F_W7_Q010_PROFILE");
+if(p.status!=="PASS_SOURCE_AUTHORITY_PREFLIGHT")throw new Error("P07F_W7_Q010_PREFLIGHT_STATUS");
 if(p.semanticProfileLock.targetSemanticCore!=="SEMICIRCLE_PERIMETER_EQUALS_HALF_CIRCUMFERENCE_PLUS_DIAMETER")throw new Error("P07F_W7_Q010_SEMANTIC_CORE");
 if(p.q010ScopeLock.implementationAllowedByThisPreflight!==false||p.q010ScopeLock.publicProductAdmissionAllowedByThisPreflight!==false)throw new Error("P07F_W7_Q010_SCOPE");
 console.log("P07F_W7_Q010_EXECUTABLE_READBACK="+JSON.stringify({
