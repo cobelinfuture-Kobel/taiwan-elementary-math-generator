@@ -1,0 +1,167 @@
+{
+  "schemaName": "P07FW7Q008RatioFractionDecimalPercentConversionImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice008Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q008_G5BU08_RATIO_FRACTION_DECIMAL_PERCENT_CONVERSION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q008_G5BU08_RATIO_FRACTION_DECIMAL_PERCENT_CONVERSION_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "45b01bd065d8d14e84930ec8d02b80ace8d294ad",
+  "preflight": {
+    "prNumber": 1030,
+    "mergeSha": "6f306aa8f361599fc6618bec4fcab7a6c248e58c",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q008-g5b-u08-ratio-fraction-decimal-percent-conversion-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q007Status": "PASS_E6_D0_COMPLETE",
+    "q007MergeSha": "43db0b5b67f3d927494b293256f45fa7968b7d28",
+    "q007PostMergeWorkflowRunId": 35682529386,
+    "q007PostMergeWorkflowRunAttempt": 1,
+    "q007ArtifactId": 10676330059,
+    "q007ArtifactDigest": "sha256:3a8d3368eb617aea279802a7429c59acf72de55d793e46817f474081ef8752a5",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q007_CLASSIC_UI_ACCEPTANCE"
+  },
+  "currentMainCompatibilityReadback": {
+    "comparedFromPreflightMergeSha": "6f306aa8f361599fc6618bec4fcab7a6c248e58c",
+    "commitsAhead": 2,
+    "changedPaths": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json"
+    ],
+    "onlyDocsCiReadbackChanged": true
+  },
+  "queueAuthority": {
+    "queuePosition": 8,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q008_r9_g5b_u08_5b08_profile_ratio_percent_c1",
+    "previousSliceId": "p07e_q007_r8_g6a_u09_6a09_profile_quantity_measurement_c1",
+    "sourceId": "g5b_u08_5b08",
+    "knowledgePointIds": [
+      "kp_g5b_u08_ratio_fraction_decimal_percent_conversion"
+    ],
+    "runtimeProfileId": "profile_ratio_percent",
+    "classificationRuleId": "rule_ratio_percent",
+    "appliedModifierIds": [],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_5b08_source.pdf",
+    "sourcePdfDriveFileId": "1k6bQoFDRjVNtHwOXPlD5Op9dnD5RpPrw",
+    "sourcePdfSizeBytes": 716229,
+    "sourcePdfSha256": "5f170aa99ab3a8bde561a8c6bf0cbacce5fc368ab4ea5c9a89ddbc6e0e45c9e7",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "directVisualEvidencePages": [
+      1
+    ],
+    "semanticAuthority": "R02_REVIEWED_CANDIDATE_PLUS_CURRENT_DIRECT_VISUAL_FRACTION_DECIMAL_PERCENT_EQUIVALENCE_EVIDENCE",
+    "currentVisualSupportLevel": "DIRECT_LITERAL_FRACTION_DECIMAL_PERCENT_INTERCONVERSION",
+    "staleAuxiliaryDriveVerificationNotesPreserved": true,
+    "sourceRefAmbiguity": false
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g6a_u05_ratio_value",
+      "kp_g6b_u01_decimal_fraction_conversion"
+    ],
+    "ratioValuePrerequisiteRequired": true,
+    "decimalFractionConversionPrerequisiteRequired": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 6,
+    "patternSpecIds": [
+      "ps_g5b_u08_fraction_to_decimal",
+      "ps_g5b_u08_decimal_to_fraction",
+      "ps_g5b_u08_decimal_to_percent",
+      "ps_g5b_u08_percent_to_decimal",
+      "ps_g5b_u08_fraction_to_percent",
+      "ps_g5b_u08_percent_to_fraction"
+    ],
+    "includedRelations": [
+      "FRACTION_TO_DECIMAL_EQUIVALENCE",
+      "DECIMAL_TO_FRACTION_EQUIVALENCE",
+      "DECIMAL_TO_PERCENT_EQUIVALENCE",
+      "PERCENT_TO_DECIMAL_EQUIVALENCE",
+      "FRACTION_TO_PERCENT_EQUIVALENCE",
+      "PERCENT_TO_FRACTION_EQUIVALENCE",
+      "PERCENT_SYMBOL_BASE100_IDENTITY"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentation": "fraction_decimal_percent_equivalence",
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "TARGET_REPRESENTATION_EXACT_EQUIVALENCE",
+    "percentMayExceed100": true,
+    "percentIdentityOnePercentEqualsOneOverHundred": true,
+    "simplifiedFractionOutputRequired": true
+  },
+  "siblingOwnership": {
+    "q013KnowledgePointIds": [
+      "kp_g5b_u08_find_percentage_rate",
+      "kp_g5b_u08_percentage_of_quantity"
+    ],
+    "q016KnowledgePointIds": [
+      "kp_g5b_u08_find_base_quantity_percent",
+      "kp_g5b_u08_percent_discount_increase_application"
+    ]
+  },
+  "scopeGuard": {
+    "findPercentageRateFromTwoQuantitiesTouched": false,
+    "percentageOfQuantityTouched": false,
+    "findBaseQuantityTouched": false,
+    "percentDiscountIncreaseApplicationTouched": false,
+    "roleBasedBaseComparisonQuantityTeachingTouched": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q007ProductTouched": false,
+    "q009OrLaterProductTouched": false,
+    "q001Q002Q003Q004Q005Q006Q007CompatibilityTestOnlyMutationAllowed": true,
+    "q020CurrentPointerCompatibilityTestOnlyMutationAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}
