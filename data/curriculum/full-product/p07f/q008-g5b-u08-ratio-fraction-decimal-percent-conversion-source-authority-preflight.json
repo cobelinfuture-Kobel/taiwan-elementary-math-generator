@@ -1,0 +1,290 @@
+{
+  "schemaName": "P07FW7Q008G5BU08RatioFractionDecimalPercentConversionSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q008_G5BU08_RatioFractionDecimalPercentConversion_SourceAuthorityPreflight",
+  "status": "PREFLIGHT_MATERIALIZED_AWAITING_EXECUTABLE_RUNTIME_READBACK",
+  "goalDistance": {
+    "before": "D3_Q008_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q008_G5BU08_RATIO_FRACTION_DECIMAL_PERCENT_CONVERSION_SOURCE_AND_SEMANTIC_BOUNDARY_LOCKED_RUNTIME_READBACK_PENDING",
+    "reduced": "D3_TO_D2_PARTIAL"
+  },
+  "baselineMainSha": "1a6e41b4c4ff0fc4688d41869cf8e10d5941e322",
+  "predecessorD0Evidence": {
+    "q007TaskId": "P07F_W7DirectProductVerticalSlice007Implementation",
+    "q007Status": "PASS_E6_D0_COMPLETE",
+    "q007MergeSha": "43db0b5b67f3d927494b293256f45fa7968b7d28",
+    "q007PostMergeWorkflowRunId": 35682529386,
+    "q007PostMergeWorkflowRunAttempt": 1,
+    "q007ArtifactId": 10676330059,
+    "q007ArtifactDigest": "sha256:3a8d3368eb617aea279802a7429c59acf72de55d793e46817f474081ef8752a5",
+    "exactDeployedAssetDigestParity": true,
+    "exactDeployedAssetCount": 11,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q007_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "ad37a23f07b3de22a088f5bf9f59e2b45f13cc3c350bb84def21860d21135843",
+    "queuePosition": 8,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q008_r9_g5b_u08_5b08_profile_ratio_percent_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice008Implementation",
+    "previousSliceId": "p07e_q007_r8_g6a_u09_6a09_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g5b_u08_5b08",
+    "supportingSourceNodeIds": [
+      "g5b_u08_5b08"
+    ],
+    "intraWavePrerequisiteRank": 9,
+    "primaryRuntimeProfileId": "profile_ratio_percent",
+    "chunkIndex": 1,
+    "targetKnowledgePointId": "kp_g5b_u08_ratio_fraction_decimal_percent_conversion",
+    "exactKnowledgePointIdsPendingExecutableReadback": true,
+    "exactRequiredW7CapabilityIdsPendingExecutableReadback": true,
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5b_u08_5b08",
+    "sourceCode": "5b08",
+    "sourceTitle": "比率與百分率",
+    "sourcePdfTitle": "meow911_5b08_source.pdf",
+    "originalFileName": "題型總覽-5b08-比率與百分率.pdf",
+    "sourceUrl": "https://meow911.com/5b08/",
+    "sourcePdfDriveFileId": "1k6bQoFDRjVNtHwOXPlD5Op9dnD5RpPrw",
+    "sourcePdfSizeBytes": 716229,
+    "sourcePdfSha256": "5f170aa99ab3a8bde561a8c6bf0cbacce5fc368ab4ea5c9a89ddbc6e0e45c9e7",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "auxiliaryDriveMetadata": {
+      "sourceMetadataDriveFileId": "1a3o-3o2N1vYDX0og3yzZ5AIOn2IkUHb0",
+      "sourceMetadataManualReviewed": false,
+      "sourceMetadataExtractionStatus": "pending",
+      "verificationNotesDriveFileId": "19tZvq64UQx8FVyIw2mZXU4sPkD-tmcKJ",
+      "verificationNotesStatus": "pending",
+      "verificationNotesSaysVisualVerificationNotCompleted": true,
+      "authorityTreatment": "STALE_AUXILIARY_NOTES_PRESERVED_NOT_USED_TO_OVERRIDE_LATER_R02_AND_CURRENT_VISUAL_READBACK"
+    },
+    "currentVisualReadbackAuthority": {
+      "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+      "immutableSourceIdentityMatchRequired": true,
+      "driveFileIdMatch": true,
+      "sizeMatch": true,
+      "sha256ComputedFromDownloadedRawPdf": true,
+      "ocrUsedAsAuthority": false,
+      "page1VisibleFamilies": [
+        "PART_WHOLE_RATIO_AS_FRACTION",
+        "RATIO_SUM_TO_ONE",
+        "RATIO_AS_DECIMAL",
+        "PERCENT_SYMBOL_AS_ONE_OVER_ONE_HUNDRED",
+        "DECIMAL_TO_PERCENT",
+        "PERCENT_TO_DECIMAL",
+        "FRACTION_TO_PERCENT_AND_PERCENT_TO_FRACTION",
+        "DISCOUNT_AND_MARKUP_CONTEXT"
+      ],
+      "page2VisibleFamilies": [
+        "VOTE_COUNTS_TO_PERCENT",
+        "ERROR_RATE_FROM_COUNTS",
+        "CORRECT_QUANTITY_FROM_ERROR_RATE",
+        "UPDATED_SHOOTING_RATE",
+        "DISCOUNT_APPLICATION",
+        "MARKUP_THEN_DISCOUNT_APPLICATION",
+        "SUGAR_WATER_RATIO_APPLICATION"
+      ],
+      "q008DirectVisualEvidence": {
+        "ratioAsDecimalVisible": true,
+        "ratioAsDecimalExample": "6/15 = 0.4",
+        "percentSymbolIdentityVisible": true,
+        "percentSymbolIdentityExamples": [
+          "% = 1/100",
+          "100% = 1",
+          "3% = 3/100"
+        ],
+        "decimalToPercentVisible": true,
+        "decimalToPercentExamples": [
+          "0.4 = 40%",
+          "0.65 = 65%",
+          "0.657 = 65.7%",
+          "4 = 400%",
+          "4.05 = 405%"
+        ],
+        "percentToDecimalVisible": true,
+        "percentToDecimalExamples": [
+          "65% = 0.65",
+          "65.7% = 0.657"
+        ],
+        "fractionPercentInterconversionVisible": true,
+        "fractionPercentExample": "6/15 = 2/5 = 40% and 40% = 40/100 = 2/5",
+        "percentAbove100DirectlyVisible": true
+      },
+      "targetSemanticAuthorityTherefore": "R02_REVIEWED_CANDIDATE_PLUS_CURRENT_DIRECT_VISUAL_FRACTION_DECIMAL_PERCENT_EQUIVALENCE_EVIDENCE"
+    },
+    "evidenceResolution": {
+      "r02CandidateEvidencePagesRemain": [
+        1,
+        2
+      ],
+      "exactQ008DirectVisualEvidencePages": [
+        1
+      ],
+      "currentVisualSupportLevel": "DIRECT_LITERAL_FRACTION_DECIMAL_PERCENT_INTERCONVERSION",
+      "page2PrimarilySupportsLaterRateQuantityApplicationKnowledgePoints": true,
+      "staleAuxiliaryDriveVerificationNotesRemainExplicit": true,
+      "currentIndependentVisualReadbackResolvesVisualVerificationForThisPreflight": true,
+      "sourceOnlyAndFutureSiblingCapabilitiesMustRemainOutsideQ008": true
+    },
+    "sourceIdentityArtifactLock": {
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5b_u08_5b08",
+    "sourceTitle": "比率與百分率",
+    "sourcePdfTitle": "meow911_5b08_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g5b_u08_ratio_fraction_decimal_percent_conversion",
+      "canonicalNameZh": "分數小數百分率互換",
+      "capabilityStatement": "學生能在分數、小數與百分率間轉換。",
+      "reasoningInvariant": "三種表示須代表相同部分占全體的比率。",
+      "category": "ratio",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "protectedSiblingKnowledgePointIds": [
+      "kp_g5b_u08_percentage_of_quantity",
+      "kp_g5b_u08_find_percentage_rate",
+      "kp_g5b_u08_find_base_quantity_percent",
+      "kp_g5b_u08_percent_discount_increase_application"
+    ],
+    "exactFutureQueueOwnershipPendingExecutableReadback": true
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "queueRuntimePath": "src/curriculum/full-product/p07e-w7-direct-product-vertical-slice-queue.mjs",
+    "queueFrozenProfileId": "profile_ratio_percent",
+    "profileDeclaredBaseRequiredCapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "profileDeclaredOptionalCapabilityIds": [],
+    "executableReadbackPending": true,
+    "runtimeProfileReclassificationAllowed": false,
+    "semanticProfileInterpretation": "RATIO_PERCENT_EXECUTION_ENVELOPE_FOR_REPRESENTATION_EQUIVALENCE_ONLY"
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "FRACTION_DECIMAL_PERCENT_REPRESENT_THE_SAME_RATIO",
+    "implementationSemanticLock": {
+      "fractionRepresentationRequired": true,
+      "decimalRepresentationRequired": true,
+      "percentRepresentationRequired": true,
+      "representationValueEquivalenceRequired": true,
+      "fractionToDecimalAllowed": true,
+      "decimalToFractionAllowed": true,
+      "decimalToPercentAllowed": true,
+      "percentToDecimalAllowed": true,
+      "fractionToPercentAllowed": true,
+      "percentToFractionAllowed": true,
+      "percentMayExceed100": true,
+      "percentIdentityOnePercentEqualsOneOverHundred": true,
+      "simplifyFractionOutputWhenFractionRequested": true,
+      "findPercentageRateFromTwoQuantitiesAllowed": false,
+      "percentageOfQuantityAllowed": false,
+      "findBaseQuantityAllowed": false,
+      "discountIncreaseApplicationAllowed": false,
+      "roleBasedBaseComparisonQuantityTeachingAllowed": false,
+      "applicationContextAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "q008ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g5b_u08_ratio_fraction_decimal_percent_conversion"
+    ],
+    "includedRelations": [
+      "FRACTION_TO_DECIMAL_EQUIVALENCE",
+      "DECIMAL_TO_FRACTION_EQUIVALENCE",
+      "DECIMAL_TO_PERCENT_EQUIVALENCE",
+      "PERCENT_TO_DECIMAL_EQUIVALENCE",
+      "FRACTION_TO_PERCENT_EQUIVALENCE",
+      "PERCENT_TO_FRACTION_EQUIVALENCE",
+      "PERCENT_SYMBOL_BASE100_IDENTITY"
+    ],
+    "excludedRelations": [
+      "FIND_PERCENTAGE_RATE_FROM_TWO_QUANTITIES",
+      "PERCENTAGE_OF_QUANTITY",
+      "FIND_BASE_QUANTITY_PERCENT",
+      "PERCENT_DISCOUNT_INCREASE_APPLICATION",
+      "BASE_COMPARISON_QUANTITY_ROLE_TEACHING",
+      "APPLICATION_CONTEXT",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q009_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q007ProductTouched": false,
+    "q009OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "r02ReviewedSourceAuthorityMustBeReused": true,
+    "currentFullPageVisualReadbackMustBeBound": true,
+    "staleAuxiliaryDriveMetadataMustRemainExplicit": true,
+    "r05FrozenQueueRuntimeParityMustPass": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolvedAtIdentityLevel": true,
+    "exactFrozenQueueKnowledgePointMembershipPendingExecutableReadback": true,
+    "predecessorQ007D0Verified": true,
+    "sourceAuthoritySufficientForQ008ImplementationPlanning": true,
+    "currentVisualReadbackDirectlySupportsTarget": true,
+    "staleAuxiliaryDriveMetadataPreservedExplicitly": true,
+    "r02ReviewedCandidateBound": true,
+    "semanticProfileLockBound": true,
+    "siblingOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice008Implementation"
+  }
+}
