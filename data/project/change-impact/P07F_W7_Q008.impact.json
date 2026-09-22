@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P07F_W7_Q008",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5b_u08_ratio_fraction_decimal_percent_conversion"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5b_u08_ratio_fraction_decimal_percent_conversion"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5b_u08_ratio_fraction_decimal_percent_conversion": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P07F_W7_Q008.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "q007ProductMutation": false,
+    "q001Q002Q003Q004Q005Q006Q007CompatibilityTestOnlyMutation": true,
+    "q020CurrentPointerCompatibilityTestOnlyMutation": true,
+    "q009OrLaterProductMutation": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "percentageRate": false,
+    "percentageOfQuantity": false,
+    "baseQuantity": false,
+    "discountIncreaseApplication": false,
+    "applicationContext": false
+  }
+}
