@@ -12,6 +12,7 @@ const KP="kp_g6a_u06_circle_circumference_formula";
 
 test("W7 Q006 preflight binds exact sixth frozen queue slice after Q005 D0",()=>{
   const result=materializeP07EW7DirectProductVerticalSliceQueue(),slice=result.queueEntries[5];
+  assert.equal(p.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
   assert.equal(result.queueEntries.length,26);assert.equal(result.queueRegistryParity,true);
   assert.equal(slice.queuePosition,6);
   assert.equal(slice.sliceId,"p07e_q006_r8_g6a_u06_6a06_profile_geometry_formula_c1");
@@ -47,6 +48,10 @@ test("W7 Q006 runtime readback resolves the frozen geometry-formula profile with
   assert.ok(r04);assert.ok(r05);
   assert.equal(r04.primaryRuntimeProfileId,"profile_geometry_formula");
   assert.equal(r05.primaryRuntimeProfileId,"profile_geometry_formula");
+  assert.deepEqual(p.runtimeCapabilityAuthority.executableR04Mapping,{primaryRuntimeProfileId:r04.primaryRuntimeProfileId,classificationRuleId:r04.classificationRuleId,appliedModifierIds:[...r04.appliedModifierIds],requiredRuntimeCapabilityIds:[...r04.requiredRuntimeCapabilityIds],optionalRuntimeCapabilityIds:[...r04.optionalRuntimeCapabilityIds],forbiddenRuntimeCapabilityIds:[...r04.forbiddenRuntimeCapabilityIds]});
+  assert.deepEqual(p.r05AssignmentAuthority.exactR05Assignment,{baseDeliveryWaveId:r05.baseDeliveryWaveId,deliveryWaveId:r05.deliveryWaveId,waveEscalatedByPrerequisite:r05.waveEscalatedByPrerequisite,prerequisiteWaveLowerBound:r05.prerequisiteWaveLowerBound,intraWavePrerequisiteRank:r05.intraWavePrerequisiteRank});
+  assert.equal(p.runtimeCapabilityAuthority.exactR04MappingVerified,true);
+  assert.equal(p.r05AssignmentAuthority.exactR05AssignmentVerified,true);
   assert.equal(r05.deliveryWaveId,"R05-W7");
   assert.equal(r05.intraWavePrerequisiteRank,8);
   assert.equal(p.runtimeCapabilityAuthority.runtimeProfileReclassificationAllowed,false);
@@ -56,6 +61,10 @@ test("W7 Q006 semantic lock owns C=pi*d / 2*pi*r circumference evaluation while 
   const s=p.semanticProfileLock.implementationSemanticLock;
   assert.equal(p.semanticProfileLock.targetSemanticCore,"CIRCLE_CIRCUMFERENCE_FROM_DIAMETER_OR_RADIUS_FORMULA");
   assert.equal(s.q004PiCircumferenceRelationPrerequisiteRequired,true);
+  assert.equal(s.multiplicationPrerequisiteRequired,true);
+  assert.deepEqual(p.prerequisiteGraphAuthority.requiredPrerequisiteKnowledgePointIds,["kp_g4a_u02_2digit_by_2digit","kp_g6a_u06_pi_circumference_relation"]);
+  assert.equal(p.prerequisiteGraphAuthority.multiplicationPrerequisiteRequired,true);
+  assert.equal(p.prerequisiteGraphAuthority.q004PiCircumferenceRelationPrerequisiteRequired,true);
   assert.equal(s.diameterFormulaRequired,"C = π × d");
   assert.equal(s.radiusFormulaRequired,"C = 2 × π × r");
   assert.equal(s.diameterEqualsTwoRadiusRequired,true);
