@@ -3,11 +3,11 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7_Q010_G6AU06_SemicirclePerimeter_SourceAuthorityPreflight",
-  "status": "PREFLIGHT_EXECUTABLE_READBACK_PENDING",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_Q010_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D3_Q010_SOURCE_AND_SEMANTIC_BOUNDARY_LOCKED_EXECUTABLE_RUNTIME_GRAPH_READBACK_PENDING",
-    "reduced": "SOURCE_SEMANTIC_LOCK_ONLY"
+    "after": "D2_Q010_G6AU06_SEMICIRCLE_PERIMETER_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "ab36375b3e03bcfa126fa3faf588c5fae16254c0",
   "predecessorD0Evidence": {
@@ -201,8 +201,27 @@
       "cap_geometry_diagram_representation"
     ],
     "profileDeclaredOptionalCapabilityIds": [],
-    "executableReadbackPending": true,
-    "runtimeProfileReclassificationAllowed": false
+    "executableReadbackPending": false,
+    "runtimeProfileReclassificationAllowed": false,
+    "semanticProfileInterpretation": "GEOMETRY_FORMULA_EXECUTION_ENVELOPE_FOR_SEMICIRCLE_PERIMETER_ONLY",
+    "executableR04Mapping": {
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "classificationRuleId": "rule_geometry_formula",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR04MappingVerified": true
   },
   "semanticProfileLock": {
     "present": true,
@@ -297,21 +316,42 @@
     "adjacentSourceOnlyArcCandidatesProtected": true,
     "manualSourceChoiceRequired": false,
     "sourceRefAmbiguity": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "separateImplementationApprovalRequired": true,
     "nextTask": "P07F_W7DirectProductVerticalSlice010Implementation",
     "exactQueueKnowledgePointMembershipBound": true,
     "exactRequiredW7CapabilitiesBound": true,
-    "exactRuntimeMappingBound": false,
-    "exactR05AssignmentBound": false,
-    "exactPrerequisiteGraphBound": false,
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
     "exactSameSourceQueueClosureBound": true
   },
   "r05AssignmentAuthority": {
-    "executableReadbackPending": true
+    "exactR05Assignment": {
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": true,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 9
+    },
+    "exactR05AssignmentVerified": true
   },
   "prerequisiteGraphAuthority": {
-    "executableReadbackPending": true
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "fromKnowledgePointId": "kp_g6a_u06_circle_circumference_formula",
+        "dependencyStrength": "required",
+        "dependencyRole": "conceptual_foundation",
+        "distanceBearing": true,
+        "alternativeGroupId": null
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g6a_u06_circle_circumference_formula"
+    ],
+    "q006CircleCircumferenceFormulaPrerequisiteRequired": true,
+    "q004PiCircumferenceRelationPrerequisiteRequired": false,
+    "q004PiCircumferenceRelationMayBeConsumedTransitively": true
   },
   "sameSourceQueueAuthority": {
     "exactPriorSlices": [
