@@ -5,18 +5,13 @@ on:
     paths:
       - "site/modules/curriculum/registry/g6b-u06-pie-chart-part-whole-selector-projection-p06f14.js"
       - "site/modules/curriculum/registry/batch-a-selector-p06f14-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p06f14.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g6b-u06-pie-chart-part-whole-runtime-p06f14.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p06f14.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p06f14-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
       - "site/modules/curriculum/batch-a/source-units.js"
       - "site/modules/renderer/pie-chart-data.js"
       - "site/modules/renderer/html-renderer.js"
-      - ".github/workflows/p06f-w6-q014-live-pages-e2e.yml"
 permissions:
   contents: read
 jobs:
