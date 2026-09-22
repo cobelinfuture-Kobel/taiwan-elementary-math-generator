@@ -1,0 +1,89 @@
+{
+  "schemaName": "GCIPM01HistoricalPostMergeE2EFanoutPolicyV1",
+  "schemaVersion": "1.0.0",
+  "programId": "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1",
+  "taskId": "GCI-PM01_HistoricalPostMergeE2EFanoutBoundedCutover",
+  "status": "IMPLEMENTED_PENDING_PR_GATE",
+  "scope": "POST_MERGE_SLICE_E2E_TRIGGER_FANOUT_ONLY",
+  "authority": {
+    "q010MergeSha": "61dbbb11c77c5da0c2c905b1dcf059310ddcf507",
+    "q010D0ReadbackCommitSha": "36a61dce3ba55943700e17906086160c178cfed2",
+    "q010D0Status": "PASS_E6_D0_COMPLETE",
+    "q010D0WorkflowRunId": 35744406174,
+    "q010D0DeploymentAttempt": 20
+  },
+  "baselineObservedFanout": {
+    "totalPushWorkflowRuns": 41,
+    "slicePostMergeE2EWorkflowRuns": 38,
+    "activeCurrentSliceWorkflowRuns": 1,
+    "historicalSliceWorkflowRuns": 37,
+    "observation": "Q010 merge changed shared current-pointer/aggregate/renderer paths and woke historical W5/W6/W7 slice E2E workflows."
+  },
+  "volatileSharedTriggerPaths": [
+    "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+    "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+    "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+    "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+    "site/modules/renderer/sector-elements-diagram.js"
+  ],
+  "activeCurrentSliceWorkflow": ".github/workflows/p07f-w7-q010-live-pages-e2e.yml",
+  "historicalCutoverWorkflows": [
+    ".github/workflows/p05f-w5-q014-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q015-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q027-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q029-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q030-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q031-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q062-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q063-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q001-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q002-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q003-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q004-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q005-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q006-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q007-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q008-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q009-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q010-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q011-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q012-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q013-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q014-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q015-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q016-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q017-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q018-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q019-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q020-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q001-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q002-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q003-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q004-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q005-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q006-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q007-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q008-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q009-live-pages-e2e.yml"
+  ],
+  "invariants": {
+    "volatileSharedPathOwnerCountAmongW5W6W7SliceE2E": 1,
+    "volatileSharedPathOwnerMustBeActiveCurrentSliceWorkflow": true,
+    "historicalWorkflowMayWatchVolatileSharedPaths": false,
+    "historicalWorkflowMaySelfTriggerOnOwnWorkflowFile": false,
+    "historicalWorkflowMustRetainAtLeastOneOwnedPushPath": true,
+    "historicalWorkflowBodyAndE2ERunnerSemanticsChanged": false,
+    "q010CurrentWorkflowSemanticsChanged": false,
+    "productRuntimeChanged": false,
+    "curriculumAuthorityChanged": false
+  },
+  "successorRule": {
+    "whenNextW7SliceBecomesCurrent": "Demote the previous current slice workflow by removing volatile shared trigger paths and its self-trigger; move activeCurrentSliceWorkflow authority to the new slice in the same implementation PR.",
+    "requiredOutcome": "Exactly one W5/W6/W7 slice post-merge E2E workflow owns volatile shared current-path triggers."
+  },
+  "target": {
+    "historicalSliceWorkflowRunsOnSharedPointerOnlyPush": 0,
+    "currentSliceWorkflowRunsOnSharedPointerOnlyPush": 1,
+    "sliceE2EFanoutReductionFromObservedQ010Merge": 37
+  }
+}
