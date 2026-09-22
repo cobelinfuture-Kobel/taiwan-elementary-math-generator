@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P07F_W7_Q011_SUPPLEMENTARY_EVIDENCE_AUTHORITY_REPAIR_BOUNDED_VALIDATION",
+  "unitId": "g6a_u07_6a07",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p07f-w7-q011-g6a-u07-circle-area-derivation-supplementary-evidence-authority-repair.test.js",
+          "tests/curriculum/p07e-w7-direct-product-vertical-slice-queue.test.js",
+          "tests/curriculum/r05-delivery-wave-rebase.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/read-p07f-w7-q011-g6a-u07-circle-area-derivation-supplementary-evidence-authority-repair.mjs",
+        "runtime": "NODE_ONLY"
+      }
+    ]
+  }
+}
