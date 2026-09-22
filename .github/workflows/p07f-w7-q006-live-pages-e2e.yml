@@ -1,0 +1,42 @@
+name: P07F W7 Q006 Post-Merge Pages E2E
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/modules/curriculum/registry/g6a-u06-circle-circumference-formula-selector-projection-p07f06.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p07f06-extension.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p07f06.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
+      - "site/modules/curriculum/batch-a/g6a-u06-circle-circumference-formula-runtime-p07f06.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f06.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f06-extension.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
+      - ".github/workflows/p07f-w7-q006-live-pages-e2e.yml"
+permissions:
+  contents: read
+jobs:
+  live-pages-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - run: node tools/curriculum/run-p07f-w7-q006-live-pages-e2e.mjs
+        env:
+          P07F06_DEPLOYMENT_RETRIES: "60"
+          P07F06_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p07f-w7-q006-pages-e2e
+          path: tmp/p07f-w7-q006-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30
