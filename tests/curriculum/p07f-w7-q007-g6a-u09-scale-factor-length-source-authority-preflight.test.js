@@ -12,7 +12,7 @@ const KP="kp_g6a_u09_scale_factor_length";
 
 test("W7 Q007 preflight binds exact seventh frozen queue slice after Q006 D0",()=>{
   const result=materializeP07EW7DirectProductVerticalSliceQueue(),slice=result.queueEntries[6];
-  assert.ok(["PREFLIGHT_MATERIALIZED_AWAITING_EXECUTABLE_RUNTIME_READBACK","PASS_SOURCE_AUTHORITY_PREFLIGHT"].includes(p.status));
+  assert.equal(p.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
   assert.equal(result.queueEntries.length,26);assert.equal(result.queueRegistryParity,true);
   assert.equal(slice.queuePosition,7);
   assert.equal(slice.sliceId,"p07e_q007_r8_g6a_u09_6a09_profile_quantity_measurement_c1");
@@ -52,6 +52,10 @@ test("W7 Q007 runtime readback resolves the frozen quantity-measurement profile 
   assert.ok(r04);assert.ok(r05);
   assert.equal(r04.primaryRuntimeProfileId,"profile_quantity_measurement");
   assert.equal(r05.primaryRuntimeProfileId,"profile_quantity_measurement");
+  assert.deepEqual(p.runtimeCapabilityAuthority.executableR04Mapping,{primaryRuntimeProfileId:r04.primaryRuntimeProfileId,classificationRuleId:r04.classificationRuleId,appliedModifierIds:[...r04.appliedModifierIds],requiredRuntimeCapabilityIds:[...r04.requiredRuntimeCapabilityIds],optionalRuntimeCapabilityIds:[...r04.optionalRuntimeCapabilityIds],forbiddenRuntimeCapabilityIds:[...r04.forbiddenRuntimeCapabilityIds]});
+  assert.deepEqual(p.r05AssignmentAuthority.exactR05Assignment,{baseDeliveryWaveId:r05.baseDeliveryWaveId,deliveryWaveId:r05.deliveryWaveId,waveEscalatedByPrerequisite:r05.waveEscalatedByPrerequisite,prerequisiteWaveLowerBound:r05.prerequisiteWaveLowerBound,intraWavePrerequisiteRank:r05.intraWavePrerequisiteRank});
+  assert.equal(p.runtimeCapabilityAuthority.exactR04MappingVerified,true);
+  assert.equal(p.r05AssignmentAuthority.exactR05AssignmentVerified,true);
   assert.equal(r05.deliveryWaveId,"R05-W7");
   assert.equal(r05.intraWavePrerequisiteRank,8);
   assert.equal(p.runtimeCapabilityAuthority.runtimeProfileReclassificationAllowed,false);
@@ -60,6 +64,9 @@ test("W7 Q007 runtime readback resolves the frozen quantity-measurement profile 
 test("W7 Q007 semantic lock owns corresponding-length scale factor only while protecting sibling source concepts",()=>{
   const s=p.semanticProfileLock.implementationSemanticLock;
   assert.equal(p.semanticProfileLock.targetSemanticCore,"CORRESPONDING_LENGTHS_SHARE_ONE_POSITIVE_NONZERO_SCALE_FACTOR");
+  assert.equal(s.equivalentRatioPrerequisiteRequired,true);
+  assert.deepEqual(p.prerequisiteGraphAuthority.requiredPrerequisiteKnowledgePointIds,["kp_g6a_u05_equivalent_ratio"]);
+  assert.equal(p.prerequisiteGraphAuthority.equivalentRatioPrerequisiteRequired,true);
   assert.equal(s.correspondingLengthRolesRequired,true);
   assert.equal(s.oneCommonScaleFactorAcrossAllCorrespondingLengthsRequired,true);
   assert.equal(s.scaleFactorMustBePositive,true);assert.equal(s.scaleFactorMustBeNonzero,true);
