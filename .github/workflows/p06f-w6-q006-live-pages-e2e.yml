@@ -7,15 +7,10 @@ on:
       - "site/modules/renderer/tabular-pattern-table.js"
       - "site/modules/curriculum/registry/g4a-u07-input-output-table-selector-projection-p06f06.js"
       - "site/modules/curriculum/registry/batch-a-selector-p06f06-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p06f06.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g4a-u07-input-output-table-runtime-p06f06.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p06f06.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p06f06-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - ".github/workflows/p06f-w6-q006-live-pages-e2e.yml"
 permissions:
   contents: read
 jobs:
