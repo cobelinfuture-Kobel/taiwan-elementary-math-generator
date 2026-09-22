@@ -5,17 +5,12 @@ on:
     paths:
       - "site/modules/curriculum/registry/g5a-u06-missing-addend-structure-selector-projection-p05f63.js"
       - "site/modules/curriculum/registry/batch-a-selector-p05f63-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p05f63.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g5a-u06-missing-addend-structure-runtime-p05f63.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f63.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f63-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
       - "site/modules/renderer/g5a-u06-missing-addend-diagram-p05f63.js"
       - "site/modules/renderer/rectangle-square-area-formula-diagram.js"
-      - ".github/workflows/p05f-w5-q063-live-pages-e2e.yml"
 permissions:
   contents: read
 jobs:
