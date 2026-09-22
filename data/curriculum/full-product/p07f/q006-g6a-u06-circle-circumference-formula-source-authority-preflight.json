@@ -1,0 +1,257 @@
+{
+  "schemaName": "P07FW7Q006G6AU06CircleCircumferenceFormulaSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q006_G6AU06_CircleCircumferenceFormula_SourceAuthorityPreflight",
+  "status": "PREFLIGHT_MATERIALIZED_AWAITING_EXECUTABLE_RUNTIME_READBACK",
+  "goalDistance": {
+    "before": "D3_Q006_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q006_G6AU06_CIRCLE_CIRCUMFERENCE_FORMULA_SOURCE_AND_SEMANTIC_BOUNDARY_LOCKED_RUNTIME_READBACK_PENDING",
+    "reduced": "D3_TO_D2_PARTIAL"
+  },
+  "baselineMainSha": "d03c9ffbbf9916d8f603c67c68464a9260e79fe2",
+  "predecessorD0Evidence": {
+    "q005TaskId": "P07F_W7DirectProductVerticalSlice005Implementation",
+    "q005Status": "PASS_E6_D0_COMPLETE",
+    "q005MergeSha": "8a5a05c2cfcbdb41053a92d0e46f018c4c2ffd32",
+    "q005PostMergeWorkflowRunId": 35620509645,
+    "q005PostMergeWorkflowRunAttempt": 2,
+    "q005ArtifactId": 10670952622,
+    "q005ArtifactDigest": "sha256:0644a9a441450ac63a8c98e997190ecdb0b841083c3b78435cf29f87fe459a13",
+    "exactDeployedAssetDigestParity": true,
+    "exactDeployedAssetCount": 10,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q005_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "ad37a23f07b3de22a088f5bf9f59e2b45f13cc3c350bb84def21860d21135843",
+    "queuePosition": 6,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q006_r8_g6a_u06_6a06_profile_geometry_formula_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice006Implementation",
+    "previousSliceId": "p07e_q005_r8_g6a_u05_6a05_profile_factor_multiple_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6a_u06_6a06",
+    "supportingSourceNodeIds": [
+      "g6a_u06_6a06"
+    ],
+    "intraWavePrerequisiteRank": 8,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6a_u06_circle_circumference_formula"
+    ],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6a_u06_6a06",
+    "sourceCode": "6a06",
+    "sourceTitle": "圓周長與扇形周長",
+    "sourcePdfTitle": "meow911_6a06_source.pdf",
+    "sourcePdfDriveFileId": "1kUsHZcQ9pyLNyBc6bduLb7UOnQPUFmOk",
+    "sourcePdfSizeBytes": 644331,
+    "sourcePdfSha256": "e21d00e73df47d6ce7ae2d8d1dd2e8cbed04380a45ece38bc4d4df7fe08ebcf4",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "currentVisualReadbackAuthority": {
+      "reusedFromPreflightPath": "data/curriculum/full-product/p07f/q004-g6a-u06-pi-circumference-relation-source-authority-preflight.json",
+      "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+      "immutableSourceIdentityMatchRequired": true,
+      "driveFileIdMatch": true,
+      "sizeMatch": true,
+      "sha256Match": true,
+      "ocrUsedAsAuthority": false,
+      "page1VisibleFamilies": [
+        "TIRE_ROLLING_DISTANCE_CIRCUMFERENCE_CONTEXT",
+        "SECTOR_PERIMETER",
+        "SEMICIRCLE_PERIMETER",
+        "COMPOSITE_ARC_PERIMETER",
+        "SQUARE_WITH_INSCRIBED_CIRCLE_BOUNDARY"
+      ],
+      "page2VisibleFamilies": [
+        "STADIUM_CAPSULE_PERIMETER",
+        "SEMICIRCLE_ARC_COMPOSITION",
+        "COMPOSITE_ARC_PERIMETER",
+        "SECTOR_PERIMETER"
+      ],
+      "literalCircleCircumferenceFormulaStatementVisiblyAsserted": false,
+      "targetSemanticAuthorityTherefore": "R02_REVIEWED_CANDIDATE_PRIMARY_CURRENT_VISUAL_CIRCUMFERENCE_CONTEXT_SECONDARY"
+    },
+    "evidenceResolution": {
+      "r02CandidateEvidencePagesRemain": [
+        1,
+        2
+      ],
+      "exactQ006ReviewedEvidencePages": [
+        1,
+        2
+      ],
+      "currentVisualSupportLevel": "CIRCUMFERENCE_APPLICATION_CONTEXT_VISIBLE_FORMULA_LITERAL_NOT_ASSERTED",
+      "currentIndependentVisualReadbackDoesNotOverrideR02ReviewedCandidate": true,
+      "q004PiCircumferenceRelationMayBeConsumedAsPrerequisite": true,
+      "q004PiCircumferenceRelationMayNotBeReowned": true,
+      "q010SemicirclePerimeterRemainsSeparatelyOwned": true,
+      "sourceOnlySectorAndCompositeArcCandidatesRemainOutsideQ006": true
+    },
+    "sourceIdentityArtifactLock": {
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g6a_u06_6a06",
+    "sourceTitle": "圓周長與扇形周長",
+    "sourcePdfTitle": "meow911_6a06_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g6a_u06_circle_circumference_formula",
+      "canonicalNameZh": "圓周長公式",
+      "capabilityStatement": "學生能用直徑乘圓周率或半徑乘2乘圓周率求圓周長。",
+      "reasoningInvariant": "直徑等於兩倍半徑，兩種公式必須等值。",
+      "category": "geometry",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "predecessorOwnedKnowledgePointRows": [
+      {
+        "knowledgePointId": "kp_g6a_u06_pi_circumference_relation",
+        "queuePosition": 4,
+        "status": "PASS_E6_D0_COMPLETE"
+      }
+    ],
+    "futureOwnedKnowledgePointRows": [
+      {
+        "knowledgePointId": "kp_g6a_u06_semicircle_perimeter",
+        "queuePosition": 10,
+        "sliceId": "p07e_q010_r9_g6a_u06_6a06_profile_geometry_formula_c1"
+      }
+    ],
+    "sourceOnlyNotAdmittedByQ006KnowledgePointIds": [
+      "kp_g6a_u06_sector_arc_length",
+      "kp_g6a_u06_composite_arc_perimeter"
+    ]
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "queueFrozenProfileId": "profile_geometry_formula",
+    "queueFrozenRequiredW7CapabilityIds": [],
+    "executableReadbackPending": true,
+    "runtimeProfileReclassificationAllowed": false,
+    "semanticProfileInterpretation": "GEOMETRY_FORMULA_EXECUTION_ENVELOPE_FOR_CIRCUMFERENCE_FORMULA_ONLY"
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "CIRCLE_CIRCUMFERENCE_FROM_DIAMETER_OR_RADIUS_FORMULA",
+    "implementationSemanticLock": {
+      "q004PiCircumferenceRelationPrerequisiteRequired": true,
+      "circumferenceRoleRequired": true,
+      "diameterOrRadiusInputRoleRequired": true,
+      "diameterEqualsTwoRadiusRequired": true,
+      "diameterFormulaRequired": "C = π × d",
+      "radiusFormulaRequired": "C = 2 × π × r",
+      "twoFormulaEquivalenceRequired": true,
+      "positiveDiameterOrRadiusRequired": true,
+      "approximatePiValueMayBeRepresentedAs3Point14": true,
+      "solveCircumferenceFromDiameterAllowed": true,
+      "solveCircumferenceFromRadiusAllowed": true,
+      "solveDiameterFromCircumferenceAllowed": false,
+      "solveRadiusFromCircumferenceAllowed": false,
+      "q004PiRelationTeachingReownershipAllowed": false,
+      "semicirclePerimeterAllowed": false,
+      "sectorArcLengthAllowed": false,
+      "compositeArcPerimeterAllowed": false,
+      "rollingWheelDistanceApplicationAllowed": false,
+      "applicationContextAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "q006ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6a_u06_circle_circumference_formula"
+    ],
+    "includedRelations": [
+      "COMPUTE_CIRCUMFERENCE_FROM_DIAMETER_USING_PI_D",
+      "COMPUTE_CIRCUMFERENCE_FROM_RADIUS_USING_TWO_PI_R",
+      "VERIFY_DIAMETER_RADIUS_FORMULA_EQUIVALENCE",
+      "PRESERVE_DIAMETER_EQUALS_TWO_RADIUS_INVARIANT"
+    ],
+    "excludedRelations": [
+      "Q004_PI_CIRCUMFERENCE_RELATION_TEACHING_REOWNERSHIP",
+      "SOLVE_DIAMETER_FROM_CIRCUMFERENCE",
+      "SOLVE_RADIUS_FROM_CIRCUMFERENCE",
+      "SEMICIRCLE_PERIMETER",
+      "SECTOR_ARC_LENGTH",
+      "COMPOSITE_ARC_PERIMETER",
+      "ROLLING_WHEEL_DISTANCE_APPLICATION",
+      "APPLICATION_CONTEXT",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q007_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q004ProductTouched": false,
+    "q005ProductTouched": false,
+    "q007OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "r02ReviewedSourceAuthorityMustBeReused": true,
+    "currentFullPageVisualReadbackMustBeBound": true,
+    "r05FrozenQueueRuntimeParityMustPass": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ005D0Verified": true,
+    "sourceAuthoritySufficientForQ006ImplementationPlanning": true,
+    "currentVisualReadbackTransparencyBound": true,
+    "r02ReviewedCandidateBound": true,
+    "semanticProfileLockBound": true,
+    "q004OwnershipProtected": true,
+    "q010FutureOwnershipProtected": true,
+    "sourceOnlyArcCandidatesProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice006Implementation"
+  }
+}
