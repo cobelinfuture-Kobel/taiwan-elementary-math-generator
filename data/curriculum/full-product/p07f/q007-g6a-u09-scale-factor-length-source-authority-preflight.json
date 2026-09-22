@@ -3,11 +3,11 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7_Q007_G6AU09_ScaleFactorLength_SourceAuthorityPreflight",
-  "status": "PREFLIGHT_MATERIALIZED_AWAITING_EXECUTABLE_RUNTIME_READBACK",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_Q007_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D2_Q007_G6AU09_SCALE_FACTOR_LENGTH_SOURCE_AND_SEMANTIC_BOUNDARY_LOCKED_RUNTIME_READBACK_PENDING",
-    "reduced": "D3_TO_D2_PARTIAL"
+    "after": "D2_Q007_G6AU09_SCALE_FACTOR_LENGTH_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "89ea600479cc2264b2f820623a198ad1e8f031d7",
   "predecessorD0Evidence": {
@@ -177,9 +177,29 @@
     "profileDeclaredOptionalCapabilityIds": [
       "cap_scale_instrument_representation"
     ],
-    "executableReadbackPending": true,
+    "executableReadbackPending": false,
     "runtimeProfileReclassificationAllowed": false,
-    "semanticProfileInterpretation": "QUANTITY_MEASUREMENT_EXECUTION_ENVELOPE_FOR_CORRESPONDING_LENGTH_SCALE_FACTOR_ONLY"
+    "semanticProfileInterpretation": "QUANTITY_MEASUREMENT_EXECUTION_ENVELOPE_FOR_CORRESPONDING_LENGTH_SCALE_FACTOR_ONLY",
+    "executableR04Mapping": {
+      "primaryRuntimeProfileId": "profile_quantity_measurement",
+      "classificationRuleId": "rule_quantity_measurement",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_quantity_dimension_unit_identity",
+        "cap_quantity_domain_validator",
+        "cap_text_numeric_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [
+        "cap_scale_instrument_representation"
+      ],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR04MappingVerified": true
   },
   "semanticProfileLock": {
     "present": true,
@@ -205,7 +225,8 @@
       "applicationContextAllowed": false,
       "sameUnitMixedModeAllowed": false,
       "crossUnitMixedModeAllowed": false,
-      "frozenQueueMayNotBeSilentlyReclassified": true
+      "frozenQueueMayNotBeSilentlyReclassified": true,
+      "equivalentRatioPrerequisiteRequired": true
     }
   },
   "q007ScopeLock": {
@@ -269,8 +290,35 @@
     "sourceOnlySiblingOwnershipProtected": true,
     "manualSourceChoiceRequired": false,
     "sourceRefAmbiguity": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "separateImplementationApprovalRequired": true,
-    "nextTask": "P07F_W7DirectProductVerticalSlice007Implementation"
+    "nextTask": "P07F_W7DirectProductVerticalSlice007Implementation",
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "baseDeliveryWaveId": "R05-W4",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": true,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 8
+    },
+    "exactR05AssignmentVerified": true
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "fromKnowledgePointId": "kp_g6a_u05_equivalent_ratio",
+        "dependencyStrength": "required",
+        "distanceBearing": true,
+        "alternativeGroupId": null
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g6a_u05_equivalent_ratio"
+    ],
+    "equivalentRatioPrerequisiteRequired": true
   }
 }
