@@ -3,11 +3,11 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7_Q009_G6AU05_RatioPartitionApplication_SourceAuthorityPreflight",
-  "status": "PREFLIGHT_MATERIALIZED_AWAITING_EXECUTABLE_RUNTIME_READBACK",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_Q009_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D2_Q009_G6AU05_RATIO_PARTITION_APPLICATION_SOURCE_AND_SEMANTIC_BOUNDARY_LOCKED_RUNTIME_READBACK_PENDING",
-    "reduced": "D3_TO_D2_PARTIAL"
+    "after": "D2_Q009_G6AU05_RATIO_PARTITION_APPLICATION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "cde5d1e6dcced5927e86c04bcbf6cf426917df4d",
   "predecessorD0Evidence": {
@@ -56,10 +56,15 @@
     "intraWavePrerequisiteRank": 9,
     "primaryRuntimeProfileId": "profile_ratio_percent",
     "chunkIndex": 1,
-    "targetKnowledgePointId": "kp_g6a_u05_ratio_partition_application",
-    "exactKnowledgePointIdsPendingExecutableReadback": true,
-    "exactRequiredW7CapabilityIdsPendingExecutableReadback": true,
-    "targetEvidenceLevel": "E6_D0_COMPLETE"
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "knowledgePointIds": [
+      "kp_g6a_u05_ratio_partition_application"
+    ],
+    "knowledgePointCount": 1,
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ]
   },
   "sourceAuthority": {
     "sourceNodeId": "g6a_u05_6a05",
@@ -247,18 +252,39 @@
       "cap_global_context_binding",
       "cap_pbl_task_set_projection"
     ],
-    "executableReadbackPending": true,
+    "executableReadbackPending": false,
     "runtimeProfileReclassificationAllowed": false,
-    "semanticProfileInterpretation": "RATIO_PERCENT_EXECUTION_ENVELOPE_FOR_RATIO_PARTITION_APPLICATION"
+    "semanticProfileInterpretation": "RATIO_PERCENT_EXECUTION_ENVELOPE_FOR_RATIO_PARTITION_APPLICATION",
+    "executableR04Mapping": {
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "classificationRuleId": "rule_ratio_percent",
+      "appliedModifierIds": [
+        "mod_application_semantics"
+      ],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation",
+        "cap_relation_model_binding",
+        "cap_word_problem_semantic_validation"
+      ],
+      "optionalRuntimeCapabilityIds": [
+        "cap_global_context_binding",
+        "cap_pbl_task_set_projection"
+      ],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR04MappingVerified": true
   },
   "semanticProfileLock": {
     "present": true,
     "targetSemanticCore": "PARTITION_TOTAL_BY_GIVEN_RATIO_WITH_SUM_CONSERVATION",
     "implementationSemanticLock": {
-      "q001OrderedAntecedentConsequentRolesRemainPrerequisite": true,
-      "q002RatioValueEqualityMayBeConsumedAsPrerequisite": true,
-      "q003EquivalentRatioInvarianceMayBeConsumedAsPrerequisite": true,
-      "q005SimplestIntegerRatioMayBeConsumedAsPrerequisite": true,
       "givenTotalQuantityRequired": true,
       "givenOrderedRatioTermsRequired": true,
       "ratioTermsMustBePositiveForInitialGenerator": true,
@@ -284,7 +310,12 @@
       "ratioScaleApplicationAllowed": false,
       "sameUnitMixedModeAllowed": false,
       "crossUnitMixedModeAllowed": false,
-      "frozenQueueMayNotBeSilentlyReclassified": true
+      "frozenQueueMayNotBeSilentlyReclassified": true,
+      "fractionOfQuantityPrerequisiteRequired": true,
+      "ratioValuePrerequisiteRequired": true,
+      "q001RatioNotationMayBeConsumedButIsNotGraphRequired": true,
+      "q003EquivalentRatioMayBeConsumedButIsNotGraphRequired": true,
+      "q005SimplifyRatioMayBeConsumedButIsNotGraphRequired": true
     }
   },
   "q009ScopeLock": {
@@ -345,7 +376,7 @@
   },
   "preflightDecision": {
     "exactFrozenQueueRowResolvedAtIdentityLevel": true,
-    "exactFrozenQueueKnowledgePointMembershipPendingExecutableReadback": true,
+    "exactFrozenQueueKnowledgePointMembershipPendingExecutableReadback": false,
     "predecessorQ008D0Verified": true,
     "sourceAuthoritySufficientForQ009ImplementationPlanning": true,
     "currentVisualReadbackDirectlySupportsTargetOnPage3": true,
@@ -356,8 +387,87 @@
     "adjacentSourceOnlyApplicationsProtected": true,
     "manualSourceChoiceRequired": false,
     "sourceRefAmbiguity": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "separateImplementationApprovalRequired": true,
-    "nextTask": "P07F_W7DirectProductVerticalSlice009Implementation"
+    "nextTask": "P07F_W7DirectProductVerticalSlice009Implementation",
+    "exactQueueKnowledgePointMembershipBound": true,
+    "exactRequiredW7CapabilitiesBound": true,
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "exactSameSourceQueueClosureBound": true
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "baseDeliveryWaveId": "R05-W7",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": false,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 9
+    },
+    "exactR05AssignmentVerified": true
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "fromKnowledgePointId": "kp_g5b_u02_fraction_of_quantity",
+        "dependencyStrength": "required",
+        "distanceBearing": true,
+        "alternativeGroupId": null
+      },
+      {
+        "fromKnowledgePointId": "kp_g6a_u05_ratio_value",
+        "dependencyStrength": "required",
+        "distanceBearing": true,
+        "alternativeGroupId": null
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g5b_u02_fraction_of_quantity",
+      "kp_g6a_u05_ratio_value"
+    ],
+    "fractionOfQuantityPrerequisiteRequired": true,
+    "ratioValuePrerequisiteRequired": true,
+    "ratioNotationPrerequisiteRequired": false,
+    "equivalentRatioPrerequisiteRequired": false,
+    "simplifyRatioPrerequisiteRequired": false
+  },
+  "sameSourceQueueAuthority": {
+    "exactPriorSlices": [
+      {
+        "queuePosition": 1,
+        "sliceId": "p07e_q001_r5_g6a_u05_6a05_profile_ratio_percent_c1",
+        "primaryRuntimeProfileId": "profile_ratio_percent",
+        "knowledgePointIds": [
+          "kp_g6a_u05_ratio_notation_order"
+        ]
+      },
+      {
+        "queuePosition": 2,
+        "sliceId": "p07e_q002_r6_g6a_u05_6a05_profile_ratio_percent_c1",
+        "primaryRuntimeProfileId": "profile_ratio_percent",
+        "knowledgePointIds": [
+          "kp_g6a_u05_ratio_value"
+        ]
+      },
+      {
+        "queuePosition": 3,
+        "sliceId": "p07e_q003_r7_g6a_u05_6a05_profile_integer_operations_c1",
+        "primaryRuntimeProfileId": "profile_integer_operations",
+        "knowledgePointIds": [
+          "kp_g6a_u05_equivalent_ratio"
+        ]
+      },
+      {
+        "queuePosition": 5,
+        "sliceId": "p07e_q005_r8_g6a_u05_6a05_profile_factor_multiple_c1",
+        "primaryRuntimeProfileId": "profile_factor_multiple",
+        "knowledgePointIds": [
+          "kp_g6a_u05_simplify_ratio"
+        ]
+      }
+    ],
+    "exactFutureSlices": [],
+    "q009ClosesFrozenSameSourceCandidateSet": true
   }
 }
