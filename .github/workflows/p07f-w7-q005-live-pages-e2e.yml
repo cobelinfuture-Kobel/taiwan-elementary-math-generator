@@ -5,15 +5,10 @@ on:
     paths:
       - "site/modules/curriculum/registry/g6a-u05-simplify-ratio-selector-projection-p07f05.js"
       - "site/modules/curriculum/registry/batch-a-selector-p07f05-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p07f05.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g6a-u05-simplify-ratio-runtime-p07f05.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f05.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f05-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - ".github/workflows/p07f-w7-q005-live-pages-e2e.yml"
 permissions:
   contents: read
 jobs:
