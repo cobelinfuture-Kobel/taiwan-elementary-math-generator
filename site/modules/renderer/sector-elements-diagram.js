@@ -1,4 +1,4 @@
-const ANGLES=new Set([40,50,60,70,80,90,100,110,120,130,140,150]);
+const ANGLES=new Set([40,50,60,70,80,90,100,110,120,130,140,150,180]);
 const ROTATIONS=new Set(Array.from({length:20},(_,i)=>i*18));
 const RADII=new Set([46,50,54,58]);
 const MODES=new Set(["CENTER_DOT","RADII_HIGHLIGHT","CENTRAL_ANGLE_ARC","ARC_HIGHLIGHT","STRUCTURE_HIGHLIGHT"]);
