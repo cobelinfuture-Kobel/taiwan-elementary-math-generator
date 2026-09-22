@@ -73,9 +73,9 @@ test("W7 Q006 aggregate generator worksheet renderer expose diameter radius equi
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:["kp_g6a_u06_pi_circumference_relation",KP],questionMode:"diagram",questionCount:4,generationSeed:"mixed-not-admitted"});assert.equal(mixed.ok,false);
 });
 
-test("W7 Q006 current browser pointers advance to P07F08 while Q005 Q004 Q003 Q002 Q001 and W6 Q020 stay reachable",()=>{
+test("W7 Q006 current browser pointers advance to P07F09 while Q005 Q004 Q003 Q002 Q001 and W6 Q020 stay reachable",()=>{
   const selectorText=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8"),bindingText=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8"),generatorText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8"),worksheetText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selectorText,/batch-a-selector-p07f08-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f08/);
+  assert.match(selectorText,/batch-a-selector-p07f09-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f09/);
   for(const id of ["08","07","06","05","04","03","02","01"])assert.match(generatorText,new RegExp("requestsP07F"+id));
   assert.match(generatorText,/requestsP06F20/);for(const id of ["08","07","06","05","04","03","02","01"])assert.match(worksheetText,new RegExp("buildP07F"+id+"Worksheet"));assert.match(worksheetText,/buildP06F20Worksheet/);
 });
