@@ -5,17 +5,12 @@ on:
     paths:
       - "site/modules/curriculum/registry/g5a-u09-composite-polygon-area-selector-projection-p05f62.js"
       - "site/modules/curriculum/registry/batch-a-selector-p05f62-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f62.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f62-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
       - "site/modules/curriculum/batch-a/g5a-u09-composite-polygon-area-runtime-p05f62.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p05f62.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/renderer/g5a-u09-composite-polygon-area-diagram-p05f62.js"
       - "site/modules/renderer/rectangle-square-area-formula-diagram.js"
-      - ".github/workflows/p05f-w5-q062-live-pages-e2e.yml"
 permissions:
   contents: read
 jobs:
