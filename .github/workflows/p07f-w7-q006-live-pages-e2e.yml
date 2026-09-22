@@ -5,15 +5,10 @@ on:
     paths:
       - "site/modules/curriculum/registry/g6a-u06-circle-circumference-formula-selector-projection-p07f06.js"
       - "site/modules/curriculum/registry/batch-a-selector-p07f06-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p07f06.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g6a-u06-circle-circumference-formula-runtime-p07f06.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f06.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f06-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - ".github/workflows/p07f-w7-q006-live-pages-e2e.yml"
 permissions:
   contents: read
 jobs:

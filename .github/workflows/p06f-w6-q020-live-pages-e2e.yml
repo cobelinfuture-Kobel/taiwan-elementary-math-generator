@@ -6,15 +6,10 @@ on:
       - "site/modules/curriculum/batch-a/source-units.js"
       - "site/modules/curriculum/registry/g6b-u05-age-repeated-relation-selector-projection-p06f20.js"
       - "site/modules/curriculum/registry/batch-a-selector-p06f20-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p06f20.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g6b-u05-age-repeated-relation-runtime-p06f20.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p06f20.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p06f20-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - ".github/workflows/p06f-w6-q020-live-pages-e2e.yml"
 permissions:
   contents: read
 jobs:

@@ -4,13 +4,10 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/p05f-w5-q031-live-pages-e2e.yml'
       - 'data/curriculum/full-product/p05f/q031-g5b-u10a-large-unit-estimation-application-implementation.json'
       - 'site/modules/curriculum/registry/g5b-u10a-large-unit-estimation-application-selector-projection-p05f31.js'
       - 'site/modules/curriculum/registry/batch-a-selector-p05f31-extension.js'
-      - 'site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js'
       - 'site/modules/curriculum/public/public-ui-capability-binding-p05f31.js'
-      - 'site/modules/curriculum/public/public-ui-capability-binding-p04f33.js'
       - 'site/modules/curriculum/batch-a/g5b-u10a-large-unit-estimation-application-runtime-p05f31.js'
       - 'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f31.js'
       - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f31-extension.js'

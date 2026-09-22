@@ -8,15 +8,10 @@ on:
       - "site/modules/renderer/one-way-statistics-table.js"
       - "site/modules/curriculum/registry/g3b-u10-one-way-table-selector-projection-p06f03.js"
       - "site/modules/curriculum/registry/batch-a-selector-p06f03-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p06f03.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g3b-u10-one-way-table-runtime-p06f03.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p06f03.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p06f03-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - ".github/workflows/p06f-w6-q003-live-pages-e2e.yml"
 permissions:
   contents: read
 jobs:
