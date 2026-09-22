@@ -1,0 +1,276 @@
+{
+  "schemaName": "P07FW7Q007G6AU09ScaleFactorLengthSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q007_G6AU09_ScaleFactorLength_SourceAuthorityPreflight",
+  "status": "PREFLIGHT_MATERIALIZED_AWAITING_EXECUTABLE_RUNTIME_READBACK",
+  "goalDistance": {
+    "before": "D3_Q007_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q007_G6AU09_SCALE_FACTOR_LENGTH_SOURCE_AND_SEMANTIC_BOUNDARY_LOCKED_RUNTIME_READBACK_PENDING",
+    "reduced": "D3_TO_D2_PARTIAL"
+  },
+  "baselineMainSha": "89ea600479cc2264b2f820623a198ad1e8f031d7",
+  "predecessorD0Evidence": {
+    "q006TaskId": "P07F_W7DirectProductVerticalSlice006Implementation",
+    "q006Status": "PASS_E6_D0_COMPLETE",
+    "q006MergeSha": "4d045d7d745996b8a13dce4bb109b902b440f50d",
+    "q006PostMergeWorkflowRunId": 35677439612,
+    "q006PostMergeWorkflowRunAttempt": 1,
+    "q006ArtifactId": 10672993905,
+    "q006ArtifactDigest": "sha256:d36c22893982041efc17d2bcc8b54971822962a6882bb85e31b869ce91adce4c",
+    "exactDeployedAssetDigestParity": true,
+    "exactDeployedAssetCount": 10,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q006_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "ad37a23f07b3de22a088f5bf9f59e2b45f13cc3c350bb84def21860d21135843",
+    "queuePosition": 7,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q007_r8_g6a_u09_6a09_profile_quantity_measurement_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice007Implementation",
+    "previousSliceId": "p07e_q006_r8_g6a_u06_6a06_profile_geometry_formula_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6a_u09_6a09",
+    "supportingSourceNodeIds": [
+      "g6a_u09_6a09"
+    ],
+    "intraWavePrerequisiteRank": 8,
+    "primaryRuntimeProfileId": "profile_quantity_measurement",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6a_u09_scale_factor_length"
+    ],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6a_u09_6a09",
+    "sourceCode": "6a09",
+    "sourceTitleR02": "放大圖縮圖與比例尺",
+    "sourceTitleDriveMetadata": "縮圖放大圖與比例尺",
+    "sourceTitlePdfHeading": "放大圖、縮圖與比例尺",
+    "sourcePdfTitle": "meow911_6a09_source.pdf",
+    "originalFileName": "題型總覽-6a09-縮圖放大圖與比例尺.pdf",
+    "sourcePdfDriveFileId": "1qnZyEDcmOgb94BYU350cmjvUN4kESlEZ",
+    "sourcePdfSizeBytes": 244370,
+    "sourcePdfSha256": "80ec4d8df9a4d5bf98392cf846fac7df68c49781ba60eefa78e70e9109cbbe2c",
+    "pageCount": 1,
+    "reviewedPages": [
+      1
+    ],
+    "auxiliaryDriveMetadata": {
+      "sourceMetadataDriveFileId": "1jiPW2NB-tz7_jPgaCNrFR7hrT0mCp0ZU",
+      "sourceMetadataManualReviewed": false,
+      "sourceMetadataExtractionStatus": "pending",
+      "verificationNotesDriveFileId": "1eAK-gmuaMBWym5LG8ETkE9lojEWzOV9Y",
+      "verificationNotesStatus": "pending",
+      "verificationNotesSaysVisualVerificationNotCompleted": true,
+      "authorityTreatment": "STALE_AUXILIARY_NOTES_PRESERVED_NOT_USED_TO_OVERRIDE_LATER_R02_AND_CURRENT_VISUAL_READBACK"
+    },
+    "currentVisualReadbackAuthority": {
+      "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+      "reviewDateContext": "2026-09-22",
+      "immutableSourceIdentityMatchRequired": true,
+      "driveFileIdMatch": true,
+      "sizeMatch": true,
+      "sha256ComputedFromDownloadedRawPdf": true,
+      "sha256MatchRecordedSourceArtifact": true,
+      "ocrUsedAsAuthority": false,
+      "page1VisibleFamilies": [
+        "SIMILAR_TRIANGLE_SCALE_FACTOR_LENGTH_RELATION",
+        "MAP_SCALE_BAR_VALUE",
+        "PAPER_LENGTH_TO_ACTUAL_DISTANCE",
+        "ACTUAL_LENGTH_TO_PAPER_LENGTH",
+        "SCALE_AREA_CHANGE_CONTEXT"
+      ],
+      "q007DirectVisualEvidence": {
+        "directScaleFactorQuestionVisible": true,
+        "visiblePromptParaphrase": "藍色三角形是紅色三角形的幾倍縮圖",
+        "visibleCorrespondingLengthPairs": [
+          {
+            "redLength": 12,
+            "blueLength": 8
+          },
+          {
+            "redLength": 6,
+            "blueLength": 4
+          }
+        ],
+        "directLengthScaleFactorRelationVisible": true,
+        "exactAnswerNotStoredAsSourceAuthority": true
+      },
+      "targetSemanticAuthorityTherefore": "R02_REVIEWED_CANDIDATE_PLUS_CURRENT_DIRECT_VISUAL_LENGTH_SCALE_FACTOR_EVIDENCE"
+    },
+    "evidenceResolution": {
+      "r02CandidateEvidencePagesRemain": [
+        1
+      ],
+      "exactQ007ReviewedEvidencePages": [
+        1
+      ],
+      "currentVisualSupportLevel": "DIRECT_LITERAL_SCALE_FACTOR_LENGTH_RELATION",
+      "auxiliaryDriveVerificationNotesRemainExplicitlyStale": true,
+      "currentIndependentVisualReadbackResolvesVisualVerificationForThisPreflight": true,
+      "sourceTitleAliasesPreservedWithoutNormalization": true,
+      "q012ScaleAreaChangeRemainsSeparatelyOwned": true,
+      "sourceOnlySimilarShapeAngleRemainsOutsideQ007": true,
+      "sourceOnlyScaleDrawingConstructionRemainsOutsideQ007": true,
+      "sourceOnlyMapScaleDistanceRemainsOutsideQ007": true
+    },
+    "sourceIdentityArtifactLock": {
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g6a_u09_6a09",
+    "sourceTitle": "放大圖縮圖與比例尺",
+    "sourcePdfTitle": "meow911_6a09_source.pdf",
+    "reviewedPages": [
+      1
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g6a_u09_scale_factor_length",
+      "canonicalNameZh": "放大縮小倍數與邊長",
+      "capabilityStatement": "學生能依比例倍數求對應邊長。",
+      "reasoningInvariant": "所有對應長度必須乘同一非零比例因子。",
+      "category": "geometry",
+      "evidencePages": [
+        1
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "futureOwnedKnowledgePointRows": [
+      {
+        "knowledgePointId": "kp_g6a_u09_scale_area_change",
+        "queuePosition": 12,
+        "sliceId": "p07e_q012_r9_g6a_u09_6a09_profile_geometry_formula_c1"
+      }
+    ],
+    "sourceOnlyNotAdmittedByQ007KnowledgePointIds": [
+      "kp_g6a_u09_similar_shape_angle",
+      "kp_g6a_u09_scale_drawing_construction",
+      "kp_g6a_u09_map_scale_distance"
+    ]
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "queueFrozenProfileId": "profile_quantity_measurement",
+    "queueFrozenRequiredW7CapabilityIds": [],
+    "profileDeclaredBaseRequiredCapabilityIds": [
+      "cap_quantity_dimension_unit_identity",
+      "cap_quantity_domain_validator",
+      "cap_text_numeric_representation"
+    ],
+    "profileDeclaredOptionalCapabilityIds": [
+      "cap_scale_instrument_representation"
+    ],
+    "executableReadbackPending": true,
+    "runtimeProfileReclassificationAllowed": false,
+    "semanticProfileInterpretation": "QUANTITY_MEASUREMENT_EXECUTION_ENVELOPE_FOR_CORRESPONDING_LENGTH_SCALE_FACTOR_ONLY"
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "CORRESPONDING_LENGTHS_SHARE_ONE_POSITIVE_NONZERO_SCALE_FACTOR",
+    "implementationSemanticLock": {
+      "correspondingLengthRolesRequired": true,
+      "oneCommonScaleFactorAcrossAllCorrespondingLengthsRequired": true,
+      "scaleFactorMustBePositive": true,
+      "scaleFactorMustBeNonzero": true,
+      "enlargementFactorGreaterThanOneAllowed": true,
+      "reductionFactorBetweenZeroAndOneAllowed": true,
+      "scaleFactorMayBeFractionOrDecimal": true,
+      "computeTargetLengthFromKnownCorrespondingLengthAndScaleFactorAllowed": true,
+      "inferScaleFactorFromOneCorrespondingLengthPairAllowed": true,
+      "verifySameScaleFactorAcrossMultipleCorrespondingLengthPairsAllowed": true,
+      "sameUnitLengthPairOnlyForInitialGenerator": true,
+      "unitConversionAllowed": false,
+      "anglePreservationTeachingAllowed": false,
+      "scaleDrawingConstructionAllowed": false,
+      "mapScaleDistanceAllowed": false,
+      "scaleAreaChangeAllowed": false,
+      "mapScaleBarInterpretationAllowed": false,
+      "applicationContextAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "q007ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6a_u09_scale_factor_length"
+    ],
+    "includedRelations": [
+      "INFER_SCALE_FACTOR_FROM_CORRESPONDING_LENGTH_PAIR",
+      "COMPUTE_CORRESPONDING_LENGTH_BY_COMMON_SCALE_FACTOR",
+      "VERIFY_COMMON_SCALE_FACTOR_ACROSS_CORRESPONDING_LENGTHS",
+      "CLASSIFY_ENLARGEMENT_OR_REDUCTION_FROM_POSITIVE_SCALE_FACTOR"
+    ],
+    "excludedRelations": [
+      "ANGLE_PRESERVATION",
+      "SCALE_DRAWING_CONSTRUCTION",
+      "MAP_SCALE_DISTANCE",
+      "MAP_SCALE_BAR_VALUE",
+      "SCALE_AREA_CHANGE",
+      "UNIT_CONVERSION",
+      "APPLICATION_CONTEXT",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q008_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q006ProductTouched": false,
+    "q008OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "r02ReviewedSourceAuthorityMustBeReused": true,
+    "currentFullPageVisualReadbackMustBeBound": true,
+    "staleAuxiliaryDriveMetadataMustRemainExplicit": true,
+    "r05FrozenQueueRuntimeParityMustPass": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ006D0Verified": true,
+    "sourceAuthoritySufficientForQ007ImplementationPlanning": true,
+    "currentVisualReadbackDirectlySupportsTarget": true,
+    "staleAuxiliaryDriveMetadataPreservedExplicitly": true,
+    "r02ReviewedCandidateBound": true,
+    "semanticProfileLockBound": true,
+    "q012FutureOwnershipProtected": true,
+    "sourceOnlySiblingOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice007Implementation"
+  }
+}
