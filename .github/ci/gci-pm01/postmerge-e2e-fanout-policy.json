@@ -3,7 +3,7 @@
   "schemaVersion": "1.0.0",
   "programId": "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1",
   "taskId": "GCI-PM01_HistoricalPostMergeE2EFanoutBoundedCutover",
-  "status": "IMPLEMENTED_PENDING_PR_GATE",
+  "status": "PASS_POSTMERGE_FANOUT_BOUNDED_BASELINE_FAILURE_SET_PARITY_CONFIRMED",
   "scope": "POST_MERGE_SLICE_E2E_TRIGGER_FANOUT_ONLY",
   "authority": {
     "q010MergeSha": "61dbbb11c77c5da0c2c905b1dcf059310ddcf507",
@@ -85,5 +85,40 @@
     "historicalSliceWorkflowRunsOnSharedPointerOnlyPush": 0,
     "currentSliceWorkflowRunsOnSharedPointerOnlyPush": 1,
     "sliceE2EFanoutReductionFromObservedQ010Merge": 37
+  },
+  "closeout": {
+    "cutoverPrNumber": 1038,
+    "cutoverMergeSha": "339f0ebc476cc28bd73550b4ad4ca72e27842be4",
+    "cutoverPushWorkflowRunCount": 4,
+    "cutoverPushWorkflowNames": [
+      "Milestone Claim Integrity",
+      "Node Test Post-Merge",
+      "Math CI Readback",
+      "Deploy GitHub Pages"
+    ],
+    "historicalSliceE2ERunsAfterCutover": 0,
+    "fanoutTargetMet": true,
+    "nodeRegression": {
+      "beforeRunId": 35744405160,
+      "afterRunId": 35747943873,
+      "beforeFailureCount": 140,
+      "afterFailureCount": 140,
+      "exactFailureNameSetEqual": true,
+      "addedFailureNames": [],
+      "removedFailureNames": [],
+      "attribution": "BASELINE_ONLY"
+    },
+    "ciReadback": {
+      "beforeRunId": 35744405748,
+      "afterRunId": 35747943947,
+      "beforeFailureCount": 141,
+      "afterFailureCount": 141,
+      "exactFailureNameSetEqual": true,
+      "addedFailureNames": [],
+      "removedFailureNames": [],
+      "attribution": "BASELINE_ONLY"
+    },
+    "productRegressionIntroducedByCutover": false,
+    "closeoutDecision": "PASS_GCI_PM01"
   }
 }

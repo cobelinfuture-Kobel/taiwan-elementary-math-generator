@@ -3,7 +3,7 @@
 ```text
 PROGRAM_ID = GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1
 TASK_ID    = GCI-PM01_HistoricalPostMergeE2EFanoutBoundedCutover
-STATUS     = IMPLEMENTED_PENDING_PR_GATE
+STATUS     = PASS_POSTMERGE_FANOUT_BOUNDED_BASELINE_FAILURE_SET_PARITY_CONFIRMED
 ```
 
 ## Scope lock
@@ -60,12 +60,85 @@ current slice E2E    = 1
 EXPECTED_SLICE_E2E_REDUCTION = 37
 ```
 
+## Post-merge readback
+
+The cutover was merged in PR #1038 as:
+
+```text
+CUTOVER_MERGE_SHA = 339f0ebc476cc28bd73550b4ad4ca72e27842be4
+```
+
+That push produced exactly four workflows:
+
+```text
+Milestone Claim Integrity
+Node Test Post-Merge
+Math CI Readback
+Deploy GitHub Pages
+```
+
+No historical W5/W6/W7 slice post-merge E2E workflow was created. The target fan-out reduction therefore materialized:
+
+```text
+Q010 MERGE:
+TOTAL PUSH WORKFLOWS = 41
+SLICE E2E            = 38
+HISTORICAL SLICE E2E = 37
+
+GCI-PM01 CUTOVER MERGE:
+TOTAL PUSH WORKFLOWS = 4
+HISTORICAL SLICE E2E = 0
+```
+
+The repository-wide failures observed after the cutover are baseline-only. Exact failure-name set comparison against the immediately preceding Q010 merge proves no new full-regression failures were introduced:
+
+```text
+NODE TEST
+BEFORE_RUN  = 35744405160
+AFTER_RUN   = 35747943873
+BEFORE_FAIL = 140
+AFTER_FAIL  = 140
+ADDED       = 0
+REMOVED     = 0
+EXACT_SET   = MATCH
+
+MATH CI READBACK
+BEFORE_RUN  = 35744405748
+AFTER_RUN   = 35747943947
+BEFORE_FAIL = 141
+AFTER_FAIL  = 141
+ADDED       = 0
+REMOVED     = 0
+EXACT_SET   = MATCH
+```
+
+Thus the post-merge full-regression failures are not attributable to GCI-PM01.
+
 ## Distance
 
 ```text
 GOAL_DISTANCE_BEFORE = D0_PRODUCT_COMPLETE_WITH_UNBOUNDED_POSTMERGE_CI_FANOUT_BLOCKER
-GOAL_DISTANCE_AFTER  = D0_PRODUCT_COMPLETE_WITH_SINGLE_CURRENT_SLICE_SHARED_TRIGGER_OWNER_PENDING_CI
-DISTANCE_REDUCED     = operational CI blocker reduced; product semantics unchanged
-REMAINING_BLOCKERS   = [PR_GATE_NOT_YET_TERMINAL, CUTOVER_NOT_YET_MERGED]
-NEXT_SHORTEST_STEP   = PR Gate -> merge -> post-merge fan-out readback -> resume W7 Q011 source-authority preflight
+GOAL_DISTANCE_AFTER  = D0_PRODUCT_COMPLETE_WITH_BOUNDED_POSTMERGE_CI_AND_BASELINE_FAILURES_ATTRIBUTED
+DISTANCE_REDUCED     = historical slice E2E fan-out removed; exact failure-set parity proves no regression was added
+REMAINING_BLOCKERS   = [PREEXISTING_REPOSITORY_BASELINE_FAILURES_OUTSIDE_GCI_PM01_SCOPE]
+NEXT_SHORTEST_STEP   = P07F_W7_Q011_SourceAuthorityPreflight
+```
+
+## Closeout
+
+```text
+1. DISTANCE SEGMENT SHORTENED =
+   UNBOUNDED_POSTMERGE_FANOUT -> SINGLE_CURRENT_SLICE_SHARED_TRIGGER_OWNER
+
+2. SYSTEM NODE ADVANCED =
+   POSTMERGE_CI_GOVERNANCE -> TRIGGER_OWNERSHIP -> FAILURE_ATTRIBUTION
+
+3. BLOCKER REMOVED =
+   HISTORICAL_W5_W6_W7_SHARED_POINTER_E2E_FANOUT
+
+4. NEW BLOCKER ADDED =
+   NONE
+
+5. NEXT SHORTEST EFFECTIVE STEP =
+   P07F_W7_Q011_SourceAuthorityPreflight
 ```
