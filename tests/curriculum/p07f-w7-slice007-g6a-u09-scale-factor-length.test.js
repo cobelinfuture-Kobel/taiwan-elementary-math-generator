@@ -97,15 +97,15 @@ test("W7 Q007 aggregate generator worksheet renderer expose factor inference tar
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[KP,"kp_g6a_u09_scale_area_change"],questionMode:"numeric",questionCount:4,generationSeed:"mixed-not-admitted"});assert.equal(mixed.ok,false);
 });
 
-test("W7 Q007 current browser pointers advance to P07F07 while Q006 Q005 Q004 Q003 Q002 Q001 and W6 Q020 stay reachable",()=>{
+test("W7 Q007 current browser pointers advance to P07F08 while Q006 Q005 Q004 Q003 Q002 Q001 and W6 Q020 stay reachable",()=>{
   const selectorText=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8");
   const bindingText=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const generatorText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const worksheetText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selectorText,/batch-a-selector-p07f07-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f07/);
-  for(const id of ["07","06","05","04","03","02","01"])assert.match(generatorText,new RegExp("requestsP07F"+id));
+  assert.match(selectorText,/batch-a-selector-p07f08-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f08/);
+  for(const id of ["08","07","06","05","04","03","02","01"])assert.match(generatorText,new RegExp("requestsP07F"+id));
   assert.match(generatorText,/requestsP06F20/);
-  for(const id of ["07","06","05","04","03","02","01"])assert.match(worksheetText,new RegExp("buildP07F"+id+"Worksheet"));
+  for(const id of ["08","07","06","05","04","03","02","01"])assert.match(worksheetText,new RegExp("buildP07F"+id+"Worksheet"));
   assert.match(worksheetText,/buildP06F20Worksheet/);
 });
 
