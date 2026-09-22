@@ -3,11 +3,11 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7_Q008_G5BU08_RatioFractionDecimalPercentConversion_SourceAuthorityPreflight",
-  "status": "PREFLIGHT_MATERIALIZED_AWAITING_EXECUTABLE_RUNTIME_READBACK",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_Q008_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D2_Q008_G5BU08_RATIO_FRACTION_DECIMAL_PERCENT_CONVERSION_SOURCE_AND_SEMANTIC_BOUNDARY_LOCKED_RUNTIME_READBACK_PENDING",
-    "reduced": "D3_TO_D2_PARTIAL"
+    "after": "D2_Q008_G5BU08_RATIO_FRACTION_DECIMAL_PERCENT_CONVERSION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "1a6e41b4c4ff0fc4688d41869cf8e10d5941e322",
   "predecessorD0Evidence": {
@@ -40,10 +40,15 @@
     "intraWavePrerequisiteRank": 9,
     "primaryRuntimeProfileId": "profile_ratio_percent",
     "chunkIndex": 1,
-    "targetKnowledgePointId": "kp_g5b_u08_ratio_fraction_decimal_percent_conversion",
-    "exactKnowledgePointIdsPendingExecutableReadback": true,
-    "exactRequiredW7CapabilityIdsPendingExecutableReadback": true,
-    "targetEvidenceLevel": "E6_D0_COMPLETE"
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "knowledgePointIds": [
+      "kp_g5b_u08_ratio_fraction_decimal_percent_conversion"
+    ],
+    "knowledgePointCount": 1,
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ]
   },
   "sourceAuthority": {
     "sourceNodeId": "g5b_u08_5b08",
@@ -172,7 +177,36 @@
       "kp_g5b_u08_find_base_quantity_percent",
       "kp_g5b_u08_percent_discount_increase_application"
     ],
-    "exactFutureQueueOwnershipPendingExecutableReadback": true
+    "exactFutureQueueOwnership": [
+      {
+        "queuePosition": 13,
+        "sliceId": "p07e_q013_r10_g5b_u08_5b08_profile_ratio_percent_c1",
+        "intraWavePrerequisiteRank": 10,
+        "primaryRuntimeProfileId": "profile_ratio_percent",
+        "knowledgePointIds": [
+          "kp_g5b_u08_find_percentage_rate",
+          "kp_g5b_u08_percentage_of_quantity"
+        ],
+        "requiredW7CapabilityIds": [
+          "cap_ratio_percent_reasoning",
+          "cap_ratio_rate_validator"
+        ]
+      },
+      {
+        "queuePosition": 16,
+        "sliceId": "p07e_q016_r11_g5b_u08_5b08_profile_ratio_percent_c1",
+        "intraWavePrerequisiteRank": 11,
+        "primaryRuntimeProfileId": "profile_ratio_percent",
+        "knowledgePointIds": [
+          "kp_g5b_u08_find_base_quantity_percent",
+          "kp_g5b_u08_percent_discount_increase_application"
+        ],
+        "requiredW7CapabilityIds": [
+          "cap_ratio_percent_reasoning",
+          "cap_ratio_rate_validator"
+        ]
+      }
+    ]
   },
   "runtimeCapabilityAuthority": {
     "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
@@ -188,9 +222,27 @@
       "cap_text_application_representation"
     ],
     "profileDeclaredOptionalCapabilityIds": [],
-    "executableReadbackPending": true,
+    "executableReadbackPending": false,
     "runtimeProfileReclassificationAllowed": false,
-    "semanticProfileInterpretation": "RATIO_PERCENT_EXECUTION_ENVELOPE_FOR_REPRESENTATION_EQUIVALENCE_ONLY"
+    "semanticProfileInterpretation": "RATIO_PERCENT_EXECUTION_ENVELOPE_FOR_REPRESENTATION_EQUIVALENCE_ONLY",
+    "executableR04Mapping": {
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "classificationRuleId": "rule_ratio_percent",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR04MappingVerified": true
   },
   "semanticProfileLock": {
     "present": true,
@@ -217,7 +269,9 @@
       "applicationContextAllowed": false,
       "sameUnitMixedModeAllowed": false,
       "crossUnitMixedModeAllowed": false,
-      "frozenQueueMayNotBeSilentlyReclassified": true
+      "frozenQueueMayNotBeSilentlyReclassified": true,
+      "ratioValuePrerequisiteRequired": true,
+      "decimalFractionConversionPrerequisiteRequired": true
     }
   },
   "q008ScopeLock": {
@@ -273,7 +327,7 @@
   },
   "preflightDecision": {
     "exactFrozenQueueRowResolvedAtIdentityLevel": true,
-    "exactFrozenQueueKnowledgePointMembershipPendingExecutableReadback": true,
+    "exactFrozenQueueKnowledgePointMembershipPendingExecutableReadback": false,
     "predecessorQ007D0Verified": true,
     "sourceAuthoritySufficientForQ008ImplementationPlanning": true,
     "currentVisualReadbackDirectlySupportsTarget": true,
@@ -283,8 +337,46 @@
     "siblingOwnershipProtected": true,
     "manualSourceChoiceRequired": false,
     "sourceRefAmbiguity": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "separateImplementationApprovalRequired": true,
-    "nextTask": "P07F_W7DirectProductVerticalSlice008Implementation"
+    "nextTask": "P07F_W7DirectProductVerticalSlice008Implementation",
+    "exactQueueKnowledgePointMembershipBound": true,
+    "exactRequiredW7CapabilitiesBound": true,
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "exactFutureSiblingQueueOwnershipBound": true
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "baseDeliveryWaveId": "R05-W7",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": false,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 9
+    },
+    "exactR05AssignmentVerified": true
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "fromKnowledgePointId": "kp_g6a_u05_ratio_value",
+        "dependencyStrength": "required",
+        "distanceBearing": true,
+        "alternativeGroupId": null
+      },
+      {
+        "fromKnowledgePointId": "kp_g6b_u01_decimal_fraction_conversion",
+        "dependencyStrength": "required",
+        "distanceBearing": true,
+        "alternativeGroupId": null
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g6a_u05_ratio_value",
+      "kp_g6b_u01_decimal_fraction_conversion"
+    ],
+    "ratioValuePrerequisiteRequired": true,
+    "decimalFractionConversionPrerequisiteRequired": true
   }
 }
