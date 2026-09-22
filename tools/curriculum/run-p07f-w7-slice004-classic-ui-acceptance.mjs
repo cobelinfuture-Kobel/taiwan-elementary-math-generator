@@ -5,7 +5,7 @@ import {chromium} from "playwright";
 
 const SOURCE="g6a_u06_6a06";
 const TARGET="kp_g6a_u06_pi_circumference_relation";
-const PROTECTED=["kp_g6a_u06_circle_circumference_formula","kp_g6a_u06_semicircle_perimeter","kp_g6a_u06_sector_arc_length","kp_g6a_u06_composite_arc_perimeter"];
+const PROTECTED=["kp_g6a_u06_semicircle_perimeter","kp_g6a_u06_sector_arc_length","kp_g6a_u06_composite_arc_perimeter"];
 const COUNT=9;
 const PORT=Number(process.env.P07F04_SITE_PORT||"4414");
 const REMOTE=process.env.P07F04_SITE_URL||null;
