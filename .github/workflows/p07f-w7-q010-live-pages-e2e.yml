@@ -5,16 +5,10 @@ on:
     paths:
       - "site/modules/curriculum/registry/g6a-u06-semicircle-perimeter-selector-projection-p07f10.js"
       - "site/modules/curriculum/registry/batch-a-selector-p07f10-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p07f10.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g6a-u06-semicircle-perimeter-runtime-p07f10.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f10.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f10-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - "site/modules/renderer/sector-elements-diagram.js"
-      - ".github/workflows/p07f-w7-q010-live-pages-e2e.yml"
 permissions:
   contents: write
 jobs:
@@ -84,3 +78,4 @@ jobs:
             sleep $((attempt * 5))
           done
           exit 1
+
