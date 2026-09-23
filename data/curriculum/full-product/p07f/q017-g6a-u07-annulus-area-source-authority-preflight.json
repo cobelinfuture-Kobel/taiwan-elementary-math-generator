@@ -1,0 +1,239 @@
+{
+  "schemaName": "P07FW7Q017G6AU07AnnulusAreaSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q017_G6AU07_AnnulusArea_SourceAuthorityPreflight",
+  "status": "PREFLIGHT_EXECUTABLE_AUTHORITY_READBACK_PENDING",
+  "goalDistance": {
+    "before": "D3_Q017_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D3_Q017_SOURCE_AND_DIRECT_ANNULUS_EVIDENCE_BOUND_EXECUTABLE_AUTHORITY_READBACK_PENDING",
+    "reduced": "QUEUE_SOURCE_AND_DIRECT_ANNULUS_VISUAL_EVIDENCE_LOCKED"
+  },
+  "baselineMainSha": "c07400d928bc9760b312b2777c52ba6a4f7493fb",
+  "predecessorD0Evidence": {
+    "q016TaskId": "P07F_W7DirectProductVerticalSlice016Implementation",
+    "q016Status": "PASS_E6_D0_COMPLETE",
+    "q016MergeSha": "6e7aa3149593c4456e4787f242943e99b4089083",
+    "q016PostMergeWorkflowRunId": 35879462600,
+    "q016DurableReadbackPath": "docs/ci/latest-p07f-w7-q016-pages-e2e.json",
+    "q016DurableReadbackCommitSha": "0f406d1df0c2c1aa1562ccec5acdc795b5a44836",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q016_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queuePosition": 17,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q017_r11_g6a_u07_6a07_profile_geometry_formula_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice017Implementation",
+    "previousSliceId": "p07e_q016_r11_g5b_u08_5b08_profile_ratio_percent_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6a_u07_6a07",
+    "supportingSourceNodeIds": [
+      "g6a_u07_6a07"
+    ],
+    "intraWavePrerequisiteRank": 11,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6a_u07_annulus_area"
+    ],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6a_u07_6a07",
+    "sourceCode": "6a07",
+    "sourceTitle": "圓面積和扇形面積",
+    "sourcePdfTitle": "meow911_6a07_source.pdf",
+    "originalFileName": "題型總覽-6a07-圓面積和扇形面積.pdf",
+    "sourceUrl": "https://meow911.com/6a07/",
+    "sourcePdfDriveFileId": "1mPMMJVgnBrbghylTKnlWL3nnjX9MPIYQ",
+    "sourcePdfSizeBytes": 523526,
+    "sourcePdfSha256": "e4290341b2ddc3c3dd4a675272b2c77932748548fe89edef88e3dc799fa81648",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "currentVisualReadbackAuthority": {
+      "reusedFrom": "data/curriculum/full-product/p07f/q014-g6a-u07-circle-area-formula-source-authority-preflight.json",
+      "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+      "reviewDateContext": "2026-09-23",
+      "immutableSourceIdentityMatchRequired": true,
+      "driveFileIdMatch": true,
+      "sizeMatch": true,
+      "sha256MatchRecordedSourceArtifact": true,
+      "ocrUsedAsAuthority": false,
+      "page1VisibleFamily": "ANNULUS_AREA_WITH_DIAMETER_AND_RADIAL_THICKNESS",
+      "visibleInnerDiameterMeters": 4,
+      "visibleRadialThicknessMeters": 4,
+      "directAnnulusAreaWitnessPresent": true,
+      "directSemanticWitness": "same-center outer circle area minus inner circle area; inner diameter must first normalize to inner radius and radial thickness determines outer radius",
+      "directSupportClassification": "DIRECT_LITERAL_ANNULUS_AREA_APPLICATION_EVIDENCE"
+    },
+    "evidenceResolution": {
+      "r02CandidateEvidencePagesRemain": [
+        1,
+        2
+      ],
+      "exactQ017DirectVisualEvidencePages": [
+        1
+      ],
+      "currentVisualSupportLevel": "DIRECT_LITERAL_ANNULUS_AREA_APPLICATION_EVIDENCE",
+      "circleAreaFormulaPredecessorOwnershipProtected": true,
+      "sectorAreaOwnershipProtected": true,
+      "compositeCircleAreaOwnershipProtected": true,
+      "newSupplementaryEvidenceRequired": false
+    },
+    "sourceIdentityArtifactLock": {
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "manualEvidenceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g6a_u07_6a07",
+    "sourceTitle": "圓面積和扇形面積",
+    "sourcePdfTitle": "meow911_6a07_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g6a_u07_annulus_area",
+      "canonicalNameZh": "圓環面積",
+      "capabilityStatement": "學生能以大圓面積減小圓面積求圓環。",
+      "reasoningInvariant": "同心圓間區域等於外圓扣除內圓。",
+      "category": "geometry",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "predecessorOwnedKnowledgePointRows": [
+      {
+        "queuePosition": 11,
+        "sliceId": "p07e_q011_r9_g6a_u07_6a07_profile_geometry_formula_c1",
+        "knowledgePointId": "kp_g6a_u07_circle_area_derivation",
+        "ownership": "WHY_CIRCLE_AREA_EQUALS_PI_R_SQUARED"
+      },
+      {
+        "queuePosition": 14,
+        "sliceId": "p07e_q014_r10_g6a_u07_6a07_profile_geometry_formula_c1",
+        "knowledgePointId": "kp_g6a_u07_circle_area_formula",
+        "ownership": "CIRCLE_AREA_FORMULA_PRODUCTION_AND_EVALUATION"
+      }
+    ],
+    "sourceSiblingNotOwnedByQ017": [
+      "kp_g6a_u07_sector_area",
+      "kp_g6a_u07_composite_circle_area"
+    ]
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "ANNULUS_AREA_AS_OUTER_CIRCLE_AREA_MINUS_INNER_CIRCLE_AREA",
+    "canonicalReasoningInvariant": "同心圓形成的圓環面積 = 外圓面積 − 內圓面積；若給內圓直徑與環寬，先將直徑除以2得內半徑，再以内半徑加環寬得外半徑。",
+    "implementationSemanticLock": {
+      "outerMinusInnerRequired": true,
+      "concentricCirclesRequired": true,
+      "positiveRadiiRequired": true,
+      "outerRadiusGreaterThanInnerRadiusRequired": true,
+      "innerDiameterToRadiusNormalizationAllowed": true,
+      "radialThicknessToOuterRadiusAllowed": true,
+      "piApproximation314Allowed": true,
+      "exactPiSymbolicModeAllowed": true,
+      "q011DerivationTeachingReownershipAllowed": false,
+      "q014CircleAreaFormulaTeachingReownershipAllowed": false,
+      "sectorAreaAllowed": false,
+      "compositeCircleAreaAllowed": false,
+      "circularSegmentAreaAllowed": false,
+      "cowGrazingApplicationAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "executableAuthorityReadback": {
+    "pending": true,
+    "exactR03IncomingEdges": [],
+    "exactR04Mapping": null,
+    "exactR05Assignment": null
+  },
+  "q017ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6a_u07_annulus_area"
+    ],
+    "includedRelations": [
+      "ANNULUS_AREA_OUTER_MINUS_INNER",
+      "ANNULUS_FROM_INNER_DIAMETER_AND_RADIAL_THICKNESS",
+      "ANNULUS_FROM_INNER_AND_OUTER_RADII"
+    ],
+    "excludedRelations": [
+      "CIRCLE_AREA_DERIVATION_REOWNERSHIP",
+      "CIRCLE_AREA_FORMULA_TEACHING_REOWNERSHIP",
+      "SECTOR_AREA",
+      "COMPOSITE_CIRCLE_AREA",
+      "CIRCULAR_SEGMENT_AREA",
+      "COW_GRAZING_APPLICATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_AUTHORITY_MUTATION",
+      "Q018_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q016ProductTouched": false,
+    "q018OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "r02ReviewedSourceAuthorityMustBeReused": true,
+    "currentFullPageVisualReadbackMayBeReusedOnlyWithImmutableSourceIdentityMatch": true,
+    "supplementaryEvidenceNotRequiredForQ017": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ016D0Verified": true,
+    "sourceIdentityBound": true,
+    "currentVisualReadbackDirectlySupportsAnnulusArea": true,
+    "newSupplementaryEvidenceRequired": false,
+    "r02ReviewedCandidateBound": true,
+    "semanticProfileLockBound": true,
+    "q011DerivationOwnershipProtected": true,
+    "q014CircleAreaFormulaOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "sourceAuthoritySufficientForQ017ImplementationPlanning": true,
+    "separateImplementationApprovalRequired": true,
+    "exactRuntimeMappingBound": false,
+    "exactR05AssignmentBound": false,
+    "exactPrerequisiteGraphBound": false,
+    "nextTask": "P07F_W7_Q017_ExecutableAuthorityReadbackThenFinalizePreflight"
+  }
+}
