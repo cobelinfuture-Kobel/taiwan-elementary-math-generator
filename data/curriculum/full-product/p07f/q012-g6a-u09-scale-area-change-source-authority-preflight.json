@@ -3,11 +3,11 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7_Q012_G6AU09_ScaleAreaChange_SourceAuthorityPreflight",
-  "status": "SOURCE_VISUAL_AUTHORITY_LOCKED_EXECUTABLE_R03_R04_R05_READBACK_PENDING",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_Q012_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D3_Q012_SOURCE_VISUAL_AND_R02_TARGET_BOUND_EXECUTABLE_GRAPH_RUNTIME_READBACK_PENDING",
-    "reduced": "SOURCE_VISUAL_AND_R02_TARGET_BOUND"
+    "after": "D2_Q012_G6AU09_SCALE_AREA_CHANGE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "0e7657ef2650315fc6e856004cbf6608183ccaae",
   "predecessorD0Evidence": {
@@ -181,10 +181,60 @@
     }
   },
   "executableAuthorityReadback": {
-    "pending": true,
-    "exactR03IncomingEdges": null,
-    "exactR04Mapping": null,
-    "exactR05Assignment": null
+    "pending": false,
+    "exactR03IncomingEdges": [
+      {
+        "edgeId": "kpe_r03_0578",
+        "fromKnowledgePointId": "kp_g4b_u07_rectangle_square_area_formula",
+        "toKnowledgePointId": "kp_g6a_u09_scale_area_change",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "distanceBearing": true,
+        "rationale": "「長方形正方形面積公式」提供不可缺少的數量關係模型，因此是「比例縮放與面積變化」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g4b_u07_4b07",
+          "source:g6a_u09_6a09"
+        ]
+      },
+      {
+        "edgeId": "kpe_r03_0579",
+        "fromKnowledgePointId": "kp_g6a_u09_scale_factor_length",
+        "toKnowledgePointId": "kp_g6a_u09_scale_area_change",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "distanceBearing": true,
+        "rationale": "「放大縮小倍數與邊長」提供不可缺少的數量關係模型，因此是「比例縮放與面積變化」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6a_u09_6a09"
+        ]
+      }
+    ],
+    "exactR04Mapping": {
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "classificationRuleId": "rule_geometry_formula",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR05Assignment": {
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": true,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 9
+    }
   },
   "q012ScopeLock": {
     "includedKnowledgePointIds": [
@@ -247,8 +297,88 @@
     "sourceOnlySiblingOwnershipProtected": true,
     "manualSourceChoiceRequired": false,
     "sourceRefAmbiguity": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "separateImplementationApprovalRequired": true,
-    "nextTaskAfterReadback": "P07F_W7DirectProductVerticalSlice012Implementation"
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice012Implementation"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "queueFrozenProfileId": "profile_geometry_formula",
+    "queueFrozenRequiredW7CapabilityIds": [],
+    "executableReadbackPending": false,
+    "runtimeProfileReclassificationAllowed": false,
+    "semanticProfileInterpretation": "GEOMETRY_FORMULA_EXECUTION_ENVELOPE_FOR_LINEAR_SCALE_TO_AREA_SQUARE_RELATION",
+    "executableR04Mapping": {
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "classificationRuleId": "rule_geometry_formula",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR04MappingVerified": true
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": true,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 9
+    },
+    "exactR05AssignmentVerified": true
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "edgeId": "kpe_r03_0578",
+        "fromKnowledgePointId": "kp_g4b_u07_rectangle_square_area_formula",
+        "toKnowledgePointId": "kp_g6a_u09_scale_area_change",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "distanceBearing": true,
+        "rationale": "「長方形正方形面積公式」提供不可缺少的數量關係模型，因此是「比例縮放與面積變化」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g4b_u07_4b07",
+          "source:g6a_u09_6a09"
+        ]
+      },
+      {
+        "edgeId": "kpe_r03_0579",
+        "fromKnowledgePointId": "kp_g6a_u09_scale_factor_length",
+        "toKnowledgePointId": "kp_g6a_u09_scale_area_change",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "distanceBearing": true,
+        "rationale": "「放大縮小倍數與邊長」提供不可缺少的數量關係模型，因此是「比例縮放與面積變化」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6a_u09_6a09"
+        ]
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g4b_u07_rectangle_square_area_formula",
+      "kp_g6a_u09_scale_factor_length"
+    ],
+    "rectangleSquareAreaFormulaPrerequisiteRequired": true,
+    "scaleFactorLengthPrerequisiteRequired": true
   }
 }

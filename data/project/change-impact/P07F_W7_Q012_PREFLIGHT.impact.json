@@ -10,7 +10,7 @@
     "kp_g6a_u09_scale_area_change"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g6a_u09_scale_area_change": "PREFLIGHT_EXECUTABLE_READBACK_PENDING"
+    "kp_g6a_u09_scale_area_change": "PREFLIGHT_READY_FOR_IMPLEMENTATION_APPROVAL"
   },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P07F_W7_Q012_PREFLIGHT.validation.json",
