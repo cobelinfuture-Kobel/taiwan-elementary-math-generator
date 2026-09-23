@@ -1,0 +1,142 @@
+{
+  "schemaName": "P07FW7Q017G6AU07AnnulusAreaImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice017Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q017_ANNULUS_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q017_ANNULUS_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "8cd6c9bc02f9fda7636259445fc602d73dfd46b4",
+  "preflight": {
+    "prNumber": 1055,
+    "mergeSha": "7a4dab77ff0a60aaf4c04921ace85f731783a28c",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q017-g6a-u07-annulus-area-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q016Status": "PASS_E6_D0_COMPLETE",
+    "q016MergeSha": "6e7aa3149593c4456e4787f242943e99b4089083",
+    "q016PostMergeWorkflowRunId": 35879462600,
+    "q016DurableReadbackPath": "docs/ci/latest-p07f-w7-q016-pages-e2e.json",
+    "q016DurableReadbackCommitSha": "0f406d1df0c2c1aa1562ccec5acdc795b5a44836",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q016_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 17,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q017_r11_g6a_u07_6a07_profile_geometry_formula_c1",
+    "previousSliceId": "p07e_q016_r11_g5b_u08_5b08_profile_ratio_percent_c1",
+    "sourceId": "g6a_u07_6a07",
+    "knowledgePointIds": [
+      "kp_g6a_u07_annulus_area"
+    ],
+    "runtimeProfileId": "profile_geometry_formula",
+    "classificationRuleId": "rule_geometry_formula",
+    "appliedModifierIds": [],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfDriveFileId": "1mPMMJVgnBrbghylTKnlWL3nnjX9MPIYQ",
+    "sourcePdfSizeBytes": 523526,
+    "sourcePdfSha256": "e4290341b2ddc3c3dd4a675272b2c77932748548fe89edef88e3dc799fa81648",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "directVisualEvidencePages": [
+      1
+    ],
+    "semanticAuthority": "R02_REVIEWED_CANDIDATE_PLUS_CURRENT_DIRECT_LITERAL_ANNULUS_AREA_APPLICATION_EVIDENCE",
+    "currentVisualSupportLevel": "DIRECT_LITERAL_ANNULUS_AREA_APPLICATION_EVIDENCE",
+    "newSupplementaryEvidenceRequired": false
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g6a_u07_circle_area_formula"
+    ],
+    "q014CircleAreaFormulaPrerequisiteRequired": true,
+    "q014CircleAreaFormulaTeachingMayNotBeReowned": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g6a_u07_annulus_outer_inner_radii",
+      "ps_g6a_u07_annulus_inner_diameter_thickness",
+      "ps_g6a_u07_annulus_inner_radius_thickness"
+    ],
+    "includedRelations": [
+      "ANNULUS_AREA_OUTER_MINUS_INNER",
+      "ANNULUS_FROM_INNER_DIAMETER_AND_RADIAL_THICKNESS",
+      "ANNULUS_FROM_INNER_RADIUS_AND_RADIAL_THICKNESS"
+    ],
+    "questionMode": "diagram",
+    "rendererRepresentation": "annulus_area_diagram",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_DECIMAL_AREA",
+    "semanticCore": "ANNULUS_AREA_AS_OUTER_CIRCLE_AREA_MINUS_INNER_CIRCLE_AREA"
+  },
+  "exactSourceCarrier": {
+    "innerDiameterMeters": 4,
+    "radialThicknessMeters": 4,
+    "innerRadiusMeters": 2,
+    "outerRadiusMeters": 6,
+    "annulusAreaUsingPi314": 100.48,
+    "patternSpecId": "ps_g6a_u07_annulus_inner_diameter_thickness"
+  },
+  "scopeGuard": {
+    "q011DerivationTeachingReowned": false,
+    "q014CircleAreaFormulaTeachingReowned": false,
+    "sectorAreaTouched": false,
+    "compositeCircleAreaTouched": false,
+    "circularSegmentAreaTouched": false,
+    "cowGrazingApplicationTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q016ProductTouched": false,
+    "q018OrLaterProductTouched": false,
+    "dedicatedRendererAdded": true,
+    "sharedRendererRegistryMinimalMutation": true,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
