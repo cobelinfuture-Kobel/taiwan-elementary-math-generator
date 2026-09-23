@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P07F_W7_Q013_PREFLIGHT",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5b_u08_find_percentage_rate",
+    "kp_g5b_u08_percentage_of_quantity"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5b_u08_find_percentage_rate",
+    "kp_g5b_u08_percentage_of_quantity"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5b_u08_find_percentage_rate": "PREFLIGHT_READY_FOR_IMPLEMENTATION_APPROVAL",
+    "kp_g5b_u08_percentage_of_quantity": "PREFLIGHT_READY_FOR_IMPLEMENTATION_APPROVAL"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P07F_W7_Q013_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true
+  },
+  "scopeGuards": {
+    "productImplementation": false,
+    "publicAdmission": false,
+    "q012ProductMutation": false,
+    "q014OrLater": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "driveSourceMutation": false
+  }
+}
