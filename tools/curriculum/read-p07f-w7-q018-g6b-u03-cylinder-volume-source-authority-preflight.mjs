@@ -1,0 +1,10 @@
+import {getR03DirectPrerequisites} from "../../src/curriculum/global/r03-global-kp-prerequisite-graph.mjs";
+import {getR04KnowledgePointCapabilityMapping} from "../../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
+import {getR05DeliveryWaveAssignment} from "../../src/curriculum/global/r05-delivery-wave-rebase.mjs";
+import {materializeP07EW7DirectProductVerticalSliceQueue} from "../../src/curriculum/full-product/p07e-w7-direct-product-vertical-slice-queue.mjs";
+const KP="kp_g6b_u03_cylinder_volume";
+const row=materializeP07EW7DirectProductVerticalSliceQueue().queueEntries[17];
+const r03=getR03DirectPrerequisites(KP),r04=getR04KnowledgePointCapabilityMapping(KP),r05=getR05DeliveryWaveAssignment(KP);
+if(!r04||!r05||!Array.isArray(r03))throw new Error("P07F_W7_Q018_EXECUTABLE_AUTHORITY_MISSING");
+if(row.sliceId!=="p07e_q018_r11_g6b_u03_6b03_profile_spatial_solid_c1"||row.primaryRuntimeProfileId!=="profile_spatial_solid"||row.intraWavePrerequisiteRank!==11)throw new Error("P07F_W7_Q018_QUEUE_IDENTITY_INVALID");
+console.log("P07F_W7_Q018_EXECUTABLE_AUTHORITY_READBACK="+JSON.stringify({queueRow:row,r03DirectPrerequisites:r03,r04Mapping:r04,r05Assignment:r05},null,2));

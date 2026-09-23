@@ -1,0 +1,465 @@
+{
+  "schemaName": "P07FW7Q018G6BU03CylinderVolumeSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q018_G6BU03_CylinderVolume_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q018_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q018_CYLINDER_VOLUME_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "1f7c351634c2cc00dbcfb372ae6d6b8dba32386c",
+  "predecessorD0Evidence": {
+    "q017TaskId": "P07F_W7DirectProductVerticalSlice017Implementation",
+    "q017Status": "PASS_E6_D0_COMPLETE",
+    "q017MergeSha": "9917df2c0fa2678c7637a9d52b260dfdb4325a4c",
+    "q017PostMergeWorkflowRunId": 35883954416,
+    "q017DurableReadbackPath": "docs/ci/latest-p07f-w7-q017-pages-e2e.json",
+    "q017DurableReadbackCommitSha": "ea3a0dd58bb9d414d2d3520c2ff7b969694b55da",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q017_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queuePosition": 18,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q018_r11_g6b_u03_6b03_profile_spatial_solid_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice018Implementation",
+    "previousSliceId": "p07e_q017_r11_g6a_u07_6a07_profile_geometry_formula_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6b_u03_6b03",
+    "supportingSourceNodeIds": [
+      "g6b_u03_6b03"
+    ],
+    "intraWavePrerequisiteRank": 11,
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6b_u03_cylinder_volume"
+    ],
+    "requiredW7CapabilityIdsPendingExecutableReadback": false,
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredW7CapabilityIds": []
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6b_u03_6b03",
+    "sourceCode": "6b03",
+    "sourceTitle": "柱體體積與表面積",
+    "sourcePdfTitle": "meow911_6b03_source.pdf",
+    "originalFileName": "題型總覽-6b03-柱體體積與表面積.pdf",
+    "sourceUrl": "https://meow911.com/6b03/",
+    "sourcePdfDriveFileId": "10LlUyzn4WOkxHAY3S9SsZeGT0i_ixV9u",
+    "sourceMetadataDriveFileId": "166jSxr7CwhLSrHc--uSlPwCUzCk0vyr7",
+    "verificationNotesDriveFileId": "1MWLwKWehiRhekfnmf2zX1-kck2t0Azlg",
+    "sourcePdfSizeBytes": 811369,
+    "sourcePdfSha256": "8689048604947c680fd1d3841048ec2c981474f18974f48a97ef8ea09777cf98",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "historicalSourceMetadataState": {
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "sourceFileStatus": "private_repo_only",
+      "disposition": "HISTORICAL_METADATA_NOT_CURRENT_Q018_VISUAL_AUTHORITY"
+    },
+    "historicalVerificationNotesState": {
+      "status": "pending",
+      "visualVerificationCompleted": false,
+      "doNotTreatOcrAsAuthority": true,
+      "disposition": "HISTORICAL_NOTE_NOT_CURRENT_Q018_AUTHORITY"
+    },
+    "currentDirectVisualVerification": {
+      "completed": true,
+      "method": "CHATGPT_DIRECT_RENDERED_PDF_FULL_PAGE_VISUAL_VERIFICATION_200_DPI",
+      "ocrUsedAsAuthority": false,
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "page1Observations": [
+        "頁首標示「柱體體積與表面積」與來源網址 https://meow911.com/6b03/。",
+        "頁面包含「圓形截面積的柱體體積」區塊，圖示為圓柱，圓形截面垂直尺度標示 20，柱體水平距離標示 25，直接呈現圓形底面積與柱高/柱長共同決定體積。",
+        "同頁另有一般柱體體積、三角形/平行四邊形/梯形/多邊形截面與複合型體積；這些既有同來源知識點不屬於 Q018 ownership。"
+      ],
+      "page2Observations": [
+        "頁面含「圓柱體表面積」區塊，屬表面積語意，Q018 不取得該 ownership。",
+        "頁面右下另有「圓柱被切去一半，剩下的體積是多少立方公分？」的半圓柱體積應用，可作 cylinder-volume application corroboration，但不擴張為複合柱體 ownership。",
+        "其餘三角柱、梯形柱、平行四邊形柱體表面積與複合柱體內容由既有 Q049/Q055/Q060 ownership 保護。"
+      ],
+      "targetDisposition": "DIRECT_VISUAL_CORROBORATES_R02_CYLINDER_VOLUME_TARGET",
+      "directSupportClassification": "DIRECT_LITERAL_CYLINDER_VOLUME_APPLICATION_EVIDENCE"
+    },
+    "targetEvidenceReconciliation": {
+      "knowledgePointId": "kp_g6b_u03_cylinder_volume",
+      "canonicalNameZh": "圓柱體積",
+      "r02EvidencePages": [
+        1,
+        2
+      ],
+      "exactDirectVisualEvidencePages": [
+        1
+      ],
+      "supportingApplicationVisualEvidencePages": [
+        2
+      ],
+      "r02CapabilityStatement": "學生能以圓面積乘高求圓柱體積。",
+      "r02ReasoningInvariant": "圓柱每層截面為等大的圓。",
+      "currentSemanticAuthority": "R02_FULL_PAGE_VISUAL_READBACK_PLUS_CURRENT_DIRECT_PDF_VISUAL_CORROBORATION",
+      "currentDirectPdfVisualCorroboration": true,
+      "disposition": "R02_PAGES_1_2_PLUS_PAGE_1_DIRECT_CYLINDER_VOLUME_VISUAL_AUTHORITY"
+    },
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "newSupplementaryEvidenceRequired": false,
+    "silentRewriteAllowed": false
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+    "chunkBlobSha": "2902e380adc896d6bd554b58272d9b65797cd844",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g6b_u03_6b03",
+    "sourceTitle": "柱體體積與表面積",
+    "sourcePdfTitle": "meow911_6b03_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g6b_u03_cylinder_volume",
+      "canonicalNameZh": "圓柱體積",
+      "capabilityStatement": "學生能以圓面積乘高求圓柱體積。",
+      "reasoningInvariant": "圓柱每層截面為等大的圓。",
+      "category": "geometry",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "sameSourceExistingOwnership": {
+      "kp_g6b_u03_prism_surface_area": "P05F_W5_Q049",
+      "kp_g6b_u03_prism_base_area_height_volume": "P05F_W5_Q055",
+      "kp_g6b_u03_triangular_prism_volume": "P05F_W5_Q060",
+      "kp_g6b_u03_composite_prism_volume_surface": "P05F_W5_Q060"
+    },
+    "sameSourcePriorAuthorityPaths": [
+      "data/curriculum/full-product/p05f/q049-g6b-u03-prism-surface-area-source-authority-preflight.json",
+      "data/curriculum/full-product/p05f/q055-g6b-u03-prism-base-area-height-volume-source-authority-preflight.json",
+      "data/curriculum/full-product/p05f/q060-g6b-u03-triangular-composite-prism-source-authority-preflight.json"
+    ],
+    "sameSourceCandidateSetCompleteAfterQ018Implementation": true
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "CYLINDER_VOLUME_AS_CIRCULAR_BASE_AREA_TIMES_PERPENDICULAR_HEIGHT",
+    "canonicalReasoningInvariant": "圓柱每個平行截面都是等大的圓，圓柱體積 = 圓形底面積 × 柱高；直徑題須先正確轉為半徑。",
+    "implementationSemanticLock": {
+      "circularBaseAreaRequired": true,
+      "perpendicularCylinderHeightRequired": true,
+      "positiveRadiusRequired": true,
+      "positiveHeightRequired": true,
+      "diameterToRadiusNormalizationAllowed": true,
+      "approximatePi314Allowed": true,
+      "circleAreaFormulaPrerequisiteMayBeConsumed": true,
+      "prismBaseAreaTimesHeightRelationMayBeConsumed": true,
+      "q049PrismSurfaceAreaReownershipAllowed": false,
+      "q055GenericPrismVolumeReownershipAllowed": false,
+      "q060TriangularPrismVolumeReownershipAllowed": false,
+      "q060CompositePrismReownershipAllowed": false,
+      "cylinderSurfaceAreaAllowed": false,
+      "compositeCylinderPrismSurfaceVolumeAllowed": false,
+      "halfCylinderApplicationAsCoreAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "executableAuthorityReadback": {
+    "pending": false,
+    "exactQueueRow": {
+      "queuePosition": 18,
+      "sliceId": "p07e_q018_r11_g6b_u03_6b03_profile_spatial_solid_c1",
+      "implementationTaskId": "P07F_W7DirectProductVerticalSlice018Implementation",
+      "previousSliceId": "p07e_q017_r11_g6a_u07_6a07_profile_geometry_formula_c1",
+      "assignedDeliveryWaveId": "R05-W7",
+      "primarySourceNodeId": "g6b_u03_6b03",
+      "intraWavePrerequisiteRank": 11,
+      "primaryRuntimeProfileId": "profile_spatial_solid",
+      "knowledgePointIds": [
+        "kp_g6b_u03_cylinder_volume"
+      ],
+      "requiredW7CapabilityIds": []
+    },
+    "exactR03IncomingEdges": [
+      {
+        "edgeId": "kpe_r03_0600",
+        "fromKnowledgePointId": "kp_g6a_u07_circle_area_formula",
+        "toKnowledgePointId": "kp_g6b_u03_cylinder_volume",
+        "dependencyStrength": "required",
+        "dependencyRole": "conceptual_foundation",
+        "distanceBearing": true,
+        "evidenceRefs": [
+          "source:g6a_u07_6a07",
+          "source:g6b_u03_6b03"
+        ]
+      },
+      {
+        "edgeId": "kpe_r03_0601",
+        "fromKnowledgePointId": "kp_g6b_u03_prism_base_area_height_volume",
+        "toKnowledgePointId": "kp_g6b_u03_cylinder_volume",
+        "dependencyStrength": "required",
+        "dependencyRole": "conceptual_foundation",
+        "distanceBearing": true,
+        "evidenceRefs": [
+          "source:g6b_u03_6b03"
+        ]
+      }
+    ],
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6b_u03_cylinder_volume",
+      "primaryRuntimeProfileId": "profile_spatial_solid",
+      "classificationRuleId": "rule_spatial_solid",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_spatial_solid_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_solid_geometry_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [
+        "cap_geometry_construction"
+      ],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "undeliveredRequiredCapabilityIds": [
+        "cap_spatial_solid_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_solid_geometry_representation"
+      ],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07"
+    },
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u03_cylinder_volume",
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": true,
+      "primaryRuntimeProfileId": "profile_spatial_solid",
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_spatial_solid_reasoning",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_solid_geometry_representation"
+      ],
+      "contractOnlyRequiredCapabilityIds": [
+        "cap_spatial_solid_reasoning",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_solid_geometry_representation"
+      ],
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED"
+    }
+  },
+  "q018ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6b_u03_cylinder_volume"
+    ],
+    "includedRelations": [
+      "CYLINDER_VOLUME_EQUALS_CIRCULAR_BASE_AREA_TIMES_HEIGHT",
+      "DIAMETER_TO_RADIUS_THEN_CIRCULAR_BASE_AREA",
+      "RADIUS_AND_HEIGHT_TO_CYLINDER_VOLUME"
+    ],
+    "excludedRelations": [
+      "PRISM_SURFACE_AREA_REOWNERSHIP",
+      "GENERIC_PRISM_BASE_AREA_HEIGHT_VOLUME_REOWNERSHIP",
+      "TRIANGULAR_PRISM_VOLUME_REOWNERSHIP",
+      "COMPOSITE_PRISM_VOLUME_SURFACE_REOWNERSHIP",
+      "CYLINDER_SURFACE_AREA",
+      "COMPOSITE_CYLINDER_PRISM_SURFACE_VOLUME",
+      "HALF_CYLINDER_APPLICATION_AS_CORE",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_AUTHORITY_MUTATION",
+      "Q019_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q017ProductTouched": false,
+    "q019OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ017D0Verified": true,
+    "sourceIdentityBound": true,
+    "currentVisualReadbackDirectlySupportsCylinderVolume": true,
+    "newSupplementaryEvidenceRequired": false,
+    "r02ReviewedCandidateBound": true,
+    "semanticProfileLockBound": true,
+    "priorSameSourceOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
+    "sourceAuthoritySufficientForQ018ImplementationPlanning": true,
+    "separateImplementationApprovalRequired": true,
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice018Implementation"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "runtimeMatrixModulePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "profileId": "profile_spatial_solid",
+    "classificationRuleId": "rule_spatial_solid",
+    "appliedModifierIds": [],
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_spatial_solid_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_solid_geometry_representation"
+    ],
+    "exactOptionalRuntimeCapabilityIds": [
+      "cap_geometry_construction"
+    ],
+    "exactFrozenQueueRequiredW7CapabilityIds": [],
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6b_u03_cylinder_volume",
+      "primaryRuntimeProfileId": "profile_spatial_solid",
+      "classificationRuleId": "rule_spatial_solid",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_spatial_solid_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_solid_geometry_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [
+        "cap_geometry_construction"
+      ],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "undeliveredRequiredCapabilityIds": [
+        "cap_spatial_solid_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_solid_geometry_representation"
+      ],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07"
+    },
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "edgeId": "kpe_r03_0600",
+        "fromKnowledgePointId": "kp_g6a_u07_circle_area_formula",
+        "toKnowledgePointId": "kp_g6b_u03_cylinder_volume",
+        "dependencyStrength": "required",
+        "dependencyRole": "conceptual_foundation",
+        "distanceBearing": true,
+        "evidenceRefs": [
+          "source:g6a_u07_6a07",
+          "source:g6b_u03_6b03"
+        ]
+      },
+      {
+        "edgeId": "kpe_r03_0601",
+        "fromKnowledgePointId": "kp_g6b_u03_prism_base_area_height_volume",
+        "toKnowledgePointId": "kp_g6b_u03_cylinder_volume",
+        "dependencyStrength": "required",
+        "dependencyRole": "conceptual_foundation",
+        "distanceBearing": true,
+        "evidenceRefs": [
+          "source:g6b_u03_6b03"
+        ]
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g6a_u07_circle_area_formula",
+      "kp_g6b_u03_prism_base_area_height_volume"
+    ],
+    "q014CircleAreaFormulaMayBeConsumedAsPrerequisite": true,
+    "p05fQ055PrismVolumeMayBeConsumedAsPrerequisite": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u03_cylinder_volume",
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": true,
+      "primaryRuntimeProfileId": "profile_spatial_solid",
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_spatial_solid_reasoning",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_solid_geometry_representation"
+      ],
+      "contractOnlyRequiredCapabilityIds": [
+        "cap_spatial_solid_reasoning",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_solid_geometry_representation"
+      ],
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED"
+    },
+    "exactR05AssignmentVerified": true,
+    "deliveryWaveId": "R05-W7",
+    "intraWavePrerequisiteRank": 11
+  }
+}
