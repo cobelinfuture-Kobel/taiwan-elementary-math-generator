@@ -3,11 +3,11 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7_Q014_G6AU07_CircleAreaFormula_SourceAuthorityPreflight",
-  "status": "SOURCE_VISUAL_AUTHORITY_LOCKED_EXECUTABLE_R03_R04_R05_READBACK_PENDING",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_Q014_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D3_Q014_SOURCE_VISUAL_R02_AND_FORMULA_OWNERSHIP_BOUND_EXECUTABLE_GRAPH_RUNTIME_READBACK_PENDING",
-    "reduced": "SOURCE_VISUAL_R02_AND_FORMULA_OWNERSHIP_BOUND"
+    "after": "D2_Q014_G6AU07_CIRCLE_AREA_FORMULA_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "73f57149dcb8b4954ea80f12676639e2fa62b9e1",
   "predecessorD0Evidence": {
@@ -230,10 +230,46 @@
     }
   },
   "executableAuthorityReadback": {
-    "pending": true,
-    "exactR03IncomingEdges": null,
-    "exactR04Mapping": null,
-    "exactR05Assignment": null
+    "pending": false,
+    "exactR03IncomingEdges": [
+      {
+        "edgeId": "kpe_r03_0571",
+        "fromKnowledgePointId": "kp_g6a_u07_circle_area_derivation",
+        "toKnowledgePointId": "kp_g6a_u07_circle_area_formula",
+        "dependencyStrength": "required",
+        "dependencyRole": "conceptual_foundation",
+        "alternativeGroupId": null,
+        "distanceBearing": true,
+        "rationale": "「圓面積剪拼推導」提供不可缺少的概念基礎，因此是「圓面積公式」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6a_u07_6a07"
+        ]
+      }
+    ],
+    "exactR04Mapping": {
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "classificationRuleId": "rule_geometry_formula",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR05Assignment": {
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": true,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 10
+    }
   },
   "q014ScopeLock": {
     "includedKnowledgePointIds": [
@@ -298,9 +334,75 @@
     "q017AnnulusOwnershipProtected": true,
     "manualSourceChoiceRequired": false,
     "manualEvidenceChoiceRequired": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "sourceAuthoritySufficientForQ014ImplementationPlanning": true,
     "separateImplementationApprovalRequired": true,
-    "nextTaskAfterReadback": "P07F_W7DirectProductVerticalSlice014Implementation"
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice014Implementation"
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "edgeId": "kpe_r03_0571",
+        "fromKnowledgePointId": "kp_g6a_u07_circle_area_derivation",
+        "toKnowledgePointId": "kp_g6a_u07_circle_area_formula",
+        "dependencyStrength": "required",
+        "dependencyRole": "conceptual_foundation",
+        "alternativeGroupId": null,
+        "distanceBearing": true,
+        "rationale": "「圓面積剪拼推導」提供不可缺少的概念基礎，因此是「圓面積公式」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6a_u07_6a07"
+        ]
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g6a_u07_circle_area_derivation"
+    ],
+    "circleAreaDerivationPrerequisiteRequired": true,
+    "q011D0ProductMayBeConsumedAsPrerequisite": true,
+    "q011DerivationTeachingMayNotBeReowned": true
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "queueFrozenProfileId": "profile_geometry_formula",
+    "queueFrozenRequiredW7CapabilityIds": [],
+    "executableReadbackPending": false,
+    "runtimeProfileReclassificationAllowed": false,
+    "semanticProfileInterpretation": "GEOMETRY_FORMULA_EXECUTION_ENVELOPE_FOR_PI_R_SQUARED_EVALUATION_WITH_RADIUS_DIAMETER_NORMALIZATION",
+    "executableR04Mapping": {
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "classificationRuleId": "rule_geometry_formula",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": []
+    },
+    "exactR04MappingVerified": true
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "waveEscalatedByPrerequisite": true,
+      "prerequisiteWaveLowerBound": 7,
+      "intraWavePrerequisiteRank": 10
+    },
+    "exactR05AssignmentVerified": true
   }
 }

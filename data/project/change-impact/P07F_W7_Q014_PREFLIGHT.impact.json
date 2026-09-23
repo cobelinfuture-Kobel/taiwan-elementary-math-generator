@@ -10,7 +10,7 @@
     "kp_g6a_u07_circle_area_formula"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g6a_u07_circle_area_formula": "PREFLIGHT_EXECUTABLE_READBACK_PENDING"
+    "kp_g6a_u07_circle_area_formula": "PREFLIGHT_READY_FOR_IMPLEMENTATION_APPROVAL"
   },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P07F_W7_Q014_PREFLIGHT.validation.json",
