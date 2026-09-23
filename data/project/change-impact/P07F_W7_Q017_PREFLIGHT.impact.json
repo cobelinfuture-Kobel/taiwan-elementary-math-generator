@@ -10,7 +10,7 @@
     "kp_g6a_u07_annulus_area"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g6a_u07_annulus_area": "PREFLIGHT_EXECUTABLE_AUTHORITY_READBACK_PENDING"
+    "kp_g6a_u07_annulus_area": "PLANNING_READY_IMPLEMENTATION_APPROVAL_REQUIRED"
   },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P07F_W7_Q017_PREFLIGHT.validation.json",
