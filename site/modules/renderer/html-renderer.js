@@ -12,6 +12,7 @@ import { renderRightAngleRecognitionDiagram } from "./right-angle-recognition-di
 import { renderAnglePropertiesDiagram } from "./angle-properties-diagram.js";
 import { renderCircleGeometryPropertyDiagram } from "./circle-geometry-property-diagram.js";
 import { renderCircleAreaDerivationDiagram } from "./circle-area-derivation-diagram-p07f11.js";
+import { renderAnnulusAreaDiagram } from "./annulus-area-diagram-p07f17.js";
 import { renderScaleAreaChangeDiagram } from "./scale-area-change-diagram-p07f12.js";
 import { renderAreaGridCountingDiagram } from "./area-grid-counting-diagram.js";
 import { renderRectangleSquareAreaFormulaDiagram } from "./rectangle-square-area-formula-diagram.js";
@@ -98,7 +99,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
+export { renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -121,6 +122,7 @@ function renderGeometryDiagram(model) {
   if (model?.kind === "angle_properties_diagram") return renderAnglePropertiesDiagram(model);
   if (model?.kind === "circle_geometry_property_diagram") return renderCircleGeometryPropertyDiagram(model);
   if (model?.kind === "circle_area_derivation_diagram") return renderCircleAreaDerivationDiagram(model);
+  if (model?.kind === "annulus_area_diagram") return renderAnnulusAreaDiagram(model);
   if (model?.kind === "scale_area_change_diagram") return renderScaleAreaChangeDiagram(model);
   if (model?.kind === "area_grid_counting_diagram") return renderAreaGridCountingDiagram(model);
   if (model?.kind === "rectangle_square_area_formula_diagram") return renderRectangleSquareAreaFormulaDiagram(model);
