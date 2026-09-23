@@ -1,0 +1,140 @@
+{
+  "schemaName": "P07FW7Q012G6AU09ScaleAreaChangeImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice012Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q012_G6AU09_SCALE_AREA_CHANGE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q012_SCALE_AREA_CHANGE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "d578319717955280c02058c48f86255362b9014a",
+  "preflight": {
+    "prNumber": 1043,
+    "mergeSha": "5dd9de7da2b962d33c563d5cadbe9040eb408ca5",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q012-g6a-u09-scale-area-change-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q011Status": "PASS_E6_D0_COMPLETE",
+    "q011ProductMergeSha": "918ee8be4344d078edb2686ea4f557b3d12527f5",
+    "q011D0ReadbackCommitSha": "7282b56adebdcd1395700d821aa7360c5c49b5a1",
+    "q011PostMergeWorkflowRunId": 35801582574,
+    "q011DurableReadbackPath": "docs/ci/latest-p07f-w7-q011-pages-e2e.json",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q011_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 12,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q012_r9_g6a_u09_6a09_profile_geometry_formula_c1",
+    "previousSliceId": "p07e_q011_r9_g6a_u07_6a07_profile_geometry_formula_c1",
+    "sourceId": "g6a_u09_6a09",
+    "knowledgePointIds": [
+      "kp_g6a_u09_scale_area_change"
+    ],
+    "runtimeProfileId": "profile_geometry_formula",
+    "classificationRuleId": "rule_geometry_formula",
+    "appliedModifierIds": [],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfDriveFileId": "1qnZyEDcmOgb94BYU350cmjvUN4kESlEZ",
+    "sourcePdfSizeBytes": 244370,
+    "sourcePdfSha256": "80ec4d8df9a4d5bf98392cf846fac7df68c49781ba60eefa78e70e9109cbbe2c",
+    "reviewedPages": [
+      1
+    ],
+    "currentVisualSupportLevel": "DIRECT_LITERAL_SCALE_AREA_CHANGE_APPLICATION",
+    "visibleSourceApplication": {
+      "context": "排球場",
+      "actualLengthMeters": 18,
+      "actualWidthMeters": 9,
+      "scale": "1:300"
+    },
+    "supplementaryEvidenceRequired": false
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g4b_u07_rectangle_square_area_formula",
+      "kp_g6a_u09_scale_factor_length"
+    ],
+    "rectangleSquareAreaFormulaPrerequisiteRequired": true,
+    "scaleFactorLengthPrerequisiteRequired": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 4,
+    "patternSpecIds": [
+      "ps_g6a_u09_area_factor_from_linear_factor",
+      "ps_g6a_u09_scaled_area_from_linear_factor",
+      "ps_g6a_u09_compare_original_scaled_area",
+      "ps_g6a_u09_source_rectangle_scale_area_application"
+    ],
+    "includedRelations": [
+      "INFER_AREA_SCALE_FACTOR_FROM_LINEAR_SCALE_FACTOR",
+      "COMPUTE_SCALED_AREA_FROM_LINEAR_SCALE_FACTOR",
+      "COMPARE_ORIGINAL_AND_SCALED_AREA",
+      "SOLVE_SOURCE_BACKED_RECTANGLE_SCALE_AREA_APPLICATION"
+    ],
+    "questionMode": "diagram",
+    "rendererRepresentation": "scale_area_change_diagram",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_RATIONAL_OR_NUMERIC_AREA_SCALE_ANSWER",
+    "semanticCore": "LENGTH_SCALE_FACTOR_K_IMPLIES_AREA_SCALE_FACTOR_K_SQUARED",
+    "sourceBackedApplicationContextAllowed": true
+  },
+  "scopeGuard": {
+    "q007LengthScaleFactorTeachingReowned": false,
+    "similarShapeAngleTouched": false,
+    "scaleDrawingConstructionTouched": false,
+    "mapScaleDistanceTouched": false,
+    "mapScaleBarInterpretationTouched": false,
+    "genericGeometryAreaFormulaTeachingReowned": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q011ProductTouched": false,
+    "q013OrLaterProductTouched": false,
+    "q001ThroughQ011CurrentPointerCompatibilityTestOnlyMutationAllowed": true,
+    "q020CurrentPointerCompatibilityTestOnlyMutationAllowed": true,
+    "sharedRendererAdditionAllowed": true,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
