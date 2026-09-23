@@ -52,7 +52,7 @@ test("GCI-PM01 policy is tied to Q010 D0 evidence and exact observed fanout",()=
   assert.equal(policy.baselineObservedFanout.slicePostMergeE2EWorkflowRuns,38);
   assert.equal(policy.baselineObservedFanout.historicalSliceWorkflowRuns,37);
   assert.equal(policy.historicalCutoverWorkflows.length,38);
-  assert.equal(new Set(policy.historicalCutoverWorkflows).size,37);
+  assert.equal(new Set(policy.historicalCutoverWorkflows).size,38);
 });
 
 test("historical cutover workflows no longer watch volatile shared paths or their own workflow file",()=>{
