@@ -45,11 +45,16 @@ function brokenEggs(v){
 }
 const discountRates=Object.freeze([5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80]);
 function discount(v){
-  const u=mod(v,240),rate=discountRates[u%discountRates.length],m=Math.floor(u/discountRates.length)+1,original=400*m,retention=100-rate,newQuantity=original*retention/100;
+  const u=mod(v,240);
+  if(u===0)return Object.freeze({variant:0,targetKind:"DISCOUNTED_NEW_QUANTITY",semanticCore:"PERCENT_DISCOUNT_INCREASE_APPLICATION",
+    promptText:"家電促銷，一臺電視定價 15800 元，打 85 折。售價是多少元？",answerValue:13430,answerText:"13430",answerKind:"MONEY",
+    originalQuantity:15800,percentRate:15,percentRole:"DISCOUNT_RATE",retentionRatePercent:85,newQuantity:13430,
+    forwardApplicationVerified:true,percentRoleVerified:true,sourceContext:"PRIMARY_SOURCE_PAGE2_DISCOUNT_EXACT",sourceExemplarMatch:true,sourceParameterCarrier:"PRIMARY_SOURCE_PAGE2_TV_15800_85_PERCENT"});
+  const rate=discountRates[u%discountRates.length],m=Math.floor(u/discountRates.length)+1,original=400*m,retention=100-rate,newQuantity=original*retention/100;
   return Object.freeze({variant:u,targetKind:"DISCOUNTED_NEW_QUANTITY",semanticCore:"PERCENT_DISCOUNT_INCREASE_APPLICATION",
     promptText:"一件商品定價 "+original+" 元，特價 "+rate+"％ off。售價是多少元？",answerValue:newQuantity,answerText:trim(newQuantity),answerKind:"MONEY",
     originalQuantity:original,percentRate:rate,percentRole:"DISCOUNT_RATE",retentionRatePercent:retention,newQuantity,
-    forwardApplicationVerified:true,percentRoleVerified:true,sourceContext:"PRIMARY_SOURCE_DISCOUNT_APPLICATION",sourceExemplarMatch:rate===15});
+    forwardApplicationVerified:true,percentRoleVerified:true,sourceContext:"PRIMARY_SOURCE_DISCOUNT_APPLICATION",sourceExemplarMatch:false});
 }
 const markupRates=Object.freeze([5,10,15,20,25,30,35,40,45,50,60,75,80,100,125,150]);
 function markup(v){
@@ -61,13 +66,19 @@ function markup(v){
 }
 const markups=Object.freeze([10,20,30,40,50]),discounts=Object.freeze([5,10,15,20,25,30]);
 function markupThenDiscount(v){
-  const u=mod(v,240),markupRate=markups[u%markups.length],discountRate=discounts[Math.floor(u/markups.length)%discounts.length],m=Math.floor(u/(markups.length*discounts.length))+1;
+  const u=mod(v,240);
+  if(u===0)return Object.freeze({variant:0,targetKind:"TWO_STEP_NEW_QUANTITY",semanticCore:"PERCENT_DISCOUNT_INCREASE_APPLICATION",
+    promptText:"一件運動外套成本 1200 元，先加 3 成作為定價，再打 85 折出售。售價是多少元？",
+    answerValue:1326,answerText:"1326",answerKind:"MONEY",originalQuantity:1200,markupRatePercent:30,growthRatePercent:130,intermediateQuantity:1560,
+    discountRatePercent:15,retentionRatePercent:85,newQuantity:1326,percentRole:"MARKUP_THEN_DISCOUNT",
+    forwardApplicationVerified:true,percentRoleVerified:true,twoStepOrderVerified:true,sourceContext:"PRIMARY_SOURCE_PAGE2_MARKUP_THEN_DISCOUNT_EXACT",sourceExemplarMatch:true,sourceParameterCarrier:"PRIMARY_SOURCE_PAGE2_COAT_1200_MARKUP30_DISCOUNT15"});
+  const markupRate=markups[u%markups.length],discountRate=discounts[Math.floor(u/markups.length)%discounts.length],m=Math.floor(u/(markups.length*discounts.length))+1;
   const cost=400*m,listed=cost*(100+markupRate)/100,retention=100-discountRate,sale=listed*retention/100;
   return Object.freeze({variant:u,targetKind:"TWO_STEP_NEW_QUANTITY",semanticCore:"PERCENT_DISCOUNT_INCREASE_APPLICATION",
     promptText:"一件商品成本 "+cost+" 元，先加成 "+markupRate+"％ 作為定價，再依定價 "+discountRate+"％ off 出售。售價是多少元？",
     answerValue:sale,answerText:trim(sale),answerKind:"MONEY",originalQuantity:cost,markupRatePercent:markupRate,growthRatePercent:100+markupRate,intermediateQuantity:listed,
     discountRatePercent:discountRate,retentionRatePercent:retention,newQuantity:sale,percentRole:"MARKUP_THEN_DISCOUNT",
-    forwardApplicationVerified:true,percentRoleVerified:true,twoStepOrderVerified:true,sourceContext:"PRIMARY_SOURCE_MARKUP_THEN_DISCOUNT_APPLICATION",sourceExemplarMatch:markupRate===30&&discountRate===15});
+    forwardApplicationVerified:true,percentRoleVerified:true,twoStepOrderVerified:true,sourceContext:"PRIMARY_SOURCE_MARKUP_THEN_DISCOUNT_APPLICATION",sourceExemplarMatch:false});
 }
 function payload(spec,v){
   if(spec.patternSpecId==="ps_g5b_u08_find_base_from_comparison_percent")return findBaseDirect(v);
