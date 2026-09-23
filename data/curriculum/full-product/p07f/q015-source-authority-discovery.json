@@ -1,0 +1,53 @@
+{
+  "schemaName": "P07FW7Q015G6BU05SourceAuthorityDiscoveryV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q015_SourceAuthorityPreflight",
+  "status": "DISCOVERY_EXECUTABLE_READBACK_PENDING",
+  "baselineMainSha": "c1c943918fbae82c74c912706daf752d6ab03f57",
+  "expectedSliceId": "p07e_q015_r10_g6b_u05_6b05_profile_factor_multiple_c1",
+  "sourceAuthority": {
+    "sourceNodeId": "g6b_u05_6b05",
+    "sourceTitleR02": "怎樣解題",
+    "sourceTitleMetadata": "怎樣解題康軒版",
+    "sourcePdfTitle": "meow911_6b05_source.pdf",
+    "originalFileName": "題型總覽-6b05-怎樣解題康軒版.pdf",
+    "sourcePdfDriveFileId": "19lrR3_bvpKIoJq5DsKaiQOUecsCzNDsl",
+    "sourceMetadataDriveFileId": "185bVhuNUi5geC7cpX9UhOy4i9rVzSgfE",
+    "verificationNotesDriveFileId": "1_sFVQxB9DjS3ZK94YjlvJ-uJMkmMFsah",
+    "sourcePdfSizeBytes": 849178,
+    "sourcePdfSha256": "1be6a253b422a427bf4a20a09ee478400f39a11e9b817c1acee308e5f6b9403b",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+    "ocrUsedAsAuthority": false,
+    "visualFamilies": {
+      "page1": [
+        "SUM_FIXED_TABLE_RELATION_A_PLUS_B",
+        "DIFFERENCE_FIXED_AGE_TABLE_A_MINUS_B",
+        "SUM_AND_DIFFERENCE_KNOWN_CLASS_GENDER",
+        "PERIMETER_WITH_LENGTH_WIDTH_DIFFERENCE",
+        "TRANSFER_EQUALIZATION",
+        "UNKNOWN_QUANTITY_AFTER_TRANSFER",
+        "AGE_MULTIPLE_RELATION_TIME_SHIFT",
+        "AGE_REPEATED_RELATION"
+      ],
+      "page2": [
+        "SUM_DIFFERENCE_AGE_SYSTEM",
+        "TWO_CAPACITY_BOAT_COUNT_DISTRIBUTION",
+        "ROUND_TRIP_TRANSPORT_COST",
+        "AFFINE_MULTIPLE_DIFFERENCE_PRICE_RELATION",
+        "PRODUCT_RULE_COMBINATORICS",
+        "PERMUTATION_COMBINATION",
+        "ROUTE_COUNTING"
+      ]
+    }
+  },
+  "r02SourceCandidatePath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+  "executableDiscovery": {
+    "pending": true
+  }
+}
