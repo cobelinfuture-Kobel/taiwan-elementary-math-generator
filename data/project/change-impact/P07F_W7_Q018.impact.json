@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P07F_W7_Q018",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6b_u03_cylinder_volume"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6b_u03_cylinder_volume"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6b_u03_cylinder_volume": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P07F_W7_Q018.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false,
+    "dedicatedRendererAdded": true,
+    "sharedRendererRegistryChanged": true,
+    "ciCurrentWorkflowOwnershipTransfer": true
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "q017ProductMutation": false,
+    "q019OrLaterProductMutation": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "q049PrismSurfaceAreaReownership": false,
+    "q055GenericPrismVolumeReownership": false,
+    "q060TriangularPrismVolumeReownership": false,
+    "q060CompositePrismReownership": false,
+    "q017CurrentPointerCompatibilityTestOnly": true,
+    "gciPm01SuccessorRuleOnly": true
+  }
+}
