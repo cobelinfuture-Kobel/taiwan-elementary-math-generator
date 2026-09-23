@@ -1,0 +1,173 @@
+{
+  "schemaName": "P07FW7Q015PostMergeMainPagesE2EV1",
+  "taskId": "P07F_W7DirectProductVerticalSlice015Implementation",
+  "status": "PASS_E6_D0_COMPLETE",
+  "exactHeadSha": "bd9e65f1493c76d05f85fd39a4194f482a6cf195",
+  "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+  "deployment": {
+    "attempt": 3,
+    "assets": [
+      {
+        "publicPath": "modules/curriculum/batch-a/source-units.js",
+        "expectedSha256": "a568bbc89d5e106b7ef5e5335893eda6ba71df30c938ab072c37e094ffabad8d",
+        "liveSha256": "a568bbc89d5e106b7ef5e5335893eda6ba71df30c938ab072c37e094ffabad8d"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/g6b-u05-factor-multiple-selector-projection-p07f15.js",
+        "expectedSha256": "72c0c49d6abfdeeed6fed71f069891248098f990c976a61aecd687dffc697da0",
+        "liveSha256": "72c0c49d6abfdeeed6fed71f069891248098f990c976a61aecd687dffc697da0"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p07f15-extension.js",
+        "expectedSha256": "a32a3331b31eefdf73223550deb083435632a4b43a4244fbeea29d2b22b35cb9",
+        "liveSha256": "a32a3331b31eefdf73223550deb083435632a4b43a4244fbeea29d2b22b35cb9"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+        "expectedSha256": "b3490abb107b1edad11ecf1415102a05f0bab12641548e0d6446d4cb7fce0331",
+        "liveSha256": "b3490abb107b1edad11ecf1415102a05f0bab12641548e0d6446d4cb7fce0331"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p07f15.js",
+        "expectedSha256": "2917d24cff08a8bb54bb7d652abf5664dabdc424cf726858a521d40460e21b18",
+        "liveSha256": "2917d24cff08a8bb54bb7d652abf5664dabdc424cf726858a521d40460e21b18"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+        "expectedSha256": "3a76e24507380094a360a9c07b2efee43fb1c9ee8638e65819caf0f6f903169d",
+        "liveSha256": "3a76e24507380094a360a9c07b2efee43fb1c9ee8638e65819caf0f6f903169d"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/g6b-u05-factor-multiple-runtime-p07f15.js",
+        "expectedSha256": "4716334bc43308b3a38edda77a7f8e5b7196c9e2b0e54fafa6928181d3be7c2c",
+        "liveSha256": "4716334bc43308b3a38edda77a7f8e5b7196c9e2b0e54fafa6928181d3be7c2c"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p07f15.js",
+        "expectedSha256": "80f3de05a09ea709bafeca530cb936b8a484b12529dae420c5c1970ca6b0b394",
+        "liveSha256": "80f3de05a09ea709bafeca530cb936b8a484b12529dae420c5c1970ca6b0b394"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+        "expectedSha256": "52cf44f86856f166172ef3f563a4165f34f393bf82d9630f0e0033171b18bdb9",
+        "liveSha256": "52cf44f86856f166172ef3f563a4165f34f393bf82d9630f0e0033171b18bdb9"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p07f15-extension.js",
+        "expectedSha256": "d3352386891a48cdae591535c14b7cb50cebbad421cf63deda8d5ecc8e7f752b",
+        "liveSha256": "d3352386891a48cdae591535c14b7cb50cebbad421cf63deda8d5ecc8e7f752b"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+        "expectedSha256": "f41bf96f14c372f3def6ac34a0674bbd2355a2b9f75e7822247cb5a5520326b9",
+        "liveSha256": "f41bf96f14c372f3def6ac34a0674bbd2355a2b9f75e7822247cb5a5520326b9"
+      },
+      {
+        "publicPath": "modules/renderer/html-renderer.js",
+        "expectedSha256": "4ccc1f9883369a57410853f9068067089e6269e3c323a0e49acf6c08e8f2dd65",
+        "liveSha256": "4ccc1f9883369a57410853f9068067089e6269e3c323a0e49acf6c08e8f2dd65"
+      }
+    ]
+  },
+  "classicUiAcceptance": {
+    "schemaName": "P07FW7Q015ClassicUIAcceptanceV1",
+    "taskId": "P07F_W7DirectProductVerticalSlice015Implementation",
+    "status": "PASS_P07F_W7_Q015_CLASSIC_UI_ACCEPTANCE",
+    "sourceId": "g6b_u05_6b05",
+    "knowledgePointIds": [
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_sum_multiple_problem"
+    ],
+    "questionCountPerTarget": 8,
+    "target": {
+      "selector": {
+        "sourceId": "g6b_u05_6b05",
+        "visibleIds": [
+          "kp_g6b_u05_sum_difference_problem",
+          "kp_g6b_u05_age_or_repeated_relation_problem",
+          "kp_g6b_u05_difference_multiple_problem",
+          "kp_g6b_u05_sum_multiple_problem"
+        ],
+        "predecessorsPresent": true,
+        "targetsPresent": true,
+        "protectedAbsent": true,
+        "sameUnitDisabled": true
+      },
+      "difference": {
+        "state": {
+          "status": "已產生 8 題，可預覽與列印。",
+          "tone": "success",
+          "valid": "false",
+          "preview": 9134,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 8,
+          "answers": 8,
+          "overflow": 0
+        }
+      },
+      "sum": {
+        "state": {
+          "status": "已產生 8 題，可預覽與列印。",
+          "tone": "success",
+          "valid": "false",
+          "preview": 9047,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 8,
+          "answers": 8,
+          "overflow": 0
+        }
+      },
+      "printCount": 1
+    },
+    "browser": {
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "requestFailureCount": 0,
+      "assetHttpFailureCount": 0
+    },
+    "semanticInvariants": {
+      "differenceMultipleUsesKMinusOneParts": true,
+      "sumMultipleUsesKPlusOneParts": true,
+      "twoKnowledgePointOwnershipNonOverlapping": true,
+      "predecessorsVisible": true,
+      "workDistributionProtected": true,
+      "sameUnitMixedModeFailClosed": true
+    },
+    "forbiddenScope": {
+      "sumDifferenceReownership": false,
+      "ageRelationReownership": false,
+      "workDistributionReownership": false,
+      "affineMultipleOffset": false,
+      "combinatorics": false,
+      "routeCounting": false,
+      "genericApplicationOverlay": false,
+      "sameUnitMixed": false,
+      "crossUnitMixed": false,
+      "fullRepositoryRegression": false,
+      "globalBrowserReplay": false
+    }
+  },
+  "semanticInvariants": {
+    "differenceMultipleOwned": true,
+    "sumMultipleOwned": true,
+    "sumMultipleSupplementaryEvidenceConsumed": true,
+    "twoKnowledgePointOwnershipNonOverlapping": true,
+    "workDistributionProtected": true,
+    "sameUnitMixedModeFailClosed": true,
+    "w7QueueContinuesAfterQ015": true
+  },
+  "workflow": "P07F W7 Q015 Post-Merge Pages E2E",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "run": {
+    "id": "35869157887",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/35869157887"
+  },
+  "verifiedAt": "2026-09-23T13:45:58.980Z"
+}
