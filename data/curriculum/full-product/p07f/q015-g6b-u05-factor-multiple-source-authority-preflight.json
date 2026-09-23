@@ -1,0 +1,356 @@
+{
+  "schemaName": "P07FW7Q015G6BU05DifferenceAndSumMultipleSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q015_SourceAuthorityPreflight",
+  "status": "BLOCKED_SUM_MULTIPLE_DIRECT_EVIDENCE_MISSING_REQUIRES_OPERATOR_SUPPLEMENTARY_EVIDENCE_SELECTION",
+  "goalDistance": {
+    "before": "D3_Q015_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D3_Q015_EXACT_TWO_KP_RUNTIME_AND_PARTIAL_SOURCE_AUTHORITY_LOCKED_SUM_MULTIPLE_EVIDENCE_BLOCKER_ISOLATED",
+    "reduced": "SOURCE_RUNTIME_AND_ONE_OF_TWO_TARGET_EVIDENCE_LOCKED"
+  },
+  "baselineMainSha": "c1c943918fbae82c74c912706daf752d6ab03f57",
+  "predecessorD0Evidence": {
+    "q014TaskId": "P07F_W7DirectProductVerticalSlice014Implementation",
+    "q014Status": "PASS_E6_D0_COMPLETE",
+    "q014MergeSha": "17186675396824566613f86ddad4ee29929f184c",
+    "q014PostMergeWorkflowRunId": 35818450969,
+    "q014DurableReadbackPath": "docs/ci/latest-p07f-w7-q014-pages-e2e.json",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q014_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "ad37a23f07b3de22a088f5bf9f59e2b45f13cc3c350bb84def21860d21135843",
+    "queuePosition": 15,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q015_r10_g6b_u05_6b05_profile_factor_multiple_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice015Implementation",
+    "previousSliceId": "p07e_q014_r10_g6a_u07_6a07_profile_geometry_formula_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6b_u05_6b05",
+    "supportingSourceNodeIds": [
+      "g6b_u05_6b05"
+    ],
+    "intraWavePrerequisiteRank": 10,
+    "primaryRuntimeProfileId": "profile_factor_multiple",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_sum_multiple_problem"
+    ],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6b_u05_6b05",
+    "sourceTitle": "怎樣解題",
+    "metadataTitle": "怎樣解題康軒版",
+    "sourcePdfTitle": "meow911_6b05_source.pdf",
+    "originalFileName": "題型總覽-6b05-怎樣解題康軒版.pdf",
+    "sourcePdfDriveFileId": "19lrR3_bvpKIoJq5DsKaiQOUecsCzNDsl",
+    "sourceMetadataDriveFileId": "185bVhuNUi5geC7cpX9UhOy4i9rVzSgfE",
+    "verificationNotesDriveFileId": "1_sFVQxB9DjS3ZK94YjlvJ-uJMkmMFsah",
+    "sourcePdfSizeBytes": 849178,
+    "sourcePdfSha256": "1be6a253b422a427bf4a20a09ee478400f39a11e9b817c1acee308e5f6b9403b",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+    "ocrUsedAsAuthority": false,
+    "visualFamilies": {
+      "page1": [
+        "SUM_FIXED_TABLE_RELATION_A_PLUS_B",
+        "DIFFERENCE_FIXED_AGE_TABLE_A_MINUS_B",
+        "SUM_AND_DIFFERENCE_KNOWN_CLASS_GENDER",
+        "PERIMETER_WITH_LENGTH_WIDTH_DIFFERENCE",
+        "TRANSFER_EQUALIZATION",
+        "UNKNOWN_QUANTITY_AFTER_TRANSFER",
+        "AGE_MULTIPLE_RELATION_TIME_SHIFT",
+        "AGE_REPEATED_RELATION"
+      ],
+      "page2": [
+        "SUM_DIFFERENCE_AGE_SYSTEM",
+        "TWO_CAPACITY_BOAT_COUNT_DISTRIBUTION",
+        "ROUND_TRIP_TRANSPORT_COST",
+        "AFFINE_MULTIPLE_DIFFERENCE_PRICE_RELATION",
+        "PRODUCT_RULE_COMBINATORICS",
+        "PERMUTATION_COMBINATION",
+        "ROUTE_COUNTING"
+      ]
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "path": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+    "sourceNodeId": "g6b_u05_6b05",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targets": [
+      {
+        "knowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+        "canonicalNameZh": "差倍問題",
+        "capabilityStatement": "學生能由兩量的差與倍數關係求各量。",
+        "reasoningInvariant": "差對應倍數差的份數，求一份後重建各量。",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+        "canonicalNameZh": "和倍問題",
+        "capabilityStatement": "學生能由兩量的和與倍數關係求各量。",
+        "reasoningInvariant": "總量按總份數平均分，再依倍數重建各量。",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ]
+  },
+  "currentVisualEvidenceResolution": {
+    "differenceMultiple": {
+      "knowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+      "directSupport": true,
+      "directVisualEvidencePages": [
+        1
+      ],
+      "directWitnesses": [
+        {
+          "page": 1,
+          "family": "AGE_MULTIPLE_RELATION_TIME_SHIFT",
+          "visibleProblem": "爸爸今年40歲，兒子今年10歲；問何時爸爸年齡是兒子3倍。",
+          "semanticReason": "年齡差30保持不變；3倍關係下差對應2份，符合差倍問題 invariant。"
+        },
+        {
+          "page": 1,
+          "family": "AGE_REPEATED_RELATION",
+          "visibleProblem": "媽媽今年39歲，女兒今年15歲；問幾年前媽媽年齡是女兒5倍。",
+          "semanticReason": "年齡差24保持不變；5倍關係下差對應4份，符合差倍問題 invariant。"
+        }
+      ],
+      "supportingButNotCoreWitnesses": [
+        {
+          "page": 2,
+          "family": "AFFINE_MULTIPLE_DIFFERENCE_PRICE_RELATION",
+          "semanticReason": "含倍數與差量，但為帶常數偏移的 affine relation，不作純差倍 core authority。"
+        }
+      ],
+      "supportClassification": "DIRECT_CANONICAL_INVARIANT_EVIDENCE"
+    },
+    "sumMultiple": {
+      "knowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+      "directSupport": false,
+      "directVisualEvidencePages": [],
+      "inspectedNearMisses": [
+        {
+          "page": 1,
+          "family": "SUM_FIXED_TABLE_RELATION_A_PLUS_B",
+          "reasonNotDirect": "有固定總和，但同一對量沒有倍數關係。"
+        },
+        {
+          "page": 1,
+          "family": "AGE_MULTIPLE_RELATION_TIME_SHIFT",
+          "reasonNotDirect": "有倍數關係，但題目核心依賴固定年齡差，不是已知總和。"
+        },
+        {
+          "page": 2,
+          "family": "SUM_DIFFERENCE_AGE_SYSTEM",
+          "reasonNotDirect": "已知總和與差，不是總和與倍數。"
+        },
+        {
+          "page": 2,
+          "family": "AFFINE_MULTIPLE_DIFFERENCE_PRICE_RELATION",
+          "reasonNotDirect": "為倍數加減常數與差量條件，不是純和倍模型。"
+        }
+      ],
+      "conflictType": "R02_TARGET_CANDIDATE_NOT_VISIBLE_IN_CURRENT_SOURCE_PDF",
+      "supportClassification": "DIRECT_EVIDENCE_MISSING"
+    },
+    "sourceRefConflict": false,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": true,
+    "silentR02RewriteAllowed": false,
+    "partialImplementationAllowed": false,
+    "reasonPartialImplementationForbidden": "Frozen Q015 queue row groups both rank-10 factor-multiple KPs; implementation may not silently split the row or drop the unsupported target."
+  },
+  "executableAuthorityReadback": {
+    "discoveryPrNumber": 1049,
+    "discoveryHeadSha": "9ec5870a7c3c3f7f256948dc44f2ac838369bff7",
+    "discoveryPrGateRunId": 35850138625,
+    "discoveryPrGateStatus": "PASS",
+    "targets": [
+      {
+        "knowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+        "r03IncomingEdges": [
+          {
+            "edgeId": "kpe_r03_0616",
+            "fromKnowledgePointId": "kp_g4a_u08_num_add_sub_left_assoc",
+            "toKnowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「同級加減由左至右」提供不可缺少的數量關係模型，因此是「差倍問題」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g4a_u08_4a08",
+              "source:g6b_u05_6b05"
+            ]
+          },
+          {
+            "edgeId": "kpe_r03_0617",
+            "fromKnowledgePointId": "kp_g6a_u05_ratio_partition_application",
+            "toKnowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「按比分配」提供不可缺少的數量關係模型，因此是「差倍問題」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g6a_u05_6a05",
+              "source:g6b_u05_6b05"
+            ]
+          }
+        ],
+        "r04": {
+          "primaryRuntimeProfileId": "profile_factor_multiple",
+          "classificationRuleId": "rule_factor_multiple",
+          "appliedModifierIds": [],
+          "requiredRuntimeCapabilityIds": [
+            "cap_pattern_spec_resolution",
+            "cap_deterministic_answer_model",
+            "cap_worksheet_document_assembly",
+            "cap_answer_key_projection",
+            "cap_html_print_renderer",
+            "cap_factor_multiple_reasoning",
+            "cap_factor_multiple_validator",
+            "cap_text_numeric_representation"
+          ],
+          "optionalRuntimeCapabilityIds": [],
+          "forbiddenRuntimeCapabilityIds": []
+        },
+        "r05": {
+          "baseDeliveryWaveId": "R05-W1",
+          "deliveryWaveId": "R05-W7",
+          "waveEscalatedByPrerequisite": true,
+          "prerequisiteWaveLowerBound": 7,
+          "intraWavePrerequisiteRank": 10
+        }
+      },
+      {
+        "knowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+        "r03IncomingEdges": [
+          {
+            "edgeId": "kpe_r03_0619",
+            "fromKnowledgePointId": "kp_g6a_u05_ratio_partition_application",
+            "toKnowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「按比分配」提供不可缺少的數量關係模型，因此是「和倍問題」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g6a_u05_6a05",
+              "source:g6b_u05_6b05"
+            ]
+          }
+        ],
+        "r04": {
+          "primaryRuntimeProfileId": "profile_factor_multiple",
+          "classificationRuleId": "rule_factor_multiple",
+          "appliedModifierIds": [],
+          "requiredRuntimeCapabilityIds": [
+            "cap_pattern_spec_resolution",
+            "cap_deterministic_answer_model",
+            "cap_worksheet_document_assembly",
+            "cap_answer_key_projection",
+            "cap_html_print_renderer",
+            "cap_factor_multiple_reasoning",
+            "cap_factor_multiple_validator",
+            "cap_text_numeric_representation"
+          ],
+          "optionalRuntimeCapabilityIds": [],
+          "forbiddenRuntimeCapabilityIds": []
+        },
+        "r05": {
+          "baseDeliveryWaveId": "R05-W1",
+          "deliveryWaveId": "R05-W7",
+          "waveEscalatedByPrerequisite": true,
+          "prerequisiteWaveLowerBound": 7,
+          "intraWavePrerequisiteRank": 10
+        }
+      }
+    ]
+  },
+  "semanticOwnershipLock": {
+    "differenceMultiple": {
+      "locked": true,
+      "semanticCore": "DIFFERENCE_MULTIPLE_RELATION_MODEL",
+      "invariant": "若較大量是較小量的 k 倍，則差量對應 k-1 份；先由差量除以 k-1 求一份，再重建兩量。",
+      "applicationContextsAllowed": true,
+      "ageDifferenceContextAllowed": true,
+      "q015OwnsPureDifferenceMultipleModel": true
+    },
+    "sumMultiple": {
+      "lockedCandidateOnly": true,
+      "implementationLocked": false,
+      "semanticCore": "SUM_MULTIPLE_RELATION_MODEL",
+      "invariant": "若較大量是較小量的 k 倍，則總量對應 k+1 份；先由總量除以 k+1 求一份，再重建兩量。",
+      "directSourceEvidenceRequiredBeforeImplementation": true
+    },
+    "exclusions": [
+      "SUM_DIFFERENCE_PROBLEM_REOWNERSHIP",
+      "AGE_OR_REPEATED_RELATION_REOWNERSHIP",
+      "WORK_OR_DISTRIBUTION_STRATEGY_REOWNERSHIP",
+      "AFFINE_MULTIPLE_WITH_OFFSET_AS_PURE_DIFFERENCE_MULTIPLE",
+      "COMBINATORICS",
+      "ROUTE_COUNTING",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_AUTHORITY_MUTATION",
+      "Q016_OR_LATER_IMPLEMENTATION"
+    ]
+  },
+  "scopeLock": {
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "frozenQueueTouched": false,
+    "r02Touched": false,
+    "r03Touched": false,
+    "r04Touched": false,
+    "r05Touched": false,
+    "q014ProductTouched": false,
+    "q016OrLaterTouched": false,
+    "driveSourceMutation": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ014D0Verified": true,
+    "sourceIdentityBound": true,
+    "exactTwoKnowledgePointIdentityBound": true,
+    "exactR03Bound": true,
+    "exactR04Bound": true,
+    "exactR05Bound": true,
+    "differenceMultipleSourceAuthoritySufficient": true,
+    "sumMultipleSourceAuthoritySufficient": false,
+    "newSupplementaryEvidenceRequiredForSumMultiple": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": true,
+    "partialImplementationAllowed": false,
+    "implementationAllowed": false,
+    "separateImplementationApprovalRequiredAfterEvidenceRepair": true,
+    "nextTask": "P07F_W7_Q015_SumMultipleSupplementaryEvidenceAuthorityRepair_ThenSemanticOwnershipLock"
+  }
+}
