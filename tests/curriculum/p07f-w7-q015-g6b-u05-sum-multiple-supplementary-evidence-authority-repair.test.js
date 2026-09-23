@@ -50,7 +50,7 @@ test("Q015 exact R03 remains unchanged for both factor-multiple KPs",()=>{
   const expected=repair.prerequisiteLock.byKnowledgePoint;
   for(const kp of [D,S]){
     const actual=getR03DirectPrerequisites(kp).map(e=>({knowledgePointId:e.fromKnowledgePointId,dependencyStrength:e.dependencyStrength,dependencyRole:e.dependencyRole,distanceBearing:e.distanceBearing})).sort((a,b)=>a.knowledgePointId.localeCompare(b.knowledgePointId));
-    assert.deepEqual(actual,[...expected[kp]].sort((a,b)=>a.knowledgePointId.localeCompare(b.knowledgePointId));
+    assert.deepEqual(actual,[...expected[kp]].sort((a,b)=>a.knowledgePointId.localeCompare(b.knowledgePointId)));
   }
   assert.equal(repair.prerequisiteLock.r03MutationApplied,false);
 });
