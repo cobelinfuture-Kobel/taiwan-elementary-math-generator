@@ -64,7 +64,7 @@ export function validateG6AU07P07F11Answer(q,submitted){
   let ok=false;
   if(p.targetKind==="HALF_CIRCUMFERENCE_LENGTH")ok=["πr","rπ"].includes(n);
   else if(p.targetKind==="RADIUS_WIDTH")ok=n==="r";
-  else if(p.targetKind==="AREA_CONSERVATION")ok=["不變","相同","面積不變","剪拼前後面積相同"].includes(raw.replaceAll(" ",""));
+  else if(p.targetKind==="AREA_CONSERVATION"){const compact=raw.replaceAll(" ","");ok=compact.startsWith("不變")||["相同","面積不變","剪拼前後面積相同"].includes(compact);}
   else if(p.targetKind==="FINER_SECTOR_APPROXIMATION")ok=raw.toUpperCase().startsWith(expected);
   else ok=["πr²","r²π"].includes(n);
   if(!ok)e.push("P07F11_ANSWER_MISMATCH");return Object.freeze({ok:e.length===0,errors:Object.freeze(e),normalizedAnswer:ok?expected:raw});

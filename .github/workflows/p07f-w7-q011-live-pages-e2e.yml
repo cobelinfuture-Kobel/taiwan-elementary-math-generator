@@ -16,6 +16,7 @@ on:
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
       - "site/modules/renderer/circle-area-derivation-diagram-p07f11.js"
       - "site/modules/renderer/html-renderer.js"
+      - "site/modules/renderer/sector-elements-diagram.js"
       - ".github/workflows/p07f-w7-q011-live-pages-e2e.yml"
 permissions:
   contents: write
