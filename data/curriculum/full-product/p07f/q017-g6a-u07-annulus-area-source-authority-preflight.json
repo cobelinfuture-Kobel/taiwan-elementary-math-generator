@@ -3,11 +3,11 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7_Q017_G6AU07_AnnulusArea_SourceAuthorityPreflight",
-  "status": "PREFLIGHT_EXECUTABLE_AUTHORITY_READBACK_PENDING",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_Q017_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D3_Q017_SOURCE_AND_DIRECT_ANNULUS_EVIDENCE_BOUND_EXECUTABLE_AUTHORITY_READBACK_PENDING",
-    "reduced": "QUEUE_SOURCE_AND_DIRECT_ANNULUS_VISUAL_EVIDENCE_LOCKED"
+    "after": "D2_Q017_ANNULUS_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "c07400d928bc9760b312b2777c52ba6a4f7493fb",
   "predecessorD0Evidence": {
@@ -163,10 +163,61 @@
     }
   },
   "executableAuthorityReadback": {
-    "pending": true,
-    "exactR03IncomingEdges": [],
-    "exactR04Mapping": null,
-    "exactR05Assignment": null
+    "pending": false,
+    "exactR03IncomingEdges": [
+      {
+        "edgeId": "kpe_r03_0568",
+        "fromKnowledgePointId": "kp_g6a_u07_circle_area_formula",
+        "toKnowledgePointId": "kp_g6a_u07_annulus_area",
+        "dependencyStrength": "required",
+        "dependencyRole": "procedural_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「圓面積公式」提供不可缺少的計算或操作程序，因此是「圓環面積」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6a_u07_6a07"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      }
+    ],
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6a_u07_annulus_area",
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "classificationRuleId": "rule_geometry_formula",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07"
+    },
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6a_u07_annulus_area",
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": true,
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "contractOnlyRequiredCapabilityIds": [
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED"
+    }
   },
   "q017ScopeLock": {
     "includedKnowledgePointIds": [
@@ -228,12 +279,88 @@
     "q014CircleAreaFormulaOwnershipProtected": true,
     "manualSourceChoiceRequired": false,
     "manualEvidenceChoiceRequired": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "sourceAuthoritySufficientForQ017ImplementationPlanning": true,
     "separateImplementationApprovalRequired": true,
-    "exactRuntimeMappingBound": false,
-    "exactR05AssignmentBound": false,
-    "exactPrerequisiteGraphBound": false,
-    "nextTask": "P07F_W7_Q017_ExecutableAuthorityReadbackThenFinalizePreflight"
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice017Implementation"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "queueFrozenProfileId": "profile_geometry_formula",
+    "queueFrozenRequiredW7CapabilityIds": [],
+    "executableReadbackPending": false,
+    "runtimeProfileReclassificationAllowed": false,
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6a_u07_annulus_area",
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "classificationRuleId": "rule_geometry_formula",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07"
+    }
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "edgeId": "kpe_r03_0568",
+        "fromKnowledgePointId": "kp_g6a_u07_circle_area_formula",
+        "toKnowledgePointId": "kp_g6a_u07_annulus_area",
+        "dependencyStrength": "required",
+        "dependencyRole": "procedural_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「圓面積公式」提供不可缺少的計算或操作程序，因此是「圓環面積」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6a_u07_6a07"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g6a_u07_circle_area_formula"
+    ],
+    "q014CircleAreaFormulaPrerequisiteRequired": true,
+    "q014D0ProductMayBeConsumedAsPrerequisite": true,
+    "q014CircleAreaFormulaTeachingMayNotBeReowned": true
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6a_u07_annulus_area",
+      "baseDeliveryWaveId": "R05-W5",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": true,
+      "primaryRuntimeProfileId": "profile_geometry_formula",
+      "contractOnlyRequiredCapabilityIds": [
+        "cap_geometry_formula_evaluation",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED"
+    },
+    "exactR05AssignmentVerified": true
   }
 }
