@@ -97,14 +97,14 @@ test("Q019 browser generator and worksheet expose both target families and rejec
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[KP,...FUTURE.slice(0,1)],questionMode:"numeric",questionCount:4,generationSeed:"mixed-not-admitted"});assert.equal(mixed.ok,false);
 });
 
-test("Q019 aggregate runtime remains reachable while current browser pointers advance through Q020",()=>{
+test("Q019 aggregate runtime remains reachable while current browser pointers advance through W7 Q015",()=>{
   const q18=generateBatchABrowserQuestions({sourceId:"g6a_u03_6a03",selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_g6a_u03_relation_equation_unknown"],questionMode:"numeric",questionCount:2,generationSeed:"q019-preserve-q018"});
   assert.equal(q18.ok,true,q18.errors.join(","));assert.ok(q18.questions.every(q=>q.knowledgePointId==="kp_g6a_u03_relation_equation_unknown"));
   const selectorText=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8");
   const bindingText=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const generatorText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const worksheetText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selectorText,/batch-a-selector-p06f20-extension/);assert.match(bindingText,/public-ui-capability-binding-p06f20/);
+  assert.match(selectorText,/batch-a-selector-p07f15-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f15/);
   assert.match(generatorText,/requestsP06F20/);assert.match(generatorText,/requestsP06F19/);assert.match(generatorText,/requestsP06F18/);assert.match(worksheetText,/buildP06F20Worksheet/);assert.match(worksheetText,/buildP06F19Worksheet/);assert.match(worksheetText,/buildP06F18Worksheet/);
 });
 
