@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P07F_W7_Q017",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u07_annulus_area"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6a_u07_annulus_area"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6a_u07_annulus_area": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P07F_W7_Q017.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false,
+    "dedicatedRendererAdded": true,
+    "sharedRendererRegistryChanged": true,
+    "ciCurrentWorkflowOwnershipTransfer": true
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "q016ProductMutation": false,
+    "q018OrLaterProductMutation": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "q011DerivationReownership": false,
+    "q014FormulaTeachingReownership": false,
+    "sectorAreaReownership": false,
+    "compositeCircleAreaReownership": false,
+    "q016CurrentPointerCompatibilityTestOnly": true,
+    "gciPm01SuccessorRuleOnly": true
+  }
+}

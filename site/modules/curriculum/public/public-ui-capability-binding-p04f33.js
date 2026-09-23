@@ -1,6 +1,6 @@
 export * from "./public-ui-capability-binding-p04f33-base.js";
 import * as base from "./public-ui-capability-binding-p04f33-base.js";
-import * as current from "./public-ui-capability-binding-p07f16.js";
+import * as current from "./public-ui-capability-binding-p07f17.js";
 const active=()=>typeof document!=="undefined";
 export const PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION=base.PUBLIC_UI_RUNTIME_CAPACITY_RECONCILIATION;
 export const PUBLIC_UI_SAFE_QUESTION_COUNT=base.PUBLIC_UI_SAFE_QUESTION_COUNT;
