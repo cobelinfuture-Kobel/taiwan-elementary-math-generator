@@ -91,7 +91,7 @@ test("Q020 remains reachable after the current browser pointers advance into W7 
   const bindingText=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const generatorText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const worksheetText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selectorText,/batch-a-selector-p07f11-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f11/);
+  assert.match(selectorText,/batch-a-selector-p07f12-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f12/);
   assert.match(generatorText,/requestsP06F20/);assert.match(generatorText,/requestsP06F19/);assert.match(worksheetText,/buildP06F20Worksheet/);assert.match(worksheetText,/buildP06F19Worksheet/);
 });
 

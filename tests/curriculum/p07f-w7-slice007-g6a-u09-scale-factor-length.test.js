@@ -102,7 +102,7 @@ test("W7 Q007 current browser pointers advance to P07F10 while Q006 Q005 Q004 Q0
   const bindingText=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const generatorText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const worksheetText=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selectorText,/batch-a-selector-p07f11-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f11/);
+  assert.match(selectorText,/batch-a-selector-p07f12-extension/);assert.match(bindingText,/public-ui-capability-binding-p07f12/);
   for(const id of ["10","09","08","07","06","05","04","03","02","01"])assert.match(generatorText,new RegExp("requestsP07F"+id));
   assert.match(generatorText,/requestsP06F20/);
   for(const id of ["08","07","06","05","04","03","02","01"])assert.match(worksheetText,new RegExp("buildP07F"+id+"Worksheet"));
