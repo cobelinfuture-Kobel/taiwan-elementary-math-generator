@@ -26,7 +26,7 @@
     "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
     "site/modules/renderer/sector-elements-diagram.js"
   ],
-  "activeCurrentSliceWorkflow": ".github/workflows/p07f-w7-q014-live-pages-e2e.yml",
+  "activeCurrentSliceWorkflow": ".github/workflows/p07f-w7-q015-live-pages-e2e.yml",
   "historicalCutoverWorkflows": [
     ".github/workflows/p05f-w5-q014-live-pages-e2e.yml",
     ".github/workflows/p05f-w5-q015-live-pages-e2e.yml",
@@ -68,7 +68,8 @@
     ".github/workflows/p07f-w7-q010-live-pages-e2e.yml",
     ".github/workflows/p07f-w7-q011-live-pages-e2e.yml",
     ".github/workflows/p07f-w7-q012-live-pages-e2e.yml",
-    ".github/workflows/p07f-w7-q013-live-pages-e2e.yml"
+    ".github/workflows/p07f-w7-q013-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q014-live-pages-e2e.yml"
   ],
   "invariants": {
     "volatileSharedPathOwnerCountAmongW5W6W7SliceE2E": 1,
@@ -85,9 +86,9 @@
   "successorRule": {
     "whenNextW7SliceBecomesCurrent": "Demote the previous current slice workflow by removing volatile shared trigger paths and its self-trigger; move activeCurrentSliceWorkflow authority to the new slice in the same implementation PR.",
     "requiredOutcome": "Exactly one W5/W6/W7 slice post-merge E2E workflow owns volatile shared current-path triggers.",
-    "lastAppliedTaskId": "P07F_W7DirectProductVerticalSlice014Implementation",
-    "previousCurrentSliceWorkflow": ".github/workflows/p07f-w7-q013-live-pages-e2e.yml",
-    "newCurrentSliceWorkflow": ".github/workflows/p07f-w7-q014-live-pages-e2e.yml",
+    "lastAppliedTaskId": "P07F_W7DirectProductVerticalSlice015Implementation",
+    "previousCurrentSliceWorkflow": ".github/workflows/p07f-w7-q014-live-pages-e2e.yml",
+    "newCurrentSliceWorkflow": ".github/workflows/p07f-w7-q015-live-pages-e2e.yml",
     "previousCurrentDemotedToOwnedPathsOnly": true
   },
   "target": {
