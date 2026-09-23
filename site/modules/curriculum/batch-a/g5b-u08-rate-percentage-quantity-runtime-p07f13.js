@@ -36,7 +36,7 @@ function errorRate(v){
     promptText:"一次數學考試中，小安答對 38 題、答錯 12 題。答錯率是多少？",
     answerValue:24,answerText:"24%",answerKind:"PERCENT",correctCount:38,wrongCount:12,baseQuantity:50,comparisonQuantity:12,ratePercent:24,
     denominatorIsBaseQuantityVerified:true,sourceContext:"SOURCE_ERROR_RATE",sourceExemplarMatch:true});
-  const p=standardPair(u-1),wrongCount=p.comparisonQuantity,correctCount=p.baseQuantity-wrongCount;
+  const p=standardPair(u),wrongCount=p.comparisonQuantity,correctCount=p.baseQuantity-wrongCount;
   return Object.freeze({variant:u,targetKind:"ERROR_RATE_PERCENT",semanticCore:"COMPARISON_QUANTITY_DIVIDED_BY_BASE_QUANTITY_GIVES_PERCENTAGE_RATE",
     promptText:"一次測驗中，答對 "+correctCount+" 題、答錯 "+wrongCount+" 題。答錯率是多少？",
     answerValue:p.ratePercent,answerText:trim(p.ratePercent)+"%",answerKind:"PERCENT",correctCount,wrongCount,baseQuantity:p.baseQuantity,comparisonQuantity:wrongCount,ratePercent:p.ratePercent,
@@ -60,7 +60,7 @@ function quantityDirect(v){
     promptText:"投 100 球，進球率是 42%。共投進幾球？",
     answerValue:42,answerText:"42",answerKind:"QUANTITY",baseQuantity:100,ratePercent:42,comparisonQuantity:42,
     baseTimesRateVerified:true,sourceContext:"SOURCE_RECONSTRUCT_MADE_QUANTITY",sourceExemplarMatch:true});
-  const p=standardPair(u-1);
+  const p=standardPair(u);
   return Object.freeze({variant:u,targetKind:"COMPARISON_QUANTITY",semanticCore:"BASE_QUANTITY_TIMES_PERCENTAGE_RATE_GIVES_COMPARISON_QUANTITY",
     promptText:"一共有 "+p.baseQuantity+" 個物件，其中 "+p.ratePercent+"% 符合條件。符合條件的有幾個？",
     answerValue:p.comparisonQuantity,answerText:String(p.comparisonQuantity),answerKind:"QUANTITY",baseQuantity:p.baseQuantity,ratePercent:p.ratePercent,comparisonQuantity:p.comparisonQuantity,
@@ -72,7 +72,7 @@ function complementQuantity(v){
     promptText:"數學作業共有 20 題，答錯率是 5%。答對幾題？",
     answerValue:19,answerText:"19",answerKind:"QUANTITY",baseQuantity:20,ratePercent:5,comparisonQuantity:1,complementQuantity:19,
     baseTimesRateVerified:true,complementStepVerified:true,sourceContext:"SOURCE_CORRECT_QUANTITY_FROM_ERROR_RATE",sourceExemplarMatch:true});
-  const p=standardPair(u-1),complementQuantity=p.baseQuantity-p.comparisonQuantity;
+  const p=standardPair(u),complementQuantity=p.baseQuantity-p.comparisonQuantity;
   return Object.freeze({variant:u,targetKind:"COMPLEMENT_QUANTITY",semanticCore:"BASE_QUANTITY_TIMES_PERCENTAGE_RATE_GIVES_COMPARISON_QUANTITY",
     promptText:"一次作業共有 "+p.baseQuantity+" 題，答錯率是 "+p.ratePercent+"%。答對幾題？",
     answerValue:complementQuantity,answerText:String(complementQuantity),answerKind:"QUANTITY",baseQuantity:p.baseQuantity,ratePercent:p.ratePercent,comparisonQuantity:p.comparisonQuantity,complementQuantity,
@@ -84,7 +84,7 @@ function reconstructMade(v){
     promptText:"前 100 球的進球率是 42%。前 100 球共投進幾球？",
     answerValue:42,answerText:"42",answerKind:"QUANTITY",baseQuantity:100,ratePercent:42,comparisonQuantity:42,
     baseTimesRateVerified:true,reconstructionStepVerified:true,sourceContext:"SOURCE_RECONSTRUCT_MADE_QUANTITY",sourceExemplarMatch:true});
-  const p=standardPair(u-1);
+  const p=standardPair(u);
   return Object.freeze({variant:u,targetKind:"RECONSTRUCTED_COMPARISON_QUANTITY",semanticCore:"BASE_QUANTITY_TIMES_PERCENTAGE_RATE_GIVES_COMPARISON_QUANTITY",
     promptText:"前 "+p.baseQuantity+" 次投球的進球率是 "+p.ratePercent+"%。共投進幾球？",
     answerValue:p.comparisonQuantity,answerText:String(p.comparisonQuantity),answerKind:"QUANTITY",baseQuantity:p.baseQuantity,ratePercent:p.ratePercent,comparisonQuantity:p.comparisonQuantity,
