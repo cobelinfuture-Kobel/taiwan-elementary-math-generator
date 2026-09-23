@@ -1,0 +1,218 @@
+{
+  "schemaName": "P07FW7Q015SumMultipleSupplementaryEvidenceAuthorityRepairV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q015_SumMultipleSupplementaryEvidenceAuthorityRepair_ThenSemanticOwnershipLock",
+  "status": "PASS_SUPPLEMENTARY_EVIDENCE_RECONCILED_TWO_KP_SEMANTIC_OWNERSHIP_LOCKED_IMPLEMENTATION_APPROVAL_REQUIRED",
+  "goalDistance": {
+    "before": "D3_Q015_EXACT_TWO_KP_RUNTIME_AND_PARTIAL_SOURCE_AUTHORITY_LOCKED_SUM_MULTIPLE_EVIDENCE_BLOCKER_ISOLATED",
+    "after": "D2_Q015_TWO_KP_SOURCE_AUTHORITY_RECONCILED_AND_SEMANTIC_OWNERSHIP_LOCKED",
+    "reduced": "SUM_MULTIPLE_EVIDENCE_BLOCKER_RESOLVED_AND_TWO_KP_OWNERSHIP_LOCKED"
+  },
+  "baselineMainSha": "d9e1faca3e5db31e54e4e5a56d02f61d5292c61b",
+  "priorPreflight": {
+    "path": "data/curriculum/full-product/p07f/q015-g6b-u05-factor-multiple-source-authority-preflight.json",
+    "mergeSha": "e39dd0cd9b6fdd86691999e0473dd9811b1a82c7",
+    "status": "BLOCKED_SUM_MULTIPLE_DIRECT_EVIDENCE_MISSING_REQUIRES_OPERATOR_SUPPLEMENTARY_EVIDENCE_SELECTION",
+    "auditStatePreserved": true
+  },
+  "targetIdentity": {
+    "queuePosition": 15,
+    "sliceId": "p07e_q015_r10_g6b_u05_6b05_profile_factor_multiple_c1",
+    "sourceNodeId": "g6b_u05_6b05",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice015Implementation",
+    "knowledgePointIds": [
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_sum_multiple_problem"
+    ]
+  },
+  "sourceAuthorityReconciliation": {
+    "originalCurriculumSource": {
+      "sourceNodeId": "g6b_u05_6b05",
+      "sourceTitle": "怎樣解題",
+      "sourcePdfDriveFileId": "19lrR3_bvpKIoJq5DsKaiQOUecsCzNDsl",
+      "sourcePdfSizeBytes": 849178,
+      "sourcePdfSha256": "1be6a253b422a427bf4a20a09ee478400f39a11e9b817c1acee308e5f6b9403b",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "differenceMultipleDirectEvidencePresent": true,
+      "sumMultipleDirectEvidencePresent": false,
+      "roleForQ015": "PRIMARY_CURRICULUM_CONTEXT_WITH_DIRECT_DIFFERENCE_MULTIPLE_WITNESSES"
+    },
+    "supplementaryEvidence": {
+      "authorityType": "EXISTING_PROJECT_DRIVE_EXAM_PDF_SUPPLEMENTARY_EVIDENCE",
+      "selectionBasis": "USER_APPROVED_NEXT_SHORTEST_STEP_TO_ADD_DIRECT_SUM_MULTIPLE_SUPPLEMENTARY_EVIDENCE",
+      "driveFileId": "1-m7SwI4NcyWEhyymQ9gE3mL_KeDE21Wc",
+      "fileName": "數學_109 下學期_六年級_新北市_市立安和國小_第二次段考(期末考)_康軒_試卷.pdf",
+      "mimeType": "application/pdf",
+      "sizeBytes": 191925,
+      "pageCount": 3,
+      "sha256": "b69d5e746ccc8c986dce156edcb92f7a75c2fad60dccf185a6894013d52d0467",
+      "visualReviewMethod": "PAGE_1_RENDERED_AT_200_DPI",
+      "ocrUsedAsAuthority": false,
+      "exactEvidencePage": 1,
+      "exactEvidenceLocation": "二、填填看，第5題",
+      "visibleInstitution": "新北市土城區安和國民小學",
+      "visibleAcademicTerm": "109學年度第二學期",
+      "visibleAssessment": "第二次定期考查試題",
+      "visibleGrade": "六年級",
+      "visibleSubject": "數學",
+      "visibleEditionInFileTitle": "康軒",
+      "exactProblemText": "甲、乙兩數，甲數是乙數的5倍，如果甲、乙兩數的和是480，甲數是（ ），乙數是（ ）。",
+      "directSemanticWitness": {
+        "totalQuantity": 480,
+        "largerIsSmallerTimes": 5,
+        "totalParts": 6,
+        "onePart": 80,
+        "smallerQuantity": 80,
+        "largerQuantity": 400,
+        "invariant": "總量按總份數 k+1 平均分，先求一份，再依倍數重建各量。",
+        "semanticClass": "SUM_MULTIPLE_RELATION_MODEL"
+      },
+      "directSemanticCoverage": {
+        "knownSumPresent": true,
+        "multiplicativeRelationPresent": true,
+        "sameTwoQuantitiesBoundToBothConditions": true,
+        "totalPartsKPlusOneRequired": true,
+        "onePartRecoveryRequired": true,
+        "bothQuantitiesReconstructed": true
+      },
+      "sufficiency": "SUFFICIENT_FOR_Q015_SUM_MULTIPLE_SEMANTIC_PLANNING_AND_OWNERSHIP_LOCK",
+      "durableDriveMutationRequired": false,
+      "reasonNoDriveMutation": "Evidence already exists as a durable project Drive PDF."
+    },
+    "r02Reconciliation": {
+      "r02ChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+      "historicalCandidateTextPreserved": true,
+      "r02MutationApplied": false,
+      "historicalEvidencePages": [
+        1,
+        2
+      ],
+      "historicalEvidencePagesConsumedAsDirectSumMultipleWitness": false,
+      "reconciliationRule": "R02_PAGES_RETAIN_HISTORICAL_AUDIT_ONLY_FOR_SUM_MULTIPLE; ORIGINAL_6B05_PDF_REMAINS_PRIMARY_CONTEXT; EXISTING_DRIVE_EXAM_PDF_IS_DIRECT_SUM_MULTIPLE_WITNESS",
+      "silentRewriteAllowed": false
+    }
+  },
+  "prerequisiteLock": {
+    "r03MutationApplied": false,
+    "byKnowledgePoint": {
+      "kp_g6b_u05_difference_multiple_problem": [
+        {
+          "knowledgePointId": "kp_g4a_u08_num_add_sub_left_assoc",
+          "dependencyStrength": "required",
+          "dependencyRole": "relation_model_foundation",
+          "distanceBearing": true
+        },
+        {
+          "knowledgePointId": "kp_g6a_u05_ratio_partition_application",
+          "dependencyStrength": "required",
+          "dependencyRole": "relation_model_foundation",
+          "distanceBearing": true
+        }
+      ],
+      "kp_g6b_u05_sum_multiple_problem": [
+        {
+          "knowledgePointId": "kp_g6a_u05_ratio_partition_application",
+          "dependencyStrength": "required",
+          "dependencyRole": "relation_model_foundation",
+          "distanceBearing": true
+        }
+      ]
+    }
+  },
+  "runtimeLock": {
+    "r04MutationApplied": false,
+    "primaryRuntimeProfileId": "profile_factor_multiple",
+    "classificationRuleId": "rule_factor_multiple",
+    "appliedModifierIds": [],
+    "requiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_factor_multiple_reasoning",
+      "cap_factor_multiple_validator",
+      "cap_text_numeric_representation"
+    ],
+    "r05MutationApplied": false,
+    "baseDeliveryWaveId": "R05-W1",
+    "deliveryWaveId": "R05-W7",
+    "waveEscalatedByPrerequisite": true,
+    "prerequisiteWaveLowerBound": 7,
+    "intraWavePrerequisiteRank": 10
+  },
+  "semanticOwnershipLock": {
+    "present": true,
+    "differenceMultiple": {
+      "knowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+      "semanticCore": "DIFFERENCE_MULTIPLE_RELATION_MODEL",
+      "canonicalReasoningInvariant": "若較大量是較小量的 k 倍，差量對應 k-1 份；先用差量除以 k-1 求一份，再重建兩量。",
+      "owns": [
+        "KNOWN_DIFFERENCE_PLUS_MULTIPLIER_TO_FIND_BOTH_QUANTITIES",
+        "AGE_DIFFERENCE_AS_INVARIANT_CONTEXT",
+        "DIFFERENCE_DIVIDED_BY_K_MINUS_ONE"
+      ]
+    },
+    "sumMultiple": {
+      "knowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+      "semanticCore": "SUM_MULTIPLE_RELATION_MODEL",
+      "canonicalReasoningInvariant": "若較大量是較小量的 k 倍，總量對應 k+1 份；先用總量除以 k+1 求一份，再重建兩量。",
+      "owns": [
+        "KNOWN_SUM_PLUS_MULTIPLIER_TO_FIND_BOTH_QUANTITIES",
+        "TOTAL_DIVIDED_BY_K_PLUS_ONE",
+        "RECONSTRUCT_SMALLER_AND_LARGER_QUANTITIES"
+      ],
+      "implementationSemanticLockAllowed": true
+    },
+    "sharedDoesNotOwn": [
+      "SUM_DIFFERENCE_PROBLEM",
+      "AGE_OR_REPEATED_RELATION_AS_SEPARATE_KP",
+      "WORK_OR_DISTRIBUTION_STRATEGY",
+      "AFFINE_MULTIPLE_WITH_OFFSET_AS_PURE_FACTOR_MULTIPLE",
+      "COMBINATORICS",
+      "ROUTE_COUNTING",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE"
+    ]
+  },
+  "scopeLock": {
+    "productImplementationAllowedByThisRepair": false,
+    "publicProductAdmissionAllowedByThisRepair": false,
+    "frozenQueueMutationAllowed": false,
+    "r02MutationAllowed": false,
+    "r03MutationAllowed": false,
+    "r04MutationAllowed": false,
+    "r05MutationAllowed": false,
+    "q014ProductMutationAllowed": false,
+    "q016OrLaterImplementationAllowed": false,
+    "originalSourcePdfMutationAllowed": false,
+    "supplementaryEvidenceDriveMutationAllowed": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false
+  },
+  "decision": {
+    "sourceIdentityBound": true,
+    "exactTwoKnowledgePointIdentityBound": true,
+    "differenceMultipleSourceAuthoritySufficient": true,
+    "sumMultipleOriginalPdfDirectSupport": false,
+    "supplementaryEvidenceDirectlySupportsSumMultiple": true,
+    "sourceEvidenceBlockerResolved": true,
+    "twoKnowledgePointSemanticOwnershipLockBound": true,
+    "implementationPlanningReady": true,
+    "implementationMayProceedWithoutSeparateApproval": false,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice015Implementation"
+  }
+}
