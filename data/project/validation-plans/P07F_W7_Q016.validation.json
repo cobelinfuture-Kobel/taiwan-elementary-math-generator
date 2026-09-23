@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P07F_W7_Q016_BOUNDED_VALIDATION",
+  "unitId": "g5b_u08_5b08",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p07f-w7-slice016-g5b-u08-find-base-percent-application.test.js",
+          "tests/curriculum/p07f-w7-q016-g5b-u08-find-base-quantity-percent-supplementary-evidence-authority-repair.test.js",
+          "tests/curriculum/p07f-w7-q016-g5b-u08-source-authority-preflight.test.js",
+          "tests/curriculum/p07f-w7-slice015-g6b-u05-factor-multiple.test.js",
+          "tests/curriculum/p07e-w7-direct-product-vertical-slice-queue.test.js",
+          "tests/governance/gci-pm01-postmerge-e2e-fanout.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p07f-w7-slice016-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}
