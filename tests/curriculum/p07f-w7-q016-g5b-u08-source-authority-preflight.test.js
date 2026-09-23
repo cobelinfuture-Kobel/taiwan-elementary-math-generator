@@ -26,11 +26,21 @@ test("Q016 reverse-base direct witness is absent but discount/increase is direct
  assert.equal(v.manualSourceChoiceRequired,false);assert.equal(v.manualEvidenceChoiceRequired,true);assert.equal(v.partialImplementationAllowed,false);
 });
 
-test("Q016 live executable authority resolves to ratio-percent W7 rank11 for both targets",()=>{
- for(const kp of ids){
-   const r03=getR03DirectPrerequisites(kp);assert.ok(r03.length>0,kp+":R03_EMPTY");assert.ok(r03.every(e=>e.toKnowledgePointId===kp));
-   const r04=getR04KnowledgePointCapabilityMapping(kp);assert.ok(r04);assert.equal(r04.primaryRuntimeProfileId,"profile_ratio_percent");assert.equal(r04.classificationRuleId,"rule_ratio_percent");assert.ok(Array.isArray([...r04.appliedModifierIds]));assert.ok(r04.requiredRuntimeCapabilityIds.includes("cap_ratio_percent_reasoning"));assert.ok(r04.requiredRuntimeCapabilityIds.includes("cap_ratio_rate_validator"));
-   const r05=getR05DeliveryWaveAssignment(kp);assert.ok(r05);assert.equal(r05.deliveryWaveId,"R05-W7");assert.equal(r05.intraWavePrerequisiteRank,11);
+test("Q016 exact executable R03 R04 R05 authority is frozen by readback",()=>{
+ const strip=e=>({edgeId:e.edgeId,fromKnowledgePointId:e.fromKnowledgePointId,toKnowledgePointId:e.toKnowledgePointId,dependencyStrength:e.dependencyStrength,dependencyRole:e.dependencyRole,alternativeGroupId:e.alternativeGroupId,distanceBearing:e.distanceBearing,rationale:e.rationale,evidenceRefs:e.evidenceRefs});
+ assert.equal(pre.executableAuthorityReadback.pending,false);
+ for(const expected of pre.executableAuthorityReadback.targets){
+   const kp=expected.knowledgePointId;
+   const r03=getR03DirectPrerequisites(kp).map(strip).sort((a,b)=>a.edgeId.localeCompare(b.edgeId));
+   assert.deepEqual(r03,[...expected.r03IncomingEdges].sort((a,b)=>a.edgeId.localeCompare(b.edgeId)));
+   const r04=getR04KnowledgePointCapabilityMapping(kp);assert.ok(r04);
+   assert.equal(r04.primaryRuntimeProfileId,expected.r04.primaryRuntimeProfileId);assert.equal(r04.classificationRuleId,expected.r04.classificationRuleId);
+   assert.deepEqual([...r04.appliedModifierIds],expected.r04.appliedModifierIds);
+   assert.deepEqual([...r04.requiredRuntimeCapabilityIds],expected.r04.requiredRuntimeCapabilityIds);
+   assert.deepEqual([...r04.optionalRuntimeCapabilityIds],expected.r04.optionalRuntimeCapabilityIds);
+   assert.deepEqual([...r04.forbiddenRuntimeCapabilityIds],expected.r04.forbiddenRuntimeCapabilityIds);
+   const r05=getR05DeliveryWaveAssignment(kp);assert.ok(r05);
+   for(const key of ["baseDeliveryWaveId","deliveryWaveId","waveEscalatedByPrerequisite","prerequisiteWaveLowerBound","intraWavePrerequisiteRank"])assert.equal(r05[key],expected.r05[key]);
  }
 });
 
