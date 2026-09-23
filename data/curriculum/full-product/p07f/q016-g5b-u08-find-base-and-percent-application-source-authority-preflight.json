@@ -1,0 +1,427 @@
+{
+  "schemaName": "P07FW7Q016G5BU08FindBaseAndPercentApplicationSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q016_SourceAuthorityPreflight",
+  "status": "BLOCKED_FIND_BASE_QUANTITY_PERCENT_DIRECT_EVIDENCE_MISSING_REQUIRES_OPERATOR_SUPPLEMENTARY_EVIDENCE_SELECTION",
+  "goalDistance": {
+    "before": "D3_Q016_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D3_Q016_EXACT_TWO_KP_RUNTIME_AND_PARTIAL_SOURCE_AUTHORITY_LOCKED_FIND_BASE_EVIDENCE_BLOCKER_ISOLATED",
+    "reduced": "SOURCE_RUNTIME_AND_ONE_OF_TWO_TARGET_EVIDENCE_LOCKED"
+  },
+  "baselineMainSha": "f3d074473769832e81a10d0ef6470ac0224c38ee",
+  "predecessorD0Evidence": {
+    "q015TaskId": "P07F_W7DirectProductVerticalSlice015Implementation",
+    "q015Status": "PASS_E6_D0_COMPLETE",
+    "q015MergeSha": "bd9e65f1493c76d05f85fd39a4194f482a6cf195",
+    "q015PostMergeWorkflowRunId": 35869157887,
+    "q015DurableReadbackPath": "docs/ci/latest-p07f-w7-q015-pages-e2e.json",
+    "q015DurableReadbackCommitSha": "e315acc98c1dd4894e4c0abe79af4c7b242be8d7",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q015_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "ad37a23f07b3de22a088f5bf9f59e2b45f13cc3c350bb84def21860d21135843",
+    "queuePosition": 16,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q016_r11_g5b_u08_5b08_profile_ratio_percent_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice016Implementation",
+    "previousSliceId": "p07e_q015_r10_g6b_u05_6b05_profile_factor_multiple_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g5b_u08_5b08",
+    "supportingSourceNodeIds": [
+      "g5b_u08_5b08"
+    ],
+    "intraWavePrerequisiteRank": 11,
+    "primaryRuntimeProfileId": "profile_ratio_percent",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_g5b_u08_find_base_quantity_percent",
+      "kp_g5b_u08_percent_discount_increase_application"
+    ],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5b_u08_5b08",
+    "sourceCode": "5b08",
+    "sourceTitle": "比率與百分率",
+    "sourcePdfTitle": "meow911_5b08_source.pdf",
+    "originalFileName": "題型總覽-5b08-比率與百分率.pdf",
+    "sourceUrl": "https://meow911.com/5b08/",
+    "sourcePdfDriveFileId": "1k6bQoFDRjVNtHwOXPlD5Op9dnD5RpPrw",
+    "sourcePdfSizeBytes": 716229,
+    "sourcePdfSha256": "5f170aa99ab3a8bde561a8c6bf0cbacce5fc368ab4ea5c9a89ddbc6e0e45c9e7",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+    "reviewDateContext": "2026-09-23",
+    "ocrUsedAsAuthority": false,
+    "visualFamilies": {
+      "page1": [
+        "PART_WHOLE_RATIO_AS_FRACTION",
+        "RATIO_SUM_TO_ONE",
+        "PERCENTAGE_OF_QUANTITY_FORWARD_RELATION",
+        "PERCENT_SYMBOL_BASE100_IDENTITY",
+        "DISCOUNT_RETENTION_RATE_IDENTITY",
+        "MARKUP_GROWTH_RATE_IDENTITY",
+        "DECIMAL_PERCENT_CONVERSION",
+        "FRACTION_PERCENT_CONVERSION"
+      ],
+      "page2": [
+        "VOTE_COUNTS_TO_PERCENT",
+        "ERROR_RATE_FROM_COUNTS",
+        "CORRECT_QUANTITY_FROM_ERROR_RATE",
+        "UPDATED_SHOOTING_RATE",
+        "DISCOUNT_APPLICATION",
+        "MARKUP_THEN_DISCOUNT_APPLICATION",
+        "SUGAR_WATER_RATIO_APPLICATION"
+      ]
+    },
+    "auxiliaryDriveMetadata": {
+      "sourceMetadataDriveFileId": "1a3o-3o2N1vYDX0og3yzZ5AIOn2IkUHb0",
+      "sourceMetadataManualReviewed": false,
+      "sourceMetadataExtractionStatus": "pending",
+      "verificationNotesDriveFileId": "19tZvq64UQx8FVyIw2mZXU4sPkD-tmcKJ",
+      "verificationNotesStatus": "pending",
+      "verificationNotesSaysVisualVerificationNotCompleted": true,
+      "authorityTreatment": "STALE_AUXILIARY_NOTES_PRESERVED_NOT_USED_TO_OVERRIDE_R02_OR_CURRENT_FULL_PAGE_VISUAL_READBACK"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "path": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+    "sourceNodeId": "g5b_u08_5b08",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targets": [
+      {
+        "knowledgePointId": "kp_g5b_u08_find_base_quantity_percent",
+        "canonicalNameZh": "由百分率反求基準量",
+        "capabilityStatement": "學生能以比較量除以百分率求基準量。",
+        "reasoningInvariant": "反求基準量後乘原百分率必須重建比較量。",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_g5b_u08_percent_discount_increase_application",
+        "canonicalNameZh": "折扣與增減百分率",
+        "capabilityStatement": "學生能處理打折、加成、成長或減少問題。",
+        "reasoningInvariant": "新量等於原量乘保留率或成長率，百分率角色不可混淆。",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ],
+    "predecessorOwnedKnowledgePointRows": [
+      {
+        "queuePosition": 8,
+        "sliceId": "p07e_q008_r9_g5b_u08_5b08_profile_ratio_percent_c1",
+        "knowledgePointIds": [
+          "kp_g5b_u08_ratio_fraction_decimal_percent_conversion"
+        ]
+      },
+      {
+        "queuePosition": 13,
+        "sliceId": "p07e_q013_r10_g5b_u08_5b08_profile_ratio_percent_c1",
+        "knowledgePointIds": [
+          "kp_g5b_u08_find_percentage_rate",
+          "kp_g5b_u08_percentage_of_quantity"
+        ]
+      }
+    ]
+  },
+  "currentVisualEvidenceResolution": {
+    "findBaseQuantityPercent": {
+      "knowledgePointId": "kp_g5b_u08_find_base_quantity_percent",
+      "directSupport": false,
+      "directVisualEvidencePages": [],
+      "inspectedNearMisses": [
+        {
+          "page": 1,
+          "family": "PERCENTAGE_OF_QUANTITY_FORWARD_RELATION",
+          "visibleRelation": "參加人數 = 全部人數 × 參加比率",
+          "reasonNotDirect": "畫面給的是基準量與比率求比較量，沒有比較量與百分率已知、反求基準量的題目。"
+        },
+        {
+          "page": 1,
+          "family": "DISCOUNT_RETENTION_RATE_IDENTITY",
+          "visibleRelation": "打85折 = 定價 × 85% = 售價；25% off = 定價 × 75% = 售價",
+          "reasonNotDirect": "公式仍是原量乘保留率求新量，沒有把原量作為未知數反求。"
+        },
+        {
+          "page": 2,
+          "family": "DISCOUNT_APPLICATION",
+          "visibleProblem": "電視定價15800打85折、電腦定價36000有25% off，求售價。",
+          "reasonNotDirect": "定價已知、求售價，是 forward percentage-of-quantity application。"
+        }
+      ],
+      "conflictType": "R02_TARGET_CANDIDATE_NOT_VISIBLE_AS_DIRECT_REVERSE_BASE_PROBLEM_IN_CURRENT_SOURCE_PDF",
+      "supportClassification": "DIRECT_EVIDENCE_MISSING"
+    },
+    "percentDiscountIncreaseApplication": {
+      "knowledgePointId": "kp_g5b_u08_percent_discount_increase_application",
+      "directSupport": true,
+      "directVisualEvidencePages": [
+        1,
+        2
+      ],
+      "directWitnesses": [
+        {
+          "page": 1,
+          "family": "DISCOUNT_RETENTION_RATE_IDENTITY",
+          "visibleRelation": "打85折 = 定價 × 85% = 售價；25% off = 定價 × 75% = 售價",
+          "semanticReason": "直接呈現折扣率/保留率到售價的乘法關係。"
+        },
+        {
+          "page": 1,
+          "family": "MARKUP_GROWTH_RATE_IDENTITY",
+          "visibleRelation": "加2成 = 100% + 20% = 成本 × 120% = 定價",
+          "semanticReason": "直接呈現加成後新量等於原量乘成長率。"
+        },
+        {
+          "page": 2,
+          "family": "DISCOUNT_APPLICATION",
+          "visibleProblem": "家電促銷：電視15800元打85折、電腦36000元25% off，求售價。",
+          "semanticReason": "直接應用折扣後新量。"
+        },
+        {
+          "page": 2,
+          "family": "MARKUP_THEN_DISCOUNT_APPLICATION",
+          "visibleProblem": "運動外套成本1200元，加3成定價，再打85折，求定價與購買價。",
+          "semanticReason": "直接呈現先加成再折扣的多步百分率應用。"
+        }
+      ],
+      "supportClassification": "DIRECT_LITERAL_APPLICATION"
+    },
+    "sourceRefConflict": false,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": true,
+    "silentR02RewriteAllowed": false,
+    "partialImplementationAllowed": false,
+    "reasonPartialImplementationForbidden": "Frozen Q016 queue row groups both rank-11 ratio-percent KPs; implementation may not silently split the row or drop the unsupported reverse-base target."
+  },
+  "executableAuthorityReadback": {
+    "pending": false,
+    "discoveryPrNumber": 1052,
+    "discoveryHeadSha": "e2ead3190db787bc633bc6f896422b79393a984b",
+    "discoveryPrGateRunId": 35871392096,
+    "discoveryPrGateStatus": "PASS_DISCOVERY_READBACK",
+    "targets": [
+      {
+        "knowledgePointId": "kp_g5b_u08_find_base_quantity_percent",
+        "r03IncomingEdges": [
+          {
+            "edgeId": "kpe_r03_0488",
+            "fromKnowledgePointId": "kp_g5b_u08_find_percentage_rate",
+            "toKnowledgePointId": "kp_g5b_u08_find_base_quantity_percent",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「由兩量求百分率」提供不可缺少的數量關係模型，因此是「由百分率反求基準量」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g5b_u08_5b08"
+            ]
+          },
+          {
+            "edgeId": "kpe_r03_0489",
+            "fromKnowledgePointId": "kp_g5b_u08_percentage_of_quantity",
+            "toKnowledgePointId": "kp_g5b_u08_find_base_quantity_percent",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「求百分率對應量」提供不可缺少的數量關係模型，因此是「由百分率反求基準量」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g5b_u08_5b08"
+            ]
+          }
+        ],
+        "r04": {
+          "primaryRuntimeProfileId": "profile_ratio_percent",
+          "classificationRuleId": "rule_ratio_percent",
+          "appliedModifierIds": [],
+          "requiredRuntimeCapabilityIds": [
+            "cap_pattern_spec_resolution",
+            "cap_deterministic_answer_model",
+            "cap_worksheet_document_assembly",
+            "cap_answer_key_projection",
+            "cap_html_print_renderer",
+            "cap_ratio_percent_reasoning",
+            "cap_ratio_rate_validator",
+            "cap_text_application_representation"
+          ],
+          "optionalRuntimeCapabilityIds": [],
+          "forbiddenRuntimeCapabilityIds": []
+        },
+        "r05": {
+          "baseDeliveryWaveId": "R05-W7",
+          "deliveryWaveId": "R05-W7",
+          "waveEscalatedByPrerequisite": false,
+          "prerequisiteWaveLowerBound": 7,
+          "intraWavePrerequisiteRank": 11
+        }
+      },
+      {
+        "knowledgePointId": "kp_g5b_u08_percent_discount_increase_application",
+        "r03IncomingEdges": [
+          {
+            "edgeId": "kpe_r03_0491",
+            "fromKnowledgePointId": "kp_g5a_u08_mixed_operation_order",
+            "toKnowledgePointId": "kp_g5b_u08_percent_discount_increase_application",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「KP1」提供不可缺少的數量關係模型，因此是「折扣與增減百分率」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g5a_u08_5a08",
+              "source:g5b_u08_5b08"
+            ]
+          },
+          {
+            "edgeId": "kpe_r03_0492",
+            "fromKnowledgePointId": "kp_g5b_u08_percentage_of_quantity",
+            "toKnowledgePointId": "kp_g5b_u08_percent_discount_increase_application",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「求百分率對應量」提供不可缺少的數量關係模型，因此是「折扣與增減百分率」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g5b_u08_5b08"
+            ]
+          }
+        ],
+        "r04": {
+          "primaryRuntimeProfileId": "profile_ratio_percent",
+          "classificationRuleId": "rule_ratio_percent",
+          "appliedModifierIds": [
+            "mod_application_semantics"
+          ],
+          "requiredRuntimeCapabilityIds": [
+            "cap_pattern_spec_resolution",
+            "cap_deterministic_answer_model",
+            "cap_worksheet_document_assembly",
+            "cap_answer_key_projection",
+            "cap_html_print_renderer",
+            "cap_ratio_percent_reasoning",
+            "cap_ratio_rate_validator",
+            "cap_text_application_representation",
+            "cap_relation_model_binding",
+            "cap_word_problem_semantic_validation"
+          ],
+          "optionalRuntimeCapabilityIds": [
+            "cap_global_context_binding",
+            "cap_pbl_task_set_projection"
+          ],
+          "forbiddenRuntimeCapabilityIds": []
+        },
+        "r05": {
+          "baseDeliveryWaveId": "R05-W7",
+          "deliveryWaveId": "R05-W7",
+          "waveEscalatedByPrerequisite": false,
+          "prerequisiteWaveLowerBound": 7,
+          "intraWavePrerequisiteRank": 11
+        }
+      }
+    ]
+  },
+  "semanticOwnershipLock": {
+    "findBaseQuantityPercent": {
+      "lockedCandidateOnly": true,
+      "implementationLocked": false,
+      "semanticCore": "FIND_BASE_QUANTITY_FROM_COMPARISON_AND_PERCENT_RATE",
+      "invariant": "基準量 = 比較量 ÷ 百分率；反求後以基準量 × 原百分率必須重建比較量。",
+      "directSourceEvidenceRequiredBeforeImplementation": true
+    },
+    "percentDiscountIncreaseApplication": {
+      "locked": true,
+      "semanticCore": "PERCENT_DISCOUNT_INCREASE_APPLICATION",
+      "invariant": "新量 = 原量 × 保留率或成長率；折扣率、保留率、增加率與成長率的角色不可混淆。",
+      "directSourceEvidenceSufficient": true,
+      "singleStepDiscountAllowed": true,
+      "singleStepMarkupAllowed": true,
+      "markupThenDiscountAllowed": true
+    },
+    "exclusions": [
+      "Q008_FRACTION_DECIMAL_PERCENT_CONVERSION_REOWNERSHIP",
+      "Q013_FIND_PERCENTAGE_RATE_REOWNERSHIP",
+      "Q013_PERCENTAGE_OF_QUANTITY_REOWNERSHIP",
+      "GENERIC_RATIO_APPLICATION_REOWNERSHIP",
+      "SUGAR_WATER_RATIO_AS_Q016_CORE",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_AUTHORITY_MUTATION",
+      "Q017_OR_LATER_IMPLEMENTATION"
+    ]
+  },
+  "scopeLock": {
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "frozenQueueTouched": false,
+    "r02Touched": false,
+    "r03Touched": false,
+    "r04Touched": false,
+    "r05Touched": false,
+    "q015ProductTouched": false,
+    "q017OrLaterTouched": false,
+    "driveSourceMutation": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ015D0Verified": true,
+    "sourceIdentityBound": true,
+    "exactTwoKnowledgePointIdentityBound": true,
+    "exactR03Bound": true,
+    "exactR04Bound": true,
+    "exactR05Bound": true,
+    "findBaseQuantityPercentSourceAuthoritySufficient": false,
+    "percentDiscountIncreaseApplicationSourceAuthoritySufficient": true,
+    "newSupplementaryEvidenceRequiredForFindBaseQuantityPercent": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": true,
+    "partialImplementationAllowed": false,
+    "implementationAllowed": false,
+    "separateImplementationApprovalRequiredAfterEvidenceRepair": true,
+    "nextTask": "P07F_W7_Q016_FindBaseQuantityPercentSupplementaryEvidenceAuthorityRepair_ThenSemanticOwnershipLock"
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "r02ReviewedSourceAuthorityMustBeReused": true,
+    "currentFullPageVisualReadbackMustBeBound": true,
+    "staleAuxiliaryDriveMetadataMustRemainExplicit": true
+  }
+}
