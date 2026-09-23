@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice013Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "PASS_CI_SYNCED_AND_MERGED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g5a-u04-expand-reduce-simplest-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f13-extension.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-generator-p03f13.js",
+      "site/modules/curriculum/batch-a/simplest-fraction-runtime.js",
+      "site/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f13.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f13-extension.js",
+      "src/curriculum/full-product/p03f-slice013-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice013-product-admission.mjs",
+      "tests/curriculum/p03f-slice013-simplest-fraction.test.js",
+      "tests/curriculum/p03f-slice013-product-admission.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice013-product-acceptance.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice013-product-admission/g5a-u04-simplest-fraction.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice013-product-admission/g5a-u04-simplest-fraction.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE012_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice013-simplest-fraction-authority.json",
+      "data/curriculum/full-product/p03f/slice013-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE013_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE013_READBACK.md"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice013-product-admission/p03f-slice013-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice013-product-admission/g5a-u04-simplest-fraction.html",
+        "sha256": "d1613cda70b636c59295410c1bc1fb4eb2bc5d2f7528cfd34551b83f71206a91"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice013-product-admission/g5a-u04-simplest-fraction.pdf",
+        "sha256": "a7f06d3ab30263b25d2603110e7fc9fe5b38720f87fce1c9e7bab0b4fdf6c969"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Queue position 13 is merged at D0 with two G5A-U04 KnowledgePoints, five PatternSpecs, three shared fraction capabilities, a true DIVIDE arithmetic witness, existing W02 application-context lineage, reviewed two-page HTML/PDF artifacts and a 2573-test exact-head regression."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice014Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE",
+    "requiresSeparateApproval": false
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 432,
+    "implementationHeadSha": "726770b0c5a9684b6afa600b9c39ec44173f4535",
+    "implementationMergeSha": "2d22b7e17dc3c66134d31d873b51f1c3e5990748",
+    "implementationMergedAt": "2026-07-29T00:52:54Z",
+    "preD0NodeWorkflowRunId": null,
+    "preD0ChromiumWorkflowRunId": 30411324805,
+    "preD0ChromiumArtifactId": null,
+    "artifactMaterializationCommitSha": null,
+    "artifactMaterializationWorkflowRunId": 30411324805,
+    "reviewedArtifactId": 8708565585,
+    "reviewedArtifactDigest": "sha256:7cbd6cdacd75b3aa78f62fd07f4cf05103650c2835db32a610fc8b03d1523765",
+    "finalNodeWorkflowRunId": 30412240949,
+    "finalNodeWorkflowHeadSha": "726770b0c5a9684b6afa600b9c39ec44173f4535",
+    "finalChromiumWorkflowRunId": 30412240956,
+    "finalChromiumArtifactId": 8708849621,
+    "nodeTestsPassed": 2573,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": true,
+    "finalChromiumArtifactDigest": "sha256:e474b36ba196b79b39cba8f3fa52e3d663437506005d3cdb4855660ec4c07253"
+  }
+}

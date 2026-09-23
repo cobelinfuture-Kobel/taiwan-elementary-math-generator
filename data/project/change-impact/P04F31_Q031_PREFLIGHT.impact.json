@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P04F31_Q031_PREFLIGHT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g5b_u02_fraction_times_integer",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5b_u02_fraction_times_integer"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5b_u02_fraction_times_integer": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P04F31_Q031_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

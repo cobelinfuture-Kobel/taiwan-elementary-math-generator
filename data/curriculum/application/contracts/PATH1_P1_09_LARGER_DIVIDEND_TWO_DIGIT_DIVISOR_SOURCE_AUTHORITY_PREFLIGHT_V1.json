@@ -1,0 +1,190 @@
+{
+  "schemaName": "Path1P109LargerDividendTwoDigitDivisorSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_AUTHORITY_PREFLIGHT_V1",
+  "resumeAuthority": "OPERATOR_APPROVED_PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_AUTHORITY_PREFLIGHT_V1",
+  "status": "P1_09_SOURCE_AUTHORITY_PREFLIGHT_LOCKED_EXISTING_ROUTE_ACCEPTANCE_PENDING",
+  "operatorScope": "APPROVED_PREFLIGHT_ONLY",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicCutoverAllowed": false,
+  "publicBindingMutationAllowed": false,
+  "path1MatrixChanged": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "newRelationMinted": false,
+  "newPatternSpecMaterialized": false,
+  "authority": {
+    "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+    "preflightBaseMain": "741b9b6b6e3a1da72fdf150b9b6db73d89f1f5d0",
+    "path1MatrixPath": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "publicBindingPath": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "publicWorksheetBuilderPath": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "predecessorCloseoutPath": "data/curriculum/application/contracts/PATH1_P1_08_BASELINE_ONLY_FINAL_CLOSEOUT_V1.json",
+    "cloudCorpusRegistryPath": "data/curriculum/application/reviews/PATH1_CLOUD_SOURCE_CORPUS_REGISTRY_V2.json",
+    "cloudSourceProvenanceReviewPath": "data/curriculum/application/reviews/PATH1_P1_09_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1.json"
+  },
+  "queueAuthority": {
+    "previousBlockId": "P1-08",
+    "previousBlockTitle": "二位數除數",
+    "previousBlockStatus": "D0_P108_GENERIC_ARITHMETIC_ROUTE_STABLE_ACCEPTED_BASELINE_ONLY",
+    "previousBlockCloseoutPr": 860,
+    "previousBlockCloseoutMergeSha": "29d1c269d705086a551d53e5f352670897e63848",
+    "currentBlockId": "P1-09",
+    "currentBlockTitle": "多位數÷二位數",
+    "currentBlockType": "DIFFICULTY_EXPANSION",
+    "requiredPrerequisiteBlockIds": ["P1-08"],
+    "prerequisiteSatisfied": true,
+    "nextBlockId": "P1-10",
+    "nextBlockTitle": "多位數÷三位數",
+    "replanCompletedBlocksAllowed": false
+  },
+  "matrixAuthority": {
+    "generationSemantics": "DIFFICULTY_EXPANSION_REUSING_EXISTING_TWO_DIGIT_DIVISOR_KNOWLEDGE",
+    "primaryKnowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "matrixDifficultyExpansionId": "larger_dividend_two_digit_divisor",
+    "matrixDescription": "增加被除數位數但維持估商、試商與商位值規則。",
+    "masteryGateMode": "REQUIRED_PATTERN_COVERED",
+    "masteryRequiredKnowledgePointIds": [],
+    "masteryRequiredPatternIds": ["larger_dividend_two_digit_divisor"],
+    "newCanonicalKnowledgePointRequired": false
+  },
+  "sourceAuthority": {
+    "proceduralPredecessorSource": {
+      "sourceId": "g4a_u04_4a04",
+      "fileName": "batchA_02-題型總覽-4a04-整數的除法.pdf",
+      "googleDriveFileId": "1KgODz4ieK6XTFlV9OlqqXLtuDksP0t1f",
+      "observedSections": [
+        "3位數÷2位數 第一型（十位夠除）",
+        "3位數÷2位數 第二型（十位不夠除）",
+        "除數先用整10估算",
+        "商與餘數，且餘數小於除數"
+      ],
+      "authorityUse": "Provide the already-canonical two-digit-divisor long-division procedure that P1-09 extends by one dividend digit."
+    },
+    "gradeStageWitness": {
+      "fileId": "1B4lCR5BQngMGVNIMN-DGcfqMfC7y0jWI",
+      "title": "01_國小數學4年級學習地圖_(教).pdf",
+      "witness": "整數的除法：二到四位數÷二位數的問題",
+      "authorityUse": "Directly confirms that four-digit dividend divided by two-digit divisor belongs in the grade-4 integer-division progression."
+    },
+    "assessmentWitness": {
+      "fileId": "1ZLTZRGPTIFlYe9hIZBelgb-niUc8h1jx",
+      "title": "數學_110 上學期_四年級_彰化縣_縣立僑愛國小_第一次段考(期中考)_南一_試卷.pdf",
+      "expression": "4024÷23",
+      "quotient": 174,
+      "remainder": 22,
+      "authorityUse": "Direct assessment witness for a four-digit dividend, two-digit divisor, three-digit quotient, and non-zero remainder."
+    }
+  },
+  "formalExpansionContract": {
+    "expansionKind": "DESCRIPTIVE_DIFFICULTY_EXPANSION",
+    "canonicalKnowledgePointMinted": false,
+    "dividendMin": 1000,
+    "dividendMax": 9999,
+    "divisorMin": 10,
+    "divisorMax": 99,
+    "answerType": "quotient_remainder",
+    "arithmeticInvariant": "dividend = divisor * quotient + remainder AND 0 <= remainder < divisor",
+    "cases": [
+      {
+        "caseId": "P109_4DIGIT_HUNDREDS_SUFFICIENT",
+        "predicate": "1000 <= dividend <= 9999 AND 10 <= divisor <= 99 AND firstTwoDividendDigits >= divisor",
+        "expectedQuotientDigits": 3,
+        "quotientStartPlace": "HUNDREDS",
+        "pedagogicalOwnership": "P1-09 arithmetic execution; explicit quotient-place classification remains P1-07"
+      },
+      {
+        "caseId": "P109_4DIGIT_HUNDREDS_INSUFFICIENT",
+        "predicate": "1000 <= dividend <= 9999 AND 10 <= divisor <= 99 AND firstTwoDividendDigits < divisor",
+        "expectedQuotientDigits": 2,
+        "quotientStartPlace": "TENS",
+        "pedagogicalOwnership": "P1-09 arithmetic execution; explicit quotient-place classification remains P1-07"
+      }
+    ]
+  },
+  "existingRuntimeReadback": {
+    "publicBindingGenerationKind": "DIFFICULTY_EXPANSION",
+    "publicBindingKnowledgePointIds": [],
+    "runtimeDifficultyExpansionId": "path1_four_digit_by_two_digit_division",
+    "builderFunction": "buildFourDigitByTwoDigitItems",
+    "currentDividendEnvelope": "1000..9999",
+    "currentDivisorEnvelope": "21..89",
+    "currentQuotientEnvelope": "20..99",
+    "currentRemainderEnvelope": "0..divisor-1",
+    "topLevelKnowledgePointId": null,
+    "canonicalKnowledgePointMinted": false,
+    "existingFocusedMenuTestPresent": true,
+    "existingFocusedMenuTestQuestionCount": 20,
+    "staticSourceParityGaps": [
+      "current divisor envelope 21..89 is narrower than the source-backed two-digit divisor envelope 10..99",
+      "current quotient envelope 20..99 covers only two-digit quotients and cannot produce the direct 4024÷23 witness with quotient 174",
+      "current route therefore does not yet prove coverage of P109_4DIGIT_HUNDREDS_SUFFICIENT / three-digit-quotient cases",
+      "matrix difficulty expansion id larger_dividend_two_digit_divisor and runtime id path1_four_digit_by_two_digit_division are not yet tied by an explicit acceptance contract"
+    ],
+    "runtimeDefectDeclaredByPreflight": false,
+    "preflightConclusion": "SOURCE_AUTHORITY_IS_CLEAR_BUT_EXISTING_ROUTE_REQUIRES_BOUNDED_ACCEPTANCE_BEFORE_ANY_REMEDIATION"
+  },
+  "adjacentBoundaries": {
+    "P1-07": "owns explicit 商的位值 / quotient-start-place representation; do not create a duplicate P1-09 teaching mode",
+    "P1-08": "owns two-/three-digit-dividend canonical two-digit-divisor KPs and is the required predecessor",
+    "P1-10": "owns three-digit divisors; P1-09 divisor must remain 10..99",
+    "P1-11": "owns remainder/checking emphasis; P1-09 may output remainder but must not add checking or remainder-context semantics"
+  },
+  "futureAcceptanceContract": {
+    "taskId": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_EXISTING_ROUTE_ACCEPTANCE_V1",
+    "implementationAllowedByThisPreflight": false,
+    "firstAction": "diagnose the existing public P1-09 difficulty-expansion route before changing runtime",
+    "requiredQuestionCounts": [1, 20, 120],
+    "requiredChecks": [
+      "four-digit dividend only",
+      "two-digit divisor only",
+      "source-backed divisor envelope parity or exact bounded gap attribution",
+      "both two-digit and three-digit quotient cases or exact gap attribution",
+      "4024÷23-equivalent three-digit-quotient capability witness",
+      "same-seed deterministic replay",
+      "distinct prompt capacity at 120",
+      "dividend = divisor * quotient + remainder",
+      "0 <= remainder < divisor",
+      "difficulty-expansion metadata identity",
+      "no canonical KP mint",
+      "no P1-10 three-digit-divisor leakage",
+      "no P1-11 checking/remainder-context promotion",
+      "printable worksheet question/answer parity"
+    ],
+    "runtimeMutationIfAcceptanceFails": "NOT_AUTHORIZED_BY_THIS_PREFLIGHT; isolate exact gap and stop for separate remediation approval"
+  },
+  "antiScopeCreep": {
+    "replanP101ThroughP108Allowed": false,
+    "modifyPath1MatrixAllowed": false,
+    "modifyPublicBindingAllowed": false,
+    "modifyPublicWorksheetBuilderAllowed": false,
+    "modifyCanonicalG4aU04AuthorityAllowed": false,
+    "modifyP110OrLaterAllowed": false,
+    "addCanonicalKnowledgePointAllowed": false,
+    "addCanonicalPatternSpecAllowed": false,
+    "addDedicatedPracticeModeAllowed": false,
+    "promoteDivisionCheckingAllowed": false,
+    "promoteRemainderContextInterpretationAllowed": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedLane": "KP_FOCUSED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_P109_MATRIX_DIFFICULTY_EXPANSION_AND_EXISTING_RUNTIME_PRESENT_SOURCE_PARITY_NOT_LOCKED",
+    "goalDistanceAfterTarget": "D2_P109_SOURCE_FORMAL_EXPANSION_AND_ACCEPTANCE_BOUNDARY_LOCKED",
+    "distanceReduced": "Lock the exact source-backed four-digit-by-two-digit expansion, preserve no-new-KP semantics, formalize both quotient-digit cases, and isolate the current route as an acceptance candidate rather than silently treating it as source-complete.",
+    "remainingBlockers": [
+      "P1-09 existing route not yet dynamically accepted at 1/20/120",
+      "current divisor-envelope parity gap not yet dynamically attributed",
+      "current three-digit-quotient coverage gap not yet dynamically attributed",
+      "matrix/runtime difficulty-expansion identity equivalence not yet acceptance-proven"
+    ],
+    "nextShortestStep": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_EXISTING_ROUTE_ACCEPTANCE_V1"
+  }
+}

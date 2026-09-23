@@ -1,0 +1,27 @@
+S45B3_G3A_U02_BLANK_FINAL_PAGE_PRINT_QAFIX_STATUS
+
+sourceId = g3a_u02_3a02
+status = WAITING_FOR_LOCAL_TEST
+trigger = S45C2 PDF recheck found page 14 blank after all duplicate/template regressions were resolved
+
+implemented:
+- print CSS now preserves the answer-key page-break-before contract.
+- print CSS keeps trailing page-break-after avoidance rules.
+- print .worksheet-page height is reduced by 0.75mm in print mode to avoid Chrome/Skia trailing blank page caused by exact A4-height accumulation.
+
+validated_before_fix:
+- tests 433, pass 433, fail 0, working tree clean before S45B3.
+- S45C2 PDF contained 200 generated questions and no exact duplicate prompts, but still had a blank page 14.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+expected:
+- tests 433
+- pass 433
+- fail 0
+- working tree clean
+
+next = regenerate G3A-U02 PDF and confirm page count/no blank final page

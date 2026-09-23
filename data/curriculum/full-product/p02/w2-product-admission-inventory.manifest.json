@@ -1,0 +1,56 @@
+{
+  "schemaName": "P02W2ProductAdmissionInventoryManifestV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02_W2ProductAdmissionInventoryAndGapMatrix",
+  "status": "W2_CAPABILITY_ONLY_DEPENDENCY_MATRIX_CLOSED",
+  "sourceAuthorities": {
+    "deliveryWaveTask": "R05_DeliveryWaveRebase",
+    "runtimeCapabilityTask": "R04_SharedRuntimeCapabilityMatrix",
+    "prerequisiteTask": "R03_GlobalPrerequisiteGraph",
+    "authoritativeConsumerTask": "R07_AuthoritativeConsumerCutover",
+    "previousProductCloseoutTask": "P01E_W1PublicUIHTMLPDFPrintCloseout",
+    "directW2KnowledgePointCount": 0,
+    "dependentKnowledgePointCount": 51,
+    "dependentSourceNodeCount": 20,
+    "dependentWaveCount": 5,
+    "shadowFoundationCapabilityCount": 5
+  },
+  "capabilityDependencyCounts": {
+    "cap_kp_authority_lookup": 0,
+    "cap_prerequisite_readiness": 0,
+    "cap_quantity_dimension_unit_identity": 51,
+    "cap_quantity_semantic_role_binding": 26,
+    "cap_same_unit_quantity_arithmetic": 2
+  },
+  "dependentWaveCounts": {
+    "R05-W0": 3,
+    "R05-W4": 41,
+    "R05-W5": 1,
+    "R05-W7": 5,
+    "R05-W8": 1
+  },
+  "currentProductCoverage": {
+    "publicKnowledgePointVisibleCount": 3,
+    "publicPatternBindingPresentCount": 3,
+    "publicSourceSelectableCount": 2,
+    "admissionReadyExistingPublicPatternAfterCapabilityCount": 3,
+    "patternGroupOrSpecBindingRequiredAfterCapabilityCount": 0,
+    "publicProductVerticalSliceRequiredAfterCapabilityCount": 48
+  },
+  "policyPath": "data/curriculum/full-product/p02/w2-product-admission-inventory-policy.json",
+  "runtimePath": "src/curriculum/full-product/p02-w2-product-admission-inventory.mjs",
+  "validatorPath": "tools/curriculum/validate-p02-w2-product-admission-inventory.mjs",
+  "mainlineBoundary": {
+    "inventoryOnly": true,
+    "productionAdmissionChanged": false,
+    "sharedCapabilityHardeningStarted": false,
+    "patternSpecImplementationStarted": false,
+    "publicUiChanged": false,
+    "existing19SourceProductPreserved": true,
+    "w3ToW8WorkStarted": false,
+    "recursiveImprovementAdminAllowed": false,
+    "emptyW2ProductCohortTaskSkipped": true,
+    "nextTask": "P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation"
+  }
+}

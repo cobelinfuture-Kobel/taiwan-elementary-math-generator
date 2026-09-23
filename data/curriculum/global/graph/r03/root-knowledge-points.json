@@ -1,0 +1,234 @@
+{
+  "schemaName": "R03RootKnowledgePointRegistryV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R03_GlobalPrerequisiteGraph",
+  "rootKnowledgePoints": [
+    {
+      "knowledgePointId": "kp_angle_parts_identification",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u05_3a05"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_area_square_centimeter_unit",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3b_u05_3b05"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_arithmetic_sequence_extension",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u07_3a07"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_capacity_ml_l_unit_identity",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3b_u02_3b02"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_circle_center_radius_diameter",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u09_3a09"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g3a_u01_digit_place_value_decomposition",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u01_3a01"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g3a_u03_10_multiple_by_1digit",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u03_3a03"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g3a_u06_parity_range_missing_digit",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u06_3a06"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u10_length_kilometer_unit_identity",
+      "classification": "DOMAIN_ENTRY_ROOT_WITHIN_G3_G6_SCOPE",
+      "rationale": "此能力是目前 G3–G6 已整理來源中該領域的入口節點；未以課程先後或標籤相似性強行建立前置邊。",
+      "evidenceRefs": [
+        "source:g4a_u10_4a10"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g4b_u02_parallel_lines_recognition",
+      "classification": "DOMAIN_ENTRY_ROOT_WITHIN_G3_G6_SCOPE",
+      "rationale": "此能力是目前 G3–G6 已整理來源中該領域的入口節點；未以課程先後或標籤相似性強行建立前置邊。",
+      "evidenceRefs": [
+        "source:g4b_u02_4b02"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_approximation_language_cues",
+      "classification": "DOMAIN_ENTRY_ROOT_WITHIN_G3_G6_SCOPE",
+      "rationale": "此能力是目前 G3–G6 已整理來源中該領域的入口節點；未以課程先後或標籤相似性強行建立前置邊。",
+      "evidenceRefs": [
+        "source:g4b_u04_4b04"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g4b_u10_cubic_centimeter_unit",
+      "classification": "DOMAIN_ENTRY_ROOT_WITHIN_G3_G6_SCOPE",
+      "rationale": "此能力是目前 G3–G6 已整理來源中該領域的入口節點；未以課程先後或標籤相似性強行建立前置邊。",
+      "evidenceRefs": [
+        "source:g4b_u10_4b10"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u07_line_symmetry_recognition",
+      "classification": "DOMAIN_ENTRY_ROOT_WITHIN_G3_G6_SCOPE",
+      "rationale": "此能力是目前 G3–G6 已整理來源中該領域的入口節點；未以課程先後或標籤相似性強行建立前置邊。",
+      "evidenceRefs": [
+        "source:g5a_u07_5a07"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u10a1_cube_cuboid_faces_edges_vertices",
+      "classification": "DOMAIN_ENTRY_ROOT_WITHIN_G3_G6_SCOPE",
+      "rationale": "此能力是目前 G3–G6 已整理來源中該領域的入口節點；未以課程先後或標籤相似性強行建立前置邊。",
+      "evidenceRefs": [
+        "source:g5a_u10_5a10a1"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u10a_solid_shape_classification",
+      "classification": "DOMAIN_ENTRY_ROOT_WITHIN_G3_G6_SCOPE",
+      "rationale": "此能力是目前 G3–G6 已整理來源中該領域的入口節點；未以課程先後或標籤相似性強行建立前置邊。",
+      "evidenceRefs": [
+        "source:g5a_u10_5a10a"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_g5b_u10a_large_area_unit_identity",
+      "classification": "DOMAIN_ENTRY_ROOT_WITHIN_G3_G6_SCOPE",
+      "rationale": "此能力是目前 G3–G6 已整理來源中該領域的入口節點；未以課程先後或標籤相似性強行建立前置邊。",
+      "evidenceRefs": [
+        "source:g5b_u10_5b10a"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_length_mm_ruler_reading",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u04_3a04"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_mass_indirect_comparison",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3b_u06_3b06"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_mass_scale_unit_and_reading",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3b_u06_3b06"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_one_way_table_reading",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3b_u10_3b10"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_repeating_visual_pattern",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u07_3a07"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_spatial_growth_pattern_count",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u07_3a07"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_tabular_pattern_rule",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3a_u07_3a07"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_time_12_24_hour_conversion",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3b_u03_3b03"
+      ],
+      "status": "approved"
+    },
+    {
+      "knowledgePointId": "kp_time_unit_conversion_day_hour_minute",
+      "classification": "LOWER_GRADE_PREREQUISITE_OUTSIDE_G3_G6_SCOPE",
+      "rationale": "此能力在 G3–G6 圖中未找到更早且已物化的必要直接前置；其更早基礎位於低年級課程範圍。",
+      "evidenceRefs": [
+        "source:g3b_u03_3b03"
+      ],
+      "status": "approved"
+    }
+  ],
+  "boundaryReviewKnowledgePoints": []
+}

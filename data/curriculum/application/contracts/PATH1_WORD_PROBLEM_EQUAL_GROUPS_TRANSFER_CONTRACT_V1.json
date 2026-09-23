@@ -1,0 +1,200 @@
+{
+  "schemaName": "Path1WordProblemEqualGroupsTransferContractV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1",
+  "status": "READ_ONLY_PLANNING_CONTRACT_LOCKED",
+  "implementationAllowed": false,
+  "publicCutoverAllowed": false,
+  "generatorModificationAllowed": false,
+  "validatorModificationAllowed": false,
+  "rendererModificationAllowed": false,
+  "publicRuntimeModificationAllowed": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "scope": {
+    "includedPathBlocks": ["P1-01", "P1-02"],
+    "excludedPathBlocks": ["P1-03", "P1-04"],
+    "goal": "定義 P1-01 與 P1-02 從已掌握乘法算術能力轉移到等組量文字建模的最小 contract：文字數量角色 -> 等組量關係 -> 自主列式 -> 呼叫既有 arithmetic KP -> 語意答案。",
+    "excluded": [
+      "P1-03 numeric envelope expansion",
+      "P1-04 numeric envelope expansion",
+      "inverse unknown-role training",
+      "division-side modeling",
+      "multi-relation word problems",
+      "distractor-heavy language",
+      "implicit unit conversion",
+      "new context production admission",
+      "generator implementation",
+      "validator implementation",
+      "public worksheet cutover"
+    ]
+  },
+  "authorityRefs": {
+    "wordProblemCapabilityInventory": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_CAPABILITY_INVENTORY_V1.json",
+    "path1Authority": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "equalGroupsKnowledgeOperationAuthority": "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+    "equalGroupsPatternSpecAuthority": "data/curriculum/pattern_specs/S58C_G3B_U08_SemanticPatternSpecRegistry.json",
+    "applicationContextBindingRegistry": "data/curriculum/application/registry/application-context-bindings.json",
+    "applicationAdmissionRegistry": "data/curriculum/application/registry/application-admission-registry.json",
+    "p101ArithmeticProfile": "site/modules/curriculum/learning-paths/path1-p1-01-diversity.js",
+    "p102ArithmeticProfile": "site/modules/curriculum/learning-paths/path1-p1-02-diversity.js",
+    "p102PublicProfile": "site/modules/curriculum/learning-paths/path1-p1-02-public-diversity-v2.js",
+    "primarySourceP101P102": "batchA_01-題型總覽-3a03-乘法.pdf",
+    "primarySourceEqualGroups": "batchA_01-題型總覽-3b08-乘法與除法.pdf"
+  },
+  "sourceEvidencePolicy": {
+    "canonicalRelationAuthorityWins": true,
+    "schoolExamAggregateSupportsRepresentationBreadthOnly": true,
+    "liTeacherSupportsProblemSolvingStructureOnly": true,
+    "sourcePresenceDoesNotAutoAuthorizeRuntime": true,
+    "contextSurfaceRequiresSeparateAdmissionBeforePublicUse": true
+  },
+  "relationContract": {
+    "relationId": "R03_EQUAL_GROUPS",
+    "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+    "operationModelId": "op_g3b_u08_total_from_groups",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "allowedUnknownRoles": ["totalAmount"],
+    "forbiddenUnknownRoles": ["groupCount", "amountPerGroup"],
+    "forbiddenUnknownRoleDisposition": "DEFER_TO_P1_12",
+    "answerType": "semantic_single_integer_with_unit",
+    "roleSemantics": {
+      "amountPerGroup": "每組、每次、每天、每包或每個單位的固定量",
+      "groupCount": "組數、次數、天數、包數或其他重複單位的數量",
+      "totalAmount": "所有等組累積後的總量"
+    }
+  },
+  "arithmeticToRelationRoleBinding": {
+    "multiplicand": "amountPerGroup",
+    "oneDigitMultiplier": "groupCount",
+    "product": "totalAmount",
+    "commutativeArithmeticRoleSwapAllowed": false,
+    "reason": "乘法交換律不等於語意角色可交換；既有 relation authority 要求 groupCount 為一位正整數，因此 Path1 的一位乘數固定綁定 groupCount。"
+  },
+  "modelingPipeline": [
+    {"stageId": "WP01_QUANTITY_EXTRACTION", "requiredOutput": ["amountPerGroupValue", "groupCountValue", "quantityUnits"]},
+    {"stageId": "WP02_QUANTITY_TYPING_AND_UNIT_FLOW", "requiredOutput": ["amountPerGroupQuantityType", "groupCountQuantityType", "answerUnit"]},
+    {"stageId": "WP03_ROLE_ASSIGNMENT", "requiredOutput": ["amountPerGroup", "groupCount"]},
+    {"stageId": "WP04_RELATION_RECOGNITION", "requiredOutput": ["R03_EQUAL_GROUPS"]},
+    {"stageId": "WP05_UNKNOWN_ROLE_IDENTIFICATION", "requiredOutput": ["totalAmount"]},
+    {"stageId": "WP06_EQUATION_CONSTRUCTION", "requiredOutput": ["amountPerGroup * groupCount = totalAmount"]},
+    {"stageId": "WP07_ARITHMETIC_EXECUTION", "requiredOutput": ["delegateToBoundArithmeticKnowledgePoint"]},
+    {"stageId": "WP08_CONTEXT_INTERPRETATION_AND_VALIDATION", "requiredOutput": ["finalAnswer", "finalAnswerUnit", "semanticAnswerStatement"]}
+  ],
+  "trainingProgressionCandidate": [
+    {"stageId": "T1_ROLE_IDENTIFICATION", "taskShape": "從文字中標出每組量與組數，不先要求計算。"},
+    {"stageId": "T2_RELATION_IDENTIFICATION", "taskShape": "確認題目是等組量求總量，並指出 totalAmount 是未知角色。"},
+    {"stageId": "T3_EQUATION_CONSTRUCTION", "taskShape": "題目不提供算式，由學生自行列出 amountPerGroup × groupCount。"},
+    {"stageId": "T4_FULL_CONTEXT_SOLVE", "taskShape": "完成列式、計算與帶單位語意答案。"}
+  ],
+  "languageDifficultyBoundary": {
+    "allowedLevel": "LD0_DIRECT_ROLE_EXPLICIT",
+    "requirements": [
+      "single equal-groups relation only",
+      "exactly two decision-relevant known quantities",
+      "unknown role is explicitly the total",
+      "no irrelevant numerical distractor",
+      "no implicit unit conversion",
+      "no hidden comparison relation",
+      "no inverse wording that asks groupCount or amountPerGroup",
+      "surface wording may vary but must preserve explicit role recoverability"
+    ],
+    "deferredLevels": [
+      "reordered information with higher linguistic load",
+      "irrelevant-information distractors",
+      "implicit relation wording",
+      "unit conversion",
+      "multi-sentence cross-reference",
+      "multi-relation composition"
+    ]
+  },
+  "pathBlockContracts": [
+    {
+      "blockId": "P1-01",
+      "title": "十進位乘法原理",
+      "arithmeticKnowledgePointIds": ["kp_g3a_u03_10_multiple_by_1digit"],
+      "transferRelationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+      "transferCoverage": "FULL_CURRENT_ARITHMETIC_DOMAIN",
+      "numericEnvelope": {"amountPerGroup": "10,20,...,90", "groupCount": "integer 2..9", "totalAmount": "amountPerGroup * groupCount <= 810"},
+      "admissionRule": "All currently admitted P1-01 arithmetic operands satisfy the existing equal-groups one-digit groupCount and totalAmount<=999 boundary.",
+      "exampleWitness": {"prompt": "每盒有60顆球，有7盒，一共有多少顆球？", "roleBindings": {"amountPerGroup": 60, "groupCount": 7, "totalAmount": 420}, "equation": "60 * 7 = 420", "answer": "420顆"}
+    },
+    {
+      "blockId": "P1-02",
+      "title": "多位數×一位數",
+      "arithmeticKnowledgePointIds": ["kp_g3a_u03_2digit_by_1digit_carry", "kp_g3a_u03_3digit_by_1digit"],
+      "transferRelationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+      "subcontracts": [
+        {
+          "arithmeticKnowledgePointId": "kp_g3a_u03_2digit_by_1digit_carry",
+          "transferCoverage": "FULL_CURRENT_ARITHMETIC_DOMAIN",
+          "numericEnvelope": {"amountPerGroup": "integer 10..99 with existing ones-column carry guard", "groupCount": "integer 2..9", "totalAmount": "amountPerGroup * groupCount <= 891"},
+          "admissionRule": "All currently admitted two-digit-by-one-digit carry operands fit the existing equal-groups totalAmount<=999 boundary.",
+          "exampleWitness": {"prompt": "每盒有28枝鉛筆，有6盒，一共有多少枝鉛筆？", "roleBindings": {"amountPerGroup": 28, "groupCount": 6, "totalAmount": 168}, "equation": "28 * 6 = 168", "answer": "168枝"}
+        },
+        {
+          "arithmeticKnowledgePointId": "kp_g3a_u03_3digit_by_1digit",
+          "transferCoverage": "BOUNDED_SUBSET_ONLY",
+          "numericEnvelope": {"amountPerGroup": "existing P1-02 3-digit operand domain, but must additionally satisfy amountPerGroup * groupCount <= 999", "groupCount": "integer 2..9", "totalAmount": "positive integer <=999", "exactAdditionalGuard": "amountPerGroup <= floor(999 / groupCount)", "zeroSpecialRule": "retain current P1-02 exclusion: tens digit != 0 and ones digit != 0"},
+          "admissionRule": "Reuse only the intersection of the current arithmetic domain and the existing equal-groups relation envelope. No validator or numeric-envelope expansion is authorized.",
+          "exampleWitness": {"prompt": "每箱有126本練習簿，有7箱，一共有多少本練習簿？", "roleBindings": {"amountPerGroup": 126, "groupCount": 7, "totalAmount": 882}, "equation": "126 * 7 = 882", "answer": "882本"},
+          "forbiddenWitness": {"amountPerGroup": 876, "groupCount": 8, "reason": "product exceeds 999 and therefore lies outside the existing equal-groups relation envelope"}
+        }
+      ],
+      "explicitExclusions": ["kp_g3a_u03_3digit_zero_middle_by_1digit", "missing-digit inference", "estimation transfer", "two-step continuous multiplication"]
+    }
+  ],
+  "contextAdmissionBoundary": {
+    "existingG3BU08SourceBackedSurfaceFamiliesForPlanningReference": ["daily saving accumulation", "score per success", "material per product", "items per package"],
+    "existingP101P102GlobalContextBinding": false,
+    "existingP101P102ProductionAdmission": false,
+    "futureImplementationMust": [
+      "bind quantity roles explicitly",
+      "validate unit flow",
+      "use individually admitted surface templates",
+      "provide answer witness",
+      "fail closed for unknown context binding",
+      "not infer runtime admission from school-exam or 厉老師 source presence alone"
+    ]
+  },
+  "answerWitnessContract": {
+    "requiredFields": ["relationKnowledgePointId", "arithmeticKnowledgePointId", "amountPerGroup", "groupCount", "totalAmount", "equation", "finalAnswer", "finalAnswerUnit"],
+    "equationInvariant": "amountPerGroup * groupCount = totalAmount",
+    "answerRole": "totalAmount",
+    "unitInvariant": "finalAnswerUnit must be the total quantity unit, not the group-count unit"
+  },
+  "futureValidatorInvariants": [
+    "relationKnowledgePointId must equal kp_g3b_u08_total_from_groups",
+    "unknown role must equal totalAmount",
+    "multiplicand must bind to amountPerGroup",
+    "one-digit multiplier must bind to groupCount",
+    "groupCount must stay within the existing one-digit relation boundary",
+    "totalAmount must be recomputed from the role-bound equation",
+    "totalAmount must not exceed 999",
+    "P1-02 two-digit items must retain the current arithmetic carry guard",
+    "P1-02 three-digit items must retain current zero-special exclusions",
+    "P1-02 three-digit transfer must satisfy amountPerGroup <= floor(999/groupCount)",
+    "answer unit must agree with the total quantity role",
+    "operation choice must be justified by role/relation binding, not keyword matching",
+    "unknown groupCount or amountPerGroup must fail closed and defer to P1-12"
+  ],
+  "path1MasteryIntegration": {
+    "currentP101P102MasteryGatesChanged": false,
+    "transferGateActivated": false,
+    "candidateFutureGate": "SEPARATE_MODELING_TRANSFER_GATE_AFTER_ARITHMETIC_MASTERY",
+    "reason": "This task defines the contract only; it must not silently redefine current Path1 mastery semantics."
+  },
+  "implementationEntryCriteria": [
+    "explicit implementation approval",
+    "context binding/admission strategy selected",
+    "focused generator contract materialized",
+    "relation-aware validator contract materialized",
+    "P1-01/P1-02 worksheet route scope explicitly approved"
+  ],
+  "distance": {
+    "goalDistanceBefore": "D3_WORD_PROBLEM_TAXONOMY_AND_PATH1_BRIDGE_AUTHORITY_MERGED",
+    "goalDistanceAfterTarget": "D2_P101_P102_EQUAL_GROUPS_TRANSFER_CONTRACT_LOCKED",
+    "distanceReduced": "R03 equal-groups transfer is reduced from a taxonomy recommendation to a role-bound, numeric-bounded, fail-closed implementation contract for P1-01 and P1-02.",
+    "remainingBlockers": ["P1-01/P1-02 context binding and production admission not selected", "generator not implemented", "relation-aware validator not implemented", "worksheet route not implemented", "P1-03/P1-04 relation envelope remains outside this contract", "higher language-difficulty levels remain deferred"],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_IMPLEMENTATION_PREFLIGHT_V1"
+  }
+}

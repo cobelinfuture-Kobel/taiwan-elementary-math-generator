@@ -1,0 +1,75 @@
+{
+  "schemaName": "POSTGAPPW01AtomicContextBindingPolicyV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+  "status": "BALANCED_DETERMINISTIC_SELECTION_NOT_PRODUCTION_ADMISSION",
+  "selectionOrder": [
+    "EXISTING_PILOT_LEGACY_MAPPING",
+    "PREFERRED_EPISODE_PROFILE",
+    "MINIMIZE_UNIT_MACRO_USAGE",
+    "MINIMIZE_GLOBAL_MACRO_USAGE",
+    "MAXIMIZE_SEMANTIC_AFFINITY",
+    "LEXICAL_ATOMIC_EPISODE_ID"
+  ],
+  "preferredEpisodeProfile": {
+    "SINGLE_DIRECT": "direct_quantity",
+    "SINGLE_N_PLUS_1": "constraint_decision"
+  },
+  "macroKeywordAffinity": {
+    "gctx_macro_school_learning": ["school","class","learning","education","student","book","library","教室","班級","學習","圖書"],
+    "gctx_macro_household_family": ["household","family","home","share","家庭","家中","家務","分擔"],
+    "gctx_macro_commerce_budget": ["price","money","budget","purchase","shopping","cost","元","價格","預算","購買","找零"],
+    "gctx_macro_transport_mobility": ["transport","vehicle","trip","seat","route","time","車","座位","行程","交通","路線"],
+    "gctx_macro_health_sports": ["health","sport","team","training","exercise","健康","運動","隊伍","訓練"],
+    "gctx_macro_community_civic": ["community","public","service","facility","社區","公共","服務","設施"],
+    "gctx_macro_environment_conservation": ["environment","recycle","habitat","forest","cleanup","環境","回收","森林","清理"],
+    "gctx_macro_water_energy": ["water","energy","electric","volume","水","能源","用電","容量"],
+    "gctx_macro_food_agriculture": ["food","agriculture","farm","meal","distribution","食物","農業","餐點","分配"],
+    "gctx_macro_science_technology": ["science","experiment","measure","data","device","科學","實驗","測量","設備"],
+    "gctx_macro_culture_history": ["culture","history","ancient","architecture","文化","歷史","古代","建築"],
+    "gctx_macro_disaster_resilience": ["disaster","emergency","capacity","minimum","防災","緊急","最少","容量"],
+    "gctx_macro_charity_cooperation": ["charity","donation","volunteer","share","公益","捐贈","志工","共享"],
+    "gctx_macro_work_logistics": ["package","container","inventory","delivery","batch","包裝","容器","庫存","配送"],
+    "gctx_macro_data_public_information": ["data","chart","table","average","statistics","資料","圖表","表格","平均"],
+    "gctx_macro_future_sustainability": ["future","design","estimate","plan","sustainability","未來","設計","估算","方案"]
+  },
+  "unitInferenceRules": [
+    {"tokens":["元","價格","金額","費用","付款","找零"],"unit":"元"},
+    {"tokens":["人數","學生","居民","參與者","隊員"],"unit":"人"},
+    {"tokens":["車輛","輛車","車數"],"unit":"輛"},
+    {"tokens":["箱","容器"],"unit":"箱"},
+    {"tokens":["組數","組"],"unit":"組"},
+    {"tokens":["份","個數","數量","總量"],"unit":"份"},
+    {"tokens":["公分"],"unit":"公分"},
+    {"tokens":["公尺"],"unit":"公尺"},
+    {"tokens":["公里"],"unit":"公里"},
+    {"tokens":["平方公分"],"unit":"平方公分"},
+    {"tokens":["平方公尺"],"unit":"平方公尺"},
+    {"tokens":["公克"],"unit":"公克"},
+    {"tokens":["公斤"],"unit":"公斤"},
+    {"tokens":["毫升"],"unit":"毫升"},
+    {"tokens":["公升"],"unit":"公升"},
+    {"tokens":["分鐘"],"unit":"分鐘"},
+    {"tokens":["小時"],"unit":"小時"},
+    {"tokens":["天數","日數"],"unit":"天"},
+    {"tokens":["倍"],"unit":"倍"},
+    {"tokens":["角度"],"unit":"度"}
+  ],
+  "unresolvedUnitToken": "UNBOUND_UNIT_CANDIDATE",
+  "answerShapeRules": [
+    {"tokens":["quotient_remainder","remainder"],"answerShape":"QUOTIENT_REMAINDER"},
+    {"tokens":["judgment","decision","semantic","plan"],"answerShape":"DECISION_WITH_REASON"},
+    {"tokens":["comparison","choice"],"answerShape":"COMPARISON_CHOICE"},
+    {"tokens":["diagnosis","error"],"answerShape":"ERROR_DIAGNOSIS"}
+  ],
+  "fallbackAnswerShape": "QUANTITY_WITH_UNIT",
+  "diversityTargets": {
+    "requiredGlobalMacroDomainCount": 16,
+    "minimumMacroDomainsPerUnitWhenSuitableCountAtLeastThree": 3,
+    "nounOnlyVariationCountsAsDiversity": false,
+    "surfaceOnlyVariationCountsAsDiversity": false
+  },
+  "candidateStatus": "CONTEXT_BOUND_CANDIDATE",
+  "productionAdmissionAllowed": false
+}

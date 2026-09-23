@@ -1,0 +1,23 @@
+S44M1_G3A_U01_TRANSITION_TO_NEXT_UNIT
+
+sourceId = g3a_u01_3a01
+status = TRANSITION_APPROVED_BY_OPERATOR
+operator_decision = switch_to_next_unit
+accepted_minor_blocker = unit conversion exact duplicate may still occur in large 200-question worksheets
+latest_local_readback = tests 430, pass 430, fail 0, working tree clean
+latest_pdf_recheck = S44M1_6C_REGENERATED_PDF_RECHECK_STATUS
+
+closed_for_now:
+- S44M1 output QA repair complete enough to move to next unit.
+- major G3A-U01 blockers resolved: PatternSpec rotation, answer-position bias, digit arrangement duplicate, prompt polish, Chinese numeral canonical rule, number-structure diversity.
+- remaining G3A-U01 unit-conversion duplicate is accepted as non-blocking for now and can be reopened later as S44M1-6d.
+
+next_unit = 3A-U02 四位數的加減
+next_sourceId = g3a_u02_3a02
+next_shortest_step = S45A_G3A_U02_CurrentStateAndOutputReview
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_REGENERATED_PDF_RECHECK_PASS_WITH_MINOR_UNIT_CONVERSION_DUPLICATE
+GOAL_DISTANCE_AFTER = D1_G3A_U01_ACCEPTED_FOR_TRANSITION_AND_D1_G3A_U02_NEXT_UNIT_SELECTED
+DISTANCE_REDUCED = G3A-U01 closed for now; next unit path selected
+REMAINING_BLOCKERS = G3A-U02 current-state review; G3A-U02 output QA; possible G3A-U01 S44M1-6d backlog
+NEXT_SHORTEST_STEP = S45A_G3A_U02_CurrentStateAndOutputReview

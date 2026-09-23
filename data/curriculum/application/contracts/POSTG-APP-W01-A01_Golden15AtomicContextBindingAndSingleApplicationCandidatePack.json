@@ -1,0 +1,97 @@
+{
+  "schemaName": "POSTGAPPW01A01Golden15AtomicContextBindingAndSingleApplicationCandidatePackContract",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+  "contractId": "POSTG_APP_W01_ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_PACK_V1",
+  "status": "SHADOW_CANDIDATE_PACK_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "dependencies": {
+    "w01AssessmentTask": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+    "masterControllerTask": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+    "globalContextTask": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/application/contracts/POSTG_APP_W01_Atomic_Context_Binding_And_Single_Application_Candidate_Pack_V1.md",
+    "recordSchema": "data/curriculum/application/schema/w01-atomic-context-single-application-candidate.schema.json",
+    "selectionPolicy": "data/curriculum/application/assessment/w01-atomic-context-binding-policy.json",
+    "packIndex": "data/curriculum/application/assessment/w01-atomic-context-single-application-candidate-pack-index.json",
+    "resolver": "src/curriculum/application/w01-atomic-context-single-application-candidate-pack.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a01-candidate-pack.mjs"
+  },
+  "candidateRules": {
+    "oneCandidatePerSuitableKnowledgePoint": true,
+    "excludedKnowledgePointCandidateCount": 0,
+    "primaryTargetCount": 1,
+    "applicationModes": ["SINGLE_DIRECT","SINGLE_N_PLUS_1"],
+    "candidateStatus": "CONTEXT_BOUND_CANDIDATE",
+    "fullyInstantiatedNumericQuestion": false,
+    "productionAdmissionAllowed": false
+  },
+  "largeContextDiversity": {
+    "selectionPolicy": "UNIT_AND_GLOBAL_MACRO_BALANCE_THEN_SEMANTIC_AFFINITY",
+    "requiredGlobalMacroDomainCount": 16,
+    "minimumMacroDomainsPerUnitWhenSuitableCountAtLeastThree": 3,
+    "nounOnlyVariationCountsAsDiversity": false,
+    "surfaceOnlyVariationCountsAsDiversity": false
+  },
+  "lineageMigration": {
+    "existingApplicationSOPBindingRegistryConsumed": true,
+    "legacyContextFamilyMappedThroughM01": true,
+    "automaticHierarchyInferenceAllowed": false,
+    "existingPilotLineageMustBePreserved": true
+  },
+  "controllerAdvancement": {
+    "waveId": "W01",
+    "stateAfterTarget": "SHADOW_READY",
+    "completedGatesAdded": [
+      "SINGLE_APPLICATION_ADMISSION_COMPLETE",
+      "GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE"
+    ],
+    "productionAdmissionGranted": false
+  },
+  "acceptance": {
+    "validationStatus": "PASS_POSTG_APP_W01_A01_ATOMIC_CONTEXT_SINGLE_APPLICATION_CANDIDATE_PACK",
+    "candidateCountEqualsA00DesignBacklogCount": true,
+    "selectedEpisodeMustBeA00Eligible": true,
+    "contextParentChainMustClose": true,
+    "selectedSurfaceMustBelongToEpisode": true,
+    "allOperandRolesMustRemainTraceable": true,
+    "globalMacroDiversityGateRequired": true,
+    "perUnitMacroDiversityGateRequired": true,
+    "existingPilotLineageGateRequired": true,
+    "productionAdmissionRequiredToRemainZero": true
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "candidateMaterializationAllowed": true,
+    "atomicContextSelectionAllowed": true,
+    "largeContextBalancingAllowed": true,
+    "existingPilotLineageMigrationAllowed": true,
+    "roleAndUnitCandidateMaterializationAllowed": true,
+    "controllerStateAdvancementAllowed": true,
+    "knowledgeOperationMutationAllowed": false,
+    "finalProductionContextAdmissionAllowed": false,
+    "fullyInstantiatedQuestionAuthoringAllowed": false,
+    "nPlusOneProofCompletionAllowed": false,
+    "misconceptionAuthoringAllowed": false,
+    "pblGraphAuthoringAllowed": false,
+    "sharedProductionGeneratorChangeAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_GOLDEN15_KP_APPLICATION_CLASSIFICATION_READY_BUT_CONTEXTS_NOT_CONNECTED",
+    "goalDistanceAfterTarget": "D2_GOLDEN15_SINGLE_APPLICATION_CANDIDATES_BOUND_TO_DIVERSE_ATOMIC_CONTEXTS",
+    "distanceReduced": "Every suitable Golden 15 KnowledgePoint receives a deterministic single-application candidate linked through a complete M01 hierarchy chain. All 16 Macro Context Domains are used, unit-level macro diversity is enforced, existing pilot lineage is migrated explicitly, and role/unit/answer blueprints become validator-ready candidates without production admission.",
+    "remainingBlockers": [
+      "N+1 proof, paired controls and misconception models are incomplete",
+      "PBL dependency and final-product candidates are incomplete",
+      "Unresolved unit candidates require semantic review",
+      "Numeric fixtures and unique-answer validation are absent",
+      "Shared production runtime and renderer evidence are absent",
+      "Production admission remains intentionally zero"
+    ],
+    "nextShortestStep": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract"
+  }
+}

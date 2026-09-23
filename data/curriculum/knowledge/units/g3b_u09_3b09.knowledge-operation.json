@@ -1,0 +1,19 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g3b_u09_3b09", "queueOrdinal": 3, "sourceCode": "3b09", "sourceTitle": "小數", "domainFamily": "decimal_representation",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "44b7d99d3b116bd60ec4c0097c0140bd05339bb3c000231405c56d7cb55cca7f", "contentIdentityGroup": "pdf_44b7d99d3b11", "pageCount": 2, "reviewedPages": [1, 2], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g3b_u09_tenth_representation", "name": "十分位與 0.1", "scope": "把 1 等分為 10 份並以 0.1 表示一份。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "核心是十進分割與小數記號的建立。"},
+    {"candidateId": "kp_g3b_u09_decimal_read_write", "name": "一位小數讀寫", "scope": "讀寫純小數及帶整數部分的一位小數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬記數法辨識，不需情境才能成立。"},
+    {"candidateId": "kp_g3b_u09_decimal_compose_decompose", "name": "個位與十分位組成分解", "scope": "依個、0.1 的個數組成或分解一位小數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "重點是位值結構及數的組成。"},
+    {"candidateId": "kp_g3b_u09_decimal_compare", "name": "一位小數比較", "scope": "依個位與十分位比較兩個一位小數。", "evidencePages": [1], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可比較測量量，也可維持位值或數線比較。"},
+    {"candidateId": "kp_g3b_u09_decimal_add_sub", "name": "一位小數加減", "scope": "進行一位小數的直式加法與減法。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可承載測量合併或差量，但純計算亦屬有效題型。"},
+    {"candidateId": "kp_g3b_u09_length_decimal_conversion", "name": "長度單位與小數換算", "scope": "在公分、毫米及一位小數公分之間換算。", "evidencePages": [2], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源以實際長度單位定義小數量，單位語意不可移除。"},
+    {"candidateId": "kp_g3b_u09_tenths_fraction_decimal", "name": "十分之幾與一位小數互換", "scope": "在分母為 10 的分數與一位小數間互換。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬兩種數學表徵的形式轉換。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 7, "applicationRequiredCount": 1, "applicationCompatibleCount": 2, "applicationNotApplicableCount": 4},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

@@ -1,0 +1,12 @@
+S43E5_R4I_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+operator_readback = tests 399, pass 399, fail 0, working tree clean
+status = PASS
+next_task = S43E5_R4J_G3BU01_WordProblemMixedWorksheetQA
+
+GOAL_DISTANCE_BEFORE = D1
+GOAL_DISTANCE_AFTER = D1
+DISTANCE_REDUCED = R4I UI selector passed local validation after visible count QA fix
+REMAINING_BLOCKERS = mixed worksheet QA; browser PDF smoke
+NEXT_SHORTEST_STEP = S43E5_R4J_G3BU01_WordProblemMixedWorksheetQA

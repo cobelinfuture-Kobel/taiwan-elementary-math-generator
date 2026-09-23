@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "p04f-slice-authority-v1",
+  "taskId": "P04F39_Q039_SourceBackedMixedDomainExpressionImplementation",
+  "queuePosition": 39,
+  "sliceId": "p04e_q039_r13_g6b_u01_6b01_profile_mixed_number_domain_c1",
+  "sourceRank": 13,
+  "sourceId": "g6b_u01_6b01",
+  "sourceTitle": "小數與分數的計算",
+  "runtimeProfile": "profile_mixed_number_domain",
+  "knowledgePointId": "kp_g6b_u01_mixed_domain_expression",
+  "knowledgePointNameZh": "小數分數混合算式",
+  "questionMode": "numeric",
+  "sourceAuthority": {
+    "preflightAuthority": "data/curriculum/full-product/p04f/slice039-g6b-u01-mixed-domain-expression-preflight-authority.json",
+    "sourcePdf": "meow911_6b01_source.pdf",
+    "visualReadbackPage": 1,
+    "reviewMethod": "REUSE_P04F38_FULL_PAGE_VISUAL_READBACK_PLUS_R02_REVIEWED_CANDIDATE",
+    "semanticWitness": "每步轉換與運算皆須等值並遵守括號及乘除優先。",
+    "directPromptVerbatim": false
+  },
+  "formalMapping": {
+    "relationFamilyId": "MIXED_DOMAIN_EXPRESSION_EVALUATION",
+    "patternGroupId": "pg_g6b_u01_mixed_domain_expression",
+    "patternSpecIds": [
+      "ps_g6b_u01_decimal_plus_fraction_times_decimal",
+      "ps_g6b_u01_decimal_minus_fraction_times_decimal",
+      "ps_g6b_u01_fraction_plus_decimal_divided_by_fraction",
+      "ps_g6b_u01_parenthesized_decimal_plus_fraction_times_decimal",
+      "ps_g6b_u01_decimal_times_parenthesized_fraction_plus_decimal",
+      "ps_g6b_u01_decimal_times_fraction_divided_by_decimal"
+    ],
+    "answerModel": "exact_reduced_rational",
+    "invariants": {
+      "valuePreservingRepresentationConversionRequired": true,
+      "parenthesesEvaluatedFirst": true,
+      "multiplicationDivisionBeforeAdditionSubtraction": true,
+      "samePrecedenceEvaluatedLeftToRight": true,
+      "divisionByZeroForbidden": true,
+      "roundingAllowed": false
+    },
+    "applicationAllowed": false
+  },
+  "implementationBoundary": {
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "sharedMixedDomainNormalizerModified": false,
+    "q038SemanticImplementationModified": false,
+    "futureW4QueueSliceIds": [],
+    "globalContextModified": false
+  },
+  "validationPolicy": {
+    "classification": "SHARED_RUNTIME_BOUNDED",
+    "required": ["focused_node_tests", "targeted_classic_ui_pages"],
+    "forbidden": ["full_repository_regression", "global_browser_replay"],
+    "reusePriorEvidence": true
+  },
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "progression": {
+    "nextResumeTask": "P04F39_Q039_FocusedValidationAndPagesAcceptance",
+    "nextSlice": null,
+    "w4QueueCompleteAfterD0": true
+  }
+}

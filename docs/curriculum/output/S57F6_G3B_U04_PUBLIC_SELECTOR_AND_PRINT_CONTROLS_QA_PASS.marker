@@ -1,0 +1,117 @@
+TASK = S57F6_G3B_U04_PublicSelectorAndPrintControlsQA
+STATUS = PASS_CI_SYNCED_AND_MERGED
+SOURCE_ID = g3b_u04_3b04
+UNIT = 3B-U04 兩步驟計算
+
+PR = 21
+PR_HEAD_SHA = c1425f395dd54072fbefd671b2f5092ca06f2e76
+PR_MERGE_REF_SHA = fbbc6d746b8ef7c33a4670f573614f2eba5caf0e
+MERGE_COMMIT = aad368ff85abaa2d3a3973070403329736a952a0
+
+PR_CI = PASS
+PR_CI_RUN = 29097869697
+PR_CI_TESTS = 673
+PR_CI_PASS = 673
+PR_CI_FAIL = 0
+PR_CI_WORKING_TREE = clean
+PR_NODE_TEST = success
+PR_S42_BRANCH_TEST = success
+PR_MATH_CI_READBACK = success
+
+MAIN_CI = PASS_CI_SYNCED_AND_CLEAN
+MAIN_CI_RUN = 29097978149
+MAIN_CI_READBACK_COMMIT = 33d0a2622bf2d85aa76ce72ca236b6d0364ff787
+MAIN_CI_TESTS = 673
+MAIN_CI_PASS = 673
+MAIN_CI_FAIL = 0
+MAIN_CI_WORKING_TREE = clean
+
+CLASSIC_PUBLIC_SELECTOR = PASS
+CLASSIC_404_SELECTOR_PARITY = PASS
+PIXEL_PUBLIC_SELECTOR = PASS
+TRADITIONAL_CHINESE_LABELS = PASS
+VISIBLE_KNOWLEDGE_POINTS = 9
+VISIBLE_SEMANTIC_PATTERN_GROUPS = 9
+PRESERVED_NUMERIC_PATTERN_GROUPS = 1
+PUBLIC_REPRESENTATION_CHOICES = numeric | application_word_problem
+CONSECUTIVE_MULTIPLICATION_NUMERIC_SELECTION = PASS
+CONSECUTIVE_MULTIPLICATION_APPLICATION_SELECTION = PASS
+CONSECUTIVE_MULTIPLICATION_HYBRID_SELECTION = PASS
+LAST_REPRESENTATION_REMOVAL_BLOCKED = PASS
+PUBLIC_HIDDEN_MODE_FLAG_ALLOWED = false
+
+CLASSIC_QUERY_STATE_G3B_U04 = PASS
+QUERY_STATE_SCOPE_BROADENED_OUTSIDE_G3B_U04 = false
+PUBLIC_INTERNAL_ID_VISIBLE_TEXT_LEAKAGE = 0
+PUBLIC_ERROR_MESSAGE_LANGUAGE = zh-Hant
+RAW_VALIDATOR_CODE_VISIBLE_SURFACE = false
+SOURCE_ID_VISIBLE_SUMMARY = false
+
+CLASSIC_BROWSER_GENERATE_ACTION = PASS
+PIXEL_BROWSER_GENERATE_ACTION = PASS
+PURE_NUMERIC_PUBLIC_GENERATION = PASS
+PURE_SEMANTIC_PUBLIC_GENERATION = PASS
+NUMERIC_SEMANTIC_HYBRID_PUBLIC_GENERATION = PASS
+QUESTION_COUNT_CONTROL = PASS
+ORDERING_CONTROL = PASS
+ANSWER_KEY_CONTROL = PASS
+ANSWER_KEY_SUPPRESSION = PASS
+
+SEMANTIC_QUESTION_LAYOUT_COLUMNS = 2
+SEMANTIC_QUESTION_LAYOUT_ROWS_PER_PAGE = 4
+SEMANTIC_ANSWER_LAYOUT_COLUMNS = 1
+SEMANTIC_ANSWER_LAYOUT_ROWS_PER_PAGE = 8
+LONG_TEXT_CARD_POLICY = avoidSplit
+PAGE_BREAK_MODE = avoidLongTextCards
+
+CLASSIC_PRINT_CONTROL = PASS
+PIXEL_PRINT_CONTROL = PASS
+CLASSIC_STALE_PRINT_INVALIDATION = PASS
+PIXEL_STALE_PRINT_INVALIDATION = PASS
+PRINT_ENABLED_ONLY_AFTER_SUCCESSFUL_REGENERATION = PASS
+
+INITIAL_PR_CI_FAILURES = 7
+INITIAL_PR_CI_FAILURE_ROOTS = [
+  "query-state default visibility was broadened beyond the approved G3B-U04 scope",
+  "legacy Pixel beta compatibility text changed",
+  "unknown warning-code compatibility changed",
+  "Pixel public summary removed source IDs but the existing test still required them",
+  "Pixel Preview / Print compatibility label changed"
+]
+INITIAL_PR_CI_FAILURE_FULLFIX = [
+  "composed the legacy selector candidate registry with only the promoted G3B-U04 latest selector rows",
+  "restored accepted Pixel public compatibility labels and known-limit wording",
+  "preserved unknown warning-code normalization while sanitizing messages that contain public text",
+  "updated the Pixel registry bridge test to require no visible sourceId leakage",
+  "reran the complete suite until all 673 tests passed"
+]
+
+SEMANTIC_AUTHORITY_MUTATED = false
+PATTERN_SPEC_MUTATED = false
+SCENARIO_REGISTRY_MUTATED = false
+PROMOTION_REGISTRY_MUTATED = false
+GENERATOR_CONTRACT_MUTATED = false
+VALIDATOR_CONTRACT_MUTATED = false
+RENDERER_CONTRACT_MUTATED = false
+CROSS_UNIT_SELECTION_ENABLED = false
+FINAL_1000_QUESTION_STRESS_COMPLETED = false
+FINAL_PUBLIC_HTML_PDF_SMOKE_COMPLETED = false
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U04_CANONICAL_PRODUCTION_WORKSHEET_AND_RENDERER_CONNECTED_PUBLIC_UI_QA_PENDING
+GOAL_DISTANCE_AFTER = D1_G3B_U04_PUBLIC_SELECTOR_GENERATE_PRINT_AND_ERROR_SURFACES_QA_ACCEPTED_FINAL_PROMOTION_CLOSEOUT_PENDING
+DISTANCE_REDUCED = Connected the nine visible G3B-U04 KnowledgePoints and ten visible PatternGroups to truthful Classic and Pixel public controls, including numeric/application/hybrid representation selection, query-state persistence, canonical generation, answer-key controls, preview, stale-safe print controls, and user-readable Traditional Chinese error surfaces.
+REMAINING_BLOCKERS = [
+  "final 1000-question public promotion stress is not complete",
+  "32-family and 117 family-context public-path reachability closeout is not complete",
+  "25 blocking semantic codes must be reverified through the final public path",
+  "final public HTML smoke is not complete",
+  "regenerated public PDF smoke and page-count acceptance are not complete",
+  "S57F production promotion final closeout is not complete"
+]
+NEXT_SHORTEST_STEP = S57F7_G3B_U04_ProductionRegressionStressHTMLPDFPromotionCloseout
+
+STOP_REASON = NEXT_STEP_OUTSIDE_APPROVED_SCOPE
+BLOCKER_TYPE = APPROVAL_BOUNDARY
+LAST_COMPLETED_STATUS = S57F6_PASS_CI_SYNCED_AND_MERGED
+REQUIRED_OPERATOR_ACTION = Approve S57F7_G3B_U04_ProductionRegressionStressHTMLPDFPromotionCloseout.
+NEXT_RESUME_TASK = S57F7_G3B_U04_ProductionRegressionStressHTMLPDFPromotionCloseout

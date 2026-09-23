@@ -1,0 +1,16 @@
+S44M1_3_G3A_U01_DIGIT_ARRANGEMENT_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+fixed:
+- digit arrangement prompts now explicitly say each digit can be used only once.
+- validator rejects digit arrangement prompts missing the reuse rule.
+- worksheet regression asserts the KP covers max, min, and max-min pair PatternSpecs in one selected-KP worksheet.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M1-4_G3A_U01_PatternSpecRotationFix after local tests pass

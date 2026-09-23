@@ -1,0 +1,2016 @@
+export const G3B_U08_SOURCE_ID = "g3b_u08_3b08";
+
+function deepFreeze(value) {
+  if (!value || typeof value !== "object" || Object.isFrozen(value)) return value;
+  for (const nested of Object.values(value)) deepFreeze(nested);
+  return Object.freeze(value);
+}
+
+const patternSpecs = deepFreeze([
+  {
+    "patternSpecId": "ps_g3b_u08_total_daily_saving_accumulation",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_total_from_groups",
+    "knowledgePointId": "kp_g3b_u08_total_from_groups",
+    "templateFamilyId": "tpl_g3b_u08_total_daily_saving_accumulation",
+    "semanticSignature": "equal_daily_amount_accumulates_over_days",
+    "equationShape": "a*b",
+    "unknownRole": "total_amount",
+    "quantityRoles": {
+      "a": "amount_per_day",
+      "b": "day_count"
+    },
+    "contextDomains": [
+      "saving",
+      "allowance"
+    ],
+    "promptSkeletonZh": "{person}每天存{a}元，連續存了{b}天，一共存了多少元？",
+    "sourcePromptSkeletonZh": "{person}每天存{a}元，連續存了{b}天，一共存了多少元？",
+    "requiredConstraints": [
+      "A_POSITIVE_INTEGER",
+      "B_ONE_DIGIT",
+      "PRODUCT_WITHIN_PRIOR_MULTIPLICATION_SCOPE",
+      "TIME_UNIT_FLOW_CLEAR"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplication_word_problem"
+    ],
+    "skillTags": [
+      "multiplication",
+      "equal_groups",
+      "find_total",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_total_daily_saving_accumulation"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 1,
+    "familyOrderWithinKnowledgePoint": 1,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_total_score_per_success",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_total_from_groups",
+    "knowledgePointId": "kp_g3b_u08_total_from_groups",
+    "templateFamilyId": "tpl_g3b_u08_total_score_per_success",
+    "semanticSignature": "equal_points_accumulate_per_success",
+    "equationShape": "a*b",
+    "unknownRole": "total_score",
+    "quantityRoles": {
+      "a": "points_per_success",
+      "b": "success_count"
+    },
+    "contextDomains": [
+      "sports",
+      "game"
+    ],
+    "promptSkeletonZh": "每{successAction}可得{a}分，{person}{successCountClause}，一共得到多少分？",
+    "sourcePromptSkeletonZh": "每成功{eventUnit}可得{a}分，{person}成功了{b}{eventUnit}，一共得到多少分？",
+    "requiredConstraints": [
+      "A_POSITIVE_INTEGER",
+      "B_ONE_DIGIT",
+      "PRODUCT_WITHIN_PRIOR_MULTIPLICATION_SCOPE",
+      "SCORING_EVENT_CLEAR"
+    ],
+    "fullFixRules": [
+      "SUCCESS_EVENT_PHRASE_NATURAL"
+    ],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplication_word_problem"
+    ],
+    "skillTags": [
+      "multiplication",
+      "equal_groups",
+      "find_total",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_total_score_per_success"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 2,
+    "familyOrderWithinKnowledgePoint": 2,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_total_material_per_product",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_total_from_groups",
+    "knowledgePointId": "kp_g3b_u08_total_from_groups",
+    "templateFamilyId": "tpl_g3b_u08_total_material_per_product",
+    "semanticSignature": "equal_material_consumption_per_product",
+    "equationShape": "a*b",
+    "unknownRole": "total_material_count",
+    "quantityRoles": {
+      "a": "material_per_product",
+      "b": "product_count"
+    },
+    "contextDomains": [
+      "craft",
+      "classroom"
+    ],
+    "promptSkeletonZh": "做一{productUnit}{product}需要{a}{materialUnit}{material}，做{b}{productUnit}共需要多少{materialUnit}{material}？",
+    "sourcePromptSkeletonZh": "做一{productUnit}{product}需要{a}{materialUnit}{material}，做{b}{productUnit}共需要多少{materialUnit}{material}？",
+    "requiredConstraints": [
+      "A_POSITIVE_INTEGER",
+      "B_ONE_DIGIT",
+      "PRODUCT_WITHIN_PRIOR_MULTIPLICATION_SCOPE",
+      "MATERIAL_PRODUCT_UNIT_FLOW"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplication_word_problem"
+    ],
+    "skillTags": [
+      "multiplication",
+      "equal_groups",
+      "find_total",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_total_material_per_product"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 3,
+    "familyOrderWithinKnowledgePoint": 3,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_total_items_per_package",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_total_from_groups",
+    "knowledgePointId": "kp_g3b_u08_total_from_groups",
+    "templateFamilyId": "tpl_g3b_u08_total_items_per_package",
+    "semanticSignature": "equal_items_in_each_package",
+    "equationShape": "a*b",
+    "unknownRole": "total_item_count",
+    "quantityRoles": {
+      "a": "items_per_package",
+      "b": "package_count"
+    },
+    "contextDomains": [
+      "food",
+      "stationery",
+      "toys"
+    ],
+    "promptSkeletonZh": "每{packageUnit}{package}有{a}{itemUnit}{item}，共有{b}{packageUnit}，一共有多少{itemUnit}{item}？",
+    "sourcePromptSkeletonZh": "每{packageUnit}{package}有{a}{itemUnit}{item}，共有{b}{packageUnit}，一共有多少{itemUnit}{item}？",
+    "requiredConstraints": [
+      "A_POSITIVE_INTEGER",
+      "B_ONE_DIGIT",
+      "PRODUCT_WITHIN_PRIOR_MULTIPLICATION_SCOPE",
+      "PACKAGE_ITEM_UNITS_DISTINCT"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplication_word_problem"
+    ],
+    "skillTags": [
+      "multiplication",
+      "equal_groups",
+      "find_total",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_total_items_per_package"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 4,
+    "familyOrderWithinKnowledgePoint": 4,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_group_count_score_events",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_group_count_from_total",
+    "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+    "templateFamilyId": "tpl_g3b_u08_group_count_score_events",
+    "semanticSignature": "total_score_divided_by_points_per_success",
+    "equationShape": "a/b",
+    "unknownRole": "success_count",
+    "quantityRoles": {
+      "a": "total_score",
+      "b": "points_per_success"
+    },
+    "contextDomains": [
+      "sports",
+      "game"
+    ],
+    "promptSkeletonZh": "{person}共得到{a}分，每{successAction}可得{b}分，{person}{successQuestionClause}？",
+    "sourcePromptSkeletonZh": "{person}共得到{a}分，每成功{eventUnit}可得{b}分，{person}成功了幾{eventUnit}？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_ONE_DIGIT",
+      "DIVIDEND_TWO_OR_THREE_DIGITS",
+      "SUCCESS_COUNT_INTEGER"
+    ],
+    "fullFixRules": [
+      "SUCCESS_EVENT_PHRASE_NATURAL",
+      "SUCCESS_EVENT_CLASSIFIER_MATCH"
+    ],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "division_word_problem"
+    ],
+    "skillTags": [
+      "division",
+      "quotative_division",
+      "find_group_count",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_group_count_score_events"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 5,
+    "familyOrderWithinKnowledgePoint": 1,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_group_count_craft_products",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_group_count_from_total",
+    "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+    "templateFamilyId": "tpl_g3b_u08_group_count_craft_products",
+    "semanticSignature": "total_material_divided_by_material_per_product",
+    "equationShape": "a/b",
+    "unknownRole": "product_count",
+    "quantityRoles": {
+      "a": "total_material_count",
+      "b": "material_per_product"
+    },
+    "contextDomains": [
+      "craft",
+      "jewelry"
+    ],
+    "promptSkeletonZh": "共有{a}{materialUnit}{material}，做一{productUnit}{product}要用{b}{materialUnit}，可以做幾{productUnit}{product}？",
+    "sourcePromptSkeletonZh": "共有{a}{materialUnit}{material}，做一{productUnit}{product}要用{b}{materialUnit}，可以做幾{productUnit}{product}？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_ONE_DIGIT",
+      "DIVIDEND_TWO_OR_THREE_DIGITS",
+      "MATERIAL_PRODUCT_UNIT_FLOW"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "division_word_problem"
+    ],
+    "skillTags": [
+      "division",
+      "quotative_division",
+      "find_group_count",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_group_count_craft_products"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 6,
+    "familyOrderWithinKnowledgePoint": 2,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_group_count_equal_segments",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_group_count_from_total",
+    "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+    "templateFamilyId": "tpl_g3b_u08_group_count_equal_segments",
+    "semanticSignature": "total_length_divided_by_segment_length",
+    "equationShape": "a/b",
+    "unknownRole": "segment_count",
+    "quantityRoles": {
+      "a": "total_length",
+      "b": "length_per_segment"
+    },
+    "contextDomains": [
+      "ribbon",
+      "rope",
+      "paper_strip"
+    ],
+    "promptSkeletonZh": "一條{item}長{a}{lengthUnit}，每段長{b}{lengthUnit}，可以剪成幾段？",
+    "sourcePromptSkeletonZh": "一條{item}長{a}{lengthUnit}，每段剪成{b}{lengthUnit}，可以剪成幾段？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_ONE_DIGIT",
+      "DIVIDEND_TWO_OR_THREE_DIGITS",
+      "LENGTH_UNIT_CONSISTENT"
+    ],
+    "fullFixRules": [
+      "SEGMENT_LENGTH_WORDING_NATURAL"
+    ],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "division_word_problem"
+    ],
+    "skillTags": [
+      "division",
+      "quotative_division",
+      "find_group_count",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_group_count_equal_segments"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 7,
+    "familyOrderWithinKnowledgePoint": 3,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_group_count_packaging",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_group_count_from_total",
+    "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+    "templateFamilyId": "tpl_g3b_u08_group_count_packaging",
+    "semanticSignature": "total_items_divided_by_items_per_package",
+    "equationShape": "a/b",
+    "unknownRole": "package_count",
+    "quantityRoles": {
+      "a": "total_item_count",
+      "b": "items_per_package"
+    },
+    "contextDomains": [
+      "food",
+      "classroom",
+      "sports"
+    ],
+    "promptSkeletonZh": "共有{a}{itemUnit}{item}，每{b}{itemUnit}裝一{packageUnit}，可以裝成幾{packageUnit}？",
+    "sourcePromptSkeletonZh": "共有{a}{itemUnit}{item}，每{b}{itemUnit}裝一{packageUnit}，可以裝成幾{packageUnit}？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_ONE_DIGIT",
+      "DIVIDEND_TWO_OR_THREE_DIGITS",
+      "PACKAGE_ITEM_UNITS_DISTINCT"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "division_word_problem"
+    ],
+    "skillTags": [
+      "division",
+      "quotative_division",
+      "find_group_count",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_group_count_packaging"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 8,
+    "familyOrderWithinKnowledgePoint": 4,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_per_group_daily_saving",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_per_group_from_total",
+    "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+    "templateFamilyId": "tpl_g3b_u08_per_group_daily_saving",
+    "semanticSignature": "total_saving_divided_by_day_count",
+    "equationShape": "a/b",
+    "unknownRole": "amount_per_day",
+    "quantityRoles": {
+      "a": "total_amount",
+      "b": "day_count"
+    },
+    "contextDomains": [
+      "saving",
+      "allowance"
+    ],
+    "promptSkeletonZh": "{person}{b}天共存了{a}元，每天存一樣多，平均每天存多少元？",
+    "sourcePromptSkeletonZh": "{person}{b}天共存了{a}元，每天存一樣多，平均每天存多少元？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_ONE_DIGIT",
+      "DIVIDEND_TWO_OR_THREE_DIGITS",
+      "TIME_UNIT_FLOW_CLEAR"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "division_word_problem"
+    ],
+    "skillTags": [
+      "division",
+      "partitive_division",
+      "find_per_group",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_per_group_daily_saving"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 9,
+    "familyOrderWithinKnowledgePoint": 1,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_per_group_equal_share_people",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_per_group_from_total",
+    "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+    "templateFamilyId": "tpl_g3b_u08_per_group_equal_share_people",
+    "semanticSignature": "total_items_equally_shared_among_people",
+    "equationShape": "a/b",
+    "unknownRole": "items_per_person",
+    "quantityRoles": {
+      "a": "total_item_count",
+      "b": "recipient_count"
+    },
+    "contextDomains": [
+      "classroom",
+      "snacks",
+      "craft"
+    ],
+    "promptSkeletonZh": "把{a}{itemUnit}{item}平均分給{b}人，每人分到多少{itemUnit}{item}？",
+    "sourcePromptSkeletonZh": "把{a}{itemUnit}{item}平均分給{b}人，每人分到多少{itemUnit}{item}？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_ONE_DIGIT",
+      "DIVIDEND_TWO_OR_THREE_DIGITS",
+      "RECIPIENT_SCOPE_CLEAR"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "division_word_problem"
+    ],
+    "skillTags": [
+      "division",
+      "partitive_division",
+      "find_per_group",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_per_group_equal_share_people"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 10,
+    "familyOrderWithinKnowledgePoint": 2,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_per_group_equal_container_capacity",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_per_group_from_total",
+    "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+    "templateFamilyId": "tpl_g3b_u08_per_group_equal_container_capacity",
+    "semanticSignature": "total_capacity_equally_filled_into_containers",
+    "equationShape": "a/b",
+    "unknownRole": "capacity_per_container",
+    "quantityRoles": {
+      "a": "total_capacity",
+      "b": "container_count"
+    },
+    "contextDomains": [
+      "drinks",
+      "cooking",
+      "experiment"
+    ],
+    "promptSkeletonZh": "把{a}{capacityUnit}{liquid}平均裝入{b}{containerUnit}，每{containerUnit}有多少{capacityUnit}？",
+    "sourcePromptSkeletonZh": "把{a}{capacityUnit}{liquid}平均裝入{b}{containerUnit}，每{containerUnit}有多少{capacityUnit}？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_ONE_DIGIT",
+      "DIVIDEND_TWO_OR_THREE_DIGITS",
+      "CAPACITY_UNIT_FLOW",
+      "CONTAINER_COUNT_CLEAR"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "division_word_problem"
+    ],
+    "skillTags": [
+      "division",
+      "partitive_division",
+      "find_per_group",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_per_group_equal_container_capacity"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 11,
+    "familyOrderWithinKnowledgePoint": 3,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_per_group_equal_segment_length",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_per_group_from_total",
+    "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+    "templateFamilyId": "tpl_g3b_u08_per_group_equal_segment_length",
+    "semanticSignature": "total_length_equally_divided_into_segments",
+    "equationShape": "a/b",
+    "unknownRole": "length_per_segment",
+    "quantityRoles": {
+      "a": "total_length",
+      "b": "segment_count"
+    },
+    "contextDomains": [
+      "ribbon",
+      "rope",
+      "track"
+    ],
+    "promptSkeletonZh": "一條{item}全長{a}{lengthUnit}，平均分成{b}段，每段長多少{lengthUnit}？",
+    "sourcePromptSkeletonZh": "一條{item}全長{a}{lengthUnit}，平均分成{b}段，每段長多少{lengthUnit}？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_ONE_DIGIT",
+      "DIVIDEND_TWO_OR_THREE_DIGITS",
+      "LENGTH_UNIT_CONSISTENT"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "division_word_problem"
+    ],
+    "skillTags": [
+      "division",
+      "partitive_division",
+      "find_per_group",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_per_group_equal_segment_length"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 12,
+    "familyOrderWithinKnowledgePoint": 4,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_reverse_base_price_multiple",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+    "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+    "templateFamilyId": "tpl_g3b_u08_reverse_base_price_multiple",
+    "semanticSignature": "comparison_price_is_multiple_of_base_price",
+    "equationShape": "a/b",
+    "unknownRole": "base_price",
+    "quantityRoles": {
+      "a": "comparison_price",
+      "b": "multiple"
+    },
+    "contextDomains": [
+      "clothing",
+      "stationery",
+      "daily_goods"
+    ],
+    "promptSkeletonZh": "{item1}售價{a}元，剛好是{item2}售價的{b}倍，{item2}售價多少元？",
+    "sourcePromptSkeletonZh": "{item1}售價{a}元，剛好是{item2}售價的{b}倍，{item2}售價多少元？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_INTEGER_2_TO_9",
+      "COMPARISON_BASE_ROLES_CLEAR",
+      "PRICE_UNIT_FLOW"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplicative_comparison"
+    ],
+    "skillTags": [
+      "division",
+      "multiplicative_comparison",
+      "find_base_quantity",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_reverse_base_price_multiple"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 13,
+    "familyOrderWithinKnowledgePoint": 1,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_reverse_base_quantity_multiple",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+    "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+    "templateFamilyId": "tpl_g3b_u08_reverse_base_quantity_multiple",
+    "semanticSignature": "comparison_quantity_is_multiple_of_base_quantity",
+    "equationShape": "a/b",
+    "unknownRole": "base_quantity",
+    "quantityRoles": {
+      "a": "comparison_quantity",
+      "b": "multiple"
+    },
+    "contextDomains": [
+      "collections",
+      "books",
+      "stickers"
+    ],
+    "promptSkeletonZh": "{person1}有{a}{itemUnit}{item}，是{person2}的{b}倍，{person2}有多少{itemUnit}{item}？",
+    "sourcePromptSkeletonZh": "{person1}有{a}{itemUnit}{item}，是{person2}的{b}倍，{person2}有多少{itemUnit}{item}？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_INTEGER_2_TO_9",
+      "COMPARISON_BASE_ROLES_CLEAR",
+      "COUNT_UNIT_FLOW"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplicative_comparison"
+    ],
+    "skillTags": [
+      "division",
+      "multiplicative_comparison",
+      "find_base_quantity",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_reverse_base_quantity_multiple"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 14,
+    "familyOrderWithinKnowledgePoint": 2,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_reverse_base_length_multiple",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+    "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+    "templateFamilyId": "tpl_g3b_u08_reverse_base_length_multiple",
+    "semanticSignature": "comparison_length_is_multiple_of_base_length",
+    "equationShape": "a/b",
+    "unknownRole": "base_length",
+    "quantityRoles": {
+      "a": "comparison_length",
+      "b": "multiple"
+    },
+    "contextDomains": [
+      "ribbon",
+      "rope",
+      "track"
+    ],
+    "promptSkeletonZh": "{item1}長{a}{lengthUnit}，是{item2}長度的{b}倍，{item2}長多少{lengthUnit}？",
+    "sourcePromptSkeletonZh": "{item1}長{a}{lengthUnit}，是{item2}長度的{b}倍，{item2}長多少{lengthUnit}？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_INTEGER_2_TO_9",
+      "COMPARISON_BASE_ROLES_CLEAR",
+      "LENGTH_UNIT_CONSISTENT"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplicative_comparison"
+    ],
+    "skillTags": [
+      "division",
+      "multiplicative_comparison",
+      "find_base_quantity",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_reverse_base_length_multiple"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 15,
+    "familyOrderWithinKnowledgePoint": 3,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_reverse_base_capacity_multiple",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+    "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+    "templateFamilyId": "tpl_g3b_u08_reverse_base_capacity_multiple",
+    "semanticSignature": "comparison_capacity_is_multiple_of_base_capacity",
+    "equationShape": "a/b",
+    "unknownRole": "base_capacity",
+    "quantityRoles": {
+      "a": "comparison_capacity",
+      "b": "multiple"
+    },
+    "contextDomains": [
+      "containers",
+      "drinks"
+    ],
+    "promptSkeletonZh": "{container1}可裝{a}{capacityUnit}，是{container2}容量的{b}倍，{container2}可裝多少{capacityUnit}？",
+    "sourcePromptSkeletonZh": "{container1}可裝{a}{capacityUnit}，是{container2}容量的{b}倍，{container2}可裝多少{capacityUnit}？",
+    "requiredConstraints": [
+      "A_DIVISIBLE_BY_B",
+      "B_INTEGER_2_TO_9",
+      "COMPARISON_BASE_ROLES_CLEAR",
+      "CAPACITY_UNIT_FLOW"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplicative_comparison"
+    ],
+    "skillTags": [
+      "division",
+      "multiplicative_comparison",
+      "find_base_quantity",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_reverse_base_capacity_multiple"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 16,
+    "familyOrderWithinKnowledgePoint": 4,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_estimate_near_hundred_total",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_shopping_estimation",
+    "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+    "templateFamilyId": "tpl_g3b_u08_estimate_near_hundred_total",
+    "semanticSignature": "round_unit_price_then_estimate_total",
+    "equationShape": "round100(a)*b",
+    "unknownRole": "estimated_total",
+    "quantityRoles": {
+      "a": "unit_price",
+      "b": "item_count"
+    },
+    "contextDomains": [
+      "shopping",
+      "food"
+    ],
+    "promptSkeletonZh": "每{itemUnit}{item}{a}元，買{b}{itemUnit}，先把單價看成接近的整百數，估一估大約需要多少元？",
+    "sourcePromptSkeletonZh": "每{itemUnit}{item}{a}元，買{b}{itemUnit}，先把單價看成接近的整百數，估一估大約需要多少元？",
+    "requiredConstraints": [
+      "A_NEAR_HUNDRED",
+      "B_ONE_DIGIT",
+      "ROUNDED_PRODUCT_WITHIN_PRIOR_MULTIPLICATION_SCOPE",
+      "ESTIMATE_WORDING_REQUIRED"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_estimation_judgment",
+      "fields": [
+        "estimateEquationModel",
+        "estimateValue",
+        "judgment",
+        "exactEquationModel",
+        "exactDifference",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "integer_estimation"
+    ],
+    "skillTags": [
+      "estimation",
+      "shopping",
+      "hundred_benchmark",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_estimate_near_hundred_total"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 17,
+    "familyOrderWithinKnowledgePoint": 1,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_estimate_budget_sufficiency_upper",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_shopping_estimation",
+    "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+    "templateFamilyId": "tpl_g3b_u08_estimate_budget_sufficiency_upper",
+    "semanticSignature": "round_up_unit_price_to_test_budget_sufficiency",
+    "equationShape": "ceil100(a)*b",
+    "unknownRole": "budget_sufficiency",
+    "quantityRoles": {
+      "a": "unit_price",
+      "b": "item_count",
+      "c": "budget"
+    },
+    "contextDomains": [
+      "shopping",
+      "food"
+    ],
+    "promptSkeletonZh": "每{itemUnit}{item}{a}元，買{b}{itemUnit}，帶{c}元夠不夠？請先用接近的整百數估一估。",
+    "sourcePromptSkeletonZh": "每{itemUnit}{item}{a}元，買{b}{itemUnit}，帶{c}元夠不夠？請先用接近的整百數估一估。",
+    "requiredConstraints": [
+      "A_BELOW_NEXT_HUNDRED",
+      "B_ONE_DIGIT",
+      "C_EQUALS_UPPER_ESTIMATE",
+      "UPWARD_ESTIMATE_SUPPORTS_SUFFICIENCY",
+      "NO_FALSE_CERTAINTY"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_estimation_judgment",
+      "fields": [
+        "estimateEquationModel",
+        "estimateValue",
+        "judgment",
+        "exactEquationModel",
+        "exactDifference",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "integer_estimation"
+    ],
+    "skillTags": [
+      "estimation",
+      "shopping",
+      "hundred_benchmark",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_estimate_budget_sufficiency_upper"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 18,
+    "familyOrderWithinKnowledgePoint": 2,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_estimate_exact_over_benchmark",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_shopping_estimation",
+    "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+    "templateFamilyId": "tpl_g3b_u08_estimate_exact_over_benchmark",
+    "semanticSignature": "benchmark_then_restore_positive_unit_difference",
+    "equationShape": "(h+d)*b",
+    "unknownRole": "amount_over_benchmark",
+    "quantityRoles": {
+      "h": "hundred_benchmark",
+      "d": "unit_amount_above_benchmark",
+      "b": "item_count",
+      "c": "comparison_budget"
+    },
+    "contextDomains": [
+      "shopping",
+      "food"
+    ],
+    "promptSkeletonZh": "每{itemUnit}{item}{unitPrice}元，買{b}{itemUnit}。先把單價看成{h}元，再補回每{itemUnit}多出的{d}元，實際費用比{c}元多多少元？",
+    "sourcePromptSkeletonZh": "每{itemUnit}{item}{unitPrice}元，買{b}{itemUnit}。先把單價看成{h}元，再補回每{itemUnit}多出的{d}元，實際費用比{c}元多多少元？",
+    "requiredConstraints": [
+      "UNIT_PRICE_EQUALS_H_PLUS_D",
+      "H_IS_HUNDRED",
+      "D_POSITIVE_SMALL_INTEGER",
+      "B_ONE_DIGIT",
+      "C_EQUALS_H_TIMES_B",
+      "EXACT_DIFFERENCE_REQUIRED"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_estimation_judgment",
+      "fields": [
+        "estimateEquationModel",
+        "estimateValue",
+        "judgment",
+        "exactEquationModel",
+        "exactDifference",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "integer_estimation"
+    ],
+    "skillTags": [
+      "estimation",
+      "shopping",
+      "hundred_benchmark",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_estimate_exact_over_benchmark"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 19,
+    "familyOrderWithinKnowledgePoint": 3,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_estimate_exact_under_benchmark",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_shopping_estimation",
+    "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+    "templateFamilyId": "tpl_g3b_u08_estimate_exact_under_benchmark",
+    "semanticSignature": "benchmark_then_restore_negative_unit_difference",
+    "equationShape": "(h-d)*b",
+    "unknownRole": "amount_under_benchmark",
+    "quantityRoles": {
+      "h": "hundred_benchmark",
+      "d": "unit_amount_below_benchmark",
+      "b": "item_count",
+      "c": "comparison_budget"
+    },
+    "contextDomains": [
+      "shopping",
+      "food"
+    ],
+    "promptSkeletonZh": "每{itemUnit}{item}{unitPrice}元，買{b}{itemUnit}。先把單價看成{h}元，再扣回每{itemUnit}少的{d}元，實際費用比{c}元少多少元？",
+    "sourcePromptSkeletonZh": "每{itemUnit}{item}{unitPrice}元，買{b}{itemUnit}。先把單價看成{h}元，再扣回每{itemUnit}少的{d}元，實際費用比{c}元少多少元？",
+    "requiredConstraints": [
+      "UNIT_PRICE_EQUALS_H_MINUS_D",
+      "H_IS_HUNDRED",
+      "D_POSITIVE_SMALL_INTEGER",
+      "B_ONE_DIGIT",
+      "C_EQUALS_H_TIMES_B",
+      "EXACT_DIFFERENCE_REQUIRED"
+    ],
+    "fullFixRules": [],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_estimation_judgment",
+      "fields": [
+        "estimateEquationModel",
+        "estimateValue",
+        "judgment",
+        "exactEquationModel",
+        "exactDifference",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "integer_estimation"
+    ],
+    "skillTags": [
+      "estimation",
+      "shopping",
+      "hundred_benchmark",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_estimate_exact_under_benchmark"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 20,
+    "familyOrderWithinKnowledgePoint": 4,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_same_price_compare_weight",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+    "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+    "templateFamilyId": "tpl_g3b_u08_same_price_compare_weight",
+    "semanticSignature": "same_price_compare_total_weight",
+    "equationShape": "a*b vs c*d",
+    "unknownRole": "better_option",
+    "quantityRoles": {
+      "a": "packs_option_a",
+      "b": "weight_per_pack_a",
+      "c": "packs_option_b",
+      "d": "weight_per_pack_b"
+    },
+    "contextDomains": [
+      "food"
+    ],
+    "promptSkeletonZh": "兩種{item}組合價格相同。甲有{a}包，每包{b}克；乙有{c}包，每包{d}克。哪一種買到的總重量較多？",
+    "sourcePromptSkeletonZh": "兩種{item}組合價格相同。甲有{a}包，每包{b}克；乙有{c}包，每包{d}克。哪一種買到的總重量較多？",
+    "requiredConstraints": [
+      "SAME_TOTAL_PRICE_EXPLICIT",
+      "A_AND_C_ONE_DIGIT",
+      "B_AND_D_UP_TO_THREE_DIGITS",
+      "UNEQUAL_TOTALS",
+      "WEIGHT_UNIT_FLOW"
+    ],
+    "fullFixRules": [
+      "SAME_PRICE_COMPARISON_UNIQUE_AND_COMPARABLE"
+    ],
+    "sourceEvidenceTier": "direct_source",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_same_price_comparison",
+      "fields": [
+        "optionAEquationModel",
+        "optionATotal",
+        "optionBEquationModel",
+        "optionBTotal",
+        "comparisonDimension",
+        "winner",
+        "conclusionZh",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplicative_comparison"
+    ],
+    "skillTags": [
+      "multiplication",
+      "same_price",
+      "compare_total_quantity",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_same_price_compare_weight"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 21,
+    "familyOrderWithinKnowledgePoint": 1,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_same_price_compare_capacity",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+    "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+    "templateFamilyId": "tpl_g3b_u08_same_price_compare_capacity",
+    "semanticSignature": "same_price_compare_total_capacity",
+    "equationShape": "a*b vs c*d",
+    "unknownRole": "better_option",
+    "quantityRoles": {
+      "a": "bottles_option_a",
+      "b": "capacity_per_bottle_a",
+      "c": "bottles_option_b",
+      "d": "capacity_per_bottle_b"
+    },
+    "contextDomains": [
+      "drinks"
+    ],
+    "promptSkeletonZh": "兩種飲料組合價格相同。甲有{a}瓶，每瓶{b}{capacityUnit}；乙有{c}瓶，每瓶{d}{capacityUnit}。哪一種總容量較多？",
+    "sourcePromptSkeletonZh": "兩種飲料組合價格相同。甲有{a}瓶，每瓶{b}{capacityUnit}；乙有{c}瓶，每瓶{d}{capacityUnit}。哪一種總容量較多？",
+    "requiredConstraints": [
+      "SAME_TOTAL_PRICE_EXPLICIT",
+      "A_AND_C_ONE_DIGIT",
+      "B_AND_D_UP_TO_THREE_DIGITS",
+      "UNEQUAL_TOTALS",
+      "CAPACITY_UNIT_FLOW"
+    ],
+    "fullFixRules": [
+      "SAME_PRICE_COMPARISON_UNIQUE_AND_COMPARABLE"
+    ],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_same_price_comparison",
+      "fields": [
+        "optionAEquationModel",
+        "optionATotal",
+        "optionBEquationModel",
+        "optionBTotal",
+        "comparisonDimension",
+        "winner",
+        "conclusionZh",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplicative_comparison"
+    ],
+    "skillTags": [
+      "multiplication",
+      "same_price",
+      "compare_total_quantity",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_same_price_compare_capacity"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 22,
+    "familyOrderWithinKnowledgePoint": 2,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_same_price_compare_item_count",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+    "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+    "templateFamilyId": "tpl_g3b_u08_same_price_compare_item_count",
+    "semanticSignature": "same_price_compare_total_item_count",
+    "equationShape": "a*b vs c*d",
+    "unknownRole": "better_option",
+    "quantityRoles": {
+      "a": "packs_option_a",
+      "b": "items_per_pack_a",
+      "c": "packs_option_b",
+      "d": "items_per_pack_b"
+    },
+    "contextDomains": [
+      "stationery",
+      "stickers",
+      "toys"
+    ],
+    "promptSkeletonZh": "兩種{item}組合價格相同。甲有{a}{packageUnit}，每{packageUnit}{b}{itemUnit}；乙有{c}{packageUnit}，每{packageUnit}{d}{itemUnit}。哪一種總數量較多？",
+    "sourcePromptSkeletonZh": "兩種{item}組合價格相同。甲有{a}{packageUnit}，每{packageUnit}{b}{itemUnit}；乙有{c}{packageUnit}，每{packageUnit}{d}{itemUnit}。哪一種總數量較多？",
+    "requiredConstraints": [
+      "SAME_TOTAL_PRICE_EXPLICIT",
+      "A_AND_C_ONE_DIGIT",
+      "B_AND_D_UP_TO_THREE_DIGITS",
+      "UNEQUAL_TOTALS",
+      "COUNT_UNIT_FLOW"
+    ],
+    "fullFixRules": [
+      "SAME_PRICE_COMPARISON_UNIQUE_AND_COMPARABLE"
+    ],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_same_price_comparison",
+      "fields": [
+        "optionAEquationModel",
+        "optionATotal",
+        "optionBEquationModel",
+        "optionBTotal",
+        "comparisonDimension",
+        "winner",
+        "conclusionZh",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplicative_comparison"
+    ],
+    "skillTags": [
+      "multiplication",
+      "same_price",
+      "compare_total_quantity",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_same_price_compare_item_count"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 23,
+    "familyOrderWithinKnowledgePoint": 3,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  {
+    "patternSpecId": "ps_g3b_u08_same_price_compare_total_length",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+    "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+    "templateFamilyId": "tpl_g3b_u08_same_price_compare_total_length",
+    "semanticSignature": "same_price_compare_total_length",
+    "equationShape": "a*b vs c*d",
+    "unknownRole": "better_option",
+    "quantityRoles": {
+      "a": "rolls_option_a",
+      "b": "length_per_roll_a",
+      "c": "rolls_option_b",
+      "d": "length_per_roll_b"
+    },
+    "contextDomains": [
+      "ribbon",
+      "rope"
+    ],
+    "promptSkeletonZh": "兩種{item}組合價格相同。甲有{a}捲，每捲{b}{lengthUnit}；乙有{c}捲，每捲{d}{lengthUnit}。哪一種總長度較長？",
+    "sourcePromptSkeletonZh": "兩種{item}組合價格相同。甲有{a}捲，每捲{b}{lengthUnit}；乙有{c}捲，每捲{d}{lengthUnit}。哪一種總長度較長？",
+    "requiredConstraints": [
+      "SAME_TOTAL_PRICE_EXPLICIT",
+      "A_AND_C_ONE_DIGIT",
+      "B_AND_D_UP_TO_THREE_DIGITS",
+      "UNEQUAL_TOTALS",
+      "LENGTH_UNIT_FLOW"
+    ],
+    "fullFixRules": [
+      "SAME_PRICE_COMPARISON_UNIQUE_AND_COMPARABLE"
+    ],
+    "sourceEvidenceTier": "source_structural_extension",
+    "numericPolicyRef": "S58.sharedNumericPolicy",
+    "semanticValidatorRef": "S58B_G3B_U08_SemanticValidationContract",
+    "answerModel": {
+      "shape": "semantic_same_price_comparison",
+      "fields": [
+        "optionAEquationModel",
+        "optionATotal",
+        "optionBEquationModel",
+        "optionBTotal",
+        "comparisonDimension",
+        "winner",
+        "conclusionZh",
+        "semanticSnapshot"
+      ]
+    },
+    "representation": "horizontal_only",
+    "canonicalSkillIds": [
+      "multiplicative_comparison"
+    ],
+    "skillTags": [
+      "multiplication",
+      "same_price",
+      "compare_total_quantity",
+      "word_problem"
+    ],
+    "difficultyTags": [
+      "batch_a_browser_bridge",
+      "g3b_u08_semantic_application",
+      "hidden_s58c"
+    ],
+    "patternTags": [
+      "batch_a",
+      "g3b_u08",
+      "semantic_family",
+      "tpl_g3b_u08_same_price_compare_total_length"
+    ],
+    "curriculumNodeIds": [
+      "g3b_u08_3b08"
+    ],
+    "familyOrder": 24,
+    "familyOrderWithinKnowledgePoint": 4,
+    "generatorStatus": "hidden_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  }
+]);
+const patternGroups = deepFreeze([
+  {
+    "patternGroupId": "pg_g3b_u08_total_from_groups",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "displayName": "已知每組量與組數，求總量",
+    "primaryKnowledgePointId": "kp_g3b_u08_total_from_groups",
+    "knowledgePointIds": [
+      "kp_g3b_u08_total_from_groups"
+    ],
+    "supportClass": "B",
+    "answerModelShape": "semantic_single_integer_with_unit",
+    "patternSpecIds": [
+      "ps_g3b_u08_total_daily_saving_accumulation",
+      "ps_g3b_u08_total_score_per_success",
+      "ps_g3b_u08_total_material_per_product",
+      "ps_g3b_u08_total_items_per_package"
+    ],
+    "allocationPolicy": "balanced_by_family",
+    "visibilityStatus": "hidden",
+    "holdReason": "hidden_generator_validator_and_public_smoke_required"
+  },
+  {
+    "patternGroupId": "pg_g3b_u08_group_count_from_total",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "displayName": "已知總量與每組量，求組數",
+    "primaryKnowledgePointId": "kp_g3b_u08_group_count_from_total",
+    "knowledgePointIds": [
+      "kp_g3b_u08_group_count_from_total"
+    ],
+    "supportClass": "B",
+    "answerModelShape": "semantic_single_integer_with_unit",
+    "patternSpecIds": [
+      "ps_g3b_u08_group_count_score_events",
+      "ps_g3b_u08_group_count_craft_products",
+      "ps_g3b_u08_group_count_equal_segments",
+      "ps_g3b_u08_group_count_packaging"
+    ],
+    "allocationPolicy": "balanced_by_family",
+    "visibilityStatus": "hidden",
+    "holdReason": "hidden_generator_validator_and_public_smoke_required"
+  },
+  {
+    "patternGroupId": "pg_g3b_u08_per_group_from_total",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "displayName": "已知總量與組數，求每組量",
+    "primaryKnowledgePointId": "kp_g3b_u08_per_group_from_total",
+    "knowledgePointIds": [
+      "kp_g3b_u08_per_group_from_total"
+    ],
+    "supportClass": "B",
+    "answerModelShape": "semantic_single_integer_with_unit",
+    "patternSpecIds": [
+      "ps_g3b_u08_per_group_daily_saving",
+      "ps_g3b_u08_per_group_equal_share_people",
+      "ps_g3b_u08_per_group_equal_container_capacity",
+      "ps_g3b_u08_per_group_equal_segment_length"
+    ],
+    "allocationPolicy": "balanced_by_family",
+    "visibilityStatus": "hidden",
+    "holdReason": "hidden_generator_validator_and_public_smoke_required"
+  },
+  {
+    "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "displayName": "已知比較量與倍數，反求基準量",
+    "primaryKnowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+    "knowledgePointIds": [
+      "kp_g3b_u08_reverse_base_from_multiple"
+    ],
+    "supportClass": "B",
+    "answerModelShape": "semantic_single_integer_with_unit",
+    "patternSpecIds": [
+      "ps_g3b_u08_reverse_base_price_multiple",
+      "ps_g3b_u08_reverse_base_quantity_multiple",
+      "ps_g3b_u08_reverse_base_length_multiple",
+      "ps_g3b_u08_reverse_base_capacity_multiple"
+    ],
+    "allocationPolicy": "balanced_by_family",
+    "visibilityStatus": "hidden",
+    "holdReason": "hidden_generator_validator_and_public_smoke_required"
+  },
+  {
+    "patternGroupId": "pg_g3b_u08_shopping_estimation",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "displayName": "購物估算：判斷夠不夠、多或少",
+    "primaryKnowledgePointId": "kp_g3b_u08_shopping_estimation",
+    "knowledgePointIds": [
+      "kp_g3b_u08_shopping_estimation"
+    ],
+    "supportClass": "B",
+    "answerModelShape": "semantic_estimation_judgment",
+    "patternSpecIds": [
+      "ps_g3b_u08_estimate_near_hundred_total",
+      "ps_g3b_u08_estimate_budget_sufficiency_upper",
+      "ps_g3b_u08_estimate_exact_over_benchmark",
+      "ps_g3b_u08_estimate_exact_under_benchmark"
+    ],
+    "allocationPolicy": "balanced_by_family",
+    "visibilityStatus": "hidden",
+    "holdReason": "hidden_generator_validator_and_public_smoke_required"
+  },
+  {
+    "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "displayName": "相同價格下比較哪個方案較划算",
+    "primaryKnowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+    "knowledgePointIds": [
+      "kp_g3b_u08_same_price_value_comparison"
+    ],
+    "supportClass": "B",
+    "answerModelShape": "semantic_same_price_comparison",
+    "patternSpecIds": [
+      "ps_g3b_u08_same_price_compare_weight",
+      "ps_g3b_u08_same_price_compare_capacity",
+      "ps_g3b_u08_same_price_compare_item_count",
+      "ps_g3b_u08_same_price_compare_total_length"
+    ],
+    "allocationPolicy": "balanced_by_family",
+    "visibilityStatus": "hidden",
+    "holdReason": "hidden_generator_validator_and_public_smoke_required"
+  }
+]);
+const definitions = new Map(patternSpecs.map((spec) => [spec.patternSpecId, spec]));
+const groups = new Map(patternGroups.map((group) => [group.patternGroupId, group]));
+
+export const G3B_U08_SEMANTIC_PATTERN_SPEC_IDS = Object.freeze(patternSpecs.map((spec) => spec.patternSpecId));
+export const G3B_U08_SEMANTIC_PATTERN_DEFINITIONS = Object.freeze(Object.fromEntries(definitions));
+export const G3B_U08_SEMANTIC_PATTERN_GROUPS = patternGroups;
+
+export function isG3BU08SemanticPatternSpecId(patternSpecId) {
+  return definitions.has(patternSpecId);
+}
+
+export function getG3BU08SemanticPatternDefinition(patternSpecId) {
+  return definitions.get(patternSpecId) ?? null;
+}
+
+export function getG3BU08SemanticPatternGroup(patternGroupId) {
+  return groups.get(patternGroupId) ?? null;
+}
+
+export function listG3BU08SemanticPatternDefinitions() {
+  return [...patternSpecs];
+}
+
+export function listG3BU08SemanticPatternGroups() {
+  return [...patternGroups];
+}
+
+export function listG3BU08SemanticPatternDefinitionsForKnowledgePoint(knowledgePointId) {
+  return patternSpecs.filter((spec) => spec.knowledgePointId === knowledgePointId);
+}

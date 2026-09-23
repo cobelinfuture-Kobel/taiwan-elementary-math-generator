@@ -1,0 +1,32 @@
+{
+  "schemaName": "P02BW2CapabilityPromotionRegistryV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02B_W2GlobalAuthorityLookupConsumerAdmission",
+  "status": "ONE_W2_FOUNDATION_PRODUCTION_ADMITTED",
+  "baselineAuthority": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+  "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_OVERRIDES_HISTORICAL_R04_DELIVERY_STATUS",
+  "promotions": [
+    {
+      "capabilityId": "cap_kp_authority_lookup",
+      "previousDeliveryStatus": "shadow_available",
+      "effectiveDeliveryStatus": "production_admitted",
+      "admissionTaskId": "P02B_W2GlobalAuthorityLookupConsumerAdmission",
+      "consumerPath": "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
+      "validatorPath": "tools/curriculum/validate-p02b-global-authority-lookup-consumer.mjs",
+      "scope": {
+        "sourceNodeCount": 79,
+        "knowledgePointCount": 482
+      },
+      "readOnly": true,
+      "publicUiRequired": false,
+      "promotionEvidenceState": "COMPLETE_EXACT_HEAD_CI_VERIFIED"
+    }
+  ],
+  "remainingShadowFoundationCapabilityIds": [
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity",
+    "cap_quantity_semantic_role_binding",
+    "cap_same_unit_quantity_arithmetic"
+  ]
+}

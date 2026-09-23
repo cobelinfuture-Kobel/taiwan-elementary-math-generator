@@ -1,0 +1,20 @@
+S43E5_R3_MULTI_SPEC_FIX_PENDING_READBACK
+
+status = IMPLEMENTED_READBACK_PENDING
+sourceId = g3b_u01_3b01
+
+fix_summary:
+- added g3b-u01-division-generator-lite.js
+- restored g3b-u01-division-generator.js as wrapper
+- G3B-U01 generator now distributes counts across selected PatternSpecs
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D1
+GOAL_DISTANCE_AFTER = D1
+DISTANCE_REDUCED = implemented allocation fix for G3B-U01 browser generation
+REMAINING_BLOCKERS = npm test readback pending; browser PDF smoke pending
+NEXT_SHORTEST_STEP = local test readback

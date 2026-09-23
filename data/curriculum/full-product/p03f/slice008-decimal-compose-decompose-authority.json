@@ -1,0 +1,98 @@
+{
+  "schemaName": "P03FSlice008DecimalReadWriteComposeAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice008Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 8,
+    "sliceId": "p03e_q008_r6_g3b_u09_3b09_profile_decimal_c1",
+    "previousSliceId": "p03e_q007_r6_g3b_u07_3b07_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g3b_u09_3b09",
+    "sourceCode": "3b09",
+    "sourceTitle": "小數",
+    "grade": 3,
+    "semester": "lower",
+    "unitCode": "3B-U09",
+    "evidencePages": [1],
+    "knowledgeOperationAuthorityPath": "data/curriculum/knowledge/units/g3b_u09_3b09.knowledge-operation.json",
+    "canonicalOperationAuthorityPath": "data/curriculum/application/operations/w02/g3b_u09_3b09.canonical-operation.json",
+    "hiddenPatternSpecAuthorityPath": "data/curriculum/application/pattern-specs/w02/g3b_u09_3b09.hidden-pattern-spec.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3b_u09_decimal_read_write",
+      "canonicalNameZh": "一位小數讀寫",
+      "scope": "讀寫純小數及帶整數部分的一位小數。",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "reasoningInvariant": "標準小數記號與中文讀法必須逐位保留個位與十分位數字。",
+      "requiredCapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "tagIds": ["grade_3", "domain_decimal", "concept_decimal_read_write", "operation_decimal_read_write", "representation_spoken_and_notation", "answer_decimal_or_reading", "application_not_applicable", "exact_decimal_scale_1"]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u09_decimal_compose_decompose",
+      "canonicalNameZh": "個位與十分位組成分解",
+      "scope": "依個、0.1 的個數組成或分解一位小數。",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "reasoningInvariant": "個位數量與十分位數量必須依 decimal = whole + fractionalUnits × 0.1 精確重組成同一個一位小數。",
+      "requiredCapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "tagIds": ["grade_3", "domain_decimal", "concept_decimal_compose_decompose", "operation_decimal_representation", "representation_place_value_tenths", "answer_decimal", "application_not_applicable", "exact_decimal_scale_1"]
+    }
+  ],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g3b_u09_decimal_read_write",
+      "operationModelId": "op_g3b_u09_decimal_read_write",
+      "operationFamilyId": "decimal_read_write",
+      "canonicalExpressions": ["decimalText = encodePlaceValue(digitsByPlace)"],
+      "operandRoles": {"digitsByPlace": "各位數字", "decimalText": "標準小數記號或中文讀法"},
+      "numberConstraints": ["0 <= each digit <= 9", "canonical decimal scale = 1"],
+      "validationInvariants": ["reading and notation preserve every place value"]
+    },
+    {
+      "formalMappingId": "fm_g3b_u09_decimal_compose_decompose",
+      "operationModelId": "op_g3b_u09_decimal_compose_decompose",
+      "operationFamilyId": "decimal_representation",
+      "canonicalExpressions": ["decimal = whole + fractionalUnits * placeUnit"],
+      "operandRoles": {"whole": "整數部分", "fractionalUnits": "十分位單位個數", "placeUnit": "0.1", "decimal": "一位小數值"},
+      "numberConstraints": ["0 <= whole <= 9", "1 <= fractionalUnits <= 9", "placeUnit = 0.1"],
+      "validationInvariants": ["place-value expansion recombines to the decimal exactly", "canonical decimal scale is exactly 1", "coefficient = whole * 10 + fractionalUnits"]
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g3b_u09_decimal_read_write_numeric",
+      "patternSpecId": "ps_g3b_u09_decimal_read_write_decimal_text_numeric",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "decimalText",
+      "givenRoles": ["digitsByPlace"],
+      "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+      "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+    },
+    {
+      "patternGroupId": "pg_g3b_u09_decimal_compose_decompose_numeric",
+      "patternSpecId": "ps_g3b_u09_decimal_compose_decompose_decimal_numeric",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "decimal",
+      "givenRoles": ["whole", "fractionalUnits", "placeUnit"],
+      "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+      "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+    }
+  ],
+  "productBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "applicationModeAllowed": false,
+    "globalContextBindingNotApplicable": true,
+    "parallelPipelineAllowed": false,
+    "otherG3BU09KnowledgePointsExcluded": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

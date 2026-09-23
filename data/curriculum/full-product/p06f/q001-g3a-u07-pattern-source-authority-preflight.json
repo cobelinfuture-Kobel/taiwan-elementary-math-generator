@@ -1,0 +1,241 @@
+{
+  "schemaName": "P06FW6Q001PatternSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6_Q001_Pattern_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_W6_QUEUE_FROZEN_Q001_SOURCE_RUNTIME_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q001_PATTERN_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "bf8797ee04ad6cd4c7297c0fff880d7faa396dcd",
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p06e/w6-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p06e-w6-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "9e22094dee0d66e459848741894a3347df1c985ec8720cdabb3efc2e5a68e1be",
+    "queueFreezePrNumber": 971,
+    "queueFreezeMergeSha": "0cc21c8e889dfc42c9dee2d897ba608313ece903",
+    "queuePosition": 1,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q001_r0_g3a_u07_3a07_profile_pattern_relation_c1",
+    "implementationTaskId": "P06F_W6DirectProductVerticalSlice001Implementation",
+    "previousSliceId": null,
+    "previousSliceMustBeD0Complete": false,
+    "assignedDeliveryWaveId": "R05-W6",
+    "primarySourceNodeId": "g3a_u07_3a07",
+    "supportingSourceNodeIds": ["g3a_u07_3a07"],
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_pattern_relation",
+    "chunkIndex": 1,
+    "knowledgePointCount": 3,
+    "knowledgePointIds": [
+      "kp_arithmetic_sequence_extension",
+      "kp_repeating_visual_pattern",
+      "kp_spatial_growth_pattern_count"
+    ],
+    "requiredW6CapabilityIds": [
+      "cap_pattern_relation_validator",
+      "cap_pattern_sequence_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g3a_u07_3a07",
+    "sourceCode": "3a07",
+    "sourceTitle": "尋找規律",
+    "sourcePdfTitle": "meow911_3a07_patterns.pdf",
+    "sourcePdfDriveFileId": "1HzOOsMf5y7R5nXWMnlulfdQlu7KG-1iv",
+    "sourcePdfSha256": "ef0a25e91ef3ef92117497ecc52ea074a5f940380b61c01f17bbbfc8401d097d",
+    "driveMetadataFileId": "1un97MYXDl4pVbX49FkgwC1-7V70Q_Bk-",
+    "driveVerificationNotesFileId": "1gpsA-KAtkbi2fEj5ViCZxpQHQ8Gcvem2",
+    "metadataSourceUrl": "https://meow911.com/3a07/",
+    "pageCount": 3,
+    "reviewedPages": [1, 2, 3],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "ocrUsedAsAuthority": false,
+    "directPageEvidence": {
+      "page1": {
+        "visibleFamilies": [
+          "REPEATING_COLOR_PATTERN",
+          "REPEATING_SHAPE_PATTERN",
+          "NUMERIC_SEQUENCE_EXTENSION_AND_MISSING_TERM",
+          "SPATIAL_GROWTH_COUNT"
+        ],
+        "directlySupports": [
+          "kp_repeating_visual_pattern",
+          "kp_arithmetic_sequence_extension",
+          "kp_spatial_growth_pattern_count"
+        ]
+      },
+      "page2": {
+        "visibleFamilies": [
+          "GROWING_LINE_OR_MATCHSTICK_PATTERN",
+          "NUMERIC_SEQUENCE_MISSING_TERM_AND_OUTLIER",
+          "REPEATING_FLAG_OR_BEAD_PATTERN",
+          "EVOLVING_DOT_OR_GRID_PATTERN"
+        ],
+        "directlySupports": [
+          "kp_repeating_visual_pattern",
+          "kp_arithmetic_sequence_extension",
+          "kp_spatial_growth_pattern_count"
+        ]
+      },
+      "page3": {
+        "visibleFamilies": [
+          "CUMULATIVE_PHOTO_TAPE_PATTERN",
+          "TRIANGULAR_DOT_GROWTH",
+          "POSITION_TABLE_COUNTING"
+        ],
+        "directlySupports": [
+          "kp_spatial_growth_pattern_count"
+        ],
+        "sameSourceFutureEvidenceAlsoPresent": [
+          "kp_tabular_pattern_rule"
+        ]
+      }
+    },
+    "embeddedHeaderMismatch": {
+      "present": true,
+      "pdfVisibleHeader": "尋找規律,列表與規律 https://meow911.com/3b03/",
+      "queueAndDriveSourceNode": "g3a_u07_3a07",
+      "driveMetadataSourceUrl": "https://meow911.com/3a07/",
+      "classification": "NON_BLOCKING_SOURCE_DOCUMENT_HEADER_URL_MISMATCH",
+      "resolutionBasis": [
+        "FROZEN_W6_QUEUE_SOURCE_NODE",
+        "DRIVE_SOURCE_METADATA",
+        "SOURCE_FILENAME",
+        "FULL_PAGE_PATTERN_CONTENT",
+        "R02_REVIEWED_CANDIDATE_AUTHORITY"
+      ],
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    },
+    "driveMetadataReadback": {
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g3a_u07_3a07",
+    "sourceTitle": "尋找規律",
+    "sourcePdfTitle": "meow911_3a07_patterns.pdf",
+    "reviewedPages": [1, 2, 3],
+    "targetCandidates": [
+      {
+        "knowledgePointId": "kp_arithmetic_sequence_extension",
+        "canonicalNameZh": "等差數列延伸",
+        "capabilityStatement": "學生能由相鄰項固定增加或減少的差，求後續或缺失項。",
+        "reasoningInvariant": "任意相鄰兩項的差保持固定。",
+        "category": "pattern",
+        "evidencePages": [2],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_repeating_visual_pattern",
+        "canonicalNameZh": "重複視覺規律",
+        "capabilityStatement": "學生能辨認最小重複單位並延續圖形或顏色規律。",
+        "reasoningInvariant": "所有後續位置依同一最小週期循環。",
+        "category": "pattern",
+        "evidencePages": [1],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_spatial_growth_pattern_count",
+        "canonicalNameZh": "空間成長圖形計數",
+        "capabilityStatement": "學生能由逐步增加的圖形單位找出下一階段數量。",
+        "reasoningInvariant": "每一階段的新增部分依固定空間規則產生。",
+        "category": "pattern",
+        "evidencePages": [3],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ],
+    "protectedSameSourceCandidate": {
+      "knowledgePointId": "kp_tabular_pattern_rule",
+      "canonicalNameZh": "列表對應規律",
+      "futureQueuePosition": 2,
+      "futureSliceId": "p06e_q002_r0_g3a_u07_3a07_profile_table_data_c1",
+      "q001MayNotReown": true
+    }
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "profileId": "profile_pattern_relation",
+    "profileRequiredCapabilityIds": [
+      "cap_pattern_sequence_reasoning",
+      "cap_pattern_relation_validator",
+      "cap_text_numeric_representation"
+    ],
+    "profileOptionalCapabilityIds": [
+      "cap_symbolic_relation_reasoning"
+    ],
+    "exactFrozenQueueRequiredW6CapabilityIds": [
+      "cap_pattern_relation_validator",
+      "cap_pattern_sequence_reasoning"
+    ],
+    "runtimeProfileReclassificationAllowed": false,
+    "symbolicRelationReasoningRequiredForQ001": false,
+    "tableDataCapabilityReownershipAllowed": false
+  },
+  "q001ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_arithmetic_sequence_extension",
+      "kp_repeating_visual_pattern",
+      "kp_spatial_growth_pattern_count"
+    ],
+    "includedRelations": [
+      "EXTEND_FIXED_DIFFERENCE_SEQUENCE",
+      "FILL_MISSING_TERM_UNDER_FIXED_DIFFERENCE",
+      "IDENTIFY_MINIMAL_REPEATING_VISUAL_UNIT",
+      "EXTEND_REPEATING_VISUAL_PATTERN",
+      "COUNT_NEXT_STAGE_UNDER_FIXED_SPATIAL_GROWTH_RULE"
+    ],
+    "excludedRelations": [
+      "TABULAR_INPUT_OUTPUT_RULE_AS_TARGET",
+      "REOWN_KP_TABULAR_PATTERN_RULE",
+      "GENERAL_SYMBOLIC_NTH_TERM_FORMULA",
+      "LINEAR_EQUATION_UNKNOWN",
+      "CHART_OR_TABLE_DATA_INTERPRETATION",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q002_OR_LATER_IMPLEMENTATION"
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE_BUT_NOT_ADMITTED_BY_PREFLIGHT",
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q002OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": ["GLOBAL_CONTRACTS", "TARGETED_ROUTE_REPLAY"],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "sourceAuthoritySufficientForQ001ImplementationPlanning": true,
+    "fullPageVisualEvidenceBound": true,
+    "r02ReviewedCandidatesBound": true,
+    "runtimeCapabilityContractLocked": true,
+    "sameSourceQ002CandidateProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P06F_W6DirectProductVerticalSlice001Implementation"
+  }
+}

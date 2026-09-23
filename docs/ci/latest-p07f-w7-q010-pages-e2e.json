@@ -1,0 +1,158 @@
+{
+  "schemaName": "P07FW7Q010PostMergeMainPagesE2EV1",
+  "taskId": "P07F_W7DirectProductVerticalSlice010Implementation",
+  "status": "PASS_E6_D0_COMPLETE",
+  "exactHeadSha": "61dbbb11c77c5da0c2c905b1dcf059310ddcf507",
+  "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+  "deployment": {
+    "attempt": 20,
+    "assets": [
+      {
+        "publicPath": "modules/curriculum/registry/g6a-u06-semicircle-perimeter-selector-projection-p07f10.js",
+        "expectedSha256": "231ebcf4c7a36ec74404b088e3efd25fefb9876b072d70a406a74602a0321fd4",
+        "liveSha256": "231ebcf4c7a36ec74404b088e3efd25fefb9876b072d70a406a74602a0321fd4"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p07f10-extension.js",
+        "expectedSha256": "eb86a62e6b1d7412ca035bd58f41fb517423cc4493c5a565d103ef6b47be2fa3",
+        "liveSha256": "eb86a62e6b1d7412ca035bd58f41fb517423cc4493c5a565d103ef6b47be2fa3"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+        "expectedSha256": "08699a466c26c6b5884982cf41bdf4cfbec98c6ecca86647cbda032cd3eabf5d",
+        "liveSha256": "08699a466c26c6b5884982cf41bdf4cfbec98c6ecca86647cbda032cd3eabf5d"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p07f10.js",
+        "expectedSha256": "77a62ec256bb9d5f399e877895116158d4771d46fed2996d143fa5b0fd657fcb",
+        "liveSha256": "77a62ec256bb9d5f399e877895116158d4771d46fed2996d143fa5b0fd657fcb"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+        "expectedSha256": "e724d4109a7261e7ad9fe2fcc5b4d0dff8555f2f36c6c3c4c7cff26489e038ad",
+        "liveSha256": "e724d4109a7261e7ad9fe2fcc5b4d0dff8555f2f36c6c3c4c7cff26489e038ad"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/g6a-u06-semicircle-perimeter-runtime-p07f10.js",
+        "expectedSha256": "ca5234c4e4f84139fc348ba4990c276fc95a4fa72a741c1c451add5d26565d14",
+        "liveSha256": "ca5234c4e4f84139fc348ba4990c276fc95a4fa72a741c1c451add5d26565d14"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p07f10.js",
+        "expectedSha256": "f27c5b69aee01a08d06d9b2a36130e4b4607b0a368a99cbcf8b629b203f3276b",
+        "liveSha256": "f27c5b69aee01a08d06d9b2a36130e4b4607b0a368a99cbcf8b629b203f3276b"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+        "expectedSha256": "b7dfe0681d94243d849d5436b0dcdd1e1338de81d6a2ab4a6639156980f4a923",
+        "liveSha256": "b7dfe0681d94243d849d5436b0dcdd1e1338de81d6a2ab4a6639156980f4a923"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p07f10-extension.js",
+        "expectedSha256": "1e77825fffef486aa20e19b993c26583482c6cf21fb619c744f7e09c1d85f56e",
+        "liveSha256": "1e77825fffef486aa20e19b993c26583482c6cf21fb619c744f7e09c1d85f56e"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+        "expectedSha256": "6acec04e7664edbfbb60ac2dfd0c7208093457fc59f117ef70fcb2ea7d24e716",
+        "liveSha256": "6acec04e7664edbfbb60ac2dfd0c7208093457fc59f117ef70fcb2ea7d24e716"
+      },
+      {
+        "publicPath": "modules/renderer/sector-elements-diagram.js",
+        "expectedSha256": "0a1577971b7da4181decf23ee819d539ac506e2a9fee47100acd72db9b816379",
+        "liveSha256": "0a1577971b7da4181decf23ee819d539ac506e2a9fee47100acd72db9b816379"
+      }
+    ]
+  },
+  "classicUiAcceptance": {
+    "schemaName": "P07FW7Q010ClassicUIAcceptanceV1",
+    "taskId": "P07F_W7DirectProductVerticalSlice010Implementation",
+    "status": "PASS_P07F_W7_Q010_CLASSIC_UI_ACCEPTANCE",
+    "sourceId": "g6a_u06_6a06",
+    "knowledgePointIds": [
+      "kp_g6a_u06_semicircle_perimeter"
+    ],
+    "questionCountPerTarget": 9,
+    "target": {
+      "selector": {
+        "sourceId": "g6a_u06_6a06",
+        "visibleIds": [
+          "kp_g6a_u06_pi_circumference_relation",
+          "kp_g6a_u06_circle_circumference_formula",
+          "kp_g6a_u06_semicircle_perimeter"
+        ],
+        "allExpectedPresent": true,
+        "targetPresent": true,
+        "protectedAbsent": true,
+        "sameUnitDisabled": true
+      },
+      "target": {
+        "state": {
+          "status": "已產生 9 題，可預覽與列印。",
+          "tone": "success",
+          "valid": "false",
+          "preview": 33748,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 9,
+          "answers": 9,
+          "diagrams": 18,
+          "overflow": 0
+        }
+      },
+      "printCount": 1
+    },
+    "browser": {
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "requestFailureCount": 0,
+      "assetHttpFailureCount": 0
+    },
+    "semanticInvariants": {
+      "q006CircleCircumferenceFormulaPrerequisitePreserved": true,
+      "q004PiCircumferenceRelationDirectPrerequisite": false,
+      "semicirclePerimeterOwned": true,
+      "boundaryArcPlusDiameterRequired": true,
+      "halfCircumferenceArcRequired": true,
+      "diameterStraightEdgeRequired": true,
+      "sourceOnlyArcCandidatesHidden": true,
+      "sameUnitMixedModeFailClosed": true
+    },
+    "forbiddenScope": {
+      "q004PiRelationTeachingReownership": false,
+      "q006CircleCircumferenceFormulaTeachingReownership": false,
+      "sectorArcLengthReownership": false,
+      "compositeArcPerimeterReownership": false,
+      "stadiumCapsulePerimeter": false,
+      "rollingWheelDistanceApplication": false,
+      "squareInscribedCircleBoundary": false,
+      "applicationContext": false,
+      "sameUnitMixed": false,
+      "crossUnitMixed": false,
+      "fullRepositoryRegression": false,
+      "globalBrowserReplay": false
+    }
+  },
+  "semanticInvariants": {
+    "q006CircleCircumferenceFormulaPrerequisitePreserved": true,
+    "q004PiCircumferenceRelationDirectPrerequisite": false,
+    "semicirclePerimeterOwned": true,
+    "boundaryArcPlusDiameterRequired": true,
+    "halfCircumferenceArcRequired": true,
+    "diameterStraightEdgeRequired": true,
+    "sourceOnlyArcCandidatesHidden": true,
+    "sameUnitMixedModeFailClosed": true,
+    "w7QueueContinuesAfterQ010": true
+  },
+  "workflow": "P07F W7 Q010 Post-Merge Pages E2E",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "run": {
+    "id": "35744406174",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/35744406174"
+  },
+  "verifiedAt": "2026-09-22T15:17:31.440Z"
+}

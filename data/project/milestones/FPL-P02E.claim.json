@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W2_QUANTITY_SEMANTIC_ROLE_BINDING_26_KP_13_SOURCE_PRODUCTION_ADMITTED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p02-w2-product-admission-inventory.mjs",
+      "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
+      "src/curriculum/full-product/p02c-quantity-dimension-unit-identity-consumer.mjs",
+      "src/curriculum/full-product/p02e-quantity-semantic-role-binding-consumer.mjs",
+      "tools/curriculum/validate-p02e-quantity-semantic-role-binding-consumer.mjs",
+      "tests/curriculum/p02e-quantity-semantic-role-binding-consumer.test.js",
+      "tests/curriculum/p02e-semantic-binding-readback.test.js",
+      "tests/curriculum/p02e-semantic-contract-precision.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P02D.claim.json",
+      "data/project/milestones/GCKG-R04.claim.json",
+      "data/curriculum/full-product/p02e/quantity-semantic-role-binding-policy.json",
+      "data/curriculum/full-product/p02e/quantity-semantic-role-overrides.json",
+      "data/curriculum/full-product/p02e/quantity-semantic-role-binding.manifest.json",
+      "data/curriculum/full-product/p02e/w2-capability-promotion-registry.json",
+      "docs/curriculum/contracts/W2_QUANTITY_SEMANTIC_ROLE_BINDING_CONSUMER_ADMISSION_CONTRACT_V1.md",
+      "docs/curriculum/output/P02E_W2_QUANTITY_SEMANTIC_ROLE_BINDING_CONSUMER_ADMISSION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The fourth W2 foundation now has one production-admitted read-only semantic-role binding consumer covering twenty-six effective dependent KnowledgePoints across thirteen sources, thirty-two validated source/KnowledgePoint bindings and sixteen closed relation families, with nine authority-specific precision overrides and zero generic relation-family fallback."
+  },
+  "nextStep": {
+    "taskId": "P02F_W2SameUnitQuantityArithmeticConsumerAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}

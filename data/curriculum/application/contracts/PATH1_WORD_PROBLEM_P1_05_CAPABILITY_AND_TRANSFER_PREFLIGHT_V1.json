@@ -1,0 +1,293 @@
+{
+  "schemaName": "Path1WordProblemP105CapabilityAndTransferPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_05_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1",
+  "status": "P1_05_CAPABILITY_AND_TRANSFER_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "mainAtTaskStart": "daa8f2778d84d73e2ca6f1bd6f3e7553f7216b6d",
+  "operatorScope": "AUTO_CONTINUED_SEQUENTIAL_PATH1_PREFLIGHT",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicCutoverAllowed": false,
+  "publicBindingMutationAllowed": false,
+  "path1MatrixChanged": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "newRelationMinted": false,
+  "newPatternSpecMaterialized": false,
+  "prerequisite": {
+    "taskId": "PATH1_WORD_PROBLEM_P1_01_TO_P1_04_SOURCE_PROVENANCE_CLOSEOUT_V1",
+    "mergeSha": "786bce9a317396ff9785c050a6205e05a858d5af",
+    "path": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_P1_01_TO_P1_04_SOURCE_PROVENANCE_CLOSEOUT_V1.json"
+  },
+  "scope": {
+    "includedPathBlock": "P1-05",
+    "title": "0 特殊情況",
+    "goal": "Determine whether P1-05's zero-placeholder arithmetic skill should receive a bounded word-problem modeling transfer and, if so, lock the minimum source-backed architecture without changing runtime.",
+    "excluded": [
+      "P1-06 or later block implementation",
+      "P1-12 public cutover",
+      "Path1 matrix mutation",
+      "current P1-05 public arithmetic binding mutation",
+      "G4B-U01 modeling expansion",
+      "G3B-U08 canonical numeric-envelope expansion",
+      "inverse unknown-role training",
+      "unit conversion",
+      "multi-relation composition",
+      "mastery integration",
+      "runtime implementation",
+      "public query/UI cutover",
+      "full repository regression",
+      "global browser replay"
+    ]
+  },
+  "authorityRefs": {
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "sourceProvenanceCloseout": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_P1_01_TO_P1_04_SOURCE_PROVENANCE_CLOSEOUT_V1.json",
+    "p101P102TransferContract": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1.json",
+    "p103Implementation": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1.json",
+    "p104Implementation": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1.json",
+    "g3aU03KnowledgeOperation": "data/curriculum/knowledge/units/g3a_u03_3a03.knowledge-operation.json",
+    "g3bU08KnowledgeOperation": "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+    "g3bU08PatternSpecs": "data/curriculum/pattern_specs/S58C_G3B_U08_SemanticPatternSpecRegistry.json",
+    "g3bU08Promotion": "data/curriculum/registry/promotions/S58F_G3B_U08_SemanticPromotionRegistry.json",
+    "g4bU01KnowledgeOperation": "data/curriculum/knowledge/units/g4b_u01_4b01.knowledge-operation.json",
+    "path1PublicBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "currentSharedTransferGenerator": "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+    "registeredSupplementaryCorpora": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_SOURCE_CORPUS_ADDITION_V1.json"
+  },
+  "currentMatrixAuthority": {
+    "blockId": "P1-05",
+    "blockType": "DIRECT_KP",
+    "primaryKnowledgePointIds": ["kp_g3a_u03_3digit_zero_middle_by_1digit"],
+    "requiredPrerequisiteBlockIds": ["P1-04"],
+    "requiredPrerequisiteKnowledgePointIds": ["kp_g3a_u03_3digit_by_1digit"],
+    "optionalSupportingKnowledgePointIds": ["kp_g4a_u02_3digit_by_1digit_review"],
+    "difficultyExpansionId": "zero_place_holder_cases",
+    "matrixInterpretation": "P1-05 is a distinct arithmetic validator boundary for a three-digit multiplicand whose tens digit is zero; the LearningBlock does not create a new modeling relation."
+  },
+  "canonicalArithmeticAuthority": {
+    "sourceId": "g3a_u03_3a03",
+    "sourceFileName": "batchA_01-題型總覽-3a03-乘法.pdf",
+    "sourceDriveFileId": "1cUa8Oi1VE2My9ZtCJwGvpBpfDAbhPOp2",
+    "knowledgePointId": "kp_g3a_u03_3digit_zero_middle_by_1digit",
+    "knowledgePointName": "三位數中間為0乘一位數",
+    "operationModelId": "op_g3a_u03_zero_middle_by_1digit",
+    "applicationCapabilityAtCanonicalUnit": "NOT_APPLICABLE",
+    "canonicalExpressions": ["a = 100*h + u", "product = a * b"],
+    "numberConstraints": [
+      "1 <= h <= 9",
+      "1 <= u <= 9",
+      "tens digit of a is 0",
+      "2 <= b <= 9",
+      "101 <= a <= 909",
+      "product = a * b",
+      "202 <= product <= 8181"
+    ],
+    "validationInvariants": [
+      "hundreds digit of a is nonzero",
+      "tens digit of a is zero",
+      "ones digit of a is nonzero",
+      "product equals a multiplied by b"
+    ],
+    "sourceReadback": {
+      "uploadedSourceVisualReadSupports": [
+        "三位數乘一位數",
+        "三位數乘一位數有缺位/零位值處理",
+        "乘法直式位值規則"
+      ],
+      "embeddedPathWarning": "/3a04/",
+      "resolvedSourceIdRemains": "g3a_u03_3a03"
+    }
+  },
+  "capabilityDecision": {
+    "decision": "YES_BOUNDED_MODELING_TRANSFER_IS_MEANINGFUL_BUT_ZERO_PLACEHOLDER_IS_ARITHMETIC_NOT_A_NEW_RELATION",
+    "reasoning": [
+      "The P1-05 distinctive capability is arithmetic execution with an internal zero placeholder, not a distinct word-problem relation.",
+      "A learner can still transfer this arithmetic executor into the same source-backed equal-groups direct-total relation used earlier in Path1.",
+      "The word-problem layer must preserve the P1-05 arithmetic boundary by requiring the role-bound multiplicand to have a zero tens digit; otherwise the exercise collapses back to generic three-digit-by-one-digit multiplication.",
+      "No new canonical KnowledgePoint or relation family is justified."
+    ],
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "unknownRole": "totalAmount",
+    "leftFactorRole": "amountPerGroup",
+    "rightFactorRole": "groupCount",
+    "productRole": "totalAmount",
+    "semanticCommutativeRoleSwapAllowed": false,
+    "keywordToOperationSelectionAllowed": false,
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT"
+  },
+  "numericAuthorityDecision": {
+    "selectedCoverage": "FULL_CURRENT_P1_05_ARITHMETIC_DOMAIN",
+    "amountPerGroup": "integer 101..909 with hundreds and ones digits nonzero and tens digit exactly 0",
+    "groupCount": "integer 2..9",
+    "totalAmount": "amountPerGroup * groupCount; integer 202..8181",
+    "operandPairCapacityBeforeContextProjection": 648,
+    "directReuseOfG3BU08NumericEnvelopeAllowed": false,
+    "reason": "Direct G3B-U08 equal-groups reuse would cap totalAmount at 999 and admit only a bounded subset of P1-05. The shortest complete transfer therefore keeps R03 semantic lineage but uses a Path1-local numeric projection, as already established for P1-03/P1-04.",
+    "g3bU08CanonicalAuthorityChanged": false
+  },
+  "semanticSurfaceDecision": {
+    "strategy": "PATH1_LOCAL_R03_PATTERN_PROJECTION_WITH_EXISTING_PROMOTED_PARENT_LINEAGE",
+    "parentPatternSpecIds": [
+      "ps_g3b_u08_total_items_per_package",
+      "ps_g3b_u08_total_material_per_product",
+      "ps_g3b_u08_total_score_per_success",
+      "ps_g3b_u08_total_daily_saving_accumulation"
+    ],
+    "candidateLocalPatternSpecIds": [
+      "P105_R03_ITEMS_PER_PACKAGE_TOTAL",
+      "P105_R03_MATERIAL_PER_PRODUCT_TOTAL",
+      "P105_R03_SCORE_PER_EVENT_TOTAL",
+      "P105_R03_AMOUNT_PER_PERIOD_TOTAL"
+    ],
+    "candidatePatternMeaning": "The local PatternSpecs preserve the four source-backed direct-total semantic families but carry P1-05's full zero-middle arithmetic envelope instead of widening G3B-U08 authority.",
+    "newContextFamilyPlanned": false,
+    "freeFormContextGenerationAllowed": false
+  },
+  "sourceEvidence": {
+    "arithmeticCurriculum": {
+      "sourceId": "g3a_u03_3a03",
+      "driveFileId": "1cUa8Oi1VE2My9ZtCJwGvpBpfDAbhPOp2",
+      "use": "primary arithmetic capability authority"
+    },
+    "schoolExam": {
+      "sourceFileId": "1fgRK7y1SehP7Ztro2Z3XKCnV-kuwedqw",
+      "title": "數學_109 上學期_三年級_宜蘭縣_縣立武淵國小_第一次段考(期中考)_翰林_試卷.pdf",
+      "observedWitness": "304 × 6",
+      "use": "positive school-exam arithmetic-surface witness that the zero-middle multiplicand form occurs in real assessment",
+      "modelingAuthority": false,
+      "numericEnvelopeAuthority": false
+    },
+    "wordProblemRepresentation": {
+      "authority": "reuse already approved R03 school-exam/context breadth from P1-01 through P1-04 provenance; no P1-05-specific contextual witness is fabricated",
+      "use": "representation breadth only"
+    },
+    "liTeacher": {
+      "registeredCorpus": "LI_TEACHER_MATH_THINKING_G1_G6",
+      "use": "general multiplication/problem-solving structure only",
+      "p105SpecificRuntimeAuthority": false,
+      "newPatternAdmissionFromLiTeacher": false
+    },
+    "policy": {
+      "canonicalArithmeticAuthorityWins": true,
+      "canonicalRelationAuthorityWins": true,
+      "schoolExamSupportsRepresentationBreadthOnly": true,
+      "liTeacherSupportsProblemSolvingStructureOnly": true,
+      "sourcePresenceDoesNotExpandRuntime": true
+    }
+  },
+  "observedPublicBindingScopeDrift": {
+    "matrixPrimaryKnowledgePointIds": ["kp_g3a_u03_3digit_zero_middle_by_1digit"],
+    "currentPublicArithmeticBindingKnowledgePointIds": [
+      "kp_g3a_u03_3digit_zero_middle_by_1digit",
+      "kp_g4b_u01_multiplier_internal_zero",
+      "kp_g4b_u01_trailing_zero_multiplication"
+    ],
+    "extraPublicBindingKnowledgePointIds": [
+      "kp_g4b_u01_multiplier_internal_zero",
+      "kp_g4b_u01_trailing_zero_multiplication"
+    ],
+    "status": "OBSERVED_NOT_ADOPTED_FOR_P105_MODELING_TRANSFER",
+    "interpretation": "The extra G4B-U01 zero-pattern KPs are existing arithmetic compatibility breadth. They are not P1-05 matrix authority and must not enter the P1-05 modeling transfer without a separate curriculum/binding decision.",
+    "currentPublicArithmeticBehaviorChanged": false,
+    "futureModelingMustUseMatrixPrimaryKnowledgePointOnly": true,
+    "separatePublicBindingReconciliationRequiredBeforePublicCutover": true
+  },
+  "futureImplementationContract": {
+    "implementationTaskId": "PATH1_WORD_PROBLEM_P1_05_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1",
+    "practiceModeCandidate": "multiplicativeModelingTransfer",
+    "publicCutoverInImplementation": false,
+    "candidateFiles": [
+      "data/curriculum/pattern_specs/PATH1_P1_05_ZeroSpecialMultiplicativeModelingPatternSpecRegistry.json",
+      "site/modules/curriculum/learning-paths/path1-p1-05-zero-special-multiplicative-modeling-patterns.js",
+      "site/modules/curriculum/learning-paths/path1-p1-05-zero-special-multiplicative-modeling-generator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-05-zero-special-multiplicative-modeling-validator.js",
+      "site/assets/browser/pipeline/build-path1-p1-05-zero-special-multiplicative-modeling-worksheet.js",
+      "focused tests/runners/validation-plan/impact-manifest/implementation contract"
+    ],
+    "mustNotModify": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html",
+      "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
+      "P1-01/P1-02 equal-groups transfer runtime",
+      "P1-03/P1-04 modeling runtime",
+      "P1-12 runtime/public route"
+    ]
+  },
+  "futureGeneratorContract": {
+    "countRange": "1..120",
+    "seedRequired": true,
+    "arithmeticKnowledgePointId": "kp_g3a_u03_3digit_zero_middle_by_1digit",
+    "relationId": "R03_EQUAL_GROUPS",
+    "unknownRole": "totalAmount",
+    "requiredZeroBoundary": "amountPerGroup hundreds and ones digits are nonzero and tens digit is exactly zero",
+    "fullArithmeticEnvelopeRequired": true,
+    "balancedPatternCoverageRequired": true,
+    "distinctPromptRequired": true,
+    "deterministicReplayRequired": true,
+    "capacityTarget": 120
+  },
+  "futureValidatorContract": {
+    "failClosed": true,
+    "requiredChecks": [
+      "block is exactly P1-05",
+      "arithmetic KnowledgePoint is exactly kp_g3a_u03_3digit_zero_middle_by_1digit",
+      "amountPerGroup is 101..909 with nonzero hundreds and ones digits and zero tens digit",
+      "groupCount is 2..9",
+      "totalAmount equals amountPerGroup times groupCount and is 202..8181",
+      "unknown role is totalAmount",
+      "equation preserves amountPerGroup × groupCount role order",
+      "local PatternSpec belongs to the four-item P1-05 allowlist and traces to an approved G3B-U08 parent",
+      "prompt/context is reconstructable from approved source-backed semantic lineage",
+      "answer unit follows the context total-quantity role",
+      "no G4B-U01 arithmetic-compatibility KP leaks into modeling",
+      "no unit conversion, inverse role, multi-relation, or semantic commutative role swap",
+      "no new canonical KP is minted"
+    ]
+  },
+  "focusedFutureAcceptance": {
+    "node": [
+      "1/20/120 generation and validation",
+      "120 distinct prompts",
+      "all four P1-05 local Pattern families represented",
+      "every generated multiplicand has zero tens digit with nonzero hundreds and ones digits",
+      "full envelope includes products above 999 so implementation is proven independent of G3B-U08 numeric authority",
+      "same-seed deterministic replay and different-seed variation",
+      "wrong zero position, generic three-digit operand, G4B-U01 KP leak, wrong equation role order, wrong unit, inverse unknown role, and unapproved PatternSpec fail closed",
+      "P1-01/P1-02 transfer and P1-03/P1-04 modeling preservation"
+    ],
+    "worksheet": [
+      "dedicated non-public P1-05 worksheet produces application questions and equation-bearing answer keys",
+      "question/answer parity",
+      "publicCutoverApplied remains false"
+    ],
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "implementationEntryCriteria": [
+    "this preflight is merged with exact-head focused CI green",
+    "explicit operator approval to cross planning-to-implementation boundary",
+    "implementation remains non-public and inside futureImplementationContract.candidateFiles",
+    "public binding drift remains untouched"
+  ],
+  "distance": {
+    "goalDistanceBefore": "D3_P105_ARITHMETIC_KP_AND_SOURCES_EXIST_BUT_WORD_PROBLEM_TRANSFER_UNDECIDED",
+    "goalDistanceAfterTarget": "D2_P105_ZERO_SPECIAL_R03_TRANSFER_AND_VALIDATOR_CONTRACT_LOCKED",
+    "distanceReduced": "P1-05 moves from an arithmetic-only zero-placeholder KP with ambiguous application treatment to a bounded full-envelope Path1-local R03 modeling contract with explicit source lineage, Pattern candidates, validator invariants, and public-binding boundary.",
+    "remainingBlockers": [
+      "P1-05 modeling implementation approval required",
+      "P1-05 local PatternSpecs not materialized",
+      "P1-05 generator/validator/worksheet adapter not implemented",
+      "P1-05 public binding reconciliation remains a later pre-cutover milestone",
+      "P1-05 deployed public acceptance remains later"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_05_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1"
+  }
+}

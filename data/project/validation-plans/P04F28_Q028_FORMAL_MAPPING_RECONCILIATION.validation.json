@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P04F28_Q028_FORMAL_MAPPING_RECONCILIATION_BOUNDED_VALIDATION",
+  "unitId": "g5a_u04_5a04",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p04f-slice028-formal-mapping-reconciliation.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p04f-slice028-formal-mapping-reconciliation.test.js"
+        ],
+        "runtime": "NODE_ONLY"
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p04f-slice028-formal-mapping-reconciliation.test.js"
+        ]
+      }
+    ]
+  }
+}

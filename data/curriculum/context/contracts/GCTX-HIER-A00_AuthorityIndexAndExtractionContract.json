@@ -1,0 +1,80 @@
+{
+  "schemaName": "GCTXHIERA00AuthorityIndexAndExtractionContract",
+  "schemaVersion": 1,
+  "contractId": "GLOBAL_CONTEXT_HIERARCHY_ONTOLOGY_V1",
+  "taskId": "GCTX-HIER-A00_AuthorityIndexAndExtractionContract",
+  "status": "E1_STRUCTURE_AND_EXTRACTION_AUTHORITY_READY_PENDING_CI_AND_MERGE",
+  "purpose": "Record that the current global-context architecture is not yet fully defined as large, medium, small, and microscopic contexts, and provide one canonical machine-readable extraction entry point.",
+  "authority": {
+    "canonicalEntryPoint": "data/curriculum/context/registry/global-context-authority-index.json",
+    "hierarchyOntology": "data/curriculum/context/registry/global-context-hierarchy-ontology.json",
+    "nodeSchema": "data/curriculum/context/schema/global-context-hierarchy-node.schema.json",
+    "normativeDocument": "docs/curriculum/context/contracts/Global_Context_Hierarchy_Ontology_V1.md",
+    "legacySeedRegistry": "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json"
+  },
+  "hierarchy": {
+    "levels": [
+      "MACRO_CONTEXT_DOMAIN",
+      "MESO_SITUATION_FAMILY",
+      "MICRO_EVENT_SCENARIO",
+      "ATOMIC_TASK_EPISODE"
+    ],
+    "nonOntologyLayers": [
+      "SURFACE_REALIZATION",
+      "NUMERIC_INSTANCE"
+    ],
+    "generatorSelectionLevel": "ATOMIC_TASK_EPISODE"
+  },
+  "legacyClassification": {
+    "registryRole": "LEGACY_FLAT_CONTEXT_FAMILY_AND_SURFACE_TEMPLATE_SEED_REGISTRY",
+    "completeGlobalContextUniverse": false,
+    "legacyCountDefinesScenarioCapacity": false,
+    "automaticLevelInferenceAllowed": false,
+    "mappingStatus": "UNMAPPED_TO_V1_HIERARCHY"
+  },
+  "retrieval": {
+    "canonicalAliasesDefined": true,
+    "authorityResolutionOrderDefined": true,
+    "prohibitedInferencesDefined": true,
+    "failClosedWhenHierarchyUnmapped": true
+  },
+  "result": {
+    "hierarchySemanticsDefined": true,
+    "machineReadableIndexCreated": true,
+    "machineReadableOntologyCreated": true,
+    "nodeSchemaCreated": true,
+    "legacyRegistryReclassifiedWithoutModification": true,
+    "hierarchyNodesPopulated": false,
+    "legacyEntriesMapped": false,
+    "runtimeChanged": false,
+    "productionAdmissionChanged": false
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "populateMacroDomainsAllowed": false,
+    "populateMesoFamiliesAllowed": false,
+    "populateMicroScenariosAllowed": false,
+    "populateAtomicEpisodesAllowed": false,
+    "modifyLegacyGS02EntriesAllowed": false,
+    "generatorModificationAllowed": false,
+    "runtimeValidatorModificationAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false,
+    "productionAdmissionAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D4_GLOBAL_CONTEXT_FLAT_REGISTRY_AMBIGUOUS",
+    "goalDistanceAfterTarget": "D3_GLOBAL_CONTEXT_HIERARCHY_AND_EXTRACTION_AUTHORITY_DEFINED",
+    "distanceReduced": "The project can now retrieve one canonical authority stating that the existing flat registry is incomplete, distinguish four hierarchy levels from wording and numeric instances, and prevent legacy family counts from being misread as total scenario capacity.",
+    "remainingBlockers": [
+      "Macro-domain population",
+      "Meso-situation population",
+      "Micro-event population",
+      "Atomic-task-episode population",
+      "Explicit migration of legacy contextFamilyId entries",
+      "Application binding migration to atomicEpisodeId",
+      "Five-day pack diversity allocator"
+    ],
+    "nextShortestStep": "Consume GLOBAL_CONTEXT_HIERARCHY_ONTOLOGY_V1 in POSTG-APP-A00 before application-capability baseline and queue creation."
+  }
+}

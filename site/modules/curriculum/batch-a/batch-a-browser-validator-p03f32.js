@@ -1,0 +1,45 @@
+export * from "./batch-a-browser-validator-p03f31.js";
+import {
+  validateBatchABrowserPlan as basePlan,
+  validateBatchABrowserQuestion as baseQuestion,
+  validateBatchABrowserQuestions as baseQuestions,
+} from "./batch-a-browser-validator-p03f31.js";
+import {
+  G6B_U01_P03F32_SOURCE_ID,
+  G6B_U01_P03F32_SPEC_IDS,
+} from "../registry/g6b-u01-rank8-decimal-fraction-conversion-selector-projection-p03f32.js";
+import { validateG6BU01P03F32Question } from "./g6b-u01-rank8-decimal-fraction-conversion-runtime-p03f32.js";
+
+const issue = (code, path) => ({ code, severity:"error", path, message:code });
+const id = (question) => question.patternSpecId ?? question.metadata?.patternId;
+const isTarget = (question) => G6B_U01_P03F32_SPEC_IDS.includes(id(question));
+
+export function validateBatchABrowserPlan(plan = {}) {
+  if (plan.sourceId !== G6B_U01_P03F32_SOURCE_ID || !plan.patternSpecIds?.some((id) => G6B_U01_P03F32_SPEC_IDS.includes(id))) return basePlan(plan);
+  const errors = [];
+  if (!Array.isArray(plan.patternSpecIds) || plan.patternSpecIds.length < 1 || plan.patternSpecIds.length > 2 || plan.patternSpecIds.some((id) => !G6B_U01_P03F32_SPEC_IDS.includes(id))) errors.push(issue("p03f32_pattern_set_invalid", "patternSpecIds"));
+  if (!Number.isInteger(plan.questionCount) || plan.questionCount < 1 || plan.questionCount > 24) errors.push(issue("p03f32_question_count_invalid", "questionCount"));
+  if (plan.questionMode !== "numeric") errors.push(issue("p03f32_question_mode_invalid", "questionMode"));
+  if (plan.genericFallbackAllowed !== false) errors.push(issue("p03f32_generic_fallback_must_be_disabled", "genericFallbackAllowed"));
+  return { ok:errors.length===0, errors, warnings:[] };
+}
+
+export function validateBatchABrowserQuestion(question = {}) {
+  return isTarget(question) ? validateG6BU01P03F32Question(question) : baseQuestion(question);
+}
+
+export function validateBatchABrowserQuestions(questions = []) {
+  if (!questions.some(isTarget)) return baseQuestions(questions);
+  const errors = [];
+  questions.forEach((question, index) => {
+    errors.push(...validateBatchABrowserQuestion(question).errors.map((error) => ({ ...error, path:`questions[${index}].${error.path}` })));
+  });
+  return {
+    ok:errors.length===0,
+    errors,
+    warnings:[],
+    infos:[],
+    validatorVersion:"p03f32-g6b-u01-rank8-mixed-domain-conversion-v1",
+    validatedAt:null,
+  };
+}

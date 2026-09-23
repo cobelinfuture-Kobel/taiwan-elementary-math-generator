@@ -1,0 +1,69 @@
+{
+  "schemaName": "POSTGAPPW01ValidatorFixtureShadowPolicyV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow",
+  "status": "DETERMINISTIC_SHADOW_FIXTURE_POLICY_NOT_PRODUCTION_ADMISSION",
+  "adapterPriority": [
+    "remainder_decision",
+    "comparison_estimation",
+    "multi_step_relation",
+    "measurement_conversion",
+    "data_summary",
+    "resource_planning",
+    "multiplication_division",
+    "addition_subtraction"
+  ],
+  "adapterDefinitions": [
+    {"operationFamily":"addition_subtraction","adapterId":"ADDITION_OR_SUBTRACTION","inputSeedValues":[42,17,8],"supportedModes":["addition","subtraction"]},
+    {"operationFamily":"multiplication_division","adapterId":"MULTIPLICATION_OR_DIVISION","inputSeedValues":[24,6,2],"supportedModes":["multiplication","division"]},
+    {"operationFamily":"remainder_decision","adapterId":"REMAINDER_DECISION","inputSeedValues":[23,5],"supportedModes":["quotient_remainder","floor","ceil"]},
+    {"operationFamily":"comparison_estimation","adapterId":"COMPARISON_OR_ESTIMATION","inputSeedValues":[198,4,850],"supportedModes":["comparison","budget","estimation"]},
+    {"operationFamily":"multi_step_relation","adapterId":"MULTI_STEP_RELATION","inputSeedValues":[24,4,3],"supportedModes":["divide_then_add","add_then_divide","divide_then_subtract","subtract_then_divide"]},
+    {"operationFamily":"measurement_conversion","adapterId":"MEASUREMENT_CONVERSION","inputSeedValues":[3,1000],"supportedModes":["multiply_factor","divide_factor"]},
+    {"operationFamily":"data_summary","adapterId":"DATA_SUMMARY","inputSeedValues":[12,18,24],"supportedModes":["average","sum","difference"]},
+    {"operationFamily":"resource_planning","adapterId":"RESOURCE_PLANNING","inputSeedValues":[23,5],"supportedModes":["minimum_resources","maximum_complete_groups","allocation"]}
+  ],
+  "fixtureTypes": [
+    "POSITIVE_SINGLE_APPLICATION",
+    "NEGATIVE_WRONG_ANSWER_ROLE",
+    "NEGATIVE_UNIT_MISMATCH",
+    "NEGATIVE_CALCULATION_PASS_INTERPRETATION_FAIL",
+    "POSITIVE_COUNTERFACTUAL_INTERPRETATION",
+    "POSITIVE_PBL_DEPENDENCY_GRAPH",
+    "NEGATIVE_PBL_DEPENDENCY_BROKEN"
+  ],
+  "expectedErrorCodes": [
+    "ANSWER_ROLE_MISMATCH",
+    "ANSWER_UNIT_MISMATCH",
+    "INTERPRETATION_WITNESS_MISSING",
+    "PBL_DEPENDENCY_INVALID",
+    "PRODUCTION_ADMISSION_FORBIDDEN"
+  ],
+  "runtimeLayers": [
+    "CANDIDATE_LINEAGE",
+    "CONTEXT_CHAIN",
+    "ROLE_COVERAGE",
+    "SHADOW_NUMERIC_WITNESS",
+    "ANSWER_ROLE_AND_UNIT",
+    "INTERPRETATION_WITNESS",
+    "N_PLUS_ONE_DIAGNOSTIC",
+    "PBL_DEPENDENCY",
+    "PRODUCTION_GUARD"
+  ],
+  "fixtureCountPolicy": {
+    "singleApplicationPositivePerCandidate": 1,
+    "singleApplicationWrongRoleNegativePerCandidate": 1,
+    "singleApplicationUnitMismatchNegativePerCandidate": 1,
+    "nPlusOneInterpretationFailPerProof": 1,
+    "nPlusOneCounterfactualPositivePerProof": 1,
+    "pblPositivePerCandidate": 1,
+    "pblBrokenDependencyNegativePerCandidate": 1
+  },
+  "shadowBoundary": {
+    "exactProductionPatternSpecGenerationClaimAllowed": false,
+    "publicRuntimeMutationAllowed": false,
+    "rendererMutationAllowed": false,
+    "productionAdmissionAllowed": false
+  }
+}

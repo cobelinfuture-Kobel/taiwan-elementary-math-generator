@@ -1,0 +1,168 @@
+{
+  "schemaName": "P05FW5Q008CubeCuboidFacesEdgesVerticesSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q008_CubeCuboidFacesEdgesVertices_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 8,
+    "sliceId": "p05e_q008_r0_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice008Implementation",
+    "previousSliceId": "p05e_q007_r0_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "primarySourceNodeId": "g5a_u10_5a10a1",
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "knowledgePointIds": [
+      "kp_g5a_u10a1_cube_cuboid_faces_edges_vertices"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q007_r0_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "productMergeSha": "0b978af92e463785b6cce6ddc614e260b9ccde18",
+    "exactPagesRunId": "33953512923",
+    "pagesDeploymentRunId": "33953512905",
+    "evidenceArtifactId": "9965609917",
+    "evidenceArtifactDigest": "sha256:6078271f601714ae1806572f2692f689627e58239fe3d33149a80d8a703afd35",
+    "postMergeTriggerEvent": "push",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5a_u10_5a10a1",
+    "sourceTitle": "正方體和長方體",
+    "sourcePdfTitle": "meow911_5a10a1_source.pdf",
+    "sourcePdfDriveFileId": "1LVpCn7I1t17SpWbwCXLfHjghTBQ7lwL5",
+    "sourceMetadataDriveFileId": "12paKtt2_iSSyIPjRvmfM9R1NTT3w7YIs",
+    "verificationNotesDriveFileId": "15FkOhd4GwDZ9GRSQzW121WYhx183mhkM",
+    "originalFileNameFromMetadata": "題型總覽-5a10a1-正方體和長方體.pdf",
+    "sourceUrlFromMetadata": "https://meow911.com/5a10a1/",
+    "embeddedHeaderUrlFromDriveText": "https://meow911.com/5a10b/",
+    "pageCount": 2,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "directReviewedConcepts": [
+      "CUBE_CUBOID_FACES_EDGES_VERTICES_IDENTIFICATION",
+      "CUBE_CUBOID_FIXED_ELEMENT_COUNTS_6_12_8",
+      "CUBE_CUBOID_ELEMENT_STRUCTURE_CONDITIONS"
+    ],
+    "sourceIdentityAnomaly": {
+      "embeddedHeaderUrl": "https://meow911.com/5a10b/",
+      "metadataSourceUrl": "https://meow911.com/5a10a1/",
+      "queueSourceNodeId": "g5a_u10_5a10a1",
+      "fileName": "meow911_5a10a1_source.pdf",
+      "metadataSourceTitle": "正方體和長方體",
+      "r02SourceTitle": "正方體和長方體",
+      "disposition": "NON_BLOCKING_EMBEDDED_URL_ALIAS_MATCHING_TITLE_FILE_AND_R02_SOURCE_IDENTITY",
+      "sourceRefAmbiguity": false
+    },
+    "driveMetadataReadback": {
+      "metadataManualReviewed": false,
+      "metadataExtractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5a_u10_5a10a1",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "knowledgePointId": "kp_g5a_u10a1_cube_cuboid_faces_edges_vertices",
+    "canonicalNameZh": "正方體長方體構成要素",
+    "capabilityStatement": "學生能辨認正方體、長方體的面、稜與頂點。",
+    "reasoningInvariant": "兩者均有6面、12稜、8頂點，面與稜的形狀長度條件不同。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "profileId": "profile_spatial_solid",
+    "profileRequiredCapabilityIds": [
+      "cap_spatial_solid_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_solid_geometry_representation"
+    ],
+    "dependencyClosureAddedCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "q008ScopeLock": {
+    "includedRelations": [
+      "IDENTIFY_CUBE_CUBOID_FACES_EDGES_VERTICES",
+      "RECOGNIZE_CUBE_CUBOID_FIXED_ELEMENT_COUNTS",
+      "DISTINGUISH_CUBE_CUBOID_ELEMENT_STRUCTURE"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5a_u10a1_cube_cuboid_face_relationship",
+      "kp_g5a_u10a1_cube_cuboid_net",
+      "kp_g5a_u10a1_cube_cuboid_edge_length",
+      "kp_g5a_u10a1_cube_cuboid_spatial_reasoning"
+    ],
+    "excludedRelations": [
+      "CUBE_CUBOID_FACE_RELATIONSHIP",
+      "CUBE_CUBOID_NET",
+      "CUBE_CUBOID_EDGE_LENGTH_RELATION",
+      "CUBE_CUBOID_SPATIAL_REASONING",
+      "SOLID_MEASUREMENT_OR_FORMULA",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresSolidGeometryRepresentation": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false
+  },
+  "postMergeEvidenceTriggerPolicy": {
+    "effectiveFromQueuePosition": 3,
+    "provenPriorRunIds": [
+      "33926418642",
+      "33934940413",
+      "33937587482",
+      "33950114817",
+      "33953512923"
+    ],
+    "latestProvenRunId": "33953512923",
+    "singlePullRequestOrchestratorMustRemain": true,
+    "postMergeWorkflowPullRequestTriggerAllowed": false,
+    "perQWorkflowRunTriggerAllowed": false,
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "qSpecificPathsMustBeDerivedFromExactImplementationDiff": true,
+    "broadHistoricalSharedPathFanoutForbidden": true,
+    "mustWaitForMatchingPagesDeployment": true,
+    "mustVerifyExactDeployedBytesBySha256": true,
+    "mustExerciseClassicUiGeneratorValidatorWorksheetRendererPrintArtifact": true,
+    "materializeWorkflowDuringImplementationOrPostMergeEvidenceTask": true
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ008ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "sourceIdentityAnomalyAcknowledged": true,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice008Implementation"
+  }
+}

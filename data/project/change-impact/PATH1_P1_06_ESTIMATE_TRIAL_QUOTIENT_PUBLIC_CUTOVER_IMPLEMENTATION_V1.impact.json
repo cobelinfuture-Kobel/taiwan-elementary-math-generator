@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_IMPLEMENTATION_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_IMPLEMENTATION_V1.validation.json",
+  "classificationNote": "Visible Path1-local public cutover for P1-06 estimate/trial-quotient only. Registers the existing estimateTrialQuotient mode, dispatches P1-06 directly to its already validated dedicated adapter, and projects route-level public metadata. Preserves P1-06 arithmetic binding, Path1 matrix, P1-06 PatternSpecs/generator/validator/adapter, P1-05 modeling route, P1-07+, P1-11 remainder semantics, P1-12, Classic, and canonical G4A-U04 authority.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

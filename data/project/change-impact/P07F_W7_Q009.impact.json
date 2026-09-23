@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P07F_W7_Q009",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u05_ratio_partition_application"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6a_u05_ratio_partition_application"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6a_u05_ratio_partition_application": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P07F_W7_Q009.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "q008ProductMutation": false,
+    "q001Q002Q003Q004Q005Q006Q007Q008CompatibilityTestOnlyMutation": true,
+    "q020CurrentPointerCompatibilityTestOnlyMutation": true,
+    "q010OrLaterProductMutation": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "ratioDifferenceApplication": false,
+    "unitRateApplication": false,
+    "mixedFractionRatioApplication": false,
+    "proportionCrossMultiplicationTeaching": false,
+    "directProportionTableOrGraph": false,
+    "percentConversion": false,
+    "nonPartitionRateApplication": false,
+    "ratioScaleApplication": false
+  }
+}

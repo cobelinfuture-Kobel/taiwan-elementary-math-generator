@@ -1,0 +1,17 @@
+{
+  "schemaName":"P05FW5Q052CompositeCubeVolumeImplementationV1",
+  "schemaVersion":1,
+  "programId":"FULL_PRODUCT_LINE_D0_V1",
+  "taskId":"P05F_W5DirectProductVerticalSlice052Implementation",
+  "status":"IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "baselineMainSha":"76b959c502203a328dc910aa122ce490329c69d0",
+  "queueAuthority":{"queuePosition":52,"sliceId":"p05e_q052_r5_g5b_u01_5b01_profile_spatial_solid_c1","sourceId":"g5b_u01_5b01","runtimeProfileId":"profile_spatial_solid","knowledgePointIds":["kp_g5b_u01_composite_rectangular_volume","kp_g5b_u01_cube_volume_formula"],"requiredW5CapabilityIds":["cap_geometry_domain_validator","cap_geometry_property_reasoning","cap_solid_geometry_representation","cap_spatial_solid_reasoning"]},
+  "sourceAuthority":{"preflight":"data/curriculum/full-product/p05f/q052-g5b-u01-composite-cube-volume-source-authority-preflight.json","sourceTitle":"長方體和正方體的體積","sourcePdfTitle":"meow911_5b01_source.pdf","sourcePages":[1,2],"sourcePdfDriveFileId":"1IYHtSOWSxqbjcyEi94rmMEyqtOflGQ2f"},
+  "patternSpecs":{"count":6,"perKnowledgePoint":3,"maxQuestionCount":240},
+  "productChain":{"selectorProjection":"site/modules/curriculum/registry/g5b-u01-composite-cube-volume-selector-projection-p05f52.js","publicSelector":"site/modules/curriculum/registry/batch-a-selector-p05f52-extension.js","runtime":"site/modules/curriculum/batch-a/g5b-u01-composite-cube-volume-runtime-p05f52.js","generator":"site/modules/curriculum/batch-a/batch-a-browser-generator-p05f52.js","worksheet":"site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f52-extension.js","publicBinding":"site/modules/curriculum/public/public-ui-capability-binding-p05f52.js","rendererReused":"site/modules/renderer/cubic-centimeter-unit-diagram.js"},
+  "runtimeContract":{"questionMode":"diagram","maxQuestionCount":240,"frozenRuntimeProfile":"profile_spatial_solid","sharedRuntimeScope":"SHARED_RUNTIME_BOUNDED","genericFallback":false,"freeFormAI":false},
+  "publicAdmission":{"selectionMode":"singleKnowledgePoint","questionType":"diagram","sourceAlreadyAdmittedBeforeQ052":true,"expectedGlobalPublicSourceDelta":0,"expectedSourceVisibleKnowledgePointDelta":2,"sameUnitMixedAdmission":false,"crossUnitMixedAdmission":false},
+  "scopeGuard":{"q019VolumeUnitConversionReowned":false,"q047RectangularPrismFormulaReowned":false,"q058UnknownDimensionTouched":false,"surfaceAreaTouched":false,"applicationContextTouched":false,"frozenQueueAuthorityTouched":false,"r02AuthorityTouched":false,"r04AuthorityTouched":false,"r05AuthorityTouched":false,"q053OrLaterTouched":false},
+  "validation":{"policyId":"UNIT_INCREMENTAL_VALIDATION_V1","lane":"SHARED_RUNTIME_BOUNDED","fullRepositoryRegression":"FORBIDDEN","globalBrowserReplay":"FORBIDDEN","targetedRouteReplay":"tools/curriculum/run-p05f-w5-slice052-classic-ui-acceptance.mjs"},
+  "goalDistance":{"before":"D2_Q052_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED","afterCandidate":"D1_Q052_GENERATOR_VALIDATOR_WORKSHEET_PUBLIC_ROUTE_MATERIALIZED","reduced":"D2_TO_D1","d0Requires":"SHARED_RUNTIME_BOUNDED_CI_MERGE_AND_POST_MERGE_EXACT_PAGES_ACCEPTANCE"}
+}

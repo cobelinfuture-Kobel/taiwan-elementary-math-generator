@@ -1,0 +1,185 @@
+{
+  "schemaName": "Global18LayoutArchitectureContract",
+  "schemaVersion": 1,
+  "task": "GLM-S04_GlobalLayoutArchitectureDesign",
+  "status": "design_locked_pending_ci",
+  "dependsOn": [
+    "GLM-S00_PublicCompletedUnitInventoryAnd18LayoutContract",
+    "GLM-S01_Current15UnitLayoutBehaviorAudit",
+    "GLM-S02_UnitRendererProfileAndWorstCaseQuestionAudit",
+    "GLM-S03_270ScenarioHTMLPDFBaseline"
+  ],
+  "authority": {
+    "publicUnitCount": 15,
+    "approvedLayoutCount": 18,
+    "approvedLayoutSource": "data/curriculum/contracts/GLM_S00_PublicCompletedUnit18LayoutContract.json",
+    "baselineSource": "docs/curriculum/output/GLM_S03_270_HTML_PDF_BASELINE.json",
+    "defaultApprovedLayoutId": "3x5",
+    "publicQuestionLayoutMode": "exact_approved_matrix"
+  },
+  "pipeline": [
+    "public_config_and_query_state",
+    "source_unit_plan_adapter",
+    "existing_source_generator_and_validator",
+    "existing_question_display_projection",
+    "global_exact_question_layout_overlay",
+    "independent_answer_layout_resolution",
+    "truthful_layout_metadata_and_readback",
+    "existing_html_renderer_and_print_pipeline"
+  ],
+  "components": {
+    "approvedLayoutRegistry": {
+      "responsibility": "single global authority for the 18 public question-page layouts",
+      "forbidden": [
+        "per_unit_public_layout_allowlist",
+        "source_profile_silent_cap_of_approved_request",
+        "unapproved_layout_counting_as_pass"
+      ]
+    },
+    "publicLayoutNormalizer": {
+      "approvedRequestBehavior": "preserve_exactly",
+      "legacyUnapprovedRequestBehavior": "migrate_to_3x5_with_explicit_warning",
+      "invalidRequestBehavior": "block_with_public_validation_error",
+      "silentNormalizationAllowed": false,
+      "queryReplayRequired": true
+    },
+    "sourceUnitPlanAdapter": {
+      "defaultBehavior": "preserve_existing_source_unit_plan",
+      "g4b_u04_4b04": {
+        "behavior": "adapt_source_unit_to_all_promoted_canonical_knowledge_points_and_pattern_groups",
+        "publicSelectionMode": "sourceUnit",
+        "internalCanonicalSelectionMode": "mixedKnowledgePointsSameUnit",
+        "questionMode": "mixed",
+        "mustReuseExistingCanonicalRouter": true,
+        "mustReuseExistingG4BU04LayoutResolver": true,
+        "genericFallbackAllowed": false
+      },
+      "g5a_u02_5a02": {
+        "behavior": "adapt_source_unit_to_dynamic_all_promoted_knowledge_points_and_pattern_groups",
+        "publicSelectionMode": "sourceUnit",
+        "internalCanonicalSelectionMode": "mixedKnowledgePointsSameUnit",
+        "requestedQuestionCountAuthoritative": true,
+        "fixedStaticWorksheetProductionUse": "legacy_diagnostic_only",
+        "genericFallbackAllowed": false
+      }
+    },
+    "globalExactQuestionLayoutOverlay": {
+      "applicationPoint": "after_question_display_projection_before_final_pagination",
+      "scope": "all_15_public_units",
+      "approvedRequestResolution": "requested_equals_resolved",
+      "repaginateQuestionPages": true,
+      "preserveQuestionOrder": true,
+      "preserveQuestionContent": true,
+      "preserveQuestionNumbering": true,
+      "preserveRendererTypographyAndCardClasses": true,
+      "sourceProfileMayReduceApprovedRowsOrColumns": false,
+      "existingExactUnitsMustRemainSemanticallyUnchanged": true
+    },
+    "answerLayoutResolver": {
+      "scope": "answer_key_only",
+      "independentFromQuestionLayout": true,
+      "preserveExistingProfileAuthority": true,
+      "global18LayoutMatrixApplies": false
+    },
+    "layoutMetadata": {
+      "requiredFields": [
+        "contractVersion",
+        "requestedQuestionLayout",
+        "resolvedQuestionLayout",
+        "resolvedAnswerLayout",
+        "resolutionAuthority",
+        "legacyMigrationApplied",
+        "sourceUnitAdapterApplied",
+        "layoutExact"
+      ],
+      "previewReadbackRequired": true,
+      "queryReadbackRequired": true,
+      "printedOutputHidden": true
+    },
+    "publicControls": {
+      "columns": [1, 2, 3],
+      "rowsByColumns": {
+        "3": [1, 2, 3, 4, 5],
+        "2": [1, 2, 3, 4, 5, 6],
+        "1": [1, 2, 3, 4, 5, 6, 7]
+      },
+      "dependentRowValidation": true,
+      "defaultColumns": 3,
+      "defaultRowsPerPage": 5,
+      "legacyFourToSixColumnsVisible": false,
+      "legacyRowsAboveApprovedLimitVisible": false
+    }
+  },
+  "gapRepairs": [
+    {
+      "sourceId": "g4a_u01_4a01",
+      "layoutRepair": "global_overlay_supersedes_four_row_cap_for_approved_requests",
+      "separateGenerationRepair": "first_difference_generation_and_validation_consistency",
+      "mustPreserve": "current_17_rendered_scenarios_zero_visual_defects"
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "layoutRepair": "global_overlay_supersedes_five_row_cap_for_approved_requests",
+      "mustPreserve": "current_18_rendered_scenarios_zero_visual_defects"
+    },
+    {
+      "sourceId": "g4b_u04_4b04",
+      "layoutRepair": "source_unit_canonical_adapter_then_existing_g4b_layout_resolution",
+      "mustPreserve": "existing_r4_18_layout_and_inverse_long_production_authority"
+    },
+    {
+      "sourceId": "g5a_u02_5a02",
+      "layoutRepair": "dynamic_source_unit_adapter_and_global_exact_overlay",
+      "mustPreserve": "compact_reasoning_contextual_question_shape_safety"
+    }
+  ],
+  "regressionOnlyUnits": [
+    "g3a_u01_3a01",
+    "g3a_u02_3a02",
+    "g3a_u03_3a03",
+    "g3a_u06_3a06",
+    "g3b_u01_3b01",
+    "g3b_u04_3b04",
+    "g3b_u08_3b08",
+    "g4a_u04_4a04",
+    "g4a_u08_4a08",
+    "g4b_u01_4b01",
+    "g5a_u08_5a08"
+  ],
+  "implementationBoundaries": {
+    "fullFixRequired": true,
+    "minimalFixForbidden": true,
+    "perUnitTemporaryLayoutPatchForbidden": true,
+    "curriculumAuthorityChangeAllowed": false,
+    "formulaChangeAllowed": false,
+    "answerModelChangeAllowed": false,
+    "questionTextRewriteRequired": false,
+    "genericFallbackAllowed": false,
+    "freeFormAIAllowed": false
+  },
+  "acceptance": {
+    "s05FocusedContract": [
+      "all_18_layouts_resolve_exactly_for_all_15_source_unit_plans",
+      "g4b_u04_source_unit_generates_through_canonical_authority",
+      "g5a_u02_source_unit_honors_question_count_and_layout",
+      "g4a_u01_first_difference_generation_is_validator_consistent",
+      "answer_layout_remains_independent",
+      "legacy_unapproved_layout_migration_is_explicit"
+    ],
+    "s06ScenarioCount": 270,
+    "s07ScenarioCount": 90,
+    "s08DeployedRequired": true,
+    "requiredZeroCounts": [
+      "silent_caps",
+      "ignored_layouts",
+      "generation_blocked_layout_scenarios",
+      "dom_overflow",
+      "inter_card_overlap",
+      "blank_pdf_pages",
+      "pdf_bounding_box_overflow",
+      "query_replay_failures",
+      "source_switch_failures"
+    ]
+  },
+  "nextTask": "GLM-S05_Global18LayoutFullFix"
+}

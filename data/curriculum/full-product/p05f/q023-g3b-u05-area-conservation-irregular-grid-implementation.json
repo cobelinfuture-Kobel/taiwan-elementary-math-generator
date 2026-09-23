@@ -1,0 +1,68 @@
+{
+  "schemaName": "P05FW5Q023AreaConservationIrregularGridImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice023Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queuePosition": 23,
+    "sliceId": "p05e_q023_r2_g3b_u05_3b05_profile_geometry_formula_c1",
+    "sourceId": "g3b_u05_3b05",
+    "supportingSourceNodeIds": ["g3b_u05_3b05"],
+    "runtimeProfileId": "profile_geometry_formula",
+    "knowledgePointIds": ["kp_area_conservation_cut_rearrange", "kp_irregular_grid_area"],
+    "requiredW5CapabilityIds": ["cap_geometry_diagram_representation", "cap_geometry_domain_validator", "cap_geometry_formula_evaluation", "cap_geometry_property_reasoning"],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredProductNodes": ["SOURCE_EVIDENCE", "KNOWLEDGE_POINT_IDENTITY", "TAG_REGISTRY_BINDING", "FORMAL_MAPPING", "PATTERN_SPEC", "SHARED_GENERATOR_BINDING", "DETERMINISTIC_VALIDATOR_BINDING", "PUBLIC_SOURCE_ADAPTER", "PUBLIC_UI_SELECTION", "WORKSHEET_AND_ANSWER_KEY", "PRODUCTION_HTML", "CHROMIUM_PDF_AND_PRINT", "PRODUCT_ADMISSION_CLAIM"]
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q023-g3b-u05-area-conservation-irregular-grid-source-authority-preflight.json",
+    "sourceTitle": "面積與平方公分",
+    "sourcePdfTitle": "meow911_3b05_cm2_area.pdf",
+    "sourcePages": [1],
+    "r02Category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false
+  },
+  "formalMappings": [
+    "fm_g3b_u05_area_conservation_cut_rearrange_p05f23",
+    "fm_g3b_u05_irregular_grid_area_p05f23"
+  ],
+  "patternSpecs": [
+    "ps_g3b_u05_area_conservation_cut_translate",
+    "ps_g3b_u05_area_conservation_rearrange",
+    "ps_g3b_u05_irregular_grid_decompose",
+    "ps_g3b_u05_irregular_grid_complete",
+    "ps_g3b_u05_irregular_grid_partial_cells"
+  ],
+  "runtimeContract": {
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "deterministic": true,
+    "learnerVisibleDistinctnessRequired": true,
+    "areaConservationInvariant": "NO_ADD_NO_OVERLAP_NO_LOSS",
+    "irregularGridStrategies": ["DECOMPOSE", "COMPLETE", "PARTIAL_CELLS_BY_ACTUAL_PROPORTION"],
+    "rendererReuse": "area_grid_counting_diagram",
+    "newParallelRendererCreated": false
+  },
+  "scopeGuard": {
+    "squareCentimeterUnitTargetTouched": false,
+    "basicGridCountingTargetTouched": false,
+    "samePerimeterAreaComparisonTouched": false,
+    "rectangleSquareAreaFormulaTouched": false,
+    "perimeterComputationTouched": false,
+    "realWorldAreaEstimationTouched": false,
+    "applicationContextTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q024OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionRequested": false,
+    "globalBrowserReplayRequested": false,
+    "validationPlanPath": "data/project/validation-plans/P05F_W5_Q023.validation.json"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03B1_W3FractionNumberSystemConsumerAdmission",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_FRACTION_NUMBER_SYSTEM_73_KP_EXACT_RATIONAL_REPRESENTATION_PRODUCTION_ADMITTED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p03b1-fraction-number-system-consumer.mjs",
+      "tools/curriculum/validate-p03b1-fraction-number-system-consumer.mjs",
+      "tests/curriculum/p03b1-fraction-number-system-consumer.test.js",
+      "tests/curriculum/p03b1-fraction-number-system-integration.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03A.claim.json",
+      "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "data/curriculum/full-product/p03b1/fraction-number-system-policy.json",
+      "data/curriculum/full-product/p03b1/w3-capability-promotion-registry.json",
+      "data/curriculum/full-product/p03b1/fraction-number-system.manifest.json",
+      "docs/curriculum/contracts/W3_FRACTION_NUMBER_SYSTEM_CONSUMER_ADMISSION_CONTRACT_V1.md",
+      "docs/curriculum/output/P03B1_W3_FRACTION_NUMBER_SYSTEM_CONSUMER_ADMISSION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The first W3 root capability is production admitted. Seventy-three dependent KnowledgePoints now share one exact non-negative rational representation consumer with canonical reduction, mixed-number projection, equivalence, ordering, source/KP binding, fail-closed validation, and no accidental fraction arithmetic or decimal-domain expansion."
+  },
+  "nextStep": {
+    "taskId": "P03B2_W3DecimalNumberSystemConsumerAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}

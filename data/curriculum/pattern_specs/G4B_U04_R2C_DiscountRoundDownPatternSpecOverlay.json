@@ -1,0 +1,55 @@
+{
+  "schemaName": "G4BU04R2CDiscountRoundDownPatternSpecOverlay",
+  "schemaVersion": 1,
+  "task": "G4B_U04_R2C_SourceBackedDiscountRoundDownAndKPRefinement",
+  "status": "implemented_pending_ci",
+  "sourceId": "g4b_u04_4b04",
+  "dependsOn": [
+    "data/curriculum/pattern_specs/S68_G4B_U04_PatternSpecRegistry.json",
+    "data/curriculum/mapping/G4B_U04_R2C_DiscountRoundDownFormalMappingOverlay.json"
+  ],
+  "loadOrder": ["S68_G4B_U04_PatternSpecRegistry", "G4B_U04_R2C_DiscountRoundDownPatternSpecOverlay"],
+  "patternGroup": {
+    "patternGroupId": "pg_g4b_u04_discount_round_down",
+    "knowledgePointId": "kp_g4b_u04_discount_denomination_round_down",
+    "mode": "application",
+    "patternSpecIds": [
+      "ps_g4b_u04_discount_payment_amount_round_down",
+      "ps_g4b_u04_discount_banknote_count_round_down"
+    ]
+  },
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g4b_u04_discount_payment_amount_round_down",
+      "formalMappingId": "fm_g4b_u04_discount_payment_amount_round_down",
+      "sourceMappingCandidateId": "fmc_g4b_u04_discount_payment_amount_round_down",
+      "answerModelId": "moneyAmountAnswer",
+      "implementationClass": "D",
+      "templateFamilyIds": ["tpl_g4b_u04_discount_amount_round_down"],
+      "formula": "floor(price / denomination) * denomination",
+      "fixedDenomination": 1000,
+      "discountPolicy": "whole_denomination_round_down",
+      "patternOrder": 18
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_discount_banknote_count_round_down",
+      "formalMappingId": "fm_g4b_u04_discount_banknote_count_round_down",
+      "sourceMappingCandidateId": "fmc_g4b_u04_discount_banknote_count_round_down",
+      "answerModelId": "banknoteCountAnswer",
+      "implementationClass": "D",
+      "templateFamilyIds": ["tpl_g4b_u04_discount_banknote_count_round_down"],
+      "formula": "floor(price / denomination)",
+      "fixedDenomination": 1000,
+      "discountPolicy": "whole_denomination_round_down",
+      "patternOrder": 19
+    }
+  ],
+  "effectiveSummary": {
+    "knowledgePointCount": 13,
+    "patternGroupCount": 13,
+    "patternSpecCount": 19,
+    "classCCount": 9,
+    "classDCount": 10,
+    "applicationCount": 6
+  }
+}

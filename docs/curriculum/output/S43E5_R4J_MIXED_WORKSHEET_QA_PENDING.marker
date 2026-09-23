@@ -1,0 +1,22 @@
+S43E5_R4J_PENDING_READBACK
+
+sourceId = g3b_u01_3b01
+status = IMPLEMENTED_READBACK_PENDING
+
+completed:
+- R4I local pass recorded
+- added G3B-U01 word-problem PatternSpec definitions for worksheet validation
+- routed G3B-U01 word-problem KPs through browser worksheet generator
+- added batch validator support for g3bU01WordProblem questions
+- added mixed worksheet QA tests for five word-problem KP families
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_WORD_PROBLEM_UI_SELECTOR_LOCAL_PASS
+GOAL_DISTANCE_AFTER = D1_G3B_U01_WORD_PROBLEM_MIXED_WORKSHEET_QA_IMPLEMENTED_PENDING_READBACK
+DISTANCE_REDUCED = word-problem KPs are now printable through the worksheet pipeline, not only standalone generator tests
+REMAINING_BLOCKERS = npm test readback; browser PDF smoke
+NEXT_SHORTEST_STEP = local test readback, then S43E5_R4K_G3BU01_WordProblemBrowserPDFSmoke

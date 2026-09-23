@@ -1,0 +1,26 @@
+S44M1_G3A_U01_OUTPUT_QA_CLOSEOUT
+
+sourceId = g3a_u01_3a01
+status = PASS_LOCAL_SYNCED_AND_CLEAN
+operator_readback = tests 428, pass 428, fail 0, working tree clean
+
+completed_repairs:
+- S44M1-1 unit conversion prompt wording aligned with quotient_remainder answerModel.
+- S44M1-2 range and price reasoning answer position no longer fixed to A.
+- S44M1-3 digit arrangement prompts clarify each digit can be used once; max/min/pair specs are covered.
+- S44M1-3 allocation scope fix limits multi-spec expansion to G3A-U01 and preserves G3B-U01 behavior.
+- S44M1-4 regression verifies every G3A-U01 multi-spec KP rotates all registered PatternSpecs.
+- S44M1-6a digit arrangement duplicate prompts are reduced by using full 4-distinct-digit combination pool.
+- S44M1-6b output wording polished for max/min pair, money exchange, and comparison prompts.
+- S44M1-5 Chinese numeral zero-ten canonical rule implemented with backward-compatible parsing.
+
+validation:
+- npm test: 428 pass / 0 fail
+- working tree clean
+- scope guard confirms G3A U01 validator and pattern-pack files were not created
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_OUTPUT_QA_REVIEWED_WITH_MINOR_BLOCKERS
+GOAL_DISTANCE_AFTER = D1_G3A_U01_OUTPUT_QA_REPAIR_COMPLETE_PENDING_PDF_RECHECK
+DISTANCE_REDUCED = G3A-U01 runtime worksheet output quality blockers repaired and locally validated
+REMAINING_BLOCKERS = regenerated PDF output inspection; S44N browser PDF smoke
+NEXT_SHORTEST_STEP = Regenerate G3A-U01 sample PDFs and inspect output quality before S44N_BROWSER_PDF_SMOKE

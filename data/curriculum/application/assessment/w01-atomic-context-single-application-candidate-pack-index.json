@@ -1,0 +1,41 @@
+{
+  "schemaName": "POSTGAPPW01AtomicContextSingleApplicationCandidatePackIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+  "contractId": "POSTG_APP_W01_ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_PACK_V1",
+  "status": "DETERMINISTIC_SHADOW_MATERIALIZATION_PENDING_CI",
+  "inputAuthority": {
+    "w01AssessmentTaskId": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+    "w01AssessmentIndex": "data/curriculum/application/assessment/w01-golden15-application-assessment-index.json",
+    "m01ContextAuthority": "data/curriculum/context/registry/global-context-authority-index.json",
+    "existingApplicationBindingRegistry": "data/curriculum/application/registry/application-context-bindings.json",
+    "selectionPolicy": "data/curriculum/application/assessment/w01-atomic-context-binding-policy.json"
+  },
+  "materializedAuthority": {
+    "recordSchema": "data/curriculum/application/schema/w01-atomic-context-single-application-candidate.schema.json",
+    "resolver": "src/curriculum/application/w01-atomic-context-single-application-candidate-pack.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a01-candidate-pack.mjs",
+    "test": "tests/curriculum/postg-app-w01-a01-candidate-pack.test.js",
+    "candidateCountRule": "candidateCount equals W01-A00 designBacklogCount",
+    "candidateIdentity": "sourceId + knowledgePointId + canonicalOperationModelId",
+    "oneCandidatePerSuitableKnowledgePoint": true
+  },
+  "selectionSemantics": {
+    "existingPilotLineagePriority": true,
+    "macroDomainBalancePriority": true,
+    "semanticAffinityPriority": true,
+    "lexicalTieBreak": true,
+    "preferredProfileFallbackReported": true
+  },
+  "diversityGate": {
+    "requiredGlobalMacroDomainCount": 16,
+    "minimumMacroDomainsPerUnitWhenSuitableCountAtLeastThree": 3
+  },
+  "admission": {
+    "candidateStatus": "CONTEXT_BOUND_CANDIDATE",
+    "productionAdmissionAllowed": false,
+    "productionAdmittedCandidateCount": 0
+  },
+  "nextShortestStep": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract"
+}

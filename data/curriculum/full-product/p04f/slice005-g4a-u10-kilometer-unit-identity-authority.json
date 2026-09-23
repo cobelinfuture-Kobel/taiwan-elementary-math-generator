@@ -1,0 +1,103 @@
+{
+  "schemaName": "P04F5G4AU10KilometerUnitIdentityAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice005Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q005_r0_g4a_u10_4a10_profile_quantity_measurement_c1",
+    "queuePosition": 5,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q004_r0_g3b_u06_3b06_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 1
+  },
+  "source": {
+    "sourceNodeId": "g4a_u10_4a10",
+    "unitCode": "4A-U10",
+    "unitTitle": "公里",
+    "sourcePdfTitle": "meow911_4a10_source.pdf",
+    "driveFileId": "1S-3fi7jXmrxK8Ynd4ajrHm1PQBKBj3Up",
+    "reviewedPages": [1],
+    "primaryWitnessPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g4a_u10_length_kilometer_unit_identity",
+    "canonicalNameZh": "公里單位與尺度",
+    "capabilityStatement": "學生能辨認公里並選擇適合表示長距離的單位。",
+    "reasoningInvariant": "公里用於較大距離，單位選擇須符合實際尺度。",
+    "implementationBoundary": {
+      "included": [
+        "kilometer unit identity",
+        "long-distance unit selection",
+        "kilometer canonical symbol metadata",
+        "deterministic unit-label answer"
+      ],
+      "excludedKnowledgePointIds": [
+        "kp_g4a_u10_length_km_m_conversion",
+        "kp_g4a_u10_length_km_m_mixed_compare",
+        "kp_g4a_u10_length_km_m_add_sub",
+        "kp_g4a_u10_route_distance_application"
+      ],
+      "standaloneConversionQuestionAllowed": false,
+      "mixedUnitComparisonAllowed": false,
+      "mixedUnitArithmeticAllowed": false,
+      "routeDistanceApplicationAllowed": false
+    }
+  },
+  "formalMapping": {
+    "runtimeProfileId": "profile_quantity_measurement",
+    "requiredW4CapabilityIds": ["cap_quantity_domain_validator"],
+    "sharedFoundationCapabilityIds": [
+      "cap_quantity_dimension_unit_identity",
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_text_numeric_representation"
+    ],
+    "dimensionId": "LENGTH",
+    "unitFamilyId": "METRIC_LENGTH",
+    "canonicalUnitIds": ["kilometer"],
+    "canonicalUnitSymbol": "km"
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g4a_u10_length_kilometer_unit_identity_numeric",
+    "displayName": "公里單位與尺度",
+    "questionMode": "numeric",
+    "representationTag": "length_unit_identity"
+  },
+  "patternSpec": {
+    "patternSpecId": "ps_g4a_u10_length_kilometer_unit_identity_numeric",
+    "operationModelId": "op_g4a_u10_length_kilometer_unit_identity",
+    "operationFamilyId": "quantity_measurement",
+    "answerType": "length_unit_label",
+    "requestedUnknownRole": "lengthUnit",
+    "givenRoles": ["distanceScaleClass"],
+    "constraints": {
+      "allowedDistanceScaleClasses": ["long_distance"],
+      "answerLabelsZh": ["公里"],
+      "canonicalUnitSymbol": "km",
+      "conversionRelationForbidden": true,
+      "mixedUnitComparisonForbidden": true,
+      "mixedUnitArithmeticForbidden": true,
+      "routeDistanceApplicationForbidden": true
+    },
+    "sourceBacked": true,
+    "operatorApprovedExtension": false,
+    "applicationClassification": "DIRECT_SOURCE_UNIT_IDENTITY"
+  },
+  "acceptance": {
+    "deterministicUnitLabelRequired": true,
+    "onlyKilometerAnswerAllowed": true,
+    "duplicatePromptRejected": true,
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "conversionLeakRejected": true,
+    "mixedUnitComparisonLeakRejected": true,
+    "mixedUnitArithmeticLeakRejected": true,
+    "routeDistanceApplicationLeakRejected": true
+  }
+}

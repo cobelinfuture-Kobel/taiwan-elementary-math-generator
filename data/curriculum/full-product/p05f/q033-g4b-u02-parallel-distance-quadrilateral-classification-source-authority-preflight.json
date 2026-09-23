@@ -1,0 +1,227 @@
+{
+  "schemaName": "P05FW5Q033ParallelDistanceQuadrilateralClassificationSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q033_ParallelDistanceQuadrilateralClassification_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q033_FROZEN_QUEUE_ROW_AVAILABLE_SOURCE_SCOPE_UNMATERIALIZED",
+    "after": "D2_Q033_TWO_KP_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "5767d64ac5d130198389df1bd0a92f8f20204123",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 33,
+    "sliceId": "p05e_q033_r3_g4b_u02_4b02_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice033Implementation",
+    "previousSliceId": "p05e_q032_r3_g4a_u05_4a05_profile_geometry_property_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W5",
+    "primarySourceNodeId": "g4b_u02_4b02",
+    "supportingSourceNodeIds": ["g4b_u02_4b02"],
+    "intraWavePrerequisiteRank": 3,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_g4b_u02_parallel_distance_construction",
+      "kp_g4b_u02_quadrilateral_classification"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_construction",
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredProductNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q032_r3_g4a_u05_4a05_profile_geometry_property_c1",
+    "preflightPrNumber": 905,
+    "productPrNumber": 906,
+    "productMergeSha": "ce9df0bd4ccaf5a1508abce4c9c7e6b9fb1fe45d",
+    "exactPagesRunId": "34724619952",
+    "evidenceArtifactId": "10307870696",
+    "evidenceArtifactName": "p05f-w5-q032-pages-e2e",
+    "evidenceArtifactDigest": "sha256:8e1b01d129dbc861a7a46667f633d08767d247bf357c85da52f68c531704cb41",
+    "status": "PASS_E6_D0_COMPLETE",
+    "exactPagesWorkflowConclusion": "success",
+    "exactPagesEvidenceUploaded": true
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g4b_u02_4b02",
+    "sourceTitle": "垂直平行與四邊形",
+    "sourcePdfTitle": "meow911_4b02_source.pdf",
+    "sourcePdfDriveFileId": "1ysaTTFTY37MC_gNzt1uh6yo2W34OGjIU",
+    "sourceMetadataDriveFileId": "1UfUX4Z9LCwI0tOYgT1s3CNvTdt68s_Dn",
+    "verificationNotesDriveFileId": "14udBZgATyNSvLfkInWb3lFKSlPWrWDXI",
+    "originalFileNameFromMetadata": "題型總覽-4b02-垂直平行與四邊形.pdf",
+    "sourceUrl": "https://meow911.com/4b02/",
+    "pageCount": 2,
+    "reviewedPages": [1, 2],
+    "authorityMethod": "FROZEN_QUEUE_PLUS_R02_FULL_PAGE_VISUAL_REVIEW_WITH_Q004_Q025_SAME_SOURCE_IDENTITY_REUSE",
+    "sameSourcePriorAuthorityPaths": [
+      "data/curriculum/full-product/p05f/q004-g4b-u02-parallel-lines-recognition-source-authority-preflight.json",
+      "data/curriculum/full-product/p05f/q025-g4b-u02-perpendicular-lines-recognition-source-authority-preflight.json"
+    ],
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false
+  },
+  "r02ReviewedCandidateAuthority": [
+    {
+      "knowledgePointId": "kp_g4b_u02_parallel_distance_construction",
+      "canonicalNameZh": "平行線距離與作圖",
+      "capabilityStatement": "學生能量測或畫出指定距離的平行線。",
+      "reasoningInvariant": "兩平行線間的垂直距離處處相等。",
+      "category": "geometry",
+      "evidencePages": [1, 2],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    {
+      "knowledgePointId": "kp_g4b_u02_quadrilateral_classification",
+      "canonicalNameZh": "四邊形分類",
+      "capabilityStatement": "學生能依邊與角性質分類梯形、平行四邊形、長方形、菱形與正方形。",
+      "reasoningInvariant": "分類必須同時檢查平行邊、等長邊與直角條件。",
+      "category": "geometry",
+      "evidencePages": [1, 2],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    }
+  ],
+  "runtimeCapabilityAuthority": [
+    {
+      "knowledgePointId": "kp_g4b_u02_parallel_distance_construction",
+      "mappingId": "r04map_g4b_u02_parallel_distance_construction",
+      "profileId": "profile_geometry_property",
+      "classificationRuleId": "rule_geometry_property",
+      "appliedModifierIds": ["mod_geometry_construction"],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation",
+        "cap_geometry_construction"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "undeliveredRequiredCapabilityIds": [
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation",
+        "cap_geometry_construction"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u02_quadrilateral_classification",
+      "mappingId": "r04map_g4b_u02_quadrilateral_classification",
+      "profileId": "profile_geometry_property",
+      "classificationRuleId": "rule_geometry_property",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "optionalRuntimeCapabilityIds": ["cap_geometry_construction"],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "undeliveredRequiredCapabilityIds": [
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ]
+    }
+  ],
+  "q033ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g4b_u02_parallel_distance_construction",
+      "kp_g4b_u02_quadrilateral_classification"
+    ],
+    "includedRelations": [
+      "MEASURE_PARALLEL_LINE_DISTANCE_BY_PERPENDICULAR_SEGMENT",
+      "CONSTRUCT_PARALLEL_LINE_AT_SPECIFIED_PERPENDICULAR_DISTANCE",
+      "PRESERVE_CONSTANT_PERPENDICULAR_DISTANCE_BETWEEN_PARALLEL_LINES",
+      "CLASSIFY_QUADRILATERAL_BY_PARALLEL_EQUAL_SIDE_AND_RIGHT_ANGLE_PROPERTIES",
+      "DISTINGUISH_TRAPEZOID_PARALLELOGRAM_RECTANGLE_RHOMBUS_AND_SQUARE"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": [
+      "kp_g4b_u02_parallel_lines_recognition",
+      "kp_g4b_u02_perpendicular_lines_recognition"
+    ],
+    "excludedSameSourceKnowledgePointIds": [
+      "kp_g4b_u02_quadrilateral_inclusion_relation"
+    ],
+    "excludedRelations": [
+      "REOWN_PARALLEL_LINE_RECOGNITION",
+      "REOWN_PERPENDICULAR_LINE_RECOGNITION",
+      "QUADRILATERAL_INCLUSION_RELATION",
+      "GENERIC_GEOMETRY_CONSTRUCTION_OUTSIDE_PARALLEL_DISTANCE",
+      "NUMERIC_ANGLE_MEASUREMENT",
+      "AREA_OR_PERIMETER_FORMULA",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "Q034_OR_LATER_SEMANTICS"
+    ],
+    "parallelDistanceMustBePerpendicular": true,
+    "parallelDistanceMustBeConstant": true,
+    "quadrilateralClassificationMustUsePropertyWitnesses": true,
+    "quadrilateralInclusionDeferredToQ042": true,
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q034OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "sourceAuthoritySufficientForQ033ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "r02AuthorityBoundForBothKnowledgePoints": true,
+    "runtimeCapabilityContractLockedForBothKnowledgePoints": true,
+    "twoKnowledgePointScopeLocked": true,
+    "existingSameSourceQ004Q025Protected": true,
+    "q042InclusionRelationProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalSatisfiedByCurrentOperatorInstruction": true,
+    "nextTaskRequiresNewOperatorApproval": false,
+    "nextTask": "P05F_W5DirectProductVerticalSlice033Implementation"
+  }
+}

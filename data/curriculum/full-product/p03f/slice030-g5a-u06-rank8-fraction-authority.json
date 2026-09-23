@@ -1,0 +1,132 @@
+{
+  "schemaName": "P03FSlice030G5AU06Rank8FractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice030Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 30,
+    "sliceId": "p03e_q030_r8_g5a_u06_5a06_profile_fraction_c1",
+    "previousSliceId": "p03e_q029_r8_g5a_u04_5a04_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 569,
+      "closeoutPr": 570,
+      "postMergeReconciliationPr": 571,
+      "finalMainReconciliationMergeSha": "c113e0e797d7bc197d4b7e3f74b1d2a4e97d4784",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice029-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g5a_u06_5a06.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g5a_u06_5a06.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g5a_u06_5a06.hidden-pattern-spec.json",
+    "sourceNodeId": "g5a_u06_5a06",
+    "sourceCode": "5a06",
+    "sourceTitle": "異分母分數加減",
+    "grade": 5,
+    "semester": "upper",
+    "unitCode": "5A-U06",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_AND_HIDDEN_PATTERNSPEC_AUTHORITY_READBACK",
+    "reviewedPages": [1, 2]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u06_reciprocal_unit_fraction_sum",
+      "canonicalNameZh": "單位分數規律合計",
+      "scope": "計算由互為關聯分母構成的單位分數和。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g5a_u06_reciprocal_unit_fraction_sum",
+      "operationFamilyId": "reciprocal_sum",
+      "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+      "reasoningInvariant": "sum must equal exact rational addition of two positive unit fractions"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u06_unlike_fraction_add",
+      "canonicalNameZh": "異分母分數加法",
+      "scope": "通分後進行真分數或假分數加法並化簡。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g5a_u06_unlike_fraction_add",
+      "operationFamilyId": "fraction_add_sub",
+      "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+      "reasoningInvariant": "result must equal exact rational addition and final representation must preserve value"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u06_unlike_fraction_compare",
+      "canonicalNameZh": "異分母分數比較",
+      "scope": "通分後比較異分母分數或判斷其和與整數的關係。",
+      "evidencePages": [2],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g5a_u06_unlike_fraction_compare",
+      "operationFamilyId": "fraction_compare",
+      "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+      "reasoningInvariant": "comparison must equal the exact rational-number relation"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u06_unlike_fraction_sub",
+      "canonicalNameZh": "異分母分數減法",
+      "scope": "通分後進行真分數或假分數減法並化簡。",
+      "evidencePages": [1, 2],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g5a_u06_unlike_fraction_sub",
+      "operationFamilyId": "fraction_add_sub",
+      "requiredW3CapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+      "reasoningInvariant": "result must equal exact nonnegative rational subtraction and final representation must preserve value"
+    }
+  ],
+  "patternSurfaces": [
+    {"patternGroupId":"pg_g5a_u06_reciprocal_unit_fraction_sum_numeric","patternSpecId":"ps_g5a_u06_reciprocal_unit_fraction_sum_sum_numeric","knowledgePointId":"kp_g5a_u06_reciprocal_unit_fraction_sum","operationModelId":"op_g5a_u06_reciprocal_unit_fraction_sum","operationFamilyId":"reciprocal_sum","mode":"NUMERIC","requestedUnknownRole":"sum","givenRoles":["firstDenominator","secondDenominator"],"requiredW3CapabilityIds":["cap_fraction_arithmetic","cap_fraction_domain_validator","cap_fraction_number_system"]},
+    {"patternGroupId":"pg_g5a_u06_unlike_fraction_add_numeric","patternSpecId":"ps_g5a_u06_unlike_fraction_add_result_numeric","knowledgePointId":"kp_g5a_u06_unlike_fraction_add","operationModelId":"op_g5a_u06_unlike_fraction_add","operationFamilyId":"fraction_add_sub","mode":"NUMERIC","requestedUnknownRole":"result","givenRoles":["leftNumerator","leftDenominator","rightNumerator","rightDenominator"],"requiredW3CapabilityIds":["cap_fraction_arithmetic","cap_fraction_domain_validator","cap_fraction_number_system"]},
+    {"patternGroupId":"pg_g5a_u06_unlike_fraction_compare_numeric","patternSpecId":"ps_g5a_u06_unlike_fraction_compare_comparison_numeric","knowledgePointId":"kp_g5a_u06_unlike_fraction_compare","operationModelId":"op_g5a_u06_unlike_fraction_compare","operationFamilyId":"fraction_compare","mode":"NUMERIC","requestedUnknownRole":"comparison","givenRoles":["leftNumerator","leftDenominator","rightNumerator","rightDenominator"],"requiredW3CapabilityIds":["cap_fraction_arithmetic","cap_fraction_domain_validator","cap_fraction_number_system"]},
+    {"patternGroupId":"pg_g5a_u06_unlike_fraction_sub_numeric","patternSpecId":"ps_g5a_u06_unlike_fraction_sub_result_numeric","knowledgePointId":"kp_g5a_u06_unlike_fraction_sub","operationModelId":"op_g5a_u06_unlike_fraction_sub","operationFamilyId":"fraction_add_sub","mode":"NUMERIC","requestedUnknownRole":"result","givenRoles":["leftNumerator","leftDenominator","rightNumerator","rightDenominator"],"requiredW3CapabilityIds":["cap_fraction_arithmetic","cap_fraction_domain_validator","cap_fraction_number_system"]}
+  ],
+  "hiddenApplicationLineage": [
+    {"patternSpecId":"ps_g5a_u06_unlike_fraction_add_result_application","patternGroupId":"pg_g5a_u06_unlike_fraction_add_application","knowledgePointId":"kp_g5a_u06_unlike_fraction_add","productionAdmissionAllowedBySlice030":false,"publicSelectorVisibility":"hidden","globalContextExpansionAllowed":false},
+    {"patternSpecId":"ps_g5a_u06_unlike_fraction_compare_comparison_application","patternGroupId":"pg_g5a_u06_unlike_fraction_compare_application","knowledgePointId":"kp_g5a_u06_unlike_fraction_compare","productionAdmissionAllowedBySlice030":false,"publicSelectorVisibility":"hidden","globalContextExpansionAllowed":false},
+    {"patternSpecId":"ps_g5a_u06_unlike_fraction_sub_result_application","patternGroupId":"pg_g5a_u06_unlike_fraction_sub_application","knowledgePointId":"kp_g5a_u06_unlike_fraction_sub","productionAdmissionAllowedBySlice030":false,"publicSelectorVisibility":"hidden","globalContextExpansionAllowed":false}
+  ],
+  "formalMappingBoundary": {
+    "reciprocalUnitFractionSumRequired": true,
+    "unlikeFractionAddRequired": true,
+    "unlikeFractionCompareRequired": true,
+    "unlikeFractionSubRequired": true,
+    "exactRationalIdentityRequired": true,
+    "positiveDenominatorsRequired": true,
+    "fractionArithmeticRequired": true,
+    "fractionNumberSystemRequired": true,
+    "fractionDomainValidatorRequired": true,
+    "applicationRequired": false,
+    "mixedImproperAddSubRequired": false,
+    "measurementContextRequired": false,
+    "missingAddendRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": false,
+    "newPublicSourceAllowed": true,
+    "expectedSourceVisibleCountAfterAdmission": 4,
+    "expectedSourceHiddenCountAfterAdmission": 3,
+    "expectedPublicSourceCountAfterAdmission": 30,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 224,
+    "sharedFractionArithmeticRequired": true,
+    "sharedFractionNumberSystemRequired": true,
+    "sharedFractionDomainValidatorRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice031Implementation"
+  }
+}

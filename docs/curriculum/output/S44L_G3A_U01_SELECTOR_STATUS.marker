@@ -1,0 +1,17 @@
+S44L_G3A_U01_SELECTOR_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+done:
+- S44K local pass recorded
+- G3A-U01 selector visible count promoted from 1 to 8
+- Batch A visible count promoted from 34 to 41
+- selector tests updated
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M_G3A_U01_MixedWorksheetQA

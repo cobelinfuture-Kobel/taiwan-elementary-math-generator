@@ -1,0 +1,413 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g3b_u07_3b07",
+  "queueOrdinal": 2,
+  "sourceCode": "3b07",
+  "sourceTitle": "分數的加減",
+  "domainFamily": "fraction_addition_subtraction",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g3b_u07_3b07.knowledge-operation.json",
+    "sha256": "c4e9e63028f390c9b09625d24ffb99688c23c259a3db1e4c35682ac1a22e5dbc",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "0ffee8179c4b26394e821ae64dcc26f96c0534ed15f2c825d69df6de52934579",
+    "contentIdentityGroup": "pdf_0ffee8179c4b",
+    "pageCount": 3,
+    "reviewedPages": [
+      1,
+      2,
+      3
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3b_u07_quotient_as_fraction",
+      "knowledgePointName": "除法結果的分數表示",
+      "scope": "把整數除法的商表示為分數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "重點是除法與分數記號的形式連結。",
+      "operationModels": [
+        {
+          "modelId": "op_g3b_u07_quotient_as_fraction",
+          "operationFamilyId": "quotient_fraction",
+          "canonicalExpressions": [
+            "quotient = dividend / divisor"
+          ],
+          "operandRoles": {
+            "dividend": "被除數或總量",
+            "divisor": "除數或份數",
+            "quotient": "以分數表示的商"
+          },
+          "unknownRoles": [
+            "quotient"
+          ],
+          "numberConstraints": [
+            "divisor > 0"
+          ],
+          "equivalentForms": [
+            "dividend ÷ divisor",
+            "dividend/divisor"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "fraction value equals the division result"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_fraction_unit_conversion",
+      "knowledgePointName": "單位分數與離散單位換算",
+      "scope": "依每大單位含有的個數，在分數單位與個數間換算。",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源以盒裝物與個數建立量的對應，角色不可省略。",
+      "operationModels": [
+        {
+          "modelId": "op_g3b_u07_fraction_unit_conversion",
+          "operationFamilyId": "discrete_fraction_conversion",
+          "canonicalExpressions": [
+            "itemCount = wholeUnits * itemsPerWhole + numerator * itemsPerWhole / denominator",
+            "fractionalUnits = itemCount / itemsPerWhole"
+          ],
+          "operandRoles": {
+            "wholeUnits": "完整大單位數",
+            "itemsPerWhole": "每大單位所含個數",
+            "numerator": "部分單位分子",
+            "denominator": "部分單位分母",
+            "itemCount": "換算後個數",
+            "fractionalUnits": "換算後分數單位數"
+          },
+          "unknownRoles": [
+            "itemCount",
+            "fractionalUnits"
+          ],
+          "numberConstraints": [
+            "itemsPerWhole > 0",
+            "denominator > 0",
+            "numerator * itemsPerWhole must be divisible by denominator when an integer count is required"
+          ],
+          "equivalentForms": [
+            "itemCount / itemsPerWhole",
+            "mixed unit plus fractional unit"
+          ],
+          "answerType": "fraction_or_integer_quantity",
+          "validationInvariants": [
+            "both directions preserve total quantity",
+            "unit roles are not interchangeable"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_same_denominator_compare",
+      "knowledgePointName": "同分母分數比較與整數改寫",
+      "scope": "比較同分母分數，必要時將 1 改寫為 d/d。",
+      "evidencePages": [
+        1,
+        3
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬符號比較與等值改寫，可直接以數學形式評量。",
+      "operationModels": [
+        {
+          "modelId": "op_g3b_u07_same_denominator_compare",
+          "operationFamilyId": "fraction_compare",
+          "canonicalExpressions": [
+            "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分數分子",
+            "leftDenominator": "左分數分母",
+            "rightNumerator": "右分數分子",
+            "rightDenominator": "右分數分母",
+            "comparison": "大小關係"
+          },
+          "unknownRoles": [
+            "comparison"
+          ],
+          "numberConstraints": [
+            "leftDenominator > 0",
+            "rightDenominator > 0"
+          ],
+          "equivalentForms": [
+            "common-denominator comparison",
+            "cross-product comparison",
+            "number-line comparison"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "validationInvariants": [
+            "comparison must equal the exact rational-number relation"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_same_denominator_add_sub",
+      "knowledgePointName": "同分母分數加減",
+      "scope": "分母不變，對分子進行加減。",
+      "evidencePages": [
+        2,
+        3
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可由線段或物品份量承載，也能以算式直接呈現。",
+      "operationModels": [
+        {
+          "modelId": "op_g3b_u07_same_denominator_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "canonicalExpressions": [
+            "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+            "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分數分子",
+            "leftDenominator": "左分數分母",
+            "rightNumerator": "右分數分子",
+            "rightDenominator": "右分數分母",
+            "result": "和或差"
+          },
+          "unknownRoles": [
+            "result"
+          ],
+          "numberConstraints": [
+            "leftDenominator > 0",
+            "rightDenominator > 0",
+            "subtraction result must satisfy the source scope"
+          ],
+          "equivalentForms": [
+            "common-denominator form",
+            "improper-fraction form",
+            "mixed-number form"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "result equals exact rational arithmetic",
+            "final form preserves value"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_whole_and_fraction_add_sub",
+      "knowledgePointName": "整數與真分數加減",
+      "scope": "將整數化為同分母分數後進行加減。",
+      "evidencePages": [
+        3
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可對應剩餘量，但核心仍可由等值改寫運算評量。",
+      "operationModels": [
+        {
+          "modelId": "op_g3b_u07_whole_and_fraction_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "canonicalExpressions": [
+            "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+            "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分數分子",
+            "leftDenominator": "左分數分母",
+            "rightNumerator": "右分數分子",
+            "rightDenominator": "右分數分母",
+            "result": "和或差"
+          },
+          "unknownRoles": [
+            "result"
+          ],
+          "numberConstraints": [
+            "leftDenominator > 0",
+            "rightDenominator > 0",
+            "subtraction result must satisfy the source scope"
+          ],
+          "equivalentForms": [
+            "common-denominator form",
+            "improper-fraction form",
+            "mixed-number form"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "result equals exact rational arithmetic",
+            "final form preserves value"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_combined_fraction_context",
+      "knowledgePointName": "同一整體的分數合併",
+      "scope": "由兩次取得或使用的同單位分數求合計。",
+      "evidencePages": [
+        2,
+        3
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源以食物盒與長度的兩段量明確表達合併關係。",
+      "operationModels": [
+        {
+          "modelId": "op_g3b_u07_combined_fraction_context",
+          "operationFamilyId": "fraction_context_total",
+          "canonicalExpressions": [
+            "total = firstQuantity + secondQuantity",
+            "original = used + remaining",
+            "difference = larger - smaller"
+          ],
+          "operandRoles": {
+            "firstQuantity": "第一個同單位分數量",
+            "secondQuantity": "第二個同單位分數量",
+            "used": "已使用量",
+            "remaining": "剩餘量",
+            "total": "合計量",
+            "original": "原量",
+            "difference": "差量"
+          },
+          "unknownRoles": [
+            "total",
+            "original",
+            "difference"
+          ],
+          "numberConstraints": [
+            "all quantities use a common measure before arithmetic",
+            "result >= 0"
+          ],
+          "equivalentForms": [
+            "join",
+            "part-whole reconstruction",
+            "comparison difference"
+          ],
+          "answerType": "fraction_measure",
+          "validationInvariants": [
+            "operation follows the quantity relation",
+            "measurement units remain consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_fraction_plus_count_context",
+      "knowledgePointName": "分數量與絕對個數合併",
+      "scope": "先換算共同單位，再合併分數量與個數。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "題意依賴盒數和顆數兩層單位，須保留情境角色。",
+      "operationModels": [
+        {
+          "modelId": "op_g3b_u07_fraction_plus_count_context",
+          "operationFamilyId": "fraction_context_total",
+          "canonicalExpressions": [
+            "total = firstQuantity + secondQuantity",
+            "original = used + remaining",
+            "difference = larger - smaller"
+          ],
+          "operandRoles": {
+            "firstQuantity": "第一個同單位分數量",
+            "secondQuantity": "第二個同單位分數量",
+            "used": "已使用量",
+            "remaining": "剩餘量",
+            "total": "合計量",
+            "original": "原量",
+            "difference": "差量"
+          },
+          "unknownRoles": [
+            "total",
+            "original",
+            "difference"
+          ],
+          "numberConstraints": [
+            "all quantities use a common measure before arithmetic",
+            "result >= 0"
+          ],
+          "equivalentForms": [
+            "join",
+            "part-whole reconstruction",
+            "comparison difference"
+          ],
+          "answerType": "fraction_measure",
+          "validationInvariants": [
+            "operation follows the quantity relation",
+            "measurement units remain consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u07_original_or_difference_context",
+      "knowledgePointName": "由已用、剩餘或差量求未知",
+      "scope": "依使用量與剩餘量重建原量，或比較兩個分數量的差。",
+      "evidencePages": [
+        2,
+        3
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源題的未知角色取決於原量、剩餘與差量語意。",
+      "operationModels": [
+        {
+          "modelId": "op_g3b_u07_original_or_difference_context",
+          "operationFamilyId": "fraction_context_total",
+          "canonicalExpressions": [
+            "total = firstQuantity + secondQuantity",
+            "original = used + remaining",
+            "difference = larger - smaller"
+          ],
+          "operandRoles": {
+            "firstQuantity": "第一個同單位分數量",
+            "secondQuantity": "第二個同單位分數量",
+            "used": "已使用量",
+            "remaining": "剩餘量",
+            "total": "合計量",
+            "original": "原量",
+            "difference": "差量"
+          },
+          "unknownRoles": [
+            "total",
+            "original",
+            "difference"
+          ],
+          "numberConstraints": [
+            "all quantities use a common measure before arithmetic",
+            "result >= 0"
+          ],
+          "equivalentForms": [
+            "join",
+            "part-whole reconstruction",
+            "comparison difference"
+          ],
+          "answerType": "fraction_measure",
+          "validationInvariants": [
+            "operation follows the quantity relation",
+            "measurement units remain consistent"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 8,
+    "canonicalOperationModelCount": 8
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}

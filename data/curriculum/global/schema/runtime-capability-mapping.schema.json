@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/r04-runtime-capability-mapping.schema.json",
+  "title": "R04 Runtime Capability Mapping",
+  "type": "object",
+  "required": ["mappingId","knowledgePointId","primaryRuntimeProfileId","classificationRuleId","requiredRuntimeCapabilityIds","optionalRuntimeCapabilityIds","forbiddenRuntimeCapabilityIds","runtimeCapabilityDeliveryState","knowledgePointProductionAdmissionState","mappingBasis"],
+  "properties": {
+    "mappingId": {"type":"string","pattern":"^r04map_"},
+    "knowledgePointId": {"type":"string","pattern":"^kp_"},
+    "primaryRuntimeProfileId": {"type":"string","pattern":"^profile_"},
+    "classificationRuleId": {"type":"string","pattern":"^rule_"},
+    "appliedModifierIds": {"type":"array","items":{"type":"string","pattern":"^mod_"},"uniqueItems":true},
+    "requiredRuntimeCapabilityIds": {"type":"array","items":{"type":"string","pattern":"^cap_"},"uniqueItems":true,"minItems":1},
+    "optionalRuntimeCapabilityIds": {"type":"array","items":{"type":"string","pattern":"^cap_"},"uniqueItems":true},
+    "forbiddenRuntimeCapabilityIds": {"type":"array","items":{"type":"string","pattern":"^cap_"},"uniqueItems":true},
+    "runtimeCapabilityDeliveryState": {"enum":["ALL_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED","ALL_REQUIRED_CAPABILITIES_AVAILABLE_SHADOW","BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES"]},
+    "knowledgePointProductionAdmissionState": {"const":"DEFERRED_TO_R06_R07"},
+    "mappingBasis": {"type":"object","required":["semanticFieldsOnly","legacyBatchUsedForClassification"],"properties":{"semanticFieldsOnly":{"const":true},"legacyBatchUsedForClassification":{"const":false}}}
+  },
+  "additionalProperties": true
+}

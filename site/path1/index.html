@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Path 1 整數與運算｜路徑練習 PDF</title>
+  <link rel="stylesheet" href="../assets/styles/app.css">
+</head>
+<body data-route-kind="path1-manual">
+  <main class="app-shell">
+    <section class="app-shell__hero">
+      <p class="app-shell__eyebrow">Path 1 Manual Worksheet</p>
+      <h1>Path 1 整數與運算｜路徑練習 PDF</h1>
+      <p class="app-shell__lede">不使用自動 N→N+1。手動依序選擇 P1-01 到 P1-27，產生練習卷後列印或另存為 PDF。</p>
+      <nav class="app-shell__version-nav" aria-label="頁面切換">
+        <a class="version-link" href="../">回到標準版 Classic</a>
+        <span class="version-chip" aria-current="page">Path 1 路徑練習</span>
+      </nav>
+    </section>
+
+    <section class="app-shell__controls" aria-label="Path 1 練習設定">
+      <div class="control-group">
+        <h2>路徑選單</h2>
+        <label class="field">
+          <span>Path 1 Block</span>
+          <select id="path1-block-select" name="path1BlockId"></select>
+        </label>
+        <label class="field">
+          <span>練習類型</span>
+          <select id="path1-practice-mode" name="path1PracticeMode">
+            <option value="arithmetic">算式練習</option>
+            <option value="equalGroupsTransfer">文字建模練習</option>
+            <option value="multiplicativeModelingTransfer">文字建模練習</option>
+            <option value="estimateTrialQuotient">估商與試商練習</option>
+            <option value="quotientStartPlace">商的位值練習</option>
+          </select>
+        </label>
+        <p class="help-text">文字建模練習依 Block 使用不同的已核准路徑：P1-01、P1-02 使用等組量乘法建模；P1-03 使用二位數×二位數乘法建模；P1-04 使用多位數×多位數乘法建模；P1-05 使用中間為 0 的三位數×一位數乘法建模。P1-06 可使用「估商與試商練習」，先依已核准來源把除數看成合適整十數估商，再完成精確商與餘數；此模式不延伸到商的位值或餘數情境解釋。P1-07 可使用「商的位值練習」，只使用一位數除數與整除題，依最高位夠除／不夠除判斷商起始位與商的位數；不延伸到二位數除數、餘數情境或文字建模。其他不支援的 Block 維持算式練習。P1-00 是入口診斷，不屬於練習 PDF；此頁從 P1-01 開始，一直到 P1-27。</p>
+        <div class="toolbar">
+          <button id="path1-previous-button" class="button" type="button">上一關</button>
+          <button id="path1-next-button" class="button" type="button">下一關</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h2>題目與 PDF</h2>
+        <div class="control-grid">
+          <label class="field">
+            <span>題目數量</span>
+            <input id="path1-question-count" type="number" min="1" max="120" value="20" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>產生種子</span>
+            <input id="path1-generation-seed" type="text" value="path1-manual" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>題目頁欄數</span>
+            <input id="path1-columns" type="number" min="1" max="3" value="3" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>每頁列數</span>
+            <input id="path1-rows" type="number" min="1" max="5" value="5" spellcheck="false">
+          </label>
+        </div>
+        <label class="toggle">
+          <input id="path1-answer-key" type="checkbox" checked>
+          <span>包含答案頁</span>
+        </label>
+        <div class="toolbar">
+          <button id="path1-generate-button" class="button button--primary" type="button">產生這一關練習</button>
+          <button id="path1-print-button" class="button" type="button" disabled>列印 / 另存 PDF</button>
+        </div>
+      </div>
+
+      <div class="status-panel" id="path1-status-panel" aria-live="polite"></div>
+      <div class="validation-panel" id="path1-validation-panel" aria-live="polite"></div>
+    </section>
+
+    <section class="app-shell__preview" aria-label="Path 1 練習預覽">
+      <div class="preview-header">
+        <h2>預覽</h2>
+        <p id="path1-preview-meta">尚未產生新的 Path 1 練習。</p>
+      </div>
+      <iframe
+        id="path1-preview-frame"
+        class="preview-frame"
+        title="Path 1 練習預覽"
+        loading="eager"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/browser/path1-manual.js"></script>
+</body>
+</html>

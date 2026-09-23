@@ -1,0 +1,237 @@
+{
+  "schemaName": "Path1WordProblemP101ToP104SourceProvenanceCloseoutV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_01_TO_P1_04_SOURCE_PROVENANCE_CLOSEOUT_V1",
+  "status": "P1_01_TO_P1_04_SOURCE_PROVENANCE_NORMALIZED_AND_CLOSED",
+  "mainAtTaskStart": "801526c2536c25aef79972639b55a0088d1076b9",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicRouteChanged": false,
+  "sourceSemanticsChanged": false,
+  "canonicalKnowledgePointChanged": false,
+  "patternSpecChanged": false,
+  "validatorChanged": false,
+  "path1MatrixChanged": false,
+  "scope": {
+    "includedPathBlocks": ["P1-01", "P1-02", "P1-03", "P1-04"],
+    "purpose": "Normalize the already-used arithmetic curriculum sources, equal-groups semantic source, registered supplementary corpora, block-specific school-exam witnesses, and structural reasoning evidence into one auditable ledger without changing any deployed semantics.",
+    "excluded": [
+      "P1-05 implementation or source mining",
+      "P1-12 public cutover or source reinterpretation",
+      "new PatternSpec families",
+      "new canonical KnowledgePoints",
+      "numeric-envelope expansion",
+      "new relation kernels",
+      "public runtime changes",
+      "mastery changes",
+      "full repository regression",
+      "global browser replay"
+    ]
+  },
+  "completionAnchors": {
+    "P1-01_P1-02": {
+      "publicCutoverPr": 803,
+      "mergeSha": "74cff6c0388fcf26ac91935eb9f4d9a500a59a5b",
+      "practiceMode": "equalGroupsTransfer"
+    },
+    "P1-03": {
+      "publicCutoverPr": 811,
+      "mergeSha": "7b44edadb519fe430e3403d248d78f8dcb03ba76",
+      "practiceMode": "multiplicativeModelingTransfer"
+    },
+    "P1-04": {
+      "publicCutoverPr": 821,
+      "mergeSha": "c4d87079d7a221130f0f2c4703b445accfc52775",
+      "practiceMode": "multiplicativeModelingTransfer"
+    }
+  },
+  "authorityRefs": {
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "capabilityInventory": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_CAPABILITY_INVENTORY_V1.json",
+    "registeredSupplementaryCorpora": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_SOURCE_CORPUS_ADDITION_V1.json",
+    "p101P102TransferContract": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1.json",
+    "p103Preflight": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_03_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.json",
+    "p103Implementation": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1.json",
+    "p104Preflight": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_04_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.json",
+    "p104Implementation": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1.json",
+    "equalGroupsKnowledgeOperation": "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+    "equalGroupsPatternSpecs": "data/curriculum/pattern_specs/S58C_G3B_U08_SemanticPatternSpecRegistry.json",
+    "equalGroupsPromotion": "data/curriculum/registry/promotions/S58F_G3B_U08_SemanticPromotionRegistry.json"
+  },
+  "sourceAuthorityPolicy": {
+    "canonicalRelationAuthorityWins": true,
+    "arithmeticCurriculumSourceSupportsArithmeticCapability": true,
+    "registeredSchoolExamsSupportRepresentationBreadthOnly": true,
+    "liTeacherSupportsProblemSolvingStructureOnly": true,
+    "sourcePresenceDoesNotExpandNumericAuthority": true,
+    "sourcePresenceDoesNotMintCanonicalKnowledgePoint": true,
+    "sourcePresenceDoesNotActivateRuntime": true,
+    "duplicateDriveCopiesDoNotReplacePinnedWitnessIds": true,
+    "runtimeMeaningComesFromCurrentRepoContractsAndCanonicalMappings": true
+  },
+  "sharedSemanticAuthority": {
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "unknownRoleForP101ToP104": "totalAmount",
+    "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+    "relationOperationModelId": "op_g3b_u08_total_from_groups",
+    "semanticSource": {
+      "sourceId": "g3b_u08_3b08",
+      "fileName": "batchA_01-題型總覽-3b08-乘法與除法.pdf",
+      "driveFileId": "1L13Z2ny6OjayGpCyn_sFCCdXpsAtuZxY",
+      "observedManualReadSupport": [
+        "乘除互逆",
+        "單價、單位量、每單位問題",
+        "平均分與每份量",
+        "等分與包含應用",
+        "除法列式"
+      ],
+      "sourceCodeMismatchReview": true,
+      "observedEmbeddedPath": "/3b07/",
+      "resolvedSourceId": "g3b_u08_3b08",
+      "resolutionBasis": "operator-uploaded filename plus Batch A intended sourceId; embedded page path is retained as a provenance warning and is not used to remap the source"
+    },
+    "directParentPatternSpecIds": [
+      "ps_g3b_u08_total_daily_saving_accumulation",
+      "ps_g3b_u08_total_score_per_success",
+      "ps_g3b_u08_total_material_per_product",
+      "ps_g3b_u08_total_items_per_package"
+    ]
+  },
+  "blockProvenance": [
+    {
+      "blockId": "P1-01",
+      "title": "十進位乘法原理",
+      "arithmeticKnowledgePointIds": ["kp_g3a_u03_10_multiple_by_1digit"],
+      "arithmeticSource": {
+        "sourceId": "g3a_u03_3a03",
+        "fileName": "batchA_01-題型總覽-3a03-乘法.pdf",
+        "driveFileId": "1cUa8Oi1VE2My9ZtCJwGvpBpfDAbhPOp2",
+        "observedManualReadSupport": ["10 的倍數乘一位數", "10 進位乘法原理"],
+        "sourceCodeMismatchReview": true,
+        "observedEmbeddedPath": "/3a04/",
+        "resolvedSourceId": "g3a_u03_3a03"
+      },
+      "semanticSourceId": "g3b_u08_3b08",
+      "semanticPatternLineage": "DIRECT_REUSE_OF_FOUR_PROMOTED_G3B_U08_TOTAL_PATTERNS",
+      "schoolExamEvidence": {
+        "status": "AGGREGATE_REPRESENTATION_BREADTH_ONLY",
+        "individualPinnedRuntimeEnvelopeWitness": null,
+        "reason": "P1-01 runtime authority is already determined by the arithmetic source plus canonical R03 relation contract. School-exam presence is not required to authorize the numeric envelope and no synthetic exam witness is promoted here."
+      },
+      "liTeacherEvidence": {
+        "fileIds": ["1q3TLW8vYlDC-zO2N2zOKT5aUJ0Q6snq8", "1YGF0ffKRpDglm2cg2-Tr8Ejmr2ktt-x3"],
+        "role": "STRUCTURE_ONLY_NOT_RUNTIME_AUTHORITY"
+      }
+    },
+    {
+      "blockId": "P1-02",
+      "title": "多位數×一位數",
+      "arithmeticKnowledgePointIds": ["kp_g3a_u03_2digit_by_1digit_carry", "kp_g3a_u03_3digit_by_1digit"],
+      "arithmeticSource": {
+        "sourceId": "g3a_u03_3a03",
+        "fileName": "batchA_01-題型總覽-3a03-乘法.pdf",
+        "driveFileId": "1cUa8Oi1VE2My9ZtCJwGvpBpfDAbhPOp2",
+        "observedManualReadSupport": ["二位數乘一位數直接進位", "三位數乘一位數", "三位數乘一位數有缺位"],
+        "sourceCodeMismatchReview": true,
+        "observedEmbeddedPath": "/3a04/",
+        "resolvedSourceId": "g3a_u03_3a03"
+      },
+      "semanticSourceId": "g3b_u08_3b08",
+      "semanticPatternLineage": "DIRECT_REUSE_OF_FOUR_PROMOTED_G3B_U08_TOTAL_PATTERNS",
+      "schoolExamEvidence": {
+        "status": "AGGREGATE_REPRESENTATION_BREADTH_ONLY",
+        "individualPinnedRuntimeEnvelopeWitness": null,
+        "reason": "The capability inventory contains multiplicative school-exam surfaces, including estimation and larger products, but those examples must not be treated as P1-02 numeric authority. The deployed P1-02 three-digit transfer remains bounded by the existing <=999 relation envelope."
+      },
+      "liTeacherEvidence": {
+        "fileIds": ["1q3TLW8vYlDC-zO2N2zOKT5aUJ0Q6snq8", "1YGF0ffKRpDglm2cg2-Tr8Ejmr2ktt-x3"],
+        "role": "STRUCTURE_ONLY_NOT_RUNTIME_AUTHORITY"
+      }
+    },
+    {
+      "blockId": "P1-03",
+      "title": "二位數×二位數",
+      "arithmeticKnowledgePointIds": ["kp_g4a_u02_2digit_by_2digit"],
+      "arithmeticSource": {
+        "sourceId": "g4a_u02_4a02",
+        "fileName": "batchA_02-題型總覽-4a02-整數的乘法.pdf",
+        "driveFileId": "1YSRxhxFCYo-ezfkT8lun33Wdosnaq1Cq",
+        "observedManualReadSupport": ["二位數乘二位數", "乘法直式位值排列"],
+        "sourceCodeMismatchReview": false
+      },
+      "semanticSourceId": "g3b_u08_3b08",
+      "localPatternSpecIds": [
+        "P103_R03_ITEMS_PER_PACKAGE_TOTAL",
+        "P103_R03_MATERIAL_PER_PRODUCT_TOTAL",
+        "P103_R03_SCORE_PER_EVENT_TOTAL",
+        "P103_R03_AMOUNT_PER_PERIOD_TOTAL"
+      ],
+      "parentPatternAuthorityReusedForNumericEnvelope": false,
+      "schoolExamEvidence": {
+        "status": "PINNED_POSITIVE_SURFACE_AND_ENVELOPE_WITNESS",
+        "sourceFileId": "1knMV1ZIQ5dnUsfV28VuSbuZgBvLE1jrM",
+        "title": "數學_108 上學期_四年級_臺北市_市立成德國小_第一次段考(期中考)_康軒_試卷.pdf",
+        "witness": "一盒餅乾有 28 片，60 盒餅乾共有多少片",
+        "roleProjection": "28 * 60 = 1680",
+        "use": "representation breadth and a positive two-digit-by-two-digit direct-total witness only"
+      },
+      "liTeacherEvidence": {
+        "fileIds": ["1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR"],
+        "role": "PER_UNIT_REASONING_STRUCTURE_ONLY_TWO_STEP_NORMALIZATION_EXCLUDED"
+      }
+    },
+    {
+      "blockId": "P1-04",
+      "title": "多位數×多位數",
+      "arithmeticKnowledgePointIds": ["kp_g4a_u02_2digit_by_3digit", "kp_g4a_u02_3digit_by_2digit"],
+      "arithmeticSource": {
+        "sourceId": "g4a_u02_4a02",
+        "fileName": "batchA_02-題型總覽-4a02-整數的乘法.pdf",
+        "driveFileId": "1YSRxhxFCYo-ezfkT8lun33Wdosnaq1Cq",
+        "observedManualReadSupport": ["2,3,4 位數的乘法 unit authority", "多位數乘法位值與直式規則"],
+        "sourceCodeMismatchReview": false,
+        "exactKnowledgePointAuthorityComesFrom": "current canonical G4A-U02 mapping and Path1 matrix; this closeout does not infer new KPs from a partial visual-read list"
+      },
+      "semanticSourceId": "g3b_u08_3b08",
+      "localPatternSpecIds": [
+        "P104_R03_ITEMS_PER_PACKAGE_TOTAL",
+        "P104_R03_MATERIAL_PER_PRODUCT_TOTAL",
+        "P104_R03_SCORE_PER_EVENT_TOTAL",
+        "P104_R03_AMOUNT_PER_PERIOD_TOTAL"
+      ],
+      "parentPatternAuthorityReusedForNumericEnvelope": false,
+      "schoolExamEvidence": {
+        "status": "PINNED_POSITIVE_SURFACE_AND_ENVELOPE_WITNESS",
+        "sourceFileId": "1x_dh_7JMpxdiWI7Yc_4R0KOwWdQapoOO",
+        "title": "數學_110 上學期_四年級_彰化縣_縣立國聖國小_第一次段考(期中考)_南一_試卷.pdf",
+        "witness": "1 瓶感冒藥水有 60c.c.，藥局進貨 110 瓶，共有幾 c.c？",
+        "roleProjection": "60 * 110 = 6600",
+        "use": "representation breadth and a positive role-ordered two-digit-by-three-digit direct-total witness only"
+      },
+      "liTeacherEvidence": {
+        "fileIds": ["1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR"],
+        "role": "PER_UNIT_REASONING_STRUCTURE_ONLY_TWO_STEP_NORMALIZATION_EXCLUDED"
+      }
+    }
+  ],
+  "normalizationDecisions": [
+    "P1-01 and P1-02 now have explicit arithmetic-source, semantic-source, registered-corpus, and evidence-role provenance in the same ledger instead of relying on scattered contract references.",
+    "P1-03 and P1-04 retain the exact pinned school-exam witness IDs already named by their approved implementation contracts; duplicate Drive copies are not silently substituted.",
+    "P1-01 and P1-02 do not receive invented block-specific school-exam witnesses. Aggregate exam evidence remains supplementary only.",
+    "The observed embedded-page path mismatches for 3a03 and 3b08 are preserved as provenance warnings while their intended Batch A sourceIds remain authoritative.",
+    "All four blocks share R03 equal-groups total-unknown semantics, but P1-03 and P1-04 use Path1-local PatternSpecs because their numeric envelopes exceed the canonical G3B-U08 one-digit groupCount / <=999 envelope.",
+    "No school exam, 厉老師 material, PDF filename, or duplicate Drive copy can override current canonical KnowledgePoint, FormalMapping, PatternSpec, validator, numeric-envelope, or route authority."
+  ],
+  "closeout": {
+    "blockerRemoved": [
+      "P101_P102_SOURCE_PROVENANCE_NOT_YET_NORMALIZED_IN_ONE_LEDGER",
+      "P101_TO_P104_SOURCE_PROVENANCE_CLOSEOUT_NOT_YET_CI_MERGED"
+    ],
+    "newBlocker": "NONE_WITHIN_SOURCE_PROVENANCE_SCOPE",
+    "goalDistanceBefore": "D1_P101_TO_P104_PRODUCT_SLICES_D0_BUT_SOURCE_PROVENANCE_SCATTERED",
+    "goalDistanceAfterTarget": "D1_P101_TO_P104_SOURCE_PROVENANCE_NORMALIZED_AND_MACHINE_CHECKABLE",
+    "distanceReduced": "Source lineage is consolidated from scattered PDF/Drive/contract references into one fail-closed ledger tied to existing canonical runtime authority without changing deployed product semantics.",
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_05_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1"
+  }
+}

@@ -1,0 +1,23 @@
+S43E5_R4H_PENDING_READBACK
+
+sourceId = g3b_u01_3b01
+status = IMPLEMENTED_READBACK_PENDING
+files = word-problem template registry, generator validator, generator tests
+
+completed:
+- aggregate registry for 20 templates
+- template library validator
+- deterministic word-problem generator
+- generated question validator
+- tests for library count, all-template generation, and answer models
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D2
+GOAL_DISTANCE_AFTER = D1_PENDING_READBACK
+DISTANCE_REDUCED = word-problem templates are now executable through generator and validator
+REMAINING_BLOCKERS = npm test readback; UI selector; mixed worksheet QA; browser PDF smoke
+NEXT_SHORTEST_STEP = local test readback, then S43E5_R4I_G3BU01_WordProblemUISelectorIntegration

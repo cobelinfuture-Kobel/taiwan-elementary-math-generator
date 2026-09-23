@@ -1,0 +1,542 @@
+{
+  "schemaName": "G5AU02P1P2SourceParityMilestoneDefinition",
+  "schemaVersion": 1,
+  "task": "G5AU02-S105_P1P2SourceParityMilestoneDefinition",
+  "unitId": "g5a_u02",
+  "contractStatus": "designed_pending_ci",
+  "inputs": {
+    "sourceAuditTask": "G5AU02-S98_All22SourceMethodAndRepresentationParityAudit",
+    "sourceAuditPath": "data/curriculum/audits/G5AU02_S98_All22SourceMethodAndRepresentationParityAudit.json",
+    "p0ContractTask": "G5AU02-S99_P0SourceMethodAndRepresentationFullFixContract",
+    "p0ContractPath": "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json",
+    "p0AcceptanceTask": "G5AU02-S104_P0IntegratedSemanticRendererHTMLPDFAcceptance",
+    "p0AcceptancePath": "docs/curriculum/architecture/G5AU02_S104_P0IntegratedSemanticRendererHTMLPDFAcceptance.md",
+    "p0PassMarkerPath": "docs/curriculum/output/G5AU02_S104_P0_INTEGRATED_ACCEPTANCE_PASS.marker",
+    "sourcePacketIds": [
+      "g5a_u02_5a02a",
+      "g5a_u02_5a02a1"
+    ],
+    "remainingPatternCount": 10,
+    "p1PatternCount": 6,
+    "p2PatternCount": 4,
+    "runtimeRepairPatternCount": 7,
+    "regressionOnlyPatternCount": 3
+  },
+  "globalInvariants": {
+    "patternSpecIdsStable": true,
+    "knowledgePointIdsStable": true,
+    "patternGroupIdsStable": true,
+    "formalMappingIdsStable": true,
+    "sourcePacketIdsStable": true,
+    "p0AcceptedBehaviorImmutable": true,
+    "p0AcceptanceMatricesRemainBlocking": true,
+    "freeFormAI": "forbidden",
+    "genericFallback": "forbidden",
+    "runtimeWebSearch": "forbidden",
+    "deterministicGenerationRequired": true,
+    "canonicalAnswerRecomputationRequired": true,
+    "learnerVisibleUniqueSolutionRequired": true,
+    "answerLeakageForbidden": true,
+    "traditionalChineseRequired": true,
+    "sourceMethodEvidenceRequired": true,
+    "crossUnitChangeForbidden": true,
+    "gctxFileChangeForbidden": true,
+    "runtimeImplementationAllowedInS105": false,
+    "rendererImplementationAllowedInS105": false,
+    "browserBundleChangeAllowedInS105": false,
+    "p2RegressionOnlyRuntimeMutationForbidden": true
+  },
+  "currentStateSnapshot": {
+    "capturedAfterMergeSha": "14c41b4e1b90f4c00837c69cf2091d40c63a8a5d",
+    "p0Status": "PASS_CI_SYNCED_AND_MERGED",
+    "p0PatternCount": 12,
+    "all22SemanticD0": false,
+    "currentStructuredDisplayModels": [
+      {
+        "patternOrder": 6,
+        "patternSpecId": "ps_g5a_u02_missing_factor_reconstruction",
+        "currentKind": "masked_factor_sequence",
+        "gap": "linear masked sequence lacks factor-table and pair-symmetry cues"
+      },
+      {
+        "patternOrder": 7,
+        "patternSpecId": "ps_g5a_u02_divisor_candidate_selection",
+        "currentKind": "candidate_selection",
+        "gap": "candidate values are complete but the source circle-selection affordance is not represented"
+      },
+      {
+        "patternOrder": 12,
+        "patternSpecId": "ps_g5a_u02_complete_factor_list_unknown_values",
+        "currentKind": "symbolic_complete_factor_sequence",
+        "gap": "linear symbolic sequence omits source pair relations and variable-factor equations"
+      },
+      {
+        "patternOrder": 15,
+        "patternSpecId": "ps_g5a_u02_common_factor_concept_identification",
+        "currentKind": "candidate_selection",
+        "gap": "candidate selection omits marked common-factor row and smallest/greatest roles"
+      }
+    ],
+    "currentPlainPromptPatterns": [
+      {
+        "patternOrder": 3,
+        "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
+        "gap": "no structured search rows or square-root crossing stop boundary"
+      },
+      {
+        "patternOrder": 5,
+        "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
+        "gap": "no U-shaped outer-to-inner symmetry representation"
+      },
+      {
+        "patternOrder": 14,
+        "patternSpecId": "ps_g5a_u02_remainder_transfer",
+        "gap": "arithmetic relation remains valid but the source story roles are collapsed"
+      }
+    ],
+    "p2RegressionOnlyPatterns": [
+      10,
+      18,
+      19
+    ]
+  },
+  "displayModelKinds": [
+    {
+      "kind": "factor_pair_search_stop_boundary",
+      "requiredFields": [
+        "target",
+        "searchRows",
+        "searchEnd",
+        "crossingBoundary",
+        "factorPairs"
+      ],
+      "rowFields": [
+        "candidateFactor",
+        "pairedFactor",
+        "product",
+        "isExact",
+        "searchStatus"
+      ]
+    },
+    {
+      "kind": "u_shaped_factor_symmetry_record",
+      "requiredFields": [
+        "target",
+        "orderedFactors",
+        "symmetricPairs",
+        "outerToInnerLinks",
+        "midpointPolicy"
+      ]
+    },
+    {
+      "kind": "masked_factor_table_with_pair_cues",
+      "requiredFields": [
+        "target",
+        "sequence",
+        "maskedPositions",
+        "pairLinks",
+        "solutionCount"
+      ]
+    },
+    {
+      "kind": "candidate_circle_selection_row",
+      "requiredFields": [
+        "target",
+        "candidates",
+        "selectionRole",
+        "selectionAffordance",
+        "canonicalSelections"
+      ]
+    },
+    {
+      "kind": "symbolic_complete_factor_relation_table",
+      "requiredFields": [
+        "sequence",
+        "symbols",
+        "pairRelations",
+        "symbolEquations",
+        "targetRuleText",
+        "solutionCount"
+      ]
+    },
+    {
+      "kind": "marked_common_factor_row",
+      "requiredFields": [
+        "comparedValues",
+        "factorSetA",
+        "factorSetB",
+        "candidateRow",
+        "commonFactors",
+        "smallestCommonFactor",
+        "greatestCommonFactor"
+      ]
+    },
+    {
+      "kind": "remainder_transfer_story_witness",
+      "requiredFields": [
+        "scenarioFamilyId",
+        "scenarioText",
+        "quantityRoles",
+        "divisorRelation",
+        "distributionWitness",
+        "remainder"
+      ]
+    }
+  ],
+  "patternContracts": [
+    {
+      "patternOrder": 3,
+      "priority": "P1",
+      "patternSpecId": "ps_g5a_u02_factor_pair_enumeration",
+      "implementationMilestone": "S106",
+      "sourceEvidence": [
+        "g5a_u02_5a02a:p1:left-lower-middle",
+        "g5a_u02_5a02a:p2:right-middle"
+      ],
+      "currentDisplayModelKind": null,
+      "requiredDisplayModelKind": "factor_pair_search_stop_boundary",
+      "requiredFixes": [
+        "render deterministic factor-pair search rows in ascending candidate-factor order",
+        "make the square-root crossing or equivalent stop boundary learner-observable",
+        "derive the complete canonical factor-pair answer from exact rows without leaking completed pairs into student response slots"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P1_FACTOR_PAIR_SEARCH_ROWS_INCOMPLETE",
+        "G5AU02_P1_FACTOR_PAIR_STOP_BOUNDARY_INVALID",
+        "G5AU02_P1_FACTOR_PAIR_PRODUCT_MISMATCH"
+      ]
+    },
+    {
+      "patternOrder": 5,
+      "priority": "P1",
+      "patternSpecId": "ps_g5a_u02_factor_order_and_symmetry",
+      "implementationMilestone": "S106",
+      "sourceEvidence": [
+        "g5a_u02_5a02a:p1:left-middle"
+      ],
+      "currentDisplayModelKind": null,
+      "requiredDisplayModelKind": "u_shaped_factor_symmetry_record",
+      "requiredFixes": [
+        "render ascending factors with explicit outer-to-inner symmetric links",
+        "preserve square-number midpoint semantics without duplicating the square-root factor",
+        "keep the learner task distinguishable from plain ordered-factor enumeration"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P1_FACTOR_SYMMETRY_ORDER_INVALID",
+        "G5AU02_P1_U_RECORD_LINK_MISMATCH",
+        "G5AU02_P1_FACTOR_SYMMETRY_MIDPOINT_INVALID"
+      ]
+    },
+    {
+      "patternOrder": 6,
+      "priority": "P1",
+      "patternSpecId": "ps_g5a_u02_missing_factor_reconstruction",
+      "implementationMilestone": "S106",
+      "sourceEvidence": [
+        "g5a_u02_5a02a:p1:right-middle"
+      ],
+      "currentDisplayModelKind": "masked_factor_sequence",
+      "requiredDisplayModelKind": "masked_factor_table_with_pair_cues",
+      "requiredFixes": [
+        "upgrade the linear masked sequence to a structured ordered factor table",
+        "render pair-symmetry cues that support reconstruction of each missing value",
+        "block samples whose visible table does not determine one unique completion"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P1_MASKED_FACTOR_TABLE_INCOMPLETE",
+        "G5AU02_P1_PAIR_SYMMETRY_CUE_INVALID",
+        "G5AU02_P1_MISSING_FACTOR_NOT_UNIQUE"
+      ]
+    },
+    {
+      "patternOrder": 7,
+      "priority": "P1",
+      "patternSpecId": "ps_g5a_u02_divisor_candidate_selection",
+      "implementationMilestone": "S107",
+      "sourceEvidence": [
+        "g5a_u02_5a02a:p1:right-lower-middle"
+      ],
+      "currentDisplayModelKind": "candidate_selection",
+      "requiredDisplayModelKind": "candidate_circle_selection_row",
+      "requiredFixes": [
+        "retain every candidate and the exact-divisibility selection role",
+        "render one explicit circle or equivalent markable affordance per candidate",
+        "recompute canonical selected candidates from target divisibility"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P1_CANDIDATE_SELECTION_AFFORDANCE_MISSING",
+        "G5AU02_P1_CANDIDATE_DIVISIBILITY_CLASSIFICATION_MISMATCH"
+      ]
+    },
+    {
+      "patternOrder": 12,
+      "priority": "P1",
+      "patternSpecId": "ps_g5a_u02_complete_factor_list_unknown_values",
+      "implementationMilestone": "S107",
+      "sourceEvidence": [
+        "g5a_u02_5a02a:p2:left-lower-middle"
+      ],
+      "currentDisplayModelKind": "symbolic_complete_factor_sequence",
+      "requiredDisplayModelKind": "symbolic_complete_factor_relation_table",
+      "requiredFixes": [
+        "preserve Traditional Chinese public symbols and the complete ordered factor sequence",
+        "add visible symmetric pair relations and variable-factor equations required by the source method",
+        "require one unique solution for the original number and all symbols without exposing answer values in question pages"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P1_SYMBOLIC_FACTOR_RELATION_INCOMPLETE",
+        "G5AU02_P1_SYMBOLIC_FACTOR_EQUATION_MISMATCH",
+        "G5AU02_P1_SYMBOLIC_SOLUTION_NOT_UNIQUE"
+      ]
+    },
+    {
+      "patternOrder": 15,
+      "priority": "P1",
+      "patternSpecId": "ps_g5a_u02_common_factor_concept_identification",
+      "implementationMilestone": "S107",
+      "sourceEvidence": [
+        "g5a_u02_5a02a1:p1:left-top"
+      ],
+      "currentDisplayModelKind": "candidate_selection",
+      "requiredDisplayModelKind": "marked_common_factor_row",
+      "requiredFixes": [
+        "show both compared factor domains or complete factor sets",
+        "render a markable common-factor row rather than an undifferentiated candidate list",
+        "make smallest and greatest common-factor roles explicit and validate both from the intersection"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P1_COMMON_FACTOR_MARKING_INCOMPLETE",
+        "G5AU02_P1_COMMON_FACTOR_MIN_MAX_MISMATCH",
+        "G5AU02_P1_COMMON_FACTOR_INTERSECTION_MISMATCH"
+      ]
+    },
+    {
+      "patternOrder": 14,
+      "priority": "P2",
+      "patternSpecId": "ps_g5a_u02_remainder_transfer",
+      "implementationMilestone": "S108",
+      "sourceEvidence": [
+        "g5a_u02_5a02a:p2:right-lower-middle"
+      ],
+      "currentDisplayModelKind": null,
+      "requiredDisplayModelKind": "remainder_transfer_story_witness",
+      "requiredFixes": [
+        "replace abstract numeric-only wording with a finite controlled source-like story family",
+        "bind total, divisor, distribution and remainder roles explicitly",
+        "preserve and independently validate the existing divisor-multiple arithmetic witness"
+      ],
+      "blockingValidatorCodes": [
+        "G5AU02_P2_REMAINDER_TRANSFER_CONTEXT_FAMILY_UNKNOWN",
+        "G5AU02_P2_REMAINDER_TRANSFER_CONTEXT_ROLE_MISSING",
+        "G5AU02_P2_REMAINDER_TRANSFER_WITNESS_MISMATCH"
+      ]
+    }
+  ],
+  "regressionOnlyContracts": [
+    {
+      "patternOrder": 10,
+      "priority": "P2",
+      "patternSpecId": "ps_g5a_u02_equal_partition_range_constrained_recipients",
+      "implementationMilestone": "S109",
+      "sourceEvidence": [
+        "g5a_u02_5a02a:p1:right-bottom"
+      ],
+      "sourceParityStatus": "PASS",
+      "runtimeMutationAllowed": false,
+      "requiredRegressionAssertions": [
+        "recipient range remains visible",
+        "equal share and no-remainder roles remain visible",
+        "canonical recipient counts are recomputed from the factor set and range"
+      ]
+    },
+    {
+      "patternOrder": 18,
+      "priority": "P2",
+      "patternSpecId": "ps_g5a_u02_maximum_equal_grouping",
+      "implementationMilestone": "S109",
+      "sourceEvidence": [
+        "g5a_u02_5a02a1:p1:left-middle"
+      ],
+      "sourceParityStatus": "PASS",
+      "runtimeMutationAllowed": false,
+      "requiredRegressionAssertions": [
+        "both quantities and equal-composition roles remain visible",
+        "all-used and maximum-group wording remains visible",
+        "canonical answer remains the greatest common factor"
+      ]
+    },
+    {
+      "patternOrder": 19,
+      "priority": "P2",
+      "patternSpecId": "ps_g5a_u02_possible_equal_packaging_counts",
+      "implementationMilestone": "S109",
+      "sourceEvidence": [
+        "g5a_u02_5a02a1:p1:right-middle"
+      ],
+      "sourceParityStatus": "PASS",
+      "runtimeMutationAllowed": false,
+      "requiredRegressionAssertions": [
+        "both quantities and equal-per-box roles remain visible",
+        "all-used and all-possible-count wording remains visible",
+        "canonical answers remain the complete common-factor set"
+      ]
+    }
+  ],
+  "implementationMilestones": [
+    {
+      "milestoneId": "S106",
+      "task": "G5AU02-S106_P1FactorPairSymmetryAndMaskedTableFullFix",
+      "patternOrders": [
+        3,
+        5,
+        6
+      ],
+      "scope": "factor-pair search boundary, U-shaped symmetry and masked factor-table representations"
+    },
+    {
+      "milestoneId": "S107",
+      "task": "G5AU02-S107_P1SelectionSymbolicRelationAndCommonFactorMarkingFullFix",
+      "patternOrders": [
+        7,
+        12,
+        15
+      ],
+      "scope": "candidate marking, symbolic pair relations and common-factor min/max representation"
+    },
+    {
+      "milestoneId": "S108",
+      "task": "G5AU02-S108_P2RemainderTransferControlledContextFullFix",
+      "patternOrders": [
+        14
+      ],
+      "scope": "finite controlled story roles while preserving existing arithmetic witness authority"
+    },
+    {
+      "milestoneId": "S109",
+      "task": "G5AU02-S109_P2RegressionOnlySourceParityLock",
+      "patternOrders": [
+        10,
+        18,
+        19
+      ],
+      "scope": "focused regression contracts only; no runtime or learner-facing behavior change"
+    },
+    {
+      "milestoneId": "S110",
+      "task": "G5AU02-S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout",
+      "patternOrders": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "scope": "all-22 source parity, blocking validation, browser bundle, actual 18-layout, answer boundary, HTML/PDF, browser/print and D0 eligibility acceptance"
+    }
+  ],
+  "acceptance": {
+    "remainingFocusedGeneration": {
+      "seedsPerPattern": 64,
+      "patternCount": 10,
+      "scenarioCount": 640,
+      "requiredPassCount": 640,
+      "runtimeRepairPatternCount": 7,
+      "regressionOnlyPatternCount": 3
+    },
+    "remainingLayoutMatrix": {
+      "layoutsPerPattern": 18,
+      "patternCount": 10,
+      "scenarioCount": 180,
+      "requiredPassCount": 180
+    },
+    "remainingAnswerBoundaryMatrix": {
+      "layouts": [
+        "3x5",
+        "2x6",
+        "1x7"
+      ],
+      "answerStates": [
+        "off",
+        "on"
+      ],
+      "patternCount": 10,
+      "scenarioCount": 60,
+      "requiredPassCount": 60
+    },
+    "all22FinalItemIntegration": {
+      "seedsPerPattern": 64,
+      "patternCount": 22,
+      "scenarioCount": 1408,
+      "requiredPassCount": 1408
+    },
+    "all22FinalLayoutMatrix": {
+      "layoutsPerPattern": 18,
+      "patternCount": 22,
+      "scenarioCount": 396,
+      "requiredPassCount": 396
+    },
+    "all22FinalAnswerBoundaryMatrix": {
+      "layouts": [
+        "3x5",
+        "2x6",
+        "1x7"
+      ],
+      "answerStates": [
+        "off",
+        "on"
+      ],
+      "patternCount": 22,
+      "scenarioCount": 132,
+      "requiredPassCount": 132
+    },
+    "blockingConditions": [
+      "missing source method witness or source representation",
+      "incorrect factor-pair stop boundary",
+      "incorrect symmetry link or square midpoint",
+      "nonunique masked or symbolic factor solution",
+      "candidate selection or common-factor marking mismatch",
+      "remainder-transfer context-role or arithmetic-witness mismatch",
+      "mutation of a regression-only P2 pattern",
+      "P0 regression",
+      "learner-visible answer leakage",
+      "DOM overflow, overlap or clipping",
+      "blank or out-of-bounds PDF page",
+      "generic fallback, free-form AI or runtime web search"
+    ],
+    "all22SemanticD0AfterS105": false,
+    "d0EligibilityGate": "S110 must pass every all-22 item, layout, answer-boundary, browser and print acceptance gate",
+    "reason": "S105 defines the remaining repair program but performs no runtime implementation."
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_G5A_U02_S104_P0_INTEGRATED_ACCEPTANCE_COMPLETE",
+    "goalDistanceAfter": "D1_G5A_U02_P1_P2_SOURCE_PARITY_PROGRAM_LOCKED_PENDING_CI",
+    "distanceReduced": "remaining six P1 gaps, one P2 repair gap and three P2 regression-only patterns are partitioned into bounded implementation and all-22 acceptance milestones",
+    "remainingBlockers": [
+      "CI acceptance and merge of S105",
+      "S106 P1 factor-pair/symmetry/masked-table implementation",
+      "S107 P1 selection/symbolic/common-factor implementation",
+      "S108 P2 remainder-transfer context implementation",
+      "S109 P2 regression-only parity lock",
+      "S110 all-22 integrated D0 acceptance"
+    ]
+  },
+  "nextShortestStep": "G5AU02-S106_P1FactorPairSymmetryAndMaskedTableFullFix",
+  "nextStepRequiresImplementationApproval": true
+}

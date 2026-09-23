@@ -1,0 +1,83 @@
+{
+  "schemaName": "P02DPrerequisiteReadinessPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02D_W2PrerequisiteReadinessConsumerAdmission",
+  "status": "GLOBAL_PREREQUISITE_READINESS_POLICY_READY",
+  "authorities": {
+    "globalPrerequisiteGraph": "src/curriculum/global/r03-global-kp-prerequisite-graph.mjs",
+    "globalAuthorityConsumer": "src/curriculum/full-product/p02b-global-authority-lookup-consumer.mjs",
+    "predecessorPromotionRegistry": "data/curriculum/full-product/p02c/w2-capability-promotion-registry.json"
+  },
+  "scope": {
+    "capabilityId": "cap_prerequisite_readiness",
+    "canonicalKnowledgePointCount": 482,
+    "directPrerequisiteEdgeCount": 668,
+    "requiredEdgeCount": 665,
+    "alternativeEdgeCount": 2,
+    "supportingEdgeCount": 1,
+    "rootKnowledgePointCount": 25,
+    "alternativeGroupCount": 1,
+    "consumerMode": "PRODUCTION_READ_ONLY_PREREQUISITE_READINESS",
+    "readinessMode": "MASTERED_SET_N_PLUS_ONE"
+  },
+  "consumerContract": {
+    "targetKnowledgePointRequired": true,
+    "explicitMasteredKnowledgePointSetRequired": true,
+    "masteredSetMayBeEmpty": true,
+    "unknownTargetFailsClosed": true,
+    "unknownMasteredIdentityFailsClosed": true,
+    "duplicateMasteredIdentityFailsClosed": true,
+    "alreadyMasteredTargetFailsClosed": true,
+    "requiredPrerequisitesCombineAs": "AND",
+    "alternativePrerequisitesCombineByGroup": true,
+    "supportingEdgesBlockReadiness": false,
+    "readyCandidateListingAllowed": true,
+    "learnerStatePersistenceAllowed": false,
+    "masteryMutationAllowed": false,
+    "lessonSchedulingAllowed": false,
+    "readOnly": true
+  },
+  "blockingCodes": [
+    "P02D_TARGET_KP_ID_REQUIRED",
+    "P02D_MASTERED_SET_REQUIRED",
+    "P02D_MASTERED_SET_INVALID",
+    "P02D_DUPLICATE_MASTERED_KP",
+    "P02D_UNKNOWN_TARGET_KP",
+    "P02D_UNKNOWN_MASTERED_KP",
+    "P02D_TARGET_ALREADY_MASTERED",
+    "P02D_ALTERNATIVE_GROUP_CONTRACT_MISSING"
+  ],
+  "promotion": {
+    "capabilityId": "cap_prerequisite_readiness",
+    "previousDeliveryStatus": "shadow_available",
+    "effectiveDeliveryStatus": "production_admitted",
+    "r04HistoricalBaselineMutated": false,
+    "completeGlobalCoverageRequired": true,
+    "capabilitySpecificConsumerRequired": true,
+    "masteredSetNPlusOneGateRequired": true,
+    "failClosedValidatorRequired": true
+  },
+  "rules": {
+    "parallelPrerequisiteAuthorityAllowed": false,
+    "graphEdgeMutationAllowed": false,
+    "prerequisiteInferenceAllowed": false,
+    "learnerProfileImplementationAllowed": false,
+    "masteryStoreImplementationAllowed": false,
+    "lessonPlannerImplementationAllowed": false,
+    "semanticRoleImplementationAllowed": false,
+    "sameUnitArithmeticImplementationAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "generatorImplementationAllowed": false,
+    "worksheetImplementationAllowed": false,
+    "rendererImplementationAllowed": false,
+    "publicUiChangeAllowed": false,
+    "p03ToP08ImplementationAllowed": false,
+    "existing19SourceProductModificationAllowed": false
+  },
+  "nextTask": {
+    "taskId": "P02E_W2QuantitySemanticRoleBindingConsumerAdmission",
+    "implementationBoundary": true,
+    "separateApprovalRequired": true
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "schemaName": "Path1P106EstimateTrialQuotientImplementationV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_IMPLEMENTATION_V1",
+  "status": "P1_06_ESTIMATE_TRIAL_QUOTIENT_IMPLEMENTATION_MATERIALIZED_NON_PUBLIC",
+  "operatorApproval": "APPROVED",
+  "preflightAuthority": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_06_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.json",
+  "preflightMergeSha": "d2234131a79af72f755835167e451959fb21a9cf",
+  "implementationBaseMain": "3ac3aea25081f181089c4342c65c38120753d1d5",
+  "runtimeChanged": true,
+  "publicCutoverApplied": false,
+  "visibleUiChanged": false,
+  "queryStateChanged": false,
+  "publicBindingChanged": false,
+  "path1MatrixChanged": false,
+  "g4aU04CanonicalAuthorityChanged": false,
+  "wordProblemRelationMinted": false,
+  "p107OrLaterRuntimeChanged": false,
+  "p112RuntimeOrPublicRouteChanged": false,
+  "classicRuntimeChanged": false,
+  "masteryChanged": false,
+  "scope": {
+    "path1BlockId": "P1-06",
+    "title": "估商",
+    "practiceMode": "estimateTrialQuotient",
+    "implementationType": "NON_PUBLIC_PATH1_LOCAL_REPRESENTATION_AND_VALIDATION_LAYER",
+    "publicRoute": "NOT_CONNECTED"
+  },
+  "canonicalAuthority": {
+    "sourceId": "g4a_u04_4a04",
+    "knowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "operationModelIds": [
+      "op_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "op_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "canonicalPatternSpecIds": [
+      "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "dividendDomain": "100..999",
+    "divisorDomain": "10..99",
+    "divisionInvariant": "dividend = divisor * quotient + remainder; 0 <= remainder < divisor"
+  },
+  "representationAuthority": {
+    "registry": "data/curriculum/pattern_specs/PATH1_P1_06_EstimateTrialQuotientPatternSpecRegistry.json",
+    "patternSpecIds": [
+      "P106_ESTIMATE_DIVISOR_TENS_SELECT",
+      "P106_ESTIMATE_DIVISOR_TENS_FILL",
+      "P106_ESTIMATE_THEN_DIVIDE_TENS_SUFFICIENT",
+      "P106_ESTIMATE_THEN_DIVIDE_TENS_INSUFFICIENT"
+    ],
+    "path1ParentPatternId": "estimate_trial_quotient",
+    "roundingStrategy": "NEAREST_WHOLE_TEN_SOURCE_UNAMBIGUOUS",
+    "generatedDivisorOnesDigits": [1, 2, 3, 4, 6, 7, 8, 9],
+    "divisorEndingFiveTieConventionUsed": false,
+    "divisorEndingZeroEstimateWitnessGenerated": false,
+    "observedEstimateAnchors": ["11->10", "38->40", "47->50", "92->90"],
+    "newCanonicalKnowledgePointMinted": false,
+    "newRelationMinted": false,
+    "newContextFamilyMaterialized": false
+  },
+  "runtimeArtifacts": [
+    "site/modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-patterns.js",
+    "site/modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-generator.js",
+    "site/modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-validator.js",
+    "site/assets/browser/pipeline/build-path1-p1-06-estimate-trial-quotient-worksheet.js"
+  ],
+  "generatorContract": {
+    "countRange": "1..120",
+    "seedRequired": true,
+    "balancedPatternCoverage": true,
+    "distinctPromptRequired": true,
+    "deterministicReplay": true,
+    "bothMatrixPrimaryKnowledgePointsRequiredAt120": true,
+    "allFourPatternsRequiredAt120": true,
+    "sourceObservedEstimateAnchorsRequiredAt120": true,
+    "wordProblemModelingUsed": false
+  },
+  "validatorContract": {
+    "failClosed": true,
+    "checks": [
+      "P1-06 block and estimateTrialQuotient local mode",
+      "exact two matrix-primary G4A-U04 KPs and operation models",
+      "100..999 dividend and 10..99 divisor canonical arithmetic domain",
+      "source-backed unambiguous estimate divisor endings only for generated representation items",
+      "nearest whole-ten estimate reconstruction",
+      "quotient/remainder exact reconstruction",
+      "tens-sufficient versus tens-insufficient canonical-case boundary",
+      "PatternSpec-to-KP applicability",
+      "prompt/options/answer reconstruction",
+      "no relation/unknown-role/application/unit-conversion/remainder-context/quotient-place/mastery/public-cutover leak",
+      "no new canonical KP mint"
+    ]
+  },
+  "worksheetContract": {
+    "adapter": "site/assets/browser/pipeline/build-path1-p1-06-estimate-trial-quotient-worksheet.js",
+    "public": false,
+    "questionMode": "numeric",
+    "questionAnswerParityRequired": true,
+    "publicCutoverApplied": false,
+    "wordProblemModelingUsed": false,
+    "quotientPlaceTeachingUsed": false,
+    "remainderContextInterpretationUsed": false
+  },
+  "protectedAuthority": {
+    "mustRemainUnmodified": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/source-pattern-g4a-u04-extension.js",
+      "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html"
+    ],
+    "p107OrLaterUntouched": true,
+    "p112Untouched": true,
+    "classicUntouched": true
+  },
+  "focusedAcceptance": {
+    "generatorValidatorCounts": [1, 20, 120],
+    "capacityTarget": 120,
+    "expectedFamilyCountsAt120": [30, 30, 30, 30],
+    "distinctPromptsAt120": 120,
+    "bothKpsAt120": true,
+    "observedEstimateAnchorsAt120": true,
+    "endingFiveGenerated": false,
+    "endingZeroGenerated": false,
+    "deterministicReplayRequired": true,
+    "mutationFailClosedRequired": true,
+    "worksheetAcceptanceRequired": true,
+    "relativeStaticImportSmokeRequired": true,
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_P106_ESTIMATE_TRIAL_QUOTIENT_MAPPING_PATTERN_CANDIDATES_AND_VALIDATOR_BOUNDARY_LOCKED",
+    "goalDistanceAfterTarget": "D1_P106_ESTIMATE_TRIAL_QUOTIENT_GENERATOR_VALIDATOR_WORKSHEET_USABLE_NON_PUBLIC",
+    "distanceReduced": "Materialize the source-backed P1-06 local estimate/trial-quotient representation layer so it can generate, validate, and render worksheets without inventing a word-problem relation or modifying canonical/public authority.",
+    "remainingBlockers": [
+      "P1-06 public cutover preflight not completed",
+      "P1-06 public route/query/UI not connected",
+      "P1-06 deployed public acceptance not completed"
+    ],
+    "nextShortestStep": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_PREFLIGHT_V1"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schemaName":"P04F16G4AU10KmMMixedArithmeticAuthorityV1",
+  "schemaVersion":1,
+  "programId":"FULL_PRODUCT_LINE_D0_V1",
+  "taskId":"P04F_W4DirectProductVerticalSlice016Implementation",
+  "status":"IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue":{"sliceId":"p04e_q016_r2_g4a_u10_4a10_profile_quantity_measurement_c1","queuePosition":16,"deliveryWaveId":"R05-W4","previousSliceId":"p04e_q015_r2_g3b_u06_3b06_profile_quantity_measurement_c1","previousSliceMustBeD0Complete":true,"knowledgePointCount":2},
+  "source":{"sourceNodeId":"g4a_u10_4a10","unitCode":"4A-U10","unitTitle":"公里","sourcePdfTitle":"meow911_4a10_source.pdf","driveFileId":"1S-3fi7jXmrxK8Ynd4ajrHm1PQBKBj3Up","reviewedPages":[1],"primaryWitnessPages":[1],"reviewMethod":"LOCKED_AUTHORITY_READBACK_REUSED_FROM_P04F5_P04F10"},
+  "knowledgePoints":[
+    {"knowledgePointId":"kp_g4a_u10_length_km_m_add_sub","canonicalNameZh":"公里公尺加減","capabilityStatement":"學生能將公里與公尺正規化後進行加減，並以公里、公尺表示正確結果。","reasoningInvariant":"1公里=1000公尺；先統一為公尺總量再加減，減法結果不得為負。"},
+    {"knowledgePointId":"kp_g4a_u10_length_km_m_mixed_compare","canonicalNameZh":"公里公尺比較","capabilityStatement":"學生能將不同公里、公尺表示正規化後比較長度大小。","reasoningInvariant":"兩個長度轉成同一公尺總量後，其大小關係保持不變。"}
+  ],
+  "formalMapping":{"runtimeProfileId":"profile_quantity_measurement","requiredW4CapabilityIds":["cap_mixed_unit_normalization","cap_quantity_domain_validator","cap_unit_conversion"],"sharedFoundationCapabilityIds":["cap_quantity_dimension_unit_identity","cap_pattern_spec_resolution","cap_deterministic_answer_model","cap_worksheet_document_assembly","cap_answer_key_projection","cap_html_print_renderer","cap_text_numeric_representation"],"dimensionId":"LENGTH","unitFamilyId":"METRIC_LENGTH","metersPerKilometer":1000,"normalizationInvariant":"totalMeters = kilometers * 1000 + meters","addSubInvariant":"resultTotalMeters = leftTotalMeters +/- rightTotalMeters; resultTotalMeters >= 0","compareInvariant":"relation(left,right) = relation(leftTotalMeters,rightTotalMeters)"},
+  "patternGroups":[
+    {"patternGroupId":"pg_g4a_u10_length_km_m_add_sub_numeric","primaryKnowledgePointId":"kp_g4a_u10_length_km_m_add_sub","displayName":"公里公尺加減","questionMode":"numeric"},
+    {"patternGroupId":"pg_g4a_u10_length_km_m_mixed_compare_numeric","primaryKnowledgePointId":"kp_g4a_u10_length_km_m_mixed_compare","displayName":"公里公尺比較","questionMode":"numeric"}
+  ],
+  "patternSpecs":[
+    {"patternSpecId":"ps_g4a_u10_length_km_m_add_sub_numeric","knowledgePointId":"kp_g4a_u10_length_km_m_add_sub","operationModelId":"op_g4a_u10_length_km_m_add_sub","operationFamilyId":"quantity_measurement","answerType":"length_quantity","requestedUnknownRole":"resultLengthQuantity","givenRoles":["leftLengthQuantity","rightLengthQuantity","operationDirection"],"constraints":{"allowedDirections":["ADD","SUBTRACT"],"metersPerKilometer":1000,"nonnegativeResultRequired":true,"exactAnswerRequired":true},"sourceBacked":true,"operatorApprovedExtension":false},
+    {"patternSpecId":"ps_g4a_u10_length_km_m_mixed_compare_numeric","knowledgePointId":"kp_g4a_u10_length_km_m_mixed_compare","operationModelId":"op_g4a_u10_length_km_m_mixed_compare","operationFamilyId":"quantity_measurement","answerType":"relation_symbol","requestedUnknownRole":"lengthRelation","givenRoles":["leftLengthQuantity","rightLengthQuantity"],"constraints":{"allowedRelations":["<",">","="],"metersPerKilometer":1000,"exactAnswerRequired":true},"sourceBacked":true,"operatorApprovedExtension":false}
+  ],
+  "implementationBoundary":{"included":["mixed km/m add and subtract","mixed km/m comparison","deterministic exact normalization and answer"],"q005KilometerUnitIdentityPreserved":true,"q010StandaloneConversionPreserved":true,"routeDistanceApplicationAllowed":false,"q020RouteDistanceApplicationExcluded":true,"parallelPipelineAllowed":false,"q017Touched":false,"q020Touched":false},
+  "acceptance":{"frozenKnowledgePointCount":2,"singleKnowledgePointCapacityRequired":24,"sourceUnitFourSpecCompositionRequired":true,"duplicateQuestionRejected":true,"genericFallbackAllowed":false,"parallelPipelineAllowed":false,"q017MustRemainUntouched":true,"q020MustRemainUntouched":true}
+}

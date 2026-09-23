@@ -1,0 +1,188 @@
+{
+  "schemaName": "P04F8G3BU03ElapsedTimeRegroupingAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice008Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q008_r1_g3b_u03_3b03_profile_time_c1",
+    "queuePosition": 8,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q007_r1_g3b_u02_3b02_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 2
+  },
+  "source": {
+    "sourceNodeId": "g3b_u03_3b03",
+    "unitCode": "3B-U03",
+    "unitTitle": "時間",
+    "sourcePdfTitle": "meow911_3b03_time.pdf",
+    "driveFileId": "1eZEJqrhcc2zymoca0H_33zRUnZgUhUfu",
+    "reviewedPages": [1, 2],
+    "primaryWitnessPages": [1],
+    "boundaryReviewPages": [2],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "page2ReservedKnowledgePointId": "kp_schedule_start_end_duration"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_elapsed_time_same_day",
+      "canonicalNameZh": "同日經過時間",
+      "capabilityStatement": "學生能由同一天內較早與較晚的兩個時刻，求出兩者之間經過的時間量。",
+      "reasoningInvariant": "同日且結束時刻晚於開始時刻時，先把兩個時刻正規化到同一分鐘軸，再以結束分鐘數減開始分鐘數得到非負經過時間；不得以跨午夜回繞補值。",
+      "requiredW4CapabilityIds": [
+        "cap_mixed_unit_normalization",
+        "cap_quantity_domain_validator",
+        "cap_time_system_arithmetic"
+      ],
+      "implementationBoundary": {
+        "included": [
+          "same-day elapsed duration from two clock readings",
+          "hour-minute normalization onto one minute axis",
+          "deterministic elapsed-duration answer"
+        ],
+        "crossDayElapsedAllowed": false,
+        "scheduleStartEndDurationTriadAllowed": false,
+        "solveForStartTimeAllowed": false,
+        "solveForEndTimeAllowed": false,
+        "secondsAllowed": false,
+        "applicationScheduleContextAllowed": false
+      }
+    },
+    {
+      "knowledgePointId": "kp_time_add_sub_with_regrouping",
+      "canonicalNameZh": "時間量進退位加減",
+      "capabilityStatement": "學生能以一時等於六十分為基準，對時、分時間量進行需要進位或退位的加減計算。",
+      "reasoningInvariant": "加法中分鐘和達六十分時必須換成一時並保留餘分；減法中被減數分鐘不足時必須從一時換成六十分再減，結果保持為非負時間量。",
+      "requiredW4CapabilityIds": [
+        "cap_mixed_unit_normalization",
+        "cap_quantity_domain_validator",
+        "cap_time_system_arithmetic"
+      ],
+      "implementationBoundary": {
+        "included": [
+          "duration addition requiring minute-to-hour carry",
+          "duration subtraction requiring hour-to-minute borrow",
+          "deterministic hour-minute duration answer"
+        ],
+        "clockTimeAdditionAllowed": false,
+        "scheduleStartEndDurationTriadAllowed": false,
+        "crossDayClockReasoningAllowed": false,
+        "secondsAllowed": false,
+        "applicationScheduleContextAllowed": false
+      }
+    }
+  ],
+  "formalMapping": {
+    "runtimeProfileId": "profile_time",
+    "requiredW4CapabilityIds": [
+      "cap_mixed_unit_normalization",
+      "cap_quantity_domain_validator",
+      "cap_time_system_arithmetic"
+    ],
+    "knowledgePointCapabilityRequirements": {
+      "kp_elapsed_time_same_day": [
+        "cap_mixed_unit_normalization",
+        "cap_quantity_domain_validator",
+        "cap_time_system_arithmetic"
+      ],
+      "kp_time_add_sub_with_regrouping": [
+        "cap_mixed_unit_normalization",
+        "cap_quantity_domain_validator",
+        "cap_time_system_arithmetic"
+      ]
+    },
+    "sharedFoundationCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_text_numeric_representation"
+    ],
+    "timeUnitFactors": {
+      "minutesPerHour": 60,
+      "hoursPerDay": 24
+    },
+    "sameDayElapsedOnly": true,
+    "durationArithmeticOnly": true,
+    "scheduleStartEndDurationTriad": false,
+    "reservedSuccessorKnowledgePointId": "kp_schedule_start_end_duration"
+  },
+  "patternGroups": [
+    {
+      "patternGroupId": "pg_g3b_u03_elapsed_time_same_day_numeric",
+      "primaryKnowledgePointId": "kp_elapsed_time_same_day",
+      "displayName": "同日經過時間",
+      "questionMode": "numeric",
+      "representationTag": "same_day_elapsed_duration"
+    },
+    {
+      "patternGroupId": "pg_g3b_u03_time_add_sub_with_regrouping_numeric",
+      "primaryKnowledgePointId": "kp_time_add_sub_with_regrouping",
+      "displayName": "時間量進退位加減",
+      "questionMode": "numeric",
+      "representationTag": "time_duration_regrouping"
+    }
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g3b_u03_elapsed_time_same_day_numeric",
+      "knowledgePointId": "kp_elapsed_time_same_day",
+      "operationModelId": "op_g3b_u03_elapsed_time_same_day",
+      "operationFamilyId": "elapsed_time",
+      "answerType": "time_duration_representation",
+      "requestedUnknownRole": "elapsedDuration",
+      "givenRoles": ["startClockTime", "endClockTime"],
+      "constraints": {
+        "sameDayRequired": true,
+        "endAfterStartRequired": true,
+        "minutesPerHour": 60,
+        "crossDayForbidden": true,
+        "solveForStartTimeForbidden": true,
+        "solveForEndTimeForbidden": true,
+        "scheduleTriadGeneralizationForbidden": true,
+        "secondsForbidden": true
+      },
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_SAME_DAY_ELAPSED_DURATION"
+    },
+    {
+      "patternSpecId": "ps_g3b_u03_time_add_sub_with_regrouping_numeric",
+      "knowledgePointId": "kp_time_add_sub_with_regrouping",
+      "operationModelId": "op_g3b_u03_time_duration_add_sub_regrouping",
+      "operationFamilyId": "time_arithmetic",
+      "answerType": "time_duration_representation",
+      "requestedUnknownRole": "resultDuration",
+      "givenRoles": ["leftDuration", "rightDuration", "operationDirection"],
+      "constraints": {
+        "allowedDirections": ["ADD", "SUBTRACT"],
+        "minutesPerHour": 60,
+        "regroupingRequired": true,
+        "nonNegativeResultRequired": true,
+        "clockTimeAdditionForbidden": true,
+        "scheduleTriadGeneralizationForbidden": true,
+        "crossDayClockReasoningForbidden": true,
+        "secondsForbidden": true
+      },
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_TIME_DURATION_REGROUPING"
+    }
+  ],
+  "acceptance": {
+    "frozenKnowledgePointCount": 2,
+    "sameDayElapsedRequired": true,
+    "elapsedCrossDayRejected": true,
+    "bothArithmeticDirectionsRequired": true,
+    "carryAndBorrowRequired": true,
+    "hourMinuteFactorRequired": 60,
+    "secondsRejected": true,
+    "scheduleStartEndDurationTriadRejected": true,
+    "q014KnowledgePointReserved": "kp_schedule_start_end_duration",
+    "duplicatePromptRejected": true,
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false
+  }
+}

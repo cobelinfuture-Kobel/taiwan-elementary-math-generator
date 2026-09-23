@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_PREFLIGHT_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Planning-only P1-06 public cutover preflight. sharedExecutableChange=true is used only to classify the future bounded public-route shim. This PR changes no product runtime, legal route semantics, public authority, Path1 matrix, public binding, P1-06 PatternSpecs/generator/validator/worksheet adapter, P1-05 modeling route, P1-07+, remainder semantics, mastery, or Classic.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "contractName": "GCTXScenarioChainBoundedPBLAndCompleteProjectionContract",
+  "contractVersion": 1,
+  "task": "GCTX-P02_ScenarioChainBoundedPBLAndCompleteProjectionContract",
+  "status": "contract_locked_ci_accepted",
+  "rulesetVersion": "0.1.0",
+  "schemaPath": "data/curriculum/context/schemas/GCTX_ScenarioChainAndBoundedPBL.schema.json",
+  "registryTargetPath": "data/curriculum/context/registry/scenario-and-bounded-pbl-chains.json",
+  "scope": {
+    "schemaAndContractOnly": true,
+    "seedContentMaterialized": false,
+    "runtimeBehaviorChange": false,
+    "unitMigrationChange": false,
+    "rendererImplementationChange": false,
+    "sourceGovernanceImplemented": false,
+    "semanticBreadthImplemented": false,
+    "nearDuplicateDetectionImplemented": false,
+    "physicalLayoutImplemented": false
+  },
+  "authorityDependencies": {
+    "p00OwnershipContractRequired": true,
+    "p01ApprovedSemanticBindingRequired": true,
+    "p01BindingReferenceField": "approvedSemanticBindingId",
+    "p01BindingMustBeApproved": true
+  },
+  "itemStructureClasses": [
+    "independent_application",
+    "common_scenario_independent",
+    "scenario_chain_dependent",
+    "bounded_pbl_closed"
+  ],
+  "dependencyGraphTypes": [
+    "common_scenario_independent",
+    "linear_dependency",
+    "branch_merge",
+    "parallel_comparison",
+    "constraint_merge"
+  ],
+  "questionCountContract": {
+    "minimum": 2,
+    "maximum": 5,
+    "questionCountSelectsApprovedCompleteProjection": true,
+    "questionCountMayTruncateCanonicalChain": false,
+    "questionCountMaySelectArbitrarySubset": false,
+    "eachQuestionCountProfileIndependentlyApproved": true,
+    "profileOwnsExactSubquestions": true,
+    "profileOwnsExactDependencyGraph": true,
+    "profileOwnsExactQuantityLedger": true,
+    "profileOwnsExactMilestoneCoverage": true,
+    "profileOwnsExactTerminalOutcome": true
+  },
+  "completeProjectionContract": {
+    "completeProjectionRequired": true,
+    "runtimeTruncationAllowed": false,
+    "runtimeQuestionAssemblyAllowed": false,
+    "allRequiredMilestonesCovered": true,
+    "dependencyGraphAcyclic": true,
+    "allConsumedQuantitiesAvailable": true,
+    "noOrphanSubquestions": true,
+    "terminalOutcomeReached": true,
+    "boundedPblProjectGoalReached": true,
+    "singlePageProjectionAllowed": true,
+    "approvedTwoPageProjectionAllowed": true,
+    "undeclaredPageSplitAllowed": false,
+    "rendererMayMoveApprovedBreak": false
+  },
+  "omittedMilestoneContract": {
+    "allowedCoverageModes": [
+      "question",
+      "supplied_as_stimulus",
+      "merged_into_question",
+      "precomputed_and_visible"
+    ],
+    "silentlyRemovedAllowed": false,
+    "stimulusCoverageRequiresVisibleEvidenceQuantity": true,
+    "precomputedCoverageRequiresVisibleEvidenceQuantity": true,
+    "mergedCoverageRequiresQuestionReference": true
+  },
+  "scenarioChainContract": {
+    "allowedItemStructureClasses": [
+      "common_scenario_independent",
+      "scenario_chain_dependent"
+    ],
+    "sharedScenarioAloneQualifiesAsPbl": false,
+    "sharedEntitiesStableAcrossProjection": true,
+    "sharedStemRequired": true,
+    "completeAnswerSetMayBeTerminalOutcome": true,
+    "dependencyMayBeEmptyOnlyForCommonScenarioIndependent": true
+  },
+  "boundedPblContract": {
+    "itemStructureClass": "bounded_pbl_closed",
+    "projectGoalRequired": true,
+    "projectArchetypeReferenceRequired": true,
+    "requiredMilestoneMinimum": 2,
+    "deterministicDecisionCriterionMinimum": 1,
+    "terminalDeliverableRequired": true,
+    "approvalAsWholeRequired": true,
+    "sharedScenarioWithoutTerminalDeliverableQualifies": false,
+    "openEndedOpinionDecisionAllowed": false,
+    "runtimeMayAssembleProjectFromSeparateQuestions": false
+  },
+  "subquestionNodeContract": {
+    "stableIdRequired": true,
+    "strictOrderRequired": true,
+    "approvedP01BindingRequired": true,
+    "declaredConsumesAndProducesRequired": true,
+    "declaredDependencyReferencesRequired": true,
+    "declaredMilestoneCoverageRequired": true,
+    "terminalQuestionDeclared": true
+  },
+  "quantityLedgerContract": {
+    "quantityIdsUniqueWithinProjection": true,
+    "originRequired": true,
+    "unitDimensionRequired": true,
+    "visibilityRequired": true,
+    "consumersDeclared": true,
+    "derivedQuantityRuleRequiredWhenApplicable": true,
+    "quantityImmutableWithinProjection": true,
+    "hiddenUnavailableQuantityConsumptionAllowed": false,
+    "crossQuestionQuantityDependencyMustBeExplicit": true
+  },
+  "decisionContract": {
+    "deterministic": true,
+    "referencedQuantitiesRequired": true,
+    "applyingSubquestionRequired": true,
+    "approvedKinds": [
+      "minimum_cost",
+      "capacity_sufficient",
+      "time_limit",
+      "budget_limit",
+      "least_waste",
+      "fair_distribution",
+      "safety_reserve",
+      "approved_custom_rule"
+    ]
+  },
+  "projectionBoundaryContract": {
+    "projectionKinds": [
+      "single_page_complete",
+      "approved_two_page_complete"
+    ],
+    "singlePageBreakReferenceMustBeNull": true,
+    "twoPageBreakReferenceMustBeDeclaredSubquestion": true,
+    "physicalMeasurementsDeferredToLayoutContract": true,
+    "semanticMilestoneRemovalForLayoutForbidden": true
+  },
+  "validationBoundary": {
+    "blocking": true,
+    "questionCountMatchesProfileRequired": true,
+    "uniqueSubquestionIdsRequired": true,
+    "dependencyReferencesValidRequired": true,
+    "dependencyGraphAcyclicRequired": true,
+    "quantityLedgerClosedRequired": true,
+    "milestoneCoverageCompleteRequired": true,
+    "terminalOutcomeRequired": true,
+    "canonicalAnswerRecomputationPerQuestionRequired": true,
+    "canonicalChainRecomputationRequired": true,
+    "runtimeTruncationForbidden": true,
+    "runtimeQuestionAssemblyForbidden": true,
+    "undeclaredPageSplitForbidden": true
+  },
+  "blockingCodesReserved": [
+    "PBL_CHAIN_INCOMPLETE",
+    "PBL_REQUIRED_MILESTONE_MISSING",
+    "PBL_TERMINAL_DELIVERABLE_MISSING",
+    "PBL_DECISION_STAGE_MISSING",
+    "PBL_DEPENDENCY_PATH_BROKEN",
+    "PBL_UNAPPROVED_QUESTION_COUNT_PROFILE",
+    "PBL_RUNTIME_TRUNCATION_FORBIDDEN",
+    "PBL_OMITTED_NODE_UNACCOUNTED",
+    "PBL_PROJECT_GOAL_NOT_REACHED",
+    "SCENARIO_QUANTITY_LEDGER_OPEN",
+    "SCENARIO_ORPHAN_SUBQUESTION",
+    "SCENARIO_UNDECLARED_PAGE_SPLIT"
+  ],
+  "forbiddenRuntimeBehavior": [
+    "partial_pbl_extraction",
+    "arbitrary_subquestion_sampling",
+    "runtime_question_chain_assembly",
+    "runtime_dependency_rewrite",
+    "runtime_quantity_ledger_rewrite",
+    "runtime_milestone_removal",
+    "runtime_terminal_deliverable_removal",
+    "runtime_project_goal_change",
+    "undeclared_page_split",
+    "generic_fallback",
+    "runtime_web_search",
+    "free_form_ai_pbl_generation"
+  ],
+  "deferredToP03": [
+    "sourceAdmissionPolicy",
+    "commonKnowledgeEvidence",
+    "sourceExpiryPolicy",
+    "webVerificationLifecycle"
+  ],
+  "deferredToP04": [
+    "pblSemanticFingerprint",
+    "nearDuplicateDetection",
+    "semanticFamilyRegistry",
+    "perUnitSemanticBreadthGate"
+  ],
+  "deferredToLayout": [
+    "physicalPageHeight",
+    "applicationPageDensity",
+    "writingSpaceMillimeters",
+    "questionSheetRendering",
+    "answerKeyRendering",
+    "overflowMeasurement"
+  ],
+  "deferredToRuntime": [
+    "approvedProfileResolver",
+    "chainGenerator",
+    "chainValidatorImplementation",
+    "worksheetRendererIntegration"
+  ],
+  "compatibilityContract": {
+    "existingKnowledgePointAuthorityUnchanged": true,
+    "existingPatternSpecAuthorityUnchanged": true,
+    "existingMathValidatorAuthorityUnchanged": true,
+    "p01ApprovedSemanticBindingAuthorityUnchanged": true,
+    "existingUnitRuntimeUnchanged": true,
+    "g5aU02FilesMayBeModified": false
+  },
+  "acceptance": {
+    "schemaSupportsTwoToFiveQuestions": true,
+    "schemaSeparatesScenarioChainAndBoundedPbl": true,
+    "schemaRequiresIndependentCompleteProfiles": true,
+    "schemaAccountsForEveryRequiredMilestone": true,
+    "schemaRequiresClosedQuantityLedger": true,
+    "schemaRequiresTerminalOutcome": true,
+    "schemaForbidsRuntimeTruncation": true,
+    "schemaAllowsOnlyApprovedTwoPageProjection": true,
+    "schemaContainsNoSeedContent": true,
+    "schemaChangesNoRuntime": true
+  },
+  "ciPolicy": {
+    "ownedGatesMustPass": true,
+    "newFailureRelativeToMainAllowed": false,
+    "inheritedNonOwnedBaselineFailureMayBeRecordedByParity": true,
+    "inheritedFailureMayBeRepairedInP02": false
+  },
+  "ciAcceptance": {
+    "headSha": "f9459d836bbd2b3af7e4045bd9742e526c2b4b48",
+    "workflowCount": 19,
+    "successCount": 18,
+    "inheritedFailureCount": 1,
+    "inheritedFailureWorkflow": "S93 G5A-U02 Hidden HTML PDF Smoke",
+    "newOwnedFailures": 0,
+    "baselineParityAccepted": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_GCTX_APPROVED_SEMANTIC_BINDING_SCHEMA_LOCKED",
+    "goalDistanceAfter": "D2_GCTX_SCENARIO_AND_BOUNDED_PBL_CLOSURE_CONTRACT_LOCKED",
+    "distanceReduced": "added complete 2–5 question chain ownership, dependency, ledger, milestone and terminal-outcome contracts",
+    "remainingBlockers": [
+      "source governance",
+      "semantic breadth and deduplication",
+      "layout contracts",
+      "representative fixtures",
+      "validator implementation",
+      "runtime resolver",
+      "existing-unit audits"
+    ]
+  },
+  "nextTask": "GCTX-P03_SourceMiningCommonKnowledgeAndEvidenceGovernance"
+}

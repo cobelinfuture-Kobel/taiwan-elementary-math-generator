@@ -1,0 +1,73 @@
+{
+  "schemaName": "PGCR08A04A03A01ExactPatternGroupBindingReadbackV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A03-A01_ExactPatternGroupBindingHarnessRepairAnd136RouteReplay",
+  "status": "PASS_ROUTE_BINDING_FAMILY_CLOSED_WITH_9_ORTHOGONAL_TRANSFERS",
+  "sourceEvidence": {
+    "headSha": "b67bb08a1304b138ee429e499b525b75385b1e86",
+    "workflowRunId": 30615161323,
+    "workflowJobId": 91106554401,
+    "workflowConclusion": "success",
+    "artifactId": 8787154470,
+    "artifactDigest": "sha256:aaf9dd73fdfdc2d31fa0efaf854dd12b068e7b64cbc965690282f94113f4c3db",
+    "reportSha256": "ea4ad54a9b0fb4b6979b37b913d1c66a7e7a51d9deb9fd9dc1cdc1752239821a",
+    "binderEventsSha256": "dae8f17daefb68117a09b8df2eeabd448b2d13a1c41314b18bc599182ce35264",
+    "controlEventsSha256": "f96efd2d507adb980b4006f2573495938fd34ac06391f0d9140af1857d2dc9b2"
+  },
+  "replaySummary": {
+    "targetRouteCount": 136,
+    "terminalRouteCount": 136,
+    "routeBindingResolvedCount": 136,
+    "routeBindingStillFailedCount": 0,
+    "fullNineGatePassCount": 127,
+    "downstreamFailCount": 9,
+    "binderEventCount": 647,
+    "enabledSelectionDispositionCount": 618,
+    "disabledValueMismatchDispositionCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  },
+  "familyCloseout": {
+    "failureFamily": "ROUTE_BINDING_NOT_CONVERGED",
+    "originalRouteCount": 136,
+    "routeBindingResolvedCount": 136,
+    "endToEndPassCount": 127,
+    "transferredRouteCount": 9,
+    "status": "CLOSED_BINDING_BLOCKER_REMOVED"
+  },
+  "transferredRouteOverlayPath": "data/curriculum/public-generation/PGC-R08-A04-A03-A01.downstream-reclassification-overlay.json",
+  "transferredRouteSummary": {
+    "toRegenerateIdentityTimeoutCount": 6,
+    "toCapacityProjectionShortfallCount": 3,
+    "capacityProjectionObservedCounts": [
+      {"projectedQuestionCount": 12, "requestedQuestionCount": 20, "routeCount": 2},
+      {"projectedQuestionCount": 8, "requestedQuestionCount": 20, "routeCount": 1}
+    ]
+  },
+  "decisions": {
+    "exactPatternGroupHarnessRepairAdmitted": true,
+    "exactRouteIdentityProjectionRequiresExactPublicState": true,
+    "productUiMutationPerformed": false,
+    "resolverMutationPerformed": false,
+    "generatorMutationPerformed": false,
+    "validatorMutationPerformed": false,
+    "rendererMutationPerformed": false,
+    "capacityAuthorityMutationPerformed": false,
+    "historicalA03QueueMutationPerformed": false,
+    "perRoutePatchPerformed": false,
+    "temporaryWorkflowRemovedBeforeMerge": true
+  },
+  "goalDistance": {
+    "before": "D1_R08_ROUTE_BINDING_FAMILY_OPEN_136",
+    "after": "D1_R08_ROUTE_BINDING_CLOSED_QUESTION_STATE_SETTLEMENT_NEXT",
+    "distanceReduced": "closed all 136 route-binding failures through one shared exact PatternGroup and exact-public-state harness repair; 127 routes now pass all nine gates and nine orthogonal failures are transferred without mutating product authority",
+    "remainingBlockers": [
+      "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT_9",
+      "REGENERATE_IDENTITY_TIMEOUT_9",
+      "CAPACITY_EVIDENCE_RECONCILIATION_38_WITH_3_ACTIVE_SHORTFALLS"
+    ],
+    "nextShortestStep": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair"
+  },
+  "nextTask": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair"
+}

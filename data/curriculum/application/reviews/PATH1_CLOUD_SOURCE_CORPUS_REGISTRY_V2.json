@@ -1,0 +1,140 @@
+{
+  "schemaName": "Path1CloudSourceCorpusRegistryV2",
+  "schemaVersion": 2,
+  "taskId": "PATH1_P1_05_P1_07_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1",
+  "status": "THREE_MANDATORY_CLOUD_EVIDENCE_LANES_REGISTERED",
+  "supersedes": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_SOURCE_CORPUS_ADDITION_V1.json",
+  "operatorSourceIndex": {
+    "name": "數學_雲端硬碟.txt",
+    "declaredFolders": [
+      "https://drive.google.com/drive/folders/1U_rxMOL4_m07Rx6EABCCd6KlBiJ6wzj6",
+      "https://drive.google.com/drive/folders/1VHxb5jEkw_xP683wP528HEYFC-_zFIKk",
+      "https://drive.google.com/drive/folders/1m8ljMOMb0ugFQCsC76Q1hX9UMRj0Hxpr"
+    ]
+  },
+  "mandatoryEvidenceLanes": [
+    {
+      "sourceCorpusId": "TAIWAN_G3_G6_LEARNING_MAPS",
+      "folderId": "1U_rxMOL4_m07Rx6EABCCd6KlBiJ6wzj6",
+      "folderUrl": "https://drive.google.com/drive/folders/1U_rxMOL4_m07Rx6EABCCd6KlBiJ6wzj6",
+      "sourceRole": [
+        "CURRICULUM_PROGRESSION_EVIDENCE",
+        "GRADE_STAGE_BOUNDARY_EVIDENCE",
+        "DOMAIN_SCOPE_EVIDENCE"
+      ],
+      "activeGrades": [3, 4, 5, 6],
+      "observedFiles": [
+        {
+          "grade": 3,
+          "fileId": "1OpYq57SRbQhfrkvqucR5eL2FJzd71SNd",
+          "title": "01_國小數學3年級學習地圖_(教).pdf"
+        },
+        {
+          "grade": 4,
+          "fileId": "1B4lCR5BQngMGVNIMN-DGcfqMfC7y0jWI",
+          "title": "01_國小數學4年級學習地圖_(教).pdf"
+        },
+        {
+          "grade": 5,
+          "fileId": "1Rrt_v9hvZ0jxF0ZAXyrb_1bnz7mHZ_6z",
+          "title": "01_國小數學5年級學習地圖_(教).pdf"
+        },
+        {
+          "grade": 6,
+          "fileId": "1U7spBw0H9_DEZXI5YDaJK2loeWeD_gJp",
+          "title": "01_國小數學6年級學習地圖_(教).pdf"
+        }
+      ]
+    },
+    {
+      "sourceCorpusId": "LI_TEACHER_MATH_THINKING_G1_G6",
+      "folderId": "1VHxb5jEkw_xP683wP528HEYFC-_zFIKk",
+      "folderUrl": "https://drive.google.com/drive/folders/1VHxb5jEkw_xP683wP528HEYFC-_zFIKk",
+      "sourceRole": [
+        "STRUCTURED_PROBLEM_SOLVING_PATTERN_EVIDENCE",
+        "RELATION_ROLE_SURFACE_EVIDENCE",
+        "LANGUAGE_AND_SCAFFOLDING_EVIDENCE"
+      ],
+      "currentPath1ActiveGrades": [3, 4, 5, 6],
+      "observedFiles": [
+        {
+          "grade": 3,
+          "lectureFileId": "1q3TLW8vYlDC-zO2N2zOKT5aUJ0Q6snq8",
+          "practiceFileId": "1YGF0ffKRpDglm2cg2-Tr8Ejmr2ktt-x3"
+        },
+        {
+          "grade": 4,
+          "lectureFileId": "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+          "practiceFileId": "1ewWwnh4GayBL9dC-GPLZAJaDJ7egsHKU"
+        },
+        {
+          "grade": 5,
+          "lectureFileId": "1ciie6Or7i1bQCVy0Il-pAWhRMfK9pno-",
+          "practiceFileId": "1wKTQiD40R8-GekxhL3PrBuFiMrLXHHlQ"
+        },
+        {
+          "grade": 6,
+          "lectureFileId": "1-P0eytL1R3Svoc_C86rJuaMAxcHt9gwz",
+          "practiceFileId": "1y1CVEeeuwaqGrvrVHZYDGMsiyIfY-Ru2"
+        }
+      ]
+    },
+    {
+      "sourceCorpusId": "MULTI_SCHOOL_EXAM_CORPUS_G03_G09",
+      "folderId": "1m8ljMOMb0ugFQCsC76Q1hX9UMRj0Hxpr",
+      "folderUrl": "https://drive.google.com/drive/folders/1m8ljMOMb0ugFQCsC76Q1hX9UMRj0Hxpr",
+      "sourceRole": [
+        "MULTI_SCHOOL_BREADTH_EVIDENCE",
+        "MULTI_PUBLISHER_BREADTH_EVIDENCE",
+        "MULTI_YEAR_EXAM_PHRASE_AND_PATTERN_EVIDENCE"
+      ],
+      "currentElementaryActiveGrades": [3, 4, 5, 6],
+      "registeredButOutsideCurrentElementaryScopeGrades": [7, 8, 9]
+    }
+  ],
+  "mandatoryLaneEvaluationPolicy": {
+    "appliesToFuturePath1SourcePreflightsFrom": "P1-05",
+    "allThreeLanesMustBeEvaluated": true,
+    "allowedEvidenceStatuses": [
+      "DIRECT_WITNESS",
+      "STRUCTURAL_ONLY",
+      "CURRICULUM_BOUNDARY_ONLY",
+      "REPRESENTATION_BREADTH_ONLY",
+      "NO_DIRECT_WITNESS",
+      "NOT_APPLICABLE"
+    ],
+    "requiredPerLaneFields": [
+      "sourceCorpusId",
+      "evidenceStatus",
+      "reviewedFileIds",
+      "observedWitnessesOrNoWitnessReason",
+      "authorityUse"
+    ],
+    "omittingALaneWithoutExplicitNOT_APPLICABLEIsForbidden": true
+  },
+  "authorityBoundary": {
+    "canonicalRepoAuthorityWins": true,
+    "learningMapsMaySupport": [
+      "grade progression",
+      "stage sequencing",
+      "domain boundary reconciliation"
+    ],
+    "liTeacherMaySupport": [
+      "problem-solving structure",
+      "quantity-role structure",
+      "language/scaffolding breadth"
+    ],
+    "schoolExamsMaySupport": [
+      "assessment representation breadth",
+      "wording breadth",
+      "school/publisher/year pattern recurrence"
+    ],
+    "cloudSourcesMustNotByThemselves": [
+      "mint a canonical KnowledgePoint",
+      "override an existing FormalMapping",
+      "expand a numeric runtime envelope",
+      "activate a production route",
+      "change mastery semantics"
+    ]
+  }
+}

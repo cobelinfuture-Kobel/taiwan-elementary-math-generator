@@ -1,0 +1,87 @@
+{
+  "schemaName": "Path1P109CloudSourceProvenanceReconciliationV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_09_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1",
+  "parentTaskId": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_AUTHORITY_PREFLIGHT_V1",
+  "canonicalRepositoryAuthorityWins": true,
+  "mandatoryLanePolicy": "PATH1_CLOUD_SOURCE_CORPUS_REGISTRY_V2",
+  "allMandatoryLanesReviewed": true,
+  "lanes": [
+    {
+      "sourceCorpusId": "TAIWAN_G3_G6_LEARNING_MAPS",
+      "evidenceStatus": "DIRECT_WITNESS",
+      "reviewedFileIds": [
+        "1B4lCR5BQngMGVNIMN-DGcfqMfC7y0jWI"
+      ],
+      "observedWitnessesOrNoWitnessReason": "The grade-4 learning map explicitly states under 整數的除法: 四位數÷一位數的問題 and 二到四位數÷二位數的問題. This directly supports a four-digit-dividend/two-digit-divisor progression while keeping it inside grade-4 integer division.",
+      "authorityUse": "Confirm the P1-09 grade/stage boundary and the larger-dividend two-digit-divisor difficulty expansion. It does not mint a new canonical KnowledgePoint or override the Path1 matrix."
+    },
+    {
+      "sourceCorpusId": "LI_TEACHER_MATH_THINKING_G1_G6",
+      "evidenceStatus": "NO_DIRECT_WITNESS",
+      "reviewedFileIds": [
+        "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+        "1ewWwnh4GayBL9dC-GPLZAJaDJ7egsHKU"
+      ],
+      "observedWitnessesOrNoWitnessReason": "The reviewed grade-4 lecture and practice materials include broad arithmetic, convenient calculation, applications, and vertical-form reasoning, but no direct source witness was identified that should define or expand the P1-09 four-digit-dividend/two-digit-divisor runtime family.",
+      "authorityUse": "No PatternSpec admission, no numeric-envelope authority, and no runtime expansion from this lane."
+    },
+    {
+      "sourceCorpusId": "MULTI_SCHOOL_EXAM_CORPUS_G03_G09",
+      "evidenceStatus": "DIRECT_WITNESS",
+      "reviewedFileIds": [
+        "1ZLTZRGPTIFlYe9hIZBelgb-niUc8h1jx",
+        "1ZcSC_R_O-ffR4VdC8mT4o8r8m9D0zKHE",
+        "1WlXVM_G-gk_A9gvjof2j0C4cekL8umdw"
+      ],
+      "observedWitnessesOrNoWitnessReason": "The Taiwan multi-school exam corpus contains a direct P1-09 witness: 僑愛國小四年級試卷 asks 4024÷23 in vertical calculation. The same reviewed corpus also contains 92÷23 and 700÷86 for the predecessor two-digit-divisor stage and 1692÷299 / 5330÷161 for the adjacent three-digit-divisor stage, which helps bound P1-09 between P1-08 and P1-10.",
+      "authorityUse": "Corroborate assessment recurrence for four-digit dividend divided by a two-digit divisor and preserve the P1-08/P1-09/P1-10 progression boundary. Exam evidence alone does not activate or broaden production runtime."
+    }
+  ],
+  "repositoryReconciliation": {
+    "path1MatrixBlockId": "P1-09",
+    "path1MatrixBlockType": "DIFFICULTY_EXPANSION",
+    "path1MatrixDifficultyExpansionId": "larger_dividend_two_digit_divisor",
+    "runtimeDifficultyExpansionId": "path1_four_digit_by_two_digit_division",
+    "predecessorCanonicalSourceId": "g4a_u04_4a04",
+    "predecessorCanonicalSourceFile": "batchA_02-題型總覽-4a04-整數的除法.pdf",
+    "predecessorKnowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "newKnowledgePointFromCloudEvidence": false,
+    "newPatternSpecFromCloudEvidence": false,
+    "newRelationFromCloudEvidence": false,
+    "numericEnvelopeExpandedByCloudEvidenceAlone": false,
+    "publicRouteActivatedByCloudEvidence": false,
+    "masterySemanticsChangedByCloudEvidence": false
+  },
+  "sourceBackedExpansionBoundary": {
+    "dividendDigits": 4,
+    "dividendMin": 1000,
+    "dividendMax": 9999,
+    "divisorDigits": 2,
+    "divisorMin": 10,
+    "divisorMax": 99,
+    "answerType": "quotient_remainder",
+    "invariant": "dividend = divisor * quotient + remainder AND 0 <= remainder < divisor",
+    "mustCoverQuotientDigitCases": [
+      "3-digit quotient when the first two dividend digits are sufficient for the divisor",
+      "2-digit quotient when the first two dividend digits are insufficient for the divisor"
+    ],
+    "directExamWitness": {
+      "fileId": "1ZLTZRGPTIFlYe9hIZBelgb-niUc8h1jx",
+      "expression": "4024÷23",
+      "quotient": 174,
+      "remainder": 22,
+      "case": "3-digit quotient / first-two-digits sufficient"
+    }
+  },
+  "adjacentBoundaries": {
+    "P1-08": "owns the canonical two-/three-digit-dividend two-digit-divisor stage and is the required predecessor; P1-09 increases dividend digits without minting a new KP",
+    "P1-10": "owns three-digit divisors; P1-09 divisor remains exactly two digits",
+    "P1-11": "owns explicit remainder/checking emphasis; P1-09 may return quotient and remainder but does not teach checking or remainder-context interpretation",
+    "P1-07": "owns explicit quotient-start-place/digit-count representation; P1-09 arithmetic must cover both quotient-digit cases without duplicating that teaching mode"
+  },
+  "conclusion": "ALL_THREE_MANDATORY_CLOUD_LANES_REVIEWED_P109_FOUR_DIGIT_BY_TWO_DIGIT_DIFFICULTY_EXPANSION_SOURCE_BACKED_WITHOUT_NEW_CANONICAL_KP"
+}

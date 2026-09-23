@@ -1,0 +1,50 @@
+{
+  "schemaName": "POSTGAPPW02NPlusOneAndPBLCandidatePackIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A03_NPlusOneProofMisconceptionAndPBLCandidateContract",
+  "contractId": "POSTG_APP_W02_NPLUSONE_PROOF_MISCONCEPTION_AND_PBL_CANDIDATE_V1",
+  "status": "DETERMINISTIC_SHADOW_MATERIALIZATION_COUNTS_VERIFIED_PENDING_CI_AND_MERGE",
+  "inputAuthority": {
+    "a02TaskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
+    "a02PackIndex": "data/curriculum/application/assessment/w02-atomic-context-single-application-candidate-pack-index.json",
+    "policy": "data/curriculum/application/assessment/w02-nplusone-pbl-candidate-policy.json"
+  },
+  "materializedAuthority": {
+    "nPlusOneCandidateSchema": "data/curriculum/application/schema/w02-nplusone-proof-candidate.schema.json",
+    "pblCandidateSchema": "data/curriculum/application/schema/w02-pbl-task-set-candidate.schema.json",
+    "resolver": "src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a03-candidate-pack.mjs",
+    "test": "tests/curriculum/postg-app-w02-a03-candidate-pack.test.js"
+  },
+  "verifiedCounts": {
+    "a02SingleApplicationCandidateCount": 61,
+    "nPlusOneProofCandidateCount": 61,
+    "misconceptionCandidateCount": 183,
+    "pblEligibleCandidateCount": 31,
+    "pblTaskSetCandidateCount": 31,
+    "pbl3TaskSetCandidateCount": 19,
+    "pbl5TaskSetCandidateCount": 12,
+    "crossContextPairCount": 61,
+    "duplicateProofProjectionGroupCount": 1,
+    "duplicatePblProjectionGroupCount": 1,
+    "compatiblePblCandidateCount": 0,
+    "productionAdmittedCount": 0
+  },
+  "proofBoundary": {
+    "provenNPlusOneClaimAllowed": false,
+    "numericFixturesInstantiated": false,
+    "misconceptionEvidenceExecuted": false,
+    "counterfactualEvidenceExecuted": false,
+    "crossContextEvidenceExecuted": false,
+    "candidateStatus": "N_PLUS_1_PROOF_BLUEPRINT_COMPLETE"
+  },
+  "pblBoundary": {
+    "eligibility": "APPLICATION_REQUIRED_ONLY",
+    "taskCountsAllowed": [3, 5],
+    "compatibleClassificationAutomaticallyAdmitted": false,
+    "productionAdmissionAllowed": false,
+    "candidateStatus": "PBL_TASK_SET_BLUEPRINT_COMPLETE"
+  },
+  "nextShortestStep": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow"
+}

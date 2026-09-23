@@ -1,0 +1,170 @@
+{
+  "schemaName": "P05FW5Q009LargeAreaUnitIdentitySourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q009_LargeAreaUnitIdentity_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 9,
+    "sliceId": "p05e_q009_r0_g5b_u10_5b10a_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice009Implementation",
+    "previousSliceId": "p05e_q008_r0_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "primarySourceNodeId": "g5b_u10_5b10a",
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "knowledgePointIds": [
+      "kp_g5b_u10a_large_area_unit_identity"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q008_r0_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "productMergeSha": "80e6463ef66abbcafdeec4f4931f3536403a92a9",
+    "exactPagesRunId": "34000572190",
+    "pagesDeploymentRunId": "34000572146",
+    "evidenceArtifactId": "9979367617",
+    "evidenceArtifactDigest": "sha256:f37913df724483345f4b630e3f993465447337d1ba3a3af3653b642749a8cd23",
+    "postMergeTriggerEvent": "push",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5b_u10_5b10a",
+    "sourceTitle": "生活中的大單位",
+    "sourcePdfTitle": "meow911_5b10a_source.pdf",
+    "sourcePdfDriveFileId": "1pCtllVtZRsUAO4WFCqJlgMOMk_QNA5X8",
+    "sourceMetadataDriveFileId": "1Edjv6m2SkPhpuQTPaXmr5py77vyAZmXa",
+    "verificationNotesDriveFileId": "1ommruKq16k7kjn2B3fnFncGeIxUqqQ-p",
+    "sourceUrlFromMetadata": "https://meow911.com/5b10a/",
+    "pageCount": 1,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "reviewedPages": [
+      1
+    ],
+    "directReviewedConcepts": [
+      "ARE_HECTARE_SQUARE_KILOMETER_AS_LARGE_AREA_UNITS",
+      "LAND_OR_REGION_AREA_UNIT_SCALE_FIT",
+      "AREA_UNIT_DISTINCT_FROM_LENGTH_UNIT"
+    ],
+    "sourceIdentityCrossCheck": {
+      "queueSourceNodeId": "g5b_u10_5b10a",
+      "r02SourceNodeId": "g5b_u10_5b10a",
+      "metadataSourceId": "g5b_u10_5b10a",
+      "fileName": "meow911_5b10a_source.pdf",
+      "metadataSourceUrl": "https://meow911.com/5b10a/",
+      "conflictingSourceRefObservedInReviewedAuthorities": false,
+      "sourceRefAmbiguity": false,
+      "disposition": "MATCHING_QUEUE_R02_DRIVE_METADATA_AND_PDF_FILE_IDENTITY"
+    },
+    "driveMetadataReadback": {
+      "metadataManualReviewed": false,
+      "metadataExtractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5b_u10_5b10a",
+    "reviewedPages": [
+      1
+    ],
+    "knowledgePointId": "kp_g5b_u10a_large_area_unit_identity",
+    "canonicalNameZh": "公畝公頃平方公里辨識",
+    "capabilityStatement": "學生能選擇並辨認表示土地或地區面積的大單位。",
+    "reasoningInvariant": "單位選擇須符合面積尺度，不能與長度單位混用。",
+    "category": "measurement",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_geometry_formula",
+    "profileRequiredCapabilityIds": [
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "dependencyClosureAddedCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "r02CandidateCategory": "measurement",
+    "frozenProfileClassificationRule": "rule_geometry_formula",
+    "profileCategoryMismatchAcknowledged": true,
+    "profileCategoryMismatchDisposition": "PRESERVE_FROZEN_QUEUE_PROFILE_NO_RECLASSIFICATION_DURING_PREFLIGHT"
+  },
+  "q009ScopeLock": {
+    "includedRelations": [
+      "RECOGNIZE_ARE_HECTARE_SQUARE_KILOMETER_AS_AREA_UNITS",
+      "SELECT_LARGE_AREA_UNIT_BY_LAND_OR_REGION_SCALE",
+      "DISTINGUISH_LARGE_AREA_UNIT_FROM_LENGTH_UNIT"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5b_u10a_hectare_square_meter_conversion",
+      "kp_g5b_u10a_square_kilometer_hectare_conversion",
+      "kp_g5b_u10a_metric_ton_kilogram_conversion",
+      "kp_g5b_u10a_large_unit_estimation_application"
+    ],
+    "excludedRelations": [
+      "HECTARE_SQUARE_METER_CONVERSION",
+      "SQUARE_KILOMETER_HECTARE_CONVERSION",
+      "METRIC_TON_KILOGRAM_CONVERSION",
+      "LARGE_UNIT_ESTIMATION_APPLICATION",
+      "AREA_UNIT_CONVERSION_ARITHMETIC",
+      "AREA_FORMULA_CALCULATION",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresGeometryDiagramRepresentationByFrozenProfile": true,
+    "diagramSemanticsExpandedByThisPreflight": false,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q010OrLaterTouched": false
+  },
+  "postMergeEvidenceTriggerPolicy": {
+    "effectiveFromQueuePosition": 3,
+    "provenPriorRunIds": [
+      "33926418642",
+      "33934940413",
+      "33937587482",
+      "33950114817",
+      "33953512923",
+      "34000572190"
+    ],
+    "latestProvenRunId": "34000572190",
+    "singlePullRequestOrchestratorMustRemain": true,
+    "postMergeWorkflowPullRequestTriggerAllowed": false,
+    "perQWorkflowRunTriggerAllowed": false,
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "qSpecificPathsMustBeDerivedFromExactImplementationDiff": true,
+    "broadHistoricalSharedPathFanoutForbidden": true,
+    "mustWaitForMatchingPagesDeployment": true,
+    "mustVerifyExactDeployedBytesBySha256": true,
+    "mustExerciseClassicUiGeneratorValidatorWorksheetRendererPrintArtifact": true,
+    "materializeWorkflowDuringImplementationOrPostMergeEvidenceTask": true
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ009ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "frozenProfileCategoryMismatchAcknowledged": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice009Implementation"
+  }
+}

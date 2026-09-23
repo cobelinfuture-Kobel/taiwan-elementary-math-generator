@@ -1,0 +1,114 @@
+{
+  "schemaName": "P06FW6Q006G4AU07InputOutputTableImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6DirectProductVerticalSlice006Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q006_G4AU07_INPUT_OUTPUT_TABLE_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_BOUNDARY_LOCKED",
+    "after": "D1_Q006_G4AU07_INPUT_OUTPUT_TABLE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "b2550d53ea284f0d8b84484c7da4e66a32fd2c8f",
+  "preflight": {
+    "prNumber": 982,
+    "mergeSha": "ce997c134eaeda11dd3117aa1b527975c85cb167",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p06f/q006-g4a-u07-input-output-table-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "queuePosition": 5,
+    "prNumber": 981,
+    "mergeSha": "99e166ea0cd224d112d3a23f33a88e3481c5ea2a",
+    "postMergeWorkflowRunId": 35340723771,
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "queueAuthority": {
+    "queuePosition": 6,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q006_r1_g4a_u07_4a07_profile_table_data_c1",
+    "sourceId": "g4a_u07_4a07",
+    "knowledgePointIds": [
+      "kp_g4a_u07_input_output_table_rule"
+    ],
+    "runtimeProfileId": "profile_table_data",
+    "requiredW6CapabilityIds": [
+      "cap_data_domain_validator",
+      "cap_table_data_model",
+      "cap_table_representation"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_4a07_source.pdf",
+    "sourcePdfDriveFileId": "1NKZfif1y-iujwps73SB6P6LtcdDWWdsd",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceIdentity": "數量關係與規律",
+    "sourceRefAmbiguity": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g4a_u07_input_output_complete_output",
+      "ps_g4a_u07_input_output_complete_input",
+      "ps_g4a_u07_input_output_infer_output"
+    ],
+    "includedRelations": [
+      "READ_OR_COMPLETE_INPUT_OUTPUT_TABLE_PAIRS",
+      "INFER_ONE_CONSISTENT_INPUT_OUTPUT_OPERATION_RULE"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentation": "input-output-table",
+    "applicationContextMode": "NOT_ADMITTED",
+    "sameUnitMixedMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "INTEGER",
+    "tableCorrespondenceInvariantRequired": true,
+    "oneConsistentOperationRuleRequired": true
+  },
+  "semanticProfileLock": {
+    "tablePairsArePrimaryRepresentation": true,
+    "oneConsistentOperationRuleRequired": true,
+    "genericOneWayStatisticalTableReadingIsCore": false,
+    "chartInterpretationIsCore": false,
+    "symbolicNthTermFormulaIsCore": false,
+    "q005PatternKpReownershipAllowed": false,
+    "multiplicativePatternReownershipAllowed": false,
+    "missingTermReasoningReownershipAllowed": false
+  },
+  "scopeGuard": {
+    "q001ToQ005ProductMutationAllowed": false,
+    "genericStatisticalTableReadingUsed": false,
+    "chartInterpretationUsed": false,
+    "symbolicNthTermFormulaUsed": false,
+    "q005PatternReowned": false,
+    "multiplicativePatternReowned": false,
+    "missingTermReasoningReowned": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q007OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}

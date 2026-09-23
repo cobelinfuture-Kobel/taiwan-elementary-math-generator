@@ -1,0 +1,306 @@
+{
+  "schemaName": "Path1WordProblemP112InverseEqualGroupsTransferPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_12_INVERSE_EQUAL_GROUPS_TRANSFER_PREFLIGHT_V1",
+  "status": "P1_12_INVERSE_EQUAL_GROUPS_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicCutoverAllowed": false,
+  "path1MatrixMutationAllowed": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "newPatternSpecRequired": false,
+  "taxonomyReplanningAllowed": false,
+  "prerequisite": {
+    "completedPublicSlice": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_DEPLOYED_PUBLIC_ACCEPTANCE_V1_PASS_D0_CLOSED",
+    "sourceCorpusRegistry": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_SOURCE_CORPUS_ADDITION_V1.json",
+    "earlyTransferContract": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1.json"
+  },
+  "scope": {
+    "includedPathBlock": "P1-12",
+    "title": "乘除互逆",
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "includedUnknownRoles": ["totalAmount", "groupCount", "amountPerGroup"],
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT",
+    "excluded": [
+      "P1-01/P1-02 runtime mutation",
+      "P1-03/P1-04 transfer exposure",
+      "G3B-U08 canonical generator/validator/router mutation",
+      "Path1 curriculum-matrix mutation",
+      "mastery-scoring mutation",
+      "remainder floor/ceil interpretation",
+      "implicit unit conversion",
+      "multi-relation composition",
+      "盈虧、雞兔同籠、方陣或其他 constraint-system promotion",
+      "new context-family production admission",
+      "numeric-envelope expansion from school-exam or 厉老師 evidence",
+      "W5 queue work",
+      "full repository regression",
+      "global browser replay"
+    ]
+  },
+  "authorityRefs": {
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "wordProblemCapabilityInventory": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_CAPABILITY_INVENTORY_V1.json",
+    "sourceCorpusRegistry": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_SOURCE_CORPUS_ADDITION_V1.json",
+    "earlyTransferContract": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1.json",
+    "equalGroupsKnowledgeOperation": "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+    "equalGroupsPatternSpecs": "data/curriculum/pattern_specs/S58C_G3B_U08_SemanticPatternSpecRegistry.json",
+    "equalGroupsPromotion": "data/curriculum/registry/promotions/S58F_G3B_U08_SemanticPromotionRegistry.json",
+    "currentEarlyPath1TransferGenerator": "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+    "canonicalG3BU08Generator": "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js"
+  },
+  "p112AuthorityLock": {
+    "blockType": "COMPOSITE_KP",
+    "requiredPrerequisiteBlockIds": ["P1-11"],
+    "requiredFusionBlockIds": ["P1-02", "P1-08"],
+    "primaryKnowledgePointIds": [
+      "kp_g3b_u08_total_from_groups",
+      "kp_g3b_u08_group_count_from_total",
+      "kp_g3b_u08_per_group_from_total"
+    ],
+    "fusionPatternCandidateId": "multiply_divide_inverse_relation",
+    "authorityDecision": "P1-12 remains the single Path1 fusion authority for rotating the unknown role across the equal-groups relation. Earlier P1-01/P1-02 transfer remains totalAmount-only."
+  },
+  "unknownRoleContracts": [
+    {
+      "unknownRole": "totalAmount",
+      "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+      "operationModelId": "op_g3b_u08_total_from_groups",
+      "operation": "multiplication",
+      "equationDirection": "amountPerGroup * groupCount = totalAmount",
+      "answerUnitRole": "total quantity unit",
+      "numericAuthority": [
+        "amountPerGroup is a positive integer",
+        "groupCount is a positive one-digit integer",
+        "totalAmount <= 999"
+      ],
+      "patternSpecIds": [
+        "ps_g3b_u08_total_daily_saving_accumulation",
+        "ps_g3b_u08_total_score_per_success",
+        "ps_g3b_u08_total_material_per_product",
+        "ps_g3b_u08_total_items_per_package"
+      ]
+    },
+    {
+      "unknownRole": "groupCount",
+      "relationKnowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "operationModelId": "op_g3b_u08_group_count_from_total",
+      "operation": "quotative_division",
+      "equationDirection": "groupCount = totalAmount / amountPerGroup",
+      "answerUnitRole": "group/event unit",
+      "numericAuthority": [
+        "totalAmount is a positive two- or three-digit integer",
+        "amountPerGroup is a positive one-digit integer",
+        "totalAmount % amountPerGroup = 0",
+        "groupCount is a positive integer"
+      ],
+      "patternSpecIds": [
+        "ps_g3b_u08_group_count_score_events",
+        "ps_g3b_u08_group_count_craft_products",
+        "ps_g3b_u08_group_count_equal_segments",
+        "ps_g3b_u08_group_count_packaging"
+      ]
+    },
+    {
+      "unknownRole": "amountPerGroup",
+      "relationKnowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "operationModelId": "op_g3b_u08_per_group_from_total",
+      "operation": "partitive_division",
+      "equationDirection": "amountPerGroup = totalAmount / groupCount",
+      "answerUnitRole": "distributed quantity unit",
+      "numericAuthority": [
+        "totalAmount is a positive two- or three-digit integer",
+        "groupCount is a positive one-digit integer",
+        "totalAmount % groupCount = 0",
+        "amountPerGroup is a positive integer"
+      ],
+      "patternSpecIds": [
+        "ps_g3b_u08_per_group_daily_saving",
+        "ps_g3b_u08_per_group_equal_share_people",
+        "ps_g3b_u08_per_group_equal_container_capacity",
+        "ps_g3b_u08_per_group_equal_segment_length"
+      ]
+    }
+  ],
+  "roleRotationContract": {
+    "singleInvariantAcrossAllRoles": true,
+    "keywordToOperationSelectionAllowed": false,
+    "commutativeSemanticRoleSwapAllowed": false,
+    "requiredReasoningOrder": [
+      "extract quantities and units",
+      "assign amountPerGroup/groupCount/totalAmount roles",
+      "identify the unknown role",
+      "recognize R03_EQUAL_GROUPS",
+      "construct the role-correct equation",
+      "execute multiplication or exact division",
+      "return an answer with the role-correct unit"
+    ],
+    "exactDivisionRequiredForDivisionRoles": true,
+    "remainderHandling": "DEFER_TO_EXISTING_REMAINDER_AUTHORITY_NOT_P1_12_V1"
+  },
+  "existingPatternSpecReuseDecision": {
+    "strategy": "REUSE_EXISTING_12_G3BU08_PATTERN_SPECS",
+    "patternSpecCount": 12,
+    "newPatternSpecRequired": false,
+    "newContextFamilyRequired": false,
+    "freeFormAIGenerationAllowed": false,
+    "reason": "The canonical G3B-U08 authority already materializes four source-backed semantic surfaces for each of the three P1-12 unknown roles. The new corpora add breadth evidence but do not establish a missing semantic family for P1-12 V1."
+  },
+  "supplementarySourceEvidence": {
+    "policy": {
+      "canonicalRelationAuthorityWins": true,
+      "schoolExamAggregateSupportsRepresentationBreadthOnly": true,
+      "liTeacherSupportsProblemSolvingStructureOnly": true,
+      "sourcePresenceDoesNotExpandNumericAuthority": true,
+      "sourcePresenceDoesNotAutoAuthorizeRuntime": true
+    },
+    "registeredCorpusIds": [
+      "LI_TEACHER_MATH_THINKING_G1_G6",
+      "MULTI_SCHOOL_EXAM_CORPUS_G03_G09"
+    ],
+    "positiveWitnesses": [
+      {
+        "sourceType": "school_exam",
+        "sourceFileId": "17l0Snzp4JqOnn88fouvzscBMMxUX-tSm",
+        "sourceTitle": "數學_110 上學期_三年級_彰化縣_縣立中正國小_第二次段考(期末考)_翰林_試卷.pdf",
+        "unknownRole": "amountPerGroup",
+        "relationClassification": "R03_EQUAL_GROUPS_PARTITIVE_EXACT",
+        "evidenceSummary": "40 bottles are shared equally among 5 classes and the question asks how many bottles each class receives; the source answer is 8 bottles.",
+        "authorityUse": "supports direct-role partitive wording and answer-unit surface only"
+      },
+      {
+        "sourceType": "school_exam",
+        "sourceFileId": "1iizCKnjiScWXe7i4DFQ_ZyQTKY9M2Z5e",
+        "sourceTitle": "數學_110 上學期_三年級_彰化縣_縣立二水國小_第二次段考(期末考)_康軒_試卷.pdf",
+        "unknownRole": "amountPerGroup",
+        "relationClassification": "R03_EQUAL_GROUPS_PARTITIVE_EXACT",
+        "evidenceSummary": "48 counters are shared equally among 8 people or among 6 people and the question asks the amount each person receives.",
+        "authorityUse": "supports partitive surface breadth only"
+      },
+      {
+        "sourceType": "school_exam",
+        "sourceFileId": "1knMV1ZIQ5dnUsfV28VuSbuZgBvLE1jrM",
+        "sourceTitle": "數學_108 上學期_四年級_臺北市_市立成德國小_第一次段考(期中考)_康軒_試卷.pdf",
+        "unknownRole": "totalAmount",
+        "relationClassification": "R03_EQUAL_GROUPS_TOTAL_SURFACE",
+        "evidenceSummary": "A box has 28 cookies and 60 boxes are given; the question asks the total number of cookies.",
+        "authorityUse": "supports totalAmount wording only; groupCount=60 is outside the current one-digit groupCount authority and does not expand it"
+      },
+      {
+        "sourceType": "li_teacher",
+        "sourceFileId": "1q3TLW8vYlDC-zO2N2zOKT5aUJ0Q6snq8",
+        "sourceTitle": "厉老师三年级数学思维讲义.pdf",
+        "unknownRole": "amountPerGroup",
+        "relationClassification": "SUPPLEMENTARY_PARTITIVE_STRUCTURE",
+        "evidenceSummary": "The average-number section explicitly states total divided by number of equal shares gives the equal amount.",
+        "authorityUse": "supports equal-share reasoning structure only; averaging terminology is not admitted as a new P1-12 context family"
+      }
+    ],
+    "negativeBoundaryWitnesses": [
+      {
+        "sourceFileId": "17l0Snzp4JqOnn88fouvzscBMMxUX-tSm",
+        "evidenceSummary": "45 puddings, 6 per box, asks full boxes and remainder.",
+        "exclusionReason": "remainder interpretation is outside exact inverse-role P1-12 V1 and remains under remainder/context-decision authority"
+      },
+      {
+        "sourceFileId": "1d56cmVa2tjCMcNowAr0hjzywBF7AZKJl",
+        "evidenceSummary": "450 grams per bag, 8 bags, asks a kilogram-and-gram total.",
+        "exclusionReason": "implicit unit conversion is outside LD0_DIRECT_ROLE_EXPLICIT"
+      },
+      {
+        "sourceFileId": "1YGF0ffKRpDglm2cg2-Tr8Ejmr2ktt-x3",
+        "evidenceSummary": "盈虧、方陣、雞兔同籠 and similar materials introduce multiple constraints or advanced composition.",
+        "exclusionReason": "multi-relation/constraint-system semantics are not promoted into P1-12 V1"
+      }
+    ]
+  },
+  "languageBoundaryDecision": {
+    "v1AllowedLevel": "LD0_DIRECT_ROLE_EXPLICIT",
+    "allowed": [
+      "single equal-groups relation",
+      "two known decision-relevant quantities",
+      "one explicit unknown role",
+      "direct unit flow",
+      "no irrelevant numeric distractor",
+      "no implicit unit conversion",
+      "exact division for division roles"
+    ],
+    "deferred": [
+      "reordered or cross-sentence information",
+      "irrelevant numeric distractors",
+      "implicit relation wording",
+      "implicit unit conversion",
+      "remainder floor/ceil decisions",
+      "multi-step or multi-relation composition",
+      "constraint-system problems"
+    ]
+  },
+  "futureImplementationArchitecture": {
+    "selectedStrategy": "PATH1_LOCAL_P1_12_INVERSE_EQUAL_GROUPS_ADAPTER",
+    "candidatePracticeMode": "inverseEqualGroupsTransfer",
+    "reason": "Keep the deployed P1-01/P1-02 total-only transfer stable while P1-12 obtains a separate role-rotation entrypoint that reuses existing G3B-U08 semantic authority.",
+    "futureRuntimeFilesCandidate": [
+      "site/modules/curriculum/learning-paths/path1-p1-12-inverse-equal-groups-generator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-12-inverse-equal-groups-validator.js",
+      "focused Path1 P1-12 worksheet adapter/builder integration",
+      "focused tests/runners/validation-plan/impact-manifest"
+    ],
+    "mustReuse": [
+      "the three canonical G3B-U08 relation KnowledgePoints",
+      "the 12 existing G3B-U08 PatternSpecs",
+      "approved G3B-U08 context variants and promotion authority",
+      "the current P1-12 matrix authority"
+    ],
+    "mustNotModify": [
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "P1-03/P1-04 runtime modules",
+      "Classic query-state/runtime"
+    ],
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "focusedFutureImplementationAcceptance": {
+    "node": [
+      "all three unknown roles are generated and validated with bounded balanced coverage",
+      "each role uses only its four existing PatternSpecs",
+      "groupCount and amountPerGroup roles use exact division only",
+      "equation direction and answer unit match the semantic role",
+      "same seed reproduces exact role/surface/item selection",
+      "remainder, role swap, wrong unit, unsupported surface and numeric-boundary violations fail closed",
+      "current P1-01/P1-02 transfer remains totalAmount-only and unchanged"
+    ],
+    "browser": [
+      "P1-12 inverse equal-groups practice renders all three role families with equation-bearing answer keys",
+      "question and answer counts match",
+      "no P1-03/P1-04 transfer exposure",
+      "no runtime or console errors"
+    ],
+    "fullRegressionRequired": false,
+    "globalReplayRequired": false
+  },
+  "implementationEntryCriteria": [
+    "this preflight is merged with focused CI green",
+    "explicit approval to cross planning-to-implementation boundary",
+    "implementation preserves all current P1-01/P1-02 public semantics",
+    "implementation reuses rather than mutates G3B-U08 canonical relation semantics",
+    "no new PatternSpec or canonical KP is introduced for P1-12 V1"
+  ],
+  "distance": {
+    "goalDistanceBefore": "D3_P112_EXISTING_RELATION_AUTHORITY_WITH_REGISTERED_MULTI_SOURCE_CORPUS",
+    "goalDistanceAfterTarget": "D2_P112_INVERSE_EQUAL_GROUPS_ROLE_ROTATION_PREFLIGHT_LOCKED",
+    "distanceReduced": "P1-12 is reduced from an existing three-KP fusion concept to an exact role-rotation, PatternSpec-reuse, source-bounded implementation contract with explicit negative boundaries.",
+    "remainingBlockers": [
+      "implementation approval required",
+      "P1-12 Path1-local inverse generator not implemented",
+      "P1-12 relation-aware validator not implemented",
+      "P1-12 worksheet/public practice route not implemented",
+      "focused runtime/browser acceptance not completed"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_12_INVERSE_EQUAL_GROUPS_IMPLEMENTATION_V1"
+  }
+}

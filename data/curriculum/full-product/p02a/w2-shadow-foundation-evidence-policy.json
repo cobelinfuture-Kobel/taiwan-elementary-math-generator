@@ -1,0 +1,117 @@
+{
+  "schemaName": "P02AW2ShadowFoundationEvidencePolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation",
+  "status": "W2_SHADOW_FOUNDATION_EVIDENCE_POLICY_READY",
+  "authorities": {
+    "p02Inventory": "data/curriculum/full-product/p02/w2-product-admission-inventory.manifest.json",
+    "r04CapabilityMatrix": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "r05DeliveryWave": "data/curriculum/global/delivery/r05/delivery-wave-policy.json",
+    "r07ConsumerCutover": "data/project/milestones/GCKG-R07.claim.json",
+    "r08MigrationCloseout": "data/project/milestones/GCKG-R08.claim.json",
+    "p01ePublicProduct": "data/project/milestones/FPL-P01E.claim.json"
+  },
+  "promotionCriteria": {
+    "minimumProducerEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+    "minimumConsumerEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+    "globalScopeCoverageRequired": true,
+    "capabilitySpecificConsumerRequired": true,
+    "failClosedValidatorRequired": true,
+    "r04StatusChangeAllowedInThisTask": false,
+    "productionRuntimeChangeAllowedInThisTask": false
+  },
+  "dispositions": [
+    "PARTIAL_PRODUCTION_EVIDENCE_HARDENING_REQUIRED",
+    "SHADOW_ONLY_PRODUCTION_CONSUMER_REQUIRED",
+    "PROMOTION_EVIDENCE_COMPLETE"
+  ],
+  "hardeningOrder": [
+    {
+      "order": 1,
+      "capabilityId": "cap_kp_authority_lookup",
+      "lane": "GLOBAL_AUTHORITY",
+      "producerClaimPath": "data/project/milestones/GCKG-R02.claim.json",
+      "consumerClaimPaths": [
+        "data/project/milestones/GCKG-R07.claim.json",
+        "data/project/milestones/GCKG-R08.claim.json",
+        "data/project/milestones/FPL-P01E.claim.json"
+      ],
+      "scopeBasis": "SOURCE_NODE",
+      "scopeTarget": "ALL_GLOBAL_SOURCE_NODES",
+      "evidenceSpecificity": "DIRECT_CONSUMER_PARTIAL_SCOPE",
+      "dependsOnCapabilityIds": []
+    },
+    {
+      "order": 2,
+      "capabilityId": "cap_quantity_dimension_unit_identity",
+      "lane": "QUANTITY_CORE",
+      "producerClaimPath": "data/project/milestones/GCKG-R04.claim.json",
+      "consumerClaimPaths": [
+        "data/project/milestones/GCKG-R08.claim.json",
+        "data/project/milestones/FPL-P01E.claim.json"
+      ],
+      "scopeBasis": "DEPENDENT_KNOWLEDGE_POINT",
+      "scopeTarget": "ALL_EFFECTIVE_DEPENDENTS",
+      "evidenceSpecificity": "INDIRECT_PUBLIC_PATTERN_PARTIAL_SCOPE",
+      "dependsOnCapabilityIds": []
+    },
+    {
+      "order": 3,
+      "capabilityId": "cap_prerequisite_readiness",
+      "lane": "GLOBAL_AUTHORITY",
+      "producerClaimPath": "data/project/milestones/GCKG-R03.claim.json",
+      "consumerClaimPaths": [],
+      "scopeBasis": "CANONICAL_KNOWLEDGE_POINT",
+      "scopeTarget": "ALL_CANONICAL_KNOWLEDGE_POINTS",
+      "evidenceSpecificity": "SHADOW_GRAPH_NO_PRODUCTION_CONSUMER",
+      "dependsOnCapabilityIds": [
+        "cap_kp_authority_lookup"
+      ]
+    },
+    {
+      "order": 4,
+      "capabilityId": "cap_quantity_semantic_role_binding",
+      "lane": "QUANTITY_CORE",
+      "producerClaimPath": "data/project/milestones/GCKG-R04.claim.json",
+      "consumerClaimPaths": [
+        "data/project/milestones/GCKG-R08.claim.json",
+        "data/project/milestones/FPL-P01E.claim.json"
+      ],
+      "scopeBasis": "DEPENDENT_KNOWLEDGE_POINT",
+      "scopeTarget": "ALL_EFFECTIVE_DEPENDENTS",
+      "evidenceSpecificity": "INDIRECT_PUBLIC_PATTERN_PARTIAL_SCOPE",
+      "dependsOnCapabilityIds": [
+        "cap_quantity_dimension_unit_identity"
+      ]
+    },
+    {
+      "order": 5,
+      "capabilityId": "cap_same_unit_quantity_arithmetic",
+      "lane": "QUANTITY_CORE",
+      "producerClaimPath": "data/project/milestones/GCKG-R04.claim.json",
+      "consumerClaimPaths": [],
+      "scopeBasis": "DEPENDENT_KNOWLEDGE_POINT",
+      "scopeTarget": "ALL_EFFECTIVE_DEPENDENTS",
+      "evidenceSpecificity": "SHADOW_RUNTIME_NO_PUBLIC_PATTERN_CONSUMER",
+      "dependsOnCapabilityIds": [
+        "cap_quantity_dimension_unit_identity"
+      ]
+    }
+  ],
+  "nextTask": {
+    "taskId": "P02B_W2GlobalAuthorityLookupConsumerAdmission",
+    "implementationBoundary": true,
+    "separateApprovalRequired": true,
+    "reason": "Authority lookup is the first dependency root and already has partial production consumer evidence for nineteen of seventy-nine source nodes."
+  },
+  "scopeBoundary": {
+    "evidenceReconciliationOnly": true,
+    "r04CapabilityStatusChanged": false,
+    "productionConsumerChanged": false,
+    "validatorChanged": false,
+    "publicUiChanged": false,
+    "p03ToP08ImplementationStarted": false,
+    "existing19SourceProductPreserved": true
+  }
+}

@@ -1,0 +1,50 @@
+S54J_G4A_U04_UNIT_CLOSEOUT_PASS
+
+sourceId = g4a_u04_4a04
+unit = 4A-U04 整數的除法
+status = PASS_ACCEPTED_AND_CLOSED
+write_type = unit_closeout_marker
+
+accepted_scope:
+- Seven source-image KnowledgePoints accepted for current printable stage.
+- Selector/generator/validator/worksheet pipeline accepted.
+- Horizontal-only prompt format accepted by operator for current stage.
+- Mixed worksheet output accepted for current stage.
+- Full long-division visual scaffold deferred as optional future upgrade.
+
+closed_knowledge_points:
+1. kp_g4a_u04_4digit_by_1digit_thousands_sufficient
+2. kp_g4a_u04_4digit_by_1digit_thousands_insufficient
+3. kp_g4a_u04_4digit_by_1digit_thousands_exact
+4. kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor
+5. kp_g4a_u04_3digit_by_2digit_tens_sufficient
+6. kp_g4a_u04_3digit_by_2digit_tens_insufficient
+7. kp_g4a_u04_division_check_with_remainder
+
+final_validation_evidence:
+- npm test readback: tests 476, pass 476, fail 0.
+- Regenerated mixed PDF smoke: PASS.
+- Mixed PDF question count: 120.
+- Mixed PDF answer key count: 120.
+- All seven pattern families observed: true.
+- Exact duplicate prompts: 0.
+- Recomputed quotient/remainder errors: 0.
+- Recomputed verification equation errors: 0.
+- Prompt source-label leakage: 0.
+- Answer-card orphan fragment blocker: cleared.
+- 十位不夠除 family rule recheck: cleared in mixed PDF.
+
+non_blocking_backlog:
+- renderer-wide blank-page cleanup.
+- optional future long-division scaffold rendering.
+
+GOAL_DISTANCE_BEFORE = D0_G4A_U04_MIXED_PDF_SMOKE_ACCEPTED
+GOAL_DISTANCE_AFTER = D0_G4A_U04_UNIT_CLOSED
+DISTANCE_REDUCED = G4A-U04 moved from accepted mixed PDF smoke to formal closed unit state; it is now available for downstream worksheet output and future cross-unit composition.
+REMAINING_BLOCKERS = ["optional renderer-wide blank-page cleanup backlog", "optional future long-division scaffold rendering"]
+NEXT_SHORTEST_STEP = S55A_G4A_U08_SourceEvidenceIntake
+STOP_REASON = need_source_evidence_for_next_unit
+BLOCKER_TYPE = SOURCE_EVIDENCE_REQUIRED
+LAST_COMPLETED_STATUS = S54J_G4A_U04_UNIT_CLOSEOUT_PASS
+REQUIRED_OPERATOR_ACTION = Provide or confirm G4A-U08 整數四則 source evidence/images/PDF before implementation.
+NEXT_RESUME_TASK = S55A_G4A_U08_SourceEvidenceIntake

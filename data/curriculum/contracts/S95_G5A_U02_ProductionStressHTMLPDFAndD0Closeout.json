@@ -1,0 +1,81 @@
+{
+  "task": "S95_G5A_U02_ProductionStressHTMLPDFAndD0Closeout",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "d0Scope": "D0_G5A_U02_CANONICAL_STATIC_PRODUCTION_RELEASE",
+  "merge": {
+    "pullRequest": 164,
+    "mergeCommit": "dae0af0da1e35ff8a8fb29da348b5e74ff5c2cb5"
+  },
+  "freshMainReadback": {
+    "commit": "f4a972848ea233c8bf6ebc969172a06f98f55a07",
+    "runId": 29297281172,
+    "runNumber": 1559,
+    "tests": 1369,
+    "pass": 1369,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "productionStress": {
+    "questionCounts": [1, 22, 44, 100, 200],
+    "seedCount": 10,
+    "answerKeyModes": [true, false],
+    "scenarioCount": 100,
+    "deterministicReplayCount": 100,
+    "maxQuestionCount": 200,
+    "maxAnswerCount": 200,
+    "exactCountRequired": true,
+    "answerKeySuppressionVerified": true,
+    "seedVariationVerified": true,
+    "blockingValidationVerified": true,
+    "hiddenLifecycleMutationCount": 0
+  },
+  "htmlPdfStress": {
+    "workflowRunId": 29296638420,
+    "workflowRunNumber": 2,
+    "workflowConclusion": "success",
+    "questionCardCount": 200,
+    "answerCardCount": 200,
+    "domOverflowCount": 0,
+    "allPdfPagesNonblank": true,
+    "pdfBoundingBoxOverflowCount": 0,
+    "finalAnswerPageNonblank": true,
+    "artifact": {
+      "id": 8296991787,
+      "name": "s95-g5a-u02-production-stress-html-pdf",
+      "sizeBytes": 321715,
+      "digest": "sha256:f227ee0abfce536418f7c49adfba1ae0beb9a351a323bed8529fe5ee4751af48"
+    }
+  },
+  "publicRelease": {
+    "sourceId": "g5a_u02_5a02",
+    "unitCode": "5A-U02",
+    "title": "因數與公因數",
+    "selectionMode": "sourceUnit",
+    "canonicalQuestionCount": 22,
+    "canonicalAnswerCount": 22,
+    "preview": true,
+    "browserPrint": true,
+    "answerKeySuppression": true,
+    "queryStateRoundTrip": true
+  },
+  "authorityIsolation": {
+    "batchACoreSourceCount": 13,
+    "g5aU02ProjectedOutsideBatchACore": true,
+    "arbitraryBrowserRegeneration": false,
+    "publicKnowledgePointSelection": false,
+    "publicPatternGroupSelection": false,
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "lifecycle": {
+    "selectorStatus": "public_source_unit",
+    "browserPipelineStatus": "public_static_canonical_connected",
+    "printStatus": "public_print_allowed",
+    "productionUse": "allowed_canonical_static_release",
+    "arbitraryBrowserRegeneration": false
+  },
+  "distance": {
+    "before": "D0_G5A_U02_CANONICAL_STATIC_PRODUCTION_RELEASE_MERGED_PENDING_FRESH_MAIN",
+    "after": "D0_G5A_U02_CANONICAL_STATIC_PRODUCTION_RELEASE_VERIFIED_AND_CLOSED"
+  }
+}

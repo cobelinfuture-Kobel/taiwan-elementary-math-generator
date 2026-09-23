@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_IMPLEMENTATION_V1",
+  "status": "P1_08_GENERIC_ARITHMETIC_REMEDIATION_IMPLEMENTED_AWAITING_CI",
+  "operatorScope": "APPROVED_IMPLEMENTATION",
+  "authority": {
+    "implementationBaseMain": "f72efa6c79fda5bb8e4411e3666d5508573d42eb",
+    "preflightContractPath": "data/curriculum/application/contracts/PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT_V1.json",
+    "cloudSourceReconciliationPath": "data/curriculum/application/reviews/PATH1_P1_08_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1.json",
+    "canonicalPrimarySourceId": "g4a_u04_4a04",
+    "canonicalPrimarySourceFile": "batchA_02-題型總覽-4a04-整數的除法.pdf",
+    "threeMandatoryCloudEvidenceLanesAlreadyReviewed": true,
+    "runtimeFile": "site/assets/browser/pipeline/build-path1-manual-worksheet.js"
+  },
+  "scope": {
+    "blockId": "P1-08",
+    "practiceMode": "arithmetic",
+    "canonicalKnowledgePointIds": [
+      "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "canonicalPatternSpecIds": [
+      "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "requiredQuestionCounts": [1, 20, 120],
+    "productRuntimeMutation": [
+      "site/assets/browser/pipeline/build-path1-manual-worksheet.js"
+    ]
+  },
+  "implementation": {
+    "smallCountPolicyId": "PATH1_COMPOSITE_KP_SMALL_COUNT_PARTIAL_COVERAGE_V1",
+    "smallCountBehavior": "When questionCount is below the selected composite-KP count, choose exactly questionCount distinct KPs by deterministic seed-derived circular rotation and allocate one item per chosen KP.",
+    "normalCountBehavior": "When questionCount is at least the selected KP count, preserve canonical KP order and existing even allocation semantics.",
+    "knowledgePointMetadataPolicyId": "PATH1_GENERIC_SUBPLAN_KP_ID_FALLBACK_V1",
+    "knowledgePointIdFallbackOrder": [
+      "question.knowledgePointId",
+      "question.metadata.knowledgePointId",
+      "enclosingSubplanKnowledgePointId"
+    ],
+    "generatorChanged": false,
+    "patternSpecsChanged": false,
+    "publicBindingChanged": false,
+    "path1MatrixChanged": false,
+    "canonicalKnowledgeAuthorityChanged": false
+  },
+  "acceptance": {
+    "count1": {
+      "mustSucceed": true,
+      "expectedQuestionCount": 1,
+      "topLevelKnowledgePointIdRequired": true,
+      "sameSeedDeterministic": true,
+      "crossSeedKpReachabilityRequired": true
+    },
+    "count20": {
+      "mustSucceed": true,
+      "expectedQuestionCount": 20,
+      "expectedKnowledgePointAndPatternAllocation": [7, 7, 6],
+      "topLevelKnowledgePointIdRequiredForEveryItem": true
+    },
+    "count120": {
+      "mustSucceed": true,
+      "expectedQuestionCount": 120,
+      "expectedKnowledgePointAndPatternAllocation": [40, 40, 40],
+      "topLevelKnowledgePointIdRequiredForEveryItem": true
+    },
+    "arithmeticInvariants": [
+      "dividend = divisor * quotient + remainder",
+      "0 <= remainder < divisor"
+    ],
+    "preservation": [
+      "P1-08 public block still exposes exactly the three canonical KPs",
+      "generated patterns stay inside the three canonical P1-08 PatternSpecs",
+      "sourceId remains g4a_u04_4a04",
+      "P1-06 estimateTrialQuotient semantics are not duplicated",
+      "P1-07 quotientStartPlace semantics are not duplicated",
+      "P1-09 larger-dividend semantics are not admitted",
+      "P1-11 checking/remainder mastery semantics are not admitted"
+    ]
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "scope": "SHARED_RUNTIME",
+    "derivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false,
+    "focusedNodeTest": "tests/curriculum/path1-p1-08-generic-arithmetic-small-count-kp-metadata-remediation-implementation-v1.test.js",
+    "targetedBrowserRunner": "tools/curriculum/run-path1-p1-08-generic-arithmetic-small-count-kp-metadata-remediation-implementation-v1.mjs"
+  },
+  "antiScopeCreep": {
+    "g4aU04GeneratorChanged": false,
+    "patternSpecChanged": false,
+    "publicBindingChanged": false,
+    "path1MatrixChanged": false,
+    "canonicalKnowledgePointChanged": false,
+    "publicUiOrQueryChanged": false,
+    "p109PlusChanged": false,
+    "fullRegressionRequested": false,
+    "globalReplayRequested": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P108_REMEDIATION_POLICY_AND_OWNERSHIP_LOCKED_IMPLEMENTATION_PENDING",
+    "targetGoalDistanceAfter": "D0_P108_GENERIC_ARITHMETIC_FULL_ACCEPTANCE_COMPLETE",
+    "remainingBeforeCi": [
+      "P108_IMPLEMENTATION_FOCUSED_CI_NOT_GREEN",
+      "P108_IMPLEMENTATION_PR_NOT_MERGED"
+    ],
+    "nextShortestStepAfterGreenMerge": "PATH1_P1_08_GENERIC_ARITHMETIC_REMEDIATION_POSTMERGE_ACCEPTANCE_CLOSEOUT_V1"
+  }
+}

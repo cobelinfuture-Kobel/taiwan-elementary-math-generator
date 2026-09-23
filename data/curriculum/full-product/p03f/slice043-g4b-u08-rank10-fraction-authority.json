@@ -1,0 +1,81 @@
+{
+  "schemaName": "P03F43G4BU08Rank10FractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice043Implementation",
+  "status": "FROZEN_Q043_AUTHORITY_CORE_IMPLEMENTATION",
+  "queue": {
+    "queuePosition": 43,
+    "sliceId": "p03e_q043_r10_g4b_u08_4b08_profile_fraction_c1",
+    "previousSliceId": "p03e_q042_r10_g4b_u06_4b06_profile_decimal_c1",
+    "primarySourceNodeId": "g4b_u08_4b08",
+    "intraWavePrerequisiteRank": 10,
+    "primaryRuntimeProfileId": "profile_fraction",
+    "knowledgePointIds": [
+      "kp_g4b_u08_fraction_number_line_distance",
+      "kp_g4b_u08_mixed_fraction_order_constraints"
+    ]
+  },
+  "patternAuthority": {
+    "numericPatternGroupIds": [
+      "pg_g4b_u08_fraction_number_line_distance_numeric",
+      "pg_g4b_u08_mixed_fraction_order_constraints_numeric"
+    ],
+    "numericPatternSpecIds": [
+      "ps_g4b_u08_fraction_number_line_distance_coordinate_numeric",
+      "ps_g4b_u08_fraction_number_line_distance_distance_numeric",
+      "ps_g4b_u08_mixed_fraction_order_constraints_possible_values_numeric"
+    ],
+    "hiddenApplicationPatternSpecIds": [
+      "ps_g4b_u08_mixed_fraction_order_constraints_possible_values_application"
+    ]
+  },
+  "requiredCapabilities": {
+    "sliceW3CapabilityUnion": [
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ],
+    "numberLineRepresentationCapability": "cap_number_line_representation",
+    "fractionArithmeticRequired": false
+  },
+  "sourceBackedContracts": {
+    "fractionNumberLine": {
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "canonicalExpressions": [
+        "coordinate = origin + stepCount * unitStep",
+        "distance = abs(rightCoordinate - leftCoordinate)"
+      ],
+      "requestedUnknownRoles": ["coordinate", "distance"],
+      "answerType": "number_or_distance"
+    },
+    "mixedFractionOrderConstraints": {
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "canonicalExpressions": [
+        "possibleValues = {x | lowerBound < value(x) < upperBound}"
+      ],
+      "requestedUnknownRoles": ["possibleValues"],
+      "answerType": "integer_or_fraction_set",
+      "publicModeForSlice043": "NUMERIC_ONLY"
+    }
+  },
+  "publicProjection": {
+    "sourceCountBefore": 33,
+    "visibleKnowledgePointCountBefore": 241,
+    "sourceVisibleBefore": 5,
+    "sourceHiddenBefore": 2,
+    "sourceNotSelectableBefore": 0,
+    "sourceCountAfter": 33,
+    "visibleKnowledgePointCountAfter": 243,
+    "sourceVisibleAfter": 7,
+    "sourceHiddenAfter": 0,
+    "sourceNotSelectableAfter": 0
+  },
+  "hardBoundary": {
+    "newPublicSource": false,
+    "applicationExpansion": false,
+    "globalContextExpansion": false,
+    "fractionArithmeticPromotion": false,
+    "parallelGeneratorValidatorWorksheetRenderer": false,
+    "slice044Started": false
+  }
+}

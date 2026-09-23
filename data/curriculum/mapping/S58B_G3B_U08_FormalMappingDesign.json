@@ -1,0 +1,169 @@
+{
+  "schemaName": "G3BU08FormalMappingDesign",
+  "schemaVersion": 1,
+  "task": "S58B_G3B_U08_FormalMappingPatternSpecAndSemanticValidatorDesignScan",
+  "sourceId": "g3b_u08_3b08",
+  "unitCode": "3B-U08",
+  "unitTitle": "乘法與除法",
+  "status": "design_accepted_not_materialized",
+  "sourceMappingRef": "data/curriculum/mapping/S58_G3B_U08_SourceFieldKnowledgePointMapping.json",
+  "familyRegistryRef": "data/curriculum/templates/S58_G3B_U08_SemanticTemplateFamilies.json",
+  "familyFreezeRef": "data/curriculum/contracts/S58A1_G3B_U08_24FamilyHumanReadbackFreeze.json",
+  "mappingPolicy": {
+    "oneFamilyPerPatternSpec": true,
+    "onePrimaryKnowledgePointPerPatternSpec": true,
+    "onePatternGroupPerKnowledgePoint": true,
+    "familyCount": 24,
+    "patternSpecCount": 24,
+    "patternGroupCount": 6,
+    "representation": "horizontal_only",
+    "selectorVisibilityAtMaterialization": "hidden",
+    "productionUseAtMaterialization": "forbidden",
+    "freeFormAIGeneration": "forbidden"
+  },
+  "patternGroups": [
+    {
+      "patternGroupId": "pg_g3b_u08_total_from_groups",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "displayName": "已知每組量與組數，求總量",
+      "equationFamily": "a*b",
+      "answerModelRef": "answer_single_integer_with_unit",
+      "patternSpecIdPrefix": "ps_g3b_u08_total_",
+      "familyCount": 4
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_group_count_from_total",
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "displayName": "已知總量與每組量，求組數",
+      "equationFamily": "a/b",
+      "answerModelRef": "answer_single_integer_with_unit",
+      "patternSpecIdPrefix": "ps_g3b_u08_group_count_",
+      "familyCount": 4
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_per_group_from_total",
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "displayName": "已知總量與組數，求每組量",
+      "equationFamily": "a/b",
+      "answerModelRef": "answer_single_integer_with_unit",
+      "patternSpecIdPrefix": "ps_g3b_u08_per_group_",
+      "familyCount": 4
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_reverse_base_from_multiple",
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "displayName": "已知比較量與倍數，反求基準量",
+      "equationFamily": "a/b",
+      "answerModelRef": "answer_single_integer_with_unit",
+      "patternSpecIdPrefix": "ps_g3b_u08_reverse_base_",
+      "familyCount": 4
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_shopping_estimation",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "displayName": "購物估算：判斷夠不夠、多或少",
+      "equationFamily": "round_or_benchmark_then_multiply",
+      "answerModelRef": "answer_estimation_judgment_with_reason",
+      "patternSpecIdPrefix": "ps_g3b_u08_estimation_",
+      "familyCount": 4
+    },
+    {
+      "patternGroupId": "pg_g3b_u08_same_price_value_comparison",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "displayName": "相同價格下比較哪個方案較划算",
+      "equationFamily": "a*b_vs_c*d",
+      "answerModelRef": "answer_same_price_comparison",
+      "patternSpecIdPrefix": "ps_g3b_u08_same_price_",
+      "familyCount": 4
+    }
+  ],
+  "answerModels": {
+    "answer_single_integer_with_unit": {
+      "shape": "semantic_single_integer_with_unit",
+      "fields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ],
+      "requiredForKnowledgePoints": [
+        "kp_g3b_u08_total_from_groups",
+        "kp_g3b_u08_group_count_from_total",
+        "kp_g3b_u08_per_group_from_total",
+        "kp_g3b_u08_reverse_base_from_multiple"
+      ]
+    },
+    "answer_estimation_judgment_with_reason": {
+      "shape": "semantic_estimation_judgment",
+      "fields": [
+        "estimateEquationModel",
+        "estimateValue",
+        "judgment",
+        "exactEquationModel",
+        "exactDifference",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ],
+      "allowedJudgments": [
+        "approximately",
+        "enough",
+        "not_enough",
+        "more_by",
+        "less_by"
+      ],
+      "exactDifferenceNullable": true,
+      "requiredForKnowledgePoints": [
+        "kp_g3b_u08_shopping_estimation"
+      ]
+    },
+    "answer_same_price_comparison": {
+      "shape": "semantic_same_price_comparison",
+      "fields": [
+        "optionAEquationModel",
+        "optionATotal",
+        "optionBEquationModel",
+        "optionBTotal",
+        "comparisonDimension",
+        "winner",
+        "conclusionZh",
+        "semanticSnapshot"
+      ],
+      "allowedWinnerValues": [
+        "option_a",
+        "option_b"
+      ],
+      "tieAllowed": false,
+      "requiredForKnowledgePoints": [
+        "kp_g3b_u08_same_price_value_comparison"
+      ]
+    }
+  },
+  "sharedNumericBoundary": {
+    "positiveIntegersOnly": true,
+    "multiplicationCalculatedShapes": [
+      "1digit_x_1digit",
+      "2digit_x_1digit",
+      "3digit_x_1digit"
+    ],
+    "divisionCalculatedShapes": [
+      "2digit_div_1digit_exact",
+      "3digit_div_1digit_exact"
+    ],
+    "twoDigitMultiplierComputationAllowed": false,
+    "twoDigitDivisorComputationAllowed": false,
+    "publicRemainderApplicationAllowed": false,
+    "negativeAllowed": false,
+    "decimalAllowed": false,
+    "fractionAllowed": false,
+    "percentAllowed": false,
+    "maximumFinalAnswer": 999,
+    "maximumIntermediateValue": 999
+  },
+  "materializationContract": {
+    "patternSpecKind": "g3bU08SemanticApplication",
+    "patternSpecSchemaRef": "data/curriculum/contracts/S58B_G3B_U08_PatternSpecSchema.json",
+    "validatorContractRef": "data/curriculum/contracts/S58B_G3B_U08_SemanticValidationContract.json",
+    "nextTask": "S58C_G3B_U08_FormalMappingAndPatternSpecMaterialization"
+  }
+}

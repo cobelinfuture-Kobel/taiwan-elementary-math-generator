@@ -1,0 +1,103 @@
+{
+  "schemaName": "POSTGAPPW01A02Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
+  "contractId": "POSTG_APP_W01_NPLUSONE_PROOF_MISCONCEPTION_AND_PBL_CANDIDATE_V1",
+  "status": "SHADOW_CANDIDATE_CONTRACT_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "dependencies": {
+    "w01AssessmentTask": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+    "w01AtomicContextTask": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+    "masterControllerTask": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+    "globalContextTask": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/application/contracts/POSTG_APP_W01_NPlusOne_Proof_Misconception_And_PBL_Candidate_V1.md",
+    "policy": "data/curriculum/application/assessment/w01-nplusone-pbl-candidate-policy.json",
+    "packIndex": "data/curriculum/application/assessment/w01-nplusone-pbl-candidate-pack-index.json",
+    "nPlusOneCandidateSchema": "data/curriculum/application/schema/w01-nplusone-proof-candidate.schema.json",
+    "pblCandidateSchema": "data/curriculum/application/schema/w01-pbl-task-set-candidate.schema.json",
+    "resolver": "src/curriculum/application/w01-nplusone-pbl-candidate-pack.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a02-candidate-pack.mjs"
+  },
+  "nPlusOneCandidateRules": {
+    "recordEligibility": "A00 applicationModes contains SINGLE_N_PLUS_1",
+    "oneProofBlueprintPerEligibleKnowledgePoint": true,
+    "shortestSemanticDistance": 1,
+    "intermediateSemanticNodeRequired": false,
+    "minimumMisconceptionCandidates": 3,
+    "calculationPassInterpretationFailRequired": true,
+    "differentMacroCrossContextCandidateRequired": true,
+    "numericFixtureInstantiated": false,
+    "proofExecutionVerified": false,
+    "candidateStatus": "N_PLUS_1_PROOF_BLUEPRINT_COMPLETE",
+    "provenNPlusOneClaimAllowed": false,
+    "productionAdmissionAllowed": false
+  },
+  "pblCandidateRules": {
+    "recordEligibility": "A00 applicationModes contains PBL_TASK_SET",
+    "onePBLBlueprintPerEligibleKnowledgePoint": true,
+    "graphTypes": ["PBL3_LINEAR","PBL5_BOUNDED_DECISION"],
+    "taskCounts": [3,5],
+    "minimumMilestones": 2,
+    "finalTaskConsumesMinimumMilestones": 2,
+    "minimumMisconceptionCandidates": 3,
+    "fullyInstantiated": false,
+    "authenticityExecutionVerified": false,
+    "candidateStatus": "PBL_TASK_SET_BLUEPRINT_COMPLETE",
+    "productionAdmissionAllowed": false
+  },
+  "controllerAdvancement": {
+    "waveId": "W01",
+    "stateAfterTarget": "SHADOW_READY",
+    "completedGateAdded": "N_PLUS_1_CONTRACT_COMPLETE",
+    "nextBlocker": "VALIDATOR_FIXTURES_AND_SHARED_RUNTIME_SHADOW_NOT_COMPLETE",
+    "productionAdmissionGranted": false
+  },
+  "acceptance": {
+    "validationStatus": "PASS_POSTG_APP_W01_A02_N_PLUS_ONE_AND_PBL_CANDIDATE_PACK",
+    "nPlusOneCountEqualsA00ModeCount": true,
+    "pblCountEqualsA00ModeCount": true,
+    "crossContextEpisodeMustRemainA00Eligible": true,
+    "crossContextMacroMustDiffer": true,
+    "misconceptionMinimumRequired": true,
+    "pblDependencyGraphRequired": true,
+    "pblFinalSynthesisRequired": true,
+    "a01ContextLineageRequired": true,
+    "productionAdmissionRequiredToRemainZero": true
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "nPlusOneProofBlueprintMaterializationAllowed": true,
+    "interpretiveActInferenceAllowed": true,
+    "pairedControlAndWitnessBlueprintAllowed": true,
+    "misconceptionCandidateAuthoringAllowed": true,
+    "counterfactualCandidateAuthoringAllowed": true,
+    "crossContextCandidatePairingAllowed": true,
+    "pblDrivingProblemAndDependencyBlueprintAllowed": true,
+    "controllerStateAdvancementAllowed": true,
+    "provenNPlusOneClaimAllowed": false,
+    "fullyInstantiatedNumericFixtureAllowed": false,
+    "executedMisconceptionEvidenceAllowed": false,
+    "finalPBLProductionAdmissionAllowed": false,
+    "sharedProductionGeneratorChangeAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_GOLDEN15_SINGLE_APPLICATION_CANDIDATES_BOUND_TO_DIVERSE_ATOMIC_CONTEXTS",
+    "goalDistanceAfterTarget": "D2_GOLDEN15_NPLUSONE_AND_PBL_BLUEPRINTS_VALIDATOR_READY",
+    "distanceReduced": "Every A00 N+1 candidate receives a semantic-edge, paired-control, witness, misconception, counterfactual, validator-delta and different-macro cross-context blueprint. Every A00 PBL candidate receives a dependent task graph, milestones and final-product blueprint. These artifacts are ready for fixture execution without claiming proof or production admission.",
+    "remainingBlockers": [
+      "Numeric paired-control fixtures are not instantiated or executed",
+      "Misconception and counterfactual evidence are not executed",
+      "Some unit-flow candidates still require semantic review",
+      "Unique-answer and answer-witness validation are absent",
+      "Shared runtime shadow execution is absent",
+      "Renderer and worksheet evidence are absent",
+      "Production admission remains intentionally zero"
+    ],
+    "nextShortestStep": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow"
+  }
+}

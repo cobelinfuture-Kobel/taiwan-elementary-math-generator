@@ -1,0 +1,17 @@
+{
+  "schemaName": "S43FAlphaGeneratorSupportExpansion",
+  "schemaVersion": 1,
+  "task": "S43F4_GeneratorSupportExpansion",
+  "supportStatus": "contract_supported_by_existing_shapes",
+  "browserProjectionChanged": false,
+  "runtimeCodeChanged": false,
+  "generatorMappings": [
+    {"patternSpecId":"ps_g4a_u01_within_100million_compare","shape":"comparisonPattern","runtimeChange":false},
+    {"patternSpecId":"ps_g4a_u02_3digit_by_2digit","shape":"expressionPattern_multiply","runtimeChange":false},
+    {"patternSpecId":"ps_g4a_u04_3digit_by_2digit_exact","shape":"expressionPattern_exact_divide","runtimeChange":false},
+    {"patternSpecId":"ps_g4a_u08_add_sub_three_terms","shape":"expressionPattern_add_sub_2step","runtimeChange":false},
+    {"patternSpecId":"ps_g5a_u08_left_to_right_add_sub","shape":"expressionPattern_add_sub_2step","runtimeChange":false}
+  ],
+  "blockedGeneratorRows": {"CClass":"dedicated_model_required", "DClass":"not_selectable"},
+  "summary": {"generatorSupportedPatternSpecCount":5,"runtimeCodeChanged":false,"browserProjectionChanged":false}
+}

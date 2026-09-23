@@ -1,0 +1,114 @@
+{
+  "schemaName": "P01EW1PublicUIHtmlPdfPrintCloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P01E_W1PublicUIHTMLPDFPrintCloseout",
+  "status": "E5_PRODUCTION_ADMITTED",
+  "publicFleet": {
+    "protectedBaselineSourceCount": 13,
+    "priorPublicSourceCount": 15,
+    "finalPublicSourceCount": 19,
+    "newPublicSourceIds": [
+      "g5b_u05_5b05a",
+      "g6a_u01_6a01",
+      "g5a_u03_5a03a",
+      "g5a_u03_5a03a1"
+    ]
+  },
+  "w1KnowledgePointAdmission": {
+    "knowledgePointCount": 21,
+    "numericPublicCount": 21,
+    "applicationEligibleCount": 13,
+    "applicationIneligibleCount": 8,
+    "pblEligibleCount": 0,
+    "applicationPolicy": "ONLY_SEMANTICALLY_ELIGIBLE_KPS_RECEIVE_CONTROLLED_APPLICATION_PROJECTION"
+  },
+  "applicationEligibility": {
+    "g5b_u05_5b05a": [
+      "kp_g5b_u05a_large_number_place_value_extension",
+      "kp_g5b_u05a_large_number_read_write",
+      "kp_g5b_u05a_power_of_ten_scaling",
+      "kp_g5b_u05a_large_number_decompose_compare"
+    ],
+    "g6a_u01_6a01": [
+      "kp_g6a_u01_greatest_common_factor",
+      "kp_g6a_u01_least_common_multiple"
+    ],
+    "g5a_u03_5a03a": [
+      "kp_g5a_u03a_exact_grouping_feasibility",
+      "kp_g5a_u03a_multiple_identify_enumerate",
+      "kp_g5a_u03a_bounded_or_nearest_multiple",
+      "kp_g5a_u03a_count_multiples_interval"
+    ],
+    "g5a_u03_5a03a1": [
+      "kp_g5a_u03a1_common_multiple_lcm",
+      "kp_g5a_u03a1_bounded_common_multiples",
+      "kp_g5a_u03a1_grouping_constraints"
+    ]
+  },
+  "publicSurfaces": {
+    "classic": {
+      "sourceSelection": true,
+      "knowledgePointSelection": true,
+      "numericApplicationModeSelection": true,
+      "htmlPreview": true,
+      "printControl": true,
+      "exactHeadStatus": "PASS"
+    },
+    "pixel": {
+      "sourceSelection": true,
+      "knowledgePointSelection": true,
+      "numericApplicationModeSelection": true,
+      "htmlPreview": true,
+      "printControl": true,
+      "exactHeadStatus": "PASS"
+    }
+  },
+  "sharedLineage": [
+    "PUBLIC_SOURCE_REGISTRY",
+    "VISIBLE_KNOWLEDGE_POINT_SELECTOR",
+    "PUBLIC_PATTERN_GROUP_SELECTOR",
+    "BATCH_A_SHARED_PLANNER",
+    "EXISTING_NUMERIC_RUNTIME",
+    "CONTROLLED_GLOBAL_CONTEXT_APPLICATION_PROJECTION",
+    "STABLE_VALIDATOR_FACADE",
+    "WORKSHEET_DOCUMENT",
+    "ANSWER_KEY",
+    "HTML_RENDERER",
+    "CHROMIUM_PDF_PRINT"
+  ],
+  "acceptance": {
+    "numericCases": 4,
+    "applicationCases": 4,
+    "classicLiveUiCases": 8,
+    "pixelLiveUiCases": 8,
+    "actualPdfCaseCount": 8,
+    "actualRenderedPageCount": 16,
+    "actualOverflowFindingCount": 0,
+    "actualConsoleErrorCount": 0,
+    "actualPageErrorCount": 0,
+    "answerKeyRequired": true,
+    "printEnabledRequired": true,
+    "visualInspectionStatus": "PASS_NO_CLIPPING_OVERLAP_BROKEN_GLYPHS_OR_BLACK_SQUARES",
+    "reportPath": "docs/curriculum/output/p01e-w1-public-closeout/report.json",
+    "hashManifestPath": "docs/curriculum/output/p01e-w1-public-closeout/SHA256SUMS"
+  },
+  "scopeBoundary": {
+    "w2ToW8ImplementationAllowed": false,
+    "newPblAdmissionAllowed": false,
+    "parallelPlannerAllowed": false,
+    "parallelValidatorAllowed": false,
+    "parallelWorksheetRendererAllowed": false,
+    "freeFormAiGenerationAllowed": false,
+    "applicationIneligibleKpStoryCoercionAllowed": false,
+    "recursiveImprovementAdminAllowed": false
+  },
+  "productionAdmission": {
+    "evidenceLevel": "E5_PRODUCTION_ADMITTED",
+    "htmlArtifactCount": 8,
+    "pdfArtifactCount": 8,
+    "artifactHashCount": 17,
+    "d0Complete": false
+  },
+  "nextTask": "P02_W2ProductAdmissionInventoryAndGapMatrix"
+}

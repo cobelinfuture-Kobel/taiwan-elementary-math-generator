@@ -1,0 +1,52 @@
+{
+  "schemaName": "G5AU02ClassCRuntimeCloseout",
+  "schemaVersion": 1,
+  "task": "S85_G5A_U02_ClassCGeneratorAndBlockingValidator",
+  "status": "pass_ci_synced_and_merged",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "implementation": {
+    "patternSpecCount": 14,
+    "generator": "src/curriculum/g5a-u02/class-c-generator-validator.js",
+    "tests": "tests/curriculum/g5a-u02-class-c-generator-validator.test.js",
+    "implementationClass": "C"
+  },
+  "lifecycle": {
+    "generatorStatus": "class_c_implemented_hidden",
+    "validatorStatus": "class_c_blocking_runtime",
+    "selectorStatus": "hidden",
+    "canonicalRouting": "disabled",
+    "productionUse": "forbidden",
+    "genericFallback": "forbidden"
+  },
+  "ciEvidence": {
+    "pullRequest": 138,
+    "mergeCommit": "b0760c5c2fd034ad02c30d9d79e0f7e385f3fd59",
+    "prNodeTestRun": 29258091145,
+    "prMathCiRun": 29258091204,
+    "freshMainMathCiRun": 29258177561,
+    "freshMainReadbackCommit": "172dacc03fa7d81774f08d39435e05ecd55aad8a",
+    "tests": 1195,
+    "pass": 1195,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "resolvedDefects": [
+    "GCF mutation test now always differs from the canonical GCF",
+    "GCF blocking-code precedence now runs before the broader common-factor match"
+  ],
+  "scopeBoundary": {
+    "classDImplemented": false,
+    "metadataCorrected": false,
+    "hiddenProjectionBound": false,
+    "canonicalResolverConnected": false,
+    "publicSelectorEnabled": false,
+    "worksheetIntegrated": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D1_G5A_U02_FORMAL_MAPPING_AND_HIDDEN_PATTERNSPECS_MATERIALIZED",
+    "after": "D1_G5A_U02_CLASS_C_RUNTIME_IMPLEMENTED_HIDDEN",
+    "nextShortestStep": "S86_G5A_U02_ClassCRuntimeQAAndHiddenProjectionBinding"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "schemaName": "P03FSlice029G5AU04Rank8FractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice029Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 29,
+    "sliceId": "p03e_q029_r8_g5a_u04_5a04_profile_fraction_c1",
+    "previousSliceId": "p03e_q028_r8_g5a_u01_5a01_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 564,
+      "closeoutPr": 567,
+      "postMergeReconciliationPr": 568,
+      "finalMainReconciliationMergeSha": "29835819504c51a1954d6ea7b049d04d8f602e14",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice028-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g5a_u04_5a04.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g5a_u04_5a04.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g5a_u04_5a04.hidden-pattern-spec.json",
+    "sourceNodeId": "g5a_u04_5a04",
+    "sourceCode": "5a04",
+    "sourceTitle": "擴分約分通分",
+    "grade": 5,
+    "semester": "upper",
+    "unitCode": "5A-U04",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_AND_HIDDEN_PATTERNSPEC_AUTHORITY_READBACK",
+    "reviewedPages": [1, 2]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u04_unlike_fraction_compare",
+      "canonicalNameZh": "通分後比較異分母分數",
+      "scope": "通分或交叉乘積後比較真分數與假分數。",
+      "evidencePages": [1, 2],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g5a_u04_unlike_fraction_compare",
+      "operationFamilyId": "fraction_compare",
+      "requiredW3CapabilityIds": [
+        "cap_fraction_arithmetic",
+        "cap_fraction_domain_validator",
+        "cap_fraction_number_system"
+      ],
+      "reasoningInvariant": "comparison must equal the exact rational-number relation"
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g5a_u04_unlike_fraction_compare_numeric",
+      "patternSpecId": "ps_g5a_u04_unlike_fraction_compare_comparison_numeric",
+      "knowledgePointId": "kp_g5a_u04_unlike_fraction_compare",
+      "operationModelId": "op_g5a_u04_unlike_fraction_compare",
+      "operationFamilyId": "fraction_compare",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "comparison",
+      "givenRoles": ["leftNumerator", "leftDenominator", "rightNumerator", "rightDenominator"],
+      "requiredW3CapabilityIds": [
+        "cap_fraction_arithmetic",
+        "cap_fraction_domain_validator",
+        "cap_fraction_number_system"
+      ]
+    }
+  ],
+  "hiddenApplicationSurfaces": [
+    {
+      "patternGroupId": "pg_g5a_u04_unlike_fraction_compare_application",
+      "patternSpecId": "ps_g5a_u04_unlike_fraction_compare_comparison_application",
+      "reason": "APPLICATION_COMPATIBLE does not authorize Global Context expansion in Slice029",
+      "productionUse": "forbidden"
+    }
+  ],
+  "formalMappingBoundary": {
+    "canonicalExpressions": [
+      "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)"
+    ],
+    "denominatorsMustBePositive": true,
+    "exactRationalRelationRequired": true,
+    "applicationRequired": false,
+    "applicationExpansionAllowed": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "reuseExistingG5AU04Source": true,
+    "expectedSourceVisibleCountAfterAdmission": 5,
+    "expectedSourceHiddenCountAfterAdmission": 2,
+    "expectedPublicSourceCountAfterAdmission": 29,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 220,
+    "sharedFractionArithmeticRequired": true,
+    "sharedFractionNumberSystemRequired": true,
+    "sharedFractionDomainValidatorRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice030Implementation"
+  }
+}

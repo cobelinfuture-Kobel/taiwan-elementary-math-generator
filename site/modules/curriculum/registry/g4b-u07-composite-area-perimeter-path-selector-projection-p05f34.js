@@ -1,0 +1,47 @@
+export const P05F34_TASK_ID="P05F_W5DirectProductVerticalSlice034Implementation";
+export const G4B_U07_P05F34_SOURCE_ID="g4b_u07_4b07";
+export const G4B_U07_P05F34_UNIT_CODE="4B-U07";
+export const G4B_U07_P05F34_UNIT_TITLE="周長與面積";
+export const G4B_U07_P05F34_AREA_KP_ID="kp_g4b_u07_composite_rectilinear_area";
+export const G4B_U07_P05F34_PERIMETER_KP_ID="kp_g4b_u07_perimeter_path_sum";
+export const G4B_U07_P05F34_KP_IDS=Object.freeze([G4B_U07_P05F34_AREA_KP_ID,G4B_U07_P05F34_PERIMETER_KP_ID]);
+export const G4B_U07_P05F34_PRIOR_VISIBLE_KP_IDS=Object.freeze(["kp_g4b_u07_rectangle_square_area_formula"]);
+export const G4B_U07_P05F34_PROTECTED_FUTURE_KP_IDS=Object.freeze(["kp_g4b_u07_rectangle_square_perimeter_formula","kp_g4b_u07_composite_perimeter"]);
+export const G4B_U07_P05F34_AREA_GROUP_ID="pg_g4b_u07_composite_rectilinear_area";
+export const G4B_U07_P05F34_PERIMETER_GROUP_ID="pg_g4b_u07_perimeter_path_sum";
+export const G4B_U07_P05F34_REQUIRED_CAPABILITY_IDS=Object.freeze(["cap_geometry_diagram_representation","cap_geometry_domain_validator","cap_geometry_formula_evaluation","cap_geometry_property_reasoning"]);
+export const G4B_U07_P05F34_AREA_RELATIONS=Object.freeze(["COMPUTE_COMPOSITE_RECTILINEAR_AREA_BY_NONOVERLAPPING_RECTANGLE_PARTITION","COMPUTE_COMPOSITE_RECTILINEAR_AREA_BY_ENCLOSING_RECTANGLE_COMPLEMENT","PRESERVE_AREA_EQUIVALENCE_UNDER_PARTITION_OR_COMPLEMENT"]);
+export const G4B_U07_P05F34_PERIMETER_RELATIONS=Object.freeze(["TRACE_CLOSED_OUTER_BOUNDARY","SUM_EACH_OUTER_BOUNDARY_SEGMENT_EXACTLY_ONCE","EXCLUDE_INTERIOR_SEGMENTS_FROM_PERIMETER"]);
+const spec=(patternSpecId,knowledgePointId,patternGroupId,patternFamilyId,relation,diagramMode,answerDomain)=>Object.freeze({patternSpecId,knowledgePointId,patternGroupId,patternFamilyId,relation,diagramMode,questionMode:"diagram",answerDomain,requiresDiagramRepresentation:true,requiresFormulaEvaluation:true,applicationAllowed:false,sameUnitMixedAllowed:false,crossUnitMixedAllowed:false,rectangleSquareAreaFormulaReowned:false,rectangleSquarePerimeterFormulaAllowed:false,compositePerimeterAllowed:false});
+export const G4B_U07_P05F34_AREA_PATTERN_SPECS=Object.freeze([
+  spec("ps_g4b_u07_composite_area_partition",G4B_U07_P05F34_AREA_KP_ID,G4B_U07_P05F34_AREA_GROUP_ID,"COMPOSITE_RECTILINEAR_AREA",G4B_U07_P05F34_AREA_RELATIONS[0],"AREA_PARTITION","AREA_SQUARE_CENTIMETER"),
+  spec("ps_g4b_u07_composite_area_complement",G4B_U07_P05F34_AREA_KP_ID,G4B_U07_P05F34_AREA_GROUP_ID,"COMPOSITE_RECTILINEAR_AREA",G4B_U07_P05F34_AREA_RELATIONS[1],"AREA_COMPLEMENT","AREA_SQUARE_CENTIMETER"),
+  spec("ps_g4b_u07_composite_area_equivalence",G4B_U07_P05F34_AREA_KP_ID,G4B_U07_P05F34_AREA_GROUP_ID,"COMPOSITE_RECTILINEAR_AREA",G4B_U07_P05F34_AREA_RELATIONS[2],"AREA_EQUIVALENCE","AREA_SQUARE_CENTIMETER"),
+]);
+export const G4B_U07_P05F34_PERIMETER_PATTERN_SPECS=Object.freeze([
+  spec("ps_g4b_u07_perimeter_trace_closed_boundary",G4B_U07_P05F34_PERIMETER_KP_ID,G4B_U07_P05F34_PERIMETER_GROUP_ID,"PERIMETER_PATH_SUM",G4B_U07_P05F34_PERIMETER_RELATIONS[0],"PERIMETER_TRACE","PERIMETER_CENTIMETER"),
+  spec("ps_g4b_u07_perimeter_sum_outer_segments",G4B_U07_P05F34_PERIMETER_KP_ID,G4B_U07_P05F34_PERIMETER_GROUP_ID,"PERIMETER_PATH_SUM",G4B_U07_P05F34_PERIMETER_RELATIONS[1],"PERIMETER_SUM","PERIMETER_CENTIMETER"),
+  spec("ps_g4b_u07_perimeter_exclude_interior",G4B_U07_P05F34_PERIMETER_KP_ID,G4B_U07_P05F34_PERIMETER_GROUP_ID,"PERIMETER_PATH_SUM",G4B_U07_P05F34_PERIMETER_RELATIONS[2],"PERIMETER_EXCLUDE_INTERIOR","PERIMETER_CENTIMETER"),
+]);
+export const G4B_U07_P05F34_PATTERN_SPECS=Object.freeze([...G4B_U07_P05F34_AREA_PATTERN_SPECS,...G4B_U07_P05F34_PERIMETER_PATTERN_SPECS]);
+export const G4B_U07_P05F34_AREA_SPEC_IDS=Object.freeze(G4B_U07_P05F34_AREA_PATTERN_SPECS.map(x=>x.patternSpecId));
+export const G4B_U07_P05F34_PERIMETER_SPEC_IDS=Object.freeze(G4B_U07_P05F34_PERIMETER_PATTERN_SPECS.map(x=>x.patternSpecId));
+export const G4B_U07_P05F34_FORMAL_MAPPINGS=Object.freeze([
+  Object.freeze({mappingId:"fm_g4b_u07_composite_rectilinear_area_p05f34",sourceId:G4B_U07_P05F34_SOURCE_ID,sourcePages:Object.freeze([2]),knowledgePointId:G4B_U07_P05F34_AREA_KP_ID,canonicalNameZh:"複合直角圖形面積",capabilityStatement:"學生能以分割或補形求複合圖形面積。",reasoningInvariant:"分割面積和或大圖扣小圖必須與原圖覆蓋區域等值。",relationFamily:"COMPOSITE_RECTILINEAR_AREA",inputRepresentation:"RECTILINEAR_COMPOSITE_AREA_DIAGRAM",answerDomain:"AREA_SQUARE_CENTIMETER",includedRelations:G4B_U07_P05F34_AREA_RELATIONS,applicationSuitability:"APPLICATION_COMPATIBLE",applicationImplementationAllowed:false,requiredCapabilityIds:G4B_U07_P05F34_REQUIRED_CAPABILITY_IDS,patternSpecIds:G4B_U07_P05F34_AREA_SPEC_IDS,r02EvidencePages:Object.freeze([2]),q026VisualCorroborationPage:2}),
+  Object.freeze({mappingId:"fm_g4b_u07_perimeter_path_sum_p05f34",sourceId:G4B_U07_P05F34_SOURCE_ID,sourcePages:Object.freeze([1]),knowledgePointId:G4B_U07_P05F34_PERIMETER_KP_ID,canonicalNameZh:"周長與封閉邊界",capabilityStatement:"學生能將封閉圖形各邊長相加求周長。",reasoningInvariant:"周長只計外部邊界一次，內部線段不列入。",relationFamily:"PERIMETER_PATH_SUM",inputRepresentation:"CLOSED_OUTER_BOUNDARY_DIAGRAM",answerDomain:"PERIMETER_CENTIMETER",includedRelations:G4B_U07_P05F34_PERIMETER_RELATIONS,applicationSuitability:"APPLICATION_COMPATIBLE",applicationImplementationAllowed:false,requiredCapabilityIds:G4B_U07_P05F34_REQUIRED_CAPABILITY_IDS,patternSpecIds:G4B_U07_P05F34_PERIMETER_SPEC_IDS,r02EvidencePages:Object.freeze([1]),directVisualClaimAddedByQ034:false}),
+]);
+const group=(id,kpId,name,tags,specIds,allocation)=>Object.freeze({patternGroupId:id,sourceId:G4B_U07_P05F34_SOURCE_ID,unitCode:G4B_U07_P05F34_UNIT_CODE,unitTitle:G4B_U07_P05F34_UNIT_TITLE,displayName:name,primaryKnowledgePointId:kpId,knowledgePointIds:Object.freeze([kpId]),supportClass:"A",mode:"diagram",publicQuestionMode:"diagram",representationTag:kpId===G4B_U07_P05F34_AREA_KP_ID?"composite_rectilinear_area_diagram":"perimeter_path_sum_diagram",representationTags:Object.freeze(tags),patternSpecIds:specIds,allocationPolicy:allocation,visibilityStatus:"visible",holdReason:null});
+export const G4B_U07_P05F34_PATTERN_GROUPS=Object.freeze([
+  group(G4B_U07_P05F34_AREA_GROUP_ID,G4B_U07_P05F34_AREA_KP_ID,"複合直角圖形面積圖形題",["geometry","area","rectilinear","partition","complement"],G4B_U07_P05F34_AREA_SPEC_IDS,"balanced_composite_area_relation"),
+  group(G4B_U07_P05F34_PERIMETER_GROUP_ID,G4B_U07_P05F34_PERIMETER_KP_ID,"周長與封閉邊界圖形題",["geometry","perimeter","closed_boundary","outer_segments","exclude_interior"],G4B_U07_P05F34_PERIMETER_SPEC_IDS,"balanced_perimeter_path_relation"),
+]);
+const row=(kpId,displayName,groupId,specIds,qa)=>Object.freeze({knowledgePointId:kpId,sourceId:G4B_U07_P05F34_SOURCE_ID,unitCode:G4B_U07_P05F34_UNIT_CODE,unitTitle:G4B_U07_P05F34_UNIT_TITLE,displayName,canonicalNameZh:displayName,mode:"diagram",questionMode:"diagram",questionModes:Object.freeze(["diagram"]),supportClass:"A",visibilityStatus:"visible",selectorStatus:"visible",holdReason:null,applicationClassification:"DIAGRAM_ONLY_APPLICATION_COMPATIBLE_CONTEXT_NOT_ADMITTED",canonicalPatternGroupIds:Object.freeze([groupId]),canonicalPatternSpecIds:specIds,patternGroupIds:Object.freeze([groupId]),patternSpecIds:specIds,requiredCapabilityIds:G4B_U07_P05F34_REQUIRED_CAPABILITY_IDS,qaStatusLabel:qa,productionUse:"full_product_w5_slice034_candidate"});
+export const G4B_U07_P05F34_SELECTOR_ROWS=Object.freeze([
+  row(G4B_U07_P05F34_AREA_KP_ID,"複合直角圖形面積",G4B_U07_P05F34_AREA_GROUP_ID,G4B_U07_P05F34_AREA_SPEC_IDS,"P05F34_G4B_U07_SOURCE_BACKED_COMPOSITE_RECTILINEAR_AREA"),
+  row(G4B_U07_P05F34_PERIMETER_KP_ID,"周長與封閉邊界",G4B_U07_P05F34_PERIMETER_GROUP_ID,G4B_U07_P05F34_PERIMETER_SPEC_IDS,"P05F34_G4B_U07_SOURCE_BACKED_PERIMETER_PATH_SUM"),
+]);
+const clone=v=>v==null?v:JSON.parse(JSON.stringify(v));
+export function getG4BU07P05F34SelectorRow(id){return clone(G4B_U07_P05F34_SELECTOR_ROWS.find(x=>x.knowledgePointId===id)??null);}
+export function listG4BU07P05F34PatternGroups(id){return G4B_U07_P05F34_KP_IDS.includes(id)?G4B_U07_P05F34_PATTERN_GROUPS.filter(x=>x.primaryKnowledgePointId===id).map(clone):[];}
+export function resolveG4BU07P05F34PatternSpecIds(id){if(id===G4B_U07_P05F34_AREA_KP_ID)return clone(G4B_U07_P05F34_AREA_SPEC_IDS);if(id===G4B_U07_P05F34_PERIMETER_KP_ID)return clone(G4B_U07_P05F34_PERIMETER_SPEC_IDS);return[];}
+export function auditG4BU07P05F34Projection(){const errors=[];if(G4B_U07_P05F34_FORMAL_MAPPINGS.length!==2)errors.push("P05F34_MAPPING_CARDINALITY_INVALID");if(G4B_U07_P05F34_PATTERN_GROUPS.length!==2)errors.push("P05F34_GROUP_CARDINALITY_INVALID");if(G4B_U07_P05F34_PATTERN_SPECS.length!==6||new Set(G4B_U07_P05F34_PATTERN_SPECS.map(x=>x.patternSpecId)).size!==6)errors.push("P05F34_SPEC_CARDINALITY_INVALID");for(const spec of G4B_U07_P05F34_PATTERN_SPECS)if(spec.questionMode!=="diagram"||!spec.requiresDiagramRepresentation||!spec.requiresFormulaEvaluation||spec.applicationAllowed||spec.sameUnitMixedAllowed||spec.crossUnitMixedAllowed||spec.rectangleSquareAreaFormulaReowned||spec.rectangleSquarePerimeterFormulaAllowed||spec.compositePerimeterAllowed)errors.push(`P05F34_SPEC_INVARIANT:${spec.patternSpecId}`);for(const mapping of G4B_U07_P05F34_FORMAL_MAPPINGS)for(const relation of mapping.includedRelations)if(!G4B_U07_P05F34_PATTERN_SPECS.some(x=>x.knowledgePointId===mapping.knowledgePointId&&x.relation===relation))errors.push(`P05F34_RELATION_MISSING:${relation}`);return Object.freeze({ok:errors.length===0,errors:Object.freeze(errors),counts:Object.freeze({knowledgePoints:2,patternGroups:2,patternSpecs:6,areaSpecs:3,perimeterSpecs:3})});}

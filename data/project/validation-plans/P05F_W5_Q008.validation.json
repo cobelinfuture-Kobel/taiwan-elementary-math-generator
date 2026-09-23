@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q008_BOUNDED_VALIDATION",
+  "unitId": "g5a_u10_5a10a1",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {"gateId":"GLOBAL_CONTRACTS","kind":"NODE_TEST","paths":["tests/curriculum/p05f-w5-slice008-g5a-u10a1-cube-cuboid-elements.test.js","tests/curriculum/p05f-w5-q008-cube-cuboid-faces-edges-vertices-source-authority-preflight.test.js","tests/curriculum/p05f-w5-slice008-q007-direct-dependency.test.js"]},
+      {"gateId":"TARGETED_ROUTE_REPLAY","kind":"NODE_RUNNER","path":"tools/curriculum/run-p05f-w5-slice008-classic-ui-acceptance.mjs","runtime":"PLAYWRIGHT_CHROMIUM"}
+    ]
+  }
+}

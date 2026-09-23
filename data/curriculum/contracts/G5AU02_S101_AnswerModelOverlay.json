@@ -1,0 +1,60 @@
+{
+  "schemaName": "G5AU02S101AnswerModelOverlay",
+  "schemaVersion": 1,
+  "task": "G5AU02-S101_P0PartitionAndGeometryRepresentationFullFix",
+  "status": "runtime_overlay_pending_ci",
+  "unitId": "g5a_u02",
+  "baseAuthority": "data/curriculum/pattern_specs/S84_G5A_U02_PatternSpecRegistry.json",
+  "contractAuthority": "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json",
+  "precedence": [
+    "S84_base_materialization",
+    "S99_additive_answer_model_contract",
+    "S101_runtime_overlay"
+  ],
+  "patternSpecAnswerModelOverrides": [
+    {
+      "patternSpecId": "ps_g5a_u02_equal_partition_all_segment_counts",
+      "patternOrder": 9,
+      "fromAnswerModelId": "integerListWithUnitAnswer",
+      "toAnswerModelId": "partitionPairListAnswer",
+      "reason": "preserve segment-count and length-per-segment quantity roles"
+    },
+    {
+      "patternSpecId": "ps_g5a_u02_square_tile_area_possibilities",
+      "patternOrder": 21,
+      "fromAnswerModelId": "areaListAnswer",
+      "toAnswerModelId": "tileSideAreaPairListAnswer",
+      "reason": "preserve side-length to squared-area reasoning pairs"
+    }
+  ],
+  "patternGroupAnswerModelOverrides": [
+    {
+      "patternGroupId": "pg_g5a_u02_equal_partition_application",
+      "fromAnswerModelIds": [
+        "integerListWithUnitAnswer"
+      ],
+      "toAnswerModelIds": [
+        "partitionPairListAnswer",
+        "integerListWithUnitAnswer"
+      ]
+    },
+    {
+      "patternGroupId": "pg_g5a_u02_square_tile_areas",
+      "fromAnswerModelIds": [
+        "areaListAnswer"
+      ],
+      "toAnswerModelIds": [
+        "tileSideAreaPairListAnswer"
+      ]
+    }
+  ],
+  "invariants": {
+    "patternSpecIdsStable": true,
+    "formalMappingIdsStable": true,
+    "knowledgePointIdsStable": true,
+    "sourceEvidenceStable": true,
+    "baseS84ArtifactRewritten": false,
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden"
+  }
+}

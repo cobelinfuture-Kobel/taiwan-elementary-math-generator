@@ -1,0 +1,139 @@
+{
+  "schemaName": "P04F32G5BU02FractionRank8PreflightAuthorityV1",
+  "schemaVersion": 1,
+  "taskId": "P04F32_Q032_ExactAuthorityAndFormalMappingPreflight",
+  "status": "PREFLIGHT_AUTHORITY_LOCKED_IMPLEMENTATION_NOT_STARTED",
+  "queue": {
+    "queuePosition": 32,
+    "sliceId": "p04e_q032_r8_g5b_u02_5b02_profile_fraction_c1",
+    "previousSliceId": "p04e_q031_r7_g5b_u02_5b02_profile_fraction_c1",
+    "nextSliceId": "p04e_q033_r8_g6a_u02_6a02_profile_fraction_c1",
+    "primarySourceNodeId": "g5b_u02_5b02",
+    "intraWavePrerequisiteRank": 8,
+    "primaryRuntimeProfileId": "profile_fraction",
+    "knowledgePointIds": [
+      "kp_g5b_u02_fraction_multi_step_calculation",
+      "kp_g5b_u02_fraction_multiplication_simplification",
+      "kp_g5b_u02_fraction_of_quantity",
+      "kp_g5b_u02_integer_times_fraction"
+    ]
+  },
+  "sourceAuthority": {
+    "sourceFile": "meow911_5b02_source.pdf",
+    "driveFileId": "1HuX8603UDlSKj2odW1mcJjByyd8FCDdr",
+    "sourceTitle": "分數的計算",
+    "publisherAlignment": ["康軒5下第2課", "翰林5下第2課", "南一5下第1課"],
+    "reviewedPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_PLUS_R02_CANONICAL_SEMANTICS",
+    "r02AuthorityPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-04.json",
+    "sourceGuideWitness": ["分數×分數", "分數×整數", "帶分數×整數", "分數乘積變化", "分數÷整數", "汽車耗油應用"]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5b_u02_fraction_multi_step_calculation",
+      "canonicalNameZh": "分數多步計算",
+      "capabilityStatement": "學生能依運算順序完成含整數與分數的多步計算。",
+      "reasoningInvariant": "每一步必須保持等值並遵守括號及乘除優先順序。"
+    },
+    {
+      "knowledgePointId": "kp_g5b_u02_fraction_multiplication_simplification",
+      "canonicalNameZh": "分數乘法先約分",
+      "capabilityStatement": "學生能在乘法前後約分以得到最簡答案。",
+      "reasoningInvariant": "約分只改變表示，不改變乘積值。"
+    },
+    {
+      "knowledgePointId": "kp_g5b_u02_fraction_of_quantity",
+      "canonicalNameZh": "求一個量的幾分之幾",
+      "capabilityStatement": "學生能以總量乘分數求部分量。",
+      "reasoningInvariant": "部分量等於全體量乘指定分率，答案單位沿用原量。"
+    },
+    {
+      "knowledgePointId": "kp_g5b_u02_integer_times_fraction",
+      "canonicalNameZh": "整數乘分數",
+      "capabilityStatement": "學生能以交換律理解整數乘分數。",
+      "reasoningInvariant": "整數乘分數與分數乘整數數值相同。"
+    }
+  ],
+  "formalMappings": [
+    {
+      "knowledgePointId": "kp_g5b_u02_fraction_multi_step_calculation",
+      "classification": "NEW_RELATION_CANDIDATE",
+      "relationFamilyId": "FRACTION_MULTI_STEP_CALCULATION",
+      "knownRoleIds": ["INITIAL_VALUE", "OPERATION_SEQUENCE"],
+      "targetRoleId": "FINAL_FRACTION_RESULT",
+      "invariants": {
+        "intermediateResultCarriesForward": true,
+        "equivalencePreservedAtEveryStep": true,
+        "parenthesesAndMulDivPrecedenceRequired": true,
+        "exactRationalArithmeticRequired": true,
+        "roundingAllowed": false
+      },
+      "reuseDecision": "NO_ACTIVE_FORMAL_MAPPING_WITH_THE_SAME_SEQUENTIAL_INTERMEDIATE_RESULT_INVARIANT"
+    },
+    {
+      "knowledgePointId": "kp_g5b_u02_fraction_multiplication_simplification",
+      "classification": "NEW_RELATION_CANDIDATE",
+      "relationFamilyId": "FRACTION_PRODUCT_SIMPLIFICATION",
+      "knownRoleIds": ["FACTOR_A", "FACTOR_B"],
+      "targetRoleId": "REDUCED_PRODUCT_FRACTION",
+      "invariants": {
+        "productValuePreservedByCancellation": true,
+        "preOrPostMultiplicationReductionAllowed": true,
+        "finalRepresentationReduced": true,
+        "exactRationalArithmeticRequired": true,
+        "roundingAllowed": false
+      },
+      "reuseDecision": "FRACTION_NUMBER_SYSTEM_REDUCTION_IS_A_RUNTIME_CAPABILITY_NOT_AN_EQUIVALENT_PEDAGOGICAL_FORMAL_MAPPING"
+    },
+    {
+      "knowledgePointId": "kp_g5b_u02_fraction_of_quantity",
+      "classification": "REUSE_ACTIVE_RELATION",
+      "relationFamilyId": "FRACTION_OF_QUANTITY",
+      "knownRoleIds": ["WHOLE_QUANTITY", "FRACTION_OPERATOR"],
+      "targetRoleId": "PART_QUANTITY",
+      "activeAuthorityPath": "data/curriculum/full-product/p04f/slice024-g3a-u08-measurement-fraction-authority.json",
+      "invariants": {
+        "equation": "partQuantity = wholeQuantity * fractionOperator",
+        "unitPreservedFromWholeQuantity": true,
+        "exactRationalArithmeticRequired": true,
+        "roundingAllowed": false
+      },
+      "reuseDecision": "Q024_ACTIVE_RELATION_HAS_THE_SAME_WHOLE_QUANTITY_FRACTION_OPERATOR_PART_QUANTITY_SEMANTICS"
+    },
+    {
+      "knowledgePointId": "kp_g5b_u02_integer_times_fraction",
+      "classification": "REUSE_ACTIVE_RELATION_WITH_COMMUTATIVE_ROLE_NORMALIZATION",
+      "relationFamilyId": "FRACTION_TIMES_INTEGER_PRODUCT",
+      "knownRoleIds": ["SOURCE_FRACTION", "INTEGER_MULTIPLIER"],
+      "targetRoleId": "PRODUCT_FRACTION",
+      "activeAuthorityPath": "data/curriculum/full-product/p04f/slice031-g5b-u02-fraction-times-integer-preflight-authority.json",
+      "surfaceOperandOrder": "INTEGER_THEN_FRACTION",
+      "roleNormalization": "COMMUTATIVE_SWAP_TO_SOURCE_FRACTION_TIMES_INTEGER_MULTIPLIER",
+      "invariants": {
+        "integerTimesFractionEqualsFractionTimesInteger": true,
+        "exactRationalArithmeticRequired": true,
+        "equivalentFractionReductionAllowed": true,
+        "roundingAllowed": false
+      },
+      "reuseDecision": "Q031_RELATION_ROLES_ARE_SEMANTIC_NOT_SURFACE_POSITIONAL_AND_MULTIPLICATION_IS_COMMUTATIVE"
+    }
+  ],
+  "reconciliation": {
+    "activeRelationReuseCount": 2,
+    "newRelationCandidateCount": 2,
+    "q024FractionOfQuantityRelationReused": true,
+    "q031FractionTimesIntegerRelationReusedForIntegerTimesFraction": true,
+    "q027FractionalQuantityScalingRelationReused": false,
+    "q033Touched": false
+  },
+  "boundary": {
+    "planningOnly": true,
+    "patternSpecMaterialized": false,
+    "generatorMaterialized": false,
+    "validatorMaterialized": false,
+    "selectorPromoted": false,
+    "worksheetEnabled": false,
+    "q033Touched": false,
+    "implementationApprovalRequired": true
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schemaName": "G5AU02HiddenWorksheetAllocationAndAnswerKeyIntegrationCloseout",
+  "schemaVersion": 1,
+  "task": "S91_G5A_U02_HiddenWorksheetAllocationAndAnswerKeyIntegration",
+  "closeoutTask": "S91R2_G5A_U02_HiddenWorksheetAllocationAndAnswerKeyIntegration_FreshMainCloseout",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "pullRequest": 151,
+  "mergeCommit": "0f87a7e1a87bcb0e6b480232dc91380383bd865a",
+  "freshMainAuthority": {
+    "readbackCommit": "8df87117d89ee056b394cd3e0069443017cd9136",
+    "workflowRunId": 29266610693,
+    "workflowRunNumber": 1498,
+    "eventName": "push",
+    "ref": "refs/heads/main",
+    "sha": "0f87a7e1a87bcb0e6b480232dc91380383bd865a",
+    "npmTestExitCode": 0,
+    "tests": 1278,
+    "pass": 1278,
+    "fail": 0,
+    "workingTreeClean": true
+  },
+  "coverage": {
+    "patternSpecCount": 22,
+    "classCPatternSpecCount": 14,
+    "classDPatternSpecCount": 8,
+    "answerModelShapeCount": 16,
+    "maximumQuestionCount": 1000,
+    "allocationStrategy": "canonical_round_robin",
+    "exactQuestionCountRequired": true,
+    "deterministicSeedRequired": true
+  },
+  "worksheetContract": {
+    "canonicalResolverRequired": true,
+    "blockingValidationRequired": true,
+    "zeroWorksheetOnBlocking": true,
+    "partialWorksheetForbidden": true,
+    "questionAnswerIsolationRequired": true,
+    "optionalAnswerKeySupported": true,
+    "exactAnswerRecordCountWhenEnabled": true,
+    "zeroAnswerRecordsWhenDisabled": true,
+    "zeroAnswerPagesWhenDisabled": true,
+    "deterministicQuestionPagination": true,
+    "deterministicAnswerKeyPagination": true
+  },
+  "lifecycle": {
+    "worksheetStatus": "hidden_exact_count_integrated",
+    "answerKeyStatus": "hidden_integrated_optional",
+    "selectorStatus": "hidden",
+    "canonicalRouting": "internal_explicit_only",
+    "rendererStatus": "not_connected",
+    "productionUse": "forbidden",
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden"
+  },
+  "scopeBoundary": {
+    "publicSelectorChanged": false,
+    "rendererIntegrated": false,
+    "browserPipelineChanged": false,
+    "htmlPdfIntegrated": false,
+    "productionPromoted": false
+  },
+  "goalDistance": {
+    "before": "D1_G5A_U02_HIDDEN_WORKSHEET_AND_ANSWER_KEY_MERGED_PENDING_FRESH_MAIN",
+    "after": "D1_G5A_U02_HIDDEN_WORKSHEET_AND_ANSWER_KEY_VERIFIED_AND_CLOSED",
+    "distanceReduced": "Verified exact-count hidden WorksheetDocument allocation, blocking canonical validation, question-answer isolation, optional answer-key records and deterministic pagination across all 22 G5A-U02 PatternSpecs.",
+    "remainingBlockers": [
+      "Public selector remains hidden",
+      "Renderer is not connected",
+      "HTML/PDF output is not integrated",
+      "Production use remains forbidden"
+    ],
+    "nextShortestStep": "S92_G5A_U02_HiddenRendererIntegration"
+  }
+}

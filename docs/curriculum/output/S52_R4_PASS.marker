@@ -1,0 +1,23 @@
+S52_R4_PASS_PUBLIC_MAIN_LOCAL_SYNCED_AND_CLEAN
+
+sourceId = g3a_u06_3a06
+affected_kp = kp_g3a_u06_parity_range_missing_digit
+affected_spec = ps_g3a_u06_parity_range_missing_digit
+
+operator_readback:
+- tests 367
+- pass 367
+- fail 0
+- branch public-main up to date with public/main
+- working tree clean
+
+status:
+- parity unique-pool fix local readback PASS
+- browser worksheet smoke pending
+- Pages deploy may need rerun
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U06_PARITY_UNIQUE_POOL_FIX_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U06_PARITY_UNIQUE_POOL_LOCAL_PASS_BROWSER_SMOKE_PENDING
+DISTANCE_REDUCED = S52 R4 npm test passed and public-main is synced/clean after parity unique-pool fix
+REMAINING_BLOCKERS = browser PDF smoke pending; Pages deploy may need rerun
+NEXT_SHORTEST_STEP = regenerate G3A-U06 parity and mixed worksheet in browser and inspect output

@@ -1,0 +1,66 @@
+name: POSTG-APP W01-A06E Operator Approval
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postg-app-w01-a06e-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  operator-approval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Run A06E focused approval tests
+        run: node --test tests/curriculum/postg-app-w01-a06e-operator-approval.test.js
+
+      - name: Run deterministic A06E approval validator
+        run: node tools/curriculum/validate-postg-app-w01-a06e-operator-approval.mjs
+
+      - name: Validate master controller transition
+        id: controller_transition
+        continue-on-error: true
+        run: |
+          mkdir -p docs/curriculum/output/postg-app
+          set -o pipefail
+          {
+            node --test tests/curriculum/postg-app-m00-master-controller.test.js
+            node tools/curriculum/validate-postg-app-m00-master-controller.mjs
+          } 2>&1 | tee docs/curriculum/output/postg-app/POSTG_APP_W01_A06E_CONTROLLER_TRANSITION.log
+
+      - name: Upload A06E controller diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postg-app-w01-a06e-controller-diagnostics
+          path: docs/curriculum/output/postg-app/POSTG_APP_W01_A06E_CONTROLLER_TRANSITION.log
+          retention-days: 7
+
+      - name: Block after controller transition failure
+        if: steps.controller_transition.outcome == 'failure'
+        run: exit 1
+
+      - name: Run A06 semantic and renderer regressions
+        run: |
+          node --test tests/curriculum/postg-app-w01-a06b-semantic-runtime.test.js
+          node --test tests/curriculum/postg-app-w01-a06c-relation-surfaces.test.js
+          node --test tests/curriculum/postg-app-w01-a06d-production-review.test.js
+
+      - name: Validate milestone claims
+        run: npm run governance:claims

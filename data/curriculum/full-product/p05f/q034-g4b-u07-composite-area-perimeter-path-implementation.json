@@ -1,0 +1,125 @@
+{
+  "schemaName": "P05FW5Q034CompositeAreaPerimeterPathImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice034Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q034_TWO_KP_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "after": "D1_Q034_TWO_KP_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "preflightPath": "data/curriculum/full-product/p05f/q034-g4b-u07-composite-area-perimeter-path-source-authority-preflight.json",
+  "queueAuthority": {
+    "queuePosition": 34,
+    "sliceId": "p05e_q034_r3_g4b_u07_4b07_profile_geometry_formula_c1",
+    "sourceId": "g4b_u07_4b07",
+    "runtimeProfileId": "profile_geometry_formula",
+    "knowledgePointIds": ["kp_g4b_u07_composite_rectilinear_area", "kp_g4b_u07_perimeter_path_sum"],
+    "requiredW5CapabilityIds": ["cap_geometry_diagram_representation", "cap_geometry_domain_validator", "cap_geometry_formula_evaluation", "cap_geometry_property_reasoning"],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q033_r3_g4b_u02_4b02_profile_geometry_property_c1",
+    "productPrNumber": 908,
+    "productMergeSha": "d9294906d947b454463ccb26cf2ecc4d720a6933",
+    "prGateRunId": "34733749964",
+    "pagesDeploymentRunId": "34733802710",
+    "exactPagesRunId": "34733802755",
+    "evidenceArtifactId": "10310710023",
+    "evidenceArtifactDigest": "sha256:38a37e1a69dc462b7630b28ad371a72bff6f2a74c9a4defa4c1f3066cb692e66",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceTitle": "周長與面積",
+    "sourcePdfTitle": "meow911_4b07_source.pdf",
+    "compositeAreaEvidencePages": [2],
+    "perimeterPathEvidencePages": [1],
+    "compositeAreaQ026VisualCorroborationPage": 2,
+    "perimeterPathDirectVisualClaimAdded": false,
+    "embeddedHeaderUrlMismatchObserved": true,
+    "sourceRefAmbiguity": false
+  },
+  "formalMapping": {
+    "compositeRectilinearArea": {
+      "mappingId": "fm_g4b_u07_composite_rectilinear_area_p05f34",
+      "relations": ["COMPUTE_COMPOSITE_RECTILINEAR_AREA_BY_NONOVERLAPPING_RECTANGLE_PARTITION", "COMPUTE_COMPOSITE_RECTILINEAR_AREA_BY_ENCLOSING_RECTANGLE_COMPLEMENT", "PRESERVE_AREA_EQUIVALENCE_UNDER_PARTITION_OR_COMPLEMENT"],
+      "reasoningInvariant": "分割面積和或大圖扣小圖必須與原圖覆蓋區域等值。"
+    },
+    "perimeterPathSum": {
+      "mappingId": "fm_g4b_u07_perimeter_path_sum_p05f34",
+      "relations": ["TRACE_CLOSED_OUTER_BOUNDARY", "SUM_EACH_OUTER_BOUNDARY_SEGMENT_EXACTLY_ONCE", "EXCLUDE_INTERIOR_SEGMENTS_FROM_PERIMETER"],
+      "reasoningInvariant": "周長只計外部邊界一次，內部線段不列入。"
+    }
+  },
+  "patternContract": {
+    "patternGroupCount": 2,
+    "patternSpecCount": 6,
+    "compositeAreaPatternSpecCount": 3,
+    "perimeterPathPatternSpecCount": 3,
+    "questionMode": "diagram",
+    "maxQuestionCountPerSingleKnowledgePoint": 240,
+    "distinctCapacityPerPatternSpec": 240,
+    "applicationImplementationAllowed": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false
+  },
+  "runtimeContract": {
+    "projection": "site/modules/curriculum/registry/g4b-u07-composite-area-perimeter-path-selector-projection-p05f34.js",
+    "generatorValidator": "site/modules/curriculum/batch-a/g4b-u07-composite-area-perimeter-path-runtime-p05f34.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f34.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f34-extension.js",
+    "diagramRenderer": "site/modules/renderer/g4b-u07-composite-area-perimeter-diagram-p05f34.js",
+    "legacyDispatcherCompatibilityEnvelope": "site/modules/renderer/rectangle-square-area-formula-diagram.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "g4bU07VisibleCountBefore": 1,
+    "g4bU07VisibleCountAfter": 3,
+    "g4bU07HiddenPendingCountBefore": 4,
+    "g4bU07HiddenPendingCountAfter": 2,
+    "g4bU07NotSelectableCountBefore": 4,
+    "g4bU07NotSelectableCountAfter": 2,
+    "remainingHiddenKnowledgePointIds": ["kp_g4b_u07_rectangle_square_perimeter_formula", "kp_g4b_u07_composite_perimeter"],
+    "questionTypeValue": "diagram",
+    "questionCountMax": 240
+  },
+  "compatibilityBridge": {
+    "reason": "stable worksheet dispatcher currently enters the P05F32 top slot",
+    "modifiedFiles": ["site/modules/curriculum/batch-a/batch-a-browser-generator-p05f32.js", "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f32-extension.js"],
+    "q032BehaviorPreserved": true,
+    "q033BehaviorPreserved": true,
+    "q034DelegationOnly": true
+  },
+  "postMergeEvidence": {
+    "workflow": ".github/workflows/p05f-w5-q034-live-pages-e2e.yml",
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "waitForExactPagesBytes": true,
+    "sha256ExactDeployedBytes": true,
+    "classicUiGeneratorValidatorWorksheetRendererPrintArtifact": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_SLICE",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_SLICE",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice034-g4b-u07-composite-area-perimeter-path.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice034-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "rectangleSquareAreaFormulaReowned": false,
+    "rectangleSquarePerimeterFormulaTouched": false,
+    "compositePerimeterTouched": false,
+    "areaPerimeterComparisonTouched": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "q035OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false
+  }
+}

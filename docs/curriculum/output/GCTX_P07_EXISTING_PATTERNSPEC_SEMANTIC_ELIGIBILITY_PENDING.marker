@@ -1,0 +1,7 @@
+GCTX-P07_ExistingPatternSpecSemanticEligibilityAudit
+STATUS=PENDING_CI_AND_READBACK
+RUNTIME_BEHAVIOR_CHANGED=false
+REGISTRY_POPULATION_CHANGED=false
+UNIT_MIGRATION_CHANGED=false
+RENDERER_CHANGED=false
+NEXT_SHORTEST_STEP=GCTX-P08_ApprovedSemanticBindingBackfillAndLegacyAuthorityNormalization

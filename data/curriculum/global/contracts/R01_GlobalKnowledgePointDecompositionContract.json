@@ -1,0 +1,122 @@
+{
+  "schemaName": "GlobalKnowledgePointDecompositionContractV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R01_GlobalKnowledgePointDecompositionContract_From_PR350MergeSHA",
+  "status": "CONTRACT_BOUND_NOT_CUT_OVER",
+  "productBaseline": {
+    "pullRequestNumber": 350,
+    "mergeCommitSha": "9846627e1263d9dfb3e9e2318989cc5ae94c35dd",
+    "productProgramId": "BATCH_A13_BATCH_B2_PUBLIC_WORKSHEET_CLOSEOUT_V1",
+    "productStatus": "D0_PUBLIC_WORKSHEET_CLOSEOUT_PASS",
+    "completedPublicUnitCount": 15,
+    "completedBatchAUnitCount": 13,
+    "completedBatchBUnitCount": 2,
+    "publicCloseoutContractPath": "data/curriculum/public/15-unit-public-worksheet-closeout.json",
+    "existingConsumerEntryPoint": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "existingProductionRuntimeMustRemainAuthoritative": true
+  },
+  "sourceScope": {
+    "sourceRegistryPath": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+    "sourceNodeCount": 79,
+    "legacyBatchCounts": {
+      "A": 13,
+      "B": 24,
+      "C": 17,
+      "D": 16,
+      "E": 9
+    },
+    "goldenBaselinePublicUnitCount": 15,
+    "goldenBaselineSourceNodeCount": 16,
+    "remainingSourceNodeCount": 63,
+    "compositePublicUnitMappings": [
+      {
+        "publicUnitId": "g5a_u02_5a02",
+        "sourceNodeIds": ["g5a_u02_5a02a", "g5a_u02_5a02a1"]
+      }
+    ]
+  },
+  "authorityPolicy": {
+    "sourceUnitIsCurriculumEvidence": true,
+    "sourceUnitMayDecomposeToMultipleKnowledgePoints": true,
+    "knowledgePointMayReferenceMultipleSourceUnits": true,
+    "legacyPrimaryBatchAssignmentRole": "DELIVERY_PROVENANCE_ONLY",
+    "legacyPrimaryBatchAssignmentDefinesKnowledgeBoundary": false,
+    "sourceTitleAloneMayCreateKnowledgePoint": false,
+    "difficultyIncreaseAloneMayCreateKnowledgePoint": false,
+    "representationChangeAloneMayCreateKnowledgePoint": false,
+    "applicationContextAloneMayCreateKnowledgePoint": false,
+    "candidateAuthorityPathPattern": "data/curriculum/global/candidates/r02/{sourceNodeId}.knowledge-point-candidates.json",
+    "canonicalAuthorityCutoverAllowedInR01": false,
+    "productionConsumerChangeAllowedInR01": false,
+    "secondProductionResolverAllowed": false
+  },
+  "knowledgePointBoundary": {
+    "requiredCandidateFields": [
+      "knowledgePointId",
+      "canonicalNameZh",
+      "capabilityStatement",
+      "indispensableConcepts",
+      "reasoningInvariant",
+      "misconceptionFamilies",
+      "validatorCapability",
+      "allowedVariationAxes",
+      "sourceRefs",
+      "legacyBatchRefs",
+      "candidateStatus",
+      "prerequisiteDeclaration",
+      "runtimeCapabilityDeclaration",
+      "mainlineBinding"
+    ],
+    "independentTeachingRequired": true,
+    "independentDiagnosisRequired": true,
+    "independentValidatorContractRequired": true,
+    "semanticIdentityFields": [
+      "capabilityStatement",
+      "indispensableConcepts",
+      "reasoningInvariant",
+      "validatorCapability.validatorCapabilityId"
+    ],
+    "sameKnowledgePointWhen": [
+      "primary learning outcome is unchanged",
+      "no new indispensable concept is introduced",
+      "reasoning invariant is unchanged",
+      "validator capability remains reusable"
+    ],
+    "newKnowledgePointCandidateWhen": [
+      "a new indispensable capability exists",
+      "the capability is independently teachable",
+      "the capability is independently diagnosable",
+      "an independent validator contract can be defined",
+      "curriculum or reviewed source evidence supports the boundary"
+    ]
+  },
+  "deferredContracts": {
+    "prerequisiteGraphTask": "R03_GlobalPrerequisiteGraph",
+    "runtimeCapabilityMatrixTask": "R04_SharedRuntimeCapabilityMatrix",
+    "legacyCompatibilityMigrationTask": "R06_Existing15UnitCompatibilityMigration",
+    "consumerCutoverTask": "R07_AuthoritativeConsumerCutover",
+    "candidatePrerequisiteMode": "DEFERRED_TO_R03",
+    "candidateRuntimeCapabilityMode": "DEFERRED_TO_R04"
+  },
+  "mainlineIntegration": {
+    "producer": "R02_G3toG6KnowledgePointCandidateReconciliation",
+    "authoritativeCandidateState": "data/curriculum/global/candidates/r02",
+    "currentProductionAuthority": "PR350_MERGED_15_UNIT_RUNTIME",
+    "runtimeConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "effectiveReadbackRequiredBeforeCutover": true,
+    "consumerCutoverAllowedBeforeR07": false,
+    "legacyAuthorityRetirementAllowedBeforeRuntimeProof": false,
+    "parallelCurriculumAuthorityAllowed": false,
+    "parallelGeneratorValidatorWorksheetPipelineAllowed": false
+  },
+  "r01Acceptance": {
+    "contractAndSchemaMachineValidated": true,
+    "all79CandidatesMaterialized": false,
+    "prerequisiteEdgesMaterialized": false,
+    "runtimeCapabilityMappingsMaterialized": false,
+    "productionConsumerChanged": false,
+    "visibleOutputChanged": false,
+    "nextTask": "R02_G3toG6_79SourceNodeKnowledgePointCandidateReconciliation"
+  }
+}

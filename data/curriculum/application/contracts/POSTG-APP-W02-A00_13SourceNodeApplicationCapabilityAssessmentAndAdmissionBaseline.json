@@ -1,0 +1,62 @@
+{
+  "schemaName": "POSTGAPPW02A00Source13AssessmentContractV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
+  "status": "SOURCE_AUTHORITY_AND_READINESS_BASELINE_PENDING_CI_AND_MERGE",
+  "purpose": "Create a deterministic source-level authority and KnowledgeOperation-readiness baseline for the fixed 13-node W02 queue without fabricating KnowledgePoints, application classifications or stories.",
+  "scope": {
+    "waveId": "W02",
+    "sourceNodeCount": 13,
+    "scopeLevel": "SOURCE_NODE",
+    "knowledgePointMaterializationIncluded": false,
+    "kpApplicationClassificationIncluded": false,
+    "canonicalOperationModelMaterializationIncluded": false,
+    "applicationContentAuthoringIncluded": false,
+    "worksheetOutputIncluded": false,
+    "productionAdmissionIncluded": false
+  },
+  "inputAuthority": {
+    "masterController": "data/curriculum/application/controller/postg-app-master-controller-state.json",
+    "wavePlan": "data/curriculum/application/controller/postg-app-wave-plan.json",
+    "sourceRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+    "sourceAuthorityRoot": "https://drive.google.com/drive/folders/1AcDSpHA5OpRMYOdsppeKtyF_vFhH_k0Z",
+    "sourceAuthorityBaseline": "data/curriculum/application/assessment/w02-source13-source-authority-baseline.json",
+    "policy": "data/curriculum/application/assessment/w02-source13-application-capability-policy.json"
+  },
+  "materializedAuthority": {
+    "index": "data/curriculum/application/assessment/w02-source13-application-assessment-index.json",
+    "runtime": "src/curriculum/application/w02-source13-application-assessment.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a00-assessment.mjs",
+    "test": "tests/curriculum/postg-app-w02-a00-assessment.test.js",
+    "recordIdentity": "sourceNodeId"
+  },
+  "acceptanceGates": [
+    "W01_REMAINS_E5_PRODUCTION_ADMITTED",
+    "W02_IS_SOLE_ASSESSMENT_READY_WAVE",
+    "W02_SOURCE_COUNT_EXACTLY_13",
+    "W02_SOURCE_ORDER_MATCHES_FIXED_CONTROLLER_QUEUE",
+    "ALL_13_SOURCE_METADATA_AUTHORITIES_EXPLICIT",
+    "KNOWLEDGE_OPERATION_EXISTENCE_CHECKED_AT_RUNTIME",
+    "NO_KP_CLASSIFICATION_FABRICATED",
+    "NO_FORCED_STORY_AUTHORIZED",
+    "NO_PRODUCTION_ADMISSION_GRANTED",
+    "M00_CONTROLLER_PASS",
+    "MILESTONE_CLAIM_INTEGRITY_PASS",
+    "NODE_TEST_PASS",
+    "MATH_CI_PASS"
+  ],
+  "readinessSemantics": {
+    "KNOWLEDGE_OPERATION_MATERIALIZATION_REQUIRED": "The source authority exists but the GitHub KnowledgeOperation registry must be materialized before KP-level classification.",
+    "READY_FOR_KP_APPLICATION_CLASSIFICATION": "The expected KnowledgeOperation registry exists and A01 may classify each KnowledgePoint independently.",
+    "MIXED_KP_SPLIT_REQUIRED": "A source unit may contain application-suitable and numeric-only KnowledgePoints; source-level blanket story admission is forbidden."
+  },
+  "productionBoundary": {
+    "productionAdmissionAllowed": false,
+    "publicRouteChanged": false,
+    "publicSelectionEnabled": false,
+    "humanReviewRequired": false,
+    "programD0Complete": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A01_13SourceNodeKnowledgeOperationCandidateMaterializationAndKPClassification"
+}

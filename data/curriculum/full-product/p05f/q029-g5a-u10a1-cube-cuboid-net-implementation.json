@@ -1,0 +1,107 @@
+{
+  "schemaName": "P05FW5Q029CubeCuboidNetImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice029Implementation",
+  "status": "MATERIALIZED_AWAITING_SHARED_RUNTIME_BOUNDED_CI",
+  "baselineMainSha": "5406600973c84dec9ac1ddc53a19ff4a4485db39",
+  "queueAuthority": {
+    "queuePosition": 29,
+    "sliceId": "p05e_q029_r2_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "sourceId": "g5a_u10_5a10a1",
+    "runtimeProfileId": "profile_spatial_solid",
+    "knowledgePointIds": ["kp_g5a_u10a1_cube_cuboid_net"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_construction",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "sourceAuthority": {
+    "sourceVisualPatternContract": "data/curriculum/full-product/p05f/q029-g5a-u10a1-cube-cuboid-net-source-visual-pattern-contract.json",
+    "sourceTitle": "正方體和長方體",
+    "sourcePdfTitle": "meow911_5a10a1_source.pdf",
+    "sourcePages": [1,2],
+    "sourcePdfDriveFileId": "1LVpCn7I1t17SpWbwCXLfHjghTBQ7lwL5"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g5a_u10a1_cube_cuboid_net_p05f29",
+    "canonicalNameZh": "正方體長方體展開圖",
+    "capabilityStatement": "學生能判斷或完成可摺成立體的展開圖。",
+    "reasoningInvariant": "六個面摺疊後不得重疊且所有相鄰邊正確接合。",
+    "relationFamily": "CUBE_CUBOID_NET_FOLDABILITY_AND_COMPLETION"
+  },
+  "patternSpecs": {
+    "count": 3,
+    "maxDistinctPerPatternSpec": 240,
+    "ids": [
+      "ps_g5a_u10a1_cube_net_foldability",
+      "ps_g5a_u10a1_cuboid_net_foldability",
+      "ps_g5a_u10a1_cube_cuboid_net_completion"
+    ]
+  },
+  "productChain": {
+    "selectorProjection": "site/modules/curriculum/registry/g5a-u10a1-cube-cuboid-net-selector-projection-p05f29.js",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p05f29-extension.js",
+    "runtime": "site/modules/curriculum/batch-a/g5a-u10a1-cube-cuboid-net-runtime-p05f29.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f29.js",
+    "validator": "validateG5AU10A1P05F29CubeCuboidNetQuestion",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f29-extension.js",
+    "renderer": "site/modules/renderer/cube-cuboid-net-diagram.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p05f29.js",
+    "sharedHtmlRenderer": "site/modules/renderer/html-renderer.js",
+    "currentWorksheetEntry": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js"
+  },
+  "runtimeContract": {
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "solidFamilies": ["CUBE","CUBOID"],
+    "foldabilityEvaluation": "DETERMINISTIC_3D_FACE_ORIENTATION_PROPAGATION",
+    "completionEvaluation": "EXACTLY_ONE_FOLDABLE_BOUNDED_CANDIDATE",
+    "cuboidOppositeFaceDimensionCompatibility": true,
+    "genericFallback": false,
+    "freeFormAI": false,
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED"
+  },
+  "publicAdmission": {
+    "selectionMode": "singleKnowledgePoint",
+    "questionType": "diagram",
+    "questionCountMax": 240,
+    "sourceUnitOwnershipTransferred": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false
+  },
+  "protectedBoundaries": {
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q008ElementIdentityTouched": false,
+    "q018EdgeLengthTouched": false,
+    "q018FaceRelationshipTouched": false,
+    "q028SolidNetSemanticsTouched": false,
+    "q038CubeCuboidSpatialReasoningTouched": false,
+    "surfaceAreaTouched": false,
+    "volumeTouched": false,
+    "viewpointTouched": false,
+    "applicationContextTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN",
+    "globalBrowserReplay": "FORBIDDEN",
+    "globalContracts": [
+      "tests/curriculum/p05f-w5-slice029-g5a-u10a1-cube-cuboid-net.test.js",
+      "tests/curriculum/p05f-w5-q029-cube-cuboid-net-source-visual-pattern-contract.test.js",
+      "tests/curriculum/p05f-w5-slice028-g5a-u10a-solid-net-correspondence.test.js"
+    ],
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-q029-classic-ui-acceptance.mjs"
+  },
+  "goalDistance": {
+    "before": "D2_Q029_CURRENT_INTEGRATION_PATH_AND_REUSE_BOUNDARY_LOCKED",
+    "afterCandidate": "D1_Q029_GENERATOR_VALIDATOR_RENDERER_WORKSHEET_PUBLIC_ROUTE_MATERIALIZED",
+    "d0Requires": "SHARED_RUNTIME_BOUNDED_CI_MERGE_AND_POST_MERGE_EXACT_PAGES_ACCEPTANCE"
+  }
+}

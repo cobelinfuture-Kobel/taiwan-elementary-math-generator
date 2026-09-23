@@ -1,0 +1,503 @@
+{
+  "schemaName": "G4AU08NumericCanonicalGapClosureDesignScan",
+  "schemaVersion": 1,
+  "task": "S76M_G4A_U08_NumericCanonicalGapClosureDesignScan",
+  "mode": "planning_only",
+  "status": "PASS_DESIGN_FROZEN_PENDING_IMPLEMENTATION_APPROVAL",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "authorityRefs": {
+    "sourceFreeze": "docs/curriculum/mapping/S76A_G4A_U08_SourceAuthorityFreeze.md",
+    "rebaseStandard": "docs/curriculum/mapping/S76B_BatchA_ValidatorOntologyRebaseStandard.md",
+    "reuseAudit": "docs/curriculum/mapping/S76C_G4A_U08_ExistingAssetReuseAudit.md",
+    "registry": "data/curriculum/registry/S76D_G4A_U08_KnowledgePointPatternGroupRegistry.json",
+    "applicationReclassification": "data/curriculum/mapping/S76E_G4A_U08_ExistingPatternSpecReclassification.json",
+    "d0Readback": "data/curriculum/contracts/S76L_G4A_U08_FullSourceD0AndBatchAMigrationReadback.json",
+    "legacyNumericDefinitions": "site/modules/curriculum/batch-a/source-pattern-g4a-u08-extension.js",
+    "legacyNumericGenerator": "site/modules/curriculum/batch-a/g4a-u08-expression-generator.js"
+  },
+  "currentGap": {
+    "numericKnowledgePointCount": 11,
+    "numericPatternGroupCount": 11,
+    "legacyNumericPatternSpecCount": 10,
+    "legacyNumericShapeVariantCount": 39,
+    "numericKnowledgePointsWithoutCanonicalClosure": 11,
+    "patternGroupsWithoutPatternSpecValidatorMutationClosure": 12,
+    "canonicalPatternGroupsNotPubliclyReachable": 24,
+    "additionalApplicationGapPatternGroupId": "pg_g4a_u08_app_cost_overlay",
+    "fullSourceD0Status": "blocked"
+  },
+  "legacyNumericInventory": [
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_parentheses_add_sub",
+      "expressionFamily": "parentheses_add_sub",
+      "shapeVariants": [
+        "parentheses_add_sub_middle_subtract_sum",
+        "parentheses_add_sub_middle_add_difference",
+        "parentheses_add_sub_leading_sum_minus",
+        "parentheses_add_sub_middle_sum_then_subtract"
+      ]
+    },
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_parentheses_mul_div",
+      "expressionFamily": "parentheses_mul_div",
+      "shapeVariants": [
+        "parentheses_mul_div_divide_by_product",
+        "parentheses_mul_div_multiply_by_quotient",
+        "parentheses_mul_div_leading_product_then_divide",
+        "parentheses_mul_div_factor_from_difference"
+      ]
+    },
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_mul_before_add_sub",
+      "expressionFamily": "mul_before_add_sub",
+      "shapeVariants": [
+        "mul_before_add_sub_middle_plus_then_minus",
+        "mul_before_add_sub_middle_minus_then_plus",
+        "mul_before_add_sub_leading_product",
+        "mul_before_add_sub_trailing_product"
+      ]
+    },
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_div_before_add_sub",
+      "expressionFamily": "div_before_add_sub",
+      "shapeVariants": [
+        "div_before_add_sub_middle_plus_then_minus",
+        "div_before_add_sub_middle_minus_then_plus",
+        "div_before_add_sub_leading_quotient",
+        "div_before_add_sub_trailing_quotient"
+      ]
+    },
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_add_sub_left_to_right",
+      "expressionFamily": "add_sub_left_to_right",
+      "shapeVariants": [
+        "add_sub_ltr_subtract_then_add",
+        "add_sub_ltr_add_then_subtract",
+        "add_sub_ltr_two_subtractions"
+      ]
+    },
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_mul_div_left_to_right",
+      "expressionFamily": "mul_div_left_to_right",
+      "shapeVariants": [
+        "mul_div_ltr_divide_then_multiply",
+        "mul_div_ltr_multiply_then_divide",
+        "mul_div_ltr_two_divisions"
+      ]
+    },
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_mixed_mul_div_add_sub_no_parentheses",
+      "expressionFamily": "mixed_no_parentheses",
+      "shapeVariants": [
+        "mixed_no_parentheses_mul_then_div",
+        "mixed_no_parentheses_div_then_mul",
+        "mixed_no_parentheses_leading_mul",
+        "mixed_no_parentheses_ltr_mul_div_chain"
+      ]
+    },
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_mixed_with_parentheses",
+      "expressionFamily": "mixed_with_parentheses",
+      "shapeVariants": [
+        "mixed_with_parentheses_middle_factor",
+        "mixed_with_parentheses_leading_group",
+        "mixed_with_parentheses_middle_group_then_mul",
+        "mixed_with_parentheses_trailing_add_after_group",
+        "mixed_with_parentheses_divide_by_group_then_mul"
+      ]
+    },
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_large_add_sub_overlay_no_parentheses",
+      "expressionFamily": "large_no_parentheses",
+      "shapeVariants": [
+        "large_no_parentheses_middle_mul",
+        "large_no_parentheses_middle_div",
+        "large_no_parentheses_trailing_mul",
+        "large_no_parentheses_trailing_div"
+      ]
+    },
+    {
+      "legacyPatternSpecId": "ps_g4a_u08_large_add_sub_overlay_with_parentheses",
+      "expressionFamily": "large_with_parentheses",
+      "shapeVariants": [
+        "large_with_parentheses_subtract_group_then_mul",
+        "large_with_parentheses_middle_group_mul",
+        "large_with_parentheses_leading_group_mul",
+        "large_with_parentheses_middle_group_difference"
+      ]
+    }
+  ],
+  "primaryReclassifications": [
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_parentheses_add_sub",
+      "patternGroupId": "pg_g4a_u08_num_parentheses_first",
+      "knowledgePointId": "kp_g4a_u08_num_parentheses_first",
+      "legacyPatternSpecId": "ps_g4a_u08_parentheses_add_sub",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "evaluate_parenthesized_add_sub_group_first"
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_parentheses_mul_div",
+      "patternGroupId": "pg_g4a_u08_num_parentheses_first",
+      "knowledgePointId": "kp_g4a_u08_num_parentheses_first",
+      "legacyPatternSpecId": "ps_g4a_u08_parentheses_mul_div",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "evaluate_parenthesized_mul_div_group_first"
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_mul_before_add_sub",
+      "patternGroupId": "pg_g4a_u08_num_mul_div_before_add_sub",
+      "knowledgePointId": "kp_g4a_u08_num_mul_div_before_add_sub",
+      "legacyPatternSpecId": "ps_g4a_u08_mul_before_add_sub",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "multiply_before_additive_overlay"
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_div_before_add_sub",
+      "patternGroupId": "pg_g4a_u08_num_mul_div_before_add_sub",
+      "knowledgePointId": "kp_g4a_u08_num_mul_div_before_add_sub",
+      "legacyPatternSpecId": "ps_g4a_u08_div_before_add_sub",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "divide_before_additive_overlay"
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_add_sub_left_to_right",
+      "patternGroupId": "pg_g4a_u08_num_add_sub_left_assoc",
+      "knowledgePointId": "kp_g4a_u08_num_add_sub_left_assoc",
+      "legacyPatternSpecId": "ps_g4a_u08_add_sub_left_to_right",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "left_associative_add_sub"
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_mul_div_left_to_right",
+      "patternGroupId": "pg_g4a_u08_num_mul_div_left_assoc",
+      "knowledgePointId": "kp_g4a_u08_num_mul_div_left_assoc",
+      "legacyPatternSpecId": "ps_g4a_u08_mul_div_left_to_right",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "left_associative_mul_div"
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_mixed_mul_div_add_sub_no_parentheses",
+      "patternGroupId": "pg_g4a_u08_num_mul_div_before_add_sub",
+      "knowledgePointId": "kp_g4a_u08_num_mul_div_before_add_sub",
+      "legacyPatternSpecId": "ps_g4a_u08_mixed_mul_div_add_sub_no_parentheses",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "complete_precedence_without_parentheses"
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_mixed_with_parentheses",
+      "patternGroupId": "pg_g4a_u08_num_parentheses_change_precedence",
+      "knowledgePointId": "kp_g4a_u08_num_parentheses_change_precedence",
+      "legacyPatternSpecId": "ps_g4a_u08_mixed_with_parentheses",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "nonredundant_parentheses_change_mixed_ast"
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_large_add_sub_overlay_no_parentheses",
+      "patternGroupId": "pg_g4a_u08_num_mul_div_before_add_sub",
+      "knowledgePointId": "kp_g4a_u08_num_mul_div_before_add_sub",
+      "legacyPatternSpecId": "ps_g4a_u08_large_add_sub_overlay_no_parentheses",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "large_add_sub_overlay_with_operator_precedence"
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_large_add_sub_overlay_with_parentheses",
+      "patternGroupId": "pg_g4a_u08_num_parentheses_change_precedence",
+      "knowledgePointId": "kp_g4a_u08_num_parentheses_change_precedence",
+      "legacyPatternSpecId": "ps_g4a_u08_large_add_sub_overlay_with_parentheses",
+      "strategy": "preserve_id_reclassify",
+      "reasoningRole": "large_overlay_nonredundant_parentheses_ast_change"
+    }
+  ],
+  "supplementalCanonicalPatternSpecs": [
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_num_add_group_round",
+      "patternGroupId": "pg_g4a_u08_num_add_group_round",
+      "knowledgePointId": "kp_g4a_u08_num_add_group_round",
+      "strategy": "constrained_reuse",
+      "legacyBindings": [
+        {
+          "legacyPatternSpecId": "ps_g4a_u08_add_sub_left_to_right",
+          "allowedShapeVariants": [
+            "add_sub_ltr_subtract_then_add",
+            "add_sub_ltr_add_then_subtract"
+          ]
+        }
+      ],
+      "requiredDerivedEvidence": [
+        "signedTermVector",
+        "usefulGroupingTermIndexes",
+        "equivalentReorderedExpressionTokens",
+        "equivalenceRuleId"
+      ],
+      "operandConstraint": "at_least_one_same_sign_pair_forms_multiple_of_10_or_100",
+      "newExpressionFamilyRequired": false
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_num_signed_term_move",
+      "patternGroupId": "pg_g4a_u08_num_signed_term_move",
+      "knowledgePointId": "kp_g4a_u08_num_signed_term_move",
+      "strategy": "shape_split_with_derived_equivalence",
+      "legacyBindings": [
+        {
+          "legacyPatternSpecId": "ps_g4a_u08_add_sub_left_to_right",
+          "allowedShapeVariants": [
+            "add_sub_ltr_subtract_then_add",
+            "add_sub_ltr_add_then_subtract",
+            "add_sub_ltr_two_subtractions"
+          ]
+        }
+      ],
+      "requiredDerivedEvidence": [
+        "signedTermVector",
+        "permutation",
+        "equivalentReorderedExpressionTokens",
+        "equivalenceRuleId"
+      ],
+      "newExpressionFamilyRequired": false
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_num_repeated_subtract_group",
+      "patternGroupId": "pg_g4a_u08_num_repeated_subtract_group",
+      "knowledgePointId": "kp_g4a_u08_num_repeated_subtract_group",
+      "strategy": "cross_family_equivalence_pair",
+      "legacyBindings": [
+        {
+          "legacyPatternSpecId": "ps_g4a_u08_add_sub_left_to_right",
+          "allowedShapeVariants": ["add_sub_ltr_two_subtractions"]
+        },
+        {
+          "legacyPatternSpecId": "ps_g4a_u08_parentheses_add_sub",
+          "allowedShapeVariants": ["parentheses_add_sub_middle_subtract_sum"]
+        }
+      ],
+      "equivalenceRuleId": "eq_repeated_subtract_group",
+      "requiredEquivalence": "a-b-c=a-(b+c)",
+      "blockingCounterexample": "a-(b-c)",
+      "newExpressionFamilyRequired": false
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_num_mul_div_safe_reorder",
+      "patternGroupId": "pg_g4a_u08_num_mul_div_safe_reorder",
+      "knowledgePointId": "kp_g4a_u08_num_mul_div_safe_reorder",
+      "strategy": "shape_split_with_rational_equivalence",
+      "legacyBindings": [
+        {
+          "legacyPatternSpecId": "ps_g4a_u08_mul_div_left_to_right",
+          "allowedShapeVariants": [
+            "mul_div_ltr_divide_then_multiply",
+            "mul_div_ltr_multiply_then_divide"
+          ]
+        }
+      ],
+      "requiredDerivedEvidence": [
+        "factorReciprocalVector",
+        "safePermutation",
+        "equivalentReorderedExpressionTokens",
+        "equivalenceRuleId"
+      ],
+      "newExpressionFamilyRequired": false
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_num_repeated_divide_group",
+      "patternGroupId": "pg_g4a_u08_num_repeated_divide_group",
+      "knowledgePointId": "kp_g4a_u08_num_repeated_divide_group",
+      "strategy": "cross_family_equivalence_pair",
+      "legacyBindings": [
+        {
+          "legacyPatternSpecId": "ps_g4a_u08_mul_div_left_to_right",
+          "allowedShapeVariants": ["mul_div_ltr_two_divisions"]
+        },
+        {
+          "legacyPatternSpecId": "ps_g4a_u08_parentheses_mul_div",
+          "allowedShapeVariants": ["parentheses_mul_div_divide_by_product"]
+        }
+      ],
+      "equivalenceRuleId": "eq_repeated_divide_group",
+      "requiredEquivalence": "a÷b÷c=a÷(b×c)",
+      "blockingCounterexample": "a÷(b÷c)",
+      "newExpressionFamilyRequired": false
+    },
+    {
+      "canonicalPatternSpecId": "ps_g4a_u08_num_compound_parentheses",
+      "patternGroupId": "pg_g4a_u08_num_compound_parentheses",
+      "knowledgePointId": "kp_g4a_u08_num_compound_parentheses",
+      "strategy": "new_bounded_family",
+      "templateFamily": "compound_two_parenthetical_groups_full_four_ops",
+      "expressionShape": "(a+b)×c-d÷(e-f)",
+      "requiredOperatorSet": ["+", "-", "×", "÷"],
+      "minimumParenthesisGroupCount": 2,
+      "maximumAstDepth": 4,
+      "exactIntegerDivisionRequired": true,
+      "intermediateRange": [0, 9999],
+      "newExpressionFamilyRequired": true
+    }
+  ],
+  "numericClosureSummary": {
+    "primaryReclassificationCount": 10,
+    "supplementalPatternSpecCount": 6,
+    "plannedNumericCanonicalPatternSpecCount": 16,
+    "newExpressionFamilyCount": 1,
+    "constrainedReuseCount": 1,
+    "shapeOrEquivalenceSplitCount": 4,
+    "crossFamilyEquivalencePairCount": 2,
+    "coveredNumericKnowledgePointCount": 11,
+    "coveredNumericPatternGroupCount": 11,
+    "legacyPatternSpecIdPreservation": true,
+    "legacyGeneratorRewriteRequired": false
+  },
+  "numericValidatorDesign": [
+    {
+      "patternGroupId": "pg_g4a_u08_num_add_group_round",
+      "requiredEvidence": ["signedTermVector", "usefulGroupingTermIndexes", "equivalentReorderedExpressionTokens"],
+      "blockingMutations": ["move_term_without_sign", "grouping_not_useful", "non_equivalent_reorder"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_signed_term_move",
+      "requiredEvidence": ["signedTermVector", "permutation", "equivalentReorderedExpressionTokens"],
+      "blockingMutations": ["sign_binding_changed", "term_dropped", "term_duplicated"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_add_sub_left_assoc",
+      "requiredEvidence": ["leftAssociatedAst", "operationOrderTrace"],
+      "blockingMutations": ["right_group_reinterpretation", "precedence_changing_parentheses"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_parentheses_first",
+      "requiredEvidence": ["parenthesisGroups", "firstTraceNodeInsideParentheses"],
+      "blockingMutations": ["outside_operation_evaluated_first", "parenthesis_group_removed"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_repeated_subtract_group",
+      "requiredEvidence": ["equivalenceRuleId", "ungroupedExpressionTokens", "groupedExpressionTokens"],
+      "blockingMutations": ["subtract_difference_instead_of_sum", "second_subtrahend_sign_flip"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_mul_div_safe_reorder",
+      "requiredEvidence": ["factorReciprocalVector", "safePermutation", "equivalentReorderedExpressionTokens"],
+      "blockingMutations": ["divisor_treated_as_multiplier", "zero_divisor", "non_equivalent_permutation"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_mul_div_left_assoc",
+      "requiredEvidence": ["leftAssociatedAst", "operationOrderTrace"],
+      "blockingMutations": ["reinterpret_as_divide_by_product", "right_group_reinterpretation"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_repeated_divide_group",
+      "requiredEvidence": ["equivalenceRuleId", "divisorProduct", "groupedExpressionTokens"],
+      "blockingMutations": ["divide_by_quotient", "zero_divisor", "divisor_omitted"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_mul_div_before_add_sub",
+      "requiredEvidence": ["ast", "operationOrderTrace", "higherPrecedenceNodeIndexes"],
+      "blockingMutations": ["evaluate_all_left_to_right", "additive_node_before_mul_div_node"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_parentheses_change_precedence",
+      "requiredEvidence": ["parenthesizedAstFingerprint", "unparenthesizedAstFingerprint", "parenthesesEffect"],
+      "blockingMutations": ["redundant_parentheses_claimed_nonredundant", "unparenthesized_ast_equal"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u08_num_compound_parentheses",
+      "requiredEvidence": ["ast", "parenthesisGroups", "operationOrderTrace", "intermediateValues"],
+      "blockingMutations": ["parenthesis_group_count_below_two", "operator_set_incomplete", "ast_depth_exceeded", "non_integer_division"]
+    }
+  ],
+  "appCostOverlayClosure": {
+    "knowledgePointId": "kp_g4a_u08_app_mul_div_before_add_sub",
+    "patternGroupId": "pg_g4a_u08_app_cost_overlay",
+    "canonicalPatternSpecId": "ps_g4a_u08_app_cost_overlay",
+    "templateFamilyId": "tpl_app_cost_component_plus_minus_overlay",
+    "strategy": "new_template_branch_reuse_existing_money_scenario_infrastructure",
+    "equationShapes": [
+      "unitCost×quantity+overlayAmount",
+      "unitCost×quantity-overlayAmount"
+    ],
+    "knownQuantityRoles": ["unitCost", "quantity", "overlayAmount"],
+    "unknownQuantityRole": "adjustedCost",
+    "requiredOperationSequence": ["×", "overlay"],
+    "requiredIntermediateQuantities": ["componentCost"],
+    "unitFlow": ["money_per_item×item_count=money", "money±money=money"],
+    "semanticRelations": ["single_cost_component", "overlay_direction_preserved"],
+    "blockingMutations": ["overlay_direction_flipped", "multiplication_component_omitted", "payment_balance_semantics_injected"],
+    "newGeneratorBranchRequired": true,
+    "publicRoutingIncludedInS76M": false
+  },
+  "plannedPostClosureCounts": {
+    "canonicalKnowledgePointCount": 15,
+    "canonicalPatternGroupCount": 28,
+    "existingCanonicalPatternSpecCount": 16,
+    "plannedNumericCanonicalPatternSpecCount": 16,
+    "plannedAppCostOverlayPatternSpecCount": 1,
+    "plannedTotalCanonicalPatternSpecCount": 33,
+    "plannedValidatorCoveredPatternGroupCount": 28,
+    "plannedMutationCoveredPatternGroupCount": 28,
+    "plannedPublicPatternGroupCountAfterRoutingMilestone": 28
+  },
+  "implementationSequence": [
+    {
+      "task": "S76N_G4A_U08_NumericCanonicalPatternSpecAndSamplerBindingImplementation",
+      "scope": "Implement the 10 primary numeric reclassifications, 5 reuse/split supplemental PatternSpecs, and 1 new bounded compound-parentheses family. Keep routing hidden."
+    },
+    {
+      "task": "S76O_G4A_U08_NumericCanonicalAdapterValidatorAndMutationClosure",
+      "scope": "Add canonical numeric GeneratedItem metadata, 11 PatternGroup fidelity validators, and deterministic mutation rejection. Keep routing hidden."
+    },
+    {
+      "task": "S76P_G4A_U08_AppCostOverlayClosure",
+      "scope": "Add the single missing app_cost_overlay PatternSpec, generator branch, adapter, validator, and mutation suite. Keep routing hidden."
+    },
+    {
+      "task": "S76Q_G4A_U08_AllCanonicalGroupsPublicRoutingAndWorksheetReachability",
+      "scope": "Promote the 24 currently unreachable canonical PatternGroups while preserving the four existing Phase2B routes and all legacy coarse aliases."
+    },
+    {
+      "task": "S76R_G4A_U08_FullSourceStressHTMLPDFAndD0Reevaluation",
+      "scope": "Run full canonical stress, semantic, mutation, selector, worksheet, HTML/PDF and S76B threshold evaluation before any D0 declaration."
+    }
+  ],
+  "scopeBoundary": {
+    "runtimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "selectorChanged": false,
+    "resolverChanged": false,
+    "worksheetChanged": false,
+    "rendererChanged": false,
+    "publicRoutingChanged": false,
+    "historicalMarkerChanged": false,
+    "d0Declared": false,
+    "crossGradeObjectiveImported": false,
+    "decimalOrFractionCapabilityAdded": false
+  },
+  "acceptance": {
+    "allLegacyNumericPatternSpecsAccountedFor": true,
+    "allLegacyShapeVariantsAccountedFor": true,
+    "allNumericKnowledgePointsCoveredByPlan": true,
+    "allNumericPatternGroupsCoveredByPlan": true,
+    "onlyOneNewNumericExpressionFamilyRequired": true,
+    "appCostOverlayClosureDefined": true,
+    "implementationSequenceBounded": true,
+    "planningOnly": true
+  },
+  "goalDistance": {
+    "before": "D1_G4A_U08_D0_GATE_QUANTIFIED_NUMERIC_CANONICAL_GAP",
+    "after": "D2_G4A_U08_NUMERIC_AND_COST_OVERLAY_CLOSURE_DESIGN_FROZEN",
+    "distanceReduced": "Replaced the cardinality-only minimum with an exact 10-primary-plus-6-supplemental numeric mapping, one bounded new expression family, one app_cost_overlay closure contract, and a five-milestone path to full canonical reachability.",
+    "remainingBlockers": [
+      "S76N-S76R implementation sequence is not yet approved",
+      "11 numeric PatternGroups remain unimplemented canonically",
+      "pg_g4a_u08_app_cost_overlay remains unimplemented",
+      "24 canonical PatternGroups remain publicly unreachable"
+    ],
+    "nextShortestStep": "S76N_G4A_U08_NumericCanonicalPatternSpecAndSamplerBindingImplementation"
+  },
+  "stop": {
+    "stopReason": "IMPLEMENTATION_APPROVAL_GATE",
+    "blockerType": "POLICY_GATE",
+    "lastCompletedStatus": "PASS_DESIGN_FROZEN_PENDING_IMPLEMENTATION_APPROVAL",
+    "requiredOperatorAction": "Approve the bounded S76N-S76R implementation sequence, beginning with hidden numeric PatternSpec and sampler binding only.",
+    "nextResumeTask": "S76N_G4A_U08_NumericCanonicalPatternSpecAndSamplerBindingImplementation"
+  }
+}

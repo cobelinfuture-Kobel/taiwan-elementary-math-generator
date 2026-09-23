@@ -1,0 +1,57 @@
+{
+  "schemaName": "G3BU08HumanSemanticReadbackAcceptance",
+  "schemaVersion": 1,
+  "task": "S58E_G3B_U08_SemanticValidatorRuntimeAndHumanReadbackQA_FullFix",
+  "sourceId": "g3b_u08_3b08",
+  "unitCode": "3B-U08",
+  "unitTitle": "乘法與除法",
+  "status": "human_readback_accepted",
+  "reviewedArtifacts": {
+    "auditPath": "data/curriculum/validation/S58E_G3B_U08_HumanSemanticReadbackAudit.json",
+    "auditGitBlobSha": "c695f193dba4cf2f5534325915bda58b778a6dc9",
+    "compactEvidencePath": "docs/curriculum/output/S58E_G3B_U08_HUMAN_READBACK_COMPACT.tsv",
+    "compactEvidenceGitBlobSha": "0c09782baadb847b9d2e90c92feb9a846b145fc0"
+  },
+  "coverage": {
+    "knowledgePointCount": 6,
+    "patternGroupCount": 6,
+    "patternSpecCount": 24,
+    "templateFamilyCount": 24,
+    "contextVariantCount": 72,
+    "acceptedRecordCount": 72,
+    "rejectedRecordCount": 0,
+    "remainingBlockingDefectCount": 0
+  },
+  "acceptedRecordNumbers": [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+    13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+    25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+    37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
+    49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+    61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72
+  ],
+  "manualReviewFields": [
+    "promptText",
+    "equationModel",
+    "answerText",
+    "unknown quantity role",
+    "unit and classifier flow",
+    "grade boundary",
+    "context realism",
+    "unique answer",
+    "same-price value conclusion"
+  ],
+  "fullFixHistory": [
+    "corrected lifecycle and punctuation gates discovered by CI",
+    "added family-specific realistic number ranges for scores, crafts, packages, sharing, capacity, price, quantity, length and comparison contexts",
+    "made capacity comparison objects explicit",
+    "changed length comparison conclusion from more to longer",
+    "removed duplicated package and item nouns",
+    "tightened basketball, craft, capacity and comparison ranges",
+    "limited same-price option imbalance",
+    "connected larger same-price total to an explicit better-value conclusion"
+  ],
+  "acceptanceStatement": "All 72 deterministic family-context records were manually read for Traditional Chinese naturalness, mathematical consistency, unknown-role clarity, units/classifiers, grade boundary, context realism and unique-answer quality after the recorded FullFix rounds. No blocking semantic defect remains in the reviewed S58E scope.",
+  "scopeLimit": "Acceptance covers the frozen 24 families and 72 registered deterministic context variants. Selector, canonical router, worksheet, renderer, public UI and production promotion remain outside S58E.",
+  "nextGate": "S58F_G3B_U08_PromotionLifecycleAndVisibleSelectorProjection"
+}

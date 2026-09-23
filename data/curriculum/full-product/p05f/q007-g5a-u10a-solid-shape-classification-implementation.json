@@ -1,0 +1,139 @@
+{
+  "schemaName": "P05FW5Q007SolidShapeClassificationImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice007Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 7,
+    "sliceId": "p05e_q007_r0_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "sourceId": "g5a_u10_5a10a",
+    "runtimeProfileId": "profile_spatial_solid",
+    "knowledgePointId": "kp_g5a_u10a_solid_shape_classification",
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q006_r0_g5a_u07_5a07_profile_geometry_property_c1",
+    "productMergeSha": "0f386d75c86b98fc0998f797ef3f5850fa20ef6b",
+    "exactPagesRunId": "33950114817",
+    "pagesDeploymentRunId": "33950114802",
+    "evidenceArtifactId": "9964549168",
+    "evidenceArtifactDigest": "sha256:0a99461f4a59ae62154925a398af3ad8dc75f29e09c87e1bee9a2ceadc517c69",
+    "postMergeTriggerEvent": "push",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q007-g5a-u10a-solid-shape-classification-source-authority-preflight.json",
+    "sourceTitle": "柱體錐體和球",
+    "sourcePdfTitle": "meow911_5a10a_source.pdf",
+    "sourcePages": [1,2],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "directReviewedConcepts": [
+      "SOLID_SHAPE_CLASSIFICATION_BY_BASE_SIDE_VERTEX_FEATURES",
+      "COLUMN_HAS_TWO_CONGRUENT_PARALLEL_BASES",
+      "CONE_CONVERGES_TO_ONE_APEX",
+      "SPHERE_HAS_NO_PLANE_BASE"
+    ],
+    "sourceIdentityAnomalyDisposition": "NONE_MATCHING_SOURCE_IDENTITY"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g5a_u10a_solid_shape_classification_p05f7",
+    "relationFamily": "SOLID_SHAPE_CLASSIFICATION",
+    "answerDomain": ["柱體","錐體","球"],
+    "includedRelations": [
+      "CLASSIFY_SOLIDS_BY_BASE_SIDE_VERTEX_FEATURES",
+      "DISTINGUISH_COLUMN_CONE_SPHERE",
+      "RECOGNIZE_DEFINING_SOLID_FEATURES"
+    ],
+    "excludedRelations": [
+      "SOLID_ELEMENTS_NAMING_OR_COUNT",
+      "SOLID_NET_CORRESPONDENCE",
+      "SOLID_CROSS_SECTION",
+      "SOLID_VIEWPOINT_REPRESENTATION",
+      "CUBE_CUBOID_SPECIAL_CASE_REASONING",
+      "SOLID_MEASUREMENT_OR_FORMULA",
+      "APPLICATION_CONTEXT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g5a_u10a_solid_shape_classification",
+    "patternSpecIds": [
+      "ps_g5a_u10a_classify_solids_by_features",
+      "ps_g5a_u10a_distinguish_column_cone_sphere",
+      "ps_g5a_u10a_recognize_defining_solid_features"
+    ],
+    "questionMode": "diagram",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false,
+    "maxQuestionCount": 240,
+    "requiresSolidGeometryRepresentation": true
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g5a-u10a-solid-shape-classification-runtime-p05f7.js",
+    "validator": "validateG5AU10AP05F7Question",
+    "diagramRenderer": "site/modules/renderer/solid-shape-classification-diagram.js",
+    "htmlRenderer": "site/modules/renderer/html-renderer.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f7.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f7-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 49,
+    "sourceCountAfter": 50,
+    "visibleKnowledgePointCountBefore": 318,
+    "visibleKnowledgePointCountAfter": 319,
+    "g5aU10aVisibleCount": 1,
+    "g5aU10aHiddenPendingCount": 4,
+    "g5aU10aNotSelectableCount": 4,
+    "questionTypeValue": "diagram",
+    "questionTypeLabel": "圖形題",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "postMergeEvidence": {
+    "workflow": ".github/workflows/p05f-w5-q007-live-pages-e2e.yml",
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "pullRequestTrigger": false,
+    "workflowRunTrigger": false,
+    "waitForExactPagesBytes": true,
+    "sha256ExactDeployedBytes": true,
+    "classicUiGeneratorValidatorWorksheetRendererPrintArtifact": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice007-g5a-u10a-solid-shape-classification.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice007-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q001SemanticsTouched": false,
+    "q002SemanticsTouched": false,
+    "q003SemanticsTouched": false,
+    "q004SemanticsTouched": false,
+    "q005SemanticsTouched": false,
+    "q006SemanticsTouched": false,
+    "solidElementsNamingOrCountTouched": false,
+    "solidNetCorrespondenceTouched": false,
+    "solidCrossSectionTouched": false,
+    "solidViewpointRepresentationTouched": false,
+    "cubeCuboidSpecialCaseReasoningTouched": false,
+    "solidMeasurementOrFormulaTouched": false,
+    "applicationContextTouched": false,
+    "q008Touched": false,
+    "frozenQueueAuthorityTouched": false
+  }
+}

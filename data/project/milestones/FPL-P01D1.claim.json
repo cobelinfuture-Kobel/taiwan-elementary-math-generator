@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P01D1_G5BU05LargeNumberVerticalSlice",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "G5B_U05_FOUR_KP_RUNTIME_VERTICAL_SLICE_E5",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g5b-u05-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p01d1-extension.js",
+      "site/modules/curriculum/batch-a/full-product-source-units-p01d1.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p01d1-extension.js",
+      "site/modules/curriculum/batch-a/large-number-place-value-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p01d1.js",
+      "tools/curriculum/validate-p01d1-g5b-u05-large-number.mjs",
+      "tests/curriculum/p01d1-g5b-u05-large-number-vertical-slice.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet.js",
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p01d1-g5b-u05-pdf-smoke.mjs"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/full-product/p01d1/g5b-u05-large-number-pattern-authority.json",
+      "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
+      "docs/curriculum/contracts/P01D1_G5B_U05_LARGE_NUMBER_VERTICAL_SLICE_CONTRACT_V1.md",
+      "docs/curriculum/output/P01D1_G5B_U05_LARGE_NUMBER_VERTICAL_SLICE_READBACK.md",
+      "docs/curriculum/output/P01A_W1_PRODUCT_ADMISSION_INVENTORY_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "Four G5B-U05 KnowledgePoints now use the full-product selector extension, shared planner, shared large-number place-value runtime, deterministic validator, WorksheetDocument, answer key, HTML renderer and CI-gated Chromium PDF path; the W1 gap falls from 21 to 17 KnowledgePoints without cutting over the public UI before P01E."
+  },
+  "nextStep": {
+    "taskId": "P01D2_G6AU01NumberTheoryVerticalSlice",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

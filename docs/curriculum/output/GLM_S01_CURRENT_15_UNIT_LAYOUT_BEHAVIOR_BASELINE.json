@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "glm-s01-current-layout-behavior-baseline-summary-v1",
+  "task": "GLM-S01_Current15UnitLayoutBehaviorAudit",
+  "status": "BASELINE_CAPTURED_REPRODUCED",
+  "headSha": "c908a1ecfae1385b575cd3044cd0a47eaaf179a1",
+  "workflow": {
+    "name": "GLM-S01 Current 15-Unit Layout Behavior Audit",
+    "runId": 29476490045,
+    "runNumber": 2,
+    "conclusion": "success",
+    "artifactId": 8366744280,
+    "artifactName": "glm-s01-current-15-unit-layout-behavior-audit",
+    "artifactDigest": "sha256:3088156b180d17fa35bf188fe52bc3f134a44b7bdfc73c910f2e5e1963706d6b",
+    "manifestSha256": "9b4a4449a284ec422c7d3272111deeed714af809739926b6383a9629cf595d31"
+  },
+  "scope": {
+    "publicUnitCount": 15,
+    "approvedLayoutCountPerUnit": 18,
+    "scenarioCount": 270,
+    "questionCountPerScenario": 18,
+    "includeAnswerKey": false,
+    "auditLayer": "worksheet_document_before_dom_pdf"
+  },
+  "classificationCounts": {
+    "PASS": 225,
+    "SILENTLY_CAPPED": 8,
+    "GENERATION_BLOCKED": 19,
+    "IGNORED": 18
+  },
+  "exactUnitCount": 11,
+  "gapUnitCount": 4,
+  "exactUnits": [
+    "g3a_u01_3a01",
+    "g3a_u02_3a02",
+    "g3a_u03_3a03",
+    "g3a_u06_3a06",
+    "g3b_u01_3b01",
+    "g3b_u04_3b04",
+    "g3b_u08_3b08",
+    "g4a_u04_4a04",
+    "g4a_u08_4a08",
+    "g4b_u01_4b01",
+    "g5a_u08_5a08"
+  ],
+  "gapUnits": [
+    {
+      "sourceId": "g4a_u01_4a01",
+      "unitCode": "4A-U01",
+      "title": "1億以內的數",
+      "classificationCounts": {
+        "PASS": 12,
+        "SILENTLY_CAPPED": 5,
+        "GENERATION_BLOCKED": 1
+      },
+      "nonPassLayouts": ["3x5", "2x5", "2x6", "1x5", "1x6", "1x7"],
+      "observations": [
+        "rowsPerPage is capped to 4 for five approved requests",
+        "1x6 is blocked by seed-specific first-difference and answer validation errors"
+      ]
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "unitCode": "4A-U02",
+      "title": "整數的乘法",
+      "classificationCounts": {
+        "PASS": 15,
+        "SILENTLY_CAPPED": 3
+      },
+      "nonPassLayouts": ["2x6", "1x6", "1x7"],
+      "observations": [
+        "rowsPerPage is capped to 5 for all three approved requests"
+      ]
+    },
+    {
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "title": "概數",
+      "classificationCounts": {
+        "GENERATION_BLOCKED": 18
+      },
+      "nonPassLayouts": [
+        "3x1", "3x2", "3x3", "3x4", "3x5",
+        "2x1", "2x2", "2x3", "2x4", "2x5", "2x6",
+        "1x1", "1x2", "1x3", "1x4", "1x5", "1x6", "1x7"
+      ],
+      "observations": [
+        "public sourceUnit mode is rejected by the canonical route",
+        "the existing G4B-U04 18-layout PASS applies to knowledge-point canonical mode, not default sourceUnit mode"
+      ],
+      "issueCodes": [
+        "G4B_U04_CANONICAL_SELECTION_MODE_INVALID",
+        "G4B_U04_CANONICAL_KP_NOT_PROMOTED",
+        "G4B_U04_CANONICAL_GROUP_NOT_RESOLVED",
+        "G4B_U04_CANONICAL_PATTERN_NOT_PROMOTED"
+      ]
+    },
+    {
+      "sourceId": "g5a_u02_5a02",
+      "unitCode": "5A-U02",
+      "title": "因數與公因數",
+      "classificationCounts": {
+        "IGNORED": 18
+      },
+      "nonPassLayouts": [
+        "3x1", "3x2", "3x3", "3x4", "3x5",
+        "2x1", "2x2", "2x3", "2x4", "2x5", "2x6",
+        "1x1", "1x2", "1x3", "1x4", "1x5", "1x6", "1x7"
+      ],
+      "observations": [
+        "static public candidate exposes no question layout readback authority",
+        "all requests produce 22 questions and 22 one-question pages despite requesting 18 questions and variable layouts"
+      ],
+      "issueCodes": ["g5a_u02_public_canonical_static_release"]
+    }
+  ],
+  "globalLayoutStatus": "DOCUMENT_LAYER_GAPS_DETECTED",
+  "nextTask": "GLM-S02_UnitRendererProfileAndWorstCaseQuestionAudit"
+}

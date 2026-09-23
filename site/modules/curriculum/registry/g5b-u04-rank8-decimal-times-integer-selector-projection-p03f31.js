@@ -1,0 +1,89 @@
+export const P03F31_TASK_ID = "P03F_W3DirectProductVerticalSlice031Implementation";
+export const G5B_U04_P03F31_SOURCE_ID = "g5b_u04_5b04";
+export const G5B_U04_P03F31_UNIT_CODE = "5B-U04";
+export const G5B_U04_P03F31_UNIT_TITLE = "小數的乘法";
+export const G5B_U04_P03F31_KP_ID = "kp_g5b_u04_decimal_times_integer";
+export const G5B_U04_P03F31_GROUP_ID = "pg_g5b_u04_decimal_times_integer_numeric";
+export const G5B_U04_P03F31_SPEC_ID = "ps_g5b_u04_decimal_times_integer_product_numeric";
+export const P03F31_REQUIRED_CAPABILITY_IDS = Object.freeze([
+  "cap_decimal_arithmetic",
+  "cap_decimal_domain_validator",
+  "cap_decimal_number_system",
+]);
+
+export const G5B_U04_P03F31_PATTERN_GROUP = Object.freeze({
+  patternGroupId: G5B_U04_P03F31_GROUP_ID,
+  sourceId: G5B_U04_P03F31_SOURCE_ID,
+  unitCode: G5B_U04_P03F31_UNIT_CODE,
+  unitTitle: G5B_U04_P03F31_UNIT_TITLE,
+  displayName: "三位小數乘以整數",
+  primaryKnowledgePointId: G5B_U04_P03F31_KP_ID,
+  knowledgePointIds: Object.freeze([G5B_U04_P03F31_KP_ID]),
+  supportClass: "A",
+  mode: "numeric",
+  publicQuestionMode: "numeric",
+  representationTag: "decimal_multiplication",
+  representationTags: Object.freeze(["decimal", "multiplication", "three_decimal_places", "integer_factor", "exact_decimal"]),
+  patternSpecIds: Object.freeze([G5B_U04_P03F31_SPEC_ID]),
+  allocationPolicy: "single_pattern_spec",
+  visibilityStatus: "visible",
+  holdReason: null,
+});
+
+export const G5B_U04_P03F31_SELECTOR_ROW = Object.freeze({
+  knowledgePointId: G5B_U04_P03F31_KP_ID,
+  sourceId: G5B_U04_P03F31_SOURCE_ID,
+  unitCode: G5B_U04_P03F31_UNIT_CODE,
+  unitTitle: G5B_U04_P03F31_UNIT_TITLE,
+  displayName: "小數乘以整數",
+  canonicalNameZh: "小數乘以整數",
+  mode: "numeric",
+  questionMode: "numeric",
+  questionModes: Object.freeze(["numeric"]),
+  supportClass: "A",
+  visibilityStatus: "visible",
+  selectorStatus: "visible",
+  holdReason: null,
+  applicationClassification: "APPLICATION_COMPATIBLE_FUTURE_QUEUE_RESERVED",
+  canonicalPatternGroupIds: Object.freeze([G5B_U04_P03F31_GROUP_ID]),
+  canonicalPatternSpecIds: Object.freeze([G5B_U04_P03F31_SPEC_ID]),
+  patternGroupIds: Object.freeze([G5B_U04_P03F31_GROUP_ID]),
+  patternSpecIds: Object.freeze([G5B_U04_P03F31_SPEC_ID]),
+  requiredCapabilityIds: P03F31_REQUIRED_CAPABILITY_IDS,
+  hiddenApplicationPatternSpecIds: Object.freeze([]),
+  qaStatusLabel: "P03F31_SLICE031_SOURCE_VISUALLY_VERIFIED",
+  productionUse: "full_product_w3_slice031_candidate",
+});
+
+export const G5B_U04_P03F31_SELECTOR_PROJECTION = Object.freeze({
+  taskId: P03F31_TASK_ID,
+  sourceId: G5B_U04_P03F31_SOURCE_ID,
+  status: "DECIMAL_TIMES_INTEGER_KP_ADDED_AS_NEW_PUBLIC_SOURCE",
+  knowledgePointCount: 1,
+  patternGroupCount: 1,
+  patternSpecCount: 1,
+  numericPatternSpecCount: 1,
+  applicationPatternSpecCount: 0,
+  hiddenApplicationPatternSpecIds: Object.freeze([]),
+  publicSelectionEnabled: true,
+  sharedPipelineRequired: true,
+  applicationModeAllowed: false,
+  expectedSourceVisibleCountAfterAdmission: 1,
+  expectedSourceHiddenCountAfterAdmission: 0,
+  expectedPublicSourceCountAfterAdmission: 31,
+  expectedPublicKnowledgePointCountAfterAdmission: 225,
+});
+
+const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
+export function listG5BU04P03F31SelectorRows() { return [clone(G5B_U04_P03F31_SELECTOR_ROW)]; }
+export function getG5BU04P03F31SelectorRow(id) { return id === G5B_U04_P03F31_KP_ID ? clone(G5B_U04_P03F31_SELECTOR_ROW) : null; }
+export function listG5BU04P03F31PatternGroups(id) { return id === G5B_U04_P03F31_KP_ID ? [clone(G5B_U04_P03F31_PATTERN_GROUP)] : []; }
+export function resolveG5BU04P03F31PatternSpecIds(id) { return id === G5B_U04_P03F31_KP_ID ? [G5B_U04_P03F31_SPEC_ID] : []; }
+export function auditG5BU04P03F31SelectorProjection() {
+  const errors = [];
+  if (G5B_U04_P03F31_SELECTOR_ROW.questionMode !== "numeric") errors.push("P03F31_QUESTION_MODE_INVALID");
+  if (G5B_U04_P03F31_PATTERN_GROUP.patternSpecIds.length !== 1) errors.push("P03F31_SPEC_COUNT_INVALID");
+  if (JSON.stringify(G5B_U04_P03F31_SELECTOR_ROW.requiredCapabilityIds) !== JSON.stringify(P03F31_REQUIRED_CAPABILITY_IDS)) errors.push("P03F31_CAPABILITY_SET_INVALID");
+  if (G5B_U04_P03F31_SELECTOR_ROW.hiddenApplicationPatternSpecIds.length !== 0) errors.push("P03F31_APPLICATION_LEAK");
+  return Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors), counts: Object.freeze({ knowledgePoints: 1, patternGroups: 1, patternSpecs: 1, numeric: 1, application: 0 }) });
+}

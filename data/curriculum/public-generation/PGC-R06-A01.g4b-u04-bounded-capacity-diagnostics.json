@@ -1,0 +1,2283 @@
+{
+  "schemaName": "PublicG4BU04BoundedReasoningMixedCapacityDiagnosticsV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R06-A01_BoundedCapacityReasoningMixedPBLRouteFullFix",
+  "status": "PASS_R06_A01_G4BU04_ALL_15_BOUNDED_ROUTES_LIVE_20_CONFORMANT_PENDING_CONTRACT_RECONCILIATION",
+  "diagnosticSeeds": [
+    "pgc-r06-a01-g4b-u04-01",
+    "pgc-r06-a01-g4b-u04-02"
+  ],
+  "sourceInventory": "data/curriculum/public-generation/PGC-R06.reasoning-mixed-pbl-inventory.json",
+  "summary": {
+    "targetRouteCount": 15,
+    "live20PassRouteCount": 15,
+    "live20FailRouteCount": 0,
+    "routeCountByQuestionType": {
+      "mixed": 9,
+      "reasoning": 6
+    },
+    "distinctKnowledgePointCount": 3
+  },
+  "routes": [
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_mixed_473626f19ede",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_symbol_reading"
+      ],
+      "questionType": "mixed",
+      "contextMode": "sdg",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_approximation_symbol"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_symbol_reading"
+      ],
+      "currentVerifiedMaxQuestionCount": 1,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
+          "worksheetSignature": "cc0c86d51ff036567a1e",
+          "itemSetSignature": "41363474934fe5ef5fe8",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "≈ 用來表示近似關係，它的中文讀法是什麼？",
+              "answer": "",
+              "promptHash": "3f2c5b4c9779a095e26d",
+              "itemSignature": "da263ff5afb5db1e5196",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "498 和 500 可寫成 498 ≈ 500，其中 ≈ 怎麼讀？",
+              "answer": "",
+              "promptHash": "7d6167261fd1097eea4d",
+              "itemSignature": "35ecb053ccc9eafd87e0",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "在概數單元裡，符號 ≈ 應讀作什麼？",
+              "answer": "",
+              "promptHash": "b8d99066cbf459af5ced",
+              "itemSignature": "8a0179547da94b23997b",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
+          "worksheetSignature": "a5688bd8765ad2b5b582",
+          "itemSetSignature": "9f89184efc53faf5215c",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "在 498 ≈ 500 中，≈ 讀作什麼？",
+              "answer": "",
+              "promptHash": "5c34d72dd04171bbeac4",
+              "itemSignature": "a28df8b4e3900d8b9a04",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "在近似關係式裡，≈ 的讀法是什麼？",
+              "answer": "",
+              "promptHash": "9c6771ee77a1e9f2bdaa",
+              "itemSignature": "61bd8df002c199da63d2",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "請辨認符號：≈ 的中文名稱。",
+              "answer": "",
+              "promptHash": "1704c5d077e577d8a13b",
+              "itemSignature": "52e207bc65d6a676d985",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_mixed_7852d15a264d",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "questionType": "mixed",
+      "contextMode": "mixed",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_original_values"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 5□□25，用四捨五入法取概數到千位後是 55,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "aacecfadbd5d526485d2",
+              "itemSignature": "eeae2753ba8335d0c51c",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□25，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "ba99fc6835000411602c",
+              "itemSignature": "eb216981afb93e802b98",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "1faa81a2d51d8d0edb41",
+          "itemSetSignature": "6e68acdaf243c342a4b3",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 4□□75，用四捨五入法取概數到千位後是 45,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "55dd9ce9f833fd59849e",
+              "itemSignature": "e25f7baae95e98179817",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 3□□99，用四捨五入法取概數到千位後是 35,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "f52ce6e529bb102655bb",
+              "itemSignature": "ec37915f7dc4b8d7c634",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_mixed_8ba934385ecd",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "questionType": "mixed",
+      "contextMode": "sdg",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_original_values"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 5□□25，用四捨五入法取概數到千位後是 55,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "aacecfadbd5d526485d2",
+              "itemSignature": "eeae2753ba8335d0c51c",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□25，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "ba99fc6835000411602c",
+              "itemSignature": "eb216981afb93e802b98",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "1faa81a2d51d8d0edb41",
+          "itemSetSignature": "6e68acdaf243c342a4b3",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 4□□75，用四捨五入法取概數到千位後是 45,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "55dd9ce9f833fd59849e",
+              "itemSignature": "e25f7baae95e98179817",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 3□□99，用四捨五入法取概數到千位後是 35,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "f52ce6e529bb102655bb",
+              "itemSignature": "ec37915f7dc4b8d7c634",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_mixed_9793ac06b033",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "questionType": "mixed",
+      "contextMode": "daily_life",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_original_values"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 5□□25，用四捨五入法取概數到千位後是 55,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "aacecfadbd5d526485d2",
+              "itemSignature": "eeae2753ba8335d0c51c",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□25，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "ba99fc6835000411602c",
+              "itemSignature": "eb216981afb93e802b98",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "1faa81a2d51d8d0edb41",
+          "itemSetSignature": "6e68acdaf243c342a4b3",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 4□□75，用四捨五入法取概數到千位後是 45,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "55dd9ce9f833fd59849e",
+              "itemSignature": "e25f7baae95e98179817",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 3□□99，用四捨五入法取概數到千位後是 35,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "f52ce6e529bb102655bb",
+              "itemSignature": "ec37915f7dc4b8d7c634",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_mixed_9b10d25462b6",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit"
+      ],
+      "questionType": "mixed",
+      "contextMode": "sdg",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_digit_set"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "17□61 用四捨五入法取概數到千位後是 18,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "649206aba952a40d03f0",
+              "itemSignature": "a05c7af53e825a9fdc83",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "1□42 用四捨五入法取概數到千位後是 2,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "4f3a783bc3df6c0c2ad2",
+              "itemSignature": "5878a7c045378570bbac",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□42 用四捨五入法取概數到千位後是 5,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "2a52fe5c4f96a9eb0dbe",
+              "itemSignature": "20efddc26baaf977d816",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "63ffac4a04b55d56874d",
+          "itemSetSignature": "486a1a4a68e852f45c96",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "3□42 用四捨五入法取概數到千位後是 4,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "42f36618f42e768f90bc",
+              "itemSignature": "75d1024c6b0532f6adf9",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□318 用四捨五入法取概數到萬位後是 50,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "cd3d73fb5f22ecbb5288",
+              "itemSignature": "5a1a02ac3f60bfd92570",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "87□61 用四捨五入法取概數到千位後是 88,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "6fd3ed2dd21c5d1124df",
+              "itemSignature": "07d36cd029f3bdbe2468",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_mixed_a45f804b3a31",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_symbol_reading"
+      ],
+      "questionType": "mixed",
+      "contextMode": "daily_life",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_approximation_symbol"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_symbol_reading"
+      ],
+      "currentVerifiedMaxQuestionCount": 1,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
+          "worksheetSignature": "cc0c86d51ff036567a1e",
+          "itemSetSignature": "41363474934fe5ef5fe8",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "≈ 用來表示近似關係，它的中文讀法是什麼？",
+              "answer": "",
+              "promptHash": "3f2c5b4c9779a095e26d",
+              "itemSignature": "da263ff5afb5db1e5196",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "498 和 500 可寫成 498 ≈ 500，其中 ≈ 怎麼讀？",
+              "answer": "",
+              "promptHash": "7d6167261fd1097eea4d",
+              "itemSignature": "35ecb053ccc9eafd87e0",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "在概數單元裡，符號 ≈ 應讀作什麼？",
+              "answer": "",
+              "promptHash": "b8d99066cbf459af5ced",
+              "itemSignature": "8a0179547da94b23997b",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
+          "worksheetSignature": "a5688bd8765ad2b5b582",
+          "itemSetSignature": "9f89184efc53faf5215c",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "在 498 ≈ 500 中，≈ 讀作什麼？",
+              "answer": "",
+              "promptHash": "5c34d72dd04171bbeac4",
+              "itemSignature": "a28df8b4e3900d8b9a04",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "在近似關係式裡，≈ 的讀法是什麼？",
+              "answer": "",
+              "promptHash": "9c6771ee77a1e9f2bdaa",
+              "itemSignature": "61bd8df002c199da63d2",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "請辨認符號：≈ 的中文名稱。",
+              "answer": "",
+              "promptHash": "1704c5d077e577d8a13b",
+              "itemSignature": "52e207bc65d6a676d985",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_mixed_a56e4df5f965",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_approximation_symbol_reading"
+      ],
+      "questionType": "mixed",
+      "contextMode": "mixed",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_approximation_symbol"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_approx_symbol_reading"
+      ],
+      "currentVerifiedMaxQuestionCount": 1,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
+          "worksheetSignature": "cc0c86d51ff036567a1e",
+          "itemSetSignature": "41363474934fe5ef5fe8",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "≈ 用來表示近似關係，它的中文讀法是什麼？",
+              "answer": "",
+              "promptHash": "3f2c5b4c9779a095e26d",
+              "itemSignature": "da263ff5afb5db1e5196",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "498 和 500 可寫成 498 ≈ 500，其中 ≈ 怎麼讀？",
+              "answer": "",
+              "promptHash": "7d6167261fd1097eea4d",
+              "itemSignature": "35ecb053ccc9eafd87e0",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "在概數單元裡，符號 ≈ 應讀作什麼？",
+              "answer": "",
+              "promptHash": "b8d99066cbf459af5ced",
+              "itemSignature": "8a0179547da94b23997b",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_approx_symbol_reading"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_approximation_symbol_reading"
+          ],
+          "worksheetSignature": "a5688bd8765ad2b5b582",
+          "itemSetSignature": "9f89184efc53faf5215c",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "在 498 ≈ 500 中，≈ 讀作什麼？",
+              "answer": "",
+              "promptHash": "5c34d72dd04171bbeac4",
+              "itemSignature": "a28df8b4e3900d8b9a04",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "在近似關係式裡，≈ 的讀法是什麼？",
+              "answer": "",
+              "promptHash": "9c6771ee77a1e9f2bdaa",
+              "itemSignature": "61bd8df002c199da63d2",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            },
+            {
+              "prompt": "請辨認符號：≈ 的中文名稱。",
+              "answer": "",
+              "promptHash": "1704c5d077e577d8a13b",
+              "itemSignature": "52e207bc65d6a676d985",
+              "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+              "knowledgePointIds": [
+                "kp_g4b_u04_approximation_symbol_reading"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_mixed_a623c0374400",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit"
+      ],
+      "questionType": "mixed",
+      "contextMode": "daily_life",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_digit_set"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "17□61 用四捨五入法取概數到千位後是 18,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "649206aba952a40d03f0",
+              "itemSignature": "a05c7af53e825a9fdc83",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "1□42 用四捨五入法取概數到千位後是 2,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "4f3a783bc3df6c0c2ad2",
+              "itemSignature": "5878a7c045378570bbac",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□42 用四捨五入法取概數到千位後是 5,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "2a52fe5c4f96a9eb0dbe",
+              "itemSignature": "20efddc26baaf977d816",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "63ffac4a04b55d56874d",
+          "itemSetSignature": "486a1a4a68e852f45c96",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "3□42 用四捨五入法取概數到千位後是 4,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "42f36618f42e768f90bc",
+              "itemSignature": "75d1024c6b0532f6adf9",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□318 用四捨五入法取概數到萬位後是 50,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "cd3d73fb5f22ecbb5288",
+              "itemSignature": "5a1a02ac3f60bfd92570",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "87□61 用四捨五入法取概數到千位後是 88,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "6fd3ed2dd21c5d1124df",
+              "itemSignature": "07d36cd029f3bdbe2468",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_mixed_d81c71e11157",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit"
+      ],
+      "questionType": "mixed",
+      "contextMode": "mixed",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_digit_set"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "17□61 用四捨五入法取概數到千位後是 18,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "649206aba952a40d03f0",
+              "itemSignature": "a05c7af53e825a9fdc83",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "1□42 用四捨五入法取概數到千位後是 2,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "4f3a783bc3df6c0c2ad2",
+              "itemSignature": "5878a7c045378570bbac",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□42 用四捨五入法取概數到千位後是 5,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "2a52fe5c4f96a9eb0dbe",
+              "itemSignature": "20efddc26baaf977d816",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "63ffac4a04b55d56874d",
+          "itemSetSignature": "486a1a4a68e852f45c96",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "mixed",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "3□42 用四捨五入法取概數到千位後是 4,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "42f36618f42e768f90bc",
+              "itemSignature": "75d1024c6b0532f6adf9",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□318 用四捨五入法取概數到萬位後是 50,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "cd3d73fb5f22ecbb5288",
+              "itemSignature": "5a1a02ac3f60bfd92570",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "87□61 用四捨五入法取概數到千位後是 88,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "6fd3ed2dd21c5d1124df",
+              "itemSignature": "07d36cd029f3bdbe2468",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_4ab8363fe09f",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit"
+      ],
+      "questionType": "reasoning",
+      "contextMode": "sdg",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_digit_set"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "17□61 用四捨五入法取概數到千位後是 18,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "649206aba952a40d03f0",
+              "itemSignature": "a05c7af53e825a9fdc83",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "1□42 用四捨五入法取概數到千位後是 2,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "4f3a783bc3df6c0c2ad2",
+              "itemSignature": "5878a7c045378570bbac",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□42 用四捨五入法取概數到千位後是 5,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "2a52fe5c4f96a9eb0dbe",
+              "itemSignature": "20efddc26baaf977d816",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "63ffac4a04b55d56874d",
+          "itemSetSignature": "486a1a4a68e852f45c96",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "3□42 用四捨五入法取概數到千位後是 4,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "42f36618f42e768f90bc",
+              "itemSignature": "75d1024c6b0532f6adf9",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□318 用四捨五入法取概數到萬位後是 50,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "cd3d73fb5f22ecbb5288",
+              "itemSignature": "5a1a02ac3f60bfd92570",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "87□61 用四捨五入法取概數到千位後是 88,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "6fd3ed2dd21c5d1124df",
+              "itemSignature": "07d36cd029f3bdbe2468",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_a61c663f2ea9",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit"
+      ],
+      "questionType": "reasoning",
+      "contextMode": "mixed",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_digit_set"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "17□61 用四捨五入法取概數到千位後是 18,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "649206aba952a40d03f0",
+              "itemSignature": "a05c7af53e825a9fdc83",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "1□42 用四捨五入法取概數到千位後是 2,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "4f3a783bc3df6c0c2ad2",
+              "itemSignature": "5878a7c045378570bbac",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□42 用四捨五入法取概數到千位後是 5,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "2a52fe5c4f96a9eb0dbe",
+              "itemSignature": "20efddc26baaf977d816",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "63ffac4a04b55d56874d",
+          "itemSetSignature": "486a1a4a68e852f45c96",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "3□42 用四捨五入法取概數到千位後是 4,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "42f36618f42e768f90bc",
+              "itemSignature": "75d1024c6b0532f6adf9",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□318 用四捨五入法取概數到萬位後是 50,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "cd3d73fb5f22ecbb5288",
+              "itemSignature": "5a1a02ac3f60bfd92570",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "87□61 用四捨五入法取概數到千位後是 88,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "6fd3ed2dd21c5d1124df",
+              "itemSignature": "07d36cd029f3bdbe2468",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_bf41bdbb6ea8",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "questionType": "reasoning",
+      "contextMode": "daily_life",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_original_values"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 5□□25，用四捨五入法取概數到千位後是 55,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "aacecfadbd5d526485d2",
+              "itemSignature": "eeae2753ba8335d0c51c",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□25，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "ba99fc6835000411602c",
+              "itemSignature": "eb216981afb93e802b98",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "1faa81a2d51d8d0edb41",
+          "itemSetSignature": "6e68acdaf243c342a4b3",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 4□□75，用四捨五入法取概數到千位後是 45,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "55dd9ce9f833fd59849e",
+              "itemSignature": "e25f7baae95e98179817",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 3□□99，用四捨五入法取概數到千位後是 35,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "f52ce6e529bb102655bb",
+              "itemSignature": "ec37915f7dc4b8d7c634",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_e0adbd44db8b",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "questionType": "reasoning",
+      "contextMode": "mixed",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_original_values"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 5□□25，用四捨五入法取概數到千位後是 55,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "aacecfadbd5d526485d2",
+              "itemSignature": "eeae2753ba8335d0c51c",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□25，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "ba99fc6835000411602c",
+              "itemSignature": "eb216981afb93e802b98",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "1faa81a2d51d8d0edb41",
+          "itemSetSignature": "6e68acdaf243c342a4b3",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 4□□75，用四捨五入法取概數到千位後是 45,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "55dd9ce9f833fd59849e",
+              "itemSignature": "e25f7baae95e98179817",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 3□□99，用四捨五入法取概數到千位後是 35,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "f52ce6e529bb102655bb",
+              "itemSignature": "ec37915f7dc4b8d7c634",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_fbdaee663f87",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_unknown_digit"
+      ],
+      "questionType": "reasoning",
+      "contextMode": "daily_life",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_digit_set"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "37630127294bbef4de72",
+          "itemSetSignature": "996ffd26e9879dbd3791",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "17□61 用四捨五入法取概數到千位後是 18,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "649206aba952a40d03f0",
+              "itemSignature": "a05c7af53e825a9fdc83",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "1□42 用四捨五入法取概數到千位後是 2,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "4f3a783bc3df6c0c2ad2",
+              "itemSignature": "5878a7c045378570bbac",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□42 用四捨五入法取概數到千位後是 5,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "2a52fe5c4f96a9eb0dbe",
+              "itemSignature": "20efddc26baaf977d816",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_digit_set"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_unknown_digit"
+          ],
+          "worksheetSignature": "63ffac4a04b55d56874d",
+          "itemSetSignature": "486a1a4a68e852f45c96",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "3□42 用四捨五入法取概數到千位後是 4,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "42f36618f42e768f90bc",
+              "itemSignature": "75d1024c6b0532f6adf9",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "4□318 用四捨五入法取概數到萬位後是 50,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "cd3d73fb5f22ecbb5288",
+              "itemSignature": "5a1a02ac3f60bfd92570",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            },
+            {
+              "prompt": "87□61 用四捨五入法取概數到千位後是 88,000，□ 可以填哪些數字？",
+              "answer": "",
+              "promptHash": "6fd3ed2dd21c5d1124df",
+              "itemSignature": "07d36cd029f3bdbe2468",
+              "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_unknown_digit"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    },
+    {
+      "routeId": "pgc_r03_g4b_u04_4b04_reasoning_fed3e04e2432",
+      "sourceId": "g4b_u04_4b04",
+      "selectionMode": "singleKnowledgePoint",
+      "selectedKnowledgePointIds": [
+        "kp_g4b_u04_inverse_rounding_possible_original"
+      ],
+      "questionType": "reasoning",
+      "contextMode": "sdg",
+      "generationPatternGroupIds": [
+        "pg_g4b_u04_inverse_original_values"
+      ],
+      "compatiblePatternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "currentVerifiedMaxQuestionCount": 12,
+      "currentQualityStatus": "FIXTURE_SELECTOR",
+      "currentGapCodes": [
+        "CAPACITY_BELOW_20",
+        "CROSS_SEED_ITEM_DIVERSITY_DEFICIENT"
+      ],
+      "liveFailureCodes": [],
+      "liveAccepted20AcrossSeeds": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a01-g4b-u04-01",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "76c539124a2c58962fb4",
+          "itemSetSignature": "717fbf993ff802e03417",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 5□□25，用四捨五入法取概數到千位後是 55,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "aacecfadbd5d526485d2",
+              "itemSignature": "eeae2753ba8335d0c51c",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□25，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "ba99fc6835000411602c",
+              "itemSignature": "eb216981afb93e802b98",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        },
+        {
+          "seed": "pgc-r06-a01-g4b-u04-02",
+          "requestedQuestionCount": 20,
+          "ok": true,
+          "thrownError": null,
+          "errorCodes": [],
+          "evidenceProjection": "questionDisplayModels",
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "emptyPromptCount": 0,
+          "duplicatePromptCount": 0,
+          "uniquePromptCount": 20,
+          "patternSpecIdsObserved": [
+            "ps_g4b_u04_inverse_original_values"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g4b_u04_inverse_rounding_possible_original"
+          ],
+          "worksheetSignature": "1faa81a2d51d8d0edb41",
+          "itemSetSignature": "6e68acdaf243c342a4b3",
+          "runtimeLineage": {
+            "browserResolutionMode": null,
+            "browserPlanSourceId": null,
+            "sourceUnitAdapterStatus": null,
+            "sourceUnitAdapterId": null,
+            "documentQuestionMode": "reasoning",
+            "documentAuthorityMode": "GLOBAL_PRIMARY"
+          },
+          "itemSamples": [
+            {
+              "prompt": "一個數寫成 4□□75，用四捨五入法取概數到千位後是 45,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "55dd9ce9f833fd59849e",
+              "itemSignature": "e25f7baae95e98179817",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 7□□99，用四捨五入法取概數到千位後是 75,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "2bf387624fec08ee4669",
+              "itemSignature": "a851b1c6a81c746063c5",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            },
+            {
+              "prompt": "一個數寫成 3□□99，用四捨五入法取概數到千位後是 35,000。原數可能是多少？請列出所有可能值。",
+              "answer": "",
+              "promptHash": "f52ce6e529bb102655bb",
+              "itemSignature": "ec37915f7dc4b8d7c634",
+              "patternSpecId": "ps_g4b_u04_inverse_original_values",
+              "knowledgePointIds": [
+                "kp_g4b_u04_inverse_rounding_possible_original"
+              ]
+            }
+          ],
+          "acceptanceFailures": []
+        }
+      ]
+    }
+  ],
+  "boundary": {
+    "pblRoutesModified": false,
+    "numericRoutesModified": false,
+    "applicationRoutesModified": false,
+    "secondGeneratorAdded": false,
+    "secondValidatorAdded": false,
+    "secondWorksheetPipelineAdded": false,
+    "slice014Started": false
+  }
+}

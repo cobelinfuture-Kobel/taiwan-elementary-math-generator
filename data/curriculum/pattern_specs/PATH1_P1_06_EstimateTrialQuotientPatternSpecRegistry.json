@@ -1,0 +1,103 @@
+{
+  "schemaName": "Path1P106EstimateTrialQuotientPatternSpecRegistry",
+  "schemaVersion": 1,
+  "status": "PATH1_LOCAL_REPRESENTATION_PATTERN_SPECS_MATERIALIZED_NON_PUBLIC",
+  "path1BlockId": "P1-06",
+  "practiceMode": "estimateTrialQuotient",
+  "operationFamilyId": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT",
+  "sourceId": "g4a_u04_4a04",
+  "relationId": null,
+  "wordProblemRelationMinted": false,
+  "canonicalKnowledgePointMinted": false,
+  "publicCutoverApplied": false,
+  "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL",
+  "matrixPrimaryKnowledgePointIds": [
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+  ],
+  "canonicalOperationModels": [
+    {
+      "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "operationModelId": "op_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "canonicalPatternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "canonicalCase": "tens_sufficient"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_insufficient",
+      "operationModelId": "op_g4a_u04_3digit_by_2digit_tens_insufficient",
+      "canonicalPatternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_insufficient",
+      "canonicalCase": "tens_insufficient"
+    }
+  ],
+  "roundingEvidenceBoundary": {
+    "strategy": "NEAREST_WHOLE_TEN_SOURCE_UNAMBIGUOUS",
+    "allowedDivisorOnesDigits": [1, 2, 3, 4, 6, 7, 8, 9],
+    "divisorsEndingInZeroGenerated": false,
+    "divisorsEndingInFiveGenerated": false,
+    "observedAnchors": [
+      { "divisor": 11, "estimate": 10 },
+      { "divisor": 38, "estimate": 40 },
+      { "divisor": 47, "estimate": 50 },
+      { "divisor": 92, "estimate": 90 }
+    ],
+    "canonicalArithmeticDivisorDomainStill": "10..99"
+  },
+  "patternSpecs": [
+    {
+      "patternSpecId": "P106_ESTIMATE_DIVISOR_TENS_SELECT",
+      "representationType": "estimate_divisor_tens_select",
+      "path1ParentPatternId": "estimate_trial_quotient",
+      "applicableKnowledgePointIds": [
+        "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+        "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+      ],
+      "answerKind": "estimatedDivisor",
+      "sourceEvidenceRole": "SCHOOL_EXAM_REPRESENTATION_BREADTH",
+      "promptContract": "選出最適合把二位數除數看成的整十數；不問商的位值、不加入情境語意。"
+    },
+    {
+      "patternSpecId": "P106_ESTIMATE_DIVISOR_TENS_FILL",
+      "representationType": "estimate_divisor_tens_fill",
+      "path1ParentPatternId": "estimate_trial_quotient",
+      "applicableKnowledgePointIds": [
+        "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+        "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+      ],
+      "answerKind": "estimatedDivisor",
+      "sourceEvidenceRole": "SCHOOL_EXAM_REPRESENTATION_BREADTH",
+      "promptContract": "填入估商時適合採用的整十數；不問商的位值、不加入情境語意。"
+    },
+    {
+      "patternSpecId": "P106_ESTIMATE_THEN_DIVIDE_TENS_SUFFICIENT",
+      "representationType": "estimate_then_divide",
+      "path1ParentPatternId": "estimate_trial_quotient",
+      "applicableKnowledgePointIds": [
+        "kp_g4a_u04_3digit_by_2digit_tens_sufficient"
+      ],
+      "canonicalPatternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "answerKind": "estimatePlusExactQuotientRemainder",
+      "sourceEvidenceRole": "PRIMARY_SOURCE_PLUS_SCHOOL_EXAM_REPRESENTATION",
+      "promptContract": "先寫除數的整十估數，再依 canonical 十位夠除模型完成精確商與餘數。"
+    },
+    {
+      "patternSpecId": "P106_ESTIMATE_THEN_DIVIDE_TENS_INSUFFICIENT",
+      "representationType": "estimate_then_divide",
+      "path1ParentPatternId": "estimate_trial_quotient",
+      "applicableKnowledgePointIds": [
+        "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+      ],
+      "canonicalPatternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_insufficient",
+      "answerKind": "estimatePlusExactQuotientRemainder",
+      "sourceEvidenceRole": "PRIMARY_SOURCE_PLUS_SCHOOL_EXAM_REPRESENTATION",
+      "promptContract": "先寫除數的整十估數，再依 canonical 十位不夠除模型完成精確商與餘數。"
+    }
+  ],
+  "forbiddenSemantics": [
+    "application relation",
+    "unknown-role modeling",
+    "unit conversion",
+    "context-dependent remainder interpretation",
+    "quotient-place classification teaching",
+    "P1-12 inverse equal-groups transfer"
+  ]
+}

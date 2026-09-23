@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_P1_08_BASELINE_ONLY_FINAL_CLOSEOUT_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor": "FOCUSED_PASS",
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient": "FOCUSED_PASS",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_P1_08_BASELINE_ONLY_FINAL_CLOSEOUT_V1.validation.json",
+  "classificationNote": "Evidence/governance-only final closeout for P1-08 after exact post-merge failure-title-set attribution proved zero P1-08 causal new failures. No product runtime, public authority, route semantics, PatternSpec, matrix, source authority, UI/query, or P1-09+ mutation.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

@@ -1,0 +1,17 @@
+S44M1_4_G3A_U01_PATTERN_ROTATION_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+fixed:
+- added worksheet regression coverage for all G3A-U01 multi-spec KPs.
+- each selected KP worksheet must rotate all registered PatternSpecs.
+- covered number-to-chinese, chinese-to-number, decomposition, composition, unit conversion, digit arrangement, and range reasoning.
+- this verifies S44M1-3 allocation behavior is not limited to digit arrangement only.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M1-5_G3A_U01_ChineseNumeralZeroCoverageFix after local tests pass

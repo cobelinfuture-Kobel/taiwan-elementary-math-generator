@@ -1,0 +1,174 @@
+{
+  "schemaName": "P03FSlice026G4AU09Rank8DecimalAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice026Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 26,
+    "sliceId": "p03e_q026_r8_g4a_u09_4a09_profile_decimal_c1",
+    "previousSliceId": "p03e_q025_r8_g4a_u06_4a06_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 552,
+      "closeoutPr": 553,
+      "postMergeReconciliationPr": 554,
+      "implementationMergeSha": "2e51effd085ee5b0237506089f00e7b3871a361e",
+      "closeoutMergeSha": "7dd2c90136531b546e1aa8db0eae0511a4fd05e8",
+      "finalMainReconciliationMergeSha": "391f10d77a94fc10117724180cfc64a4322b6b87",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice025-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g4a_u09_4a09.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g4a_u09_4a09.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g4a_u09_4a09.hidden-pattern-spec.json",
+    "sourceNodeId": "g4a_u09_4a09",
+    "sourceCode": "4a09",
+    "sourceTitle": "2位小數",
+    "grade": 4,
+    "semester": "upper",
+    "unitCode": "4A-U09",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "reviewedPages": [1, 2]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_compare",
+      "canonicalNameZh": "二位小數比較",
+      "scope": "比較二位小數及尾零等值形式。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "reasoningInvariant": "尾零不改變小數值；比較結果必須與標準化後的精確數值一致。"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_sequence",
+      "canonicalNameZh": "小數數列規律",
+      "scope": "依固定小數增量延伸數列。",
+      "evidencePages": [2],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "reasoningInvariant": "相鄰項的精確差值必須等於固定 step。"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_missing_digit_column_operation",
+      "canonicalNameZh": "小數直式缺位推理",
+      "scope": "在小數加減直式中推定缺失數字。",
+      "evidencePages": [2],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "reasoningInvariant": "補回缺失數字後，小數點對齊的加減直式必須精確成立。"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_place_value_factor_relation",
+      "canonicalNameZh": "相鄰小數位值倍數關係",
+      "scope": "辨識相鄰位值間 10 倍或十分之一的關係。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "reasoningInvariant": "同一數字移動一個相鄰十進位位值時，表示的值必須精確乘 10 或除以 10。"
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g4a_u09_decimal_compare_numeric",
+      "patternSpecId": "ps_g4a_u09_decimal_compare_comparison_numeric",
+      "knowledgePointId": "kp_g4a_u09_decimal_compare",
+      "operationModelId": "op_g4a_u09_decimal_compare",
+      "operationFamilyId": "decimal_compare",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "comparison",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u09_decimal_sequence_numeric",
+      "patternSpecId": "ps_g4a_u09_decimal_sequence_term_numeric",
+      "knowledgePointId": "kp_g4a_u09_decimal_sequence",
+      "operationModelId": "op_g4a_u09_decimal_sequence",
+      "operationFamilyId": "decimal_sequence",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "term",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u09_missing_digit_column_operation_numeric",
+      "patternSpecId": "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric",
+      "knowledgePointId": "kp_g4a_u09_missing_digit_column_operation",
+      "operationModelId": "op_g4a_u09_missing_digit_column_operation",
+      "operationFamilyId": "missing_column_digit",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "missingDigits",
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u09_place_value_factor_relation_numeric",
+      "patternSpecId": "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+      "knowledgePointId": "kp_g4a_u09_place_value_factor_relation",
+      "operationModelId": "op_g4a_u09_place_value_factor_relation",
+      "operationFamilyId": "place_factor",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "higherPlaceValue",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    },
+    {
+      "patternGroupId": "pg_g4a_u09_place_value_factor_relation_numeric",
+      "patternSpecId": "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric",
+      "knowledgePointId": "kp_g4a_u09_place_value_factor_relation",
+      "operationModelId": "op_g4a_u09_place_value_factor_relation",
+      "operationFamilyId": "place_factor",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "lowerPlaceValue",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    }
+  ],
+  "hiddenApplicationLineage": {
+    "patternSpecId": "ps_g4a_u09_decimal_compare_comparison_application",
+    "patternGroupId": "pg_g4a_u09_decimal_compare_application",
+    "knowledgePointId": "kp_g4a_u09_decimal_compare",
+    "existingContextCandidateAuthority": "POSTG-APP-W02-A02",
+    "productionAdmissionAllowedBySlice026": false,
+    "publicSelectorVisibility": "hidden",
+    "globalContextExpansionAllowed": false
+  },
+  "formalMappingBoundary": {
+    "decimalScale": 2,
+    "comparisonRequired": true,
+    "sequenceRequired": true,
+    "missingColumnDigitReasoningRequired": true,
+    "placeValueFactorRequired": true,
+    "decimalArithmeticRequiredOnlyForKnowledgePointIds": ["kp_g4a_u09_missing_digit_column_operation"],
+    "missingDigitInequalityRequired": false,
+    "lengthConversionRequired": false,
+    "applicationRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "reuseSlice010G4AU09Source": true,
+    "reuseSlice018G4AU09Source": true,
+    "expectedSourceVisibleCountAfterAdmission": 6,
+    "expectedSourceHiddenCountAfterAdmission": 2,
+    "expectedPublicSourceCountAfterAdmission": 29,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 216,
+    "sharedDecimalNumberSystemRequired": true,
+    "sharedDecimalDomainValidatorRequired": true,
+    "sharedDecimalArithmeticRequiredForMissingColumnDigitOnly": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice027Implementation"
+  }
+}

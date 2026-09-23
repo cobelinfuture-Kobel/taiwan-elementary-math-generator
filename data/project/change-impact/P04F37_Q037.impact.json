@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P04F37_Q037",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointId": "kp_g6a_u02_fraction_division_application",
+  "unitExpectedKnowledgePointIds": ["kp_g6a_u02_fraction_division_application"],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6a_u02_fraction_division_application": "PENDING"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P04F37_Q037.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  }
+}

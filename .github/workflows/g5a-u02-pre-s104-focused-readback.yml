@@ -1,0 +1,34 @@
+name: G5A-U02 Pre-S104 Focused Readback
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  focused-readback:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-package-lock
+      - name: Run focused acceptance and preserve exact output
+        shell: bash
+        run: |
+          set +e
+          node --test tests/curriculum/g5a-u02-pre-s104-public-semantic-regeneration.test.js > /tmp/g5a-u02-pre-s104-focused.log 2>&1
+          status=$?
+          cat /tmp/g5a-u02-pre-s104-focused.log
+          exit "$status"
+      - name: Upload focused readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g5a-u02-pre-s104-focused-readback
+          retention-days: 7
+          if-no-files-found: error
+          path: /tmp/g5a-u02-pre-s104-focused.log
+

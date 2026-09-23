@@ -1,0 +1,14 @@
+{
+  "schemaName": "S43FDeltaMaterializedPatternSpecs",
+  "schemaVersion": 1,
+  "task": "S43F24_DeltaPatternSpecMaterialization",
+  "status": "contract_materialized_not_browser_projected",
+  "patternSpecs": [
+    {"knowledgePointId":"kp_g4a_u04_4digit_by_2digit_exact","patternSpecId":"ps_g4a_u04_4digit_by_2digit_exact","sourceId":"g4a_u04_4a04","kind":"expression_divide_exact","ranges":[[1000,9999],[10,99]],"answerMax":999},
+    {"knowledgePointId":"kp_g4b_u01_multi_digit_by_3digit","patternSpecId":"ps_g4b_u01_multi_digit_by_3digit","sourceId":"g4b_u01_4b01","kind":"expression_multiply","ranges":[[100,9999],[100,999]],"answerMax":9989001},
+    {"knowledgePointId":"kp_g4b_u01_multi_digit_division_exact","patternSpecId":"ps_g4b_u01_multi_digit_division_exact","sourceId":"g4b_u01_4b01","kind":"expression_divide_exact","ranges":[[100,9999],[10,99]],"answerMax":999},
+    {"knowledgePointId":"kp_g3b_u08_division_check_by_multiplication","patternSpecId":"ps_g3b_u08_division_check_by_multiplication","sourceId":"g3b_u08_3b08","kind":"expression_divide_exact","ranges":[[10,99],[2,9]],"answerMax":99},
+    {"knowledgePointId":"kp_g3b_u08_multiplication_check_by_division","patternSpecId":"ps_g3b_u08_multiplication_check_by_division","sourceId":"g3b_u08_3b08","kind":"expression_multiply","ranges":[[10,99],[2,9]],"answerMax":891}
+  ],
+  "summary": {"materializedPatternSpecCount":5,"runtimeCodeChanged":false,"browserProjectionChanged":false}
+}

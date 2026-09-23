@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/shared/print-metadata.schema.json",
+  "title": "SharedPrintMetadataV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion","questionMode","layoutIntent","pblPagePlan","unapprovedPblSplitAllowed","forbiddenVisibleLabels","rendererRouteId","supportsPreview","supportsPrint","supportsAnswerKey","dataOnlyShadow"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "questionMode": {"const": "APPLICATION"},
+    "layoutIntent": {"const": "CONTENT_AWARE_SHARED_WORKSHEET"},
+    "pblPagePlan": {"enum": ["NO_PBL_SECTION","APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE","APPROVED_COMPLETE_TWO_PAGE_CANDIDATE"]},
+    "unapprovedPblSplitAllowed": {"const": false},
+    "forbiddenVisibleLabels": {
+      "type": "array",
+      "const": ["算式","答：","_____"]
+    },
+    "rendererRouteId": {"const": "EXISTING_WORKSHEET_RENDERER_PENDING_A06"},
+    "supportsPreview": {"const": false},
+    "supportsPrint": {"const": false},
+    "supportsAnswerKey": {"const": true},
+    "dataOnlyShadow": {"const": true}
+  }
+}

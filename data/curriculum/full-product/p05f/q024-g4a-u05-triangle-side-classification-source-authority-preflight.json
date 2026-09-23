@@ -1,0 +1,207 @@
+{
+  "schemaName": "P05FW5Q024TriangleSideClassificationSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q024_TriangleSideClassification_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 24,
+    "sliceId": "p05e_q024_r2_g4a_u05_4a05_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice024Implementation",
+    "previousSliceId": "p05e_q023_r2_g3b_u05_3b05_profile_geometry_formula_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W5",
+    "primarySourceNodeId": "g4a_u05_4a05",
+    "supportingSourceNodeIds": ["g4a_u05_4a05"],
+    "intraWavePrerequisiteRank": 2,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": ["kp_g4a_u05_triangle_side_classification"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredProductNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ],
+    "admissionState": "QUEUE_FROZEN_IMPLEMENTATION_NOT_STARTED",
+    "productProductionAdmitted": false,
+    "implementationAllowedByP05E": false
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q023_r2_g3b_u05_3b05_profile_geometry_formula_c1",
+    "productPrNumber": 876,
+    "productMergeSha": "9dce5990719b1e8b76d0e6692602a2482e1a5eed",
+    "prGateRunId": "34477036808",
+    "exactPagesRunId": "34477190605",
+    "evidenceArtifactId": "10152033394",
+    "evidenceArtifactName": "p05f-w5-q023-pages-e2e",
+    "evidenceArtifactDigest": "sha256:53a991283d35e552e001a6a435ea9ba141b8e87e46b9c61830f7cbed30523686",
+    "status": "PASS_E6_D0_COMPLETE",
+    "exactPagesWorkflowConclusion": "success",
+    "exactPagesEvidenceUploaded": true
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g4a_u05_4a05",
+    "r02SourceTitle": "三角形與全等",
+    "metadataSourceTitle": "三角形",
+    "sourcePdfTitle": "meow911_4a05_source.pdf",
+    "sourcePdfDriveFileId": "1FF9BVJfihtKH4pJTJJbDt2Sg1tGgO26v",
+    "sourceMetadataDriveFileId": "1xAdLHCPizeU1qqfxJV0KUFypDJWaxV15",
+    "verificationNotesDriveFileId": "1Mo15A_4T4fsCRf_LZO6f40RLdH5RA4HD",
+    "sourceUrlFromMetadata": "https://meow911.com/4a05/",
+    "embeddedHeaderUrlFromPdf": "https://meow911.com/4a06/",
+    "pageCount": 2,
+    "reviewedPages": [1, 2],
+    "authorityMethod": "FROZEN_QUEUE_PLUS_R02_REVIEWED_CANDIDATE_WITH_Q013_SAME_SOURCE_IDENTITY_REUSE",
+    "sameSourcePriorAuthorityPath": "data/curriculum/full-product/p05f/q013-g4a-u05-triangle-elements-naming-source-authority-preflight.json",
+    "sourceIdentityCrossCheck": {
+      "queueSourceNodeId": "g4a_u05_4a05",
+      "r02SourceNodeId": "g4a_u05_4a05",
+      "q013SourceNodeId": "g4a_u05_4a05",
+      "fileName": "meow911_4a05_source.pdf",
+      "metadataSourceUrl": "https://meow911.com/4a05/",
+      "embeddedHeaderUrl": "https://meow911.com/4a06/",
+      "metadataTitleVsR02TitleDifferenceObserved": true,
+      "embeddedHeaderUrlMismatchObserved": true,
+      "sourceRefAmbiguity": false,
+      "disposition": "REUSE_Q013_MACHINE_SOURCE_IDENTITY;PRESERVE_NON_BLOCKING_TITLE_AND_EMBEDDED_HEADER_URL_MISMATCH"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+    "sourceNodeId": "g4a_u05_4a05",
+    "sourceTitle": "三角形與全等",
+    "sourcePdfTitle": "meow911_4a05_source.pdf",
+    "reviewedPages": [1, 2],
+    "knowledgePointId": "kp_g4a_u05_triangle_side_classification",
+    "canonicalNameZh": "依邊長分類三角形",
+    "capabilityStatement": "學生能依三邊關係分類等邊、等腰與不等邊三角形。",
+    "reasoningInvariant": "分類由相等邊的數量決定，旋轉不改變類別。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "sameSourceCandidateIds": [
+      "kp_g4a_u05_triangle_elements_naming",
+      "kp_g4a_u05_triangle_side_classification",
+      "kp_g4a_u05_triangle_angle_classification",
+      "kp_g4a_u05_triangle_inequality",
+      "kp_g4a_u05_congruent_triangle_correspondence"
+    ]
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_geometry_property",
+    "classificationRuleId": "rule_geometry_property",
+    "appliedModifierIds": [],
+    "requiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "optionalRuntimeCapabilityIds": ["cap_geometry_construction"],
+    "forbiddenRuntimeCapabilityIds": [],
+    "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+    "undeliveredRequiredCapabilityIds": [
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "contractOnlyRequiredCapabilityIdsFromCurrentR04": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "r02CandidateCategory": "geometry",
+    "r02CategoryAlignedWithFrozenProfile": true,
+    "profileCategoryMismatchAcknowledged": false,
+    "profileCategoryMismatchDisposition": "NONE",
+    "r04AuthorityTouched": false
+  },
+  "q024ScopeLock": {
+    "includedKnowledgePointIds": ["kp_g4a_u05_triangle_side_classification"],
+    "includedRelations": [
+      "CLASSIFY_TRIANGLE_BY_EQUAL_SIDE_COUNT",
+      "PRESERVE_TRIANGLE_SIDE_CLASSIFICATION_UNDER_ROTATION"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": ["kp_g4a_u05_triangle_elements_naming"],
+    "excludedSameSourceKnowledgePointIds": [
+      "kp_g4a_u05_triangle_elements_naming",
+      "kp_g4a_u05_triangle_angle_classification",
+      "kp_g4a_u05_triangle_inequality",
+      "kp_g4a_u05_congruent_triangle_correspondence"
+    ],
+    "excludedRelations": [
+      "TRIANGLE_ELEMENTS_NAMING_AS_TARGET_KP",
+      "CLASSIFY_TRIANGLE_BY_ANGLE_TYPE",
+      "APPLY_TRIANGLE_INEQUALITY",
+      "MATCH_CONGRUENT_TRIANGLE_CORRESPONDING_SIDES",
+      "MATCH_CONGRUENT_TRIANGLE_CORRESPONDING_ANGLES",
+      "GEOMETRY_CONSTRUCTION",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "Q025_OR_LATER_SEMANTICS"
+    ],
+    "equalSideCountDeterminesClass": true,
+    "rotationDoesNotChangeClass": true,
+    "requiresGeometryDiagramRepresentation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresGeometryPropertyReasoning": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "frozenQueueAuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q025OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "sourceAuthoritySufficientForQ024ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "r02AuthorityBound": true,
+    "runtimeCapabilityContractLocked": true,
+    "singleKnowledgePointScopeLocked": true,
+    "existingSameSourceQ013Protected": true,
+    "otherSameSourceCandidatesProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice024Implementation"
+  }
+}

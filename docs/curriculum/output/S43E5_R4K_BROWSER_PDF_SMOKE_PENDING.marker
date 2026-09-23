@@ -1,0 +1,25 @@
+S43E5_R4K_BROWSER_PDF_SMOKE_PENDING_READBACK
+
+sourceId = g3b_u01_3b01
+status = IMPLEMENTED_READBACK_PENDING
+
+completed:
+- R4J local pass recorded
+- added automated browser/PDF-readiness smoke test for G3B-U01 word problems
+- verifies 20 mixed word-problem questions render as 2 question pages + 2 answer-key pages
+- verifies no filler cells, no unresolved template slots, and 4 printable HTML pages
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+manual_browser_note:
+- This is an automated HTML/PDF-readiness smoke, not a browser print-dialog export.
+- If npm test passes, the remaining optional manual browser check is to open the site, select the five G3B-U01 word-problem KPs, generate 20 questions, and print/save to PDF.
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_WORD_PROBLEM_MIXED_WORKSHEET_QA_LOCAL_PASS
+GOAL_DISTANCE_AFTER = D1_G3B_U01_WORD_PROBLEM_BROWSER_PDF_SMOKE_IMPLEMENTED_PENDING_READBACK
+DISTANCE_REDUCED = added automated print-page readiness coverage for the G3B-U01 word-problem worksheet path
+REMAINING_BLOCKERS = npm test readback; optional manual browser PDF export smoke
+NEXT_SHORTEST_STEP = local test readback, then record R4K pass or manual browser smoke result

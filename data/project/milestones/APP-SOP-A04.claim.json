@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "taskId": "APP-SOP-A04_GlobalContextBindingAndAdmissionRegistries",
+  "taskClass": "contract",
+  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "A04_REGISTRY_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/contracts/Application_Global_Context_Binding_SOP_V1.md",
+      "data/curriculum/application/schema/application-context-binding.schema.json",
+      "data/curriculum/application/schema/application-admission-record.schema.json",
+      "data/curriculum/application/registry/application-context-bindings.json",
+      "data/curriculum/application/registry/application-admission-registry.json",
+      "data/curriculum/application/contracts/APP-SOP-A04_GlobalContextBindingAndAdmissionRegistries.json",
+      "tests/curriculum/application-problem-sop-a04.test.js"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "Global-context use by application questions now has machine-readable binding and admission schemas, explicit authority separation, role and unit-flow requirements, mode-specific eligibility, and empty fail-closed registries. No existing question, context family, runtime path, production admission, or POST_GOLDEN state changed in A04."
+  },
+  "nextStep": {
+    "taskId": "APP-SOP-A05_ValidatorCIGatesAndG3BU01PilotFixtures",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}

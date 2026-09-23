@@ -1,0 +1,19 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g5a_u06_5a06", "queueOrdinal": 13, "sourceCode": "5a06", "sourceTitle": "異分母分數加減", "domainFamily": "unlike_denominator_fraction_addition_subtraction",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "670d4916c1627177cbd483942b5829fb4dab3dc622fc832b9f2a7abba2e30f83", "contentIdentityGroup": "pdf_670d4916c162", "pageCount": 2, "reviewedPages": [1, 2], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g5a_u06_unlike_fraction_add", "name": "異分母分數加法", "scope": "通分後進行真分數或假分數加法並化簡。", "evidencePages": [1], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可承載份量合併，也可純算式練習。"},
+    {"candidateId": "kp_g5a_u06_unlike_fraction_sub", "name": "異分母分數減法", "scope": "通分後進行真分數或假分數減法並化簡。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可承載剩餘或差量，也可純算式練習。"},
+    {"candidateId": "kp_g5a_u06_mixed_improper_add_sub", "name": "帶分數與假分數加減", "scope": "轉換表徵後進行帶分數、假分數與整數的加減。", "evidencePages": [1], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可用測量量呈現，但轉換與計算本身可獨立評量。"},
+    {"candidateId": "kp_g5a_u06_measurement_difference_context", "name": "異分母測量量的合併與差", "scope": "由兩段長度或份量求合計、較長量或差量。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源以線段與緞帶長度建立加數、被減數及差量角色。"},
+    {"candidateId": "kp_g5a_u06_reciprocal_unit_fraction_sum", "name": "單位分數規律合計", "scope": "計算由互為關聯分母構成的單位分數和。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "來源呈現為分數規律與運算結構。"},
+    {"candidateId": "kp_g5a_u06_missing_addend_structure", "name": "分數和的缺項推理", "scope": "由總和與已知分數求未知加數，含三角形配置。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬算式結構與逆運算推理。"},
+    {"candidateId": "kp_g5a_u06_unlike_fraction_compare", "name": "異分母分數比較", "scope": "通分後比較異分母分數或判斷其和與整數的關係。", "evidencePages": [2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可比較實際份量，也可維持符號比較。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 7, "applicationRequiredCount": 1, "applicationCompatibleCount": 4, "applicationNotApplicableCount": 2},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

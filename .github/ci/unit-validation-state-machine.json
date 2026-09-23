@@ -1,0 +1,123 @@
+{
+  "schemaVersion": "1.0.0",
+  "machineId": "UNIT_VALIDATION_STATE_MACHINE_V1",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "purpose": "Layer 2 only: determine the single legal validation transition and lane. This file does not configure GitHub Actions, branch protection, required checks, or merge blocking.",
+  "states": [
+    "UNIT_DISCOVERED",
+    "KP_READY",
+    "KP_VALIDATING",
+    "KP_FOCUSED_PASS",
+    "UNIT_KPS_COMPLETE",
+    "UNIT_INTEGRATING",
+    "UNIT_VALIDATED",
+    "UNIT_D0"
+  ],
+  "events": [
+    "LOCK_UNIT_AUTHORITY",
+    "START_KP_VALIDATION",
+    "PASS_KP_FOCUSED_GATE",
+    "SELECT_NEXT_KP",
+    "CONFIRM_ALL_KPS_FOCUSED_PASS",
+    "START_UNIT_INTEGRATION",
+    "PASS_UNIT_INTEGRATION_GATE",
+    "CLOSE_UNIT_D0",
+    "RECORD_GATE_FAILURE"
+  ],
+  "transitions": [
+    {
+      "from": "UNIT_DISCOVERED",
+      "event": "LOCK_UNIT_AUTHORITY",
+      "to": "KP_READY",
+      "preconditions": ["EXPECTED_KP_SET_NONEMPTY", "KP_STATUS_KEYS_EXACT_MATCH_EXPECTED_SET"]
+    },
+    {
+      "from": "KP_READY",
+      "event": "START_KP_VALIDATION",
+      "to": "KP_VALIDATING",
+      "preconditions": ["CURRENT_KP_IS_EXPECTED", "CURRENT_KP_NOT_FOCUSED_PASS"]
+    },
+    {
+      "from": "KP_VALIDATING",
+      "event": "PASS_KP_FOCUSED_GATE",
+      "to": "KP_FOCUSED_PASS",
+      "preconditions": ["FOCUSED_GATE_EVIDENCE_PASS", "EVIDENCE_EXACT_HEAD_MATCHES_REQUEST"]
+    },
+    {
+      "from": "KP_FOCUSED_PASS",
+      "event": "SELECT_NEXT_KP",
+      "to": "KP_READY",
+      "preconditions": ["AT_LEAST_ONE_EXPECTED_KP_NOT_FOCUSED_PASS"]
+    },
+    {
+      "from": "KP_FOCUSED_PASS",
+      "event": "CONFIRM_ALL_KPS_FOCUSED_PASS",
+      "to": "UNIT_KPS_COMPLETE",
+      "preconditions": ["ALL_EXPECTED_KPS_FOCUSED_PASS"]
+    },
+    {
+      "from": "UNIT_KPS_COMPLETE",
+      "event": "START_UNIT_INTEGRATION",
+      "to": "UNIT_INTEGRATING",
+      "preconditions": ["ALL_EXPECTED_KPS_FOCUSED_PASS", "CURRENT_SCOPE_IS_UNIT_INTEGRATION"]
+    },
+    {
+      "from": "UNIT_INTEGRATING",
+      "event": "PASS_UNIT_INTEGRATION_GATE",
+      "to": "UNIT_VALIDATED",
+      "preconditions": ["UNIT_REQUIRED_GATES_PASS", "FULL_REGRESSION_EVIDENCE_PASS_OR_REUSED_WHEN_REQUIRED"]
+    },
+    {
+      "from": "UNIT_VALIDATED",
+      "event": "CLOSE_UNIT_D0",
+      "to": "UNIT_D0",
+      "preconditions": ["NO_NEW_VALIDATION_REQUIRED", "UNIT_VALIDATION_EVIDENCE_REUSED"]
+    }
+  ],
+  "failureRule": {
+    "event": "RECORD_GATE_FAILURE",
+    "behavior": "NO_STATE_ADVANCE",
+    "blockerRequired": true
+  },
+  "statePersistenceContract": {
+    "requiredFields": [
+      "schemaVersion",
+      "machineId",
+      "unitId",
+      "state",
+      "expectedKnowledgePointIds",
+      "knowledgePointGateStatus",
+      "currentKnowledgePointId",
+      "lastExactHeadSha",
+      "transitionHistory",
+      "evidenceLedger"
+    ],
+    "knowledgePointStatuses": ["PENDING", "FOCUSED_PASS", "BLOCKED"],
+    "transitionHistoryEntryFields": ["from", "event", "to", "exactHeadSha", "evidenceIds"],
+    "evidenceLedgerEntryFields": ["evidenceId", "gateId", "lane", "exactHeadSha", "status"]
+  },
+  "evidenceRules": {
+    "focusedGateEvidence": "Must be PASS and exact-head bound before KP_VALIDATING -> KP_FOCUSED_PASS.",
+    "unitIntegrationEvidence": "Must satisfy all gates required by the derived lane before UNIT_INTEGRATING -> UNIT_VALIDATED.",
+    "sameExactHeadPass": "Reuse existing PASS evidence. Do not schedule an equivalent full regression again.",
+    "closeout": "UNIT_VALIDATED -> UNIT_D0 is evidence reuse only and cannot trigger new full regression by itself."
+  },
+  "layerBoundary": {
+    "layer2Owns": [
+      "STATE_ENUM",
+      "LEGAL_TRANSITIONS",
+      "PRECONDITIONS",
+      "VALIDATION_LANE_DERIVATION",
+      "REQUIRED_GATES",
+      "FORBIDDEN_GATES",
+      "EVIDENCE_REUSE_DECISION"
+    ],
+    "layer3OwnsLater": [
+      "GITHUB_ACTIONS_ROUTING",
+      "REQUIRED_STATUS_CHECKS",
+      "BRANCH_PROTECTION",
+      "MERGE_BLOCKING",
+      "LEGACY_WORKFLOW_FANOUT_RETIREMENT"
+    ]
+  }
+}

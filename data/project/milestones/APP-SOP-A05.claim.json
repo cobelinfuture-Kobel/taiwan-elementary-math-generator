@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "taskId": "APP-SOP-A05_ValidatorCIGatesAndG3BU01PilotFixtures",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "A05_SHADOW_RUNTIME_READY_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/application-sop-validator.mjs",
+      "tools/curriculum/validate-application-sop-pilot.mjs",
+      "tests/curriculum/application-problem-sop-a05.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/pilots/g3b_u01/g3b-u01-application-sop-pilot.json",
+      "data/curriculum/application/registry/application-context-bindings.json",
+      "data/curriculum/application/registry/application-admission-registry.json",
+      "data/curriculum/application/contracts/APP-SOP-A05_ValidatorCIGatesAndG3BU01PilotFixtures.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D2",
+    "distanceReduced": "Application SOP contracts now run through an executable shadow validator and deterministic CLI against real G3B-U01 KnowledgePoints, real operation models, existing global-context families, one direct item, one interpretation-based N+1 item, one dependent PBL task set, three context bindings, four candidate admission records, and zero production admissions. Production generator, renderer, public UI, and POST_GOLDEN controller remain unchanged."
+  },
+  "nextStep": {
+    "taskId": "APP-SOP-A06_SharedRuntimeWorksheetQAAndCloseout",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

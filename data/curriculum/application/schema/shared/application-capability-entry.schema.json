@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/shared/application-capability-entry.schema.json",
+  "title": "SharedApplicationCapabilityEntryV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion","applicationCapabilityEntryId","waveId","sourceNodeId","unitId","knowledgePointId","patternSpecId","applicationGroupId","capabilityType","questionMode","admissionState","publicSelectable","generatorAdapterId","validatorAdapterId","worksheetProjectionAdapterId","supportsPreview","supportsPrint","supportsAnswerKey"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "applicationCapabilityEntryId": {"type": "string", "pattern": "^app_cap_"},
+    "waveId": {"type": "string", "pattern": "^W0[1-6]$"},
+    "sourceNodeId": {"type": "string", "pattern": "^g[3-6][ab]_u"},
+    "unitId": {"type": "string", "pattern": "^g[3-6][ab]_u"},
+    "knowledgePointId": {"type": "string", "pattern": "^kp_"},
+    "patternSpecId": {"type": "string"},
+    "applicationGroupId": {"type": "string", "pattern": "^app_group_"},
+    "capabilityType": {"enum": ["APPLICATION_REQUIRED", "APPLICATION_COMPATIBLE"]},
+    "questionMode": {"const": "APPLICATION"},
+    "admissionState": {"const": "SHADOW_VALIDATED_NOT_ADMITTED"},
+    "publicSelectable": {"const": false},
+    "generatorAdapterId": {"type": "string", "minLength": 1},
+    "validatorAdapterId": {"type": "string", "minLength": 1},
+    "worksheetProjectionAdapterId": {"const": "SHARED_APPLICATION_WORKSHEET_PROJECTION_V1"},
+    "supportsPreview": {"const": false},
+    "supportsPrint": {"const": false},
+    "supportsAnswerKey": {"const": true}
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "schemaName": "P03FSlice010HundredthDecimalAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice010Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 10,
+    "sliceId": "p03e_q010_r6_g4a_u09_4a09_profile_decimal_c1",
+    "previousSliceId": "p03e_q009_r6_g3b_u09_3b09_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g4a_u09_4a09",
+    "sourceCode": "4a09",
+    "sourceTitle": "2位小數",
+    "grade": 4,
+    "semester": "upper",
+    "unitCode": "4A-U09",
+    "evidencePages": [1],
+    "canonicalOperationAuthorityPath": "data/curriculum/application/operations/w02/g4a_u09_4a09.canonical-operation.json",
+    "hiddenPatternSpecAuthorityPath": "data/curriculum/application/pattern-specs/w02/g4a_u09_4a09.hidden-pattern-spec.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g4a_u09_hundredth_representation",
+    "canonicalNameZh": "百分位與二位小數",
+    "scope": "以 0.01 為單位讀寫二位小數。",
+    "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+    "reasoningInvariant": "位值展開必須依 whole + fractionalUnits × placeUnit 精確重組；一個百分之一固定表示為 0.01。",
+    "requiredCapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"],
+    "tagIds": ["grade_4", "domain_decimal", "concept_hundredth", "operation_decimal_representation", "representation_hundred_equal_parts", "answer_decimal", "application_not_applicable", "exact_decimal_scale_2"]
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g4a_u09_hundredth_representation",
+    "operationModelId": "op_g4a_u09_hundredth_representation",
+    "operationFamilyId": "decimal_representation",
+    "canonicalExpressions": ["decimal = whole + fractionalUnits * placeUnit"],
+    "operandRoles": {"whole": "整數部分", "fractionalUnits": "小數位單位個數", "placeUnit": "0.01", "decimal": "小數值"},
+    "numberConstraints": ["whole = 0", "fractionalUnits = 1", "placeUnit = 0.01", "decimal scale = 2"],
+    "validationInvariants": ["place-value expansion recombines to 0.01 exactly", "one of one hundred equal parts is represented by 0.01"]
+  },
+  "patternSurface": {
+    "patternGroupId": "pg_g4a_u09_hundredth_representation_numeric",
+    "patternSpecId": "ps_g4a_u09_hundredth_representation_decimal_numeric",
+    "mode": "NUMERIC",
+    "requestedUnknownRole": "decimal",
+    "givenRoles": ["whole", "fractionalUnits", "placeUnit"],
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "productBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "applicationModeAllowed": false,
+    "globalContextBindingNotApplicable": true,
+    "parallelPipelineAllowed": false,
+    "otherG4AU09KnowledgePointsExcluded": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

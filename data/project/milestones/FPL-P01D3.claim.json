@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P01D3_G5AU03FactorMultipleVerticalSlice",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "G5A_U03_TWELVE_KP_RUNTIME_VERTICAL_SLICE_E5",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g5a-u03-factor-multiple-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p01d3-extension.js",
+      "site/modules/curriculum/batch-a/full-product-source-units-p01d3.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p01d3-extension.js",
+      "site/modules/curriculum/batch-a/factor-multiple-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-full-product.js",
+      "tools/curriculum/validate-p01d3-g5a-u03-factor-multiple.mjs",
+      "tests/curriculum/p01d3-g5a-u03-factor-multiple-vertical-slice.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet.js",
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p01d3-g5a-u03-pdf-smoke.mjs"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/full-product/p01d3/g5a-u03-factor-multiple-pattern-authority.json",
+      "data/curriculum/full-product/p01/w1-product-admission-inventory-policy.json",
+      "docs/curriculum/contracts/P01D3_G5A_U03_FACTOR_MULTIPLE_VERTICAL_SLICE_CONTRACT_V1.md",
+      "docs/curriculum/output/P01D3_G5A_U03_FACTOR_MULTIPLE_VERTICAL_SLICE_READBACK.md",
+      "docs/curriculum/output/P01A_W1_PRODUCT_ADMISSION_INVENTORY_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "Twelve G5A-U03 factor and multiple KnowledgePoints now use the cumulative full-product selector extension, shared planner, deterministic factor-multiple runtime and validator, WorksheetDocument, answer key, HTML renderer and CI-gated Chromium PDF path; the W1 vertical-slice gap falls from twelve to zero without cutting over the public UI before P01E."
+  },
+  "nextStep": {
+    "taskId": "P01E_W1PublicUIHTMLPDFPrintCloseout",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}

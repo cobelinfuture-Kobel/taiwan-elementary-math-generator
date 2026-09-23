@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/w02-atomic-context-single-application-candidate.schema.json",
+  "title": "POSTGAPPW02AtomicContextSingleApplicationCandidateV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "bindingCandidateId", "itemCandidateId", "sourceId", "sourceNodeRefs",
+    "sourceContentIdentityGroup", "knowledgePointId", "canonicalOperationModelId", "patternSpecId",
+    "requestedUnknownRole", "classification", "applicationMode", "applicationCapabilityLevel",
+    "primaryTargetCount", "contextSelection", "roleBindingCandidates", "targetRoleCandidate",
+    "unitFlowCandidate", "promptBlueprint", "answerModelCandidate", "validationCandidate",
+    "admissionStatus", "productionAdmissionAllowed", "lineage"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "bindingCandidateId": {"type": "string", "pattern": "^w02_bind_"},
+    "itemCandidateId": {"type": "string", "pattern": "^w02_item_"},
+    "sourceId": {"type": "string", "pattern": "^g[3-6][ab]_u"},
+    "sourceNodeRefs": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "sourceContentIdentityGroup": {"type": "string", "pattern": "^pdf_"},
+    "knowledgePointId": {"type": "string", "pattern": "^kp_"},
+    "canonicalOperationModelId": {"type": "string", "pattern": "^op_"},
+    "patternSpecId": {"type": "string", "pattern": "^ps_"},
+    "requestedUnknownRole": {"type": "string", "minLength": 1},
+    "classification": {"enum": ["APPLICATION_REQUIRED", "APPLICATION_COMPATIBLE"]},
+    "applicationMode": {"const": "SINGLE_DIRECT"},
+    "applicationCapabilityLevel": {"const": "N"},
+    "primaryTargetCount": {"const": 1},
+    "contextSelection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["macroContextId", "mesoSituationId", "microScenarioId", "atomicEpisodeId", "surfaceTemplateId", "facetRefs", "selectionReason", "preferredProfileSatisfied", "duplicateProjectionPreserved"],
+      "properties": {
+        "macroContextId": {"type": "string", "pattern": "^gctx_macro_"},
+        "mesoSituationId": {"type": "string", "pattern": "^gctx_meso_"},
+        "microScenarioId": {"type": "string", "pattern": "^gctx_micro_"},
+        "atomicEpisodeId": {"type": "string", "pattern": "^gctx_episode_"},
+        "surfaceTemplateId": {"type": "string", "pattern": "^tpl_"},
+        "facetRefs": {"type": "array", "minItems": 2, "items": {"type": "string", "pattern": "^facet_"}, "uniqueItems": true},
+        "selectionReason": {"enum": ["DUPLICATE_CONTENT_PROJECTION", "BALANCED_MACRO_THEN_SEMANTIC_SCORE"]},
+        "preferredProfileSatisfied": {"type": "boolean"},
+        "duplicateProjectionPreserved": {"type": "boolean"}
+      }
+    },
+    "roleBindingCandidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["mathRoleId", "mathSemanticMeaning", "contextRoleId", "contextSemanticMeaning", "unitCandidate", "isAnswerRole"],
+        "properties": {
+          "mathRoleId": {"type": "string", "minLength": 1},
+          "mathSemanticMeaning": {"type": "string", "minLength": 1},
+          "contextRoleId": {"type": "string", "minLength": 1},
+          "contextSemanticMeaning": {"type": "string", "minLength": 1},
+          "unitCandidate": {"type": "string", "minLength": 1},
+          "isAnswerRole": {"const": false}
+        }
+      }
+    },
+    "targetRoleCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mathRoleId", "sourceMathRoleIds", "mathSemanticMeaning", "contextRoleId", "contextSemanticMeaning", "answerUnitCandidate", "isAnswerRole"],
+      "properties": {
+        "mathRoleId": {"type": "string", "minLength": 1},
+        "sourceMathRoleIds": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+        "mathSemanticMeaning": {"type": "string", "minLength": 1},
+        "contextRoleId": {"type": "string", "minLength": 1},
+        "contextSemanticMeaning": {"type": "string", "minLength": 1},
+        "answerUnitCandidate": {"type": "string", "minLength": 1},
+        "isAnswerRole": {"const": true}
+      }
+    },
+    "unitFlowCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inputRoleIds", "inputUnitCandidates", "answerRoleId", "answerUnitCandidate", "canonicalRelations", "resolutionStatus"],
+      "properties": {
+        "inputRoleIds": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+        "inputUnitCandidates": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "answerRoleId": {"type": "string"},
+        "answerUnitCandidate": {"type": "string"},
+        "canonicalRelations": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "resolutionStatus": {"enum": ["CANDIDATE_RESOLVED", "SEMANTIC_REVIEW_REQUIRED"]}
+      }
+    },
+    "promptBlueprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["textZh", "requiredSurfaceSlots", "mathFactSlots", "numberConstraints", "fullyInstantiated"],
+      "properties": {
+        "textZh": {"type": "string", "minLength": 10},
+        "requiredSurfaceSlots": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "mathFactSlots": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+        "numberConstraints": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "fullyInstantiated": {"const": false}
+      }
+    },
+    "answerModelCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["answerShape", "answerRole", "answerUnitCandidate", "canonicalReconstruction", "interpretationStatementCandidate", "numericAnswerInstantiated"],
+      "properties": {
+        "answerShape": {"enum": ["QUANTITY_WITH_UNIT", "QUOTIENT_REMAINDER", "DECISION_WITH_REASON", "COMPARISON_CHOICE"]},
+        "answerRole": {"type": "string"},
+        "answerUnitCandidate": {"type": "string"},
+        "canonicalReconstruction": {"type": "string", "minLength": 3},
+        "interpretationStatementCandidate": {"type": "string", "minLength": 3},
+        "numericAnswerInstantiated": {"const": false}
+      }
+    },
+    "validationCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operationInvariants", "contextConstraints", "requiredContextAffordances", "providedContextAffordances", "pendingChecks"],
+      "properties": {
+        "operationInvariants": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "contextConstraints": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "requiredContextAffordances": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "providedContextAffordances": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "pendingChecks": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "admissionStatus": {"const": "CONTEXT_BOUND_CANDIDATE"},
+    "productionAdmissionAllowed": {"const": false},
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hiddenPatternSpecAuthorityPath", "canonicalOperationAuthorityPath", "w02A01DTaskId", "m01ContextAuthorityPath", "selectionPolicyPath", "duplicateProjectionKey"],
+      "properties": {
+        "hiddenPatternSpecAuthorityPath": {"type": "string"},
+        "canonicalOperationAuthorityPath": {"type": "string"},
+        "w02A01DTaskId": {"const": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization"},
+        "m01ContextAuthorityPath": {"type": "string"},
+        "selectionPolicyPath": {"type": "string"},
+        "duplicateProjectionKey": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

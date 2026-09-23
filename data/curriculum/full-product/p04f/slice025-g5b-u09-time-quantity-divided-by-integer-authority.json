@@ -1,0 +1,134 @@
+{
+  "schemaName": "P04F25G5BU09TimeQuantityDividedByIntegerAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice025Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q025_r5_g5b_u09_5b09_profile_time_c1",
+    "queuePosition": 25,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q024_r5_g3a_u08_3a08_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 1
+  },
+  "source": {
+    "sourceNodeId": "g5b_u09_5b09",
+    "unitCode": "5B-U09",
+    "unitTitle": "時間的乘除",
+    "sourcePdfTitle": "meow911_5b09_source.pdf",
+    "driveFileId": "1lpORAkw7vvgyqF1oSdT_KI7l6--vB3a2",
+    "reviewedPages": [1, 2, 3],
+    "primaryWitnessPages": [1],
+    "supportingConceptPages": [2],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5b_u09_time_quantity_divided_by_integer",
+      "canonicalNameZh": "時間量除整數",
+      "capabilityStatement": "學生能將複名時間量平均分成指定份數，求每份時間量。",
+      "reasoningInvariant": "總時間量先以一致的時間基準表示，再除以正整數份數；結果須符合60進位及日/時24進位的正規表示。"
+    }
+  ],
+  "formalMapping": {
+    "runtimeProfileId": "profile_time",
+    "requiredW4CapabilityIds": [
+      "cap_mixed_unit_normalization",
+      "cap_quantity_domain_validator",
+      "cap_time_system_arithmetic",
+      "cap_unit_conversion"
+    ],
+    "requiredProductCapabilityIds": [
+      "cap_time_system_arithmetic",
+      "cap_quantity_domain_validator",
+      "cap_quantity_semantic_role_binding",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization"
+    ],
+    "secondsPerMinute": 60,
+    "minutesPerHour": 60,
+    "hoursPerDay": 24,
+    "secondsPerHour": 3600,
+    "secondsPerDay": 86400,
+    "relationFamilyId": "PARTITIVE_TIME_DIVISION",
+    "knownRoleIds": ["TOTAL_TIME_QUANTITY", "GROUP_COUNT"],
+    "targetRoleId": "PER_GROUP_TIME_QUANTITY",
+    "targetRoleMode": "FIXED",
+    "arithmeticInvariant": "perGroupTimeSeconds = totalTimeSeconds / groupCount",
+    "exactDivisionInvariant": "totalTimeSeconds % groupCount = 0",
+    "normalizationInvariant": "result preserves exact total seconds with seconds<60, minutes<60, and hours<24 when day units are used"
+  },
+  "patternGroups": [
+    {
+      "patternGroupId": "pg_g5b_u09_time_quantity_divided_by_integer_numeric",
+      "primaryKnowledgePointId": "kp_g5b_u09_time_quantity_divided_by_integer",
+      "displayName": "時間量除整數",
+      "questionMode": "numeric",
+      "representationTag": "time_quantity_division"
+    }
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g5b_u09_time_quantity_divided_by_integer_numeric",
+      "knowledgePointId": "kp_g5b_u09_time_quantity_divided_by_integer",
+      "operationModelId": "op_g5b_u09_time_quantity_divided_by_integer",
+      "operationFamilyId": "time_quantity_divided_by_integer",
+      "answerType": "duration_representation",
+      "requestedUnknownRole": "PER_GROUP_TIME_QUANTITY",
+      "givenRoles": ["TOTAL_TIME_QUANTITY", "GROUP_COUNT"],
+      "constraints": {
+        "presentationFamilies": ["MINUTE_SECOND_DIVISION", "HOUR_MINUTE_DIVISION", "DAY_HOUR_DIVISION"],
+        "secondsPerMinute": 60,
+        "minutesPerHour": 60,
+        "hoursPerDay": 24,
+        "positiveIntegerDivisorRequired": true,
+        "exactDivisionRequired": true,
+        "timeMultiplicationForbidden": true,
+        "repeatedScheduleForbidden": true,
+        "averageTimeForbidden": true,
+        "clockTimeDivisionForbidden": true,
+        "globalContextExpansionForbidden": true,
+        "pblProjectionForbidden": true
+      },
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_TIME_QUANTITY_DIVIDED_BY_INTEGER"
+    }
+  ],
+  "implementationBoundary": {
+    "included": [
+      "mixed-unit time quantity divided by positive integer",
+      "exact total-seconds partitive division",
+      "minute/second, hour/minute, and day/hour direct-source presentations",
+      "60-second, 60-minute, and 24-hour normalization"
+    ],
+    "q018Preserved": true,
+    "q022Preserved": true,
+    "q023Preserved": true,
+    "sharedTimeSystemRuntimeRequired": true,
+    "parallelTimeEngineAllowed": false,
+    "timeMultiplicationExpansionAllowed": false,
+    "repeatedScheduleExpansionAllowed": false,
+    "averageTimeAllowed": false,
+    "clockTimeDivisionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "pblProjectionAllowed": false,
+    "q029Touched": false
+  },
+  "acceptance": {
+    "frozenKnowledgePointCount": 1,
+    "singleKnowledgePointCapacityRequired": 24,
+    "sourceUnitNumericKnowledgePointCountRequired": 3,
+    "presentationFamilyCountRequired": 3,
+    "duplicateQuestionRejected": true,
+    "nonExactDivisionRejected": true,
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "publicSourceCountTarget": 42,
+    "publicKnowledgePointCountTarget": 295,
+    "g5bU09VisibleKnowledgePointCountTarget": 4,
+    "g5bU09HiddenKnowledgePointCountTarget": 0,
+    "g5bU09NotSelectableKnowledgePointCountTarget": 0
+  }
+}

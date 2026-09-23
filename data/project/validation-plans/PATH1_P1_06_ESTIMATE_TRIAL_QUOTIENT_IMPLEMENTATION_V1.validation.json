@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_IMPLEMENTATION_V1_BOUNDED_VALIDATION",
+  "unitId": "path1_integer_foundations",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-p1-06-estimate-trial-quotient-implementation-v1.test.js",
+          "tests/curriculum/path1-word-problem-p1-06-capability-and-transfer-preflight-v1.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-curriculum-matrix.test.js"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/curriculum/knowledge-operation-unit.schema.json",
+  "title": "Knowledge Operation Unit Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaName",
+    "schemaVersion",
+    "programId",
+    "sourceId",
+    "unitCode",
+    "title",
+    "grade",
+    "semester",
+    "conformanceState",
+    "knowledgeRegistryState",
+    "authority",
+    "knowledgePoints",
+    "existingQuestionBindings",
+    "review"
+  ],
+  "properties": {
+    "schemaName": { "const": "KnowledgeOperationUnitRegistry" },
+    "schemaVersion": { "const": 1 },
+    "programId": { "const": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1" },
+    "sourceId": {
+      "type": "string",
+      "pattern": "^g[3-6][ab]_u\\d{2}_[3-6][ab]\\d{2}$"
+    },
+    "unitCode": {
+      "type": "string",
+      "pattern": "^[3-6][AB]-U\\d{2}$"
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "grade": { "type": "integer", "minimum": 3, "maximum": 6 },
+    "semester": { "enum": ["upper", "lower"] },
+    "conformanceState": {
+      "enum": [
+        "LEGACY_COMPLETED_PENDING_GOLDEN_VALIDATION",
+        "IN_PROGRESS_GOLDEN_NATIVE",
+        "GOLDEN_CONFORMANT",
+        "BLOCKED_SOURCE_EVIDENCE",
+        "SHARED_CAPABILITY_EXCEPTION"
+      ]
+    },
+    "knowledgeRegistryState": {
+      "enum": [
+        "BASELINE_ONLY",
+        "INVENTORIED",
+        "OPERATION_MODELS_REGISTERED",
+        "QUESTION_BINDINGS_COMPLETE",
+        "VALIDATED_COMPLETE",
+        "BLOCKED"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producerPaths",
+        "authoritativeStatePath",
+        "runtimeConsumerPaths",
+        "readbackPaths"
+      ],
+      "properties": {
+        "producerPaths": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "authoritativeStatePath": { "type": "string", "minLength": 1 },
+        "runtimeConsumerPaths": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "readbackPaths": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "knowledgePoints": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/knowledgePoint" },
+      "uniqueItems": true
+    },
+    "existingQuestionBindings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/questionBinding" }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "numeric": {
+          "enum": ["UNASSESSED", "ABSENT", "PARTIAL", "COMPLETE", "NOT_APPLICABLE"]
+        },
+        "application": {
+          "enum": ["UNASSESSED", "ABSENT", "PARTIAL", "COMPLETE", "NOT_APPLICABLE"]
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "notes"],
+      "properties": {
+        "status": { "enum": ["PENDING", "PASS", "BLOCKED"] },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "$defs": {
+    "knowledgePoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "knowledgePointId",
+        "knowledgePointName",
+        "scope",
+        "operationModels",
+        "applicationCapability"
+      ],
+      "properties": {
+        "knowledgePointId": { "type": "string", "minLength": 1 },
+        "knowledgePointName": { "type": "string", "minLength": 1 },
+        "scope": { "type": "string", "minLength": 1 },
+        "applicationCapability": {
+          "enum": ["UNASSESSED_IN_PROGRAM_A", "REQUIRED", "OPTIONAL", "NOT_APPLICABLE"]
+        },
+        "operationModels": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/operationModel" },
+          "minItems": 1
+        },
+        "existingNumericQuestionCount": { "type": "integer", "minimum": 0 },
+        "existingApplicationQuestionCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "operationModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modelId",
+        "canonicalExpressions",
+        "operandRoles",
+        "unknownRoles",
+        "numberConstraints",
+        "equivalentForms",
+        "answerType",
+        "validationInvariants"
+      ],
+      "properties": {
+        "modelId": { "type": "string", "minLength": 1 },
+        "canonicalExpressions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "operandRoles": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "unknownRoles": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "numberConstraints": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "equivalentForms": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "answerType": { "type": "string", "minLength": 1 },
+        "validationInvariants": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "questionBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "questionId",
+        "knowledgePointId",
+        "operationModelId",
+        "questionType",
+        "sourcePath"
+      ],
+      "properties": {
+        "questionId": { "type": "string", "minLength": 1 },
+        "knowledgePointId": { "type": "string", "minLength": 1 },
+        "operationModelId": { "type": "string", "minLength": 1 },
+        "questionType": { "enum": ["numeric", "application", "concept", "reasoning"] },
+        "sourcePath": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

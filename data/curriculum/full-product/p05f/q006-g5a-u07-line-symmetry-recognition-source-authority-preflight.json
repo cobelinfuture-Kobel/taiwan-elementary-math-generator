@@ -1,0 +1,150 @@
+{
+  "schemaName": "P05FW5Q006LineSymmetryRecognitionSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q006_LineSymmetryRecognition_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 6,
+    "sliceId": "p05e_q006_r0_g5a_u07_5a07_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice006Implementation",
+    "previousSliceId": "p05e_q005_r0_g4b_u10_4b10_profile_spatial_solid_c1",
+    "primarySourceNodeId": "g5a_u07_5a07",
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "knowledgePointIds": ["kp_g5a_u07_line_symmetry_recognition"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q005_r0_g4b_u10_4b10_profile_spatial_solid_c1",
+    "productMergeSha": "4c25827b55d463892ff165f93227c2a6c82971e8",
+    "exactPagesRunId": "33937587482",
+    "pagesDeploymentRunId": "33937587466",
+    "evidenceArtifactId": "9960703026",
+    "evidenceArtifactDigest": "sha256:af97a7fe0fc90218f65aa89d64352071dc8c93295b9eced81ad0dfd195664787",
+    "postMergeTriggerEvent": "push",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5a_u07_5a07",
+    "sourceTitle": "線對稱圖形",
+    "sourcePdfTitle": "meow911_5a07_source.pdf",
+    "sourcePdfDriveFileId": "1JPwhBQDMYUusVKd8mWFb1ZrO05-HFIQc",
+    "sourceMetadataDriveFileId": "1tcwVjjjRVwJr0mVOiacOTEzkaJiDYUMQ",
+    "verificationNotesDriveFileId": "1f_sRdp9ASamJbRAwdMnbW4FQo90vJXUB",
+    "originalFileNameFromMetadata": "題型總覽-5a07-線對稱圖形.pdf",
+    "sourceUrlFromMetadata": "https://meow911.com/5a07/",
+    "pageCount": 1,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "reviewedPages": [1],
+    "directReviewedConcepts": [
+      "LINE_SYMMETRIC_FIGURE_RECOGNITION",
+      "FOLD_OVERLAP_CRITERION",
+      "LINE_SYMMETRIC_VS_NON_SYMMETRIC_CLASSIFICATION"
+    ],
+    "sourceIdentityAnomaly": {
+      "metadataSourceUrl": "https://meow911.com/5a07/",
+      "queueSourceNodeId": "g5a_u07_5a07",
+      "fileName": "meow911_5a07_source.pdf",
+      "metadataSourceTitle": "線對稱圖形",
+      "r02SourceTitle": "線對稱圖形",
+      "disposition": "NONE_MATCHING_SOURCE_IDENTITY",
+      "sourceRefAmbiguity": false
+    },
+    "driveMetadataReadback": {
+      "metadataManualReviewed": false,
+      "metadataExtractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5a_u07_5a07",
+    "reviewedPages": [1],
+    "knowledgePointId": "kp_g5a_u07_line_symmetry_recognition",
+    "canonicalNameZh": "線對稱圖形辨識",
+    "capabilityStatement": "學生能判斷圖形是否能沿一直線摺合重疊。",
+    "reasoningInvariant": "對稱線兩側對應部分形狀大小相同且方向相反。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "profileId": "profile_geometry_property",
+    "profileRequiredCapabilityIds": [
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "dependencyClosureAddedCapabilityIds": [],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "q006ScopeLock": {
+    "includedRelations": [
+      "IDENTIFY_LINE_SYMMETRIC_FIGURE",
+      "DISTINGUISH_LINE_SYMMETRIC_FROM_NON_SYMMETRIC_FIGURE",
+      "RECOGNIZE_FOLD_OVERLAP_AS_LINE_SYMMETRY_CRITERION"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5a_u07_symmetry_axis_count",
+      "kp_g5a_u07_symmetric_point_distance",
+      "kp_g5a_u07_complete_symmetric_figure",
+      "kp_g5a_u07_coordinate_reflection"
+    ],
+    "excludedRelations": [
+      "SYMMETRY_AXIS_COUNT",
+      "SYMMETRY_AXIS_LOCATION_OR_CONSTRUCTION",
+      "SYMMETRIC_POINT_DISTANCE",
+      "SYMMETRIC_CORRESPONDING_PARTS_QUANTITATIVE_REASONING",
+      "COMPLETE_SYMMETRIC_FIGURE",
+      "COORDINATE_REFLECTION",
+      "DRAW_OR_CONSTRUCT_SYMMETRIC_FIGURE",
+      "APPLICATION_CONTEXT",
+      "GEOMETRY_FORMULA_OR_MEASUREMENT"
+    ],
+    "requiresDiagramRepresentation": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false
+  },
+  "postMergeEvidenceTriggerPolicy": {
+    "effectiveFromQueuePosition": 3,
+    "provenPriorRunIds": ["33926418642", "33934940413", "33937587482"],
+    "latestProvenRunId": "33937587482",
+    "singlePullRequestOrchestratorMustRemain": true,
+    "postMergeWorkflowPullRequestTriggerAllowed": false,
+    "perQWorkflowRunTriggerAllowed": false,
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "qSpecificPathsMustBeDerivedFromExactImplementationDiff": true,
+    "broadHistoricalSharedPathFanoutForbidden": true,
+    "mustWaitForMatchingPagesDeployment": true,
+    "mustVerifyExactDeployedBytesBySha256": true,
+    "mustExerciseClassicUiGeneratorValidatorWorksheetRendererPrintArtifact": true,
+    "materializeWorkflowDuringImplementationOrPostMergeEvidenceTask": true
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ006ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice006Implementation"
+  }
+}

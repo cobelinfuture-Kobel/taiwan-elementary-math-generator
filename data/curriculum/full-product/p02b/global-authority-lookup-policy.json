@@ -1,0 +1,74 @@
+{
+  "schemaName": "P02BGlobalAuthorityLookupPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P02B_W2GlobalAuthorityLookupConsumerAdmission",
+  "status": "GLOBAL_AUTHORITY_LOOKUP_ADMISSION_POLICY_READY",
+  "authorities": {
+    "evidenceReconciliation": "data/project/milestones/FPL-P02A.claim.json",
+    "globalKnowledgePointRegistry": "src/curriculum/global/r02-global-kp-candidate-reconciliation.mjs",
+    "globalSourceRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+    "publicConsumerEvidence": "data/project/milestones/FPL-P01E.claim.json",
+    "legacyCutoverEvidence": "data/project/milestones/GCKG-R07.claim.json"
+  },
+  "scope": {
+    "globalSourceNodeCount": 79,
+    "canonicalKnowledgePointCount": 482,
+    "currentPublicSourceNodeCount": 19,
+    "consumerMode": "PRODUCTION_READ_ONLY_GLOBAL_AUTHORITY",
+    "authorityMode": "GLOBAL_PRIMARY",
+    "legacyAuthorityRole": "COMPATIBILITY_ALIAS_READ_ONLY"
+  },
+  "compatibilitySourceAliases": {
+    "g5a_u02_5a02": [
+      "g5a_u02_5a02a",
+      "g5a_u02_5a02a1"
+    ]
+  },
+  "consumerContract": {
+    "sourceLookupRequired": true,
+    "knowledgePointLookupRequired": true,
+    "sourceKnowledgePointPairValidationRequired": true,
+    "sourceToKnowledgePointRoundTripRequired": true,
+    "knowledgePointToSourceRoundTripRequired": true,
+    "publicProductSourceAliasResolutionRequired": true,
+    "compatibilityAliasesDoNotIncreaseGlobalSourceCount": true,
+    "unknownIdentityFailsClosed": true,
+    "readOnly": true
+  },
+  "blockingCodes": [
+    "P02B_LOOKUP_ID_REQUIRED",
+    "P02B_UNKNOWN_SOURCE_NODE",
+    "P02B_UNKNOWN_KNOWLEDGE_POINT",
+    "P02B_SOURCE_KP_MISMATCH",
+    "P02B_SOURCE_ALIAS_TARGET_MISSING"
+  ],
+  "promotion": {
+    "capabilityId": "cap_kp_authority_lookup",
+    "previousDeliveryStatus": "shadow_available",
+    "effectiveDeliveryStatus": "production_admitted",
+    "r04HistoricalBaselineMutated": false,
+    "promotionAuthority": "data/curriculum/full-product/p02b/w2-capability-promotion-registry.json",
+    "completeGlobalCoverageRequired": true,
+    "capabilitySpecificConsumerRequired": true,
+    "failClosedValidatorRequired": true
+  },
+  "rules": {
+    "parallelAuthorityAllowed": false,
+    "parallelKnowledgePointRegistryAllowed": false,
+    "knowledgePointContentDuplicationAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "generatorImplementationAllowed": false,
+    "worksheetImplementationAllowed": false,
+    "rendererImplementationAllowed": false,
+    "publicUiChangeAllowed": false,
+    "p03ToP08ImplementationAllowed": false,
+    "existing19SourceProductModificationAllowed": false,
+    "recursiveImprovementAdminAllowed": false
+  },
+  "nextTask": {
+    "taskId": "P02C_W2QuantityDimensionUnitIdentityContractAndConsumerAdmission",
+    "implementationBoundary": true,
+    "separateApprovalRequired": true
+  }
+}

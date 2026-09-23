@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W01-PUBLIC-UI_SelectionGeneratorPreviewPrintIntegration",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W01_PUBLIC_SELECTION_PREVIEW_PRINT_INTEGRATED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/w01-public-application-groups.js",
+      "site/modules/curriculum/batch-a/w01-public-application-admission.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
+      "site/modules/curriculum/batch-a/visible-pattern-group-resolver-core.js",
+      "site/assets/browser/state/public-pattern-group-selection.js",
+      "site/assets/browser/state/query-state.js",
+      "tests/site/postg-app-w01-public-ui-print-integration.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/assets/browser/pipeline/build-worksheet-document.js",
+      "site/modules/renderer/html-renderer-s57f5-extension.js",
+      "tests/site/postg-app-w01-public-ui-print-integration.test.js"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/POSTG-APP-W01-A06.claim.json",
+      "data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json",
+      "docs/curriculum/output/POSTG_APP_W01_PUBLIC_UI_PRINT_READY.marker",
+      "docs/curriculum/output/POSTG_APP_W01_PUBLIC_UI_PRINT_READBACK.md"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
+      "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json",
+      "data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html",
+        "sha256": "ea755bf9334acdaa524e8d52c50871bd5dee71d2a64f684ee0a2b4d89fb354a9"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf",
+        "sha256": "08c8892703b59b860dbf041f913c2e8aa0e3987c1d993383107d9481dbc34cfe"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
+        "sha256": "94044b3e6c75c414f6d64ee3bef315164c9a352a8b2b4231171aee0ec0535035"
+      },
+      {
+        "path": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json",
+        "sha256": "595ff5e5fd21ee11eca6f2b2ac28d2d82dabeae9369c25986fa6c9cc55fca6f8"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The seven reviewed W01 application surfaces are now selectable in the public worksheet UI and flow through the production generator, preview document and print controls while numeric choices remain separate. The public route is unchanged and the six-wave program remains incomplete."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

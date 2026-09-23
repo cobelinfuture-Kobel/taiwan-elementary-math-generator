@@ -1,0 +1,170 @@
+{
+  "schemaName": "R05DeliveryWavePolicyV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R05_DeliveryWaveRebase",
+  "status": "CAPABILITY_BASED_DELIVERY_WAVE_POLICY_READY",
+  "publicBaseline": {
+    "productUnitCount": 15,
+    "sourceNodeCount": 16,
+    "productUnitIds": [
+      "g3a_u01_3a01",
+      "g3a_u02_3a02",
+      "g3a_u03_3a03",
+      "g3a_u06_3a06",
+      "g3b_u01_3b01",
+      "g3b_u04_3b04",
+      "g3b_u08_3b08",
+      "g4a_u01_4a01",
+      "g4a_u02_4a02",
+      "g4a_u04_4a04",
+      "g4a_u08_4a08",
+      "g4b_u01_4b01",
+      "g4b_u04_4b04",
+      "g5a_u02_5a02",
+      "g5a_u08_5a08"
+    ],
+    "sourceNodeIds": [
+      "g3a_u01_3a01",
+      "g3a_u02_3a02",
+      "g3a_u03_3a03",
+      "g3a_u06_3a06",
+      "g3b_u01_3b01",
+      "g3b_u04_3b04",
+      "g3b_u08_3b08",
+      "g4a_u01_4a01",
+      "g4a_u02_4a02",
+      "g4a_u04_4a04",
+      "g4a_u08_4a08",
+      "g4b_u01_4b01",
+      "g4b_u04_4b04",
+      "g5a_u02_5a02a",
+      "g5a_u02_5a02a1",
+      "g5a_u08_5a08"
+    ],
+    "sourceNodeToProductUnitId": {
+      "g5a_u02_5a02a": "g5a_u02_5a02",
+      "g5a_u02_5a02a1": "g5a_u02_5a02"
+    },
+    "migrationMode": "PRESERVE_D0_AND_ATTACH_GLOBAL_COMPATIBILITY_IN_R06",
+    "rebuildRequired": false,
+    "revalidationRequired": true
+  },
+  "waves": [
+    {
+      "waveId": "R05-W0",
+      "order": 0,
+      "name": "PRODUCTION_BASELINE_PRESERVED",
+      "purpose": "Preserve the existing 15-unit D0 product baseline without rebuilding or changing the production consumer.",
+      "admissionMode": "PROTECTED_EXISTING_D0"
+    },
+    {
+      "waveId": "R05-W1",
+      "order": 1,
+      "name": "EXISTING_PRODUCTION_CAPABILITY_ADMISSION",
+      "purpose": "Plan non-baseline KnowledgePoints whose complete required capability closure is already production-admitted.",
+      "admissionMode": "PLANNED_NOT_ADMITTED"
+    },
+    {
+      "waveId": "R05-W2",
+      "order": 2,
+      "name": "SHADOW_FOUNDATION_HARDENING",
+      "purpose": "Harden global authority, prerequisite, quantity identity, same-unit arithmetic, and semantic shadow capabilities before admission.",
+      "admissionMode": "PLANNED_NOT_ADMITTED"
+    },
+    {
+      "waveId": "R05-W3",
+      "order": 3,
+      "name": "DECIMAL_FRACTION_NUMBER_DOMAIN",
+      "purpose": "Deliver decimal, fraction, and mixed-number-domain foundations and validators.",
+      "admissionMode": "PLANNED_NOT_ADMITTED"
+    },
+    {
+      "waveId": "R05-W4",
+      "order": 4,
+      "name": "QUANTITY_MEASUREMENT_UNIT_SYSTEM",
+      "purpose": "Deliver conversion, mixed-unit normalization, time arithmetic, scale representation, and quantity validation.",
+      "admissionMode": "PLANNED_NOT_ADMITTED"
+    },
+    {
+      "waveId": "R05-W5",
+      "order": 5,
+      "name": "GEOMETRY_SPATIAL_VISUAL",
+      "purpose": "Deliver geometry properties, formulas, constructions, solids, diagrams, and geometry validation.",
+      "admissionMode": "PLANNED_NOT_ADMITTED"
+    },
+    {
+      "waveId": "R05-W6",
+      "order": 6,
+      "name": "DATA_PATTERN_RELATION",
+      "purpose": "Deliver table/chart data, pattern, symbolic relation, coordinate, and data-relation validation capabilities.",
+      "admissionMode": "PLANNED_NOT_ADMITTED"
+    },
+    {
+      "waveId": "R05-W7",
+      "order": 7,
+      "name": "RATIO_RATE_CROSS_DOMAIN",
+      "purpose": "Deliver ratio, percent, speed, and rate capabilities after their number-domain foundations.",
+      "admissionMode": "PLANNED_NOT_ADMITTED"
+    },
+    {
+      "waveId": "R05-W8",
+      "order": 8,
+      "name": "MULTI_DOMAIN_COMPLETION",
+      "purpose": "Complete KnowledgePoints blocked by contract-only capabilities spanning multiple delivery domains.",
+      "admissionMode": "PLANNED_NOT_ADMITTED"
+    }
+  ],
+  "contractOnlyCapabilityWaveMap": {
+    "cap_decimal_number_system": "R05-W3",
+    "cap_decimal_arithmetic": "R05-W3",
+    "cap_fraction_number_system": "R05-W3",
+    "cap_fraction_arithmetic": "R05-W3",
+    "cap_mixed_number_domain_normalization": "R05-W3",
+    "cap_decimal_domain_validator": "R05-W3",
+    "cap_fraction_domain_validator": "R05-W3",
+    "cap_unit_conversion": "R05-W4",
+    "cap_mixed_unit_normalization": "R05-W4",
+    "cap_time_system_arithmetic": "R05-W4",
+    "cap_scale_instrument_representation": "R05-W4",
+    "cap_quantity_domain_validator": "R05-W4",
+    "cap_geometry_property_reasoning": "R05-W5",
+    "cap_geometry_formula_evaluation": "R05-W5",
+    "cap_geometry_construction": "R05-W5",
+    "cap_spatial_solid_reasoning": "R05-W5",
+    "cap_geometry_diagram_representation": "R05-W5",
+    "cap_solid_geometry_representation": "R05-W5",
+    "cap_geometry_domain_validator": "R05-W5",
+    "cap_table_data_model": "R05-W6",
+    "cap_chart_data_model": "R05-W6",
+    "cap_table_representation": "R05-W6",
+    "cap_chart_representation": "R05-W6",
+    "cap_coordinate_map_representation": "R05-W6",
+    "cap_pattern_sequence_reasoning": "R05-W6",
+    "cap_symbolic_relation_reasoning": "R05-W6",
+    "cap_data_domain_validator": "R05-W6",
+    "cap_pattern_relation_validator": "R05-W6",
+    "cap_ratio_percent_reasoning": "R05-W7",
+    "cap_speed_rate_reasoning": "R05-W7",
+    "cap_ratio_rate_validator": "R05-W7"
+  },
+  "deliveryStateDefaultWave": {
+    "ALL_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED": "R05-W1",
+    "ALL_REQUIRED_CAPABILITIES_AVAILABLE_SHADOW": "R05-W2"
+  },
+  "rules": {
+    "legacyBatchMayAssignWave": false,
+    "legacyBatchRole": "delivery_provenance_only",
+    "requiredPrerequisiteWaveMustNotExceedDependentWave": true,
+    "alternativeGroupUsesMinimumSatisfyingSourceWave": true,
+    "supportingEdgesAffectWave": false,
+    "multiContractDomainGapUsesWave": "R05-W8",
+    "intraWaveOrderUsesPrerequisiteRank": true,
+    "productionAdmissionDeferredTo": [
+      "R06_LegacyCompatibilityMigration",
+      "R07_AuthoritativeConsumerCutover"
+    ],
+    "productionConsumerChangeAllowed": false,
+    "parallelRuntimePipelineAllowed": false
+  }
+}

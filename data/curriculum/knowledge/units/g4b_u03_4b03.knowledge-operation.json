@@ -1,0 +1,18 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g4b_u03_4b03", "queueOrdinal": 6, "sourceCode": "4b03", "sourceTitle": "假分數與帶分數", "domainFamily": "improper_and_mixed_fraction_representation",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "5ba57aff6a973bd1a8df63791155df7b15fe25ec2b546fc94fb2d8a8323070b3", "contentIdentityGroup": "pdf_5ba57aff6a97", "pageCount": 3, "reviewedPages": [1, 2, 3], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g4b_u03_fraction_type_classification", "name": "真分數、假分數與帶分數分類", "scope": "依分子分母關係及整數部分分類分數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬數學形式分類，不應強加故事。"},
+    {"candidateId": "kp_g4b_u03_improper_mixed_conversion", "name": "假分數、帶分數與整數互換", "scope": "在固定分母下進行整數、假分數及帶分數互換。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "核心是除法與分數結構的等值轉換。"},
+    {"candidateId": "kp_g4b_u03_fraction_compare_order", "name": "假分數與帶分數比較排序", "scope": "統一表徵後比較或排序假分數與帶分數。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可比較實際份量，但數線與符號題已足以評量。"},
+    {"candidateId": "kp_g4b_u03_fraction_number_line", "name": "分數數線定位", "scope": "在數線上定位或讀取假分數與帶分數。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬數線座標與表徵能力。"},
+    {"candidateId": "kp_g4b_u03_mixed_fraction_add_sub", "name": "同分母帶分數加減", "scope": "進行同分母帶分數加減及整數減帶分數。", "evidencePages": [2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可承載測量合併或剩餘，也可直接計算。"},
+    {"candidateId": "kp_g4b_u03_fraction_times_integer_quantity", "name": "分數或帶分數乘整數量", "scope": "以重複等量求多份長度、寬度或重量。", "evidencePages": [3], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源以桌面寬度與箱重建立每份量乘份數關係。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 6, "applicationRequiredCount": 1, "applicationCompatibleCount": 2, "applicationNotApplicableCount": 3},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

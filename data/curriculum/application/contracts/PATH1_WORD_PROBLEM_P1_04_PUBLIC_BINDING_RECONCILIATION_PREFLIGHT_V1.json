@@ -1,0 +1,190 @@
+{
+  "schemaName": "Path1WordProblemP104PublicBindingReconciliationPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_04_PUBLIC_BINDING_RECONCILIATION_PREFLIGHT_V1",
+  "status": "P1_04_PUBLIC_BINDING_RECONCILIATION_LOCKED_NO_RUNTIME",
+  "operatorApproval": "APPROVED_PREFLIGHT_ONLY",
+  "runtimeChanged": false,
+  "publicBindingChanged": false,
+  "path1MatrixChanged": false,
+  "publicCutoverApplied": false,
+  "visibleUiChanged": false,
+  "queryStateChanged": false,
+  "implementationChanged": false,
+  "authorityRefs": {
+    "p104Preflight": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_04_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.json",
+    "p104Implementation": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1.json",
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "publicBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "baseArithmeticWorksheet": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "practiceModeEntry": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "queryState": "site/assets/browser/state/path1-manual-query-state.js"
+  },
+  "reconciliationProblem": {
+    "path1BlockId": "P1-04",
+    "title": "多位數×多位數",
+    "matrixBlockType": "DIFFICULTY_EXPANSION",
+    "matrixAuthoritativeKnowledgePointIds": [
+      "kp_g4a_u02_2digit_by_3digit",
+      "kp_g4a_u02_3digit_by_2digit"
+    ],
+    "currentPublicArithmeticBindingKnowledgePointIds": [
+      "kp_g4a_u02_2digit_by_3digit",
+      "kp_g4a_u02_3digit_by_2digit",
+      "kp_g4b_u01_3digit_by_3digit",
+      "kp_g4b_u01_4digit_by_3digit"
+    ],
+    "extraPublicArithmeticKnowledgePointIds": [
+      "kp_g4b_u01_3digit_by_3digit",
+      "kp_g4b_u01_4digit_by_3digit"
+    ],
+    "currentPublicBindingGenerationKind": "CANONICAL_KP_DEFAULT",
+    "matrixGenerationMeaning": "DIFFICULTY_EXPANSION",
+    "runtimeConsequence": "P1-04 arithmetic mode currently allocates/generates over all four public-binding KPs, so the mismatch is existing public arithmetic behavior rather than metadata-only drift.",
+    "p104ModelingImplementationKnowledgePointIds": [
+      "kp_g4a_u02_2digit_by_3digit",
+      "kp_g4a_u02_3digit_by_2digit"
+    ]
+  },
+  "optionsConsidered": [
+    {
+      "optionId": "A_SHRINK_PUBLIC_ARITHMETIC_BINDING_TO_MATRIX_PAIR",
+      "decision": "REJECT_FOR_P104_MODELING_CUTOVER_PATH",
+      "reason": "This would change existing public arithmetic behavior and remove two currently exposed G4B-U01 KPs. Such a compatibility-impacting arithmetic cut is not required to expose the already-bounded P1-04 modeling engine and needs its own authority/acceptance if pursued."
+    },
+    {
+      "optionId": "B_PRESERVE_ARITHMETIC_COMPATIBILITY_BREADTH_BUT_WALL_OFF_MODELING_AUTHORITY",
+      "decision": "SELECTED",
+      "reason": "This is the shortest safe path: preserve existing public arithmetic behavior while explicitly declaring that the modeling route is independently governed by the Path1 matrix-authoritative G4A-U02 pair and the dedicated P1-04 modeling adapter."
+    },
+    {
+      "optionId": "C_EXPAND_PATH1_MATRIX_TO_G4B_U01",
+      "decision": "REJECT",
+      "reason": "That would silently change curriculum authority to match legacy runtime breadth, expand the modeling envelope, and violate the approved P1-04 source/implementation scope."
+    }
+  ],
+  "selectedReconciliation": {
+    "strategy": "PRESERVE_EXISTING_ARITHMETIC_COMPATIBILITY_BREADTH_AND_SEPARATE_MODELING_AUTHORITY",
+    "publicArithmeticBindingStatus": "LEGACY_COMPATIBILITY_BREADTH_PRESERVED_NOT_ENDORSED_AS_MODELING_AUTHORITY",
+    "publicArithmeticBindingMutationRequiredForModelingCutover": false,
+    "path1MatrixMutationRequiredForModelingCutover": false,
+    "modelingMayInheritPublicArithmeticBindingKnowledgePointIds": false,
+    "modelingMustUseDedicatedP104Adapter": true,
+    "modelingAuthorityKnowledgePointIds": [
+      "kp_g4a_u02_2digit_by_3digit",
+      "kp_g4a_u02_3digit_by_2digit"
+    ],
+    "modelingForbiddenKnowledgePointIds": [
+      "kp_g4b_u01_3digit_by_3digit",
+      "kp_g4b_u01_4digit_by_3digit"
+    ],
+    "reason": "The P1-04 modeling implementation already fails closed around exactly two role-ordered G4A-U02 arithmetic forms. A future public modeling wrapper can dispatch directly to that adapter and therefore does not need to consume the broader arithmetic binding."
+  },
+  "compatibilityExceptionContract": {
+    "exceptionId": "P104_PUBLIC_ARITHMETIC_BINDING_BREADTH_COMPATIBILITY_EXCEPTION_V1",
+    "scope": "ARITHMETIC_MODE_ONLY",
+    "status": "KNOWN_EXISTING_COMPATIBILITY_EXCEPTION",
+    "notCurriculumAuthority": true,
+    "notModelingAuthority": true,
+    "doesNotAuthorizeNewPatternSpecs": true,
+    "doesNotAuthorizeG4BU01Modeling": true,
+    "doesNotAuthorizeNumericEnvelopeExpansion": true,
+    "separateDebtRemains": true,
+    "separateDebtDescription": "The public arithmetic binding and Path1 matrix remain structurally misaligned for P1-04. Reconciliation of that arithmetic compatibility debt is deferred to a separate explicit task because changing it could alter deployed arithmetic behavior."
+  },
+  "futurePublicModelingRouteContract": {
+    "candidatePracticeMode": "multiplicativeModelingTransfer",
+    "supportedBlockId": "P1-04",
+    "dispatchTarget": "site/assets/browser/pipeline/build-path1-p1-04-multiplicative-modeling-worksheet.js",
+    "mustNotRouteThrough": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "mustNotUseBaseArithmeticAllocationForModeling": true,
+    "mustPreserveP104ArithmeticModeAsCurrentlyDeployed": true,
+    "mustPreserveP103ModelingRoute": true,
+    "mustPreserveP101P102EqualGroupsTransfer": true,
+    "mustFailSafeUnsupportedBlockModePairsToArithmetic": true,
+    "queryDeepLinkAndRefreshPolicy": "LOCK_IN_NEXT_PUBLIC_CUTOVER_PREFLIGHT",
+    "uiVisibilityPolicy": "LOCK_IN_NEXT_PUBLIC_CUTOVER_PREFLIGHT",
+    "publicCutoverImplementationAllowedNow": false
+  },
+  "protectedSemantics": {
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "unknownRole": "totalAmount",
+    "semanticCommutativeRoleSwapAllowed": false,
+    "unitConversionAllowed": false,
+    "multiRelationAllowed": false,
+    "r05Included": false,
+    "inverseUnknownRolesIncluded": false,
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL",
+    "arithmeticForms": [
+      {
+        "formId": "P104_2D_BY_3D",
+        "arithmeticKnowledgePointId": "kp_g4a_u02_2digit_by_3digit",
+        "amountPerGroup": "integer 10..99",
+        "groupCount": "integer 100..999"
+      },
+      {
+        "formId": "P104_3D_BY_2D",
+        "arithmeticKnowledgePointId": "kp_g4a_u02_3digit_by_2digit",
+        "amountPerGroup": "integer 100..999",
+        "groupCount": "integer 10..99"
+      }
+    ]
+  },
+  "futurePublicCutoverPreflightMustLock": [
+    "practice-mode dispatch by block so multiplicativeModelingTransfer routes P1-03 to the P1-03 adapter and P1-04 to the P1-04 adapter",
+    "query-state acceptance for P1-04 multiplicativeModelingTransfer without weakening unsupported-block fail-safe behavior",
+    "UI option visibility/availability for P1-04 while retaining P1-03 behavior",
+    "deep-link and refresh restoration for P1-04 modeling",
+    "public metadata gate identity for P1-04 distinct from P1-03",
+    "P1-04 arithmetic preservation over the current four-KP compatibility binding",
+    "deployed focused acceptance proving P1-04 modeling questions contain only the two matrix-authoritative G4A-U02 KPs",
+    "deployed focused acceptance proving the two extra G4B-U01 KPs never appear in modeling mode"
+  ],
+  "antiScopeCreep": {
+    "publicBindingMutationAllowed": false,
+    "path1MatrixMutationAllowed": false,
+    "publicRouteMutationAllowed": false,
+    "queryStateMutationAllowed": false,
+    "uiMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "patternSpecMutationAllowed": false,
+    "g4bU01ModelingExpansionAllowed": false,
+    "p105ImplementationAllowed": false,
+    "p112CutoverAllowed": false,
+    "classicChangesAllowed": false,
+    "fullRegressionAllowed": false,
+    "globalReplayAllowed": false
+  },
+  "acceptanceContract": {
+    "mustProveCurrentMatrixPair": true,
+    "mustProveCurrentPublicArithmeticFourKpBreadth": true,
+    "mustProveTwoExtraG4bKpsAreNotInMatrix": true,
+    "mustProveP104ImplementationUsesOnlyMatrixPair": true,
+    "mustProveCurrentArithmeticBuilderConsumesPublicBindingKps": true,
+    "mustProveCurrentModelingPracticeModeIsNotYetPublicForP104": true,
+    "mustProveNoRuntimeFilesChangedByThisPreflight": true,
+    "fullRegressionRequired": false,
+    "globalReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P104_MODELING_ENGINE_USABLE_BUT_PUBLIC_BINDING_SCOPE_DRIFT_BLOCKS_CUTOVER_DESIGN",
+    "goalDistanceAfterTarget": "D1_P104_ARITHMETIC_COMPATIBILITY_EXCEPTION_AND_MODELING_AUTHORITY_SEPARATION_LOCKED",
+    "distanceReduced": "The public-binding drift is converted from an unresolved cutover blocker into an explicit compatibility exception: existing arithmetic breadth is preserved, while future modeling is contractually isolated to the matrix-authoritative P1-04 adapter.",
+    "systemNodeAdvanced": "PUBLIC_BINDING_RECONCILIATION_CONTRACT",
+    "blockersRemoved": [
+      "P104_PUBLIC_BINDING_RECONCILIATION_DECISION_UNRESOLVED",
+      "P104_MODELING_INHERITANCE_FROM_FOUR_KP_PUBLIC_BINDING_AMBIGUOUS",
+      "P104_PUBLIC_CUTOVER_DEPENDENCY_ON_BINDING_MUTATION_AMBIGUOUS"
+    ],
+    "remainingBlockers": [
+      "P104_PUBLIC_CUTOVER_PREFLIGHT_NOT_COMPLETED",
+      "P104_PUBLIC_QUERY_UI_ROUTE_NOT_LOCKED",
+      "P104_PUBLIC_ROUTE_NOT_IMPLEMENTED",
+      "P104_DEPLOYED_PUBLIC_ACCEPTANCE_NOT_COMPLETED",
+      "P104_ARITHMETIC_BINDING_MATRIX_ALIGNMENT_REMAINS_SEPARATE_COMPATIBILITY_DEBT"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_V1"
+  }
+}

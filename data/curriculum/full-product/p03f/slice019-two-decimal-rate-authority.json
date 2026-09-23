@@ -1,0 +1,169 @@
+{
+  "schemaName": "P03FSlice019TwoDecimalRateAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice019Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 19,
+    "sliceId": "p03e_q019_r7_g4b_u06_4b06_profile_decimal_c1",
+    "previousSliceId": "p03e_q018_r7_g4a_u09_4a09_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "closeoutPr": 526,
+      "closeoutMergeSha": "b5419c77f10eb0a3422f1f51dcdeaad7abc722d3",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice018-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "path": "data/curriculum/knowledge/units/g4b_u06_4b06.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g4b_u06_4b06.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g4b_u06_4b06.hidden-pattern-spec.json",
+    "sourceNodeId": "g4b_u06_4b06",
+    "sourceCode": "4b06",
+    "sourceTitle": "小數乘法",
+    "grade": 4,
+    "semester": "lower",
+    "unitCode": "4B-U06",
+    "reviewMethod": "PAGE_EVIDENCED_W02_CONTEXT_CANDIDATE_RECONCILIATION",
+    "reviewedPages": [1, 2]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4b_u06_rate_distance_context",
+      "canonicalNameZh": "小數單位率與距離總量",
+      "scope": "由每單位距離或流量乘次數，並處理同向或反向合計。",
+      "evidencePages": [2],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "reasoningInvariant": "先以 total = ratePerUnit * unitCount 求單一總量；需要合計時，再以 combined = firstTotal + secondTotal 保持單位相容。",
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_two_decimal_times_integer",
+      "canonicalNameZh": "二位小數乘整數",
+      "scope": "以直式計算二位小數乘整數，含積中有零與缺位。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "reasoningInvariant": "以百分位整數係數乘整數後，依 scale = 2 重建精確小數積。",
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"]
+    }
+  ],
+  "sliceCapabilityUnion": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g4b_u06_two_decimal_times_integer_numeric",
+      "patternSpecId": "ps_g4b_u06_two_decimal_times_integer_product_numeric",
+      "operationModelId": "op_g4b_u06_two_decimal_times_integer",
+      "operationFamilyId": "decimal_multiply",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "product",
+      "givenRoles": ["decimalFactor", "integerFactor"]
+    },
+    {
+      "patternGroupId": "pg_g4b_u06_two_decimal_times_integer_application",
+      "patternSpecId": "ps_g4b_u06_two_decimal_times_integer_product_application",
+      "operationModelId": "op_g4b_u06_two_decimal_times_integer",
+      "operationFamilyId": "decimal_multiply",
+      "mode": "APPLICATION",
+      "requestedUnknownRole": "product",
+      "givenRoles": ["decimalFactor", "integerFactor"]
+    },
+    {
+      "patternGroupId": "pg_g4b_u06_rate_distance_context_numeric",
+      "patternSpecId": "ps_g4b_u06_rate_distance_context_total_numeric",
+      "operationModelId": "op_g4b_u06_rate_distance_context",
+      "operationFamilyId": "rate_total",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "total",
+      "givenRoles": ["ratePerUnit", "unitCount", "firstTotal", "secondTotal", "combined"]
+    },
+    {
+      "patternGroupId": "pg_g4b_u06_rate_distance_context_numeric",
+      "patternSpecId": "ps_g4b_u06_rate_distance_context_combined_numeric",
+      "operationModelId": "op_g4b_u06_rate_distance_context",
+      "operationFamilyId": "rate_total",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "combined",
+      "givenRoles": ["ratePerUnit", "unitCount", "firstTotal", "secondTotal", "total"]
+    },
+    {
+      "patternGroupId": "pg_g4b_u06_rate_distance_context_application",
+      "patternSpecId": "ps_g4b_u06_rate_distance_context_total_application",
+      "operationModelId": "op_g4b_u06_rate_distance_context",
+      "operationFamilyId": "rate_total",
+      "mode": "APPLICATION",
+      "requestedUnknownRole": "total",
+      "givenRoles": ["ratePerUnit", "unitCount", "firstTotal", "secondTotal", "combined"]
+    },
+    {
+      "patternGroupId": "pg_g4b_u06_rate_distance_context_application",
+      "patternSpecId": "ps_g4b_u06_rate_distance_context_combined_application",
+      "operationModelId": "op_g4b_u06_rate_distance_context",
+      "operationFamilyId": "rate_total",
+      "mode": "APPLICATION",
+      "requestedUnknownRole": "combined",
+      "givenRoles": ["ratePerUnit", "unitCount", "firstTotal", "secondTotal", "total"]
+    }
+  ],
+  "applicationContexts": [
+    {
+      "patternSpecId": "ps_g4b_u06_rate_distance_context_combined_application",
+      "bindingCandidateId": "w02_bind_ps_g4b_u06_rate_distance_context_combined_application",
+      "itemCandidateId": "w02_item_ps_g4b_u06_rate_distance_context_combined_application",
+      "macroContextId": "gctx_macro_commerce_budget",
+      "mesoSituationId": "gctx_meso_market_exchange",
+      "microScenarioId": "gctx_micro_market_batch_exchange",
+      "atomicEpisodeId": "gctx_episode_market_batch_exchange_direct_quantity",
+      "surfaceTemplateId": "tpl_fusion_market_exchange_direct_01"
+    },
+    {
+      "patternSpecId": "ps_g4b_u06_rate_distance_context_total_application",
+      "bindingCandidateId": "w02_bind_ps_g4b_u06_rate_distance_context_total_application",
+      "itemCandidateId": "w02_item_ps_g4b_u06_rate_distance_context_total_application",
+      "macroContextId": "gctx_macro_water_energy",
+      "mesoSituationId": "gctx_meso_energy_conservation",
+      "microScenarioId": "gctx_micro_energy_use_tracking",
+      "atomicEpisodeId": "gctx_episode_energy_use_tracking_direct_quantity",
+      "surfaceTemplateId": "tpl_fusion_energy_conservation_direct_01"
+    },
+    {
+      "patternSpecId": "ps_g4b_u06_two_decimal_times_integer_product_application",
+      "bindingCandidateId": "w02_bind_ps_g4b_u06_two_decimal_times_integer_product_application",
+      "itemCandidateId": "w02_item_ps_g4b_u06_two_decimal_times_integer_product_application",
+      "macroContextId": "gctx_macro_disaster_resilience",
+      "mesoSituationId": "gctx_meso_disaster_preparedness",
+      "microScenarioId": "gctx_micro_emergency_supply_preposition",
+      "atomicEpisodeId": "gctx_episode_emergency_supply_preposition_direct_quantity",
+      "surfaceTemplateId": "tpl_fusion_disaster_preparedness_direct_01"
+    }
+  ],
+  "formalMappingBoundary": {
+    "canonicalExpressions": ["product = decimalFactor * integerFactor", "total = ratePerUnit * unitCount", "combined = firstTotal + secondTotal"],
+    "decimalFactorScale": 2,
+    "integerFactorRequired": true,
+    "compatibleUnitFlowRequired": true,
+    "unknownRoles": ["product", "total", "combined"],
+    "divisionRequired": false,
+    "decimalScaleTransformationRequired": false,
+    "numberLineRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "reuseSlice011G4BU06Source": true,
+    "sharedDecimalArithmeticRequired": true,
+    "sharedDecimalNumberSystemRequired": true,
+    "sharedDecimalDomainValidatorRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationContextCandidateExpansionAllowed": false,
+    "globalContextOntologyExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

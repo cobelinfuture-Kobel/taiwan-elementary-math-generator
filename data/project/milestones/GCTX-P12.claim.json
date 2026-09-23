@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GCTX-P12_G3BU04GlobalContextExpansionPilotAndRenderedDifferenceGate",
+  "taskClass": "content",
+  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "claimedStatus": "CANDIDATE_CONTENT_MERGED_RUNTIME_OUTPUT_NOT_INTEGRATED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "tests/curriculum/gctx-p12-g3b-u04-global-context-expansion-pilot.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/GCTX_P12_G3BU04_GLOBAL_CONTEXT_EXPANSION_PILOT_PREVIEW.html"
+    ],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "five candidate contexts exist, but the production-equivalent runtime, renderer and PDF remain unchanged"
+  },
+  "nextStep": {
+    "taskId": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix",
+    "requiredEvidenceLevelBeforeStart": "E2_CONTENT_AUTHORED"
+  }
+}

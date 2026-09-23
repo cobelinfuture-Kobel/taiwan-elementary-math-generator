@@ -1,0 +1,795 @@
+{
+  "schemaName": "POSTGAPPW02HiddenPatternSpecUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+  "sourceNodeId": "g5a_u01_5a01",
+  "queueOrdinal": 9,
+  "sourceCode": "5a01",
+  "sourceTitle": "多位小數與加減",
+  "domainFamily": "decimal_multi_place_addition_subtraction",
+  "patternSpecState": "HIDDEN_PATTERNSPECS_MATERIALIZED_RUNTIME_PENDING",
+  "canonicalOperationAuthority": {
+    "path": "data/curriculum/application/operations/w02/g5a_u01_5a01.canonical-operation.json",
+    "sha256": "169ee5e4f783f8ddc40e1c48767e5bb6d9c39f23dd6525998d6b1198c57339ad",
+    "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+    "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_read_place",
+      "knowledgePointName": "多位小數讀法與位名",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u01_decimal_read_place",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_read_place_decimal_numeric",
+          "patternGroupId": "pg_g5a_u01_decimal_read_place_numeric",
+          "knowledgePointId": "kp_g5a_u01_decimal_read_place",
+          "operationModelId": "op_g5a_u01_decimal_read_place",
+          "operationFamilyId": "decimal_representation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "decimal",
+          "givenRoles": [
+            "whole",
+            "fractionalUnits",
+            "placeUnit"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "decimal = whole + fractionalUnits * placeUnit"
+            ],
+            "numberConstraints": [
+              "whole >= 0",
+              "0 <= each place digit <= 9"
+            ],
+            "equivalentForms": [
+              "place-value table",
+              "expanded decimal form"
+            ],
+            "validationInvariants": [
+              "place-value expansion recombines to the decimal exactly"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_compose_decompose",
+      "knowledgePointName": "多位小數組成分解",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u01_decimal_compose_decompose",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_compose_decompose_decimal_numeric",
+          "patternGroupId": "pg_g5a_u01_decimal_compose_decompose_numeric",
+          "knowledgePointId": "kp_g5a_u01_decimal_compose_decompose",
+          "operationModelId": "op_g5a_u01_decimal_compose_decompose",
+          "operationFamilyId": "decimal_representation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "decimal",
+          "givenRoles": [
+            "whole",
+            "fractionalUnits",
+            "placeUnit"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "decimal = whole + fractionalUnits * placeUnit"
+            ],
+            "numberConstraints": [
+              "whole >= 0",
+              "0 <= each place digit <= 9"
+            ],
+            "equivalentForms": [
+              "place-value table",
+              "expanded decimal form"
+            ],
+            "validationInvariants": [
+              "place-value expansion recombines to the decimal exactly"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_place_value_factor_relation",
+      "knowledgePointName": "小數位值倍數關係",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u01_place_value_factor_relation",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u01_place_value_factor_relation_higher_place_value_numeric",
+          "patternGroupId": "pg_g5a_u01_place_value_factor_relation_numeric",
+          "knowledgePointId": "kp_g5a_u01_place_value_factor_relation",
+          "operationModelId": "op_g5a_u01_place_value_factor_relation",
+          "operationFamilyId": "place_factor",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "higherPlaceValue",
+          "givenRoles": [
+            "lowerPlaceValue"
+          ],
+          "answerType": "numeric_relation",
+          "operationContract": {
+            "canonicalExpressions": [
+              "higherPlaceValue = lowerPlaceValue * 10",
+              "lowerPlaceValue = higherPlaceValue / 10"
+            ],
+            "numberConstraints": [
+              "place values are adjacent in base ten"
+            ],
+            "equivalentForms": [
+              "ten times",
+              "one tenth"
+            ],
+            "validationInvariants": [
+              "adjacent decimal places differ by exactly a factor of ten"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u01_place_value_factor_relation_lower_place_value_numeric",
+          "patternGroupId": "pg_g5a_u01_place_value_factor_relation_numeric",
+          "knowledgePointId": "kp_g5a_u01_place_value_factor_relation",
+          "operationModelId": "op_g5a_u01_place_value_factor_relation",
+          "operationFamilyId": "place_factor",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "lowerPlaceValue",
+          "givenRoles": [
+            "higherPlaceValue"
+          ],
+          "answerType": "numeric_relation",
+          "operationContract": {
+            "canonicalExpressions": [
+              "higherPlaceValue = lowerPlaceValue * 10",
+              "lowerPlaceValue = higherPlaceValue / 10"
+            ],
+            "numberConstraints": [
+              "place values are adjacent in base ten"
+            ],
+            "equivalentForms": [
+              "ten times",
+              "one tenth"
+            ],
+            "validationInvariants": [
+              "adjacent decimal places differ by exactly a factor of ten"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_compare",
+      "knowledgePointName": "多位小數比較",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g5a_u01_decimal_compare",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_compare_comparison_numeric",
+          "patternGroupId": "pg_g5a_u01_decimal_compare_numeric",
+          "knowledgePointId": "kp_g5a_u01_decimal_compare",
+          "operationModelId": "op_g5a_u01_decimal_compare",
+          "operationFamilyId": "decimal_compare",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "comparison",
+          "givenRoles": [
+            "left",
+            "right"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "operationContract": {
+            "canonicalExpressions": [
+              "comparison = compare(normalizeScale(left), normalizeScale(right))"
+            ],
+            "numberConstraints": [
+              "inputs are finite decimals within the source precision"
+            ],
+            "equivalentForms": [
+              "place-value comparison",
+              "append trailing zeros"
+            ],
+            "validationInvariants": [
+              "trailing zeros do not change value",
+              "comparison is numerically correct"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_compare_comparison_application",
+          "patternGroupId": "pg_g5a_u01_decimal_compare_application",
+          "knowledgePointId": "kp_g5a_u01_decimal_compare",
+          "operationModelId": "op_g5a_u01_decimal_compare",
+          "operationFamilyId": "decimal_compare",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "comparison",
+          "givenRoles": [
+            "left",
+            "right"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "operationContract": {
+            "canonicalExpressions": [
+              "comparison = compare(normalizeScale(left), normalizeScale(right))"
+            ],
+            "numberConstraints": [
+              "inputs are finite decimals within the source precision"
+            ],
+            "equivalentForms": [
+              "place-value comparison",
+              "append trailing zeros"
+            ],
+            "validationInvariants": [
+              "trailing zeros do not change value",
+              "comparison is numerically correct"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_missing_digit_inequality",
+      "knowledgePointName": "多位小數不等式缺位",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u01_missing_digit_inequality",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u01_missing_digit_inequality_possible_digits_numeric",
+          "patternGroupId": "pg_g5a_u01_missing_digit_inequality_numeric",
+          "knowledgePointId": "kp_g5a_u01_missing_digit_inequality",
+          "operationModelId": "op_g5a_u01_missing_digit_inequality",
+          "operationFamilyId": "missing_digit_inequality",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "possibleDigits",
+          "givenRoles": [
+            "missingDigit",
+            "left",
+            "right"
+          ],
+          "answerType": "digit_set",
+          "operationContract": {
+            "canonicalExpressions": [
+              "possibleDigits = {d in 0..9 | relation(left(d), right(d))}"
+            ],
+            "numberConstraints": [
+              "0 <= missingDigit <= 9"
+            ],
+            "equivalentForms": [
+              "place-value case analysis"
+            ],
+            "validationInvariants": [
+              "set is complete",
+              "every listed digit satisfies the inequality"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_add_sub",
+      "knowledgePointName": "多位小數加減",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g5a_u01_decimal_add_sub",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_add_sub_result_numeric",
+          "patternGroupId": "pg_g5a_u01_decimal_add_sub_numeric",
+          "knowledgePointId": "kp_g5a_u01_decimal_add_sub",
+          "operationModelId": "op_g5a_u01_decimal_add_sub",
+          "operationFamilyId": "decimal_add_sub",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "result",
+          "givenRoles": [
+            "left",
+            "right"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "result = alignDecimal(left) + alignDecimal(right)",
+              "result = alignDecimal(left) - alignDecimal(right)"
+            ],
+            "numberConstraints": [
+              "inputs and result stay within source precision",
+              "subtraction result must satisfy the source scope"
+            ],
+            "equivalentForms": [
+              "column algorithm with aligned decimal points",
+              "equivalent trailing-zero form"
+            ],
+            "validationInvariants": [
+              "decimal points are aligned",
+              "result equals exact decimal arithmetic"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_add_sub_result_application",
+          "patternGroupId": "pg_g5a_u01_decimal_add_sub_application",
+          "knowledgePointId": "kp_g5a_u01_decimal_add_sub",
+          "operationModelId": "op_g5a_u01_decimal_add_sub",
+          "operationFamilyId": "decimal_add_sub",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "result",
+          "givenRoles": [
+            "left",
+            "right"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "result = alignDecimal(left) + alignDecimal(right)",
+              "result = alignDecimal(left) - alignDecimal(right)"
+            ],
+            "numberConstraints": [
+              "inputs and result stay within source precision",
+              "subtraction result must satisfy the source scope"
+            ],
+            "equivalentForms": [
+              "column algorithm with aligned decimal points",
+              "equivalent trailing-zero form"
+            ],
+            "validationInvariants": [
+              "decimal points are aligned",
+              "result equals exact decimal arithmetic"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_round_estimate",
+      "knowledgePointName": "多位小數取概數與估算",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g5a_u01_decimal_round_estimate",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_round_estimate_rounded_numeric",
+          "patternGroupId": "pg_g5a_u01_decimal_round_estimate_numeric",
+          "knowledgePointId": "kp_g5a_u01_decimal_round_estimate",
+          "operationModelId": "op_g5a_u01_decimal_round_estimate",
+          "operationFamilyId": "rounding",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "rounded",
+          "givenRoles": [
+            "value",
+            "targetPlace",
+            "estimate"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "rounded = roundToPlace(value, targetPlace)",
+              "estimate = operate(round(left), round(right))"
+            ],
+            "numberConstraints": [
+              "targetPlace is within source precision"
+            ],
+            "equivalentForms": [
+              "half-up interval",
+              "front-end estimate"
+            ],
+            "validationInvariants": [
+              "rounding boundary is applied at the next lower place"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_round_estimate_estimate_numeric",
+          "patternGroupId": "pg_g5a_u01_decimal_round_estimate_numeric",
+          "knowledgePointId": "kp_g5a_u01_decimal_round_estimate",
+          "operationModelId": "op_g5a_u01_decimal_round_estimate",
+          "operationFamilyId": "rounding",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "estimate",
+          "givenRoles": [
+            "value",
+            "targetPlace",
+            "rounded"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "rounded = roundToPlace(value, targetPlace)",
+              "estimate = operate(round(left), round(right))"
+            ],
+            "numberConstraints": [
+              "targetPlace is within source precision"
+            ],
+            "equivalentForms": [
+              "half-up interval",
+              "front-end estimate"
+            ],
+            "validationInvariants": [
+              "rounding boundary is applied at the next lower place"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_round_estimate_rounded_application",
+          "patternGroupId": "pg_g5a_u01_decimal_round_estimate_application",
+          "knowledgePointId": "kp_g5a_u01_decimal_round_estimate",
+          "operationModelId": "op_g5a_u01_decimal_round_estimate",
+          "operationFamilyId": "rounding",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "rounded",
+          "givenRoles": [
+            "value",
+            "targetPlace",
+            "estimate"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "rounded = roundToPlace(value, targetPlace)",
+              "estimate = operate(round(left), round(right))"
+            ],
+            "numberConstraints": [
+              "targetPlace is within source precision"
+            ],
+            "equivalentForms": [
+              "half-up interval",
+              "front-end estimate"
+            ],
+            "validationInvariants": [
+              "rounding boundary is applied at the next lower place"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g5a_u01_decimal_round_estimate_estimate_application",
+          "patternGroupId": "pg_g5a_u01_decimal_round_estimate_application",
+          "knowledgePointId": "kp_g5a_u01_decimal_round_estimate",
+          "operationModelId": "op_g5a_u01_decimal_round_estimate",
+          "operationFamilyId": "rounding",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "estimate",
+          "givenRoles": [
+            "value",
+            "targetPlace",
+            "rounded"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "rounded = roundToPlace(value, targetPlace)",
+              "estimate = operate(round(left), round(right))"
+            ],
+            "numberConstraints": [
+              "targetPlace is within source precision"
+            ],
+            "equivalentForms": [
+              "half-up interval",
+              "front-end estimate"
+            ],
+            "validationInvariants": [
+              "rounding boundary is applied at the next lower place"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_inverse_rounding_range",
+      "knowledgePointName": "由概數反推原數範圍",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g5a_u01_inverse_rounding_range",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g5a_u01_inverse_rounding_range_range_numeric",
+          "patternGroupId": "pg_g5a_u01_inverse_rounding_range_numeric",
+          "knowledgePointId": "kp_g5a_u01_inverse_rounding_range",
+          "operationModelId": "op_g5a_u01_inverse_rounding_range",
+          "operationFamilyId": "inverse_rounding",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "range",
+          "givenRoles": [
+            "roundedValue",
+            "targetPlace"
+          ],
+          "answerType": "decimal_range",
+          "operationContract": {
+            "canonicalExpressions": [
+              "range = {x | roundToPlace(x, targetPlace) = roundedValue}"
+            ],
+            "numberConstraints": [
+              "precision and rounding rule are fixed"
+            ],
+            "equivalentForms": [
+              "half-open rounding interval"
+            ],
+            "validationInvariants": [
+              "every value in range rounds to roundedValue",
+              "bounds are tight"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 8,
+    "numericPatternSpecCount": 10,
+    "applicationPatternSpecCount": 4,
+    "hiddenPatternSpecCount": 14,
+    "visiblePatternSpecCount": 0
+  },
+  "productionBoundary": {
+    "storyTemplatesAuthored": false,
+    "contextBindingsAuthored": false,
+    "generatorConnected": false,
+    "runtimeValidatorConnected": false,
+    "rendererConnected": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_MATERIALIZATION"
+}

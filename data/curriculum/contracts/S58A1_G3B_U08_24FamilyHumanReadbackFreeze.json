@@ -1,0 +1,139 @@
+{
+  "schemaName": "G3BU08FamilyHumanReadbackFreeze",
+  "schemaVersion": 1,
+  "task": "S58A1_G3B_U08_24FamilyHumanReadbackAndContractFreeze",
+  "sourceId": "g3b_u08_3b08",
+  "unitCode": "3B-U08",
+  "unitTitle": "乘法與除法",
+  "status": "accepted_family_contract_frozen_for_patternspecific_design",
+  "registryRef": "data/curriculum/templates/S58_G3B_U08_SemanticTemplateFamilies.json",
+  "registryGitBlobSha": "ef5bed4d1eb7ae7c8e118a678c9288993b5a3818",
+  "acceptedKnowledgePointCount": 6,
+  "acceptedFamilyCount": 24,
+  "rejectedFamilyCount": 0,
+  "mergedFamilyCount": 0,
+  "requiredMinimumContextVariantsPerFamily": 3,
+  "requiredMinimumContextVariantCount": 72,
+  "humanReadbackPolicy": {
+    "familyMustDifferBy": [
+      "event_causality_or_unknown_role",
+      "quantity_role_binding_or_unit_flow",
+      "student_semantic_decision"
+    ],
+    "notDistinctByItself": [
+      "actor_name_only",
+      "object_noun_only",
+      "number_only",
+      "surface_wording_only"
+    ],
+    "gradeBoundary": "prior_batch_a_only",
+    "representation": "horizontal_only",
+    "publicPureNumericPracticeAllowed": false,
+    "generalTwoStepMixedOperationAllowed": false,
+    "freeFormAIGenerationAllowed": false
+  },
+  "knowledgePointReadback": [
+    {
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "acceptedFamilyCount": 4,
+      "familyLabelsZh": [
+        "每日等量存款累積",
+        "每次成功固定得分累積",
+        "每件作品固定耗材總量",
+        "每包固定數量乘包數"
+      ],
+      "decision": "accepted_distinct_event_and_unit_flows"
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "acceptedFamilyCount": 4,
+      "familyLabelsZh": [
+        "總分反推成功次數",
+        "總材料反推作品數",
+        "總長度反推段數",
+        "總物品數反推包數"
+      ],
+      "decision": "accepted_distinct_quotative_division_unit_flows"
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "acceptedFamilyCount": 4,
+      "familyLabelsZh": [
+        "總存款平均到每天",
+        "總物品平均分給人",
+        "總容量平均裝入容器",
+        "總長度平均分成若干段"
+      ],
+      "decision": "accepted_distinct_partitive_division_unit_flows"
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_reverse_base_from_multiple",
+      "acceptedFamilyCount": 4,
+      "familyLabelsZh": [
+        "價格倍數反推基準價格",
+        "數量倍數反推基準數量",
+        "長度倍數反推基準長度",
+        "容量倍數反推基準容量"
+      ],
+      "decision": "accepted_distinct_measure_dimensions"
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "acceptedFamilyCount": 4,
+      "familyLabelsZh": [
+        "單價取整百估算總價",
+        "向上估算判斷預算是否足夠",
+        "整百基準補回差額求多多少",
+        "整百基準扣回差額求少多少"
+      ],
+      "decision": "accepted_distinct_estimation_decisions"
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "acceptedFamilyCount": 4,
+      "familyLabelsZh": [
+        "同價比較總重量",
+        "同價比較總容量",
+        "同價比較總數量",
+        "同價比較總長度"
+      ],
+      "decision": "accepted_distinct_measure_dimensions"
+    }
+  ],
+  "fullFixDirectives": [
+    {
+      "templateFamilyId": "tpl_g3b_u08_group_count_equal_segments",
+      "issue": "原 skeleton 的『每段剪成』語序不自然",
+      "requiredCanonicalWording": "一條{item}長{a}{lengthUnit}，每段長{b}{lengthUnit}，可以剪成幾段？",
+      "blockingRule": "SEGMENT_LENGTH_WORDING_NATURAL"
+    },
+    {
+      "templateFamilyId": "tpl_g3b_u08_total_score_per_success",
+      "issue": "不可生成『成功一球』等不自然片語",
+      "requiredRule": "context variant must provide a natural success action such as 投進一球、答對一題或完成一關",
+      "blockingRule": "SUCCESS_EVENT_PHRASE_NATURAL"
+    },
+    {
+      "templateFamilyId": "tpl_g3b_u08_group_count_score_events",
+      "issue": "反推成功次數時必須有自然且可計數的事件單位",
+      "requiredRule": "event phrase and answer classifier must be paired, such as 投進幾球、答對幾題或完成幾關",
+      "blockingRule": "SUCCESS_EVENT_CLASSIFIER_MATCH"
+    },
+    {
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "issue": "兩方案必須明示總價相同，且比較維度一致、總量不相等",
+      "requiredRule": "same total price, same measure dimension, unequal totals and one unique better option",
+      "blockingRule": "SAME_PRICE_COMPARISON_UNIQUE_AND_COMPARABLE"
+    }
+  ],
+  "acceptedScope": {
+    "directSourceFamilyCount": 13,
+    "controlledStructuralExtensionFamilyCount": 11,
+    "verticalFamilyCount": 0,
+    "generalTwoStepFamilyCount": 0,
+    "publicRemainderApplicationFamilyCount": 0,
+    "twoDigitMultiplierComputationFamilyCount": 0,
+    "twoDigitDivisorComputationFamilyCount": 0
+  },
+  "nextGate": "S58B_G3B_U08_FormalMappingPatternSpecAndSemanticValidatorDesignScan"
+}

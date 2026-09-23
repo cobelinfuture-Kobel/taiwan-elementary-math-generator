@@ -1,0 +1,61 @@
+{
+  "schemaName": "P03FSlice025ImproperMixedIntegerConversionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice025Implementation",
+  "status": "SLICE025_AUTHORITY_BOUND_IMPLEMENTATION_PENDING_CI",
+  "queue": {
+    "queuePosition": 25,
+    "sliceId": "p03e_q025_r8_g4a_u06_4a06_profile_fraction_c1",
+    "predecessorSliceId": "p03e_q024_r8_g3b_u07_3b07_profile_fraction_c1",
+    "sourceNodeId": "g4a_u06_4a06",
+    "runtimeProfileId": "profile_fraction",
+    "requiredW3CapabilityIds": [
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ]
+  },
+  "sourceEvidence": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g4a_u06_4a06.knowledge-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g4a_u06_4a06.hidden-pattern-spec.json",
+    "priorSlice017ClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice017-e6-d0-v1.json",
+    "reviewMethod": "EXISTING_PAGE_EVIDENCE_PLUS_SLICE017_SHARED_FRACTION_LINEAGE"
+  },
+  "knowledgePointIds": [
+    "kp_fraction_improper_mixed_integer_conversion"
+  ],
+  "patternContract": {
+    "knowledgePointCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "numericPatternSpecCount": 3,
+    "applicationPatternSpecCount": 0,
+    "conversionDirections": [
+      "improper_to_mixed_or_integer",
+      "mixed_to_improper_fraction",
+      "integer_to_improper_fraction"
+    ],
+    "globalContextRequired": false,
+    "newPatternSpecAuthored": true
+  },
+  "publicProjection": {
+    "newSourceAdmission": false,
+    "publicSourceCountBefore": 29,
+    "publicSourceCountAfter": 29,
+    "g4aU06VisibleKnowledgePointsBefore": 1,
+    "g4aU06VisibleKnowledgePointsAfter": 2,
+    "g4aU06HiddenKnowledgePointsBefore": 5,
+    "g4aU06HiddenKnowledgePointsAfter": 4,
+    "currentPublicKnowledgePointCountBefore": 211,
+    "currentPublicKnowledgePointCountAfter": 212
+  },
+  "runtimeBoundary": {
+    "sharedGeneratorRequired": true,
+    "sharedValidatorRequired": true,
+    "sharedWorksheetRendererRequired": true,
+    "fractionArithmeticCapabilityAllowed": false,
+    "parallelPipelineAllowed": false,
+    "historicalSliceMutationAllowed": false,
+    "slice026Started": false
+  }
+}

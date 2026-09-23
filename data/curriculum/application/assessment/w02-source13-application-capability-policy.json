@@ -1,0 +1,69 @@
+{
+  "schemaName": "POSTGAPPW02Source13ApplicationCapabilityPolicyV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
+  "status": "SOURCE_LEVEL_READINESS_POLICY_NOT_KP_CLASSIFICATION_NOT_PRODUCTION_ADMISSION",
+  "scopeLevel": "SOURCE_NODE",
+  "recordIdentity": "sourceNodeId",
+  "requiredSourceNodeCount": 13,
+  "sourceAuthorityRules": {
+    "sourceMetadataRequired": true,
+    "sourceMetadataDriveFileIdRequired": true,
+    "sourceMetadataUrlRequired": true,
+    "sourceQueueOrderMustMatchController": true,
+    "sourceTitleMaySeedDomainFamilyOnly": true,
+    "sourceTitleMayNotCreateKnowledgePoints": true
+  },
+  "knowledgeOperationRules": {
+    "expectedPathPattern": "data/curriculum/knowledge/units/{sourceNodeId}.knowledge-operation.json",
+    "existenceMustBeCheckedAtRuntime": true,
+    "missingState": "KNOWLEDGE_OPERATION_MATERIALIZATION_REQUIRED",
+    "presentState": "READY_FOR_KP_APPLICATION_CLASSIFICATION",
+    "sourceMetadataMayNotSubstituteForKnowledgeOperation": true,
+    "automaticKnowledgePointInferenceAllowed": false,
+    "automaticCanonicalOperationInferenceAllowed": false
+  },
+  "applicationAssessmentRules": {
+    "sourceLevelApplicationPotential": "MIXED_KP_SPLIT_REQUIRED",
+    "kpClassificationStateBeforeKnowledgeOperation": "NOT_PERMITTED_AT_SOURCE_BASELINE",
+    "classificationSetReservedForA01": [
+      "APPLICATION_REQUIRED",
+      "APPLICATION_COMPATIBLE",
+      "APPLICATION_NOT_APPLICABLE"
+    ],
+    "forcedStoryAuthoringAllowed": false,
+    "sourceLevelBlanketApplicationAdmissionAllowed": false,
+    "numericOnlyKnowledgePointsMustRemainEligibleForExclusion": true,
+    "applicationSuitabilityMustBeDecidedPerKnowledgePoint": true
+  },
+  "readinessDecisions": [
+    "KNOWLEDGE_OPERATION_MATERIALIZATION_REQUIRED",
+    "READY_FOR_KP_APPLICATION_CLASSIFICATION"
+  ],
+  "nextGateByReadiness": {
+    "KNOWLEDGE_OPERATION_MATERIALIZATION_REQUIRED": "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED",
+    "READY_FOR_KP_APPLICATION_CLASSIFICATION": "KP_APPLICATION_CLASSIFICATION_COMPLETE"
+  },
+  "productionBoundary": {
+    "productionAdmissionAllowed": false,
+    "publicRouteChanged": false,
+    "publicSelectionEnabled": false,
+    "worksheetOutputAllowed": false,
+    "humanReviewRequiredAtA00": false
+  },
+  "failClosedCodes": [
+    "POSTG_APP_W02_A00_CONTROLLER_INVALID",
+    "POSTG_APP_W02_A00_SOURCE_COUNT_INVALID",
+    "POSTG_APP_W02_A00_SOURCE_ORDER_INVALID",
+    "POSTG_APP_W02_A00_SOURCE_IDENTITY_DUPLICATED",
+    "POSTG_APP_W02_A00_SOURCE_METADATA_INVALID",
+    "POSTG_APP_W02_A00_DOMAIN_FAMILY_MISSING",
+    "POSTG_APP_W02_A00_KNOWLEDGE_OPERATION_PATH_INVALID",
+    "POSTG_APP_W02_A00_KNOWLEDGE_OPERATION_STATE_MISMATCH",
+    "POSTG_APP_W02_A00_PREMATURE_KP_CLASSIFICATION",
+    "POSTG_APP_W02_A00_FORCED_STORY_AUTHORIZATION_INVALID",
+    "POSTG_APP_W02_A00_PRODUCTION_ADMISSION_INVALID"
+  ],
+  "nextShortestStep": "POSTG-APP-W02-A01_13SourceNodeKnowledgeOperationCandidateMaterializationAndKPClassification"
+}

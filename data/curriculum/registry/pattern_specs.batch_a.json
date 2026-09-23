@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "s34f.batch_a.pattern_spec_registry.v1",
+  "taskId": "S34F_BatchA_PatternSpecValidatorContractMaterializationExecution",
+  "batchId": "batch_a",
+  "productionUse": "forbidden",
+  "runtimeConsumption": "not_authorized_until_S36_generator_consumption",
+  "sourcePolicy": {
+    "primarySource": "S30B2 manual PDF visual-read knowledge point extraction",
+    "alignmentSource": "S29C Batch A assignment",
+    "ocrUse": "sidelined_not_primary",
+    "sourceEvidenceType": "manual_pdf_visual_read",
+    "sourceAuthorityStatus": "manual_visual_read_candidate"
+  },
+  "materializationPolicy": {
+    "includedReadiness": ["ready", "partial"],
+    "excludedReadiness": ["future", "blocked"],
+    "partialRows": "materialized_as_contract_only_until_template_or_hook_refinement",
+    "futureRows": "not_materialized_for_batch_a_production_path"
+  },
+  "counts": {
+    "sourceUnitCount": 13,
+    "materializedPatternSpecGroupCount": 82,
+    "readyPatternSpecGroupCount": 58,
+    "partialPatternSpecGroupCount": 24,
+    "productionReadyPatternSpecGroupCount": 0
+  },
+  "rowProjection": {
+    "patternSpecId": "stable materialized registry id",
+    "knowledgePointRefs": "S30B2 manual-read kp ids",
+    "readiness": "ready or partial",
+    "validatorContractRef": "matching row in validator_contracts.batch_a.json",
+    "fullTagEvidence": "S30B2 manual PDF knowledge-point map remains source of canonicalSkill/questionKind/difficulty/representation details"
+  },
+  "sourceUnits": [
+    {
+      "sourceId": "g3a_u01_3a01",
+      "sourceTitle": "10000以內的數",
+      "ready": [
+        {"patternSpecId":"ps_g3a_u01_place_value_blank","knowledgePointRefs":["g3a_u01_kp05"],"validatorContractRef":"vc_g3a_u01_place_value_blank"},
+        {"patternSpecId":"ps_g3a_u01_digit_max_min_4digit","knowledgePointRefs":["g3a_u01_kp07"],"validatorContractRef":"vc_g3a_u01_digit_max_min_4digit"},
+        {"patternSpecId":"ps_g3a_u01_4digit_decompose","knowledgePointRefs":["g3a_u01_kp11"],"validatorContractRef":"vc_g3a_u01_4digit_decompose"},
+        {"patternSpecId":"ps_g3a_u01_4digit_compose","knowledgePointRefs":["g3a_u01_kp12"],"validatorContractRef":"vc_g3a_u01_4digit_compose"},
+        {"patternSpecId":"ps_g3a_u01_4digit_compare","knowledgePointRefs":["g3a_u01_kp16"],"validatorContractRef":"vc_g3a_u01_4digit_compare"}
+      ],
+      "partial": [
+        {"patternSpecId":"ps_g3a_u01_4digit_read_write_zero","knowledgePointRefs":["g3a_u01_kp02","g3a_u01_kp03","g3a_u01_kp13"],"validatorContractRef":"vc_g3a_u01_4digit_read_write_zero"},
+        {"patternSpecId":"ps_g3a_u01_money_total_text_fallback","knowledgePointRefs":["g3a_u01_kp15"],"validatorContractRef":"vc_g3a_u01_money_total_text_fallback"}
+      ],
+      "excludedFutureKnowledgePoints": ["g3a_u01_kp08","g3a_u01_kp09","g3a_u01_kp10","g3a_u01_kp17"]
+    },
+    {
+      "sourceId": "g3a_u02_3a02",
+      "sourceTitle": "四位數的加減",
+      "ready": [
+        {"patternSpecId":"ps_g3a_u02_4digit_add_multi_carry","knowledgePointRefs":["g3a_u02_kp01"],"validatorContractRef":"vc_g3a_u02_4digit_add_multi_carry"},
+        {"patternSpecId":"ps_g3a_u02_4digit_sub_multi_borrow","knowledgePointRefs":["g3a_u02_kp02"],"validatorContractRef":"vc_g3a_u02_4digit_sub_multi_borrow"},
+        {"patternSpecId":"ps_g3a_u02_4digit_sub_consecutive_borrow","knowledgePointRefs":["g3a_u02_kp03"],"validatorContractRef":"vc_g3a_u02_4digit_sub_consecutive_borrow"},
+        {"patternSpecId":"ps_g3a_u02_4digit_sub_zero_borrow_chain","knowledgePointRefs":["g3a_u02_kp09"],"validatorContractRef":"vc_g3a_u02_4digit_sub_zero_borrow_chain"}
+      ],
+      "partial": [
+        {"patternSpecId":"ps_g3a_u02_4digit_add_sub_missing_digit","knowledgePointRefs":["g3a_u02_kp06","g3a_u02_kp07","g3a_u02_kp08"],"validatorContractRef":"vc_g3a_u02_4digit_add_sub_missing_digit"}
+      ],
+      "excludedFutureKnowledgePoints": ["g3a_u02_kp04","g3a_u02_kp05"]
+    },
+    {
+      "sourceId": "g3a_u03_3a03",
+      "sourceTitle": "乘法",
+      "ready": [
+        {"patternSpecId":"ps_g3a_u03_tens_multiple_by_1digit","knowledgePointRefs":["g3a_u03_kp01"],"validatorContractRef":"vc_g3a_u03_tens_multiple_by_1digit"},
+        {"patternSpecId":"ps_g3a_u03_2digit_by_1digit_carry","knowledgePointRefs":["g3a_u03_kp03"],"validatorContractRef":"vc_g3a_u03_2digit_by_1digit_carry"},
+        {"patternSpecId":"ps_g3a_u03_3digit_by_1digit","knowledgePointRefs":["g3a_u03_kp04"],"validatorContractRef":"vc_g3a_u03_3digit_by_1digit"},
+        {"patternSpecId":"ps_g3a_u03_consecutive_multiplication","knowledgePointRefs":["g3a_u03_kp06"],"validatorContractRef":"vc_g3a_u03_consecutive_multiplication"}
+      ],
+      "partial": [
+        {"patternSpecId":"ps_g3a_u03_multiplication_missing_digit_vertical","knowledgePointRefs":["g3a_u03_kp05","g3a_u03_kp09"],"validatorContractRef":"vc_g3a_u03_multiplication_missing_digit_vertical"}
+      ],
+      "excludedFutureKnowledgePoints": ["g3a_u03_kp07","g3a_u03_kp08"]
+    },
+    {
+      "sourceId": "g3a_u06_3a06",
+      "sourceTitle": "二位數除以一位數",
+      "ready": [
+        {"patternSpecId":"ps_g3a_u06_exact_division_check","knowledgePointRefs":["g3a_u06_kp03"],"validatorContractRef":"vc_g3a_u06_exact_division_check"},
+        {"patternSpecId":"ps_g3a_u06_division_with_remainder","knowledgePointRefs":["g3a_u06_kp04"],"validatorContractRef":"vc_g3a_u06_division_with_remainder"},
+        {"patternSpecId":"ps_g3a_u06_zero_one_division","knowledgePointRefs":["g3a_u06_kp06"],"validatorContractRef":"vc_g3a_u06_zero_one_division"}
+      ],
+      "partial": [
+        {"patternSpecId":"ps_g3a_u06_division_estimate_and_long_division_intro","knowledgePointRefs":["g3a_u06_kp01","g3a_u06_kp02"],"validatorContractRef":"vc_g3a_u06_division_estimate_and_long_division_intro"},
+        {"patternSpecId":"ps_g3a_u06_division_missing_digit_vertical","knowledgePointRefs":["g3a_u06_kp05"],"validatorContractRef":"vc_g3a_u06_division_missing_digit_vertical"},
+        {"patternSpecId":"ps_g3a_u06_division_language_and_context","knowledgePointRefs":["g3a_u06_kp09","g3a_u06_kp10","g3a_u06_kp11","g3a_u06_kp13","g3a_u06_kp14"],"validatorContractRef":"vc_g3a_u06_division_language_and_context"}
+      ],
+      "excludedFutureKnowledgePoints": ["g3a_u06_kp07","g3a_u06_kp08","g3a_u06_kp12"]
+    },
+    {
+      "sourceId": "g3b_u01_3b01",
+      "sourceTitle": "除法",
+      "ready": [
+        {"patternSpecId":"ps_g3b_u01_remainder_less_than_divisor","knowledgePointRefs":["g3b_u01_kp04"],"validatorContractRef":"vc_g3b_u01_remainder_less_than_divisor"},
+        {"patternSpecId":"ps_g3b_u01_2digit_by_1digit_regroup_tens","knowledgePointRefs":["g3b_u01_kp07"],"validatorContractRef":"vc_g3b_u01_2digit_by_1digit_regroup_tens"},
+        {"patternSpecId":"ps_g3b_u01_2digit_by_1digit_ones_insufficient","knowledgePointRefs":["g3b_u01_kp08"],"validatorContractRef":"vc_g3b_u01_2digit_by_1digit_ones_insufficient"},
+        {"patternSpecId":"ps_g3b_u01_3digit_by_1digit_regroup_hundreds","knowledgePointRefs":["g3b_u01_kp12"],"validatorContractRef":"vc_g3b_u01_3digit_by_1digit_regroup_hundreds"},
+        {"patternSpecId":"ps_g3b_u01_3digit_by_1digit_tens_insufficient","knowledgePointRefs":["g3b_u01_kp13"],"validatorContractRef":"vc_g3b_u01_3digit_by_1digit_tens_insufficient"},
+        {"patternSpecId":"ps_g3b_u01_3digit_by_1digit_ones_insufficient","knowledgePointRefs":["g3b_u01_kp14"],"validatorContractRef":"vc_g3b_u01_3digit_by_1digit_ones_insufficient"},
+        {"patternSpecId":"ps_g3b_u01_ones_equal_divisor","knowledgePointRefs":["g3b_u01_kp11"],"validatorContractRef":"vc_g3b_u01_ones_equal_divisor"}
+      ],
+      "partial": [
+        {"patternSpecId":"ps_g3b_u01_long_division_partial_cases","knowledgePointRefs":["g3b_u01_kp01","g3b_u01_kp02","g3b_u01_kp03","g3b_u01_kp15","g3b_u01_kp16","g3b_u01_kp17","g3b_u01_kp18"],"validatorContractRef":"vc_g3b_u01_long_division_partial_cases"},
+        {"patternSpecId":"ps_g3b_u01_division_word_problem_two_step","knowledgePointRefs":["g3b_u01_kp05","g3b_u01_kp06","g3b_u01_kp19","g3b_u01_kp21"],"validatorContractRef":"vc_g3b_u01_division_word_problem_two_step"}
+      ],
+      "excludedFutureKnowledgePoints": ["g3b_u01_kp20"]
+    },
+    {
+      "sourceId": "g3b_u04_3b04",
+      "sourceTitle": "兩步驟計算",
+      "ready": [
+        {"patternSpecId":"ps_g3b_u04_consecutive_multiplication","knowledgePointRefs":["g3b_u04_kp05"],"validatorContractRef":"vc_g3b_u04_consecutive_multiplication"}
+      ],
+      "partial": [
+        {"patternSpecId":"ps_g3b_u04_two_step_division_add_sub_contexts","knowledgePointRefs":["g3b_u04_kp01","g3b_u04_kp02","g3b_u04_kp03","g3b_u04_kp04","g3b_u04_kp08","g3b_u04_kp09"],"validatorContractRef":"vc_g3b_u04_two_step_division_add_sub_contexts"},
+        {"patternSpecId":"ps_g3b_u04_multiplicative_comparison_contexts","knowledgePointRefs":["g3b_u04_kp06","g3b_u04_kp10","g3b_u04_kp11","g3b_u04_kp12"],"validatorContractRef":"vc_g3b_u04_multiplicative_comparison_contexts"}
+      ],
+      "excludedFutureKnowledgePoints": ["g3b_u04_kp07"]
+    },
+    {
+      "sourceId": "g3b_u08_3b08",
+      "sourceTitle": "乘法與除法",
+      "ready": [
+        {"patternSpecId":"ps_g3b_u08_inverse_add_sub","knowledgePointRefs":["g3b_u08_kp01"],"validatorContractRef":"vc_g3b_u08_inverse_add_sub"},
+        {"patternSpecId":"ps_g3b_u08_commutative_addition","knowledgePointRefs":["g3b_u08_kp03"],"validatorContractRef":"vc_g3b_u08_commutative_addition"},
+        {"patternSpecId":"ps_g3b_u08_inverse_mul_div","knowledgePointRefs":["g3b_u08_kp05"],"validatorContractRef":"vc_g3b_u08_inverse_mul_div"},
+        {"patternSpecId":"ps_g3b_u08_commutative_multiplication","knowledgePointRefs":["g3b_u08_kp07"],"validatorContractRef":"vc_g3b_u08_commutative_multiplication"},
+        {"patternSpecId":"ps_g3b_u08_division_check_exact","knowledgePointRefs":["g3b_u08_kp10"],"validatorContractRef":"vc_g3b_u08_division_check_exact"},
+        {"patternSpecId":"ps_g3b_u08_division_check_remainder","knowledgePointRefs":["g3b_u08_kp11"],"validatorContractRef":"vc_g3b_u08_division_check_remainder"}
+      ],
+      "partial": [
+        {"patternSpecId":"ps_g3b_u08_inverse_unknowns_and_transposition","knowledgePointRefs":["g3b_u08_kp02","g3b_u08_kp04","g3b_u08_kp06","g3b_u08_kp08","g3b_u08_kp09","g3b_u08_kp15"],"validatorContractRef":"vc_g3b_u08_inverse_unknowns_and_transposition"},
+        {"patternSpecId":"ps_g3b_u08_unit_rate_division_contexts","knowledgePointRefs":["g3b_u08_kp12","g3b_u08_kp13","g3b_u08_kp14","g3b_u08_kp16","g3b_u08_kp17"],"validatorContractRef":"vc_g3b_u08_unit_rate_division_contexts"}
+      ],
+      "excludedFutureKnowledgePoints": []
+    },
+    {
+      "sourceId": "g4a_u01_4a01",
+      "sourceTitle": "1億以內的數",
+      "ready": ["ps_g4a_u01_100k_decompose","ps_g4a_u01_100k_compose","ps_g4a_u01_large_number_compare","ps_g4a_u01_compose_5digit_from_digits","ps_g4a_u01_compare_8digit"],
+      "partial": ["ps_g4a_u01_large_number_read_write","ps_g4a_u01_large_number_add_sub"],
+      "excludedFutureKnowledgePoints": []
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "sourceTitle": "整數的乘法",
+      "ready": ["ps_g4a_u02_3digit_by_1digit_review","ps_g4a_u02_powers_of_10_multiple","ps_g4a_u02_1digit_by_2digit","ps_g4a_u02_1digit_by_3digit","ps_g4a_u02_tens_by_tens_zero_count","ps_g4a_u02_2digit_by_2digit"],
+      "partial": ["ps_g4a_u02_multiplication_place_value_and_missing_digit"],
+      "excludedFutureKnowledgePoints": []
+    },
+    {
+      "sourceId": "g4a_u04_4a04",
+      "sourceTitle": "整數的除法",
+      "ready": ["ps_g4a_u04_4digit_by_1digit_high_place_sufficient","ps_g4a_u04_4digit_by_1digit_high_place_insufficient","ps_g4a_u04_4digit_by_1digit_high_place_exact","ps_g4a_u04_remainder_less_than_divisor"],
+      "partial": ["ps_g4a_u04_2digit_3digit_by_2digit_division"],
+      "excludedFutureKnowledgePoints": ["g4a_u04_kp01"]
+    },
+    {
+      "sourceId": "g4a_u08_4a08",
+      "sourceTitle": "整數四則",
+      "ready": ["ps_g4a_u08_left_to_right_add_sub","ps_g4a_u08_parentheses_first","ps_g4a_u08_multiplication_precedence","ps_g4a_u08_division_precedence","ps_g4a_u08_parentheses_and_precedence","ps_g4a_u08_mixed_four_operations"],
+      "partial": ["ps_g4a_u08_operation_reordering_strategies","ps_g4a_u08_two_step_add_sub_word_problems"],
+      "excludedFutureKnowledgePoints": []
+    },
+    {
+      "sourceId": "g4b_u01_4b01",
+      "sourceTitle": "多位數的乘與除",
+      "ready": ["ps_g4b_u01_multiplier_trailing_zero","ps_g4b_u01_multiplicand_trailing_zero","ps_g4b_u01_both_trailing_zero"],
+      "partial": ["ps_g4b_u01_multi_digit_multiplication_partial_cases","ps_g4b_u01_multi_digit_division_3digit_divisor","ps_g4b_u01_vertical_place_alignment_mul_div"],
+      "excludedFutureKnowledgePoints": []
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "sourceTitle": "整數四則",
+      "ready": ["ps_g5a_u08_mixed_operations","ps_g5a_u08_add_sub_mul_div_mix","ps_g5a_u08_repeated_division","ps_g5a_u08_repeated_subtraction"],
+      "partial": ["ps_g5a_u08_integer_laws_and_common_factor","ps_g5a_u08_integer_mixed_operation_word_problems"],
+      "excludedFutureKnowledgePoints": ["g5a_u08_kp06","g5a_u08_kp07","g5a_u08_kp12","g5a_u08_kp13"]
+    }
+  ],
+  "boundary": {
+    "patternSpecRowsCreated": true,
+    "validatorContractRowsRequired": true,
+    "validatorImplementationCreated": false,
+    "generatorConsumptionAuthorized": false,
+    "worksheetOutputAuthorized": false,
+    "productionUseAllowed": false
+  }
+}

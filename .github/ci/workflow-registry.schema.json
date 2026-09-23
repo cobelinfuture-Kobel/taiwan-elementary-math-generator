@@ -1,0 +1,238 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/blob/main/.github/ci/workflow-registry.schema.json",
+  "title": "Global GitHub CI Handshake Workflow Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "programId",
+    "repository",
+    "inventoryCompleteness",
+    "policyLock",
+    "workflows",
+    "observedNonconformities",
+    "nextInventoryTaskId"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "programId": {
+      "const": "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1"
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+    },
+    "inventoryCompleteness": {
+      "enum": ["BOOTSTRAP_PARTIAL", "COMPLETE"]
+    },
+    "inventoryAsOfCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "policyLock": {
+      "$ref": "#/$defs/policyLock"
+    },
+    "workflows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/workflow"
+      }
+    },
+    "observedNonconformities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonconformity"
+      }
+    },
+    "nextInventoryTaskId": {
+      "const": "GCI-S01_MathRepositoryWorkflowInventoryAndFanoutMatrix"
+    }
+  },
+  "$defs": {
+    "policyLock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxTopLevelPrWorkflows",
+        "maxRequiredPrChecks",
+        "fullRegressionAuthorityCount",
+        "prBranchWriterCount",
+        "normalPushWaves",
+        "remediationPushWavesPerCycle",
+        "statusOnlyCommits",
+        "readbackOnlyCommits",
+        "hashOnlyCommits",
+        "ciSelfMutatingCommits",
+        "terminalBarrierRequired"
+      ],
+      "properties": {
+        "maxTopLevelPrWorkflows": { "const": 1 },
+        "maxRequiredPrChecks": { "const": 3 },
+        "fullRegressionAuthorityCount": { "const": 1 },
+        "prBranchWriterCount": { "const": 0 },
+        "normalPushWaves": { "const": 1 },
+        "remediationPushWavesPerCycle": { "const": 1 },
+        "statusOnlyCommits": { "const": "FORBIDDEN" },
+        "readbackOnlyCommits": { "const": "FORBIDDEN" },
+        "hashOnlyCommits": { "const": "FORBIDDEN" },
+        "ciSelfMutatingCommits": { "const": "FORBIDDEN" },
+        "terminalBarrierRequired": { "const": true }
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workflowId",
+        "file",
+        "displayName",
+        "lifecycle",
+        "triggerClasses",
+        "pathScope",
+        "requiredCheckStatus",
+        "branchProtectionEvidenceStatus",
+        "writesPullRequestBranch",
+        "fullRegressionRole",
+        "successorWorkflowId",
+        "retirementTaskId",
+        "policyDisposition",
+        "evidence"
+      ],
+      "properties": {
+        "workflowId": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "file": {
+          "type": "string",
+          "pattern": "^\\.github/workflows/.+\\.ya?ml$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lifecycle": {
+          "enum": [
+            "ACTIVE_REQUIRED",
+            "ACTIVE_OPTIONAL",
+            "WORKFLOW_DISPATCH_ONLY",
+            "POST_MERGE_ONLY",
+            "DEPRECATED",
+            "RETIRED"
+          ]
+        },
+        "triggerClasses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "PULL_REQUEST",
+              "PUSH_MAIN",
+              "WORKFLOW_DISPATCH",
+              "WORKFLOW_CALL",
+              "SCHEDULE",
+              "OTHER"
+            ]
+          }
+        },
+        "pathScope": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "requiredCheckStatus": {
+          "enum": ["REQUIRED", "OPTIONAL", "UNVERIFIED", "NOT_APPLICABLE"]
+        },
+        "branchProtectionEvidenceStatus": {
+          "enum": ["VERIFIED", "NOT_INSPECTED_S00", "NOT_APPLICABLE"]
+        },
+        "writesPullRequestBranch": {
+          "type": "boolean"
+        },
+        "fullRegressionRole": {
+          "enum": [
+            "PR_AUTHORITY",
+            "PR_DUPLICATE",
+            "FOCUSED_ONLY",
+            "POST_MERGE_GUARD",
+            "NONE",
+            "UNVERIFIED"
+          ]
+        },
+        "successorWorkflowId": {
+          "type": ["string", "null"]
+        },
+        "retirementTaskId": {
+          "type": ["string", "null"]
+        },
+        "policyDisposition": {
+          "enum": [
+            "CONFORMANT",
+            "NONCONFORMANT_PENDING_S02",
+            "NONCONFORMANT_PENDING_S03",
+            "REQUIRES_S01_INVENTORY",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["blobSha", "observations"],
+          "properties": {
+            "blobSha": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40}$"
+            },
+            "observations": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "nonconformity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "nonconformityId",
+        "workflowIds",
+        "rule",
+        "status",
+        "resolutionTaskId"
+      ],
+      "properties": {
+        "nonconformityId": {
+          "type": "string",
+          "pattern": "^GCI-NC-[0-9]{3}$"
+        },
+        "workflowIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string" }
+        },
+        "rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": ["OPEN", "RESOLVED", "ACCEPTED_TEMPORARY"]
+        },
+        "resolutionTaskId": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

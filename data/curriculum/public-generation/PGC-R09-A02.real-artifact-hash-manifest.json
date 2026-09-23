@@ -1,0 +1,160 @@
+{
+  "schemaName": "PGCR09A02RealArtifactHashManifestV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R09-A02_RealArtifactArchiveAndHashManifest",
+  "status": "PASS_ARTIFACT_MANIFEST_MATERIALIZED",
+  "sourceExecution": {
+    "taskId": "PGC-R09-A01R_325RouteFailureClassificationAndFullFix",
+    "pullRequest": 504,
+    "commitSha": "e3d52833780bd99c882ee882cef04d8359580470",
+    "mergeSha": "94f3661052cdcfc1760f1a2fffcde29160535e93",
+    "workflowRunIds": [30703298263, 30703298264],
+    "artifactIds": [8819673561, 8819545648, 8819547308],
+    "primaryArtifactId": 8819673561,
+    "primaryArtifactDigest": "sha256:7aa034318d0acc6951b9159dddbe73dcc01284246281556c5befe9a0cdf4c775"
+  },
+  "terminalExecution": {
+    "legalRouteCount": 793,
+    "executedRouteCount": 793,
+    "terminalRouteCount": 793,
+    "passRouteCount": 793,
+    "failRouteCount": 0,
+    "fullNineGatePassCount": 793,
+    "repairQueueCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "finalCheckpointExecutedRouteCount": 793,
+    "finalCheckpointAuthoritative": true
+  },
+  "requiredArchiveFields": {
+    "pullRequest": 504,
+    "commitSha": "e3d52833780bd99c882ee882cef04d8359580470",
+    "mergeSha": "94f3661052cdcfc1760f1a2fffcde29160535e93",
+    "workflowRunIds": [30703298263, 30703298264],
+    "artifactIds": [8819673561, 8819545648, 8819547308],
+    "htmlSha256": {
+      "coverage": "ONE_DETERMINISTIC_PASS_SAMPLE_PER_16_SHARDS",
+      "sampleCount": 16,
+      "values": [
+        "8711c0d84ac67092a239b714ef50a6ba0a3c8f400922385b3d9f6df7b08981c8",
+        "580496481f8963b3a64c96be1c119dd720e73e86432751d6ff9f36e905105414",
+        "650d12c129326cfffb778bb0daf140ee74783550e2177fbbf70658407af4c32f",
+        "4652f8ce5e402f693aa609aa95698d43e6379df3165442b4ba99abf567d94ccb",
+        "3b9ac27efab2387914bf1108d8ddf03d83a1996d59c1afa5ece7faff7ea6d5b7",
+        "734fc960817116b09be30a90a27a2009c5cd46304c7c62ae1aa2110fde5fadae",
+        "6d1d7728216a44449b5d3e9364df8b6d937debf3902464a3851443fb489ce74d",
+        "d195bbb043fcb2861c5c059e664281f0e21004a7c0906554a82580a64fc7ef6c",
+        "cc1c9c84ef3a16989fa48ed68f97cdb3fa0afc945ac39383112d6211a47d54a9",
+        "ffd216b504c15a7f27ebc80af85a4a60e20917a061c60fc7ffc45db824c5ab0a",
+        "c3cf87c2d999bcff1e4ac5a5b39ba1f6b4e4ab195f1606256b65d5fee953e7f4",
+        "71b040dc070e33ee27b8d8e96699a3f800c66ffba19502345b1b8a4c8142b6b2",
+        "f63505ca821f0864c890137a5c3f2cf011ee67ac6037dbac61370c3ce054b146",
+        "7882e5591d73b9b257858b100c259f0e4d11e943fc84efaaac6b38d4ef1c2eb2",
+        "abbc33cc0153a4f6b8c7ecbe9b6a532bda5518be3f65b1e18ba2790a3de09d59",
+        "10e1d271c4f4eb2e8f4b21c42ea50571db6388e51fd2d53f934d314291737edf"
+      ]
+    },
+    "pdfSha256": {
+      "coverage": "ONE_DETERMINISTIC_PASS_SAMPLE_PER_16_SHARDS",
+      "sampleCount": 16,
+      "values": [
+        "570abdbc2b71aa2d8d520255f7527a62a17becb3b22fa3a6b3014f568f619efb",
+        "292982b682f53585065b539532d4affbfabd5d9fd6dbb5520de8aa642a83fb3a",
+        "507a5356504e7f7c58eae7e6d97115545e1ec49893d8880cc1073b72108e58df",
+        "d8d34ad7f16b025f728aac727337f754d370bb3ba69dfba606119b8c613a196f",
+        "674a5e0473660e9659d47b89f4a34771a496936d40d61a9bf64d8c503438eb3b",
+        "ff15f21a94d54e582e2627bdc80190971017af4a7b89c1cc50edef66a55f9c3c",
+        "c85fa88eaf22ebd124809589250f9876fcccacea1a8688eac6812529b9c06dec",
+        "59d30838824d31458cf6753ba0971391c8446deaa84c69dd5f9382e37f2f7149",
+        "25c0247e4b0c915e460e2afcffb5d78abe878b10d8055e9949e60956b8a7a540",
+        "86ceb4fff29703d58879fd2b733d192c211a81d202a561267af5f149426d4a31",
+        "e60a6d484d30ef5a39c71d9e89990418446e5fca03ba0a4d4cbd033aeead9f62",
+        "2dfe1e1ffa8c8a063b6b4d83a76a105bc3f6a214fc3f664a6862993323071f64",
+        "519fc0786973812ca30b287d268c04b9f022de1f324bb676a830173f51a12e71",
+        "c2720d0b377e01d1c6ee643821d7bb4ea3e8e5a5056a0270b59c16968247c70e",
+        "e9ac140610d5fc6af084ebbfae14341d0e844c76d7a714785a371ea96775dc60",
+        "ef04becd88bc9a11392d999205353c689287e55a7b00a766fb87289835bd6d1f"
+      ]
+    },
+    "questionCount": {
+      "perRoute": 20,
+      "routeCount": 793,
+      "firstGenerationTotal": 15860
+    },
+    "answerCount": {
+      "perRoute": 20,
+      "routeCount": 793,
+      "firstGenerationTotal": 15860
+    },
+    "uniqueQuestionCount": {
+      "status": "IDENTITY_GATE_PASS_COUNT_MATERIALIZATION_NOT_AVAILABLE_IN_A01R_REPORT",
+      "questionIdentityGatePassCount": 793,
+      "distinctWorksheetQuestionIdentitySha256Count": 790,
+      "note": "A01R report archives worksheet-level questionIdentitySha256 but not the twenty individual question IDs/texts for every route; no unsupported per-question uniqueness count is invented."
+    },
+    "seedCount": {
+      "generationSeedsPerRoute": 2,
+      "routeCount": 793,
+      "generationSeedApplications": 1586,
+      "secondGenerationObservedRouteCount": 793
+    },
+    "pageCount": {
+      "questionPages": 2075,
+      "answerPages": 2835,
+      "totalPages": 4910
+    },
+    "overflowMetrics": {
+      "authorityPath": "data/curriculum/public-generation/PGC-R07-A05.final-surface-parity-closeout.json",
+      "status": "PASS",
+      "pageOverflowFindingCount": 0,
+      "clippingFindingCount": 0,
+      "overlapFindingCount": 0,
+      "blankPageFindingCount": 0,
+      "missingAnswerCount": 0,
+      "rendererBranchPassCount": 4,
+      "surfaceProjectionPassCount": 12
+    },
+    "semanticReviewResult": {
+      "status": "PASS_CANONICAL_VALIDATOR_AND_ANSWER_VALIDATION_EVIDENCE",
+      "a01rAnswerValidationGatePassCount": 793,
+      "r08AuthorityPath": "data/curriculum/public-generation/PGC-R08-A04-A07.final-global-reconciliation.json",
+      "r08AllLegalRoutesConformant": true,
+      "r08PendingFailureFamilyCount": 0
+    }
+  },
+  "artifactReadback": {
+    "sampleHtmlCount": 16,
+    "samplePdfCount": 16,
+    "questionPageCount": 2075,
+    "answerPageCount": 2835,
+    "totalPageCount": 4910,
+    "distinctWorksheetQuestionIdentitySha256Count": 790,
+    "distinctWorksheetAnswerIdentitySha256Count": 790,
+    "bootstrapEventCount": 809,
+    "binderEventCount": 984,
+    "controlEventCount": 3372
+  },
+  "provenancePolicy": {
+    "unsupportedMetricInvented": false,
+    "a01rPrimaryArtifactReadDirectly": true,
+    "r07OverflowAuthorityReferenced": true,
+    "r08SemanticConformanceAuthorityReferenced": true
+  },
+  "frozenBoundary": {
+    "productMutation": false,
+    "capacityAuthorityMutation": false,
+    "generatorMutation": false,
+    "validatorMutation": false,
+    "rendererMutation": false,
+    "newCapability": false,
+    "slice014Started": false
+  },
+  "goalDistance": {
+    "before": "D1_R09_EXACT_HEAD_PRODUCT_GATES_PASS_ARTIFACT_NOT_ARCHIVED",
+    "after": "D1_R09_EXACT_HEAD_ARTIFACT_HASH_MANIFEST_MATERIALIZED",
+    "distanceReduced": "bound the accepted exact-head 793-route execution to immutable workflow/artifact identities, sixteen HTML/PDF sample hashes, count/page evidence and canonical overflow/semantic provenance",
+    "remainingBlockers": ["R09_DEPLOYED_PUBLIC_SITE_SMOKE_NOT_RECONCILED", "R09_FINAL_D0_NOT_MERGED"],
+    "nextShortestStep": "PGC-R09-A03_PublicSiteSmokeAndReleaseCandidateReadback"
+  }
+}

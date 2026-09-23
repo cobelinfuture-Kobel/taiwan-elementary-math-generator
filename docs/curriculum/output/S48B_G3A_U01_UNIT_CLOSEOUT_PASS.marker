@@ -1,0 +1,43 @@
+S48B_G3A_U01_UNIT_CLOSEOUT_PASS
+
+sourceId = g3a_u01_3a01
+unit = 3A-U01 10000以內的數
+status = PASS_ACCEPTED_AND_CLOSED
+operator_decision = formalize_previous_transition_as_unit_closeout
+write_type = closeout_marker_only
+
+basis:
+- S44M1_G3A_U01_TRANSITION_TO_NEXT_UNIT.marker already recorded status = TRANSITION_APPROVED_BY_OPERATOR.
+- S44M1 marked G3A-U01 closed_for_now and approved switching to G3A-U02.
+- Major G3A-U01 blockers were recorded as resolved: PatternSpec rotation, answer-position bias, digit arrangement duplicate, prompt polish, Chinese numeral canonical rule, and number-structure diversity.
+- The remaining unit-conversion exact duplicate issue was accepted as non-blocking/backlog.
+
+accepted_non_blocking_issue:
+- Unit conversion exact duplicate may still occur in large 200-question worksheets.
+- This can be reopened later as S44M1-6d if needed.
+
+closed_scope:
+- G3A-U01 output QA repair completed enough to move to next unit.
+- Operator transition decision is now normalized into a formal unit closeout marker.
+- This marker only closes the already-accepted G3A-U01 state; it does not perform new generator, validator, renderer, or worksheet changes.
+
+validated_as_passing:
+- latest recorded local readback: tests 430, pass 430, fail 0, working tree clean.
+- latest recorded PDF recheck: S44M1_6C_REGENERATED_PDF_RECHECK_STATUS.
+- G3A-U01 is now aligned with G3A-U02, G3A-U03, and G3A-U06 as an accepted/closed G3A Batch A unit.
+
+not_closed_as_goal:
+- Browser/PDF smoke for the full system remains a later task.
+- Optional duplicate cleanup can be reopened as backlog if it becomes material.
+
+anti_scope_check:
+- No code modified.
+- No Batch D g3a_u04 work performed.
+- No renderer-wide blank-page cleanup performed.
+- No new worksheet output generated.
+
+GOAL_DISTANCE_BEFORE = D1_BATCH_A_COMPLETED_NOT_CLOSED_INVENTORY_COMPLETE
+GOAL_DISTANCE_AFTER = D1_G3A_U01_UNIT_CLOSED_ACCEPTED_PASS
+DISTANCE_REDUCED = G3A-U01 completed-but-not-formally-closed gap is removed; all four G3A Batch A units are now accepted/closed.
+REMAINING_BLOCKERS = ["G3B-U01 manual/browser PDF smoke", "G4A units still need output QA", "browser/PDF smoke later", "optional renderer-wide blank-page cleanup backlog"]
+NEXT_SHORTEST_STEP = S49A_G3B_U01_PDFReview

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "taskId": "APP-SOP-A03_PBLTaskSetDependencyMilestoneAndFinalProductContract",
+  "taskClass": "contract",
+  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "A03_SCHEMA_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/contracts/PBL_Task_Set_SOP_V1.md",
+      "data/curriculum/application/schema/pbl-task-set.schema.json",
+      "data/curriculum/application/contracts/APP-SOP-A03_PBLTaskSetDependencyMilestoneAndFinalProductContract.json",
+      "tests/curriculum/application-problem-sop-a03.test.js"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "PBL task sets now have a machine-readable 3-to-5 task boundary, three admitted graph types, milestone dependency closure, one final product and decision witness, authenticity evidence, counterfactual propagation, and approved single- or two-page projection constraints. No production PBL content, runtime, renderer, UI, context registry, unit binding, or POST_GOLDEN state changes in A03."
+  },
+  "nextStep": {
+    "taskId": "APP-SOP-A04_GlobalContextBindingAndAdmissionRegistries",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}

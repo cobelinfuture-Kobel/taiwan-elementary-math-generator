@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "R08_15UnitGlobalMigrationUIHTMLPDFCloseout",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "GLOBAL_PRIMARY_15_UNIT_MIGRATION_CLOSEOUT_GATE_ACTIVE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "tools/curriculum/validate-r08-15-unit-global-migration-closeout.mjs",
+      "tests/curriculum/r08-15-unit-global-migration-closeout.test.js",
+      "site/assets/browser/pipeline/build-worksheet-document.js"
+    ],
+    "rendererTestPaths": [
+      "tools/curriculum/render-15-unit-public-worksheet-pdf-smoke.mjs",
+      "tools/curriculum/audit-15-unit-public-worksheet-closeout-v2.mjs"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/GCKG-R07.claim.json",
+      "data/curriculum/global/closeout/r08/15-unit-global-migration-closeout-policy.json",
+      "data/curriculum/global/closeout/r08/15-unit-global-migration-closeout.manifest.json",
+      "docs/curriculum/contracts/GLOBAL_MIGRATION_15_UNIT_UI_HTML_PDF_PRINT_CLOSEOUT_CONTRACT_V1.md",
+      "docs/curriculum/output/GCKG_R08_15_UNIT_GLOBAL_MIGRATION_CLOSEOUT_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "The Global-primary migration acceptance blocker for the existing 15-unit product baseline is removed while the W1-W8 full-product population remains outstanding."
+  },
+  "nextStep": {
+    "taskId": "P01_W1ExistingCapabilityProductAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}

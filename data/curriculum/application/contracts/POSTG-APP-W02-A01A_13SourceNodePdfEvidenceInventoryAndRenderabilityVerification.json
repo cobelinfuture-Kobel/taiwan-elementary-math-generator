@@ -1,0 +1,56 @@
+{
+  "schemaName": "POSTGAPPW02A01ASourcePdfEvidenceContractV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
+  "parentTaskId": "POSTG-APP-W02-A01_13SourceNodeKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "status": "SOURCE_PDF_EVIDENCE_VERIFIED_PENDING_CI_AND_MERGE",
+  "scope": {
+    "sourceNodeCount": 13,
+    "sourcePdfReferenceCount": 13,
+    "uniquePdfContentCount": 12,
+    "totalPageCount": 31,
+    "privatePdfCopiedToRepository": false,
+    "knowledgePointMaterializationIncluded": false,
+    "kpApplicationClassificationIncluded": false,
+    "productionAdmissionIncluded": false
+  },
+  "evidenceAuthority": {
+    "inventory": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "policy": "data/curriculum/application/evidence/w02-source13-pdf-evidence-policy.json",
+    "runtime": "src/curriculum/application/w02-source13-pdf-evidence-runtime.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w02-a01a-source-pdf-evidence.mjs",
+    "test": "tests/curriculum/postg-app-w02-a01a-source-pdf-evidence.test.js",
+    "rawPdfAuthority": "Google Drive private source files"
+  },
+  "acceptanceGates": [
+    "W02_A00_SOURCE_BASELINE_PASS",
+    "SOURCE_PDF_REFERENCE_COUNT_13",
+    "UNIQUE_PDF_CONTENT_COUNT_12",
+    "TOTAL_PAGE_COUNT_31",
+    "TEXT_LAYER_AVAILABLE_13_OF_13",
+    "FIRST_PAGE_RENDERABLE_13_OF_13",
+    "SHA256_PRESENT_13_OF_13",
+    "DUPLICATE_CONTENT_GROUP_EXACT",
+    "PRIVATE_PDF_NOT_COPIED_TO_REPOSITORY",
+    "NO_KP_OR_APPLICATION_CLAIMS",
+    "MILESTONE_CLAIM_INTEGRITY_PASS",
+    "NODE_TEST_PASS",
+    "MATH_CI_PASS"
+  ],
+  "deduplicationDecision": {
+    "duplicateSourceNodeIds": ["g4a_u06_4a06", "g4b_u03_4b03"],
+    "sharedSha256": "5ba57aff6a973bd1a8df63791155df7b15fe25ec2b546fc94fb2d8a8323070b3",
+    "policy": "PARSE_ONCE_PROJECT_TO_SEPARATE_SOURCE_NODES"
+  },
+  "claimBoundary": {
+    "knowledgePointCountClaimed": 0,
+    "canonicalOperationModelCountClaimed": 0,
+    "kpApplicationClassificationComplete": false,
+    "storyTemplateCountClaimed": 0,
+    "worksheetOutput": false,
+    "productionAdmissionAllowed": false,
+    "programD0Complete": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification"
+}

@@ -1,0 +1,36 @@
+{
+  "schemaName": "P03FSlice035G4BU06Rank9DecimalScaleAuthorityV1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice035Implementation",
+  "queuePosition": 35,
+  "queueEntryId": "p03e_q035_r9_g4b_u06_4b06_profile_decimal_c1",
+  "sourceRef": "g4b_u06_4b06",
+  "sourceTitle": "小數乘法",
+  "rank": 9,
+  "profileId": "profile_decimal",
+  "knowledgePointIds": ["kp_g4b_u06_decimal_scale_ten_hundred"],
+  "patternGroupIds": ["pg_g4b_u06_decimal_scale_ten_hundred_numeric"],
+  "patternSpecIds": ["ps_g4b_u06_decimal_scale_ten_hundred_result_numeric"],
+  "answerModel": "decimal_value",
+  "formalMapping": {
+    "operationModelId": "op_g4b_u06_decimal_scale_ten_hundred",
+    "operationFamilyId": "decimal_scale",
+    "canonicalExpression": "result = value * scaleFactor",
+    "unknownRoles": ["result"],
+    "givenRoles": ["value", "scaleFactor"],
+    "scaleFactors": [10, 100, 0.1, 0.01]
+  },
+  "requiredCapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+  "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+  "globalContextRequired": false,
+  "inventoryBefore": {"publicSources": 32, "visibleKnowledgePoints": 230, "sourceVisible": 3, "sourceHidden": 3},
+  "inventoryAfter": {"publicSources": 32, "visibleKnowledgePoints": 231, "sourceVisible": 4, "sourceHidden": 2},
+  "predecessorEvidence": {
+    "slice011VisibleAdded": 1,
+    "slice019VisibleAdded": 2,
+    "sameSourceQueuePositionsBefore035": [11, 19],
+    "nextSameSourceQueuePositionAfter035": 42
+  },
+  "forbidden": ["application expansion", "Global Context expansion", "parallel pipeline", "sibling KnowledgePoint promotion", "Slice036"],
+  "status": "CORE_IMPLEMENTATION_CANDIDATE"
+}

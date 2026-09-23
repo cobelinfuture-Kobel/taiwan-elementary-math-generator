@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>數學練習卷產生器</title>
+  <link rel="stylesheet" href="./assets/styles/app.css">
+</head>
+<body data-route-kind="404">
+  <main class="app-shell">
+    <section class="app-shell__hero">
+      <p class="app-shell__eyebrow">靜態瀏覽器出題器</p>
+      <h1>數學練習卷產生器</h1>
+      <p class="app-shell__lede">找不到請求的頁面。下方的練習卷產生器仍可使用。</p>
+    </section>
+
+    <section class="app-shell__controls" aria-label="Worksheet controls">
+      <div class="control-group">
+        <h2>預設題組</h2>
+        <div class="preset-buttons" id="preset-buttons"></div>
+      </div>
+
+      <div class="control-group">
+        <h2>練習卷設定</h2>
+        <div class="control-grid">
+          <label class="field">
+            <span>題目數</span>
+            <input id="question-count-input" name="questionCount" type="number" min="1" max="200" spellcheck="false">
+          </label>
+
+          <label class="field">
+            <span>欄數</span>
+            <input id="columns-input" name="columns" type="number" min="1" max="6" spellcheck="false">
+          </label>
+
+          <label class="field">
+            <span>每頁列數</span>
+            <input id="rows-per-page-input" name="rowsPerPage" type="number" min="1" max="20" spellcheck="false">
+          </label>
+
+          <label class="field">
+            <span>排序模式</span>
+            <select id="ordering-mode-select" name="orderingMode">
+              <option value="groupedByPattern">依題型分組</option>
+              <option value="shuffleAcrossPatterns">跨題型隨機排序</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h2>種子與答案卷</h2>
+        <div class="control-grid">
+          <label class="field">
+            <span>出題種子</span>
+            <input id="generation-seed-input" name="generationSeed" type="text" spellcheck="false">
+          </label>
+
+          <label class="field">
+            <span>排序種子</span>
+            <input id="ordering-seed-input" name="orderingSeed" type="text" spellcheck="false">
+          </label>
+        </div>
+
+        <label class="toggle">
+          <input id="lock-ordering-seed-input" name="lockOrderingSeedToGenerationSeed" type="checkbox">
+          <span>排序種子空白時使用出題種子</span>
+        </label>
+
+        <label class="toggle">
+          <input id="show-answer-key-input" name="showAnswerKeyPage" type="checkbox">
+          <span>顯示答案卷</span>
+        </label>
+      </div>
+
+      <div class="control-group">
+        <h2>設定編輯器</h2>
+        <label class="field">
+          <span>直接以 JSON 編輯 draftConfig</span>
+          <textarea id="config-json-editor" name="configJson" rows="16" spellcheck="false"></textarea>
+        </label>
+        <div class="json-error-panel" id="json-error-panel" data-has-error="false"></div>
+        <div class="toolbar">
+          <button id="apply-edit-button" class="button button--primary" type="button">套用編輯</button>
+          <button id="reset-preset-button" class="button" type="button">重設為目前預設</button>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button id="regenerate-button" class="button button--primary" type="button">重新產生</button>
+        <button id="print-button" class="button" type="button" disabled>列印</button>
+      </div>
+
+      <div class="status-panel" id="status-panel" aria-live="polite"></div>
+      <div class="validation-panel" id="validation-panel" aria-live="polite"></div>
+    </section>
+
+    <section class="app-shell__preview" aria-label="Worksheet preview">
+      <div class="preview-header">
+        <h2>預覽</h2>
+        <p id="preview-meta">尚未產生練習卷。</p>
+      </div>
+      <iframe
+        id="preview-frame"
+        class="preview-frame"
+        title="Worksheet preview"
+        loading="eager"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </section>
+  </main>
+
+  <script type="module" src="./assets/browser/main.js"></script>
+</body>
+</html>

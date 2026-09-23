@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03A_W3ContractCapabilityHardeningOrderAndEvidenceReconciliation",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W3_7_CAPABILITY_HARDENING_QUEUE_AND_EVIDENCE_GAPS_RECONCILED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+      "src/curriculum/full-product/p03a-w3-capability-hardening-order-evidence.mjs",
+      "tools/curriculum/validate-p03a-w3-capability-hardening-order-evidence.mjs",
+      "tests/curriculum/p03a-w3-capability-hardening-order-evidence.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03.claim.json",
+      "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "data/curriculum/full-product/p03a/w3-capability-hardening-order-policy.json",
+      "data/curriculum/full-product/p03a/w3-capability-hardening-order.manifest.json",
+      "docs/curriculum/contracts/W3_CAPABILITY_HARDENING_ORDER_AND_EVIDENCE_RECONCILIATION_CONTRACT_V1.md",
+      "docs/curriculum/output/P03A_W3_CAPABILITY_HARDENING_ORDER_AND_EVIDENCE_RECONCILIATION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The seven W3 contract-only capabilities now have one dependency-safe hardening queue, explicit implementation gates, and an evidence matrix that distinguishes authoritative contracts, source-dependent cohorts, partial P02F component candidates, protected-product compatibility witnesses, and thirty-five blocking admission-evidence relationships. No partial component or existing product row is misclassified as a production-ready global capability."
+  },
+  "nextStep": {
+    "taskId": "P03B1_W3FractionNumberSystemConsumerAdmission",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

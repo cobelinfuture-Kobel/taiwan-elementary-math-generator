@@ -1,0 +1,69 @@
+{
+  "schemaName": "PostGoldenUnitProductionEvidenceReadback",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1",
+  "sourceId": "g4b_u01_4b01",
+  "taskId": "POSTG-MIG-A11_G4B_U01_GoldenConformanceAndKnowledgeOperationMigration",
+  "candidateHeadSha": "ba4b05c7cd1d41d0f77f8a110166642a6c706e37",
+  "workflowRuntimeSha": "b1e5639af11892258efa323edd1a6225f81769ec",
+  "workflowRunId": 29801628490,
+  "artifactId": 8483952833,
+  "artifactDigest": "sha256:ad27c5b9b43fea0bf0abcd0bc0d5a29f4ac9c41012c6d17c02f9c4dec7154f30",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "goldenConnectionStatus": "POST_GOLDEN_UNIT_CONNECTED_TO_EXISTING_SHARED_RUNTIME",
+  "sourceUnitAdapter": {
+    "version": "glm-s05-source-unit-adapter-v1",
+    "registryVersion": "postg-source-unit-adapter-registry-v1",
+    "adapterId": "g4b_u01_postg_golden_shared_runtime",
+    "conformanceMode": "post_golden_candidate_shadow",
+    "applied": true,
+    "blocked": false,
+    "publicSelectionMode": "sourceUnit",
+    "internalSelectionMode": "mixedKnowledgePointsSameUnit",
+    "knowledgePointCount": 9,
+    "patternGroupCount": 9,
+    "patternSpecCount": 12,
+    "postGoldenMigrationTaskId": "POSTG-MIG-A11_G4B_U01_GoldenConformanceAndKnowledgeOperationMigration",
+    "goldenDescriptorMode": "post_golden_unit_conformance"
+  },
+  "questionCount": 72,
+  "answerKeyCount": 72,
+  "questionPageCount": 3,
+  "answerKeyPageCount": 3,
+  "pdfPageCount": 7,
+  "knowledgePointCount": 9,
+  "patternGroupCount": 9,
+  "patternSpecCount": 12,
+  "validator": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 17,
+    "validatorVersion": "s59h-g4b-u01-canonical-production-v1"
+  },
+  "canonicalWorksheetIdentityParity": true,
+  "horizontalOnly": true,
+  "applicationModeUsed": false,
+  "domReadback": {
+    "bodyTextLength": 4483,
+    "printPageCount": 6,
+    "questionCellCount": 72,
+    "answerCellCount": 72,
+    "internalIdLeak": false,
+    "placeholderLeak": false,
+    "forbiddenRepresentationLeak": false
+  },
+  "artifacts": [
+    {
+      "kind": "html",
+      "bytes": 32145,
+      "sha256": "97d73b13ff969d66ea875abe2dbe549fc23ef3b502af2d26ecd5a23369d2211d"
+    },
+    {
+      "kind": "pdf",
+      "bytes": 41289,
+      "sha256": "aa747a14671f3d834eff5da8084cf02932e7c1b747243b1c55c8c09616f4afa5"
+    }
+  ],
+  "verdict": "PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK"
+}

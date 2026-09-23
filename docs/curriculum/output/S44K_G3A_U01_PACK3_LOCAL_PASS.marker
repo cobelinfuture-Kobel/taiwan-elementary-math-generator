@@ -1,0 +1,16 @@
+S44K_G3A_U01_PACK3_LOCAL_PASS
+
+sourceId = g3a_u01_3a01
+operator_readback = tests 418, pass 418, fail 0, working tree clean
+status = PASS
+
+validated:
+- range comparison reasoning
+- serial number range reasoning
+- price range reasoning
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_PACK3_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U01_PACK3_LOCAL_PASS
+DISTANCE_REDUCED = G3A-U01 Pack3 generator and validator passed local automated validation
+REMAINING_BLOCKERS = S44L-S44N pending
+NEXT_SHORTEST_STEP = S44L_G3A_U01_UISelectorPromotion

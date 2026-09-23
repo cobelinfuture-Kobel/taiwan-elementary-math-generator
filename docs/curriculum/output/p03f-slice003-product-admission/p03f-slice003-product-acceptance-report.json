@@ -1,0 +1,69 @@
+{
+  "schemaName": "P03FSlice003ChromiumProductAcceptanceReportV1",
+  "taskId": "P03F_W3DirectProductVerticalSlice003Implementation",
+  "status": "PASS_VISUAL_AND_SEMANTIC_REVIEWED",
+  "sourceId": "g3b_u07_3b07",
+  "knowledgePointIds": [
+    "kp_g3b_u07_quotient_as_fraction"
+  ],
+  "questionCount": 8,
+  "answerKeyItemCount": 8,
+  "questionPageCount": 1,
+  "answerKeyPageCount": 1,
+  "physicalPdfPageCount": 2,
+  "patternSpecIds": [
+    "ps_g3b_u07_quotient_as_fraction_quotient_numeric"
+  ],
+  "magnitudeClasses": [
+    "IMPROPER_FRACTION",
+    "PROPER_FRACTION"
+  ],
+  "duplicatePromptFindingCount": 0,
+  "overflowFindingCount": 0,
+  "consoleErrorCount": 0,
+  "pageErrorCount": 0,
+  "semanticScopeFindingCount": 0,
+  "browserFinding": {
+    "pageMetrics": [
+      {
+        "index": 0,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--questions print-page"
+      },
+      {
+        "index": 1,
+        "clientHeight": 1123,
+        "scrollHeight": 1123,
+        "clientWidth": 794,
+        "scrollWidth": 794,
+        "overflowY": false,
+        "overflowX": false,
+        "className": "worksheet-page worksheet-page--answer-key print-page"
+      }
+    ],
+    "physicalPdfPageCount": 2,
+    "consoleErrors": [],
+    "pageErrors": []
+  },
+  "visualReview": {
+    "status": "PASS_DIRECT_VISUAL_READBACK",
+    "questionPageReviewed": true,
+    "answerKeyPageReviewed": true,
+    "physicalPageParityReviewed": true,
+    "clippedTextFindingCount": 0,
+    "overlapFindingCount": 0,
+    "brokenGlyphFindingCount": 0,
+    "semanticScopeFindingCount": 0,
+    "orderedOperandRoleFindingCount": 0
+  },
+  "htmlSha256": "0dde8acb0f928d3c6be4094a65ce7addd3d2f5cecd3280e96cfe792a21387617",
+  "pdfSha256": "f644641568018f9b82fe9554a916d1a305fa445af4d0240c11638cfdf90ba38d",
+  "properFractionCount": 4,
+  "improperFractionCount": 4,
+  "wholeNumberCount": 0
+}

@@ -1,0 +1,25 @@
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+import {materializeP06EW6DirectProductVerticalSliceQueue} from "../../src/curriculum/full-product/p06e-w6-direct-product-vertical-slice-queue.mjs";
+import {getR04KnowledgePointCapabilityMapping} from "../../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"../.."),read=p=>JSON.parse(readFileSync(path.join(ROOT,p),"utf8"));
+const p=read("data/curriculum/full-product/p06f/q004-g3b-u10-table-structure-comparison-source-authority-preflight.json"),q=materializeP06EW6DirectProductVerticalSliceQueue(),slice=q.queueEntries[3],KPS=["kp_table_data_comparison","kp_two_way_table_structure"],CAPS=["cap_chart_data_model","cap_chart_representation","cap_data_domain_validator","cap_table_data_model"];
+assert.equal(p.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
+assert.equal(slice.sliceId,p.queueAuthority.sliceId);
+assert.deepEqual(slice.knowledgePointIds,KPS);
+assert.deepEqual(slice.requiredW6CapabilityIds,CAPS);
+assert.deepEqual(p.queueAuthority.requiredW6CapabilityIds,slice.requiredW6CapabilityIds);
+assert.deepEqual(p.runtimeCapabilityAuthority.exactFrozenQueueRequiredW6CapabilityIds,slice.requiredW6CapabilityIds);
+assert.deepEqual(p.runtimeCapabilityAuthority.dependencyClosureCapabilityIds,["cap_table_data_model"]);
+for(const id of KPS){const mapping=getR04KnowledgePointCapabilityMapping(id);assert.equal(mapping.primaryRuntimeProfileId,"profile_chart_data");assert.equal(mapping.classificationRuleId,"rule_chart_data");}
+assert.equal(p.predecessorD0Evidence.liveReportStatus,"PASS_E6_D0_COMPLETE");
+assert.equal(p.sourceAuthority.reviewMethod,"FULL_PAGE_VISUAL_READBACK");
+assert.ok(p.r02ReviewedCandidateAuthority.targetCandidates.every(x=>x.evidencePages.length===1&&x.evidencePages[0]===1));
+assert.equal(p.semanticProfileArtifactLock.classification,"HISTORICAL_GENERIC_DATA_PROFILE_TERM_COLLISION");
+assert.equal(p.semanticProfileArtifactLock.implementationSemanticLock.tableComparisonIsCore,true);
+assert.equal(p.semanticProfileArtifactLock.implementationSemanticLock.twoWayTableStructureIsCore,true);
+assert.equal(p.q004ScopeLock.implementationAllowedByThisPreflight,false);
+assert.equal(p.preflightDecision.separateImplementationApprovalRequired,true);
+console.log(JSON.stringify({schemaName:"P06FW6Q004TableStructureComparisonSourceAuthorityPreflightReadbackV1",status:p.status,predecessorD0:p.predecessorD0Evidence,queue:{position:p.queueAuthority.queuePosition,sliceId:p.queueAuthority.sliceId,previousSliceId:p.queueAuthority.previousSliceId,sourceId:p.queueAuthority.primarySourceNodeId,runtimeProfileId:p.queueAuthority.primaryRuntimeProfileId,knowledgePointIds:p.queueAuthority.knowledgePointIds,requiredW6CapabilityIds:p.queueAuthority.requiredW6CapabilityIds},source:{pdfTitle:p.sourceAuthority.sourcePdfTitle,driveFileId:p.sourceAuthority.sourcePdfDriveFileId,reviewedPages:p.sourceAuthority.reviewedPages,targetCandidates:p.r02ReviewedCandidateAuthority.targetCandidates.map(x=>({knowledgePointId:x.knowledgePointId,evidencePages:x.evidencePages}))},semanticProfileArtifact:p.semanticProfileArtifactLock,nextTask:p.preflightDecision.nextTask,implementationApprovalRequired:p.preflightDecision.separateImplementationApprovalRequired},null,2));

@@ -1,0 +1,12 @@
+{
+  "schemaName":"P04F26G3BU09LengthDecimalConversionAuthorityV1",
+  "schemaVersion":1,
+  "taskId":"P04F_W4DirectProductVerticalSlice026Implementation",
+  "queue":{"sliceId":"p04e_q026_r6_g3b_u09_3b09_profile_quantity_measurement_c1","queuePosition":26,"previousSliceId":"p04e_q025_r5_g5b_u09_5b09_profile_time_c1","nextSliceId":"p04e_q027_r6_g4a_u06_4a06_profile_quantity_measurement_c1"},
+  "source":{"sourceNodeId":"g3b_u09_3b09","sourceTitle":"小數","primaryWitnessPages":[2],"reviewMethod":"FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints":[{"knowledgePointId":"kp_g3b_u09_length_decimal_conversion","name":"長度單位與小數換算","applicationClassification":"APPLICATION_REQUIRED"}],
+  "formalMapping":{"primaryRuntimeProfileId":"profile_quantity_measurement","relationFamilyId":"SOURCE_DECLARED_QUANTITY_RELATION","knownRoleIds":["KNOWN_QUANTITY_A","KNOWN_QUANTITY_B"],"targetRoleId":"SOURCE_DECLARED_TARGET_QUANTITY","targetRoleMode":"SOURCE_DECLARED_ONLY","quantityDimension":"LENGTH","unitIds":["mm","cm"],"exactUnitInvariant":"10 mm = 1 cm","decimalInvariant":"1 mm = 0.1 cm","roundingAllowed":false},
+  "patternSpec":{"patternGroupId":"pg_g3b_u09_length_decimal_conversion_application","patternSpecId":"ps_g3b_u09_length_decimal_conversion_application","questionMode":"application","presentationFamilyIds":["MM_TO_DECIMAL_CM","DECIMAL_CM_TO_MM","MIXED_CM_MM_TO_DECIMAL_CM"]},
+  "implementationBoundary":{"unitSemanticsRequired":true,"bareDecimalArithmeticAllowed":false,"sharedQuantityPathRequired":true,"sharedPaginationRequired":true,"sharedRendererRequired":true,"parallelQuantityEngineAllowed":false,"parallelRendererAllowed":false,"q027Touched":false},
+  "publicTarget":{"sourceCount":42,"visibleKnowledgePointCount":296}
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03B6_W3DecimalArithmeticAdmission",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W3_DECIMAL_ARITHMETIC_EXACT_RUNTIME_PRODUCTION_ADMITTED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p03b6-decimal-arithmetic-consumer.mjs",
+      "tools/curriculum/validate-p03b6-decimal-arithmetic-consumer.mjs",
+      "tests/curriculum/p03b6-decimal-arithmetic-consumer.test.js",
+      "tests/curriculum/p03b6-decimal-arithmetic-consumer-integration.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03B5.claim.json",
+      "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "data/curriculum/full-product/p03b2/decimal-number-system-policy.json",
+      "data/curriculum/full-product/p03b4/decimal-domain-validator-policy.json",
+      "data/curriculum/full-product/p03b6/decimal-arithmetic-policy.json",
+      "data/curriculum/full-product/p03b6/w3-capability-promotion-registry.json",
+      "data/curriculum/full-product/p03b6/decimal-arithmetic.manifest.json",
+      "docs/curriculum/contracts/W3_DECIMAL_ARITHMETIC_ADMISSION_CONTRACT_V1.md",
+      "docs/curriculum/output/P03B6_W3_DECIMAL_ARITHMETIC_ADMISSION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The second W3 arithmetic capability is production admitted. Decimal-dependent KnowledgePoints can now execute exact finite base-10 addition, subtraction, multiplication and division through the admitted decimal number-system and domain-validator authorities without introducing fraction conversion or cross-domain normalization."
+  },
+  "nextStep": {
+    "taskId": "P03B7_W3MixedNumberDomainNormalizationAdmission",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaName": "R07AuthoritativeConsumerCutoverManifestV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R07_AuthoritativeConsumerCutover",
+  "status": "GLOBAL_AUTHORITY_PRIMARY_15_UNIT_CUTOVER_READY",
+  "sourceAuthorities": {
+    "legacyCompatibilityTask": "R06_LegacyCompatibilityMigration",
+    "productUnitCount": 15,
+    "sourceNodeCount": 16,
+    "protectedKnowledgePointCount": 156,
+    "globalModelReconciliationCount": 9
+  },
+  "policyPath": "data/curriculum/global/cutover/r07/authoritative-consumer-cutover-policy.json",
+  "runtimePath": "src/curriculum/global/r07-authoritative-consumer-cutover.mjs",
+  "browserRuntimePath": "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+  "validatorPath": "tools/curriculum/validate-r07-authoritative-consumer-cutover.mjs",
+  "mainlineBoundary": {
+    "currentProductionConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "productionConsumerPathChanged": false,
+    "productionAuthorityChanged": true,
+    "globalAuthorityPrimary": true,
+    "legacyAuthorityRole": "COMPATIBILITY_ALIAS_READ_ONLY",
+    "dualReadIdentityParityVerified": true,
+    "existing15UnitProductionUsePreserved": true,
+    "visibleOutputChangeExpected": false,
+    "uiHtmlPdfParityDeferredTo": "R08_15UnitGlobalMigrationUIHTMLPDFCloseout",
+    "parallelRuntimePipelineAllowed": false,
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "recursiveImprovementAdminDeferredUntil": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "nextTask": "R08_15UnitGlobalMigrationUIHTMLPDFCloseout"
+  }
+}

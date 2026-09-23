@@ -1,0 +1,6 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router-p03f44.js";
+import { G5A_U01_P03F36_ADD_SUB_SPEC_ID,G5A_U01_P03F36_ADD_SUB_KP_ID } from "../../site/modules/curriculum/registry/g5a-u01-rank9-decimal-selector-projection-p03f36.js";
+import { G5A_U01_P03F44_ROUNDED_SPEC_ID,G5A_U01_P03F44_ROUND_KP_ID,G5A_U01_P03F44_SOURCE_ID } from "../../site/modules/curriculum/registry/g5a-u01-rank10-decimal-selector-projection-p03f44.js";
+test("P03F44 mixed legacy+new routing delegates legacy specs as one prior group",()=>{const result=generateBatchABrowserQuestions({sourceId:G5A_U01_P03F44_SOURCE_ID,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[G5A_U01_P03F36_ADD_SUB_KP_ID,G5A_U01_P03F44_ROUND_KP_ID],patternSpecIds:[G5A_U01_P03F36_ADD_SUB_SPEC_ID,G5A_U01_P03F44_ROUNDED_SPEC_ID],questionMode:"numeric",questionCount:12,generationSeed:"p03f44-mixed"});assert.equal(result.ok,true,result.errors?.map((e)=>`${e.code}:${e.path}`).join("\n"));assert.equal(result.questions.length,12);assert.equal(result.questions.filter((q)=>q.patternSpecId===G5A_U01_P03F36_ADD_SUB_SPEC_ID).length,6);assert.equal(result.questions.filter((q)=>q.patternSpecId===G5A_U01_P03F44_ROUNDED_SPEC_ID).length,6);});

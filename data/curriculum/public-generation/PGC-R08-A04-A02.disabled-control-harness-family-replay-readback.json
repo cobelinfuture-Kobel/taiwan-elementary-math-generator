@@ -1,0 +1,84 @@
+{
+  "schemaName": "PGCR08A04A02DisabledControlHarnessFamilyReplayReadbackV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A02_DisabledControlHarnessPolicyRepairAndFamilyReplay",
+  "status": "PASS_DISABLED_CONTROL_FAMILIES_CLOSED_WITH_ORTHOGONAL_REGENERATE_TRANSFER",
+  "sourceEvidence": {
+    "headSha": "7406a163e39e290a26299868b4c83f91f2192ffc",
+    "workflowRunId": 30603122800,
+    "workflowJobId": 91069801299,
+    "workflowConclusion": "failure_due_to_expected_nonzero_downstream_family",
+    "artifactId": 8782694763,
+    "artifactDigest": "sha256:657637d3c161612e1c45d577a2d093fe77eef84c21e09eb80b3569c7a93597e2",
+    "reportSha256": "113107a19d8603f3f6180f1b551ddbb212157aca1087f7f410266249a420aa5e",
+    "policyDispositionsSha256": "80f2d1beeb1de9d698d3093c334fda20ccdaa379ea401021550a9c3a16fc9c93",
+    "transferredFailureEvidenceSha256": "62da5fd567ccf97dbe7711fea8dcc921d465648f098cbe3738917034a4a2ba1b"
+  },
+  "replaySummary": {
+    "targetRouteCount": 180,
+    "terminalRouteCount": 180,
+    "endToEndPassRouteCount": 179,
+    "endToEndFailRouteCount": 1,
+    "allNineGatesPassCount": 179,
+    "disabledControlAuthorityConformanceCount": 180,
+    "enabledSelectionDispositionCount": 424,
+    "disabledCurrentValueMatchDispositionCount": 180,
+    "disabledValueMismatchDispositionCount": 0,
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0
+  },
+  "familyCloseout": [
+    {
+      "failureFamily": "QUESTION_TYPE_CONTROL_DISABLED",
+      "originalRouteCount": 176,
+      "controlPolicyPassCount": 176,
+      "endToEndPassCount": 176,
+      "transferredRouteCount": 0,
+      "status": "CLOSED"
+    },
+    {
+      "failureFamily": "CONTEXT_MODE_CONTROL_DISABLED",
+      "originalRouteCount": 4,
+      "controlPolicyPassCount": 4,
+      "endToEndPassCount": 3,
+      "transferredRouteCount": 1,
+      "status": "CLOSED_CONTROL_BLOCKER_REMOVED"
+    }
+  ],
+  "transferredRoutes": [
+    {
+      "routeIndex": 297,
+      "routeId": "pgc_r03_g4b_u06_4b06_application_243390fad850",
+      "sourceId": "g4b_u06_4b06",
+      "fromFailureFamily": "CONTEXT_MODE_CONTROL_DISABLED",
+      "toFailureFamily": "REGENERATE_IDENTITY_TIMEOUT",
+      "passedGateCodes": [
+        "UI_OPTIONS_PASS",
+        "GENERATE_BUTTON_PASS",
+        "QUESTION_COUNT_PASS",
+        "QUESTION_IDENTITY_PASS",
+        "ANSWER_VALIDATION_PASS",
+        "HTML_PASS",
+        "PDF_PASS",
+        "ANSWER_KEY_PASS"
+      ],
+      "remainingGateCode": "REGENERATE_PASS",
+      "errorCode": "page.waitForFunction: Timeout 120000ms exceeded.",
+      "classification": "ORTHOGONAL_POST_GENERATION_FAILURE",
+      "perRoutePatchAuthorized": false
+    }
+  ],
+  "decisions": {
+    "disabledControlPolicyAdmitted": true,
+    "productUiMutationPerformed": false,
+    "generatorMutationPerformed": false,
+    "validatorMutationPerformed": false,
+    "rendererMutationPerformed": false,
+    "capacityAuthorityMutationPerformed": false,
+    "historicalA03QueueMutationPerformed": false,
+    "activeRepairStateOverlayRequired": true,
+    "temporaryWorkflowRemovedBeforeMerge": true
+  },
+  "nextTask": "PGC-R08-A04-A03_RouteBindingConvergenceFocusedReproductionAndRepair"
+}

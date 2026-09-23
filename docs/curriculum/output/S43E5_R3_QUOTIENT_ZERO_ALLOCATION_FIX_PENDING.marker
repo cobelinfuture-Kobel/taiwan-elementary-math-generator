@@ -1,0 +1,27 @@
+S43E5_R3_QUOTIENT_ZERO_ALLOCATION_FIX_PENDING_READBACK
+
+status = IMPLEMENTED_READBACK_PENDING
+sourceId = g3b_u01_3b01
+
+failure_readback:
+- tests 375
+- pass 374
+- fail 1
+- failing test: G3B U01 quotient-zero KP can generate a 40-question printable worksheet
+- failing path: ps_g3b_u01_2digit_ones_quotient_zero
+
+fix_summary:
+- restored g3b-u01-division-generator-lite.js
+- expanded single first-spec quotient-zero plans into three quotient-zero specs before allocation
+- kept public wrapper path g3b-u01-division-generator.js unchanged
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D1
+GOAL_DISTANCE_AFTER = D1
+DISTANCE_REDUCED = implemented quotient-zero allocation expansion for 40-question worksheet generation
+REMAINING_BLOCKERS = npm test readback pending; browser PDF smoke pending
+NEXT_SHORTEST_STEP = local test readback

@@ -1,0 +1,81 @@
+{
+  "schemaName": "G5AU02HiddenRendererIntegrationCloseout",
+  "schemaVersion": 1,
+  "task": "S92_G5A_U02_HiddenRendererIntegration",
+  "closeoutTask": "S92R2_G5A_U02_HiddenRendererIntegration_FreshMainCloseout",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "pullRequest": 153,
+  "mergeCommit": "4a587393596ac62ec36cbccab189656b22060aca",
+  "freshMainAuthority": {
+    "readbackCommit": "2e1c93cdd6a36f810c297792395d871485211d2b",
+    "workflowRunId": 29268049283,
+    "workflowRunNumber": 1510,
+    "eventName": "push",
+    "ref": "refs/heads/main",
+    "sha": "4a587393596ac62ec36cbccab189656b22060aca",
+    "npmTestExitCode": 0,
+    "tests": 1296,
+    "pass": 1296,
+    "fail": 0,
+    "workingTreeClean": true
+  },
+  "coverage": {
+    "patternSpecCount": 22,
+    "classCPatternSpecCount": 14,
+    "classDPatternSpecCount": 8,
+    "answerModelShapeCount": 16,
+    "rendererProfileCount": 3,
+    "rendererProfiles": [
+      "compact",
+      "contextual",
+      "reasoning"
+    ],
+    "language": "zh-Hant",
+    "pageSize": "A4",
+    "deterministicHtml": true
+  },
+  "rendererContract": {
+    "closedS91WorksheetDocumentConsumedWithoutMutation": true,
+    "questionPageCountParityRequired": true,
+    "answerPageCountParityRequired": true,
+    "answerKeySuppressionSupported": true,
+    "questionAnswerIsolationRequired": true,
+    "htmlEscapingRequired": true,
+    "internalCurriculumIdRedactionRequired": true,
+    "malformedWorksheetBlockingRequired": true,
+    "browserPipelineConnected": false,
+    "chromiumHtmlPdfSmokeRun": false
+  },
+  "lifecycle": {
+    "rendererStatus": "hidden_html_integrated",
+    "worksheetStatus": "hidden_exact_count_integrated",
+    "answerKeyStatus": "hidden_integrated_optional",
+    "selectorStatus": "hidden",
+    "canonicalRouting": "internal_explicit_only",
+    "browserPipelineStatus": "not_connected",
+    "htmlPdfSmokeStatus": "not_run",
+    "productionUse": "forbidden",
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden"
+  },
+  "scopeBoundary": {
+    "publicSelectorChanged": false,
+    "browserPipelineChanged": false,
+    "publicPreviewWired": false,
+    "chromiumHtmlPdfSmokeAdded": false,
+    "productionPromoted": false
+  },
+  "goalDistance": {
+    "before": "D1_G5A_U02_HIDDEN_RENDERER_MERGED_PENDING_FRESH_MAIN",
+    "after": "D1_G5A_U02_HIDDEN_RENDERER_VERIFIED_AND_CLOSED",
+    "distanceReduced": "Verified deterministic Traditional Chinese A4 hidden renderer output, three renderer profiles, all 16 answer-model render paths, question-answer isolation, HTML escaping and internal curriculum-ID redaction across all 22 G5A-U02 PatternSpecs.",
+    "remainingBlockers": [
+      "Public selector remains hidden",
+      "Browser pipeline is not connected",
+      "Chromium HTML/PDF smoke has not run",
+      "Production use remains forbidden"
+    ],
+    "nextShortestStep": "S93_G5A_U02_HiddenBrowserPipelineAndHTMLPDFSmokeIntegration"
+  }
+}

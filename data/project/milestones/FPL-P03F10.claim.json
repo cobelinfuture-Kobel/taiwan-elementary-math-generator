@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice010Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "PASS_CI_SYNCED_AND_MERGED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g4a-u09-hundredth-decimal-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f10-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f10-extension.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-generator-p03f10.js",
+      "site/modules/curriculum/batch-a/hundredth-decimal-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f10.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f10-extension.js",
+      "src/curriculum/full-product/p03f-slice010-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice010-product-admission.mjs",
+      "tests/curriculum/p03f-slice010-hundredth-decimal.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice010-product-acceptance.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE009_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice010-hundredth-decimal-authority.json",
+      "data/curriculum/full-product/p03f/slice010-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE010_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE010_READBACK.md"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice010-product-admission/p03f-slice010-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.html",
+        "sha256": "d44ec5f1e1906497fc9e812afdc71ae99a9f0f9cbb0517c3e851e287f8b4d2c9"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice010-product-admission/g4a-u09-hundredth-decimal.pdf",
+        "sha256": "e59d0ce61ecf75b30cb0ab80f71541461509402f37caa236b021076fcd3d8ef4"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Queue position 10 is merged at D0 with exact source and PatternSpec parity, shared decimal capabilities, reviewed HTML/PDF artifacts, full Node regression and dedicated Chromium acceptance."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice011Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE",
+    "requiresSeparateApproval": false
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 426,
+    "implementationHeadSha": "e98772e6e276365dc2c8d2e7022553a91e32cff1",
+    "implementationMergeSha": "a86ff474e80b1730bf5b5e5ca33d6eb7a385ef2b",
+    "implementationMergedAt": "2026-07-28T14:52:55Z",
+    "preD0HeadSha": "732850d70163057818b1c5f2773f8242d53a6159",
+    "preD0NodeWorkflowRunId": null,
+    "preD0ChromiumWorkflowRunId": 30368417014,
+    "preD0ChromiumArtifactId": 8691811071,
+    "artifactMaterializationCommitSha": null,
+    "artifactMaterializationWorkflowRunId": 30368417014,
+    "reviewedArtifactId": 8692094393,
+    "reviewedArtifactDigest": "sha256:1234b99ab23fa8c48451b94df5e3c7f62a9fe3d27fbe056d20164331698d9d88",
+    "finalNodeWorkflowRunId": 30370245734,
+    "finalNodeWorkflowHeadSha": "e98772e6e276365dc2c8d2e7022553a91e32cff1",
+    "finalChromiumWorkflowRunId": 30370243433,
+    "finalChromiumArtifactId": 8692605196,
+    "nodeTestsPassed": 2550,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": true,
+    "finalChromiumArtifactDigest": "sha256:a543d216641890a41f83ae8f5e9e3ce8d11d6f2cf9b4a16fe6bbe79d8d5c47b8"
+  }
+}

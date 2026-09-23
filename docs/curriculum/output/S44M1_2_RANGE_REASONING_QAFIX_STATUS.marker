@@ -1,0 +1,17 @@
+S44M1_2_G3A_U01_RANGE_REASONING_QAFIX_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+fixed:
+- range reasoning and price reasoning no longer always use A as the correct answer.
+- correct answer position is deterministic by seed and can be A or B.
+- validator now computes the correct choice from the actual option values and range boundaries.
+- tests assert both A and B appear across generated questions.
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44M1-3_G3A_U01_DigitArrangementPromptCoverageFix after local tests pass

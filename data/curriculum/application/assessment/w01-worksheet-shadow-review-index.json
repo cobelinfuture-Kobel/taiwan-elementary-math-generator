@@ -1,0 +1,30 @@
+{
+  "schemaName": "POSTGAPPW01WorksheetShadowReviewIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview",
+  "contractId": "POSTG_APP_W01_WORKSHEET_SHADOW_PROJECTION_AND_PRODUCTION_ADMISSION_REVIEW_V1",
+  "status": "STRUCTURAL_SHADOW_PROJECTION_PENDING_CI",
+  "inputAuthority": {
+    "a03TaskId": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow",
+    "a03Runtime": "src/curriculum/application/w01-validator-fixture-shadow-runtime.mjs",
+    "policy": "data/curriculum/application/assessment/w01-worksheet-shadow-review-policy.json"
+  },
+  "materializedAuthority": {
+    "projectionSchema": "data/curriculum/application/schema/w01-worksheet-shadow-projection.schema.json",
+    "runtime": "src/curriculum/application/w01-worksheet-shadow-review.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a04-worksheet-shadow-review.mjs",
+    "test": "tests/curriculum/postg-app-w01-a04-worksheet-shadow-review.test.js"
+  },
+  "reviewBoundary": {
+    "structuralShadowOnly": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlPdfVerified": false,
+    "publicSelectionChanged": false,
+    "humanVisualReviewCompleted": false,
+    "reviewDecision": "DEFERRED_PENDING_PRODUCTION_EVIDENCE",
+    "productionAdmissionAllowed": false
+  },
+  "nextShortestStep": "POSTG-APP-W01-A05_UnitFlowExactGeneratorRendererAndHumanReviewRemediation"
+}

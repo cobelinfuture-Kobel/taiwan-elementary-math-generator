@@ -1,0 +1,17 @@
+S44J_G3A_U01_PACK2_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+done:
+- S44I local pass recorded
+- Pack2 unit conversion generator added
+- Pack2 digit arrangement generator added
+- Pack2 tests added
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44K_G3A_U01_GeneratorValidatorPack3

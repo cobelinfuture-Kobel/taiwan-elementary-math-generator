@@ -1,0 +1,79 @@
+{
+  "schemaName": "POSTGAPPW01A06EOperatorSecondHumanReviewDecisionContractV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision",
+  "parentTaskId": "POSTG-APP-W01-A06D_RegeneratedHTMLPDFHumanReviewPackage",
+  "status": "OPERATOR_APPROVED_E5_PRODUCTION_ADMITTED_PENDING_CI_AND_MERGE",
+  "decisionAuthority": {
+    "decision": "APPROVE",
+    "source": "EXPLICIT_OPERATOR_CHAT_DECISION",
+    "decisionRecord": "data/curriculum/application/reviews/POSTG-APP-W01-A06E_OperatorSecondHumanReviewDecision.json",
+    "automaticApprovalAllowed": false
+  },
+  "reviewEvidence": {
+    "manifest": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_MANIFEST.json",
+    "html": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.html",
+    "pdf": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.pdf",
+    "data": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW_DATA.json",
+    "extractedText": "docs/curriculum/output/postg-app/POSTG_APP_W01_A06D_REVIEW.extracted.txt",
+    "questionCount": 16,
+    "applicationSourceUnitCount": 12,
+    "macroContextMetadataCount": 16,
+    "applicationSurfaceCount": 13,
+    "numericPreservedCount": 3,
+    "pdfPageCount": 14,
+    "visibleMacroTitleCount": 0,
+    "genericVisibleUnitCount": 0,
+    "mathPreservedCount": 16,
+    "numberFactsPreservedCount": 16
+  },
+  "productionAdmission": {
+    "evidenceLevel": "E5_PRODUCTION_ADMITTED",
+    "waveId": "W01",
+    "granted": true,
+    "authorizedRuntimeConsumersOnly": true,
+    "publicRouteChanged": false,
+    "publicSelectionEnabled": false,
+    "programD0Complete": false
+  },
+  "controllerTransition": {
+    "before": {
+      "currentWaveId": "W01",
+      "state": "PRODUCTION_REVIEW_REQUIRED",
+      "blocker": "SECOND_OPERATOR_DECISION_PENDING"
+    },
+    "after": {
+      "completedWaveId": "W01",
+      "completedWaveState": "PRODUCTION_ADMITTED",
+      "currentWaveId": "W02",
+      "currentWaveState": "ASSESSMENT_READY",
+      "blocker": "W02_KP_APPLICATION_CLASSIFICATION_NOT_STARTED"
+    }
+  },
+  "acceptanceGates": [
+    "EXPLICIT_OPERATOR_APPROVE_RECORDED",
+    "A06D_ARTIFACT_HASHES_EXACT",
+    "A06D_E4_MANIFEST_VALID",
+    "A06_E5_CLAIM_VALID",
+    "W01_ONLY_PRODUCTION_ADMITTED",
+    "W02_ONLY_ASSESSMENT_READY",
+    "W03_TO_W06_BLOCKED_BY_PREVIOUS_WAVE",
+    "PUBLIC_ROUTE_UNCHANGED",
+    "PROGRAM_D0_FALSE",
+    "MILESTONE_CLAIM_INTEGRITY_PASS",
+    "NODE_TEST_PASS",
+    "MATH_CI_PASS"
+  ],
+  "scopeBoundary": {
+    "questionContentChanged": false,
+    "reviewArtifactsChanged": false,
+    "generatorChanged": false,
+    "rendererChanged": false,
+    "publicUiChanged": false,
+    "w02AssessmentImplemented": false,
+    "w02ProductionAdmitted": false,
+    "programCloseoutClaimed": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline"
+}

@@ -1,0 +1,160 @@
+{
+  "schemaName": "P07FW7Q007ScaleFactorLengthImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice007Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q007_G6AU09_SCALE_FACTOR_LENGTH_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q007_G6AU09_SCALE_FACTOR_LENGTH_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "7514d89a00bffe428a4baa448679f199c1c38057",
+  "preflight": {
+    "prNumber": 1028,
+    "mergeSha": "c6b2f60481e59cd8205146a17404310a09044e55",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q007-g6a-u09-scale-factor-length-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q006Status": "PASS_E6_D0_COMPLETE",
+    "q006MergeSha": "4d045d7d745996b8a13dce4bb109b902b440f50d",
+    "q006PostMergeWorkflowRunId": 35677439612,
+    "q006PostMergeWorkflowRunAttempt": 1,
+    "q006ArtifactId": 10672993905,
+    "q006ArtifactDigest": "sha256:d36c22893982041efc17d2bcc8b54971822962a6882bb85e31b869ce91adce4c",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q006_CLASSIC_UI_ACCEPTANCE"
+  },
+  "currentMainCompatibilityReadback": {
+    "comparedFromPreflightMergeSha": "c6b2f60481e59cd8205146a17404310a09044e55",
+    "commitsAhead": 5,
+    "changedPaths": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ],
+    "onlyDocsCiReadbackChanged": true
+  },
+  "queueAuthority": {
+    "queuePosition": 7,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q007_r8_g6a_u09_6a09_profile_quantity_measurement_c1",
+    "previousSliceId": "p07e_q006_r8_g6a_u06_6a06_profile_geometry_formula_c1",
+    "sourceId": "g6a_u09_6a09",
+    "knowledgePointIds": [
+      "kp_g6a_u09_scale_factor_length"
+    ],
+    "runtimeProfileId": "profile_quantity_measurement",
+    "classificationRuleId": "rule_quantity_measurement",
+    "appliedModifierIds": [],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_6a09_source.pdf",
+    "sourcePdfDriveFileId": "1qnZyEDcmOgb94BYU350cmjvUN4kESlEZ",
+    "sourcePdfSizeBytes": 244370,
+    "sourcePdfSha256": "80ec4d8df9a4d5bf98392cf846fac7df68c49781ba60eefa78e70e9109cbbe2c",
+    "reviewedPages": [
+      1
+    ],
+    "semanticAuthority": "R02_REVIEWED_CANDIDATE_PLUS_CURRENT_DIRECT_VISUAL_LENGTH_SCALE_FACTOR_EVIDENCE",
+    "currentVisualSupportLevel": "DIRECT_LITERAL_SCALE_FACTOR_LENGTH_RELATION",
+    "directVisualCorrespondingLengthPairs": [
+      {
+        "redLength": 12,
+        "blueLength": 8
+      },
+      {
+        "redLength": 6,
+        "blueLength": 4
+      }
+    ],
+    "staleAuxiliaryDriveVerificationNotesPreserved": true,
+    "sourceRefAmbiguity": false
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g6a_u05_equivalent_ratio"
+    ],
+    "equivalentRatioPrerequisiteRequired": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_quantity_dimension_unit_identity",
+      "cap_quantity_domain_validator",
+      "cap_text_numeric_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [
+      "cap_scale_instrument_representation"
+    ],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g6a_u09_scale_factor_from_pair",
+      "ps_g6a_u09_target_length_from_factor",
+      "ps_g6a_u09_common_factor_missing_length"
+    ],
+    "includedRelations": [
+      "INFER_SCALE_FACTOR_FROM_CORRESPONDING_LENGTH_PAIR",
+      "COMPUTE_CORRESPONDING_LENGTH_BY_COMMON_SCALE_FACTOR",
+      "VERIFY_COMMON_SCALE_FACTOR_ACROSS_CORRESPONDING_LENGTHS",
+      "CLASSIFY_ENLARGEMENT_OR_REDUCTION_FROM_POSITIVE_SCALE_FACTOR"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentation": "text_numeric_scale_factor_length",
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_RATIONAL_FACTOR_OR_POSITIVE_LENGTH_NUMBER",
+    "scaleFactorMustBePositive": true,
+    "scaleFactorMustBeNonzero": true,
+    "fractionOrDecimalScaleFactorAllowed": true,
+    "oneCommonScaleFactorRequired": true,
+    "sameUnitLengthPairOnly": true
+  },
+  "scopeGuard": {
+    "unitConversionTouched": false,
+    "anglePreservationTeachingReowned": false,
+    "scaleDrawingConstructionReowned": false,
+    "mapScaleDistanceReowned": false,
+    "scaleAreaChangeReowned": false,
+    "mapScaleBarInterpretationTouched": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q006ProductTouched": false,
+    "q008OrLaterProductTouched": false,
+    "q001Q002Q003Q004Q005Q006CompatibilityTestOnlyMutationAllowed": true,
+    "q020CurrentPointerCompatibilityTestOnlyMutationAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}

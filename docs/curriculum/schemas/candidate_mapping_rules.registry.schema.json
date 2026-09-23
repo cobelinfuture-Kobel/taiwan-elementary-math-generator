@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-worksheet-generator/curriculum/schemas/candidate_mapping_rules.registry.schema.json",
+  "title": "CandidateMappingRules Registry Wrapper Schema",
+  "description": "S22F4 wrapper schema for candidate_mapping_rules.bootstrap.json. Validates the full registry file.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "status",
+    "productionRuntime",
+    "rules"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "const": "bootstrap"
+    },
+    "productionRuntime": {
+      "type": "boolean",
+      "const": false
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "type": "object",
+        "required": [
+          "ruleId",
+          "status",
+          "productionRuntime",
+          "ruleType",
+          "description",
+          "sourcePatterns",
+          "targetDomainTags",
+          "targetQuestionKindTags",
+          "confidenceSignal"
+        ],
+        "properties": {
+          "ruleId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "const": "bootstrap"
+          },
+          "productionRuntime": {
+            "type": "boolean",
+            "const": false
+          },
+          "ruleType": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "sourcePatterns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "targetDomainTags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "domain_number_sense",
+                "domain_operation",
+                "domain_decimal",
+                "domain_fraction",
+                "domain_measurement",
+                "domain_geometry",
+                "domain_data",
+                "domain_ratio_speed",
+                "domain_pattern_relationship",
+                "domain_word_problem_strategy",
+                "domain_number_line"
+              ]
+            },
+            "minItems": 1
+          },
+          "targetQuestionKindTags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "qk_number_sense",
+                "qk_expression",
+                "qk_decimal",
+                "qk_fraction",
+                "qk_measurement_conversion",
+                "qk_geometry_formula",
+                "qk_visual_geometry",
+                "qk_chart_data",
+                "qk_pattern_sequence",
+                "qk_relationship",
+                "qk_word_problem",
+                "qk_representation",
+                "qk_rounding",
+                "qk_factor_multiple",
+                "qk_ratio_percent",
+                "qk_visual_reading"
+              ]
+            },
+            "minItems": 1
+          },
+          "confidenceSignal": {
+            "type": "string",
+            "enum": ["high", "medium", "low", "shallow"]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

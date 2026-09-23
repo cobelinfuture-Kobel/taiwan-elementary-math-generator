@@ -1,0 +1,80 @@
+{
+  "schemaName": "P03B6W3DecimalArithmeticPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03B6_W3DecimalArithmeticAdmission",
+  "queueTaskAlias": "P03B6_W3DecimalArithmeticConsumerAdmission",
+  "status": "W3_DECIMAL_ARITHMETIC_POLICY_READY",
+  "authorities": {
+    "hardeningQueue": "src/curriculum/full-product/p03a-w3-capability-hardening-order-evidence.mjs",
+    "productInventory": "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+    "historicalCapabilityMatrix": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "decimalNumberSystemConsumer": "src/curriculum/full-product/p03b2-decimal-number-system-consumer.mjs",
+    "decimalDomainValidator": "src/curriculum/full-product/p03b4-decimal-domain-validator.mjs",
+    "predecessorPromotionRegistry": "data/curriculum/full-product/p03b5/w3-capability-promotion-registry.json",
+    "operatorApproval": "P03B6_APPROVED_2026-07-27"
+  },
+  "scope": {
+    "capabilityId": "cap_decimal_arithmetic",
+    "queueOrder": 6,
+    "hardeningStageId": "W3-H2-ARITHMETIC",
+    "hardeningGateCapabilityIds": [
+      "cap_decimal_number_system",
+      "cap_decimal_domain_validator"
+    ],
+    "numericDomainId": "NON_NEGATIVE_DECIMAL",
+    "consumerMode": "PRODUCTION_DETERMINISTIC_DECIMAL_ARITHMETIC"
+  },
+  "allowedActions": ["ADD", "SUBTRACT", "MULTIPLY", "DIVIDE"],
+  "operandRoles": ["LEFT_OPERAND", "RIGHT_OPERAND"],
+  "resultValueForm": "NORMALIZED_BASE10_COEFFICIENT_SCALE",
+  "divisionPolicy": {
+    "exactTerminationRequired": true,
+    "allowedReducedDenominatorPrimeFactors": [2, 5],
+    "nonTerminatingDecimalFailClosed": true
+  },
+  "resultPolicyDelegation": {
+    "validatorCapabilityId": "cap_decimal_domain_validator",
+    "policyArgument": "resultPolicy",
+    "defaultValidationRequired": true
+  },
+  "limits": {
+    "maximumDecimalDigits": 64,
+    "maximumDecimalScale": 32,
+    "exactBigIntIntermediate": true,
+    "floatingPointApproximationAllowed": false
+  },
+  "blockingCodes": [
+    "P03B6_KP_ID_REQUIRED",
+    "P03B6_UNKNOWN_KNOWLEDGE_POINT",
+    "P03B6_KP_NOT_DECIMAL_ARITHMETIC_DEPENDENT",
+    "P03B6_SOURCE_KP_MISMATCH",
+    "P03B6_CAPABILITY_ASSERTION_MISMATCH",
+    "P03B6_ACTION_INVALID",
+    "P03B6_LEFT_VALUE_REQUIRED",
+    "P03B6_RIGHT_VALUE_REQUIRED",
+    "P03B6_NUMBER_SYSTEM_REJECTED",
+    "P03B6_DOMAIN_VALIDATOR_REJECTED",
+    "P03B6_NEGATIVE_RESULT_FORBIDDEN",
+    "P03B6_DIVISION_BY_ZERO",
+    "P03B6_NON_TERMINATING_DECIMAL",
+    "P03B6_RESULT_OVERFLOW",
+    "P03B6_RESULT_POLICY_REJECTED"
+  ],
+  "mainlineBoundary": {
+    "decimalNumberSystemReused": true,
+    "decimalDomainValidatorReused": true,
+    "decimalArithmeticImplemented": true,
+    "fractionArithmeticChanged": false,
+    "fractionDecimalConversionImplemented": false,
+    "crossDomainNormalizationImplemented": false,
+    "patternSpecImplementationStarted": false,
+    "questionGeneratorImplementationStarted": false,
+    "worksheetRendererChanged": false,
+    "publicUiChanged": false,
+    "protectedExistingD0ProductAdmissionChanged": false,
+    "newProductAdmissionChanged": false,
+    "p04ToP08WorkStarted": false
+  },
+  "nextTask": "P03B7_W3MixedNumberDomainNormalizationAdmission"
+}

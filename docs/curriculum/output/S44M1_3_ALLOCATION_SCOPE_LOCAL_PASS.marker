@@ -1,0 +1,15 @@
+S44M1_3_G3A_U01_ALLOCATION_SCOPE_LOCAL_PASS
+
+sourceId = g3a_u01_3a01
+operator_readback = tests 424, pass 424, fail 0, working tree clean
+status = PASS
+
+validated:
+- G3A-U01 multi-spec allocation expansion is scoped and does not regress G3B-U01 word-problem allocation.
+- automated tests passed locally.
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_MULTISPEC_ALLOCATION_SCOPED_QAFIX_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U01_MULTISPEC_ALLOCATION_SCOPED_QAFIX_LOCAL_PASS
+DISTANCE_REDUCED = scoped allocation fix passed local automated validation
+REMAINING_BLOCKERS = S44M1-4 to S44M1-6 pending
+NEXT_SHORTEST_STEP = S44M1-4_G3A_U01_PatternSpecRotationFix

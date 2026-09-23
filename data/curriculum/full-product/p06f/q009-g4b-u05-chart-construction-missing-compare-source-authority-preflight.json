@@ -1,0 +1,305 @@
+{
+  "schemaName": "P06FW6Q009G4BU05ChartConstructionMissingCompareSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6_Q009_G4BU05_ChartConstructionMissingCompare_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q009_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q009_G4BU05_CHART_CONSTRUCTION_MISSING_COMPARE_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "1468bbd10dd31307044ae2965934dd31dbac983c",
+  "predecessorD0Evidence": {
+    "immediatePredecessor": {
+      "queuePosition": 8,
+      "sliceId": "p06e_q008_r2_g3b_u10_3b10_profile_chart_data_c1",
+      "implementationTaskId": "P06F_W6DirectProductVerticalSlice008Implementation",
+      "prNumber": 987,
+      "mergeSha": "eb289ece6a32a8617de2005103508d6c18143b0f",
+      "postMergeWorkflowName": "P06F W6 Q008 Post-Merge Pages E2E",
+      "postMergeWorkflowRunId": 35358205496,
+      "postMergeWorkflowRunNumber": 1,
+      "postMergeWorkflowConclusion": "success",
+      "liveReportStatus": "PASS_E6_D0_COMPLETE",
+      "exactDeployedHeadSha": "eb289ece6a32a8617de2005103508d6c18143b0f",
+      "classicUiAcceptanceStatus": "PASS_P06F_W6_Q008_CLASSIC_UI_ACCEPTANCE"
+    },
+    "sameSourcePredecessor": {
+      "queuePosition": 7,
+      "sliceId": "p06e_q007_r1_g4b_u05_4b05_profile_chart_data_c1",
+      "implementationTaskId": "P06F_W6DirectProductVerticalSlice007Implementation",
+      "prNumber": 985,
+      "mergeSha": "a4f45ae6c8637adbff35b6fcb0435c5c01fca930",
+      "postMergeWorkflowRunId": 35348774519,
+      "liveReportStatus": "PASS_E6_D0_COMPLETE",
+      "classicUiAcceptanceStatus": "PASS_P06F_W6_Q007_CLASSIC_UI_ACCEPTANCE"
+    }
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p06e/w6-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p06e-w6-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "9e22094dee0d66e459848741894a3347df1c985ec8720cdabb3efc2e5a68e1be",
+    "queuePosition": 9,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q009_r2_g4b_u05_4b05_profile_chart_data_c1",
+    "implementationTaskId": "P06F_W6DirectProductVerticalSlice009Implementation",
+    "previousSliceId": "p06e_q008_r2_g3b_u10_3b10_profile_chart_data_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W6",
+    "primarySourceNodeId": "g4b_u05_4b05",
+    "supportingSourceNodeIds": [
+      "g4b_u05_4b05"
+    ],
+    "intraWavePrerequisiteRank": 2,
+    "primaryRuntimeProfileId": "profile_chart_data",
+    "chunkIndex": 1,
+    "knowledgePointCount": 3,
+    "knowledgePointIds": [
+      "kp_g4b_u05_bar_chart_construction",
+      "kp_g4b_u05_chart_missing_value_total",
+      "kp_g4b_u05_multi_category_chart_compare"
+    ],
+    "requiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g4b_u05_4b05",
+    "sourceCode": "4b05",
+    "sourceTitle": "統計圖表",
+    "sourcePdfTitle": "meow911_4b05_source.pdf",
+    "originalFileName": "題型總覽-4b05-統計圖表.pdf",
+    "sourcePdfDriveFileId": "11iHvRfLxyJSFP3a1A9BWiOyQrhDoGgsO",
+    "sourcePdfSizeBytes": 855124,
+    "sourcePdfSha256": null,
+    "checksumStatus": "NOT_EXPOSED_BY_DRIVE_CONNECTOR",
+    "driveMetadataFileId": "1Gs2HEEqdfq-BwsgvxhbUNUnc-ne77LKb",
+    "driveVerificationNotesFileId": "1acLRJ5QfEiJSR2AcLdccsgzmZZtb1iso",
+    "metadataSourceUrl": "https://meow911.com/4b05/",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "reviewAuthorityPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "ocrUsedAsAuthority": false,
+    "reusedFromQ007SourceAuthority": true,
+    "directPageEvidence": {
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "directlySupports": [
+        "kp_g4b_u05_bar_chart_construction",
+        "kp_g4b_u05_chart_missing_value_total",
+        "kp_g4b_u05_multi_category_chart_compare"
+      ],
+      "sourceSemanticIdentities": [
+        "BAR_CHART_CONSTRUCTION",
+        "CHART_MISSING_VALUE_TOTAL",
+        "MULTI_CATEGORY_CHART_COMPARE"
+      ]
+    },
+    "driveMetadataReadback": {
+      "sourceId": "g4b_u05_4b05",
+      "sourceTitle": "統計圖表",
+      "sourceType": "external_pdf",
+      "sourceFile": "meow911_4b05_source.pdf",
+      "sourceUrl": "https://meow911.com/4b05/",
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g4b_u05_4b05",
+    "sourceTitle": "統計圖表",
+    "sourcePdfTitle": "meow911_4b05_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetCandidates": [
+      {
+        "knowledgePointId": "kp_g4b_u05_bar_chart_construction",
+        "canonicalNameZh": "繪製長條圖",
+        "capabilityStatement": "學生能由資料表設定刻度並畫出正確長條圖。",
+        "reasoningInvariant": "每個類別長條高度須與資料值及共同尺度一致。",
+        "category": "data",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_g4b_u05_chart_missing_value_total",
+        "canonicalNameZh": "圖表合計與缺值",
+        "capabilityStatement": "學生能由總量與部分圖表資料求缺失值。",
+        "reasoningInvariant": "所有類別數值和必須等於指定總量。",
+        "category": "data",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_g4b_u05_multi_category_chart_compare",
+        "canonicalNameZh": "多類別圖表比較",
+        "capabilityStatement": "學生能比較不同類別的大小、差量與排序。",
+        "reasoningInvariant": "所有比較必須使用相同尺度與對應類別。",
+        "category": "data",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ],
+    "predecessorSameSourceCandidates": [
+      {
+        "knowledgePointId": "kp_g4b_u05_bar_chart_reading",
+        "canonicalNameZh": "長條圖報讀",
+        "q007D0Complete": true
+      },
+      {
+        "knowledgePointId": "kp_g4b_u05_chart_scale_interpretation",
+        "canonicalNameZh": "圖表刻度判讀",
+        "q007D0Complete": true
+      }
+    ],
+    "protectedSameSourceFutureCandidates": []
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r02ProjectionPath": "src/curriculum/global/r02-global-kp-candidate-reconciliation.mjs",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "profileId": "profile_chart_data",
+    "classificationRuleId": "rule_chart_data",
+    "profileRequiredCapabilityIds": [
+      "cap_chart_data_model",
+      "cap_data_domain_validator",
+      "cap_chart_representation"
+    ],
+    "profileOptionalCapabilityIds": [],
+    "exactFrozenQueueRequiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "dependencyClosureCapabilityIds": [
+      "cap_table_data_model"
+    ],
+    "dependencyClosureBasis": {
+      "capabilityId": "cap_chart_data_model",
+      "dependsOnCapabilityIds": [
+        "cap_table_data_model"
+      ],
+      "closureSource": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "closureRequiredByFrozenQueueMaterialization": true
+    },
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "classification": "NATIVE_CHART_DATA_RUNTIME_WITH_SOURCE_BACKED_CONSTRUCTION_MISSING_AND_COMPARE_SEMANTICS",
+    "frozenRuntimeEnvelope": "profile_chart_data",
+    "targetSemanticCores": {
+      "kp_g4b_u05_bar_chart_construction": "BAR_CHART_CONSTRUCTION",
+      "kp_g4b_u05_chart_missing_value_total": "CHART_MISSING_VALUE_TOTAL",
+      "kp_g4b_u05_multi_category_chart_compare": "MULTI_CATEGORY_CHART_COMPARE"
+    },
+    "implementationSemanticLock": {
+      "barChartConstructionIsCore": true,
+      "sourceTableToSharedScaleProjectionRequired": true,
+      "everyBarHeightMustMatchValueAndCommonScale": true,
+      "missingValueFromTotalIsCore": true,
+      "categoryValuesMustSumToSpecifiedTotal": true,
+      "multiCategoryComparisonIsCore": true,
+      "comparisonsMustUseSameScaleAndCorrespondingCategories": true,
+      "q007ReadingAndScalePredecessorsMustRemainReachable": true,
+      "q007PredecessorReownershipAllowed": false,
+      "lineChartReadingIsCore": false,
+      "pieChartReadingIsCore": false,
+      "applicationContextIsCore": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "q009ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g4b_u05_bar_chart_construction",
+      "kp_g4b_u05_chart_missing_value_total",
+      "kp_g4b_u05_multi_category_chart_compare"
+    ],
+    "includedRelations": [
+      "CONSTRUCT_BAR_CHART_FROM_TABLE_AND_COMMON_SCALE",
+      "SOLVE_CHART_MISSING_VALUE_FROM_SPECIFIED_TOTAL",
+      "COMPARE_MULTI_CATEGORY_CHART_VALUES_ON_COMMON_SCALE"
+    ],
+    "excludedRelations": [
+      "BAR_CHART_READING_AS_TARGET",
+      "CHART_SCALE_INTERPRETATION_AS_TARGET",
+      "LINE_CHART_READING",
+      "PIE_CHART_READING",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q010_OR_LATER_IMPLEMENTATION"
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE_BUT_NOT_ADMITTED_BY_PREFLIGHT",
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q001ToQ008ProductMutationAllowed": false,
+    "q010OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "immediatePredecessorD0EvidenceMustBeReused": true,
+    "sameSourcePredecessorD0EvidenceMustBeReused": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "immediatePredecessorQ008D0Verified": true,
+    "sameSourcePredecessorQ007D0Verified": true,
+    "sourceAuthoritySufficientForQ009ImplementationPlanning": true,
+    "fullPageVisualEvidenceBound": true,
+    "r02ReviewedCandidatesBound": true,
+    "runtimeCapabilityContractLocked": true,
+    "semanticProfileLockBound": true,
+    "finalSameSourceW6Slice": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P06F_W6DirectProductVerticalSlice009Implementation"
+  }
+}

@@ -1,0 +1,19 @@
+export const P04F17_TASK_ID="P04F_W4DirectProductVerticalSlice017Implementation";
+export const G4B_U09_P04F17_SOURCE_ID="g4b_u09_4b09";
+export const G4B_U09_P04F17_CROSS_DAY_KP_ID="kp_g4b_u09_elapsed_time_cross_day";
+export const G4B_U09_P04F17_ADD_KP_ID="kp_g4b_u09_time_addition_regrouping";
+export const G4B_U09_P04F17_SUB_KP_ID="kp_g4b_u09_time_subtraction_borrowing";
+export const G4B_U09_P04F17_CROSS_DAY_GROUP_ID="pg_g4b_u09_elapsed_time_cross_day_numeric";
+export const G4B_U09_P04F17_ADD_GROUP_ID="pg_g4b_u09_time_addition_regrouping_numeric";
+export const G4B_U09_P04F17_SUB_GROUP_ID="pg_g4b_u09_time_subtraction_borrowing_numeric";
+export const G4B_U09_P04F17_CROSS_DAY_SPEC_ID="ps_g4b_u09_elapsed_time_cross_day_numeric";
+export const G4B_U09_P04F17_ADD_SPEC_ID="ps_g4b_u09_time_addition_regrouping_numeric";
+export const G4B_U09_P04F17_SUB_SPEC_ID="ps_g4b_u09_time_subtraction_borrowing_numeric";
+export const P04F17_REQUIRED_W4_CAPABILITY_IDS=Object.freeze(["cap_mixed_unit_normalization","cap_quantity_domain_validator","cap_time_system_arithmetic","cap_unit_conversion"]);
+export const P04F17_RESERVED_SUCCESSOR_KP_IDS=Object.freeze(["kp_g4b_u09_timetable_schedule_reasoning"]);
+const defs=[[G4B_U09_P04F17_CROSS_DAY_KP_ID,G4B_U09_P04F17_CROSS_DAY_GROUP_ID,G4B_U09_P04F17_CROSS_DAY_SPEC_ID,"跨日經過時間","DIRECT_SOURCE_TIME_CROSS_DAY"],[G4B_U09_P04F17_ADD_KP_ID,G4B_U09_P04F17_ADD_GROUP_ID,G4B_U09_P04F17_ADD_SPEC_ID,"時間加法進位","DIRECT_SOURCE_TIME_ADDITION_REGROUPING"],[G4B_U09_P04F17_SUB_KP_ID,G4B_U09_P04F17_SUB_GROUP_ID,G4B_U09_P04F17_SUB_SPEC_ID,"時間減法退位","DIRECT_SOURCE_TIME_SUBTRACTION_BORROWING"]];
+const clone=v=>v==null?v:JSON.parse(JSON.stringify(v));
+export const G4B_U09_P04F17_PATTERN_GROUPS=Object.freeze(defs.map(([kp,group,spec,name])=>Object.freeze({patternGroupId:group,sourceId:G4B_U09_P04F17_SOURCE_ID,unitCode:"4B-U09",unitTitle:"時間的計算",displayName:name,primaryKnowledgePointId:kp,knowledgePointIds:Object.freeze([kp]),supportClass:"A",mode:"numeric",publicQuestionMode:"numeric",representationTag:"time_arithmetic",representationTags:Object.freeze(["numeric","time","time_arithmetic"]),patternSpecIds:Object.freeze([spec]),allocationPolicy:"single_pattern_spec",visibilityStatus:"visible",holdReason:null})));
+export const G4B_U09_P04F17_SELECTOR_ROWS=Object.freeze(defs.map(([kp,group,spec,name,classification])=>Object.freeze({knowledgePointId:kp,sourceId:G4B_U09_P04F17_SOURCE_ID,unitCode:"4B-U09",unitTitle:"時間的計算",displayName:name,canonicalNameZh:name,mode:"numeric",questionMode:"numeric",questionModes:Object.freeze(["numeric"]),supportClass:"A",visibilityStatus:"visible",selectorStatus:"visible",holdReason:null,applicationClassification:classification,canonicalPatternGroupIds:Object.freeze([group]),canonicalPatternSpecIds:Object.freeze([spec]),patternGroupIds:Object.freeze([group]),patternSpecIds:Object.freeze([spec]),requiredCapabilityIds:P04F17_REQUIRED_W4_CAPABILITY_IDS,hiddenApplicationPatternSpecIds:Object.freeze([]),qaStatusLabel:`P04F17_G4B_U09_${kp.toUpperCase()}`,productionUse:"full_product_w4_slice017_candidate"})));
+export function listG4BU09P04F17SelectorRows(){return G4B_U09_P04F17_SELECTOR_ROWS.map(clone);}export function getG4BU09P04F17SelectorRow(id){return clone(G4B_U09_P04F17_SELECTOR_ROWS.find(r=>r.knowledgePointId===id)??null);}export function listG4BU09P04F17PatternGroups(id){return G4B_U09_P04F17_PATTERN_GROUPS.filter(g=>g.primaryKnowledgePointId===id).map(clone);}export function resolveG4BU09P04F17PatternSpecIds(id){const r=G4B_U09_P04F17_SELECTOR_ROWS.find(x=>x.knowledgePointId===id);return r?[...r.patternSpecIds]:[];}
+export function auditG4BU09P04F17SelectorProjection(){const errors=[];if(G4B_U09_P04F17_SELECTOR_ROWS.length!==3)errors.push("P04F17_KP_COUNT_INVALID");return Object.freeze({ok:errors.length===0,errors:Object.freeze(errors),counts:Object.freeze({knowledgePoints:3,patternGroups:3,patternSpecs:3,numeric:3,application:0})});}

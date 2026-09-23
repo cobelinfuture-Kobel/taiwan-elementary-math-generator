@@ -1,0 +1,178 @@
+{
+  "schemaName": "G5AU08KnowledgePointPatternGroupTagContract",
+  "schemaVersion": 1,
+  "task": "S60B_G5A_U08_KPPatternGroupTagContract",
+  "sourceId": "g5a_u08_5a08",
+  "unitCode": "5A-U08",
+  "unitTitle": "整數四則",
+  "dependsOn": "S60A_G5A_U08_ExistingOverlayVsPDF29PanelDiffAudit",
+  "layerPolicy": {
+    "knowledgePoint": "mathematical_concept",
+    "patternGroup": "representation_and_task_mode",
+    "patternSpec": "deterministic_generatable_structure",
+    "templateFamily": "semantic_relation_and_context",
+    "sdg": "semantic_context_taxonomy_only",
+    "nPlus1": "semantic_depth_property_only"
+  },
+  "canonicalTags": [
+    {"tag":"domain.integer_four_operations","category":"domain"},
+    {"tag":"operation.addition","category":"operation"},
+    {"tag":"operation.subtraction","category":"operation"},
+    {"tag":"operation.multiplication","category":"operation"},
+    {"tag":"operation.division","category":"operation"},
+    {"tag":"rule.precedence_mul_div_before_add_sub","category":"rule"},
+    {"tag":"rule.left_to_right_same_precedence","category":"rule"},
+    {"tag":"transformation.signed_term_regroup","category":"transformation"},
+    {"tag":"transformation.factor_regroup","category":"transformation"},
+    {"tag":"law.distributive_expand","category":"law"},
+    {"tag":"law.common_factor_extract","category":"law"},
+    {"tag":"strategy.compensation","category":"strategy"},
+    {"tag":"strategy.round_number","category":"strategy"},
+    {"tag":"reasoning.missing_operator","category":"reasoning"},
+    {"tag":"reasoning.equality_judgement","category":"reasoning"},
+    {"tag":"reasoning.average_direct","category":"reasoning"},
+    {"tag":"reasoning.average_inverse","category":"reasoning"},
+    {"tag":"reasoning.average_update","category":"reasoning"},
+    {"tag":"reasoning.allocation_transfer","category":"reasoning"},
+    {"tag":"representation.numeric","category":"representation"},
+    {"tag":"representation.application","category":"representation"},
+    {"tag":"representation.reasoning","category":"representation"},
+    {"tag":"depth.N","category":"depth"},
+    {"tag":"depth.N_PLUS_1","category":"depth"},
+    {"tag":"context.daily_life","category":"context"},
+    {"tag":"context.sdg","category":"context"},
+    {"tag":"answer.numeric","category":"answer"},
+    {"tag":"answer.expression","category":"answer"},
+    {"tag":"answer.operator_sequence","category":"answer"},
+    {"tag":"answer.equality_judgement","category":"answer"},
+    {"tag":"answer.average_inverse","category":"answer"},
+    {"tag":"answer.allocation_transfer","category":"answer"},
+    {"tag":"constraint.integer_only","category":"constraint"},
+    {"tag":"constraint.nonnegative_quantity","category":"constraint"},
+    {"tag":"constraint.exact_division_when_required","category":"constraint"},
+    {"tag":"constraint.single_expression_when_required","category":"constraint"},
+    {"tag":"constraint.max_one_semantic_delta","category":"constraint"}
+  ],
+  "knowledgePoints": [
+    {
+      "knowledgePointId":"kp_g5a_u08_mixed_operation_order",
+      "displayName":"無括號四則混合運算順序",
+      "definition":"Evaluate integer expressions by multiplication/division before addition/subtraction and left-to-right within equal precedence.",
+      "patternGroupIds":["pg_g5a_u08_mixed_operation_order_numeric","pg_g5a_u08_mixed_operation_order_application"],
+      "tags":["domain.integer_four_operations","rule.precedence_mul_div_before_add_sub","rule.left_to_right_same_precedence","representation.numeric","representation.application","answer.numeric","answer.expression"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_add_sub_equivalent_regroup",
+      "displayName":"加減連算的等值重組與湊整",
+      "definition":"Regroup signed addition/subtraction terms without treating subtraction as associative.",
+      "patternGroupIds":["pg_g5a_u08_add_sub_regroup_numeric"],
+      "tags":["domain.integer_four_operations","operation.addition","operation.subtraction","transformation.signed_term_regroup","representation.numeric","answer.numeric"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_mul_div_equivalent_regroup",
+      "displayName":"乘除連算的等值重組、約分與整數化",
+      "definition":"Use legal factor regrouping and denominator-factor cancellation while preserving division direction.",
+      "patternGroupIds":["pg_g5a_u08_mul_div_regroup_numeric","pg_g5a_u08_mul_div_regroup_application"],
+      "tags":["domain.integer_four_operations","operation.multiplication","operation.division","transformation.factor_regroup","constraint.integer_only","constraint.exact_division_when_required","representation.numeric","representation.application","answer.numeric","answer.expression"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_distributive_expand",
+      "displayName":"分配律展開",
+      "definition":"Transform (a+b)c or (a-b)c into ac+bc or ac-bc.",
+      "patternGroupIds":["pg_g5a_u08_distributive_expand_numeric","pg_g5a_u08_distributive_expand_application"],
+      "tags":["domain.integer_four_operations","law.distributive_expand","representation.numeric","representation.application","answer.numeric","answer.expression"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_common_factor_extract",
+      "displayName":"分配律提取公因數",
+      "definition":"Transform ac+bc or ac-bc into (a+b)c or (a-b)c.",
+      "patternGroupIds":["pg_g5a_u08_common_factor_numeric","pg_g5a_u08_common_factor_application"],
+      "tags":["domain.integer_four_operations","law.common_factor_extract","representation.numeric","representation.application","answer.numeric","answer.expression"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_near_round_add_compensation",
+      "displayName":"接近整數的連加補償",
+      "definition":"Replace near-round addends with round numbers and compensate exactly.",
+      "patternGroupIds":["pg_g5a_u08_near_round_add_numeric"],
+      "tags":["domain.integer_four_operations","operation.addition","strategy.compensation","strategy.round_number","representation.numeric","answer.numeric"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_near_round_sub_compensation",
+      "displayName":"接近整數的連減補償",
+      "definition":"Replace near-round subtrahends with round numbers and apply direction-correct compensation.",
+      "patternGroupIds":["pg_g5a_u08_near_round_sub_numeric"],
+      "tags":["domain.integer_four_operations","operation.subtraction","strategy.compensation","strategy.round_number","representation.numeric","answer.numeric"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_near_round_multiply_compensation",
+      "displayName":"接近整數的乘法補償與簡算",
+      "definition":"Decompose a near-round factor and use distributive compensation or exact factor regrouping.",
+      "patternGroupIds":["pg_g5a_u08_near_round_multiply_numeric","pg_g5a_u08_near_round_multiply_application"],
+      "tags":["domain.integer_four_operations","operation.multiplication","strategy.compensation","strategy.round_number","representation.numeric","representation.application","answer.numeric","answer.expression"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_missing_operator_inference",
+      "displayName":"反向推算運算符號",
+      "definition":"Infer the unique sequence of arithmetic operators that makes an integer equality true.",
+      "patternGroupIds":["pg_g5a_u08_missing_operator_reasoning"],
+      "tags":["domain.integer_four_operations","reasoning.missing_operator","representation.reasoning","answer.operator_sequence"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_equivalence_error_judgement",
+      "displayName":"算式等值判斷與錯誤分配律辨識",
+      "definition":"Judge whether two expressions are equal and identify a structural transformation error.",
+      "patternGroupIds":["pg_g5a_u08_equivalence_reasoning"],
+      "tags":["domain.integer_four_operations","reasoning.equality_judgement","law.distributive_expand","law.common_factor_extract","representation.reasoning","answer.equality_judgement"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_average_inverse_update",
+      "displayName":"平均數、平均分攤、逆推平均與平均更新",
+      "definition":"Model direct averages, recover totals or missing parts, update a population average, and determine balanced transfers.",
+      "patternGroupIds":["pg_g5a_u08_average_application","pg_g5a_u08_average_reasoning"],
+      "tags":["domain.integer_four_operations","reasoning.average_direct","reasoning.average_inverse","reasoning.average_update","reasoning.allocation_transfer","representation.application","representation.reasoning","answer.numeric","answer.average_inverse","answer.allocation_transfer","constraint.nonnegative_quantity"]
+    }
+  ],
+  "patternGroups": [
+    {"patternGroupId":"pg_g5a_u08_mixed_operation_order_numeric","knowledgePointId":"kp_g5a_u08_mixed_operation_order","mode":"numeric","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_mixed_operation_order_application","knowledgePointId":"kp_g5a_u08_mixed_operation_order","mode":"application","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_add_sub_regroup_numeric","knowledgePointId":"kp_g5a_u08_add_sub_equivalent_regroup","mode":"numeric","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_mul_div_regroup_numeric","knowledgePointId":"kp_g5a_u08_mul_div_equivalent_regroup","mode":"numeric","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_mul_div_regroup_application","knowledgePointId":"kp_g5a_u08_mul_div_equivalent_regroup","mode":"application","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_distributive_expand_numeric","knowledgePointId":"kp_g5a_u08_distributive_expand","mode":"numeric","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_distributive_expand_application","knowledgePointId":"kp_g5a_u08_distributive_expand","mode":"application","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_common_factor_numeric","knowledgePointId":"kp_g5a_u08_common_factor_extract","mode":"numeric","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_common_factor_application","knowledgePointId":"kp_g5a_u08_common_factor_extract","mode":"application","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_near_round_add_numeric","knowledgePointId":"kp_g5a_u08_near_round_add_compensation","mode":"numeric","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_near_round_sub_numeric","knowledgePointId":"kp_g5a_u08_near_round_sub_compensation","mode":"numeric","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_near_round_multiply_numeric","knowledgePointId":"kp_g5a_u08_near_round_multiply_compensation","mode":"numeric","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_near_round_multiply_application","knowledgePointId":"kp_g5a_u08_near_round_multiply_compensation","mode":"application","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_missing_operator_reasoning","knowledgePointId":"kp_g5a_u08_missing_operator_inference","mode":"reasoning","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_equivalence_reasoning","knowledgePointId":"kp_g5a_u08_equivalence_error_judgement","mode":"reasoning","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_average_application","knowledgePointId":"kp_g5a_u08_average_inverse_update","mode":"application","sourceBacked":true},
+    {"patternGroupId":"pg_g5a_u08_average_reasoning","knowledgePointId":"kp_g5a_u08_average_inverse_update","mode":"reasoning","sourceBacked":true}
+  ],
+  "modePolicy": {
+    "publicModes":["numeric","application","reasoning"],
+    "applicationRequiresTemplateFamily":true,
+    "reasoningRequiresStructuredAnswerModel":true,
+    "genericWordProblemKnowledgePointAllowed":false,
+    "genericMultiStepKnowledgePointAllowed":false
+  },
+  "acceptance": {
+    "knowledgePointCount":11,
+    "patternGroupCount":17,
+    "canonicalTagCount":37,
+    "duplicateTagCount":0,
+    "orphanPatternGroupCount":0,
+    "genericWordProblemKnowledgePointCount":0,
+    "allKnowledgePointsHaveUniqueDefinition":true,
+    "allPatternGroupsHaveExplicitMode":true
+  },
+  "goalDistance": {
+    "before":"D3_G5A_U08_SOURCE_RECONCILED_LAYER_OWNERSHIP_UNFROZEN",
+    "after":"D3_G5A_U08_KP_PATTERN_GROUP_AND_TAG_CONTRACT_FROZEN",
+    "distanceReduced":"Eleven mathematical KPs, seventeen representation/task PatternGroups and a canonical 37-tag registry now have explicit non-overlapping ownership.",
+    "remainingBlockers":["N baseline and N+1 semantic-delta allowlist are not defined per KP","Application TemplateFamily and SDG context contracts are not defined","FormalMapping and answer/validator contracts remain pending"],
+    "nextShortestStep":"S60C_G5A_U08_NBaselineAndNPlus1SemanticDeltaMatrix"
+  }
+}

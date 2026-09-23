@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_PUBLIC_CUTOVER_IMPLEMENTATION_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_WORD_PROBLEM_EQUAL_GROUPS_PUBLIC_CUTOVER_IMPLEMENTATION_V1.validation.json",
+  "classificationNote": "Visible Path1-local public cutover only. Adds a bounded practice-mode adapter/query-state/control for P1-01/P1-02 while preserving arithmetic default, P1-03/P1-04 semantics, Classic query state, and existing transfer generator/validator authority.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

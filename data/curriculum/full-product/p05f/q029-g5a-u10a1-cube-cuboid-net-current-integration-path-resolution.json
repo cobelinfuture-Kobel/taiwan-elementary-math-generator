@@ -1,0 +1,111 @@
+{
+  "schemaName": "P05FW5Q029CurrentIntegrationPathResolutionV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice029Implementation_CurrentIntegrationPathResolution",
+  "status": "CURRENT_INTEGRATION_PATH_RESOLVED",
+  "goalDistanceBefore": "D2_Q029_SOURCE_VISUAL_SEMANTIC_PATTERN_VALIDATOR_BOUNDARY_LOCKED_CURRENT_INTEGRATION_PATH_UNRESOLVED",
+  "goalDistanceAfter": "D2_Q029_CURRENT_INTEGRATION_PATH_AND_REUSE_BOUNDARY_LOCKED",
+  "baselineMainSha": "7598111f561beb0dbef5f9fb94e076347108fc35",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 29,
+    "sliceId": "p05e_q029_r2_g5a_u10_5a10a1_profile_spatial_solid_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice029Implementation",
+    "previousSliceId": "p05e_q028_r2_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "primarySourceNodeId": "g5a_u10_5a10a1",
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "knowledgePointIds": ["kp_g5a_u10a1_cube_cuboid_net"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_construction",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "predecessorEvidence": {
+    "q028ImplementationPr": 889,
+    "q028ImplementationMergeSha": "87c26b43c48832976bd63ba6d8dfff57116c278f",
+    "q028CurrentRuntimePath": "site/modules/curriculum/batch-a/g5a-u10a-solid-net-correspondence-runtime-p05f28.js",
+    "q028CurrentRendererPath": "site/modules/renderer/solid-net-correspondence-diagram.js",
+    "predecessorProductSemanticsTouched": false
+  },
+  "currentIntegrationBaseline": {
+    "currentSelectorExtension": "site/modules/curriculum/registry/batch-a-selector-p05f28-extension.js",
+    "legacyBrowserSelectorAlias": "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+    "legacyBrowserSelectorAliasCurrentlyTargets": "site/modules/curriculum/registry/batch-a-selector-p05f28-extension.js",
+    "currentPublicCapabilityBinding": "site/modules/curriculum/public/public-ui-capability-binding-p05f28.js",
+    "legacyBrowserCapabilityAlias": "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+    "legacyBrowserCapabilityAliasCurrentlyTargets": "site/modules/curriculum/public/public-ui-capability-binding-p05f28.js",
+    "currentWorksheetEntry": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js",
+    "currentWorksheetFirstW5Dispatch": "P05F28",
+    "sameSourceExistingProjection": "site/modules/curriculum/registry/g5a-u10a1-cube-cuboid-edge-face-selector-projection-p05f18.js",
+    "sameSourceExistingSelector": "site/modules/curriculum/registry/batch-a-selector-p05f18-extension.js",
+    "sameSourceExistingRuntime": "site/modules/curriculum/batch-a/g5a-u10a1-cube-cuboid-edge-face-runtime-p05f18.js",
+    "sameSourceExistingRenderer": "site/modules/renderer/cube-cuboid-elements-diagram.js",
+    "q028SolidNetRenderer": "site/modules/renderer/solid-net-correspondence-diagram.js",
+    "sharedHtmlRenderer": "site/modules/renderer/html-renderer.js"
+  },
+  "reuseAssessment": {
+    "q018CubeCuboidElementsRendererReusableForQ029": false,
+    "q018ReuseReason": "The existing cube/cuboid elements renderer is a three-dimensional element/edge/face representation and does not implement bounded two-dimensional net topology, face placement, foldability, or completion semantics.",
+    "q028SolidNetRendererReusableWithoutMutation": false,
+    "q028ReuseReason": "The Q028 renderer accepts only prism, pyramid, cylinder, and cone solid-net models. Extending its accepted model to CUBE/CUBOID would widen Q028 semantics, which Q029 scope explicitly forbids.",
+    "sharedHtmlRendererDispatchExtensionRequired": true,
+    "dedicatedQ029RendererRequired": true
+  },
+  "integrationDecision": {
+    "selectorStrategy": "CREATE_P05F29_EXTENSION_OVER_CURRENT_P05F28_CHAIN",
+    "publicBindingStrategy": "CREATE_P05F29_BINDING_OVER_CURRENT_P05F28_CHAIN_AND_ADVANCE_BROWSER_ALIAS",
+    "generatorStrategy": "CREATE_P05F29_GENERATOR_OVER_P05F28_AND_MATCH_ONLY_EXPLICIT_Q029_SELECTION",
+    "worksheetStrategy": "CREATE_P05F29_WORKSHEET_EXTENSION_AND_DISPATCH_BEFORE_P05F28",
+    "rendererStrategy": "CREATE_DEDICATED_CUBE_CUBOID_NET_RENDERER_AND_ADD_EXACT_HTML_DISPATCH",
+    "runtimeStrategy": "CREATE_DEDICATED_Q029_RUNTIME_WITH_FAIL_CLOSED_CUBE_CUBOID_NET_TOPOLOGY_VALIDATION",
+    "sourceUnitOwnershipKnowledgePointId": "kp_g5a_u10a1_cube_cuboid_faces_edges_vertices",
+    "sourceUnitOwnershipTransferAllowed": false,
+    "remainingFutureKnowledgePointIds": ["kp_g5a_u10a1_cube_cuboid_spatial_reasoning"],
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "genericFallbackAllowed": false,
+    "freeFormAIAllowed": false
+  },
+  "plannedCurrentPaths": {
+    "selectorProjection": "site/modules/curriculum/registry/g5a-u10a1-cube-cuboid-net-selector-projection-p05f29.js",
+    "selectorExtension": "site/modules/curriculum/registry/batch-a-selector-p05f29-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p05f29.js",
+    "runtime": "site/modules/curriculum/batch-a/g5a-u10a1-cube-cuboid-net-runtime-p05f29.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f29.js",
+    "worksheetExtension": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f29-extension.js",
+    "diagramRenderer": "site/modules/renderer/cube-cuboid-net-diagram.js",
+    "worksheetEntry": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js",
+    "browserSelectorAlias": "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+    "browserCapabilityAlias": "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+    "sharedHtmlRenderer": "site/modules/renderer/html-renderer.js"
+  },
+  "plannedFocusedValidation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice029-g5a-u10a1-cube-cuboid-net.test.js",
+    "sourceContractTest": "tests/curriculum/p05f-w5-q029-cube-cuboid-net-source-visual-pattern-contract.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-q029-classic-ui-acceptance.mjs",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_SLICE",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_SLICE"
+  },
+  "scopeGuard": {
+    "q008ElementIdentityTouched": false,
+    "q018EdgeLengthTouched": false,
+    "q018FaceRelationshipTouched": false,
+    "q028SolidNetSemanticsTouched": false,
+    "q038CubeCuboidSpatialReasoningTouched": false,
+    "surfaceAreaTouched": false,
+    "volumeTouched": false,
+    "viewpointTouched": false,
+    "applicationContextTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false
+  },
+  "nextTask": "P05F_W5DirectProductVerticalSlice029Implementation_RuntimeRendererValidatorMaterialization"
+}

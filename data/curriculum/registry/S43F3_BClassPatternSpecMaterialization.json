@@ -1,0 +1,72 @@
+{
+  "schemaName": "S43FAlphaMaterializedPatternSpecs",
+  "schemaVersion": 1,
+  "task": "S43F3_BClassPatternSpecMaterialization",
+  "materializationStatus": "contract_materialized_not_browser_projected",
+  "browserProjectionChanged": false,
+  "runtimeCodeChanged": false,
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g4a_u01_within_100million_compare",
+      "sourceId": "g4a_u01_4a01",
+      "title": "1億以內數比大小",
+      "kind": "comparison",
+      "min": 0,
+      "max": 99999999,
+      "skill": "integer_comparison",
+      "validatorContract": "comparison_answer"
+    },
+    {
+      "patternSpecId": "ps_g4a_u02_3digit_by_2digit",
+      "sourceId": "g4a_u02_4a02",
+      "title": "三位數乘以二位數",
+      "kind": "expression",
+      "operators": [["MULTIPLY"]],
+      "ranges": [[100, 999], [10, 99]],
+      "answerMax": 98901,
+      "skill": "integer_multiplication",
+      "validatorContract": "numeric_integer_answer"
+    },
+    {
+      "patternSpecId": "ps_g4a_u04_3digit_by_2digit_exact",
+      "sourceId": "g4a_u04_4a04",
+      "title": "三位數除以二位數整除",
+      "kind": "expression",
+      "operators": [["DIVIDE"]],
+      "ranges": [[100, 999], [10, 99]],
+      "answerMax": 999,
+      "skill": "integer_division_exact",
+      "division": {"allowDivideByOne": false, "allowZeroDividend": false, "requireExactQuotient": true},
+      "validatorContract": "numeric_integer_answer_exact_division"
+    },
+    {
+      "patternSpecId": "ps_g4a_u08_add_sub_three_terms",
+      "sourceId": "g4a_u08_4a08",
+      "title": "三數加減混合",
+      "kind": "expression",
+      "operators": [["ADD", "SUBTRACT"], ["ADD", "SUBTRACT"]],
+      "ranges": [[100, 999], [1, 200], [1, 200]],
+      "answerMax": 1399,
+      "skill": "integer_add_sub_mixed",
+      "validatorContract": "numeric_integer_answer"
+    },
+    {
+      "patternSpecId": "ps_g5a_u08_left_to_right_add_sub",
+      "sourceId": "g5a_u08_5a08",
+      "title": "整數加減由左到右",
+      "kind": "expression",
+      "operators": [["ADD", "SUBTRACT"], ["ADD", "SUBTRACT"]],
+      "ranges": [[100, 999], [1, 300], [1, 300]],
+      "answerMax": 1599,
+      "skill": "integer_add_sub_mixed",
+      "validatorContract": "numeric_integer_answer"
+    }
+  ],
+  "summary": {
+    "materializedPatternSpecCount": 5,
+    "comparisonCount": 1,
+    "expressionCount": 4,
+    "browserProjectionChanged": false,
+    "runtimeCodeChanged": false
+  }
+}

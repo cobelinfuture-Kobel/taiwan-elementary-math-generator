@@ -1,0 +1,25 @@
+S45A_G3A_U02_CURRENT_STATE_OUTPUT_REVIEW
+
+sourceId = g3a_u02_3a02
+pdf_checked = g3a_u02_同單元混合知識點_隨機.pdf
+status = OUTPUT_QA_BLOCKERS_FOUND
+
+observed_pass:
+- source renders 200 questions plus answer key pages.
+- G3A-U02 visible KPs are present in mixed output: nearest-thousand estimation, estimated add/sub word problems, add/sub missing digit, add/sub equation missing digit, sub-middle missing digit, continuous borrow zero.
+- answer key is generated.
+
+blocking_findings:
+- large word-problem cards can split across PDF pages, leaving partial prompts on the next page and excessive blank area.
+- exact duplicate prompts appear in arithmetic crossing-thousand families, e.g. 2004 - 105, 3003 - 1004, 3008 - 1009, 3004 - 1005, 2003 - 104, 2002 - 103, 3000 - 1001, 3001 - 1002, 3005 - 1006.
+- generated numbers show visible template/sequence clusters around 1899, 1999, 2000, 3000 and around 73xx/90xx rounding cases.
+- multi-blank answer key values are terse comma-separated values and should be clarified as ordered fills.
+- word problem templates are very narrow, mostly bookstore sold-books and warehouse remaining-boxes estimation.
+
+next_shortest_step = S45B_G3A_U02_PaginationAndDuplicatePromptQAFix
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U02_NEXT_UNIT_SELECTED
+GOAL_DISTANCE_AFTER = D1_G3A_U02_CURRENT_OUTPUT_REVIEWED_WITH_BLOCKERS
+DISTANCE_REDUCED = current G3A-U02 mixed worksheet output was reviewed and blockers were isolated
+REMAINING_BLOCKERS = pagination/card split; duplicate prompts; visible sequence/template clusters; terse ordered-fill answers
+NEXT_SHORTEST_STEP = S45B_G3A_U02_PaginationAndDuplicatePromptQAFix

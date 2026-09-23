@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_AUTHORITY_PREFLIGHT_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient": "PENDING",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_AUTHORITY_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Planning/source-authority preflight only for Path1 P1-09. Locks the no-new-KP difficulty-expansion authority, three mandatory cloud evidence lanes, direct four-digit-by-two-digit source witness, two quotient-digit formal cases, adjacent P1-08/P1-10/P1-11 boundaries, and the existing route's static acceptance gaps. No executable product runtime, public authority, Path1 matrix, canonical semantic, route, mastery, or PatternSpec change.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

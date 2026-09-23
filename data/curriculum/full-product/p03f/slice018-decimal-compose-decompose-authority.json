@@ -1,0 +1,85 @@
+{
+  "schemaName": "P03FSlice018DecimalComposeDecomposeAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice018Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 18,
+    "sliceId": "p03e_q018_r7_g4a_u09_4a09_profile_decimal_c1",
+    "previousSliceId": "p03e_q017_r7_g4a_u06_4a06_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "closeoutPr": 520,
+      "postMergeReconciliationPr": 521,
+      "closeoutMergeSha": "05c3e28f5116bc0d263da03931adcd5bfa647314",
+      "finalMainReconciliationMergeSha": "66d810ce270396ffde88b67c3eacb302fe43bb1c",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice017-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "path": "data/curriculum/knowledge/units/g4a_u09_4a09.knowledge-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g4a_u09_4a09.hidden-pattern-spec.json",
+    "sourceNodeId": "g4a_u09_4a09",
+    "sourceCode": "4a09",
+    "sourceTitle": "2位小數",
+    "grade": 4,
+    "semester": "upper",
+    "unitCode": "4A-U09",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "reviewedPages": [1]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_compose_decompose",
+      "canonicalNameZh": "二位小數組成分解",
+      "scope": "依個、十分位與百分位組成或分解二位小數。",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "reasoningInvariant": "個位、十分位與百分位必須依 decimal = whole + tenths*0.1 + hundredths*0.01 精確重組成同一個二位小數。",
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g4a_u09_decimal_compose_decompose_numeric",
+      "patternSpecId": "ps_g4a_u09_decimal_compose_decompose_decimal_numeric",
+      "operationModelId": "op_g4a_u09_decimal_compose_decompose",
+      "operationFamilyId": "decimal_representation",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "decimal",
+      "givenRoles": ["whole", "fractionalUnits", "placeUnit"],
+      "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+      "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+    }
+  ],
+  "formalMappingBoundary": {
+    "canonicalExpression": "decimal = whole + tenths * 0.1 + hundredths * 0.01",
+    "canonicalScale": 2,
+    "wholeRange": [0, 99],
+    "tenthsDigitRange": [0, 9],
+    "hundredthsDigitRange": [0, 9],
+    "comparisonRequired": false,
+    "sequenceRequired": false,
+    "missingDigitRequired": false,
+    "arithmeticRequired": false,
+    "applicationRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "reuseSlice010G4AU09Source": true,
+    "sharedDecimalNumberSystemRequired": true,
+    "sharedDecimalDomainValidatorRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

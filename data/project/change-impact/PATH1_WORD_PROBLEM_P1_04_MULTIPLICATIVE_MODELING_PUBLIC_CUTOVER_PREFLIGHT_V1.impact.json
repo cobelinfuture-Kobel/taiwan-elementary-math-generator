@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Planning-only public-cutover preflight. sharedExecutableChange=true is a lane-selection shim for bounded focused CI only. This PR adds contract/impact/validation/read-only tests and does not modify product runtime, public binding, Path1 matrix, query/UI behavior, P1-04 generator/validator/PatternSpecs, P1-03 semantics, P1-01/P1-02 equalGroupsTransfer, P1-12, Classic, or canonical G3B-U08 authority.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

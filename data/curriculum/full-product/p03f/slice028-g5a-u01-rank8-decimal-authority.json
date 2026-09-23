@@ -1,0 +1,98 @@
+{
+  "schemaName": "P03FSlice028G5AU01Rank8DecimalAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice028Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 28,
+    "sliceId": "p03e_q028_r8_g5a_u01_5a01_profile_decimal_c1",
+    "previousSliceId": "p03e_q027_r8_g4b_u08_4b08_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 560,
+      "closeoutPr": 562,
+      "postMergeReconciliationPr": 563,
+      "implementationMergeSha": "2f64d44d12ecb6b24583a69a5146aca74824a464",
+      "closeoutMergeSha": "5eb4e1402a6deb3109bd0d4c7e96d1ea847b1f5c",
+      "finalMainReconciliationMergeSha": "b4012837b7806af9424bf05491a5162d9c2b6361",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice027-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g5a_u01_5a01.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g5a_u01_5a01.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g5a_u01_5a01.hidden-pattern-spec.json",
+    "sourceNodeId": "g5a_u01_5a01",
+    "sourceCode": "5a01",
+    "sourceTitle": "多位小數與加減",
+    "grade": 5,
+    "semester": "upper",
+    "unitCode": "5A-U01",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_AND_HIDDEN_PATTERNSPEC_AUTHORITY_READBACK",
+    "reviewedPages": [1]
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_compose_decompose",
+      "canonicalNameZh": "多位小數組成分解",
+      "scope": "依各位數值組成或展開多位小數。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "publicModes": ["numeric"],
+      "operationModelId": "op_g5a_u01_decimal_compose_decompose",
+      "operationFamilyId": "decimal_representation",
+      "requiredW3CapabilityIds": [
+        "cap_decimal_domain_validator",
+        "cap_decimal_number_system"
+      ],
+      "reasoningInvariant": "各位值展開項必須精確重組為同一有限小數；內部零位與小數尺度不得改變數值身分。"
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g5a_u01_decimal_compose_decompose_numeric",
+      "patternSpecId": "ps_g5a_u01_decimal_compose_decompose_decimal_numeric",
+      "knowledgePointId": "kp_g5a_u01_decimal_compose_decompose",
+      "operationModelId": "op_g5a_u01_decimal_compose_decompose",
+      "operationFamilyId": "decimal_representation",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "decimal",
+      "givenRoles": ["whole", "fractionalUnits", "placeUnit"],
+      "requiredW3CapabilityIds": ["cap_decimal_domain_validator", "cap_decimal_number_system"]
+    }
+  ],
+  "formalMappingBoundary": {
+    "canonicalExpressions": ["decimal = whole + fractionalUnits * placeUnit"],
+    "allowedDecimalScales": [3, 4, 5, 6],
+    "placeValueExpansionMustRecombineExactly": true,
+    "internalZeroDigitsMustBePreserved": true,
+    "applicationRequired": false,
+    "decimalArithmeticRequired": false,
+    "comparisonRequired": false,
+    "roundingRequired": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "reuseSlice021G5AU01Source": true,
+    "expectedSourceVisibleCountAfterAdmission": 2,
+    "expectedSourceHiddenCountAfterAdmission": 6,
+    "expectedPublicSourceCountAfterAdmission": 29,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 219,
+    "sharedDecimalNumberSystemRequired": true,
+    "sharedDecimalDomainValidatorRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice029Implementation"
+  }
+}

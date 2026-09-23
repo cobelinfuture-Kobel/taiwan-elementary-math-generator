@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/curriculum/w02-knowledge-operation-candidate.schema.json",
+  "title": "W02 page-evidenced KnowledgeOperation candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaName", "schemaVersion", "programId", "taskId", "sourceNodeId", "queueOrdinal", "sourceCode", "sourceTitle", "domainFamily", "candidateState", "sourceEvidence", "knowledgePoints", "counts", "productionBoundary", "nextRequiredGate"],
+  "properties": {
+    "schemaName": { "const": "POSTGAPPW02KnowledgeOperationCandidateUnitV1" },
+    "schemaVersion": { "const": 1 },
+    "programId": { "const": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1" },
+    "taskId": { "const": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification" },
+    "sourceNodeId": { "type": "string", "pattern": "^g[3-5][ab]_u\\d{2}_[3-5][ab]\\d{2}(a1|a)?$" },
+    "queueOrdinal": { "type": "integer", "minimum": 1, "maximum": 13 },
+    "sourceCode": { "type": "string", "minLength": 1 },
+    "sourceTitle": { "type": "string", "minLength": 1 },
+    "domainFamily": { "type": "string", "minLength": 1 },
+    "candidateState": { "const": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING" },
+    "sourceEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inventoryPath", "sha256", "contentIdentityGroup", "pageCount", "reviewedPages", "reviewMethod"],
+      "properties": {
+        "inventoryPath": { "const": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "contentIdentityGroup": { "type": "string", "pattern": "^pdf_[a-f0-9]{12}$" },
+        "pageCount": { "type": "integer", "minimum": 1 },
+        "reviewedPages": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 1, "uniqueItems": true },
+        "reviewMethod": { "const": "FULL_PAGE_VISUAL_READBACK" }
+      }
+    },
+    "knowledgePoints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidateId", "name", "scope", "evidencePages", "applicationClassification", "classificationRationale"],
+        "properties": {
+          "candidateId": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "evidencePages": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 1, "uniqueItems": true },
+          "applicationClassification": { "enum": ["APPLICATION_REQUIRED", "APPLICATION_COMPATIBLE", "APPLICATION_NOT_APPLICABLE"] },
+          "classificationRationale": { "type": "string", "minLength": 8 }
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["knowledgePointCandidateCount", "applicationRequiredCount", "applicationCompatibleCount", "applicationNotApplicableCount"],
+      "properties": {
+        "knowledgePointCandidateCount": { "type": "integer", "minimum": 1 },
+        "applicationRequiredCount": { "type": "integer", "minimum": 0 },
+        "applicationCompatibleCount": { "type": "integer", "minimum": 0 },
+        "applicationNotApplicableCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "productionBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonicalOperationModelsComplete", "patternSpecsAuthored", "storyTemplatesAuthored", "runtimeConsumerEnabled", "worksheetOutputAllowed", "productionAdmissionAllowed"],
+      "properties": {
+        "canonicalOperationModelsComplete": { "const": false },
+        "patternSpecsAuthored": { "const": false },
+        "storyTemplatesAuthored": { "const": false },
+        "runtimeConsumerEnabled": { "const": false },
+        "worksheetOutputAllowed": { "const": false },
+        "productionAdmissionAllowed": { "const": false }
+      }
+    },
+    "nextRequiredGate": { "const": "CANONICAL_OPERATION_MODEL_MATERIALIZATION" }
+  }
+}

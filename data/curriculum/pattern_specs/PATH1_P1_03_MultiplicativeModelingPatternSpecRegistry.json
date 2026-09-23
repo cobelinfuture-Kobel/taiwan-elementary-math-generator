@@ -1,0 +1,100 @@
+{
+  "schemaName": "Path1P103MultiplicativeModelingPatternSpecRegistryV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1",
+  "status": "PATH1_LOCAL_PATTERN_SPECS_MATERIALIZED_NON_PUBLIC",
+  "path1BlockId": "P1-03",
+  "arithmeticKnowledgePointId": "kp_g4a_u02_2digit_by_2digit",
+  "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+  "relationId": "R03_EQUAL_GROUPS",
+  "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+  "unknownRole": "totalAmount",
+  "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT",
+  "numericAuthority": {
+    "authorityType": "PATH1_LOCAL_TRANSFER_PROJECTION",
+    "amountPerGroup": {"type":"integer","min":10,"max":99},
+    "groupCount": {"type":"integer","min":10,"max":99},
+    "totalAmount": {"type":"integer","min":100,"max":9801,"formula":"amountPerGroup * groupCount"},
+    "writesBackToG3BU08CanonicalAuthority": false
+  },
+  "semanticRoleBinding": {
+    "leftFactor": "amountPerGroup",
+    "rightFactor": "groupCount",
+    "product": "totalAmount",
+    "commutativeSemanticRoleSwapAllowed": false
+  },
+  "patternSpecs": [
+    {
+      "patternSpecId": "P103_R03_ITEMS_PER_PACKAGE_TOTAL",
+      "sourceParentPatternSpecId": "ps_g3b_u08_total_items_per_package",
+      "sourceSurfaceLineageOnly": true,
+      "sourceParentNumericAuthorityReused": false,
+      "relationId": "R03_EQUAL_GROUPS",
+      "unknownRole": "totalAmount",
+      "semanticShape": "itemsPerPackage * packageCount = totalItems",
+      "sourceEvidenceRefs": [
+        {
+          "sourceType": "school_exam",
+          "sourceFileId": "1knMV1ZIQ5dnUsfV28VuSbuZgBvLE1jrM",
+          "witness": "一盒餅乾有28片，60盒餅乾共有多少片"
+        }
+      ],
+      "contexts": [
+        {"contextVariantId":"cookies_box","itemLabel":"餅乾","perGroupUnit":"片","groupUnit":"盒","promptTemplate":"一盒餅乾有{amountPerGroup}片，有{groupCount}盒，一共有多少片餅乾？"},
+        {"contextVariantId":"colored_pencils_box","itemLabel":"彩色筆","perGroupUnit":"枝","groupUnit":"盒","promptTemplate":"一盒彩色筆有{amountPerGroup}枝，有{groupCount}盒，一共有多少枝彩色筆？"},
+        {"contextVariantId":"workbooks_carton","itemLabel":"練習簿","perGroupUnit":"本","groupUnit":"箱","promptTemplate":"每箱有{amountPerGroup}本練習簿，有{groupCount}箱，一共有多少本練習簿？"}
+      ]
+    },
+    {
+      "patternSpecId": "P103_R03_MATERIAL_PER_PRODUCT_TOTAL",
+      "sourceParentPatternSpecId": "ps_g3b_u08_total_material_per_product",
+      "sourceSurfaceLineageOnly": true,
+      "sourceParentNumericAuthorityReused": false,
+      "relationId": "R03_EQUAL_GROUPS",
+      "unknownRole": "totalAmount",
+      "semanticShape": "materialPerProduct * productCount = totalMaterial",
+      "contexts": [
+        {"contextVariantId":"paper_flower","itemLabel":"色紙","perGroupUnit":"張","groupUnit":"個紙花","promptTemplate":"做一個紙花需要{amountPerGroup}張色紙，做{groupCount}個紙花，共需要多少張色紙？"},
+        {"contextVariantId":"model_parts","itemLabel":"零件","perGroupUnit":"個","groupUnit":"台模型","promptTemplate":"組一台模型需要{amountPerGroup}個零件，組{groupCount}台模型，共需要多少個零件？"},
+        {"contextVariantId":"bracelet_beads","itemLabel":"珠子","perGroupUnit":"顆","groupUnit":"串手環","promptTemplate":"做一串手環需要{amountPerGroup}顆珠子，做{groupCount}串手環，共需要多少顆珠子？"}
+      ]
+    },
+    {
+      "patternSpecId": "P103_R03_SCORE_PER_EVENT_TOTAL",
+      "sourceParentPatternSpecId": "ps_g3b_u08_total_score_per_success",
+      "sourceSurfaceLineageOnly": true,
+      "sourceParentNumericAuthorityReused": false,
+      "relationId": "R03_EQUAL_GROUPS",
+      "unknownRole": "totalAmount",
+      "semanticShape": "scorePerEvent * eventCount = totalScore",
+      "contexts": [
+        {"contextVariantId":"quiz_correct","itemLabel":"分數","perGroupUnit":"分","groupUnit":"題","promptTemplate":"每答對一題得{amountPerGroup}分，答對{groupCount}題，一共得多少分？"},
+        {"contextVariantId":"game_level","itemLabel":"分數","perGroupUnit":"分","groupUnit":"關","promptTemplate":"每完成一關得{amountPerGroup}分，完成{groupCount}關，一共得多少分？"},
+        {"contextVariantId":"challenge_score","itemLabel":"分數","perGroupUnit":"分","groupUnit":"項挑戰","promptTemplate":"每完成一項挑戰得{amountPerGroup}分，完成{groupCount}項挑戰，一共得多少分？"}
+      ]
+    },
+    {
+      "patternSpecId": "P103_R03_AMOUNT_PER_PERIOD_TOTAL",
+      "sourceParentPatternSpecId": "ps_g3b_u08_total_daily_saving_accumulation",
+      "sourceSurfaceLineageOnly": true,
+      "sourceParentNumericAuthorityReused": false,
+      "relationId": "R03_EQUAL_GROUPS",
+      "unknownRole": "totalAmount",
+      "semanticShape": "amountPerPeriod * periodCount = totalAmount",
+      "contexts": [
+        {"contextVariantId":"reading_pages_daily","itemLabel":"閱讀頁數","perGroupUnit":"頁","groupUnit":"天","promptTemplate":"每天閱讀{amountPerGroup}頁，連續{groupCount}天，共閱讀多少頁？"},
+        {"contextVariantId":"saving_daily","itemLabel":"存款","perGroupUnit":"元","groupUnit":"天","promptTemplate":"每天存{amountPerGroup}元，連續{groupCount}天，共存多少元？"},
+        {"contextVariantId":"practice_minutes_weekly","itemLabel":"練習時間","perGroupUnit":"分鐘","groupUnit":"週","promptTemplate":"每週練習{amountPerGroup}分鐘，連續{groupCount}週，共練習多少分鐘？"}
+      ]
+    }
+  ],
+  "globalBoundaries": {
+    "singleRelationOnly": true,
+    "unitConversionAllowed": false,
+    "inverseUnknownRolesAllowed": false,
+    "multiRelationCompositionAllowed": false,
+    "r05RateMeasureProductIncluded": false,
+    "publicCutoverApplied": false,
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  }
+}

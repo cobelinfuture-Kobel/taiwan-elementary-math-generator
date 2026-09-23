@@ -1,0 +1,97 @@
+{
+  "schemaName": "G5AU02HiddenMaterializationCloseout",
+  "schemaVersion": 1,
+  "task": "S84_G5A_U02_FormalMappingAndHiddenPatternSpecMaterialization",
+  "status": "materialization_passed_ci_synced_and_merged",
+  "unitId": "g5a_u02",
+  "unitTitle": "因數與公因數",
+  "sourcePacketIds": [
+    "g5a_u02_5a02a",
+    "g5a_u02_5a02a1"
+  ],
+  "authoritativeRefs": {
+    "formalMapping": "data/curriculum/mapping/S84_G5A_U02_FormalMapping.json",
+    "patternSpecRegistry": "data/curriculum/pattern_specs/S84_G5A_U02_PatternSpecRegistry.json",
+    "browserProjection": "site/modules/curriculum/batch-b/source-pattern-g5a-u02-extension.js",
+    "baseContract": "data/curriculum/contracts/S82_G5A_U02_PatternSpecContractDesign.json",
+    "qaOverlay": "data/curriculum/contracts/S83_G5A_U02_PatternSpecContractQA.json",
+    "answerSchemaOverlay": "data/curriculum/contracts/s83_g5a_u02/answer_schema_overlay.json",
+    "templateSemanticOverlay": "data/curriculum/contracts/s83_g5a_u02/template_semantic_overlay.json",
+    "semanticGrammarOverlay": "data/curriculum/contracts/s83_g5a_u02/semantic_grammar_overlay.json",
+    "validatorCoverageOverlay": "data/curriculum/contracts/s83_g5a_u02/validator_coverage_overlay.json"
+  },
+  "result": {
+    "knowledgePointCount": 18,
+    "formalMappingCount": 22,
+    "patternGroupCount": 18,
+    "patternSpecCount": 22,
+    "answerModelCount": 16,
+    "baseTemplateFamilyCount": 8,
+    "effectiveTemplateVariantCount": 9,
+    "classCPatternSpecCount": 14,
+    "classDPatternSpecCount": 8,
+    "hiddenPatternGroupCount": 18,
+    "hiddenPatternSpecCount": 22,
+    "visiblePatternSpecCount": 0,
+    "routedPatternSpecCount": 0,
+    "productionPatternSpecCount": 0
+  },
+  "ciEvidence": {
+    "implementationPullRequest": 136,
+    "implementationMergeCommit": "9b063b114afecb8f50771838fb45ffccc5256564",
+    "prMathCiRun": 29239426596,
+    "mainCiRun": 29239683253,
+    "mainCiReadbackCommit": "fa5420b5d95f0e0658e964aed9b9d8def1a10903",
+    "tests": 1166,
+    "pass": 1166,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "effectiveContract": {
+    "loadOrder": [
+      "S82_G5A_U02_PatternSpecContractDesign",
+      "S83_G5A_U02_PatternSpecContractQA"
+    ],
+    "higherPrecedence": "S83_G5A_U02_PatternSpecContractQA",
+    "s83CloseoutRequired": true
+  },
+  "sourceIdentityBoundary": {
+    "packetIdsRetained": [
+      "g5a_u02_5a02a",
+      "g5a_u02_5a02a1"
+    ],
+    "candidatePipelineResolved": true,
+    "hiddenMaterializationAllowed": true,
+    "publicCatalogPromotionRequiresMetadataCorrection": true,
+    "requiredMetadataCorrection": {
+      "sourceId": "g5a_u02_5a02a1",
+      "displayTitle": "公因數",
+      "sourceUrl": "https://meow911.com/5a03b/"
+    }
+  },
+  "scopeBoundary": {
+    "sourceMetadataMutated": false,
+    "formalMappingMaterialized": true,
+    "patternGroupsMaterialized": true,
+    "patternSpecsMaterialized": true,
+    "runtimeProjectionMaterialized": true,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "canonicalRoutingEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D2_G5A_U02_22_PATTERNSPEC_CONTRACTS_QA_LOCKED",
+    "after": "D1_G5A_U02_FORMAL_MAPPING_AND_HIDDEN_PATTERNSPECS_MATERIALIZED",
+    "distanceReduced": "Materialized authoritative FormalMapping, hidden PatternGroups, hidden PatternSpecs and a frozen browser-neutral projection from the accepted S82 base plus S83 QA overlay.",
+    "remainingBlockers": [
+      "Class C generator and blocking validator not implemented",
+      "Class D semantic generator and validator not implemented",
+      "g5a_u02_5a02a1 public metadata correction remains pending",
+      "canonical resolver, selector and worksheet path not connected"
+    ],
+    "nextShortestStep": "S85_G5A_U02_ClassCGeneratorAndBlockingValidator",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}

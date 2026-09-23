@@ -1,0 +1,225 @@
+{
+  "schemaName": "Path1P108TwoDigitDivisorPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_08_TWO_DIGIT_DIVISOR_PREFLIGHT_V1",
+  "resumeAuthority": "PATH1_P1_08_PUBLIC_PATH_CONTINUATION_PREFLIGHT_OR_CURRENT_PATH1_QUEUE_AUTHORITY",
+  "status": "P1_08_TWO_DIGIT_DIVISOR_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "operatorScope": "APPROVED_PREFLIGHT_ONLY",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicCutoverAllowed": false,
+  "publicBindingMutationAllowed": false,
+  "path1MatrixChanged": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "newRelationMinted": false,
+  "newPatternSpecMaterialized": false,
+  "dedicatedPracticeModePlanned": false,
+  "authority": {
+    "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+    "preflightBaseMain": "bd0eeaa496126c956300e884e307f14ca52fc3c5",
+    "path1MatrixPath": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "canonicalKnowledgePath": "data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json",
+    "publicBindingPath": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "canonicalPatternPath": "site/modules/curriculum/batch-a/source-pattern-g4a-u04-extension.js",
+    "canonicalGeneratorPath": "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+    "publicPracticeModeDispatcherPath": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "genericPublicWorksheetBuilderPath": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "cloudCorpusRegistryPath": "data/curriculum/application/reviews/PATH1_CLOUD_SOURCE_CORPUS_REGISTRY_V2.json"
+  },
+  "queueAuthority": {
+    "previousBlockId": "P1-07",
+    "previousBlockTitle": "商的位值",
+    "previousBlockStatus": "D0_P107_PUBLIC_PATH1_QUOTIENT_START_PLACE_ROUTE_DEPLOYED_AND_ACCEPTED",
+    "currentBlockId": "P1-08",
+    "currentBlockTitle": "二位數除數",
+    "currentBlockType": "COMPOSITE_KP",
+    "requiredPrerequisiteBlockIds": ["P1-07"],
+    "prerequisiteSatisfied": true,
+    "nextBlockId": "P1-09",
+    "nextBlockTitle": "多位數÷二位數",
+    "replanCompletedBlocksAllowed": false
+  },
+  "canonicalSourceAuthority": {
+    "sourceId": "g4a_u04_4a04",
+    "unitId": "4A-U04",
+    "unitTitle": "整數的除法",
+    "authorityStatus": "GOLDEN_CONFORMANT",
+    "knowledgeRegistryState": "VALIDATED_COMPLETE",
+    "primarySource": {
+      "fileName": "batchA_02-題型總覽-4a04-整數的除法.pdf",
+      "googleDriveFileId": "1KgODz4ieK6XTFlV9OlqqXLtuDksP0t1f",
+      "reviewedPages": [1, 2],
+      "observedSections": [
+        "除數是2位數的除法",
+        "2位數÷2位數 除數是10的倍數",
+        "2位數÷2位數 除數先用整10估算",
+        "3位數÷2位數 第一型（十位夠除）",
+        "3位數÷2位數 第二型（十位不夠除）",
+        "除法驗算（有餘數）",
+        "除法推理"
+      ]
+    },
+    "primaryKnowledgePointIds": [
+      "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "optionalSupportingKnowledgePointIds": []
+  },
+  "knowledgePointContracts": [
+    {
+      "knowledgePointId": "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "name": "2位數除以2位數：除數是10的倍數",
+      "operationModelId": "op_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "answerType": "quotient_remainder",
+      "constraints": [
+        "10 <= dividend <= 99",
+        "divisor in {10,20,30,40,50,60,70,80,90}",
+        "dividend >= divisor",
+        "0 <= remainder < divisor",
+        "quotient starts at ones place"
+      ],
+      "canonicalPatternSpecId": "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "name": "3位數除以2位數：十位夠除",
+      "operationModelId": "op_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "answerType": "quotient_remainder",
+      "constraints": [
+        "100 <= dividend <= 999",
+        "10 <= divisor <= 99",
+        "firstTwoDigits >= divisor",
+        "0 <= remainder < divisor",
+        "quotient starts at tens place"
+      ],
+      "canonicalPatternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_sufficient"
+    },
+    {
+      "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_insufficient",
+      "name": "3位數除以2位數：十位不夠除",
+      "operationModelId": "op_g4a_u04_3digit_by_2digit_tens_insufficient",
+      "answerType": "quotient_remainder",
+      "constraints": [
+        "100 <= dividend <= 999",
+        "10 <= divisor <= 99",
+        "firstTwoDigits < divisor",
+        "0 <= remainder < divisor",
+        "quotient starts at ones place"
+      ],
+      "canonicalPatternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
+    }
+  ],
+  "formalMapping": [
+    {
+      "caseId": "P108_2DIGIT_DIVIDEND_TEN_MULTIPLE_DIVISOR",
+      "predicate": "10 <= dividend <= 99 AND divisor is a two-digit multiple of 10 AND dividend >= divisor",
+      "knowledgePointId": "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "patternSpecId": "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "answerContract": "quotient + remainder; dividend = divisor * quotient + remainder; 0 <= remainder < divisor"
+    },
+    {
+      "caseId": "P108_3DIGIT_TENS_SUFFICIENT",
+      "predicate": "100 <= dividend <= 999 AND 10 <= divisor <= 99 AND firstTwoDigits >= divisor",
+      "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "patternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "answerContract": "quotient + remainder; quotient starts at tens place; dividend = divisor * quotient + remainder; 0 <= remainder < divisor"
+    },
+    {
+      "caseId": "P108_3DIGIT_TENS_INSUFFICIENT",
+      "predicate": "100 <= dividend <= 999 AND 10 <= divisor <= 99 AND firstTwoDigits < divisor",
+      "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_insufficient",
+      "patternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_insufficient",
+      "answerContract": "quotient + remainder; quotient starts at ones place; dividend = divisor * quotient + remainder; 0 <= remainder < divisor"
+    }
+  ],
+  "existingRuntimeDecision": {
+    "publicBindingAlignedWithMatrix": true,
+    "allThreeCanonicalPatternSpecsAlreadyExist": true,
+    "canonicalG4aU04GeneratorAlreadyExists": true,
+    "genericPath1ArithmeticRouteAlreadyExists": true,
+    "p108CurrentlyUsesGenericArithmeticRoute": true,
+    "newDedicatedPracticeModeRequired": false,
+    "newLocalPatternFamilyRequired": false,
+    "newGeneratorRequired": false,
+    "preflightConclusion": "FIRST_PROVE_AND_ACCEPT_EXISTING_GENERIC_ARITHMETIC_ROUTE_BEFORE_ANY_RUNTIME_MUTATION"
+  },
+  "sourceInterpretation": {
+    "primaryCapability": "TWO_DIGIT_DIVISOR_ARITHMETIC_EXECUTION",
+    "includes": [
+      "two-digit dividend divided by a two-digit multiple-of-ten divisor",
+      "three-digit dividend divided by two-digit divisor where first two digits are sufficient",
+      "three-digit dividend divided by two-digit divisor where first two digits are insufficient",
+      "quotient-and-remainder arithmetic with remainder strictly less than divisor"
+    ],
+    "doesNotCreateDedicatedTeachingModeFor": [
+      "估商與試商",
+      "商的位值分類",
+      "除法驗算",
+      "缺位數除法推理"
+    ]
+  },
+  "adjacentBoundaries": {
+    "P1-06": "owns explicit divisor-estimation/trial-quotient teaching; P1-08 may internally estimate during arithmetic but must not duplicate estimateTrialQuotient as a user-facing capability",
+    "P1-07": "owns quotient-start-place/digit-count classification; P1-08 structurally respects start place but must not duplicate quotientStartPlace as a dedicated representation mode",
+    "P1-09": "owns larger-dividend two-digit-divisor difficulty expansion; P1-08 V1 remains within two- and three-digit dividend canonical envelopes",
+    "P1-11": "owns remainder/checking emphasis; P1-08 returns quotient and remainder and enforces remainder<divisor but does not promote division-checking to the primary capability"
+  },
+  "deferredEvidence": {
+    "divisionCheckWithRemainder": "VISIBLE_IN_PRIMARY_PDF_BUT_NOT_P108_PRIMARY_MASTERY",
+    "missingDigitDivisionReasoning": "VISIBLE_IN_PRIMARY_PDF_AND_EXAMS_BUT_DEFERRED_AS_EXTENSION_DIVERSITY_EVIDENCE",
+    "outOfEnvelopeMultiDigitDividends": "VISIBLE_IN_EXAM_CORPUS_BUT_RESERVED_FOR_P1_09_OR_LATER"
+  },
+  "cloudSourceProvenanceReviewPath": "data/curriculum/application/reviews/PATH1_P1_08_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1.json",
+  "futureAcceptanceContract": {
+    "taskId": "PATH1_P1_08_TWO_DIGIT_DIVISOR_GENERIC_ARITHMETIC_ACCEPTANCE_V1",
+    "implementationAllowedByThisPreflight": false,
+    "firstAction": "test existing generic public arithmetic path before changing runtime",
+    "requiredQuestionCounts": [1, 20, 120],
+    "requiredCoverage": [
+      "all three primary P1-08 KPs",
+      "all three existing canonical PatternSpecs",
+      "quotient/remainder reconstruction invariant",
+      "remainder < divisor",
+      "two-digit divisor envelope",
+      "P1-08 two-/three-digit dividend envelope",
+      "no P1-06 dedicated estimation-mode leakage",
+      "no P1-07 dedicated quotient-place-mode leakage",
+      "no P1-09 larger-dividend expansion",
+      "no P1-11 checking/remainder-context promotion"
+    ],
+    "runtimeMutationIfAcceptanceFails": "NOT_AUTHORIZED; isolate exact selector/planner/renderer gap first and stop"
+  },
+  "antiScopeCreep": {
+    "replanP101ThroughP107Allowed": false,
+    "modifyPath1MatrixAllowed": false,
+    "modifyCanonicalG4aU04AuthorityAllowed": false,
+    "modifyPublicBindingAllowed": false,
+    "modifyCanonicalPatternSpecsAllowed": false,
+    "modifyCanonicalGeneratorAllowed": false,
+    "modifyPublicRuntimeAllowed": false,
+    "addDedicatedP108PracticeModeAllowed": false,
+    "addCanonicalKnowledgePointAllowed": false,
+    "addRelationAllowed": false,
+    "addPatternSpecAllowed": false,
+    "expandToP109Allowed": false,
+    "promoteDivisionCheckAllowed": false,
+    "promoteMissingDigitReasoningAllowed": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedLane": "KP_FOCUSED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P108_GENERIC_ARITHMETIC_ROUTE_EXISTS_SOURCE_AUTHORITY_PREFLIGHT_NOT_LOCKED",
+    "goalDistanceAfterTarget": "D1_P108_SOURCE_AUTHORITY_LOCKED_GENERIC_ARITHMETIC_ACCEPTANCE_PENDING",
+    "distanceReduced": "Within D1, remove queue/source/KP/runtime-route ambiguity and prove no new dedicated P1-08 mode or PatternSpec should be created before testing the existing generic arithmetic route.",
+    "remainingBlockers": [
+      "P1-08 existing generic arithmetic public route not yet bounded-accepted at 1/20/120",
+      "P1-08 runtime coverage gap, if any, not yet isolated"
+    ],
+    "nextShortestStep": "PATH1_P1_08_TWO_DIGIT_DIVISOR_GENERIC_ARITHMETIC_ACCEPTANCE_V1"
+  }
+}

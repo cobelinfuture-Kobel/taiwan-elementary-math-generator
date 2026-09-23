@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P05F_W5_Q002",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointId": "kp_circle_center_radius_diameter",
+  "unitExpectedKnowledgePointIds": [
+    "kp_circle_center_radius_diameter"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_circle_center_radius_diameter": "PENDING"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P05F_W5_Q002.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  }
+}

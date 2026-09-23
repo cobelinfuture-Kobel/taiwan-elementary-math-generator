@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P01E_W1PublicUIHTMLPDFPrintCloseout",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "W1_PUBLIC_UI_HTML_PDF_PRINT_CLOSEOUT_E5",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/batch-a/source-units.js",
+      "site/modules/curriculum/registry/w1-full-product-public-application-groups.js",
+      "site/modules/curriculum/registry/batch-a-selector-p01e-extension.js",
+      "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+      "site/modules/curriculum/batch-a/w1-full-product-public-application-admission.js",
+      "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
+      "site/assets/browser/state/config-state.js",
+      "site/assets/browser/public-control-ui.js",
+      "site/pixel/pixel-full-product-public-controls.js",
+      "site/pixel/pixel-registry-bridge.js",
+      "site/pixel/pixel-preview-controller.js",
+      "tools/curriculum/validate-p01e-w1-public-closeout.mjs",
+      "tests/curriculum/p01e-w1-public-ui-html-pdf-print-closeout.test.js",
+      "tests/ui/pixel-functional-qa.test.js",
+      "tests/ui/pixel-final-production-gate.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "site/modules/renderer/html-renderer-s73-extension.js",
+      "tools/curriculum/render-p01e-w1-public-closeout.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a-application.html",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a-numeric.html",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a1-application.html",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a1-numeric.html",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5b_u05_5b05a-application.html",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5b_u05_5b05a-numeric.html",
+      "docs/curriculum/output/p01e-w1-public-closeout/g6a_u01_6a01-application.html",
+      "docs/curriculum/output/p01e-w1-public-closeout/g6a_u01_6a01-numeric.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a-application.pdf",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a-numeric.pdf",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a1-application.pdf",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a1-numeric.pdf",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5b_u05_5b05a-application.pdf",
+      "docs/curriculum/output/p01e-w1-public-closeout/g5b_u05_5b05a-numeric.pdf",
+      "docs/curriculum/output/p01e-w1-public-closeout/g6a_u01_6a01-application.pdf",
+      "docs/curriculum/output/p01e-w1-public-closeout/g6a_u01_6a01-numeric.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/full-product/p01e/w1-public-ui-html-pdf-print-closeout.json",
+      "docs/curriculum/contracts/P01E_W1_PUBLIC_UI_HTML_PDF_PRINT_CLOSEOUT_CONTRACT_V1.md",
+      "docs/curriculum/output/P01E_PUBLIC_UI_CUTOVER_SCOPE.md",
+      "docs/curriculum/output/P01E_W1_PUBLIC_UI_HTML_PDF_PRINT_CLOSEOUT_READBACK.md",
+      "docs/curriculum/output/p01e-w1-public-closeout/report.json",
+      "docs/curriculum/output/p01e-w1-public-closeout/SHA256SUMS"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a-application.html",
+        "sha256": "b13b4043dbad2a7a9c69b3f37ec1b4d66811d159ebe9596e13252db5112f3564"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a-numeric.html",
+        "sha256": "c88a48d942949ce703077e917b9eb5a90291295c845038d3762b199a154e7ac6"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a1-application.html",
+        "sha256": "7774427beeb8fda6e9c3a7b764e8a553e6f49d554461dc3e24b7cc5bf1cbdc01"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a1-numeric.html",
+        "sha256": "639dc75b4c3199e1c45f66a7d9b6f0f8e7946d5ab09a3176d5598b88f6cf439f"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5b_u05_5b05a-application.html",
+        "sha256": "3d65af34150bf955c8c8912799d7d844319fa1a1ae0b7d9018c45fd599ff6356"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5b_u05_5b05a-numeric.html",
+        "sha256": "5b0b028fd686574b639bc4fade541fd7f03108d2dba32a2fa9fd76c32a6ac25b"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g6a_u01_6a01-application.html",
+        "sha256": "dc8359d8712d49ac9c9741604175c2c849986a935b129ac22f2be0f9a4aacd2e"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g6a_u01_6a01-numeric.html",
+        "sha256": "33ea0f64be961a619a4c9f538d791d85d4a435353154df2d230d86896afd5213"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a-application.pdf",
+        "sha256": "d0bbffbf3bb46dea194ab11f6228b2eb201c3f0fa8ffdabb8cfb5054f67fc4f8"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a-numeric.pdf",
+        "sha256": "4b85959bb651f47fd801d2503c50b2b3e0088494e6f5d0d32a17206c50f0b868"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a1-application.pdf",
+        "sha256": "2a0e314695f83e0370f2b2c8d4a1d6e1d83581f209039ad4bd007ecff549a3df"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5a_u03_5a03a1-numeric.pdf",
+        "sha256": "eb3b271a753900d5da9a23e6303edbda23858849515670cb8024b922a4bcbb08"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5b_u05_5b05a-application.pdf",
+        "sha256": "1e6fb5d63475315c731251fc59a0638af386e9726c62c3910ddf0d7fdde3d5ec"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g5b_u05_5b05a-numeric.pdf",
+        "sha256": "fc9bd7ec3ad9b7e36161efa6b8067592b116cc11eca17b44538703d0927e2624"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g6a_u01_6a01-application.pdf",
+        "sha256": "f16925193aff1f578cbe0d23517e685b678138de12f771dabc7a0411932dd6f6"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/g6a_u01_6a01-numeric.pdf",
+        "sha256": "59794ef3a46adf01f28e84b014c35550b8f968291053ff410abf17f0123d7b59"
+      },
+      {
+        "path": "docs/curriculum/output/p01e-w1-public-closeout/report.json",
+        "sha256": "ec062dd09b82da22b409787cd9034fa85e872f4e37825607460007ae2757376e"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D1",
+    "distanceReduced": "All twenty-one W1 KnowledgePoints are now publicly selectable through the nineteen-source Classic and Pixel product surfaces, use the shared planner, generator, validator, WorksheetDocument, answer key and renderer, and have exact-head HTML/PDF/print evidence committed with SHA-256 binding."
+  },
+  "nextStep": {
+    "taskId": "P02_W2ProductAdmissionInventoryAndGapMatrix",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}

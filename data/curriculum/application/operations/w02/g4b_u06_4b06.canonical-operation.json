@@ -1,0 +1,289 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g4b_u06_4b06",
+  "queueOrdinal": 7,
+  "sourceCode": "4b06",
+  "sourceTitle": "小數乘法",
+  "domainFamily": "decimal_multiplication",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g4b_u06_4b06.knowledge-operation.json",
+    "sha256": "0a76cc8986d9ef6fbab93729da48865bed44ee7cca35e4befdc41326fed49a37",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "6ac52dce83f3d7c6384a7947dcf335b9b3361e19a3852c1284ccc5a186bacb21",
+    "contentIdentityGroup": "pdf_6ac52dce83f3",
+    "pageCount": 3,
+    "reviewedPages": [
+      1,
+      2,
+      3
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4b_u06_one_decimal_times_integer",
+      "knowledgePointName": "一位小數乘整數",
+      "scope": "以直式計算一位小數乘一位或二位整數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可表達單價或單位量的重複，也可直接計算。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u06_one_decimal_times_integer",
+          "operationFamilyId": "decimal_multiply",
+          "canonicalExpressions": [
+            "product = decimalFactor * integerFactor"
+          ],
+          "operandRoles": {
+            "decimalFactor": "小數因數",
+            "integerFactor": "整數因數",
+            "product": "積"
+          },
+          "unknownRoles": [
+            "product"
+          ],
+          "numberConstraints": [
+            "integerFactor is an integer",
+            "factors are nonnegative within source scope"
+          ],
+          "equivalentForms": [
+            "scaled integer multiplication",
+            "column multiplication"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "product has correct place value",
+            "product equals exact multiplication"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_two_decimal_times_integer",
+      "knowledgePointName": "二位小數乘整數",
+      "scope": "以直式計算二位小數乘整數，含積中有零與缺位。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可承載測量量倍增，但直式熟練題仍有效。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u06_two_decimal_times_integer",
+          "operationFamilyId": "decimal_multiply",
+          "canonicalExpressions": [
+            "product = decimalFactor * integerFactor"
+          ],
+          "operandRoles": {
+            "decimalFactor": "小數因數",
+            "integerFactor": "整數因數",
+            "product": "積"
+          },
+          "unknownRoles": [
+            "product"
+          ],
+          "numberConstraints": [
+            "integerFactor is an integer",
+            "factors are nonnegative within source scope"
+          ],
+          "equivalentForms": [
+            "scaled integer multiplication",
+            "column multiplication"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "product has correct place value",
+            "product equals exact multiplication"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_decimal_scale_ten_hundred",
+      "knowledgePointName": "小數乘 10、100 與 0.1、0.01",
+      "scope": "辨識小數點移位及相反倍率關係。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬十進位位值與倍率結構。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u06_decimal_scale_ten_hundred",
+          "operationFamilyId": "decimal_scale",
+          "canonicalExpressions": [
+            "result = value * scaleFactor"
+          ],
+          "operandRoles": {
+            "value": "原小數",
+            "scaleFactor": "10、100、0.1 或 0.01",
+            "result": "倍率後小數"
+          },
+          "unknownRoles": [
+            "result"
+          ],
+          "numberConstraints": [
+            "scaleFactor in {10,100,0.1,0.01}"
+          ],
+          "equivalentForms": [
+            "decimal-point shift",
+            "place-value scaling"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "each digit changes place consistently with scaleFactor"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_infer_decimal_product",
+      "knowledgePointName": "由整數積推定小數積",
+      "scope": "依因數的小數位數由整數乘法結果推定積。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬運算結構與小數點定位推理。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u06_infer_decimal_product",
+          "operationFamilyId": "infer_decimal_product",
+          "canonicalExpressions": [
+            "decimalProduct = integerProduct / 10^decimalPlaceCount"
+          ],
+          "operandRoles": {
+            "integerProduct": "忽略小數點的整數積",
+            "decimalPlaceCount": "兩因數小數位數總和",
+            "decimalProduct": "小數積"
+          },
+          "unknownRoles": [
+            "decimalProduct"
+          ],
+          "numberConstraints": [
+            "decimalPlaceCount >= 0"
+          ],
+          "equivalentForms": [
+            "scaled integer product"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "decimal places in the product equal the total scaling of the factors"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_rate_distance_context",
+      "knowledgePointName": "小數單位率與距離總量",
+      "scope": "由每單位距離或流量乘次數，並處理同向或反向合計。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源使用行走方向、管線與每分鐘流量，數量角色決定運算。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u06_rate_distance_context",
+          "operationFamilyId": "rate_total",
+          "canonicalExpressions": [
+            "total = ratePerUnit * unitCount",
+            "combined = firstTotal + secondTotal"
+          ],
+          "operandRoles": {
+            "ratePerUnit": "每單位距離或流量",
+            "unitCount": "次數或時間單位數",
+            "firstTotal": "第一方向或來源總量",
+            "secondTotal": "第二方向或來源總量",
+            "total": "單一總量",
+            "combined": "合計量"
+          },
+          "unknownRoles": [
+            "total",
+            "combined"
+          ],
+          "numberConstraints": [
+            "unitCount >= 0",
+            "rates and totals use compatible units"
+          ],
+          "equivalentForms": [
+            "repeated equal rate",
+            "same-direction or opposite-direction aggregation"
+          ],
+          "answerType": "decimal_measure",
+          "validationInvariants": [
+            "rate units cancel correctly",
+            "direction rule matches the requested total"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u06_decimal_number_line",
+      "knowledgePointName": "小數數線座標與距離",
+      "scope": "讀取小數座標並求兩點距離。",
+      "evidencePages": [
+        3
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "來源以抽象數線呈現，無需附加生活故事。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u06_decimal_number_line",
+          "operationFamilyId": "number_line",
+          "canonicalExpressions": [
+            "coordinate = origin + stepCount * unitStep",
+            "distance = abs(rightCoordinate - leftCoordinate)"
+          ],
+          "operandRoles": {
+            "origin": "數線起點",
+            "unitStep": "每格代表值",
+            "stepCount": "格數",
+            "coordinate": "座標",
+            "distance": "兩點距離"
+          },
+          "unknownRoles": [
+            "coordinate",
+            "distance"
+          ],
+          "numberConstraints": [
+            "unitStep > 0",
+            "stepCount is integer"
+          ],
+          "equivalentForms": [
+            "fraction coordinate",
+            "decimal coordinate"
+          ],
+          "answerType": "number_or_distance",
+          "validationInvariants": [
+            "coordinate respects tick spacing",
+            "distance is nonnegative"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 6,
+    "canonicalOperationModelCount": 6
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}

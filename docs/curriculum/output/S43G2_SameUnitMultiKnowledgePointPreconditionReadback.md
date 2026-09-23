@@ -1,0 +1,8 @@
+S43G2 Precondition Readback
+
+TASK_STATUS BLOCKED_PRECONDITION
+VISIBLE_KP_COUNT 1
+VISIBLE_KP kp_g3a_u02_add_multi_carry
+NEEDED_FOR_SAME_UNIT_MULTI_KP at_least_2_visible_same_source
+NEXT_OPERATOR_DECISION required
+RECOMMENDED defer_positive_mixed_kp_qa

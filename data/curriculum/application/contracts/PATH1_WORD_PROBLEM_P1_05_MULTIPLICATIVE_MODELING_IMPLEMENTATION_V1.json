@@ -1,0 +1,177 @@
+{
+  "schemaName": "Path1WordProblemP105MultiplicativeModelingImplementationV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_05_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1",
+  "status": "P1_05_MODELING_IMPLEMENTATION_MATERIALIZED_NON_PUBLIC",
+  "operatorApproval": "APPROVED",
+  "preflightAuthority": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_05_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1.json",
+  "preflightMergeSha": "a847f430c3252842937d394a1f518d0b03386280",
+  "implementationBaseMain": "5d909644f40e0db713ca7e03604b489761350ba9",
+  "runtimeChanged": true,
+  "publicCutoverApplied": false,
+  "visibleUiChanged": false,
+  "queryStateChanged": false,
+  "publicBindingChanged": false,
+  "path1MatrixChanged": false,
+  "g3bU08CanonicalAuthorityChanged": false,
+  "g4bU01ModelingExpanded": false,
+  "p101P102P103P104TransfersChanged": false,
+  "p112PublicRouteChanged": false,
+  "classicRuntimeChanged": false,
+  "sourceSemanticsChanged": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "newRelationMinted": false,
+  "path1LocalPatternSpecsMaterialized": true,
+  "scope": {
+    "path1BlockId": "P1-05",
+    "title": "0 特殊情況",
+    "practiceMode": "multiplicativeModelingTransfer",
+    "publicRoute": "NOT_CONNECTED",
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "arithmeticAuthority": {
+    "sourceId": "g3a_u03_3a03",
+    "knowledgePointId": "kp_g3a_u03_3digit_zero_middle_by_1digit",
+    "operationModelId": "op_g3a_u03_zero_middle_by_1digit",
+    "arithmeticPatternSpecId": "ps_g3a_u03_3digit_zero_middle_by_1digit",
+    "amountPerGroup": "101..909 with nonzero hundreds/ones digits and zero tens digit",
+    "groupCount": "2..9",
+    "totalAmount": "202..8181",
+    "operandPairCapacityBeforeContextProjection": 648
+  },
+  "relationAuthority": {
+    "semanticSourceId": "g3b_u08_3b08",
+    "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "unknownRole": "totalAmount",
+    "leftFactorRole": "amountPerGroup",
+    "rightFactorRole": "groupCount",
+    "productRole": "totalAmount",
+    "semanticCommutativeRoleSwapAllowed": false,
+    "keywordToOperationSelectionAllowed": false,
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT"
+  },
+  "patternAuthority": {
+    "registry": "data/curriculum/pattern_specs/PATH1_P1_05_ZeroSpecialMultiplicativeModelingPatternSpecRegistry.json",
+    "patternSpecIds": [
+      "P105_R03_ITEMS_PER_PACKAGE_TOTAL",
+      "P105_R03_MATERIAL_PER_PRODUCT_TOTAL",
+      "P105_R03_SCORE_PER_EVENT_TOTAL",
+      "P105_R03_AMOUNT_PER_PERIOD_TOTAL"
+    ],
+    "parentPatternSpecIds": [
+      "ps_g3b_u08_total_items_per_package",
+      "ps_g3b_u08_total_material_per_product",
+      "ps_g3b_u08_total_score_per_success",
+      "ps_g3b_u08_total_daily_saving_accumulation"
+    ],
+    "newContextFamilyMaterialized": false,
+    "sourceParentNumericAuthorityReused": false
+  },
+  "sourceEvidenceBoundary": {
+    "arithmeticSource": {
+      "driveFileId": "1cUa8Oi1VE2My9ZtCJwGvpBpfDAbhPOp2",
+      "fileName": "batchA_01-題型總覽-3a03-乘法.pdf"
+    },
+    "schoolExamWitness": {
+      "sourceFileId": "1fgRK7y1SehP7Ztro2Z3XKCnV-kuwedqw",
+      "witness": "304 × 6",
+      "use": "arithmetic assessment-surface evidence only"
+    },
+    "wordProblemSurface": "existing approved R03 lineage only; no P1-05-specific contextual witness fabricated",
+    "liTeacher": "problem-solving structure only; no runtime authority"
+  },
+  "runtimeArtifacts": [
+    "site/modules/curriculum/learning-paths/path1-p1-05-zero-special-multiplicative-modeling-patterns.js",
+    "site/modules/curriculum/learning-paths/path1-p1-05-zero-special-multiplicative-modeling-generator.js",
+    "site/modules/curriculum/learning-paths/path1-p1-05-zero-special-multiplicative-modeling-validator.js",
+    "site/assets/browser/pipeline/build-path1-p1-05-zero-special-multiplicative-modeling-worksheet.js"
+  ],
+  "generatorContract": {
+    "countRange": "1..120",
+    "seedRequired": true,
+    "balancedPatternCoverage": true,
+    "distinctPromptRequired": true,
+    "deterministicReplay": true,
+    "lowBoundaryAnchor": "101 × 2 = 202",
+    "highBoundaryAnchor": "909 × 9 = 8181",
+    "fullArithmeticEnvelopeIndependentOfG3BU08NumericLimit": true
+  },
+  "validatorContract": {
+    "failClosed": true,
+    "checks": [
+      "P1-05 block and multiplicativeModelingTransfer mode",
+      "exact G3A-U03 zero-middle arithmetic KP/model/PatternSpec",
+      "zero-middle amountPerGroup digit shape",
+      "groupCount 2..9 and totalAmount invariant 202..8181",
+      "R03 total-unknown role semantics and role-ordered equation",
+      "approved four-item local PatternSpec allowlist and parent lineage",
+      "prompt/equation/answer/unit reconstruction",
+      "no G4B-U01 modeling leak",
+      "no unit conversion, multi-relation, inverse role, semantic role swap, canonical KP mint, mastery or public-cutover leak"
+    ]
+  },
+  "worksheetContract": {
+    "adapter": "site/assets/browser/pipeline/build-path1-p1-05-zero-special-multiplicative-modeling-worksheet.js",
+    "public": false,
+    "questionMode": "application",
+    "equationBearingAnswerKey": true,
+    "questionAnswerParityRequired": true,
+    "publicCutoverApplied": false,
+    "publicBindingReconciled": false
+  },
+  "publicBindingBoundary": {
+    "matrixPrimaryKnowledgePointIds": ["kp_g3a_u03_3digit_zero_middle_by_1digit"],
+    "observedCompatibilityBreadthNotAdoptedForModeling": [
+      "kp_g4b_u01_multiplier_internal_zero",
+      "kp_g4b_u01_trailing_zero_multiplication"
+    ],
+    "publicBindingChanged": false,
+    "separateReconciliationRequiredBeforeCutover": true
+  },
+  "protectedAuthority": {
+    "mustRemainUnmodified": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html",
+      "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js"
+    ],
+    "p101P102TransferUntouched": true,
+    "p103P104ModelingUntouched": true,
+    "p112RuntimeAndPublicRouteUntouched": true,
+    "classicRuntimeUntouched": true
+  },
+  "focusedAcceptance": {
+    "generatorValidatorCounts": [1, 20, 120],
+    "capacityTarget": 120,
+    "expectedFamilyCountsAt120": [30, 30, 30, 30],
+    "distinctPromptsAt120": 120,
+    "mustIncludeTotalAbove999At120": true,
+    "mustIncludeLowAndHighBoundaryAt120": true,
+    "deterministicReplayRequired": true,
+    "mutationFailClosedRequired": true,
+    "worksheetAcceptanceRequired": true,
+    "relativeStaticImportSmokeRequired": true,
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_P105_ZERO_SPECIAL_R03_TRANSFER_AND_VALIDATOR_CONTRACT_LOCKED",
+    "goalDistanceAfterTarget": "D1_P105_PATH1_LOCAL_PATTERN_GENERATOR_VALIDATOR_WORKSHEET_USABLE",
+    "distanceReduced": "Materialize the approved non-public P1-05 zero-middle R03 modeling slice so it can generate, validate, and render source-backed worksheets without changing public routing or canonical authority.",
+    "remainingBlockers": [
+      "P1-05 public binding reconciliation not completed",
+      "P1-05 public cutover preflight not completed",
+      "P1-05 public route not connected",
+      "P1-05 deployed public acceptance not completed"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_05_PUBLIC_BINDING_RECONCILIATION_PREFLIGHT_V1"
+  }
+}

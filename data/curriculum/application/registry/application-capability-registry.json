@@ -1,0 +1,72 @@
+{
+  "schemaName": "SharedApplicationCapabilityRegistryV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "registryId": "POSTG_APP_SHARED_APPLICATION_CAPABILITY_REGISTRY_V1",
+  "status": "SHARED_PROVIDER_REGISTRY_ACTIVE",
+  "providerOrder": ["W01","W02","W03","W04","W05","W06"],
+  "waveProviders": [
+    {
+      "waveId": "W01",
+      "providerId": "W01_EXISTING_PRODUCTION_APPLICATION_PROVIDER",
+      "providerType": "EXISTING_RUNTIME_PROVIDER",
+      "lifecycleState": "PRODUCTION_ADMITTED",
+      "entryMaterialization": "EXISTING_W01_RUNTIME",
+      "shadowProjectionAllowed": true,
+      "productionAdmitted": true,
+      "publicSelectable": true
+    },
+    {
+      "waveId": "W02",
+      "providerId": "W02_A03_A04_SHARED_SHADOW_PROVIDER",
+      "providerType": "DYNAMIC_WAVE_PROVIDER",
+      "lifecycleState": "SHARED_SHADOW_VALIDATED",
+      "entryMaterialization": "src/curriculum/application/shared/worksheet-projection-runtime.mjs",
+      "candidateAuthority": "src/curriculum/application/w02-nplusone-pbl-candidate-pack.mjs",
+      "validatorAuthority": "src/curriculum/application/w02-validator-fixture-shadow-runtime.mjs",
+      "shadowProjectionAllowed": true,
+      "productionAdmitted": false,
+      "publicSelectable": false
+    },
+    {
+      "waveId": "W03",
+      "providerId": "W03_RESERVED_APPLICATION_PROVIDER_SLOT",
+      "providerType": "RESERVED_FUTURE_WAVE_SLOT",
+      "lifecycleState": "BLOCKED_BY_PREVIOUS_WAVE",
+      "entryMaterialization": null,
+      "shadowProjectionAllowed": false,
+      "productionAdmitted": false,
+      "publicSelectable": false
+    },
+    {
+      "waveId": "W04",
+      "providerId": "W04_RESERVED_APPLICATION_PROVIDER_SLOT",
+      "providerType": "RESERVED_FUTURE_WAVE_SLOT",
+      "lifecycleState": "BLOCKED_BY_PREVIOUS_WAVE",
+      "entryMaterialization": null,
+      "shadowProjectionAllowed": false,
+      "productionAdmitted": false,
+      "publicSelectable": false
+    },
+    {
+      "waveId": "W05",
+      "providerId": "W05_RESERVED_APPLICATION_PROVIDER_SLOT",
+      "providerType": "RESERVED_FUTURE_WAVE_SLOT",
+      "lifecycleState": "BLOCKED_BY_PREVIOUS_WAVE",
+      "entryMaterialization": null,
+      "shadowProjectionAllowed": false,
+      "productionAdmitted": false,
+      "publicSelectable": false
+    },
+    {
+      "waveId": "W06",
+      "providerId": "W06_RESERVED_APPLICATION_PROVIDER_SLOT",
+      "providerType": "RESERVED_FUTURE_WAVE_SLOT",
+      "lifecycleState": "BLOCKED_BY_PREVIOUS_WAVE",
+      "entryMaterialization": null,
+      "shadowProjectionAllowed": false,
+      "productionAdmitted": false,
+      "publicSelectable": false
+    }
+  ]
+}

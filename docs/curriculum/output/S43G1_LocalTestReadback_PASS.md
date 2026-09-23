@@ -1,0 +1,6 @@
+S43G1 Local PASS
+
+NPM_TEST PASS 313/313
+GIT_STATUS clean
+S43G1_STATUS single_kp_smoke_pass
+NEXT S43G2_SameUnitMultiKnowledgePointPreconditionReadback

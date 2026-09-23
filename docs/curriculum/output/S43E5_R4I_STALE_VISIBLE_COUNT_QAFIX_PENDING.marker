@@ -1,0 +1,26 @@
+S43E5_R4I_STALE_VISIBLE_COUNT_QAFIX_PENDING_READBACK
+
+sourceId = g3b_u01_3b01
+status = IMPLEMENTED_READBACK_PENDING
+
+failure_readback:
+- tests 399
+- pass 388
+- fail 11
+- root cause = stale selector visibleCount expectations after adding 5 G3B-U01 word-problem KPs
+
+fix_scope:
+- updated stale Batch A visibleCount assertions from 29 to 34
+- updated stale G3B-U01 source visibleCount assertions from 5 to 10
+- did not change runtime generator or selector behavior
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_WORD_PROBLEM_UI_SELECTOR_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3B_U01_WORD_PROBLEM_UI_SELECTOR_QAFIX_IMPLEMENTED_PENDING_READBACK
+DISTANCE_REDUCED = removed stale test expectations blocking R4I validation
+REMAINING_BLOCKERS = npm test readback; mixed worksheet QA; browser PDF smoke
+NEXT_SHORTEST_STEP = local test readback, then S43E5_R4J_G3BU01_WordProblemMixedWorksheetQA

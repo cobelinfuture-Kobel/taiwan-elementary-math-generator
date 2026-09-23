@@ -1,0 +1,117 @@
+{
+  "schemaName": "P03FSlice001PartWholeFractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice001Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 1,
+    "sliceId": "p03e_q001_r4_g3a_u08_3a08_profile_fraction_c1",
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g3a_u08_3a08",
+    "sourceCode": "3a08",
+    "sourceTitle": "分數",
+    "grade": 3,
+    "semester": "upper",
+    "unitCode": "3A-U08",
+    "evidenceInventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sourcePdfSha256": "bd36711350928994abe921a4a3b801dd3333566a83ff1586c74c1ad7990c2708",
+    "reviewedPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g3a_u08_part_whole_fraction",
+    "canonicalNameZh": "等分整體與分數意義",
+    "scope": "由連續量或離散集合的等分圖辨識分母、分子與所取部分；本 slice 只處理真分數，整體等於 1 由獨立 whole-as-fraction KnowledgePoint 管理。",
+    "reasoningInvariant": "分母等於整體的等分數，分子等於所取的等份數；每一份必須等大，且本 slice 的所取份數嚴格小於整體等分數。",
+    "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+    "applicationRationale": "核心是分數表徵與角色辨識，不加入生活故事。",
+    "requiredCapabilityIds": [
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ]
+  },
+  "tagRegistryBinding": {
+    "tagIds": [
+      "grade_3",
+      "domain_fraction",
+      "concept_part_whole",
+      "representation_equal_partition",
+      "representation_continuous_area",
+      "representation_discrete_set",
+      "answer_fraction_notation",
+      "application_not_applicable"
+    ],
+    "bindingState": "PRODUCTION_BOUND"
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g3a_u08_part_whole_fraction",
+    "operationModelId": "op_g3a_u08_part_whole_fraction",
+    "operationFamilyId": "fraction_part_whole",
+    "canonicalExpression": "fraction = selectedParts / equalParts",
+    "operandRoles": {
+      "selectedParts": "所取等份數",
+      "equalParts": "整體等分數",
+      "fraction": "部分占整體的分數"
+    },
+    "numberConstraints": [
+      "0 < selectedParts < equalParts",
+      "equalParts >= 2"
+    ],
+    "validationInvariants": [
+      "denominator equals the number of equal parts",
+      "numerator equals the selected equal parts",
+      "all parts are equal-sized",
+      "whole-as-fraction cases are excluded from this slice"
+    ],
+    "sourceAuthorityPath": "data/curriculum/application/operations/w02/g3a_u08_3a08.canonical-operation.json"
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g3a_u08_part_whole_fraction_numeric",
+    "displayName": "等分整體與分數意義",
+    "mode": "numeric",
+    "publicQuestionMode": "numeric",
+    "representationTags": [
+      "continuous_equal_partition",
+      "discrete_set_partition"
+    ],
+    "patternSpecIds": [
+      "ps_g3a_u08_part_whole_fraction_fraction_numeric"
+    ]
+  },
+  "patternSpec": {
+    "patternSpecId": "ps_g3a_u08_part_whole_fraction_fraction_numeric",
+    "successorOfHiddenAuthorityPath": "data/curriculum/application/pattern-specs/w02/g3a_u08_3a08.hidden-pattern-spec.json",
+    "mode": "NUMERIC",
+    "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+    "requestedUnknownRole": "fraction",
+    "givenRoles": ["selectedParts", "equalParts"],
+    "answerType": "fraction",
+    "representationModes": [
+      "CONTINUOUS_EQUAL_PARTITION",
+      "DISCRETE_SET_PARTITION"
+    ],
+    "forbiddenWorksheetLabels": ["算式", "_____", "答"],
+    "lifecycle": {
+      "selectorVisibility": "visible",
+      "generatorStatus": "production_implemented",
+      "validatorStatus": "production_deterministic",
+      "rendererStatus": "shared_renderer_connected",
+      "canonicalRouting": "enabled",
+      "productionUse": "admitted_by_p03f_slice001"
+    }
+  },
+  "productBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "applicationStoryGenerationAllowed": false,
+    "parallelPipelineAllowed": false,
+    "otherKnowledgePointsInSourceAdmitted": false,
+    "wholeAsFractionKnowledgePointExcluded": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

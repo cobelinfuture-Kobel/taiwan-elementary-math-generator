@@ -1,0 +1,165 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+
+import {
+  G3A_U01_NUMBER_STRUCTURE_PATTERN_IDS as P,
+  arrangeDigitsMax,
+  arrangeDigitsMin,
+  chineseToNumber4Digit,
+  generateG3AU01NumberStructureQuestion,
+  numberToChinese4Digit,
+  validateG3AU01NumberStructureQuestion
+} from "../../../site/modules/curriculum/batch-a/g3a-u01-number-structure-generator.js";
+
+function longestStepOneRun(numbers) {
+  let longest = 1;
+  let current = 1;
+  for (let index = 1; index < numbers.length; index += 1) {
+    if (Math.abs(numbers[index] - numbers[index - 1]) === 1) current += 1;
+    else current = 1;
+    longest = Math.max(longest, current);
+  }
+  return longest;
+}
+
+test("S44I converts four-digit Arabic numbers and Chinese numerals", () => {
+  assert.equal(numberToChinese4Digit(2798), "二千七百九十八");
+  assert.equal(numberToChinese4Digit(4006), "四千零六");
+  assert.equal(numberToChinese4Digit(5080), "五千零八十");
+  assert.equal(chineseToNumber4Digit("二千七百九十八"), 2798);
+  assert.equal(chineseToNumber4Digit("四千零六"), 4006);
+  assert.equal(chineseToNumber4Digit("五千零八十"), 5080);
+});
+
+test("S44I generates and validates representation questions", () => {
+  for (const patternSpecId of [P.numberToChineseBasic, P.numberToChineseZero, P.chineseToNumberBasic, P.chineseToNumberZero]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44i-representation", index: 1 });
+    const result = validateG3AU01NumberStructureQuestion(question);
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(question.sourceId, "g3a_u01_3a01");
+    assert.equal(question.blankedDisplayText.includes("{"), false);
+    assert.equal(question.answerText.length > 0, true);
+  }
+});
+
+test("S44I generates and validates place-value decomposition questions", () => {
+  for (const patternSpecId of [P.fullDecomposition, P.digitValue, P.sameDigit]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44i-decomposition", index: 2 });
+    const result = validateG3AU01NumberStructureQuestion(question);
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(question.sourceId, "g3a_u01_3a01");
+    assert.equal(question.answerText.length > 0, true);
+  }
+});
+
+test("S44I generates and validates place-value composition questions", () => {
+  for (const patternSpecId of [P.standardComposition, P.nonstandardComposition, P.partialComposition]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44i-composition", index: 3 });
+    const result = validateG3AU01NumberStructureQuestion(question);
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(question.sourceId, "g3a_u01_3a01");
+    assert.match(question.blankedDisplayText, /合起來是多少/);
+  }
+});
+
+test("S44J generates and validates place-value unit conversion questions", () => {
+  for (const patternSpecId of [P.tensToHundredsConversion, P.hundredsToThousandsConversion, P.moneyPlaceValueExchange]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44j-conversion", index: 4 });
+    const result = validateG3AU01NumberStructureQuestion(question);
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(question.sourceId, "g3a_u01_3a01");
+    assert.equal(question.answer.quotient, Math.floor(question.sourceCount / 10));
+    assert.equal(question.answer.remainder, question.sourceCount % 10);
+  }
+});
+
+test("S44M1-1 unit conversion prompts ask quotient and remainder explicitly", () => {
+  for (const patternSpecId of [P.tensToHundredsConversion, P.hundredsToThousandsConversion, P.moneyPlaceValueExchange]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44m1-unit-conversion", index: 10 });
+    assert.match(question.blankedDisplayText, /還剩幾/);
+    assert.equal(question.answerModel.shape, "quotient_remainder");
+    assert.equal(question.answerText, `${question.answer.quotient}${question.targetUnit}又${question.answer.remainder}${question.sourceUnit}`);
+    assert.equal(validateG3AU01NumberStructureQuestion(question).ok, true);
+  }
+});
+
+test("S44J arranges digits into valid max and min four-digit numbers", () => {
+  assert.equal(arrangeDigitsMax([0, 1, 6, 9]), 9610);
+  assert.equal(arrangeDigitsMin([0, 1, 6, 9]), 1069);
+  assert.equal(arrangeDigitsMax([2, 4, 7, 8]), 8742);
+  assert.equal(arrangeDigitsMin([2, 4, 7, 8]), 2478);
+});
+
+test("S44J generates and validates digit arrangement questions", () => {
+  for (const patternSpecId of [P.digitArrangementMax, P.digitArrangementMin, P.digitArrangementPair]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44j-arrangement", index: 5 });
+    const result = validateG3AU01NumberStructureQuestion(question);
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(question.sourceId, "g3a_u01_3a01");
+    assert.equal(question.digits.length, 4);
+    assert.equal(new Set(question.digits).size, 4);
+  }
+});
+
+test("S44K generates and validates deterministic range reasoning questions", () => {
+  for (const patternSpecId of [P.rangeCompareReasoning, P.serialNumberRange, P.priceRangeReasoning]) {
+    const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44k-range", index: 6 });
+    const result = validateG3AU01NumberStructureQuestion(question);
+    assert.equal(result.ok, true, JSON.stringify(result.errors));
+    assert.equal(question.sourceId, "g3a_u01_3a01");
+    assert.equal(question.blankedDisplayText.includes("{"), false);
+    assert.equal(question.answerText.length > 0, true);
+  }
+});
+
+test("S44M1-2 range reasoning randomizes correct A/B answer positions", () => {
+  for (const patternSpecId of [P.rangeCompareReasoning, P.priceRangeReasoning]) {
+    const answerPositions = new Set();
+    for (let index = 1; index <= 24; index += 1) {
+      const question = generateG3AU01NumberStructureQuestion({ patternSpecId, seed: "s44m1-range-position", index });
+      const result = validateG3AU01NumberStructureQuestion(question);
+      assert.equal(result.ok, true, `${patternSpecId} ${index}: ${JSON.stringify(result.errors)}`);
+      answerPositions.add(question.answerText);
+      assert.equal(["A", "B"].includes(question.answerText), true);
+      assert.equal(question.choices[question.answerText] > question.lower, true);
+      assert.equal(question.choices[question.answerText] < question.upper, true);
+    }
+    assert.deepEqual([...answerPositions].sort(), ["A", "B"]);
+  }
+});
+
+test("S44M1-6b number-structure prompts avoid awkward punctuation and money units", () => {
+  const pair = generateG3AU01NumberStructureQuestion({ patternSpecId: P.digitArrangementPair, seed: "s44m1-prompt-polish", index: 1 });
+  assert.match(pair.blankedDisplayText, /最大和最小分別是多少？每個數字只能用一次。/);
+  assert.equal(pair.blankedDisplayText.includes("？，"), false);
+  assert.equal(validateG3AU01NumberStructureQuestion(pair).ok, true);
+
+  const money = generateG3AU01NumberStructureQuestion({ patternSpecId: P.moneyPlaceValueExchange, seed: "s44m1-prompt-polish", index: 2 });
+  assert.match(money.blankedDisplayText, /^有\d+(個10元|張100元)，可以換成幾張(100|1000)元，還剩幾(個10元|張100元)？$/);
+  assert.match(money.targetUnit, /^張/);
+  assert.equal(validateG3AU01NumberStructureQuestion(money).ok, true);
+});
+
+test("S44M1-5 Chinese numeral zero-ten canonical form is concise but backward-compatible", () => {
+  assert.equal(numberToChinese4Digit(5016), "五千零十六");
+  assert.equal(numberToChinese4Digit(9010), "九千零十");
+  assert.equal(chineseToNumber4Digit("五千零十六"), 5016);
+  assert.equal(chineseToNumber4Digit("五千零一十六"), 5016);
+  assert.equal(chineseToNumber4Digit("九千零十"), 9010);
+  assert.equal(chineseToNumber4Digit("九千零一十"), 9010);
+});
+
+test("S44M1-6c place-value number selections avoid duplicates and visible step-one sequences", () => {
+  for (const patternSpecId of [P.fullDecomposition, P.digitValue, P.sameDigit]) {
+    const questions = Array.from({ length: 24 }, (_, offset) => generateG3AU01NumberStructureQuestion({
+      patternSpecId,
+      seed: "s44m1-diversity",
+      index: offset + 1
+    }));
+    const resultErrors = questions.flatMap((question) => validateG3AU01NumberStructureQuestion(question).errors);
+    assert.equal(resultErrors.length, 0, `${patternSpecId}: ${JSON.stringify(resultErrors)}`);
+    const numbers = questions.map((question) => question.number);
+    assert.equal(new Set(numbers).size, numbers.length, patternSpecId);
+    assert.equal(longestStepOneRun(numbers) <= 2, true, `${patternSpecId}: ${numbers.join(",")}`);
+  }
+});

@@ -1,0 +1,358 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g4a_u09_4a09",
+  "queueOrdinal": 5,
+  "sourceCode": "4a09",
+  "sourceTitle": "2位小數",
+  "domainFamily": "decimal_place_value_two_places",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g4a_u09_4a09.knowledge-operation.json",
+    "sha256": "d8d2fef503da65a889049561a83c483f23a7cee1b5c064aa2d86e14a3008f64d",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "6da5a27b0cddc5a44be55efc2d9d790d7423898d88e9aa9fdf8658f648a723bf",
+    "contentIdentityGroup": "pdf_6da5a27b0cdd",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4a_u09_hundredth_representation",
+      "knowledgePointName": "百分位與二位小數",
+      "scope": "以 0.01 為單位讀寫二位小數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "核心是百分位及小數記號的建立。",
+      "operationModels": [
+        {
+          "modelId": "op_g4a_u09_hundredth_representation",
+          "operationFamilyId": "decimal_representation",
+          "canonicalExpressions": [
+            "decimal = whole + fractionalUnits * placeUnit"
+          ],
+          "operandRoles": {
+            "whole": "整數部分",
+            "fractionalUnits": "小數位單位個數",
+            "placeUnit": "0.1、0.01 或更小位值單位",
+            "decimal": "小數值"
+          },
+          "unknownRoles": [
+            "decimal"
+          ],
+          "numberConstraints": [
+            "whole >= 0",
+            "0 <= each place digit <= 9"
+          ],
+          "equivalentForms": [
+            "place-value table",
+            "expanded decimal form"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "place-value expansion recombines to the decimal exactly"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_compose_decompose",
+      "knowledgePointName": "二位小數組成分解",
+      "scope": "依個、十分位與百分位組成或分解小數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬位值結構，不需生活敘事。",
+      "operationModels": [
+        {
+          "modelId": "op_g4a_u09_decimal_compose_decompose",
+          "operationFamilyId": "decimal_representation",
+          "canonicalExpressions": [
+            "decimal = whole + fractionalUnits * placeUnit"
+          ],
+          "operandRoles": {
+            "whole": "整數部分",
+            "fractionalUnits": "小數位單位個數",
+            "placeUnit": "0.1、0.01 或更小位值單位",
+            "decimal": "小數值"
+          },
+          "unknownRoles": [
+            "decimal"
+          ],
+          "numberConstraints": [
+            "whole >= 0",
+            "0 <= each place digit <= 9"
+          ],
+          "equivalentForms": [
+            "place-value table",
+            "expanded decimal form"
+          ],
+          "answerType": "decimal",
+          "validationInvariants": [
+            "place-value expansion recombines to the decimal exactly"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_place_value_factor_relation",
+      "knowledgePointName": "相鄰小數位值倍數關係",
+      "scope": "辨識相鄰位值間 10 倍或十分之一的關係。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬十進位系統內部結構。",
+      "operationModels": [
+        {
+          "modelId": "op_g4a_u09_place_value_factor_relation",
+          "operationFamilyId": "place_factor",
+          "canonicalExpressions": [
+            "higherPlaceValue = lowerPlaceValue * 10",
+            "lowerPlaceValue = higherPlaceValue / 10"
+          ],
+          "operandRoles": {
+            "higherPlaceValue": "較高位值",
+            "lowerPlaceValue": "相鄰較低位值"
+          },
+          "unknownRoles": [
+            "higherPlaceValue",
+            "lowerPlaceValue"
+          ],
+          "numberConstraints": [
+            "place values are adjacent in base ten"
+          ],
+          "equivalentForms": [
+            "ten times",
+            "one tenth"
+          ],
+          "answerType": "numeric_relation",
+          "validationInvariants": [
+            "adjacent decimal places differ by exactly a factor of ten"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_compare",
+      "knowledgePointName": "二位小數比較",
+      "scope": "比較二位小數及尾零等值形式。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可比較測量量，也可用位值直接判斷。",
+      "operationModels": [
+        {
+          "modelId": "op_g4a_u09_decimal_compare",
+          "operationFamilyId": "decimal_compare",
+          "canonicalExpressions": [
+            "comparison = compare(normalizeScale(left), normalizeScale(right))"
+          ],
+          "operandRoles": {
+            "left": "左側小數",
+            "right": "右側小數",
+            "comparison": "大小關係"
+          },
+          "unknownRoles": [
+            "comparison"
+          ],
+          "numberConstraints": [
+            "inputs are finite decimals within the source precision"
+          ],
+          "equivalentForms": [
+            "place-value comparison",
+            "append trailing zeros"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "validationInvariants": [
+            "trailing zeros do not change value",
+            "comparison is numerically correct"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_missing_digit_inequality",
+      "knowledgePointName": "小數不等式未知數字",
+      "scope": "由大小關係推定未知位數的可行值。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬位值推理與數字約束。",
+      "operationModels": [
+        {
+          "modelId": "op_g4a_u09_missing_digit_inequality",
+          "operationFamilyId": "missing_digit_inequality",
+          "canonicalExpressions": [
+            "possibleDigits = {d in 0..9 | relation(left(d), right(d))}"
+          ],
+          "operandRoles": {
+            "missingDigit": "未知位數",
+            "left": "左側小數",
+            "right": "右側小數",
+            "possibleDigits": "所有可行數字"
+          },
+          "unknownRoles": [
+            "possibleDigits"
+          ],
+          "numberConstraints": [
+            "0 <= missingDigit <= 9"
+          ],
+          "equivalentForms": [
+            "place-value case analysis"
+          ],
+          "answerType": "digit_set",
+          "validationInvariants": [
+            "set is complete",
+            "every listed digit satisfies the inequality"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_sequence",
+      "knowledgePointName": "小數數列規律",
+      "scope": "依固定小數增量延伸數列。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "來源呈現為數列規律推理。",
+      "operationModels": [
+        {
+          "modelId": "op_g4a_u09_decimal_sequence",
+          "operationFamilyId": "decimal_sequence",
+          "canonicalExpressions": [
+            "term[n] = start + n * step"
+          ],
+          "operandRoles": {
+            "start": "首項",
+            "step": "固定小數增量",
+            "term": "指定項"
+          },
+          "unknownRoles": [
+            "term"
+          ],
+          "numberConstraints": [
+            "step is constant"
+          ],
+          "equivalentForms": [
+            "repeated addition",
+            "arithmetic sequence"
+          ],
+          "answerType": "decimal_sequence",
+          "validationInvariants": [
+            "successive differences equal step"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_missing_digit_column_operation",
+      "knowledgePointName": "小數直式缺位推理",
+      "scope": "在小數加減直式中推定缺失數字。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬直式結構與逆向推理。",
+      "operationModels": [
+        {
+          "modelId": "op_g4a_u09_missing_digit_column_operation",
+          "operationFamilyId": "missing_column_digit",
+          "canonicalExpressions": [
+            "possibleDigits = digits satisfying aligned column arithmetic"
+          ],
+          "operandRoles": {
+            "addendsOrMinuend": "直式已知數字",
+            "missingDigits": "缺失數字",
+            "result": "直式結果"
+          },
+          "unknownRoles": [
+            "missingDigits"
+          ],
+          "numberConstraints": [
+            "each missing digit is 0..9",
+            "decimal points are aligned"
+          ],
+          "equivalentForms": [
+            "carry or borrow reconstruction"
+          ],
+          "answerType": "digit_map",
+          "validationInvariants": [
+            "reconstructed operation is arithmetically exact"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_length_conversion",
+      "knowledgePointName": "二位小數長度換算",
+      "scope": "在公尺、公分及二位小數公尺之間換算。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源以實際長度單位建立百分位數量意義。",
+      "operationModels": [
+        {
+          "modelId": "op_g4a_u09_decimal_length_conversion",
+          "operationFamilyId": "decimal_measure_conversion",
+          "canonicalExpressions": [
+            "majorUnits = minorUnits / conversionFactor",
+            "minorUnits = majorUnits * conversionFactor"
+          ],
+          "operandRoles": {
+            "majorUnits": "較大測量單位數",
+            "minorUnits": "較小測量單位數",
+            "conversionFactor": "單位換算倍率"
+          },
+          "unknownRoles": [
+            "majorUnits",
+            "minorUnits"
+          ],
+          "numberConstraints": [
+            "conversionFactor is the exact unit ratio",
+            "quantities are nonnegative"
+          ],
+          "equivalentForms": [
+            "compound-unit notation",
+            "decimal major-unit notation"
+          ],
+          "answerType": "decimal_measure",
+          "validationInvariants": [
+            "both forms represent the same physical measure"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 8,
+    "canonicalOperationModelCount": 8
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}

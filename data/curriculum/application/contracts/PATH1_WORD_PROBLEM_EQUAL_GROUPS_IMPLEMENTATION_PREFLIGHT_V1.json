@@ -1,0 +1,241 @@
+{
+  "schemaName": "Path1WordProblemEqualGroupsImplementationPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_IMPLEMENTATION_PREFLIGHT_V1",
+  "status": "IMPLEMENTATION_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicCutoverAllowed": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "prerequisite": {
+    "taskId": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1",
+    "mergeSha": "7d38acd025a42394a4a99238d660c24d43368eeb",
+    "contractPath": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1.json"
+  },
+  "scope": {
+    "includedPathBlocks": ["P1-01", "P1-02"],
+    "excludedPathBlocks": ["P1-03", "P1-04"],
+    "includedRelationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+    "includedUnknownRole": "totalAmount",
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT",
+    "excluded": [
+      "P1-03/P1-04 numeric-envelope expansion",
+      "inverse unknown-role rotation",
+      "new global context-family authoring",
+      "A05 registry production promotion",
+      "visible UI control",
+      "multi-relation word problems",
+      "higher language difficulty",
+      "full regression",
+      "global replay"
+    ]
+  },
+  "authorityRefs": {
+    "transferContract": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1.json",
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "path1WorksheetBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "path1WorksheetBuilder": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "p101ArithmeticProfile": "site/modules/curriculum/learning-paths/path1-p1-01-diversity.js",
+    "p102ArithmeticProfile": "site/modules/curriculum/learning-paths/path1-p1-02-diversity.js",
+    "p102PublicProfile": "site/modules/curriculum/learning-paths/path1-p1-02-public-diversity-v2.js",
+    "equalGroupsKnowledgeOperation": "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+    "equalGroupsPatternSpecs": "data/curriculum/pattern_specs/S58C_G3B_U08_SemanticPatternSpecRegistry.json",
+    "equalGroupsPromotion": "data/curriculum/registry/promotions/S58F_G3B_U08_SemanticPromotionRegistry.json",
+    "equalGroupsPatternProjection": "site/modules/curriculum/batch-a/source-pattern-g3b-u08-semantic-extension.js",
+    "equalGroupsContextVariants": "site/modules/curriculum/batch-a/g3b-u08-semantic-context-registry.js",
+    "globalApplicationBindings": "data/curriculum/application/registry/application-context-bindings.json",
+    "globalApplicationAdmissions": "data/curriculum/application/registry/application-admission-registry.json",
+    "applicationA05Contract": "data/curriculum/application/contracts/APP-SOP-A05_ValidatorCIGatesAndG3BU01PilotFixtures.json",
+    "applicationA05Validator": "src/curriculum/application/application-sop-validator.mjs"
+  },
+  "architectureDecision": {
+    "selectedStrategy": "G3BU08_CANONICAL_SEMANTIC_SURFACE_BRIDGE",
+    "summary": "Path1 P1-01/P1-02 keep their arithmetic KnowledgePoint identity and operand envelope, while semantic relation and language surfaces are reused from the already production-promoted G3B-U08 equal-groups authority.",
+    "doNotUseAsProductionDependency": "A05_GLOBAL_APPLICATION_CONTEXT_BINDING_REGISTRY",
+    "reasons": [
+      "A05 registries remain shadow-pilot only with zero production admissions.",
+      "The A05 validator explicitly rejects production-admitted bindings inside that pilot contract.",
+      "G3B-U08 equal-groups PatternSpecs already have production promotion, blocking validation, worksheet eligibility, public selector/print QA, and human semantic readback evidence.",
+      "P1-12 already consumes the same equal-groups canonical relation authority, so reusing it avoids a parallel word-problem semantics system."
+    ],
+    "globalApplicationRegistryMutationPlanned": false,
+    "newContextFamilyPlanned": false,
+    "g3bU08RuntimeModificationPlanned": false
+  },
+  "semanticSurfaceAdmission": {
+    "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+    "relationOperationModelId": "op_g3b_u08_total_from_groups",
+    "patternGroupId": "pg_g3b_u08_total_from_groups",
+    "allowedPatternSpecIds": [
+      "ps_g3b_u08_total_daily_saving_accumulation",
+      "ps_g3b_u08_total_score_per_success",
+      "ps_g3b_u08_total_material_per_product",
+      "ps_g3b_u08_total_items_per_package"
+    ],
+    "admissionRule": "Every Path1 transfer surface must be present in the G3B-U08 equal-groups PatternGroup and in the S58F production promotion registry at implementation time.",
+    "surfaceAllocation": "BALANCED_ACROSS_FOUR_SOURCE_BACKED_PATTERNS",
+    "freeFormContextGenerationAllowed": false,
+    "keywordToOperationSelectionAllowed": false
+  },
+  "dualLineageContract": {
+    "topLevelKnowledgePointMeaning": "Path1 arithmetic skill being transferred",
+    "relationKnowledgePointMetadataMeaning": "semantic relation used to construct the equation",
+    "arithmeticSourceId": "g3a_u03_3a03",
+    "semanticSourceId": "g3b_u08_3b08",
+    "requiredItemFields": [
+      "path1BlockId",
+      "arithmeticKnowledgePointId",
+      "relationKnowledgePointId",
+      "relationOperationModelId",
+      "semanticPatternSpecId",
+      "contextVariantId",
+      "amountPerGroup",
+      "groupCount",
+      "totalAmount",
+      "equationModel",
+      "finalAnswer",
+      "finalAnswerUnit"
+    ],
+    "invariants": [
+      "top-level knowledgePointId equals arithmeticKnowledgePointId",
+      "relationKnowledgePointId equals kp_g3b_u08_total_from_groups",
+      "multiplicand binds to amountPerGroup",
+      "one-digit multiplier binds to groupCount",
+      "commutative role swapping is forbidden",
+      "source lineage records both g3a_u03_3a03 and g3b_u08_3b08"
+    ]
+  },
+  "futureGeneratorContract": {
+    "modulePath": "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+    "exportName": "buildPath1EqualGroupsTransferItems",
+    "input": {
+      "blockId": ["P1-01", "P1-02"],
+      "countRange": "1..120",
+      "seedRequired": true,
+      "practiceMode": "equalGroupsTransfer"
+    },
+    "operandAuthority": {
+      "P1-01": "amountPerGroup in {10,20,...,90}; groupCount 2..9",
+      "P1-02_twoDigit": "amountPerGroup 10..99; groupCount 2..9; existing ones-column carry guard retained",
+      "P1-02_threeDigit": "amountPerGroup 100..999; groupCount 2..9; existing zero-special exclusions retained; product <=999",
+      "P1-02_distribution": "balanced across the two canonical arithmetic KnowledgePoints subject to requested count and available distinct capacity"
+    },
+    "semanticSurfaceSource": "Import existing G3B-U08 PatternSpec definitions and context variants; do not copy or invent a new semantic corpus.",
+    "renderingRule": "Render the selected approved PatternSpec/context variant with Path1-owned amountPerGroup and groupCount values; add only the fixed instructional suffix asking the learner to write an equation before answering.",
+    "outputMode": "application",
+    "answerTextContract": "include equation witness plus semantic answer with unit",
+    "deterministicReplayRequired": true,
+    "distinctPromptRequired": true,
+    "capacityTargets": {
+      "P1-01": 120,
+      "P1-02": 120
+    },
+    "mustNotCallHiddenGeneratorForOperandSampling": true,
+    "mustNotModifyG3BU08Generator": true
+  },
+  "futureValidatorContract": {
+    "modulePath": "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+    "exportName": "validatePath1EqualGroupsTransferItem",
+    "failClosed": true,
+    "requiredChecks": [
+      "supported block is P1-01 or P1-02",
+      "arithmetic KnowledgePoint belongs to the selected Path1 block",
+      "arithmetic operand envelope and existing carry/zero-special guards hold",
+      "P1-02 three-digit product does not exceed 999",
+      "semantic PatternSpec is in the four-item equal-groups allowlist and remains S58F promoted",
+      "context variant belongs to the selected semantic PatternSpec",
+      "unknown role is totalAmount",
+      "amountPerGroup * groupCount equals totalAmount",
+      "equation witness uses the role-bound operand order",
+      "answer unit comes from the selected approved semantic context",
+      "prompt is reconstructable from approved semantic authority plus the fixed instructional suffix",
+      "dual source/KP lineage is complete",
+      "no new canonical KnowledgePoint is minted"
+    ],
+    "forbiddenFallback": "generic application generation after any semantic or arithmetic validation failure"
+  },
+  "futureWorksheetContract": {
+    "modifyPath": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "newOption": {
+      "name": "practiceMode",
+      "default": "arithmetic",
+      "transferValue": "equalGroupsTransfer"
+    },
+    "supportedTransferBlocks": ["P1-01", "P1-02"],
+    "defaultArithmeticBehaviorMustRemainUnchanged": true,
+    "path1PublicWorksheetBindingModificationRequired": false,
+    "visibleUiControlInThisVerticalSlice": false,
+    "transferProjection": {
+      "prompt": "approved context prompt plus fixed equation-before-answer instruction",
+      "answerKey": "equation witness plus semantic answer with unit",
+      "questionCountRange": "1..120",
+      "includeAnswerKeySupported": true,
+      "worksheetMetadata": ["practiceMode", "relationKnowledgePointId", "semanticPatternSpecIdsUsed"]
+    },
+    "unsupportedBlockBehavior": "fail closed with PATH1_TRANSFER_MODE_BLOCK_NOT_SUPPORTED"
+  },
+  "focusedImplementationAcceptance": {
+    "node": [
+      "P1-01 transfer generates and validates 1/20/120 items",
+      "P1-02 transfer generates and validates 1/20/120 items",
+      "P1-02 two-digit and bounded three-digit KPs both appear",
+      "four semantic PatternSpecs receive bounded balanced coverage",
+      "120-item prompts are distinct for each supported block",
+      "same seed reproduces exact items; different seed changes selection",
+      "role swap, wrong equation, wrong unit, unpromoted surface, >999 three-digit product, and unsupported block fail closed",
+      "default arithmetic practiceMode output remains unchanged"
+    ],
+    "browser": [
+      "targeted Path1 worksheet builder produces application prompts and equation-bearing answer keys for P1-01 and P1-02",
+      "question/answer counts match",
+      "no runtime error",
+      "no P1-03/P1-04 transfer exposure"
+    ],
+    "fullRegressionRequired": false,
+    "globalReplayRequired": false
+  },
+  "implementationBoundary": {
+    "futureRuntimeFilesAllowed": [
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+      "focused tests/runners/validation-plan/impact-manifest"
+    ],
+    "runtimeFilesForbidden": [
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "P1-03/P1-04 runtime modules"
+    ],
+    "applicationRegistryMutationAllowed": false,
+    "productionUiCutoverAllowed": false
+  },
+  "sourcePolicy": {
+    "newSemanticMiningPerformed": false,
+    "sourceSemanticsChanged": false,
+    "reason": "This preflight only selects an implementation path for the already approved equal-groups transfer contract; it does not expand source semantics.",
+    "canonicalRelationAuthorityWins": true
+  },
+  "implementationEntryCriteria": [
+    "this preflight is merged with focused CI green",
+    "explicit approval to cross planning-to-implementation boundary",
+    "implementation stays inside implementationBoundary.futureRuntimeFilesAllowed",
+    "no P1-03/P1-04 expansion",
+    "no A05 production-registry promotion"
+  ],
+  "distance": {
+    "goalDistanceBefore": "D2_P101_P102_EQUAL_GROUPS_TRANSFER_CONTRACT_LOCKED_AND_MERGED_ON_MAIN",
+    "goalDistanceAfterTarget": "D2_P101_P102_EQUAL_GROUPS_IMPLEMENTATION_PATH_PREFLIGHT_LOCKED",
+    "distanceReduced": "The remaining implementation ambiguity is reduced to one bounded architecture: reuse production-promoted G3B-U08 semantic surfaces, preserve Path1 arithmetic lineage, add a dedicated fail-closed transfer generator/validator, and expose it additively through the existing Path1 worksheet builder.",
+    "remainingBlockers": [
+      "implementation approval required",
+      "transfer generator not implemented",
+      "transfer validator not implemented",
+      "worksheet practiceMode not implemented",
+      "focused runtime/browser acceptance not completed",
+      "visible UI cutover remains a later scope"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_IMPLEMENTATION_V1"
+  }
+}

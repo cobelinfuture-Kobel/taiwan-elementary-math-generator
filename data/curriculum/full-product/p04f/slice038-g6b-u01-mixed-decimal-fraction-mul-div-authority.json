@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "p04f-slice-authority-v1",
+  "taskId": "P04F38_Q038_SourceBackedNumericImplementation",
+  "queuePosition": 38,
+  "sliceId": "p04e_q038_r12_g6b_u01_6b01_profile_mixed_number_domain_c1",
+  "sourceRank": 12,
+  "sourceId": "g6b_u01_6b01",
+  "sourceTitle": "小數與分數的計算",
+  "runtimeProfile": "profile_mixed_number_domain",
+  "knowledgePointId": "kp_g6b_u01_mixed_decimal_fraction_mul_div",
+  "knowledgePointNameZh": "小數與分數混合乘除",
+  "questionMode": "numeric",
+  "sourceAuthority": {
+    "queueAuthority": "data/curriculum/full-product/p04e/w4-direct-product-vertical-slice-queue.json",
+    "sourcePdf": "meow911_6b01_source.pdf",
+    "visualReadbackPage": 1,
+    "visualEvidence": [
+      "頁面明列『小數與分數混合運算』",
+      "可見乘法例 6.5 × 3 1/13",
+      "Q38 canonical KnowledgePoint identity 鎖定 mixed_decimal_fraction_mul_div，因此本 slice 僅涵蓋小數/分數混合乘除，不延伸至加減、大小比較或一般混合算式"
+    ],
+    "directPromptVerbatim": false
+  },
+  "formalMapping": {
+    "patternGroupId": "pg_g6b_u01_mixed_decimal_fraction_mul_div",
+    "patternSpecIds": [
+      "ps_g6b_u01_decimal_times_fraction",
+      "ps_g6b_u01_fraction_times_decimal",
+      "ps_g6b_u01_decimal_divided_by_fraction",
+      "ps_g6b_u01_fraction_divided_by_decimal"
+    ],
+    "answerModel": "exact_reduced_rational",
+    "roundingAllowed": false,
+    "applicationAllowed": false
+  },
+  "implementationBoundary": {
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "sharedMixedDomainNormalizerModified": false,
+    "reservedSiblingKnowledgePointIds": ["kp_g6b_u01_mixed_domain_expression"],
+    "forbiddenScope": [
+      "mixed_decimal_fraction_add_sub",
+      "mixed_number_domain_order",
+      "mixed_domain_expression",
+      "application",
+      "global_context"
+    ]
+  },
+  "validationPolicy": {
+    "classification": "KP_LEAF_BOUNDED",
+    "required": ["focused_node_tests", "targeted_classic_ui_pages"],
+    "forbidden": ["full_repository_regression", "global_browser_replay"],
+    "reusePriorEvidence": true
+  },
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "progression": {
+    "nextResumeTask": "P04F38_Q038_FocusedValidationAndPagesAcceptance",
+    "nextSlice": "039"
+  }
+}

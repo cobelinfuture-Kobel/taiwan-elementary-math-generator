@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "s22f.candidateMappingRulesBootstrap.v0",
+  "status": "bootstrap",
+  "productionRuntime": false,
+  "rules": [
+    {
+      "ruleId": "rule_integer_operation_titles",
+      "status": "bootstrap",
+      "productionRuntime": false,
+      "ruleType": "title_keyword",
+      "description": "Maps unit titles containing integer operation keywords (加減, 乘法, 除法, 四則, 乘與除, 計算) to domain_operation and expression question kind.",
+      "sourcePatterns": ["加減", "乘法", "除法", "四則", "乘與除", "計算", "除以"],
+      "targetDomainTags": ["domain_operation"],
+      "targetQuestionKindTags": ["qk_expression"],
+      "confidenceSignal": "high"
+    },
+    {
+      "ruleId": "rule_decimal_titles",
+      "status": "bootstrap",
+      "productionRuntime": false,
+      "ruleType": "title_keyword",
+      "description": "Maps unit titles containing decimal keywords (小數) to domain_decimal and decimal question kind.",
+      "sourcePatterns": ["小數"],
+      "targetDomainTags": ["domain_decimal"],
+      "targetQuestionKindTags": ["qk_decimal"],
+      "confidenceSignal": "high"
+    },
+    {
+      "ruleId": "rule_fraction_titles",
+      "status": "bootstrap",
+      "productionRuntime": false,
+      "ruleType": "title_keyword",
+      "description": "Maps unit titles containing fraction keywords (分數, 分, 約分, 通分, 擴分) to domain_fraction and fraction question kind.",
+      "sourcePatterns": ["分數", "假分數", "帶分數", "等值分數", "約分", "通分", "擴分"],
+      "targetDomainTags": ["domain_fraction"],
+      "targetQuestionKindTags": ["qk_fraction"],
+      "confidenceSignal": "high"
+    },
+    {
+      "ruleId": "rule_measurement_titles",
+      "status": "bootstrap",
+      "productionRuntime": false,
+      "ruleType": "title_keyword",
+      "description": "Maps unit titles containing measurement keywords (毫米, 公里, 公升, 毫升, 公斤, 公克, 時間, 容積, 體積, 立方公分, 大單位) to domain_measurement.",
+      "sourcePatterns": ["毫米", "公里", "公升", "毫升", "公斤", "公克", "時間", "容積", "體積", "立方公分", "大單位", "平方公分"],
+      "targetDomainTags": ["domain_measurement"],
+      "targetQuestionKindTags": ["qk_measurement_conversion"],
+      "confidenceSignal": "high"
+    },
+    {
+      "ruleId": "rule_geometry_titles",
+      "status": "bootstrap",
+      "productionRuntime": false,
+      "ruleType": "title_keyword",
+      "description": "Maps unit titles containing geometry keywords (角, 三角形, 圓, 四邊形, 垂直, 平行, 對稱, 面積, 周長, 多邊形, 扇形, 柱體, 錐體, 球, 表面積) to domain_geometry.",
+      "sourcePatterns": ["角", "三角形", "圓", "四邊形", "垂直", "平行", "對稱", "面積", "周長", "多邊形", "扇形", "柱體", "錐體", "球", "表面積", "正方體", "長方體"],
+      "targetDomainTags": ["domain_geometry"],
+      "targetQuestionKindTags": ["qk_visual_geometry"],
+      "confidenceSignal": "high"
+    },
+    {
+      "ruleId": "rule_chart_titles",
+      "status": "bootstrap",
+      "productionRuntime": false,
+      "ruleType": "title_keyword",
+      "description": "Maps unit titles containing chart/data keywords (統計, 圖表, 長條圖, 折線圖, 圓形圖) to domain_data.",
+      "sourcePatterns": ["統計", "圖表", "長條圖", "折線圖", "圓形圖"],
+      "targetDomainTags": ["domain_data"],
+      "targetQuestionKindTags": ["qk_chart_data"],
+      "confidenceSignal": "high"
+    },
+    {
+      "ruleId": "rule_ratio_speed_titles",
+      "status": "bootstrap",
+      "productionRuntime": false,
+      "ruleType": "title_keyword",
+      "description": "Maps unit titles containing ratio/speed keywords (比率, 百分率, 比, 比值, 速率, 縮圖, 放大圖, 比例尺) to domain_ratio_speed.",
+      "sourcePatterns": ["比率", "百分率", "比值", "速率", "縮圖", "放大圖", "比例尺"],
+      "targetDomainTags": ["domain_ratio_speed"],
+      "targetQuestionKindTags": ["qk_ratio_percent"],
+      "confidenceSignal": "high"
+    },
+    {
+      "ruleId": "rule_pattern_relationship_titles",
+      "status": "bootstrap",
+      "productionRuntime": false,
+      "ruleType": "title_keyword",
+      "description": "Maps unit titles containing pattern/relationship keywords (規律, 關係) to domain_pattern_relationship.",
+      "sourcePatterns": ["規律", "關係"],
+      "targetDomainTags": ["domain_pattern_relationship"],
+      "targetQuestionKindTags": ["qk_pattern_sequence"],
+      "confidenceSignal": "high"
+    },
+    {
+      "ruleId": "rule_number_sense_titles",
+      "status": "bootstrap",
+      "productionRuntime": false,
+      "ruleType": "title_keyword",
+      "description": "Maps unit titles containing number sense keywords (以內的數, 概數, 因數, 倍數, 公因數, 公倍數, 十進位) to domain_number_sense.",
+      "sourcePatterns": ["以內的數", "概數", "因數", "倍數", "公因數", "公倍數", "十進位"],
+      "targetDomainTags": ["domain_number_sense"],
+      "targetQuestionKindTags": ["qk_number_sense"],
+      "confidenceSignal": "high"
+    }
+  ]
+}

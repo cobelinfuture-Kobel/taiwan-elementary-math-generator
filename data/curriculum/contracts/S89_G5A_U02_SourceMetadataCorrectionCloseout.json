@@ -1,0 +1,50 @@
+{
+  "schemaName": "G5AU02SourceMetadataCorrectionCloseout",
+  "schemaVersion": 1,
+  "task": "S89_G5A_U02_SourceMetadataCorrectionAndProjectionConsistencyQA",
+  "status": "pass_ci_synced_and_merged",
+  "unitId": "g5a_u02",
+  "sourceMetadata": {
+    "sourceCount": 2,
+    "stableSourceIdsPreserved": true,
+    "stablePacketIdsPreserved": true,
+    "correctedSourceId": "g5a_u02_5a02a1",
+    "canonicalTitle": "公因數",
+    "canonicalUrl": "https://meow911.com/5a03b/",
+    "sourceRole": "common_factor_gcf_extension"
+  },
+  "projectionConsistency": {
+    "patternSpecCount": 22,
+    "unresolvedEvidenceCount": 0,
+    "sourcePacketCount": 2,
+    "historicalS78EvidenceMutated": false
+  },
+  "ciEvidence": {
+    "pullRequest": 146,
+    "headCommit": "db4fbaa1442bc4d5590716fa67fe4567ac4c7d83",
+    "mergeCommit": "298636f8189cde347c549cf732fea0fe3f5d48e2",
+    "prNodeTestRun": 29263156160,
+    "prS42BranchTestRun": 29263156215,
+    "prMathCiReadbackRun": 29263156274,
+    "freshMainMathCiRun": 29263486790,
+    "freshMainReadbackCommit": "b2b58b17942d8e1d018eae0b0e2358eb9b141281",
+    "tests": 1252,
+    "pass": 1252,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "scopeBoundary": {
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "bindingChanged": false,
+    "canonicalResolverConnected": false,
+    "publicSelectorEnabled": false,
+    "worksheetIntegrated": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D1_G5A_U02_SOURCE_METADATA_CORRECTED_AND_MERGED_PENDING_FRESH_MAIN",
+    "after": "D1_G5A_U02_SOURCE_METADATA_CORRECTED_AND_PROJECTION_EVIDENCE_CONSISTENT",
+    "nextShortestStep": "S90_G5A_U02_CanonicalResolverIntegration"
+  }
+}

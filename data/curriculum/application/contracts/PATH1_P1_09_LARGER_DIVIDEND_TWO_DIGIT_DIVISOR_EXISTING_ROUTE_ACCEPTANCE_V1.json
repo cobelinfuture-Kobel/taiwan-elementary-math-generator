@@ -1,0 +1,127 @@
+{
+  "schemaName": "Path1P109LargerDividendTwoDigitDivisorExistingRouteAcceptanceV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_EXISTING_ROUTE_ACCEPTANCE_V1",
+  "resumeAuthority": "OPERATOR_APPROVED_PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_EXISTING_ROUTE_ACCEPTANCE_V1",
+  "status": "P1_09_EXISTING_ROUTE_ACCEPTANCE_GAPS_ISOLATED",
+  "operatorScope": "APPROVED_DIAGNOSTIC_ACCEPTANCE_ONLY",
+  "acceptanceScope": {
+    "blockId": "P1-09",
+    "blockTitle": "多位數÷二位數",
+    "generationKind": "DIFFICULTY_EXPANSION",
+    "runExistingPublicRouteOnly": true,
+    "requiredQuestionCounts": [1, 20, 120],
+    "implementationAllowed": false,
+    "runtimeChanged": false,
+    "publicBindingMutationAllowed": false,
+    "path1MatrixChanged": false,
+    "canonicalKnowledgeAuthorityChanged": false,
+    "patternSpecMutationAllowed": false,
+    "publicUiChanged": false
+  },
+  "authority": {
+    "sourcePreflightPath": "data/curriculum/application/contracts/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_AUTHORITY_PREFLIGHT_V1.json",
+    "matrixPath": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "publicBindingPath": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "publicWorksheetBuilderPath": "site/assets/browser/pipeline/build-path1-manual-worksheet.js"
+  },
+  "difficultyExpansionIdentity": {
+    "matrixDifficultyExpansionId": "larger_dividend_two_digit_divisor",
+    "runtimeDifficultyExpansionId": "path1_four_digit_by_two_digit_division",
+    "equivalenceStatus": "ACCEPTED_P109_BOUNDED_ALIAS",
+    "equivalenceBasis": [
+      "both identify the P1-09 four-digit-dividend by two-digit-divisor expansion",
+      "both preserve no-new-canonical-KP semantics",
+      "both use quotient-and-remainder arithmetic under the same predecessor G4A-U04 procedure"
+    ],
+    "matrixMutationRequiredForAlias": false
+  },
+  "diagnosticAcceptance": {
+    "count1": {
+      "expectedOk": true,
+      "expectedGeneratedCount": 1
+    },
+    "count20": {
+      "expectedOk": true,
+      "expectedGeneratedCount": 20
+    },
+    "count120": {
+      "expectedOk": true,
+      "expectedGeneratedCount": 120,
+      "requireDistinctPrompts": true
+    },
+    "sameSeedDeterministicReplayRequired": true,
+    "printableWorksheetQuestionAnswerParityRequired": true,
+    "arithmeticInvariantRequired": true,
+    "difficultyExpansionMetadataIdentityRequired": true,
+    "canonicalKnowledgePointMinted": false
+  },
+  "sourceParityDiagnosis": {
+    "sourceBackedDividendEnvelope": "1000..9999",
+    "runtimeDividendEnvelope": "1000..9999",
+    "dividendEnvelopeClassification": "PASS",
+    "sourceBackedDivisorEnvelope": "10..99",
+    "runtimeDivisorEnvelope": "21..89",
+    "divisorEnvelopeClassification": "P109_DIVISOR_ENVELOPE_NARROWER_THAN_SOURCE",
+    "sourceBackedQuotientCases": [
+      "2-digit quotient / tens start",
+      "3-digit quotient / hundreds start"
+    ],
+    "runtimeQuotientEnvelope": "20..99",
+    "threeDigitQuotientClassification": "P109_THREE_DIGIT_QUOTIENT_CASE_UNREACHABLE",
+    "directSourceWitness": {
+      "expression": "4024÷23",
+      "quotient": 174,
+      "remainder": 22,
+      "runtimeEquivalentCapabilityReachable": false
+    },
+    "formalCaseCoverage": {
+      "P109_4DIGIT_HUNDREDS_SUFFICIENT": "MISSING_IN_CURRENT_ROUTE",
+      "P109_4DIGIT_HUNDREDS_INSUFFICIENT": "PRESENT_IN_CURRENT_ROUTE"
+    },
+    "gapAttributionBasis": [
+      "current builder fixes divisor to 21 + (cursor % 69)",
+      "current builder fixes quotient to 20 + (cursor % 80)",
+      "1/20/120 dynamic acceptance verifies generated arithmetic and confirms only the narrower runtime envelope",
+      "120-item dynamic acceptance confirms zero three-digit quotient cases and zero hundreds-start cases"
+    ]
+  },
+  "boundaryAcceptance": {
+    "P1-07": "no duplicate quotient-place teaching mode added",
+    "P1-08": "predecessor authority unchanged",
+    "P1-10": "no three-digit divisor leakage; all generated divisors remain <= 99",
+    "P1-11": "no checking/verification teaching promotion; prompts remain quotient-and-remainder arithmetic only"
+  },
+  "runtimeRemediation": {
+    "authorizedByThisAcceptance": false,
+    "requiredBecauseSourceParityIsIncomplete": true,
+    "nextTask": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_PREFLIGHT_V1"
+  },
+  "antiScopeCreep": {
+    "modifyPublicWorksheetBuilder": false,
+    "modifyPublicBinding": false,
+    "modifyPath1Matrix": false,
+    "modifyCanonicalKnowledgePoints": false,
+    "modifyCanonicalPatternSpecs": false,
+    "modifyP101ThroughP108": false,
+    "modifyP110OrLater": false,
+    "addDedicatedPracticeMode": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedLane": "KP_FOCUSED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_P109_SOURCE_FORMAL_EXPANSION_AND_ACCEPTANCE_BOUNDARY_LOCKED",
+    "goalDistanceAfterTarget": "D2_P109_EXISTING_ROUTE_ACCEPTED_FOR_CURRENT_SUBSET_SOURCE_PARITY_GAPS_EXACTLY_ISOLATED",
+    "distanceReduced": "Dynamic 1/20/120 acceptance removes uncertainty about the existing route, accepts its stable current subset, binds the matrix/runtime expansion alias, and isolates the two exact source-parity blockers without mutating product runtime.",
+    "remainingBlockers": [
+      "P109 divisor envelope is 21..89 instead of source-backed 10..99",
+      "P109 three-digit quotient / hundreds-start case is unreachable",
+      "runtime remediation requires separately approved preflight"
+    ],
+    "nextShortestStep": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_PREFLIGHT_V1"
+  }
+}

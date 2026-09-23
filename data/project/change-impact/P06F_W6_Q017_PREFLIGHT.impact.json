@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P06F_W6_Q017_PREFLIGHT",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u03_geometric_count_generalization",
+    "kp_g6a_u03_input_output_general_rule",
+    "kp_g6a_u03_linear_pattern_nth_term"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6a_u03_geometric_count_generalization",
+    "kp_g6a_u03_input_output_general_rule",
+    "kp_g6a_u03_linear_pattern_nth_term"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6a_u03_geometric_count_generalization": "PREFLIGHT_ONLY",
+    "kp_g6a_u03_input_output_general_rule": "PREFLIGHT_ONLY",
+    "kp_g6a_u03_linear_pattern_nth_term": "PREFLIGHT_ONLY"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P06F_W6_Q017_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true
+  },
+  "scopeGuards": {
+    "productImplementation": false,
+    "publicAdmission": false,
+    "q001ToQ016ProductMutation": false,
+    "q018OrLater": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false
+  }
+}

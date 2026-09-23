@@ -1,0 +1,103 @@
+{
+  "schemaName": "P04F10G4AU10KmMConversionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice010Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q010_r1_g4a_u10_4a10_profile_quantity_measurement_c1",
+    "queuePosition": 10,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q009_r1_g3b_u06_3b06_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 1
+  },
+  "source": {
+    "sourceNodeId": "g4a_u10_4a10",
+    "unitCode": "4A-U10",
+    "unitTitle": "公里",
+    "sourcePdfTitle": "meow911_4a10_source.pdf",
+    "driveFileId": "1S-3fi7jXmrxK8Ynd4ajrHm1PQBKBj3Up",
+    "reviewedPages": [1],
+    "primaryWitnessPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_REUSED_FROM_P04F5"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g4a_u10_length_km_m_conversion",
+    "canonicalNameZh": "公里公尺換算",
+    "capabilityStatement": "學生能利用1公里等於1000公尺進行換算。",
+    "reasoningInvariant": "同一長度的公里與公尺表示保持等值。",
+    "implementationBoundary": {
+      "included": [
+        "kilometer to meter integer conversion",
+        "meter to kilometer exact integer conversion",
+        "1 kilometer equals 1000 meters",
+        "deterministic converted-length answer"
+      ],
+      "excludedKnowledgePointIds": [
+        "kp_g4a_u10_length_km_m_mixed_compare",
+        "kp_g4a_u10_length_km_m_add_sub",
+        "kp_g4a_u10_route_distance_application"
+      ],
+      "mixedUnitComparisonAllowed": false,
+      "mixedUnitArithmeticAllowed": false,
+      "routeDistanceApplicationAllowed": false
+    }
+  },
+  "formalMapping": {
+    "runtimeProfileId": "profile_quantity_measurement",
+    "requiredW4CapabilityIds": [
+      "cap_mixed_unit_normalization",
+      "cap_quantity_domain_validator",
+      "cap_unit_conversion"
+    ],
+    "sharedFoundationCapabilityIds": [
+      "cap_quantity_dimension_unit_identity",
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_text_numeric_representation"
+    ],
+    "dimensionId": "LENGTH",
+    "unitFamilyId": "METRIC_LENGTH",
+    "metersPerKilometer": 1000
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g4a_u10_length_km_m_conversion_numeric",
+    "displayName": "公里公尺換算",
+    "questionMode": "numeric",
+    "representationTag": "length_unit_conversion"
+  },
+  "patternSpec": {
+    "patternSpecId": "ps_g4a_u10_length_km_m_conversion_numeric",
+    "operationModelId": "op_g4a_u10_length_km_m_conversion",
+    "operationFamilyId": "quantity_measurement",
+    "answerType": "integer_length_quantity",
+    "requestedUnknownRole": "convertedLengthQuantity",
+    "givenRoles": ["sourceLengthQuantity", "conversionDirection"],
+    "constraints": {
+      "allowedDirections": ["KM_TO_M", "M_TO_KM"],
+      "metersPerKilometer": 1000,
+      "exactIntegerConversionRequired": true,
+      "mixedUnitComparisonForbidden": true,
+      "mixedUnitArithmeticForbidden": true,
+      "routeDistanceApplicationForbidden": true
+    },
+    "sourceBacked": true,
+    "operatorApprovedExtension": false,
+    "applicationClassification": "DIRECT_SOURCE_LENGTH_UNIT_CONVERSION"
+  },
+  "acceptance": {
+    "bothDirectionsRequired": true,
+    "metersPerKilometerRequired": 1000,
+    "exactIntegerAnswersRequired": true,
+    "duplicatePromptRejected": true,
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "mixedUnitComparisonLeakRejected": true,
+    "mixedUnitArithmeticLeakRejected": true,
+    "routeDistanceApplicationLeakRejected": true
+  }
+}

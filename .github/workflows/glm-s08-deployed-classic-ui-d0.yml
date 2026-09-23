@@ -1,0 +1,75 @@
+name: GLM-S08 Deployed Classic UI D0 Closeout
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: glm-s08-deployed-classic-ui-d0
+  cancel-in-progress: false
+
+env:
+  GLM_S08_SITE_URL: https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html
+
+jobs:
+  deployed-classic-ui-d0:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Checkout current main for historical audit
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install browser dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Resolve deployment SHA
+        shell: bash
+        run: echo "GLM_S08_DEPLOYMENT_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Wait for exact deployed assets
+        shell: bash
+        run: |
+          local_asset="site/modules/curriculum/batch-a/g4a-u08-generator-validator-domain-fullfix.js"
+          local_sha=$(sha256sum "$local_asset" | awk '{print $1}')
+          for attempt in $(seq 1 60); do
+            remote_file="/tmp/glm-s08-deployed-asset-${attempt}.js"
+            if curl --fail --silent --show-error \
+              "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g4a-u08-generator-validator-domain-fullfix.js?glmS08Wait=${GLM_S08_DEPLOYMENT_SHA}-${attempt}" \
+              > "$remote_file"; then
+              remote_sha=$(sha256sum "$remote_file" | awk '{print $1}')
+              if [ "$remote_sha" = "$local_sha" ]; then
+                exit 0
+              fi
+            fi
+            sleep 10
+          done
+          echo "Deployed critical asset did not match checkout authority." >&2
+          exit 1
+
+      - name: Run historical deployed Classic UI D0 audit
+        run: node tools/curriculum/run-glm-s08-deployed-classic-ui-d0.mjs
+
+      - name: Upload historical audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: glm-s08-deployed-classic-ui-d0
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            docs/curriculum/output/stress/glm-s08-deployed-classic-ui-d0/manifest.json
+            docs/curriculum/output/stress/glm-s08-deployed-classic-ui-d0/failure.json
+            docs/curriculum/output/stress/glm-s08-deployed-classic-ui-d0/failure.png

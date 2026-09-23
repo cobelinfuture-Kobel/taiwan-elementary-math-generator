@@ -1,0 +1,123 @@
+{
+  "claimId": "P03F-W3-SLICE022-E6-D0-V1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice022Implementation",
+  "status": "PASS_D0_CLOSED",
+  "goalDistance": "D0",
+  "scope": "Slice022 only: g5a_u04_5a04 common-denominator and divisibility-supported fraction reduction.",
+  "authority": {
+    "queuePosition": 22,
+    "queueEntryId": "p03e_q022_r7_g5a_u04_5a04_profile_fraction_c1",
+    "sourceRef": "g5a_u04_5a04",
+    "knowledgePointIds": [
+      "kp_g5a_u04_common_denominator",
+      "kp_g5a_u04_divisibility_supported_reduction"
+    ],
+    "patternSpecIds": [
+      "ps_g5a_u04_common_denominator_common_denominator_numeric",
+      "ps_g5a_u04_common_denominator_left_equivalent_numeric",
+      "ps_g5a_u04_common_denominator_right_equivalent_numeric",
+      "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric",
+      "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric",
+      "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric"
+    ],
+    "requiredCapabilityIds": [
+      "cap_fraction_arithmetic",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ]
+  },
+  "implementationEvidence": {
+    "prNumber": 543,
+    "finalHeadSha": "9eeda5577406cb31133b55510d4d7b938616372c",
+    "mergeSha": "fbdaeb0dc87a8e533bfd6daa36fe1066dc037849",
+    "nodeWorkflowRunId": 30917763608,
+    "nodeWorkflowJobId": 92020152984,
+    "fullRegression": {"tests": 2915, "pass": 2915, "fail": 0},
+    "mainNodeWorkflowRunId": 30918789598,
+    "mainNodeWorkflowJobId": 92023641785,
+    "mainCiReadbackWorkflowRunId": 30918789630,
+    "mainCiReadbackCommitSha": "8ace75808da310b22f88d0c2b49330532ca6b264",
+    "mainCiReadback": "PASS_CI_SYNCED_AND_CLEAN",
+    "pagesDeploymentWorkflowRunId": 30918789915,
+    "pagesDeploymentWorkflowJobId": 92024853887,
+    "pagesDeploymentConclusion": "success"
+  },
+  "artifactEvidence": {
+    "artifactId": 8895878847,
+    "artifactDigest": "sha256:246fd7017267516b689e2e6258d8c589093dc318d8a5832aa7c626f383198b22",
+    "caseCount": 1,
+    "pdfPageCount": 6,
+    "pdfByteLength": 82067,
+    "screenshotCount": 6,
+    "questionCount": 24,
+    "answerKeyCount": 24,
+    "patternSpecWitnessCounts": {
+      "ps_g5a_u04_common_denominator_common_denominator_numeric": 4,
+      "ps_g5a_u04_common_denominator_left_equivalent_numeric": 4,
+      "ps_g5a_u04_common_denominator_right_equivalent_numeric": 4,
+      "ps_g5a_u04_divisibility_supported_reduction_common_factor_numeric": 4,
+      "ps_g5a_u04_divisibility_supported_reduction_simplest_numerator_numeric": 4,
+      "ps_g5a_u04_divisibility_supported_reduction_simplest_denominator_numeric": 4
+    },
+    "htmlSha256": "e58047b27928c2791cf4b013d45620bd3ecfd23e1ca763ed0f7f7850ce6260a8",
+    "pdfSha256": "25ab5154af7500becc35acefa7f90ad92a8e6e8c89fc1729a57eacba40a281da",
+    "duplicatePromptFindingCount": 0,
+    "overflowFindingCount": 0,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "semanticScopeFindingCount": 0,
+    "visualReview": "PASS",
+    "semanticReview": "PASS",
+    "answerKeyReview": "PASS"
+  },
+  "productResult": {
+    "knowledgePointCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 6,
+    "numericPatternSpecCount": 6,
+    "applicationPatternSpecCount": 0,
+    "existingContextBindingCount": 0,
+    "questionWitnessCount": 24,
+    "answerKeyWitnessCount": 24,
+    "newProductAdmissionCount": 2,
+    "newPublicSourceCount": 0,
+    "existingPublicSourceExpanded": true,
+    "classicPublicSurface": "PASS",
+    "pixelPublicSurface": "PASS",
+    "worksheetPrintable": "PASS",
+    "answerKey": "PASS",
+    "chromiumPdf": "PASS",
+    "deployedSite": "PASS",
+    "productAdmissionState": "PRODUCTION_ADMITTED_D0",
+    "d0Complete": true
+  },
+  "boundaries": {
+    "slice023Started": false,
+    "newPublicSourceAdded": false,
+    "applicationContextCandidateAdded": false,
+    "globalContextExpanded": false,
+    "parallelRuntimePipelineAdded": false,
+    "sharedWorksheetRendererBehaviorChanged": false
+  },
+  "nextResumeTask": "P03F_W3DirectProductVerticalSlice023Implementation",
+  "closeoutEvidence": {
+    "prNumber": 544,
+    "headSha": "3aa17dc70933b39f8e2e5e500cd956609ac936c7",
+    "nodeWorkflowRunId": 30920034105,
+    "nodeWorkflowJobId": 92027921649,
+    "nodeConclusion": "success",
+    "fullRegression": {"tests": 2916, "pass": 2916, "fail": 0},
+    "mergeSha": "4de52051799b483acfa5b517d3492b3d38112e86",
+    "mainNodeWorkflowRunId": 30920396179,
+    "mainNodeWorkflowJobId": 92029176254,
+    "mainCiReadbackWorkflowRunId": 30920396645,
+    "mainCiReadbackWorkflowJobId": 92029179909,
+    "mainReadbackCommitSha": "420c52f2de460837e2f3ff4aaddc2777138e66cd",
+    "mainReadback": "PASS_CI_SYNCED_AND_CLEAN",
+    "mainWorkingTree": "clean",
+    "pagesDeploymentWorkflowRunId": 30920396080,
+    "pagesDeploymentWorkflowJobId": 92030328935,
+    "pagesDeploymentConclusion": "success"
+  }
+}

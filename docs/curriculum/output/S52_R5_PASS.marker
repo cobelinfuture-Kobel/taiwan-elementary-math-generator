@@ -1,0 +1,38 @@
+S52_R5_PASS_PUBLIC_MAIN_LOCAL_SYNCED_BROWSER_PDF_SMOKE_PASS
+
+sourceId = g3a_u06_3a06
+affected_kp = kp_g3a_u06_parity_range_missing_digit
+affected_spec = ps_g3a_u06_parity_range_missing_digit
+
+operator_readback:
+- tests 368
+- pass 368
+- fail 0
+- branch public-main up to date with public/main
+- working tree clean
+
+browser_pdf_smoke:
+- uploaded_pdf = g3a_u06_同單位混合知識點隨機3.pdf
+- question_count = 40
+- answer_key_present = true
+- six_kp_mixed_output = PASS
+- parity_multi_answer_distribution = PASS
+- parity_answer_key_multi_answer = PASS
+- division_with_remainder_answer_key = PASS
+- exact_division_answer_key = PASS
+- divisibility_check_answer_key = PASS
+- quotative_packaging_answer_key = PASS
+- partitive_equal_sharing_answer_key = PASS
+
+observed_parity_multi_answer_examples:
+- 1□ > 10 and 1□ < 15, even => 12、14
+- 2□ > 20 and 2□ < 25, even => 22、24
+- 3□ > 30 and 3□ < 35, even => 32、34
+- 4□ > 40 and 4□ < 45, even => 42、44
+- 6□ > 60 and 6□ < 65, even => 62、64
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U06_PARITY_MULTI_ANSWER_DISTRIBUTION_FIX_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U06_SIX_KP_BROWSER_PDF_SMOKE_PASS
+DISTANCE_REDUCED = S52 R5 npm test and browser PDF smoke passed for six-KP G3A-U06 mixed worksheet
+REMAINING_BLOCKERS = Pages deploy may need rerun
+NEXT_SHORTEST_STEP = confirm Pages deploy or proceed to next G3A source / KnowledgePoint task

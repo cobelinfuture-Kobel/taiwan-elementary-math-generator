@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
+  "status": "PASS_CANDIDATE_CONTENT_MATERIALIZED",
+  "contextFamilyCount": 18,
+  "domainCount": 18,
+  "surfaceTemplateCount": 54,
+  "seedQACount": 90,
+  "minimumFamiliesPerWordPattern": 5,
+  "templateFamilyCompatibilityCount": {
+    "tf_g5a_u08_adjust_unit_then_remaining": 7,
+    "tf_g5a_u08_average_inverse_or_update": 8,
+    "tf_g5a_u08_average_share_transfer": 9,
+    "tf_g5a_u08_direct_average": 8,
+    "tf_g5a_u08_discount_and_change": 5,
+    "tf_g5a_u08_group_then_select_groups": 12,
+    "tf_g5a_u08_near_round_unit_price": 11,
+    "tf_g5a_u08_nested_grouping": 9,
+    "tf_g5a_u08_two_product_groups_difference": 13,
+    "tf_g5a_u08_two_same_rate_groups_sum": 11
+  },
+  "bindingCount": 18,
+  "runtimeChanged": false,
+  "productionSelectable": false,
+  "nextShortestStep": "GS03_G5AU08_GoldenContractFreeze"
+}

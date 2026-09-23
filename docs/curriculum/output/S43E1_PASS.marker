@@ -1,0 +1,34 @@
+S43E1_G3AU01_KPExpansion_PASS
+
+sourceId = g3a_u01_3a01
+unit = 3A-U01 10000以內的數
+affected_kp = kp_g3a_u01_4digit_compare
+affected_group = pg_g3a_u01_4digit_compare
+affected_spec = ps_g3a_u01_4digit_compare
+
+operator_readback:
+- tests 371
+- pass 371
+- fail 0
+- branch public-main up to date with public/main
+- working tree clean
+
+browser_pdf_smoke:
+- uploaded_pdf = g3a_u01_四位數比大小.pdf
+- question_count = 30
+- question_pages = 2
+- answer_key_pages = 2
+- comparison_prompt_format = PASS
+- answer_key = PASS
+- printable_layout = PASS
+
+status:
+- S43E1 first supported G3A-U01 KP promotion PASS
+- remaining planned G3A-U01 KPs are not implemented in this milestone
+- next Batch A shortest path should continue to next S43E unit needing KP expansion
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_BROWSER_PDF_SMOKE_PASS_TEST_READBACK_PENDING
+GOAL_DISTANCE_AFTER = D1_G3A_U01_FIRST_SUPPORTED_KP_PROMOTION_PASS
+DISTANCE_REDUCED = G3A-U01 now has a visible supported KnowledgePoint, PatternGroup, PatternSpec map, resolver coverage, worksheet smoke, browser PDF smoke, and clean test readback
+REMAINING_BLOCKERS = remaining planned G3A-U01 KPs not implemented; Pages deploy may need rerun
+NEXT_SHORTEST_STEP = S43E5_G3B_U01_KPExpansion_StatusScan

@@ -1,0 +1,60 @@
+{
+  "schemaName": "G5AU02PatternSpecQASemanticGrammarOverlay",
+  "schemaVersion": 1,
+  "task": "S83_G5A_U02_PatternSpecContractQA",
+  "problemTypeDecisionTable": {
+    "labels": ["factor", "multiple", "common_factor", "common_multiple"],
+    "mutuallyExclusive": true,
+    "exhaustiveForControlledCases": true,
+    "freeFormClassificationForbidden": true,
+    "cases": [
+      {
+        "caseId": "single_total_equal_partition",
+        "label": "factor",
+        "predicate": "one fixed whole quantity; ask all exact equal-part counts or all integer per-part quantities"
+      },
+      {
+        "caseId": "fixed_unit_generate_totals",
+        "label": "multiple",
+        "predicate": "one fixed unit size or period; ask possible totals, repeated quantities or occurrence numbers"
+      },
+      {
+        "caseId": "two_totals_common_partition",
+        "label": "common_factor",
+        "predicate": "two fixed totals; ask all common exact group counts/sizes or the greatest such count"
+      },
+      {
+        "caseId": "two_units_common_total",
+        "label": "common_multiple",
+        "predicate": "two fixed unit sizes or periods; ask shared totals/occurrences or the least positive simultaneous value"
+      }
+    ],
+    "ambiguityPolicy": "If zero or more than one case matches, generation and validation must block."
+  },
+  "closedStatementGrammar": {
+    "factorStatementKinds": [
+      {"kind": "candidate_is_factor_of_target", "truthRule": "candidate>0 && target%candidate===0"},
+      {"kind": "target_is_multiple_of_candidate", "truthRule": "candidate>0 && target%candidate===0"}
+    ],
+    "completeFactorStatementKinds": [
+      "value_is_factor_of_target",
+      "target_is_multiple_of_value",
+      "symmetric_pair_product_equals_target",
+      "target_is_even_iff_factor_two_present",
+      "factor_count_is_odd_iff_target_is_perfect_square"
+    ],
+    "relationDirectionMustBeExplicit": true,
+    "targetParityAndFactorCountParitySeparated": true,
+    "booleanVectorOrderMatchesStatementOrder": true,
+    "booleanVectorLengthEqualsStatementCount": true,
+    "unknownStatementKindsForbidden": true
+  },
+  "requiredHookAugmentations": {
+    "ps_g5a_u02_factor_relation_equivalence": ["validateG5AU02S81Overlay"],
+    "ps_g5a_u02_factor_pair_enumeration": ["validateG5AU02S81Overlay"],
+    "ps_g5a_u02_complete_factor_list_statement_evaluation": ["validateG5AU02StatementGrammar", "validateG5AU02S81Overlay"],
+    "ps_g5a_u02_remainder_transfer": ["validateG5AU02S81Overlay"],
+    "ps_g5a_u02_multi_constraint_digit_code": ["validateG5AU02S81Overlay"],
+    "ps_g5a_u02_factor_statement_judgement": ["validateG5AU02StatementGrammar"]
+  }
+}

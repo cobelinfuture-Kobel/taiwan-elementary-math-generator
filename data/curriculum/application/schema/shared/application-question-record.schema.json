@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/shared/application-question-record.schema.json",
+  "title": "SharedApplicationQuestionRecordV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion","applicationQuestionRecordId","waveId","sourceNodeId","unitId","knowledgePointId","patternSpecId","bindingCandidateId","proofCandidateId","applicationCapabilityEntryId","questionMode","capabilityType","promptZh","contextLineage","answerShape","validatorEvidence","productionSelectable","publicSelectable"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "applicationQuestionRecordId": {"type": "string", "pattern": "^app_qr_"},
+    "waveId": {"type": "string", "pattern": "^W0[1-6]$"},
+    "sourceNodeId": {"type": "string", "pattern": "^g[3-6][ab]_u"},
+    "unitId": {"type": "string", "pattern": "^g[3-6][ab]_u"},
+    "knowledgePointId": {"type": "string", "pattern": "^kp_"},
+    "patternSpecId": {"type": "string"},
+    "bindingCandidateId": {"type": "string"},
+    "proofCandidateId": {"type": "string", "pattern": "^w02_n1proof_"},
+    "applicationCapabilityEntryId": {"type": "string", "pattern": "^app_cap_"},
+    "questionMode": {"const": "APPLICATION"},
+    "capabilityType": {"enum": ["APPLICATION_REQUIRED", "APPLICATION_COMPATIBLE"]},
+    "promptZh": {"type": "string", "minLength": 10},
+    "contextLineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["macroContextId","mesoSituationId","microScenarioId","atomicEpisodeId","surfaceTemplateId"],
+      "properties": {
+        "macroContextId": {"type": "string", "pattern": "^gctx_macro_"},
+        "mesoSituationId": {"type": "string", "pattern": "^gctx_meso_"},
+        "microScenarioId": {"type": "string", "pattern": "^gctx_micro_"},
+        "atomicEpisodeId": {"type": "string", "pattern": "^gctx_episode_"},
+        "surfaceTemplateId": {"type": "string"}
+      }
+    },
+    "answerShape": {"enum": ["COMPARISON_CHOICE", "QUANTITY_WITH_UNIT"]},
+    "validatorEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixtureId","fixtureAdapterId","operationFamilyId","validationStatus"],
+      "properties": {
+        "fixtureId": {"type": "string", "pattern": "^w02_fixture_"},
+        "fixtureAdapterId": {"type": "string"},
+        "operationFamilyId": {"type": "string"},
+        "validationStatus": {"const": "PASS_SHARED_SHADOW_RUNTIME"}
+      }
+    },
+    "productionSelectable": {"const": false},
+    "publicSelectable": {"const": false}
+  }
+}

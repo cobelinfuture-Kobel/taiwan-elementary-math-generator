@@ -1,0 +1,26 @@
+S43E5_R4K_BROWSER_PDF_SMOKE_QAFIX_PENDING_READBACK
+
+sourceId = g3b_u01_3b01
+status = IMPLEMENTED_READBACK_PENDING
+
+failure_readback:
+- tests 405
+- pass 404
+- fail 1
+- failing test = S43E5 R4K browser PDF smoke renders expected print pages
+- root cause = test expected worksheet title to be rendered, but html renderer only uses options.title unless explicitly passed
+
+fix_scope:
+- updated R4K smoke test to pass worksheetDocument.title into renderWorksheetDocumentToHtml
+- runtime worksheet generator and renderer behavior unchanged
+
+validation_required:
+- git pull public main
+- npm test
+- git status
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_WORD_PROBLEM_BROWSER_PDF_SMOKE_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3B_U01_WORD_PROBLEM_BROWSER_PDF_SMOKE_QAFIX_IMPLEMENTED_PENDING_READBACK
+DISTANCE_REDUCED = removed incorrect smoke-test title expectation blocking R4K validation
+REMAINING_BLOCKERS = npm test readback; optional manual browser PDF export smoke
+NEXT_SHORTEST_STEP = local test readback, then record R4K automated smoke PASS

@@ -1,0 +1,163 @@
+{
+  "schemaName": "G5AU08NBaselineAndNPlus1SemanticDeltaMatrix",
+  "schemaVersion": 1,
+  "task": "S60C_G5A_U08_NBaselineAndNPlus1SemanticDeltaMatrix",
+  "sourceId": "g5a_u08_5a08",
+  "unitCode": "5A-U08",
+  "dependsOn": "S60B_G5A_U08_KPPatternGroupTagContract",
+  "policy": {
+    "defaultApplicationDepth": "N_PLUS_1",
+    "maxSemanticDeltaPerItem": 1,
+    "nRequiresSemanticDeltaCount": 0,
+    "nPlus1RequiresSemanticDeltaCount": 1,
+    "nPlus2EnabledInCore": false,
+    "formalXEquationRequired": false,
+    "elementaryArithmeticSolutionPathRequired": true,
+    "irrelevantInformationAllowedInCore": false,
+    "futureDomainLeakageAllowed": false
+  },
+  "semanticDeltas": [
+    {"semanticDeltaId":"combine_groups","definition":"Combine two or more role-compatible quantities before or after the core computation.","requiredChecks":["same_unit_before_combination","no_role_swap"]},
+    {"semanticDeltaId":"adjust_unit_amount","definition":"Increase or decrease a per-unit quantity before applying the core repeated-quantity structure.","requiredChecks":["adjusted_unit_amount_positive","adjustment_applied_once"]},
+    {"semanticDeltaId":"reverse_from_total","definition":"Recover an unknown part from a known total and known complementary parts.","requiredChecks":["unique_unknown","nonnegative_result"]},
+    {"semanticDeltaId":"reverse_from_average","definition":"Recover total or a missing value from an integer average and count.","requiredChecks":["average_times_count_is_integer","unique_unknown"]},
+    {"semanticDeltaId":"update_population","definition":"Add or remove one member or period and recompute an integer average.","requiredChecks":["updated_count_positive","updated_average_integer"]},
+    {"semanticDeltaId":"nested_grouping","definition":"Perform one grouping operation and then operate on the resulting groups.","requiredChecks":["first_grouping_exact","second_grouping_or_selection_valid"]},
+    {"semanticDeltaId":"discount_or_compensation","definition":"Apply one explicit discount, extra use, offset or near-round compensation after the base quantity is established.","requiredChecks":["adjustment_not_greater_than_base_when_subtracted","payment_sufficient_when_change_requested"]},
+    {"semanticDeltaId":"compare_equivalent_models","definition":"Compare two mathematical models or transformed expressions and judge structural equivalence.","requiredChecks":["both_models_evaluable","error_type_unique_when_not_equal"]}
+  ],
+  "knowledgePointMatrix": [
+    {
+      "knowledgePointId":"kp_g5a_u08_mixed_operation_order",
+      "nBaseline":"Evaluate one complete integer expression using multiplication/division before addition/subtraction and left-to-right within equal precedence.",
+      "nRepresentations":["numeric"],
+      "applicationCapable":true,
+      "allowedNPlus1SemanticDeltaIds":["adjust_unit_amount","discount_or_compensation"],
+      "nPlus1Definition":"Translate one contextual adjustment into a single mixed-operation expression while preserving operation order.",
+      "forbiddenCoreEscalations":["two_independent_adjustments","unit_conversion","percentage_discount","unknown_rate"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_add_sub_equivalent_regroup",
+      "nBaseline":"Regroup signed integer addends and subtrahends into an equivalent convenient calculation without treating subtraction as associative.",
+      "nRepresentations":["numeric"],
+      "applicationCapable":false,
+      "allowedNPlus1SemanticDeltaIds":[],
+      "nPlus1Definition":null,
+      "forbiddenCoreEscalations":["application_wrapper_without_new_relation","negative_number_domain"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_mul_div_equivalent_regroup",
+      "nBaseline":"Regroup multiplication factors and denominator factors so the result remains integer and division direction is preserved.",
+      "nRepresentations":["numeric"],
+      "applicationCapable":true,
+      "allowedNPlus1SemanticDeltaIds":["nested_grouping"],
+      "nPlus1Definition":"Model a two-level grouping or group-selection relation with exactly one nested-grouping delta.",
+      "forbiddenCoreEscalations":["noninteger_intermediate_without_legal_regrouping","reversed_division_direction","remainder_context"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_distributive_expand",
+      "nBaseline":"Expand (a+b)c or (a-b)c into ac+bc or ac-bc and evaluate the equivalent integer expression.",
+      "nRepresentations":["numeric"],
+      "applicationCapable":true,
+      "allowedNPlus1SemanticDeltaIds":["adjust_unit_amount"],
+      "nPlus1Definition":"Adjust one per-unit amount and distribute the repeated count across the adjusted components.",
+      "forbiddenCoreEscalations":["multiple_unit_adjustments","nested_parentheses_beyond_one_level"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_common_factor_extract",
+      "nBaseline":"Extract a common factor from ac+bc or ac-bc and evaluate the equivalent integer expression.",
+      "nRepresentations":["numeric"],
+      "applicationCapable":true,
+      "allowedNPlus1SemanticDeltaIds":["combine_groups","compare_equivalent_models"],
+      "nPlus1Definition":"Combine or compare two same-rate groups so the common-factor structure must be recognized.",
+      "forbiddenCoreEscalations":["different_units_under_common_factor","more_than_one_contextual_delta"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_near_round_add_compensation",
+      "nBaseline":"Replace near-round addends with round numbers and apply exact additive compensation.",
+      "nRepresentations":["numeric"],
+      "applicationCapable":false,
+      "allowedNPlus1SemanticDeltaIds":[],
+      "nPlus1Definition":null,
+      "forbiddenCoreEscalations":["application_label_only","decimal_compensation"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_near_round_sub_compensation",
+      "nBaseline":"Replace near-round subtrahends with round numbers and apply direction-correct compensation.",
+      "nRepresentations":["numeric"],
+      "applicationCapable":false,
+      "allowedNPlus1SemanticDeltaIds":[],
+      "nPlus1Definition":null,
+      "forbiddenCoreEscalations":["application_label_only","negative_final_result"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_near_round_multiply_compensation",
+      "nBaseline":"Decompose a near-round factor or regroup exact factors to evaluate a multiplication efficiently.",
+      "nRepresentations":["numeric"],
+      "applicationCapable":true,
+      "allowedNPlus1SemanticDeltaIds":["discount_or_compensation"],
+      "nPlus1Definition":"Use one near-round price, quantity or offset relation while keeping the same multiplication core.",
+      "forbiddenCoreEscalations":["percentage_discount","tiered_pricing","two_discounts"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_missing_operator_inference",
+      "nBaseline":"Infer the unique sequence of +, −, × or ÷ symbols that makes an integer equality true.",
+      "nRepresentations":["reasoning"],
+      "applicationCapable":false,
+      "allowedNPlus1SemanticDeltaIds":[],
+      "nPlus1Definition":null,
+      "forbiddenCoreEscalations":["formal_variable_solving","multiple_valid_operator_sequences"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_equivalence_error_judgement",
+      "nBaseline":"Evaluate and compare two expressions, then identify whether a distributive or common-factor transformation is valid.",
+      "nRepresentations":["reasoning"],
+      "applicationCapable":true,
+      "allowedNPlus1SemanticDeltaIds":["compare_equivalent_models"],
+      "nPlus1Definition":"Compare two contextual models for the same situation and identify the single structural mismatch when they are not equivalent.",
+      "forbiddenCoreEscalations":["proof_by_formal_algebra_required","more_than_one_error_type"]
+    },
+    {
+      "knowledgePointId":"kp_g5a_u08_average_inverse_update",
+      "nBaseline":"Compute an integer average or balanced share from a known integer total and count.",
+      "nRepresentations":["application","reasoning"],
+      "applicationCapable":true,
+      "allowedNPlus1SemanticDeltaIds":["reverse_from_total","reverse_from_average","update_population"],
+      "nPlus1Definition":"Use exactly one inverse, missing-part or population-update relation beyond the direct-average baseline.",
+      "forbiddenCoreEscalations":["weighted_average","fractional_average","two_population_updates","formal_equation_required"]
+    }
+  ],
+  "coverage": {
+    "knowledgePointCount":11,
+    "applicationCapableKnowledgePointCount":7,
+    "numericOrReasoningOnlyKnowledgePointCount":4,
+    "semanticDeltaCount":8,
+    "allSemanticDeltasUsed":true,
+    "maxSemanticDeltaPerItem":1,
+    "nPlus2CoreItemCount":0
+  },
+  "generationPolicy": {
+    "defaultApplicationMix":{"N":30,"N_PLUS_1":70},
+    "coreAllowedDepths":["N","N_PLUS_1"],
+    "challengeOnlyDepths":["N_PLUS_2"],
+    "depthSelectionMustNotChangeKnowledgePointIdentity":true,
+    "semanticDeltaMustBeAllowlistedForKnowledgePoint":true,
+    "semanticDeltaCountMustMatchDepth":true
+  },
+  "acceptance": {
+    "allKnowledgePointsHaveNBaseline":true,
+    "allApplicationCapableKnowledgePointsHaveNPlus1Allowlist":true,
+    "allSemanticDeltasAreUsed":true,
+    "maxSemanticDeltaPerItem":1,
+    "accidentalNPlus2Allowed":false,
+    "formalXEquationRequired":false,
+    "elementaryArithmeticSolutionPathRequired":true
+  },
+  "goalDistance": {
+    "before":"D3_G5A_U08_KP_PATTERN_GROUP_TAGS_FROZEN_DEPTH_UNDEFINED",
+    "after":"D2_G5A_U08_N_AND_NPLUS1_SEMANTIC_DELTA_MATRIX_FROZEN",
+    "distanceReduced":"All eleven KPs now have an explicit N baseline; seven application-capable KPs have allowlisted N+1 semantic deltas; the one-delta rule prevents accidental N+2 scope growth.",
+    "remainingBlockers":["Application TemplateFamily and SDG ContextVariant contracts are not defined","FormalMapping, answer models and validator contracts are not defined","PatternSpecs and runtime remain hidden/unimplemented"],
+    "nextShortestStep":"S60D_G5A_U08_ApplicationTemplateAndSDGContextContract"
+  }
+}

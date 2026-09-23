@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03F_W3DirectProductVerticalSlice011Implementation",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E6_D0_COMPLETE",
+  "actualEvidenceLevel": "E6_D0_COMPLETE",
+  "claimedStatus": "PASS_CI_SYNCED_AND_MERGED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": true,
+    "humanReviewReady": true,
+    "productionAdmitted": true,
+    "d0Complete": true
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "site/modules/curriculum/registry/g4b-u06-one-decimal-times-integer-selector-projection.js",
+      "site/modules/curriculum/registry/batch-a-selector-p03f11-extension.js",
+      "site/modules/curriculum/batch-a/source-pattern-full-product-p03f11-extension.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-generator-p03f11.js",
+      "site/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f11.js",
+      "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p03f11-extension.js",
+      "src/curriculum/full-product/p03f-slice011-product-admission.mjs",
+      "tools/curriculum/validate-p03f-slice011-product-admission.mjs",
+      "tests/curriculum/p03f-slice011-decimal-multiplication.test.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer.js",
+      "tools/curriculum/render-p03f-slice011-product-acceptance.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/p03f-slice011-product-admission/g4b-u06-one-decimal-times-integer-numeric.html",
+      "docs/curriculum/output/p03f-slice011-product-admission/g4b-u06-one-decimal-times-integer-application.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/p03f-slice011-product-admission/g4b-u06-one-decimal-times-integer-numeric.pdf",
+      "docs/curriculum/output/p03f-slice011-product-admission/g4b-u06-one-decimal-times-integer-application.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE010_READBACK.md",
+      "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+      "data/curriculum/full-product/p03f/slice011-decimal-multiplication-authority.json",
+      "data/curriculum/full-product/p03f/slice011-product-admission.manifest.json",
+      "docs/curriculum/contracts/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE011_CONTRACT.md",
+      "docs/curriculum/output/P03F_W3_DIRECT_PRODUCT_VERTICAL_SLICE011_READBACK.md"
+    ],
+    "reviewArtifactPaths": [
+      "docs/curriculum/output/p03f-slice011-product-admission/p03f-slice011-product-acceptance-report.json"
+    ],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/p03f-slice011-product-admission/g4b-u06-one-decimal-times-integer-numeric.html",
+        "sha256": "785ae6e13b92d5c76fe66ea069f156279306a23b10ea25991389cbcb82d77012"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice011-product-admission/g4b-u06-one-decimal-times-integer-numeric.pdf",
+        "sha256": "c7a0ebf7923e7da57c7072e34d4257dfff8e319e6ea2b3c362517b65eea0d2d0"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice011-product-admission/g4b-u06-one-decimal-times-integer-application.html",
+        "sha256": "bd26c21e5c1f352ba9382b8ab622e4c399a0101042c58097da2d249650ed6e45"
+      },
+      {
+        "path": "docs/curriculum/output/p03f-slice011-product-admission/g4b-u06-one-decimal-times-integer-application.pdf",
+        "sha256": "30e01ccef8f967786c4f506e792e59406d6c62712e86ff769b635d8a1c8f2728"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "production_equivalent_output_review",
+    "canUnlockProduction": true,
+    "reviewArtifactRequired": true
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Queue position 11 is merged at D0 with exact source and PatternSpec parity, shared decimal number-system/domain-validator/arithmetic capabilities, W02 application lineage, reviewed numeric/application HTML/PDF artifacts, 2558-test full regression and fail-closed Chromium acceptance."
+  },
+  "nextStep": {
+    "taskId": "P03F_W3DirectProductVerticalSlice012Implementation",
+    "requiredEvidenceLevelBeforeStart": "E6_D0_COMPLETE",
+    "requiresSeparateApproval": false
+  },
+  "d0Closeout": {
+    "mode": "full_pipeline",
+    "implementationPrNumber": 428,
+    "implementationHeadSha": "17ca8a86b0a31b690ee0c3f6024bdad1987585c6",
+    "implementationMergeSha": "0c09defee80ecc52894f5eff4663524d012641be",
+    "implementationMergedAt": "2026-07-28T16:46:15Z",
+    "preD0NodeWorkflowRunId": null,
+    "preD0ChromiumWorkflowRunId": 30373495728,
+    "preD0ChromiumArtifactId": 8693944951,
+    "artifactMaterializationCommitSha": "999d42a99626f74c9337be029719bc4cd742b940",
+    "artifactMaterializationWorkflowRunId": 30373495728,
+    "reviewedArtifactId": 8693944951,
+    "reviewedArtifactDigest": "sha256:e79f8c827b45dda186a6394bcca6052231f294800ae44e84c262a37abde9e7ae",
+    "finalNodeWorkflowRunId": 30379513551,
+    "finalNodeWorkflowHeadSha": "17ca8a86b0a31b690ee0c3f6024bdad1987585c6",
+    "finalChromiumWorkflowRunId": 30379513845,
+    "finalChromiumArtifactId": 8696401165,
+    "nodeTestsPassed": 2558,
+    "nodeTestsFailed": 0,
+    "visualReviewPassed": true,
+    "finalExactHeadAccepted": true,
+    "finalChromiumArtifactDigest": "sha256:a300cde0206008785f8d5a4ff39503b6411da43e039dafb2a4625d327dfaefe3"
+  }
+}

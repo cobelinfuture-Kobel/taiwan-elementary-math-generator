@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/curriculum/w02-canonical-operation-unit.schema.json",
+  "title": "W02 page-evidenced canonical operation unit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaName", "schemaVersion", "programId", "taskId", "sourceNodeId", "queueOrdinal", "sourceCode", "sourceTitle", "domainFamily", "canonicalState", "sourceCandidate", "sourceEvidence", "knowledgePoints", "counts", "productionBoundary", "nextRequiredGate"],
+  "properties": {
+    "schemaName": { "const": "POSTGAPPW02CanonicalOperationUnitV1" },
+    "schemaVersion": { "const": 1 },
+    "programId": { "const": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1" },
+    "taskId": { "const": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization" },
+    "sourceNodeId": { "type": "string", "pattern": "^g[3-5][ab]_u\\d{2}_[3-5][ab]\\d{2}(a1|a)?$" },
+    "queueOrdinal": { "type": "integer", "minimum": 1, "maximum": 13 },
+    "sourceCode": { "type": "string", "minLength": 1 },
+    "sourceTitle": { "type": "string", "minLength": 1 },
+    "domainFamily": { "type": "string", "minLength": 1 },
+    "canonicalState": { "const": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING" },
+    "sourceCandidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "taskId", "candidateState"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^data/curriculum/knowledge/units/.+\\.knowledge-operation\\.json$" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "taskId": { "const": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification" },
+        "candidateState": { "const": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING" }
+      }
+    },
+    "sourceEvidence": { "type": "object" },
+    "knowledgePoints": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["knowledgePointId", "knowledgePointName", "scope", "evidencePages", "applicationClassification", "classificationRationale", "operationModels"],
+        "properties": {
+          "knowledgePointId": { "type": "string", "minLength": 1 },
+          "knowledgePointName": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "evidencePages": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "integer", "minimum": 1 } },
+          "applicationClassification": { "enum": ["APPLICATION_REQUIRED", "APPLICATION_COMPATIBLE", "APPLICATION_NOT_APPLICABLE"] },
+          "classificationRationale": { "type": "string", "minLength": 8 },
+          "operationModels": { "type": "array", "minItems": 1, "maxItems": 1, "items": { "$ref": "#/$defs/operationModel" } }
+        }
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["knowledgePointCount", "canonicalOperationModelCount"],
+      "properties": {
+        "knowledgePointCount": { "type": "integer", "minimum": 1 },
+        "canonicalOperationModelCount": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "productionBoundary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["patternSpecsAuthored", "storyTemplatesAuthored", "runtimeConsumerEnabled", "worksheetOutputAllowed", "publicSelectionEnabled", "productionAdmissionAllowed"],
+      "properties": {
+        "patternSpecsAuthored": { "const": false },
+        "storyTemplatesAuthored": { "const": false },
+        "runtimeConsumerEnabled": { "const": false },
+        "worksheetOutputAllowed": { "const": false },
+        "publicSelectionEnabled": { "const": false },
+        "productionAdmissionAllowed": { "const": false }
+      }
+    },
+    "nextRequiredGate": { "const": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION" }
+  },
+  "$defs": {
+    "operationModel": {
+      "type": "object", "additionalProperties": false,
+      "required": ["modelId", "operationFamilyId", "canonicalExpressions", "operandRoles", "unknownRoles", "numberConstraints", "equivalentForms", "answerType", "validationInvariants"],
+      "properties": {
+        "modelId": { "type": "string", "pattern": "^op_" },
+        "operationFamilyId": { "type": "string", "minLength": 1 },
+        "canonicalExpressions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "operandRoles": { "type": "object", "minProperties": 1, "additionalProperties": { "type": "string", "minLength": 1 } },
+        "unknownRoles": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "numberConstraints": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "equivalentForms": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "answerType": { "type": "string", "minLength": 1 },
+        "validationInvariants": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      }
+    }
+  }
+}

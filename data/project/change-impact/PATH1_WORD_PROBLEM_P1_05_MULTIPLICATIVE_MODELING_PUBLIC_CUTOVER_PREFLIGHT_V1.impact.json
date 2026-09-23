@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_WORD_PROBLEM_P1_05_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_WORD_PROBLEM_P1_05_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Planning-only P1-05 public cutover preflight. sharedExecutableChange=true is a bounded-lane selection shim only. The PR locks route/query/UI/public-metadata/deployed-acceptance contracts but does not modify product runtime, public binding, Path1 matrix, PatternSpecs, generator, validator, worksheet adapter, G4B-U01 modeling authority, P1-03/P1-04 routes, P1-01/P1-02 equal-groups transfer, P1-12, or mastery semantics.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

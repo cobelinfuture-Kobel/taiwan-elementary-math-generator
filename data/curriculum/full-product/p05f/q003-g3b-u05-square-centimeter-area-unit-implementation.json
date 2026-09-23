@@ -1,0 +1,133 @@
+{
+  "schemaName": "P05FW5Q003SquareCentimeterAreaUnitImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice003Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 3,
+    "sliceId": "p05e_q003_r0_g3b_u05_3b05_profile_geometry_formula_c1",
+    "sourceId": "g3b_u05_3b05",
+    "runtimeProfileId": "profile_geometry_formula",
+    "knowledgePointId": "kp_area_square_centimeter_unit",
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q002_r0_g3a_u09_3a09_profile_geometry_property_c1",
+    "productMergeSha": "e7c35eb7779ed2881330b527227eb0ea45f09be7",
+    "evidenceDefinitionMergeSha": "fb0b24399d13a20144f2e505397e02016f868d3f",
+    "exactPagesRunId": "33884662896",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q003-g3b-u05-square-centimeter-area-unit-source-authority-preflight.json",
+    "sourceTitle": "面積與平方公分",
+    "sourcePdfTitle": "meow911_3b05_cm2_area.pdf",
+    "sourcePages": [1],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "directReviewedConcepts": [
+      "ONE_CENTIMETER_BY_ONE_CENTIMETER_SQUARE",
+      "ONE_SQUARE_CENTIMETER_AREA_UNIT",
+      "AREA_AS_TWO_DIMENSIONAL_COVERAGE",
+      "AREA_UNIT_DISTINCT_FROM_PERIMETER_UNIT"
+    ],
+    "embeddedHeaderUrlMismatchDisposition": "RECORDED_NON_BLOCKING_EMBEDDED_HEADER_URL_MISMATCH"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g3b_u05_square_centimeter_area_unit_p05f3",
+    "relationFamily": "SQUARE_CENTIMETER_AREA_UNIT_IDENTIFICATION",
+    "answerDomain": ["1 平方公分", "面積單位", "平方公分"],
+    "includedRelations": [
+      "IDENTIFY_ONE_SQUARE_CENTIMETER",
+      "MATCH_ONE_CM_BY_ONE_CM_SQUARE_TO_ONE_CM2",
+      "DISTINGUISH_AREA_UNIT_FROM_LENGTH_OR_PERIMETER_UNIT",
+      "RECOGNIZE_CM2_AS_AREA_UNIT"
+    ],
+    "excludedRelations": [
+      "COUNT_AREA_GRID_SQUARES",
+      "COMPUTE_IRREGULAR_GRID_AREA",
+      "CUT_REARRANGE_AREA_CONSERVATION",
+      "COMPARE_AREA_UNDER_SAME_PERIMETER",
+      "RECTANGLE_AREA_FORMULA",
+      "SQUARE_AREA_FORMULA",
+      "PERIMETER_COMPUTATION",
+      "APPLICATION_CONTEXT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g3b_u05_square_centimeter_area_unit",
+    "patternSpecIds": [
+      "ps_g3b_u05_identify_one_square_centimeter",
+      "ps_g3b_u05_match_unit_square_to_one_square_centimeter",
+      "ps_g3b_u05_distinguish_area_unit_from_length_unit",
+      "ps_g3b_u05_recognize_cm2_as_square_centimeter_unit"
+    ],
+    "questionMode": "diagram",
+    "applicationSuitability": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowed": false,
+    "maxQuestionCount": 240,
+    "requiresDiagramRepresentation": true
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g3b-u05-square-centimeter-unit-runtime-p05f3.js",
+    "validator": "validateG3BU05P05F3Question",
+    "diagramRenderer": "site/modules/renderer/square-centimeter-unit-diagram.js",
+    "htmlRenderer": "site/modules/renderer/html-renderer.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f3.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f3-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 45,
+    "sourceCountAfter": 46,
+    "visibleKnowledgePointCountBefore": 314,
+    "visibleKnowledgePointCountAfter": 315,
+    "g3bU05VisibleCount": 1,
+    "g3bU05HiddenPendingCount": 4,
+    "g3bU05NotSelectableCount": 4,
+    "questionTypeValue": "diagram",
+    "questionTypeLabel": "圖形題",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "postMergeEvidence": {
+    "workflow": ".github/workflows/p05f-w5-q003-live-pages-e2e.yml",
+    "automaticTrigger": "PUSH_MAIN_WITH_Q_SPECIFIC_PATHS_FILTER",
+    "manualFallback": "workflow_dispatch",
+    "pullRequestTrigger": false,
+    "workflowRunTrigger": false,
+    "waitForExactPagesBytes": true,
+    "sha256ExactDeployedBytes": true,
+    "classicUiGeneratorValidatorWorksheetRendererPrintArtifact": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice003-g3b-u05-square-centimeter-unit.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice003-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q001SemanticsTouched": false,
+    "q002SemanticsTouched": false,
+    "gridCountingTouched": false,
+    "areaConservationTouched": false,
+    "irregularGridAreaTouched": false,
+    "samePerimeterAreaComparisonTouched": false,
+    "rectangleSquareAreaFormulaTouched": false,
+    "perimeterComputationTouched": false,
+    "applicationContextTouched": false
+  }
+}

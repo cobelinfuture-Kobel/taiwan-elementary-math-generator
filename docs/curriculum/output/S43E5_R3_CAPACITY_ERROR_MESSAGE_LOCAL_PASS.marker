@@ -1,0 +1,27 @@
+S43E5_R3_CAPACITY_ERROR_MESSAGE_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+
+operator_readback:
+- tests 375
+- pass 375
+- fail 0
+- branch public-main up to date with public/main
+- working tree clean
+
+status:
+- capacity-aware error message implementation local test PASS
+- unique_pool_exhausted guard remains active
+- error payload includes availableUniqueQuestionCount, requestedQuestionCount, generatedQuestionCount
+- browser high-count error message smoke pending
+
+remaining_smoke:
+- use high question count on G3B-U01 二位數除以一位數商位判斷 or 商中有 0 的除法
+- expected behavior: generation may fail, but message explains available unique pool capacity and suggests lowering count or using mixed mode
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_R3_CAPACITY_ERROR_MESSAGE_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3B_U01_R3_CAPACITY_ERROR_MESSAGE_LOCAL_PASS_BROWSER_SMOKE_PENDING
+DISTANCE_REDUCED = capacity-aware error message passed local npm test
+REMAINING_BLOCKERS = browser high-count error message smoke pending; R3K closeout pending
+NEXT_SHORTEST_STEP = trigger high-count browser smoke and verify message text

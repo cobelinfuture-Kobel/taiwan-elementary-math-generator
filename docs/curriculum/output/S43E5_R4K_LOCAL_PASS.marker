@@ -1,0 +1,23 @@
+S43E5_R4K_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+operator_readback = tests 405, pass 405, fail 0, working tree clean
+status = PASS_AUTOMATED_BROWSER_PDF_READINESS_SMOKE
+
+validated:
+- G3B-U01 word-problem mixed worksheet path
+- 20 questions across five word-problem KP families
+- automated print-page readiness smoke
+- 2 question pages + 2 answer-key pages
+- no unresolved template slots
+- no filler cells in the deterministic 20-question smoke layout
+
+manual_browser_pdf_export:
+- optional
+- not executed by this automated task
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_WORD_PROBLEM_BROWSER_PDF_SMOKE_QAFIX_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D0_G3B_U01_WORD_PROBLEM_AUTOMATED_WORKSHEET_PIPELINE_PASS
+DISTANCE_REDUCED = G3B-U01 word problems now pass generator, validator, selector, worksheet, HTML print-page readiness, and answer-key automated validation
+REMAINING_BLOCKERS = optional manual browser PDF export smoke
+NEXT_SHORTEST_STEP = optional manual browser PDF export smoke, or proceed to the next curriculum unit/task if manual PDF export is not required

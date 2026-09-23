@@ -1,0 +1,103 @@
+{
+  "schemaName": "P04F13G3BU02MixedCapacityAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice013Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q013_r2_g3b_u02_3b02_profile_quantity_measurement_c1",
+    "queuePosition": 13,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q012_r2_g3a_u04_3a04_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 2
+  },
+  "source": {
+    "sourceNodeId": "g3b_u02_3b02",
+    "unitCode": "3B-U02",
+    "unitTitle": "公升與毫升",
+    "sourcePdfTitle": "meow911_3b02_l_ml.pdf",
+    "driveFileId": "1lQheLCRMyjeEaffdLdC54K50JmrESATZ",
+    "reviewedPages": [1],
+    "primaryWitnessPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_REUSED_FROM_P04F2_P04F7"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_capacity_mixed_unit_compare",
+      "canonicalNameZh": "公升毫升混合量比較",
+      "capabilityStatement": "學生能先換成共同單位，再比較以公升、毫升表示的容量。",
+      "reasoningInvariant": "比較不同容量單位時先建立等值表示，1公升固定等於1000毫升。",
+      "implementationBoundary": {
+        "included": ["litre-millilitre mixed representation comparison", "normalize both capacities to millilitres", "less-than equal greater-than relation"],
+        "excluded": ["capacity estimation", "word-problem semantics", "mixed-unit arithmetic"]
+      }
+    },
+    {
+      "knowledgePointId": "kp_capacity_mixed_unit_add_sub",
+      "canonicalNameZh": "公升毫升混合量加減",
+      "capabilityStatement": "學生能統一或正規化公升、毫升後進行容量加減。",
+      "reasoningInvariant": "加減前後保持總容量等值，1000毫升可進位成1公升。",
+      "implementationBoundary": {
+        "included": ["litre-millilitre mixed addition", "litre-millilitre mixed subtraction", "millilitre carry to litre", "litre borrow to millilitre"],
+        "excluded": ["capacity estimation", "word-problem semantics", "negative capacity results"]
+      }
+    }
+  ],
+  "formalMapping": {
+    "runtimeProfileId": "profile_quantity_measurement",
+    "dimensionId": "CAPACITY",
+    "unitFamilyId": "METRIC_CAPACITY",
+    "millilitresPerLitre": 1000,
+    "compareRequiredW4CapabilityIds": ["cap_mixed_unit_normalization", "cap_quantity_domain_validator", "cap_quantity_semantic_role_binding", "cap_unit_conversion"],
+    "addSubRequiredW4CapabilityIds": ["cap_integer_add_sub", "cap_mixed_unit_normalization", "cap_quantity_domain_validator", "cap_quantity_semantic_role_binding", "cap_unit_conversion"],
+    "sharedFoundationCapabilityIds": ["cap_quantity_dimension_unit_identity", "cap_pattern_spec_resolution", "cap_deterministic_answer_model", "cap_worksheet_document_assembly", "cap_answer_key_projection", "cap_html_print_renderer", "cap_text_numeric_representation"]
+  },
+  "patternGroups": [
+    {"patternGroupId": "pg_g3b_u02_capacity_mixed_unit_compare_numeric", "displayName": "公升毫升混合量比較", "knowledgePointId": "kp_capacity_mixed_unit_compare", "questionMode": "numeric", "representationTag": "capacity_mixed_unit_compare"},
+    {"patternGroupId": "pg_g3b_u02_capacity_mixed_unit_add_sub_numeric", "displayName": "公升毫升混合量加減", "knowledgePointId": "kp_capacity_mixed_unit_add_sub", "questionMode": "numeric", "representationTag": "capacity_mixed_unit_add_sub"}
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g3b_u02_capacity_mixed_unit_compare_numeric",
+      "operationModelId": "op_g3b_u02_capacity_mixed_unit_compare",
+      "operationFamilyId": "quantity_measurement",
+      "answerType": "capacity_comparison_relation",
+      "requestedUnknownRole": "comparisonRelation",
+      "givenRoles": ["leftCapacityQuantity", "rightCapacityQuantity"],
+      "constraints": {"millilitresPerLitre": 1000, "relations": ["LESS_THAN", "EQUAL", "GREATER_THAN"], "commonUnit": "MILLILITRE", "capacityEstimationForbidden": true},
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_MIXED_CAPACITY_COMPARISON"
+    },
+    {
+      "patternSpecId": "ps_g3b_u02_capacity_mixed_unit_add_sub_numeric",
+      "operationModelId": "op_g3b_u02_capacity_mixed_unit_add_sub",
+      "operationFamilyId": "quantity_measurement",
+      "answerType": "mixed_capacity_quantity_l_ml",
+      "requestedUnknownRole": "resultCapacityQuantity",
+      "givenRoles": ["leftCapacityQuantity", "rightCapacityQuantity", "operation"],
+      "constraints": {"millilitresPerLitre": 1000, "operations": ["ADD", "SUBTRACT"], "regrouping": ["CARRY", "BORROW"], "negativeResultForbidden": true, "capacityEstimationForbidden": true},
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_MIXED_CAPACITY_ARITHMETIC"
+    }
+  ],
+  "acceptance": {
+    "expectedPublicSourceCount": 40,
+    "expectedPublicKnowledgePointCount": 278,
+    "expectedG3BU02VisibleCount": 5,
+    "expectedG3BU02HiddenCount": 0,
+    "expectedG3BU02NotSelectableCount": 0,
+    "q002SingleKnowledgePointMaxQuestionCount": 24,
+    "q007SingleKnowledgePointMaxQuestionCount": 24,
+    "q013SingleKnowledgePointMaxQuestionCount": 24,
+    "sourceUnitMaxQuestionCount": 24,
+    "compareRelationCoverageRequired": ["LESS_THAN", "EQUAL", "GREATER_THAN"],
+    "addSubOperationCoverageRequired": ["ADD", "SUBTRACT"],
+    "addSubRegroupingCoverageRequired": ["CARRY", "BORROW"],
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "globalContextExpansionAllowed": false
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schemaName": "P03FSlice036G5AU01Rank9DecimalAuthorityV1",
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice036Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 36,
+    "sliceId": "p03e_q036_r9_g5a_u01_5a01_profile_decimal_c1",
+    "rank": 9,
+    "profileId": "profile_decimal"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5a_u01_5a01",
+    "sourceTitle": "多位小數與加減",
+    "unitCode": "5A-U01",
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g5a_u01_5a01.knowledge-operation.json",
+    "canonicalOperationPath": "data/curriculum/application/operations/w02/g5a_u01_5a01.canonical-operation.json",
+    "hiddenPatternSpecPath": "data/curriculum/application/pattern-specs/w02/g5a_u01_5a01.hidden-pattern-spec.json"
+  },
+  "knowledgePointIds": [
+    "kp_g5a_u01_decimal_add_sub",
+    "kp_g5a_u01_decimal_compare",
+    "kp_g5a_u01_place_value_factor_relation"
+  ],
+  "formalMappings": [
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_add_sub",
+      "operationModelId": "op_g5a_u01_decimal_add_sub",
+      "operationFamilyId": "decimal_add_sub",
+      "canonicalExpressions": ["result = alignDecimal(left) + alignDecimal(right)", "result = alignDecimal(left) - alignDecimal(right)"],
+      "answerType": "decimal"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_compare",
+      "operationModelId": "op_g5a_u01_decimal_compare",
+      "operationFamilyId": "decimal_compare",
+      "canonicalExpressions": ["comparison = compare(normalizeScale(left), normalizeScale(right))"],
+      "answerType": "comparison_symbol_or_order"
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_place_value_factor_relation",
+      "operationModelId": "op_g5a_u01_place_value_factor_relation",
+      "operationFamilyId": "place_factor",
+      "canonicalExpressions": ["higherPlaceValue = lowerPlaceValue * 10", "lowerPlaceValue = higherPlaceValue / 10"],
+      "answerType": "numeric_relation"
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_add_sub",
+      "patternGroupId": "pg_g5a_u01_decimal_add_sub_numeric",
+      "patternSpecIds": ["ps_g5a_u01_decimal_add_sub_result_numeric"]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_decimal_compare",
+      "patternGroupId": "pg_g5a_u01_decimal_compare_numeric",
+      "patternSpecIds": ["ps_g5a_u01_decimal_compare_comparison_numeric"]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u01_place_value_factor_relation",
+      "patternGroupId": "pg_g5a_u01_place_value_factor_relation_numeric",
+      "patternSpecIds": ["ps_g5a_u01_place_value_factor_relation_higher_place_value_numeric", "ps_g5a_u01_place_value_factor_relation_lower_place_value_numeric"]
+    }
+  ],
+  "requiredCapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+  "inventoryBefore": {"publicSources": 32, "visibleKnowledgePoints": 231, "sourceVisible": 2, "sourceHidden": 6},
+  "inventoryAfter": {"publicSources": 32, "visibleKnowledgePoints": 234, "sourceVisible": 5, "sourceHidden": 3},
+  "forbidden": ["application PatternSpecs", "Global Context expansion", "parallel pipeline", "sibling KnowledgePoint promotion", "Slice037"],
+  "status": "CORE_IMPLEMENTATION_CANDIDATE"
+}

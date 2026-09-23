@@ -1,0 +1,330 @@
+{
+  "schemaName": "P05FW5Q023AreaConservationIrregularGridSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q023_AreaConservationIrregularGrid_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 23,
+    "sliceId": "p05e_q023_r2_g3b_u05_3b05_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice023Implementation",
+    "previousSliceId": "p05e_q022_r2_g3a_u05_3a05_profile_geometry_property_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W5",
+    "primarySourceNodeId": "g3b_u05_3b05",
+    "supportingSourceNodeIds": [
+      "g3b_u05_3b05"
+    ],
+    "intraWavePrerequisiteRank": 2,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_area_conservation_cut_rearrange",
+      "kp_irregular_grid_area"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredProductNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ],
+    "admissionState": "QUEUE_FROZEN_IMPLEMENTATION_NOT_STARTED",
+    "productProductionAdmitted": false,
+    "implementationAllowedByP05E": false
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q022_r2_g3a_u05_3a05_profile_geometry_property_c1",
+    "productPrNumber": 874,
+    "productMergeSha": "7d3f31bffe9386889d1994b0cbe3e3852f948c77",
+    "prGateRunId": "34457438488",
+    "pagesDeploymentRunId": "34457627044",
+    "exactPagesRunId": "34457627030",
+    "evidenceArtifactId": "10144178845",
+    "evidenceArtifactName": "p05f-w5-q022-pages-e2e",
+    "evidenceArtifactDigest": "sha256:d28f15a21e171a10705174103d10b2045d529cac9a01b2ee132879ab0bf4746f",
+    "status": "PASS_E6_D0_COMPLETE",
+    "exactPagesWorkflowConclusion": "success",
+    "exactPagesEvidenceUploaded": true
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g3b_u05_3b05",
+    "sourceTitle": "面積與平方公分",
+    "sourcePdfTitle": "meow911_3b05_cm2_area.pdf",
+    "sourcePdfDriveFileId": "1JqksZyiKwD_cnZUN_zfmGlXwRpa_0w-8",
+    "sourceMetadataDriveFileId": "1MAikylRPat5hR2LMFx87mOOD0Sfir-O5",
+    "verificationNotesDriveFileId": "1BWQvqOYz1UXAuqfYh-l8WB6WUVMOLDni",
+    "sourceUrlFromMetadata": "https://meow911.com/3b05/",
+    "metadataSourceTitle": "平方公分與面積",
+    "embeddedHeaderUrlFromPdf": "https://meow911.com/3a06/",
+    "pageCount": 1,
+    "reviewMethod": "R02_REVIEWED_SOURCE_PAGES_PLUS_Q012_FULL_PAGE_VISUAL_READBACK",
+    "reviewedPages": [
+      1
+    ],
+    "page1DirectEvidence": {
+      "areaConservation": {
+        "authoritySource": "Q012_FULL_PAGE_VISUAL_READBACK_LATER_SIBLING_PANEL_INVENTORY",
+        "visibleStatement": "正方形切割後 翻轉拼貼面積不會改變",
+        "directlySupportedConcepts": [
+          "CUT_AND_REARRANGE_WITHOUT_AREA_CHANGE"
+        ]
+      },
+      "irregularGridArea": {
+        "authoritySource": "Q012_FULL_PAGE_VISUAL_READBACK",
+        "observedPanels": [
+          "不規則形狀的面積 數格子的技巧",
+          "把綠色面積接著塗色 填滿成8cm²"
+        ],
+        "directlySupportedConcepts": [
+          "IRREGULAR_GRID_CELL_COUNTING",
+          "AREA_COMPLETION_TO_KNOWN_TOTAL"
+        ]
+      },
+      "priorSameSourcePanelsUsedAsPrerequisiteEvidenceOnly": [
+        "每1小格面積=1cm²",
+        "正方形被平分的 數格子技巧"
+      ],
+      "useRestriction": "Q023 semantic text is bound to R02 reviewed candidates; Q012 visual readback is used only to confirm same-source page evidence and panel presence."
+    },
+    "sourceIdentityCrossCheck": {
+      "queueSourceNodeId": "g3b_u05_3b05",
+      "r02SourceNodeId": "g3b_u05_3b05",
+      "q012SourceNodeId": "g3b_u05_3b05",
+      "fileName": "meow911_3b05_cm2_area.pdf",
+      "metadataSourceUrl": "https://meow911.com/3b05/",
+      "r02SourceTitle": "面積與平方公分",
+      "metadataSourceTitle": "平方公分與面積",
+      "pdfHeaderTitle": "面積與平方公分",
+      "sourceTitleNormalizationObserved": true,
+      "embeddedHeaderUrlMismatchObserved": true,
+      "sourceRefAmbiguity": false,
+      "disposition": "MATCHING_SOURCE_ID_FILE_AND_METADATA_URL_WITH_NON_BLOCKING_TITLE_ORDER_NORMALIZATION_AND_EMBEDDED_HEADER_URL_MISMATCH"
+    },
+    "driveMetadataReadback": {
+      "metadataManualReviewed": false,
+      "metadataExtractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g3b_u05_3b05",
+    "reviewedPages": [
+      1
+    ],
+    "knowledgePoints": [
+      {
+        "knowledgePointId": "kp_area_conservation_cut_rearrange",
+        "canonicalNameZh": "剪拼與面積守恆",
+        "capabilityStatement": "學生能利用切割、平移或重組判斷面積不變。",
+        "reasoningInvariant": "只要沒有增減、重疊或遺失區塊，重新排列前後面積相等。",
+        "category": "geometry",
+        "evidencePages": [
+          1
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_irregular_grid_area",
+        "canonicalNameZh": "不規則方格圖形面積",
+        "capabilityStatement": "學生能分割或補合不規則方格圖形以求面積。",
+        "reasoningInvariant": "不規則圖形可分解為可計數區塊，部分方格需按實際比例合併。",
+        "category": "geometry",
+        "evidencePages": [
+          1
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ],
+    "sameSourceCandidateIds": [
+      "kp_area_square_centimeter_unit",
+      "kp_area_grid_counting",
+      "kp_area_conservation_cut_rearrange",
+      "kp_irregular_grid_area",
+      "kp_area_compare_same_perimeter"
+    ]
+  },
+  "sourceConstraintReconciliation": {
+    "cutTranslateRearrangeAreaConservationSupported": true,
+    "noAdditionNoOverlapNoLossInvariantSupported": true,
+    "irregularGridDecompositionSupported": true,
+    "irregularGridCompletionSupported": true,
+    "partialGridActualProportionCombinationSupported": true,
+    "priorSquareCentimeterUnitAbsorbed": false,
+    "priorAreaGridCountingAbsorbed": false,
+    "samePerimeterAreaComparisonExpansion": false,
+    "rectangleSquareFormulaExpansion": false,
+    "perimeterComputationExpansion": false,
+    "realWorldAreaEstimationExpansion": false,
+    "applicationImplementationAllowed": false,
+    "embeddedHeaderUrlMismatchIsNonBlocking": true,
+    "metadataTitleOrderDifferenceIsNonBlocking": true
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_geometry_formula",
+    "classificationRuleId": "rule_geometry_formula",
+    "appliedModifierIds": [],
+    "perKnowledgePointMappings": [
+      {
+        "knowledgePointId": "kp_area_conservation_cut_rearrange",
+        "mappingId": "r04map_area_conservation_cut_rearrange",
+        "primaryRuntimeProfileId": "profile_geometry_formula",
+        "requiredRuntimeCapabilityIds": [
+          "cap_pattern_spec_resolution",
+          "cap_deterministic_answer_model",
+          "cap_worksheet_document_assembly",
+          "cap_answer_key_projection",
+          "cap_html_print_renderer",
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ],
+        "optionalRuntimeCapabilityIds": [],
+        "forbiddenRuntimeCapabilityIds": [],
+        "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+        "undeliveredRequiredCapabilityIds": [
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ]
+      },
+      {
+        "knowledgePointId": "kp_irregular_grid_area",
+        "mappingId": "r04map_irregular_grid_area",
+        "primaryRuntimeProfileId": "profile_geometry_formula",
+        "requiredRuntimeCapabilityIds": [
+          "cap_pattern_spec_resolution",
+          "cap_deterministic_answer_model",
+          "cap_worksheet_document_assembly",
+          "cap_answer_key_projection",
+          "cap_html_print_renderer",
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ],
+        "optionalRuntimeCapabilityIds": [],
+        "forbiddenRuntimeCapabilityIds": [],
+        "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+        "undeliveredRequiredCapabilityIds": [
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ]
+      }
+    ],
+    "contractOnlyRequiredCapabilityIdsFromCurrentR04": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation"
+    ],
+    "frozenQueueDependencyClosureCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "r02CandidateCategories": [
+      "geometry",
+      "geometry"
+    ],
+    "r02CategoryAlignedWithFrozenProfile": true,
+    "profileCategoryMismatchAcknowledged": false,
+    "profileCategoryMismatchDisposition": "NONE",
+    "r04AuthorityTouched": false
+  },
+  "q023ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_area_conservation_cut_rearrange",
+      "kp_irregular_grid_area"
+    ],
+    "includedRelations": [
+      "PRESERVE_AREA_UNDER_CUT_TRANSLATE_OR_REARRANGE_WITHOUT_ADD_OVERLAP_OR_LOSS",
+      "COMPUTE_IRREGULAR_GRID_AREA_BY_DECOMPOSITION_INTO_COUNTABLE_PARTS",
+      "COMPUTE_IRREGULAR_GRID_AREA_BY_COMPLETION_TO_A_KNOWN_TOTAL",
+      "COMBINE_PARTIAL_GRID_CELLS_BY_ACTUAL_PROPORTION"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": [
+      "kp_area_square_centimeter_unit",
+      "kp_area_grid_counting"
+    ],
+    "excludedSameSourceKnowledgePointIds": [
+      "kp_area_square_centimeter_unit",
+      "kp_area_grid_counting",
+      "kp_area_compare_same_perimeter"
+    ],
+    "excludedRelations": [
+      "SQUARE_CENTIMETER_UNIT_IDENTITY_AS_TARGET_KP",
+      "BASIC_GRID_COUNTING_AS_TARGET_KP",
+      "COMPARE_AREA_UNDER_SAME_PERIMETER",
+      "RECTANGLE_AREA_FORMULA",
+      "SQUARE_AREA_FORMULA",
+      "PERIMETER_COMPUTATION",
+      "REAL_WORLD_AREA_ESTIMATION",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "Q024_OR_LATER_SEMANTICS"
+    ],
+    "requiresGeometryDiagramRepresentation": true,
+    "requiresGeometryFormulaEvaluation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresGeometryPropertyReasoning": true,
+    "applicationSuitabilityFromR02": [
+      "APPLICATION_COMPATIBLE",
+      "APPLICATION_COMPATIBLE"
+    ],
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "frozenQueueAuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q024OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "sourceAuthoritySufficientForQ023ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "r02AuthorityBound": true,
+    "runtimeCapabilityContractLocked": true,
+    "twoKnowledgePointScopeLocked": true,
+    "existingSameSourceQ003Q012Protected": true,
+    "futureSameSourceAreaComparisonProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice023Implementation"
+  }
+}

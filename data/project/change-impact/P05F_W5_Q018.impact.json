@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P05F_W5_Q018_IMPLEMENTATION_AND_FACE_TARGET_SEMANTIC_REPAIR",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointId": "kp_g5a_u10a1_cube_cuboid_face_relationship",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5a_u10a1_cube_cuboid_edge_length",
+    "kp_g5a_u10a1_cube_cuboid_face_relationship"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5a_u10a1_cube_cuboid_edge_length": "FOCUSED_PASS",
+    "kp_g5a_u10a1_cube_cuboid_face_relationship": "PENDING"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P05F_W5_Q018.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  }
+}

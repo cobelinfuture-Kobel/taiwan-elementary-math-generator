@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1.validation.json",
+  "classificationNote": "This is a bounded additive Path1-local runtime capability for P1-03 only. New Path1-local PatternSpecs, generator, fail-closed validator, and non-public worksheet adapter are not wired into any existing public/legal route in this implementation slice. Existing P1-03 arithmetic, P1-01/P1-02 equal-groups transfer, public query/UI state, P1-04, P1-12 public routing, the Path1 matrix, and canonical G3B-U08 authority remain unchanged.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/data/curriculum/application/schema/application-admission-record.schema.json",
+  "title": "ApplicationAdmissionRecordV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "candidateId",
+    "candidateType",
+    "bindingId",
+    "currentStage",
+    "decision",
+    "evidenceRefs",
+    "blockingReasons",
+    "productionAdmissionAllowed"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "candidateId": { "type": "string", "minLength": 3 },
+    "candidateType": {
+      "enum": [
+        "SINGLE_APPLICATION_BINDING",
+        "N_PLUS_ONE_PROOF",
+        "PBL_CONTEXT_BINDING",
+        "SURFACE_TEMPLATE_BINDING"
+      ]
+    },
+    "bindingId": { "type": "string", "pattern": "^appctx_" },
+    "currentStage": {
+      "enum": [
+        "DRAFT",
+        "KNOWLEDGE_POINT_ELIGIBILITY_VERIFIED",
+        "OPERATION_MODEL_VERIFIED",
+        "CONTEXT_AFFORDANCES_VERIFIED",
+        "ROLE_BINDING_VERIFIED",
+        "UNIT_FLOW_VERIFIED",
+        "SEMANTIC_CONSTRAINTS_VERIFIED",
+        "SURFACE_TEMPLATES_VERIFIED",
+        "ANSWER_WITNESS_VERIFIED",
+        "VALIDATOR_READY",
+        "QA_VALIDATED",
+        "PRODUCTION_ADMITTED"
+      ]
+    },
+    "decision": {
+      "enum": [
+        "PENDING",
+        "ACCEPTED_FOR_NEXT_STAGE",
+        "PRODUCTION_ADMITTED",
+        "REJECTED_DECORATIVE_CONTEXT",
+        "REJECTED_AFFORDANCE_MISMATCH",
+        "REJECTED_ROLE_MISMATCH",
+        "REJECTED_UNIT_FLOW_MISMATCH",
+        "REJECTED_SEMANTIC_CONSTRAINT_MISSING",
+        "REJECTED_FORBIDDEN_COMBINATION",
+        "REJECTED_NON_UNIQUE_ANSWER",
+        "REJECTED_TEMPLATE_OPERATION_LEAKAGE",
+        "DEFERRED_MISSING_N_PLUS_ONE_PROOF",
+        "DEFERRED_MISSING_PBL_CONTRACT",
+        "DEFERRED_VALIDATOR_NOT_READY"
+      ]
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 3 },
+      "uniqueItems": true
+    },
+    "blockingReasons": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "productionAdmissionAllowed": { "type": "boolean" },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewStatus", "reviewType"],
+      "properties": {
+        "reviewStatus": { "enum": ["NOT_REQUIRED_YET", "PENDING", "PASS", "FAIL"] },
+        "reviewType": { "enum": ["NONE", "AUTOMATED", "HUMAN", "AUTOMATED_AND_HUMAN"] },
+        "reviewEvidenceRefs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 3 }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "decision": { "const": "PRODUCTION_ADMITTED" } },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": {
+          "currentStage": { "const": "PRODUCTION_ADMITTED" },
+          "productionAdmissionAllowed": { "const": true },
+          "evidenceRefs": { "minItems": 3 },
+          "blockingReasons": { "maxItems": 0 }
+        },
+        "required": ["review"],
+        "allOf": [
+          {
+            "properties": {
+              "review": {
+                "properties": { "reviewStatus": { "const": "PASS" } }
+              }
+            }
+          }
+        ]
+      },
+      "else": {
+        "properties": {
+          "productionAdmissionAllowed": { "const": false }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "enum": [
+              "REJECTED_DECORATIVE_CONTEXT",
+              "REJECTED_AFFORDANCE_MISMATCH",
+              "REJECTED_ROLE_MISMATCH",
+              "REJECTED_UNIT_FLOW_MISMATCH",
+              "REJECTED_SEMANTIC_CONSTRAINT_MISSING",
+              "REJECTED_FORBIDDEN_COMBINATION",
+              "REJECTED_NON_UNIQUE_ANSWER",
+              "REJECTED_TEMPLATE_OPERATION_LEAKAGE",
+              "DEFERRED_MISSING_N_PLUS_ONE_PROOF",
+              "DEFERRED_MISSING_PBL_CONTRACT",
+              "DEFERRED_VALIDATOR_NOT_READY"
+            ]
+          }
+        },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": { "blockingReasons": { "minItems": 1 } }
+      }
+    }
+  ]
+}

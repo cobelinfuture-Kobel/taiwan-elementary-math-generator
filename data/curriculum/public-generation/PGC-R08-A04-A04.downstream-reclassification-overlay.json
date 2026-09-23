@@ -1,0 +1,37 @@
+{
+  "schemaName": "PGCR08A04A04DownstreamReclassificationOverlayV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A04_QuestionTypeStateSettlementFocusedReproductionAnd9RouteRepair",
+  "status": "PASS_1_ROUTE_RECLASSIFIED_AFTER_QUESTION_STATE_SETTLEMENT",
+  "sourceReadbackPath": "data/curriculum/public-generation/PGC-R08-A04-A04.question-type-state-settlement-readback.json",
+  "summary": {
+    "questionTypeStateSettlementResolvedCount": 9,
+    "fullNineGatePassCount": 8,
+    "reclassifiedRouteCount": 1,
+    "regenerateIdentityTimeoutCount": 1
+  },
+  "rows": [
+    {
+      "routeIndex": 296,
+      "routeId": "pgc_r03_g4b_u06_4b06_application_19f9fc46c516",
+      "sourceId": "g4b_u06_4b06",
+      "fromFailureFamily": "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT",
+      "toFailureFamily": "REGENERATE_IDENTITY_TIMEOUT",
+      "passedGateCodes": [
+        "UI_OPTIONS_PASS",
+        "GENERATE_BUTTON_PASS",
+        "QUESTION_COUNT_PASS",
+        "QUESTION_IDENTITY_PASS",
+        "ANSWER_VALIDATION_PASS",
+        "HTML_PASS",
+        "PDF_PASS",
+        "ANSWER_KEY_PASS"
+      ],
+      "remainingGateCode": "REGENERATE_PASS",
+      "errorCode": "page.waitForFunction: Timeout 120000ms exceeded.",
+      "classification": "ORTHOGONAL_POST_GENERATION_FAILURE",
+      "perRoutePatchAuthorized": false
+    }
+  ]
+}

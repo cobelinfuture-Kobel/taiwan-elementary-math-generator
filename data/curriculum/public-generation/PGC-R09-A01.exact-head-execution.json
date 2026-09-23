@@ -1,0 +1,51 @@
+{
+  "schemaName": "PGCR09A01ExactHeadExecutionV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R09-A01_ExactHeadRegressionAndCapabilityGateExecution",
+  "status": "PENDING_EXACT_HEAD_EXECUTION",
+  "preconditionPath": "data/curriculum/public-generation/PGC-R09-A00.d0-closeout-preflight.json",
+  "routeMatrixPath": "data/curriculum/public-generation/PGC-R08-A00.public-generate-button-e2e-scope.json",
+  "runnerPath": "tools/curriculum/run-pgc-r08-a03-all-legal-routes.mjs",
+  "workflowPath": ".github/workflows/pgc-r00-public-generation-scope.yml",
+  "exactHeadGate": {
+    "fullRepositoryRegression": true,
+    "canonicalPGCR00Contract": true,
+    "r08A05TenRouteReplay": true,
+    "r08A06ThreeRouteReplay": true,
+    "all793LegalRouteReplay": true,
+    "questionCountPerRoute": 20,
+    "answerKeyCountPerRoute": 20,
+    "requiredRouteGates": 9,
+    "expectedExecutedRouteCount": 793,
+    "expectedTerminalRouteCount": 793,
+    "expectedPassRouteCount": 793,
+    "expectedFailRouteCount": 0,
+    "expectedBrowserConsoleErrorCount": 0,
+    "expectedBrowserPageErrorCount": 0
+  },
+  "evidencePolicy": {
+    "realChromiumRequired": true,
+    "artifactUploadRequired": true,
+    "workflowMustBeReadOnly": true,
+    "productRuntimeMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "knowledgePointMutationAllowed": false,
+    "patternGroupMutationAllowed": false,
+    "patternSpecMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "rendererMutationAllowed": false,
+    "slice014Allowed": false
+  },
+  "nextTaskOnPass": "PGC-R09-A02_RealArtifactArchiveAndHashManifest",
+  "goalDistance": {
+    "before": "D1_R09_D0_ACCEPTANCE_MATRIX_AND_CLOSEOUT_EVIDENCE_CONTRACT_FROZEN",
+    "afterOnPass": "D1_R09_EXACT_HEAD_PRODUCT_AND_ROUTE_GATES_PROVEN",
+    "remainingAfterPass": [
+      "R09_ARTIFACT_MANIFEST_NOT_MATERIALIZED",
+      "R09_DEPLOYED_PUBLIC_SITE_SMOKE_NOT_RECONCILED",
+      "R09_FINAL_D0_NOT_MERGED"
+    ]
+  }
+}

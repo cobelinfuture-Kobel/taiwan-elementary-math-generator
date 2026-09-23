@@ -1,0 +1,248 @@
+{
+  "schemaName": "Path1P106EstimateTrialQuotientPublicCutoverPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_PREFLIGHT_V1",
+  "status": "P1_06_PUBLIC_CUTOVER_PREFLIGHT_LOCKED_NO_PRODUCT_CHANGE",
+  "operatorApproval": "APPROVED_FOR_PREFLIGHT_ONLY",
+  "implementationAllowed": false,
+  "publicCutoverApplied": false,
+  "productRuntimeChanged": false,
+  "visibleUiChanged": false,
+  "queryStateChanged": false,
+  "publicBindingChanged": false,
+  "path1MatrixChanged": false,
+  "sourceSemanticsChanged": false,
+  "p106GeneratorChanged": false,
+  "p106ValidatorChanged": false,
+  "p106PatternSpecsChanged": false,
+  "p106WorksheetAdapterChanged": false,
+  "p105PublicRouteChanged": false,
+  "p107OrLaterRuntimeChanged": false,
+  "p111RemainderSemanticsChanged": false,
+  "p112PublicRouteChanged": false,
+  "classicRuntimeChanged": false,
+  "masteryChanged": false,
+  "authorityRefs": {
+    "p106Implementation": "data/curriculum/application/contracts/PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_IMPLEMENTATION_V1.json",
+    "p106PatternRegistry": "data/curriculum/pattern_specs/PATH1_P1_06_EstimateTrialQuotientPatternSpecRegistry.json",
+    "p106Generator": "site/modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-generator.js",
+    "p106Validator": "site/modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-validator.js",
+    "p106WorksheetAdapter": "site/assets/browser/pipeline/build-path1-p1-06-estimate-trial-quotient-worksheet.js",
+    "publicBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "publicPracticeEntry": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "publicQueryState": "site/assets/browser/state/path1-manual-query-state.js",
+    "publicController": "site/assets/browser/path1-manual.js",
+    "publicHtml": "site/path1/index.html",
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "sourceAuthority": "data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json"
+  },
+  "currentState": {
+    "mainAtPreflightStart": "e61cc197068d017843ecb3fc62a56d17110ed195",
+    "p106ImplementationMergeSha": "ed6a7d522917643394f01b25ac4efb5b0daabe97",
+    "p106ImplementationStatus": "D1_NON_PUBLIC_GENERATOR_VALIDATOR_WORKSHEET_USABLE",
+    "p106PracticeMode": "estimateTrialQuotient",
+    "p106PublicCutoverApplied": false,
+    "p106PublicBlockAlreadyListed": true,
+    "newPublicBlockExposureRequired": false,
+    "publicBindingExactlyMatchesMatrixPrimaryKps": true,
+    "publicBindingReconciliationRequired": false,
+    "publicArithmeticKnowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "matrixPrimaryKnowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "publicEstimateModeRegisteredNow": false,
+    "publicEstimateModeSelectableNow": false,
+    "publicEstimateDeepLinkAcceptedNow": false,
+    "publicWrapperDispatchesP106DedicatedAdapterNow": false,
+    "currentUnsupportedEstimateModeFallback": "arithmetic",
+    "dedicatedWorksheetMetadata": {
+      "practiceMode": "estimateTrialQuotient",
+      "questionMode": "numeric",
+      "representationLayer": "estimate_trial_quotient",
+      "publicCutoverApplied": false,
+      "wordProblemModelingUsed": false,
+      "quotientPlaceTeachingUsed": false,
+      "remainderContextInterpretationUsed": false,
+      "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+    }
+  },
+  "cutoverDecision": {
+    "decision": "AUTHORIZE_FUTURE_BOUNDED_P106_PUBLIC_PATH1_ROUTE_ONLY_AFTER_SEPARATE_IMPLEMENTATION_APPROVAL",
+    "publicPracticeModeId": "estimateTrialQuotient",
+    "publicPracticeModeLabel": "估商與試商練習",
+    "reuseExistingP106DedicatedModeId": true,
+    "doNotAliasToArithmetic": true,
+    "doNotAliasToMultiplicativeModelingTransfer": true,
+    "doNotAliasToEqualGroupsTransfer": true,
+    "supportedBlockIdsAfterCutover": ["P1-06"],
+    "blockAwareDispatchRequired": true,
+    "dispatchMap": {
+      "P1-06": "site/assets/browser/pipeline/build-path1-p1-06-estimate-trial-quotient-worksheet.js"
+    },
+    "unsupportedBlocksFailSafeTo": "arithmetic",
+    "unsupportedBlocksMustEmitWarning": true,
+    "arithmeticDefaultUnchanged": true,
+    "p101P102EqualGroupsTransferUnchanged": true,
+    "p103P104P105MultiplicativeModelingUnchanged": true,
+    "p106ArithmeticBindingUnchanged": true,
+    "p107QuotientPlaceUnchanged": true,
+    "p111RemainderContextUnchanged": true,
+    "crossBlockModeCarryover": "estimateTrialQuotient is P1-06-only. Moving from P1-06 to P1-05 or P1-07 while this mode is selected must normalize to arithmetic with a warning. No automatic conversion to either text-modeling mode is allowed.",
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "publicMetadataProjection": {
+    "p106PublicCutoverGateId": "PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_V1",
+    "worksheetConfigSnapshotPublicCutoverApplied": true,
+    "publicRoute": "path1-manual",
+    "practiceMode": "estimateTrialQuotient",
+    "path1BlockId": "P1-06",
+    "representationLayer": "estimate_trial_quotient",
+    "generatedItemMetadataMustRemainSemanticallyUnmodified": true,
+    "dedicatedAdapterPublicCutoverFlagMayRemainFalseInternally": true,
+    "reason": "The public wrapper owns route-level cutover metadata. The P1-06 dedicated generator/validator/adapter remain non-public semantic authorities and must not be rewritten merely to expose the bounded route."
+  },
+  "p106Authority": {
+    "sourceId": "g4a_u04_4a04",
+    "knowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "canonicalPatternSpecIds": [
+      "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "localRepresentationPatternSpecIds": [
+      "P106_ESTIMATE_DIVISOR_TENS_SELECT",
+      "P106_ESTIMATE_DIVISOR_TENS_FILL",
+      "P106_ESTIMATE_THEN_DIVIDE_TENS_SUFFICIENT",
+      "P106_ESTIMATE_THEN_DIVIDE_TENS_INSUFFICIENT"
+    ],
+    "dividendDomain": "100..999",
+    "divisorDomain": "10..99",
+    "generatedEstimateDivisorOnesDigits": [1, 2, 3, 4, 6, 7, 8, 9],
+    "endingFiveTieConventionUsed": false,
+    "endingZeroEstimateWitnessGenerated": false,
+    "observedEstimateAnchors": ["11->10", "38->40", "47->50", "92->90"],
+    "divisionInvariant": "dividend = divisor * quotient + remainder; 0 <= remainder < divisor",
+    "newCanonicalKnowledgePointAllowed": false,
+    "newRelationAllowed": false,
+    "wordProblemModelingAllowed": false,
+    "quotientPlaceTeachingAllowed": false,
+    "remainderContextInterpretationAllowed": false,
+    "numericEnvelopeExpansionAllowed": false
+  },
+  "futureImplementationPlan": {
+    "allowedProductFiles": [
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html"
+    ],
+    "requiredChanges": [
+      {
+        "path": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+        "action": "Import the existing P1-06 dedicated estimate/trial-quotient worksheet adapter and practice-mode constant, dispatch estimateTrialQuotient only for P1-06, fail closed for other blocks, and project PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_V1 at wrapper configSnapshot metadata level without mutating generated-item semantics."
+      },
+      {
+        "path": "site/assets/browser/state/path1-manual-query-state.js",
+        "action": "Register estimateTrialQuotient as a public practice-mode id supported only by P1-06. Unsupported block/mode pairs must normalize to arithmetic with a warning. Preserve equalGroupsTransfer at P1-01/P1-02 and multiplicativeModelingTransfer at P1-03/P1-04/P1-05."
+      },
+      {
+        "path": "site/assets/browser/path1-manual.js",
+        "action": "Expose the P1-06-only estimate mode, label it 估商與試商練習, keep it hidden/disabled on other blocks, preserve existing text-modeling modes, add a bounded fallback warning, and keep public query/deep-link behavior deterministic."
+      },
+      {
+        "path": "site/path1/index.html",
+        "action": "Add exactly one option value estimateTrialQuotient with label 估商與試商練習 and help text stating it is P1-06-only. Do not rename or duplicate the two existing text-modeling options."
+      }
+    ],
+    "mustNotModify": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "data/curriculum/pattern_specs/PATH1_P1_06_EstimateTrialQuotientPatternSpecRegistry.json",
+      "site/modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-patterns.js",
+      "site/modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-generator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-validator.js",
+      "site/assets/browser/pipeline/build-path1-p1-06-estimate-trial-quotient-worksheet.js",
+      "data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json"
+    ],
+    "p105PublicRouteMustRemainUntouched": true,
+    "p107OrLaterRuntimeMustRemainUntouched": true,
+    "p111RemainderContextMustRemainUntouched": true,
+    "p112PublicRouteMustRemainUntouched": true,
+    "classicRuntimeMustRemainUntouched": true
+  },
+  "focusedAcceptanceContract": {
+    "node": [
+      "P1-06 public arithmetic binding remains exactly the two matrix-primary G4A-U04 KPs",
+      "P1-06 public arithmetic mode remains unchanged",
+      "P1-06 estimateTrialQuotient public dispatch returns the existing dedicated P1-06 worksheet without changing generator/validator semantics",
+      "P1-06 public query-state round trip accepts estimateTrialQuotient",
+      "P1-05 multiplicativeModelingTransfer remains accepted and unchanged",
+      "P1-07 and other unsupported blocks plus estimateTrialQuotient normalize to arithmetic with warning",
+      "P1-06 plus either text-modeling mode remains governed by the existing mode support rules",
+      "P1-06 public estimate route supports 1/20/120 and 120 prompts remain distinct",
+      "all four P1-06 representation families remain represented at 120",
+      "both matrix-primary KPs remain represented at 120",
+      "source-observed anchors 11->10, 38->40, 47->50, 92->90 remain present at 120",
+      "divisor endings 5 and 0 remain excluded from generated estimation witnesses",
+      "quotient/remainder reconstruction remains exact",
+      "no word-problem relation, quotient-place teaching, or remainder-context interpretation leaks into P1-06 estimate mode",
+      "P1-06 public config metadata stamps PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_V1 while generated-item semantic metadata remains unchanged",
+      "pre-push relative static imports exist at repository HEAD"
+    ],
+    "targetedBrowser": [
+      "default /path1 remains P1-01 arithmetic",
+      "P1-05 multiplicativeModelingTransfer still generates successfully",
+      "P1-06 arithmetic still generates successfully",
+      "select P1-06 估商與試商練習 and generate at least 40 questions with matching answers",
+      "P1-06 estimate output is numeric representation practice only and uses the approved two G4A-U04 KPs",
+      "deep-link ?path1BlockId=P1-06&practiceMode=estimateTrialQuotient survives refresh",
+      "switch from P1-06 estimate mode to P1-05 and P1-07 and verify safe arithmetic normalization plus warning",
+      "P1-01/P1-02 equalGroupsTransfer remains selectable and generates",
+      "P1-03/P1-04/P1-05 multiplicativeModelingTransfer remains selectable and generates",
+      "preview and print contain the same question/answer counts",
+      "no pageErrors and no product consoleErrors"
+    ],
+    "deployedPagesRequiredAfterImplementation": true,
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false,
+    "expectedLane": "SHARED_RUNTIME_BOUNDED"
+  },
+  "antiScopeCreep": {
+    "newKnowledgePointAllowed": false,
+    "newRelationAllowed": false,
+    "newPatternSpecAllowed": false,
+    "publicBindingMutationAllowed": false,
+    "path1MatrixMutationAllowed": false,
+    "p106GeneratorMutationAllowed": false,
+    "p106ValidatorMutationAllowed": false,
+    "p106WorksheetAdapterMutationAllowed": false,
+    "p107OrLaterMutationAllowed": false,
+    "wordProblemModelingAllowed": false,
+    "quotientPlaceExpansionAllowed": false,
+    "remainderContextExpansionAllowed": false,
+    "fullRegressionAllowed": false,
+    "globalReplayAllowed": false
+  },
+  "implementationApprovalBoundary": {
+    "separateApprovalRequired": true,
+    "stopAfterPreflightMerge": true,
+    "nextTask": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_IMPLEMENTATION_V1"
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P106_ESTIMATE_TRIAL_QUOTIENT_GENERATOR_VALIDATOR_WORKSHEET_USABLE_NON_PUBLIC",
+    "goalDistanceAfterTarget": "D1_P106_PUBLIC_CUTOVER_CONTRACT_LOCKED_IMPLEMENTATION_NOT_STARTED",
+    "distanceReduced": "Lock the only bounded public-route design for the already usable P1-06 engine, prove no public-binding reconciliation is required, and define exact query/UI/dispatch/metadata/deployed-acceptance boundaries without changing product runtime.",
+    "remainingBlockers": [
+      "P1-06 public cutover implementation not approved/materialized",
+      "P1-06 public route/query/UI not connected",
+      "P1-06 deployed public acceptance not completed"
+    ],
+    "nextShortestStep": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_IMPLEMENTATION_V1"
+  }
+}

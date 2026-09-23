@@ -1,0 +1,17 @@
+S44I_G3A_U01_PACK1_STATUS
+
+sourceId = g3a_u01_3a01
+status = WAITING_FOR_LOCAL_TEST
+
+done:
+- R4M test pass note
+- S44A to S44H docs
+- S44I Pack1 module
+- S44I Pack1 test file
+
+local_check:
+- git pull public main
+- npm test
+- git status
+
+next = S44J_G3A_U01_GeneratorValidatorPack2

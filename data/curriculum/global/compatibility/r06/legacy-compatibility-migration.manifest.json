@@ -1,0 +1,28 @@
+{
+  "schemaName": "R06LegacyCompatibilityMigrationManifestV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R06_LegacyCompatibilityMigration",
+  "status": "LEGACY_15_UNIT_COMPATIBILITY_SHADOW_AUTHORITY_READY",
+  "sourceAuthorities": {
+    "deliveryWaveTask": "R05_DeliveryWaveRebase",
+    "productUnitCount": 15,
+    "sourceNodeCount": 16,
+    "protectedKnowledgePointCount": 156,
+    "expectedGlobalModelReconciliationCount": 9
+  },
+  "policyPath": "data/curriculum/global/compatibility/r06/legacy-compatibility-policy.json",
+  "runtimePath": "src/curriculum/global/r06-legacy-compatibility-migration.mjs",
+  "validatorPath": "tools/curriculum/validate-r06-legacy-compatibility-migration.mjs",
+  "schemaPath": "data/curriculum/global/schema/legacy-compatibility-unit.schema.json",
+  "mainlineBoundary": {
+    "currentProductionConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "productionConsumerChanged": false,
+    "deliveryWaveRebased": true,
+    "legacyCompatibilityMigrated": true,
+    "productionCutoverAllowed": false,
+    "parallelRuntimePipelineAllowed": false,
+    "existing15UnitProductionUsePreserved": true,
+    "nextTask": "R07_AuthoritativeConsumerCutover"
+  }
+}

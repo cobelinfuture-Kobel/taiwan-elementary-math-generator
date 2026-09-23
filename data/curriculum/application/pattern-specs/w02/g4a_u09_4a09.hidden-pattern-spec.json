@@ -1,0 +1,741 @@
+{
+  "schemaName": "POSTGAPPW02HiddenPatternSpecUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+  "sourceNodeId": "g4a_u09_4a09",
+  "queueOrdinal": 5,
+  "sourceCode": "4a09",
+  "sourceTitle": "2位小數",
+  "domainFamily": "decimal_place_value_two_places",
+  "patternSpecState": "HIDDEN_PATTERNSPECS_MATERIALIZED_RUNTIME_PENDING",
+  "canonicalOperationAuthority": {
+    "path": "data/curriculum/application/operations/w02/g4a_u09_4a09.canonical-operation.json",
+    "sha256": "054fe3e1fba32a7b4063d81b6aeb660880baf028ce1bd180b8bfd40c7405b61d",
+    "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+    "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4a_u09_hundredth_representation",
+      "knowledgePointName": "百分位與二位小數",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4a_u09_hundredth_representation",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4a_u09_hundredth_representation_decimal_numeric",
+          "patternGroupId": "pg_g4a_u09_hundredth_representation_numeric",
+          "knowledgePointId": "kp_g4a_u09_hundredth_representation",
+          "operationModelId": "op_g4a_u09_hundredth_representation",
+          "operationFamilyId": "decimal_representation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "decimal",
+          "givenRoles": [
+            "whole",
+            "fractionalUnits",
+            "placeUnit"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "decimal = whole + fractionalUnits * placeUnit"
+            ],
+            "numberConstraints": [
+              "whole >= 0",
+              "0 <= each place digit <= 9"
+            ],
+            "equivalentForms": [
+              "place-value table",
+              "expanded decimal form"
+            ],
+            "validationInvariants": [
+              "place-value expansion recombines to the decimal exactly"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_compose_decompose",
+      "knowledgePointName": "二位小數組成分解",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4a_u09_decimal_compose_decompose",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4a_u09_decimal_compose_decompose_decimal_numeric",
+          "patternGroupId": "pg_g4a_u09_decimal_compose_decompose_numeric",
+          "knowledgePointId": "kp_g4a_u09_decimal_compose_decompose",
+          "operationModelId": "op_g4a_u09_decimal_compose_decompose",
+          "operationFamilyId": "decimal_representation",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "decimal",
+          "givenRoles": [
+            "whole",
+            "fractionalUnits",
+            "placeUnit"
+          ],
+          "answerType": "decimal",
+          "operationContract": {
+            "canonicalExpressions": [
+              "decimal = whole + fractionalUnits * placeUnit"
+            ],
+            "numberConstraints": [
+              "whole >= 0",
+              "0 <= each place digit <= 9"
+            ],
+            "equivalentForms": [
+              "place-value table",
+              "expanded decimal form"
+            ],
+            "validationInvariants": [
+              "place-value expansion recombines to the decimal exactly"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_place_value_factor_relation",
+      "knowledgePointName": "相鄰小數位值倍數關係",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4a_u09_place_value_factor_relation",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4a_u09_place_value_factor_relation_higher_place_value_numeric",
+          "patternGroupId": "pg_g4a_u09_place_value_factor_relation_numeric",
+          "knowledgePointId": "kp_g4a_u09_place_value_factor_relation",
+          "operationModelId": "op_g4a_u09_place_value_factor_relation",
+          "operationFamilyId": "place_factor",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "higherPlaceValue",
+          "givenRoles": [
+            "lowerPlaceValue"
+          ],
+          "answerType": "numeric_relation",
+          "operationContract": {
+            "canonicalExpressions": [
+              "higherPlaceValue = lowerPlaceValue * 10",
+              "lowerPlaceValue = higherPlaceValue / 10"
+            ],
+            "numberConstraints": [
+              "place values are adjacent in base ten"
+            ],
+            "equivalentForms": [
+              "ten times",
+              "one tenth"
+            ],
+            "validationInvariants": [
+              "adjacent decimal places differ by exactly a factor of ten"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4a_u09_place_value_factor_relation_lower_place_value_numeric",
+          "patternGroupId": "pg_g4a_u09_place_value_factor_relation_numeric",
+          "knowledgePointId": "kp_g4a_u09_place_value_factor_relation",
+          "operationModelId": "op_g4a_u09_place_value_factor_relation",
+          "operationFamilyId": "place_factor",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "lowerPlaceValue",
+          "givenRoles": [
+            "higherPlaceValue"
+          ],
+          "answerType": "numeric_relation",
+          "operationContract": {
+            "canonicalExpressions": [
+              "higherPlaceValue = lowerPlaceValue * 10",
+              "lowerPlaceValue = higherPlaceValue / 10"
+            ],
+            "numberConstraints": [
+              "place values are adjacent in base ten"
+            ],
+            "equivalentForms": [
+              "ten times",
+              "one tenth"
+            ],
+            "validationInvariants": [
+              "adjacent decimal places differ by exactly a factor of ten"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_compare",
+      "knowledgePointName": "二位小數比較",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "operationModelId": "op_g4a_u09_decimal_compare",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4a_u09_decimal_compare_comparison_numeric",
+          "patternGroupId": "pg_g4a_u09_decimal_compare_numeric",
+          "knowledgePointId": "kp_g4a_u09_decimal_compare",
+          "operationModelId": "op_g4a_u09_decimal_compare",
+          "operationFamilyId": "decimal_compare",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "comparison",
+          "givenRoles": [
+            "left",
+            "right"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "operationContract": {
+            "canonicalExpressions": [
+              "comparison = compare(normalizeScale(left), normalizeScale(right))"
+            ],
+            "numberConstraints": [
+              "inputs are finite decimals within the source precision"
+            ],
+            "equivalentForms": [
+              "place-value comparison",
+              "append trailing zeros"
+            ],
+            "validationInvariants": [
+              "trailing zeros do not change value",
+              "comparison is numerically correct"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4a_u09_decimal_compare_comparison_application",
+          "patternGroupId": "pg_g4a_u09_decimal_compare_application",
+          "knowledgePointId": "kp_g4a_u09_decimal_compare",
+          "operationModelId": "op_g4a_u09_decimal_compare",
+          "operationFamilyId": "decimal_compare",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "comparison",
+          "givenRoles": [
+            "left",
+            "right"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "operationContract": {
+            "canonicalExpressions": [
+              "comparison = compare(normalizeScale(left), normalizeScale(right))"
+            ],
+            "numberConstraints": [
+              "inputs are finite decimals within the source precision"
+            ],
+            "equivalentForms": [
+              "place-value comparison",
+              "append trailing zeros"
+            ],
+            "validationInvariants": [
+              "trailing zeros do not change value",
+              "comparison is numerically correct"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_missing_digit_inequality",
+      "knowledgePointName": "小數不等式未知數字",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4a_u09_missing_digit_inequality",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4a_u09_missing_digit_inequality_possible_digits_numeric",
+          "patternGroupId": "pg_g4a_u09_missing_digit_inequality_numeric",
+          "knowledgePointId": "kp_g4a_u09_missing_digit_inequality",
+          "operationModelId": "op_g4a_u09_missing_digit_inequality",
+          "operationFamilyId": "missing_digit_inequality",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "possibleDigits",
+          "givenRoles": [
+            "missingDigit",
+            "left",
+            "right"
+          ],
+          "answerType": "digit_set",
+          "operationContract": {
+            "canonicalExpressions": [
+              "possibleDigits = {d in 0..9 | relation(left(d), right(d))}"
+            ],
+            "numberConstraints": [
+              "0 <= missingDigit <= 9"
+            ],
+            "equivalentForms": [
+              "place-value case analysis"
+            ],
+            "validationInvariants": [
+              "set is complete",
+              "every listed digit satisfies the inequality"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_sequence",
+      "knowledgePointName": "小數數列規律",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4a_u09_decimal_sequence",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4a_u09_decimal_sequence_term_numeric",
+          "patternGroupId": "pg_g4a_u09_decimal_sequence_numeric",
+          "knowledgePointId": "kp_g4a_u09_decimal_sequence",
+          "operationModelId": "op_g4a_u09_decimal_sequence",
+          "operationFamilyId": "decimal_sequence",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "term",
+          "givenRoles": [
+            "start",
+            "step"
+          ],
+          "answerType": "decimal_sequence",
+          "operationContract": {
+            "canonicalExpressions": [
+              "term[n] = start + n * step"
+            ],
+            "numberConstraints": [
+              "step is constant"
+            ],
+            "equivalentForms": [
+              "repeated addition",
+              "arithmetic sequence"
+            ],
+            "validationInvariants": [
+              "successive differences equal step"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_missing_digit_column_operation",
+      "knowledgePointName": "小數直式缺位推理",
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "operationModelId": "op_g4a_u09_missing_digit_column_operation",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4a_u09_missing_digit_column_operation_missing_digits_numeric",
+          "patternGroupId": "pg_g4a_u09_missing_digit_column_operation_numeric",
+          "knowledgePointId": "kp_g4a_u09_missing_digit_column_operation",
+          "operationModelId": "op_g4a_u09_missing_digit_column_operation",
+          "operationFamilyId": "missing_column_digit",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "missingDigits",
+          "givenRoles": [
+            "addendsOrMinuend",
+            "result"
+          ],
+          "answerType": "digit_map",
+          "operationContract": {
+            "canonicalExpressions": [
+              "possibleDigits = digits satisfying aligned column arithmetic"
+            ],
+            "numberConstraints": [
+              "each missing digit is 0..9",
+              "decimal points are aligned"
+            ],
+            "equivalentForms": [
+              "carry or borrow reconstruction"
+            ],
+            "validationInvariants": [
+              "reconstructed operation is arithmetically exact"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4a_u09_decimal_length_conversion",
+      "knowledgePointName": "二位小數長度換算",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "operationModelId": "op_g4a_u09_decimal_length_conversion",
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g4a_u09_decimal_length_conversion_major_units_numeric",
+          "patternGroupId": "pg_g4a_u09_decimal_length_conversion_numeric",
+          "knowledgePointId": "kp_g4a_u09_decimal_length_conversion",
+          "operationModelId": "op_g4a_u09_decimal_length_conversion",
+          "operationFamilyId": "decimal_measure_conversion",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "majorUnits",
+          "givenRoles": [
+            "minorUnits",
+            "conversionFactor"
+          ],
+          "answerType": "decimal_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "majorUnits = minorUnits / conversionFactor",
+              "minorUnits = majorUnits * conversionFactor"
+            ],
+            "numberConstraints": [
+              "conversionFactor is the exact unit ratio",
+              "quantities are nonnegative"
+            ],
+            "equivalentForms": [
+              "compound-unit notation",
+              "decimal major-unit notation"
+            ],
+            "validationInvariants": [
+              "both forms represent the same physical measure"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4a_u09_decimal_length_conversion_minor_units_numeric",
+          "patternGroupId": "pg_g4a_u09_decimal_length_conversion_numeric",
+          "knowledgePointId": "kp_g4a_u09_decimal_length_conversion",
+          "operationModelId": "op_g4a_u09_decimal_length_conversion",
+          "operationFamilyId": "decimal_measure_conversion",
+          "mode": "NUMERIC",
+          "requestedUnknownRole": "minorUnits",
+          "givenRoles": [
+            "majorUnits",
+            "conversionFactor"
+          ],
+          "answerType": "decimal_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "majorUnits = minorUnits / conversionFactor",
+              "minorUnits = majorUnits * conversionFactor"
+            ],
+            "numberConstraints": [
+              "conversionFactor is the exact unit ratio",
+              "quantities are nonnegative"
+            ],
+            "equivalentForms": [
+              "compound-unit notation",
+              "decimal major-unit notation"
+            ],
+            "validationInvariants": [
+              "both forms represent the same physical measure"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": false,
+            "contextBindingState": "NOT_APPLICABLE",
+            "surfaceMode": "DIRECT_NUMERIC_OR_STRUCTURAL",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4a_u09_decimal_length_conversion_major_units_application",
+          "patternGroupId": "pg_g4a_u09_decimal_length_conversion_application",
+          "knowledgePointId": "kp_g4a_u09_decimal_length_conversion",
+          "operationModelId": "op_g4a_u09_decimal_length_conversion",
+          "operationFamilyId": "decimal_measure_conversion",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "majorUnits",
+          "givenRoles": [
+            "minorUnits",
+            "conversionFactor"
+          ],
+          "answerType": "decimal_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "majorUnits = minorUnits / conversionFactor",
+              "minorUnits = majorUnits * conversionFactor"
+            ],
+            "numberConstraints": [
+              "conversionFactor is the exact unit ratio",
+              "quantities are nonnegative"
+            ],
+            "equivalentForms": [
+              "compound-unit notation",
+              "decimal major-unit notation"
+            ],
+            "validationInvariants": [
+              "both forms represent the same physical measure"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        },
+        {
+          "patternSpecId": "ps_g4a_u09_decimal_length_conversion_minor_units_application",
+          "patternGroupId": "pg_g4a_u09_decimal_length_conversion_application",
+          "knowledgePointId": "kp_g4a_u09_decimal_length_conversion",
+          "operationModelId": "op_g4a_u09_decimal_length_conversion",
+          "operationFamilyId": "decimal_measure_conversion",
+          "mode": "APPLICATION",
+          "requestedUnknownRole": "minorUnits",
+          "givenRoles": [
+            "majorUnits",
+            "conversionFactor"
+          ],
+          "answerType": "decimal_measure",
+          "operationContract": {
+            "canonicalExpressions": [
+              "majorUnits = minorUnits / conversionFactor",
+              "minorUnits = majorUnits * conversionFactor"
+            ],
+            "numberConstraints": [
+              "conversionFactor is the exact unit ratio",
+              "quantities are nonnegative"
+            ],
+            "equivalentForms": [
+              "compound-unit notation",
+              "decimal major-unit notation"
+            ],
+            "validationInvariants": [
+              "both forms represent the same physical measure"
+            ]
+          },
+          "presentationContract": {
+            "numericAndApplicationSeparated": true,
+            "contextRequired": true,
+            "contextBindingState": "PENDING_GLOBAL_ATOMIC_EPISODE_BINDING",
+            "surfaceMode": "LIFE_CONTEXT_QUANTITY_RELATION",
+            "forbiddenWorksheetLabels": [
+              "算式",
+              "_____",
+              "答"
+            ]
+          },
+          "lifecycle": {
+            "selectorVisibility": "hidden",
+            "generatorStatus": "not_implemented",
+            "validatorStatus": "contract_only_not_runtime",
+            "rendererStatus": "not_connected",
+            "canonicalRouting": "disabled",
+            "productionUse": "forbidden"
+          }
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 8,
+    "numericPatternSpecCount": 10,
+    "applicationPatternSpecCount": 3,
+    "hiddenPatternSpecCount": 13,
+    "visiblePatternSpecCount": 0
+  },
+  "productionBoundary": {
+    "storyTemplatesAuthored": false,
+    "contextBindingsAuthored": false,
+    "generatorConnected": false,
+    "runtimeValidatorConnected": false,
+    "rendererConnected": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "ATOMIC_CONTEXT_BINDING_AND_SINGLE_APPLICATION_CANDIDATE_MATERIALIZATION"
+}

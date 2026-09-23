@@ -1,0 +1,100 @@
+{
+  "schemaName": "POSTGAPPW02ValidatorFixtureShadowPolicyV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A04_ValidatorFixturesAndSharedRuntimeShadow",
+  "status": "DETERMINISTIC_SHARED_SHADOW_FIXTURE_POLICY_NOT_PRODUCTION_ADMISSION",
+  "adapterDefinitions": [
+    {"answerShape":"QUANTITY_WITH_UNIT","adapterId":"GENERIC_QUANTITY_RECONSTRUCTION","inputSeedValues":[24,6,3]},
+    {"answerShape":"QUOTIENT_REMAINDER","adapterId":"QUOTIENT_REMAINDER_RECONSTRUCTION","inputSeedValues":[23,5]},
+    {"answerShape":"DECISION_WITH_REASON","adapterId":"BOUNDED_DECISION_RECONSTRUCTION","inputSeedValues":[12,6,100]},
+    {"answerShape":"COMPARISON_CHOICE","adapterId":"COMPARISON_CHOICE_RECONSTRUCTION","inputSeedValues":[18,12]}
+  ],
+  "fixtureTypes": [
+    "POSITIVE_SINGLE_APPLICATION",
+    "NEGATIVE_WRONG_ANSWER_ROLE",
+    "NEGATIVE_UNIT_MISMATCH",
+    "POSITIVE_N_PLUS_ONE_INTERPRETATION",
+    "NEGATIVE_MISCONCEPTION",
+    "POSITIVE_COUNTERFACTUAL_INTERPRETATION",
+    "POSITIVE_CROSS_CONTEXT_INTERPRETATION",
+    "NEGATIVE_NON_UNIQUE_ANSWER_WITNESS",
+    "POSITIVE_PBL_DEPENDENCY_GRAPH",
+    "NEGATIVE_PBL_DEPENDENCY_BROKEN"
+  ],
+  "misconceptionErrorCodeByType": {
+    "TARGET_ROLE_CONFUSION": "MISCONCEPTION_TARGET_ROLE_CONFUSION",
+    "OPERATION_KEYWORD_MATCHING": "MISCONCEPTION_CALCULATION_INVALID",
+    "QUOTIENT_ONLY": "MISCONCEPTION_QUOTIENT_ONLY",
+    "COMPUTED_NOT_INTERPRETED": "INTERPRETATION_WITNESS_MISSING",
+    "RELATION_ORDER_REVERSAL": "MISCONCEPTION_RELATION_ORDER_REVERSAL",
+    "CONSTRAINT_IGNORED": "MISCONCEPTION_CONSTRAINT_IGNORED",
+    "UNIT_ROLE_CONFUSION": "MISCONCEPTION_UNIT_ROLE_CONFUSION",
+    "IRRELEVANT_INFORMATION_USED": "MISCONCEPTION_IRRELEVANT_INFORMATION_USED",
+    "COMPARISON_DIRECTION_REVERSAL": "MISCONCEPTION_COMPARISON_DIRECTION_REVERSAL",
+    "CONSERVATION_VIOLATION": "MISCONCEPTION_CONSERVATION_VIOLATION"
+  },
+  "expectedErrorCodes": [
+    "CANDIDATE_LINEAGE_INVALID",
+    "CONTEXT_CHAIN_INVALID",
+    "FIXTURE_ADAPTER_NOT_REGISTERED",
+    "ROLE_COVERAGE_INCOMPLETE",
+    "SHADOW_NUMERIC_WITNESS_INVALID",
+    "ANSWER_ROLE_MISMATCH",
+    "ANSWER_UNIT_MISMATCH",
+    "INTERPRETATION_WITNESS_MISSING",
+    "MISCONCEPTION_CALCULATION_INVALID",
+    "MISCONCEPTION_TARGET_ROLE_CONFUSION",
+    "MISCONCEPTION_QUOTIENT_ONLY",
+    "MISCONCEPTION_RELATION_ORDER_REVERSAL",
+    "MISCONCEPTION_CONSTRAINT_IGNORED",
+    "MISCONCEPTION_UNIT_ROLE_CONFUSION",
+    "MISCONCEPTION_IRRELEVANT_INFORMATION_USED",
+    "MISCONCEPTION_COMPARISON_DIRECTION_REVERSAL",
+    "MISCONCEPTION_CONSERVATION_VIOLATION",
+    "ANSWER_NOT_UNIQUE",
+    "PBL_DEPENDENCY_INVALID",
+    "PRODUCTION_ADMISSION_FORBIDDEN"
+  ],
+  "runtimeLayers": [
+    "A02_CANDIDATE_LINEAGE",
+    "A03_PROOF_AND_PBL_LINEAGE",
+    "PRIMARY_OR_ALTERNATE_CONTEXT_CHAIN",
+    "ROLE_COVERAGE",
+    "SHARED_SHADOW_NUMERIC_WITNESS",
+    "ANSWER_ROLE_AND_UNIT",
+    "N_TO_N_PLUS_ONE_PAIRING",
+    "MISCONCEPTION_DIAGNOSTIC",
+    "COUNTERFACTUAL_INTERPRETATION",
+    "CROSS_CONTEXT_EQUIVALENCE",
+    "UNIQUE_ANSWER_AND_WITNESS",
+    "PBL_DEPENDENCY",
+    "PRODUCTION_GUARD"
+  ],
+  "fixtureCountPolicy": {
+    "singleApplicationFixtureCountPerCandidate": 3,
+    "nPlusOnePositiveCountPerProof": 1,
+    "misconceptionNegativeCountPerProof": 3,
+    "counterfactualPositiveCountPerProof": 1,
+    "crossContextPositiveCountPerProof": 1,
+    "nonUniqueNegativeCountPerProof": 1,
+    "pblPositiveCountPerCandidate": 1,
+    "pblBrokenDependencyNegativeCountPerCandidate": 1
+  },
+  "coverageRequirements": {
+    "sourceNodeCount": 13,
+    "primaryMacroContextCount": 16,
+    "duplicateContentProjectionGroupCount": 1,
+    "allA02CandidatesCovered": true,
+    "allA03ProofsCovered": true,
+    "allA03PblCandidatesCovered": true
+  },
+  "shadowBoundary": {
+    "representativeNumericWitnessOnly": true,
+    "exactProductionPatternSpecGenerationClaimAllowed": false,
+    "productionGeneratorMutationAllowed": false,
+    "publicRuntimeMutationAllowed": false,
+    "rendererMutationAllowed": false,
+    "productionAdmissionAllowed": false
+  }
+}

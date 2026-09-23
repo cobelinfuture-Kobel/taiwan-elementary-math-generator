@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W02_HIDDEN_PATTERNSPECS_MATERIALIZED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "tools/curriculum/materialize-postg-app-w02-a01d-hidden-pattern-specs.mjs",
+      "src/curriculum/application/w02-hidden-pattern-specs.mjs",
+      "tools/curriculum/validate-postg-app-w02-a01d-hidden-pattern-specs.mjs",
+      "tests/curriculum/postg-app-w02-a01d-hidden-pattern-specs.test.js",
+      ".github/workflows/postg-app-w02-a01d-hidden-pattern-specs.yml"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/schema/w02-hidden-pattern-spec-unit.schema.json",
+      "data/curriculum/application/contracts/POSTG-APP-W02-A01D_PatternSpecContractAndHiddenMaterialization.json",
+      "data/curriculum/application/pattern-specs/w02",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "docs/curriculum/output/POSTG_APP_W02_A01D_HIDDEN_PATTERNSPECS_MATERIALIZED.marker",
+      "docs/curriculum/output/POSTG_APP_W02_A01D_HIDDEN_PATTERNSPECS_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": { "type": "none", "canUnlockProduction": false, "reviewArtifactRequired": false },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "All 134 answer-bearing unknown roles now have hidden numeric PatternSpecs, and applicable KPs have 61 separate hidden application PatternSpecs. Runtime and production gates remain closed."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A02_AtomicContextBindingAndSingleApplicationCandidateMaterialization",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

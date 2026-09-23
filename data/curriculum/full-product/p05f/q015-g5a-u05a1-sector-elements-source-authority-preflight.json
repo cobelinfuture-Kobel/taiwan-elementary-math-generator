@@ -1,0 +1,178 @@
+{
+  "schemaName": "P05FW5Q015SectorElementsSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q015_SectorElements_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 15,
+    "sliceId": "p05e_q015_r1_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice015Implementation",
+    "previousSliceId": "p05e_q014_r1_g4b_u10_4b10_profile_spatial_solid_c1",
+    "primarySourceNodeId": "g5a_u05_5a05a1",
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "knowledgePointCount": 1,
+    "knowledgePointIds": ["kp_g5a_u05a1_sector_center_radius_arc"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q014_r1_g4b_u10_4b10_profile_spatial_solid_c1",
+    "implementationPrNumber": 831,
+    "implementationHeadSha": "ec4999dc4be54a2a914a2b1ba8d5d33346c21623",
+    "productMergeSha": "946a572c1a75c582ce15669e5545b03e191b2a89",
+    "prGateRunId": "34208599698",
+    "exactPagesRunId": "34208781995",
+    "pagesDeploymentRunId": "34208781840",
+    "evidenceArtifactId": "10048934921",
+    "evidenceArtifactDigest": "sha256:5f3fc9fefb6b6054a77754ba49148fd40c43270350587dbb9aab005197447d15",
+    "status": "PASS_E6_D0_COMPLETE",
+    "postMergeGlobalCIAttribution": {
+      "workflowName": "Node Test Post-Merge",
+      "baselineRunId": "34207436625",
+      "baselineSha": "7c080907a448c8e370298c28401cc7d25c0c39cc",
+      "baselineTestCount": 1371,
+      "baselinePassCount": 1246,
+      "baselineFailureCount": 125,
+      "postMergeRunId": "34208781884",
+      "postMergeSha": "946a572c1a75c582ce15669e5545b03e191b2a89",
+      "postMergeTestCount": 1381,
+      "postMergePassCount": 1256,
+      "postMergeFailureCount": 125,
+      "newFailureCount": 0,
+      "resolvedFailureCount": 0,
+      "overlapFailureCount": 125,
+      "newQ014TestCount": 10,
+      "newQ014PassedTestCount": 10,
+      "disposition": "BASELINE_ONLY"
+    }
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5a_u05_5a05a1",
+    "sourceTitle": "扇形與圓心角",
+    "sourcePdfTitle": "meow911_5a05a1_source.pdf",
+    "sourcePdfDriveFileId": "1w8ZgmWiv9QZ9akDMX9VkXLLOCSpwoXaj",
+    "sourceMetadataDriveFileId": "1sWDkEgBGbf_rBmO6OcrrTQrxh7rRApK5",
+    "verificationNotesDriveFileId": "1vMXXDN3VK97B-uzunkuePSXQJ2NpdMWh",
+    "originalFileNameFromMetadata": "題型總覽-5a05a1-扇形與圓心角.pdf",
+    "sourceUrlFromMetadata": "https://meow911.com/5a05a1/",
+    "embeddedHeaderUrlFromDriveText": "https://meow911.com/5a05b/",
+    "pageCount": 2,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK",
+    "reviewedPages": [1, 2],
+    "sourceHeaderMismatch": {
+      "metadataUrl": "https://meow911.com/5a05a1/",
+      "embeddedPdfHeaderUrl": "https://meow911.com/5a05b/",
+      "preservedWithoutRewrite": true,
+      "blocking": false,
+      "sourceRefAmbiguity": false,
+      "disposition": "PRESERVE_MISMATCH;USE_FROZEN_SOURCE_NODE_AND_EXACT_R02_REVIEWED_CANDIDATE_AS_AUTHORITY"
+    },
+    "verificationStateReconciliation": {
+      "driveVerificationNoteStatus": "pending",
+      "driveVerificationNoteSaysVisualVerificationNotCompleted": true,
+      "r02ManifestStatus": "FIFTY_MISSING_SOURCE_NODES_FULL_PAGE_REVIEWED",
+      "r02ReviewOccurredAfterLegacyPendingNote": true,
+      "disposition": "R02_FULL_PAGE_VISUAL_REVIEW_IS_CURRENT_SEMANTIC_AUTHORITY;LEGACY_PENDING_NOTE_RETAINED_AS_PROVENANCE_ONLY"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+    "sourceNodeId": "g5a_u05_5a05a1",
+    "sourceTitle": "扇形與圓心角",
+    "sourcePdfTitle": "meow911_5a05a1_source.pdf",
+    "reviewedPages": [1, 2],
+    "knowledgePointId": "kp_g5a_u05a1_sector_center_radius_arc",
+    "canonicalNameZh": "扇形構成要素",
+    "capabilityStatement": "學生能辨認扇形的圓心、半徑、圓心角與弧。",
+    "reasoningInvariant": "扇形由兩條半徑及其所對弧圍成。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_geometry_property",
+    "classificationRuleId": "rule_geometry_property",
+    "appliedModifierIds": [],
+    "profileRequiredCapabilityIds": [
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "dependencyClosureAddedCapabilityIds": [],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "q015ScopeLock": {
+    "includedKnowledgePointIds": ["kp_g5a_u05a1_sector_center_radius_arc"],
+    "includedRelations": [
+      "IDENTIFY_SECTOR_CENTER",
+      "IDENTIFY_SECTOR_RADII",
+      "IDENTIFY_SECTOR_CENTRAL_ANGLE",
+      "IDENTIFY_SECTOR_ARC",
+      "PRESERVE_TWO_RADII_AND_CORRESPONDING_ARC_SECTOR_STRUCTURE"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": [],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5a_u05a1_central_angle_measurement",
+      "kp_g5a_u05a1_sector_fraction_of_circle",
+      "kp_g5a_u05a1_sector_compare_same_circle",
+      "kp_g5a_u05a1_combined_sector_angle"
+    ],
+    "excludedRelations": [
+      "MEASURE_OR_CALCULATE_CENTRAL_ANGLE",
+      "SECTOR_FRACTION_OF_FULL_CIRCLE",
+      "COMPARE_SECTOR_SIZE_IN_SAME_CIRCLE",
+      "SOLVE_COMBINED_SECTOR_ANGLES",
+      "GEOMETRY_CONSTRUCTION",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresGeometryDiagramRepresentation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresGeometryPropertyReasoning": true,
+    "geometryConstructionAllowedByThisPreflight": false,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q016OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  },
+  "siblingProtection": {
+    "currentStableSelectorModule": "site/modules/curriculum/registry/batch-a-selector-p05f14-extension.js",
+    "targetCurrentlyPubliclyVisible": false,
+    "sameSourceCurrentlyHasNoVisibleKnowledgePoints": true,
+    "laterSameSourceCandidatesRemainUnadmitted": true,
+    "futureQueueSemanticsMayNotBePulledForward": true,
+    "currentGlobalPublicSourceCount": 52,
+    "currentGlobalVisibleKnowledgePointCount": 328
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": ["GLOBAL_CONTRACTS", "TARGETED_ROUTE_REPLAY"],
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_PREFLIGHT",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_PREFLIGHT"
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ015ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "previousSliceGlobalCIFailureAttributionSatisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "singleKnowledgePointSliceLocked": true,
+    "laterSameSourceSiblingProtectionLocked": true,
+    "sourceHeaderMismatchPreserved": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice015Implementation"
+  }
+}

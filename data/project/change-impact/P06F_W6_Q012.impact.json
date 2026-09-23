@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P06F_W6_Q012",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5b_u11_compare_two_data_series",
+    "kp_g5b_u11_construct_line_chart",
+    "kp_g5b_u11_line_chart_trend"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5b_u11_compare_two_data_series",
+    "kp_g5b_u11_construct_line_chart",
+    "kp_g5b_u11_line_chart_trend"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5b_u11_compare_two_data_series": "IMPLEMENTED",
+    "kp_g5b_u11_construct_line_chart": "IMPLEMENTED",
+    "kp_g5b_u11_line_chart_trend": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P06F_W6_Q012.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "q001ToQ011ProductMutation": false,
+    "q013OrLater": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false
+  }
+}

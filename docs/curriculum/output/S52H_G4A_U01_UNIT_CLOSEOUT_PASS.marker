@@ -1,0 +1,103 @@
+S52H_G4A_U01_UNIT_CLOSEOUT_PASS
+
+sourceId = g4a_u01_4a01
+unit = 4A-U01 1億以內的數
+status = PASS_ACCEPTED_AND_CLOSED
+write_type = unit_closeout_marker
+
+scope_closed:
+- G4A-U01 Phase 1 printable patterns.
+- G4A-U01 Phase 2 refined source-image patterns.
+- G4A-U01 Phase 3 source-image patterns.
+- G4A-U01 missing digit-arrangement max/min KnowledgePoint.
+
+final_visible_knowledge_points:
+- G4A-U01 visible KnowledgePoints = 18
+- Batch A global visible KnowledgePoints = 59
+
+final_pattern_spec_count:
+- G4A-U01 printable PatternSpecs = 18
+
+closed_knowledge_points:
+1. 八位數比大小
+2. 1億以內數比大小
+3. 大數加減
+4. 八位數位值分解
+5. 八位數位值組合
+6. 相同數字不同位值差和
+7. 非標準位值組合
+8. 位值卡組合
+9. 從哪一位開始比較
+10. 缺位比較可填哪些數
+11. 缺位比較最大最小
+12. 大數讀寫轉換
+13. 數字與中文數詞比大小
+14. 萬單位混合記法減法
+15. 最大最小位數邊界差
+16. 比較型應用題求總和
+17. 大數單位加減應用題
+18. 指定數字排列最大最小
+
+operator_test_readback:
+- command = npm test
+- tests = 453
+- pass = 453
+- fail = 0
+- cancelled = 0
+- skipped = 0
+- todo = 0
+- duration_ms = 5537.9379
+- status = PASS_LOCAL_PUBLIC_MAIN
+
+pdf_smoke_readback:
+- file = g4a_u01_同單位知識點混合_隨機.pdf
+- page_count = 31 parsed text pages plus rendered blank trailing page observed in visual smoke
+- question_item_count = 150
+- answer_key_item_count = 150
+- answer_errors = 0
+- range_errors = 0
+- layout_blocker = 0
+- question_pages = 1-13
+- answer_key_pages = 15-31
+- known_blank_pages = [14, 32]
+- status = PASS_WITH_KNOWN_BLANK_PAGE_ARTIFACT
+
+pdf_content_coverage_observed:
+- Chinese number reading/writing conversion.
+- Wan-unit mixed notation subtraction.
+- Digit arrangement max/min numeric prompt.
+- Digit arrangement max/min short word-problem prompt.
+- Boundary-number difference.
+- Numeric vs Chinese-number comparison.
+- Missing-digit comparison possible digits.
+- Missing-digit comparison extreme digit.
+- Place-value decomposition.
+- Standard composition.
+- Card composition.
+- Nonstandard place-value composition.
+- Same digit place-value difference.
+- Same digit place-value sum.
+- Comparison word problem total.
+- Large-number unit add/subtract word problem.
+
+known_non_blocking_backlog:
+- Renderer-wide blank-page cleanup remains optional backlog and is not a G4A-U01 math correctness blocker.
+
+acceptance_decision:
+- npm test passes.
+- PDF smoke passes for current G4A-U01 mixed output.
+- The missing digit-arrangement KnowledgePoint is implemented, selectable, generated, validated, and observed in PDF output.
+- Boundary difference limited pool behavior is accepted as warning-level/non-blocking.
+- Same-unit mixed generation remains functional and interleaved.
+- No open G4A-U01 correctness blocker remains.
+
+GOAL_DISTANCE_BEFORE = D1_G4A_U01_ARRANGEMENT_KP_TEST_PENDING
+GOAL_DISTANCE_AFTER = D0_G4A_U01_UNIT_CLOSED_OUTPUT_VALIDATED
+DISTANCE_REDUCED = G4A-U01 moved from implemented/test-pending to closed: source-derived KPs, PatternSpecs, generator, validator, selector, npm test, and PDF worksheet output are accepted.
+REMAINING_BLOCKERS = ["optional renderer-wide blank-page cleanup backlog", "Next Batch A unit output QA not started"]
+NEXT_SHORTEST_STEP = S53A_NEXT_BATCH_A_UNIT_SELECTION_OR_G4A_U02_OUTPUT_QA
+STOP_REASON = scope_boundary_unit_closed
+BLOCKER_TYPE = NONE
+LAST_COMPLETED_STATUS = S52H_G4A_U01_UNIT_CLOSEOUT_PASS
+REQUIRED_OPERATOR_ACTION = choose next unit or approve next Batch A shortest path
+NEXT_RESUME_TASK = S53A_NEXT_BATCH_A_UNIT_SELECTION_OR_G4A_U02_OUTPUT_QA

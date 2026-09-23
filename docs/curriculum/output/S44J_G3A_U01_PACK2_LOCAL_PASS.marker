@@ -1,0 +1,16 @@
+S44J_G3A_U01_PACK2_LOCAL_PASS
+
+sourceId = g3a_u01_3a01
+operator_readback = tests 417, pass 417, fail 0, working tree clean
+status = PASS
+
+validated:
+- place-value unit conversion
+- money place-value exchange
+- digit arrangement max/min
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_PACK2_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U01_PACK2_LOCAL_PASS
+DISTANCE_REDUCED = G3A-U01 Pack2 generator and validator passed local automated validation
+REMAINING_BLOCKERS = S44K-S44N pending
+NEXT_SHORTEST_STEP = S44K_G3A_U01_GeneratorValidatorPack3

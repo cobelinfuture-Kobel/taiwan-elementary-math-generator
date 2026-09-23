@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "SHADOW_RUNTIME_AND_FIXTURES_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w01-validator-fixture-shadow-runtime.mjs",
+      "tools/curriculum/validate-postg-app-w01-a03-runtime-shadow.mjs",
+      "tests/curriculum/postg-app-w01-a03-runtime-shadow.test.js",
+      "src/curriculum/application/postg-app-master-controller.mjs",
+      "tests/curriculum/postg-app-m00-master-controller.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/application/contracts/POSTG_APP_W01_Validator_Fixtures_And_Shared_Runtime_Shadow_V1.md",
+      "data/curriculum/application/assessment/w01-validator-fixture-shadow-policy.json",
+      "data/curriculum/application/assessment/w01-validator-fixture-shadow-index.json",
+      "data/curriculum/application/schema/w01-validator-shadow-fixture.schema.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "data/curriculum/application/contracts/POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D1",
+    "distanceReduced": "Wave 01 context-bound application candidates and N+1/PBL blueprints now execute through one shared fail-closed validator runtime. Deterministic fixture adapters provide positive and intended-negative evidence across all 15 Golden units and all 16 Macro Context Domains, including calculation-pass/interpretation-fail and broken PBL dependency isolation. Public output and production admission remain unchanged."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W01-A04_Golden15WorksheetShadowProjectionAndProductionAdmissionReview",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

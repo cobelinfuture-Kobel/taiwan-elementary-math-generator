@@ -1,0 +1,24 @@
+S44M1_6C_G3A_U01_REGENERATED_PDF_RECHECK_STATUS
+
+sourceId = g3a_u01_3a01
+status = PASS_WITH_MINOR_DUPLICATE_BLOCKER
+operator_readback = tests 430, pass 430, fail 0
+pdf_checked = g3a_u01_同單元跨知識_隨機排序.pdf
+
+validated_by_pdf_recheck:
+- regenerated PDF uses post-S44M1-6c output, not stale cache.
+- sameDigit prompts are diversified; old 8380-8388 sequence is gone.
+- full decomposition prompts are diversified; old 2223-2231 sequence is gone.
+- comparison prompts are diversified; old 6068-6076 sequence is gone.
+- A/B range and price choices remain mixed.
+- number-to-Chinese zero-ten canonical output is present.
+- prompt wording for digit arrangement, money exchange, and comparison is readable.
+
+remaining_minor_blocker:
+- unit conversion can still repeat exact prompts across a 200-question worksheet, e.g. 41個百可以換成幾個千，還剩幾個百？ appears twice.
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_NUMBER_STRUCTURE_DIVERSITY_QAFIX_LOCAL_PASS_BUT_PDF_STALE
+GOAL_DISTANCE_AFTER = D1_G3A_U01_REGENERATED_PDF_RECHECK_PASS_WITH_MINOR_UNIT_CONVERSION_DUPLICATE
+DISTANCE_REDUCED = regenerated PDF confirms major duplicate/sequence diversity blockers are resolved
+REMAINING_BLOCKERS = unit conversion duplicate prompt control; S44N browser PDF smoke
+NEXT_SHORTEST_STEP = S44M1-6d_G3A_U01_UnitConversionDuplicatePromptControlFix or proceed to S44N if minor duplicate is accepted

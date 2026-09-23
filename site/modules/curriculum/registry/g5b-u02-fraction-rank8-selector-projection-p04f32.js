@@ -1,0 +1,44 @@
+import {G5B_U02_P04F31_SOURCE_ID,G5B_U02_P04F31_KP_ID,G5B_U02_P04F31_GROUP_ID,G5B_U02_P04F31_SPEC_ID} from "./g5b-u02-fraction-times-integer-selector-projection-p04f31.js";
+export const P04F32_TASK_ID="P04F32_Q032_ExactPatternSpecAndImplementation";
+export const G5B_U02_P04F32_SOURCE_ID=G5B_U02_P04F31_SOURCE_ID;
+export const G5B_U02_P04F32_MULTI_KP_ID="kp_g5b_u02_fraction_multi_step_calculation";
+export const G5B_U02_P04F32_SIMPLIFY_KP_ID="kp_g5b_u02_fraction_multiplication_simplification";
+export const G5B_U02_P04F32_QUANTITY_KP_ID="kp_g5b_u02_fraction_of_quantity";
+export const G5B_U02_P04F32_INTEGER_TIMES_KP_ID="kp_g5b_u02_integer_times_fraction";
+export const G5B_U02_P04F32_MULTI_GROUP_ID="pg_g5b_u02_fraction_multi_step_calculation_numeric";
+export const G5B_U02_P04F32_SIMPLIFY_GROUP_ID="pg_g5b_u02_fraction_multiplication_simplification_numeric";
+export const G5B_U02_P04F32_QUANTITY_GROUP_ID="pg_g5b_u02_fraction_of_quantity_numeric";
+export const G5B_U02_P04F32_INTEGER_TIMES_GROUP_ID="pg_g5b_u02_integer_times_fraction_numeric";
+export const G5B_U02_P04F32_MULTI_SPEC_ID="ps_g5b_u02_fraction_multi_step_calculation_numeric";
+export const G5B_U02_P04F32_SIMPLIFY_SPEC_ID="ps_g5b_u02_fraction_product_simplification_numeric";
+export const G5B_U02_P04F32_QUANTITY_SPEC_ID="ps_g5b_u02_fraction_of_quantity_numeric";
+export const G5B_U02_P04F32_INTEGER_TIMES_SPEC_ID="ps_g5b_u02_integer_times_fraction_product_numeric";
+const FRACTION_CAPS=Object.freeze(["cap_fraction_number_system","cap_fraction_domain_validator","cap_fraction_arithmetic"]);
+const QUANTITY_CAPS=Object.freeze([...FRACTION_CAPS,"cap_quantity_dimension_unit_identity","cap_quantity_semantic_role_binding","cap_relation_model_binding"]);
+const clone=v=>v==null?v:JSON.parse(JSON.stringify(v));
+export const G5B_U02_P04F32_PATTERN_SPECS=Object.freeze([
+  Object.freeze({patternSpecId:G5B_U02_P04F32_MULTI_SPEC_ID,knowledgePointId:G5B_U02_P04F32_MULTI_KP_ID,patternFamilyId:"FRACTION_MULTI_STEP_CALCULATION",semanticRelation:"FRACTION_MULTI_STEP_CALCULATION",knownRoleIds:Object.freeze(["INITIAL_VALUE","OPERATION_SEQUENCE"]),targetRoleId:"FINAL_FRACTION_RESULT",targetRoleMode:"FIXED",questionMode:"numeric",answerModel:"exact_reduced_fraction",exactRationalArithmeticRequired:true,equivalencePreservedAtEveryStep:true,parenthesesAndMulDivPrecedenceRequired:true,roundingAllowed:false,sourceEvidenceTopic:"分數多步計算"}),
+  Object.freeze({patternSpecId:G5B_U02_P04F32_SIMPLIFY_SPEC_ID,knowledgePointId:G5B_U02_P04F32_SIMPLIFY_KP_ID,patternFamilyId:"FRACTION_PRODUCT_SIMPLIFICATION",semanticRelation:"FRACTION_PRODUCT_SIMPLIFICATION",knownRoleIds:Object.freeze(["FACTOR_A","FACTOR_B"]),targetRoleId:"REDUCED_PRODUCT_FRACTION",targetRoleMode:"FIXED",questionMode:"numeric",answerModel:"exact_reduced_fraction",exactRationalArithmeticRequired:true,productValuePreservedByCancellation:true,preOrPostMultiplicationReductionAllowed:true,finalRepresentationReduced:true,roundingAllowed:false,sourceEvidenceTopic:"分數乘法先約分"}),
+  Object.freeze({patternSpecId:G5B_U02_P04F32_QUANTITY_SPEC_ID,knowledgePointId:G5B_U02_P04F32_QUANTITY_KP_ID,patternFamilyId:"FRACTION_OF_QUANTITY",semanticRelation:"FRACTION_OF_QUANTITY",knownRoleIds:Object.freeze(["WHOLE_QUANTITY","FRACTION_OPERATOR"]),targetRoleId:"PART_QUANTITY",targetRoleMode:"SOURCE_DECLARED_ALLOWED",questionMode:"numeric",answerModel:"exact_quantity_same_unit",exactRationalArithmeticRequired:true,unitPreservedFromWholeQuantity:true,roundingAllowed:false,sourceEvidenceTopic:"求一個量的幾分之幾"}),
+  Object.freeze({patternSpecId:G5B_U02_P04F32_INTEGER_TIMES_SPEC_ID,knowledgePointId:G5B_U02_P04F32_INTEGER_TIMES_KP_ID,patternFamilyId:"FRACTION_TIMES_INTEGER_PRODUCT",semanticRelation:"FRACTION_TIMES_INTEGER_PRODUCT",knownRoleIds:Object.freeze(["SOURCE_FRACTION","INTEGER_MULTIPLIER"]),targetRoleId:"PRODUCT_FRACTION",targetRoleMode:"FIXED",questionMode:"numeric",answerModel:"exact_reduced_fraction",surfaceOperandOrder:"INTEGER_THEN_FRACTION",roleNormalization:"COMMUTATIVE_SWAP_TO_SOURCE_FRACTION_TIMES_INTEGER_MULTIPLIER",exactRationalArithmeticRequired:true,equivalentFractionReductionAllowed:true,roundingAllowed:false,sourceEvidenceTopic:"整數×分數"})
+]);
+const makeGroup=(patternGroupId,displayName,knowledgePointId,patternSpecId,representationTag)=>Object.freeze({patternGroupId,sourceId:G5B_U02_P04F32_SOURCE_ID,unitCode:"5B-U02",unitTitle:"分數的計算",displayName,primaryKnowledgePointId:knowledgePointId,knowledgePointIds:Object.freeze([knowledgePointId]),supportClass:"A",mode:"numeric",publicQuestionMode:"numeric",representationTag,representationTags:Object.freeze(["numeric","fraction","exact_rational"]),patternSpecIds:Object.freeze([patternSpecId]),allocationPolicy:"single_pattern_spec",visibilityStatus:"visible",holdReason:null});
+export const G5B_U02_P04F32_PATTERN_GROUPS=Object.freeze([
+  makeGroup(G5B_U02_P04F32_MULTI_GROUP_ID,"分數多步計算",G5B_U02_P04F32_MULTI_KP_ID,G5B_U02_P04F32_MULTI_SPEC_ID,"fraction_multi_step"),
+  makeGroup(G5B_U02_P04F32_SIMPLIFY_GROUP_ID,"分數乘法先約分",G5B_U02_P04F32_SIMPLIFY_KP_ID,G5B_U02_P04F32_SIMPLIFY_SPEC_ID,"fraction_product_simplification"),
+  makeGroup(G5B_U02_P04F32_QUANTITY_GROUP_ID,"求一個量的幾分之幾",G5B_U02_P04F32_QUANTITY_KP_ID,G5B_U02_P04F32_QUANTITY_SPEC_ID,"fraction_of_quantity_numeric"),
+  makeGroup(G5B_U02_P04F32_INTEGER_TIMES_GROUP_ID,"整數乘分數",G5B_U02_P04F32_INTEGER_TIMES_KP_ID,G5B_U02_P04F32_INTEGER_TIMES_SPEC_ID,"integer_times_fraction")
+]);
+const makeRow=(knowledgePointId,displayName,patternGroupId,patternSpecId,requiredCapabilityIds,applicationClassification)=>Object.freeze({knowledgePointId,sourceId:G5B_U02_P04F32_SOURCE_ID,unitCode:"5B-U02",unitTitle:"分數的計算",displayName,canonicalNameZh:displayName,mode:"numeric",questionMode:"numeric",questionModes:Object.freeze(["numeric"]),supportClass:"A",visibilityStatus:"visible",selectorStatus:"visible",holdReason:null,applicationClassification,canonicalPatternGroupIds:Object.freeze([patternGroupId]),canonicalPatternSpecIds:Object.freeze([patternSpecId]),patternGroupIds:Object.freeze([patternGroupId]),patternSpecIds:Object.freeze([patternSpecId]),requiredCapabilityIds,qaStatusLabel:"P04F32_Q032_AUTHORITY_LOCKED",productionUse:"full_product_w4_slice032_candidate"});
+export const G5B_U02_P04F32_SELECTOR_ROWS=Object.freeze([
+  makeRow(G5B_U02_P04F32_MULTI_KP_ID,"分數多步計算",G5B_U02_P04F32_MULTI_GROUP_ID,G5B_U02_P04F32_MULTI_SPEC_ID,FRACTION_CAPS,"APPLICATION_COMPATIBLE_NOT_REQUIRED"),
+  makeRow(G5B_U02_P04F32_SIMPLIFY_KP_ID,"分數乘法先約分",G5B_U02_P04F32_SIMPLIFY_GROUP_ID,G5B_U02_P04F32_SIMPLIFY_SPEC_ID,FRACTION_CAPS,"APPLICATION_COMPATIBLE_NOT_REQUIRED"),
+  makeRow(G5B_U02_P04F32_QUANTITY_KP_ID,"求一個量的幾分之幾",G5B_U02_P04F32_QUANTITY_GROUP_ID,G5B_U02_P04F32_QUANTITY_SPEC_ID,QUANTITY_CAPS,"APPLICATION_COMPATIBLE_NUMERIC_SURFACE"),
+  makeRow(G5B_U02_P04F32_INTEGER_TIMES_KP_ID,"整數乘分數",G5B_U02_P04F32_INTEGER_TIMES_GROUP_ID,G5B_U02_P04F32_INTEGER_TIMES_SPEC_ID,FRACTION_CAPS,"APPLICATION_COMPATIBLE_NOT_REQUIRED")
+]);
+export const G5B_U02_P04F32_ALL_PUBLIC_IDS=Object.freeze({knowledgePointIds:Object.freeze([G5B_U02_P04F31_KP_ID,...G5B_U02_P04F32_SELECTOR_ROWS.map(r=>r.knowledgePointId)]),patternGroupIds:Object.freeze([G5B_U02_P04F31_GROUP_ID,...G5B_U02_P04F32_PATTERN_GROUPS.map(g=>g.patternGroupId)]),patternSpecIds:Object.freeze([G5B_U02_P04F31_SPEC_ID,...G5B_U02_P04F32_PATTERN_SPECS.map(s=>s.patternSpecId)])});
+export function listG5BU02P04F32SelectorRows(){return G5B_U02_P04F32_SELECTOR_ROWS.map(clone);}
+export function getG5BU02P04F32SelectorRow(id){return clone(G5B_U02_P04F32_SELECTOR_ROWS.find(row=>row.knowledgePointId===id)??null);}
+export function listG5BU02P04F32PatternGroups(id){return G5B_U02_P04F32_PATTERN_GROUPS.filter(group=>group.primaryKnowledgePointId===id).map(clone);}
+export function resolveG5BU02P04F32PatternSpecIds(id){const row=G5B_U02_P04F32_SELECTOR_ROWS.find(candidate=>candidate.knowledgePointId===id);return row?[...row.patternSpecIds]:[];}
+export function auditG5BU02P04F32SelectorProjection(){const errors=[];if(G5B_U02_P04F32_SELECTOR_ROWS.length!==4||G5B_U02_P04F32_PATTERN_GROUPS.length!==4||G5B_U02_P04F32_PATTERN_SPECS.length!==4)errors.push("P04F32_CARDINALITY_INVALID");const relations=G5B_U02_P04F32_PATTERN_SPECS.map(s=>s.semanticRelation);for(const expected of ["FRACTION_MULTI_STEP_CALCULATION","FRACTION_PRODUCT_SIMPLIFICATION","FRACTION_OF_QUANTITY","FRACTION_TIMES_INTEGER_PRODUCT"])if(!relations.includes(expected))errors.push(`P04F32_RELATION_MISSING:${expected}`);if(G5B_U02_P04F32_SELECTOR_ROWS.some(row=>row.questionMode!=="numeric"))errors.push("P04F32_NUMERIC_SURFACE_INVALID");if(G5B_U02_P04F32_PATTERN_SPECS.some(spec=>spec.roundingAllowed!==false||spec.exactRationalArithmeticRequired!==true))errors.push("P04F32_EXACTNESS_INVALID");return Object.freeze({ok:errors.length===0,errors:Object.freeze(errors),counts:Object.freeze({knowledgePoints:4,patternGroups:4,patternSpecs:4,numeric:4,application:0})});}

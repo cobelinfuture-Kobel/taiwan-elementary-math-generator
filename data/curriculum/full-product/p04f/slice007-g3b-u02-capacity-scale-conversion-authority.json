@@ -1,0 +1,160 @@
+{
+  "schemaName": "P04F7G3BU02CapacityScaleConversionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P04F_W4DirectProductVerticalSlice007Implementation",
+  "status": "IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue": {
+    "sliceId": "p04e_q007_r1_g3b_u02_3b02_profile_quantity_measurement_c1",
+    "queuePosition": 7,
+    "deliveryWaveId": "R05-W4",
+    "previousSliceId": "p04e_q006_r1_g3a_u04_3a04_profile_quantity_measurement_c1",
+    "previousSliceMustBeD0Complete": true,
+    "knowledgePointCount": 2
+  },
+  "source": {
+    "sourceNodeId": "g3b_u02_3b02",
+    "unitCode": "3B-U02",
+    "unitTitle": "公升與毫升",
+    "sourcePdfTitle": "meow911_3b02_l_ml.pdf",
+    "driveFileId": "1lQheLCRMyjeEaffdLdC54K50JmrESATZ",
+    "reviewedPages": [1],
+    "primaryWitnessPages": [1],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_capacity_container_scale_reading",
+      "canonicalNameZh": "容器容量刻度讀值",
+      "capabilityStatement": "學生能依容器刻度每格所代表的毫升數讀出液體容量。",
+      "reasoningInvariant": "容量讀值等於每格毫升數乘以液面所在的有效刻度格數。",
+      "requiredW4CapabilityIds": [
+        "cap_quantity_domain_validator",
+        "cap_scale_instrument_representation"
+      ],
+      "implementationBoundary": {
+        "included": [
+          "graduated container scale reading in millilitres",
+          "deterministic scale step and liquid-level tick reading",
+          "integer millilitre answer"
+        ],
+        "capacityEstimationAllowed": false,
+        "mixedUnitComparisonAllowed": false,
+        "mixedUnitArithmeticAllowed": false
+      }
+    },
+    {
+      "knowledgePointId": "kp_capacity_l_ml_conversion",
+      "canonicalNameZh": "公升與毫升換算",
+      "capabilityStatement": "學生能利用1公升等於1000毫升在公升與毫升之間進行等值換算。",
+      "reasoningInvariant": "同一容量以L與mL表示時保持等值，1L固定等於1000mL。",
+      "requiredW4CapabilityIds": [
+        "cap_mixed_unit_normalization",
+        "cap_quantity_domain_validator",
+        "cap_unit_conversion"
+      ],
+      "implementationBoundary": {
+        "included": [
+          "1000 millilitres equals 1 litre",
+          "millilitres to litres plus millilitres normalization",
+          "litres plus millilitres to total millilitres conversion",
+          "deterministic exact capacity answer"
+        ],
+        "mixedUnitComparisonAllowed": false,
+        "mixedUnitArithmeticAllowed": false,
+        "capacityEstimationAllowed": false
+      }
+    }
+  ],
+  "formalMapping": {
+    "runtimeProfileId": "profile_quantity_measurement",
+    "requiredW4CapabilityIds": [
+      "cap_mixed_unit_normalization",
+      "cap_quantity_domain_validator",
+      "cap_scale_instrument_representation",
+      "cap_unit_conversion"
+    ],
+    "sharedFoundationCapabilityIds": [
+      "cap_quantity_dimension_unit_identity",
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_text_numeric_representation"
+    ],
+    "dimensionId": "CAPACITY",
+    "unitFamilyId": "METRIC_CAPACITY",
+    "millilitresPerLitre": 1000
+  },
+  "patternGroups": [
+    {
+      "patternGroupId": "pg_g3b_u02_capacity_container_scale_reading_numeric",
+      "knowledgePointId": "kp_capacity_container_scale_reading",
+      "displayName": "容器容量刻度讀值",
+      "questionMode": "numeric",
+      "representationTag": "capacity_scale_reading"
+    },
+    {
+      "patternGroupId": "pg_g3b_u02_capacity_l_ml_conversion_numeric",
+      "knowledgePointId": "kp_capacity_l_ml_conversion",
+      "displayName": "公升毫升換算",
+      "questionMode": "numeric",
+      "representationTag": "capacity_unit_conversion"
+    }
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g3b_u02_capacity_container_scale_reading_numeric",
+      "knowledgePointId": "kp_capacity_container_scale_reading",
+      "operationModelId": "op_g3b_u02_capacity_container_scale_reading",
+      "operationFamilyId": "quantity_measurement",
+      "answerType": "integer_capacity_quantity",
+      "requestedUnknownRole": "containerCapacityMillilitres",
+      "givenRoles": ["scaleStepMillilitres", "filledTickCount"],
+      "constraints": {
+        "positiveIntegerScaleStepRequired": true,
+        "positiveIntegerTickCountRequired": true,
+        "millilitreAnswerRequired": true,
+        "capacityEstimationForbidden": true,
+        "mixedUnitComparisonForbidden": true,
+        "mixedUnitArithmeticForbidden": true
+      },
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_CAPACITY_SCALE_READING"
+    },
+    {
+      "patternSpecId": "ps_g3b_u02_capacity_l_ml_conversion_numeric",
+      "knowledgePointId": "kp_capacity_l_ml_conversion",
+      "operationModelId": "op_g3b_u02_capacity_l_ml_conversion",
+      "operationFamilyId": "quantity_measurement",
+      "answerType": "capacity_quantity",
+      "requestedUnknownRole": "convertedCapacityQuantity",
+      "givenRoles": ["sourceCapacityQuantity", "conversionDirection"],
+      "constraints": {
+        "allowedDirections": ["ML_TO_L_ML", "L_ML_TO_ML"],
+        "millilitresPerLitre": 1000,
+        "exactConversionRequired": true,
+        "mixedUnitComparisonForbidden": true,
+        "mixedUnitArithmeticForbidden": true,
+        "capacityEstimationForbidden": true
+      },
+      "sourceBacked": true,
+      "operatorApprovedExtension": false,
+      "applicationClassification": "DIRECT_SOURCE_CAPACITY_UNIT_CONVERSION"
+    }
+  ],
+  "acceptance": {
+    "scaleReadingRequired": true,
+    "bothConversionDirectionsRequired": true,
+    "millilitresPerLitreRequired": 1000,
+    "exactAnswersRequired": true,
+    "duplicateQuestionRejected": true,
+    "genericFallbackAllowed": false,
+    "parallelPipelineAllowed": false,
+    "capacityEstimationLeakRejected": true,
+    "mixedUnitComparisonLeakRejected": true,
+    "mixedUnitArithmeticLeakRejected": true
+  }
+}

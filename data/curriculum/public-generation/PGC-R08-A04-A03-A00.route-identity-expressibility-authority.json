@@ -1,0 +1,73 @@
+{
+  "schemaName": "PGCR08A04A03A00RouteIdentityExpressibilityAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A03-A00_RouteIdentityExpressibilityAuthorityFreeze",
+  "status": "PASS_ROUTE_IDENTITY_EXPRESSIBILITY_FROZEN",
+  "sourceEvidence": {
+    "headSha": "5b8819025e4615d6440bc5e93faef96af4ae4e6a",
+    "workflowRunId": 30605355751,
+    "workflowJobId": 91076358794,
+    "workflowConclusion": "success",
+    "artifactId": 8783385941,
+    "artifactDigest": "sha256:fd3e87bbf3131854becdea66fdacdfabf4a3b2fb1350e1d5fd195d71be3c1b8f",
+    "reportSha256": "23e136bb683e12a0a0d4cf846bb0148d100205505e21ec6d1594b52071103d75"
+  },
+  "sourceAuthorities": {
+    "capacityPath": "data/curriculum/public-generation/generator_capacity_contract.json",
+    "runtimeRegistryPath": "site/modules/curriculum/public/public-generator-capacity-registry.js",
+    "activeRepairStatePath": "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+    "routeBindingQueuePath": "data/curriculum/public-generation/pgc-r08-a03-repair-queue/route-binding-not-converged.json"
+  },
+  "summary": {
+    "legalRouteCount": 793,
+    "runtimeRegistryRouteMatchCount": 793,
+    "runtimeMetadataMismatchCount": 0,
+    "capacityPublicPatternGroupDimensionPresentCount": 659,
+    "capacityGenerationPatternGroupDimensionPresentCount": 659,
+    "runtimePublicPatternGroupAgreementCount": 793,
+    "publicFieldProjectionClassCount": 726,
+    "exactPatternGroupProjectionClassCount": 793,
+    "failedRouteCount": 136,
+    "failedPublicFieldAmbiguousRouteCount": 54,
+    "failedPublicFieldUniqueRouteCount": 82,
+    "failedExactPatternGroupSelectableRouteCount": 136,
+    "failedPublicEquivalenceClassRouteCount": 0,
+    "failedRoutesDisambiguatedByPatternGroupsCount": 54
+  },
+  "hashes": {
+    "legalRouteIdsSha256": "cfc77f036ed47ac9a12012c6b57c97414ba937e78e3e0f03d7fd8d9b6452cbed",
+    "failedRouteIdsSha256": "e0c0f758743c6c9669f0bc4de92af6dc52e4cd8354bb0e492550fed9341f34f6",
+    "failedRouteExpressibilitySha256": "c83382036c86067f4cd91c8a1d06656cff1a74600a4141e9041c8ec43203f7a3"
+  },
+  "decision": {
+    "r08A01MatrixRouteIdentityComplete": false,
+    "rootCause": "R08 A01 removed the public PatternGroup dimension from browser matrix rows, forcing a greedy PatternGroup selection that cannot reproduce canonical route identity",
+    "exactPatternGroupSelectionRepairAuthorized": true,
+    "publicEquivalenceAcceptanceAuthorized": false,
+    "productMutationAuthorized": false,
+    "perRoutePatchAuthorized": false
+  },
+  "repairContract": {
+    "enrichEveryBrowserRowWithPublicPatternGroupIds": true,
+    "selectExactPublicPatternGroupSet": true,
+    "deselectAllNonTargetPublicPatternGroups": true,
+    "greedyFirstCompatibleSelectionForbidden": true,
+    "targetRouteIdMustBeBoundAfterExactSelection": true,
+    "disabledCurrentValueSelectionPolicyRetained": true,
+    "affectedRouteReplayCount": 136
+  },
+  "temporaryWorkflowRemovedBeforeMerge": true,
+  "goalDistance": {
+    "before": "D1_R08_DISABLED_CONTROL_FAMILIES_CLOSED_ROUTE_BINDING_REPAIR_NEXT",
+    "after": "D1_R08_ROUTE_IDENTITY_EXPRESSIBILITY_FROZEN_EXACT_BINDING_REPAIR_PENDING",
+    "distanceReduced": "proved 793/793 route identity recovery and classified all 136 binding failures as exact public PatternGroup selection defects with zero equivalence-class ambiguity",
+    "remainingBlockers": [
+      "EXACT_PATTERN_GROUP_BINDER_NOT_IMPLEMENTED_136",
+      "QUESTION_TYPE_STATE_SETTLEMENT_TIMEOUT_9",
+      "REGENERATE_IDENTITY_TIMEOUT_3",
+      "CAPACITY_EVIDENCE_RECONCILIATION_35"
+    ],
+    "nextShortestStep": "PGC-R08-A04-A03-A01_ExactPatternGroupBindingHarnessRepairAnd136RouteReplay"
+  }
+}

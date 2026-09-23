@@ -1,0 +1,153 @@
+{
+  "schemaName": "Path1WordProblemP103MultiplicativeModelingPublicCutoverImplementationV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_IMPLEMENTATION_V1",
+  "status": "P1_03_PUBLIC_CUTOVER_IMPLEMENTED_AWAITING_CI",
+  "operatorApproval": "APPROVED",
+  "preflightAuthority": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_PREFLIGHT_V1.json",
+  "implementationAuthority": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1.json",
+  "publicCutoverApplied": true,
+  "productRuntimeChanged": true,
+  "visibleUiChanged": true,
+  "queryStateChanged": true,
+  "sourceSemanticsChanged": false,
+  "path1MatrixChanged": false,
+  "g3bU08CanonicalAuthorityChanged": false,
+  "p101P102TransferChanged": false,
+  "p103ArithmeticChanged": false,
+  "p104Changed": false,
+  "p112PublicRouteChanged": false,
+  "classicRuntimeChanged": false,
+  "publicRoute": {
+    "route": "path1-manual",
+    "path1BlockId": "P1-03",
+    "practiceMode": "multiplicativeModelingTransfer",
+    "userFacingLabel": "文字建模練習",
+    "supportedBlockIds": ["P1-03"],
+    "unsupportedBlocksFailSafeTo": "arithmetic",
+    "unsupportedBlocksEmitWarning": "PATH1_PUBLIC_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED",
+    "doNotAliasToEqualGroupsTransfer": true,
+    "deepLinkRoundTripRequired": true,
+    "refreshRestoreRequired": true
+  },
+  "changedProductFiles": [
+    "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "site/assets/browser/state/path1-manual-query-state.js",
+    "site/assets/browser/path1-manual.js",
+    "site/path1/index.html"
+  ],
+  "productChangeDetails": [
+    {
+      "path": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "change": "Dispatch multiplicativeModelingTransfer only for P1-03 to the already validated dedicated worksheet adapter and stamp public route metadata at configSnapshot level only."
+    },
+    {
+      "path": "site/assets/browser/state/path1-manual-query-state.js",
+      "change": "Allow the exact P1-03 modeling mode only for P1-03 while preserving equalGroupsTransfer at P1-01/P1-02 and arithmetic as the universal fallback."
+    },
+    {
+      "path": "site/assets/browser/path1-manual.js",
+      "change": "Treat both approved modeling modes as the same user-facing concept, hide irrelevant modeling options per block, preserve explicit mode identity, and surface safe-normalization warnings."
+    },
+    {
+      "path": "site/path1/index.html",
+      "change": "Expose the multiplicativeModelingTransfer option and explain the block-specific modeling routes."
+    }
+  ],
+  "publicMetadataProjection": {
+    "worksheetConfigSnapshot": {
+      "publicCutoverApplied": true,
+      "publicRoute": "path1-manual",
+      "practiceMode": "multiplicativeModelingTransfer",
+      "path1BlockId": "P1-03"
+    },
+    "generatedItemSemanticMetadataChanged": false,
+    "generatedItemPublicCutoverAppliedRemains": false,
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "semanticAndNumericInvariants": {
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "unknownRole": "totalAmount",
+    "amountPerGroup": "integer 10..99",
+    "groupCount": "integer 10..99",
+    "totalAmount": "amountPerGroup * groupCount; integer 100..9801",
+    "leftFactorRole": "amountPerGroup",
+    "rightFactorRole": "groupCount",
+    "productRole": "totalAmount",
+    "semanticCommutativeRoleSwapAllowed": false,
+    "unitConversionAllowed": false,
+    "multiRelationAllowed": false,
+    "inverseUnknownRolesAllowed": false,
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT"
+  },
+  "protectedAuthority": {
+    "mustRemainUnmodified": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "data/curriculum/pattern_specs/PATH1_P1_03_MultiplicativeModelingPatternSpecRegistry.json",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-patterns.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-generator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-validator.js",
+      "site/assets/browser/pipeline/build-path1-p1-03-multiplicative-modeling-worksheet.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-diversity.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-p1-03-extension.js",
+      "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js"
+    ],
+    "p104RuntimeUntouched": true,
+    "p112PublicRouteUntouched": true,
+    "classicRuntimeUntouched": true
+  },
+  "focusedAcceptance": {
+    "node": [
+      "P1-03 arithmetic remains byte-semantically equivalent at worksheet question/answer level",
+      "P1-03 public modeling dispatch matches the dedicated non-public worksheet questions and answers at 1/20/120",
+      "120 modeled prompts remain distinct and all four existing P1-03 PatternSpecs are represented",
+      "P1-03 public query round-trip accepts multiplicativeModelingTransfer",
+      "unsupported block/mode pairs normalize to arithmetic with explicit warning",
+      "P1-01/P1-02 equalGroupsTransfer remains accepted",
+      "public config metadata marks cutover true while generated-item semantic metadata remains unchanged",
+      "all relative static imports in the cutover dependency chain resolve at repository HEAD"
+    ],
+    "targetedBrowser": [
+      "default /path1 remains P1-01 arithmetic",
+      "P1-03 arithmetic generates",
+      "P1-03 modeling generates 24 questions and 24 answers",
+      "P1-03 modeling deep-link survives refresh",
+      "P1-03 modeling carried to P1-04 normalizes to arithmetic with warning",
+      "P1-01/P1-02 equalGroupsTransfer remains selectable and generates",
+      "preview and print snapshots are identical",
+      "no pageErrors or product consoleErrors"
+    ],
+    "deployedPagesRequired": true,
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "antiScopeCreep": {
+    "newKnowledgePointAllowed": false,
+    "newRelationAllowed": false,
+    "newPatternSpecAllowed": false,
+    "numericEnvelopeExpansionAllowed": false,
+    "masteryIntegrationAllowed": false,
+    "p104ModelingAllowed": false,
+    "p112CutoverAllowed": false,
+    "classicChangesAllowed": false,
+    "sourceMiningRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P103_PUBLIC_CUTOVER_CONTRACT_LOCKED_IMPLEMENTATION_NOT_STARTED",
+    "goalDistanceAfterTarget": "D0_P103_PUBLIC_PATH1_MODELING_ROUTE_DEPLOYED_AND_ACCEPTED",
+    "distanceReduced": "The existing D1 P1-03 modeling engine is connected to the bounded Path1 public route without changing semantic authority; final D0 requires focused CI, merge, Pages deployment, and deployed browser acceptance.",
+    "remainingBlockers": [
+      "focused CI not yet accepted",
+      "PR not yet merged",
+      "Pages deployment not yet confirmed",
+      "deployed public acceptance not yet completed"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_DEPLOYED_PUBLIC_ACCEPTANCE_V1"
+  }
+}

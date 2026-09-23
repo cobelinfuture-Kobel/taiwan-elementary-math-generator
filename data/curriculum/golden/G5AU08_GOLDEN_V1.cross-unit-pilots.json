@@ -1,0 +1,125 @@
+{
+  "schemaName": "G5AU08GoldenCrossUnitPilotRegistry",
+  "schemaVersion": 1,
+  "taskId": "GS05_G5AU08_CrossUnitConformancePilot",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "status": "PASS_THREE_CLASS_CROSS_UNIT_CONFORMANCE",
+  "pilotPolicy": {
+    "requiredPilotCount": 3,
+    "requiredPilotClasses": [
+      "legacy_numeric_completed",
+      "legacy_application_completed",
+      "golden_native_in_progress"
+    ],
+    "newPerUnitGeneratorAllowed": false,
+    "newPerUnitValidatorAllowed": false,
+    "newPerUnitRendererAllowed": false,
+    "newPerUnitWorkflowAllowed": false,
+    "legacyCompletedUnitsUseRevalidation": true,
+    "unfinishedUnitMustFailClosedForGoldenProduction": true
+  },
+  "resultSummary": {
+    "pilotCount": 3,
+    "goldenConformantCompletedUnitCount": 2,
+    "goldenNativeInProgressCount": 1,
+    "blockedConformanceCount": 0,
+    "newPerUnitRuntimeCount": 0
+  },
+  "pilots": [
+    {
+      "pilotId": "gs05_legacy_numeric_g5a_u02",
+      "pilotClass": "legacy_numeric_completed",
+      "sourceId": "g5a_u02_5a02",
+      "unitCode": "5A-U02",
+      "unitTitle": "因數與公因數",
+      "implementationStatus": "D0_PRODUCTION_COMPLETED",
+      "expectedConformanceStatus": "GOLDEN_CONFORMANT",
+      "actualConformanceStatus": "GOLDEN_CONFORMANT",
+      "goldenContractId": "G5AU08_GOLDEN_V1",
+      "goldenContractVersion": "1.0.0",
+      "authorityPaths": [
+        "data/curriculum/contracts/S96T_G5A_U02_ProductionRecloseout.json",
+        "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js",
+        "site/modules/curriculum/batch-b/g5a-u02-browser-resolver.js",
+        "site/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js"
+      ],
+      "runtimeEvidence": {
+        "questionCount": 12,
+        "answerKeyCount": 12,
+        "generator": "PASS",
+        "validator": "PASS",
+        "renderer": "PASS",
+        "productionAuthority": "PASS"
+      },
+      "perUnitRuntimeAdditions": {
+        "generator": 0,
+        "validator": 0,
+        "renderer": 0,
+        "workflow": 0
+      }
+    },
+    {
+      "pilotId": "gs05_legacy_application_g3b_u04",
+      "pilotClass": "legacy_application_completed",
+      "sourceId": "g3b_u04_3b04",
+      "unitCode": "3B-U04",
+      "unitTitle": "兩步驟計算",
+      "implementationStatus": "E6_D0_PRODUCTION_COMPLETED",
+      "expectedConformanceStatus": "GOLDEN_CONFORMANT",
+      "actualConformanceStatus": "GOLDEN_CONFORMANT",
+      "goldenContractId": "G5AU08_GOLDEN_V1",
+      "goldenContractVersion": "1.0.0",
+      "authorityPaths": [
+        "data/project/milestones/GCTX-P14.claim.json",
+        "site/modules/curriculum/batch-a/g3b-u04-global-context-production-registry.js",
+        "site/modules/curriculum/batch-a/g3b-u04-global-context-production-admission.js",
+        "site/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js",
+        "site/modules/renderer/html-renderer-s73-extension.js"
+      ],
+      "runtimeEvidence": {
+        "questionCount": 25,
+        "answerKeyCount": 25,
+        "approvedContextCount": 5,
+        "generator": "PASS",
+        "blockingValidator": "PASS",
+        "renderer": "PASS",
+        "productionAuthority": "PASS"
+      },
+      "perUnitRuntimeAdditions": {
+        "generator": 0,
+        "validator": 0,
+        "renderer": 0,
+        "workflow": 0
+      }
+    },
+    {
+      "pilotId": "gs05_golden_native_g3a_u01",
+      "pilotClass": "golden_native_in_progress",
+      "sourceId": "g3a_u01_3a01",
+      "unitCode": "3A-U01",
+      "unitTitle": "10000以內的數",
+      "implementationStatus": "PARTIAL_MATERIALIZATION_NOT_PRODUCTION_ADMITTED",
+      "expectedConformanceStatus": "IN_PROGRESS_GOLDEN_NATIVE",
+      "actualConformanceStatus": "IN_PROGRESS_GOLDEN_NATIVE",
+      "goldenContractId": "G5AU08_GOLDEN_V1",
+      "goldenContractVersion": "1.0.0",
+      "authorityPaths": [
+        "data/curriculum/registry/batch_a_knowledge_points.json",
+        "site/modules/curriculum/batch-a/global-public-source-unit-adapter.js"
+      ],
+      "expectedGoldenActivationBlockCode": "GS05_GOLDEN_UNIT_NOT_REGISTERED",
+      "runtimeEvidence": {
+        "dataRegistry": "PASS",
+        "productionActivationFailClosed": "PASS",
+        "prematureProductionAdmission": false
+      },
+      "perUnitRuntimeAdditions": {
+        "generator": 0,
+        "validator": 0,
+        "renderer": 0,
+        "workflow": 0
+      }
+    }
+  ]
+}

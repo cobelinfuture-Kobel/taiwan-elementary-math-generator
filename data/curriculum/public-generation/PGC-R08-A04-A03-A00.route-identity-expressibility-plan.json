@@ -1,0 +1,45 @@
+{
+  "schemaName": "PGCR08A04A03A00RouteIdentityExpressibilityPlanV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R08-A04-A03-A00_RouteIdentityExpressibilityAuthorityFreeze",
+  "status": "PASS_ROUTE_IDENTITY_EXPRESSIBILITY_FROZEN",
+  "finalAuthorityPath": "data/curriculum/public-generation/PGC-R08-A04-A03-A00.route-identity-expressibility-authority.json",
+  "sourceAuthorities": [
+    "data/curriculum/public-generation/generator_capacity_contract.json",
+    "site/modules/curriculum/public/public-generator-capacity-registry.js",
+    "data/curriculum/public-generation/PGC-R08-A04.active-repair-state.json",
+    "data/curriculum/public-generation/pgc-r08-a03-repair-queue/route-binding-not-converged.json"
+  ],
+  "frozenCounts": {
+    "legalRouteCount": 793,
+    "routeBindingFailureCount": 136,
+    "runtimeRegistryRouteMatchCount": 793,
+    "failedExactPatternGroupSelectableRouteCount": 136,
+    "failedPublicEquivalenceClassRouteCount": 0
+  },
+  "classificationValues": [
+    "EXACT_PUBLIC_PATTERN_GROUP_SELECTION_REQUIRED",
+    "PUBLIC_EQUIVALENCE_CLASS_REQUIRED"
+  ],
+  "decision": {
+    "selectedClassification": "EXACT_PUBLIC_PATTERN_GROUP_SELECTION_REQUIRED",
+    "exactPatternGroupSelectionRepairAuthorized": true,
+    "publicEquivalenceAcceptanceAuthorized": false
+  },
+  "boundaries": {
+    "publicUiMutationAllowed": false,
+    "browserHarnessMutationAllowed": false,
+    "generatorMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "capacityAuthorityMutationAllowed": false,
+    "perRoutePatchAllowed": false
+  },
+  "acceptance": {
+    "runtimeRegistryRouteMatchCount": 793,
+    "runtimeMetadataMismatchCount": 0,
+    "failedRouteClassifiedCount": 136,
+    "classificationTotalMustEqualFailedRouteCount": true
+  },
+  "nextTask": "PGC-R08-A04-A03-A01_ExactPatternGroupBindingHarnessRepairAnd136RouteReplay"
+}

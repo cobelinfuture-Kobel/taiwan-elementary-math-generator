@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_PREFLIGHT_V1",
+  "status": "P1_08_REMEDIATION_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "operatorScope": "APPROVED_PREFLIGHT_ONLY",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "authority": {
+    "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+    "preflightBaseMain": "d92284c4d8d83ac8e5c4c70e2e0bee928441babd",
+    "diagnosticAcceptancePr": 854,
+    "diagnosticAcceptanceMergeSha": "e9bfb85961803ee3f7ff405556f3e03f745688e6",
+    "diagnosticContractPath": "data/curriculum/application/contracts/PATH1_P1_08_TWO_DIGIT_DIVISOR_GENERIC_ARITHMETIC_ACCEPTANCE_V1.json",
+    "genericBuilderPath": "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "publicBindingPath": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "canonicalGeneratorPath": "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+    "validationPolicyPath": ".github/ci/unit-validation-policy.json"
+  },
+  "confirmedBlockers": [
+    {
+      "id": "P108_GENERIC_ARITHMETIC_COUNT1_KP_COVERAGE_CONFLICT",
+      "currentBehavior": "generic builder rejects questionCount < selected composite knowledgePoint count with PATH1_QUESTION_COUNT_BELOW_KP_COVERAGE",
+      "p108Witness": "P1-08 has 3 selected KPs, so questionCount=1 is rejected before any subplan generation",
+      "rootOwnership": "GENERIC_PATH1_BUILDER_SMALL_COUNT_POLICY"
+    },
+    {
+      "id": "P108_RUNTIME_KP_METADATA_NOT_EMITTED",
+      "currentBehavior": "generic normalization only preserves question.knowledgePointId or question.metadata.knowledgePointId and otherwise emits null",
+      "p108Witness": "the enclosing generic builder loop already knows the exact knowledgePointId for each subplan, but normalizeGeneratedQuestion does not use it as a fallback",
+      "rootOwnership": "GENERIC_SUBPLAN_NORMALIZATION_BOUNDARY"
+    }
+  ],
+  "smallCountPolicyDecision": {
+    "policyId": "PATH1_COMPOSITE_KP_SMALL_COUNT_PARTIAL_COVERAGE_V1",
+    "decision": "ALLOW_PARTIAL_KP_COVERAGE_ONLY_WHEN_QUESTION_COUNT_IS_BELOW_SELECTED_KP_COUNT",
+    "fullCoverageRule": "when questionCount >= selectedKnowledgePointCount, preserve current all-selected-KP coverage and current even allocation semantics",
+    "smallCountRule": "when 1 <= questionCount < selectedKnowledgePointCount, do not fail solely because every selected KP cannot appear in the same worksheet",
+    "allocationRule": "select exactly questionCount distinct KPs from the canonical selected-KP list using a deterministic seed-derived rotation, allocate one question to each selected KP, and skip zero-allocation KPs",
+    "determinismRule": "same blockId + generationSeed + questionCount MUST select the same KP subset",
+    "fairnessRule": "different seeds MUST be capable of selecting different KPs so single-question practice is not permanently biased to the first canonical KP",
+    "normalCountPreservation": "questionCount >= selectedKnowledgePointCount MUST retain existing canonical allocation order and 20/120 behavior; P1-08 remains 7/7/6 at 20 and 40/40/40 at 120 under the existing acceptance seed",
+    "notAllowed": [
+      "P1-08-only hard-coded exception",
+      "fabricating multiple KP labels on one generated question",
+      "requiring one question to satisfy all three P1-08 KPs",
+      "changing canonical P1-08 KP membership",
+      "changing PatternSpecs or G4A-U04 arithmetic semantics"
+    ]
+  },
+  "knowledgePointMetadataDecision": {
+    "policyId": "PATH1_GENERIC_SUBPLAN_KP_ID_FALLBACK_V1",
+    "canonicalOutputField": "generatedQuestion.knowledgePointId",
+    "ownerLayer": "normalizeGeneratedQuestion in the generic Path1 builder",
+    "fallbackOrder": [
+      "question.knowledgePointId",
+      "question.metadata.knowledgePointId",
+      "enclosingSubplanKnowledgePointId"
+    ],
+    "generatorMutationRequired": false,
+    "canonicalG4aU04GeneratorMutationAllowed": false,
+    "reason": "the generic builder is the first layer that has both the heterogeneous generated question and the authoritative enclosing KP assignment; attaching the fallback there preserves generator reuse and avoids duplicating route-specific metadata logic",
+    "metadataMirrorRequired": false,
+    "topLevelKnowledgePointIdRequired": true
+  },
+  "futureImplementationBoundary": {
+    "taskId": "PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_IMPLEMENTATION_V1",
+    "implementationRequiresSeparateApproval": true,
+    "expectedProductFileMutation": [
+      "site/assets/browser/pipeline/build-path1-manual-worksheet.js"
+    ],
+    "allowedSupportingChanges": [
+      "focused Path1 tests",
+      "targeted Chromium runner",
+      "change-impact manifest",
+      "validation plan",
+      "acceptance contract"
+    ],
+    "forbiddenProductChanges": [
+      "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+      "site/modules/curriculum/batch-a/source-pattern-g4a-u04-extension.js",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "canonical KnowledgePoint authority",
+      "PatternSpecs",
+      "public UI/query semantics",
+      "P1-09+ semantics"
+    ]
+  },
+  "futureChangeImpact": {
+    "scope": "SHARED_RUNTIME",
+    "affectedRoutes": "BOUNDED",
+    "boundedSurface": "Path1 manual generic arithmetic composite-KP blocks; only sub-KP allocation when count < KP count plus top-level KP metadata fallback during generic subplan normalization",
+    "legalRouteSemanticsChanged": false,
+    "publicAuthorityCutover": false,
+    "currentAuthorityChanged": false,
+    "globalReleaseCheckpoint": false,
+    "derivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "futureAcceptance": {
+    "p108RequiredCounts": [1, 20, 120],
+    "count1": [
+      "must succeed",
+      "must generate exactly one question",
+      "must emit a non-null top-level knowledgePointId from the three P1-08 KPs",
+      "same seed must reproduce the same selected KP and question",
+      "seed variation must demonstrate that the small-count selector can reach more than the first KP"
+    ],
+    "count20": [
+      "must remain 20 questions",
+      "must retain all three P1-08 KPs",
+      "must preserve existing 7/7/6 allocation under the acceptance seed",
+      "every item must emit its exact knowledgePointId"
+    ],
+    "count120": [
+      "must remain 120 questions",
+      "must retain 40/40/40 allocation",
+      "every item must emit its exact knowledgePointId"
+    ],
+    "arithmeticInvariants": [
+      "dividend = divisor * quotient + remainder",
+      "0 <= remainder < divisor"
+    ],
+    "preservation": [
+      "no fallback outside the selected P1-08 canonical patterns",
+      "no P1-06 estimate teaching expansion",
+      "no P1-07 quotient-place teaching expansion",
+      "no P1-09 larger-dividend expansion",
+      "no P1-11 checking/remainder-semantic expansion"
+    ]
+  },
+  "antiScopeCreep": {
+    "modifySharedRuntimeInThisPreflight": false,
+    "modifyGeneratorInThisPreflight": false,
+    "modifyPublicBinding": false,
+    "modifyPatternSpecs": false,
+    "modifyPath1Matrix": false,
+    "modifyCanonicalKnowledgePoints": false,
+    "fullRegression": false,
+    "globalReplay": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P108_GENERIC_ARITHMETIC_ACCEPTANCE_GAPS_ISOLATED",
+    "goalDistanceAfter": "D1_P108_REMEDIATION_POLICY_AND_OWNERSHIP_LOCKED_IMPLEMENTATION_PENDING",
+    "distanceReduced": "REMEDIATION_UNCERTAINTY_REMOVED",
+    "remainingBlockers": [
+      "P108_SHARED_GENERIC_BUILDER_REMEDIATION_NOT_IMPLEMENTED",
+      "P108_COUNT1_PUBLIC_ACCEPTANCE_NOT_GREEN",
+      "P108_ITEM_KP_METADATA_NOT_GREEN"
+    ],
+    "nextShortestStep": "PATH1_P1_08_GENERIC_ARITHMETIC_SMALL_COUNT_AND_KP_METADATA_REMEDIATION_IMPLEMENTATION_V1"
+  }
+}

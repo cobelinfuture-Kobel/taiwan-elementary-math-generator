@@ -1,0 +1,28 @@
+S43E5_G3BU01_KPExpansion_LOCAL_PASS_PENDING_BROWSER_PDF_SMOKE
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+affected_kps:
+- kp_g3b_u01_3digit_by_1digit_regroup_hundreds
+- kp_g3b_u01_2digit_by_1digit_regroup_tens
+affected_specs:
+- ps_g3b_u01_3digit_by_1digit_regroup_hundreds
+- ps_g3b_u01_2digit_by_1digit_regroup_tens
+
+operator_readback:
+- tests 374
+- pass 374
+- fail 0
+- branch public-main up to date with public/main
+- working tree clean
+
+status:
+- selector/resolver/worksheet tests PASS locally
+- browser PDF smoke pending
+- Pages deploy may need rerun
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_TWO_SUPPORTED_KPS_PROMOTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3B_U01_LOCAL_PASS_BROWSER_PDF_SMOKE_PENDING
+DISTANCE_REDUCED = S43E5 npm test passed and public-main is synced/clean after G3B-U01 KP promotion
+REMAINING_BLOCKERS = browser PDF smoke pending; Pages deploy may need rerun
+NEXT_SHORTEST_STEP = generate G3B-U01 single-KP and mixed worksheets in browser and inspect output

@@ -1,0 +1,45 @@
+S43E5_R3_G3BU01_DIVISION_PLACE_VALUE_LOCAL_PASS_PENDING_BROWSER_PDF_SMOKE
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+
+operator_readback:
+- tests 373
+- pass 373
+- fail 0
+- branch public-main up to date with public/main
+- working tree clean
+
+completed_subtasks:
+- S43E5_R3A DesignScan
+- S43E5_R3B ExistingKPRenameAndRegistryPatch
+- S43E5_R3C 2DigitPlaceValueCases
+- S43E5_R3D 3DigitPlaceValueCases
+- S43E5_R3E QuotientZeroCases
+- S43E5_R3F DivisionWithRemainder
+- S43E5_R3G GeneratorValidatorIntegration
+- S43E5_R3H UIRegistrySelectorIntegration
+- S43E5_R3I MixedAllocationOrderingQA
+
+pending_subtasks:
+- S43E5_R3J WorksheetBrowserPDFSmoke
+- S43E5_R3K Closeout
+
+final_ui_kps:
+- kp_g3b_u01_2digit_division_place_value_cases = 二位數除以一位數商位判斷
+- kp_g3b_u01_3digit_by_1digit_regroup_hundreds = 三位數除以一位數
+- kp_g3b_u01_3digit_division_place_value_cases = 三位數除以一位數商位判斷
+- kp_g3b_u01_quotient_zero_cases = 商中有 0 的除法
+- kp_g3b_u01_division_with_remainder = 有餘數除法
+
+status:
+- local npm test PASS
+- selector / resolver / generator / validator / mixed ordering automated QA PASS
+- browser PDF smoke pending
+- Pages deploy may need rerun
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_R3_STALE_VISIBLE_COUNT_TESTS_FIXED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3B_U01_R3_LOCAL_PASS_BROWSER_PDF_SMOKE_PENDING
+DISTANCE_REDUCED = S43E5 R3 automated QA passed after stale visibleCount test fixes; implementation is ready for browser PDF smoke
+REMAINING_BLOCKERS = browser PDF smoke pending; Pages deploy may need rerun
+NEXT_SHORTEST_STEP = generate six G3B-U01 PDF smoke files and inspect output

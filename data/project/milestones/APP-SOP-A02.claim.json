@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "taskId": "APP-SOP-A02_NPlusOneInterpretationProofAndMisconceptionContract",
+  "taskClass": "contract",
+  "targetEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "actualEvidenceLevel": "E1_DATA_STRUCTURE_READY",
+  "claimedStatus": "A02_PROOF_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/contracts/NPlusOne_Application_Interpretation_Proof_SOP_V1.md",
+      "data/curriculum/application/schema/n-plus-one-interpretation-proof.schema.json",
+      "data/curriculum/application/contracts/APP-SOP-A02_NPlusOneInterpretationProofAndMisconceptionContract.json",
+      "tests/curriculum/application-problem-sop-a02.test.js"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "N+1 classification now has a machine-readable proof package requiring prerequisite closure, semantic adjacency, paired controls, an interpretation fork, diagnostic misconception coverage, counterfactual and cross-context evidence, keyword robustness, validator delta, and answer-meaning validation. No production question, runtime, renderer, UI, context registry, unit binding, or POST_GOLDEN state changes in A02."
+  },
+  "nextStep": {
+    "taskId": "APP-SOP-A03_PBLTaskSetDependencyMilestoneAndFinalProductContract",
+    "requiredEvidenceLevelBeforeStart": "E1_DATA_STRUCTURE_READY"
+  }
+}

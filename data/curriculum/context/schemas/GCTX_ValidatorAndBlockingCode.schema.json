@@ -1,0 +1,348 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taiwan-elementary-math-generator.example/schemas/gctx-validator-blocking-code-v1.json",
+  "title": "GCTX Deterministic Validator and Blocking-Code Contract Schema",
+  "description": "Contract-only schema for deterministic validation of P02 chain closure, P03 evidence admission, P04 semantic fingerprints, pairwise duplicate classification, breadth gates and final production eligibility.",
+  "$defs": {
+    "validatorStageId": {
+      "type": "string",
+      "enum": [
+        "ruleset_and_request",
+        "p02_chain_closure",
+        "p03_evidence_admission",
+        "p04_fingerprint_canonicalization",
+        "p04_pairwise_similarity",
+        "p04_breadth_gate",
+        "production_admission"
+      ]
+    },
+    "validationMode": {
+      "type": "string",
+      "enum": ["authoring_gate", "population_gate", "production_gate"]
+    },
+    "sha256Value": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "validationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deterministic",
+        "sameInputProducesSameOutput",
+        "failClosed",
+        "failFast",
+        "collectAllBlockingErrors",
+        "runtimeWebSearchAllowed",
+        "aiJudgmentAllowed",
+        "genericFallbackAllowed",
+        "unknownBlockingCodePolicy",
+        "warningMayOverrideBlockingError",
+        "productionEligibilityRequiresZeroBlockingErrors",
+        "productionEligibilityRequiresAllStagesPass",
+        "inputDigestRequired",
+        "outputDigestRequired",
+        "stableIssueOrderingRequired",
+        "issueDeduplicationRequired"
+      ],
+      "properties": {
+        "deterministic": {"const": true},
+        "sameInputProducesSameOutput": {"const": true},
+        "failClosed": {"const": true},
+        "failFast": {"const": false},
+        "collectAllBlockingErrors": {"const": true},
+        "runtimeWebSearchAllowed": {"const": false},
+        "aiJudgmentAllowed": {"const": false},
+        "genericFallbackAllowed": {"const": false},
+        "unknownBlockingCodePolicy": {"const": "block"},
+        "warningMayOverrideBlockingError": {"const": false},
+        "productionEligibilityRequiresZeroBlockingErrors": {"const": true},
+        "productionEligibilityRequiresAllStagesPass": {"const": true},
+        "inputDigestRequired": {"const": true},
+        "outputDigestRequired": {"const": true},
+        "stableIssueOrderingRequired": {"const": true},
+        "issueDeduplicationRequired": {"const": true}
+      }
+    },
+    "stageDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stageId",
+        "order",
+        "requiredInputFields",
+        "blockingCodes",
+        "warningCodes",
+        "mustRun",
+        "mayMutateInput",
+        "passRequiresNoStageBlockingErrors"
+      ],
+      "properties": {
+        "stageId": {"$ref": "#/$defs/validatorStageId"},
+        "order": {"type": "integer", "minimum": 1, "maximum": 7},
+        "requiredInputFields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "blockingCodes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^(?:GCTX|PBL|SCENARIO)_[A-Z0-9_]+$"}
+        },
+        "warningCodes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^(?:GCTX|PBL)_[A-Z0-9_]+$"}
+        },
+        "mustRun": {"const": true},
+        "mayMutateInput": {"const": false},
+        "passRequiresNoStageBlockingErrors": {"const": true}
+      }
+    },
+    "blockingCodeDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "sourceContract",
+        "stageId",
+        "severity",
+        "blocking",
+        "deterministic",
+        "productionEligibilityEffect",
+        "messageKey",
+        "requiredContextFields"
+      ],
+      "properties": {
+        "code": {"type": "string", "pattern": "^(?:GCTX|PBL|SCENARIO)_[A-Z0-9_]+$"},
+        "sourceContract": {
+          "type": "string",
+          "enum": ["GCTX-P02", "GCTX-P03", "GCTX-P04", "GCTX-P06"]
+        },
+        "stageId": {"$ref": "#/$defs/validatorStageId"},
+        "severity": {"const": "error"},
+        "blocking": {"const": true},
+        "deterministic": {"const": true},
+        "productionEligibilityEffect": {"const": "deny"},
+        "messageKey": {"type": "string", "pattern": "^[a-z][a-z0-9_.]+$"},
+        "requiredContextFields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "warningCodeDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "sourceContract",
+        "stageId",
+        "severity",
+        "blocking",
+        "deterministic",
+        "productionEligibilityEffect",
+        "messageKey"
+      ],
+      "properties": {
+        "code": {"type": "string", "pattern": "^(?:GCTX|PBL)_[A-Z0-9_]+$"},
+        "sourceContract": {
+          "type": "string",
+          "enum": ["GCTX-P03", "GCTX-P04", "GCTX-P06"]
+        },
+        "stageId": {"$ref": "#/$defs/validatorStageId"},
+        "severity": {"const": "warning"},
+        "blocking": {"const": false},
+        "deterministic": {"const": true},
+        "productionEligibilityEffect": {"const": "none"},
+        "messageKey": {"type": "string", "pattern": "^[a-z][a-z0-9_.]+$"}
+      }
+    },
+    "validationRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validationRunId",
+        "validationMode",
+        "rulesetVersion",
+        "fingerprintVersion",
+        "candidateChainId",
+        "unitCode",
+        "sourceId",
+        "p02ChainId",
+        "p02ProjectionProfileIds",
+        "p03EvidenceIds",
+        "p04FingerprintId",
+        "unitBreadthProfileId",
+        "deterministicReplayKey",
+        "inputDigest"
+      ],
+      "properties": {
+        "validationRunId": {"type": "string", "pattern": "^gctx_validation_[a-z0-9_]+$"},
+        "validationMode": {"$ref": "#/$defs/validationMode"},
+        "rulesetVersion": {"const": "0.1.0"},
+        "fingerprintVersion": {"const": "pbl-semantic-fingerprint-v1"},
+        "candidateChainId": {"type": "string", "minLength": 1},
+        "unitCode": {"type": "string", "pattern": "^[1-6][AB]-U[0-9]{2}$"},
+        "sourceId": {"type": "string", "minLength": 1},
+        "p02ChainId": {"type": "string", "minLength": 1},
+        "p02ProjectionProfileIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "p03EvidenceIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^gctx_evidence_(?:ck|problem)_[a-z0-9_]+$"}
+        },
+        "p04FingerprintId": {"type": "string", "pattern": "^gctx_pbl_fp_[a-z0-9_]+$"},
+        "unitBreadthProfileId": {"type": "string", "pattern": "^gctx_pbl_breadth_[a-z0-9_]+$"},
+        "deterministicReplayKey": {"type": "string", "minLength": 1},
+        "inputDigest": {"$ref": "#/$defs/sha256Value"}
+      }
+    },
+    "validationIssue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "severity",
+        "stageId",
+        "entityId",
+        "path",
+        "messageKey",
+        "context",
+        "blocking"
+      ],
+      "properties": {
+        "code": {"type": "string", "pattern": "^(?:GCTX|PBL|SCENARIO)_[A-Z0-9_]+$"},
+        "severity": {"type": "string", "enum": ["error", "warning"]},
+        "stageId": {"$ref": "#/$defs/validatorStageId"},
+        "entityId": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "messageKey": {"type": "string", "pattern": "^[a-z][a-z0-9_.]+$"},
+        "context": {"type": "object"},
+        "blocking": {"type": "boolean"}
+      }
+    },
+    "stageResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stageId",
+        "order",
+        "executed",
+        "passed",
+        "blockingErrorCount",
+        "warningCount",
+        "inputDigest",
+        "outputDigest"
+      ],
+      "properties": {
+        "stageId": {"$ref": "#/$defs/validatorStageId"},
+        "order": {"type": "integer", "minimum": 1, "maximum": 7},
+        "executed": {"const": true},
+        "passed": {"type": "boolean"},
+        "blockingErrorCount": {"type": "integer", "minimum": 0},
+        "warningCount": {"type": "integer", "minimum": 0},
+        "inputDigest": {"$ref": "#/$defs/sha256Value"},
+        "outputDigest": {"$ref": "#/$defs/sha256Value"}
+      }
+    },
+    "validationResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validationRunId",
+        "validatorContractVersion",
+        "rulesetVersion",
+        "fingerprintVersion",
+        "deterministicReplayKey",
+        "inputDigest",
+        "outputDigest",
+        "valid",
+        "productionEligible",
+        "stageResults",
+        "blockingErrors",
+        "warnings",
+        "canonicalFingerprintHash",
+        "pairwiseAssessmentIds",
+        "breadthGateResultRef"
+      ],
+      "properties": {
+        "validationRunId": {"type": "string", "pattern": "^gctx_validation_[a-z0-9_]+$"},
+        "validatorContractVersion": {"const": "gctx-validator-contract-v1"},
+        "rulesetVersion": {"const": "0.1.0"},
+        "fingerprintVersion": {"const": "pbl-semantic-fingerprint-v1"},
+        "deterministicReplayKey": {"type": "string", "minLength": 1},
+        "inputDigest": {"$ref": "#/$defs/sha256Value"},
+        "outputDigest": {"$ref": "#/$defs/sha256Value"},
+        "valid": {"type": "boolean"},
+        "productionEligible": {"type": "boolean"},
+        "stageResults": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {"$ref": "#/$defs/stageResult"}
+        },
+        "blockingErrors": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/validationIssue"}
+        },
+        "warnings": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/validationIssue"}
+        },
+        "canonicalFingerprintHash": {
+          "oneOf": [{"$ref": "#/$defs/sha256Value"}, {"type": "null"}]
+        },
+        "pairwiseAssessmentIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "breadthGateResultRef": {"type": ["string", "null"]}
+      }
+    },
+    "registryEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validatorContractVersion",
+        "rulesetVersion",
+        "fingerprintVersion",
+        "policy",
+        "stageDefinitions",
+        "blockingCodeDefinitions",
+        "warningCodeDefinitions"
+      ],
+      "properties": {
+        "validatorContractVersion": {"const": "gctx-validator-contract-v1"},
+        "rulesetVersion": {"const": "0.1.0"},
+        "fingerprintVersion": {"const": "pbl-semantic-fingerprint-v1"},
+        "policy": {"$ref": "#/$defs/validationPolicy"},
+        "stageDefinitions": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {"$ref": "#/$defs/stageDefinition"}
+        },
+        "blockingCodeDefinitions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/blockingCodeDefinition"}
+        },
+        "warningCodeDefinitions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/warningCodeDefinition"}
+        }
+      }
+    }
+  },
+  "$ref": "#/$defs/registryEnvelope"
+}

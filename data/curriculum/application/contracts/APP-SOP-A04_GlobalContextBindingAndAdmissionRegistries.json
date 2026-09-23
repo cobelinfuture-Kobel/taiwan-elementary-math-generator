@@ -1,0 +1,85 @@
+{
+  "schemaName": "APPSOPA04GlobalContextBindingAndAdmissionRegistriesContract",
+  "schemaVersion": 1,
+  "contractId": "APPLICATION_GLOBAL_CONTEXT_BINDING_SOP_V1",
+  "parentContractId": "APPLICATION_PROBLEM_SOP_V1",
+  "taskId": "APP-SOP-A04_GlobalContextBindingAndAdmissionRegistries",
+  "status": "A04_REGISTRY_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "prerequisite": {
+    "taskId": "APP-SOP-A03_PBLTaskSetDependencyMilestoneAndFinalProductContract",
+    "mergeSha": "999be246b7c5c6d3cf443975c89d1d5991e5f316",
+    "requiredEvidenceLevel": "E1_DATA_STRUCTURE_READY"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/contracts/Application_Global_Context_Binding_SOP_V1.md",
+    "bindingSchema": "data/curriculum/application/schema/application-context-binding.schema.json",
+    "admissionRecordSchema": "data/curriculum/application/schema/application-admission-record.schema.json",
+    "bindingRegistry": "data/curriculum/application/registry/application-context-bindings.json",
+    "admissionRegistry": "data/curriculum/application/registry/application-admission-registry.json",
+    "knowledgeOperationAuthorityPattern": "data/curriculum/knowledge/units/<sourceId>.knowledge-operation.json",
+    "globalContextAuthorityRoot": "data/curriculum/context/registry/"
+  },
+  "bindingInvariants": {
+    "mathematicsOwnedByContext": false,
+    "roleBindingsRequired": true,
+    "unitFlowRequired": true,
+    "semanticConstraintsRequired": true,
+    "forbiddenCombinationEvaluationRequired": true,
+    "surfaceTemplatesIndividuallyAdmitted": true,
+    "answerWitnessRequired": true,
+    "nPlusOneProofConditionallyRequired": true,
+    "pblContractConditionallyRequired": true,
+    "unknownBindingFailsClosed": true
+  },
+  "registryBootstrap": {
+    "bindingCount": 0,
+    "admissionRecordCount": 0,
+    "productionAdmissionCount": 0,
+    "silentPromotionAllowed": false
+  },
+  "result": {
+    "bindingSchemaCreated": true,
+    "admissionRecordSchemaCreated": true,
+    "bindingRegistryCreated": true,
+    "admissionRegistryCreated": true,
+    "bindingRegistryEmpty": true,
+    "admissionRegistryEmpty": true,
+    "authoritySeparated": true,
+    "modeSpecificEligibilityRepresented": true,
+    "runtimeChanged": false,
+    "questionContentAdded": false,
+    "productionAdmissionChanged": false
+  },
+  "deliverables": {
+    "normativeDocument": "docs/curriculum/contracts/Application_Global_Context_Binding_SOP_V1.md",
+    "bindingSchema": "data/curriculum/application/schema/application-context-binding.schema.json",
+    "admissionRecordSchema": "data/curriculum/application/schema/application-admission-record.schema.json",
+    "bindingRegistry": "data/curriculum/application/registry/application-context-bindings.json",
+    "admissionRegistry": "data/curriculum/application/registry/application-admission-registry.json",
+    "contract": "data/curriculum/application/contracts/APP-SOP-A04_GlobalContextBindingAndAdmissionRegistries.json",
+    "claim": "data/project/milestones/APP-SOP-A04.claim.json",
+    "tests": "tests/curriculum/application-problem-sop-a04.test.js"
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "newGlobalContextFamilyAuthoringAllowed": false,
+    "productionBindingPopulationAllowed": false,
+    "productionAdmissionAllowed": false,
+    "runtimeGeneratorModificationAllowed": false,
+    "runtimeValidatorModificationAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false,
+    "applicationQuestionAuthoringAllowed": false,
+    "postGoldenMigrationControllerModificationAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_PBL_TASK_SET_SCHEMA_CONTRACT_MACHINE_LOCKED",
+    "goalDistanceAfterTarget": "D3_APPLICATION_CONTEXT_BINDING_AND_ADMISSION_REGISTRIES_BOOTSTRAPPED",
+    "distanceReduced": "Application modes now have machine-readable context bindings and admission records that preserve mathematical authority, require role and unit flow, and fail closed without explicit admission. Registries start empty to prevent silent promotion.",
+    "remainingBlockers": [
+      "A05 executable validators and G3B-U01 pilot fixtures",
+      "A06 shared runtime and worksheet QA"
+    ],
+    "nextShortestStep": "APP-SOP-A05_ValidatorCIGatesAndG3BU01PilotFixtures"
+  }
+}

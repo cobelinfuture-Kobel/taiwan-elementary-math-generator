@@ -1,0 +1,56 @@
+{
+  "schemaName": "G4AU08ExistingScopeMutationMatrix",
+  "schemaVersion": 1,
+  "task": "S76H_G4A_U08_ExistingScopeMutationRejectionSuite",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "scope": "12 existing Phase2A application PatternSpecs only",
+  "templateCount": 12,
+  "mutationClasses": [
+    ["schema_identity", "G4AU08_VALIDATOR_SCHEMA_INVALID"],
+    ["source_identity", "G4AU08_VALIDATOR_SOURCE_MISMATCH"],
+    ["unit_identity", "G4AU08_VALIDATOR_UNIT_MISMATCH"],
+    ["knowledge_point_identity", "G4AU08_VALIDATOR_KP_MISMATCH"],
+    ["pattern_group_identity", "G4AU08_VALIDATOR_PATTERN_GROUP_MISMATCH"],
+    ["pattern_spec_identity", "G4AU08_VALIDATOR_PATTERN_SPEC_MISMATCH"],
+    ["reasoning_role", "G4AU08_VALIDATOR_REASONING_ROLE_MISMATCH"],
+    ["known_quantity_roles", "G4AU08_VALIDATOR_KNOWN_ROLES_MISMATCH"],
+    ["unknown_quantity_role", "G4AU08_VALIDATOR_UNKNOWN_ROLE_MISMATCH"],
+    ["operation_sequence", "G4AU08_VALIDATOR_OPERATION_SEQUENCE_MISMATCH"],
+    ["intermediate_requirement", "G4AU08_VALIDATOR_INTERMEDIATE_REQUIREMENT_MISMATCH"],
+    ["prompt_presence", "G4AU08_VALIDATOR_PROMPT_MISSING"],
+    ["answer_model_presence", "G4AU08_VALIDATOR_ANSWER_MODEL_MISSING"],
+    ["hidden_lifecycle", "G4AU08_VALIDATOR_LIFECYCLE_INVALID"],
+    ["canonical_routing", "G4AU08_VALIDATOR_PUBLIC_ROUTING_FORBIDDEN"],
+    ["production_use", "G4AU08_VALIDATOR_PRODUCTION_USE_FORBIDDEN"]
+  ],
+  "expectedPerTemplateMutationCount": 16,
+  "expectedTemplateMutationCount": 192,
+  "globalMutations": [
+    ["unmapped_template_identity", "G4AU08_VALIDATOR_TEMPLATE_UNMAPPED"]
+  ],
+  "expectedTotalMutationCount": 193,
+  "acceptance": {
+    "positiveCanonicalItemsMustPass": 12,
+    "mutationRejectionRate": 1,
+    "genericFallbackAllowed": false,
+    "extensionPatternGroupsIncluded": false,
+    "arithmeticRecomputationIncluded": false,
+    "deepUnitFlowIncluded": false,
+    "deepSemanticRelationIncluded": false
+  },
+  "scopeBoundary": {
+    "runtimeGeneratorChanged": false,
+    "validatorContractChanged": false,
+    "selectorChanged": false,
+    "resolverChanged": false,
+    "worksheetChanged": false,
+    "rendererChanged": false,
+    "productionLifecycleChanged": false
+  },
+  "goalDistance": {
+    "before": "D2_G4A_U08_APPLICATION_VALIDATOR_CONTRACT_REBASED",
+    "after": "D2_G4A_U08_EXISTING_SCOPE_MUTATION_REJECTION_PROVEN",
+    "next": "S76I_G4A_U08_Phase2BMissingPatternGroupsImplementation"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "schemaName": "P06FW6Q004TableStructureComparisonImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6DirectProductVerticalSlice004Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q004_TABLE_STRUCTURE_COMPARISON_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_ARTIFACT_LOCKED",
+    "after": "D1_Q004_TABLE_STRUCTURE_COMPARISON_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "ea4240271f9a41743db4be741798322ea3858193",
+  "preflight": {
+    "prNumber": 978,
+    "mergeSha": "40296c39b773f2e3f1d7f778032bf4d12539a079",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p06f/q004-g3b-u10-table-structure-comparison-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "queuePosition": 3,
+    "prNumber": 977,
+    "mergeSha": "66c7e6c40650827d1735f6fb40ac6e5f79b4e059",
+    "postMergeWorkflowRunId": 35292573647,
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "queueAuthority": {
+    "queuePosition": 4,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q004_r1_g3b_u10_3b10_profile_chart_data_c1",
+    "sourceId": "g3b_u10_3b10",
+    "knowledgePointIds": [
+      "kp_table_data_comparison",
+      "kp_two_way_table_structure"
+    ],
+    "runtimeProfileId": "profile_chart_data",
+    "requiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_3b10_statistics_table.pdf",
+    "sourcePdfDriveFileId": "1JjSBJxw3dHDTwsJKcBLd7obmomNm6GjQ",
+    "reviewedPages": [
+      1
+    ],
+    "canonicalEvidencePages": [
+      1
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceSemanticIdentities": [
+      "TABLE_DATA_COMPARISON",
+      "TWO_WAY_TABLE_STRUCTURE"
+    ],
+    "sourceRefAmbiguity": false
+  },
+  "semanticProfileLock": {
+    "classification": "HISTORICAL_GENERIC_DATA_PROFILE_TERM_COLLISION",
+    "frozenRuntimeEnvelope": "profile_chart_data",
+    "sourceSemanticCores": {
+      "kp_table_data_comparison": "TABLE_DATA_COMPARISON",
+      "kp_two_way_table_structure": "TWO_WAY_TABLE_STRUCTURE"
+    },
+    "actualRepresentations": {
+      "kp_table_data_comparison": "one_way_statistics_table",
+      "kp_two_way_table_structure": "two_way_statistics_table"
+    },
+    "chartRepresentationRendered": false,
+    "r04ReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 2,
+    "patternSpecIds": [
+      "ps_g3b_u10_table_compare_pair_difference",
+      "ps_g3b_u10_two_way_table_intersection_read"
+    ],
+    "includedRelations": [
+      "COMPARE_TABLE_CATEGORY_VALUES_AND_FORM_TRUE_STATEMENT",
+      "READ_TWO_WAY_TABLE_ROW_COLUMN_INTERSECTION"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentations": [
+      "one-way-statistics-table",
+      "two-way-statistics-table"
+    ],
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "NONNEGATIVE_INTEGER",
+    "chartReasoningUsed": false,
+    "sameUnitMixedMode": "NOT_ADMITTED"
+  },
+  "scopeGuard": {
+    "q001ToQ003ProductMutation": false,
+    "tableExtremaOrMissingValueUsed": false,
+    "constructTwoWayTableUsed": false,
+    "barChartReadingUsed": false,
+    "lineChartReadingUsed": false,
+    "pieChartReadingUsed": false,
+    "chartScaleInterpretationUsed": false,
+    "chartConstructionUsed": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q005OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ]
+  }
+}

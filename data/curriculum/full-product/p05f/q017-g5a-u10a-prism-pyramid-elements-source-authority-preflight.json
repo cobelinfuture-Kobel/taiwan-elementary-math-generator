@@ -1,0 +1,209 @@
+{
+  "schemaName": "P05FW5Q017PrismPyramidElementsSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q017_PrismPyramidElements_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q017_R02_KNOWLEDGE_POINT_CANDIDATE_AVAILABLE",
+    "after": "D2_Q017_SOURCE_SCOPE_RUNTIME_VALIDATION_CONTRACT_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 17,
+    "sliceId": "p05e_q017_r1_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice017Implementation",
+    "previousSliceId": "p05e_q016_r1_g5a_u07_5a07_profile_geometry_property_c1",
+    "primarySourceNodeId": "g5a_u10_5a10a",
+    "intraWavePrerequisiteRank": 1,
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g5a_u10a_prism_pyramid_elements"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q016_r1_g5a_u07_5a07_profile_geometry_property_c1",
+    "implementationPrNumber": 842,
+    "implementationHeadSha": "e9023ed91f2d3f6ea19bd2a76f757586fb739ccb",
+    "productMergeSha": "dcfe6aec80dd83e86fc4f2d078641c372dfd41a9",
+    "prGateRunId": "34295546080",
+    "exactPagesRunId": "34295697787",
+    "pagesDeploymentRunId": "34295697762",
+    "evidenceArtifactId": "10083057176",
+    "evidenceArtifactDigest": "sha256:179a80494cab0962097f430bcdc928991dfa3efede85d733124ccdf689935a87",
+    "status": "PASS_E6_D0_COMPLETE",
+    "postMergeGlobalCI": {
+      "workflowName": "Node Test Post-Merge",
+      "runId": "34295697810",
+      "conclusion": "failure",
+      "failureCount": 125,
+      "q016FocusedNamedSubtestsPassed": true,
+      "disposition": "BASELINE_FAILURE_COUNT_PERSISTED_Q016_FOCUSED_SUBTESTS_PASS",
+      "usedAsQ017SourceAuthorityBlocker": false
+    }
+  },
+  "sourceAuthority": {
+    "chosenSourceRef": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "sourceNodeId": "g5a_u10_5a10a",
+    "sourceTitle": "柱體錐體和球",
+    "sourcePdfTitle": "meow911_5a10a_source.pdf",
+    "sourcePdfDriveFileId": "1ErBCKyfIoXn0yswNUpNzlBcMNb8wkaqq",
+    "sourceMetadataDriveFileId": "1EPSIaZ3lj01KlT-6YPExiRk-jS4MoNT2",
+    "verificationNotesDriveFileId": "1mQvjboJNScUEnLbrIBxABAvmbT1Ynr5n",
+    "originalFileNameFromMetadata": "題型總覽-5a10a-柱體錐體和球.pdf",
+    "sourceUrlFromMetadata": "https://meow911.com/5a10a/",
+    "pageCount": 2,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "reviewedPages": [1, 2],
+    "confidence": "HIGH",
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false,
+    "reusesQ007VerifiedSourceIdentity": true,
+    "q007SourceAuthorityPath": "data/curriculum/full-product/p05f/q007-g5a-u10a-solid-shape-classification-source-authority-preflight.json"
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g5a_u10_5a10a",
+    "sourceTitle": "柱體錐體和球",
+    "sourcePdfTitle": "meow911_5a10a_source.pdf",
+    "reviewedPages": [1, 2],
+    "knowledgePointId": "kp_g5a_u10a_prism_pyramid_elements",
+    "canonicalNameZh": "柱體錐體構成要素",
+    "capabilityStatement": "學生能辨認立體的底面、側面、稜與頂點。",
+    "reasoningInvariant": "構成要素的數量與位置由底面多邊形決定。",
+    "category": "geometry",
+    "evidencePages": [1, 2],
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "classificationPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "profileId": "profile_spatial_solid",
+    "classificationRuleId": "rule_spatial_solid",
+    "appliedModifierIds": [],
+    "profileRequiredCapabilityIds": [
+      "cap_spatial_solid_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_solid_geometry_representation"
+    ],
+    "dependencyClosureAddedCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ],
+    "requiresSolidGeometryRepresentation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresSpatialSolidReasoning": true
+  },
+  "q017ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g5a_u10a_prism_pyramid_elements"
+    ],
+    "relationFamily": "PRISM_PYRAMID_ELEMENT_IDENTIFICATION_AND_STRUCTURE",
+    "includedRelations": [
+      "IDENTIFY_BASE_SIDE_FACE_EDGE_VERTEX",
+      "RELATE_ELEMENT_COUNT_POSITION_TO_BASE_POLYGON"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": [
+      "kp_g5a_u10a_solid_shape_classification"
+    ],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g5a_u10a_solid_net_correspondence",
+      "kp_g5a_u10a_solid_cross_section",
+      "kp_g5a_u10a_solid_viewpoint_representation"
+    ],
+    "excludedRelations": [
+      "SOLID_SHAPE_CLASSIFICATION",
+      "SOLID_NET_CORRESPONDENCE",
+      "SOLID_CROSS_SECTION",
+      "SOLID_VIEWPOINT_REPRESENTATION",
+      "APPLICATION_CONTEXT",
+      "GEOMETRY_FORMULA_OR_MEASUREMENT"
+    ],
+    "reusesQ007SourceUnitContextWithoutReowningClassification": true,
+    "requiresSolidGeometryRepresentation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresSpatialSolidReasoning": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q018OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  },
+  "publicPreflightBaseline": {
+    "currentStableSelectorModule": "site/modules/curriculum/registry/batch-a-selector-p05f16-extension.js",
+    "sourceNodeId": "g5a_u10_5a10a",
+    "sourceUnitOwnerKnowledgePointId": "kp_g5a_u10a_solid_shape_classification",
+    "sourceUnitOwnerMustRemainUnchanged": true,
+    "targetCurrentlyPubliclyVisible": false,
+    "targetRecommendedSelectionMode": "singleKnowledgePoint",
+    "futureTargetActivation": "EXPLICIT_KP_PATTERN_GROUP_OR_PATTERN_SPEC_ONLY",
+    "laterSameSourceCandidatesRemainUnadmitted": true,
+    "currentSameSourceVisibleCount": 1,
+    "currentSameSourceHiddenPendingCount": 4,
+    "currentSameSourceNotSelectableCount": 4,
+    "currentGlobalPublicSourceCount": 53,
+    "currentGlobalVisibleKnowledgePointCount": 330,
+    "publicCutoverPerformedByThisPreflight": false
+  },
+  "implementationContractLock": {
+    "maxQuestionCount": 240,
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallbackAllowed": false,
+    "freeFormAIAllowed": false,
+    "sourceUnitActivationAllowed": false,
+    "mixedKnowledgePointActivationAllowed": false,
+    "futureImplementationMustProvideDeterministicGenerator": true,
+    "futureImplementationMustProvideFailClosedValidator": true,
+    "futureImplementationMustProvideSolidGeometryRenderer": true,
+    "futureImplementationMustPreserveQ007SourceUnitOwnership": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeTest": "tests/curriculum/p05f-w5-q017-prism-pyramid-elements-source-authority-preflight.test.js",
+    "readbackRunner": "tools/curriculum/read-p05f-w5-q017-prism-pyramid-elements-source-authority-preflight.mjs",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_PREFLIGHT",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_PREFLIGHT"
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ017ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "singleKnowledgePointSliceLocked": true,
+    "q007SourceUnitOwnershipLocked": true,
+    "laterSameSourceSiblingProtectionLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice017Implementation"
+  },
+  "policyBoundary": {
+    "planningOnly": true,
+    "implementationPerformed": false,
+    "stopReasonAfterSuccessfulPreflightMerge": "IMPLEMENTATION_APPROVAL_REQUIRED",
+    "blockerTypeAfterSuccessfulPreflightMerge": "PLANNING_TO_IMPLEMENTATION_APPROVAL_BOUNDARY",
+    "requiredOperatorAction": "核准 P05F_W5DirectProductVerticalSlice017Implementation"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G3B_U07_FRACTION_CAPACITY_RENDERING_ORDERING_BOUNDED_VALIDATION",
+  "unitId": "g3b_u07_3b07",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g3b-u07-current-capacity-renderer-ordering.test.js",
+          "tests/curriculum/p03f-slice015-same-denominator-fraction.test.js",
+          "tests/curriculum/p03f-slice024-fraction-context-core.test.js",
+          "tests/curriculum/p03f-slice024-diversity-regression.test.js",
+          "tests/curriculum/pgc-r05-g3b-u07-application-diversity.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/render-g3b-u07-current-capacity-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}

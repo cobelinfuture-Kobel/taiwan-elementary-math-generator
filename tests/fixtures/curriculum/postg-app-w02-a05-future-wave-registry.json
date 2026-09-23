@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "fixtureId": "postg_app_w02_a05_future_wave_fail_closed_w03",
+  "waveId": "W03",
+  "providerId": "W03_RESERVED_APPLICATION_PROVIDER_SLOT",
+  "providerType": "RESERVED_FUTURE_WAVE_SLOT",
+  "lifecycleState": "BLOCKED_BY_PREVIOUS_WAVE",
+  "entryMaterialization": null,
+  "shadowProjectionAllowed": false,
+  "productionAdmitted": false,
+  "publicSelectable": false,
+  "expectedResolution": {
+    "registryReadable": true,
+    "shadowProjectionAllowed": false,
+    "expectedErrorCode": "POSTG_APP_SHARED_WAVE_SHADOW_PROJECTION_FORBIDDEN"
+  }
+}

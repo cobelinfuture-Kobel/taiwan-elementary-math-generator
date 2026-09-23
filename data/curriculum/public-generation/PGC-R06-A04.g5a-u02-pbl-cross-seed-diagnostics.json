@@ -1,0 +1,774 @@
+{
+  "schemaName": "PGCR06A04G5AU02PblCrossSeedDiagnosticsV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R06-A04_G5A-U02_12_PBL_CrossSeedDiversityFullFix",
+  "sourceId": "g5a_u02_5a02",
+  "seeds": [
+    "pgc-r06-a04-g5a-u02-01",
+    "pgc-r06-a04-g5a-u02-02"
+  ],
+  "routes": [
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_03409cbc10b4",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "mixed",
+      "contextMode": "mixed",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_9abf58c6b925",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "mixed",
+      "contextMode": "abstract_math",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_e2414cd5792f",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "mixed",
+      "contextMode": "daily_life",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_e6a9224f4a9b",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "mixed",
+      "contextMode": "geometry_context",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_eb45b235d995",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "basic",
+      "contextMode": "mixed",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_d77a5d08d769",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "basic",
+      "contextMode": "abstract_math",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_dbe7d293006e",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "basic",
+      "contextMode": "daily_life",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_cb87dbe9053a",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "basic",
+      "contextMode": "geometry_context",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_b3971844f8e5",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "extended",
+      "contextMode": "mixed",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_e6872a54e149",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "extended",
+      "contextMode": "abstract_math",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_bdaba83351f3",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "extended",
+      "contextMode": "daily_life",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    },
+    {
+      "routeId": "pgc_r03_g5a_u02_5a02_pbl_b931c2f2c8ce",
+      "caseId": "g5a_u02_5a02::sourceUnit",
+      "sourceId": "g5a_u02_5a02",
+      "selectionMode": "sourceUnit",
+      "questionType": "pbl",
+      "depthMode": "extended",
+      "contextMode": "geometry_context",
+      "accepted": true,
+      "diagnosticRuns": [
+        {
+          "seed": "pgc-r06-a04-g5a-u02-01",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+          "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        },
+        {
+          "seed": "pgc-r06-a04-g5a-u02-02",
+          "ok": true,
+          "errorCodes": [],
+          "questionCount": 20,
+          "answerKeyItemCount": 20,
+          "uniquePromptCount": 20,
+          "duplicatePromptCount": 0,
+          "itemSetSignature": "e92a56dd33cebfcb57ae6415d625403a46fa3006f5a143e7cff6b15359fc75bc",
+          "orderedWorksheetSignature": "0e64901ce808cbb7c9abc5d455c73c1753bef11313b77f64a67f17586ed28ffb",
+          "patternSpecIdsObserved": [
+            "pbl_g5a_u02_equal_group_design"
+          ],
+          "knowledgePointIdsObserved": [
+            "kp_g5a_u02_common_factor"
+          ]
+        }
+      ],
+      "replay": {
+        "seed": "pgc-r06-a04-g5a-u02-01",
+        "ok": true,
+        "errorCodes": [],
+        "questionCount": 20,
+        "answerKeyItemCount": 20,
+        "uniquePromptCount": 20,
+        "duplicatePromptCount": 0,
+        "itemSetSignature": "f0faa29cefc5f4eef960384610213c66885f84e318c95d28f3fb1a90438d253d",
+        "orderedWorksheetSignature": "e96348f7c00f2b6a524a67fcefa82213d13b7465670a4ef7321c5175236dd364",
+        "patternSpecIdsObserved": [
+          "pbl_g5a_u02_equal_group_design"
+        ],
+        "knowledgePointIdsObserved": [
+          "kp_g5a_u02_common_factor"
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "targetRouteCount": 12,
+    "acceptedRouteCount": 12,
+    "failedRouteCount": 0
+  }
+}

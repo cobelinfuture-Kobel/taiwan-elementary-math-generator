@@ -1,0 +1,40 @@
+{
+  "schemaName": "GCTXG3BU04HumanReviewDecision",
+  "schemaVersion": 1,
+  "task": "GCTX-P13_G3BU04GlobalContextPilotHumanReviewAndProductionAdmission",
+  "decisionId": "gctx_p13_review_20260719_all_five_approved",
+  "decisionTimestamp": "2026-07-19T13:21:58+08:00",
+  "decision": "approve_all",
+  "operatorStatement": "五題全部核准，進入 P13。",
+  "semanticReviewApproved": true,
+  "mathematicalReviewApproved": true,
+  "reviewArtifact": {
+    "task": "GCTX-P12R_G3BU04GlobalContextPilotRuntimeRendererAndPDFFullFix",
+    "path": "docs/curriculum/output/gctx/GCTX_P12R_G3BU04_AFTER.pdf",
+    "sha256": "777ac95e2bd138895dda1822de58d0c9f52571513e63ff74d14687de6875e0f0",
+    "pagesReviewUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/review/g3b-u04/",
+    "pagesPdfUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/review/g3b-u04/GCTX_P12R_G3BU04_AFTER.pdf"
+  },
+  "approvedVariants": [
+    "gctx_semvar_g3b_u04_joint_purchase_class_festival",
+    "gctx_semvar_g3b_u04_joint_purchase_field_learning",
+    "gctx_semvar_g3b_u04_joint_purchase_sports_practice",
+    "gctx_semvar_g3b_u04_joint_purchase_community_cleanup",
+    "gctx_semvar_g3b_u04_joint_purchase_camping_activity"
+  ],
+  "scope": {
+    "sourceId": "g3b_u04_3b04",
+    "knowledgePointId": "kp_g3b_u04_add_then_divide",
+    "patternGroupId": "pg_g3b_u04_add_then_divide",
+    "patternSpecId": "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+    "operationSignature": "(a+b)/c"
+  },
+  "authorization": {
+    "productionAdmissionAuthorized": true,
+    "publicGeneratorRouteAuthorized": true,
+    "publicQuerySelectionAuthorized": true,
+    "blockingValidatorRequired": true,
+    "publicHTMLPDFRegressionRequired": true,
+    "d0Authorized": false
+  }
+}

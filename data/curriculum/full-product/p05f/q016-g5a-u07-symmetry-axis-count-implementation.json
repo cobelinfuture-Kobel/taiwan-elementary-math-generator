@@ -1,0 +1,123 @@
+{
+  "schemaName": "P05FW5Q016SymmetryAxisCountImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice016Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 16,
+    "sliceId": "p05e_q016_r1_g5a_u07_5a07_profile_geometry_property_c1",
+    "sourceId": "g5a_u07_5a07",
+    "runtimeProfileId": "profile_geometry_property",
+    "knowledgePointId": "kp_g5a_u07_symmetry_axis_count",
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q015_r1_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "implementationPrNumber": 839,
+    "productMergeSha": "2e997246c52de7bb063074d21953b1d66b9a13b1",
+    "exactPagesRunId": "34248747945",
+    "postMergeNodeRunId": "34248747940",
+    "postMergeFailureDisposition": "BASELINE_ONLY",
+    "postMergeNewFailureCount": 0,
+    "q015NamedSubtestPassCount": 18,
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q016-g5a-u07-symmetry-axis-count-source-authority-preflight.json",
+    "sourceTitle": "線對稱圖形",
+    "sourcePdfTitle": "meow911_5a07_source.pdf",
+    "sourcePages": [1],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "canonicalNameZh": "對稱軸數量",
+    "capabilityStatement": "學生能找出圖形所有對稱軸。",
+    "reasoningInvariant": "每條對稱軸都必須使整個圖形完全重合。",
+    "sourceRefAmbiguity": false
+  },
+  "formalMapping": {
+    "mappingId": "fm_g5a_u07_symmetry_axis_count_p05f16",
+    "relationFamily": "SYMMETRY_AXIS_IDENTIFICATION_AND_COUNT",
+    "includedRelations": [
+      "IDENTIFY_ALL_SYMMETRY_AXES",
+      "COUNT_SYMMETRY_AXES"
+    ],
+    "excludedRelations": [
+      "LINE_SYMMETRIC_FIGURE_CLASSIFICATION",
+      "SYMMETRIC_POINT_DISTANCE",
+      "SYMMETRIC_CORRESPONDING_PARTS_QUANTITATIVE_REASONING",
+      "COMPLETE_SYMMETRIC_FIGURE",
+      "COORDINATE_REFLECTION",
+      "DRAW_OR_CONSTRUCT_SYMMETRIC_FIGURE",
+      "APPLICATION_CONTEXT",
+      "GEOMETRY_FORMULA_OR_MEASUREMENT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g5a_u07_symmetry_axis_count",
+    "patternSpecIds": [
+      "ps_g5a_u07_identify_all_symmetry_axes",
+      "ps_g5a_u07_count_symmetry_axes"
+    ],
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "requiresDiagramRepresentation": true,
+    "applicationImplementationAllowed": false,
+    "symmetryAxisConstructionAllowed": false
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g5a-u07-symmetry-axis-count-runtime-p05f16.js",
+    "validator": "validateG5AU07P05F16Question",
+    "diagramRenderer": "site/modules/renderer/symmetry-axis-count-diagram.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f16.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f16-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 53,
+    "sourceCountAfter": 53,
+    "visibleKnowledgePointCountBefore": 329,
+    "visibleKnowledgePointCountAfter": 330,
+    "g5aU07VisibleCountBefore": 1,
+    "g5aU07VisibleCountAfter": 2,
+    "g5aU07HiddenPendingCountBefore": 4,
+    "g5aU07HiddenPendingCountAfter": 3,
+    "g5aU07NotSelectableCountBefore": 4,
+    "g5aU07NotSelectableCountAfter": 3,
+    "sourceUnitOwnerKnowledgePointId": "kp_g5a_u07_line_symmetry_recognition",
+    "targetActivation": "EXPLICIT_KP_PATTERN_GROUP_OR_PATTERN_SPEC_ONLY",
+    "questionTypeValue": "diagram",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice016-g5a-u07-symmetry-axis-count.test.js",
+    "directDependencyTest": "tests/curriculum/p05f-w5-slice016-direct-dependencies.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice016-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q006LineSymmetryRecognitionSemanticsTouched": false,
+    "q006SourceUnitOwnershipTouched": false,
+    "symmetricPointDistanceTouched": false,
+    "completeSymmetricFigureTouched": false,
+    "coordinateReflectionTouched": false,
+    "symmetryAxisConstructionTouched": false,
+    "applicationContextTouched": false,
+    "geometryFormulaOrMeasurementTouched": false,
+    "q017OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  }
+}

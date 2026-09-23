@@ -1,0 +1,129 @@
+{
+  "schemaName": "Path1P107QuotientStartPlacePatternSpecRegistry",
+  "schemaVersion": 1,
+  "status": "PATH1_LOCAL_REPRESENTATION_PATTERN_SPECS_MATERIALIZED_NON_PUBLIC",
+  "path1BlockId": "P1-07",
+  "practiceMode": "quotientStartPlace",
+  "operationFamilyId": "PATH1_P1_07_QUOTIENT_START_PLACE",
+  "sourceId": "g3b_u01_3b01",
+  "relationId": null,
+  "wordProblemRelationMinted": false,
+  "canonicalKnowledgePointMinted": false,
+  "publicCutoverApplied": false,
+  "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL",
+  "matrixPrimaryKnowledgePointIds": [
+    "kp_g3b_u01_2digit_division_place_value_cases",
+    "kp_g3b_u01_3digit_division_place_value_cases"
+  ],
+  "canonicalOperationModels": [
+    {
+      "knowledgePointId": "kp_g3b_u01_2digit_division_place_value_cases",
+      "operationModelId": "op_g3b_u01_two_digit_exact_division_place_value",
+      "dividendDigits": 2,
+      "semanticParentPatternSpecIds": [
+        "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+        "ps_g3b_u01_2digit_leading_digit_insufficient",
+        "ps_g3b_u01_2digit_leading_digit_exact"
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3b_u01_3digit_division_place_value_cases",
+      "operationModelId": "op_g3b_u01_three_digit_exact_division_place_value",
+      "dividendDigits": 3,
+      "semanticParentPatternSpecIds": [
+        "ps_g3b_u01_3digit_by_1digit_regroup_hundreds",
+        "ps_g3b_u01_3digit_hundreds_insufficient",
+        "ps_g3b_u01_3digit_hundreds_exact"
+      ]
+    }
+  ],
+  "sourceEvidenceBoundary": {
+    "primarySourceFile": "batchA_01-題型總覽-3b01-除法.pdf",
+    "primarySourceRoles": [
+      "商寫在個位/十位的起始位判斷",
+      "二位數與三位數除以一位數最高位夠除/不夠除"
+    ],
+    "mandatoryCloudEvidenceTaskId": "PATH1_P1_05_P1_07_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1",
+    "learningMapUse": "CURRICULUM_BOUNDARY_ONLY",
+    "liTeacherUse": "NO_DIRECT_WITNESS_NO_PATTERN_ADMISSION",
+    "schoolExamUse": "DIRECT_QUOTIENT_DIGIT_COUNT_REPRESENTATION_WITNESS",
+    "twoDigitDivisorExamEvidencePresent": true,
+    "twoDigitDivisorRuntimeAdmitted": false,
+    "v1DivisorDomain": "2..9 one-digit divisors only",
+    "exactDivisionRequired": true,
+    "quotientZeroPrimaryV1": false
+  },
+  "formalCases": [
+    {
+      "caseId": "P107_2DIGIT_LEADING_INSUFFICIENT",
+      "condition": "tensDigit < divisor",
+      "expectedStartPlace": "ONES",
+      "expectedQuotientDigits": 1
+    },
+    {
+      "caseId": "P107_2DIGIT_LEADING_SUFFICIENT",
+      "condition": "tensDigit >= divisor",
+      "expectedStartPlace": "TENS",
+      "expectedQuotientDigits": 2
+    },
+    {
+      "caseId": "P107_3DIGIT_HUNDREDS_INSUFFICIENT",
+      "condition": "hundredsDigit < divisor",
+      "expectedStartPlace": "TENS",
+      "expectedQuotientDigits": 2
+    },
+    {
+      "caseId": "P107_3DIGIT_HUNDREDS_SUFFICIENT",
+      "condition": "hundredsDigit >= divisor",
+      "expectedStartPlace": "HUNDREDS",
+      "expectedQuotientDigits": 3
+    }
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "P107_2DIGIT_START_PLACE_SELECT",
+      "representationType": "quotient_start_place_select",
+      "path1ParentPatternId": "quotient_start_place_cases",
+      "applicableKnowledgePointIds": ["kp_g3b_u01_2digit_division_place_value_cases"],
+      "answerKind": "startPlace",
+      "sourceEvidenceRole": "PRIMARY_SOURCE_START_PLACE_REPRESENTATION",
+      "promptContract": "二位數除以一位數，依十位數字與除數比較，選出商從十位或個位開始寫。"
+    },
+    {
+      "patternSpecId": "P107_2DIGIT_QUOTIENT_DIGIT_COUNT",
+      "representationType": "quotient_digit_count_select",
+      "path1ParentPatternId": "quotient_start_place_cases",
+      "applicableKnowledgePointIds": ["kp_g3b_u01_2digit_division_place_value_cases"],
+      "answerKind": "quotientDigits",
+      "sourceEvidenceRole": "PRIMARY_SOURCE_PLUS_SCHOOL_EXAM_REPRESENTATION",
+      "promptContract": "二位數除以一位數，依最高位夠除/不夠除判斷商是一位數或二位數。"
+    },
+    {
+      "patternSpecId": "P107_3DIGIT_START_PLACE_SELECT",
+      "representationType": "quotient_start_place_select",
+      "path1ParentPatternId": "quotient_start_place_cases",
+      "applicableKnowledgePointIds": ["kp_g3b_u01_3digit_division_place_value_cases"],
+      "answerKind": "startPlace",
+      "sourceEvidenceRole": "PRIMARY_SOURCE_START_PLACE_REPRESENTATION",
+      "promptContract": "三位數除以一位數，依百位數字與除數比較，選出商從百位或十位開始寫。"
+    },
+    {
+      "patternSpecId": "P107_3DIGIT_QUOTIENT_DIGIT_COUNT",
+      "representationType": "quotient_digit_count_select",
+      "path1ParentPatternId": "quotient_start_place_cases",
+      "applicableKnowledgePointIds": ["kp_g3b_u01_3digit_division_place_value_cases"],
+      "answerKind": "quotientDigits",
+      "sourceEvidenceRole": "PRIMARY_SOURCE_PLUS_SCHOOL_EXAM_REPRESENTATION",
+      "promptContract": "三位數除以一位數，依最高位夠除/不夠除判斷商是二位數或三位數。"
+    }
+  ],
+  "forbiddenSemantics": [
+    "two-digit-divisor runtime representation",
+    "divisor estimation or trial-quotient strategy",
+    "remainder interpretation",
+    "word-problem relation",
+    "unknown-role modeling",
+    "quotient-zero placeholder as primary V1 requirement",
+    "new canonical KnowledgePoint"
+  ]
+}

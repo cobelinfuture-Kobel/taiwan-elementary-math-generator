@@ -1,0 +1,417 @@
+{
+  "schemaName": "Path1WordProblemP104CapabilityAndTransferPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_04_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1",
+  "status": "P1_04_TRANSFER_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "operatorApproval": "APPROVED_PREFLIGHT_ONLY",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicCutoverAllowed": false,
+  "path1MatrixMutationAllowed": false,
+  "canonicalKnowledgePointMutationAllowed": false,
+  "canonicalRelationAuthorityMutationAllowed": false,
+  "g3bU08NumericEnvelopeMutationAllowed": false,
+  "taxonomyReplanningAllowed": false,
+  "roadmapSequence": {
+    "mode": "PATH1_BLOCK_BY_BLOCK_WORD_PROBLEM_MODELING",
+    "completedBeforeThisTask": ["P1-01", "P1-02", "P1-03"],
+    "currentBlock": "P1-04",
+    "nextBlockAfterCompletion": "P1-05",
+    "p112Status": "IMPLEMENTED_BUT_DEFERRED_FOR_SEQUENCE_ALIGNMENT",
+    "p112PublicCutoverAllowedNow": false,
+    "decision": "Continue the sequential word-problem mainline at P1-04 only. Do not jump to P1-12 or P1-05 implementation."
+  },
+  "scope": {
+    "path1BlockId": "P1-04",
+    "title": "多位數×多位數",
+    "blockType": "DIFFICULTY_EXPANSION",
+    "matrixAuthoritativeArithmeticKnowledgePointIds": [
+      "kp_g4a_u02_2digit_by_3digit",
+      "kp_g4a_u02_3digit_by_2digit"
+    ],
+    "matrixAuthoritativeArithmeticOperationModelIds": [
+      "op_g4a_u02_2digit_by_3digit",
+      "op_g4a_u02_3digit_by_2digit"
+    ],
+    "matrixAuthoritativeArithmeticPatternIds": [
+      "ps_g4a_u02_2digit_by_3digit",
+      "ps_g4a_u02_3digit_by_2digit"
+    ],
+    "modelingTarget": "single-relation direct multiplicative total modeling over the two matrix-authoritative P1-04 arithmetic forms",
+    "allowedUnknownRole": "totalAmount_only",
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT",
+    "excluded": [
+      "G4B-U01 3digit-by-3digit or 4digit-by-3digit modeling",
+      "inverse unknown roles",
+      "division-side modeling",
+      "P1-05 zero-special-case modeling as a distinct capability",
+      "digit-card extremum reasoning",
+      "near-hundred multiplication strategy",
+      "multi-relation composition",
+      "add-then-multiply or subtract-then-multiply",
+      "three-factor multiplication chains",
+      "remainder interpretation",
+      "implicit unit conversion",
+      "estimation-plus-modeling",
+      "new canonical KnowledgePoint",
+      "new relation taxonomy family",
+      "G3B-U08 canonical generator/validator/router mutation",
+      "G3B-U08 numeric-envelope expansion",
+      "P1-01/P1-02/P1-03 deployed transfer mutation",
+      "P1-12 public cutover",
+      "public Path1 query/UI cutover",
+      "Classic runtime changes",
+      "W5 queue work",
+      "full repository regression",
+      "global browser replay"
+    ]
+  },
+  "authorityRefs": {
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "p104ArithmeticKnowledgeOperation": "data/curriculum/knowledge/units/g4a_u02_4a02.knowledge-operation.json",
+    "p104ArithmeticPatternDefinitions": "site/modules/curriculum/batch-a/source-pattern-g4a-u02-extension.js",
+    "p104ArithmeticGenerator": "site/modules/curriculum/batch-a/g4a-u02-numeric-generator.js",
+    "wordProblemCapabilityInventory": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_CAPABILITY_INVENTORY_V1.json",
+    "sourceCorpusRegistry": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_SOURCE_CORPUS_ADDITION_V1.json",
+    "earlyEqualGroupsTransferContract": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1.json",
+    "p103PublicCutoverContract": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_IMPLEMENTATION_V1.json",
+    "currentPath1PublicBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js"
+  },
+  "currentState": {
+    "path1Matrix": {
+      "blockType": "DIFFICULTY_EXPANSION",
+      "requiredPrerequisiteBlockIds": ["P1-03"],
+      "requiredPrerequisiteKnowledgePointIds": ["kp_g4a_u02_2digit_by_2digit"],
+      "primaryKnowledgePointIds": [
+        "kp_g4a_u02_2digit_by_3digit",
+        "kp_g4a_u02_3digit_by_2digit"
+      ],
+      "existingPatternExpansionIds": [
+        "ps_g4a_u02_2digit_by_3digit",
+        "ps_g4a_u02_3digit_by_2digit"
+      ],
+      "descriptiveDifficultyExpansionId": "larger_operand_same_partial_product_rule",
+      "descriptiveDifficultyMeaning": "larger operands increase arithmetic load without minting a new mathematical capability"
+    },
+    "arithmeticAuthority": [
+      {
+        "knowledgePointId": "kp_g4a_u02_2digit_by_3digit",
+        "operationModelId": "op_g4a_u02_2digit_by_3digit",
+        "patternSpecId": "ps_g4a_u02_2digit_by_3digit",
+        "canonicalExpressions": [
+          "product = twoDigitFactor * threeDigitFactor",
+          "product = onesPartialProduct + tensPartialProduct"
+        ],
+        "unknownRoles": ["product"],
+        "numberConstraints": [
+          "10 <= twoDigitFactor <= 99",
+          "100 <= threeDigitFactor <= 999"
+        ],
+        "displayOrder": "twoDigitFactor_first",
+        "applicationCapability": "NOT_APPLICABLE",
+        "existingApplicationQuestionCount": 0
+      },
+      {
+        "knowledgePointId": "kp_g4a_u02_3digit_by_2digit",
+        "operationModelId": "op_g4a_u02_3digit_by_2digit",
+        "patternSpecId": "ps_g4a_u02_3digit_by_2digit",
+        "canonicalExpressions": [
+          "product = threeDigitFactor * twoDigitFactor",
+          "product = onesPartialProduct + tensPartialProduct"
+        ],
+        "unknownRoles": ["product"],
+        "numberConstraints": [
+          "100 <= threeDigitFactor <= 999",
+          "10 <= twoDigitFactor <= 99"
+        ],
+        "displayOrder": "threeDigitFactor_first",
+        "applicationCapability": "NOT_APPLICABLE",
+        "existingApplicationQuestionCount": 0
+      }
+    ],
+    "numericRuntime": {
+      "questionMode": "numeric",
+      "partialProductsRequired": true,
+      "ordinaryZeroDigitsMayAppearWithinExistingArithmeticPatterns": true,
+      "zeroSpecificCapabilityBelongsToNextBlock": "P1-05",
+      "applicationPromptAuthority": "ABSENT"
+    },
+    "previousInventoryAssessment": {
+      "recommendedTransfer": "same R03/R05 relation kernel with larger arithmetic executor",
+      "authorityCandidate": "EXISTING_RELATION_AUTHORITY_WITH_NUMERIC_ENVELOPE_EXTENSION_REQUIRED",
+      "numericEnvelopeAssessment": "BLOCKED_FOR_DIRECT_REUSE: multi-digit second factor is outside existing equal-groups groupCount boundary; G4A-U02 application capability is NOT_APPLICABLE.",
+      "inverseUnknownShift": "DEFER_TO_P1_12",
+      "implementationStatus": "NOT_AUTHORIZED"
+    }
+  },
+  "observedPublicBindingScopeDrift": {
+    "status": "OBSERVED_NOT_ADOPTED_FOR_P104_MODELING_TRANSFER",
+    "matrixAuthoritativeKnowledgePointIds": [
+      "kp_g4a_u02_2digit_by_3digit",
+      "kp_g4a_u02_3digit_by_2digit"
+    ],
+    "currentPublicBindingKnowledgePointIds": [
+      "kp_g4a_u02_2digit_by_3digit",
+      "kp_g4a_u02_3digit_by_2digit",
+      "kp_g4b_u01_3digit_by_3digit",
+      "kp_g4b_u01_4digit_by_3digit"
+    ],
+    "extraPublicBindingKnowledgePointIds": [
+      "kp_g4b_u01_3digit_by_3digit",
+      "kp_g4b_u01_4digit_by_3digit"
+    ],
+    "preflightDecision": "The P1-04 word-problem transfer is bounded to the matrix-authoritative G4A-U02 pair. Existing G4B-U01 breadth in the public arithmetic binding is not silently inherited by modeling.",
+    "nonPublicImplementationBlockedByThisDrift": false,
+    "publicCutoverRequiresSeparateBindingDecision": true,
+    "bindingMutationAllowedInThisTask": false
+  },
+  "transferDecision": {
+    "decision": "AUTHORIZE_FUTURE_PATH1_LOCAL_ROLE_ORDERED_R03_PROJECTION_NOT_DIRECT_G3BU08_REUSE",
+    "reason": "P1-04 preserves the same direct equal-groups relation already used in earlier Path1 modeling, while its two matrix arithmetic forms require a larger role-ordered numeric envelope than G3B-U08 canonical equal-groups PatternSpecs permit. The shortest safe bridge is a P1-04-local projection with fixed semantic role order per arithmetic form.",
+    "primaryRelationId": "R03_EQUAL_GROUPS",
+    "secondaryRelationAssessment": {
+      "relationId": "R05_RATE_MEASURE_PRODUCT",
+      "status": "CONTEXT_OVERLAP_ACKNOWLEDGED_BUT_DEFERRED_FROM_P1_04_V1",
+      "reason": "Approved school sources include per-unit/rate wording that can share the same multiplicative surface, but P1-04 V1 does not need a second relation kernel to establish direct-total modeling."
+    },
+    "newCanonicalKnowledgePointRequired": false,
+    "newRelationFamilyRequired": false,
+    "directReuseOfExistingG3BU08PatternSpecs": false,
+    "futurePath1LocalPatternSpecsRequired": true,
+    "p101P102P103TransfersMustRemainUnchanged": true
+  },
+  "relationProjectionContract": {
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "allowedUnknownRoles": ["totalAmount"],
+    "forbiddenUnknownRoles": ["groupCount", "amountPerGroup"],
+    "forbiddenUnknownRoleDisposition": "P1_12_DEFERRED_UNTIL_SEQUENCE_REACHES_P1_12",
+    "semanticCommutativeRoleSwapAllowed": false,
+    "unitConversionAllowed": false,
+    "multiRelationAllowed": false,
+    "modelingPipeline": [
+      "extract the two decision-relevant quantities and units",
+      "assign amountPerGroup and groupCount roles",
+      "select the matrix-authoritative arithmetic form whose ordered factor sizes match those roles",
+      "recognize the R03 equal-groups invariant",
+      "identify totalAmount as the only unknown",
+      "construct the role-preserving multiplication equation",
+      "execute the already-authorized P1-04 multiplication",
+      "return totalAmount with the correct total-quantity unit"
+    ]
+  },
+  "path1LocalNumericEnvelopeAuthority": {
+    "authorityType": "PATH1_LOCAL_P104_ROLE_ORDERED_TRANSFER_PROJECTION",
+    "doesNotModifyG3BU08CanonicalEnvelope": true,
+    "globalProductRangeAcrossBothForms": "integer 1000..98901",
+    "arithmeticForms": [
+      {
+        "formId": "P104_2D_BY_3D",
+        "arithmeticKnowledgePointId": "kp_g4a_u02_2digit_by_3digit",
+        "arithmeticPatternSpecId": "ps_g4a_u02_2digit_by_3digit",
+        "amountPerGroup": "integer 10..99",
+        "groupCount": "integer 100..999",
+        "totalAmount": "amountPerGroup * groupCount; integer 1000..98901",
+        "equationOrder": "amountPerGroup * groupCount = totalAmount",
+        "semanticRoleSwapAllowed": false
+      },
+      {
+        "formId": "P104_3D_BY_2D",
+        "arithmeticKnowledgePointId": "kp_g4a_u02_3digit_by_2digit",
+        "arithmeticPatternSpecId": "ps_g4a_u02_3digit_by_2digit",
+        "amountPerGroup": "integer 100..999",
+        "groupCount": "integer 10..99",
+        "totalAmount": "amountPerGroup * groupCount; integer 1000..98901",
+        "equationOrder": "amountPerGroup * groupCount = totalAmount",
+        "semanticRoleSwapAllowed": false
+      }
+    ],
+    "ordinaryZeroDigitPolicy": "Allowed when generated operands remain valid instances of the selected matrix-authoritative arithmetic PatternSpec. This does not admit P1-05 zero-special-case modeling as a separate capability.",
+    "boundaryRule": "These envelopes exist only for a future P1-04 Path1-local transfer and must not be written back into G3B-U08 canonical KnowledgeOperation, PatternSpecs, generator, validator, or public route authority."
+  },
+  "sourceEvidence": {
+    "policy": {
+      "canonicalAndPath1ArithmeticAuthorityRemainPrimary": true,
+      "schoolExamCorpusSupportsRepresentationAndEnvelopeWitness": true,
+      "liTeacherSupportsProblemSolvingStructureOnly": true,
+      "sourcePresenceDoesNotAutoAuthorizeProduction": true
+    },
+    "registeredCorpora": [
+      {
+        "sourceCorpusId": "LI_TEACHER_MATH_THINKING_G1_G6",
+        "folderId": "1VHxb5jEkw_xP683wP528HEYFC-_zFIKk"
+      },
+      {
+        "sourceCorpusId": "MULTI_SCHOOL_EXAM_CORPUS_G03_G09",
+        "folderId": "1m8ljMOMb0ugFQCsC76Q1hX9UMRj0Hxpr"
+      }
+    ],
+    "positiveWitnesses": [
+      {
+        "sourceType": "school_exam",
+        "sourceFileId": "1x_dh_7JMpxdiWI7Yc_4R0KOwWdQapoOO",
+        "sourceTitle": "數學_110 上學期_四年級_彰化縣_縣立國聖國小_第一次段考(期中考)_南一_試卷.pdf",
+        "surface": "1 瓶感冒藥水有 60c.c.，藥局進貨 110 瓶，共有幾 c.c？",
+        "relationId": "R03_EQUAL_GROUPS",
+        "arithmeticFormId": "P104_2D_BY_3D",
+        "roleBindings": {
+          "amountPerGroup": 60,
+          "groupCount": 110,
+          "totalAmount": 6600
+        },
+        "equation": "60 * 110 = 6600",
+        "unitFlow": "c.c. per bottle * bottles -> c.c.",
+        "use": "clean source witness for a direct-total equal-groups problem inside the matrix-authoritative two-digit-by-three-digit envelope"
+      },
+      {
+        "sourceType": "li_teacher",
+        "sourceFileId": "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+        "sourceTitle": "厉老师四年级数学思维讲义.pdf",
+        "surface": "归一归总：总量÷份数＝1份数量；1份数量×所占份数＝所求几份的数量",
+        "relationId": "MULTIPLICATIVE_PER_UNIT_STRUCTURE",
+        "use": "structural reasoning evidence only; the two-step normalization/scaling method is not admitted as a P1-04 V1 single-relation PatternSpec"
+      }
+    ],
+    "negativeBoundaryWitnesses": [
+      {
+        "sourceFileId": "1h-gAJnuwFKxm6obZ1WofcgpfjYvHpBZP",
+        "sourceTitle": "數學_111 上學期_四年級_臺北市_市立雙蓮國小_第一次段考(期中考)_南一_試卷.pdf",
+        "surface": "購買 300 劑 BNT 和 250 劑莫德納，依不同單價求共需付多少錢",
+        "exclusionReason": "requires two multiplicative subtotals and additive composition, so it is R08 multi-relation rather than P1-04 V1 single relation"
+      },
+      {
+        "sourceFileId": "1h-gAJnuwFKxm6obZ1WofcgpfjYvHpBZP",
+        "sourceTitle": "數學_111 上學期_四年級_臺北市_市立雙蓮國小_第一次段考(期中考)_南一_試卷.pdf",
+        "surface": "15 個座位一排、16 排、每張票 150 元，求全部坐滿的收入",
+        "exclusionReason": "requires a three-factor multiplicative chain and therefore exceeds the single-relation two-factor P1-04 V1 contract"
+      },
+      {
+        "sourceFileId": "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+        "sourceTitle": "厉老师四年级数学思维讲义.pdf",
+        "surface": "归一归总 higher variants",
+        "exclusionReason": "two-step normalization/scaling and inverse variants are evidence for later modeling growth, not automatic P1-04 V1 admission"
+      }
+    ]
+  },
+  "futurePatternSpecCandidateFamilies": [
+    {
+      "candidateFamilyId": "P104_R03_ITEMS_PER_PACKAGE_TOTAL",
+      "status": "APPROVED_FOR_FUTURE_IMPLEMENTATION",
+      "semanticShape": "itemsPerPackage * packageCount = totalItems",
+      "allowedArithmeticFormIds": ["P104_2D_BY_3D", "P104_3D_BY_2D"]
+    },
+    {
+      "candidateFamilyId": "P104_R03_MATERIAL_PER_PRODUCT_TOTAL",
+      "status": "APPROVED_FOR_FUTURE_IMPLEMENTATION",
+      "semanticShape": "materialPerProduct * productCount = totalMaterial",
+      "allowedArithmeticFormIds": ["P104_2D_BY_3D", "P104_3D_BY_2D"]
+    },
+    {
+      "candidateFamilyId": "P104_R03_SCORE_PER_EVENT_TOTAL",
+      "status": "APPROVED_FOR_FUTURE_IMPLEMENTATION",
+      "semanticShape": "scorePerEvent * eventCount = totalScore",
+      "allowedArithmeticFormIds": ["P104_2D_BY_3D", "P104_3D_BY_2D"]
+    },
+    {
+      "candidateFamilyId": "P104_R03_AMOUNT_PER_PERIOD_TOTAL",
+      "status": "APPROVED_FOR_FUTURE_IMPLEMENTATION",
+      "semanticShape": "amountPerPeriod * periodCount = totalAmount",
+      "allowedArithmeticFormIds": ["P104_2D_BY_3D", "P104_3D_BY_2D"]
+    }
+  ],
+  "futureImplementationArchitecture": {
+    "selectedStrategy": "PATH1_LOCAL_P104_MULTIPLICATIVE_MODELING_TRANSFER",
+    "candidatePracticeMode": "multiplicativeModelingTransfer",
+    "implementationScopeKnowledgePointIds": [
+      "kp_g4a_u02_2digit_by_3digit",
+      "kp_g4a_u02_3digit_by_2digit"
+    ],
+    "mustMaterialize": [
+      "Path1-local P1-04 PatternSpecs that cross four approved direct-total context families with the two role-ordered arithmetic forms without minting duplicate relation taxonomy",
+      "dedicated P1-04 modeling generator",
+      "fail-closed relation-aware and form-aware validator",
+      "non-public worksheet adapter first",
+      "focused 1/20/120 capacity, arithmetic-form coverage, family balance, deterministic replay and answer-key acceptance"
+    ],
+    "mustReuse": [
+      "the two matrix-authoritative G4A-U02 arithmetic KPs as execution authority",
+      "R03 equal-groups invariant and quantity-role semantics",
+      "source-backed direct-total context concepts already stabilized in earlier Path1 modeling where semantically compatible",
+      "P1-04 prerequisite and sequence authority"
+    ],
+    "mustNotModify": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-generator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-validator.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html",
+      "P1-05 runtime",
+      "P1-12 public route",
+      "Classic runtime/query state"
+    ],
+    "publicCutover": "SEPARATE_LATER_MILESTONE_AFTER_BINDING_DECISION",
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "futureFocusedAcceptance": {
+    "requiredCounts": [1, 20, 120],
+    "bothArithmeticFormsRequiredAtCapacity": true,
+    "allFourContextFamiliesRequiredAtCapacity": true,
+    "roleOrderedEnvelopeValidationRequired": true,
+    "distinctPromptCapacityRequired": 120,
+    "deterministicReplayRequired": true,
+    "differentSeedVariationRequired": true,
+    "validatorFailClosedRequired": true,
+    "nonPublicWorksheetAndAnswerKeyRequired": true,
+    "p101P102P103PreservationRequired": true,
+    "p105PreservationRequired": true,
+    "p112DeferredPreservationRequired": true,
+    "fullRegressionRequired": false,
+    "globalReplayRequired": false
+  },
+  "implementationEntryCriteria": [
+    "this preflight contract is merged with focused SHARED_RUNTIME_BOUNDED CI green",
+    "the implementation remains bounded to the two matrix-authoritative G4A-U02 P1-04 KPs",
+    "the observed public-binding G4B-U01 breadth is not adopted by the non-public modeling implementation",
+    "explicit operator approval is provided to cross the planning-to-implementation boundary"
+  ],
+  "antiScopeCreep": {
+    "newKnowledgePointAllowed": false,
+    "newRelationAllowed": false,
+    "g4bU01ModelingExpansionAllowed": false,
+    "publicBindingMutationAllowed": false,
+    "publicCutoverAllowed": false,
+    "masteryIntegrationAllowed": false,
+    "p105ImplementationAllowed": false,
+    "p112CutoverAllowed": false,
+    "classicChangesAllowed": false,
+    "fullRegressionAllowed": false,
+    "globalReplayAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_P104_ARITHMETIC_AUTHORITY_WITH_MODELING_GAP_PUBLIC_BINDING_SCOPE_DRIFT_AND_ENVELOPE_BLOCKER",
+    "goalDistanceAfterTarget": "D2_P104_TRANSFER_RELATION_ROLE_ORDERED_NUMERIC_ENVELOPE_AND_BINDING_BOUNDARY_PREFLIGHT_LOCKED",
+    "distanceReduced": "D3_TO_D2",
+    "systemNodeAdvanced": "FORMAL_MAPPING_PATTERN_SPEC_VALIDATOR_PREFLIGHT_CONTRACT",
+    "blockersRemoved": [
+      "P104_RELATION_TRANSFER_UNDECIDED",
+      "P104_ROLE_ORDERED_NUMERIC_ENVELOPE_UNDECIDED",
+      "P104_PUBLIC_BINDING_DRIFT_UNBOUNDED",
+      "P104_SOURCE_WITNESS_NOT_RECONCILED"
+    ],
+    "remainingBlockers": [
+      "P104_IMPLEMENTATION_REQUIRES_SEPARATE_OPERATOR_APPROVAL",
+      "P104_PUBLIC_BINDING_RECONCILIATION_OR_EXPLICIT_PUBLIC_CUTOVER_DECISION_REQUIRED_BEFORE_PUBLIC_CUTOVER",
+      "P104_PUBLIC_CUTOVER_NOT_APPROVED"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_04_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1"
+  }
+}

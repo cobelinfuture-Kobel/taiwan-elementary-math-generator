@@ -1,0 +1,201 @@
+{
+  "schemaName": "G3BU08SemanticValidationContract",
+  "schemaVersion": 1,
+  "task": "S58B_G3B_U08_FormalMappingPatternSpecAndSemanticValidatorDesignScan",
+  "sourceId": "g3b_u08_3b08",
+  "unitCode": "3B-U08",
+  "status": "design_contract_not_runtime_materialized",
+  "validationMode": "blocking_before_question_return",
+  "stageCount": 8,
+  "stages": [
+    {
+      "stage": 1,
+      "name": "identity_and_schema",
+      "checks": [
+        "required fields",
+        "source, unit and kind identity",
+        "approved ID namespace",
+        "frozen family membership"
+      ]
+    },
+    {
+      "stage": 2,
+      "name": "lifecycle_and_scope",
+      "checks": [
+        "approved KnowledgePoint",
+        "one family per PatternSpec",
+        "hidden lifecycle before promotion",
+        "no arbitrary PatternSpec injection",
+        "no general G3B-U04 two-step leakage"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "representation_and_numeric_boundary",
+      "checks": [
+        "horizontal-only representation",
+        "allowed multiplication shapes",
+        "one-digit divisor",
+        "exact public division",
+        "positive integer domain",
+        "no decimal, fraction or percent"
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "equation_and_answer",
+      "checks": [
+        "equation shape matches family",
+        "computed answer matches operands",
+        "final and intermediate bounds",
+        "answer-model shape matches KnowledgePoint"
+      ]
+    },
+    {
+      "stage": 5,
+      "name": "semantic_roles",
+      "checks": [
+        "unknown role matches question",
+        "quantity roles are not swapped",
+        "group count and per-group quantity are distinguished",
+        "comparison and base quantity roles are distinguished",
+        "participant scope is unambiguous"
+      ]
+    },
+    {
+      "stage": 6,
+      "name": "unit_classifier_and_language",
+      "checks": [
+        "unit-flow consistency",
+        "measure dimension consistency",
+        "classifier matches answer role",
+        "natural segment wording",
+        "natural score-event phrase and classifier",
+        "no unresolved placeholder"
+      ]
+    },
+    {
+      "stage": 7,
+      "name": "specialized_estimation_and_comparison",
+      "checks": [
+        "estimation direction supports the requested judgment",
+        "benchmark correction is arithmetically complete",
+        "same total price is explicit",
+        "comparison dimensions match",
+        "option totals differ",
+        "exactly one better option exists"
+      ]
+    },
+    {
+      "stage": 8,
+      "name": "final_public_contract",
+      "checks": [
+        "single public answer",
+        "answer includes required unit or conclusion",
+        "no internal ID leakage",
+        "no fallback to pure numeric question",
+        "semantic snapshot is complete"
+      ]
+    }
+  ],
+  "blockingCodes": [
+    "G3BU08_REQUIRED_FIELD_MISSING",
+    "G3BU08_SOURCE_ID_MISMATCH",
+    "G3BU08_UNIT_IDENTITY_MISMATCH",
+    "G3BU08_PATTERN_KIND_MISMATCH",
+    "G3BU08_KP_NOT_APPROVED",
+    "G3BU08_FAMILY_NOT_FROZEN",
+    "G3BU08_PATTERN_GROUP_MISMATCH",
+    "G3BU08_ARBITRARY_PATTERN_SPEC_INJECTION",
+    "G3BU08_GENERAL_TWO_STEP_LEAKAGE",
+    "G3BU08_NON_HORIZONTAL_REPRESENTATION",
+    "G3BU08_VERTICAL_ALGORITHM_FORBIDDEN",
+    "G3BU08_TWO_DIGIT_MULTIPLIER_FORBIDDEN",
+    "G3BU08_TWO_DIGIT_DIVISOR_FORBIDDEN",
+    "G3BU08_PUBLIC_REMAINDER_APPLICATION_FORBIDDEN",
+    "G3BU08_DIVISION_NOT_EXACT",
+    "G3BU08_NON_POSITIVE_INTEGER_DOMAIN",
+    "G3BU08_DECIMAL_FRACTION_PERCENT_LEAKAGE",
+    "G3BU08_NUMERIC_BOUND_EXCEEDED",
+    "G3BU08_EQUATION_SHAPE_MISMATCH",
+    "G3BU08_COMPUTED_ANSWER_MISMATCH",
+    "G3BU08_ANSWER_MODEL_MISMATCH",
+    "G3BU08_UNKNOWN_ROLE_MISMATCH",
+    "G3BU08_QUANTITY_ROLE_MISMATCH",
+    "G3BU08_GROUP_ROLE_CONFUSION",
+    "G3BU08_COMPARISON_BASE_ROLE_CONFUSION",
+    "G3BU08_PARTICIPANT_SCOPE_AMBIGUOUS",
+    "G3BU08_UNIT_FLOW_MISMATCH",
+    "G3BU08_MEASURE_DIMENSION_MISMATCH",
+    "G3BU08_CLASSIFIER_MISMATCH",
+    "G3BU08_SEGMENT_LENGTH_WORDING_UNNATURAL",
+    "G3BU08_SUCCESS_EVENT_PHRASE_UNNATURAL",
+    "G3BU08_SUCCESS_EVENT_CLASSIFIER_MISMATCH",
+    "G3BU08_UNRESOLVED_PLACEHOLDER",
+    "G3BU08_ESTIMATION_DIRECTION_INVALID",
+    "G3BU08_ESTIMATION_CONCLUSION_UNSUPPORTED",
+    "G3BU08_ESTIMATION_BENCHMARK_CORRECTION_INCOMPLETE",
+    "G3BU08_SAME_PRICE_NOT_EXPLICIT",
+    "G3BU08_COMPARISON_DIMENSION_MISMATCH",
+    "G3BU08_COMPARISON_TIE_NOT_ALLOWED",
+    "G3BU08_COMPARISON_NO_UNIQUE_WINNER",
+    "G3BU08_FINAL_UNIT_OR_CONCLUSION_MISSING",
+    "G3BU08_INTERNAL_ID_LEAKAGE",
+    "G3BU08_PURE_NUMERIC_FALLBACK_FORBIDDEN",
+    "G3BU08_SEMANTIC_SNAPSHOT_INCOMPLETE"
+  ],
+  "blockingCodeCount": 44,
+  "warnings": [
+    "G3BU08_SURFACE_WORDING_REPETITIVE",
+    "G3BU08_CONTEXT_DOMAIN_REPETITIVE",
+    "G3BU08_NUMBER_PATTERN_REPETITIVE"
+  ],
+  "warningPolicy": "nonblocking_only_after_all_blocking_stages_pass",
+  "answerModelRules": {
+    "semantic_single_integer_with_unit": {
+      "requiredFields": [
+        "equationModel",
+        "finalAnswer",
+        "finalAnswerUnit",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ]
+    },
+    "semantic_estimation_judgment": {
+      "requiredFields": [
+        "estimateEquationModel",
+        "estimateValue",
+        "judgment",
+        "finalAnswerWithUnit",
+        "semanticSnapshot"
+      ],
+      "conditionallyRequiredFields": {
+        "more_by_or_less_by": [
+          "exactEquationModel",
+          "exactDifference"
+        ]
+      }
+    },
+    "semantic_same_price_comparison": {
+      "requiredFields": [
+        "optionAEquationModel",
+        "optionATotal",
+        "optionBEquationModel",
+        "optionBTotal",
+        "comparisonDimension",
+        "winner",
+        "conclusionZh",
+        "semanticSnapshot"
+      ]
+    }
+  },
+  "resultContract": {
+    "valid": "boolean",
+    "blockingErrors": "array",
+    "warnings": "array",
+    "stageResults": "array_of_8",
+    "validatedAnswer": "present_only_when_valid",
+    "fallbackQuestionAllowed": false
+  },
+  "nextTask": "S58C_G3B_U08_FormalMappingAndPatternSpecMaterialization"
+}

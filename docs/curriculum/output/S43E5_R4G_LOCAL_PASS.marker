@@ -1,0 +1,12 @@
+S43E5_R4G_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+operator_readback = tests 393, pass 393, fail 0, working tree clean
+status = PASS
+next_task = S43E5_R4H_G3BU01_WordProblemGeneratorValidatorIntegration
+
+GOAL_DISTANCE_BEFORE = D2
+GOAL_DISTANCE_AFTER = D2
+DISTANCE_REDUCED = R4G templates passed local validation
+REMAINING_BLOCKERS = aggregate registry; generator validator UI; browser PDF smoke
+NEXT_SHORTEST_STEP = S43E5_R4H_G3BU01_WordProblemGeneratorValidatorIntegration

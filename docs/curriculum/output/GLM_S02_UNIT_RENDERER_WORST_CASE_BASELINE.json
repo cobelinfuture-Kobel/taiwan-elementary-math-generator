@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "glm-s02-unit-renderer-worst-case-baseline-v1",
+  "task": "GLM-S02_UnitRendererProfileAndWorstCaseQuestionAudit",
+  "status": "AUDIT_CAPTURED_AND_VALIDATED",
+  "headSha": "20203c6df40c3f8b2929d866a468cfa0140eb91d",
+  "workflow": {
+    "name": "GLM-S02 Unit Renderer Worst-Case Audit",
+    "runId": 29477395336,
+    "runNumber": 4,
+    "conclusion": "success",
+    "artifactId": 8367084346,
+    "artifactName": "glm-s02-unit-renderer-worst-case-audit",
+    "artifactDigest": "sha256:0ec1e23375124149e7334fd02527f616940880c4c676b9c26c52a1be72f58bf9",
+    "manifestSha256": "d8d2157ffebfe244e3f6d7717575852d6200820fe2d8566733a36817b0471bca"
+  },
+  "scope": {
+    "publicUnitCount": 15,
+    "attemptedRouteCount": 618,
+    "successfulRouteCount": 615,
+    "failedRouteCount": 3,
+    "questionSampleCount": 3340,
+    "unitsWithoutSamples": 0,
+    "answerKeyEnabled": true,
+    "auditLayout": "1x1"
+  },
+  "routeFindings": {
+    "failedRoutes": [
+      "g4b_u04_4b04:sourceUnit:source-a",
+      "g4b_u04_4b04:sourceUnit:source-b",
+      "g4b_u04_4b04:sourceUnit:source-c"
+    ],
+    "g4bU04CanonicalPatternGroupRoutesAvailable": true,
+    "g5aU02StaticSourceRequestedCountHonored": false,
+    "g5aU02StaticCanonicalHtmlQuestionCount": 22,
+    "g5aU02StaticProfileClasses": [
+      "g5a-u02-profile--compact",
+      "g5a-u02-profile--reasoning",
+      "g5a-u02-profile--contextual"
+    ]
+  },
+  "units": [
+    {
+      "sourceId": "g3a_u01_3a01",
+      "unitCode": "3A-U01",
+      "questionSampleCount": 204,
+      "shapeFamilyCount": 1,
+      "maxPromptLength": 51,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 15,
+      "maxBurdenScore": 54,
+      "rendererProfileIds": [],
+      "diagnoses": ["renderer_profile_readback_missing"]
+    },
+    {
+      "sourceId": "g3a_u02_3a02",
+      "unitCode": "3A-U02",
+      "questionSampleCount": 210,
+      "shapeFamilyCount": 1,
+      "maxPromptLength": 62,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 12,
+      "maxBurdenScore": 67,
+      "rendererProfileIds": [],
+      "diagnoses": ["renderer_profile_readback_missing"]
+    },
+    {
+      "sourceId": "g3a_u03_3a03",
+      "unitCode": "3A-U03",
+      "questionSampleCount": 201,
+      "shapeFamilyCount": 1,
+      "maxPromptLength": 51,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 9,
+      "maxBurdenScore": 54,
+      "rendererProfileIds": [],
+      "diagnoses": ["renderer_profile_readback_missing"]
+    },
+    {
+      "sourceId": "g3a_u06_3a06",
+      "unitCode": "3A-U06",
+      "questionSampleCount": 198,
+      "shapeFamilyCount": 1,
+      "maxPromptLength": 48,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 5,
+      "maxBurdenScore": 53,
+      "rendererProfileIds": [],
+      "diagnoses": ["renderer_profile_readback_missing"]
+    },
+    {
+      "sourceId": "g3b_u01_3b01",
+      "unitCode": "3B-U01",
+      "questionSampleCount": 210,
+      "shapeFamilyCount": 1,
+      "maxPromptLength": 48,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 7,
+      "maxBurdenScore": 52,
+      "rendererProfileIds": [],
+      "diagnoses": ["renderer_profile_readback_missing"]
+    },
+    {
+      "sourceId": "g3b_u04_3b04",
+      "unitCode": "3B-U04",
+      "questionSampleCount": 210,
+      "shapeFamilyCount": 1,
+      "maxPromptLength": 50,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 5,
+      "maxBurdenScore": 54,
+      "rendererProfileIds": ["g3b_u04_semantic_long_text_v1"],
+      "diagnoses": [
+        "renderer_profile_readback_missing",
+        "multiple_renderer_profiles_require_shape_specific_s03_matrix"
+      ]
+    },
+    {
+      "sourceId": "g3b_u08_3b08",
+      "unitCode": "3B-U08",
+      "questionSampleCount": 198,
+      "shapeFamilyCount": 4,
+      "maxPromptLength": 58,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 24,
+      "maxBurdenScore": 81,
+      "rendererProfileIds": ["g3b_u08_semantic_long_text_v1"],
+      "diagnoses": [
+        "renderer_profile_readback_missing",
+        "multiple_renderer_profiles_require_shape_specific_s03_matrix"
+      ]
+    },
+    {
+      "sourceId": "g4a_u01_4a01",
+      "unitCode": "4A-U01",
+      "questionSampleCount": 282,
+      "shapeFamilyCount": 1,
+      "maxPromptLength": 63,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 34,
+      "maxBurdenScore": 95,
+      "rendererProfileIds": [],
+      "diagnoses": [
+        "renderer_or_profile_row_cap_confirmed_by_s01",
+        "renderer_profile_readback_missing"
+      ],
+      "s01GenerationDefectStillOpen": true
+    },
+    {
+      "sourceId": "g4a_u02_4a02",
+      "unitCode": "4A-U02",
+      "questionSampleCount": 207,
+      "shapeFamilyCount": 1,
+      "maxPromptLength": 72,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 39,
+      "maxBurdenScore": 111,
+      "rendererProfileIds": [],
+      "diagnoses": [
+        "renderer_or_profile_row_cap_confirmed_by_s01",
+        "renderer_profile_readback_missing"
+      ]
+    },
+    {
+      "sourceId": "g4a_u04_4a04",
+      "unitCode": "4A-U04",
+      "questionSampleCount": 201,
+      "shapeFamilyCount": 1,
+      "maxPromptLength": 27,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 19,
+      "maxBurdenScore": 46,
+      "rendererProfileIds": [],
+      "diagnoses": ["renderer_profile_readback_missing"]
+    },
+    {
+      "sourceId": "g4a_u08_4a08",
+      "unitCode": "4A-U08",
+      "questionSampleCount": 372,
+      "shapeFamilyCount": 4,
+      "maxPromptLength": 65,
+      "maxResponsePromptLength": 54,
+      "maxAnswerLength": 8,
+      "maxBurdenScore": 100,
+      "rendererProfileIds": ["g4a_u08_phase2b_existing_generic_v1"],
+      "diagnoses": [
+        "renderer_profile_readback_missing",
+        "multiple_renderer_profiles_require_shape_specific_s03_matrix"
+      ]
+    },
+    {
+      "sourceId": "g4b_u01_4b01",
+      "unitCode": "4B-U01",
+      "questionSampleCount": 207,
+      "shapeFamilyCount": 3,
+      "maxPromptLength": 29,
+      "maxResponsePromptLength": 0,
+      "maxAnswerLength": 8,
+      "maxBurdenScore": 37,
+      "rendererProfileIds": ["g4b_u01_horizontal_numeric_v1"],
+      "diagnoses": [
+        "renderer_profile_readback_missing",
+        "multiple_renderer_profiles_require_shape_specific_s03_matrix"
+      ]
+    },
+    {
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "questionSampleCount": 117,
+      "shapeFamilyCount": 11,
+      "maxPromptLength": 68,
+      "maxResponsePromptLength": 66,
+      "maxAnswerLength": 299,
+      "maxBurdenScore": 414,
+      "rendererProfileIds": [
+        "g4b_u04_compact_concept_numeric_v1",
+        "g4b_u04_contextual_estimation_v1",
+        "g4b_u04_inverse_long_answer_v1"
+      ],
+      "diagnoses": [
+        "source_unit_route_gap_with_canonical_route_available",
+        "multiple_renderer_profiles_require_shape_specific_s03_matrix"
+      ],
+      "highestBurdenPattern": "inverse_possible_values"
+    },
+    {
+      "sourceId": "g5a_u02_5a02",
+      "unitCode": "5A-U02",
+      "questionSampleCount": 250,
+      "shapeFamilyCount": 8,
+      "maxPromptLength": 51,
+      "maxResponsePromptLength": 33,
+      "maxAnswerLength": 69,
+      "maxBurdenScore": 100,
+      "rendererProfileIds": [
+        "g5a-u02-profile--compact",
+        "g5a-u02-profile--reasoning",
+        "g5a-u02-profile--contextual"
+      ],
+      "diagnoses": [
+        "source_unit_question_count_not_honored",
+        "renderer_profile_readback_missing",
+        "print_layout_readback_missing",
+        "static_source_candidate_ignores_requested_count_and_layout",
+        "static_canonical_html_question_shapes_recovered",
+        "multiple_renderer_profiles_require_shape_specific_s03_matrix"
+      ]
+    },
+    {
+      "sourceId": "g5a_u08_5a08",
+      "unitCode": "5A-U08",
+      "questionSampleCount": 273,
+      "shapeFamilyCount": 8,
+      "maxPromptLength": 56,
+      "maxResponsePromptLength": 54,
+      "maxAnswerLength": 23,
+      "maxBurdenScore": 131,
+      "rendererProfileIds": [
+        "g5a_u08_numeric_reasoning_v1",
+        "g5a_u08_mixed_long_text_v1"
+      ],
+      "diagnoses": [
+        "renderer_profile_readback_missing",
+        "multiple_renderer_profiles_require_shape_specific_s03_matrix"
+      ]
+    }
+  ],
+  "s03Priorities": [
+    "G4B-U04 inverse_possible_values under all 18 layouts",
+    "G5A-U08 long word-problem response areas",
+    "4A-U02 long digit-card reasoning prompt and answer",
+    "4A-U01 decomposition answer plus row-cap boundaries",
+    "G5A-U02 static compact/reasoning/contextual profile classes",
+    "all units with missing renderer-profile readback"
+  ],
+  "nextTask": "GLM-S03_270ScenarioHTMLPDFBaseline"
+}

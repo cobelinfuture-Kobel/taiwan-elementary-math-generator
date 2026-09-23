@@ -1,0 +1,93 @@
+{
+  "schemaName": "P03B2W3DecimalNumberSystemPolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03B2_W3DecimalNumberSystemConsumerAdmission",
+  "status": "W3_DECIMAL_NUMBER_SYSTEM_POLICY_READY",
+  "authorities": {
+    "hardeningQueue": "src/curriculum/full-product/p03a-w3-capability-hardening-order-evidence.mjs",
+    "productInventory": "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+    "historicalCapabilityMatrix": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "predecessorPromotionRegistry": "data/curriculum/full-product/p03b1/w3-capability-promotion-registry.json",
+    "operatorApproval": "P03B2_APPROVED_2026-07-26"
+  },
+  "scope": {
+    "capabilityId": "cap_decimal_number_system",
+    "queueOrder": 2,
+    "hardeningStageId": "W3-H0-NUMBER-SYSTEM",
+    "effectiveDependentKnowledgePointCount": 51,
+    "directW3KnowledgePointCount": 45,
+    "protectedExistingD0KnowledgePointCount": 3,
+    "numericDomainId": "NON_NEGATIVE_DECIMAL",
+    "consumerMode": "PRODUCTION_DETERMINISTIC_DECIMAL_NUMBER_SYSTEM"
+  },
+  "acceptedInputForms": {
+    "SAFE_INTEGER": {
+      "shape": "number",
+      "constraints": ["NON_NEGATIVE", "SAFE_INTEGER"]
+    },
+    "DECIMAL_STRING": {
+      "shape": "string",
+      "constraints": ["UNSIGNED_BASE10_LITERAL", "NO_EXPONENT", "NO_WHITESPACE", "MAX_SCALE_32", "MAX_DIGITS_64"]
+    },
+    "SCALED_INTEGER": {
+      "shape": {"coefficient": "number|string", "scale": "number"},
+      "constraints": ["COEFFICIENT_NON_NEGATIVE_INTEGER_DIGITS", "SCALE_NON_NEGATIVE_SAFE_INTEGER", "MAX_SCALE_32", "MAX_DIGITS_64"]
+    },
+    "DECIMAL_PARTS": {
+      "shape": {"wholeNumber": "number", "fractionalDigits": "string"},
+      "constraints": ["WHOLE_NUMBER_NON_NEGATIVE_SAFE_INTEGER", "FRACTIONAL_DIGITS_REQUIRED", "MAX_SCALE_32", "MAX_DIGITS_64"]
+    }
+  },
+  "canonicalContract": {
+    "canonicalValueForm": "NORMALIZED_BASE10_COEFFICIENT_SCALE",
+    "zeroCanonicalForm": {"coefficient": "0", "scale": 0, "canonicalText": "0"},
+    "base": 10,
+    "trailingFractionalZerosRemoved": true,
+    "wholeNumberCanonicalScale": 0,
+    "exactBigIntIntermediateRequired": true,
+    "floatingPointApproximationAllowed": false,
+    "javascriptFractionalNumberInputAllowed": false,
+    "negativeValuesAllowed": false,
+    "zeroAllowed": true,
+    "equivalenceComparisonAllowed": true,
+    "exactOrderingAllowed": true,
+    "equivalentScaleExpansionAllowed": true,
+    "maxDecimalDigits": 64,
+    "maxDecimalScale": 32
+  },
+  "allowedActions": ["NORMALIZE", "EQUIVALENCE", "COMPARE", "EXPAND_SCALE"],
+  "blockingCodes": [
+    "P03B2_KP_ID_REQUIRED",
+    "P03B2_UNKNOWN_KNOWLEDGE_POINT",
+    "P03B2_KP_NOT_DECIMAL_NUMBER_SYSTEM_DEPENDENT",
+    "P03B2_SOURCE_KP_MISMATCH",
+    "P03B2_CAPABILITY_ASSERTION_MISMATCH",
+    "P03B2_ACTION_INVALID",
+    "P03B2_VALUE_REQUIRED",
+    "P03B2_OTHER_VALUE_REQUIRED",
+    "P03B2_VALUE_INVALID",
+    "P03B2_DECIMAL_STRING_INVALID",
+    "P03B2_SCALED_INTEGER_INVALID",
+    "P03B2_DECIMAL_PARTS_INVALID",
+    "P03B2_SCALE_INVALID",
+    "P03B2_TARGET_SCALE_INVALID",
+    "P03B2_RESULT_OVERFLOW"
+  ],
+  "mainlineBoundary": {
+    "fractionNumberSystemPreserved": true,
+    "decimalArithmeticImplemented": false,
+    "decimalDomainValidatorPromoted": false,
+    "fractionToDecimalConversionImplemented": false,
+    "decimalToFractionConversionImplemented": false,
+    "crossDomainNormalizationImplemented": false,
+    "patternSpecImplementationStarted": false,
+    "questionGeneratorImplementationStarted": false,
+    "worksheetRendererChanged": false,
+    "publicUiChanged": false,
+    "protectedExistingD0ProductAdmissionChanged": false,
+    "newProductAdmissionChanged": false,
+    "p04ToP08WorkStarted": false
+  },
+  "nextTask": "P03B3_W3FractionDomainValidatorAdmission"
+}

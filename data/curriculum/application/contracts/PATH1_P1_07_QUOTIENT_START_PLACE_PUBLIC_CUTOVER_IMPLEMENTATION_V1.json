@@ -1,0 +1,181 @@
+{
+  "schemaName": "Path1P107QuotientStartPlacePublicCutoverImplementationV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_07_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_IMPLEMENTATION_V1",
+  "status": "P1_07_PUBLIC_CUTOVER_IMPLEMENTED_AWAITING_CI",
+  "operatorApproval": "APPROVED",
+  "preflightAuthority": "data/curriculum/application/contracts/PATH1_P1_07_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_PREFLIGHT_V1.json",
+  "preflightMergeSha": "0c442ea3f957ded56267b69b1a6ec233b3468fe9",
+  "implementationAuthority": "data/curriculum/application/contracts/PATH1_P1_07_QUOTIENT_START_PLACE_IMPLEMENTATION_V1.json",
+  "nonPublicImplementationMergeSha": "f64c6ef05edbb26d0c39144a451667e8c3d3f0b5",
+  "implementationBaseMain": "2941d8c27557209603845e8768e5525466ce248e",
+  "publicCutoverApplied": true,
+  "productRuntimeChanged": true,
+  "visibleUiChanged": true,
+  "queryStateChanged": true,
+  "publicBindingChanged": false,
+  "sourceSemanticsChanged": false,
+  "path1MatrixChanged": false,
+  "p107GeneratorChanged": false,
+  "p107ValidatorChanged": false,
+  "p107PatternSpecsChanged": false,
+  "p107WorksheetAdapterChanged": false,
+  "p101ThroughP106RuntimeChanged": false,
+  "p108OrLaterRuntimeChanged": false,
+  "p111RemainderSemanticsChanged": false,
+  "p112PublicRouteChanged": false,
+  "classicRuntimeChanged": false,
+  "masteryChanged": false,
+  "publicRoute": {
+    "route": "path1-manual",
+    "practiceMode": "quotientStartPlace",
+    "userFacingLabel": "商的位值練習",
+    "supportedBlockIds": [
+      "P1-07"
+    ],
+    "dispatchMap": {
+      "P1-07": "site/assets/browser/pipeline/build-path1-p1-07-quotient-start-place-worksheet.js"
+    },
+    "unsupportedBlocksFailSafeTo": "arithmetic",
+    "unsupportedBlocksEmitWarning": "PATH1_PUBLIC_P107_QUOTIENT_PLACE_MODE_BLOCK_NOT_SUPPORTED",
+    "doNotAliasToEstimateTrialQuotient": true,
+    "doNotAliasToEqualGroupsTransfer": true,
+    "doNotAliasToMultiplicativeModelingTransfer": true,
+    "deepLinkRoundTripRequired": true,
+    "refreshRestoreRequired": true
+  },
+  "changedProductFiles": [
+    "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "site/assets/browser/state/path1-manual-query-state.js",
+    "site/assets/browser/path1-manual.js",
+    "site/path1/index.html"
+  ],
+  "sourceProvenanceBoundary": {
+    "allThreeCloudEvidenceLanesRemainMandatory": true,
+    "learningMapsUse": "CURRICULUM_PROGRESSION_BOUNDARY",
+    "liTeacherUse": "NO_DIRECT_WITNESS_NO_PATTERN_ADMISSION",
+    "schoolExamUse": "DIRECT_QUOTIENT_DIGIT_COUNT_REPRESENTATION_WITNESS",
+    "twoDigitDivisorExamEvidencePresent": true,
+    "twoDigitDivisorRuntimeAdmitted": false
+  },
+  "publicMetadataProjection": {
+    "p107GateId": "PATH1_P107_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_V1",
+    "worksheetConfigSnapshotPublicCutoverApplied": true,
+    "publicRoute": "path1-manual",
+    "practiceMode": "quotientStartPlace",
+    "representationLayer": "quotient_start_place_cases",
+    "generatedItemSemanticMetadataChanged": false,
+    "dedicatedP107GeneratedItemPublicCutoverAppliedRemains": false,
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "p107Authority": {
+    "sourceId": "g3b_u01_3b01",
+    "knowledgePointIds": [
+      "kp_g3b_u01_2digit_division_place_value_cases",
+      "kp_g3b_u01_3digit_division_place_value_cases"
+    ],
+    "localRepresentationPatternSpecIds": [
+      "P107_2DIGIT_START_PLACE_SELECT",
+      "P107_2DIGIT_QUOTIENT_DIGIT_COUNT",
+      "P107_3DIGIT_START_PLACE_SELECT",
+      "P107_3DIGIT_QUOTIENT_DIGIT_COUNT"
+    ],
+    "divisorDomain": "2..9 one-digit divisors only",
+    "exactDivisionOnly": true,
+    "twoDigitDivisorRuntimeAllowed": false,
+    "quotientZeroPrimaryV1Allowed": false,
+    "wordProblemModelingAllowed": false,
+    "divisorEstimationAllowed": false,
+    "remainderContextInterpretationAllowed": false,
+    "numericEnvelopeExpansionAllowed": false
+  },
+  "arithmeticBindingPreservation": {
+    "p107PublicArithmeticKnowledgePointIds": [
+      "kp_g3b_u01_2digit_division_place_value_cases",
+      "kp_g3b_u01_3digit_division_place_value_cases"
+    ],
+    "publicBindingChanged": false,
+    "matchesPath1Matrix": true
+  },
+  "protectedAuthority": {
+    "mustRemainUnmodified": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json",
+      "data/curriculum/pattern_specs/PATH1_P1_07_QuotientStartPlacePatternSpecRegistry.json",
+      "site/modules/curriculum/learning-paths/path1-p1-07-quotient-start-place-patterns.js",
+      "site/modules/curriculum/learning-paths/path1-p1-07-quotient-start-place-generator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-07-quotient-start-place-validator.js",
+      "site/assets/browser/pipeline/build-path1-p1-07-quotient-start-place-worksheet.js"
+    ],
+    "p101ThroughP106RuntimeUntouched": true,
+    "p108OrLaterRuntimeUntouched": true,
+    "p111RemainderContextUntouched": true,
+    "p112PublicRouteUntouched": true,
+    "classicRuntimeUntouched": true
+  },
+  "focusedAcceptance": {
+    "node": [
+      "P1-07 public arithmetic binding remains exactly the two matrix-primary G3B-U01 KPs",
+      "P1-07 public arithmetic mode remains unchanged",
+      "P1-07 public quotientStartPlace route matches the dedicated P1-07 worksheet at 1/20/120",
+      "120 prompts remain distinct and all four representation families appear",
+      "both matrix-primary KPs and all four formal cases appear at 120",
+      "one-digit divisor exact-division envelope remains locked",
+      "two-digit-divisor, quotient-zero-primary, estimation, remainder-context and word-problem semantics remain excluded",
+      "P1-07 public query round-trip accepts quotientStartPlace",
+      "unsupported block plus quotientStartPlace normalizes to arithmetic with warning",
+      "P1-06 estimateTrialQuotient and earlier text-modeling routes remain unchanged",
+      "P1-07 public config metadata marks its distinct cutover gate while generated-item semantic metadata remains unchanged",
+      "all relative static imports in the cutover dependency chain resolve at repository HEAD"
+    ],
+    "targetedBrowser": [
+      "default /path1 remains P1-01 arithmetic",
+      "P1-06 estimateTrialQuotient still generates",
+      "P1-07 arithmetic generates",
+      "P1-07 quotientStartPlace generates 40 questions with 40 answers",
+      "P1-07 quotientStartPlace deep-link survives refresh",
+      "P1-07 quotientStartPlace carried to P1-06 or P1-08 normalizes to arithmetic with warning",
+      "P1-01/P1-02 equalGroupsTransfer remains selectable and generates",
+      "P1-03/P1-04/P1-05 multiplicativeModelingTransfer remains selectable and generates",
+      "preview and print snapshots are identical",
+      "no pageErrors or product consoleErrors"
+    ],
+    "deployedPagesRequired": true,
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "antiScopeCreep": {
+    "newKnowledgePointAllowed": false,
+    "newRelationAllowed": false,
+    "newPatternSpecAllowed": false,
+    "numericEnvelopeExpansionAllowed": false,
+    "publicBindingMutationAllowed": false,
+    "path1MatrixMutationAllowed": false,
+    "p107GeneratorMutationAllowed": false,
+    "p107ValidatorMutationAllowed": false,
+    "p107WorksheetAdapterMutationAllowed": false,
+    "twoDigitDivisorRuntimeExpansionAllowed": false,
+    "quotientZeroPrimaryExpansionAllowed": false,
+    "masteryIntegrationAllowed": false,
+    "p101ThroughP106RuntimeMutationAllowed": false,
+    "p108OrLaterImplementationAllowed": false,
+    "p111RemainderContextExpansionAllowed": false,
+    "p112CutoverAllowed": false,
+    "classicChangesAllowed": false,
+    "fullRegressionAllowed": false,
+    "globalReplayAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P107_PUBLIC_CUTOVER_CONTRACT_LOCKED_IMPLEMENTATION_NOT_STARTED",
+    "goalDistanceAfterTarget": "D0_P107_PUBLIC_PATH1_QUOTIENT_START_PLACE_ROUTE_DEPLOYED_AND_ACCEPTED",
+    "distanceReduced": "Connect the existing D1 P1-07 quotient-start-place generator, validator and worksheet adapter to the bounded Path1 public route without expanding source or arithmetic authority. Final D0 requires focused CI, merge, Pages deployment and deployed browser acceptance.",
+    "remainingBlockers": [
+      "focused CI not yet accepted",
+      "PR not yet merged",
+      "Pages deployment not yet confirmed",
+      "deployed public acceptance not yet completed"
+    ],
+    "nextShortestStep": "PATH1_P1_07_QUOTIENT_START_PLACE_DEPLOYED_PUBLIC_ACCEPTANCE_V1"
+  }
+}

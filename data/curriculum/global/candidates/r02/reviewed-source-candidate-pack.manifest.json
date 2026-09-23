@@ -1,0 +1,37 @@
+{
+  "schemaName": "R02ReviewedSourceKnowledgePointCandidatePackManifestV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R02_G3toG6_79SourceNodeKnowledgePointCandidateReconciliation",
+  "status": "FIFTY_MISSING_SOURCE_NODES_FULL_PAGE_REVIEWED",
+  "productBaselineMergeSha": "9846627e1263d9dfb3e9e2318989cc5ae94c35dd",
+  "sourcePolicy": {
+    "sourceNodeCount": 50,
+    "sourcePdfCount": 50,
+    "renderedPageCount": 99,
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceTitleAloneAccepted": false,
+    "rawPdfCommittedToRepository": false,
+    "prerequisiteEdgesDeferredTo": "R03_GlobalPrerequisiteGraph",
+    "runtimeCapabilityMappingDeferredTo": "R04_SharedRuntimeCapabilityMatrix"
+  },
+  "storageMode": "JSON_CHUNKS",
+  "chunkEncoding": "utf8+json",
+  "counts": {
+    "sourceNodeCount": 50,
+    "candidateProjectionCount": 247,
+    "uniqueKnowledgePointIdCount": 242,
+    "semanticDuplicateProjectionCount": 5,
+    "renderedPageCount": 99
+  },
+  "chunkPaths": [
+    "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+    "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+    "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-04.json",
+    "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+    "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+    "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json"
+  ]
+}

@@ -1,0 +1,50 @@
+S47_G3A_U06_UNIT_CLOSEOUT_PASS
+
+sourceId = g3a_u06_3a06
+unit = 3A-U06 二位數除以一位數
+status = PASS_ACCEPTED_AND_CLOSED
+operator_decision = accept_blank_pages_non_blocking_and_close_unit
+operator_readback = 200-question browser PDF generated and uploaded after S47A fix
+write_type = closeout_marker_only
+
+closed_scope:
+- S47A remainder range and same-unit fallback fix completed.
+- S47A_R1 browser PDF readback completed using 200-question output.
+- G3A-U06 mixed output content review completed.
+- Answer audit completed.
+- Scope boundary review completed.
+- Layout blank-page issue reviewed and accepted as non-blocking by prior operator policy.
+
+accepted_non_blocking_issue:
+- Exported PDF contains blank page 15 between worksheet and answer key.
+- Exported PDF contains blank final page 30.
+- Blank-page pagination remains deferred to browser/PDF smoke later or renderer-wide cleanup backlog.
+
+validated_as_passing:
+- G3A-U06 mixed output contains 200 questions.
+- Answer key contains 200 answers.
+- Deterministic answer audit passed: 200 / 200.
+- Answer errors: 0.
+- Normalized duplicate question strings: 0.
+- Remainder dividend range errors: 0.
+- Remainder divisor range errors: 0.
+- Remainder constraint errors: 0.
+- No batch_a_remainder_dividend_out_of_range observed in the reviewed PDF.
+- No addition/subtraction/multiplication leakage detected.
+- No decimal/fraction/future-domain leakage detected.
+
+not_closed_as_goal:
+- Browser/PDF smoke for the full system remains a later task.
+- Blank-page print pagination can be reopened later as a renderer-wide issue if needed.
+
+anti_scope_check:
+- No Batch D g3a_u04 work performed.
+- No UI redesign performed.
+- No renderer-wide blank-page cleanup performed.
+- No Batch B/C/D/E expansion performed.
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U06_200_QUESTION_BROWSER_READBACK_PASS_READY_TO_CLOSE
+GOAL_DISTANCE_AFTER = D1_G3A_U06_UNIT_CLOSED_ACCEPTED_PASS
+DISTANCE_REDUCED = G3A-U06 output QA is accepted and closed after successful 200-question browser PDF readback.
+REMAINING_BLOCKERS = ["browser/PDF smoke later", "optional renderer-wide blank-page cleanup backlog"]
+NEXT_SHORTEST_STEP = S48A_NEXT_BATCH_A_UNIT_CURRENT_STATE_AND_OUTPUT_REVIEW

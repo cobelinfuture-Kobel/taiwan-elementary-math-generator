@@ -1,0 +1,155 @@
+{
+  "schemaName": "POSTGAPPW02Source13SourceAuthorityBaselineV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A00_13SourceNodeApplicationCapabilityAssessmentAndAdmissionBaseline",
+  "status": "SOURCE_METADATA_VERIFIED_KNOWLEDGE_OPERATION_MATERIALIZATION_PENDING",
+  "baselineDate": "2026-07-22",
+  "sourceAuthority": {
+    "sourceRoot": "https://drive.google.com/drive/folders/1AcDSpHA5OpRMYOdsppeKtyF_vFhH_k0Z",
+    "sourceHierarchy": "Taiwan Elementary Math Sources/docs/curriculum/sources",
+    "publicRepositoryPolicy": "REFERENCE_METADATA_ONLY_PRIVATE_SOURCE_PDF_NOT_COPIED",
+    "sourceNodeCount": 13
+  },
+  "records": [
+    {
+      "queueOrdinal": 1,
+      "sourceNodeId": "g3a_u08_3a08",
+      "sourceCode": "3a08",
+      "sourceTitle": "分數",
+      "domainFamily": "fraction_representation_and_part_whole",
+      "sourceMetadataDriveFileId": "1M1vsUXuIYRoVJZgupYBedXxTT0H7_xBd",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1M1vsUXuIYRoVJZgupYBedXxTT0H7_xBd",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g3a_u08_3a08.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 2,
+      "sourceNodeId": "g3b_u07_3b07",
+      "sourceCode": "3b07",
+      "sourceTitle": "分數的加減",
+      "domainFamily": "fraction_addition_subtraction",
+      "sourceMetadataDriveFileId": "1a9RBnl-XwpvBr7iBvP7PYoHDdtaQ5qLm",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1a9RBnl-XwpvBr7iBvP7PYoHDdtaQ5qLm",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g3b_u07_3b07.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 3,
+      "sourceNodeId": "g3b_u09_3b09",
+      "sourceCode": "3b09",
+      "sourceTitle": "小數",
+      "domainFamily": "decimal_representation",
+      "sourceMetadataDriveFileId": "1pIgJgyh4bfznqyxT29UJDVoUXEVqZrfL",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1pIgJgyh4bfznqyxT29UJDVoUXEVqZrfL",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g3b_u09_3b09.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 4,
+      "sourceNodeId": "g4a_u06_4a06",
+      "sourceCode": "4a06",
+      "sourceTitle": "假分數與帶分數",
+      "domainFamily": "improper_and_mixed_fraction_representation",
+      "sourceMetadataDriveFileId": "1TsthO8ids8B4Qi-q_TwvhTHEhIYgJU-4",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1TsthO8ids8B4Qi-q_TwvhTHEhIYgJU-4",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g4a_u06_4a06.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 5,
+      "sourceNodeId": "g4a_u09_4a09",
+      "sourceCode": "4a09",
+      "sourceTitle": "2位小數",
+      "domainFamily": "decimal_place_value_two_places",
+      "sourceMetadataDriveFileId": "1CTNhHkI7mBH-M_o8PIJJaJLA65plUHAR",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1CTNhHkI7mBH-M_o8PIJJaJLA65plUHAR",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g4a_u09_4a09.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 6,
+      "sourceNodeId": "g4b_u03_4b03",
+      "sourceCode": "4b03",
+      "sourceTitle": "假分數與帶分數",
+      "domainFamily": "improper_and_mixed_fraction_representation",
+      "sourceMetadataDriveFileId": "1kDoRbg6tiGwV8Zs24NjVl1KpyPiwFlkx",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1kDoRbg6tiGwV8Zs24NjVl1KpyPiwFlkx",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g4b_u03_4b03.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 7,
+      "sourceNodeId": "g4b_u06_4b06",
+      "sourceCode": "4b06",
+      "sourceTitle": "小數乘法",
+      "domainFamily": "decimal_multiplication",
+      "sourceMetadataDriveFileId": "1vKT0h2luwFrh2lVHee1o9i5FeszGbLEL",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1vKT0h2luwFrh2lVHee1o9i5FeszGbLEL",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g4b_u06_4b06.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 8,
+      "sourceNodeId": "g4b_u08_4b08",
+      "sourceCode": "4b08",
+      "sourceTitle": "等值分數",
+      "domainFamily": "equivalent_fraction_structure",
+      "sourceMetadataDriveFileId": "1KqOZT7gRxLP_7LqHSgJOPZ7ct0okB7UJ",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1KqOZT7gRxLP_7LqHSgJOPZ7ct0okB7UJ",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g4b_u08_4b08.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 9,
+      "sourceNodeId": "g5a_u01_5a01",
+      "sourceCode": "5a01",
+      "sourceTitle": "多位小數與加減",
+      "domainFamily": "decimal_multi_place_addition_subtraction",
+      "sourceMetadataDriveFileId": "1k4cUh7X7JMC0IW1EHe-L2k25QRQ1MWb9",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1k4cUh7X7JMC0IW1EHe-L2k25QRQ1MWb9",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g5a_u01_5a01.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 10,
+      "sourceNodeId": "g5a_u03_5a03a",
+      "sourceCode": "5a03a",
+      "sourceTitle": "倍數",
+      "domainFamily": "multiple_enumeration_and_periodicity",
+      "sourceMetadataDriveFileId": "1vru5rFI9gal8DXUJK4axoewckeRkv5pY",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1vru5rFI9gal8DXUJK4axoewckeRkv5pY",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g5a_u03_5a03a.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 11,
+      "sourceNodeId": "g5a_u03_5a03a1",
+      "sourceCode": "5a03a1",
+      "sourceTitle": "公倍數",
+      "domainFamily": "common_multiple_and_cycle_alignment",
+      "sourceMetadataDriveFileId": "17z74FN1yQAkk56TZj-BgeqS4yjsWIdWo",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/17z74FN1yQAkk56TZj-BgeqS4yjsWIdWo",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g5a_u03_5a03a1.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 12,
+      "sourceNodeId": "g5a_u04_5a04",
+      "sourceCode": "5a04",
+      "sourceTitle": "擴分約分通分",
+      "domainFamily": "fraction_equivalence_simplification_common_denominator",
+      "sourceMetadataDriveFileId": "10fUbuSfT_Z9xcK_MqQQbZMPdv86tY87B",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/10fUbuSfT_Z9xcK_MqQQbZMPdv86tY87B",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g5a_u04_5a04.knowledge-operation.json"
+    },
+    {
+      "queueOrdinal": 13,
+      "sourceNodeId": "g5a_u06_5a06",
+      "sourceCode": "5a06",
+      "sourceTitle": "異分母分數加減",
+      "domainFamily": "unlike_denominator_fraction_addition_subtraction",
+      "sourceMetadataDriveFileId": "1eHrgVMgKGdN8W1GkPx86_2675Deo5RPn",
+      "sourceMetadataUrl": "https://drive.google.com/file/d/1eHrgVMgKGdN8W1GkPx86_2675Deo5RPn",
+      "knowledgeOperationExpectedPath": "data/curriculum/knowledge/units/g5a_u06_5a06.knowledge-operation.json"
+    }
+  ],
+  "recordDefaults": {
+    "sourceMetadataState": "VERIFIED_AVAILABLE",
+    "knowledgeOperationStateAtBaseline": "NOT_PRESENT_IN_GITHUB_AT_A00",
+    "kpApplicationClassificationStateAtBaseline": "BLOCKED_PENDING_KNOWLEDGE_OPERATION",
+    "sourceLevelApplicationPotential": "MIXED_KP_SPLIT_REQUIRED",
+    "forcedStoryAuthoringAllowed": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextShortestStep": "POSTG-APP-W02-A01_13SourceNodeKnowledgeOperationCandidateMaterializationAndKPClassification"
+}

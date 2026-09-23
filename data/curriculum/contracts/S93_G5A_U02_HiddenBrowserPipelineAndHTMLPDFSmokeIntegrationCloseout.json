@@ -1,0 +1,106 @@
+{
+  "schemaName": "G5AU02HiddenBrowserPipelineAndHTMLPDFSmokeIntegrationCloseout",
+  "schemaVersion": 1,
+  "task": "S93_G5A_U02_HiddenBrowserPipelineAndHTMLPDFSmokeIntegration",
+  "closeoutTask": "S93R2_G5A_U02_HiddenBrowserPipelineAndHTMLPDFSmokeIntegration_FreshMainCloseout",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "pullRequest": 155,
+  "mergeCommit": "5bd0e6d3aa904768e8436ab19d49e9aa12b4b32a",
+  "freshMainAuthority": {
+    "readbackCommit": "9d69e5bcb90f96289478f9fb72b9992300d60755",
+    "workflowRunId": 29269200306,
+    "workflowRunNumber": 1521,
+    "eventName": "push",
+    "ref": "refs/heads/main",
+    "sha": "5bd0e6d3aa904768e8436ab19d49e9aa12b4b32a",
+    "npmTestExitCode": 0,
+    "tests": 1324,
+    "pass": 1324,
+    "fail": 0,
+    "workingTreeClean": true
+  },
+  "coverage": {
+    "patternSpecCount": 22,
+    "classCPatternSpecCount": 14,
+    "classDPatternSpecCount": 8,
+    "answerModelShapeCount": 16,
+    "rendererProfileCount": 3,
+    "rendererProfiles": [
+      "compact",
+      "contextual",
+      "reasoning"
+    ],
+    "questionCount": 22,
+    "answerCount": 22,
+    "questionPageCount": 22,
+    "answerPageCount": 22,
+    "pdfPageCount": 44,
+    "language": "zh-Hant",
+    "pageSize": "A4"
+  },
+  "verifiedArtifact": {
+    "manifestStatus": "hidden_html_pdf_smoke_pass",
+    "htmlQuestionCardCount": 22,
+    "htmlAnswerCardCount": 22,
+    "actualPdfPageCount": 44,
+    "renderedPageImageCount": 44,
+    "nonblankRenderedPageCount": 44,
+    "finalAnswerPageNonblank": true,
+    "domOverflowCount": 0,
+    "pdfBoundingBoxOverflowCount": 0,
+    "internalIdLeakCount": 0,
+    "unresolvedPlaceholderCount": 0,
+    "cjkGlyphRendering": "pass",
+    "visualRenderVerification": "all_pages_nonblank_and_bbox_contained",
+    "htmlSha256": "6850c08a7076d74b9e235737826250d5c994ffb67a4530945e5ca4b74dcaa13e",
+    "pdfSha256": "bcd97338531df87485e01b927de5626f1d014e79d68e6e7f52e1d9f7d962b2ae",
+    "pdfBytes": 377745
+  },
+  "pipelineContract": {
+    "closedS91WorksheetDocumentConsumedWithoutMutation": true,
+    "closedS92RenderedWorksheetConsumedWithoutMutation": true,
+    "hiddenNoindexMarkerRequired": true,
+    "hiddenPipelineMarkerRequired": true,
+    "answerKeySuppressionSupported": true,
+    "questionAnswerIsolationRequired": true,
+    "htmlEscapingRequired": true,
+    "internalCurriculumIdRedactionRequired": true,
+    "unresolvedPlaceholderBlockingRequired": true,
+    "domContainmentRequired": true,
+    "pdfBoundingBoxContainmentRequired": true,
+    "allPdfPagesNonblankRequired": true,
+    "traditionalChineseExtractionRequired": true
+  },
+  "lifecycle": {
+    "rendererStatus": "hidden_html_integrated",
+    "worksheetStatus": "hidden_exact_count_integrated",
+    "answerKeyStatus": "hidden_integrated_optional",
+    "selectorStatus": "hidden",
+    "canonicalRouting": "internal_explicit_only",
+    "browserPipelineStatus": "hidden_connected",
+    "htmlPdfSmokeStatus": "hidden_smoke_passed",
+    "productionUse": "forbidden",
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden"
+  },
+  "scopeBoundary": {
+    "publicSelectorChanged": false,
+    "classicUIChanged": false,
+    "pixelUIChanged": false,
+    "publicQueryStateChanged": false,
+    "publicPreviewRoutingChanged": false,
+    "productionPromoted": false
+  },
+  "goalDistance": {
+    "before": "D1_G5A_U02_HIDDEN_BROWSER_AND_HTML_PDF_SMOKE_MERGED_PENDING_FRESH_MAIN",
+    "after": "D1_G5A_U02_HIDDEN_BROWSER_AND_HTML_PDF_SMOKE_VERIFIED_AND_CLOSED",
+    "distanceReduced": "Verified the hidden G5A-U02 browser pipeline and committed 22-question, 22-answer, 44-page Traditional Chinese A4 HTML/PDF evidence with zero DOM overflow, zero PDF bounding-box overflow, no blank pages, no internal-ID leakage and no unresolved placeholders.",
+    "remainingBlockers": [
+      "Public selector remains hidden",
+      "Public print and query-state integration is not connected",
+      "Production use remains forbidden"
+    ],
+    "nextShortestStep": "S94_G5A_U02_PublicSelectorPrintAndQueryStateQA"
+  }
+}

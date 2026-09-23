@@ -1,0 +1,126 @@
+{
+  "schemaName": "P05FW5Q017PrismPyramidElementsImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5DirectProductVerticalSlice017Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": "D1",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 17,
+    "sliceId": "p05e_q017_r1_g5a_u10_5a10a_profile_spatial_solid_c1",
+    "sourceId": "g5a_u10_5a10a",
+    "runtimeProfileId": "profile_spatial_solid",
+    "knowledgePointId": "kp_g5a_u10a_prism_pyramid_elements",
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q016_r1_g5a_u07_5a07_profile_geometry_property_c1",
+    "implementationPrNumber": 842,
+    "implementationHeadSha": "e9023ed91f2d3f6ea19bd2a76f757586fb739ccb",
+    "productMergeSha": "dcfe6aec80dd83e86fc4f2d078641c372dfd41a9",
+    "exactPagesRunId": "34295697787",
+    "pagesDeploymentRunId": "34295697762",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflightPath": "data/curriculum/full-product/p05f/q017-g5a-u10a-prism-pyramid-elements-source-authority-preflight.json",
+    "sourceTitle": "柱體錐體和球",
+    "sourcePdfTitle": "meow911_5a10a_source.pdf",
+    "sourcePdfDriveFileId": "1ErBCKyfIoXn0yswNUpNzlBcMNb8wkaqq",
+    "sourcePages": [1, 2],
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE",
+    "canonicalNameZh": "柱體錐體構成要素",
+    "capabilityStatement": "學生能辨認立體的底面、側面、稜與頂點。",
+    "reasoningInvariant": "構成要素的數量與位置由底面多邊形決定。",
+    "sourceRefAmbiguity": false
+  },
+  "formalMapping": {
+    "mappingId": "fm_g5a_u10a_prism_pyramid_elements_p05f17",
+    "relationFamily": "PRISM_PYRAMID_ELEMENT_IDENTIFICATION_AND_STRUCTURE",
+    "includedRelations": [
+      "IDENTIFY_BASE_SIDE_FACE_EDGE_VERTEX",
+      "RELATE_ELEMENT_COUNT_POSITION_TO_BASE_POLYGON"
+    ],
+    "excludedRelations": [
+      "SOLID_SHAPE_CLASSIFICATION",
+      "SOLID_NET_CORRESPONDENCE",
+      "SOLID_CROSS_SECTION",
+      "SOLID_VIEWPOINT_REPRESENTATION",
+      "APPLICATION_CONTEXT",
+      "GEOMETRY_FORMULA_OR_MEASUREMENT"
+    ]
+  },
+  "patternContract": {
+    "patternGroupId": "pg_g5a_u10a_prism_pyramid_elements",
+    "patternSpecIds": [
+      "ps_g5a_u10a_identify_base_face",
+      "ps_g5a_u10a_identify_side_face",
+      "ps_g5a_u10a_identify_edge",
+      "ps_g5a_u10a_identify_vertex",
+      "ps_g5a_u10a_count_faces_from_base_polygon",
+      "ps_g5a_u10a_count_edges_from_base_polygon",
+      "ps_g5a_u10a_count_vertices_from_base_polygon"
+    ],
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "requiresSolidGeometryRepresentation": true,
+    "applicationImplementationAllowed": false,
+    "sourceUnitActivationAllowed": false,
+    "mixedKnowledgePointActivationAllowed": false
+  },
+  "runtimeContract": {
+    "generator": "site/modules/curriculum/batch-a/g5a-u10a-prism-pyramid-elements-runtime-p05f17.js",
+    "validator": "validateG5AU10AP05F17Question",
+    "diagramRenderer": "site/modules/renderer/prism-pyramid-elements-diagram.js",
+    "browserGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f17.js",
+    "worksheetAdapter": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f17-extension.js",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicAdmission": {
+    "sourceCountBefore": 53,
+    "sourceCountAfter": 53,
+    "visibleKnowledgePointCountBefore": 330,
+    "visibleKnowledgePointCountAfter": 331,
+    "g5aU10aVisibleCountBefore": 1,
+    "g5aU10aVisibleCountAfter": 2,
+    "g5aU10aHiddenPendingCountBefore": 4,
+    "g5aU10aHiddenPendingCountAfter": 3,
+    "g5aU10aNotSelectableCountBefore": 4,
+    "g5aU10aNotSelectableCountAfter": 3,
+    "sourceUnitOwnerKnowledgePointId": "kp_g5a_u10a_solid_shape_classification",
+    "targetActivation": "EXPLICIT_KP_PATTERN_GROUP_OR_PATTERN_SPEC_ONLY",
+    "questionTypeValue": "diagram",
+    "questionCountMax": 240,
+    "mixedQuestionModeAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_BOUNDED_LEAF",
+    "focusedNodeTest": "tests/curriculum/p05f-w5-slice017-g5a-u10a-prism-pyramid-elements.test.js",
+    "directDependencyTest": "tests/curriculum/p05f-w5-slice017-direct-dependencies.test.js",
+    "targetedRouteReplay": "tools/curriculum/run-p05f-w5-slice017-classic-ui-acceptance.mjs"
+  },
+  "scopeGuard": {
+    "q007SolidShapeClassificationSemanticsTouched": false,
+    "q007SourceUnitOwnershipTouched": false,
+    "solidNetCorrespondenceTouched": false,
+    "solidCrossSectionTouched": false,
+    "solidViewpointRepresentationTouched": false,
+    "applicationContextTouched": false,
+    "geometryFormulaOrMeasurementTouched": false,
+    "q018OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  }
+}

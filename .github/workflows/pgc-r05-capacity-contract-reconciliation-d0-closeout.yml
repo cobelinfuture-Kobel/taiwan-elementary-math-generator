@@ -1,0 +1,46 @@
+name: PGC-R05 Capacity Contract Reconciliation D0 Closeout
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pgc-r05-capacity-contract-historical-readback-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  historical-readback:
+    name: Historical R05 D0 read-only acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Validate committed R05 D0 lineage
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          const report = JSON.parse(fs.readFileSync("data/curriculum/public-generation/PGC-R05.capacity-contract-reconciliation.json", "utf8"));
+          if (report.changedBindingIds?.length !== 135
+            || report.applicationBefore?.verified20RouteCount !== 128
+            || report.applicationAfter?.verified20RouteCount !== 211) {
+            throw new Error(`PGC_R05_D0_LINEAGE_INVALID:${JSON.stringify({
+              changedBindingCount: report.changedBindingIds?.length,
+              applicationBefore: report.applicationBefore,
+              applicationAfter: report.applicationAfter,
+            })}`);
+          }
+          console.log("PGC_R05_D0_LINEAGE=PASS");
+          NODE
+      - name: Focused historical R05 D0 acceptance
+        run: |
+          node --test tests/curriculum/pgc-r02-public-ui-capability-binding.test.js
+          node --test tests/curriculum/pgc-r03-generator-capacity-contract.test.js
+          node --test tests/curriculum/pgc-r05-application-gap-diagnostics.test.js
+          node --test tests/curriculum/pgc-r05-capacity-contract-reconciliation-d0.test.js

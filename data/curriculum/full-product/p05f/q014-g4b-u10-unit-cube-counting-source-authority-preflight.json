@@ -1,0 +1,147 @@
+{
+  "schemaName": "P05FW5Q014UnitCubeCountingSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q014_UnitCubeCounting_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 14,
+    "sliceId": "p05e_q014_r1_g4b_u10_4b10_profile_spatial_solid_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice014Implementation",
+    "previousSliceId": "p05e_q013_r1_g4a_u05_4a05_profile_geometry_property_c1",
+    "primarySourceNodeId": "g4b_u10_4b10",
+    "primaryRuntimeProfileId": "profile_spatial_solid",
+    "knowledgePointCount": 1,
+    "knowledgePointIds": ["kp_g4b_u10_unit_cube_counting"],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q013_r1_g4a_u05_4a05_profile_geometry_property_c1",
+    "implementationPrNumber": 828,
+    "implementationHeadSha": "c3a8f58f8ce3e2fc5cb4f78a4c8dd3594c396f66",
+    "productMergeSha": "09fb4090b5b6745aa5c1d69c96e12ee3688b18d8",
+    "prGateRunId": "34204809507",
+    "exactPagesRunId": "34205138270",
+    "pagesDeploymentRunId": "34205138367",
+    "evidenceArtifactId": "10047468598",
+    "evidenceArtifactDigest": "sha256:156bfcb80a9d6114af3c642261b8b57ae8b0869ebabb77b13301531396564fec",
+    "status": "PASS_E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g4b_u10_4b10",
+    "sourceTitle": "立方公分與體積",
+    "sourcePdfTitle": "meow911_4b10_source.pdf",
+    "sourcePdfDriveFileId": "1WvktYZkvxrWVdzPr68Z8GNauosbF2POG",
+    "sourceMetadataDriveFileId": "1D0tFC88EPUmyAFhhlljuho_PZIAoZNsZ",
+    "verificationNotesDriveFileId": "1-Glky7Y0RnnmiY7lQ68x2jJnYYOdFKSZ",
+    "originalFileNameFromMetadata": "題型總覽-4b10-立方公分.pdf",
+    "sourceUrlFromMetadata": "https://meow911.com/4b10/",
+    "embeddedHeaderUrlFromDriveText": "https://meow911.com/4b10/",
+    "pageCount": 2,
+    "reviewMethod": "R02_FULL_PAGE_VISUAL_READBACK_REUSE_FROM_Q005",
+    "reviewedPages": [1, 2],
+    "sourceIdentityReuse": {
+      "authorityPreflightPath": "data/curriculum/full-product/p05f/q005-g4b-u10-cubic-centimeter-unit-source-authority-preflight.json",
+      "sameSourceNodeConfirmed": true,
+      "samePdfIdentityConfirmed": true,
+      "sourceRefAmbiguity": false,
+      "disposition": "REUSE_Q005_REVIEWED_SOURCE_IDENTITY;LOCK_Q014_TO_EXACT_R02_UNIT_CUBE_COUNTING_CANDIDATE"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+    "sourceNodeId": "g4b_u10_4b10",
+    "sourceTitle": "立方公分與體積",
+    "sourcePdfTitle": "meow911_4b10_source.pdf",
+    "reviewedPages": [1, 2],
+    "knowledgePointId": "kp_g4b_u10_unit_cube_counting",
+    "canonicalNameZh": "單位立方體計數",
+    "capabilityStatement": "學生能由可見與隱藏方塊數求立體體積。",
+    "reasoningInvariant": "每個無重疊單位立方體貢獻1個體積單位。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_spatial_solid",
+    "classificationRuleId": "rule_spatial_solid",
+    "appliedModifierIds": [],
+    "profileRequiredCapabilityIds": [
+      "cap_spatial_solid_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_solid_geometry_representation"
+    ],
+    "dependencyClosureAddedCapabilityIds": ["cap_geometry_property_reasoning"],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning",
+      "cap_solid_geometry_representation",
+      "cap_spatial_solid_reasoning"
+    ]
+  },
+  "q014ScopeLock": {
+    "includedKnowledgePointIds": ["kp_g4b_u10_unit_cube_counting"],
+    "includedRelations": [
+      "COUNT_UNIT_CUBES_IN_SOLID",
+      "ACCOUNT_FOR_VISIBLE_AND_HIDDEN_UNIT_CUBES",
+      "MAP_TOTAL_UNIT_CUBE_COUNT_TO_VOLUME",
+      "PRESERVE_NON_OVERLAPPING_UNIT_CUBE_CONTRIBUTION"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": ["kp_g4b_u10_cubic_centimeter_unit"],
+    "excludedKnowledgePointIdsFromSameSource": [
+      "kp_g4b_u10_layered_cube_counting",
+      "kp_g4b_u10_volume_conservation_rearrangement",
+      "kp_g4b_u10_rectangular_prism_volume_structure"
+    ],
+    "excludedRelations": [
+      "LAYERED_CUBE_MULTIPLICATION",
+      "VOLUME_CONSERVATION_REARRANGEMENT",
+      "RECTANGULAR_PRISM_LENGTH_WIDTH_HEIGHT_FORMULA",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresSolidGeometryRepresentation": true,
+    "requiresGeometryDomainValidator": true,
+    "requiresSpatialSolidReasoning": true,
+    "q005SemanticsMustRemainUnchanged": true,
+    "applicationSuitabilityFromR02": "APPLICATION_COMPATIBLE",
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q015OrLaterTouched": false,
+    "frozenQueueAuthorityTouched": false
+  },
+  "siblingProtection": {
+    "currentStableSelectorModule": "site/modules/curriculum/registry/batch-a-selector-p05f13-extension.js",
+    "q005KnowledgePointId": "kp_g4b_u10_cubic_centimeter_unit",
+    "q005MustRemainPubliclyVisible": true,
+    "targetCurrentlyPubliclyVisible": false,
+    "laterSameSourceCandidatesRemainUnadmitted": true,
+    "futureQueueSemanticsMayNotBePulledForward": true
+  },
+  "validationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": ["GLOBAL_CONTRACTS", "TARGETED_ROUTE_REPLAY"],
+    "fullRepositoryRegression": "FORBIDDEN_FOR_THIS_PREFLIGHT",
+    "globalBrowserReplay": "FORBIDDEN_FOR_THIS_PREFLIGHT"
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ014ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "runtimeCapabilityContractLocked": true,
+    "singleKnowledgePointSliceLocked": true,
+    "q005SameSourceProtectionLocked": true,
+    "laterSameSourceSiblingProtectionLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice014Implementation"
+  }
+}

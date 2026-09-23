@@ -1,0 +1,117 @@
+{
+  "schemaName": "P03FSlice002FractionQuantityAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice002Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 2,
+    "sliceId": "p03e_q002_r5_g3a_u08_3a08_profile_fraction_c1",
+    "previousSliceId": "p03e_q001_r4_g3a_u08_3a08_profile_fraction_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g3a_u08_3a08",
+    "sourceCode": "3a08",
+    "sourceTitle": "分數",
+    "grade": 3,
+    "semester": "upper",
+    "unitCode": "3A-U08",
+    "canonicalOperationAuthorityPath": "data/curriculum/application/operations/w02/g3a_u08_3a08.canonical-operation.json",
+    "hiddenPatternSpecAuthorityPath": "data/curriculum/application/pattern-specs/w02/g3a_u08_3a08.hidden-pattern-spec.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3a_u08_discrete_set_fraction",
+      "canonicalNameZh": "離散集合的分數與單位換算",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "reasoningInvariant": "每盒固定個數與盒數的分數表示必須保存同一總量；盒與顆的單位角色不可互換。",
+      "requiredCapabilityIds": ["cap_fraction_domain_validator", "cap_fraction_number_system"],
+      "tagIds": ["grade_3", "domain_fraction", "concept_discrete_set_fraction", "operation_discrete_fraction_conversion", "representation_bidirectional_quantity", "answer_quantity_or_fraction", "application_required", "global_context_primary"]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u08_unit_fraction_accumulation",
+      "canonicalNameZh": "單位分數累積",
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "reasoningInvariant": "分母固定時，每增加一個單位分數，分子增加 1；本 slice 排除累積到整體等於 1 的 whole-as-fraction 身分。",
+      "requiredCapabilityIds": ["cap_fraction_domain_validator", "cap_fraction_number_system"],
+      "tagIds": ["grade_3", "domain_fraction", "concept_unit_fraction", "operation_fraction_accumulation", "representation_repeated_unit_fraction", "answer_fraction_notation", "application_compatible", "global_context_primary"]
+    }
+  ],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g3a_u08_discrete_set_fraction",
+      "operationModelId": "op_g3a_u08_discrete_set_fraction",
+      "operationFamilyId": "discrete_fraction_conversion",
+      "canonicalExpressions": [
+        "itemCount = wholeUnits * itemsPerWhole + numerator * itemsPerWhole / denominator",
+        "fractionalUnits = itemCount / itemsPerWhole"
+      ],
+      "numberConstraints": ["numerator * itemsPerWhole must be divisible by denominator when itemCount is requested"],
+      "validationInvariants": ["both directions preserve total quantity", "itemsPerWhole and wholeUnits are not interchangeable", "numerator and denominator retain fraction roles"]
+    },
+    {
+      "formalMappingId": "fm_g3a_u08_unit_fraction_accumulation",
+      "operationModelId": "op_g3a_u08_unit_fraction_accumulation",
+      "operationFamilyId": "fraction_accumulation",
+      "canonicalExpressions": ["fraction = unitFractionCount / denominator"],
+      "numberConstraints": ["1 <= unitFractionCount < denominator", "2 <= denominator <= 12"],
+      "validationInvariants": ["denominator remains fixed", "numerator equals accumulated unit-fraction count", "whole-as-fraction is excluded from this slice"]
+    }
+  ],
+  "patternSurface": {
+    "patternGroupCount": 4,
+    "patternSpecCount": 6,
+    "numericPatternSpecIds": [
+      "ps_g3a_u08_unit_fraction_accumulation_fraction_numeric",
+      "ps_g3a_u08_discrete_set_fraction_item_count_numeric",
+      "ps_g3a_u08_discrete_set_fraction_fractional_units_numeric"
+    ],
+    "applicationPatternSpecIds": [
+      "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+      "ps_g3a_u08_discrete_set_fraction_item_count_application",
+      "ps_g3a_u08_discrete_set_fraction_fractional_units_application"
+    ],
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "globalContextBindings": [
+    {
+      "patternSpecId": "ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+      "applicationQuestionRecordId": "app_qr_w02_ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+      "bindingCandidateId": "w02_bind_ps_g3a_u08_unit_fraction_accumulation_fraction_application",
+      "macroContextId": "gctx_macro_health_sports",
+      "atomicEpisodeId": "gctx_episode_activity_supply_distribution_direct_quantity",
+      "surfaceTemplateId": "tpl_fusion_nutrition_distribution_direct_01"
+    },
+    {
+      "patternSpecId": "ps_g3a_u08_discrete_set_fraction_item_count_application",
+      "applicationQuestionRecordId": "app_qr_w02_ps_g3a_u08_discrete_set_fraction_item_count_application",
+      "bindingCandidateId": "w02_bind_ps_g3a_u08_discrete_set_fraction_item_count_application",
+      "macroContextId": "gctx_macro_culture_history",
+      "atomicEpisodeId": "gctx_episode_ancient_market_exchange_direct_quantity",
+      "surfaceTemplateId": "tpl_fusion_ancient_trade_direct_01"
+    },
+    {
+      "patternSpecId": "ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+      "applicationQuestionRecordId": "app_qr_w02_ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+      "bindingCandidateId": "w02_bind_ps_g3a_u08_discrete_set_fraction_fractional_units_application",
+      "macroContextId": "gctx_macro_household_family",
+      "atomicEpisodeId": "gctx_episode_chore_schedule_direct_quantity",
+      "surfaceTemplateId": "tpl_fusion_shared_chores_direct_01"
+    }
+  ],
+  "productBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "globalContextAuthorityRequiredForApplication": true,
+    "unitSpecificStoryEngineAllowed": false,
+    "parallelPipelineAllowed": false,
+    "wholeAsFractionKnowledgePointExcluded": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

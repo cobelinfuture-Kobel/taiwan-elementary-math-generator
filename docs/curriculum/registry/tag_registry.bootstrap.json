@@ -1,0 +1,289 @@
+{
+  "schemaVersion": "s22f.tagRegistryBootstrap.v0",
+  "status": "bootstrap",
+  "productionRuntime": false,
+  "tags": [
+    {
+      "tagId": "domain_number_sense",
+      "tagType": "curriculumDomain",
+      "labelZh": "數與量",
+      "labelEn": "Number Sense",
+      "description": "Place value, number reading, comparison, and basic number concepts."
+    },
+    {
+      "tagId": "domain_operation",
+      "tagType": "curriculumDomain",
+      "labelZh": "運算",
+      "labelEn": "Operation",
+      "description": "Integer arithmetic operations: addition, subtraction, multiplication, division, mixed operations."
+    },
+    {
+      "tagId": "domain_decimal",
+      "tagType": "curriculumDomain",
+      "labelZh": "小數",
+      "labelEn": "Decimal",
+      "description": "Decimal number concepts and operations."
+    },
+    {
+      "tagId": "domain_fraction",
+      "tagType": "curriculumDomain",
+      "labelZh": "分數",
+      "labelEn": "Fraction",
+      "description": "Fraction concepts and operations."
+    },
+    {
+      "tagId": "domain_measurement",
+      "tagType": "curriculumDomain",
+      "labelZh": "測量",
+      "labelEn": "Measurement",
+      "description": "Length, mass, capacity, time, area, volume measurements and conversions."
+    },
+    {
+      "tagId": "domain_geometry",
+      "tagType": "curriculumDomain",
+      "labelZh": "幾何",
+      "labelEn": "Geometry",
+      "description": "Shapes, angles, perimeter, area, volume, symmetry, and spatial reasoning."
+    },
+    {
+      "tagId": "domain_data",
+      "tagType": "curriculumDomain",
+      "labelZh": "資料與統計",
+      "labelEn": "Data",
+      "description": "Statistical tables, charts, bar charts, line graphs, pie charts."
+    },
+    {
+      "tagId": "domain_ratio_speed",
+      "tagType": "curriculumDomain",
+      "labelZh": "比率與速率",
+      "labelEn": "Ratio & Speed",
+      "description": "Ratio, percent, speed, scale drawing."
+    },
+    {
+      "tagId": "domain_pattern_relationship",
+      "tagType": "curriculumDomain",
+      "labelZh": "規律與關係",
+      "labelEn": "Pattern & Relationship",
+      "description": "Pattern sequences, quantity patterns, and quantity relationships."
+    },
+    {
+      "tagId": "domain_word_problem_strategy",
+      "tagType": "curriculumDomain",
+      "labelZh": "應用題策略",
+      "labelEn": "Word Problem Strategy",
+      "description": "Problem-solving strategies for word problems."
+    },
+    {
+      "tagId": "domain_number_line",
+      "tagType": "curriculumDomain",
+      "labelZh": "數線",
+      "labelEn": "Number Line",
+      "description": "Number line concepts."
+    },
+    {
+      "tagId": "qk_number_sense",
+      "tagType": "questionKind",
+      "labelZh": "數感題",
+      "labelEn": "Number Sense Question",
+      "description": "Questions about place value, number reading, comparison.",
+      "aliases": ["numberSense"]
+    },
+    {
+      "tagId": "qk_expression",
+      "tagType": "questionKind",
+      "labelZh": "算式題",
+      "labelEn": "Expression Question",
+      "description": "Direct arithmetic expression questions.",
+      "aliases": ["expression"]
+    },
+    {
+      "tagId": "qk_decimal",
+      "tagType": "questionKind",
+      "labelZh": "小數題",
+      "labelEn": "Decimal Question",
+      "description": "Decimal operation questions.",
+      "aliases": ["decimal"]
+    },
+    {
+      "tagId": "qk_fraction",
+      "tagType": "questionKind",
+      "labelZh": "分數題",
+      "labelEn": "Fraction Question",
+      "description": "Fraction operation questions.",
+      "aliases": ["fraction"]
+    },
+    {
+      "tagId": "qk_measurement_conversion",
+      "tagType": "questionKind",
+      "labelZh": "測量換算題",
+      "labelEn": "Measurement Conversion Question",
+      "description": "Unit conversion and measurement questions.",
+      "aliases": ["measurementConversion"]
+    },
+    {
+      "tagId": "qk_geometry_formula",
+      "tagType": "questionKind",
+      "labelZh": "幾何公式題",
+      "labelEn": "Geometry Formula Question",
+      "description": "Geometry questions requiring formula application.",
+      "aliases": ["geometryFormula"]
+    },
+    {
+      "tagId": "qk_visual_geometry",
+      "tagType": "questionKind",
+      "labelZh": "視覺幾何題",
+      "labelEn": "Visual Geometry Question",
+      "description": "Geometry questions requiring visual/diagram generation.",
+      "aliases": ["visualGeometry"]
+    },
+    {
+      "tagId": "qk_chart_data",
+      "tagType": "questionKind",
+      "labelZh": "圖表資料題",
+      "labelEn": "Chart Data Question",
+      "description": "Questions involving statistical charts and data interpretation.",
+      "aliases": ["chartData"]
+    },
+    {
+      "tagId": "qk_pattern_sequence",
+      "tagType": "questionKind",
+      "labelZh": "規律數列題",
+      "labelEn": "Pattern Sequence Question",
+      "description": "Questions about pattern and sequence identification.",
+      "aliases": ["patternSequence"]
+    },
+    {
+      "tagId": "qk_relationship",
+      "tagType": "questionKind",
+      "labelZh": "關係題",
+      "labelEn": "Relationship Question",
+      "description": "Questions about quantity relationships.",
+      "aliases": ["relationship"]
+    },
+    {
+      "tagId": "qk_word_problem",
+      "tagType": "questionKind",
+      "labelZh": "應用題",
+      "labelEn": "Word Problem",
+      "description": "Word problem / applied context questions.",
+      "aliases": ["wordProblem"]
+    },
+    {
+      "tagId": "qk_representation",
+      "tagType": "questionKind",
+      "labelZh": "表徵題",
+      "labelEn": "Representation Question",
+      "description": "Questions involving number representation.",
+      "aliases": ["representation"]
+    },
+    {
+      "tagId": "qk_rounding",
+      "tagType": "questionKind",
+      "labelZh": "概數題",
+      "labelEn": "Rounding Question",
+      "description": "Rounding and approximation questions.",
+      "aliases": ["rounding"]
+    },
+    {
+      "tagId": "qk_factor_multiple",
+      "tagType": "questionKind",
+      "labelZh": "因倍數題",
+      "labelEn": "Factor & Multiple Question",
+      "description": "Questions about factors, multiples, GCD, LCM.",
+      "aliases": ["factorMultiple"]
+    },
+    {
+      "tagId": "qk_ratio_percent",
+      "tagType": "questionKind",
+      "labelZh": "比率百分率題",
+      "labelEn": "Ratio & Percent Question",
+      "description": "Ratio, percent, and proportional reasoning questions.",
+      "aliases": ["ratioPercent"]
+    },
+    {
+      "tagId": "qk_visual_reading",
+      "tagType": "questionKind",
+      "labelZh": "視覺閱讀題",
+      "labelEn": "Visual Reading Question",
+      "description": "Questions involving visual reading of numbers, number lines, etc.",
+      "aliases": ["visualReading"]
+    },
+    {
+      "tagId": "v1NumberSenseSupported",
+      "tagType": "supportStatus",
+      "labelZh": "V1數感支援",
+      "labelEn": "V1 Number Sense Supported",
+      "description": "V1 generator can produce number sense questions."
+    },
+    {
+      "tagId": "v1ExpressionSupported",
+      "tagType": "supportStatus",
+      "labelZh": "V1算式支援",
+      "labelEn": "V1 Expression Supported",
+      "description": "V1 generator can produce expression questions."
+    },
+    {
+      "tagId": "v1TextFallbackSupported",
+      "tagType": "supportStatus",
+      "labelZh": "V1文字降級支援",
+      "labelEn": "V1 Text Fallback Supported",
+      "description": "V1 generator can produce text-only fallback output."
+    },
+    {
+      "tagId": "futureDecimalDomain",
+      "tagType": "supportStatus",
+      "labelZh": "未來小數領域",
+      "labelEn": "Future Decimal Domain",
+      "description": "Requires future decimal engine development."
+    },
+    {
+      "tagId": "futureFractionDomain",
+      "tagType": "supportStatus",
+      "labelZh": "未來分數領域",
+      "labelEn": "Future Fraction Domain",
+      "description": "Requires future fraction engine development."
+    },
+    {
+      "tagId": "futureMeasurementEngine",
+      "tagType": "supportStatus",
+      "labelZh": "未來測量引擎",
+      "labelEn": "Future Measurement Engine",
+      "description": "Requires future measurement engine development."
+    },
+    {
+      "tagId": "futureGeometryFormulaEngine",
+      "tagType": "supportStatus",
+      "labelZh": "未來幾何公式引擎",
+      "labelEn": "Future Geometry Formula Engine",
+      "description": "Requires future geometry formula engine development."
+    },
+    {
+      "tagId": "requiresVisualGenerator",
+      "tagType": "supportStatus",
+      "labelZh": "需要視覺化產生器",
+      "labelEn": "Requires Visual Generator",
+      "description": "Requires visual diagram/graphic generator capability."
+    },
+    {
+      "tagId": "requiresChartDataEngine",
+      "tagType": "supportStatus",
+      "labelZh": "需要圖表資料引擎",
+      "labelEn": "Requires Chart Data Engine",
+      "description": "Requires chart data engine for statistical chart generation."
+    },
+    {
+      "tagId": "requiresWordProblemTemplate",
+      "tagType": "supportStatus",
+      "labelZh": "需要應用題模板",
+      "labelEn": "Requires Word Problem Template",
+      "description": "Requires word problem template engine."
+    },
+    {
+      "tagId": "plannedOnly",
+      "tagType": "supportStatus",
+      "labelZh": "僅規劃",
+      "labelEn": "Planned Only",
+      "description": "Planned for future but no active development."
+    }
+  ]
+}

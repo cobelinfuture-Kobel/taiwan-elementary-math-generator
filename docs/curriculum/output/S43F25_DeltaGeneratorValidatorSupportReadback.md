@@ -1,0 +1,12 @@
+# S43F25 Delta Support Readback
+
+```text
+TASK_STATUS = PASS_SUPPORT_READBACK
+GENERATOR_SUPPORT = expressionPattern_multiply_or_exactDivide
+VALIDATOR_SUPPORT = numeric_integer_answer_or_exact_division
+NEW_GENERATOR_MODEL_REQUIRED = false
+NEW_VALIDATOR_MODEL_REQUIRED = false
+S43F25_GATE = PASS_SUPPORT_READBACK
+NEXT_SHORTEST_STEP = S43F26_DeltaRuntimeProjectionDecisionGate
+GOAL_DISTANCE_AFTER = D1_S43F_DELTA5_SUPPORT_CONFIRMED
+```

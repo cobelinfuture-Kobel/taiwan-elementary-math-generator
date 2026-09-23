@@ -1,0 +1,220 @@
+{
+  "schemaName": "P06FW6Q002TabularPatternSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6_Q002_TabularPattern_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q002_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q002_TABLE_DATA_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "119992114d2ddffbf1b47151f3ad26c18e8718b2",
+  "predecessorD0Evidence": {
+    "queuePosition": 1,
+    "sliceId": "p06e_q001_r0_g3a_u07_3a07_profile_pattern_relation_c1",
+    "implementationTaskId": "P06F_W6DirectProductVerticalSlice001Implementation",
+    "prNumber": 973,
+    "mergeSha": "cd0c4ee98994f1efd1a5dbbbd234286efc8fef62",
+    "postMergeWorkflowName": "P06F W6 Q001 Post-Merge Pages E2E",
+    "postMergeWorkflowRunId": 35286547413,
+    "postMergeWorkflowRunNumber": 1,
+    "postMergeWorkflowConclusion": "success",
+    "liveReportStatus": "PASS_E6_D0_COMPLETE",
+    "exactDeployedHeadSha": "cd0c4ee98994f1efd1a5dbbbd234286efc8fef62",
+    "classicUiAcceptanceStatus": "PASS_P06F_W6_Q001_CLASSIC_UI_ACCEPTANCE",
+    "q002ProtectedDuringQ001": true
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p06e/w6-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p06e-w6-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "9e22094dee0d66e459848741894a3347df1c985ec8720cdabb3efc2e5a68e1be",
+    "queueFreezePrNumber": 971,
+    "queueFreezeMergeSha": "0cc21c8e889dfc42c9dee2d897ba608313ece903",
+    "queuePosition": 2,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q002_r0_g3a_u07_3a07_profile_table_data_c1",
+    "implementationTaskId": "P06F_W6DirectProductVerticalSlice002Implementation",
+    "previousSliceId": "p06e_q001_r0_g3a_u07_3a07_profile_pattern_relation_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W6",
+    "primarySourceNodeId": "g3a_u07_3a07",
+    "supportingSourceNodeIds": [
+      "g3a_u07_3a07"
+    ],
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_table_data",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_tabular_pattern_rule"
+    ],
+    "requiredW6CapabilityIds": [
+      "cap_data_domain_validator",
+      "cap_table_data_model",
+      "cap_table_representation"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g3a_u07_3a07",
+    "sourceCode": "3a07",
+    "sourceTitle": "尋找規律",
+    "sourcePdfTitle": "meow911_3a07_patterns.pdf",
+    "sourcePdfDriveFileId": "1HzOOsMf5y7R5nXWMnlulfdQlu7KG-1iv",
+    "sourcePdfSha256": "ef0a25e91ef3ef92117497ecc52ea074a5f940380b61c01f17bbbfc8401d097d",
+    "driveMetadataFileId": "1un97MYXDl4pVbX49FkgwC1-7V70Q_Bk-",
+    "driveVerificationNotesFileId": "1gpsA-KAtkbi2fEj5ViCZxpQHQ8Gcvem2",
+    "metadataSourceUrl": "https://meow911.com/3a07/",
+    "pageCount": 3,
+    "reviewedPages": [
+      1,
+      2,
+      3
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "ocrUsedAsAuthority": false,
+    "q002EvidenceAnchor": {
+      "canonicalEvidencePages": [
+        1
+      ],
+      "sourceBackedFamily": "TABULAR_PATTERN_RULE",
+      "capabilityStatement": "學生能把圖形階段、項次與數量整理成表格並找出對應規則。",
+      "reasoningInvariant": "每一列或欄的輸入與輸出必須符合相同對應關係。",
+      "corroboratingPreviouslyRecordedEvidence": {
+        "preflightPath": "data/curriculum/full-product/p06f/q001-g3a-u07-pattern-source-authority-preflight.json",
+        "page3VisibleFamily": "POSITION_TABLE_COUNTING",
+        "classification": "SAME_SOURCE_CORROBORATING_EVIDENCE_NOT_A_SOURCE_REF_CONFLICT"
+      }
+    },
+    "embeddedHeaderMismatch": {
+      "present": true,
+      "pdfVisibleHeader": "尋找規律,列表與規律 https://meow911.com/3b03/",
+      "queueAndDriveSourceNode": "g3a_u07_3a07",
+      "driveMetadataSourceUrl": "https://meow911.com/3a07/",
+      "classification": "NON_BLOCKING_SOURCE_DOCUMENT_HEADER_URL_MISMATCH",
+      "resolutionBasis": [
+        "FROZEN_W6_QUEUE_SOURCE_NODE",
+        "DRIVE_SOURCE_METADATA",
+        "SOURCE_FILENAME",
+        "FULL_PAGE_PATTERN_CONTENT",
+        "R02_REVIEWED_CANDIDATE_AUTHORITY"
+      ],
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    },
+    "driveMetadataReadback": {
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g3a_u07_3a07",
+    "sourceTitle": "尋找規律",
+    "sourcePdfTitle": "meow911_3a07_patterns.pdf",
+    "reviewedPages": [
+      1,
+      2,
+      3
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_tabular_pattern_rule",
+      "canonicalNameZh": "列表對應規律",
+      "capabilityStatement": "學生能把圖形階段、項次與數量整理成表格並找出對應規則。",
+      "reasoningInvariant": "每一列或欄的輸入與輸出必須符合相同對應關係。",
+      "category": "pattern",
+      "evidencePages": [
+        1
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "protectedPredecessorKnowledgePointIds": [
+      "kp_arithmetic_sequence_extension",
+      "kp_repeating_visual_pattern",
+      "kp_spatial_growth_pattern_count"
+    ]
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "profileId": "profile_table_data",
+    "profileRequiredCapabilityIds": [
+      "cap_table_data_model",
+      "cap_data_domain_validator",
+      "cap_table_representation"
+    ],
+    "profileOptionalCapabilityIds": [],
+    "exactFrozenQueueRequiredW6CapabilityIds": [
+      "cap_data_domain_validator",
+      "cap_table_data_model",
+      "cap_table_representation"
+    ],
+    "runtimeProfileReclassificationAllowed": false,
+    "chartDataModelRequiredForQ002": false,
+    "patternRelationReownershipAllowed": false
+  },
+  "q002ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_tabular_pattern_rule"
+    ],
+    "includedRelations": [
+      "ORGANIZE_STAGE_INDEX_AND_QUANTITY_AS_TABLE_PAIRS",
+      "READ_OR_COMPLETE_A_TABULAR_PATTERN_PAIR",
+      "INFER_ONE_CONSISTENT_TABULAR_CORRESPONDENCE_RULE"
+    ],
+    "excludedRelations": [
+      "REOWN_Q001_PATTERN_RELATION_KPS",
+      "GENERIC_ONE_WAY_TABLE_DATA_READING",
+      "TWO_WAY_TABLE_DATA_ANALYSIS",
+      "BAR_OR_LINE_CHART_INTERPRETATION",
+      "GENERAL_SYMBOLIC_NTH_TERM_FORMULA",
+      "LINEAR_EQUATION_UNKNOWN",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q003_OR_LATER_IMPLEMENTATION"
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE_BUT_NOT_ADMITTED_BY_PREFLIGHT",
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q001ProductMutationAllowed": false,
+    "q003OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "predecessorD0EvidenceMustBeReused": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ001D0Verified": true,
+    "sourceAuthoritySufficientForQ002ImplementationPlanning": true,
+    "fullPageVisualEvidenceBound": true,
+    "r02ReviewedCandidateBound": true,
+    "runtimeCapabilityContractLocked": true,
+    "q001ProductBoundaryProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P06F_W6DirectProductVerticalSlice002Implementation"
+  }
+}

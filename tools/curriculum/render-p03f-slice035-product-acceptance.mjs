@@ -1,0 +1,177 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { chromium } from "playwright";
+
+import { buildBatchABrowserWorksheetDocument } from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js";
+import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
+import {
+  G4B_U06_P03F35_KP_ID,
+  G4B_U06_P03F35_PATTERN_SPEC_ID,
+  G4B_U06_P03F35_SOURCE_ID,
+  P03F35_REQUIRED_CAPABILITY_IDS,
+} from "../../site/modules/curriculum/registry/g4b-u06-rank9-decimal-scale-selector-projection-p03f35.js";
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+const OUTPUT = path.join(ROOT, "tmp/p03f-slice035-product-acceptance");
+fs.mkdirSync(OUTPUT, { recursive: true });
+
+const printStyles = fs.readFileSync(path.join(ROOT, "src/renderer/print-styles.css"), "utf8");
+const fontRoot = path.join(ROOT, "node_modules/@fontsource/noto-sans-tc");
+const embeddedFontStyles = fs.readFileSync(path.join(fontRoot, "400.css"), "utf8").replace(
+  /url\(\.\/files\/([^)]*\.woff2)\) format\('woff2'\), url\(\.\/files\/[^)]*\.woff\) format\('woff'\)/g,
+  (_, file) => `url(data:font/woff2;base64,${fs.readFileSync(path.join(fontRoot, "files", file)).toString("base64")}) format('woff2')`,
+);
+
+const sha256 = (filePath) => crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
+const physicalPages = (filePath) => (fs.readFileSync(filePath).toString("latin1").match(/\/Type\s*\/Page(?!s)\b/g) ?? []).length;
+const gcd = (a, b) => { a = Math.abs(a); b = Math.abs(b); while (b) { const t = a % b; a = b; b = t; } return a || 1; };
+function decimalFromFraction(numerator, denominator) {
+  if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator) || denominator <= 0) throw new Error("invalid exact fraction");
+  if (numerator === 0) return "0";
+  const sign = numerator < 0 ? "-" : "";
+  let n = Math.abs(numerator), d = denominator;
+  const common = gcd(n, d); n /= common; d /= common;
+  let twos = 0, fives = 0, rest = d;
+  while (rest % 2 === 0) { twos += 1; rest /= 2; }
+  while (rest % 5 === 0) { fives += 1; rest /= 5; }
+  if (rest !== 1) throw new Error("non terminating exact fraction");
+  const scale = Math.max(twos, fives);
+  const scaled = n * (2 ** (scale - twos)) * (5 ** (scale - fives));
+  const digits = String(scaled).padStart(scale + 1, "0");
+  if (scale === 0) return `${sign}${digits}`;
+  return `${sign}${digits.slice(0, -scale)}.${digits.slice(-scale)}`.replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
+}
+
+const result = buildBatchABrowserWorksheetDocument({
+  sourceId: G4B_U06_P03F35_SOURCE_ID,
+  selectionMode: "singleKnowledgePoint",
+  selectedKnowledgePointIds: [G4B_U06_P03F35_KP_ID],
+  questionMode: "numeric",
+  questionCount: 24,
+  generationSeed: "p03f35-acceptance",
+  includeAnswerKey: true,
+  printLayout: { paperSize: "A4", columns: 2, rowsPerPage: 4, showQuestionNumbers: true, showAnswerKeyPage: true },
+});
+if (!result.ok || !result.worksheetDocument) throw new Error(`P03F35_WORKSHEET_FAILED:${JSON.stringify(result.errors)}`);
+
+const document = result.worksheetDocument;
+const html = renderWorksheetDocumentToHtml(document, { stylesheetHref: "" })
+  .replace("</head>", `<style>${embeddedFontStyles}\nbody { font-family: 'Noto Sans TC', sans-serif !important; }</style><style>${printStyles}</style></head>`);
+const htmlPath = path.join(OUTPUT, "g4b-u06-rank9-decimal-scale.html");
+const pdfPath = path.join(OUTPUT, "g4b-u06-rank9-decimal-scale.pdf");
+fs.writeFileSync(htmlPath, html);
+
+const browser = await chromium.launch({ headless: true });
+const consoleErrors = [], pageErrors = [];
+let pageMetrics = [];
+try {
+  const page = await browser.newPage({ viewport: { width: 1280, height: 960 }, deviceScaleFactor: 1 });
+  page.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
+  page.on("pageerror", (error) => pageErrors.push(String(error)));
+  await page.setContent(html, { waitUntil: "networkidle" });
+  const pages = page.locator(".worksheet-page");
+  for (let index = 0; index < await pages.count(); index += 1) {
+    await pages.nth(index).screenshot({ path: path.join(OUTPUT, `rank9-decimal-scale-page-${String(index + 1).padStart(2, "0")}.png`) });
+  }
+  await page.emulateMedia({ media: "print" });
+  pageMetrics = await page.$$eval(".worksheet-page", (nodes) => nodes.map((node, index) => ({
+    index,
+    clientHeight: node.clientHeight,
+    scrollHeight: node.scrollHeight,
+    clientWidth: node.clientWidth,
+    scrollWidth: node.scrollWidth,
+    overflowY: node.scrollHeight > node.clientHeight + 1,
+    overflowX: node.scrollWidth > node.clientWidth + 1,
+  })));
+  await page.pdf({ path: pdfPath, format: "A4", printBackground: true, preferCSSPageSize: true, margin: { top: "0", right: "0", bottom: "0", left: "0" } });
+  await page.close();
+} finally {
+  await browser.close();
+}
+
+const questions = document.generatedQuestions;
+const answers = document.answerKeyItems;
+const exactResultMismatchCount = questions.filter((question) => {
+  const numerator = question.valueHundredths * question.scaleNumerator;
+  const denominator = 100 * question.scaleDenominator;
+  const expected = decimalFromFraction(numerator, denominator);
+  return question.result !== expected
+    || question.answerText !== expected
+    || question.finalAnswer?.canonicalText !== expected
+    || question.finalAnswer?.numerator !== String(numerator)
+    || question.finalAnswer?.denominator !== String(denominator)
+    || question.finalAnswer?.exact !== true;
+}).length;
+const crossLayerMismatchCount = questions.filter((question, index) => !answers[index]
+  || answers[index].questionId !== question.id
+  || answers[index].answerText !== question.answerText
+  || answers[index].knowledgePointId !== question.metadata?.knowledgePointId
+  || document.questionDisplayModels[index]?.promptText !== question.blankedDisplayText).length;
+const factorWitnessCounts = Object.fromEntries(["10", "100", "0.1", "0.01"].map((factor) => [factor, questions.filter((q) => q.scaleFactor === factor).length]));
+
+const report = {
+  schemaName: "P03FSlice035ChromiumProductAcceptanceReportV1",
+  taskId: "P03F_W3DirectProductVerticalSlice035ChromiumAcceptance",
+  status: "PASS_AUTOMATED_PENDING_VISUAL_REVIEW",
+  sourceId: G4B_U06_P03F35_SOURCE_ID,
+  totalQuestionCount: questions.length,
+  totalAnswerKeyItemCount: answers.length,
+  totalPhysicalPdfPageCount: physicalPages(pdfPath),
+  screenshotCount: pageMetrics.length,
+  observedKnowledgePointIds: [...new Set(questions.map((q) => q.metadata?.knowledgePointId))],
+  observedPatternSpecIds: [...new Set(questions.map((q) => q.patternSpecId))],
+  factorWitnessCounts,
+  exactResultMismatchCount,
+  crossLayerMismatchCount,
+  htmlSha256: sha256(htmlPath),
+  pdfSha256: sha256(pdfPath),
+  pdfByteLength: fs.statSync(pdfPath).size,
+  duplicatePromptFindingCount: questions.length - new Set(document.questionDisplayModels.map((model) => model.promptText)).size,
+  overflowFindingCount: pageMetrics.filter((row) => row.overflowX || row.overflowY).length,
+  consoleErrorCount: consoleErrors.length,
+  pageErrorCount: pageErrors.length,
+  semanticScopeFindingCount: questions.filter((q) => q.sourceId !== G4B_U06_P03F35_SOURCE_ID
+    || q.metadata?.knowledgePointId !== G4B_U06_P03F35_KP_ID
+    || q.patternSpecId !== G4B_U06_P03F35_PATTERN_SPEC_ID
+    || q.metadata?.productAdmissionTask !== "P03F_W3DirectProductVerticalSlice035Implementation"
+    || JSON.stringify(q.metadata?.requiredCapabilityIds) !== JSON.stringify(P03F35_REQUIRED_CAPABILITY_IDS)
+    || !q.metadata?.requiredCapabilityIds?.includes("cap_decimal_arithmetic")).length,
+  applicationLeakFindingCount: questions.filter((q) => q.questionMode !== "numeric"
+    || q.metadata?.applicationClassification !== "APPLICATION_NOT_APPLICABLE"
+    || q.globalContextProduction != null
+    || q.metadata?.globalContextAuthorityPath != null).length,
+  hiddenApplicationLineagePreserved: document.metadata?.hiddenApplicationLineagePreserved === true,
+  sharedPagination: document.metadata?.worksheetAdapter?.sharedPagination === true,
+  sharedRenderer: document.metadata?.worksheetAdapter?.sharedRenderer === true,
+  parallelPipeline: document.metadata?.worksheetAdapter?.parallelPipeline === true,
+  pageMetrics,
+  visualReview: { status: "PENDING", allPagesReviewed: false },
+};
+
+const pass = report.totalQuestionCount === 24
+  && report.totalAnswerKeyItemCount === 24
+  && report.totalPhysicalPdfPageCount === 6
+  && report.screenshotCount === 6
+  && report.observedKnowledgePointIds.length === 1
+  && report.observedKnowledgePointIds[0] === G4B_U06_P03F35_KP_ID
+  && report.observedPatternSpecIds.length === 1
+  && report.observedPatternSpecIds[0] === G4B_U06_P03F35_PATTERN_SPEC_ID
+  && Object.values(report.factorWitnessCounts).every((count) => count === 6)
+  && report.exactResultMismatchCount === 0
+  && report.crossLayerMismatchCount === 0
+  && report.duplicatePromptFindingCount === 0
+  && report.overflowFindingCount === 0
+  && report.consoleErrorCount === 0
+  && report.pageErrorCount === 0
+  && report.semanticScopeFindingCount === 0
+  && report.applicationLeakFindingCount === 0
+  && report.hiddenApplicationLineagePreserved
+  && report.sharedPagination
+  && report.sharedRenderer
+  && report.parallelPipeline === false;
+if (!pass) throw new Error(`P03F35_CHROMIUM_FAILED:${JSON.stringify(report)}`);
+
+fs.writeFileSync(path.join(OUTPUT, "p03f-slice035-product-acceptance-report.json"), `${JSON.stringify(report, null, 2)}\n`);
+console.log(`P03F35_CHROMIUM_ACCEPTANCE=${JSON.stringify(report)}`);

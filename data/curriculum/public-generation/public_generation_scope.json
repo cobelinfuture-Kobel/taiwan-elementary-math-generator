@@ -1,0 +1,270 @@
+{
+  "schemaName": "PublicGenerationScopeV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R00_PublicGenerationScopeAndAuthorityFreeze",
+  "status": "FROZEN_PENDING_CI_AND_MERGE",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "baselineRef": "main",
+  "baselineSha": "9b6da19193c784cba146369c2e1159756b754b5a",
+  "scopePolicy": {
+    "auditUnit": "all_publicly_reachable_generation_routes",
+    "slice014Started": false,
+    "slice014FreezeRequiredThrough": "PGC-R09_PublicGenerationD0Closeout",
+    "newKnowledgePointsAllowed": false,
+    "generatorModificationAllowed": false,
+    "secondGeneratorAllowed": false,
+    "secondValidatorAllowed": false
+  },
+  "currentAuthority": {
+    "publicSourceRegistry": "site/modules/curriculum/batch-a/source-units.js#CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
+    "publicSourceCount": 26,
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js",
+    "publicControlProfiles": "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+    "publicGenerationEntry": "site/assets/browser/pipeline/build-worksheet-document.js#buildWorksheetDocumentFromState",
+    "publicRenderer": "site/assets/browser/pipeline/render-preview-frame.js",
+    "publicPrintMode": "iframe_window_print_browser_pdf",
+    "w3CumulativeProductAdmissionCount": 16
+  },
+  "classifications": [
+    "PUBLIC_ACTIVE",
+    "PUBLIC_DEPRECATED",
+    "INTERNAL_ONLY",
+    "HIDDEN_CANDIDATE",
+    "DEAD_ROUTE",
+    "DUPLICATE_AUTHORITY"
+  ],
+  "routes": [
+    {
+      "routeId": "surface.classic.index",
+      "kind": "UI_SURFACE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/index.html",
+      "authorityPath": "site/assets/browser/main.js",
+      "consumerPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "notes": "Canonical Classic public entry."
+    },
+    {
+      "routeId": "surface.classic.404_fallback",
+      "kind": "UI_SURFACE",
+      "classification": "PUBLIC_DEPRECATED",
+      "entryPath": "site/404.html",
+      "authorityPath": "site/assets/browser/main.js",
+      "consumerPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "notes": "Publicly reachable fallback; must remain behaviorally compatible but is not the canonical entry."
+    },
+    {
+      "routeId": "surface.pixel.beta",
+      "kind": "UI_SURFACE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/pixel/index.html",
+      "authorityPath": "site/pixel/pixel-registry-bridge.js",
+      "consumerPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "notes": "Public Pixel beta sharing the current registry and worksheet pipeline."
+    },
+    {
+      "routeId": "selector.source_unit",
+      "kind": "PUBLIC_SELECTION_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/index.html#batch-a-selection-mode-select",
+      "authorityPath": "site/assets/browser/state/config-state.js",
+      "consumerPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "notes": "Source-unit generation fallback remains selectable for public sources."
+    },
+    {
+      "routeId": "selector.single_knowledge_point",
+      "kind": "PUBLIC_SELECTION_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/index.html#batch-a-selection-mode-select",
+      "authorityPath": "site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js",
+      "consumerPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "notes": "Enabled only when the selected source has at least one visible KnowledgePoint."
+    },
+    {
+      "routeId": "selector.mixed_knowledge_points_same_unit",
+      "kind": "PUBLIC_SELECTION_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/index.html#batch-a-selection-mode-select",
+      "authorityPath": "site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js",
+      "consumerPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "notes": "Enabled only when the selected source has at least two visible KnowledgePoints."
+    },
+    {
+      "routeId": "selector.mixed_knowledge_points_cross_unit",
+      "kind": "PUBLIC_SELECTION_ROUTE",
+      "classification": "HIDDEN_CANDIDATE",
+      "entryPath": "site/index.html#batch-a-selection-mode-select",
+      "authorityPath": "site/assets/browser/main.js",
+      "consumerPath": null,
+      "notes": "Rendered disabled; not an admitted public capability."
+    },
+    {
+      "routeId": "selector.current_public_source_registry",
+      "kind": "SOURCE_REGISTRY",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/modules/curriculum/batch-a/source-units.js",
+      "authorityPath": "CURRENT_FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
+      "consumerPath": "listBatchASourceUnits",
+      "notes": "Current browser authority; 26 public source units."
+    },
+    {
+      "routeId": "selector.legacy_full_product_source_alias",
+      "kind": "SOURCE_REGISTRY",
+      "classification": "DUPLICATE_AUTHORITY",
+      "entryPath": "site/modules/curriculum/batch-a/source-units.js",
+      "authorityPath": "FULL_PRODUCT_PUBLIC_SOURCE_UNITS",
+      "consumerPath": null,
+      "notes": "Historical P01E alias retained for compatibility; not the current browser authority."
+    },
+    {
+      "routeId": "selector.current_knowledge_point_registry",
+      "kind": "KNOWLEDGE_POINT_REGISTRY",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/modules/curriculum/registry/batch-a-selector-extension.js",
+      "authorityPath": "site/modules/curriculum/registry/batch-a-selector-p03f13-extension.js",
+      "consumerPath": "listVisibleBatchAKnowledgePoints",
+      "notes": "Current browser selector authority through Slice013."
+    },
+    {
+      "routeId": "selector.historical_p01e_snapshot",
+      "kind": "KNOWLEDGE_POINT_REGISTRY",
+      "classification": "INTERNAL_ONLY",
+      "entryPath": "site/modules/curriculum/registry/batch-a-selector-extension.js",
+      "authorityPath": "site/modules/curriculum/registry/batch-a-selector-p01e-extension.js",
+      "consumerPath": "Node inventory and historical regression",
+      "notes": "Selected only outside the browser to preserve historical inventory milestones."
+    },
+    {
+      "routeId": "controls.shared_public_profile",
+      "kind": "PUBLIC_CONTROL_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/assets/browser/public-control-ui.js",
+      "authorityPath": "site/modules/curriculum/registry/full-product-public-control-profiles.js",
+      "consumerPath": "Classic and 404 shared control mount",
+      "notes": "Profile-driven QuestionType, Depth and Context visibility."
+    },
+    {
+      "routeId": "controls.specialized.g4b_u04",
+      "kind": "SPECIALIZED_UNIT_CONTROL",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "Classic / 404 / Pixel shared control surfaces",
+      "authorityPath": "site/modules/curriculum/registry/g4b-u04-promotion.js",
+      "consumerPath": "full-product-public-control-profiles.js",
+      "notes": "Six-mode specialized control authority remains routed through the shared public profile."
+    },
+    {
+      "routeId": "controls.specialized.g5a_u02",
+      "kind": "SPECIALIZED_UNIT_CONTROL",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "Classic / 404 / Pixel shared control surfaces",
+      "authorityPath": "site/modules/curriculum/registry/public-control-profiles.js",
+      "consumerPath": "full-product-public-control-profiles.js",
+      "notes": "Concept/numeric/application/reasoning profile projected through the shared control route."
+    },
+    {
+      "routeId": "controls.specialized.g5a_u08",
+      "kind": "SPECIALIZED_UNIT_CONTROL",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/index.html#g5a-u08-public-controls",
+      "authorityPath": "site/modules/curriculum/registry/public-control-profiles.js",
+      "consumerPath": "site/assets/browser/public-control-ui.js",
+      "notes": "Question type, N/N+1 depth and daily-life/SDG context controls."
+    },
+    {
+      "routeId": "pipeline.public_build_from_state",
+      "kind": "WORKSHEET_PIPELINE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "authorityPath": "buildWorksheetDocumentFromState",
+      "consumerPath": "Classic and Pixel generate buttons",
+      "notes": "Canonical public generation entry."
+    },
+    {
+      "routeId": "pipeline.shared_question_router",
+      "kind": "GENERATOR_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/modules/curriculum/batch-a/batch-a-browser-question-router.js",
+      "authorityPath": "current extension chain through P03F13",
+      "consumerPath": "shared worksheet builder",
+      "notes": "Routes current public PatternSpecs to the admitted shared generators."
+    },
+    {
+      "routeId": "pipeline.shared_generator",
+      "kind": "GENERATOR_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/modules/curriculum/batch-a/batch-a-browser-generator-p03f13.js",
+      "authorityPath": "P03F13 browser generator extension chain",
+      "consumerPath": "batch-a-browser-question-router.js",
+      "notes": "Current Slice013 successor; no second generator authority admitted."
+    },
+    {
+      "routeId": "pipeline.shared_validator",
+      "kind": "VALIDATOR_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/modules/curriculum/batch-a/batch-a-browser-validator-p03f13.js",
+      "authorityPath": "P03F13 browser validator extension chain",
+      "consumerPath": "shared worksheet builder",
+      "notes": "Current public validation route."
+    },
+    {
+      "routeId": "pipeline.application_global_authority_cutover",
+      "kind": "APPLICATION_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "authorityPath": "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js",
+      "consumerPath": "application worksheet generation",
+      "notes": "Global-primary application authority is applied before worksheet assembly."
+    },
+    {
+      "routeId": "pipeline.pbl_specialized",
+      "kind": "PBL_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/assets/browser/pipeline/build-worksheet-document.js",
+      "authorityPath": "site/modules/curriculum/public/fifteen-unit-public-pbl-worksheet.js",
+      "consumerPath": "questionMode=pbl",
+      "notes": "Only public profile-admitted PBL source units may consume this path."
+    },
+    {
+      "routeId": "renderer.preview_html",
+      "kind": "RENDERER_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/assets/browser/pipeline/render-preview-frame.js",
+      "authorityPath": "renderPreviewFrame",
+      "consumerPath": "Classic and Pixel preview iframe",
+      "notes": "Renders the same WorksheetDocument used for print."
+    },
+    {
+      "routeId": "renderer.iframe_print",
+      "kind": "PRINT_ROUTE",
+      "classification": "PUBLIC_ACTIVE",
+      "entryPath": "site/assets/browser/pipeline/render-preview-frame.js",
+      "authorityPath": "printPreviewFrame",
+      "consumerPath": "Classic and Pixel print controls",
+      "notes": "User-facing HTML print / browser PDF route."
+    },
+    {
+      "routeId": "renderer.chromium_pdf_acceptance",
+      "kind": "PRINT_ACCEPTANCE_ROUTE",
+      "classification": "INTERNAL_ONLY",
+      "entryPath": "tools/curriculum/render-p03f-slice013-product-acceptance.mjs",
+      "authorityPath": "Chromium acceptance workflows",
+      "consumerPath": "CI evidence only",
+      "notes": "Evidence route, not a separate public generator or renderer."
+    },
+    {
+      "routeId": "queue.w3.slice014",
+      "kind": "FUTURE_PRODUCT_ROUTE",
+      "classification": "HIDDEN_CANDIDATE",
+      "entryPath": null,
+      "authorityPath": "P03E frozen queue position 014",
+      "consumerPath": null,
+      "notes": "Explicitly frozen until PGC-R09 D0 closeout."
+    }
+  ],
+  "acceptance": {
+    "uniqueRouteIds": true,
+    "hiddenKnowledgePointsExcludedFromCompletedProduct": true,
+    "slice014Unstarted": true,
+    "generatorUnmodifiedByThisTask": true
+  }
+}

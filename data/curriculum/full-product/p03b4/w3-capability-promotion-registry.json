@@ -1,0 +1,60 @@
+{
+  "schemaName": "P03B4W3CapabilityPromotionRegistryV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03B4_W3DecimalDomainValidatorAdmission",
+  "status": "W3_DECIMAL_DOMAIN_VALIDATOR_PRODUCTION_ADMITTED",
+  "historicalBaseline": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+  "predecessorPromotionRegistryPath": "data/curriculum/full-product/p03b3/w3-capability-promotion-registry.json",
+  "promotionRule": "LATEST_VALIDATED_SUCCESSOR_AUTHORITY_EXTENDS_PREDECESSOR_WITHOUT_MUTATING_HISTORY",
+  "inheritedPromotionCapabilityIds": [
+    "cap_decimal_number_system",
+    "cap_fraction_domain_validator",
+    "cap_fraction_number_system",
+    "cap_kp_authority_lookup",
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity",
+    "cap_quantity_semantic_role_binding",
+    "cap_same_unit_quantity_arithmetic"
+  ],
+  "promotions": [
+    {
+      "capabilityId": "cap_decimal_domain_validator",
+      "previousDeliveryStatus": "contract_only",
+      "effectiveDeliveryStatus": "production_admitted",
+      "admissionTaskId": "P03B4_W3DecimalDomainValidatorAdmission",
+      "consumerPath": "src/curriculum/full-product/p03b4-decimal-domain-validator.mjs",
+      "validatorPath": "tools/curriculum/validate-p03b4-decimal-domain-validator.mjs",
+      "scope": {
+        "numericDomainId": "NON_NEGATIVE_DECIMAL",
+        "allowedActions": ["VALIDATE_VALUE", "VALIDATE_PAIR", "VALIDATE_SET"]
+      },
+      "decimalNumberSystemDependencySatisfied": true,
+      "exactCanonicalConstraintValidation": true,
+      "exactPairRelationValidation": true,
+      "canonicalSetValidation": true,
+      "decimalArithmeticAllowed": false,
+      "fractionConversionAllowed": false,
+      "crossDomainNormalizationAllowed": false,
+      "storyTemplateGenerationAllowed": false,
+      "publicUiRequired": false,
+      "promotionEvidenceState": "COMPLETE"
+    }
+  ],
+  "effectivePromotionCapabilityIds": [
+    "cap_decimal_domain_validator",
+    "cap_decimal_number_system",
+    "cap_fraction_domain_validator",
+    "cap_fraction_number_system",
+    "cap_kp_authority_lookup",
+    "cap_prerequisite_readiness",
+    "cap_quantity_dimension_unit_identity",
+    "cap_quantity_semantic_role_binding",
+    "cap_same_unit_quantity_arithmetic"
+  ],
+  "remainingW3ContractCapabilityIds": [
+    "cap_fraction_arithmetic",
+    "cap_decimal_arithmetic",
+    "cap_mixed_number_domain_normalization"
+  ]
+}

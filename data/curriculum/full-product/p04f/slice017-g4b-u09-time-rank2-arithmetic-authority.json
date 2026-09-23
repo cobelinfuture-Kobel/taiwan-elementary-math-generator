@@ -1,0 +1,27 @@
+{
+  "schemaName":"P04F17G4BU09TimeRank2ArithmeticAuthorityV1",
+  "schemaVersion":1,
+  "programId":"FULL_PRODUCT_LINE_D0_V1",
+  "taskId":"P04F_W4DirectProductVerticalSlice017Implementation",
+  "status":"IMPLEMENTATION_AUTHORITY_MATERIALIZED",
+  "queue":{"sliceId":"p04e_q017_r2_g4b_u09_4b09_profile_time_c1","queuePosition":17,"deliveryWaveId":"R05-W4","previousSliceId":"p04e_q016_r2_g4a_u10_4a10_profile_quantity_measurement_c1","previousSliceMustBeD0Complete":true,"knowledgePointCount":3},
+  "source":{"sourceNodeId":"g4b_u09_4b09","unitCode":"4B-U09","unitTitle":"時間的計算","sourcePdfTitle":"meow911_4b09_source.pdf","driveFileId":"1MDfnjZPRncMNVg_3YVqhw1bV2JSq21p3","reviewedPages":[1,2,3],"primaryWitnessPages":[1,2,3],"reviewMethod":"LOCKED_UNIT_AUTHORITY_REUSED_FROM_P04F11_R02_VISUAL_READBACK"},
+  "knowledgePoints":[
+    {"knowledgePointId":"kp_g4b_u09_elapsed_time_cross_day","canonicalNameZh":"跨日經過時間","capabilityStatement":"學生能計算跨越午夜的起訖時刻之經過時間。","reasoningInvariant":"以一天 86400 秒為週期；當結束時刻小於起始時刻時，結束時刻視為次日並加上一日後求差。"},
+    {"knowledgePointId":"kp_g4b_u09_time_addition_regrouping","canonicalNameZh":"時間加法進位","capabilityStatement":"學生能對時、分、秒混合時間量做加法並正確進位。","reasoningInvariant":"先正規化為總秒數相加，再依 60秒=1分、60分=1時分解。"},
+    {"knowledgePointId":"kp_g4b_u09_time_subtraction_borrowing","canonicalNameZh":"時間減法退位","capabilityStatement":"學生能對時、分、秒混合時間量做減法並正確退位。","reasoningInvariant":"先正規化為總秒數相減，結果不得為負，再依 60秒=1分、60分=1時分解。"}
+  ],
+  "formalMapping":{"runtimeProfileId":"profile_time","requiredW4CapabilityIds":["cap_mixed_unit_normalization","cap_quantity_domain_validator","cap_time_system_arithmetic","cap_unit_conversion"],"sharedFoundationCapabilityIds":["cap_pattern_spec_resolution","cap_deterministic_answer_model","cap_worksheet_document_assembly","cap_answer_key_projection","cap_html_print_renderer","cap_text_numeric_representation"],"minutesPerHour":60,"secondsPerMinute":60,"secondsPerHour":3600,"secondsPerDay":86400,"normalizationInvariant":"totalSeconds = hours * 3600 + minutes * 60 + seconds","additionInvariant":"resultTotalSeconds = leftTotalSeconds + rightTotalSeconds","subtractionInvariant":"resultTotalSeconds = leftTotalSeconds - rightTotalSeconds; resultTotalSeconds >= 0","crossDayInvariant":"elapsedSeconds = endClockSeconds >= startClockSeconds ? endClockSeconds-startClockSeconds : endClockSeconds+86400-startClockSeconds"},
+  "patternGroups":[
+    {"patternGroupId":"pg_g4b_u09_elapsed_time_cross_day_numeric","primaryKnowledgePointId":"kp_g4b_u09_elapsed_time_cross_day","displayName":"跨日經過時間","questionMode":"numeric"},
+    {"patternGroupId":"pg_g4b_u09_time_addition_regrouping_numeric","primaryKnowledgePointId":"kp_g4b_u09_time_addition_regrouping","displayName":"時間加法進位","questionMode":"numeric"},
+    {"patternGroupId":"pg_g4b_u09_time_subtraction_borrowing_numeric","primaryKnowledgePointId":"kp_g4b_u09_time_subtraction_borrowing","displayName":"時間減法退位","questionMode":"numeric"}
+  ],
+  "patternSpecs":[
+    {"patternSpecId":"ps_g4b_u09_elapsed_time_cross_day_numeric","knowledgePointId":"kp_g4b_u09_elapsed_time_cross_day","operationModelId":"op_g4b_u09_elapsed_time_cross_day","operationFamilyId":"time_elapsed_cross_day","answerType":"duration_representation","requestedUnknownRole":"elapsedDuration","givenRoles":["startClockTime","endClockTime"],"constraints":{"secondsPerDay":86400,"crossDayRequired":true,"exactAnswerRequired":true},"sourceBacked":true,"operatorApprovedExtension":false},
+    {"patternSpecId":"ps_g4b_u09_time_addition_regrouping_numeric","knowledgePointId":"kp_g4b_u09_time_addition_regrouping","operationModelId":"op_g4b_u09_time_addition_regrouping","operationFamilyId":"time_arithmetic","answerType":"duration_representation","requestedUnknownRole":"sumDuration","givenRoles":["leftDuration","rightDuration"],"constraints":{"secondsPerMinute":60,"minutesPerHour":60,"regroupingRequired":true,"exactAnswerRequired":true},"sourceBacked":true,"operatorApprovedExtension":false},
+    {"patternSpecId":"ps_g4b_u09_time_subtraction_borrowing_numeric","knowledgePointId":"kp_g4b_u09_time_subtraction_borrowing","operationModelId":"op_g4b_u09_time_subtraction_borrowing","operationFamilyId":"time_arithmetic","answerType":"duration_representation","requestedUnknownRole":"differenceDuration","givenRoles":["leftDuration","rightDuration"],"constraints":{"secondsPerMinute":60,"minutesPerHour":60,"borrowingRequired":true,"nonnegativeResultRequired":true,"exactAnswerRequired":true},"sourceBacked":true,"operatorApprovedExtension":false}
+  ],
+  "implementationBoundary":{"included":["cross-midnight elapsed time","time addition with regrouping","time subtraction with borrowing","deterministic exact time normalization"],"q011TimeUnitConversionPreserved":true,"timetableScheduleReasoningAllowed":false,"q021TimetableScheduleReasoningExcluded":true,"parallelPipelineAllowed":false,"q018Touched":false,"q021Touched":false},
+  "acceptance":{"frozenKnowledgePointCount":3,"singleKnowledgePointCapacityRequired":24,"sourceUnitFourSpecCompositionRequired":true,"duplicateQuestionRejected":true,"genericFallbackAllowed":false,"parallelPipelineAllowed":false,"q018MustRemainUntouched":true,"q021MustRemainUntouched":true}
+}

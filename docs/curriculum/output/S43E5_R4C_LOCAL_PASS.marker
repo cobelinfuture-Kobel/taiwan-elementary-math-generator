@@ -1,0 +1,26 @@
+S43E5_R4C_PARTITIVE_DIVISION_TEMPLATES_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+
+operator_readback:
+- tests 381
+- pass 381
+- fail 0
+- branch public-main up to date with public/main
+- working tree clean
+
+completed_scope:
+- S43E5_R4C_G3BU01_PartitiveDivisionTemplates = PASS
+- 4 partitive/equal-sharing first-pass templates locked and tested
+- partitive equal sharing templates = 2
+- partitive unit-rate templates = 2
+
+next_task:
+- S43E5_R4D_G3BU01_QuotativeDivisionTemplates
+
+GOAL_DISTANCE_BEFORE = D2_G3B_U01_WORD_PROBLEM_PARTITIVE_TEMPLATES_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D2_G3B_U01_WORD_PROBLEM_PARTITIVE_TEMPLATES_LOCAL_PASS
+DISTANCE_REDUCED = R4C partitive TemplateSpec data passed local automated validation
+REMAINING_BLOCKERS = quotative/remainder/two-step templates not implemented; generator/validator/UI not integrated; browser PDF smoke pending
+NEXT_SHORTEST_STEP = S43E5_R4D_G3BU01_QuotativeDivisionTemplates

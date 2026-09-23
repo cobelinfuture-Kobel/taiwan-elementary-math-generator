@@ -1,0 +1,283 @@
+name: POSTG Unit Conformance Migration
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: postg-unit-conformance-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  conformance:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout exact candidate head
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validation dependencies
+        run: |
+          npm install --no-package-lock
+          npm install --no-save --no-package-lock playwright
+          python3 -m pip install --disable-pip-version-check jsonschema
+          npx playwright install --with-deps chromium
+
+      - name: Resolve migration or program closeout under test from authoritative contract
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { execFileSync } from 'node:child_process';
+          import { appendFile, readFile } from 'node:fs/promises';
+          import { resolvePostGoldenSourceUnitAdapterDescriptor } from './site/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js';
+
+          const A13_TASK_ID = 'POSTG-MIG-A13_ProgramControllerAndKnowledgeRegistryCloseout';
+          const program = JSON.parse(await readFile('data/project/programs/POST_GOLDEN_UNIT_CONFORMANCE_MIGRATION_V1.json', 'utf8'));
+          const conformance = JSON.parse(await readFile('data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json', 'utf8'));
+          const base = process.env.GITHUB_BASE_REF || 'main';
+          const changed = execFileSync('git', ['diff', '--name-only', `origin/${base}...HEAD`], { encoding: 'utf8' })
+            .split(/\r?\n/).map((value) => value.trim()).filter(Boolean);
+          const contractPaths = changed.filter((path) => /^data\/curriculum\/contracts\/POSTG_MIG_A\d+_.*\.json$/.test(path));
+          assert.ok(contractPaths.length <= 1, `Expected at most one changed POSTG contract: ${JSON.stringify(contractPaths)}`);
+
+          let taskId;
+          let sourceId;
+          if (contractPaths.length === 1) {
+            const contract = JSON.parse(await readFile(contractPaths[0], 'utf8'));
+            taskId = contract.taskId;
+            sourceId = contract.sourceId;
+          } else {
+            taskId = program.activeTask ?? program.lastCompletedTask;
+            sourceId = conformance.rows.find((row) => row.queueState === 'ACTIVE')?.sourceId;
+          }
+
+          const programCloseout = taskId === A13_TASK_ID && program.programStatus === 'PASS_D0_CLOSED';
+          if (programCloseout) {
+            assert.equal(sourceId, undefined);
+            assert.equal(program.lastCompletedTask, A13_TASK_ID);
+            assert.equal(program.completedCount, 14);
+            assert.equal(program.remainingCount, 0);
+            assert.equal(program.activeTask, null);
+            assert.equal(program.nextAllowedTask, null);
+            assert.equal(conformance.rows.filter((row) => row.queueState === 'ACTIVE').length, 0);
+            assert.equal(conformance.rows.filter((row) => row.queueState === 'COMPLETE').length, 15);
+            const env = {
+              POSTG_PROGRAM_CLOSEOUT: 'true',
+              POSTG_SOURCE_ID: 'program-closeout',
+              POSTG_TASK_ID: taskId,
+              POSTG_OUTPUT_PREFIX: 'POSTG_MIG_A13_PROGRAM_D0',
+              POSTG_FOCUSED_TEST: 'tests/curriculum/postg-mig-a13-program-closeout.test.js',
+              POSTG_STATE_MODE: 'program_closeout',
+            };
+            await appendFile(process.env.GITHUB_ENV, Object.entries(env).map(([key, value]) => `${key}=${value}`).join('\n') + '\n');
+            console.log(JSON.stringify({ contractPaths, programCloseout, programStatus: program.programStatus, env }, null, 2));
+          } else {
+            assert.ok(taskId && sourceId, 'Unable to resolve unit migration under test.');
+            const row = conformance.rows.find((candidate) => candidate.sourceId === sourceId);
+            assert.ok(row, `Missing conformance row for ${sourceId}`);
+            const candidateState = program.activeTask === taskId && row.queueState === 'ACTIVE';
+            const closeoutState = program.lastCompletedTask === taskId && row.queueState === 'COMPLETE';
+            assert.equal(candidateState || closeoutState, true, `Program/queue state does not authorize ${taskId} / ${sourceId}.`);
+
+            const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(sourceId);
+            assert.ok(descriptor, `Missing post-Golden descriptor for ${sourceId}`);
+            assert.equal(descriptor.taskId, taskId, 'Contract and descriptor authorization drift.');
+            const taskMatch = /^POSTG-MIG-(A\d+)_/.exec(taskId);
+            assert.ok(taskMatch, `Unsupported task id: ${taskId}`);
+            const taskToken = taskMatch[1];
+            const sourceUnitToken = sourceId.split('_').slice(0, 2).join('-');
+            const unitToken = row.unitCode.replaceAll('-', '');
+            const questionCount = sourceId === 'g4a_u08_4a08'
+              ? 112
+              : sourceId === 'g4b_u01_4b01'
+                ? 72
+                : sourceId === 'g4b_u04_4b04'
+                  ? 68
+                  : 40;
+            const evidenceScript = sourceId === 'g4b_u01_4b01'
+              ? 'tools/curriculum/run-postg-g4b-u01-production-evidence.mjs'
+              : sourceId === 'g4b_u04_4b04'
+                ? 'tools/curriculum/run-postg-g4b-u04-production-evidence.mjs'
+                : 'tools/curriculum/run-postg-unit-production-evidence.mjs';
+            const env = {
+              POSTG_PROGRAM_CLOSEOUT: 'false',
+              POSTG_SOURCE_ID: sourceId,
+              POSTG_TASK_ID: taskId,
+              POSTG_OUTPUT_PREFIX: `POSTG_MIG_${taskToken}_${unitToken}`,
+              POSTG_TITLE: `${row.unitCode} ${row.title}｜Golden Conformance`,
+              POSTG_EXPECTED_KP: descriptor.expectedCounts.knowledgePoints,
+              POSTG_EXPECTED_GROUPS: descriptor.expectedCounts.patternGroups,
+              POSTG_EXPECTED_SPECS: descriptor.expectedCounts.patternSpecs,
+              POSTG_QUESTION_COUNT: questionCount,
+              POSTG_EVIDENCE_SCRIPT: evidenceScript,
+              POSTG_FOCUSED_TEST: `tests/curriculum/postg-mig-${taskToken.toLowerCase()}-${sourceUnitToken}-conformance.test.js`,
+              POSTG_STATE_MODE: closeoutState ? 'closeout' : 'candidate',
+            };
+            await appendFile(process.env.GITHUB_ENV, Object.entries(env).map(([key, value]) => `${key}=${value}`).join('\n') + '\n');
+            console.log(JSON.stringify({ contractPaths, programCloseout, programStatus: program.programStatus, row, env }, null, 2));
+          }
+          NODE
+
+      - name: Run focused and shared regressions
+        run: |
+          set -o pipefail
+          mkdir -p "build/postg/${POSTG_SOURCE_ID}"
+          if [ "${POSTG_PROGRAM_CLOSEOUT}" = "true" ]; then
+            {
+              node --test tests/curriculum/postg-mig-a13-program-closeout.test.js
+              node --test tests/curriculum/postg-mig-a00-program-foundation.test.js
+              node --test tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js
+              node --test tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js
+              node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
+            } 2>&1 | tee "build/postg/${POSTG_SOURCE_ID}/${POSTG_OUTPUT_PREFIX}_REGRESSION_READBACK.log"
+          else
+            {
+              test -f "${POSTG_FOCUSED_TEST}"
+              node --test "${POSTG_FOCUSED_TEST}"
+              node --test tests/curriculum/postg-mig-a00-program-foundation.test.js
+              node --test tests/curriculum/postg-mig-a01-g3a-u01-conformance.test.js
+              node --test tests/curriculum/gs04-g5a-u08-shared-runtime-and-batch-adapter.test.js
+              node --test tests/curriculum/gs05-g5a-u08-cross-unit-conformance-pilot.test.js
+              node --test tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js
+            } 2>&1 | tee "build/postg/${POSTG_SOURCE_ID}/${POSTG_OUTPUT_PREFIX}_REGRESSION_READBACK.log"
+          fi
+
+      - name: Generate exact-head production evidence
+        if: env.POSTG_PROGRAM_CLOSEOUT != 'true'
+        run: |
+          set -o pipefail
+          node "${POSTG_EVIDENCE_SCRIPT}" \
+            --source-id "${POSTG_SOURCE_ID}" \
+            --task-id "${POSTG_TASK_ID}" \
+            --question-count "${POSTG_QUESTION_COUNT}" \
+            --output-dir "build/postg/${POSTG_SOURCE_ID}" \
+            --output-prefix "${POSTG_OUTPUT_PREFIX}" \
+            --title "${POSTG_TITLE}" \
+            2>&1 | tee "build/postg/${POSTG_SOURCE_ID}/${POSTG_OUTPUT_PREFIX}_CLI_READBACK.json"
+
+      - name: Validate production evidence
+        if: env.POSTG_PROGRAM_CLOSEOUT != 'true'
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { readFile } from 'node:fs/promises';
+          const path = `build/postg/${process.env.POSTG_SOURCE_ID}/${process.env.POSTG_OUTPUT_PREFIX}_RUNTIME_READBACK.json`;
+          const r = JSON.parse(await readFile(path, 'utf8'));
+          const expectedCount = Number(process.env.POSTG_QUESTION_COUNT);
+          assert.equal(r.sourceId, process.env.POSTG_SOURCE_ID);
+          assert.equal(r.taskId, process.env.POSTG_TASK_ID);
+          assert.equal(r.questionCount, expectedCount);
+          assert.equal(r.answerKeyCount, expectedCount);
+          assert.equal(r.knowledgePointIds.length, Number(process.env.POSTG_EXPECTED_KP));
+          assert.equal(r.patternGroupIds.length, Number(process.env.POSTG_EXPECTED_GROUPS));
+          assert.equal(r.patternSpecIds.length, Number(process.env.POSTG_EXPECTED_SPECS));
+          assert.equal(r.validator.ok, true);
+          assert.equal(r.validator.errorCount, 0);
+          assert.ok(r.pdfPageCount > 0);
+          assert.equal(r.domReadback.internalIdLeak, false);
+          assert.equal(r.domReadback.placeholderLeak, false);
+          assert.equal(r.verdict, 'PASS_CURRENT_RUNTIME_PRODUCTION_HTML_PDF_HASH_READBACK');
+          assert.equal(r.artifacts.length, 2);
+          assert.ok(r.artifacts.every((artifact) => /^[a-f0-9]{64}$/.test(artifact.sha256)));
+          NODE
+
+      - name: Validate KnowledgeOperation registries
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator
+          formal_schema=json.loads(Path('data/curriculum/knowledge/schema/knowledge-operation-unit.schema.json').read_text())
+          candidate_schema=json.loads(Path('data/curriculum/application/schema/w02-knowledge-operation-candidate.schema.json').read_text())
+          validators={
+              'KnowledgeOperationUnitRegistry': Draft202012Validator(formal_schema),
+              'POSTGAPPW02KnowledgeOperationCandidateUnitV1': Draft202012Validator(candidate_schema),
+          }
+          paths=sorted(Path('data/curriculum/knowledge/units').glob('*.knowledge-operation.json'))
+          errors=[]
+          counts={name:0 for name in validators}
+          for path in paths:
+              value=json.loads(path.read_text())
+              schema_name=value.get('schemaName')
+              validator=validators.get(schema_name)
+              if validator is None:
+                  errors.append((str(path),['schemaName'],f'unsupported registry schemaName: {schema_name!r}'))
+                  continue
+              counts[schema_name] += 1
+              errors.extend((str(path),list(e.absolute_path),e.message) for e in validator.iter_errors(value))
+          print(json.dumps({'validatedRegistryCount':len(paths),'registryCounts':counts,'errors':errors},ensure_ascii=False,indent=2))
+          assert counts=={
+              'KnowledgeOperationUnitRegistry':15,
+              'POSTGAPPW02KnowledgeOperationCandidateUnitV1':13,
+          } and not errors
+          PY
+
+      - name: Generate designer Excel and audit CSV
+        run: |
+          mkdir -p build/reports
+          python3 tools/curriculum/export-postg-knowledge-master.py \
+            --xlsx build/reports/Golden_Knowledge_Operation_Master.xlsx \
+            --csv build/reports/Golden_Knowledge_Operation_Master.summary.csv \
+            | tee build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json
+          python3 - <<'PY'
+          import csv,json,zipfile
+          from pathlib import Path
+          readback=json.loads(Path('build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json').read_text())
+          expected_kp=expected_models=expected_bindings=0
+          for path in Path('data/curriculum/knowledge/units').glob('*.knowledge-operation.json'):
+              unit=json.loads(path.read_text())
+              if unit.get('schemaName')!='KnowledgeOperationUnitRegistry':
+                  continue
+              expected_kp += len(unit['knowledgePoints'])
+              expected_models += sum(len(kp['operationModels']) for kp in unit['knowledgePoints'])
+              expected_bindings += len(unit['existingQuestionBindings'])
+          assert readback['unitCount']==15
+          assert readback['sheetRowCounts']['Knowledge_Point_Map']==expected_kp
+          assert readback['sheetRowCounts']['Operation_Models']==expected_models
+          assert expected_kp==156
+          assert expected_models==156
+          assert expected_bindings==273
+          with zipfile.ZipFile('build/reports/Golden_Knowledge_Operation_Master.xlsx') as archive:
+              assert 'xl/workbook.xml' in archive.namelist()
+          with open('build/reports/Golden_Knowledge_Operation_Master.summary.csv',encoding='utf-8',newline='') as handle:
+              assert len(list(csv.DictReader(handle)))==15
+          PY
+
+      - name: Validate governance and bounded scope
+        run: |
+          node --test tests/governance/milestone-claim-integrity.test.js
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          import { detectGoldenDiffDrift } from './site/modules/curriculum/golden/golden-batch-controller.js';
+          const base=process.env.GITHUB_BASE_REF || 'main';
+          const changed=execFileSync('git',['diff','--name-status',`origin/${base}...HEAD`],{encoding:'utf8'});
+          const audit=detectGoldenDiffDrift(changed);
+          console.log(JSON.stringify(audit,null,2));
+          if(!audit.ok) process.exit(1);
+          NODE
+
+      - name: Upload exact-head evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postg-unit-conformance-${{ env.POSTG_SOURCE_ID }}
+          path: |
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.html
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.pdf
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.json
+            build/postg/${{ env.POSTG_SOURCE_ID }}/*.log
+            build/reports/Golden_Knowledge_Operation_Master.xlsx
+            build/reports/Golden_Knowledge_Operation_Master.summary.csv
+            build/reports/POSTG_KNOWLEDGE_MASTER_READBACK.json
+

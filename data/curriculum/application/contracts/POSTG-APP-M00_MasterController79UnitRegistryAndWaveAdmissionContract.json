@@ -1,0 +1,88 @@
+{
+  "schemaName": "POSTGAPPM00MasterController79UnitRegistryAndWaveAdmissionContract",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-M00_MasterController79UnitRegistryAndWaveAdmissionContract",
+  "contractId": "POSTG_APP_MASTER_CONTROLLER_79_UNIT_WAVE_ADMISSION_V1",
+  "status": "FIXED_QUEUE_AND_SHADOW_CONTROLLER_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "dependencies": {
+    "requiredProducerTask": "POSTG-APP-M01_GlobalContextOntologyFacetFusionPopulationAndLegacyMapping",
+    "requiredEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+    "contextResolver": "src/curriculum/context/global-context-ontology-resolver.mjs",
+    "sourceAssignmentContract": "S29C_G3G6_OCRBatchAssignmentPlan"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/application/contracts/POSTG_APP_Master_Controller_79_Unit_Wave_Admission_V1.md",
+    "unitRegistry": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+    "wavePlan": "data/curriculum/application/controller/postg-app-wave-plan.json",
+    "controllerState": "data/curriculum/application/controller/postg-app-master-controller-state.json",
+    "runtimeConsumer": "src/curriculum/application/postg-app-master-controller.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-m00-master-controller.mjs"
+  },
+  "coverage": {
+    "sourceNodeCount": 79,
+    "batchCounts": {"A":13,"B":24,"C":17,"D":16,"E":9},
+    "goldenBaselineUnitCount": 15,
+    "goldenBaselineSourceNodeCount": 16,
+    "remainingSourceNodeCount": 63,
+    "waveCount": 6,
+    "waveSourceNodeCounts": [16,13,13,13,12,12],
+    "productionAdmittedApplicationUnitCount": 0
+  },
+  "admissionGateOrder": [
+    "SOURCE_NODE_REGISTERED",
+    "KNOWLEDGE_OPERATION_AVAILABLE_OR_PLANNED",
+    "KP_APPLICATION_CLASSIFICATION_COMPLETE",
+    "CANONICAL_OPERATION_MODEL_COMPLETE",
+    "SINGLE_APPLICATION_ADMISSION_COMPLETE",
+    "GLOBAL_CONTEXT_ATOMIC_EPISODE_BINDING_COMPLETE",
+    "N_PLUS_1_CONTRACT_COMPLETE",
+    "VALIDATOR_CONTRACT_COMPLETE",
+    "POSITIVE_NEGATIVE_FIXTURES_COMPLETE",
+    "SHARED_RUNTIME_SHADOW_PASS",
+    "PRODUCTION_ADMISSION_REVIEWED"
+  ],
+  "initialControllerState": {
+    "W01": "BASELINE_READY",
+    "W02": "QUEUED",
+    "W03": "BLOCKED_BY_PREVIOUS_WAVE",
+    "W04": "BLOCKED_BY_PREVIOUS_WAVE",
+    "W05": "BLOCKED_BY_PREVIOUS_WAVE",
+    "W06": "BLOCKED_BY_PREVIOUS_WAVE"
+  },
+  "acceptance": {
+    "validationStatus": "PASS_POSTG_APP_M00_MASTER_CONTROLLER_79_UNIT_REGISTRY_AND_WAVE_ADMISSION",
+    "sourceNodeSetExact": true,
+    "queueOrderDeterministic": true,
+    "goldenRegistryVerificationRequired": true,
+    "compositeGoldenMappingExplicit": true,
+    "M01ContextAuthorityRequired": true,
+    "productionAdmissionRequiredToRemainZero": true
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "sourceRegistryAuthoringAllowed": true,
+    "wavePlanAuthoringAllowed": true,
+    "shadowControllerImplementationAllowed": true,
+    "perKPApplicationClassificationAllowed": false,
+    "newPatternSpecAuthoringAllowed": false,
+    "newContextBindingAllowed": false,
+    "questionGenerationAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false,
+    "productionAdmissionAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_GLOBAL_CONTEXT_FACET_FUSION_BOOTSTRAP_CONNECTABLE_BUT_NO_79_UNIT_CONTROLLER",
+    "goalDistanceAfterTarget": "D3_79_UNIT_FIXED_QUEUE_AND_WAVE_ADMISSION_CONTROLLER_DEFINED",
+    "distanceReduced": "The complete 79-node curriculum scope, the 15-golden-unit baseline, the explicit 16-node Wave 01 coverage, and the remaining 63-node fixed queue become one executable fail-closed controller that consumes M01 authority.",
+    "remainingBlockers": [
+      "Wave 01 KnowledgePoint application capability assessment is incomplete",
+      "SingleApplicationItem and PBL admission contracts are not yet consumed per KnowledgePoint",
+      "Atomic task episode bindings are not populated per application capability",
+      "Per-wave validators and shared-runtime evidence are absent",
+      "Production admission remains intentionally zero"
+    ],
+    "nextShortestStep": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline"
+  }
+}

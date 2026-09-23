@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "status": "PASS",
+  "evidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "source": {
+    "workflow": "GS01 G5A-U08 Deployed Pages Smoke Recloseout",
+    "runId": 29706832196,
+    "runNumber": 2,
+    "headSha": "71f415ab7648ad854eb71fdf432d58c1f1db26ec",
+    "artifactId": 8448191906,
+    "artifactDigest": "sha256:4534d5d692cb3db96d9ff9bd63b62559d1a8ec374455e5cb2617d9265a224c45",
+    "rawManifestSha256": "849403c3a0108090235fbcd24f706ef27dbf487917d40eb4c2037f348a16ca22",
+    "deploymentSha": "c1059261c4d37b56c3a2d78265f1cf8e30a82c2c",
+    "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g5aU08R1=c1059261c4d37b56c3a2d78265f1cf8e30a82c2c-1784501544598"
+  },
+  "acceptance": {
+    "productionUse": "allowed_deployed_ui_print",
+    "goalDistance": "D0",
+    "sourceId": "g5a_u08_5a08",
+    "publicSelectorComplete": true,
+    "threeControlFamiliesConnected": true,
+    "queryStatePreserved": true,
+    "nonEmptyIntersectionGenerates": true,
+    "emptyIntersectionBlocks": true,
+    "generatorValidatorRendererConsistent": true,
+    "knowledgePointCount": 11,
+    "generatedKnowledgePointCount": 11,
+    "selectedPatternGroupCount": 17,
+    "patternSpecCount": 30,
+    "controlMatrixCount": 36,
+    "nonEmptyIntersectionCount": 33,
+    "emptyIntersectionCount": 3,
+    "questionCount": 72,
+    "answerKeyItemCount": 72,
+    "answerKeyOffQuestionCount": 72,
+    "answerKeyOffAnswerCount": 0,
+    "answerNumberSequenceConsistent": true,
+    "queryStateReplay": "pass",
+    "printCalled": true,
+    "previewTitleUndefined": false,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "genericFallback": false,
+    "publicNPlus2": false,
+    "publicFormalEquation": false
+  },
+  "previewMetadata": {
+    "withAnswerKey": "Batch A 5A-U08 整數四則｜72 題｜含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
+    "withoutAnswerKey": "Batch A 5A-U08 整數四則｜72 題｜不含答案頁｜題目 3 欄 × 5 列；答案 1 欄 × 6 列",
+    "compatibilityContract": {
+      "requiredSegments": [
+        "<questionCount> 題",
+        "含答案頁 or 不含答案頁"
+      ],
+      "additionalLayoutSegmentsAllowed": true,
+      "undefinedOrNullBlocked": true
+    }
+  },
+  "deployedAssets": {
+    "main": {
+      "sha256": "e4bd1a56c394133aaadc0f22bd2712a109c4b0aea80e4fc3fa4a9e0c13dbebd2",
+      "bytes": 20988
+    },
+    "router": {
+      "sha256": "8afc4a77d23bdb60e90d3fc53a8d9d12957144df41cd61c9773f5a74885108c1",
+      "bytes": 18568
+    },
+    "renderer": {
+      "sha256": "e38964f62634e0742380f47ed1eae12c6de439afdd7016e663410846d7a9d5b2",
+      "bytes": 8596
+    },
+    "promotion": {
+      "sha256": "548ef83ea867356a42d7dc0230f434dd5f0f8216413b83485ee493934e904241",
+      "bytes": 3952
+    }
+  },
+  "scope": {
+    "productionRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "publicUIChanged": false,
+    "gs02ContextExpansionStarted": false
+  },
+  "nextShortestStep": "GS02_G5AU08_GlobalContext18FamilyExpansion"
+}

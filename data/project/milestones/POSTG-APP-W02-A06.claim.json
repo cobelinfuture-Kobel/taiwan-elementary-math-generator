@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "W02_PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/shared/operation-family-runtime.mjs",
+      "src/curriculum/application/shared/production-equivalent-html-pdf-runtime.mjs",
+      "site/assets/browser/pipeline/build-worksheet-document.js",
+      "tests/curriculum/postg-app-w02-a06-production-equivalent-html-pdf.test.js"
+    ],
+    "rendererTestPaths": [
+      "tools/curriculum/render-postg-app-w02-a06-pdf.mjs",
+      "tools/curriculum/verify-postg-app-w02-a06-pdf.py",
+      ".github/workflows/postg-app-w02-a06-production-equivalent-html-pdf.yml"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json"
+    ],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/application/contracts/POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration.json",
+      "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json",
+      "docs/curriculum/output/POSTG_APP_W02_A06_PRODUCTION_EQUIVALENT_HTML_PDF_E4_VERIFIED.marker"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/POSTG_APP_W02_A06_E4_PRODUCTION_EQUIVALENT_EVIDENCE.json",
+        "sha256": "eba11b4682578cd754950dd5f7d206b56de9e547cf390617b9dd91ab5a60fc04"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Shared 49-family generator and validator produced 195 validated items; canonical worksheet rendering produced two verified HTML artifacts and two verified PDFs with 68 numeric pages, 42 application pages, containment checks, hash-locked evidence and main-controller-ready E4 readback."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
+  }
+}

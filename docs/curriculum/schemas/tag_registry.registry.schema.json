@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-worksheet-generator/curriculum/schemas/tag_registry.registry.schema.json",
+  "title": "TagRegistry Registry Wrapper Schema",
+  "description": "S22F4 wrapper schema for tag_registry.bootstrap.json. Validates the full registry file.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "status",
+    "productionRuntime",
+    "tags"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "const": "bootstrap"
+    },
+    "productionRuntime": {
+      "type": "boolean",
+      "const": false
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "tagId",
+          "tagType",
+          "labelZh",
+          "labelEn",
+          "description"
+        ],
+        "properties": {
+          "tagId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_]+$"
+          },
+          "tagType": {
+            "type": "string",
+            "enum": [
+              "curriculumDomain",
+              "questionKind",
+              "supportStatus",
+              "difficultyConstraint",
+              "representation"
+            ]
+          },
+          "labelZh": {
+            "type": "string"
+          },
+          "labelEn": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "parentTagId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

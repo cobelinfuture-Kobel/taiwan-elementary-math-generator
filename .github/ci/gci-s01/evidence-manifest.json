@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "programId": "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1",
+  "taskId": "GCI-S01_MathRepositoryWorkflowInventoryAndFanoutMatrix",
+  "inventoryAsOfCommit": "364900d8cc151b13aada07c135e5275c3e31546b",
+  "compression": "brotli",
+  "artifacts": [
+    {
+      "path": ".github/ci/gci-s01/workflow-inventory.json.br",
+      "mediaType": "application/json",
+      "contentEncoding": "br",
+      "sha256": "c7608f4f3a5f60d3fdabad73dfeb912559bf0e5bac4d5f73d69939cd08e0d778",
+      "compressedBytes": 14459,
+      "uncompressedBytes": 233729
+    },
+    {
+      "path": ".github/ci/gci-s01/workflow-fanout-matrix.json.br",
+      "mediaType": "application/json",
+      "contentEncoding": "br",
+      "sha256": "08bb6ffedd0f784dca8254e9049d5d50e25c7ecbbbc2b00c644f1c47674df7c8",
+      "compressedBytes": 4084,
+      "uncompressedBytes": 62275
+    },
+    {
+      "path": ".github/ci/gci-s01/workflow-ownership-readback.json.br",
+      "mediaType": "application/json",
+      "contentEncoding": "br",
+      "sha256": "00365c9ceb3ede37979111f06123fcc20d68993c69264b855279928143d6c8b2",
+      "compressedBytes": 2383,
+      "uncompressedBytes": 37417
+    }
+  ]
+}

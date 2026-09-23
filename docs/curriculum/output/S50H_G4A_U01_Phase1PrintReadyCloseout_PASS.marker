@@ -1,0 +1,58 @@
+S50H_G4A_U01_Phase1PrintReadyCloseout_PASS
+
+sourceId = g4a_u01_4a01
+unit = 4A-U01 1億以內的數
+status = PASS_PHASE1_PRINT_READY_WITH_NON_BLOCKING_BLANK_PAGE_WARNING
+write_type = unit_phase1_closeout_marker
+
+basis:
+- S50C Phase 1 PatternSpec contract completed.
+- S50D Phase 1 generator/validator implementation completed.
+- S50E public/main npm test was repaired and passed.
+- S50F KnowledgePoint selector projection completed and UI showed 6 selectable KnowledgePoints.
+- S50G PDF print smoke completed after print-layout fixes.
+- S50G_R5 confirmed npm test 443 pass / 0 fail and regenerated PDF smoke pass with only non-blocking blank-page warning.
+
+phase1_patterns_closed:
+- ps_g4a_u01_compare_8digit
+- ps_g4a_u01_within_100million_compare
+- ps_g4a_u01_large_number_add_sub
+- ps_g4a_u01_8digit_place_value_decomposition
+- ps_g4a_u01_place_value_composition_to_number
+- ps_g4a_u01_same_digit_place_value_difference
+
+validated_user_paths:
+- source-unit generation for g4a_u01_4a01
+- KnowledgePoint selector projection for 6 G4A-U01 Phase 1 KnowledgePoints
+- single-KnowledgePoint PDF output for three tall prompt patterns
+- mixed same-unit KnowledgePoint PDF output with answer key
+- npm test public/main clean at 443 pass / 0 fail
+
+accepted_non_blocking_issues:
+- Initial/trailing blank PDF pages persist.
+- This is deferred as renderer-wide blank-page cleanup backlog and is not a Phase 1 content/generator/validator/selector/print blocker.
+
+out_of_scope_for_this_closeout:
+- Phase 2/Phase 3 source-image patterns
+- Chinese-number fine-grained patterns beyond Phase 1
+- missing-digit comparison beyond Phase 1
+- word-problem extensions beyond Phase 1
+- G4A-U02/G4A-U04/G4A-U08
+- renderer-wide blank-page cleanup
+
+anti_scope_check:
+- Closeout marker only.
+- No code modified by this marker.
+- No Phase 2/Phase 3 work performed.
+- No other unit started.
+
+GOAL_DISTANCE_BEFORE = D1_G4A_U01_PHASE1_PRINT_SMOKE_PASS_WITH_BLANK_PAGE_WARNING
+GOAL_DISTANCE_AFTER = D0_G4A_U01_PHASE1_PRINT_READY
+DISTANCE_REDUCED = G4A-U01 Phase 1 moved from generator/selector-ready to user-print-ready: questions, answers, selector, npm tests, and PDF smoke are accepted for Phase 1.
+REMAINING_BLOCKERS = ["renderer-wide blank-page cleanup backlog", "G4A-U01 Phase 2/Phase 3 source-image patterns deferred", "remaining Batch A G4A/G4B/G5A units still need output QA"]
+NEXT_SHORTEST_STEP = S51_G4A_U01_Phase2ScopeDecision_OR_S52_G4A_U02_CurrentStateAndOutputReview
+STOP_REASON = next_step_requires_scope_choice
+BLOCKER_TYPE = OPERATOR_SCOPE_DECISION
+LAST_COMPLETED_STATUS = S50H_G4A_U01_PHASE1_PRINT_READY_CLOSEOUT_PASS
+REQUIRED_OPERATOR_ACTION = Choose whether to continue G4A-U01 Phase 2/Phase 3 fine-grained source-image coverage or move to the next Batch A unit output QA.
+NEXT_RESUME_TASK = S51_G4A_U01_Phase2ScopeDecision_OR_S52_G4A_U02_CurrentStateAndOutputReview

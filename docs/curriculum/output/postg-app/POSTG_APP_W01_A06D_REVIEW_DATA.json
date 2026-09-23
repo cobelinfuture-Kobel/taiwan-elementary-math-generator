@@ -1,0 +1,2184 @@
+{
+  "schemaName": "POSTGAPPW01A06DRegeneratedProductionReviewDataV1",
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W01-A06D_RegeneratedHTMLPDFHumanReviewPackage",
+  "status": "REGENERATED_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
+  "counts": {
+    "reviewCohortQuestionCount": 16,
+    "reviewCohortSourceCount": 12,
+    "reviewCohortMacroContextCount": 16,
+    "mathPreservedCount": 16,
+    "numberFactsPreservedCount": 16,
+    "promptChangedCount": 16,
+    "visibleTitleCount": 0,
+    "forbiddenMacroPrefixCount": 0,
+    "genericVisibleUnitCount": 0,
+    "applicationSurfaceCount": 13,
+    "numericPreservedCount": 3,
+    "questionPageCount": 6,
+    "answerKeyPageCount": 4,
+    "pblReviewSectionCount": 9
+  },
+  "selectedSources": [
+    "g3a_u01_3a01",
+    "g3a_u02_3a02",
+    "g3a_u03_3a03",
+    "g3a_u06_3a06",
+    "g3b_u01_3b01",
+    "g3b_u04_3b04",
+    "g3b_u08_3b08",
+    "g4a_u01_4a01",
+    "g4a_u08_4a08",
+    "g4b_u04_4b04",
+    "g5a_u02_5a02",
+    "g5a_u08_5a08"
+  ],
+  "selectedMacros": [
+    "gctx_macro_charity_cooperation",
+    "gctx_macro_commerce_budget",
+    "gctx_macro_community_civic",
+    "gctx_macro_culture_history",
+    "gctx_macro_data_public_information",
+    "gctx_macro_disaster_resilience",
+    "gctx_macro_environment_conservation",
+    "gctx_macro_food_agriculture",
+    "gctx_macro_future_sustainability",
+    "gctx_macro_health_sports",
+    "gctx_macro_household_family",
+    "gctx_macro_school_learning",
+    "gctx_macro_science_technology",
+    "gctx_macro_transport_mobility",
+    "gctx_macro_water_energy",
+    "gctx_macro_work_logistics"
+  ],
+  "reviewPairs": [
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_4digit_compare_op_g3a_u01_four_digit_compare",
+      "sourceId": "g3a_u01_3a01",
+      "knowledgePointId": "kp_g3a_u01_4digit_compare",
+      "macroContextId": "gctx_macro_health_sports",
+      "exactPatternSpecId": "ps_g3a_u01_4digit_compare",
+      "exactPatternGroupId": "pg_g3a_u01_4digit_compare",
+      "semanticClass": "COMPARE_TWO_GROUPS_SAME_MEASURE",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_COMPARE_TWO_GROUPS_V1",
+      "originalPrompt": "在 □ 中填入 >、< 或 =，比較 5979和 2172的大小。 5979 □ 2172",
+      "rejectedA05Prompt": "在健康、運動與競賽，活動工作人員與參與者需要遵守每人份量規則明確完成讓參與者取得足夠且合理的活動補給。根據在 □ 中填入 >、< 或 =，比較 5979 和 2172 的大小。 5979 □ 2172，判斷補給總量。",
+      "remediatedPrompt": "甲隊有5979張運動會集點卡，乙隊有2172張運動會集點卡。比較兩組的數量，應填入哪一個符號：>、< 或 =？",
+      "answerText": ">",
+      "answerUnit": null,
+      "quantityFacts": [
+        {
+          "value": "5979",
+          "entity": "運動會集點卡",
+          "unit": "張",
+          "role": "leftGroupQuantity"
+        },
+        {
+          "value": "2172",
+          "entity": "運動會集點卡",
+          "unit": "張",
+          "role": "rightGroupQuantity"
+        }
+      ],
+      "relationEvidence": {
+        "groupA": "甲隊",
+        "groupB": "乙隊",
+        "entity": "運動會集點卡",
+        "unit": "張",
+        "target": "RELATION_SYMBOL"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u02_3a02_kp_g3a_u02_add_multi_carry_op_g3a_u02_four_digit_add_multi_carry",
+      "sourceId": "g3a_u02_3a02",
+      "knowledgePointId": "kp_g3a_u02_add_multi_carry",
+      "macroContextId": "gctx_macro_environment_conservation",
+      "exactPatternSpecId": "ps_g3a_u02_4digit_add_multi_carry",
+      "exactPatternGroupId": "pg_g3a_u02_add_multi_carry_seed",
+      "semanticClass": "JOIN_RESULT_TOTAL",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_JOIN_TOTAL_V1",
+      "originalPrompt": "1594 + 6 = □",
+      "rejectedA05Prompt": "在環境保護與生態保育，清理小組與巡查人員為了完成指定區域的環境清理與成果紀錄，依照1594 + 6 = □求出清理總量。",
+      "remediatedPrompt": "清理小組已記錄1594個寶特瓶，最後巡查時又發現6個寶特瓶。這次一共記錄多少個寶特瓶？",
+      "answerText": null,
+      "answerUnit": "個",
+      "quantityFacts": [
+        {
+          "value": "1594",
+          "entity": "寶特瓶",
+          "unit": "個",
+          "role": "initialQuantity"
+        },
+        {
+          "value": "6",
+          "entity": "寶特瓶",
+          "unit": "個",
+          "role": "joinedQuantity"
+        }
+      ],
+      "relationEvidence": {
+        "eventRelation": "JOIN",
+        "entity": "寶特瓶",
+        "unit": "個",
+        "target": "TOTAL_QUANTITY"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u03_3a03_kp_g3a_u03_2digit_by_1digit_carry_op_g3a_u03_2digit_by_1digit",
+      "sourceId": "g3a_u03_3a03",
+      "knowledgePointId": "kp_g3a_u03_2digit_by_1digit_carry",
+      "macroContextId": "gctx_macro_food_agriculture",
+      "exactPatternSpecId": "ps_g3a_u03_2digit_by_1digit_carry",
+      "exactPatternGroupId": "pg_g3a_u03_2digit_by_1digit_carry",
+      "semanticClass": "EQUAL_GROUPS_TOTAL",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_EQUAL_GROUPS_TOTAL_V1",
+      "originalPrompt": "27 × 7 = □",
+      "rejectedA05Prompt": "在食物、農業與生產，農園小組與育苗人員與配送人員為了完成可追溯的農業生產批次安排，依照27 × 7 = □求出幼苗總量。",
+      "remediatedPrompt": "每盤有27株幼苗，共有7盤。一共有多少株幼苗？",
+      "answerText": null,
+      "answerUnit": "株",
+      "quantityFacts": [
+        {
+          "value": "27",
+          "entity": "幼苗",
+          "unit": "株",
+          "role": "perGroupQuantity"
+        },
+        {
+          "value": "7",
+          "entity": "盤",
+          "unit": "盤",
+          "role": "groupCount"
+        }
+      ],
+      "relationEvidence": {
+        "entity": "幼苗",
+        "unit": "株",
+        "groupUnit": "盤",
+        "target": "TOTAL_QUANTITY"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u06_3a06_kp_g3a_u06_exact_division_check_op_g3a_u06_two_digit_exact_division",
+      "sourceId": "g3a_u06_3a06",
+      "knowledgePointId": "kp_g3a_u06_exact_division_check",
+      "macroContextId": "gctx_macro_water_energy",
+      "exactPatternSpecId": "ps_g3a_u06_exact_division_check",
+      "exactPatternGroupId": "pg_g3a_u06_exact_division_check",
+      "semanticClass": "EQUAL_SHARE_PER_GROUP",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_EQUAL_SHARE_V1",
+      "originalPrompt": "77 ÷ 7 = □",
+      "rejectedA05Prompt": "在水資源與能源，使用小組與設備管理者為了選出符合需求且較節能的使用方案，依照77 ÷ 7 = □求出能源總量。",
+      "remediatedPrompt": "共有77公升飲用水，平均分給7個水桶。每個水桶分到多少公升飲用水？",
+      "answerText": null,
+      "answerUnit": "公升",
+      "quantityFacts": [
+        {
+          "value": "77",
+          "entity": "飲用水",
+          "unit": "公升",
+          "role": "totalQuantity"
+        },
+        {
+          "value": "7",
+          "entity": "個水桶",
+          "unit": "個水桶",
+          "role": "groupCount"
+        }
+      ],
+      "relationEvidence": {
+        "entity": "飲用水",
+        "unit": "公升",
+        "groupUnit": "個水桶",
+        "target": "PER_GROUP_QUANTITY"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3b_u01_3b01_kp_g3b_u01_2digit_division_place_value_cases_op_g3b_u01_two_digit_exact_division_place_value",
+      "sourceId": "g3b_u01_3b01",
+      "knowledgePointId": "kp_g3b_u01_2digit_division_place_value_cases",
+      "macroContextId": "gctx_macro_household_family",
+      "exactPatternSpecId": "ps_g3b_u01_2digit_by_1digit_regroup_tens",
+      "exactPatternGroupId": "pg_g3b_u01_2digit_division_place_value_cases",
+      "semanticClass": "EQUAL_SHARE_PER_GROUP",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_EQUAL_SHARE_V1",
+      "originalPrompt": "56 ÷ 7 = □",
+      "rejectedA05Prompt": "在家庭與日常生活，家庭成員為了在可用時間內公平完成家務，依照56 ÷ 7 = □求出所需時間。",
+      "remediatedPrompt": "共有56顆水餃，平均分給7人。每人分到多少顆水餃？",
+      "answerText": null,
+      "answerUnit": "顆",
+      "quantityFacts": [
+        {
+          "value": "56",
+          "entity": "水餃",
+          "unit": "顆",
+          "role": "totalQuantity"
+        },
+        {
+          "value": "7",
+          "entity": "人",
+          "unit": "人",
+          "role": "groupCount"
+        }
+      ],
+      "relationEvidence": {
+        "entity": "水餃",
+        "unit": "顆",
+        "groupUnit": "人",
+        "target": "PER_GROUP_QUANTITY"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3b_u04_3b04_kp_g3b_u04_add_then_divide_op1",
+      "sourceId": "g3b_u04_3b04",
+      "knowledgePointId": "kp_g3b_u04_add_then_divide",
+      "macroContextId": "gctx_macro_data_public_information",
+      "exactPatternSpecId": "ps_g3b_u04_add_divide_joint_purchase_equal_share",
+      "exactPatternGroupId": "pg_g3b_u04_add_then_divide",
+      "semanticClass": "MULTI_STEP_STRUCTURED",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION_PRESERVED",
+      "templateFamilyId": "REL_EXISTING_JOINT_PURCHASE_EQUAL_SHARE_V1",
+      "originalPrompt": "6位同學一起安排運動練習，場地使用費225元，器材租借費225元。兩項費用由6人平均分擔，每人要付多少元？",
+      "rejectedA05Prompt": "在資料、統計與公共資訊，學生讀者與公共機構為了在不複製未核實即時數字下理解近期公共議題，依照6位同學一起安排運動練習，場地使用費225元，器材租借費225元。兩項費用由6人平均分擔，每人要付多少元？求出資料結論。",
+      "remediatedPrompt": "6位同學一起安排運動練習，場地使用費225元，器材租借費225元。兩項費用由6人平均分擔，每人要付多少元？",
+      "answerText": "75元",
+      "answerUnit": "元",
+      "quantityFacts": [
+        {
+          "value": "6",
+          "entity": "同學",
+          "unit": "人",
+          "role": "participantCount"
+        },
+        {
+          "value": "225",
+          "entity": "場地使用費",
+          "unit": "元",
+          "role": "costA"
+        },
+        {
+          "value": "225",
+          "entity": "器材租借費",
+          "unit": "元",
+          "role": "costB"
+        },
+        {
+          "value": "6",
+          "entity": "同學",
+          "unit": "人",
+          "role": "shareCount"
+        }
+      ],
+      "relationEvidence": {
+        "target": "PER_PERSON_COST",
+        "preservedAuthenticApplication": true
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3b_u08_3b08_kp_g3b_u08_total_from_groups_op_g3b_u08_total_from_groups",
+      "sourceId": "g3b_u08_3b08",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "macroContextId": "gctx_macro_culture_history",
+      "exactPatternSpecId": "ps_g3b_u08_total_daily_saving_accumulation",
+      "exactPatternGroupId": "pg_g3b_u08_total_from_groups",
+      "semanticClass": "EQUAL_GROUPS_TOTAL",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION_PRESERVED",
+      "templateFamilyId": "REL_EXISTING_DAILY_SAVING_TOTAL_V1",
+      "originalPrompt": "小安每天存45元，連續存了8天，一共存了多少元？",
+      "rejectedA05Prompt": "在文化、歷史與地方記憶，商隊成員與市場攤商與倉庫管理者需要遵守使用虛構練習數據完成依古代交易機制計算或比較交換結果。根據小安每天存45元，連續存了8天，一共存了多少元？，判斷貨物總量。",
+      "remediatedPrompt": "小安每天存45元，連續存了8天，一共存了多少元？",
+      "answerText": "360元",
+      "answerUnit": "元",
+      "quantityFacts": [
+        {
+          "value": "45",
+          "entity": "每日存款",
+          "unit": "元",
+          "role": "perDayAmount"
+        },
+        {
+          "value": "8",
+          "entity": "天數",
+          "unit": "天",
+          "role": "dayCount"
+        }
+      ],
+      "relationEvidence": {
+        "target": "TOTAL_SAVING",
+        "preservedAuthenticApplication": true
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g4a_u01_4a01_kp_g4a_u01_digit_arrangement_max_min_op_g4a_u01_digit_arrangement_max_min",
+      "sourceId": "g4a_u01_4a01",
+      "knowledgePointId": "kp_g4a_u01_digit_arrangement_max_min",
+      "macroContextId": "gctx_macro_community_civic",
+      "exactPatternSpecId": "ps_g4a_u01_digit_arrangement_max_min",
+      "exactPatternGroupId": "pg_g4a_u01_digit_arrangement_max_min",
+      "semanticClass": "NUMERIC_ONLY",
+      "suitability": "NUMERIC_ONLY",
+      "surfaceMode": "NUMERIC_PRESERVED",
+      "templateFamilyId": "NUMERIC_PRESERVED_V1",
+      "originalPrompt": "用 1、2、5、8、9這五個數字各一次，組成五位數。最大的數是多少？最小的數是多少？ □",
+      "rejectedA05Prompt": "在社區、公民與公共服務，居民小組與志工隊與活動管理者需要遵守規則對各組一致完成以透明規則完成社區共同活動。根據用 1、2、5、8、9 這五個數字各一次，組成五位數。最大的數是多少？最小的數是多少？ □，判斷輪值安排。",
+      "remediatedPrompt": "用 1、2、5、8、9這五個數字各一次，組成五位數。最大的數是多少？最小的數是多少？ □",
+      "answerText": "最大：98521；最小：12589",
+      "answerUnit": null,
+      "quantityFacts": [],
+      "relationEvidence": {
+        "preservationReason": "NUMERIC_ONLY"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g4a_u08_4a08_kp_g4a_u08_app_parentheses_grouping_op_g4a_u08_app_parentheses_grouping",
+      "sourceId": "g4a_u08_4a08",
+      "knowledgePointId": "kp_g4a_u08_app_parentheses_grouping",
+      "macroContextId": "gctx_macro_work_logistics",
+      "exactPatternSpecId": "ps_g4a_u08_app_adjusted_amount_then_subtract",
+      "exactPatternGroupId": "pg_g4a_u08_app_adjusted_amount_then_subtract",
+      "semanticClass": "MULTI_STEP_STRUCTURED",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_TICKET_DISCOUNT_CHANGE_V1",
+      "originalPrompt": "公車站每張車票原價63元，活動折扣5元。付100元，找回多少元？",
+      "rejectedA05Prompt": "在工作流程、物流與配送，配送人員與倉庫人員與收貨站為了選出容量足夠且能準時完成的配送方案，依照公車站每張車票原價63元，活動折扣5元。付100元，找回多少元？求出車次。",
+      "remediatedPrompt": "一張公車票原價63元，活動折扣5元。小明付了100元，可以找回多少元？",
+      "answerText": "42 元",
+      "answerUnit": "元",
+      "quantityFacts": [
+        {
+          "value": "63",
+          "entity": "公車票原價",
+          "unit": "元",
+          "role": "originalPrice"
+        },
+        {
+          "value": "5",
+          "entity": "折扣",
+          "unit": "元",
+          "role": "discount"
+        },
+        {
+          "value": "100",
+          "entity": "付款金額",
+          "unit": "元",
+          "role": "payment"
+        }
+      ],
+      "relationEvidence": {
+        "target": "CHANGE_AFTER_DISCOUNT",
+        "steps": [
+          "ADJUST_PRICE",
+          "SUBTRACT_FROM_PAYMENT"
+        ]
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g4b_u04_4b04_kp_g4b_u04_context_floor_ceiling_selection_op_g4b_u04_context_floor_ceiling_selection",
+      "sourceId": "g4b_u04_4b04",
+      "knowledgePointId": "kp_g4b_u04_context_floor_ceiling_selection",
+      "macroContextId": "gctx_macro_disaster_resilience",
+      "exactPatternSpecId": "ps_g4b_u04_floor_complete_groups",
+      "exactPatternGroupId": "pg_g4b_u04_context_floor_ceiling",
+      "semanticClass": "COMPLETE_GROUP_COUNT_FLOOR",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_COMPLETE_GROUPS_FLOOR_V1",
+      "originalPrompt": "有 5,886顆，每 10顆 裝成一盒橘子，最多可以裝成幾盒完整的橘子？",
+      "rejectedA05Prompt": "在防災、應變與韌性，避難引導組與物資管理組與參與者需要遵守安全敘事不呈現傷亡細節完成讓演練或緊急需求獲得足夠備援物資。根據有 5,886顆，每 10顆 裝成一盒橘子，最多可以裝成幾盒完整的橘子？，判斷物資箱數。",
+      "remediatedPrompt": "物資整理小組有5886顆橘子，每盒裝10顆。最多可以裝滿幾盒？",
+      "answerText": "588盒",
+      "answerUnit": "盒",
+      "quantityFacts": [
+        {
+          "value": "5886",
+          "entity": "橘子",
+          "unit": "顆",
+          "role": "totalQuantity"
+        },
+        {
+          "value": "10",
+          "entity": "橘子",
+          "unit": "顆",
+          "role": "groupCapacity"
+        }
+      ],
+      "relationEvidence": {
+        "entity": "橘子",
+        "unit": "顆",
+        "groupUnit": "盒",
+        "remainderPolicy": "REMAINDER_NOT_COUNTED_AS_COMPLETE_GROUP",
+        "target": "COMPLETE_GROUP_COUNT"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g5a_u02_5a02_kp_g5a_u02_equal_partition_factor_application_op7",
+      "sourceId": "g5a_u02_5a02",
+      "knowledgePointId": "kp_g5a_u02_equal_partition_factor_application",
+      "macroContextId": "gctx_macro_transport_mobility",
+      "exactPatternSpecId": "ps_g5a_u02_equal_partition_all_segment_counts",
+      "exactPatternGroupId": "pg_g5a_u02_equal_partition_application",
+      "semanticClass": "EQUAL_SHARE_PER_GROUP",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION_PRESERVED",
+      "templateFamilyId": "REL_EXISTING_EQUAL_PARTITION_PAIR_SET_V1",
+      "originalPrompt": "一條長 48公尺的緞帶要等分，每段長度都是整數公尺。請列出所有「段數｜每段長度」配對。",
+      "rejectedA05Prompt": "在交通、移動與行程，戶外小隊與帶隊者為了讓小隊攜帶足夠裝備並完成安全行程，依照一條長 48 公尺的緞帶要等分，每段長度都是整數公尺。請列出所有「段數｜每段長度」配對。求出裝備數量。",
+      "remediatedPrompt": "一條長 48公尺的緞帶要等分，每段長度都是整數公尺。請列出所有「段數｜每段長度」配對。",
+      "answerText": null,
+      "answerUnit": null,
+      "quantityFacts": [
+        {
+          "value": "48",
+          "entity": "緞帶長度",
+          "unit": "公尺",
+          "role": "totalLength"
+        }
+      ],
+      "relationEvidence": {
+        "target": "ALL_PARTITION_PAIRS",
+        "preservedAuthenticApplication": true
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g5a_u08_5a08_kp_g5a_u08_mul_div_equivalent_regroup_op3",
+      "sourceId": "g5a_u08_5a08",
+      "knowledgePointId": "kp_g5a_u08_mul_div_equivalent_regroup",
+      "macroContextId": "gctx_macro_charity_cooperation",
+      "exactPatternSpecId": "ps_g5a_u08_app_group_select",
+      "exactPatternGroupId": "pg_g5a_u08_mul_div_regroup_application",
+      "semanticClass": "MULTI_STEP_STRUCTURED",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_GROUP_SELECT_FROM_EQUAL_BOXES_V1",
+      "originalPrompt": "共有1430顆球，平均裝成22箱，取出其中16箱。取出的球共有多少顆？",
+      "rejectedA05Prompt": "在公益、合作與資源共享，募集組與服務組與受援單位為了讓捐贈資源依需求合理送達，依照共有1430顆球，平均裝成22箱，取出其中16箱。取出的球共有多少顆？請列成一個。求出物資總量。",
+      "remediatedPrompt": "共有1430顆球，平均裝成22箱。取出其中16箱，取出的球共有多少顆？",
+      "answerText": "1430÷22×16＝1040顆",
+      "answerUnit": "顆",
+      "quantityFacts": [
+        {
+          "value": "1430",
+          "entity": "球",
+          "unit": "顆",
+          "role": "totalQuantity"
+        },
+        {
+          "value": "22",
+          "entity": "箱",
+          "unit": "箱",
+          "role": "totalGroupCount"
+        },
+        {
+          "value": "16",
+          "entity": "箱",
+          "unit": "箱",
+          "role": "selectedGroupCount"
+        }
+      ],
+      "relationEvidence": {
+        "target": "SELECTED_GROUP_QUANTITY",
+        "steps": [
+          "EQUAL_SHARE",
+          "SELECT_GROUPS"
+        ]
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_range_reasoning_op_g3a_u01_range_and_inclusive_count",
+      "sourceId": "g3a_u01_3a01",
+      "knowledgePointId": "kp_g3a_u01_range_reasoning",
+      "macroContextId": "gctx_macro_commerce_budget",
+      "exactPatternSpecId": "ps_g3a_u01_4digit_range_compare_reasoning",
+      "exactPatternGroupId": "pg_g3a_u01_range_reasoning",
+      "semanticClass": "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_RANGE_MEMBERSHIP_V1",
+      "originalPrompt": "哪一個數大於 2478且小於 3437？A 2395 B 3276",
+      "rejectedA05Prompt": "在商業、交易與預算，攤商與顧客與商隊為了依交易規則計算交換或購買結果，依照哪一個數大於 2478 且小於 3437？A 2395 B 3276求出貨物總量。",
+      "remediatedPrompt": "倉庫規定每批貨物必須超過2478箱，而且少於3437箱。A批有2395箱，B批有3276箱。哪一批符合規定？",
+      "answerText": "B",
+      "answerUnit": null,
+      "quantityFacts": [
+        {
+          "value": "2478",
+          "entity": "貨物",
+          "unit": "箱",
+          "role": "lowerBound"
+        },
+        {
+          "value": "3437",
+          "entity": "貨物",
+          "unit": "箱",
+          "role": "upperBound"
+        },
+        {
+          "value": "2395",
+          "entity": "貨物",
+          "unit": "箱",
+          "role": "candidateA"
+        },
+        {
+          "value": "3276",
+          "entity": "貨物",
+          "unit": "箱",
+          "role": "candidateB"
+        }
+      ],
+      "relationEvidence": {
+        "lowerBound": "2478",
+        "upperBound": "3437",
+        "candidates": [
+          "A批",
+          "B批"
+        ],
+        "entity": "貨物",
+        "unit": "箱",
+        "target": "SELECTION_ID"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u02_3a02_kp_g3a_u02_sub_multi_borrow_op_g3a_u02_four_digit_sub_multi_borrow",
+      "sourceId": "g3a_u02_3a02",
+      "knowledgePointId": "kp_g3a_u02_sub_multi_borrow",
+      "macroContextId": "gctx_macro_future_sustainability",
+      "exactPatternSpecId": "ps_g3a_u02_4digit_sub_multi_borrow",
+      "exactPatternGroupId": "pg_g3a_u02_sub_multi_borrow_seed",
+      "semanticClass": "SEPARATE_REMAINDER_OR_DIFFERENCE",
+      "suitability": "APPLICATION_REQUIRED",
+      "surfaceMode": "RELATION_APPLICATION",
+      "templateFamilyId": "REL_SEPARATE_REMAINDER_V1",
+      "originalPrompt": "5702 - 9 = □",
+      "rejectedA05Prompt": "在未來生活與永續設計，校園設計小組與社區管理者為了選出符合需求與限制的氣候調適方案，依照5702 - 9 = □求出設備需求。",
+      "remediatedPrompt": "校園設計小組原有5702張節能貼紙，布置活動時用了9張節能貼紙。還剩多少張節能貼紙？",
+      "answerText": null,
+      "answerUnit": "張",
+      "quantityFacts": [
+        {
+          "value": "5702",
+          "entity": "節能貼紙",
+          "unit": "張",
+          "role": "initialQuantity"
+        },
+        {
+          "value": "9",
+          "entity": "節能貼紙",
+          "unit": "張",
+          "role": "removedQuantity"
+        }
+      ],
+      "relationEvidence": {
+        "eventRelation": "SEPARATE",
+        "entity": "節能貼紙",
+        "unit": "張",
+        "target": "REMAINDER_QUANTITY"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_place_value_composition_op_g3a_u01_place_value_composition",
+      "sourceId": "g3a_u01_3a01",
+      "knowledgePointId": "kp_g3a_u01_place_value_composition",
+      "macroContextId": "gctx_macro_school_learning",
+      "exactPatternSpecId": "ps_g3a_u01_place_value_standard_composition",
+      "exactPatternGroupId": "pg_g3a_u01_place_value_composition",
+      "semanticClass": "PLACE_VALUE_COMPOSITION",
+      "suitability": "APPLICATION_OPTIONAL",
+      "surfaceMode": "NUMERIC_PRESERVED_PENDING_SURFACE_ADMISSION",
+      "templateFamilyId": "NUMERIC_PLACE_VALUE_COMPOSITION_V1",
+      "originalPrompt": "7個千、6個百、8個十、3個一，合起來是多少？",
+      "rejectedA05Prompt": "在學校與學習，教師與學生小組為了完成班級活動所需的資源安排，依照7個千、6個百、8個十、3個一，合起來是多少？求出資源總量。",
+      "remediatedPrompt": "7個千、6個百、8個十、3個一，合起來是多少？",
+      "answerText": "7683",
+      "answerUnit": null,
+      "quantityFacts": [],
+      "relationEvidence": {
+        "preservationReason": "APPLICATION_OPTIONAL"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_place_value_unit_conversion_op_g3a_u01_decimal_unit_exchange",
+      "sourceId": "g3a_u01_3a01",
+      "knowledgePointId": "kp_g3a_u01_place_value_unit_conversion",
+      "macroContextId": "gctx_macro_science_technology",
+      "exactPatternSpecId": "ps_g3a_u01_tens_to_hundreds_conversion",
+      "exactPatternGroupId": "pg_g3a_u01_place_value_unit_conversion",
+      "semanticClass": "PLACE_VALUE_EXCHANGE",
+      "suitability": "APPLICATION_OPTIONAL",
+      "surfaceMode": "NUMERIC_PRESERVED_PENDING_SURFACE_ADMISSION",
+      "templateFamilyId": "NUMERIC_PLACE_VALUE_EXCHANGE_V1",
+      "originalPrompt": "41個十可以換成幾個百，還剩幾個十？",
+      "rejectedA05Prompt": "在科學、科技與觀察，學生小組與設備管理者需要遵守設備數量有限完成讓使用者在設備與時間限制內完成任務。根據41個十可以換成幾個百，還剩幾個十？，判斷設備需求。",
+      "remediatedPrompt": "41個十可以換成幾個百，還剩幾個十？",
+      "answerText": "4個百又1個十",
+      "answerUnit": null,
+      "quantityFacts": [],
+      "relationEvidence": {
+        "preservationReason": "APPLICATION_OPTIONAL"
+      },
+      "mathPreserved": true,
+      "numberFactsPreserved": true,
+      "questionLevelMacroTitleVisible": false,
+      "humanNaturalnessReviewRequired": true
+    }
+  ],
+  "unitReviewRows": [
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_4digit_compare_op_g3a_u01_four_digit_compare",
+      "sourceId": "g3a_u01_3a01",
+      "knowledgePointId": "kp_g3a_u01_4digit_compare",
+      "semanticClass": "COMPARE_TWO_GROUPS_SAME_MEASURE",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "份",
+      "remediatedAnswerUnit": null,
+      "answerShape": "RELATION_SYMBOL",
+      "unitPolicy": "NO_UNIT",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u02_3a02_kp_g3a_u02_add_multi_carry_op_g3a_u02_four_digit_add_multi_carry",
+      "sourceId": "g3a_u02_3a02",
+      "knowledgePointId": "kp_g3a_u02_add_multi_carry",
+      "semanticClass": "JOIN_RESULT_TOTAL",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "份",
+      "remediatedAnswerUnit": "個",
+      "answerShape": "QUANTITY_WITH_UNIT",
+      "unitPolicy": "SAME_MEASURE_AS_INPUTS",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u03_3a03_kp_g3a_u03_2digit_by_1digit_carry_op_g3a_u03_2digit_by_1digit",
+      "sourceId": "g3a_u03_3a03",
+      "knowledgePointId": "kp_g3a_u03_2digit_by_1digit_carry",
+      "semanticClass": "EQUAL_GROUPS_TOTAL",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "份",
+      "remediatedAnswerUnit": "株",
+      "answerShape": "QUANTITY_WITH_UNIT",
+      "unitPolicy": "ENTITY_COUNT_OR_MEASURE",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u06_3a06_kp_g3a_u06_exact_division_check_op_g3a_u06_two_digit_exact_division",
+      "sourceId": "g3a_u06_3a06",
+      "knowledgePointId": "kp_g3a_u06_exact_division_check",
+      "semanticClass": "EQUAL_SHARE_PER_GROUP",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "份",
+      "remediatedAnswerUnit": "公升",
+      "answerShape": "QUANTITY_WITH_UNIT_OR_PARTITION_SET",
+      "unitPolicy": "PER_GROUP_MEASURE",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3b_u01_3b01_kp_g3b_u01_2digit_division_place_value_cases_op_g3b_u01_two_digit_exact_division_place_value",
+      "sourceId": "g3b_u01_3b01",
+      "knowledgePointId": "kp_g3b_u01_2digit_division_place_value_cases",
+      "semanticClass": "EQUAL_SHARE_PER_GROUP",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "分鐘",
+      "remediatedAnswerUnit": "顆",
+      "answerShape": "QUANTITY_WITH_UNIT_OR_PARTITION_SET",
+      "unitPolicy": "PER_GROUP_MEASURE",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3b_u04_3b04_kp_g3b_u04_add_then_divide_op1",
+      "sourceId": "g3b_u04_3b04",
+      "knowledgePointId": "kp_g3b_u04_add_then_divide",
+      "semanticClass": "MULTI_STEP_STRUCTURED",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "元",
+      "remediatedAnswerUnit": "元",
+      "answerShape": "INHERIT_EXACT_PATTERN",
+      "unitPolicy": "INHERIT_EXACT_PATTERN",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3b_u08_3b08_kp_g3b_u08_total_from_groups_op_g3b_u08_total_from_groups",
+      "sourceId": "g3b_u08_3b08",
+      "knowledgePointId": "kp_g3b_u08_total_from_groups",
+      "semanticClass": "EQUAL_GROUPS_TOTAL",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "份",
+      "remediatedAnswerUnit": "元",
+      "answerShape": "QUANTITY_WITH_UNIT",
+      "unitPolicy": "ENTITY_COUNT_OR_MEASURE",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g4a_u01_4a01_kp_g4a_u01_digit_arrangement_max_min_op_g4a_u01_digit_arrangement_max_min",
+      "sourceId": "g4a_u01_4a01",
+      "knowledgePointId": "kp_g4a_u01_digit_arrangement_max_min",
+      "semanticClass": "NUMERIC_ONLY",
+      "suitability": "NUMERIC_ONLY",
+      "rejectedA05AnswerUnit": "元",
+      "remediatedAnswerUnit": null,
+      "answerShape": "INHERIT_EXACT_PATTERN",
+      "unitPolicy": "NO_FORCED_CONTEXT_UNIT",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g4a_u08_4a08_kp_g4a_u08_app_parentheses_grouping_op_g4a_u08_app_parentheses_grouping",
+      "sourceId": "g4a_u08_4a08",
+      "knowledgePointId": "kp_g4a_u08_app_parentheses_grouping",
+      "semanticClass": "MULTI_STEP_STRUCTURED",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "分鐘",
+      "remediatedAnswerUnit": "元",
+      "answerShape": "INHERIT_EXACT_PATTERN",
+      "unitPolicy": "INHERIT_EXACT_PATTERN",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g4b_u04_4b04_kp_g4b_u04_context_floor_ceiling_selection_op_g4b_u04_context_floor_ceiling_selection",
+      "sourceId": "g4b_u04_4b04",
+      "knowledgePointId": "kp_g4b_u04_context_floor_ceiling_selection",
+      "semanticClass": "COMPLETE_GROUP_COUNT_FLOOR",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "箱",
+      "remediatedAnswerUnit": "盒",
+      "answerShape": "COMPLETE_GROUP_COUNT",
+      "unitPolicy": "GROUP_UNIT",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g5a_u02_5a02_kp_g5a_u02_equal_partition_factor_application_op7",
+      "sourceId": "g5a_u02_5a02",
+      "knowledgePointId": "kp_g5a_u02_equal_partition_factor_application",
+      "semanticClass": "EQUAL_SHARE_PER_GROUP",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "份",
+      "remediatedAnswerUnit": null,
+      "answerShape": "QUANTITY_WITH_UNIT_OR_PARTITION_SET",
+      "unitPolicy": "PER_GROUP_MEASURE",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g5a_u08_5a08_kp_g5a_u08_mul_div_equivalent_regroup_op3",
+      "sourceId": "g5a_u08_5a08",
+      "knowledgePointId": "kp_g5a_u08_mul_div_equivalent_regroup",
+      "semanticClass": "MULTI_STEP_STRUCTURED",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "份",
+      "remediatedAnswerUnit": "顆",
+      "answerShape": "INHERIT_EXACT_PATTERN",
+      "unitPolicy": "INHERIT_EXACT_PATTERN",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_range_reasoning_op_g3a_u01_range_and_inclusive_count",
+      "sourceId": "g3a_u01_3a01",
+      "knowledgePointId": "kp_g3a_u01_range_reasoning",
+      "semanticClass": "RANGE_MEMBERSHIP_BOUNDS_AND_CANDIDATE",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "份",
+      "remediatedAnswerUnit": null,
+      "answerShape": "SELECTION_ID",
+      "unitPolicy": "NO_UNIT",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u02_3a02_kp_g3a_u02_sub_multi_borrow_op_g3a_u02_four_digit_sub_multi_borrow",
+      "sourceId": "g3a_u02_3a02",
+      "knowledgePointId": "kp_g3a_u02_sub_multi_borrow",
+      "semanticClass": "SEPARATE_REMAINDER_OR_DIFFERENCE",
+      "suitability": "APPLICATION_REQUIRED",
+      "rejectedA05AnswerUnit": "元",
+      "remediatedAnswerUnit": "張",
+      "answerShape": "QUANTITY_WITH_UNIT",
+      "unitPolicy": "SAME_MEASURE_AS_INPUTS",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_place_value_composition_op_g3a_u01_place_value_composition",
+      "sourceId": "g3a_u01_3a01",
+      "knowledgePointId": "kp_g3a_u01_place_value_composition",
+      "semanticClass": "PLACE_VALUE_COMPOSITION",
+      "suitability": "APPLICATION_OPTIONAL",
+      "rejectedA05AnswerUnit": "組",
+      "remediatedAnswerUnit": null,
+      "answerShape": "NUMBER_VALUE",
+      "unitPolicy": "NO_PHYSICAL_UNIT",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    },
+    {
+      "bindingCandidateId": "w01_bind_g3a_u01_3a01_kp_g3a_u01_place_value_unit_conversion_op_g3a_u01_decimal_unit_exchange",
+      "sourceId": "g3a_u01_3a01",
+      "knowledgePointId": "kp_g3a_u01_place_value_unit_conversion",
+      "semanticClass": "PLACE_VALUE_EXCHANGE",
+      "suitability": "APPLICATION_OPTIONAL",
+      "rejectedA05AnswerUnit": "公升",
+      "remediatedAnswerUnit": null,
+      "answerShape": "PLACE_VALUE_DECOMPOSITION",
+      "unitPolicy": "PLACE_VALUE_UNIT",
+      "reviewStatus": "SECOND_HUMAN_REVIEW_REQUIRED",
+      "productionAdmissionAllowed": false
+    }
+  ],
+  "pblReviewSections": [
+    {
+      "pblCandidateId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product",
+      "pblTaskSetId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product",
+      "sourceId": "g3a_u03_3a03",
+      "knowledgePointId": "kp_g3a_u03_consecutive_multiplication_two_step",
+      "graphType": "PBL3_LINEAR",
+      "drivingProblemCandidate": {
+        "stakeholder": "募集組",
+        "realWorldGoal": "讓捐贈資源依需求合理送達",
+        "problemStatementZh": "請協助募集組在讓捐贈資源依需求合理送達時，運用數學資料完成可執行的ALLOCATION_PLAN。",
+        "constraints": [
+          "不使用真實個案個資",
+          "分配規則明確"
+        ],
+        "successCriteria": [
+          "所有必要數量可由op_g3a_u03_three_factor_product重建",
+          "最終方案使用至少兩個前段里程碑",
+          "最終方案符合全部情境限制"
+        ],
+        "consequenceOfIncorrectDecision": "資源可能不足、超出限制，或無法完成原始任務。",
+        "finalProductType": "ALLOCATION_PLAN",
+        "authenticityExecutionVerified": false
+      },
+      "nodes": [
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t1",
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m1",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t2",
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m2",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t3",
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m3",
+          "isFinalTask": true
+        }
+      ],
+      "edges": [
+        {
+          "fromMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m1",
+          "toTaskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t2"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m1",
+          "toTaskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t3"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m2",
+          "toTaskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t3"
+        }
+      ],
+      "finalProductCandidate": {
+        "finalProductType": "ALLOCATION_PLAN",
+        "finalTaskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t3",
+        "requiredMilestoneIds": [
+          "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m1",
+          "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m2"
+        ],
+        "decisionWitnessCandidate": "最終回答必須引用w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m1與w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m2並說明如何滿足限制。",
+        "constraintSatisfactionChecks": [
+          "不使用真實個案個資",
+          "分配規則明確"
+        ],
+        "executed": false
+      },
+      "taskBlueprints": [
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t1",
+          "sequenceIndex": 1,
+          "promptZh": "先整理情境資料，建立完成任務所需的主要數量。",
+          "inputRefs": [],
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m1",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t2",
+          "sequenceIndex": 2,
+          "promptZh": "使用前一結果與「不使用真實個案個資」計算可行方案的重要數量。",
+          "inputRefs": [
+            "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m2",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_t3",
+          "sequenceIndex": 3,
+          "promptZh": "綜合前兩個里程碑，提出最終方案或決策並說明理由。",
+          "inputRefs": [
+            "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m1",
+            "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m2"
+          ],
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_op_g3a_u03_three_factor_product_m3",
+          "isFinalTask": true,
+          "fullyInstantiated": false
+        }
+      ],
+      "projectionCandidate": "APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE",
+      "unapprovedPageSplitForbidden": true,
+      "productionAdmissionAllowed": false
+    },
+    {
+      "pblCandidateId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context",
+      "pblTaskSetId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context",
+      "sourceId": "g3a_u03_3a03",
+      "knowledgePointId": "kp_g3a_u03_consecutive_multiplication_two_step_word_problem",
+      "graphType": "PBL3_LINEAR",
+      "drivingProblemCandidate": {
+        "stakeholder": "避難引導組",
+        "realWorldGoal": "讓演練或緊急需求獲得足夠備援物資",
+        "problemStatementZh": "請協助避難引導組在讓演練或緊急需求獲得足夠備援物資時，運用數學資料完成可執行的RESOURCE_PLAN。",
+        "constraints": [
+          "安全敘事不呈現傷亡細節",
+          "備援量與使用量分開"
+        ],
+        "successCriteria": [
+          "所有必要數量可由op_g3a_u03_three_factor_product_context重建",
+          "最終方案使用至少兩個前段里程碑",
+          "最終方案符合全部情境限制"
+        ],
+        "consequenceOfIncorrectDecision": "資源可能不足、超出限制，或無法完成原始任務。",
+        "finalProductType": "RESOURCE_PLAN",
+        "authenticityExecutionVerified": false
+      },
+      "nodes": [
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t1",
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m1",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t2",
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m2",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t3",
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m3",
+          "isFinalTask": true
+        }
+      ],
+      "edges": [
+        {
+          "fromMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m1",
+          "toTaskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t2"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m1",
+          "toTaskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t3"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m2",
+          "toTaskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t3"
+        }
+      ],
+      "finalProductCandidate": {
+        "finalProductType": "RESOURCE_PLAN",
+        "finalTaskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t3",
+        "requiredMilestoneIds": [
+          "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m1",
+          "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m2"
+        ],
+        "decisionWitnessCandidate": "最終回答必須引用w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m1與w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m2並說明如何滿足限制。",
+        "constraintSatisfactionChecks": [
+          "安全敘事不呈現傷亡細節",
+          "備援量與使用量分開"
+        ],
+        "executed": false
+      },
+      "taskBlueprints": [
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t1",
+          "sequenceIndex": 1,
+          "promptZh": "先整理情境資料，建立完成任務所需的主要數量。",
+          "inputRefs": [],
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m1",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t2",
+          "sequenceIndex": 2,
+          "promptZh": "使用前一結果與「安全敘事不呈現傷亡細節」計算可行方案的重要數量。",
+          "inputRefs": [
+            "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m2",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_t3",
+          "sequenceIndex": 3,
+          "promptZh": "綜合前兩個里程碑，提出最終方案或決策並說明理由。",
+          "inputRefs": [
+            "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m1",
+            "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m2"
+          ],
+          "outputMilestoneId": "w01_pbl_g3a_u03_3a03_kp_g3a_u03_consecutive_multiplication_two_step_word_problem_op_g3a_u03_three_factor_product_context_m3",
+          "isFinalTask": true,
+          "fullyInstantiated": false
+        }
+      ],
+      "projectionCandidate": "APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE",
+      "unapprovedPageSplitForbidden": true,
+      "productionAdmissionAllowed": false
+    },
+    {
+      "pblCandidateId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision",
+      "pblTaskSetId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision",
+      "sourceId": "g3b_u01_3b01",
+      "knowledgePointId": "kp_g3b_u01_wp_remainder_interpretation",
+      "graphType": "PBL3_LINEAR",
+      "drivingProblemCandidate": {
+        "stakeholder": "學生",
+        "realWorldGoal": "讓所有參與者安全完成接送",
+        "problemStatementZh": "請協助學生在讓所有參與者安全完成接送時，運用數學資料完成可執行的TRANSPORT_PLAN。",
+        "constraints": [
+          "每人需有座位",
+          "車輛不得超載"
+        ],
+        "successCriteria": [
+          "所有必要數量可由op_g3b_u01_remainder_floor_ceil_decision重建",
+          "最終方案使用至少兩個前段里程碑",
+          "最終方案符合全部情境限制"
+        ],
+        "consequenceOfIncorrectDecision": "資源可能不足、超出限制，或無法完成原始任務。",
+        "finalProductType": "TRANSPORT_PLAN",
+        "authenticityExecutionVerified": false
+      },
+      "nodes": [
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t1",
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m1",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t2",
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m2",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t3",
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m3",
+          "isFinalTask": true
+        }
+      ],
+      "edges": [
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m1",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t2"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m1",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t3"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m2",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t3"
+        }
+      ],
+      "finalProductCandidate": {
+        "finalProductType": "TRANSPORT_PLAN",
+        "finalTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t3",
+        "requiredMilestoneIds": [
+          "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m1",
+          "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m2"
+        ],
+        "decisionWitnessCandidate": "最終回答必須引用w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m1與w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m2並說明如何滿足限制。",
+        "constraintSatisfactionChecks": [
+          "每人需有座位",
+          "車輛不得超載"
+        ],
+        "executed": false
+      },
+      "taskBlueprints": [
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t1",
+          "sequenceIndex": 1,
+          "promptZh": "先整理情境資料，建立完成任務所需的主要數量。",
+          "inputRefs": [],
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m1",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t2",
+          "sequenceIndex": 2,
+          "promptZh": "使用前一結果與「每人需有座位」計算可行方案的重要數量。",
+          "inputRefs": [
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m2",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_t3",
+          "sequenceIndex": 3,
+          "promptZh": "綜合前兩個里程碑，提出最終方案或決策並說明理由。",
+          "inputRefs": [
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m1",
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m2"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_remainder_interpretation_op_g3b_u01_remainder_floor_ceil_decision_m3",
+          "isFinalTask": true,
+          "fullyInstantiated": false
+        }
+      ],
+      "projectionCandidate": "APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE",
+      "unapprovedPageSplitForbidden": true,
+      "productionAdmissionAllowed": false
+    },
+    {
+      "pblCandidateId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order",
+      "pblTaskSetId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order",
+      "sourceId": "g3b_u01_3b01",
+      "knowledgePointId": "kp_g3b_u01_wp_two_step_division",
+      "graphType": "PBL5_BOUNDED_DECISION",
+      "drivingProblemCandidate": {
+        "stakeholder": "農園小組",
+        "realWorldGoal": "完成可追溯的農業生產批次安排",
+        "problemStatementZh": "請協助農園小組在完成可追溯的農業生產批次安排時，運用數學資料完成可執行的ALLOCATION_PLAN。",
+        "constraints": [
+          "批次規則一致",
+          "面積或容量有限"
+        ],
+        "successCriteria": [
+          "所有必要數量可由op_g3b_u01_two_step_division_order重建",
+          "最終方案使用至少兩個前段里程碑",
+          "最終方案符合全部情境限制"
+        ],
+        "consequenceOfIncorrectDecision": "資源可能不足、超出限制，或無法完成原始任務。",
+        "finalProductType": "ALLOCATION_PLAN",
+        "authenticityExecutionVerified": false
+      },
+      "nodes": [
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t1",
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m1",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t2",
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m2",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t3",
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m3",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t4",
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m4",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t5",
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m5",
+          "isFinalTask": true
+        }
+      ],
+      "edges": [
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m1",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t2"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m1",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t3"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m2",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m3",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m2",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m3",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m4",
+          "toTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t5"
+        }
+      ],
+      "finalProductCandidate": {
+        "finalProductType": "ALLOCATION_PLAN",
+        "finalTaskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t5",
+        "requiredMilestoneIds": [
+          "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m2",
+          "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m3",
+          "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m4"
+        ],
+        "decisionWitnessCandidate": "最終回答必須引用w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m2與w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m3與w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m4並說明如何滿足限制。",
+        "constraintSatisfactionChecks": [
+          "批次規則一致",
+          "面積或容量有限"
+        ],
+        "executed": false
+      },
+      "taskBlueprints": [
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t1",
+          "sequenceIndex": 1,
+          "promptZh": "整理情境中的必要資料，建立可供後續使用的基準數量。",
+          "inputRefs": [],
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m1",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t2",
+          "sequenceIndex": 2,
+          "promptZh": "使用基準數量計算完成兩步驟答案所需的第一項資源。",
+          "inputRefs": [
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m2",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t3",
+          "sequenceIndex": 3,
+          "promptZh": "使用同一基準數量檢查「批次規則一致」形成的第二項限制。",
+          "inputRefs": [
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m3",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t4",
+          "sequenceIndex": 4,
+          "promptZh": "比較前兩項結果，建立符合全部限制的可行方案。",
+          "inputRefs": [
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m2",
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m3"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m4",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_t5",
+          "sequenceIndex": 5,
+          "promptZh": "綜合必要數量、限制檢查與可行方案，提出最終決策並說明理由。",
+          "inputRefs": [
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m2",
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m3",
+            "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m4"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u01_3b01_kp_g3b_u01_wp_two_step_division_op_g3b_u01_two_step_division_order_m5",
+          "isFinalTask": true,
+          "fullyInstantiated": false
+        }
+      ],
+      "projectionCandidate": "APPROVED_COMPLETE_TWO_PAGE_CANDIDATE",
+      "unapprovedPageSplitForbidden": true,
+      "productionAdmissionAllowed": false
+    },
+    {
+      "pblCandidateId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2",
+      "pblTaskSetId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2",
+      "sourceId": "g3b_u04_3b04",
+      "knowledgePointId": "kp_g3b_u04_multiply_then_divide_average_unit_price",
+      "graphType": "PBL5_BOUNDED_DECISION",
+      "drivingProblemCandidate": {
+        "stakeholder": "攤商",
+        "realWorldGoal": "依交易規則計算交換或購買結果",
+        "problemStatementZh": "請協助攤商在依交易規則計算交換或購買結果時，運用數學資料完成可執行的PURCHASE_DECISION。",
+        "constraints": [
+          "同類量單位一致",
+          "交易規則不可省略"
+        ],
+        "successCriteria": [
+          "所有必要數量可由op2重建",
+          "最終方案使用至少兩個前段里程碑",
+          "最終方案符合全部情境限制"
+        ],
+        "consequenceOfIncorrectDecision": "資源可能不足、超出限制，或無法完成原始任務。",
+        "finalProductType": "PURCHASE_DECISION",
+        "authenticityExecutionVerified": false
+      },
+      "nodes": [
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t1",
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m1",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t2",
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m2",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t3",
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m3",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t4",
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m4",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t5",
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m5",
+          "isFinalTask": true
+        }
+      ],
+      "edges": [
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m1",
+          "toTaskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t2"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m1",
+          "toTaskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t3"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m2",
+          "toTaskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m3",
+          "toTaskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m2",
+          "toTaskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m3",
+          "toTaskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m4",
+          "toTaskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t5"
+        }
+      ],
+      "finalProductCandidate": {
+        "finalProductType": "PURCHASE_DECISION",
+        "finalTaskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t5",
+        "requiredMilestoneIds": [
+          "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m2",
+          "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m3",
+          "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m4"
+        ],
+        "decisionWitnessCandidate": "最終回答必須引用w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m2與w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m3與w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m4並說明如何滿足限制。",
+        "constraintSatisfactionChecks": [
+          "同類量單位一致",
+          "交易規則不可省略"
+        ],
+        "executed": false
+      },
+      "taskBlueprints": [
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t1",
+          "sequenceIndex": 1,
+          "promptZh": "整理情境中的必要資料，建立可供後續使用的基準數量。",
+          "inputRefs": [],
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m1",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t2",
+          "sequenceIndex": 2,
+          "promptZh": "使用基準數量計算完成KP2的answer答案所需的第一項資源。",
+          "inputRefs": [
+            "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m2",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t3",
+          "sequenceIndex": 3,
+          "promptZh": "使用同一基準數量檢查「同類量單位一致」形成的第二項限制。",
+          "inputRefs": [
+            "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m3",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t4",
+          "sequenceIndex": 4,
+          "promptZh": "比較前兩項結果，建立符合全部限制的可行方案。",
+          "inputRefs": [
+            "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m2",
+            "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m3"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m4",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_t5",
+          "sequenceIndex": 5,
+          "promptZh": "綜合必要數量、限制檢查與可行方案，提出最終決策並說明理由。",
+          "inputRefs": [
+            "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m2",
+            "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m3",
+            "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m4"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u04_3b04_kp_g3b_u04_multiply_then_divide_average_unit_price_op2_m5",
+          "isFinalTask": true,
+          "fullyInstantiated": false
+        }
+      ],
+      "projectionCandidate": "APPROVED_COMPLETE_TWO_PAGE_CANDIDATE",
+      "unapprovedPageSplitForbidden": true,
+      "productionAdmissionAllowed": false
+    },
+    {
+      "pblCandidateId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision",
+      "pblTaskSetId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision",
+      "sourceId": "g3b_u08_3b08",
+      "knowledgePointId": "kp_g3b_u08_shopping_estimation",
+      "graphType": "PBL5_BOUNDED_DECISION",
+      "drivingProblemCandidate": {
+        "stakeholder": "校園設計小組",
+        "realWorldGoal": "選出符合需求與限制的氣候調適方案",
+        "problemStatementZh": "請協助校園設計小組在選出符合需求與限制的氣候調適方案時，運用數學資料完成可執行的RESOURCE_PLAN。",
+        "constraints": [
+          "不使用災害恐懼敘事",
+          "資料使用受控假設"
+        ],
+        "successCriteria": [
+          "所有必要數量可由op_g3b_u08_shopping_estimation_decision重建",
+          "最終方案使用至少兩個前段里程碑",
+          "最終方案符合全部情境限制"
+        ],
+        "consequenceOfIncorrectDecision": "資源可能不足、超出限制，或無法完成原始任務。",
+        "finalProductType": "RESOURCE_PLAN",
+        "authenticityExecutionVerified": false
+      },
+      "nodes": [
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t1",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m1",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t2",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m2",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t3",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m3",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t4",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m4",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t5",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m5",
+          "isFinalTask": true
+        }
+      ],
+      "edges": [
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m1",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t2"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m1",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t3"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m2",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m3",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m2",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m3",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m4",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t5"
+        }
+      ],
+      "finalProductCandidate": {
+        "finalProductType": "RESOURCE_PLAN",
+        "finalTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t5",
+        "requiredMilestoneIds": [
+          "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m2",
+          "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m3",
+          "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m4"
+        ],
+        "decisionWitnessCandidate": "最終回答必須引用w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m2與w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m3與w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m4並說明如何滿足限制。",
+        "constraintSatisfactionChecks": [
+          "不使用災害恐懼敘事",
+          "資料使用受控假設"
+        ],
+        "executed": false
+      },
+      "taskBlueprints": [
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t1",
+          "sequenceIndex": 1,
+          "promptZh": "整理情境中的必要資料，建立可供後續使用的基準數量。",
+          "inputRefs": [],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m1",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t2",
+          "sequenceIndex": 2,
+          "promptZh": "使用基準數量計算完成夠不夠、多或少的判斷所需的第一項資源。",
+          "inputRefs": [
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m2",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t3",
+          "sequenceIndex": 3,
+          "promptZh": "使用同一基準數量檢查「不使用災害恐懼敘事」形成的第二項限制。",
+          "inputRefs": [
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m3",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t4",
+          "sequenceIndex": 4,
+          "promptZh": "比較前兩項結果，建立符合全部限制的可行方案。",
+          "inputRefs": [
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m2",
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m3"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m4",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_t5",
+          "sequenceIndex": 5,
+          "promptZh": "綜合必要數量、限制檢查與可行方案，提出最終決策並說明理由。",
+          "inputRefs": [
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m2",
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m3",
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m4"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_shopping_estimation_op_g3b_u08_shopping_estimation_decision_m5",
+          "isFinalTask": true,
+          "fullyInstantiated": false
+        }
+      ],
+      "projectionCandidate": "APPROVED_COMPLETE_TWO_PAGE_CANDIDATE",
+      "unapprovedPageSplitForbidden": true,
+      "productionAdmissionAllowed": false
+    },
+    {
+      "pblCandidateId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison",
+      "pblTaskSetId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison",
+      "sourceId": "g3b_u08_3b08",
+      "knowledgePointId": "kp_g3b_u08_same_price_value_comparison",
+      "graphType": "PBL5_BOUNDED_DECISION",
+      "drivingProblemCandidate": {
+        "stakeholder": "使用小組",
+        "realWorldGoal": "選出符合需求且較節能的使用方案",
+        "problemStatementZh": "請協助使用小組在選出符合需求且較節能的使用方案時，運用數學資料完成可執行的RESOURCE_PLAN。",
+        "constraints": [
+          "設備性能不得虛構宣稱",
+          "單位流必須明確"
+        ],
+        "successCriteria": [
+          "所有必要數量可由op_g3b_u08_same_price_value_comparison重建",
+          "最終方案使用至少兩個前段里程碑",
+          "最終方案符合全部情境限制"
+        ],
+        "consequenceOfIncorrectDecision": "資源可能不足、超出限制，或無法完成原始任務。",
+        "finalProductType": "RESOURCE_PLAN",
+        "authenticityExecutionVerified": false
+      },
+      "nodes": [
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t1",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m1",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t2",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m2",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t3",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m3",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t4",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m4",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t5",
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m5",
+          "isFinalTask": true
+        }
+      ],
+      "edges": [
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m1",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t2"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m1",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t3"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m2",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m3",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m2",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m3",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m4",
+          "toTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t5"
+        }
+      ],
+      "finalProductCandidate": {
+        "finalProductType": "RESOURCE_PLAN",
+        "finalTaskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t5",
+        "requiredMilestoneIds": [
+          "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m2",
+          "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m3",
+          "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m4"
+        ],
+        "decisionWitnessCandidate": "最終回答必須引用w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m2與w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m3與w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m4並說明如何滿足限制。",
+        "constraintSatisfactionChecks": [
+          "設備性能不得虛構宣稱",
+          "單位流必須明確"
+        ],
+        "executed": false
+      },
+      "taskBlueprints": [
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t1",
+          "sequenceIndex": 1,
+          "promptZh": "整理情境中的必要資料，建立可供後續使用的基準數量。",
+          "inputRefs": [],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m1",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t2",
+          "sequenceIndex": 2,
+          "promptZh": "使用基準數量計算完成兩方案總量比較與較划算結論所需的第一項資源。",
+          "inputRefs": [
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m2",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t3",
+          "sequenceIndex": 3,
+          "promptZh": "使用同一基準數量檢查「設備性能不得虛構宣稱」形成的第二項限制。",
+          "inputRefs": [
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m3",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t4",
+          "sequenceIndex": 4,
+          "promptZh": "比較前兩項結果，建立符合全部限制的可行方案。",
+          "inputRefs": [
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m2",
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m3"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m4",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_t5",
+          "sequenceIndex": 5,
+          "promptZh": "綜合必要數量、限制檢查與可行方案，提出最終決策並說明理由。",
+          "inputRefs": [
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m2",
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m3",
+            "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m4"
+          ],
+          "outputMilestoneId": "w01_pbl_g3b_u08_3b08_kp_g3b_u08_same_price_value_comparison_op_g3b_u08_same_price_value_comparison_m5",
+          "isFinalTask": true,
+          "fullyInstantiated": false
+        }
+      ],
+      "projectionCandidate": "APPROVED_COMPLETE_TWO_PAGE_CANDIDATE",
+      "unapprovedPageSplitForbidden": true,
+      "productionAdmissionAllowed": false
+    },
+    {
+      "pblCandidateId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14",
+      "pblTaskSetId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14",
+      "sourceId": "g5a_u02_5a02",
+      "knowledgePointId": "kp_g5a_u02_maximum_equal_grouping_gcf_application",
+      "graphType": "PBL5_BOUNDED_DECISION",
+      "drivingProblemCandidate": {
+        "stakeholder": "教師",
+        "realWorldGoal": "完成班級活動所需的資源安排",
+        "problemStatementZh": "請協助教師在完成班級活動所需的資源安排時，運用數學資料完成可執行的RESOURCE_PLAN。",
+        "constraints": [
+          "資源須有明確使用者",
+          "所有小組遵守同一規則"
+        ],
+        "successCriteria": [
+          "所有必要數量可由op14重建",
+          "最終方案使用至少兩個前段里程碑",
+          "最終方案符合全部情境限制"
+        ],
+        "consequenceOfIncorrectDecision": "資源可能不足、超出限制，或無法完成原始任務。",
+        "finalProductType": "RESOURCE_PLAN",
+        "authenticityExecutionVerified": false
+      },
+      "nodes": [
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t1",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m1",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t2",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m2",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t3",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m3",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t4",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m4",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t5",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m5",
+          "isFinalTask": true
+        }
+      ],
+      "edges": [
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m1",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t2"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m1",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t3"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m2",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m3",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m2",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m3",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m4",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t5"
+        }
+      ],
+      "finalProductCandidate": {
+        "finalProductType": "RESOURCE_PLAN",
+        "finalTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t5",
+        "requiredMilestoneIds": [
+          "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m2",
+          "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m3",
+          "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m4"
+        ],
+        "decisionWitnessCandidate": "最終回答必須引用w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m2與w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m3與w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m4並說明如何滿足限制。",
+        "constraintSatisfactionChecks": [
+          "資源須有明確使用者",
+          "所有小組遵守同一規則"
+        ],
+        "executed": false
+      },
+      "taskBlueprints": [
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t1",
+          "sequenceIndex": 1,
+          "promptZh": "整理情境中的必要資料，建立可供後續使用的基準數量。",
+          "inputRefs": [],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m1",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t2",
+          "sequenceIndex": 2,
+          "promptZh": "使用基準數量計算完成KP14的answer答案所需的第一項資源。",
+          "inputRefs": [
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m2",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t3",
+          "sequenceIndex": 3,
+          "promptZh": "使用同一基準數量檢查「資源須有明確使用者」形成的第二項限制。",
+          "inputRefs": [
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m3",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t4",
+          "sequenceIndex": 4,
+          "promptZh": "比較前兩項結果，建立符合全部限制的可行方案。",
+          "inputRefs": [
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m2",
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m3"
+          ],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m4",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_t5",
+          "sequenceIndex": 5,
+          "promptZh": "綜合必要數量、限制檢查與可行方案，提出最終決策並說明理由。",
+          "inputRefs": [
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m2",
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m3",
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m4"
+          ],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_maximum_equal_grouping_gcf_application_op14_m5",
+          "isFinalTask": true,
+          "fullyInstantiated": false
+        }
+      ],
+      "projectionCandidate": "APPROVED_COMPLETE_TWO_PAGE_CANDIDATE",
+      "unapprovedPageSplitForbidden": true,
+      "productionAdmissionAllowed": false
+    },
+    {
+      "pblCandidateId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15",
+      "pblTaskSetId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15",
+      "sourceId": "g5a_u02_5a02",
+      "knowledgePointId": "kp_g5a_u02_possible_equal_packaging_common_factor_application",
+      "graphType": "PBL5_BOUNDED_DECISION",
+      "drivingProblemCandidate": {
+        "stakeholder": "農園小組",
+        "realWorldGoal": "完成可追溯的農業生產批次安排",
+        "problemStatementZh": "請協助農園小組在完成可追溯的農業生產批次安排時，運用數學資料完成可執行的ALLOCATION_PLAN。",
+        "constraints": [
+          "批次規則一致",
+          "面積或容量有限"
+        ],
+        "successCriteria": [
+          "所有必要數量可由op15重建",
+          "最終方案使用至少兩個前段里程碑",
+          "最終方案符合全部情境限制"
+        ],
+        "consequenceOfIncorrectDecision": "資源可能不足、超出限制，或無法完成原始任務。",
+        "finalProductType": "ALLOCATION_PLAN",
+        "authenticityExecutionVerified": false
+      },
+      "nodes": [
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t1",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m1",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t2",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m2",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t3",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m3",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t4",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m4",
+          "isFinalTask": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t5",
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m5",
+          "isFinalTask": true
+        }
+      ],
+      "edges": [
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m1",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t2"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m1",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t3"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m2",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m3",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t4"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m2",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m3",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t5"
+        },
+        {
+          "fromMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m4",
+          "toTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t5"
+        }
+      ],
+      "finalProductCandidate": {
+        "finalProductType": "ALLOCATION_PLAN",
+        "finalTaskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t5",
+        "requiredMilestoneIds": [
+          "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m2",
+          "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m3",
+          "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m4"
+        ],
+        "decisionWitnessCandidate": "最終回答必須引用w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m2與w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m3與w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m4並說明如何滿足限制。",
+        "constraintSatisfactionChecks": [
+          "批次規則一致",
+          "面積或容量有限"
+        ],
+        "executed": false
+      },
+      "taskBlueprints": [
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t1",
+          "sequenceIndex": 1,
+          "promptZh": "整理情境中的必要資料，建立可供後續使用的基準數量。",
+          "inputRefs": [],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m1",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t2",
+          "sequenceIndex": 2,
+          "promptZh": "使用基準數量計算完成KP15的answer答案所需的第一項資源。",
+          "inputRefs": [
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m2",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t3",
+          "sequenceIndex": 3,
+          "promptZh": "使用同一基準數量檢查「批次規則一致」形成的第二項限制。",
+          "inputRefs": [
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m1"
+          ],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m3",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t4",
+          "sequenceIndex": 4,
+          "promptZh": "比較前兩項結果，建立符合全部限制的可行方案。",
+          "inputRefs": [
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m2",
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m3"
+          ],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m4",
+          "isFinalTask": false,
+          "fullyInstantiated": false
+        },
+        {
+          "taskId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_t5",
+          "sequenceIndex": 5,
+          "promptZh": "綜合必要數量、限制檢查與可行方案，提出最終決策並說明理由。",
+          "inputRefs": [
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m2",
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m3",
+            "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m4"
+          ],
+          "outputMilestoneId": "w01_pbl_g5a_u02_5a02_kp_g5a_u02_possible_equal_packaging_common_factor_application_op15_m5",
+          "isFinalTask": true,
+          "fullyInstantiated": false
+        }
+      ],
+      "projectionCandidate": "APPROVED_COMPLETE_TWO_PAGE_CANDIDATE",
+      "unapprovedPageSplitForbidden": true,
+      "productionAdmissionAllowed": false
+    }
+  ],
+  "questionLevelMacroTitleVisible": false,
+  "productionSelectable": false,
+  "publicRouteChanged": false,
+  "productionAdmissionGranted": false,
+  "humanReviewReady": true,
+  "actualPdfPageCount": 14,
+  "extractedReviewCardCount": 16,
+  "forbiddenVisibleLabelCount": 0,
+  "forbiddenMacroLabelCount": 0,
+  "representativeChecks": {
+    "compare": true,
+    "range": true,
+    "addition": true
+  },
+  "reviewDecision": "PENDING_SECOND_OPERATOR_DECISION"
+}

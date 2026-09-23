@@ -1,0 +1,17 @@
+S43E5_R4L_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+operator_readback = tests 405, pass 405, fail 0, working tree clean
+status = PASS
+
+validated:
+- G3B-U01 same-unit mixed calculation plus word-problem worksheet route
+- 5 calculation KP families plus 5 word-problem KP families
+- generatedQuestions and answerKeyItems both pass automated validation
+- printable HTML render smoke passes
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_CALCULATION_AND_WORD_PROBLEM_MIXED_ROUTER_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D0_G3B_U01_CALCULATION_AND_WORD_PROBLEM_MIXED_WORKSHEET_PASS
+DISTANCE_REDUCED = confirmed G3B-U01 same-unit calculation plus word-problem mixed worksheet generation passes local validation
+REMAINING_BLOCKERS = optional manual browser mixed worksheet smoke
+NEXT_SHORTEST_STEP = optional manual browser mixed worksheet smoke, or proceed to next curriculum unit/task

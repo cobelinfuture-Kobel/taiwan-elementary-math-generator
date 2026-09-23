@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P05F_W5_Q009_BOUNDED_VALIDATION",
+  "unitId": "g5b_u10_5b10a",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p05f-w5-slice009-g5b-u10a-large-area-unit-identity.test.js",
+          "tests/curriculum/p05f-w5-q009-large-area-unit-identity-source-authority-preflight.test.js",
+          "tests/curriculum/p05f-w5-slice009-direct-dependencies.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p05f-w5-slice009-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "schemaName": "P03FSlice045G5BU04Rank10DecimalTimesDecimalAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice045Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 45,
+    "sliceId": "p03e_q045_r10_g5b_u04_5b04_profile_decimal_c1",
+    "previousSliceId": "p03e_q044_r10_g5a_u01_5a01_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 632,
+      "postMergeEvidencePr": 633,
+      "candidateCloseoutPr": 634,
+      "finalCloseoutPr": 635,
+      "finalCloseoutMergeSha": "250aec599dae23a466617080f96089e6bb9859c1",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice044-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5b_u04_5b04",
+    "sourceCode": "5b04",
+    "sourceTitle": "小數的乘法",
+    "grade": 5,
+    "semester": "lower",
+    "unitCode": "5B-U04",
+    "sourceFileName": "meow911_5b04_source.pdf",
+    "sourceDriveFileId": "15boi5o_A6_F6hxnM6U2nL7wWYypy6aq-",
+    "sourceSha256": "12fae845404ae3b845a0e531e0c1a8695d421cdc3e3d0858b0b8e47c334c7ca9",
+    "sourceByteLength": 350776,
+    "reviewLineageAuthority": "data/curriculum/full-product/p03f/slice031-g5b-u04-rank8-decimal-multiplication-authority.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_NO_OCR_AUTHORITY_PLUS_FROZEN_Q045_ASSIGNMENT",
+    "reviewedPages": [1],
+    "sourceWitnesses": [
+      {"concept":"one_decimal_times_one_decimal","visibleExpression":"0.3 × 0.8 = 0.24","page":1},
+      {"concept":"two_decimal_times_one_decimal","visibleExpression":"12.63 × 1.8 = 22.734","page":1},
+      {"concept":"two_decimal_times_two_decimal_trailing_zero","visibleExpression":"4.02 × 0.25 = 1.0050","page":1},
+      {"concept":"decimal_place_sum_rule","visibleRule":"被乘數與乘數的小數位數相加 = 乘積的小數位數","page":1},
+      {"concept":"general_multi_decimal_place_sum","visibleRule":"4位小數 × 3位小數 = 7位小數","page":1}
+    ],
+    "trailingZeroRuleVisible": true,
+    "verificationBoundary": "q045 admits exact numeric decimal×decimal multiplication only. q049 decimal-multiplication application and estimation remain frozen; no Global Context expansion is authorized."
+  },
+  "knowledgePointIds": ["kp_g5b_u04_decimal_times_decimal"],
+  "knowledgePoints": [{
+    "knowledgePointId": "kp_g5b_u04_decimal_times_decimal",
+    "canonicalNameZh": "小數乘以小數",
+    "scope": "兩個有限小數相乘時，以整數係數相乘，乘積的小數位數等於兩因數小數位數總和；答案可省略不影響數值的末尾 0。",
+    "evidencePages": [1],
+    "applicationClassification": "APPLICATION_COMPATIBLE_FUTURE_QUEUE_RESERVED",
+    "publicModes": ["numeric"],
+    "operationModelId": "op_g5b_u04_decimal_times_decimal",
+    "operationFamilyId": "decimal_multiplication",
+    "requiredW3CapabilityIds": ["cap_decimal_arithmetic","cap_decimal_domain_validator","cap_decimal_number_system"],
+    "reasoningInvariant": "productCoefficient = leftCoefficient × rightCoefficient; productScale = leftScale + rightScale; canonical answer removes only insignificant trailing decimal zeroes"
+  }],
+  "patternSurfaces": [{
+    "patternGroupId": "pg_g5b_u04_decimal_times_decimal_numeric",
+    "patternSpecId": "ps_g5b_u04_decimal_times_decimal_product_numeric",
+    "knowledgePointId": "kp_g5b_u04_decimal_times_decimal",
+    "operationModelId": "op_g5b_u04_decimal_times_decimal",
+    "operationFamilyId": "decimal_multiplication",
+    "mode": "NUMERIC",
+    "requestedUnknownRole": "product",
+    "givenRoles": ["leftDecimalFactor","rightDecimalFactor"],
+    "requiredW3CapabilityIds": ["cap_decimal_arithmetic","cap_decimal_domain_validator","cap_decimal_number_system"]
+  }],
+  "formalMappingBoundary": {
+    "decimalTimesDecimalRequired": true,
+    "exactCoefficientProductRequired": true,
+    "productScaleMustEqualFactorScaleSum": true,
+    "trailingZeroCanonicalizationAllowed": true,
+    "sourceBackedScalePairsRequired": ["1x1","2x1","2x2","4x3"],
+    "decimalArithmeticRequired": true,
+    "decimalNumberSystemRequired": true,
+    "decimalDomainValidatorRequired": true,
+    "sharedDecimalMultiplicationFamilyRequired": true,
+    "applicationRequired": false,
+    "estimationRequired": false,
+    "globalContextRequired": false
+  },
+  "futureQueueBoundary": {
+    "applicationQueuePosition": 49,
+    "estimationQueuePosition": 49,
+    "futureKnowledgePointIds": [
+      "kp_g5b_u04_decimal_multiplication_application",
+      "kp_g5b_u04_decimal_multiplication_estimation"
+    ],
+    "slice045MayConsumeFutureKnowledgePoints": false
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": true,
+    "newPublicSourceAllowed": false,
+    "expectedSourceVisibleCountAfterAdmission": 3,
+    "expectedSourceHiddenCountAfterAdmission": 0,
+    "expectedSourceNotSelectableCountAfterAdmission": 0,
+    "expectedPublicSourceCountAfterAdmission": 33,
+    "expectedCurrentPublicKnowledgePointCountAfterAdmission": 246,
+    "sharedDecimalArithmeticRequired": true,
+    "sharedDecimalNumberSystemRequired": true,
+    "sharedDecimalDomainValidatorRequired": true,
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "applicationExpansionAllowed": false,
+    "estimationExpansionAllowed": false,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "nextSliceMayStartBeforeD0Closeout": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice046Implementation"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "SHADOW_CANDIDATE_CONTRACT_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w01-nplusone-pbl-candidate-pack.mjs",
+      "tools/curriculum/validate-postg-app-w01-a02-candidate-pack.mjs",
+      "tests/curriculum/postg-app-w01-a02-candidate-pack.test.js",
+      "src/curriculum/application/postg-app-master-controller.mjs",
+      "tests/curriculum/postg-app-m00-master-controller.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/application/contracts/POSTG_APP_W01_NPlusOne_Proof_Misconception_And_PBL_Candidate_V1.md",
+      "data/curriculum/application/assessment/w01-nplusone-pbl-candidate-policy.json",
+      "data/curriculum/application/assessment/w01-nplusone-pbl-candidate-pack-index.json",
+      "data/curriculum/application/schema/w01-nplusone-proof-candidate.schema.json",
+      "data/curriculum/application/schema/w01-pbl-task-set-candidate.schema.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "data/curriculum/application/contracts/POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "Wave 01 N+1 and PBL-eligible KnowledgePoints move from context-bound single-item candidates to validator-ready semantic proof and task-graph blueprints. Each N+1 candidate receives a different-macro cross-context pair and misconception model set; each PBL candidate receives dependent tasks, milestones and a final synthesis contract. Execution and production remain closed."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W01-A03_Golden15ValidatorFixturesAndSharedRuntimeShadow",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

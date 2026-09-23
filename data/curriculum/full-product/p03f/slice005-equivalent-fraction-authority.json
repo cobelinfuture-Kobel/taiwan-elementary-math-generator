@@ -1,0 +1,102 @@
+{
+  "schemaName": "P03FSlice005EquivalentFractionAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice005Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 5,
+    "sliceId": "p03e_q005_r5_g4b_u08_4b08_profile_fraction_c1",
+    "previousSliceId": "p03e_q004_r5_g3b_u09_3b09_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g4b_u08_4b08",
+    "sourceCode": "4b08",
+    "sourceTitle": "等值分數",
+    "grade": 4,
+    "semester": "lower",
+    "unitCode": "4B-U08",
+    "evidencePages": [
+      1
+    ],
+    "canonicalOperationAuthorityPath": "data/curriculum/application/operations/w02/g4b_u08_4b08.canonical-operation.json",
+    "hiddenPatternSpecAuthorityPath": "data/curriculum/application/pattern-specs/w02/g4b_u08_4b08.hidden-pattern-spec.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g4b_u08_generate_equivalent_fraction",
+    "canonicalNameZh": "擴分與約分產生等值分數",
+    "scope": "以分子分母同乘或同除產生等值分數及補缺數。",
+    "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+    "reasoningInvariant": "分子與分母必須同乘或同除同一個正整數，且前後分數的有理數值完全相同。",
+    "requiredCapabilityIds": [
+      "cap_fraction_arithmetic",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ],
+    "tagIds": [
+      "grade_4",
+      "domain_fraction",
+      "concept_equivalent_fraction",
+      "operation_expansion_reduction",
+      "relation_same_factor",
+      "answer_missing_integer",
+      "application_not_applicable",
+      "exact_rational_identity",
+      "numeric_structural"
+    ]
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g4b_u08_generate_equivalent_fraction",
+    "operationModelId": "op_g4b_u08_generate_equivalent_fraction",
+    "operationFamilyId": "equivalent_fraction",
+    "canonicalExpressions": [
+      "equivalentNumerator = numerator * factor",
+      "equivalentDenominator = denominator * factor"
+    ],
+    "operandRoles": {
+      "numerator": "原分子",
+      "denominator": "原分母",
+      "factor": "同乘或同除倍率",
+      "equivalentNumerator": "等值分子",
+      "equivalentDenominator": "等值分母"
+    },
+    "numberConstraints": [
+      "denominator > 0",
+      "factor > 0"
+    ],
+    "validationInvariants": [
+      "numerator and denominator change by the same factor",
+      "value is preserved"
+    ]
+  },
+  "patternSurface": {
+    "patternGroupId": "pg_g4b_u08_generate_equivalent_fraction_numeric",
+    "patternSpecIds": [
+      "ps_g4b_u08_generate_equivalent_fraction_factor_numeric",
+      "ps_g4b_u08_generate_equivalent_fraction_equivalent_numerator_numeric",
+      "ps_g4b_u08_generate_equivalent_fraction_equivalent_denominator_numeric"
+    ],
+    "mode": "NUMERIC",
+    "requestedUnknownRoles": [
+      "factor",
+      "equivalentNumerator",
+      "equivalentDenominator"
+    ],
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "productBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "applicationModeAllowed": false,
+    "globalContextBindingNotApplicable": true,
+    "parallelPipelineAllowed": false,
+    "otherG4BU08KnowledgePointsExcluded": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

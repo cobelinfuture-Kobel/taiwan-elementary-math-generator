@@ -1,0 +1,132 @@
+{
+  "schemaName": "GCTXBindingAdmissionAndLegacyAuthorityNormalizationContract",
+  "schemaVersion": 1,
+  "task": "GCTX-P08_ApprovedSemanticBindingBackfillAndLegacyAuthorityNormalization",
+  "status": "accepted_pending_merge",
+  "rulesetVersion": "0.1.0",
+  "inputs": {
+    "approvedBindingSchema": "data/curriculum/context/schemas/GCTX_ApprovedSemanticChain.schema.json",
+    "p01Contract": "data/curriculum/contracts/GCTX_P01_ApprovedSemanticChainSchemaContract.json",
+    "p07EligibilityAudit": "data/curriculum/contracts/GCTX_P07_ExistingPatternSpecSemanticEligibilityAudit.json",
+    "legacyAuthorityInventory": "data/curriculum/contracts/GCTX_S01_ExistingContextAuthorityInventoryAndMigrationMap.json"
+  },
+  "outputs": {
+    "approvedBindingRegistry": "data/curriculum/context/registry/approved-semantic-bindings.json",
+    "admissionManifestBuilder": "tools/curriculum/build-gctx-p08-binding-admission-manifest.mjs",
+    "approvedBindingRegistryMustRemainEmpty": true,
+    "candidateManifestIsProductionAuthority": false
+  },
+  "scope": {
+    "eligiblePatternSpecCount": 98,
+    "existingAuthorityCandidateCount": 81,
+    "bindingBackfillCandidateCount": 17,
+    "notApplicablePatternSpecsExcluded": 175,
+    "runtimeBehaviorChanged": false,
+    "approvedProductionBindingCreated": false,
+    "unitAuthorityDeletedOrRewritten": false,
+    "unitMigrationPerformed": false,
+    "rendererChanged": false,
+    "publicControlsChanged": false
+  },
+  "admissionClasses": {
+    "legacy_authority_normalization": {
+      "sourceDecision": "eligible_existing_authority",
+      "candidateCount": 81,
+      "meaning": "Extract an exact P01 binding from existing unit authority while preserving legacy replay and validator behavior."
+    },
+    "new_binding_backfill": {
+      "sourceDecision": "eligible_binding_backfill",
+      "candidateCount": 17,
+      "meaning": "Author a source-backed exact P01 binding because the PatternSpec is semantic but no reusable unit context authority currently exists."
+    }
+  },
+  "expectedCandidatesBySource": {
+    "g3b_u04_3b04": {"candidateCount":32,"admissionClass":"legacy_authority_normalization"},
+    "g3b_u08_3b08": {"candidateCount":24,"admissionClass":"legacy_authority_normalization"},
+    "g4a_u08_4a08": {"candidateCount":17,"admissionClass":"new_binding_backfill"},
+    "g4b_u04_4b04": {"candidateCount":6,"admissionClass":"legacy_authority_normalization"},
+    "g5a_u02_5a02": {"candidateCount":8,"admissionClass":"legacy_authority_normalization"},
+    "g5a_u08_5a08": {"candidateCount":11,"admissionClass":"legacy_authority_normalization"}
+  },
+  "expectedLegacyAuthoritiesBySource": {
+    "g3b_u04_3b04": ["g3b_u04_semantic_context_authority"],
+    "g3b_u08_3b08": ["g3b_u08_semantic_context_authority"],
+    "g4b_u04_4b04": [
+      "g4b_u04_class_d_semantic_authority",
+      "g4b_u04_sdg_context_bank",
+      "g4b_u04_current_affairs_source_governance"
+    ],
+    "g5a_u02_5a02": ["g5a_u02_context_taxonomy","g5a_u02_class_d_semantic_authority"],
+    "g5a_u08_5a08": ["g5a_u08_application_sdg_context_authority"]
+  },
+  "p01FieldsRequiringExactMaterialization": [
+    "contextFamilyId",
+    "semanticVariantId",
+    "commonKnowledgeIds",
+    "semanticSlotBindings",
+    "operationSignature",
+    "eventFlow",
+    "quantityRoles",
+    "unitFlow",
+    "questionRole",
+    "languageVariantIds",
+    "numericProfileIds",
+    "compatibilityRules",
+    "reviewEvidence",
+    "randomnessPolicy",
+    "validationContract",
+    "answerUnitPolicy"
+  ],
+  "candidateRules": [
+    "Every P07 eligible PatternSpec must produce exactly one deterministic candidate admission row.",
+    "P07 not_applicable_non_semantic rows must never enter the P08 manifest.",
+    "Candidate binding IDs must be deterministic and globally unique.",
+    "eligible_existing_authority rows must resolve to at least one S01 legacy authority family.",
+    "Existing authority paths, consumer paths, migration priority and preservation rules must be retained as normalization evidence.",
+    "Candidate rows are not P01 approvedSemanticBindingEntry objects and must not be inserted into the approved registry.",
+    "No candidate may be production selectable or runtime resolvable.",
+    "No unit-local authority may be deleted, rewritten or weakened in P08."
+  ],
+  "blockingRules": [
+    "Block on P07 audit errors or count drift.",
+    "Block on missing public unit identity.",
+    "Block on missing legacy authority for an eligible_existing_authority row.",
+    "Block on unknown P07 eligibility decision.",
+    "Block on duplicate candidate binding ID or source/PatternSpec key.",
+    "Block if the approved binding registry contains any entry during P08.",
+    "Block if any candidate claims approved lifecycle, production selection or runtime resolution."
+  ],
+  "acceptedSnapshot": {
+    "candidateCount": 98,
+    "legacyAuthorityNormalizationCount": 81,
+    "newBindingBackfillCount": 17,
+    "sourceCount": 6,
+    "approvedRegistryEntryCount": 0,
+    "errorCount": 0
+  },
+  "ciAcceptance": {
+    "headSha": "18bf11a15fc7d75b4a5079b871f59884bdce46f0",
+    "nodeTestRun": 29652390151,
+    "nodeTestConclusion": "success",
+    "mathCiReadbackRun": 29652390161,
+    "mathCiReadbackConclusion": "success",
+    "ownedGateFailures": 0,
+    "acceptanceMode": "owned_node_and_math_ci_gates_pass"
+  },
+  "nextTask": "GCTX-P09_G3BU04ExactSemanticBindingExtractionPilot",
+  "distance": {
+    "goalDistanceBefore": "D2_GCTX_EXISTING_PATTERNSPEC_ELIGIBILITY_AUDIT_MERGED",
+    "goalDistanceAfter": "D2_GCTX_BINDING_ADMISSION_AND_LEGACY_NORMALIZATION_ACCEPTED_PENDING_MERGE",
+    "distanceReduced": "98 eligible PatternSpecs gain deterministic binding admission ownership and legacy extraction evidence without false production approval",
+    "remainingBlockers": [
+      "merge",
+      "exact P01 binding extraction",
+      "semantic and mathematical review",
+      "production registry admission",
+      "runtime validator",
+      "runtime resolver",
+      "unit adapters"
+    ],
+    "nextShortestStep": "GCTX-P09_G3BU04ExactSemanticBindingExtractionPilot"
+  }
+}

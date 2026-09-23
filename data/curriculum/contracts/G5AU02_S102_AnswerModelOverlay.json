@@ -1,0 +1,58 @@
+{
+  "schemaName": "G5AU02S102AnswerModelOverlay",
+  "schemaVersion": 1,
+  "task": "G5AU02-S102_P0NontrivialCommonFactorSamplingAndWitnessFullFix",
+  "status": "runtime_overlay_pending_ci",
+  "unitId": "g5a_u02",
+  "baseAuthority": "data/curriculum/pattern_specs/S84_G5A_U02_PatternSpecRegistry.json",
+  "contractAuthority": "data/curriculum/contracts/G5AU02_S99_P0SourceMethodAndRepresentationFullFixContract.json",
+  "priorOverlayAuthority": "data/curriculum/contracts/G5AU02_S101_AnswerModelOverlay.json",
+  "precedence": [
+    "S84_base_materialization",
+    "S99_additive_answer_model_contract",
+    "S101_runtime_overlay",
+    "S102_runtime_overlay"
+  ],
+  "patternSpecAnswerModelOverrides": [
+    {
+      "patternSpecId": "ps_g5a_u02_greatest_common_factor",
+      "patternOrder": 17,
+      "fromAnswerModelId": "integerAnswer",
+      "toAnswerModelId": "commonFactorAndGcfAnswer",
+      "reason": "preserve the complete common-factor set and derive the greatest common factor as its maximum"
+    }
+  ],
+  "patternGroupAnswerModelOverrides": [
+    {
+      "patternGroupId": "pg_g5a_u02_greatest_common_factor",
+      "fromAnswerModelIds": [
+        "integerAnswer"
+      ],
+      "toAnswerModelIds": [
+        "commonFactorAndGcfAnswer"
+      ]
+    }
+  ],
+  "answerSchema": {
+    "answerModelId": "commonFactorAndGcfAnswer",
+    "additionalProperties": false,
+    "requiredFields": [
+      "commonFactors",
+      "greatestCommonFactor"
+    ],
+    "fieldContracts": {
+      "commonFactors": "complete ascending positive-integer intersection of the two factor sets",
+      "greatestCommonFactor": "maximum member of commonFactors"
+    }
+  },
+  "invariants": {
+    "patternSpecIdsStable": true,
+    "formalMappingIdsStable": true,
+    "knowledgePointIdsStable": true,
+    "sourceEvidenceStable": true,
+    "baseS84ArtifactRewritten": false,
+    "s101OverlayRewritten": false,
+    "genericFallback": "forbidden",
+    "freeFormAI": "forbidden"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "s40c.batch_a.production_eligibility_matrix.v1",
+  "taskId": "S40C_BatchA_ProductionUseUpdate",
+  "sourceFinalGoal": "Batch A production-use worksheet output, limited to QA-passed scope",
+  "sourceDefinedStage": "S40 Production Gate",
+  "productionUse": "allowed",
+  "activationStatus": "production_allowed",
+  "preconditions": {
+    "s40aStatus": "PASS_PREFLIGHT",
+    "s40bStatus": "PASS_ELIGIBILITY_MATRIX",
+    "s39SourceIdWorksheetOutput": "PASS_13_OF_13",
+    "s39AnswerKeyQa": "PASS_13_OF_13",
+    "latestCiBeforeActivation": {
+      "tests": 828,
+      "pass": 828,
+      "fail": 0,
+      "npmTestExitCode": 0,
+      "workingTree": "clean"
+    }
+  },
+  "allowedScope": {
+    "batchId": "batch_a",
+    "artifactType": "worksheet_html_output_with_answer_key",
+    "productionUse": "allowed",
+    "sourceIds": [
+      { "sourceId": "g3a_u01_3a01", "sourceTitle": "10000以內的數", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g3a_u02_3a02", "sourceTitle": "四位數的加減", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g3a_u03_3a03", "sourceTitle": "乘法", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g3a_u06_3a06", "sourceTitle": "二位數除以一位數", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g3b_u01_3b01", "sourceTitle": "除法", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g3b_u04_3b04", "sourceTitle": "兩步驟計算", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g3b_u08_3b08", "sourceTitle": "乘法與除法", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g4a_u01_4a01", "sourceTitle": "1億以內的數", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g4a_u02_4a02", "sourceTitle": "整數的乘法", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g4a_u04_4a04", "sourceTitle": "整數的除法", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g4a_u08_4a08", "sourceTitle": "整數四則", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g4b_u01_4b01", "sourceTitle": "多位數的乘與除", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" },
+      { "sourceId": "g5a_u08_5a08", "sourceTitle": "整數四則", "eligible": true, "productionUse": "allowed", "limit": "QA-passed Batch A worksheet output only" }
+    ]
+  },
+  "excludedScope": [
+    { "scope": "batch_b", "eligible": false, "productionUse": "forbidden", "reason": "not Batch A S39 QA-passed scope" },
+    { "scope": "batch_c", "eligible": false, "productionUse": "forbidden", "reason": "not Batch A S39 QA-passed scope" },
+    { "scope": "batch_d", "eligible": false, "productionUse": "forbidden", "reason": "not Batch A S39 QA-passed scope" },
+    { "scope": "batch_e", "eligible": false, "productionUse": "forbidden", "reason": "not Batch A S39 QA-passed scope" },
+    { "scope": "decimal", "eligible": false, "productionUse": "forbidden", "reason": "future domain / not QA-passed in Batch A production gate" },
+    { "scope": "fraction", "eligible": false, "productionUse": "forbidden", "reason": "future domain / not QA-passed in Batch A production gate" },
+    { "scope": "geometry", "eligible": false, "productionUse": "forbidden", "reason": "future domain / not QA-passed in Batch A production gate" },
+    { "scope": "chart", "eligible": false, "productionUse": "forbidden", "reason": "future domain / not QA-passed in Batch A production gate" },
+    { "scope": "ai_literacy_fusion", "eligible": false, "productionUse": "forbidden", "reason": "explicitly excluded from Batch A production gate" },
+    { "scope": "unsupported_visual_generator", "eligible": false, "productionUse": "forbidden", "reason": "explicitly excluded from Batch A production gate" }
+  ],
+  "nextRequiredStep": "S40D_BatchA_ProductionUseUpdate_CIReadback"
+}

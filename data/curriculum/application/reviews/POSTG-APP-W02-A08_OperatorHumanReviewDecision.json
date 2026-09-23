@@ -1,0 +1,147 @@
+{
+  "schemaName": "POSTGAPPW02A08OperatorHumanReviewDecisionV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission",
+  "parentTaskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
+  "decisionDate": "2026-07-23",
+  "operatorDecision": "REVISE",
+  "decisionSource": "ASSISTED_REVIEW_UNDER_OPERATOR_CONTINUE_AUTHORIZATION",
+  "reviewedArtifact": {
+    "manifestPath": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json",
+    "reviewDataPath": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_DATA.json",
+    "reviewIndexPath": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_INDEX.html",
+    "numericHtmlPath": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html",
+    "numericPdfPath": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf",
+    "applicationHtmlPath": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html",
+    "applicationPdfPath": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf",
+    "sourceNodeCount": 13,
+    "applicationQuestionCount": 61,
+    "numericQuestionCount": 134,
+    "numericBoundaryReviewCount": 49,
+    "pblTaskSetCount": 31,
+    "macroContextCount": 16,
+    "reviewArtifactCount": 10
+  },
+  "reviewedArtifactHashes": [
+    {"path":"docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_INDEX.html","sha256":"d29793d3b28cdfe98760b6361e3a83b72f256e23662bcaa85bee60b8f317bc6c"},
+    {"path":"docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_DATA.json","sha256":"df1e4fae31732f843d2f7e5dc8cf825f8cdac2359dec2c2f73db9ce241ce7f30"},
+    {"path":"docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW.extracted.txt","sha256":"67604b79155db93269f05fce9d497709019839355c9dcba51a2765c32c4340b1"},
+    {"path":"docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json","sha256":"cd5d5b341701411b77fb9d37337c13e4c14295f2e049362ef46a17e13118ba80"},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html","sha256":"1abd92aedecb3e65c6a6f09a1cbaf661b94acc97aeb9a4faf61c786c24527767"},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf","sha256":"ad6cfe385d3705492f7bcdd8e7dc106d86b2817a0dbf969984c6c3b86d51ea6b"},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html","sha256":"bc44c61bbe2af266bc1fcfec1605a6908b57b18f163e659e1fba72764c9fb23d"},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf","sha256":"fb081539f01b51debf0bd9584fac910c6aba4b9f6bb19d1171f3a72db78719c2"},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_PRODUCTION_EQUIVALENT_PACKAGE.json","sha256":"fc54ed7caf4175a8e94ada1e6f14d3a15234eccc48fea6c56d272c9562cbbdf0"},
+    {"path":"docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_ARTIFACT_MANIFEST.json","sha256":"3b5ae6cc43b029c64d0e50f6889230b75dd85afd7084410a9c23018d30353331"}
+  ],
+  "operatorAcceptance": {
+    "applicationSemanticNaturalnessAccepted": false,
+    "quantityRoleBindingAccepted": false,
+    "unitBindingAccepted": false,
+    "mathematicalWitnessPreservationAccepted": true,
+    "answerUniquenessAndPairingAccepted": true,
+    "pblDependencyStructureAccepted": true,
+    "pblStudentFacingInstantiationAccepted": false,
+    "numericApplicationModeSeparationAccepted": true,
+    "htmlPdfLayoutAndContainmentAccepted": true,
+    "forbiddenInternalLabelAbsenceAccepted": false
+  },
+  "blockingFindings": [
+    {
+      "code": "W02_A08_APPLICATION_RAW_SLOT_LABEL_LEAKAGE",
+      "severity": "BLOCKING",
+      "affectedCount": 61,
+      "reviewedCount": 61,
+      "evidence": "Every application prompt exposes one or more internal role identifiers such as denominator, wholeUnits, leftNumerator or rightDenominator."
+    },
+    {
+      "code": "W02_A08_APPLICATION_SURFACE_TEMPLATE_MALFORMED",
+      "severity": "BLOCKING",
+      "affectedCount": 61,
+      "reviewedCount": 61,
+      "evidence": "Every application prompt begins with an unresolved value sequence such as 在4，8為了..., so the student-facing sentence is not natural Chinese."
+    },
+    {
+      "code": "W02_A08_NUMERIC_INTERNAL_ROLE_LABEL_LEAKAGE",
+      "severity": "BLOCKING",
+      "affectedCount": 48,
+      "reviewedCount": 49,
+      "evidence": "48 of 49 numeric boundary prompts expose English internal role identifiers; the remaining row uses acceptable Chinese role labels."
+    },
+    {
+      "code": "W02_A08_PBL_NOT_FULLY_INSTANTIATED",
+      "severity": "BLOCKING",
+      "affectedCount": 31,
+      "reviewedCount": 31,
+      "evidence": "All PBL task sets contain task rows with fullyInstantiated=false and authenticityExecutionVerified=false."
+    },
+    {
+      "code": "W02_A08_PBL_INTERNAL_TOKEN_LEAKAGE",
+      "severity": "BLOCKING",
+      "affectedCount": 31,
+      "reviewedCount": 31,
+      "evidence": "All PBL task sets expose internal operation ids in success criteria and uppercase internal final-product tokens in student-facing problem statements."
+    },
+    {
+      "code": "W02_A08_PBL_DEPENDENCY_READBACK_NOT_MATERIALIZED",
+      "severity": "BLOCKING",
+      "affectedCount": 31,
+      "reviewedCount": 31,
+      "evidence": "All review rows report dependencyGraph=null even though blueprint-level task references exist."
+    }
+  ],
+  "nonBlockingAcceptedEvidence": {
+    "generatedItemCount": 195,
+    "validatedItemCount": 195,
+    "operationFamilyCount": 49,
+    "numericPdfPageCount": 68,
+    "applicationPdfPageCount": 42,
+    "artifactHashCount": 10,
+    "sharedGeneratorUsed": true,
+    "sharedValidatorUsed": true,
+    "existingRendererUsed": true,
+    "answerKeyPairingVerified": true,
+    "pageContainmentVerified": true
+  },
+  "productionAdmission": {
+    "granted": false,
+    "evidenceLevel": "E4_OPERATOR_REVIEW_REVISE_REQUIRED",
+    "scopeType": "WAVE_APPLICATION_CAPABILITY",
+    "waveId": "W02",
+    "publicRouteChanged": false,
+    "publicSelectionEnabled": false,
+    "authorizedUse": "REVIEW_AND_REMEDIATION_ONLY"
+  },
+  "remediation": {
+    "required": true,
+    "taskId": "POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview",
+    "requirements": [
+      "Replace positional application template filling with named role binding.",
+      "Provide complete Chinese student-facing labels for every given and requested role.",
+      "Generate natural context-specific application sentences without generic raw-value prefixes.",
+      "Bind explicit, grade-appropriate units or mark unit-not-applicable with a student-safe surface.",
+      "Instantiate every PBL task, milestone, dependency graph and final decision with student-facing language.",
+      "Remove operation ids, schema ids and uppercase internal final-product tokens from all visible surfaces.",
+      "Add blocking semantic validators and positive/negative fixtures for every defect class.",
+      "Regenerate HTML/PDF and repeat full-cohort human review before any E5 admission."
+    ]
+  },
+  "controllerTransition": {
+    "waveId": "W02",
+    "waveState": "OPERATOR_REVIEW_REVISE_REQUIRED",
+    "reviewDecision": "REVISE",
+    "productionAdmissionGranted": false,
+    "currentMainlineBlocker": "W02_STUDENT_FACING_SEMANTIC_AND_PBL_REMEDIATION_REQUIRED",
+    "nextTaskId": "POSTG-APP-W02-A08R1_StudentFacingSemanticSurfacePBLInstantiationAndReReview"
+  },
+  "failClosedBoundaries": {
+    "automaticApprovalAllowed": false,
+    "reviewDecisionMayBeUpgradedWithoutNewArtifacts": false,
+    "productionAdmissionGranted": false,
+    "publicSelectable": false,
+    "publicRouteChanged": false,
+    "w03ToW06Unblocked": false,
+    "programD0Complete": false
+  }
+}

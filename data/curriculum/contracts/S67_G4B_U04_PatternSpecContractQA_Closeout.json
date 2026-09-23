@@ -1,0 +1,55 @@
+{
+  "schemaName": "G4BU04PatternSpecContractQACloseout",
+  "schemaVersion": 1,
+  "task": "S67_G4B_U04_PatternSpecContractQA",
+  "status": "qa_passed_ci_synced_and_merged",
+  "sourceId": "g4b_u04_4b04",
+  "baseContractRef": "data/curriculum/contracts/S66_G4B_U04_PatternSpecContractDesign.json",
+  "qaOverlayRef": "data/curriculum/contracts/S67_G4B_U04_PatternSpecContractQA.json",
+  "architectureRef": "docs/curriculum/architecture/S67_G4B_U04_PatternSpecContractQA.md",
+  "passMarkerRef": "docs/curriculum/output/S67_G4B_U04_PATTERNSPEC_CONTRACT_QA_PASS.marker",
+  "result": {
+    "patternSpecContractsReviewed": 17,
+    "patternSpecContractsAccepted": 17,
+    "patternSpecContractsRejected": 0,
+    "patternGroupsReviewed": 12,
+    "answerModelSchemasReviewed": 9,
+    "controlledTemplateFamiliesReviewed": 9,
+    "validatorStagesReviewed": 8,
+    "blockingCodesReviewed": 44,
+    "qaCorrectionsApplied": 5,
+    "mutationCaseCount": 28
+  },
+  "ciEvidence": {
+    "implementationPullRequest": 101,
+    "implementationMergeCommit": "a4307f89075ae8f0ce48d05947951994a5fba8b0",
+    "mainCiRun": 29194108431,
+    "mainCiReadbackCommit": "90d7c3641b8c30ac10445173df870818c960eaca",
+    "tests": 1016,
+    "pass": 1016,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "consumptionRule": "S68 and later consumers must load the S66 base contract, apply the S67 QA overlay with higher precedence, and require this closeout status before materialization.",
+  "scopeBoundary": {
+    "formalMappingMaterialized": false,
+    "patternGroupsMaterialized": false,
+    "patternSpecsMaterialized": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "canonicalRoutingEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D2_G4B_U04_PATTERNSPEC_AND_ANSWER_CONTRACTS_DESIGNED",
+    "after": "D2_G4B_U04_PATTERNSPEC_CONTRACT_QA_LOCKED",
+    "remainingBlockers": [
+      "FormalMapping, PatternGroups and PatternSpecs not materialized",
+      "generator and blocking validator not implemented",
+      "public selector and worksheet path not connected"
+    ],
+    "nextShortestStep": "S68_G4B_U04_FormalMappingAndHiddenPatternSpecMaterialization",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schemaName": "POSTGAPPW02SharedWorksheetProjectionPolicyV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A05_SharedWorksheetProjectionContractAndW02ShadowProjection",
+  "status": "SHARED_DATA_PROJECTION_NOT_RENDERER_OUTPUT",
+  "activeWaveId": "W02",
+  "questionMode": "APPLICATION",
+  "projectionStatus": "SHADOW_DATA_PROJECTION",
+  "applicationCapabilityAdmissionState": "SHADOW_VALIDATED_NOT_ADMITTED",
+  "worksheetProjectionAdapterId": "SHARED_APPLICATION_WORKSHEET_PROJECTION_V1",
+  "generatorAdapterId": "W02_A02_CANDIDATE_BLUEPRINT_ADAPTER",
+  "validatorPassStatus": "PASS_SHARED_SHADOW_RUNTIME",
+  "forbiddenVisibleLabels": ["算式","答：","_____"],
+  "pblProjectionPolicy": {
+    "PBL3_LINEAR": "APPROVED_COMPLETE_SINGLE_PAGE_CANDIDATE",
+    "PBL5_BOUNDED_DECISION": "APPROVED_COMPLETE_TWO_PAGE_CANDIDATE",
+    "arbitrarySplitAllowed": false
+  },
+  "modeSeparation": {
+    "numericPatternSpecsProjected": false,
+    "applicationPatternSpecsProjected": true,
+    "compatibleAutomaticPblAllowed": false,
+    "forcedStoryAuthoringAllowed": false
+  },
+  "productionBoundary": {
+    "shadowHtmlGenerated": false,
+    "productionGeneratorConnected": false,
+    "productionRendererConnected": false,
+    "supportsPreview": false,
+    "supportsPrint": false,
+    "supportsAnswerKey": true,
+    "productionSelectable": false,
+    "publicSelectable": false,
+    "productionAdmissionAllowed": false
+  }
+}

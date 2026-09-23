@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "taskId": "R02_G3toG6_79SourceNodeKnowledgePointCandidateReconciliation",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "ALL_79_SOURCE_NODES_RECONCILED_CANDIDATE_AUTHORITY_READY",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/global/r02-global-kp-candidate-reconciliation.mjs",
+      "tools/curriculum/validate-r02-global-kp-candidate-reconciliation.mjs",
+      "tests/curriculum/r02-global-kp-candidate-reconciliation.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/global/contracts/R01_GlobalKnowledgePointDecompositionContract.json",
+      "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+      "data/curriculum/global/candidates/r02/source-authority-reconciliation-index.json",
+      "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+      "docs/curriculum/contracts/GLOBAL_KP_R02_RECONCILIATION_V1.md",
+      "docs/curriculum/output/GCKG_R02_GLOBAL_KP_CANDIDATE_RECONCILIATION_READBACK.md",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-04.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+      "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "All 79 source nodes now resolve to machine-validated KnowledgePoint candidate views while existing D0 IDs and the production consumer remain intact."
+  },
+  "nextStep": {
+    "taskId": "R03_GlobalPrerequisiteGraph",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

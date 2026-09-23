@@ -1,0 +1,26 @@
+{
+  "schemaName": "R08FifteenUnitGlobalMigrationCloseoutManifestV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R08_15UnitGlobalMigrationUIHTMLPDFCloseout",
+  "status": "GLOBAL_PRIMARY_UI_HTML_PDF_PRINT_CLOSEOUT_GATE_ACTIVE",
+  "sourceAuthorities": {
+    "authoritativeConsumerTask": "R07_AuthoritativeConsumerCutover",
+    "publicWorksheetContract": "data/curriculum/public/15-unit-public-worksheet-closeout.json",
+    "productUnitCount": 15,
+    "chromiumCaseCount": 35
+  },
+  "policyPath": "data/curriculum/global/closeout/r08/15-unit-global-migration-closeout-policy.json",
+  "validatorPath": "tools/curriculum/validate-r08-15-unit-global-migration-closeout.mjs",
+  "chromiumAcceptancePath": "tools/curriculum/render-15-unit-public-worksheet-pdf-smoke.mjs",
+  "mainlineBoundary": {
+    "globalAuthorityPrimary": true,
+    "legacyAuthorityRole": "COMPATIBILITY_ALIAS_READ_ONLY",
+    "existing15UnitProductionUsePreserved": true,
+    "migrationProgramCloseAllowedAfterCi": true,
+    "fullProductLineClosed": false,
+    "recursiveImprovementAdminAllowed": false,
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "nextTask": "P01_W1ExistingCapabilityProductAdmission"
+  }
+}

@@ -1,0 +1,15 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { auditG5AU01P03F44SelectorProjection,P03F44_HIDDEN_APPLICATION_SPEC_IDS,P03F44_HIDDEN_SIBLING_KP_IDS,P03F44_KP_IDS,P03F44_REQUIRED_CAPABILITY_IDS,P03F44_SPEC_IDS } from "../../site/modules/curriculum/registry/g5a-u01-rank10-decimal-selector-projection-p03f44.js";
+import { auditP03F44PublicSelectorComposition } from "../../site/modules/curriculum/registry/batch-a-selector-p03f44-extension.js";
+import { validateP03F44PatternDefinitions } from "../../site/modules/curriculum/batch-a/source-pattern-full-product-p03f44-extension.js";
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"../..");
+const readJson=(p)=>JSON.parse(fs.readFileSync(path.join(ROOT,p),"utf8"));
+const authority=readJson("data/curriculum/full-product/p03f/slice044-g5a-u01-rank10-decimal-authority.json"),queue=readJson("data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json"),predecessor=readJson("data/curriculum/final-milestone-claims/p03f-w3-slice043-e6-d0-v1.json"),hidden=readJson("data/curriculum/application/pattern-specs/w02/g5a_u01_5a01.hidden-pattern-spec.json");
+const text=(v)=>JSON.stringify(v);
+test("P03F44 queue and predecessor freeze exact q044 scope",()=>{assert.equal(queue.orderedSliceIds[43],"p03e_q044_r10_g5a_u01_5a01_profile_decimal_c1");assert.equal(queue.orderedSliceIds[47],"p03e_q048_r11_g5a_u01_5a01_profile_decimal_c1");assert.equal(predecessor.status,"PASS_D0_CLOSED");assert.equal(predecessor.goalDistance,"D0");assert.deepEqual(authority.knowledgePointIds,P03F44_KP_IDS);assert.deepEqual(authority.hiddenSiblingKnowledgePointIds,P03F44_HIDDEN_SIBLING_KP_IDS);assert.deepEqual(authority.requiredW3CapabilityUnion,P03F44_REQUIRED_CAPABILITY_IDS);assert.equal(authority.productBoundary.inverseRoundingRangePromotionAllowed,false);});
+test("P03F44 numeric surfaces match hidden PatternSpec authority and keep application hidden",()=>{const hiddenText=text(hidden);for(const id of [...P03F44_SPEC_IDS,...P03F44_HIDDEN_APPLICATION_SPEC_IDS])assert.equal(hiddenText.includes(id),true,id);assert.deepEqual(authority.patternSurfaces.flatMap((row)=>row.patternSpecIds),P03F44_SPEC_IDS);assert.deepEqual(authority.hiddenApplicationPatternSpecIds,P03F44_HIDDEN_APPLICATION_SPEC_IDS);assert.equal(P03F44_SPEC_IDS.some((id)=>id.includes("application")),false);});
+test("P03F44 selector and PatternSpec projections reach 33/245 without sibling promotion",()=>{const selector=auditG5AU01P03F44SelectorProjection(),composition=auditP03F44PublicSelectorComposition(),patterns=validateP03F44PatternDefinitions();assert.equal(selector.ok,true,selector.errors.join("\n"));assert.equal(composition.ok,true,composition.errors.join("\n"));assert.equal(patterns.ok,true,patterns.errors.join("\n"));assert.equal(composition.counts.publicSources,33);assert.equal(composition.counts.publicKnowledgePoints,245);assert.equal(composition.counts.currentSourceKnowledgePoints,7);assert.equal(composition.counts.hiddenSiblings,1);});

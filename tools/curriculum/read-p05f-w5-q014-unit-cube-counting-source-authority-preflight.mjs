@@ -1,0 +1,10 @@
+import {readFileSync} from "node:fs";
+import {materializeP05EW5DirectProductVerticalSliceQueue} from "../../src/curriculum/full-product/p05e-w5-direct-product-vertical-slice-queue.mjs";
+import {getR04KnowledgePointCapabilityMapping} from "../../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
+const preflight=JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p05f/q014-g4b-u10-unit-cube-counting-source-authority-preflight.json",import.meta.url),"utf8"));
+const queue=materializeP05EW5DirectProductVerticalSliceQueue();
+const slice=queue.queueEntries[13];
+const mapping=getR04KnowledgePointCapabilityMapping("kp_g4b_u10_unit_cube_counting");
+const result={schemaName:"P05FW5Q014SourceAuthorityPreflightReadbackV1",status:preflight.status,queueFrozen:queue.queueFrozen,queuePosition:slice?.queuePosition,sliceId:slice?.sliceId,sourceId:slice?.primarySourceNodeId,knowledgePointIds:slice?.knowledgePointIds,runtimeProfile:slice?.primaryRuntimeProfileId,requiredW5CapabilityIds:slice?.requiredW5CapabilityIds,r04ClassificationRuleId:mapping?.classificationRuleId,r04AppliedModifierIds:mapping?.appliedModifierIds,previousSliceD0Status:preflight.previousSliceD0Evidence.status,sourceRefAmbiguity:preflight.sourceAuthority.sourceIdentityReuse.sourceRefAmbiguity,manualSourceChoiceRequired:preflight.preflightDecision.manualSourceChoiceRequired,nextTask:preflight.preflightDecision.nextTask};
+if(!result.queueFrozen||result.status!=="PASS_SOURCE_AUTHORITY_PREFLIGHT"||result.queuePosition!==14||result.previousSliceD0Status!=="PASS_E6_D0_COMPLETE"||result.sourceRefAmbiguity||result.manualSourceChoiceRequired)throw new Error(`P05F_Q014_PREFLIGHT_READBACK_FAILED:${JSON.stringify(result)}`);
+console.log(`P05F_Q014_PREFLIGHT_READBACK=${JSON.stringify(result)}`);

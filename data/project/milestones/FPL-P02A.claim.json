@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P02A_W2ShadowFoundationHardeningOrderAndEvidenceReconciliation",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W2_5_FOUNDATIONS_EVIDENCE_GAPS_AND_ORDER_RECONCILED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p02-w2-product-admission-inventory.mjs",
+      "src/curriculum/full-product/p02a-w2-shadow-foundation-evidence-reconciliation.mjs",
+      "tools/curriculum/validate-p02a-w2-shadow-foundation-evidence-reconciliation.mjs",
+      "tests/curriculum/p02a-w2-shadow-foundation-evidence-reconciliation.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P02.claim.json",
+      "data/project/milestones/GCKG-R02.claim.json",
+      "data/project/milestones/GCKG-R03.claim.json",
+      "data/project/milestones/GCKG-R04.claim.json",
+      "data/project/milestones/GCKG-R07.claim.json",
+      "data/project/milestones/GCKG-R08.claim.json",
+      "data/project/milestones/FPL-P01E.claim.json",
+      "data/curriculum/full-product/p02a/w2-shadow-foundation-evidence-policy.json",
+      "data/curriculum/full-product/p02a/w2-shadow-foundation-evidence.manifest.json",
+      "docs/curriculum/contracts/W2_SHADOW_FOUNDATION_EVIDENCE_RECONCILIATION_CONTRACT_V1.md",
+      "docs/curriculum/output/P02A_W2_SHADOW_FOUNDATION_EVIDENCE_RECONCILIATION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "All five W2 shared shadow foundations now have executable producer/consumer evidence reconciliation, exact global coverage gaps, promotion dispositions, missing-evidence requirements and a dependency-safe hardening order. No capability is falsely promoted from indirect or partial E5 product evidence."
+  },
+  "nextStep": {
+    "taskId": "P02B_W2GlobalAuthorityLookupConsumerAdmission",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

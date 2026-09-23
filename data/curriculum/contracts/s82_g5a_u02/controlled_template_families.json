@@ -1,0 +1,15 @@
+{
+  "schemaName": "G5AU02ControlledTemplateFamilies",
+  "schemaVersion": 1,
+  "task": "S82_G5A_U02_PatternSpecContractDesign",
+  "controlledTemplateFamilies": [
+    {"templateFamilyId":"tpl_g5a_u02_equal_partition_segments","mappingId":"fmc_g5a_u02_equal_partition_all_segment_counts","contextDomain":"equal_partition","promptSkeletonZh":"有 {total}{itemUnit}，平均分成若干份且每份都是整數，列出所有可能的 {answerRole}。","requiredRoles":["total","itemUnit","answerRole"],"answerUnitRole":"answerRole"},
+    {"templateFamilyId":"tpl_g5a_u02_range_recipients","mappingId":"fmc_g5a_u02_equal_partition_range_constrained_recipients","contextDomain":"sharing","promptSkeletonZh":"把 {total}{itemUnit} 平均分給 {minCount} 到 {maxCount} 人，列出所有可行人數。","requiredRoles":["total","itemUnit","minCount","maxCount"],"answerUnitRole":"人"},
+    {"templateFamilyId":"tpl_g5a_u02_remainder_transfer","mappingId":"fmc_g5a_u02_remainder_transfer","contextDomain":"remainder_distribution","promptSkeletonZh":"有一批物品，每 {largerDivisor} 個分一份會餘 {knownRemainder} 個；若每 {smallerDivisor} 個分一份，會餘幾個？","requiredRoles":["largerDivisor","knownRemainder","smallerDivisor"],"answerUnitRole":"個"},
+    {"templateFamilyId":"tpl_g5a_u02_maximum_equal_grouping","mappingId":"fmc_g5a_u02_maximum_equal_grouping","contextDomain":"grouping","promptSkeletonZh":"有 {quantityA}{unitA}和 {quantityB}{unitB}，要分成最多且每組兩類數量都相同的組，最多可分幾組？","requiredRoles":["quantityA","unitA","quantityB","unitB"],"answerUnitRole":"組"},
+    {"templateFamilyId":"tpl_g5a_u02_possible_equal_packaging","mappingId":"fmc_g5a_u02_possible_equal_packaging_counts","contextDomain":"packaging","promptSkeletonZh":"有 {quantityA}{unitA}和 {quantityB}{unitB}，平均分裝且全部用完，列出所有可能的盒數。","requiredRoles":["quantityA","unitA","quantityB","unitB"],"answerUnitRole":"盒"},
+    {"templateFamilyId":"tpl_g5a_u02_rectangle_square_sides","mappingId":"fmc_g5a_u02_rectangle_square_side_lengths","contextDomain":"geometry_cutting","promptSkeletonZh":"將長 {length}{lengthUnit}、寬 {width}{lengthUnit} 的長方形裁成同樣大的正方形，列出所有可能邊長。","requiredRoles":["length","lengthUnit","width"],"answerUnitRole":"lengthUnit"},
+    {"templateFamilyId":"tpl_g5a_u02_square_tile_areas","mappingId":"fmc_g5a_u02_square_tile_area_possibilities","contextDomain":"geometry_tiling","promptSkeletonZh":"用同樣大的正方形磁磚鋪滿長 {length}{lengthUnit}、寬 {width}{lengthUnit} 的長方形，列出所有可能的磁磚面積。","requiredRoles":["length","lengthUnit","width"],"answerUnitRole":"squaredLengthUnit"},
+    {"templateFamilyId":"tpl_g5a_u02_source_password","mappingId":"fmc_g5a_u02_multi_constraint_digit_code","contextDomain":"number_code_reasoning","promptSkeletonZh":"四位數密碼的四個位置依序為 {x1Rule}、{x2Rule}、{x3Rule}、{x4Rule}，且整個數同時是 3 和 5 的倍數，四個數字不重複。求密碼。","requiredRoles":["x1Rule","x2Rule","x3Rule","x4Rule"],"answerUnitRole":"四位數"}
+  ]
+}

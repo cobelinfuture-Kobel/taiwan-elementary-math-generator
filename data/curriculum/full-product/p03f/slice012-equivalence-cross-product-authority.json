@@ -1,0 +1,100 @@
+{
+  "schemaName": "P03FSlice012EquivalenceCrossProductAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice012Implementation",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 12,
+    "sliceId": "p03e_q012_r6_g4b_u08_4b08_profile_fraction_c1",
+    "previousSliceId": "p03e_q011_r6_g4b_u06_4b06_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "source": {
+    "sourceNodeId": "g4b_u08_4b08",
+    "sourceCode": "4b08",
+    "sourceTitle": "等值分數",
+    "grade": 4,
+    "semester": "lower",
+    "unitCode": "4B-U08",
+    "evidencePages": [1],
+    "canonicalOperationAuthorityPath": "data/curriculum/application/operations/w02/g4b_u08_4b08.canonical-operation.json",
+    "hiddenPatternSpecAuthorityPath": "data/curriculum/application/pattern-specs/w02/g4b_u08_4b08.hidden-pattern-spec.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_AND_HIDDEN_PATTERNSPEC_AUTHORITY_READBACK"
+  },
+  "knowledgePoint": {
+    "knowledgePointId": "kp_g4b_u08_equivalence_cross_product",
+    "canonicalNameZh": "交叉乘積判定等值",
+    "scope": "以兩個整數交叉乘積是否相等，精確判定兩個正分數是否等值。",
+    "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+    "reasoningInvariant": "a/b 與 c/d 等值，若且唯若 a×d = c×b。",
+    "requiredCapabilityIds": [
+      "cap_fraction_arithmetic",
+      "cap_fraction_domain_validator",
+      "cap_fraction_number_system"
+    ],
+    "tagIds": [
+      "grade_4",
+      "domain_fraction",
+      "concept_fraction_equivalence",
+      "operation_cross_product",
+      "representation_fraction_pair",
+      "representation_boolean_judgment",
+      "answer_boolean",
+      "exact_rational_identity"
+    ]
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g4b_u08_equivalence_cross_product",
+    "operationModelId": "op_g4b_u08_equivalence_cross_product",
+    "operationFamilyId": "cross_product_equivalence",
+    "canonicalExpressions": [
+      "equivalent = leftNumerator * rightDenominator == rightNumerator * leftDenominator"
+    ],
+    "operandRoles": {
+      "leftNumerator": "左分數分子",
+      "leftDenominator": "左分數分母",
+      "rightNumerator": "右分數分子",
+      "rightDenominator": "右分數分母",
+      "equivalent": "是否等值"
+    },
+    "numberConstraints": [
+      "all numerators and denominators are positive integers",
+      "both denominators are greater than one",
+      "cross products are exact nonnegative whole numbers"
+    ],
+    "validationInvariants": [
+      "leftNumerator * rightDenominator and rightNumerator * leftDenominator are computed exactly",
+      "the boolean answer is true exactly when the two cross products are equal"
+    ]
+  },
+  "patternSurface": {
+    "numericPatternGroupId": "pg_g4b_u08_equivalence_cross_product_numeric",
+    "numericPatternSpecId": "ps_g4b_u08_equivalence_cross_product_equivalent_numeric",
+    "requestedUnknownRole": "equivalent",
+    "givenRoles": [
+      "leftNumerator",
+      "leftDenominator",
+      "rightNumerator",
+      "rightDenominator"
+    ],
+    "answerType": "boolean",
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "productBoundary": {
+    "sharedPlannerRequired": true,
+    "sharedWorksheetAssemblerRequired": true,
+    "sharedHtmlRendererRequired": true,
+    "chromiumPdfPrintRequired": true,
+    "numericModeAllowed": true,
+    "applicationModeAllowed": false,
+    "globalContextBindingNotApplicable": true,
+    "globalContextExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "sourceUnitDefaultMustRemainSlice005": true,
+    "otherG4BU08KnowledgePointsExcluded": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

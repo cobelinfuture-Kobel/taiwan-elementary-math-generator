@@ -1,0 +1,329 @@
+{
+  "schemaName": "Path1WordProblemP103CapabilityAndTransferPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_03_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1",
+  "status": "P1_03_TRANSFER_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicCutoverAllowed": false,
+  "path1MatrixMutationAllowed": false,
+  "canonicalKnowledgePointMutationAllowed": false,
+  "canonicalRelationAuthorityMutationAllowed": false,
+  "g3bU08NumericEnvelopeMutationAllowed": false,
+  "taxonomyReplanningAllowed": false,
+  "roadmapSequence": {
+    "mode": "PATH1_BLOCK_BY_BLOCK_WORD_PROBLEM_MODELING",
+    "completedBeforeThisTask": ["P1-01", "P1-02"],
+    "currentBlock": "P1-03",
+    "nextBlockAfterCompletion": "P1-04",
+    "p112Status": "IMPLEMENTED_BUT_DEFERRED_FOR_SEQUENCE_ALIGNMENT",
+    "p112PublicCutoverAllowedNow": false,
+    "decision": "Do not continue P1-12 public cutover. Resume the Path1 word-problem mainline at P1-03 and advance sequentially by block."
+  },
+  "scope": {
+    "path1BlockId": "P1-03",
+    "title": "二位數×二位數",
+    "arithmeticKnowledgePointId": "kp_g4a_u02_2digit_by_2digit",
+    "arithmeticOperationModelId": "op_g4a_u02_2digit_by_2digit",
+    "existingArithmeticPatternId": "ps_g4a_u02_2digit_by_2digit",
+    "modelingTarget": "single-relation direct multiplicative total/product modeling",
+    "allowedUnknownRole": "totalAmount_or_product_only",
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT",
+    "excluded": [
+      "inverse unknown roles",
+      "division-side modeling",
+      "P1-04 operand envelope",
+      "three-digit multiplicative factor",
+      "multi-relation composition",
+      "add-then-multiply or subtract-then-multiply",
+      "remainder interpretation",
+      "implicit unit conversion",
+      "estimation-plus-modeling",
+      "rate domains whose semantic authority requires later-grade capability",
+      "new canonical KnowledgePoint",
+      "new relation taxonomy family",
+      "G3B-U08 canonical generator/validator/router mutation",
+      "G3B-U08 numeric-envelope expansion",
+      "P1-01/P1-02 deployed transfer mutation",
+      "P1-12 public cutover",
+      "public Path1 query/UI cutover",
+      "W5 queue work",
+      "full repository regression",
+      "global browser replay"
+    ]
+  },
+  "authorityRefs": {
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "p103ArithmeticKnowledgeOperation": "data/curriculum/knowledge/units/g4a_u02_4a02.knowledge-operation.json",
+    "wordProblemCapabilityInventory": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_CAPABILITY_INVENTORY_V1.json",
+    "sourceCorpusRegistry": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_SOURCE_CORPUS_ADDITION_V1.json",
+    "earlyEqualGroupsTransferContract": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1.json",
+    "existingP103ArithmeticDiversity": "site/modules/curriculum/learning-paths/path1-p1-03-diversity.js",
+    "existingP103ArithmeticWorksheet": "site/assets/browser/pipeline/build-path1-manual-worksheet-p1-03-extension.js",
+    "existingPracticeModeEntry": "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js"
+  },
+  "currentState": {
+    "path1Matrix": {
+      "blockType": "DIRECT_KP",
+      "requiredPrerequisiteBlockIds": ["P1-02"],
+      "requiredPrerequisiteKnowledgePointIds": ["kp_g3a_u03_3digit_by_1digit"],
+      "primaryKnowledgePointIds": ["kp_g4a_u02_2digit_by_2digit"],
+      "patternExpansionId": "ps_g4a_u02_2digit_by_2digit"
+    },
+    "arithmeticAuthority": {
+      "canonicalExpressions": [
+        "product = leftFactor * rightFactor",
+        "product = onesPartialProduct + tensPartialProduct"
+      ],
+      "unknownRoles": ["product"],
+      "numberConstraints": ["10 <= leftFactor,rightFactor <= 99"],
+      "applicationCapability": "NOT_APPLICABLE",
+      "existingApplicationQuestionCount": 0
+    },
+    "currentP103Runtime": {
+      "questionMode": "numeric",
+      "patternFamilies": [
+        "C0_DIRECT_TWO_DIGIT_BY_TWO_DIGIT",
+        "C1_PARTIAL_PRODUCTS_DECOMPOSITION_PRODUCT"
+      ],
+      "applicationPromptUsed": false,
+      "relationPromptUsed": false,
+      "worksheetAvailable": true
+    },
+    "previousInventoryAssessment": {
+      "recommendedTransfer": "same R03/R05 relation kernel; do not create a new relation merely because operands are larger",
+      "authorityCandidate": "EXISTING_RELATION_AUTHORITY_WITH_NUMERIC_ENVELOPE_EXTENSION_REQUIRED",
+      "numericEnvelopeAssessment": "BLOCKED_FOR_DIRECT_REUSE: current total-from-groups requires one-digit groupCount; P1-03 requires a two-digit factor. G4A-U02 also marks application capability NOT_APPLICABLE.",
+      "inverseUnknownShift": "DEFER_TO_P1_12",
+      "implementationStatus": "NOT_AUTHORIZED"
+    }
+  },
+  "transferDecision": {
+    "decision": "AUTHORIZE_FUTURE_PATH1_LOCAL_RELATION_PROJECTION_NOT_DIRECT_G3BU08_REUSE",
+    "reason": "P1-03 has valid source-backed direct multiplicative modeling, but the existing G3B-U08 total-from-groups PatternSpecs and operation envelope are narrower than the P1-03 two-digit-by-two-digit arithmetic domain. The safe bridge is a Path1-local projection that reuses relation semantics while owning its own bounded P1-03 numeric envelope.",
+    "primaryRelationId": "R03_EQUAL_GROUPS",
+    "secondaryRelationAssessment": {
+      "relationId": "R05_RATE_MEASURE_PRODUCT",
+      "status": "DEFERRED_FROM_P1_03_V1_IMPLEMENTATION",
+      "reason": "The capability inventory identifies R05 as a multiplicative modeling relation/context variant, but P1-03 V1 does not need later-domain rate semantics to establish the shortest valid transfer. Reassess after the R03 direct-total slice is stable."
+    },
+    "newCanonicalKnowledgePointRequired": false,
+    "newRelationFamilyRequired": false,
+    "directReuseOfExistingG3BU08PatternSpecs": false,
+    "futurePath1LocalPatternSpecsRequired": true,
+    "currentP101P102TransferMustRemainUnchanged": true
+  },
+  "relationProjectionContract": {
+    "relationId": "R03_EQUAL_GROUPS",
+    "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+    "allowedUnknownRoles": ["totalAmount"],
+    "forbiddenUnknownRoles": ["groupCount", "amountPerGroup"],
+    "forbiddenUnknownRoleDisposition": "P1_12_DEFERRED_UNTIL_SEQUENCE_REACHES_P1_12",
+    "arithmeticRoleProjection": {
+      "leftFactor": "amountPerGroup",
+      "rightFactor": "groupCount",
+      "product": "totalAmount",
+      "commutativeSemanticRoleSwapAllowed": false
+    },
+    "modelingPipeline": [
+      "extract the two decision-relevant quantities and units",
+      "assign amountPerGroup and groupCount roles",
+      "recognize the equal-groups invariant",
+      "identify totalAmount as the only unknown",
+      "construct amountPerGroup * groupCount = totalAmount",
+      "execute the already-authorized P1-03 two-digit-by-two-digit multiplication",
+      "return totalAmount with the correct total-quantity unit"
+    ]
+  },
+  "path1LocalNumericEnvelopeAuthority": {
+    "authorityType": "PATH1_LOCAL_TRANSFER_PROJECTION",
+    "doesNotModifyG3BU08CanonicalEnvelope": true,
+    "basis": [
+      "P1-03 arithmetic authority already admits two-digit × two-digit factors",
+      "school-exam source witness demonstrates the same R03 direct-total relation with two two-digit factors",
+      "the relation invariant is unchanged; only the arithmetic projection envelope differs"
+    ],
+    "constraints": {
+      "amountPerGroup": "integer 10..99",
+      "groupCount": "integer 10..99",
+      "totalAmount": "amountPerGroup * groupCount; integer 100..9801",
+      "unknownRole": "totalAmount only",
+      "unitConversion": "forbidden",
+      "multiRelation": "forbidden"
+    },
+    "boundaryRule": "This envelope exists only for the future P1-03 Path1-local transfer. It must not be written back into G3B-U08 canonical KnowledgeOperation, PatternSpecs, generator, validator, or public route authority."
+  },
+  "sourceEvidence": {
+    "policy": {
+      "canonicalAndPath1ArithmeticAuthorityRemainPrimary": true,
+      "schoolExamCorpusSupportsRepresentationAndEnvelopeWitness": true,
+      "liTeacherSupportsProblemSolvingStructureOnly": true,
+      "sourcePresenceDoesNotAutoAuthorizeProduction": true
+    },
+    "registeredCorpora": [
+      {
+        "sourceCorpusId": "LI_TEACHER_MATH_THINKING_G1_G6",
+        "folderId": "1VHxb5jEkw_xP683wP528HEYFC-_zFIKk"
+      },
+      {
+        "sourceCorpusId": "MULTI_SCHOOL_EXAM_CORPUS_G03_G09",
+        "folderId": "1m8ljMOMb0ugFQCsC76Q1hX9UMRj0Hxpr"
+      }
+    ],
+    "positiveWitnesses": [
+      {
+        "sourceType": "school_exam",
+        "sourceFileId": "1knMV1ZIQ5dnUsfV28VuSbuZgBvLE1jrM",
+        "sourceTitle": "數學_108 上學期_四年級_臺北市_市立成德國小_第一次段考(期中考)_康軒_試卷.pdf",
+        "surface": "一盒餅乾有 28 片，60 盒餅乾共有多少片",
+        "relationId": "R03_EQUAL_GROUPS",
+        "roleBindings": {"amountPerGroup": 28, "groupCount": 60, "totalAmount": 1680},
+        "equation": "28 * 60 = 1680",
+        "use": "direct source witness that P1-03 two-digit-by-two-digit arithmetic appears inside an explicit equal-groups total question"
+      },
+      {
+        "sourceType": "li_teacher",
+        "sourceFileId": "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+        "sourceTitle": "厉老师四年级数学思维讲义.pdf",
+        "surface": "归一归总：总量÷份数＝1份数量；1份数量×所占份数＝所求几份的数量",
+        "relationId": "MULTIPLICATIVE_PER_UNIT_STRUCTURE",
+        "use": "structural reasoning evidence only; the two-step 归一 method is not admitted as a P1-03 V1 single-relation PatternSpec"
+      }
+    ],
+    "negativeBoundaryWitnesses": [
+      {
+        "sourceFileId": "1knMV1ZIQ5dnUsfV28VuSbuZgBvLE1jrM",
+        "surface": "一盒巧克力有30包，思宇買14盒，亨利買16盒，兩人共買多少包",
+        "exclusionReason": "requires composition of 14 + 16 before multiplication and is therefore multi-relation/two-step rather than the P1-03 V1 single relation"
+      },
+      {
+        "sourceFileId": "1knMV1ZIQ5dnUsfV28VuSbuZgBvLE1jrM",
+        "surface": "包一顆粽子23秒，問100顆所需時間並判斷40分鐘是否足夠",
+        "exclusionReason": "23 × 100 leaves the P1-03 two-digit × two-digit arithmetic envelope and also adds comparison/unit-time interpretation"
+      },
+      {
+        "sourceFileId": "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+        "surface": "归一归总 higher variants",
+        "exclusionReason": "two-step normalization/scaling and advanced application variants are evidence for later modeling growth, not automatic P1-03 V1 admission"
+      }
+    ]
+  },
+  "futurePatternSpecCandidateFamilies": [
+    {
+      "candidateFamilyId": "P103_R03_ITEMS_PER_PACKAGE_TOTAL",
+      "status": "APPROVED_FOR_FUTURE_IMPLEMENTATION",
+      "semanticShape": "itemsPerPackage * packageCount = totalItems",
+      "sourceWitness": "1knMV1ZIQ5dnUsfV28VuSbuZgBvLE1jrM",
+      "notes": "direct package/box equal-groups total"
+    },
+    {
+      "candidateFamilyId": "P103_R03_MATERIAL_PER_PRODUCT_TOTAL",
+      "status": "APPROVED_FOR_FUTURE_IMPLEMENTATION",
+      "semanticShape": "materialPerProduct * productCount = totalMaterial",
+      "sourceAuthority": "reuse existing R03 surface semantics, but materialize a Path1-local two-digit-count PatternSpec"
+    },
+    {
+      "candidateFamilyId": "P103_R03_SCORE_PER_EVENT_TOTAL",
+      "status": "APPROVED_FOR_FUTURE_IMPLEMENTATION",
+      "semanticShape": "scorePerEvent * eventCount = totalScore",
+      "sourceAuthority": "reuse existing R03 surface semantics, but materialize a Path1-local two-digit-count PatternSpec"
+    },
+    {
+      "candidateFamilyId": "P103_R03_AMOUNT_PER_PERIOD_TOTAL",
+      "status": "APPROVED_FOR_FUTURE_IMPLEMENTATION",
+      "semanticShape": "amountPerPeriod * periodCount = totalAmount",
+      "sourceAuthority": "direct per-unit accumulation semantics; implementation must keep units explicit and avoid time-unit conversion"
+    }
+  ],
+  "futureImplementationArchitecture": {
+    "selectedStrategy": "PATH1_LOCAL_P103_MULTIPLICATIVE_MODELING_TRANSFER",
+    "candidatePracticeMode": "multiplicativeModelingTransfer",
+    "mustMaterialize": [
+      "Path1-local P1-03 PatternSpecs for the approved R03 direct-total families",
+      "dedicated P1-03 modeling generator",
+      "fail-closed relation-aware validator",
+      "non-public worksheet adapter first",
+      "focused 1/20/120 capacity and diversity acceptance"
+    ],
+    "mustReuse": [
+      "kp_g4a_u02_2digit_by_2digit as arithmetic execution authority",
+      "R03 equal-groups invariant and quantity-role semantics",
+      "existing source-backed context concepts where semantically compatible",
+      "Path1 P1-03 sequence and prerequisite authority"
+    ],
+    "mustNotModify": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+      "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+      "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+      "site/modules/curriculum/learning-paths/path1-p1-03-diversity.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-p1-03-extension.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html",
+      "P1-04 runtime",
+      "P1-12 public route",
+      "Classic runtime/query state"
+    ],
+    "publicCutover": "SEPARATE_LATER_MILESTONE",
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "futureFocusedAcceptance": {
+    "generatorCounts": [1, 20, 120],
+    "requireDistinctPromptsAt120": true,
+    "requireAllApprovedPatternFamiliesAt120": true,
+    "requireEveryItem": [
+      "left arithmetic factor 10..99",
+      "right arithmetic factor 10..99",
+      "role binding leftFactor -> amountPerGroup",
+      "role binding rightFactor -> groupCount",
+      "totalAmount = amountPerGroup * groupCount",
+      "unknown role totalAmount only",
+      "correct answer unit",
+      "LD0 direct-role language",
+      "single relation only"
+    ],
+    "negativeCases": [
+      "groupCount or amountPerGroup unknown",
+      "one factor outside 10..99",
+      "multi-relation prompt",
+      "unit-conversion prompt",
+      "unapproved context family",
+      "semantic role swap",
+      "wrong equation or answer unit"
+    ],
+    "preservationChecks": [
+      "P1-03 arithmetic diversity remains unchanged",
+      "P1-01/P1-02 equalGroupsTransfer remains unchanged",
+      "P1-12 remains non-public/deferred",
+      "P1-04 remains untouched"
+    ],
+    "fullRegressionRequired": false,
+    "globalReplayRequired": false
+  },
+  "implementationEntryCriteria": [
+    "this preflight is merged with focused CI green",
+    "explicit operator approval to cross planning-to-implementation boundary",
+    "implementation uses a new Path1-local P1-03 modeling route rather than widening G3B-U08 canonical authority",
+    "implementation keeps P1-03 unknown role total/product only",
+    "implementation does not expose public UI/query state until a later cutover milestone"
+  ],
+  "distance": {
+    "goalDistanceBefore": "D3_P103_ARITHMETIC_AUTHORITY_WITH_MODELING_GAP_AND_ENVELOPE_BLOCKER",
+    "goalDistanceAfterTarget": "D2_P103_TRANSFER_RELATION_AND_PATH1_LOCAL_NUMERIC_ENVELOPE_PREFLIGHT_LOCKED",
+    "distanceReduced": "P1-03 moves from an explicitly blocked direct reuse recommendation to a bounded Path1-local R03 transfer contract with an exact two-digit-by-two-digit projection, source-backed positive/negative boundaries, and a concrete PatternSpec/generator/validator implementation path.",
+    "remainingBlockers": [
+      "implementation approval required",
+      "Path1-local P1-03 modeling PatternSpecs not materialized",
+      "P1-03 modeling generator not implemented",
+      "P1-03 modeling validator not implemented",
+      "P1-03 non-public worksheet adapter not implemented",
+      "P1-03 public cutover and deployed acceptance remain later milestones"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_03_MULTIPLICATIVE_MODELING_IMPLEMENTATION_V1"
+  }
+}

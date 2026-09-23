@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03C_W3CapabilityCloseoutAndProductUnblockReconciliation",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "W3_SEVEN_CAPABILITIES_CLOSED_119_DEPENDENTS_UNBLOCKED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p03-w3-product-admission-inventory.mjs",
+      "src/curriculum/full-product/p03a-w3-capability-hardening-order-evidence.mjs",
+      "src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs",
+      "tools/curriculum/validate-p03c-w3-capability-closeout-product-unblock.mjs",
+      "tests/curriculum/p03c-w3-capability-closeout-product-unblock.test.js",
+      "tests/curriculum/p03c-w3-capability-closeout-product-unblock-integration.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03.claim.json",
+      "data/project/milestones/FPL-P03A.claim.json",
+      "data/project/milestones/FPL-P03B1.claim.json",
+      "data/project/milestones/FPL-P03B2.claim.json",
+      "data/project/milestones/FPL-P03B3.claim.json",
+      "data/project/milestones/FPL-P03B4.claim.json",
+      "data/project/milestones/FPL-P03B5.claim.json",
+      "data/project/milestones/FPL-P03B6.claim.json",
+      "data/project/milestones/FPL-P03B7.claim.json",
+      "data/curriculum/full-product/p03b7/w3-capability-promotion-registry.json",
+      "data/curriculum/full-product/p03c/w3-capability-closeout-product-unblock-policy.json",
+      "data/curriculum/full-product/p03c/w3-capability-closeout-product-unblock.manifest.json",
+      "docs/curriculum/contracts/W3_CAPABILITY_CLOSEOUT_PRODUCT_UNBLOCK_RECONCILIATION_CONTRACT_V1.md",
+      "docs/curriculum/output/P03C_W3_CAPABILITY_CLOSEOUT_PRODUCT_UNBLOCK_RECONCILIATION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "All seven W3 contract capabilities are now closed as E5 production-admitted successor authorities, and the immutable P03 inventory has been reconciled into a 119-row downstream matrix with every W3 capability blocker removed. Four protected D0 rows retain admission pending compatibility revalidation; 115 new-product rows remain fail closed until their product vertical slices are implemented and accepted."
+  },
+  "nextStep": {
+    "taskId": "P03D_W3ProtectedD0CompatibilityRevalidation",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

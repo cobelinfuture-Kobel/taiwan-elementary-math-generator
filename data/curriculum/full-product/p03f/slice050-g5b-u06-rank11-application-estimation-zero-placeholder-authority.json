@@ -1,0 +1,207 @@
+{
+  "schemaName": "P03FSlice050G5BU06Rank11ApplicationEstimationZeroPlaceholderAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice050Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "goalDistanceBefore": "D3",
+  "goalDistanceAfter": "D2",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 50,
+    "sliceId": "p03e_q050_r11_g5b_u06_5b06_profile_decimal_c1",
+    "previousSliceId": "p03e_q049_r11_g5b_u04_5b04_profile_decimal_c1",
+    "previousSliceMustBeD0Complete": true,
+    "previousSliceD0Complete": true,
+    "previousSliceCloseoutEvidence": {
+      "implementationPr": 653,
+      "postMergeEvidencePr": 656,
+      "candidateCloseoutPr": 657,
+      "finalReconciliationPr": 658,
+      "finalReconciliationMergeSha": "ff29fa0397fbc5a6ccc7f9c418a4f7e6ef54cfac",
+      "claimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice049-e6-d0-v1.json",
+      "acceptedState": "PASS_D0_CLOSED"
+    },
+    "frozenKnowledgePointIds": [
+      "kp_g5b_u06_decimal_division_application",
+      "kp_g5b_u06_decimal_division_estimation",
+      "kp_g5b_u06_decimal_division_zero_placeholder"
+    ],
+    "queueMutationAllowed": false
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5b_u06_5b06",
+    "sourceCode": "5b06",
+    "sourceTitle": "整數、小數除以整數",
+    "grade": 5,
+    "semester": "lower",
+    "unitCode": "5B-U06",
+    "sourceFileName": "meow911_5b06_source.pdf",
+    "sourceDriveFileId": "1epAMlYqXqodfsYL7uiHHfOyQYJiEZGZc",
+    "sourceSha256": "f5b06e75d20ac7f7370648ddd90048ef6b911b4296803779878ed4d5a4e871c3",
+    "sourceByteLength": 410179,
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_NO_OCR_AUTHORITY_PLUS_OPERATOR_APPROVED_ESTIMATION_EXTENSION",
+    "reviewedPages": [1],
+    "directSourceWitnessResolutionPath": "data/curriculum/full-product/p03f/slice050-g5b-u06-direct-source-witness-resolution.json",
+    "applicationDirectTextbookConceptWitness": true,
+    "applicationGeneratedExampleClaimedAsTextbook": false,
+    "estimationDirectTextbookWitness": false,
+    "zeroPlaceholderDirectTextbookWitness": true,
+    "operatorApprovalDate": "2026-08-22",
+    "operatorApprovalMeaning": "q050 implementation was explicitly approved after the estimation witness gap was disclosed; only estimation is an operator-approved curriculum extension."
+  },
+  "prerequisiteChain": [
+    {
+      "rank": 9,
+      "knowledgePointId": "kp_g5b_u06_integer_division_decimal_quotient",
+      "authorityPath": "data/curriculum/full-product/p03f/slice040-g5b-u06-rank9-integer-division-decimal-quotient-authority.json"
+    },
+    {
+      "rank": 10,
+      "knowledgePointId": "kp_g5b_u06_decimal_divided_by_integer",
+      "authorityPath": "data/curriculum/full-product/p03f/slice046-g5b-u06-rank10-decimal-divided-by-integer-authority.json"
+    }
+  ],
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g5b_u06_decimal_division_application",
+      "canonicalNameZh": "小數平均分與單位量",
+      "scope": "以正的有限小數總量除以正整數份數，求精確且可終止的小數每份量／單位量；q050 僅產生單步 bounded application surface。",
+      "applicationClassification": "DIRECT_SOURCE_CONTEXTUAL_CAPABILITY",
+      "operationModelId": "op_g5b_u06_decimal_division_application",
+      "operationFamilyId": "decimal_division",
+      "publicModes": ["application"],
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "directTextbookConceptWitness": true,
+      "directTextbookGeneratedExampleClaimed": false
+    },
+    {
+      "knowledgePointId": "kp_g5b_u06_decimal_division_estimation",
+      "canonicalNameZh": "小數除法估商",
+      "scope": "將有限小數被除數依 HALF_UP 四捨五入到個位；q050 只採四捨五入後可被正整數除數整除的 bounded cases，再以 roundedDividend ÷ integerDivisor 得到估商。",
+      "applicationClassification": "OPERATOR_APPROVED_CURRICULUM_EXTENSION",
+      "operationModelId": "op_g5b_u06_decimal_division_estimation",
+      "operationFamilyId": "decimal_division",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "directTextbookWitness": false
+    },
+    {
+      "knowledgePointId": "kp_g5b_u06_decimal_division_zero_placeholder",
+      "canonicalNameZh": "小數除法補零與商中間零",
+      "scope": "以正的有限小數除以正整數，要求精確可終止的小數商中具有結構性 0 占位，且該 0 後仍有非零商位。",
+      "applicationClassification": "DIRECT_SOURCE_PROCEDURAL_CAPABILITY",
+      "operationModelId": "op_g5b_u06_decimal_division_zero_placeholder",
+      "operationFamilyId": "decimal_division",
+      "publicModes": ["numeric"],
+      "requiredW3CapabilityIds": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+      "directTextbookWitness": true,
+      "sourceWitness": "48.32 ÷ 8 = 6.04"
+    }
+  ],
+  "formalMappings": [
+    {
+      "formalMappingId": "fm_g5b_u06_decimal_division_application",
+      "knowledgePointId": "kp_g5b_u06_decimal_division_application",
+      "operationModelId": "op_g5b_u06_decimal_division_application",
+      "canonicalExpressions": ["unitAmount = totalAmount / groupCount", "totalAmount = unitAmount * groupCount"],
+      "unknownRoles": ["unitAmount"],
+      "answerType": "decimal",
+      "validationInvariants": ["exact rational recalculation is required", "quotient must terminate in base 10", "unitAmount × groupCount reconstructs totalAmount exactly", "context quantity roles must close"]
+    },
+    {
+      "formalMappingId": "fm_g5b_u06_decimal_division_estimation",
+      "knowledgePointId": "kp_g5b_u06_decimal_division_estimation",
+      "operationModelId": "op_g5b_u06_decimal_division_estimation",
+      "canonicalExpressions": ["roundedDividend = roundHalfUpToOnes(decimalDividend)", "estimate = roundedDividend / integerDivisor"],
+      "unknownRoles": ["estimate"],
+      "answerType": "decimal",
+      "validationInvariants": ["rounding target is ones", "rounding rule is HALF_UP", "roundedDividend must be divisible by integerDivisor for q050", "exact unrounded quotient is not the requested answer"]
+    },
+    {
+      "formalMappingId": "fm_g5b_u06_decimal_division_zero_placeholder",
+      "knowledgePointId": "kp_g5b_u06_decimal_division_zero_placeholder",
+      "operationModelId": "op_g5b_u06_decimal_division_zero_placeholder",
+      "canonicalExpressions": ["quotient = decimalDividend / integerDivisor", "decimalDividend = quotient * integerDivisor"],
+      "unknownRoles": ["quotient"],
+      "answerType": "decimal",
+      "validationInvariants": ["exact rational recalculation is required", "quotient must terminate in base 10", "canonical quotient must contain a structurally required zero before a later nonzero decimal digit"]
+    }
+  ],
+  "patternSurfaces": [
+    {
+      "patternGroupId": "pg_g5b_u06_decimal_division_application",
+      "patternSpecId": "ps_g5b_u06_decimal_division_application_unit_amount_application",
+      "knowledgePointId": "kp_g5b_u06_decimal_division_application",
+      "operationModelId": "op_g5b_u06_decimal_division_application",
+      "mode": "APPLICATION",
+      "requestedUnknownRole": "unitAmount",
+      "givenRoles": ["totalAmount", "groupCount"],
+      "answerType": "decimal",
+      "contextRequired": true,
+      "globalContextExpansionRequired": false
+    },
+    {
+      "patternGroupId": "pg_g5b_u06_decimal_division_estimation_numeric",
+      "patternSpecId": "ps_g5b_u06_decimal_division_estimation_quotient_numeric",
+      "knowledgePointId": "kp_g5b_u06_decimal_division_estimation",
+      "operationModelId": "op_g5b_u06_decimal_division_estimation",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "estimate",
+      "givenRoles": ["decimalDividend", "integerDivisor"],
+      "answerType": "decimal",
+      "contextRequired": false,
+      "globalContextExpansionRequired": false
+    },
+    {
+      "patternGroupId": "pg_g5b_u06_decimal_division_zero_placeholder_numeric",
+      "patternSpecId": "ps_g5b_u06_decimal_division_zero_placeholder_numeric",
+      "knowledgePointId": "kp_g5b_u06_decimal_division_zero_placeholder",
+      "operationModelId": "op_g5b_u06_decimal_division_zero_placeholder",
+      "mode": "NUMERIC",
+      "requestedUnknownRole": "quotient",
+      "givenRoles": ["decimalDividend", "integerDivisor"],
+      "answerType": "decimal",
+      "contextRequired": false,
+      "globalContextExpansionRequired": false
+    }
+  ],
+  "validatorContract": {
+    "application": {"exactRationalRecalculationRequired": true, "contextRoleClosureRequired": true, "floatingPointEqualityAllowed": false},
+    "estimation": {"roundingTarget": "ones", "roundingRule": "HALF_UP", "roundedDividendDivisibilityRequired": true, "floatingPointEqualityAllowed": false},
+    "zeroPlaceholder": {"exactRationalRecalculationRequired": true, "internalZeroBeforeLaterNonZeroRequired": true, "floatingPointEqualityAllowed": false}
+  },
+  "capabilityContract": {
+    "requiredW3CapabilityUnion": ["cap_decimal_arithmetic", "cap_decimal_domain_validator", "cap_decimal_number_system"],
+    "newCapabilityIdRequired": false,
+    "sharedExactRationalNormalizerRequired": true,
+    "sharedDecimalDivisionFamilyRequired": true,
+    "sharedRoundingSemanticsReused": true
+  },
+  "publicProjection": {
+    "newSourceAdmission": false,
+    "publicSourceCountBefore": 33,
+    "publicSourceCountAfter": 33,
+    "currentPublicKnowledgePointCountBefore": 251,
+    "currentPublicKnowledgePointCountAfter": 254,
+    "g5bU06VisibleKnowledgePointsBefore": 2,
+    "g5bU06VisibleKnowledgePointsAfter": 5,
+    "g5bU06HiddenKnowledgePointsAfter": 0,
+    "g5bU06NotSelectableKnowledgePointsAfter": 0
+  },
+  "implementationBoundary": {
+    "runtimeImplementationRequired": true,
+    "selectorProjectionRequired": true,
+    "sharedGeneratorRequired": true,
+    "sharedValidatorRequired": true,
+    "sharedWorksheetRendererRequired": true,
+    "publicCapabilityBindingCutoverRequired": true,
+    "globalContextExpansionAllowed": false,
+    "q051Included": false,
+    "parallelPipelineAllowed": false,
+    "changeImpactGate": "L3",
+    "targetedRouteReplayRequired": true,
+    "full793RouteReplayRequired": false,
+    "nextTask": "P03F50_G5BU06Rank11ApplicationEstimationZeroPlaceholderImplementation"
+  }
+}

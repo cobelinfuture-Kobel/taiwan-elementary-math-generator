@@ -1,0 +1,49 @@
+{
+  "schemaName": "PublicGenerationScopeCloseoutV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "taskId": "PGC-R00_PublicGenerationScopeAndAuthorityFreeze",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "scopeArtifact": "data/curriculum/public-generation/public_generation_scope.json",
+  "routeRegistry": "data/curriculum/public-generation/public_route_registry.csv",
+  "authorityReadback": "docs/curriculum/output/PGC-R00_authority_boundary_readback.md",
+  "implementation": {
+    "pullRequestNumber": 434,
+    "headSha": "c8c36c1d8a0834471cb2ae011164e9687e2d6e5d",
+    "mergeSha": "5935cbf9c29d0a44201e0f7bc538528cd1e1a609",
+    "focusedWorkflowRunId": 30418655194,
+    "focusedWorkflowConclusion": "success",
+    "nodeWorkflowRunId": 30418655185,
+    "nodeWorkflowConclusion": "success"
+  },
+  "acceptedCounts": {
+    "publicSourceCount": 26,
+    "publicSurfaceCount": 3,
+    "routeCount": 25,
+    "w3CumulativeProductAdmissionCount": 16
+  },
+  "acceptedBoundary": {
+    "classicActive": true,
+    "fallbackPublicDeprecated": true,
+    "pixelActive": true,
+    "crossUnitKnowledgePointModeHidden": true,
+    "historicalP01ESelectorInternalOnly": true,
+    "legacySourceAliasDuplicateAuthority": true,
+    "slice014Started": false,
+    "generatorModified": false,
+    "validatorModified": false,
+    "parallelPipelineAdded": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_PUBLIC_SCOPE_NOT_FROZEN",
+    "goalDistanceAfter": "D1_PUBLIC_SCOPE_FROZEN",
+    "distanceReduced": "All publicly reachable generation and print authorities are uniquely inventoried and machine-gated.",
+    "remainingBlockers": [
+      "PGC-R01_CAPABILITY_MATRIX_NOT_MATERIALIZED",
+      "PGC-R02_DYNAMIC_UI_BINDING_NOT_CONFORMANT",
+      "PGC-R03_ROUTE_CAPACITY_NOT_PROVEN"
+    ],
+    "nextShortestStep": "PGC-R01_PublicKnowledgePointCapabilityMatrix"
+  },
+  "stopReason": "NONE"
+}

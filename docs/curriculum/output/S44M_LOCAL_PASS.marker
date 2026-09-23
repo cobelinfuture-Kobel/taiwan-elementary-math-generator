@@ -1,0 +1,16 @@
+S44M_G3A_U01_ROUTE_LOCAL_PASS
+
+sourceId = g3a_u01_3a01
+operator_readback = tests 421, pass 421, fail 0, working tree clean
+status = PASS
+
+validated:
+- G3A-U01 runtime route for new KPs
+- G3A-U01 source-unit route with comparison plus number-structure specs
+- browser worksheet smoke tests passing
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_SOURCE_UNIT_ROUTE_QAFIX_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U01_RUNTIME_ROUTE_LOCAL_PASS
+DISTANCE_REDUCED = G3A-U01 selector-visible KP route passed local automated validation
+REMAINING_BLOCKERS = S44M1 repair tasks; S44N browser PDF smoke
+NEXT_SHORTEST_STEP = S44M1-1_G3A_U01_UnitConversionPromptAnswerModelFix

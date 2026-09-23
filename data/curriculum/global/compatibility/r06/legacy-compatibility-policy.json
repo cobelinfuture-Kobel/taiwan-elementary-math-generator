@@ -1,0 +1,55 @@
+{
+  "schemaName": "R06LegacyCompatibilityPolicyV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R06_LegacyCompatibilityMigration",
+  "status": "LEGACY_COMPATIBILITY_POLICY_READY",
+  "authorities": {
+    "deliveryWaveRuntime": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "sourceAuthorityIndex": "data/curriculum/global/candidates/r02/source-authority-reconciliation-index.json",
+    "legacyS43KnowledgePoints": "data/curriculum/registry/batch_a_knowledge_points.json",
+    "legacyS43PatternGroups": "data/curriculum/registry/batch_a_pattern_groups.json",
+    "legacyS43KnowledgePointPatternMap": "data/curriculum/registry/batch_a_knowledge_point_pattern_map.json"
+  },
+  "legacyKnowledgePointAliasRules": {
+    "kp_g3a_u01_place_value_decomposition": {
+      "canonicalKnowledgePointIds": [
+        "kp_g3a_u01_digit_place_value_decomposition"
+      ],
+      "migrationType": "RENAMED_ALIAS"
+    },
+    "kp_g3a_u01_number_reading_writing": {
+      "canonicalKnowledgePointIds": [
+        "kp_g3a_u01_number_to_chinese",
+        "kp_g3a_u01_chinese_to_number"
+      ],
+      "migrationType": "SPLIT_ALIAS_PATTERN_LEVEL_ROUTING_REQUIRED"
+    },
+    "kp_g3a_u01_digit_card_max_min": {
+      "canonicalKnowledgePointIds": [
+        "kp_g3a_u01_digit_arrangement_max_min"
+      ],
+      "migrationType": "RENAMED_ALIAS"
+    },
+    "kp_g3a_u01_money_representation": {
+      "canonicalKnowledgePointIds": [
+        "kp_g3a_u01_place_value_unit_conversion"
+      ],
+      "migrationType": "SEMANTIC_ALIAS_EXISTING_OPERATION_MODEL"
+    }
+  },
+  "rules": {
+    "productionAuthorityKnowledgePointIdsPreserved": true,
+    "productionAuthorityPatternSpecIdsPreserved": true,
+    "legacySourceIdsPreserved": true,
+    "compositeProductUnitMayAggregateMultipleSourceNodes": true,
+    "legacyS43RegistryRole": "COMPATIBILITY_ALIAS_ONLY",
+    "nonProductionLegacyRowsMayRemainDeferred": true,
+    "protectedD0GlobalModelDifferenceResolution": "PRESERVE_LEGACY_D0_AND_FENCE_NEW_GLOBAL_PATTERN_ADMISSION",
+    "globalCapabilityRequirementMayBeBypassedForExistingLegacyPattern": true,
+    "globalCapabilityRequirementMayBeBypassedForNewPattern": false,
+    "productionConsumerChangeAllowed": false,
+    "parallelRuntimePipelineAllowed": false,
+    "productionCutoverDeferredTo": "R07_AuthoritativeConsumerCutover"
+  }
+}

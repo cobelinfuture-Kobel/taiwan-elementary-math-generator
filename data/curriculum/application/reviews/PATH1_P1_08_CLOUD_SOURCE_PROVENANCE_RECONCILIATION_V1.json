@@ -1,0 +1,70 @@
+{
+  "schemaName": "Path1P108CloudSourceProvenanceReconciliationV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_P1_08_CLOUD_SOURCE_PROVENANCE_RECONCILIATION_V1",
+  "parentTaskId": "PATH1_P1_08_TWO_DIGIT_DIVISOR_PREFLIGHT_V1",
+  "canonicalRepositoryAuthorityWins": true,
+  "mandatoryLanePolicy": "PATH1_CLOUD_SOURCE_CORPUS_REGISTRY_V2",
+  "allMandatoryLanesReviewed": true,
+  "lanes": [
+    {
+      "sourceCorpusId": "TAIWAN_G3_G6_LEARNING_MAPS",
+      "evidenceStatus": "CURRICULUM_BOUNDARY_ONLY",
+      "reviewedFileIds": [
+        "1B4lCR5BQngMGVNIMN-DGcfqMfC7y0jWI"
+      ],
+      "observedWitnessesOrNoWitnessReason": "G4 learning-map material supports grade/unit progression around two-digit-divisor division but is not used to mint local PatternSpecs or replace the canonical G4A-U04 knowledge-operation authority.",
+      "authorityUse": "Confirm curriculum progression and adjacent-block boundary only."
+    },
+    {
+      "sourceCorpusId": "LI_TEACHER_MATH_THINKING_G1_G6",
+      "evidenceStatus": "NO_DIRECT_WITNESS",
+      "reviewedFileIds": [
+        "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+        "1ewWwnh4GayBL9dC-GPLZAJaDJ7egsHKU"
+      ],
+      "observedWitnessesOrNoWitnessReason": "Reviewed G4 lecture and practice sources. They contain broad arithmetic/division-related material, but no direct witness was found that should admit or alter the three canonical P1-08 two-digit-divisor runtime families.",
+      "authorityUse": "No PatternSpec admission and no runtime-envelope expansion."
+    },
+    {
+      "sourceCorpusId": "MULTI_SCHOOL_EXAM_CORPUS_G03_G09",
+      "evidenceStatus": "DIRECT_WITNESS",
+      "reviewedFileIds": [
+        "1ZcSC_R_O-ffR4VdC8mT4o8r8m9D0zKHE",
+        "1WlXVM_G-gk_A9gvjof2j0C4cekL8umdw",
+        "1ZLTZRGPTIFlYe9hIZBelgb-niUc8h1jx"
+      ],
+      "observedWitnessesOrNoWitnessReason": "Multiple Taiwan school-exam files contain direct two-digit-divisor arithmetic or representation witnesses, including examples such as 92÷23, 700÷86, and long-division/quotient-digit-count forms. Some exam items exceed the P1-08 canonical numeric envelope or use missing-digit/checking representations.",
+      "authorityUse": "Corroborate assessment representation breadth for two-digit-divisor arithmetic only. Out-of-envelope, checking, and missing-digit material remains evidence and does not expand P1-08 V1 runtime."
+    }
+  ],
+  "reconciliation": {
+    "canonicalPrimarySourceId": "g4a_u04_4a04",
+    "canonicalPrimarySourceFile": "batchA_02-題型總覽-4a04-整數的除法.pdf",
+    "primaryKnowledgePointIds": [
+      "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "canonicalPatternSpecIds": [
+      "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
+      "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "newKnowledgePointFromCloudEvidence": false,
+    "newPatternSpecFromCloudEvidence": false,
+    "newRelationFromCloudEvidence": false,
+    "numericEnvelopeExpandedByCloudEvidence": false,
+    "publicRouteActivatedByCloudEvidence": false,
+    "masterySemanticsChangedByCloudEvidence": false
+  },
+  "explicitNonExpansionRules": [
+    "Do not admit divisor > 99 into P1-08.",
+    "Do not admit dividend >= 1000 into P1-08; larger-dividend two-digit-divisor work belongs to P1-09 or later authority.",
+    "Do not turn division checking with remainder into P1-08 primary mastery; P1-11 owns remainder/checking emphasis.",
+    "Do not duplicate P1-06 estimateTrialQuotient as a P1-08 dedicated mode.",
+    "Do not duplicate P1-07 quotientStartPlace as a P1-08 dedicated mode.",
+    "Do not promote missing-digit long-division puzzles into P1-08 V1 without a separately approved extension task."
+  ],
+  "conclusion": "ALL_THREE_MANDATORY_CLOUD_LANES_REVIEWED_CANONICAL_G4A_U04_AUTHORITY_PRESERVED"
+}

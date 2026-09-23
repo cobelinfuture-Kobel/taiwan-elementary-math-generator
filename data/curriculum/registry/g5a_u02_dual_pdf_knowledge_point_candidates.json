@@ -1,0 +1,292 @@
+{
+  "schemaName": "G5AU02DualPDFKnowledgePointCandidateRegistry",
+  "schemaVersion": 1,
+  "task": "S78_G5A_U02_DualPDFManualKnowledgePointExtraction",
+  "status": "manual_extraction_pending_ci",
+  "mode": "manual_visual_source_extraction",
+  "scope": {
+    "requestedUnit": "g5a_u02",
+    "packetCount": 2,
+    "knowledgePointCandidateCount": 19,
+    "candidateClassCounts": {
+      "C": 12,
+      "D": 7
+    },
+    "candidateLifecycle": "candidate_only",
+    "formalMappingMaterialized": false,
+    "patternSpecMaterialized": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "selectorVisible": false,
+    "productionUse": "forbidden"
+  },
+  "sourceIdentityStatus": "needs_reconciliation_before_promotion",
+  "promotionEligible": false,
+  "sources": [
+    {
+      "packetId": "packet_g5a_u02_5a02a",
+      "requestedSourceId": "g5a_u02_5a02a",
+      "uploadedFileName": "題型總覽-5a02a-因數.pdf",
+      "sourceFile": "meow911_5a02a_source.pdf",
+      "sha256": "342d3d888783d4601b198234f2947b06bf87b675815e539be31636970a28ddb5",
+      "pageCount": 2,
+      "displayedTitle": "因數",
+      "displayedUrl": "https://meow911.com/5a02b/",
+      "metadataExpectedTitle": "因數",
+      "metadataExpectedUrl": "https://meow911.com/5a02a/",
+      "manualReviewed": true,
+      "ocrAuthority": "forbidden",
+      "sourceIdentityAnomalies": [
+        {
+          "code": "source_url_code_mismatch",
+          "severity": "promotion_blocking_identity_warning",
+          "detail": "The uploaded 5a02a packet displays /5a02b/ in the page header while the stored metadata expects /5a02a/."
+        }
+      ],
+      "identityDisposition": "preserve_current_source_id_pending_reconciliation"
+    },
+    {
+      "packetId": "packet_g5a_u02_5a02a1",
+      "requestedSourceId": "g5a_u02_5a02a1",
+      "uploadedFileName": "題型總覽-5a02a1-因數.pdf",
+      "sourceFile": "meow911_5a02a1_source.pdf",
+      "sha256": "ac8422b5119753d24a6b530ef6459ab39fa9835a140f39aa0c5d8049a4684307",
+      "pageCount": 2,
+      "displayedTitle": "公因數",
+      "displayedUrl": "https://meow911.com/5a03b/",
+      "metadataExpectedTitle": "因數",
+      "metadataExpectedUrl": null,
+      "manualReviewed": true,
+      "ocrAuthority": "forbidden",
+      "sourceIdentityAnomalies": [
+        {
+          "code": "source_title_and_url_scope_mismatch",
+          "severity": "promotion_blocking_identity_warning",
+          "detail": "The uploaded file is named as a 5a02a1 因數 packet, but its visible title is 公因數 and its page header displays /5a03b/."
+        }
+      ],
+      "identityDisposition": "preserve_current_source_id_pending_reconciliation"
+    }
+  ],
+  "knowledgePointCandidates": [
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_criterion_multiplication_division_equivalence",
+      "displayName": "因數判定的乘法分解與整除等價",
+      "description": "以 a×b=n 或 n÷a=b 且無餘數判斷 a、b 是否為 n 的因數。",
+      "candidateClass": "C",
+      "domainTags": ["factor", "divisibility", "multiplication_division_equivalence"],
+      "answerModelCandidate": "classification_with_equivalence",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a","page":1,"panel":"左上","detail":"32=8×4 與 32÷8=4，明示乘法分解與除法整除兩種判斷方式。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_enumeration_by_division",
+      "displayName": "用除法整除系統列出因數",
+      "description": "依序試除候選數，保留能整除的除數與商，完整找出一個數的因數。",
+      "candidateClass": "C",
+      "domainTags": ["factor", "division_search", "enumeration"],
+      "answerModelCandidate": "integer_list",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a","page":1,"panel":"右上","detail":"以 56÷1 至 56÷8 的試除表找因數。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_enumeration_by_multiplication_pairs",
+      "displayName": "用乘法配對完整列出因數",
+      "description": "由 1×n 起逐步尋找乘積為目標數的整數配對，排除乘不出目標數的候選。",
+      "candidateClass": "C",
+      "domainTags": ["factor", "multiplication_pairs", "enumeration"],
+      "answerModelCandidate": "factor_pair_list",
+      "sourceEvidence": [
+        {"packetId":"packet_g5a_u02_5a02a","page":1,"panel":"左下中","detail":"以 56=1×56、2×28、4×14、7×8 列出因數配對。"},
+        {"packetId":"packet_g5a_u02_5a02a","page":2,"panel":"右中","detail":"130 使用乘法分解找因數的技巧。"}
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_factor_pair_order_and_symmetry",
+      "displayName": "因數配對、由小到大與首尾乘積",
+      "description": "將因數由小到大排列，利用首尾對稱配對且每對乘積皆為原數。",
+      "candidateClass": "C",
+      "domainTags": ["factor", "ordered_factor_list", "pair_symmetry"],
+      "answerModelCandidate": "ordered_pair_relation",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a","page":1,"panel":"左中","detail":"U 型順序記錄 56 的因數，由小到大並以首尾配對。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_missing_factor_reconstruction",
+      "displayName": "從有序因數數列還原缺漏因數",
+      "description": "利用完整有序因數表的配對乘積不變，求出缺漏的因數。",
+      "candidateClass": "C",
+      "domainTags": ["factor", "inverse_reasoning", "missing_value"],
+      "answerModelCandidate": "integer_or_integer_set",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a","page":1,"panel":"右中","detail":"由 1、2、4、A、8、B、28、56 還原 A、B。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_divisibility_factor_membership_judgement",
+      "displayName": "判斷能否整除、是否為因數及敘述正誤",
+      "description": "判斷指定數是否能整除目標數，以及因數、倍數敘述是否正確。",
+      "candidateClass": "C",
+      "domainTags": ["factor", "divisibility", "true_false"],
+      "answerModelCandidate": "boolean_or_selection_set",
+      "sourceEvidence": [
+        {"packetId":"packet_g5a_u02_5a02a","page":1,"panel":"右下中","detail":"從候選數中圈選可整除 144 的數。"},
+        {"packetId":"packet_g5a_u02_5a02a","page":2,"panel":"右上","detail":"13、20、28 的整除敘述判斷正誤。"}
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_equal_partition_factor_application",
+      "displayName": "等分情境中的因數應用",
+      "description": "在總量平均分且每份為整數的情境中，求可行段數、每段量或限制範圍內的人數。",
+      "candidateClass": "D",
+      "domainTags": ["factor", "equal_partition", "application"],
+      "answerModelCandidate": "integer_list_with_units",
+      "sourceEvidence": [
+        {"packetId":"packet_g5a_u02_5a02a","page":1,"panel":"左下","detail":"27 公尺繩子可平均分成幾段及每段可能長度。"},
+        {"packetId":"packet_g5a_u02_5a02a","page":1,"panel":"右下","detail":"60 顆糖平均分給 10 至 16 人，求可行人數。"}
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_number_theory_problem_type_discrimination",
+      "displayName": "從問法辨識因數、倍數、公因數與公倍數",
+      "description": "依題目語句中的總量、每份量、最多組數或最少人數，判斷應使用因數、倍數、公因數或公倍數。",
+      "candidateClass": "C",
+      "domainTags": ["factor", "multiple", "common_factor", "common_multiple", "problem_type"],
+      "answerModelCandidate": "classification_label",
+      "sourceEvidence": [
+        {"packetId":"packet_g5a_u02_5a02a","page":2,"panel":"左上","detail":"比較繩長固定與段長固定的因數題、倍數題問法。"},
+        {"packetId":"packet_g5a_u02_5a02a1","page":1,"panel":"右下中","detail":"題型語法分辨：找因數、找倍數、找公因數、找公倍數。"}
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_efficient_factor_pair_search",
+      "displayName": "利用因數配對與搜尋停止點避免重複",
+      "description": "搜尋因數時以配對方式記錄，當配對開始重複或越過平方根位置後停止。",
+      "candidateClass": "C",
+      "domainTags": ["factor", "search_strategy", "square_root_stop"],
+      "answerModelCandidate": "integer_pair_list",
+      "sourceEvidence": [
+        {"packetId":"packet_g5a_u02_5a02a","page":2,"panel":"右中","detail":"130 使用乘法分解找因數的分解技巧。"},
+        {"packetId":"packet_g5a_u02_5a02a","page":2,"panel":"左下","detail":"144 用乘法分解找因數的技巧。"}
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_inverse_reasoning_from_complete_factor_list",
+      "displayName": "由完整因數序列推論未知數、倍數關係與奇偶性",
+      "description": "由完整且遞增的因數表推論配對乘積、未知因數、倍數敘述與原數奇偶性。",
+      "candidateClass": "C",
+      "domainTags": ["factor", "inverse_reasoning", "ordered_factor_list", "parity"],
+      "answerModelCandidate": "structured_relation_set",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a","page":2,"panel":"左下中","detail":"由 1、a、5、b、c、14、d、N 的完整因數表判斷五項敘述。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_remainder_transfer_under_divisor_relation",
+      "displayName": "除數具因數關係時的餘數轉換",
+      "description": "已知總數除以較大除數的餘數，利用較小除數整除較大除數的關係，推得除以較小除數的餘數。",
+      "candidateClass": "D",
+      "domainTags": ["remainder", "divisor_relation", "application_reasoning"],
+      "answerModelCandidate": "remainder_integer",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a","page":2,"panel":"右下中","detail":"24 人平分後餘 21 個杯子蛋糕，再改分給 8 人求餘數。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_common_factor_concept",
+      "displayName": "公因數的定義與共同整除",
+      "description": "辨識同時為兩個數因數的數為公因數，並理解 1 為共同的最小正因數。",
+      "candidateClass": "C",
+      "domainTags": ["common_factor", "definition", "divisibility"],
+      "answerModelCandidate": "integer_list",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a1","page":1,"panel":"左上","detail":"56 與 48 都有的因數為 1、2、4、8。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_common_factor_enumeration",
+      "displayName": "列出兩數全部公因數",
+      "description": "先列出兩數因數或使用乘法配對，再取交集得到全部公因數。",
+      "candidateClass": "C",
+      "domainTags": ["common_factor", "enumeration", "set_intersection"],
+      "answerModelCandidate": "integer_list",
+      "sourceEvidence": [
+        {"packetId":"packet_g5a_u02_5a02a","page":2,"panel":"左中","detail":"72 與 90 使用乘法分解找公因數。"},
+        {"packetId":"packet_g5a_u02_5a02a1","page":1,"panel":"左下","detail":"72 與 90 使用乘法分解找公因數。"},
+        {"packetId":"packet_g5a_u02_5a02a1","page":1,"panel":"右上","detail":"寫出 24 與 30 的公因數。"}
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_greatest_common_factor",
+      "displayName": "最大公因數的辨識",
+      "description": "在兩數全部公因數中找出最大的公因數。",
+      "candidateClass": "C",
+      "domainTags": ["greatest_common_factor", "maximum", "common_factor"],
+      "answerModelCandidate": "integer",
+      "sourceEvidence": [
+        {"packetId":"packet_g5a_u02_5a02a1","page":1,"panel":"左上","detail":"56 與 48 的公因數為 1、2、4、8，最大公因數為 8。"},
+        {"packetId":"packet_g5a_u02_5a02a1","page":1,"panel":"右上","detail":"求 24 與 30 的最大公因數。"}
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_maximum_equal_grouping_gcf_application",
+      "displayName": "兩類數量等分且組數最多",
+      "description": "兩類對象各自平均分組且每組同類數量相等時，以最大公因數求最多組數。",
+      "candidateClass": "D",
+      "domainTags": ["greatest_common_factor", "equal_grouping", "maximum", "application"],
+      "answerModelCandidate": "integer",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a1","page":1,"panel":"左中","detail":"27 位男生與 18 位女生分組，求最多可分幾組。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_possible_equal_packaging_common_factor_application",
+      "displayName": "兩類物品等量分裝的所有可行盒數",
+      "description": "兩類物品皆須分完且每盒各類數量相同時，列出所有可行盒數，也就是兩總量的公因數。",
+      "candidateClass": "D",
+      "domainTags": ["common_factor", "equal_packaging", "all_possibilities", "application"],
+      "answerModelCandidate": "integer_list",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a1","page":1,"panel":"右中","detail":"24 顆蘋果與 32 顆芭樂分成禮盒，求可能盒數。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_rectangle_equal_square_side_lengths",
+      "displayName": "長方形裁成同樣大正方形的可能邊長",
+      "description": "長方形長寬皆須被正方形邊長整除，所有可行邊長為長與寬的公因數。",
+      "candidateClass": "D",
+      "domainTags": ["common_factor", "geometry_context", "square_side_length"],
+      "answerModelCandidate": "integer_list_with_length_unit",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a1","page":1,"panel":"左下中","detail":"24×16 公分長方形報紙裁成同樣大的正方形，求可能邊長。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_square_tile_area_possibilities",
+      "displayName": "由共同邊長求所有可行正方形面積",
+      "description": "先找長方形兩邊的公因數作為正方形邊長，再平方得到所有可能的正方形面積。",
+      "candidateClass": "D",
+      "domainTags": ["common_factor", "square_area", "geometry_context", "all_possibilities"],
+      "answerModelCandidate": "integer_list_with_area_unit",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a1","page":2,"panel":"左上","detail":"36×28 公尺地板鋪正方形磁磚，列出所有可能面積。"}]
+    },
+    {
+      "knowledgePointId": "kp_g5a_u02_multi_constraint_digit_code_number_theory",
+      "displayName": "公因數、公倍數與倍數條件的多限制數字推理",
+      "description": "同時使用公因數、公倍數、指定倍數與數字不重複等條件，逐位推理四位數密碼。",
+      "candidateClass": "D",
+      "domainTags": ["common_factor", "common_multiple", "multiple", "digit_reasoning", "multi_constraint"],
+      "answerModelCandidate": "digit_tuple",
+      "sourceEvidence": [{"packetId":"packet_g5a_u02_5a02a1","page":2,"panel":"右上","detail":"四位數密碼同時受 6/8 公因數、70 的公倍數、22/33 公因數、3與5倍數及不重複限制。"}]
+    }
+  ],
+  "sharedCrossPacketCandidates": [
+    "kp_g5a_u02_number_theory_problem_type_discrimination",
+    "kp_g5a_u02_common_factor_enumeration"
+  ],
+  "externalMediaBoundary": {
+    "embeddedVideoThumbnailObserved": true,
+    "candidateCreatedSolelyFromExternalVideo": false,
+    "rule": "An embedded video thumbnail is not sufficient source evidence for a KnowledgePoint unless the PDF panel itself provides the mathematical instruction."
+  },
+  "handoff": {
+    "nextTask": "S79_G5A_U02_DualPDFKnowledgePointBoundaryAndSourceIdentityQA",
+    "operatorDecisionRequiredBeforePromotion": true,
+    "requiredDecision": "Reconcile whether the second packet remains g5a_u02_5a02a1 with corrected title/source URL or is re-keyed as a distinct 公因數 source; also resolve the first packet /5a02a/ versus displayed /5a02b/ URL."
+  },
+  "goalDistance": {
+    "before": "D4_G5A_U02_DUAL_SOURCE_FILES_WITHOUT_REVIEWED_KPS",
+    "after": "D3_G5A_U02_DUAL_SOURCE_KP_CANDIDATES_WITH_IDENTITY_BLOCKER",
+    "distanceReduced": "Extracted 19 page-evidenced factor and common-factor KnowledgePoint candidates across both packets and isolated source identity as the remaining promotion blocker.",
+    "remainingBlockers": [
+      "First packet metadata URL /5a02a/ conflicts with displayed /5a02b/.",
+      "Second packet name/sourceId says 5a02a1 因數 but the visible content is 公因數 at /5a03b/.",
+      "KnowledgePoint boundary QA is pending.",
+      "No FormalMapping, PatternSpec, generator, validator, selector or production promotion exists."
+    ],
+    "nextShortestStep": "S79_G5A_U02_DualPDFKnowledgePointBoundaryAndSourceIdentityQA"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "schemaName": "Path1WordProblemP112InverseEqualGroupsImplementationV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_12_INVERSE_EQUAL_GROUPS_IMPLEMENTATION_V1",
+  "status": "IMPLEMENTED_AWAITING_FOCUSED_CI",
+  "implementationAllowed": true,
+  "runtimeChanged": true,
+  "publicCutoverApplied": false,
+  "visibleUiChanged": false,
+  "path1MatrixChanged": false,
+  "canonicalG3BU08RuntimeChanged": false,
+  "earlyP101P102TransferChanged": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "newPatternSpecMinted": false,
+  "prerequisite": {
+    "taskId": "PATH1_WORD_PROBLEM_P1_12_INVERSE_EQUAL_GROUPS_TRANSFER_PREFLIGHT_V1",
+    "mergeSha": "f1bcbbaefee829b9d7f12ea81a5cb9ac659b3189",
+    "contractPath": "data/curriculum/application/contracts/PATH1_WORD_PROBLEM_P1_12_INVERSE_EQUAL_GROUPS_TRANSFER_PREFLIGHT_V1.json"
+  },
+  "scope": {
+    "path1BlockId": "P1-12",
+    "practiceMode": "inverseEqualGroupsTransfer",
+    "relationId": "R03_EQUAL_GROUPS",
+    "unknownRoles": ["totalAmount", "groupCount", "amountPerGroup"],
+    "languageDifficulty": "LD0_DIRECT_ROLE_EXPLICIT",
+    "questionCountRange": "1..120",
+    "masteryCredit": "NONE_UNTIL_SEPARATE_MASTERY_INTEGRATION_APPROVAL"
+  },
+  "runtimeModules": {
+    "generator": "site/modules/curriculum/learning-paths/path1-p1-12-inverse-equal-groups-generator.js",
+    "validator": "site/modules/curriculum/learning-paths/path1-p1-12-inverse-equal-groups-validator.js",
+    "worksheetAdapter": "site/assets/browser/pipeline/build-path1-p1-12-inverse-equal-groups-worksheet.js"
+  },
+  "roleContracts": [
+    {
+      "unknownRole": "totalAmount",
+      "relationKnowledgePointId": "kp_g3b_u08_total_from_groups",
+      "operationModelId": "op_g3b_u08_total_from_groups",
+      "operation": "multiplication",
+      "equation": "amountPerGroup * groupCount = totalAmount",
+      "patternSpecCount": 4
+    },
+    {
+      "unknownRole": "groupCount",
+      "relationKnowledgePointId": "kp_g3b_u08_group_count_from_total",
+      "operationModelId": "op_g3b_u08_group_count_from_total",
+      "operation": "quotative_division",
+      "equation": "groupCount = totalAmount / amountPerGroup",
+      "patternSpecCount": 4,
+      "exactDivisionRequired": true
+    },
+    {
+      "unknownRole": "amountPerGroup",
+      "relationKnowledgePointId": "kp_g3b_u08_per_group_from_total",
+      "operationModelId": "op_g3b_u08_per_group_from_total",
+      "operation": "partitive_division",
+      "equation": "amountPerGroup = totalAmount / groupCount",
+      "patternSpecCount": 4,
+      "exactDivisionRequired": true
+    }
+  ],
+  "patternSpecReuse": {
+    "strategy": "REUSE_EXISTING_12_G3BU08_PATTERN_SPECS",
+    "newPatternSpecCount": 0,
+    "newContextFamilyCount": 0,
+    "promotionAuthorityReused": true,
+    "freeFormAIGenerationAllowed": false
+  },
+  "generatorContract": {
+    "balancedAcrossRolePatternBuckets": true,
+    "deterministicReplayRequired": true,
+    "distinctPromptRequired": true,
+    "capacityTarget": 120,
+    "semanticRoleSwapAllowed": false,
+    "keywordToOperationSelectionAllowed": false,
+    "numericAuthorityExpanded": false
+  },
+  "validatorContract": {
+    "failClosed": true,
+    "checks": [
+      "P1-12 block identity",
+      "unknown-role to KP/model/operation mapping",
+      "S58F promotion and PatternSpec group authority",
+      "approved context-variant binding",
+      "equal-groups numeric invariant",
+      "exact division for groupCount and amountPerGroup",
+      "role-correct equation direction",
+      "role-correct final answer and unit",
+      "prompt reconstructability from canonical semantic authority",
+      "semantic source lineage",
+      "no canonical KP mint",
+      "no keyword routing or semantic role swap"
+    ]
+  },
+  "worksheetContract": {
+    "routeKind": "PATH1_LOCAL_NON_PUBLIC_ADAPTER",
+    "equationBearingAnswerKey": true,
+    "questionAndAnswerCountMustMatch": true,
+    "metadataFields": [
+      "path1BlockId",
+      "practiceMode",
+      "relationId",
+      "unknownRolesUsed",
+      "relationKnowledgePointIdsUsed",
+      "semanticPatternSpecIdsUsed",
+      "masteryCredit",
+      "publicCutoverApplied"
+    ],
+    "publicCutoverApplied": false
+  },
+  "untouched": [
+    "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js",
+    "site/modules/curriculum/learning-paths/path1-equal-groups-transfer-validator.js",
+    "site/modules/curriculum/batch-a/g3b-u08-semantic-generator.js",
+    "site/modules/curriculum/batch-a/g3b-u08-semantic-validator.js",
+    "site/modules/curriculum/batch-a/g3b-u08-canonical-semantic-router.js",
+    "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "site/assets/browser/pipeline/build-path1-manual-worksheet.js",
+    "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+    "site/assets/browser/state/path1-manual-query-state.js",
+    "site/assets/browser/path1-manual.js",
+    "site/path1/index.html",
+    "P1-03/P1-04 runtime modules",
+    "Classic query-state/runtime"
+  ],
+  "focusedAcceptance": {
+    "generatorCounts": [1, 20, 120],
+    "requireAllThreeRolesAt120": true,
+    "requireAll12PatternSpecsAt120": true,
+    "require120DistinctPrompts": true,
+    "requireDeterministicReplay": true,
+    "negativeCases": [
+      "unsupported block",
+      "unknown role swap",
+      "wrong equation",
+      "wrong unit",
+      "unapproved pattern for role",
+      "remainder/exact-division violation",
+      "numeric boundary violation"
+    ],
+    "worksheet": [
+      "all three unknown roles represented",
+      "equation-bearing answer keys",
+      "question and answer counts match",
+      "publicCutoverApplied remains false"
+    ],
+    "fullRegressionRequired": false,
+    "globalReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_P112_INVERSE_EQUAL_GROUPS_ROLE_ROTATION_PREFLIGHT_LOCKED",
+    "goalDistanceAfterTarget": "D1_P112_INVERSE_EQUAL_GROUPS_GENERATOR_VALIDATOR_WORKSHEET_IMPLEMENTED",
+    "distanceReduced": "The P1-12 role-rotation contract is materialized as a dedicated Path1-local generator, fail-closed validator, and non-public worksheet adapter while preserving all existing public and canonical routes.",
+    "remainingBlockers": [
+      "focused CI not yet accepted",
+      "PR not yet merged",
+      "public-cutover preflight not yet approved",
+      "deployed public acceptance not yet applicable"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_P1_12_INVERSE_EQUAL_GROUPS_PUBLIC_CUTOVER_PREFLIGHT_V1"
+  }
+}

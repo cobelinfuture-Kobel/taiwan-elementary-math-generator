@@ -1,0 +1,90 @@
+{
+  "schemaName": "P03F50G5BU06DirectSourceWitnessResolutionV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F50_Q050DirectSourceWitnessResolution",
+  "status": "PASS_SOURCE_WITNESS_RESOLVED_OPERATOR_APPROVED_ESTIMATION_EXTENSION",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "policyPath": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue-policy.json",
+    "queuePosition": 50,
+    "frozenSliceId": "p03e_q050_r11_g5b_u06_5b06_profile_decimal_c1",
+    "frozenKnowledgePointIds": [
+      "kp_g5b_u06_decimal_division_application",
+      "kp_g5b_u06_decimal_division_estimation",
+      "kp_g5b_u06_decimal_division_zero_placeholder"
+    ],
+    "silentReorderAllowed": false,
+    "queueMutationPerformedByThisTask": false
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g5b_u06_5b06",
+    "sourceCode": "5b06",
+    "sourceTitle": "整數、小數除以整數",
+    "sourceFileName": "meow911_5b06_source.pdf",
+    "sourceDriveFileId": "1epAMlYqXqodfsYL7uiHHfOyQYJiEZGZc",
+    "sourceSha256": "f5b06e75d20ac7f7370648ddd90048ef6b911b4296803779878ed4d5a4e871c3",
+    "sourceByteLength": 410179,
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK_NO_OCR_AUTHORITY_PLUS_FROZEN_Q050_ASSIGNMENT",
+    "reviewedPages": [1]
+  },
+  "directPage1Witnesses": [
+    {
+      "concept": "decimal_division_zero_placeholder",
+      "witness": "48.32 ÷ 8 = 6.04",
+      "page": 1,
+      "semanticBoundary": "商的小數部分中間需要以 0 占位後才能繼續得到後續非零商位。"
+    },
+    {
+      "concept": "decimal_division_application",
+      "witness": "工程隊每天修築 5.04 公里，18 天完工；若提前 4 天完工，求每天需修築多少公里。",
+      "page": 1,
+      "semanticBoundary": "生活情境中以小數除法求重新分配後的每份量；教材題為多步驟情境，q050 runtime 僅採 bounded single-division unit-amount surface，不宣稱生成題為教材原題。"
+    },
+    {
+      "concept": "decimal_division_application",
+      "witness": "400 公尺賽跑，平平 59 秒、安安 64 秒；當平平到終點時，用小數表示安安距離終點幾公尺。",
+      "page": 1,
+      "semanticBoundary": "生活情境需要以除法求單位時間量，再完成後續數量關係；支持 decimal division application 概念，不等同 q050 生成題逐字教材例題。"
+    }
+  ],
+  "frozenCandidateReview": [
+    {
+      "knowledgePointId": "kp_g5b_u06_decimal_division_application",
+      "r02CandidateNameZh": "小數平均分與單位量",
+      "r02CandidateEvidencePage": 1,
+      "directSourceWitnessFound": true,
+      "q050DeliveryStatus": "DIRECT_SOURCE_CONCEPT_WITNESS_SUPPORTED"
+    },
+    {
+      "knowledgePointId": "kp_g5b_u06_decimal_division_estimation",
+      "r02CandidateNameZh": "小數除法估商",
+      "r02CandidateEvidencePage": 1,
+      "directSourceWitnessFound": false,
+      "q050DeliveryStatus": "OPERATOR_APPROVED_CURRICULUM_EXTENSION",
+      "operatorApprovalDate": "2026-08-22",
+      "operatorApprovalMeaning": "The operator explicitly approved P03F_W3DirectProductVerticalSlice050Implementation after preflight disclosed that estimation has no direct visible textbook witness. The frozen q050 allocation is preserved without inventing a textbook example."
+    },
+    {
+      "knowledgePointId": "kp_g5b_u06_decimal_division_zero_placeholder",
+      "r02CandidateNameZh": "小數除法補零與商中間零",
+      "r02CandidateEvidencePage": 1,
+      "directSourceWitnessFound": true,
+      "q050DeliveryStatus": "DIRECT_SOURCE_PROCEDURAL_WITNESS_SUPPORTED"
+    }
+  ],
+  "resolution": {
+    "sourceWitnessGapResolved": true,
+    "applicationDirectTextbookConceptWitness": true,
+    "applicationDirectTextbookGeneratedExampleClaimed": false,
+    "estimationDirectTextbookWitness": false,
+    "estimationOperatorApprovedExtension": true,
+    "zeroPlaceholderDirectTextbookWitness": true,
+    "queueMutationRequired": false,
+    "implementationBranchMayProceed": true,
+    "globalR02MutationPerformedByThisTask": false,
+    "globalR03MutationPerformedByThisTask": false,
+    "globalR04MutationPerformedByThisTask": false,
+    "nextTask": "P03F_W3DirectProductVerticalSlice050Implementation"
+  }
+}

@@ -1,0 +1,421 @@
+{
+  "schemaName": "G4BU04PatternSpecContractQA",
+  "schemaVersion": 1,
+  "task": "S67_G4B_U04_PatternSpecContractQA",
+  "status": "qa_passed_with_corrections_pending_ci",
+  "sourceId": "g4b_u04_4b04",
+  "sourceContractRef": "data/curriculum/contracts/S66_G4B_U04_PatternSpecContractDesign.json",
+  "sourceMappingQARef": "data/curriculum/mapping/g4b_u04_formal_mapping_candidate_qa.json",
+  "summary": {
+    "patternSpecContractsReviewed": 17,
+    "patternSpecContractsAccepted": 17,
+    "patternSpecContractsRejected": 0,
+    "patternGroupsReviewed": 12,
+    "answerModelSchemasReviewed": 9,
+    "controlledTemplateFamiliesReviewed": 9,
+    "validatorStagesReviewed": 8,
+    "blockingCodesReviewed": 44,
+    "qaCorrectionsApplied": 5,
+    "mutationCaseCount": 28
+  },
+  "corrections": [
+    {
+      "code": "S67_ANSWER_SCHEMA_CLOSURE_REQUIRED",
+      "target": "answerModelSchemas",
+      "blockingBeforeCorrection": true,
+      "resolution": "Treat every answer schema as closed, define the three method-comparison outputs explicitly, and make the numeric unit-label condition machine-readable."
+    },
+    {
+      "code": "S67_TEMPLATE_ROLE_BINDING_REQUIRED",
+      "target": "controlledTemplateFamilies",
+      "blockingBeforeCorrection": true,
+      "resolution": "Every template placeholder now has an exact binding to an input, derived value or controlled context role; unmapped placeholders and unused bindings are forbidden."
+    },
+    {
+      "code": "S67_ROUND_THEN_OPERATE_PROMPT_VISIBILITY_REQUIRED",
+      "target": "operation_estimation PatternSpecs",
+      "blockingBeforeCorrection": true,
+      "resolution": "The four round-then-operate prompts must expose the original value or operands, rounding method labels and target-place labels. Prompts that reveal only pre-rounded values are forbidden because they do not test the mapped rounding skill."
+    },
+    {
+      "code": "S67_DIGIT_MASK_GRAMMAR_REQUIRED",
+      "target": "inverse PatternSpec input contracts",
+      "blockingBeforeCorrection": true,
+      "resolution": "Lock source-backed internal digit-mask grammar, maximum length, placeholder count, placeholder contiguity and no-leading-zero/no-separator rules."
+    },
+    {
+      "code": "S67_VALIDATOR_CODE_COVERAGE_MATRIX_REQUIRED",
+      "target": "validatorContract",
+      "blockingBeforeCorrection": true,
+      "resolution": "Assign all 44 blocking codes exactly once to the eight validator stages and require every stage check to be represented by at least one blocking-code family."
+    }
+  ],
+  "effectiveContractOverlay": {
+    "consumptionRule": "S68 and later consumers must load S66 first and apply this S67 overlay as the higher-precedence effective contract.",
+    "answerSchemaPolicy": {
+      "closedSchemaNames": [
+        "classificationAnswer",
+        "symbolReadingAnswer",
+        "methodComparisonAnswer",
+        "methodChoiceAnswer",
+        "numericAnswer",
+        "moneyAmountAnswer",
+        "banknoteCountAnswer",
+        "digitSetAnswer",
+        "possibleValuesAnswer"
+      ],
+      "additionalProperties": false,
+      "methodComparisonOutputs": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "unconditionalDown",
+          "unconditionalUp",
+          "roundHalfUp"
+        ],
+        "properties": {
+          "unconditionalDown": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999999999
+          },
+          "unconditionalUp": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999999999
+          },
+          "roundHalfUp": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999999999
+          }
+        }
+      },
+      "numericAnswerConditionalRequired": {
+        "when": "PatternSpec.promptContract.answerUnitRequired === true",
+        "requiredField": "unitLabel",
+        "nonemptyString": true
+      }
+    },
+    "controlledTemplateOverrides": [
+      {
+        "templateFamilyId": "tpl_g4b_u04_floor_complete_pack",
+        "mappingId": "fmc_g4b_u04_floor_complete_groups",
+        "promptSkeletonZh": "有 {total}{itemUnit}，每 {groupSize}{itemUnit} 裝成一{containerClassifier}{containerName}，最多可以裝成幾{containerClassifier}完整的{containerName}？",
+        "requiredRoles": ["total", "itemUnit", "groupSize", "containerClassifier", "containerName"],
+        "roleBindings": {
+          "total": "input.total",
+          "itemUnit": "context.itemUnit",
+          "groupSize": "input.groupSize",
+          "containerClassifier": "context.containerClassifier",
+          "containerName": "context.containerName"
+        },
+        "answerUnitRole": "containerClassifier",
+        "computationInputsVisible": true
+      },
+      {
+        "templateFamilyId": "tpl_g4b_u04_ceiling_pack_all",
+        "mappingId": "fmc_g4b_u04_ceiling_minimum_required",
+        "promptSkeletonZh": "有 {total}{itemUnit}，每{containerName}最多裝 {capacity}{itemUnit}，全部裝完至少需要幾{containerClassifier}{containerName}？",
+        "requiredRoles": ["total", "itemUnit", "capacity", "containerClassifier", "containerName"],
+        "roleBindings": {
+          "total": "input.total",
+          "itemUnit": "context.itemUnit",
+          "capacity": "input.capacityOrIncrement",
+          "containerClassifier": "context.containerClassifier",
+          "containerName": "context.containerName"
+        },
+        "answerUnitRole": "containerClassifier",
+        "computationInputsVisible": true
+      },
+      {
+        "templateFamilyId": "tpl_g4b_u04_ceiling_saving_periods",
+        "mappingId": "fmc_g4b_u04_ceiling_minimum_required",
+        "promptSkeletonZh": "每月存 {increment} 元，要存到至少 {target} 元，至少需要幾個月？",
+        "requiredRoles": ["increment", "target"],
+        "roleBindings": {
+          "increment": "input.capacityOrIncrement",
+          "target": "input.total"
+        },
+        "answerUnitRole": "月",
+        "computationInputsVisible": true
+      },
+      {
+        "templateFamilyId": "tpl_g4b_u04_payment_amount",
+        "mappingId": "fmc_g4b_u04_payment_amount_ceiling",
+        "promptSkeletonZh": "商品售價 {price} 元，只用 {denomination} 元鈔票付款，至少要付多少元？",
+        "requiredRoles": ["price", "denomination"],
+        "roleBindings": {
+          "price": "input.price",
+          "denomination": "input.denomination"
+        },
+        "answerUnitRole": "元",
+        "computationInputsVisible": true
+      },
+      {
+        "templateFamilyId": "tpl_g4b_u04_payment_banknote_count",
+        "mappingId": "fmc_g4b_u04_payment_banknote_count",
+        "promptSkeletonZh": "商品售價 {price} 元，只用 {denomination} 元鈔票付款，至少需要幾張？",
+        "requiredRoles": ["price", "denomination"],
+        "roleBindings": {
+          "price": "input.price",
+          "denomination": "input.denomination"
+        },
+        "answerUnitRole": "張",
+        "computationInputsVisible": true
+      },
+      {
+        "templateFamilyId": "tpl_g4b_u04_population_total",
+        "mappingId": "fmc_g4b_u04_round_then_add",
+        "promptSkeletonZh": "甲地有 {operandA}{unitLabel}，用{methodALabel}取概數到{targetPlaceLabelA}；乙地有 {operandB}{unitLabel}，用{methodBLabel}取概數到{targetPlaceLabelB}。兩地合計約有多少{unitLabel}？",
+        "requiredRoles": ["operandA", "unitLabel", "methodALabel", "targetPlaceLabelA", "operandB", "methodBLabel", "targetPlaceLabelB"],
+        "roleBindings": {
+          "operandA": "input.operandA",
+          "unitLabel": "context.unitLabel",
+          "methodALabel": "derived.methodLabel(input.methodA)",
+          "targetPlaceLabelA": "derived.targetPlaceLabel(input.targetUnitA)",
+          "operandB": "input.operandB",
+          "methodBLabel": "derived.methodLabel(input.methodB)",
+          "targetPlaceLabelB": "derived.targetPlaceLabel(input.targetUnitB)"
+        },
+        "answerUnitRole": "unitLabel",
+        "computationInputsVisible": true
+      },
+      {
+        "templateFamilyId": "tpl_g4b_u04_population_difference",
+        "mappingId": "fmc_g4b_u04_round_then_subtract",
+        "promptSkeletonZh": "甲地有 {operandA}{unitLabel}，用{methodALabel}取概數到{targetPlaceLabelA}；乙地有 {operandB}{unitLabel}，用{methodBLabel}取概數到{targetPlaceLabelB}。兩地相差約多少{unitLabel}？",
+        "requiredRoles": ["operandA", "unitLabel", "methodALabel", "targetPlaceLabelA", "operandB", "methodBLabel", "targetPlaceLabelB"],
+        "roleBindings": {
+          "operandA": "input.operandA",
+          "unitLabel": "context.unitLabel",
+          "methodALabel": "derived.methodLabel(input.methodA)",
+          "targetPlaceLabelA": "derived.targetPlaceLabel(input.targetUnitA)",
+          "operandB": "input.operandB",
+          "methodBLabel": "derived.methodLabel(input.methodB)",
+          "targetPlaceLabelB": "derived.targetPlaceLabel(input.targetUnitB)"
+        },
+        "answerUnitRole": "unitLabel",
+        "computationInputsVisible": true
+      },
+      {
+        "templateFamilyId": "tpl_g4b_u04_recurring_cost_multiply",
+        "mappingId": "fmc_g4b_u04_round_then_multiply",
+        "promptSkeletonZh": "每期費用是 {value} 元，用{methodLabel}取概數到{targetPlaceLabel}後，估算 {factor} 期的總費用約是多少元？",
+        "requiredRoles": ["value", "methodLabel", "targetPlaceLabel", "factor"],
+        "roleBindings": {
+          "value": "input.value",
+          "methodLabel": "derived.methodLabel(input.method)",
+          "targetPlaceLabel": "derived.targetPlaceLabel(input.targetUnit)",
+          "factor": "input.factor"
+        },
+        "answerUnitRole": "元",
+        "computationInputsVisible": true
+      },
+      {
+        "templateFamilyId": "tpl_g4b_u04_equal_share_divide",
+        "mappingId": "fmc_g4b_u04_round_then_divide",
+        "promptSkeletonZh": "總費用是 {value} 元，用{methodLabel}取概數到{targetPlaceLabel}後，由 {divisor} 人平均分攤，每人約付多少元？",
+        "requiredRoles": ["value", "methodLabel", "targetPlaceLabel", "divisor"],
+        "roleBindings": {
+          "value": "input.value",
+          "methodLabel": "derived.methodLabel(input.method)",
+          "targetPlaceLabel": "derived.targetPlaceLabel(input.targetUnit)",
+          "divisor": "input.divisor"
+        },
+        "answerUnitRole": "元",
+        "computationInputsVisible": true
+      }
+    ],
+    "operationEstimationPromptPolicy": {
+      "affectedPatternSpecIds": [
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract",
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide"
+      ],
+      "originalInputsMustBeVisible": true,
+      "roundingMethodLabelsMustBeVisible": true,
+      "targetPlaceLabelsMustBeVisible": true,
+      "forbiddenDerivedOnlyRoles": ["roundedA", "roundedB", "largerRounded", "smallerRounded", "roundedValue"]
+    },
+    "digitMaskContracts": {
+      "ps_g4b_u04_inverse_digit_set": {
+        "pattern": "^[1-9][0-9]*□[0-9]+$",
+        "minimumLength": 3,
+        "maximumLength": 8,
+        "placeholderCount": 1,
+        "placeholderInternal": true,
+        "leadingZeroForbidden": true,
+        "groupSeparatorsForbidden": true
+      },
+      "ps_g4b_u04_inverse_original_values": {
+        "pattern": "^[1-9][0-9]*□□[0-9]+$",
+        "minimumLength": 4,
+        "maximumLength": 8,
+        "placeholderCount": 2,
+        "placeholdersContiguous": true,
+        "placeholderInternal": true,
+        "leadingZeroForbidden": true,
+        "groupSeparatorsForbidden": true
+      }
+    },
+    "validatorCoverageByStage": [
+      {
+        "stage": 1,
+        "name": "identity_and_schema",
+        "blockingCodes": [
+          "G4BU04_REQUIRED_FIELD_MISSING",
+          "G4BU04_SOURCE_ID_MISMATCH",
+          "G4BU04_UNIT_IDENTITY_MISMATCH",
+          "G4BU04_PATTERN_KIND_MISMATCH",
+          "G4BU04_PATTERN_SPEC_NOT_LOCKED",
+          "G4BU04_PATTERN_GROUP_MISMATCH",
+          "G4BU04_KNOWLEDGE_POINT_MISMATCH",
+          "G4BU04_SOURCE_MAPPING_REF_MISMATCH"
+        ]
+      },
+      {
+        "stage": 2,
+        "name": "lifecycle_and_scope",
+        "blockingCodes": [
+          "G4BU04_LIFECYCLE_STATE_INVALID",
+          "G4BU04_PUBLIC_ROUTING_FORBIDDEN",
+          "G4BU04_PRODUCTION_USE_FORBIDDEN"
+        ]
+      },
+      {
+        "stage": 3,
+        "name": "integer_domain_and_boundary",
+        "blockingCodes": [
+          "G4BU04_NONINTEGER_INPUT",
+          "G4BU04_INPUT_OUT_OF_RANGE",
+          "G4BU04_TARGET_UNIT_NOT_ALLOWED",
+          "G4BU04_GROUP_SIZE_NOT_ALLOWED",
+          "G4BU04_PAYMENT_DENOMINATION_NOT_ALLOWED",
+          "G4BU04_FACTOR_DIVISOR_OUT_OF_RANGE",
+          "G4BU04_DECIMAL_NEGATIVE_DOMAIN_LEAKAGE"
+        ]
+      },
+      {
+        "stage": 4,
+        "name": "formula_and_operation",
+        "blockingCodes": [
+          "G4BU04_FORMULA_MISMATCH",
+          "G4BU04_OUTPUT_NOT_MULTIPLE_OF_UNIT",
+          "G4BU04_ROUND_DIRECTION_MISMATCH",
+          "G4BU04_HALF_UP_THRESHOLD_MISMATCH",
+          "G4BU04_FLOOR_REMAINDER_COUNTED",
+          "G4BU04_CEILING_REMAINDER_DISCARDED",
+          "G4BU04_PAYMENT_INSUFFICIENT",
+          "G4BU04_PAYMENT_NOT_MINIMUM_MULTIPLE",
+          "G4BU04_BANKNOTE_COUNT_NOT_MINIMUM",
+          "G4BU04_ONE_FEWER_NOTE_SUFFICIENT",
+          "G4BU04_ROUNDED_OPERAND_MISMATCH",
+          "G4BU04_ESTIMATED_OPERATION_MISMATCH",
+          "G4BU04_SUBTRACTION_NEGATIVE_OR_ZERO_TRIVIAL",
+          "G4BU04_DIVISION_NONINTEGER"
+        ]
+      },
+      {
+        "stage": 5,
+        "name": "answer_model",
+        "blockingCodes": [
+          "G4BU04_ANSWER_MODEL_MISMATCH",
+          "G4BU04_ANSWER_OUT_OF_RANGE"
+        ]
+      },
+      {
+        "stage": 6,
+        "name": "semantic_template_and_units",
+        "blockingCodes": [
+          "G4BU04_SEMANTIC_TEMPLATE_NOT_ALLOWLISTED",
+          "G4BU04_UNIT_CLASSIFIER_MISMATCH",
+          "G4BU04_UNRESOLVED_PLACEHOLDER"
+        ]
+      },
+      {
+        "stage": 7,
+        "name": "ambiguity_and_inverse",
+        "blockingCodes": [
+          "G4BU04_METHOD_CHOICE_AMBIGUOUS",
+          "G4BU04_METHOD_SHARED_HALF_UP_RESULT",
+          "G4BU04_INVERSE_INTERVAL_NOT_CLAMPED",
+          "G4BU04_INVERSE_VISIBLE_DIGIT_MISMATCH",
+          "G4BU04_INVERSE_SOLUTION_SET_INCOMPLETE"
+        ]
+      },
+      {
+        "stage": 8,
+        "name": "final_surface_contract",
+        "blockingCodes": [
+          "G4BU04_INTERNAL_ID_LEAKAGE",
+          "G4BU04_GENERIC_FALLBACK_FORBIDDEN"
+        ]
+      }
+    ]
+  },
+  "mutationRequirements": [
+    "REQUIRED_FIELD_DELETED",
+    "DUPLICATE_PATTERN_SPEC_ID",
+    "PATTERN_GROUP_DRIFT",
+    "KNOWLEDGE_POINT_DRIFT",
+    "SOURCE_MAPPING_DRIFT",
+    "PUBLIC_LIFECYCLE_ENABLED",
+    "PRODUCTION_USE_ENABLED",
+    "FREE_FORM_AI_ENABLED",
+    "ANSWER_SCHEMA_NOT_CLOSED",
+    "METHOD_COMPARISON_OUTPUT_FIELD_MISSING",
+    "NUMERIC_UNIT_CONDITION_REMOVED",
+    "TEMPLATE_PLACEHOLDER_ROLE_MISMATCH",
+    "TEMPLATE_ROLE_BINDING_MISSING",
+    "TEMPLATE_MAPPING_MISMATCH",
+    "ROUND_THEN_ADD_HIDES_OPERANDS",
+    "ROUND_THEN_SUBTRACT_HIDES_METHOD",
+    "ROUND_THEN_MULTIPLY_HIDES_TARGET_PLACE",
+    "ROUND_THEN_DIVIDE_HIDES_ORIGINAL_VALUE",
+    "DIGIT_MASK_LEADING_ZERO_ALLOWED",
+    "DIGIT_MASK_PLACEHOLDER_AT_EDGE",
+    "DIGIT_MASK_WRONG_PLACEHOLDER_COUNT",
+    "DIGIT_MASK_NONCONTIGUOUS_DOUBLE_PLACEHOLDER",
+    "DIGIT_MASK_GROUP_SEPARATOR_ALLOWED",
+    "VALIDATOR_CODE_OMITTED",
+    "VALIDATOR_CODE_DUPLICATED",
+    "VALIDATOR_CODE_WRONG_STAGE",
+    "BLOCKING_CODE_COUNT_DRIFT",
+    "GENERIC_FALLBACK_ENABLED"
+  ],
+  "acceptance": {
+    "all17PatternSpecsAcceptedAfterOverlay": true,
+    "allNineAnswerSchemasClosed": true,
+    "allNineTemplatesRoleBound": true,
+    "allFourOperationEstimationPromptsExposeRoundingInputs": true,
+    "bothInverseMasksGrammarLocked": true,
+    "all44BlockingCodesCoveredExactlyOnce": true,
+    "allEightValidatorStagesCovered": true,
+    "mutationCaseCount": 28
+  },
+  "scopeBoundary": {
+    "baseS66ContractRewritten": false,
+    "formalMappingMaterialized": false,
+    "patternGroupsMaterialized": false,
+    "patternSpecsMaterialized": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "canonicalRoutingEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "goalDistance": {
+    "before": "D2_G4B_U04_PATTERNSPEC_AND_ANSWER_CONTRACTS_DESIGNED",
+    "after": "D2_G4B_U04_PATTERNSPEC_CONTRACT_QA_LOCKED",
+    "distanceReduced": "Reviewed all 17 PatternSpec contracts and locked answer-schema closure, semantic role bindings, visible round-then-operate prompts, inverse digit-mask grammar and exact validator-code coverage for hidden materialization.",
+    "remainingBlockers": [
+      "FormalMapping, PatternGroups and PatternSpecs not materialized",
+      "generator and blocking validator not implemented",
+      "public selector and worksheet path not connected"
+    ],
+    "nextShortestStep": "S68_G4B_U04_FormalMappingAndHiddenPatternSpecMaterialization",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}

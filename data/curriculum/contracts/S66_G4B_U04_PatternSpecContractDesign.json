@@ -1,0 +1,1986 @@
+{
+  "schemaName": "G4BU04PatternSpecContractDesign",
+  "schemaVersion": 1,
+  "task": "S66_G4B_U04_PatternSpecContractDesign",
+  "status": "contract_design_complete_pending_qa",
+  "sourceId": "g4b_u04_4b04",
+  "unitCode": "4B-U04",
+  "unitTitle": "概數",
+  "dependsOn": [
+    "data/curriculum/mapping/g4b_u04_formal_mapping_candidates.json",
+    "data/curriculum/mapping/g4b_u04_formal_mapping_candidate_qa.json"
+  ],
+  "canonicalSkillParent": "rounding_approximation",
+  "patternSpecKind": "g4bU04RoundingApproximation",
+  "cardinality": {
+    "knowledgePointCount": 12,
+    "patternGroupCount": 12,
+    "patternSpecContractCount": 17,
+    "answerModelSchemaCount": 9,
+    "controlledTemplateFamilyCount": 9,
+    "implementationClassCCount": 9,
+    "implementationClassDCount": 8
+  },
+  "requiredPatternSpecFields": [
+    "patternSpecId",
+    "sourceMappingCandidateId",
+    "sourceId",
+    "unitCode",
+    "unitTitle",
+    "kind",
+    "patternGroupId",
+    "knowledgePointId",
+    "mode",
+    "equationShape",
+    "inputContract",
+    "generationContract",
+    "promptContract",
+    "answerModel",
+    "answerSchemaRef",
+    "validatorHooks",
+    "sourceEvidence",
+    "implementationClass",
+    "patternOrder",
+    "lifecycle"
+  ],
+  "fixedLifecycle": {
+    "contractStatus": "designed_not_materialized",
+    "selectorVisibility": "hidden",
+    "canonicalRouting": "disabled",
+    "generatorStatus": "not_implemented",
+    "validatorStatus": "contract_only",
+    "productionUse": "forbidden",
+    "freeFormAI": "forbidden",
+    "genericFallback": "forbidden"
+  },
+  "globalBoundary": {
+    "inputRange": [
+      0,
+      99999999
+    ],
+    "targetPlaceUnits": [
+      10,
+      100,
+      1000,
+      10000
+    ],
+    "contextGroupSizes": [
+      10,
+      100,
+      1000
+    ],
+    "paymentDenominations": [
+      100,
+      1000
+    ],
+    "factorOrDivisorRange": [
+      2,
+      9
+    ],
+    "maximumAnswer": 999999999,
+    "integerOnly": true,
+    "negativeAnswerAllowed": false,
+    "inversePreimageClampedToInputRange": true
+  },
+  "formalRules": {
+    "down": "floor(v/u)*u",
+    "up": "ceil(v/u)*u",
+    "halfUp": "floor((v+u/2)/u)*u",
+    "floorGroups": "floor(t/g)",
+    "ceilingGroups": "ceil(t/g)",
+    "paymentAmount": "ceil(p/d)*d",
+    "banknoteCount": "ceil(p/d)",
+    "inverse": "intersect([y-u/2,y+u/2-1],[0,maxInput])"
+  },
+  "identifierRules": {
+    "patternSpecIdPattern": "^ps_g4b_u04_[a-z0-9_]+$",
+    "patternGroupIdPattern": "^pg_g4b_u04_[a-z0-9_]+$",
+    "knowledgePointIdPattern": "^kp_g4b_u04_[a-z0-9_]+$",
+    "mappingCandidateIdPattern": "^fmc_g4b_u04_[a-z0-9_]+$",
+    "templateFamilyIdPattern": "^tpl_g4b_u04_[a-z0-9_]+$",
+    "allIdsUnique": true
+  },
+  "answerModelSchemas": {
+    "classificationAnswer": {
+      "type": "object",
+      "required": [
+        "classification",
+        "evidenceCue"
+      ],
+      "properties": {
+        "classification": {
+          "enum": [
+            "approximate",
+            "exact"
+          ]
+        },
+        "evidenceCue": {
+          "type": "string"
+        }
+      },
+      "rules": [
+        "approximate requires an approved approximation cue or explicitly rounded quantity",
+        "exact requires an explicitly exact quantity statement",
+        "mixed or ambiguous precision signals are forbidden"
+      ]
+    },
+    "symbolReadingAnswer": {
+      "type": "object",
+      "required": [
+        "symbol",
+        "canonicalReading",
+        "acceptedReadings"
+      ],
+      "properties": {
+        "symbol": {
+          "const": "≈"
+        },
+        "canonicalReading": {
+          "const": "約等於"
+        },
+        "acceptedReadings": {
+          "const": [
+            "約等於",
+            "近似於"
+          ]
+        }
+      }
+    },
+    "methodComparisonAnswer": {
+      "type": "object",
+      "required": [
+        "value",
+        "targetUnit",
+        "outputs"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer"
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "outputs": {
+          "required": [
+            "unconditionalDown",
+            "unconditionalUp",
+            "roundHalfUp"
+          ],
+          "allInteger": true
+        }
+      }
+    },
+    "methodChoiceAnswer": {
+      "type": "object",
+      "required": [
+        "method",
+        "shownResult"
+      ],
+      "properties": {
+        "method": {
+          "enum": [
+            "unconditional_down",
+            "unconditional_up"
+          ]
+        },
+        "shownResult": {
+          "type": "integer"
+        }
+      },
+      "rules": [
+        "input is not a multiple of targetUnit",
+        "shownResult matches exactly one method",
+        "shownResult differs from roundHalfUp output"
+      ]
+    },
+    "numericAnswer": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999999999
+        },
+        "unitLabel": {
+          "type": "string",
+          "requiredWhenPatternRequiresUnit": true
+        }
+      }
+    },
+    "moneyAmountAnswer": {
+      "type": "object",
+      "required": [
+        "amount",
+        "currency",
+        "unitLabel"
+      ],
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999999999
+        },
+        "currency": {
+          "const": "TWD"
+        },
+        "unitLabel": {
+          "const": "元"
+        }
+      }
+    },
+    "banknoteCountAnswer": {
+      "type": "object",
+      "required": [
+        "count",
+        "denomination",
+        "currency",
+        "unitLabel"
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "denomination": {
+          "enum": [
+            100,
+            1000
+          ]
+        },
+        "currency": {
+          "const": "TWD"
+        },
+        "unitLabel": {
+          "const": "張"
+        }
+      }
+    },
+    "digitSetAnswer": {
+      "type": "object",
+      "required": [
+        "digits"
+      ],
+      "properties": {
+        "digits": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "minItems": 1,
+          "maxItems": 10,
+          "unique": true,
+          "sortedAscending": true
+        }
+      }
+    },
+    "possibleValuesAnswer": {
+      "type": "object",
+      "required": [
+        "values"
+      ],
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999999
+          },
+          "minItems": 1,
+          "maxItems": 100,
+          "unique": true,
+          "sortedAscending": true
+        }
+      },
+      "rules": [
+        "explicit values required; an interval alone is insufficient when a digit mask is present"
+      ]
+    }
+  },
+  "controlledTemplateFamilies": [
+    {
+      "templateFamilyId": "tpl_g4b_u04_floor_complete_pack",
+      "mappingId": "fmc_g4b_u04_floor_complete_groups",
+      "contextDomain": "packing",
+      "promptSkeletonZh": "有 {total}{itemUnit}，每 {groupSize}{itemUnit} 裝成一{containerClassifier}{containerName}，最多可以裝成幾{containerClassifier}完整的{containerName}？",
+      "requiredRoles": [
+        "total",
+        "itemUnit",
+        "groupSize",
+        "containerClassifier",
+        "containerName"
+      ],
+      "answerUnitRole": "containerClassifier"
+    },
+    {
+      "templateFamilyId": "tpl_g4b_u04_ceiling_pack_all",
+      "mappingId": "fmc_g4b_u04_ceiling_minimum_required",
+      "contextDomain": "packing",
+      "promptSkeletonZh": "有 {total}{itemUnit}，每{containerName}最多裝 {capacity}{itemUnit}，全部裝完至少需要幾{containerClassifier}{containerName}？",
+      "requiredRoles": [
+        "total",
+        "itemUnit",
+        "capacity",
+        "containerClassifier",
+        "containerName"
+      ],
+      "answerUnitRole": "containerClassifier"
+    },
+    {
+      "templateFamilyId": "tpl_g4b_u04_ceiling_saving_periods",
+      "mappingId": "fmc_g4b_u04_ceiling_minimum_required",
+      "contextDomain": "saving",
+      "promptSkeletonZh": "每月存 {increment} 元，要存到至少 {target} 元，至少需要幾個月？",
+      "requiredRoles": [
+        "increment",
+        "target"
+      ],
+      "answerUnitRole": "月"
+    },
+    {
+      "templateFamilyId": "tpl_g4b_u04_payment_amount",
+      "mappingId": "fmc_g4b_u04_payment_amount_ceiling",
+      "contextDomain": "payment",
+      "promptSkeletonZh": "商品售價 {price} 元，只用 {denomination} 元鈔票付款，至少要付多少元？",
+      "requiredRoles": [
+        "price",
+        "denomination"
+      ],
+      "answerUnitRole": "元"
+    },
+    {
+      "templateFamilyId": "tpl_g4b_u04_payment_banknote_count",
+      "mappingId": "fmc_g4b_u04_payment_banknote_count",
+      "contextDomain": "payment",
+      "promptSkeletonZh": "商品售價 {price} 元，只用 {denomination} 元鈔票付款，至少需要幾張？",
+      "requiredRoles": [
+        "price",
+        "denomination"
+      ],
+      "answerUnitRole": "張"
+    },
+    {
+      "templateFamilyId": "tpl_g4b_u04_population_total",
+      "mappingId": "fmc_g4b_u04_round_then_add",
+      "contextDomain": "population",
+      "promptSkeletonZh": "甲地約有 {roundedA}{unitLabel}，乙地約有 {roundedB}{unitLabel}，兩地合計約有多少{unitLabel}？",
+      "requiredRoles": [
+        "roundedA",
+        "roundedB",
+        "unitLabel"
+      ],
+      "answerUnitRole": "unitLabel"
+    },
+    {
+      "templateFamilyId": "tpl_g4b_u04_population_difference",
+      "mappingId": "fmc_g4b_u04_round_then_subtract",
+      "contextDomain": "population",
+      "promptSkeletonZh": "甲地約有 {largerRounded}{unitLabel}，乙地約有 {smallerRounded}{unitLabel}，兩地相差約多少{unitLabel}？",
+      "requiredRoles": [
+        "largerRounded",
+        "smallerRounded",
+        "unitLabel"
+      ],
+      "answerUnitRole": "unitLabel"
+    },
+    {
+      "templateFamilyId": "tpl_g4b_u04_recurring_cost_multiply",
+      "mappingId": "fmc_g4b_u04_round_then_multiply",
+      "contextDomain": "recurring_cost",
+      "promptSkeletonZh": "每期費用先取概數為 {roundedValue} 元，共有 {factor} 期，總費用約是多少元？",
+      "requiredRoles": [
+        "roundedValue",
+        "factor"
+      ],
+      "answerUnitRole": "元"
+    },
+    {
+      "templateFamilyId": "tpl_g4b_u04_equal_share_divide",
+      "mappingId": "fmc_g4b_u04_round_then_divide",
+      "contextDomain": "equal_share",
+      "promptSkeletonZh": "總費用先取概數為 {roundedValue} 元，由 {divisor} 人平均分攤，每人約付多少元？",
+      "requiredRoles": [
+        "roundedValue",
+        "divisor"
+      ],
+      "answerUnitRole": "元"
+    }
+  ],
+  "patternGroups": [
+    {
+      "patternGroupId": "pg_g4b_u04_approximation_language",
+      "knowledgePointId": "kp_g4b_u04_approximation_language_cues",
+      "displayName": "概數語意與精確數辨識",
+      "patternSpecIds": [
+        "ps_g4b_u04_approx_language_classify"
+      ],
+      "answerModels": [
+        "classificationAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_approximation_symbol",
+      "knowledgePointId": "kp_g4b_u04_approximation_symbol_reading",
+      "displayName": "約等號與讀法",
+      "patternSpecIds": [
+        "ps_g4b_u04_approx_symbol_reading"
+      ],
+      "answerModels": [
+        "symbolReadingAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_method_comparison",
+      "knowledgePointId": "kp_g4b_u04_three_approximation_methods_compare",
+      "displayName": "三種取概數方法比較",
+      "patternSpecIds": [
+        "ps_g4b_u04_method_compare_outputs",
+        "ps_g4b_u04_method_identify_from_result"
+      ],
+      "answerModels": [
+        "methodComparisonAnswer",
+        "methodChoiceAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_round_down",
+      "knowledgePointId": "kp_g4b_u04_unconditional_round_down",
+      "displayName": "無條件捨去",
+      "patternSpecIds": [
+        "ps_g4b_u04_unconditional_round_down"
+      ],
+      "answerModels": [
+        "numericAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_round_up",
+      "knowledgePointId": "kp_g4b_u04_unconditional_round_up",
+      "displayName": "無條件進入",
+      "patternSpecIds": [
+        "ps_g4b_u04_unconditional_round_up"
+      ],
+      "answerModels": [
+        "numericAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_round_half_up",
+      "knowledgePointId": "kp_g4b_u04_round_half_up_place_value",
+      "displayName": "四捨五入到指定數位",
+      "patternSpecIds": [
+        "ps_g4b_u04_round_half_up"
+      ],
+      "answerModels": [
+        "numericAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_context_floor_ceiling",
+      "knowledgePointId": "kp_g4b_u04_context_floor_ceiling_selection",
+      "displayName": "最多完整數量與最少需求",
+      "patternSpecIds": [
+        "ps_g4b_u04_floor_complete_groups",
+        "ps_g4b_u04_ceiling_minimum_required"
+      ],
+      "answerModels": [
+        "numericAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_payment_ceiling",
+      "knowledgePointId": "kp_g4b_u04_payment_denomination_ceiling",
+      "displayName": "鈔票面額與足額付款",
+      "patternSpecIds": [
+        "ps_g4b_u04_payment_amount_ceiling",
+        "ps_g4b_u04_payment_banknote_count"
+      ],
+      "answerModels": [
+        "moneyAmountAnswer",
+        "banknoteCountAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_estimate_add_subtract",
+      "knowledgePointId": "kp_g4b_u04_round_then_add_subtract",
+      "displayName": "先取概數再做加減估算",
+      "patternSpecIds": [
+        "ps_g4b_u04_round_then_add",
+        "ps_g4b_u04_round_then_subtract"
+      ],
+      "answerModels": [
+        "numericAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_estimate_multiply_divide",
+      "knowledgePointId": "kp_g4b_u04_round_then_multiply_divide",
+      "displayName": "先取概數再做乘除估算",
+      "patternSpecIds": [
+        "ps_g4b_u04_round_then_multiply",
+        "ps_g4b_u04_round_then_divide"
+      ],
+      "answerModels": [
+        "numericAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_inverse_digit_set",
+      "knowledgePointId": "kp_g4b_u04_inverse_rounding_unknown_digit",
+      "displayName": "由近似值推回未知數字",
+      "patternSpecIds": [
+        "ps_g4b_u04_inverse_digit_set"
+      ],
+      "answerModels": [
+        "digitSetAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    },
+    {
+      "patternGroupId": "pg_g4b_u04_inverse_original_values",
+      "knowledgePointId": "kp_g4b_u04_inverse_rounding_possible_original",
+      "displayName": "由近似值推回可能原數",
+      "patternSpecIds": [
+        "ps_g4b_u04_inverse_original_values"
+      ],
+      "answerModels": [
+        "possibleValuesAnswer"
+      ],
+      "status": "contract_designed_not_materialized"
+    }
+  ],
+  "patternSpecs": [
+    {
+      "patternSpecId": "ps_g4b_u04_approx_language_classify",
+      "sourceMappingCandidateId": "fmc_g4b_u04_approx_language_classify",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_approximation_language",
+      "knowledgePointId": "kp_g4b_u04_approximation_language_cues",
+      "mode": "concept",
+      "equationShape": "classification(statement)",
+      "inputContract": {
+        "statement": {
+          "type": "string"
+        },
+        "approvedApproximationCues": [
+          "大約",
+          "大概",
+          "差不多",
+          "將近",
+          "接近"
+        ],
+        "exactControlRequired": true
+      },
+      "generationContract": {
+        "freeFormAI": "forbidden",
+        "singleInterpretationRequired": true,
+        "mixedPrecisionSignalsForbidden": true
+      },
+      "promptContract": {
+        "promptSkeletonZh": "判斷下面的數量是概數還是精確數，並指出判斷線索。"
+      },
+      "answerModel": "classificationAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/classificationAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04ApproximationCueClassification",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:top-left"
+      ],
+      "implementationClass": "C",
+      "patternOrder": 1,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_approx_symbol_reading",
+      "sourceMappingCandidateId": "fmc_g4b_u04_approx_symbol_reading",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_approximation_symbol",
+      "knowledgePointId": "kp_g4b_u04_approximation_symbol_reading",
+      "mode": "concept",
+      "equationShape": "read(≈)",
+      "inputContract": {
+        "symbol": {
+          "const": "≈"
+        },
+        "acceptedReadings": [
+          "約等於",
+          "近似於"
+        ]
+      },
+      "generationContract": {
+        "freeFormAI": "forbidden",
+        "symbolFixed": true
+      },
+      "promptContract": {
+        "promptSkeletonZh": "符號「≈」讀作什麼？"
+      },
+      "answerModel": "symbolReadingAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/symbolReadingAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04ApproximationSymbol",
+        "validateG4BU04SymbolReading",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:top-right"
+      ],
+      "implementationClass": "C",
+      "patternOrder": 2,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_method_compare_outputs",
+      "sourceMappingCandidateId": "fmc_g4b_u04_method_compare_outputs",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_method_comparison",
+      "knowledgePointId": "kp_g4b_u04_three_approximation_methods_compare",
+      "mode": "concept",
+      "equationShape": "methods(v,u)->{down,up,halfUp}",
+      "inputContract": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        }
+      },
+      "generationContract": {
+        "freeFormAI": "forbidden",
+        "basePoolRequiresNonMultiple": true,
+        "allThreeMethodLabelsRequired": true
+      },
+      "promptContract": {
+        "promptSkeletonZh": "把 {value} 分別用無條件捨去、無條件進入和四捨五入取概數到 {targetPlaceLabel}。"
+      },
+      "answerModel": "methodComparisonAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/methodComparisonAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04AllThreeMethodOutputs",
+        "validateG4BU04MethodLabels",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:second-row-left"
+      ],
+      "implementationClass": "C",
+      "patternOrder": 3,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_method_identify_from_result",
+      "sourceMappingCandidateId": "fmc_g4b_u04_method_identify_from_result",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_method_comparison",
+      "knowledgePointId": "kp_g4b_u04_three_approximation_methods_compare",
+      "mode": "concept",
+      "equationShape": "identifyUniqueMethod(v,u,r)",
+      "inputContract": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "shownResult": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999999999
+        }
+      },
+      "generationContract": {
+        "freeFormAI": "forbidden",
+        "inputNotMultipleOfUnit": true,
+        "shownResultMatchesExactlyOneMethod": true,
+        "shownResultDiffersFromHalfUpOutput": true
+      },
+      "promptContract": {
+        "promptSkeletonZh": "{value} 取概數到 {targetPlaceLabel} 後得到 {shownResult}，使用的是哪一種方法？"
+      },
+      "answerModel": "methodChoiceAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/methodChoiceAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04MethodChoiceUniqueness",
+        "validateG4BU04AmbiguousSharedResultForbidden",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:second-row-left"
+      ],
+      "implementationClass": "C",
+      "patternOrder": 4,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_unconditional_round_down",
+      "sourceMappingCandidateId": "fmc_g4b_u04_unconditional_round_down",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_round_down",
+      "knowledgePointId": "kp_g4b_u04_unconditional_round_down",
+      "mode": "numeric",
+      "equationShape": "floor(v/u)*u",
+      "inputContract": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "floor(value/targetUnit)*targetUnit",
+        "identityInputAllowed": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "promptSkeletonZh": "用無條件捨去法，把 {value} 取概數到 {targetPlaceLabel}。"
+      },
+      "answerModel": "numericAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/numericAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04RoundDownFormula",
+        "validateG4BU04OutputDirection",
+        "validateG4BU04OutputMultiple",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:second-row-left",
+        "s62:p2:top-right"
+      ],
+      "implementationClass": "C",
+      "patternOrder": 5,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_unconditional_round_up",
+      "sourceMappingCandidateId": "fmc_g4b_u04_unconditional_round_up",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_round_up",
+      "knowledgePointId": "kp_g4b_u04_unconditional_round_up",
+      "mode": "numeric",
+      "equationShape": "ceil(v/u)*u",
+      "inputContract": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "ceil(value/targetUnit)*targetUnit",
+        "identityInputAllowed": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "promptSkeletonZh": "用無條件進入法，把 {value} 取概數到 {targetPlaceLabel}。"
+      },
+      "answerModel": "numericAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/numericAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04RoundUpFormula",
+        "validateG4BU04OutputDirection",
+        "validateG4BU04OutputMultiple",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:second-row-left",
+        "s62:p2:top-right"
+      ],
+      "implementationClass": "C",
+      "patternOrder": 6,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_round_half_up",
+      "sourceMappingCandidateId": "fmc_g4b_u04_round_half_up",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_round_half_up",
+      "knowledgePointId": "kp_g4b_u04_round_half_up_place_value",
+      "mode": "numeric",
+      "equationShape": "floor((v+u/2)/u)*u",
+      "inputContract": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "floor((value+targetUnit/2)/targetUnit)*targetUnit",
+        "identityInputAllowed": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "promptSkeletonZh": "用四捨五入法，把 {value} 取概數到 {targetPlaceLabel}。"
+      },
+      "answerModel": "numericAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/numericAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04HalfUpFormula",
+        "validateG4BU04HalfUpThreshold",
+        "validateG4BU04LowerPlacesZero",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:bottom-right",
+        "s62:p2:top-left"
+      ],
+      "implementationClass": "C",
+      "patternOrder": 7,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_floor_complete_groups",
+      "sourceMappingCandidateId": "fmc_g4b_u04_floor_complete_groups",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_context_floor_ceiling",
+      "knowledgePointId": "kp_g4b_u04_context_floor_ceiling_selection",
+      "mode": "application",
+      "equationShape": "floor(t/g)",
+      "inputContract": {
+        "total": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99999999
+        },
+        "groupSize": {
+          "enum": [
+            10,
+            100,
+            1000
+          ]
+        },
+        "templateFamilyId": {
+          "enum": [
+            "tpl_g4b_u04_floor_complete_pack"
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "floor(total/groupSize)",
+        "remainderRequired": true,
+        "controlledTemplateRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "templateFamilyRefs": [
+          "tpl_g4b_u04_floor_complete_pack"
+        ],
+        "answerUnitRequired": true
+      },
+      "answerModel": "numericAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/numericAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04ControlledTemplate",
+        "validateG4BU04FloorGroupsFormula",
+        "validateG4BU04RemainderNotCounted",
+        "validateG4BU04UnitRole",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:second-row-right",
+        "s62:p1:third-row-left"
+      ],
+      "implementationClass": "D",
+      "patternOrder": 8,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_ceiling_minimum_required",
+      "sourceMappingCandidateId": "fmc_g4b_u04_ceiling_minimum_required",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_context_floor_ceiling",
+      "knowledgePointId": "kp_g4b_u04_context_floor_ceiling_selection",
+      "mode": "application",
+      "equationShape": "ceil(t/g)",
+      "inputContract": {
+        "total": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99999999
+        },
+        "capacityOrIncrement": {
+          "enum": [
+            10,
+            100,
+            1000
+          ]
+        },
+        "templateFamilyId": {
+          "enum": [
+            "tpl_g4b_u04_ceiling_pack_all",
+            "tpl_g4b_u04_ceiling_saving_periods"
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "ceil(total/capacityOrIncrement)",
+        "remainderRequired": true,
+        "controlledTemplateRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "templateFamilyRefs": [
+          "tpl_g4b_u04_ceiling_pack_all",
+          "tpl_g4b_u04_ceiling_saving_periods"
+        ],
+        "answerUnitRequired": true
+      },
+      "answerModel": "numericAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/numericAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04ControlledTemplate",
+        "validateG4BU04CeilingGroupsFormula",
+        "validateG4BU04MinimumSufficiency",
+        "validateG4BU04UnitRole",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:second-row-right",
+        "s62:p1:third-row-left",
+        "s62:p1:third-row-right"
+      ],
+      "implementationClass": "D",
+      "patternOrder": 9,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_payment_amount_ceiling",
+      "sourceMappingCandidateId": "fmc_g4b_u04_payment_amount_ceiling",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_payment_ceiling",
+      "knowledgePointId": "kp_g4b_u04_payment_denomination_ceiling",
+      "mode": "application",
+      "equationShape": "ceil(p/d)*d",
+      "inputContract": {
+        "price": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99999999
+        },
+        "denomination": {
+          "enum": [
+            100,
+            1000
+          ]
+        },
+        "templateFamilyId": {
+          "enum": [
+            "tpl_g4b_u04_payment_amount"
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "ceil(price/denomination)*denomination",
+        "remainderRequired": true,
+        "controlledTemplateRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "templateFamilyRefs": [
+          "tpl_g4b_u04_payment_amount"
+        ],
+        "answerUnitRequired": true
+      },
+      "answerModel": "moneyAmountAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/moneyAmountAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04ControlledTemplate",
+        "validateG4BU04PaymentDenomination",
+        "validateG4BU04PaymentCoversPrice",
+        "validateG4BU04PaymentMinimumMultiple",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:fourth-row-left-and-right",
+        "s62:p1:bottom-left"
+      ],
+      "implementationClass": "D",
+      "patternOrder": 10,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_payment_banknote_count",
+      "sourceMappingCandidateId": "fmc_g4b_u04_payment_banknote_count",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_payment_ceiling",
+      "knowledgePointId": "kp_g4b_u04_payment_denomination_ceiling",
+      "mode": "application",
+      "equationShape": "ceil(p/d)",
+      "inputContract": {
+        "price": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99999999
+        },
+        "denomination": {
+          "enum": [
+            100,
+            1000
+          ]
+        },
+        "templateFamilyId": {
+          "enum": [
+            "tpl_g4b_u04_payment_banknote_count"
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "ceil(price/denomination)",
+        "remainderRequired": true,
+        "controlledTemplateRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "templateFamilyRefs": [
+          "tpl_g4b_u04_payment_banknote_count"
+        ],
+        "answerUnitRequired": true
+      },
+      "answerModel": "banknoteCountAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/banknoteCountAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04ControlledTemplate",
+        "validateG4BU04PaymentDenomination",
+        "validateG4BU04BanknoteCountMinimum",
+        "validateG4BU04OneFewerNoteInsufficient",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p1:fourth-row-left-and-right",
+        "s62:p1:bottom-left"
+      ],
+      "implementationClass": "D",
+      "patternOrder": 11,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_round_then_add",
+      "sourceMappingCandidateId": "fmc_g4b_u04_round_then_add",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_estimate_add_subtract",
+      "knowledgePointId": "kp_g4b_u04_round_then_add_subtract",
+      "mode": "operation_estimation",
+      "equationShape": "round(a,ma,ua)+round(b,mb,ub)",
+      "inputContract": {
+        "operandA": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "operandB": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "methodA": {
+          "enum": [
+            "down",
+            "up",
+            "halfUp"
+          ]
+        },
+        "methodB": {
+          "enum": [
+            "down",
+            "up",
+            "halfUp"
+          ]
+        },
+        "targetUnitA": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "targetUnitB": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "templateFamilyId": {
+          "enum": [
+            "tpl_g4b_u04_population_total"
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "roundByMethod(operandA,methodA,targetUnitA)+roundByMethod(operandB,methodB,targetUnitB)",
+        "answerMax": 999999999,
+        "controlledTemplateRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "templateFamilyRefs": [
+          "tpl_g4b_u04_population_total"
+        ],
+        "answerUnitRequired": true
+      },
+      "answerModel": "numericAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/numericAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04ControlledTemplate",
+        "validateG4BU04RoundedOperands",
+        "validateG4BU04EstimatedSum",
+        "validateG4BU04AnswerBoundary",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p2:top-right"
+      ],
+      "implementationClass": "D",
+      "patternOrder": 12,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_round_then_subtract",
+      "sourceMappingCandidateId": "fmc_g4b_u04_round_then_subtract",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_estimate_add_subtract",
+      "knowledgePointId": "kp_g4b_u04_round_then_add_subtract",
+      "mode": "operation_estimation",
+      "equationShape": "max(round(a),round(b))-min(round(a),round(b))",
+      "inputContract": {
+        "operandA": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "operandB": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "methodA": {
+          "enum": [
+            "down",
+            "up",
+            "halfUp"
+          ]
+        },
+        "methodB": {
+          "enum": [
+            "down",
+            "up",
+            "halfUp"
+          ]
+        },
+        "targetUnitA": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "targetUnitB": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "templateFamilyId": {
+          "enum": [
+            "tpl_g4b_u04_population_difference"
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "abs(roundByMethod(operandA,methodA,targetUnitA)-roundByMethod(operandB,methodB,targetUnitB))",
+        "roundedOperandsMustDiffer": true,
+        "controlledTemplateRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "templateFamilyRefs": [
+          "tpl_g4b_u04_population_difference"
+        ],
+        "answerUnitRequired": true
+      },
+      "answerModel": "numericAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/numericAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04ControlledTemplate",
+        "validateG4BU04RoundedOperands",
+        "validateG4BU04NonnegativeDifference",
+        "validateG4BU04EstimatedDifference",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p2:top-right"
+      ],
+      "implementationClass": "D",
+      "patternOrder": 13,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_round_then_multiply",
+      "sourceMappingCandidateId": "fmc_g4b_u04_round_then_multiply",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_estimate_multiply_divide",
+      "knowledgePointId": "kp_g4b_u04_round_then_multiply_divide",
+      "mode": "operation_estimation",
+      "equationShape": "round(v,m,u)*f",
+      "inputContract": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "method": {
+          "enum": [
+            "down",
+            "up",
+            "halfUp"
+          ]
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "factor": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 9
+        },
+        "templateFamilyId": {
+          "enum": [
+            "tpl_g4b_u04_recurring_cost_multiply"
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "roundByMethod(value,method,targetUnit)*factor",
+        "answerMax": 999999999,
+        "controlledTemplateRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "templateFamilyRefs": [
+          "tpl_g4b_u04_recurring_cost_multiply"
+        ],
+        "answerUnitRequired": true
+      },
+      "answerModel": "numericAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/numericAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04ControlledTemplate",
+        "validateG4BU04RoundedOperand",
+        "validateG4BU04EstimatedProduct",
+        "validateG4BU04AnswerBoundary",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p2:second-row-left"
+      ],
+      "implementationClass": "D",
+      "patternOrder": 14,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_round_then_divide",
+      "sourceMappingCandidateId": "fmc_g4b_u04_round_then_divide",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_estimate_multiply_divide",
+      "knowledgePointId": "kp_g4b_u04_round_then_multiply_divide",
+      "mode": "operation_estimation",
+      "equationShape": "round(v,m,u)/d",
+      "inputContract": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "method": {
+          "enum": [
+            "down",
+            "up",
+            "halfUp"
+          ]
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "divisor": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 9
+        },
+        "templateFamilyId": {
+          "enum": [
+            "tpl_g4b_u04_equal_share_divide"
+          ]
+        }
+      },
+      "generationContract": {
+        "formula": "roundByMethod(value,method,targetUnit)/divisor",
+        "roundedValueDivisibleByDivisor": true,
+        "controlledTemplateRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "templateFamilyRefs": [
+          "tpl_g4b_u04_equal_share_divide"
+        ],
+        "answerUnitRequired": true
+      },
+      "answerModel": "numericAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/numericAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04ControlledTemplate",
+        "validateG4BU04RoundedOperand",
+        "validateG4BU04EstimatedDivisionInteger",
+        "validateG4BU04EstimatedQuotient",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p2:second-row-right"
+      ],
+      "implementationClass": "D",
+      "patternOrder": 15,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_inverse_digit_set",
+      "sourceMappingCandidateId": "fmc_g4b_u04_inverse_digit_set",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_inverse_digit_set",
+      "knowledgePointId": "kp_g4b_u04_inverse_rounding_unknown_digit",
+      "mode": "reasoning",
+      "equationShape": "digitsMatchingRound(mask,y,u)",
+      "inputContract": {
+        "digitMask": {
+          "type": "string",
+          "placeholder": "□",
+          "placeholderCount": 1
+        },
+        "roundedValue": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        }
+      },
+      "generationContract": {
+        "method": "halfUp",
+        "enumerateDigits": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "visibleDigitsPreserved": true,
+        "leadingZeroForbidden": true,
+        "nonemptySolutionRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "promptSkeletonZh": "{digitMask} 用四捨五入法取概數到 {targetPlaceLabel} 是 {roundedValue}，□ 可以填哪些數字？"
+      },
+      "answerModel": "digitSetAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/digitSetAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04InverseIntervalClamp",
+        "validateG4BU04VisibleDigits",
+        "validateG4BU04InverseDigitCompleteness",
+        "validateG4BU04SortedUniqueSet",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p2:third-row-left",
+        "s62:p2:third-row-right"
+      ],
+      "implementationClass": "C",
+      "patternOrder": 16,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    },
+    {
+      "patternSpecId": "ps_g4b_u04_inverse_original_values",
+      "sourceMappingCandidateId": "fmc_g4b_u04_inverse_original_values",
+      "sourceId": "g4b_u04_4b04",
+      "unitCode": "4B-U04",
+      "unitTitle": "概數",
+      "kind": "g4bU04RoundingApproximation",
+      "patternGroupId": "pg_g4b_u04_inverse_original_values",
+      "knowledgePointId": "kp_g4b_u04_inverse_rounding_possible_original",
+      "mode": "reasoning",
+      "equationShape": "valuesMatchingMaskAndRound(mask,y,u)",
+      "inputContract": {
+        "digitMask": {
+          "type": "string",
+          "placeholder": "□",
+          "placeholderCount": 2,
+          "placeholdersContiguous": true,
+          "visibleDigitBeforeAndAfterRequired": true
+        },
+        "roundedValue": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99999999
+        },
+        "targetUnit": {
+          "enum": [
+            10,
+            100,
+            1000,
+            10000
+          ]
+        }
+      },
+      "generationContract": {
+        "method": "halfUp",
+        "intersectPreimageWithMask": true,
+        "preimageClampedToInputRange": true,
+        "explicitValueListRequired": true,
+        "maximumSolutions": 100,
+        "nonemptySolutionRequired": true,
+        "freeFormAI": "forbidden"
+      },
+      "promptContract": {
+        "promptSkeletonZh": "{digitMask} 用四捨五入法取概數到 {targetPlaceLabel} 是 {roundedValue}，原數可能有哪些？"
+      },
+      "answerModel": "possibleValuesAnswer",
+      "answerSchemaRef": "#/answerModelSchemas/possibleValuesAnswer",
+      "validatorHooks": [
+        "validateG4BU04Identity",
+        "validateG4BU04Lifecycle",
+        "validateG4BU04SourceMapping",
+        "validateG4BU04IntegerDomain",
+        "validateG4BU04GlobalBoundary",
+        "validateG4BU04InverseIntervalClamp",
+        "validateG4BU04VisibleDigits",
+        "validateG4BU04InverseValueCompleteness",
+        "validateG4BU04SortedUniqueValues",
+        "validateG4BU04AnswerModel"
+      ],
+      "sourceEvidence": [
+        "s62:p2:bottom-left"
+      ],
+      "implementationClass": "C",
+      "patternOrder": 17,
+      "lifecycle": {
+        "contractStatus": "designed_not_materialized",
+        "selectorVisibility": "hidden",
+        "canonicalRouting": "disabled",
+        "generatorStatus": "not_implemented",
+        "validatorStatus": "contract_only",
+        "productionUse": "forbidden"
+      }
+    }
+  ],
+  "validatorContract": {
+    "validationMode": "blocking_before_question_return",
+    "stageCount": 8,
+    "stages": [
+      {
+        "stage": 1,
+        "name": "identity_and_schema",
+        "checks": [
+          "required PatternSpec fields",
+          "source/unit/kind identity",
+          "locked PatternSpec ID",
+          "PatternGroup and KnowledgePoint identity",
+          "source mapping candidate reference"
+        ]
+      },
+      {
+        "stage": 2,
+        "name": "lifecycle_and_scope",
+        "checks": [
+          "contract designed but not materialized",
+          "hidden selector state",
+          "canonical routing disabled",
+          "production use forbidden",
+          "no arbitrary PatternSpec injection"
+        ]
+      },
+      {
+        "stage": 3,
+        "name": "integer_domain_and_boundary",
+        "checks": [
+          "integer-only inputs",
+          "global input range",
+          "target unit allowlist",
+          "group size allowlist",
+          "payment denomination allowlist",
+          "factor/divisor range",
+          "no decimal or negative-domain leakage"
+        ]
+      },
+      {
+        "stage": 4,
+        "name": "formula_and_operation",
+        "checks": [
+          "round-down/up/half-up formulas",
+          "floor/ceiling quotient semantics",
+          "payment amount and note-count formulas",
+          "round-then-operate formulas",
+          "nonnegative subtraction",
+          "integer estimated division"
+        ]
+      },
+      {
+        "stage": 5,
+        "name": "answer_model",
+        "checks": [
+          "answer schema reference exists",
+          "answer shape matches PatternSpec",
+          "integer and maximum-answer bounds",
+          "sorted unique set answers",
+          "money and banknote metadata"
+        ]
+      },
+      {
+        "stage": 6,
+        "name": "semantic_template_and_units",
+        "checks": [
+          "controlled template family allowlist",
+          "required semantic roles",
+          "unit and classifier flow",
+          "Traditional Chinese prompt skeleton",
+          "no unresolved placeholder"
+        ]
+      },
+      {
+        "stage": 7,
+        "name": "ambiguity_and_inverse",
+        "checks": [
+          "unique method-choice guard",
+          "shared half-up result forbidden",
+          "inverse preimage global clamp",
+          "visible digits preserved",
+          "complete nonempty inverse solution set"
+        ]
+      },
+      {
+        "stage": 8,
+        "name": "final_surface_contract",
+        "checks": [
+          "no internal ID leakage",
+          "no generic numeric fallback for semantic PatternSpecs",
+          "single deterministic answer contract",
+          "source evidence present",
+          "validated answer returned only after all blocking stages pass"
+        ]
+      }
+    ],
+    "blockingCodes": [
+      "G4BU04_REQUIRED_FIELD_MISSING",
+      "G4BU04_SOURCE_ID_MISMATCH",
+      "G4BU04_UNIT_IDENTITY_MISMATCH",
+      "G4BU04_PATTERN_KIND_MISMATCH",
+      "G4BU04_PATTERN_SPEC_NOT_LOCKED",
+      "G4BU04_PATTERN_GROUP_MISMATCH",
+      "G4BU04_KNOWLEDGE_POINT_MISMATCH",
+      "G4BU04_SOURCE_MAPPING_REF_MISMATCH",
+      "G4BU04_LIFECYCLE_STATE_INVALID",
+      "G4BU04_PUBLIC_ROUTING_FORBIDDEN",
+      "G4BU04_PRODUCTION_USE_FORBIDDEN",
+      "G4BU04_NONINTEGER_INPUT",
+      "G4BU04_INPUT_OUT_OF_RANGE",
+      "G4BU04_TARGET_UNIT_NOT_ALLOWED",
+      "G4BU04_GROUP_SIZE_NOT_ALLOWED",
+      "G4BU04_PAYMENT_DENOMINATION_NOT_ALLOWED",
+      "G4BU04_FACTOR_DIVISOR_OUT_OF_RANGE",
+      "G4BU04_DECIMAL_NEGATIVE_DOMAIN_LEAKAGE",
+      "G4BU04_FORMULA_MISMATCH",
+      "G4BU04_OUTPUT_NOT_MULTIPLE_OF_UNIT",
+      "G4BU04_ROUND_DIRECTION_MISMATCH",
+      "G4BU04_HALF_UP_THRESHOLD_MISMATCH",
+      "G4BU04_FLOOR_REMAINDER_COUNTED",
+      "G4BU04_CEILING_REMAINDER_DISCARDED",
+      "G4BU04_PAYMENT_INSUFFICIENT",
+      "G4BU04_PAYMENT_NOT_MINIMUM_MULTIPLE",
+      "G4BU04_BANKNOTE_COUNT_NOT_MINIMUM",
+      "G4BU04_ONE_FEWER_NOTE_SUFFICIENT",
+      "G4BU04_ROUNDED_OPERAND_MISMATCH",
+      "G4BU04_ESTIMATED_OPERATION_MISMATCH",
+      "G4BU04_SUBTRACTION_NEGATIVE_OR_ZERO_TRIVIAL",
+      "G4BU04_DIVISION_NONINTEGER",
+      "G4BU04_METHOD_CHOICE_AMBIGUOUS",
+      "G4BU04_METHOD_SHARED_HALF_UP_RESULT",
+      "G4BU04_INVERSE_INTERVAL_NOT_CLAMPED",
+      "G4BU04_INVERSE_VISIBLE_DIGIT_MISMATCH",
+      "G4BU04_INVERSE_SOLUTION_SET_INCOMPLETE",
+      "G4BU04_ANSWER_MODEL_MISMATCH",
+      "G4BU04_ANSWER_OUT_OF_RANGE",
+      "G4BU04_SEMANTIC_TEMPLATE_NOT_ALLOWLISTED",
+      "G4BU04_UNIT_CLASSIFIER_MISMATCH",
+      "G4BU04_UNRESOLVED_PLACEHOLDER",
+      "G4BU04_INTERNAL_ID_LEAKAGE",
+      "G4BU04_GENERIC_FALLBACK_FORBIDDEN"
+    ],
+    "blockingCodeCount": 44,
+    "warnings": [
+      "G4BU04_SURFACE_WORDING_REPETITIVE",
+      "G4BU04_CONTEXT_DOMAIN_REPETITIVE",
+      "G4BU04_NUMBER_PATTERN_REPETITIVE"
+    ],
+    "warningPolicy": "nonblocking_only_after_all_blocking_stages_pass",
+    "resultContract": {
+      "valid": "boolean",
+      "blockingErrors": "array",
+      "warnings": "array",
+      "stageResults": "array_of_8",
+      "validatedAnswer": "present_only_when_valid",
+      "fallbackQuestionAllowed": false
+    }
+  },
+  "scopeBoundary": {
+    "formalMappingMaterialized": false,
+    "patternGroupsMaterialized": false,
+    "patternSpecsMaterialized": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "canonicalRoutingEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "acceptance": {
+    "allS65AcceptedMappingsProjectedOneToOne": true,
+    "allPatternSpecsSourceEvidenced": true,
+    "allAnswerModelsSchemaDefined": true,
+    "allClassDPatternsControlledTemplateOnly": true,
+    "allPatternSpecsContractOnly": true,
+    "patternSpecContractCount": 17,
+    "patternGroupCount": 12,
+    "answerModelSchemaCount": 9,
+    "controlledTemplateFamilyCount": 9,
+    "blockingCodeCount": 44
+  },
+  "goalDistance": {
+    "before": "D2_G4B_U04_FORMAL_MAPPING_CANDIDATES_QA_LOCKED",
+    "after": "D2_G4B_U04_PATTERNSPEC_AND_ANSWER_CONTRACTS_DESIGNED",
+    "distanceReduced": "Converted all 17 QA-accepted FormalMapping candidates into implementation-ready PatternSpec, answer-model, semantic-template and validator contracts without materializing runtime artifacts.",
+    "remainingBlockers": [
+      "PatternSpec contract QA not completed",
+      "PatternGroups and PatternSpecs not materialized",
+      "generator and blocking validator not implemented"
+    ],
+    "nextShortestStep": "S67_G4B_U04_PatternSpecContractQA",
+    "stopReason": "NEXT_STEP_OUTSIDE_CURRENT_USER_APPROVED_SCOPE"
+  }
+}

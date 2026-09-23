@@ -1,0 +1,205 @@
+{
+  "schemaName": "G4AU08FullSourceD0AndBatchAMigrationReadback",
+  "schemaVersion": 1,
+  "task": "S76L_G4A_U08_FullSourceD0CloseoutAndBatchAMigrationReadback",
+  "taskStatus": "PASS_MIGRATION_READBACK",
+  "fullSourceD0Status": "BLOCKED",
+  "sourceId": "g4a_u08_4a08",
+  "unitCode": "4A-U08",
+  "freshMainEvidence": {
+    "s76kPullRequest": 154,
+    "s76kMergeCommit": "c995a2e5d741bbc07f000205eed8d145b7002f13",
+    "s76kAcceptedHead": "268f7e5344c850ed02116bd97ad6dfe4d9f344bd",
+    "s76kReadbackCommit": "81a42776c61de6242580259499aaef357899f36e",
+    "nodeTest": "pass",
+    "mathCiReadback": "pass",
+    "s42BranchTest": "pass",
+    "s76kHtmlPdfSmokeRun": 29268903266,
+    "s76kHtmlPdfArtifactId": 8286611935,
+    "smokeQuestionCount": 120,
+    "smokeAnswerKeyItemCount": 120,
+    "questionPageCount": 15,
+    "answerPageCount": 20,
+    "pdfPageCount": 35,
+    "nonblankRenderedPageCount": 35,
+    "domCellOverflowCount": 0,
+    "domPageOverflowCount": 0,
+    "pdfBoundingBoxOverflowCount": 0,
+    "internalIdLeakCount": 0,
+    "unresolvedPlaceholderCount": 0,
+    "cjkGlyphRendering": "pass",
+    "pdfSha256": "70914d43be7fcf9bb4b94e9d27abea350efbb1bc48fc07d0e8dbc4171dee0484"
+  },
+  "authorityCounts": {
+    "sourceKnowledgePointCount": 15,
+    "numericKnowledgePointCount": 11,
+    "applicationKnowledgePointCount": 4,
+    "canonicalPatternGroupCount": 28,
+    "numericPatternGroupCount": 11,
+    "applicationCorePatternGroupCount": 13,
+    "applicationExtensionPatternGroupCount": 4,
+    "implementedCanonicalPatternGroupCount": 16,
+    "implementedCanonicalPatternSpecCount": 16,
+    "publicCanonicalPatternGroupCount": 4,
+    "legacyExecutablePatternSpecCount": 26
+  },
+  "d0Thresholds": {
+    "SOURCE_KP_COVERAGE": 0.9,
+    "KP_PATTERN_COVERAGE": 0.9,
+    "KP_VALIDATOR_COVERAGE": 0.85,
+    "KP_MUTATION_COVERAGE": 0.8,
+    "PUBLIC_WORKSHEET_REACHABILITY": 0.85
+  },
+  "coverageMetrics": {
+    "SOURCE_KP_COVERAGE": {
+      "numerator": 15,
+      "denominator": 15,
+      "ratio": 1.0,
+      "threshold": 0.9,
+      "pass": true
+    },
+    "KP_PATTERN_COVERAGE": {
+      "numerator": 4,
+      "denominator": 15,
+      "ratio": 0.266667,
+      "threshold": 0.9,
+      "pass": false
+    },
+    "KP_VALIDATOR_COVERAGE": {
+      "numerator": 4,
+      "denominator": 15,
+      "ratio": 0.266667,
+      "threshold": 0.85,
+      "pass": false
+    },
+    "KP_MUTATION_COVERAGE": {
+      "numerator": 16,
+      "denominator": 28,
+      "ratio": 0.571429,
+      "threshold": 0.8,
+      "pass": false
+    },
+    "PUBLIC_WORKSHEET_REACHABILITY": {
+      "numerator": 4,
+      "denominator": 28,
+      "ratio": 0.142857,
+      "threshold": 0.85,
+      "pass": false
+    }
+  },
+  "failedD0Metrics": [
+    "KP_PATTERN_COVERAGE",
+    "KP_VALIDATOR_COVERAGE",
+    "KP_MUTATION_COVERAGE",
+    "PUBLIC_WORKSHEET_REACHABILITY"
+  ],
+  "implementedCanonicalScope": {
+    "knowledgePointCount": 4,
+    "existingApplicationPatternGroupCount": 12,
+    "extensionPatternGroupCount": 4,
+    "adapterContractCount": 16,
+    "validatorContractCount": 16,
+    "mutationCoveredPatternGroupCount": 16,
+    "publicCanonicalPatternGroupCount": 4
+  },
+  "unclosedCanonicalScope": {
+    "knowledgePointsWithoutCanonicalPatternAndValidatorClosure": 11,
+    "patternGroupsWithoutPatternSpec": 12,
+    "patternGroupsWithoutValidatorContract": 12,
+    "patternGroupsWithoutMutationCoverage": 12,
+    "canonicalPatternGroupsNotPubliclyReachable": 24,
+    "numericKnowledgePointIds": [
+      "kp_g4a_u08_num_add_group_round",
+      "kp_g4a_u08_num_signed_term_move",
+      "kp_g4a_u08_num_add_sub_left_assoc",
+      "kp_g4a_u08_num_parentheses_first",
+      "kp_g4a_u08_num_repeated_subtract_group",
+      "kp_g4a_u08_num_mul_div_safe_reorder",
+      "kp_g4a_u08_num_mul_div_left_assoc",
+      "kp_g4a_u08_num_repeated_divide_group",
+      "kp_g4a_u08_num_mul_div_before_add_sub",
+      "kp_g4a_u08_num_parentheses_change_precedence",
+      "kp_g4a_u08_num_compound_parentheses"
+    ],
+    "patternGroupIdsWithoutPatternSpec": [
+      "pg_g4a_u08_num_add_group_round",
+      "pg_g4a_u08_num_signed_term_move",
+      "pg_g4a_u08_num_add_sub_left_assoc",
+      "pg_g4a_u08_num_parentheses_first",
+      "pg_g4a_u08_num_repeated_subtract_group",
+      "pg_g4a_u08_num_mul_div_safe_reorder",
+      "pg_g4a_u08_num_mul_div_left_assoc",
+      "pg_g4a_u08_num_repeated_divide_group",
+      "pg_g4a_u08_num_mul_div_before_add_sub",
+      "pg_g4a_u08_num_parentheses_change_precedence",
+      "pg_g4a_u08_num_compound_parentheses",
+      "pg_g4a_u08_app_cost_overlay"
+    ],
+    "legacyCoarsePublicApplicationPatternGroupIds": [
+      "pg_g4a_u08_app_add_sub_sequence",
+      "pg_g4a_u08_app_parentheses_grouping",
+      "pg_g4a_u08_app_mul_div_sequence",
+      "pg_g4a_u08_app_mul_div_before_add_sub"
+    ],
+    "canonicalExistingApplicationGroupsStillCompatibilityOnly": 12,
+    "numericLegacyPatternSpecsAwaitingCanonicalReclassification": 10,
+    "minimumNewOrSplitNumericPatternSpecsRequired": 1
+  },
+  "batchAMigrationCostReadback": {
+    "keep": [
+      "legacy numeric generator behavior",
+      "Phase2A application generator behavior",
+      "operand and answer bounds",
+      "worksheet and answer-key assembly",
+      "existing renderer behavior",
+      "legacy URLs and selector aliases"
+    ],
+    "adapt": [
+      "map or split 10 legacy numeric PatternSpecs across 11 numeric KnowledgePoints and PatternGroups",
+      "emit canonical numeric GeneratedItem metadata",
+      "add numeric PatternGroup validator contracts and equivalence or AST mutation rejection",
+      "route 12 existing application canonical PatternGroups instead of only coarse compatibility groups",
+      "preserve legacy coarse IDs as aliases during canonical public migration"
+    ],
+    "add": [
+      "at least one missing or split numeric PatternSpec",
+      "one PatternSpec, generator, validator and mutation contract for pg_g4a_u08_app_cost_overlay",
+      "canonical public resolver and worksheet reachability for 24 currently unreachable PatternGroups"
+    ],
+    "minimumRemainingClosureCounts": {
+      "patternSpecClosures": 12,
+      "validatorContractClosures": 12,
+      "mutationCoverageClosures": 12,
+      "publicCanonicalRouteClosures": 24
+    },
+    "pilotConclusion": "The adapter-first strategy preserved stable runtime behavior and contained implementation risk, but full-source D0 cannot be inferred from legacy executable coverage. Numeric ontology closure and canonical public reachability are the dominant remaining cost."
+  },
+  "scopeBoundary": {
+    "runtimeChanged": false,
+    "selectorChanged": false,
+    "resolverChanged": false,
+    "worksheetChanged": false,
+    "rendererChanged": false,
+    "historicalMarkersRewritten": false,
+    "falseD0DeclarationPrevented": true
+  },
+  "goalDistance": {
+    "before": "D1_G4A_U08_FULL_SOURCE_STRESS_SEMANTIC_HTML_PDF_ACCEPTED",
+    "after": "D1_G4A_U08_D0_GATE_QUANTIFIED_NUMERIC_CANONICAL_GAP",
+    "distanceReduced": "Converted the remaining full-source gap into exact KnowledgePoint, PatternGroup, validator, mutation and public-reachability closure counts and prevented a false D0 declaration.",
+    "remainingBlockers": [
+      "11 numeric KnowledgePoints lack canonical PatternSpec and validator closure",
+      "12 canonical PatternGroups lack PatternSpecs, validators and mutation coverage",
+      "24 canonical PatternGroups are not publicly worksheet-reachable",
+      "the next implementation step is outside the approved S76A-S76L scope"
+    ],
+    "nextShortestStep": "S76M_G4A_U08_NumericCanonicalGapClosureDesignScan"
+  },
+  "stop": {
+    "stopReason": "NEXT_STEP_OUTSIDE_APPROVED_SCOPE",
+    "blockerType": "FULL_SOURCE_D0_GATE",
+    "lastCompletedStatus": "PASS_MIGRATION_READBACK_D0_BLOCKED",
+    "requiredOperatorAction": "Approve S76M planning scope to map or split the 10 legacy numeric PatternSpecs across the 11 canonical numeric KnowledgePoints and PatternGroups, and to define the missing app_cost_overlay closure.",
+    "nextResumeTask": "S76M_G4A_U08_NumericCanonicalGapClosureDesignScan"
+  }
+}

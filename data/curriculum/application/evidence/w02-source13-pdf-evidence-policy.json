@@ -1,0 +1,55 @@
+{
+  "schemaName": "POSTGAPPW02Source13PdfEvidencePolicyV1",
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W02-A01A_13SourceNodePdfEvidenceInventoryAndRenderabilityVerification",
+  "scopeLevel": "SOURCE_PDF_EVIDENCE",
+  "requiredSourceNodeCount": 13,
+  "requiredSourcePdfReferenceCount": 13,
+  "expectedUniquePdfContentCount": 12,
+  "expectedTotalPageCount": 31,
+  "requirements": {
+    "drivePdfFileIdRequired": true,
+    "drivePdfUrlRequired": true,
+    "sha256Required": true,
+    "pageCountPositive": true,
+    "textLayerAvailableRequired": true,
+    "firstPageRenderAvailableRequired": true,
+    "privatePdfCopiedToRepository": false,
+    "ocrRequired": false,
+    "queueOrderMustMatchW02": true
+  },
+  "deduplication": {
+    "hashAlgorithm": "SHA-256",
+    "sameHashMeansSameEvidenceContent": true,
+    "duplicateEvidenceMayBeParsedOnce": true,
+    "sourceNodeSpecificKnowledgeOperationStillRequired": true,
+    "expectedDuplicateContentGroups": [
+      {
+        "sha256": "5ba57aff6a973bd1a8df63791155df7b15fe25ec2b546fc94fb2d8a8323070b3",
+        "sourceNodeIds": ["g4a_u06_4a06", "g4b_u03_4b03"]
+      }
+    ]
+  },
+  "claimBoundary": {
+    "knowledgePointCountClaimed": 0,
+    "canonicalOperationModelCountClaimed": 0,
+    "kpApplicationClassificationClaimed": false,
+    "storyTemplateClaimed": false,
+    "productionAdmissionAllowed": false
+  },
+  "failClosedCodes": [
+    "POSTG_APP_W02_A01A_A00_BASELINE_INVALID",
+    "POSTG_APP_W02_A01A_SOURCE_COUNT_INVALID",
+    "POSTG_APP_W02_A01A_SOURCE_ORDER_INVALID",
+    "POSTG_APP_W02_A01A_DRIVE_PDF_ID_INVALID",
+    "POSTG_APP_W02_A01A_HASH_INVALID",
+    "POSTG_APP_W02_A01A_PAGE_COUNT_INVALID",
+    "POSTG_APP_W02_A01A_TEXT_LAYER_INVALID",
+    "POSTG_APP_W02_A01A_RENDERABILITY_INVALID",
+    "POSTG_APP_W02_A01A_UNIQUE_CONTENT_COUNT_INVALID",
+    "POSTG_APP_W02_A01A_DUPLICATE_GROUP_INVALID",
+    "POSTG_APP_W02_A01A_PREMATURE_KP_CLAIM",
+    "POSTG_APP_W02_A01A_PRIVATE_PDF_REPOSITORY_COPY_INVALID"
+  ],
+  "nextShortestStep": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification"
+}

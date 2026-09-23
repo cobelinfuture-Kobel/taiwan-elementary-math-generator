@@ -1,0 +1,282 @@
+{
+  "schemaName": "P06FW6Q004TableStructureComparisonSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P06F_W6_Q004_TableStructureComparison_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q004_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q004_TABLE_STRUCTURE_COMPARISON_SOURCE_RUNTIME_EVIDENCE_AND_PROFILE_ARTIFACT_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "66c7e6c40650827d1735f6fb40ac6e5f79b4e059",
+  "predecessorD0Evidence": {
+    "queuePosition": 3,
+    "sliceId": "p06e_q003_r0_g3b_u10_3b10_profile_chart_data_c1",
+    "implementationTaskId": "P06F_W6DirectProductVerticalSlice003Implementation",
+    "prNumber": 977,
+    "mergeSha": "66c7e6c40650827d1735f6fb40ac6e5f79b4e059",
+    "postMergeWorkflowName": "P06F W6 Q003 Post-Merge Pages E2E",
+    "postMergeWorkflowRunId": 35292573647,
+    "postMergeWorkflowRunNumber": 1,
+    "postMergeWorkflowConclusion": "success",
+    "liveReportStatus": "PASS_E6_D0_COMPLETE",
+    "exactDeployedHeadSha": "66c7e6c40650827d1735f6fb40ac6e5f79b4e059",
+    "classicUiAcceptanceStatus": "PASS_P06F_W6_Q003_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p06e/w6-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p06e-w6-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "9e22094dee0d66e459848741894a3347df1c985ec8720cdabb3efc2e5a68e1be",
+    "queuePosition": 4,
+    "queueSliceCount": 20,
+    "sliceId": "p06e_q004_r1_g3b_u10_3b10_profile_chart_data_c1",
+    "implementationTaskId": "P06F_W6DirectProductVerticalSlice004Implementation",
+    "previousSliceId": "p06e_q003_r0_g3b_u10_3b10_profile_chart_data_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W6",
+    "primarySourceNodeId": "g3b_u10_3b10",
+    "supportingSourceNodeIds": [
+      "g3b_u10_3b10"
+    ],
+    "intraWavePrerequisiteRank": 1,
+    "primaryRuntimeProfileId": "profile_chart_data",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_table_data_comparison",
+      "kp_two_way_table_structure"
+    ],
+    "requiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g3b_u10_3b10",
+    "sourceCode": "3b10",
+    "sourceTitle": "統計表",
+    "sourcePdfTitle": "meow911_3b10_statistics_table.pdf",
+    "originalFileName": "題型總覽-3b10-統計表.pdf",
+    "sourcePdfDriveFileId": "1JjSBJxw3dHDTwsJKcBLd7obmomNm6GjQ",
+    "sourcePdfSizeBytes": 492353,
+    "sourcePdfSha256": null,
+    "checksumStatus": "NOT_EXPOSED_BY_DRIVE_CONNECTOR",
+    "driveMetadataFileId": "19zTjboeFu2scCwD9YibB9GmAfRqK2QlT",
+    "driveVerificationNotesFileId": "1nJB27UofgEr6KB3CYXa7Zn5A899f7vYS",
+    "metadataSourceUrl": "https://meow911.com/3b10/",
+    "pageCount": 1,
+    "reviewedPages": [
+      1
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "ocrUsedAsAuthority": false,
+    "reusedFromQ003SourceAuthority": true,
+    "directPageEvidence": {
+      "page1": {
+        "directlySupports": [
+          "kp_table_data_comparison",
+          "kp_two_way_table_structure"
+        ],
+        "sourceSemanticIdentities": [
+          "TABLE_DATA_COMPARISON",
+          "TWO_WAY_TABLE_STRUCTURE"
+        ]
+      }
+    },
+    "driveMetadataReadback": {
+      "sourceId": "g3b_u10_3b10",
+      "sourceTitle": "統計表",
+      "sourceType": "external_pdf",
+      "sourceFile": "meow911_3b10_statistics_table.pdf",
+      "sourceUrl": "https://meow911.com/3b10/",
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g3b_u10_3b10",
+    "sourceTitle": "統計表",
+    "sourcePdfTitle": "meow911_3b10_statistics_table.pdf",
+    "reviewedPages": [
+      1
+    ],
+    "targetCandidates": [
+      {
+        "knowledgePointId": "kp_table_data_comparison",
+        "canonicalNameZh": "表格資料比較與敘述",
+        "capabilityStatement": "學生能比較表格中的兩個以上類別並形成正確敘述。",
+        "reasoningInvariant": "比較敘述的差、倍或排序必須與表中對應數值一致。",
+        "category": "data",
+        "evidencePages": [
+          1
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_two_way_table_structure",
+        "canonicalNameZh": "二維表格欄列結構",
+        "capabilityStatement": "學生能辨認二維表格中的列分類、欄分類與交叉格意義。",
+        "reasoningInvariant": "交叉格同時滿足所在列與所在欄的分類條件。",
+        "category": "data",
+        "evidencePages": [
+          1
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ],
+    "protectedSameSourceFutureCandidates": [
+      {
+        "knowledgePointId": "kp_table_extrema_and_missing_value",
+        "canonicalNameZh": "表格最大最小與缺值推理"
+      },
+      {
+        "knowledgePointId": "kp_construct_two_way_table",
+        "canonicalNameZh": "建立二維統計表"
+      }
+    ],
+    "predecessorCandidate": {
+      "knowledgePointId": "kp_one_way_table_reading",
+      "canonicalNameZh": "一維統計表報讀",
+      "q003D0Complete": true
+    }
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r02ProjectionPath": "src/curriculum/global/r02-global-kp-candidate-reconciliation.mjs",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "profileId": "profile_chart_data",
+    "classificationRuleId": "rule_chart_data",
+    "profileRequiredCapabilityIds": [
+      "cap_chart_data_model",
+      "cap_data_domain_validator",
+      "cap_chart_representation"
+    ],
+    "profileOptionalCapabilityIds": [],
+    "exactFrozenQueueRequiredW6CapabilityIds": [
+      "cap_chart_data_model",
+      "cap_chart_representation",
+      "cap_data_domain_validator",
+      "cap_table_data_model"
+    ],
+    "dependencyClosureCapabilityIds": [
+      "cap_table_data_model"
+    ],
+    "dependencyClosureBasis": {
+      "capabilityId": "cap_chart_data_model",
+      "dependsOnCapabilityIds": [
+        "cap_table_data_model"
+      ],
+      "closureSource": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+      "closureRequiredByFrozenQueueMaterialization": true
+    },
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "semanticProfileArtifactLock": {
+    "present": true,
+    "classification": "HISTORICAL_GENERIC_DATA_PROFILE_TERM_COLLISION",
+    "frozenRuntimeEnvelope": "profile_chart_data",
+    "targetSemanticCores": {
+      "kp_table_data_comparison": "TABLE_DATA_COMPARISON",
+      "kp_two_way_table_structure": "TWO_WAY_TABLE_STRUCTURE"
+    },
+    "cause": {
+      "r02GenericDataProfileInjectedTerms": [
+        "表圖對應",
+        "讀錯表格或圖表尺度"
+      ],
+      "r04RuleOrder": [
+        "rule_chart_data",
+        "rule_table_data"
+      ],
+      "chartRuleMatchingTerm": "圖表",
+      "tableRuleWouldAlsoMatchTerms": [
+        "table_",
+        "two_way_table",
+        "統計表",
+        "表格"
+      ],
+      "targetCandidatesThemselvesRequireChartSemantics": false
+    },
+    "implementationSemanticLock": {
+      "tableComparisonIsCore": true,
+      "twoWayTableStructureIsCore": true,
+      "barLinePieChartReadingIsCore": false,
+      "chartScaleInterpretationIsCore": false,
+      "chartConstructionIsCore": false,
+      "frozenProfileMayNotRedefineSourceSemantics": true,
+      "frozenQueueMayNotBeSilentlyReclassified": true,
+      "q004ImplementationMustPreserveTableSemanticsEvenIfRuntimeEnvelopeRemainsChartData": true,
+      "tableDataModelDependencyRequiredByFrozenCapabilityClosure": true
+    }
+  },
+  "q004ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_table_data_comparison",
+      "kp_two_way_table_structure"
+    ],
+    "includedRelations": [
+      "COMPARE_TABLE_CATEGORY_VALUES_AND_FORM_TRUE_STATEMENT",
+      "READ_TWO_WAY_TABLE_ROW_COLUMN_INTERSECTION"
+    ],
+    "excludedRelations": [
+      "TABLE_EXTREMA_OR_MISSING_VALUE_AS_TARGET",
+      "CONSTRUCT_TWO_WAY_TABLE_AS_TARGET",
+      "BAR_CHART_READING",
+      "LINE_CHART_READING",
+      "PIE_CHART_READING",
+      "CHART_SCALE_INTERPRETATION",
+      "CHART_CONSTRUCTION",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q005_OR_LATER_IMPLEMENTATION"
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE_BUT_NOT_ADMITTED_BY_PREFLIGHT",
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q001ToQ003ProductMutationAllowed": false,
+    "q005OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "predecessorD0EvidenceMustBeReused": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ003D0Verified": true,
+    "sourceAuthoritySufficientForQ004ImplementationPlanning": true,
+    "fullPageVisualEvidenceBound": true,
+    "r02ReviewedCandidatesBound": true,
+    "runtimeCapabilityContractLocked": true,
+    "semanticProfileArtifactExplicitlyLocked": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P06F_W6DirectProductVerticalSlice004Implementation"
+  }
+}

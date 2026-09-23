@@ -1,0 +1,366 @@
+{
+  "schemaName": "Path1WordProblemCapabilityInventoryV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_CAPABILITY_INVENTORY_V1",
+  "status": "READ_ONLY_CAPABILITY_TAXONOMY_COMPLETE",
+  "implementationAllowed": false,
+  "publicCutoverAllowed": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "scope": {
+    "goal": "盤點既有 482 canonical KnowledgePoint authority、application subsystem、school-exam corpus 與厲老師資料，建立文字到數量關係到算式的 capability taxonomy，並判斷 P1-01 至 P1-04 的最短接軌方式。",
+    "canonicalKnowledgePointUniverse": 482,
+    "sourceUnitUniverse": 79,
+    "pathBlocksReviewed": ["P1-01", "P1-02", "P1-03", "P1-04", "P1-12"],
+    "excluded": [
+      "generator implementation",
+      "validator implementation",
+      "public worksheet cutover",
+      "new canonical KP creation",
+      "P1-04 implementation",
+      "full repository regression",
+      "global replay"
+    ]
+  },
+  "authorityRefs": {
+    "canonicalKnowledgePointAuthority": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "prerequisiteGraphAuthority": "data/curriculum/global/graph/r03/global-kp-prerequisite-graph.manifest.json",
+    "path1Authority": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "applicationController": "data/curriculum/application/controller/postg-app-79-unit-registry.json",
+    "applicationCapabilityRegistry": "data/curriculum/application/registry/application-capability-registry.json",
+    "applicationContextBindingRegistry": "data/curriculum/application/registry/application-context-bindings.json",
+    "applicationAdmissionRegistry": "data/curriculum/application/registry/application-admission-registry.json"
+  },
+  "inventoryMethod": {
+    "model": "CANONICAL_KP_RELATION_ROLE_INVENTORY",
+    "principle": "分類數學關係與數量角色，不以情境名詞、關鍵字或單純運算符號當作 word-problem family。",
+    "coverageStatement": "V1 以 482-node R02/R03 authority 作為完整 canonical universe，並抽取其中明確的 application、problem、ratio、relation-model KPs與已驗證 KnowledgeOperation registries做 capability-level reconciliation；不重寫 482 個節點本身。",
+    "sourceBackedDimensions": [
+      "quantity roles",
+      "unknown role",
+      "relation invariant",
+      "equation form",
+      "unit flow",
+      "context affordance",
+      "answer interpretation"
+    ]
+  },
+  "coreFindings": [
+    {
+      "findingId": "F01_COMPUTATION_AND_MODELING_DISTINCT",
+      "statement": "數字計算與文字建模是不同能力層；算式已給定時，學生可跳過數量角色、關係辨識與列式。",
+      "evidenceRefs": [
+        "data/curriculum/knowledge/units/g3a_u03_3a03.knowledge-operation.json",
+        "data/curriculum/knowledge/units/g4a_u02_4a02.knowledge-operation.json"
+      ]
+    },
+    {
+      "findingId": "F02_RELATION_MODELS_ALREADY_EXIST",
+      "statement": "現有 canonical KPs 已包含等組量、包含除、等分除、倍數反推、餘數情境判讀、數量關係列式、和差、和倍、差倍、速率與基準量比較量等 relation models，因此不應先建立一個新的通用 word-problem KP。",
+      "evidenceRefs": [
+        "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+        "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json",
+        "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+        "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json"
+      ]
+    },
+    {
+      "findingId": "F03_CONTEXT_IS_NOT_RELATION",
+      "statement": "購物、分裝、交通、學校活動等 context family 不等於數學 relation；既有 application context binding 已將 mathRoleId、contextRoleId、quantityType、unit、unitFlow 分離。",
+      "evidenceRefs": [
+        "data/curriculum/application/registry/application-context-bindings.json"
+      ]
+    },
+    {
+      "findingId": "F04_UNKNOWN_ROLE_SHIFT_IS_CORE_DIFFICULTY",
+      "statement": "同一等組量關係 total = amountPerGroup × groupCount，未知 total、groupCount、amountPerGroup 時分別對應乘法、包含除、等分除；不能用表面關鍵字決定運算。",
+      "evidenceRefs": [
+        "data/curriculum/knowledge/units/g3b_u08_3b08.knowledge-operation.json",
+        "data/curriculum/knowledge/units/g3b_u01_3b01.knowledge-operation.json"
+      ]
+    },
+    {
+      "findingId": "F05_PATH1_ALREADY_HAS_FORMAL_INVERSE_RELATION_STAGE",
+      "statement": "P1-12 已以 total = amountPerGroup × groupCount 為 fusion authority，正式整合求總量、求組數、求每組量，因此 P1-01 至 P1-04 的早期文字題接軌不可重複建立另一套 inverse-relation authority。",
+      "evidenceRefs": [
+        "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json"
+      ]
+    }
+  ],
+  "modelingCapabilityPipeline": [
+    {
+      "stageId": "WP01_QUANTITY_EXTRACTION",
+      "capability": "從文字、表格或圖像中抽取決策相關數量，保留單位與所屬實體。"
+    },
+    {
+      "stageId": "WP02_QUANTITY_TYPING_AND_UNIT_FLOW",
+      "capability": "辨認 count、amount、rate、capacity、time、price 等 quantity type，檢查單位是否能形成合理轉換。"
+    },
+    {
+      "stageId": "WP03_ROLE_ASSIGNMENT",
+      "capability": "將情境數量綁定到數學角色，例如 amountPerGroup、groupCount、totalAmount、baseAmount、comparisonAmount。"
+    },
+    {
+      "stageId": "WP04_RELATION_RECOGNITION",
+      "capability": "依數量角色與不變關係辨認 relation kernel，不依單一關鍵字猜運算。"
+    },
+    {
+      "stageId": "WP05_UNKNOWN_ROLE_IDENTIFICATION",
+      "capability": "確認題目所求角色，並區分同一 relation 下的 unknown shift。"
+    },
+    {
+      "stageId": "WP06_EQUATION_CONSTRUCTION",
+      "capability": "由 relation invariant 建立對應等式或算式，保持 quantity role 與 operation direction 正確。"
+    },
+    {
+      "stageId": "WP07_ARITHMETIC_EXECUTION",
+      "capability": "呼叫已掌握 arithmetic KP 完成計算；此層與 modeling difficulty 分離。"
+    },
+    {
+      "stageId": "WP08_CONTEXT_INTERPRETATION_AND_VALIDATION",
+      "capability": "將結果還原成題目要求的單位與語意，必要時處理餘數 floor/ceil、回代與合理性檢查。"
+    }
+  ],
+  "relationTaxonomy": [
+    {
+      "relationId": "R01_ADDITIVE_PART_WHOLE",
+      "canonicalInvariant": "whole = partA + partB",
+      "unknownShifts": ["whole", "partA", "partB"],
+      "status": "EXISTING_RELATION_FAMILY_IN_482_UNIVERSE",
+      "path1P101ToP104Priority": "LOW"
+    },
+    {
+      "relationId": "R02_ADDITIVE_COMPARISON",
+      "canonicalInvariant": "larger = smaller + difference",
+      "unknownShifts": ["larger", "smaller", "difference"],
+      "status": "EXISTING_RELATION_FAMILY_IN_482_UNIVERSE",
+      "path1P101ToP104Priority": "LOW"
+    },
+    {
+      "relationId": "R03_EQUAL_GROUPS",
+      "canonicalInvariant": "totalAmount = amountPerGroup * groupCount",
+      "unknownShifts": ["totalAmount", "groupCount", "amountPerGroup"],
+      "existingKnowledgePointRefs": [
+        "kp_g3b_u08_total_from_groups",
+        "kp_g3b_u08_group_count_from_total",
+        "kp_g3b_u08_per_group_from_total",
+        "kp_g3b_u01_wp_quotative_division",
+        "kp_g3b_u01_wp_partitive_division"
+      ],
+      "status": "STRONG_EXISTING_CANONICAL_AUTHORITY",
+      "path1P101ToP104Priority": "PRIMARY"
+    },
+    {
+      "relationId": "R04_MULTIPLICATIVE_COMPARISON",
+      "canonicalInvariant": "comparisonAmount = baseAmount * multipleOrRate",
+      "unknownShifts": ["comparisonAmount", "baseAmount", "multipleOrRate"],
+      "existingKnowledgePointRefs": [
+        "kp_g3b_u08_reverse_base_from_multiple",
+        "kp_g6b_u04_base_comparison_rate_roles",
+        "kp_g6b_u04_find_comparison_quantity",
+        "kp_g6b_u04_find_base_quantity",
+        "kp_g6b_u04_find_rate_from_quantities"
+      ],
+      "status": "EXISTING_CANONICAL_AUTHORITY_BUT_GRADE_AND_ENVELOPE_REVIEW_REQUIRED",
+      "path1P101ToP104Priority": "SECONDARY"
+    },
+    {
+      "relationId": "R05_RATE_MEASURE_PRODUCT",
+      "canonicalInvariant": "total = ratePerUnit * measureOrCount",
+      "examples": ["unitPrice * quantity = totalPrice", "speed * time = distance", "amountPerUnit * count = total"],
+      "existingKnowledgePointRefs": [
+        "kp_g5b_u04_decimal_multiplication_application",
+        "kp_speed_distance_time_relation",
+        "kp_g5b_u09_time_quantity_times_integer"
+      ],
+      "status": "EXISTING_RELATION_PATTERN_ACROSS_DOMAINS",
+      "path1P101ToP104Priority": "PRIMARY_CONTEXT_VARIANT_OF_MULTIPLICATIVE_MODELING"
+    },
+    {
+      "relationId": "R06_PART_WHOLE_RATE",
+      "canonicalInvariant": "part = whole * rate",
+      "unknownShifts": ["part", "whole", "rate"],
+      "existingKnowledgePointRefs": [
+        "kp_g5b_u08_percentage_of_quantity",
+        "kp_g5b_u08_find_percentage_rate",
+        "kp_g5b_u08_find_base_quantity_percent"
+      ],
+      "status": "EXISTING_LATER_GRADE_RELATION",
+      "path1P101ToP104Priority": "OUTSIDE_INITIAL_INTEGER_MULTIPLICATION_TRANSFER"
+    },
+    {
+      "relationId": "R07_REMAINDER_DECISION",
+      "canonicalInvariant": "total = capacity * quotient + remainder; context decides floor or ceil",
+      "existingKnowledgePointRefs": [
+        "kp_g3b_u01_wp_division_with_remainder",
+        "kp_g3b_u01_wp_remainder_interpretation"
+      ],
+      "status": "STRONG_EXISTING_CANONICAL_AUTHORITY",
+      "path1P101ToP104Priority": "NOT_APPLICABLE_BEFORE_DIVISION"
+    },
+    {
+      "relationId": "R08_MULTI_RELATION_COMPOSITION",
+      "canonicalInvariant": "two or more admitted relation kernels are composed in an order constrained by the prompt",
+      "existingKnowledgePointRefs": [
+        "kp_g3b_u04_add_then_divide",
+        "kp_g3b_u04_subtract_then_divide",
+        "kp_g3b_u04_divide_then_add",
+        "kp_g3b_u04_consecutive_multiplication",
+        "kp_g3b_u04_multiplicative_quantity_chain"
+      ],
+      "status": "EXISTING_COMPOSITION_CAPABILITY",
+      "path1P101ToP104Priority": "DEFER_UNTIL_SINGLE_RELATION_MODELING_IS_STABLE"
+    },
+    {
+      "relationId": "R09_CONSTRAINT_SYSTEM_PROBLEMS",
+      "canonicalInvariant": "multiple simultaneous quantity relations must hold and the solution must reconstruct all conditions",
+      "existingKnowledgePointRefs": [
+        "kp_g6b_u05_sum_difference_problem",
+        "kp_g6b_u05_sum_multiple_problem",
+        "kp_g6b_u05_difference_multiple_problem",
+        "kp_g6b_u05_age_or_repeated_relation_problem",
+        "kp_g6b_u05_work_or_distribution_strategy",
+        "kp_g6a_u03_relation_equation_unknown"
+      ],
+      "status": "EXISTING_ADVANCED_PROBLEM_AUTHORITY",
+      "path1P101ToP104Priority": "DEFER"
+    }
+  ],
+  "sourceEvidence": {
+    "schoolExamAggregate": [
+      {
+        "source": "數學_110上_三年級_彰化縣_國聖國小_第一次段考_南一",
+        "evidence": "409元一張餐券買5張要求大約總價；同一卷並有乘積關係判斷。",
+        "taxonomyUse": ["R03_EQUAL_GROUPS", "R05_RATE_MEASURE_PRODUCT", "MODELING_PLUS_ESTIMATION"]
+      },
+      {
+        "source": "數學_110上_四年級_彰化縣_國聖國小_第一次段考_南一",
+        "evidence": "1公斤2586元買6公斤求總價；1瓶60c.c.共110瓶求總量。",
+        "taxonomyUse": ["R05_RATE_MEASURE_PRODUCT"]
+      },
+      {
+        "source": "數學_109上_四年級_臺北市_成德國小_第一次段考_康軒",
+        "evidence": "每期3655元共6期求總價；每人2290元共5人求團體總價。",
+        "taxonomyUse": ["R03_EQUAL_GROUPS", "R05_RATE_MEASURE_PRODUCT"]
+      },
+      {
+        "source": "數學_109上_四年級_宜蘭縣_武淵國小_第一次段考_翰林",
+        "evidence": "265人、每趟25人，問最少幾趟，必須把除法餘數解讀為向上取整。",
+        "taxonomyUse": ["R07_REMAINDER_DECISION", "WP08_CONTEXT_INTERPRETATION_AND_VALIDATION"]
+      }
+    ],
+    "liTeacher": [
+      {
+        "source": "厉老师三年级数学思维讲义.pdf",
+        "evidence": "計算專題與應用題專題分開編排；應用題包含和差、和倍、差倍、雞兔同籠、植樹、周期、還原、年齡、平均數等。",
+        "taxonomyUse": ["COMPUTATION_MODELING_SEPARATION", "R09_CONSTRAINT_SYSTEM_PROBLEMS"]
+      },
+      {
+        "source": "厉老师三年级数学思维讲义.pdf",
+        "evidence": "和倍例題包含總人數248且男生為女生3倍，要求反推兩量；另有2倍少7等複合關係。",
+        "taxonomyUse": ["R04_MULTIPLICATIVE_COMPARISON", "R09_CONSTRAINT_SYSTEM_PROBLEMS"]
+      },
+      {
+        "source": "厉老师四年级数学思维讲义.pdf",
+        "evidence": "歸一問題明確使用總量÷份數=1份數量，再以1份數量×所占份數求目標量；另列和差、和倍、差倍及行程問題。",
+        "taxonomyUse": ["R03_EQUAL_GROUPS", "R05_RATE_MEASURE_PRODUCT", "UNKNOWN_ROLE_SHIFT", "MULTI_STEP_UNITIZATION"]
+      }
+    ]
+  },
+  "difficultyAxes": {
+    "modelingDifficulty": [
+      "relation explicitness",
+      "quantity and information order",
+      "unknown role shift",
+      "surface paraphrase",
+      "irrelevant information",
+      "unit and rate typing",
+      "unit conversion",
+      "number of relation kernels",
+      "text versus table versus diagram representation",
+      "contextual decision requirement such as floor or ceil"
+    ],
+    "arithmeticDifficulty": [
+      "operand magnitude",
+      "carry or regroup load",
+      "number of arithmetic steps",
+      "calculation precision"
+    ],
+    "policy": "MODELING_DIFFICULTY_AND_ARITHMETIC_DIFFICULTY_MUST_BE_CONTROLLED_INDEPENDENTLY"
+  },
+  "path1Bridge": [
+    {
+      "blockId": "P1-01",
+      "arithmeticKPs": ["kp_g3a_u03_10_multiple_by_1digit"],
+      "recommendedTransfer": "R03/R05 multiplication-side only, unknown total",
+      "authorityCandidate": "kp_g3b_u08_total_from_groups",
+      "numericEnvelopeAssessment": "COMPATIBLE: tens multiple 10-90 times one-digit 2-9 produces total <=810, within current total-from-groups one-digit groupCount and <=999 boundary.",
+      "inverseUnknownShift": "DEFER_TO_P1_12"
+    },
+    {
+      "blockId": "P1-02",
+      "arithmeticKPs": ["kp_g3a_u03_2digit_by_1digit_carry", "kp_g3a_u03_3digit_by_1digit"],
+      "recommendedTransfer": "R03/R05 multiplication-side only, unknown total",
+      "authorityCandidate": "kp_g3b_u08_total_from_groups",
+      "numericEnvelopeAssessment": "PARTIAL: 2digit×1digit fits <=891; 3digit×1digit can exceed existing total<=999 relation envelope, so direct reuse requires a bounded <=999 subset or a separate envelope-extension authority decision.",
+      "inverseUnknownShift": "DEFER_TO_P1_12"
+    },
+    {
+      "blockId": "P1-03",
+      "arithmeticKPs": ["kp_g4a_u02_2digit_by_2digit"],
+      "recommendedTransfer": "same R03/R05 relation kernel; do not create a new relation merely because operands are larger",
+      "authorityCandidate": "EXISTING_RELATION_AUTHORITY_WITH_NUMERIC_ENVELOPE_EXTENSION_REQUIRED",
+      "numericEnvelopeAssessment": "BLOCKED_FOR_DIRECT_REUSE: current total-from-groups requires one-digit groupCount; P1-03 requires a two-digit factor. G4A-U02 also marks application capability NOT_APPLICABLE.",
+      "inverseUnknownShift": "DEFER_TO_P1_12",
+      "implementationStatus": "NOT_AUTHORIZED"
+    },
+    {
+      "blockId": "P1-04",
+      "arithmeticKPs": ["kp_g4a_u02_2digit_by_3digit", "kp_g4a_u02_3digit_by_2digit"],
+      "recommendedTransfer": "same R03/R05 relation kernel with larger arithmetic executor",
+      "authorityCandidate": "EXISTING_RELATION_AUTHORITY_WITH_NUMERIC_ENVELOPE_EXTENSION_REQUIRED",
+      "numericEnvelopeAssessment": "BLOCKED_FOR_DIRECT_REUSE: multi-digit second factor is outside existing equal-groups groupCount boundary; G4A-U02 application capability is NOT_APPLICABLE.",
+      "inverseUnknownShift": "DEFER_TO_P1_12",
+      "implementationStatus": "NOT_AUTHORIZED"
+    }
+  ],
+  "recommendedArchitecture": {
+    "decision": "ARITHMETIC_CORE_PLUS_RELATION_TRANSFER_LAYER",
+    "doNotDo": [
+      "do not add generic word-problem C-family inside every numeric P1 KP",
+      "do not duplicate the same equal-groups relation for each operand shape",
+      "do not use keyword-to-operation rules as the validator contract",
+      "do not bypass the existing application context/admission subsystem"
+    ],
+    "earlyTransfer": "After P1-01 through P1-04 arithmetic mastery, allow multiplication-side modeling tasks where the unknown is the total/comparison quantity and the relation is already known or separately admitted.",
+    "formalInverseIntegration": "Keep P1-12 as the formal stage that rotates the equal-groups unknown role across total, groupCount and amountPerGroup after division prerequisites are available.",
+    "futureContractShape": "ArithmeticKPRef + RelationKPRef + UnknownRole + ContextBinding + QuantityRoleBindings + UnitFlow + LanguageDifficulty + ArithmeticDifficulty + AnswerWitness"
+  },
+  "gapAssessment": {
+    "newGenericWordProblemKPJustified": false,
+    "missingTaxonomy": false,
+    "missingTransferContract": true,
+    "missingP101P104ApplicationAdmission": true,
+    "p103P104NumericEnvelopeExtensionReviewRequired": true,
+    "languageDifficultyContractMissing": true,
+    "relationAwareValidatorContractMissing": true
+  },
+  "closeout": {
+    "goalDistanceBefore": "D4_WORD_PROBLEM_SOURCES_AND_EXISTING_APPLICATION_KPS_PRESENT_BUT_NO_PATH1_MODELING_TAXONOMY",
+    "goalDistanceAfter": "D3_WORD_PROBLEM_RELATION_TAXONOMY_EXISTING_KP_REUSE_AND_P1_BRIDGE_BOUNDARIES_IDENTIFIED",
+    "distanceReduced": "D4_TO_D3_FOR_PATH1_MODELING_LAYER",
+    "blockersRemoved": [
+      "WORD_PROBLEM_EQUALS_LONGER_NUMERIC_PROMPT_ASSUMPTION",
+      "CONTEXT_DOMAIN_EQUALS_RELATION_FAMILY_ASSUMPTION",
+      "EACH_P1_OPERAND_SHAPE_NEEDS_ITS_OWN_WORD_PROBLEM_KP_ASSUMPTION",
+      "UNKNOWN_ROLE_SHIFT_AS_KEYWORD_PROBLEM_ASSUMPTION"
+    ],
+    "remainingBlockers": [
+      "PATH1_WORD_PROBLEM_TRANSFER_CONTRACT_NOT_MATERIALIZED",
+      "P1_02_THREE_DIGIT_MULTIPLICATION_RELATION_ENVELOPE_PARTIAL_ONLY",
+      "P1_03_P1_04_G4A_U02_APPLICATION_CAPABILITY_NOT_APPLICABLE",
+      "P1_03_P1_04_RELATION_NUMERIC_ENVELOPE_EXTENSION_NOT_AUTHORIZED",
+      "LANGUAGE_DIFFICULTY_AND_RELATION_AWARE_VALIDATOR_CONTRACT_NOT_MATERIALIZED"
+    ],
+    "nextShortestStep": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schemaName": "POSTGAPPW01Golden15ApplicationAssessmentIndexV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+  "contractId": "POSTG_APP_W01_GOLDEN15_APPLICATION_CAPABILITY_ASSESSMENT_V1",
+  "status": "DETERMINISTIC_MATERIALIZATION_PENDING_CI",
+  "inputAuthority": {
+    "masterController": "data/curriculum/application/controller/postg-app-master-controller-state.json",
+    "waveId": "W01",
+    "goldenUnitCount": 15,
+    "sourceNodeCoverageCount": 16,
+    "knowledgePointCount": 156,
+    "operationModelOwnerCount": 156,
+    "contextAuthority": "data/curriculum/context/registry/global-context-authority-index.json",
+    "policy": "data/curriculum/application/assessment/w01-golden15-application-capability-policy.json"
+  },
+  "materializedAuthority": {
+    "resolver": "src/curriculum/application/w01-golden15-application-assessment.mjs",
+    "validationCli": "tools/curriculum/validate-postg-app-w01-a00-assessment.mjs",
+    "test": "tests/curriculum/postg-app-w01-a00-assessment.test.js",
+    "recordIdentity": "sourceId + knowledgePointId",
+    "recordCount": 156
+  },
+  "classificationSet": [
+    "APPLICATION_REQUIRED",
+    "APPLICATION_COMPATIBLE",
+    "APPLICATION_NOT_APPLICABLE"
+  ],
+  "backlogAdmissionDecisions": [
+    "ADMITTED_TO_W01_DESIGN_BACKLOG",
+    "EXCLUDED_FROM_APPLICATION_AUTHORING"
+  ],
+  "applicationModes": [
+    "SINGLE_DIRECT",
+    "SINGLE_N_PLUS_1",
+    "SINGLE_DIAGNOSTIC",
+    "PBL_TASK_SET"
+  ],
+  "productionAdmission": {
+    "allowed": false,
+    "admittedRecordCount": 0
+  },
+  "nextShortestStep": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack"
+}

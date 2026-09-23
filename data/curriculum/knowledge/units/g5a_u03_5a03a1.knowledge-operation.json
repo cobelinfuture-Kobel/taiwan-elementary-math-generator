@@ -1,0 +1,18 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g5a_u03_5a03a1", "queueOrdinal": 11, "sourceCode": "5a03a1", "sourceTitle": "公倍數", "domainFamily": "common_multiple_and_cycle_alignment",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "b329b79c2e4518ac42725b026ddd61ec6740020e33e74269824da967e477b393", "contentIdentityGroup": "pdf_b329b79c2e45", "pageCount": 2, "reviewedPages": [1, 2], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g5a_u03a1_common_multiple_lcm", "name": "公倍數與最小公倍數", "scope": "由兩個數的倍數集合找公倍數與最小公倍數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬定義、列舉與集合交集。"},
+    {"candidateId": "kp_g5a_u03a1_grouping_constraints", "name": "兩種分組規格的共同總量", "scope": "求同一總量可被兩種組數或每組量整除的最小值。", "evidencePages": [1], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源以兩種分組方式建立共同總量與最小需求。"},
+    {"candidateId": "kp_g5a_u03a1_bounded_common_multiples", "name": "指定範圍內的公倍數", "scope": "列出上下界內符合兩個或多個倍數條件的數。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可用包裝或用品數量承載，也可直接列舉。"},
+    {"candidateId": "kp_g5a_u03a1_rectangle_square_tiling", "name": "長方形拼成最小正方形", "scope": "以長寬公倍數求無縫拼成正方形的最小邊長。", "evidencePages": [1], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源的鋪排幾何限制直接決定最小公倍數模型。"},
+    {"candidateId": "kp_g5a_u03a1_factor_multiple_language", "name": "因數倍數公倍數語句辨識", "scope": "判定敘述使用因數、倍數或公倍數是否正確。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬數學語言與關係辨識。"},
+    {"candidateId": "kp_g5a_u03a1_number_constraint_construction", "name": "倍數條件的數字組成", "scope": "以指定數字卡組成符合倍數條件的整數。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬位數排列與整除約束推理。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 6, "applicationRequiredCount": 2, "applicationCompatibleCount": 1, "applicationNotApplicableCount": 3},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

@@ -1,0 +1,12 @@
+S43E5_R4J_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+operator_readback = tests 402, pass 402, fail 0, working tree clean
+status = PASS
+next_task = S43E5_R4K_G3BU01_WordProblemBrowserPDFSmoke
+
+GOAL_DISTANCE_BEFORE = D1
+GOAL_DISTANCE_AFTER = D1
+DISTANCE_REDUCED = R4J mixed worksheet QA passed local validation
+REMAINING_BLOCKERS = browser PDF smoke
+NEXT_SHORTEST_STEP = S43E5_R4K_G3BU01_WordProblemBrowserPDFSmoke

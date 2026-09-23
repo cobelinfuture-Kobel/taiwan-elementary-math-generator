@@ -1,0 +1,14 @@
+export * from "./batch-a-selector-p03f19-extension.js";
+import * as base from "./batch-a-selector-p03f19-extension.js";
+import { G4B_U08_SOURCE_ID } from "./g4b-u08-equivalent-fraction-selector-projection.js";
+import { G4B_U08_FRACTION_DECIMAL_ROWS, auditG4BU08FractionDecimalSelectorProjection, getG4BU08FractionDecimalSelectorRow, listG4BU08FractionDecimalPatternGroups, resolveG4BU08FractionDecimalPatternSpecIds } from "./g4b-u08-fraction-decimal-conversion-selector-projection.js";
+const clone=(v)=>v==null?v:JSON.parse(JSON.stringify(v)); const rows=Object.freeze(G4B_U08_FRACTION_DECIMAL_ROWS.map(clone));
+const prior=base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId[G4B_U08_SOURCE_ID];
+export const BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA=base.BATCH_A_KNOWLEDGE_POINT_REGISTRY_METADATA;
+export const BATCH_A_SELECTOR_AVAILABILITY=Object.freeze({...base.BATCH_A_SELECTOR_AVAILABILITY,visibleCount:base.BATCH_A_SELECTOR_AVAILABILITY.visibleCount+1,bySourceId:Object.freeze({...base.BATCH_A_SELECTOR_AVAILABILITY.bySourceId,[G4B_U08_SOURCE_ID]:Object.freeze({...prior,visibleCount:3,hiddenPendingCount:4,publicSelectorStatus:"slice020_fraction_decimal_successor",canonicalReachableKnowledgePointCount:3,canonicalReachableKnowledgePointIds:Object.freeze([...(prior?.canonicalReachableKnowledgePointIds??[]),rows[0].knowledgePointId]),publicDropdownCutoverTask:"P03F_W3DirectProductVerticalSlice020Implementation"})})});
+export function listVisibleBatchAKnowledgePoints(){return [...base.listVisibleBatchAKnowledgePoints(),...rows.map(clone)];}
+export function listBatchAKnowledgePointAvailabilityBySource(id){return id===G4B_U08_SOURCE_ID?clone(BATCH_A_SELECTOR_AVAILABILITY.bySourceId[id]):base.listBatchAKnowledgePointAvailabilityBySource(id);}
+export function getVisibleBatchAKnowledgePoint(id){return getG4BU08FractionDecimalSelectorRow(id)??base.getVisibleBatchAKnowledgePoint(id);}
+export function getVisiblePatternGroupsForKnowledgePoint(id){const rows=listG4BU08FractionDecimalPatternGroups(id);return rows.length?rows:base.getVisiblePatternGroupsForKnowledgePoint(id);}
+export function resolveVisiblePatternSpecIdsForKnowledgePoint(id,mode=null){const rows=resolveG4BU08FractionDecimalPatternSpecIds(id);return rows.length?rows:base.resolveVisiblePatternSpecIdsForKnowledgePoint(id,mode);}
+export function auditP03F20PublicSelectorComposition(){const errors=[...auditG4BU08FractionDecimalSelectorProjection().errors];const ids=listVisibleBatchAKnowledgePoints().map(r=>r.knowledgePointId);if(new Set(ids).size!==ids.length)errors.push("P03F20_SELECTOR_DUPLICATE_KP");const a=listBatchAKnowledgePointAvailabilityBySource(G4B_U08_SOURCE_ID);if(a.visibleCount!==3||a.hiddenPendingCount!==4)errors.push("P03F20_SELECTOR_AVAILABILITY_INVALID");return Object.freeze({ok:!errors.length,errors:Object.freeze(errors),counts:Object.freeze({addedKnowledgePoints:1,visibleForSource:a.visibleCount,hiddenForSource:a.hiddenPendingCount})});}

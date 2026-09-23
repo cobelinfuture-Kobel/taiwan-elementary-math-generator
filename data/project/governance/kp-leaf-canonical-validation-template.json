@@ -1,0 +1,77 @@
+{
+  "schemaName": "KPLeafCanonicalValidationTemplateV1",
+  "schemaVersion": 1,
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "purpose": "Canonical reusable metadata/schema for one-KP leaf validation so future slices do not repeat UIV_UNIT_EXPECTED_KP_IDS_INVALID or UIV_KP_LEAF_CURRENT_KP_INVALID failures.",
+  "requiredSubstitutions": [
+    "TASK_ID",
+    "UNIT_ID",
+    "KNOWLEDGE_POINT_ID",
+    "VALIDATION_PLAN_PATH",
+    "FOCUSED_NODE_TEST_PATH",
+    "TARGETED_BROWSER_RUNNER_PATH"
+  ],
+  "impactManifestTemplate": {
+    "schemaVersion": "1.0.0",
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "taskId": "{{TASK_ID}}",
+    "currentScope": "KP_LEAF",
+    "currentKnowledgePointId": "{{KNOWLEDGE_POINT_ID}}",
+    "unitExpectedKnowledgePointIds": [
+      "{{KNOWLEDGE_POINT_ID}}"
+    ],
+    "unitKnowledgePointGateStatus": {
+      "{{KNOWLEDGE_POINT_ID}}": "PENDING"
+    },
+    "expectedDerivedGate": "KP_FOCUSED",
+    "validationPlanPath": "{{VALIDATION_PLAN_PATH}}",
+    "changeImpact": {
+      "sharedExecutableChange": false,
+      "publicAuthorityCutover": false,
+      "legalRouteSemanticsChanged": false,
+      "affectedRoutes": "BOUNDED",
+      "globalReleaseCheckpoint": false,
+      "currentAuthorityChanged": false
+    }
+  },
+  "validationPlanTemplate": {
+    "schemaVersion": "1.0.0",
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "planId": "{{TASK_ID}}_BOUNDED_VALIDATION",
+    "unitId": "{{UNIT_ID}}",
+    "lanes": {
+      "KP_FOCUSED": [
+        {
+          "gateId": "FOCUSED_TEST",
+          "kind": "NODE_TEST",
+          "paths": [
+            "{{FOCUSED_NODE_TEST_PATH}}"
+          ]
+        },
+        {
+          "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+          "kind": "NODE_TEST",
+          "paths": [
+            "{{FOCUSED_NODE_TEST_PATH}}"
+          ]
+        },
+        {
+          "gateId": "TARGETED_BROWSER_E2E",
+          "kind": "NODE_RUNNER",
+          "path": "{{TARGETED_BROWSER_RUNNER_PATH}}",
+          "runtime": "PLAYWRIGHT_CHROMIUM"
+        }
+      ]
+    }
+  },
+  "invariants": {
+    "oneKnowledgePointOnly": true,
+    "currentKnowledgePointMustBelongToExpectedSet": true,
+    "expectedKnowledgePointIdsMustBeUniqueAndNonEmpty": true,
+    "gateStatusKeysMustExactlyMatchExpectedKnowledgePointIds": true,
+    "initialGateStatus": "PENDING",
+    "derivedGate": "KP_FOCUSED",
+    "fullRegression": false,
+    "globalReplay": false
+  }
+}

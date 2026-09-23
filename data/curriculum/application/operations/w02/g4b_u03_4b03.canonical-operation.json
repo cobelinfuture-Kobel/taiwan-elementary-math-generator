@@ -1,0 +1,304 @@
+{
+  "schemaName": "POSTGAPPW02CanonicalOperationUnitV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A01C_CanonicalOperationModelMaterialization",
+  "sourceNodeId": "g4b_u03_4b03",
+  "queueOrdinal": 6,
+  "sourceCode": "4b03",
+  "sourceTitle": "假分數與帶分數",
+  "domainFamily": "improper_and_mixed_fraction_representation",
+  "canonicalState": "PAGE_EVIDENCED_CANONICAL_OPERATION_MODELS_COMPLETE_PATTERNSPEC_PENDING",
+  "sourceCandidate": {
+    "path": "data/curriculum/knowledge/units/g4b_u03_4b03.knowledge-operation.json",
+    "sha256": "9ef7d2ff0e09abf48d05c306cf3556a7679427215e3dcfcdae9a8d99d7284769",
+    "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+    "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING"
+  },
+  "sourceEvidence": {
+    "inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json",
+    "sha256": "5ba57aff6a973bd1a8df63791155df7b15fe25ec2b546fc94fb2d8a8323070b3",
+    "contentIdentityGroup": "pdf_5ba57aff6a97",
+    "pageCount": 3,
+    "reviewedPages": [
+      1,
+      2,
+      3
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4b_u03_fraction_type_classification",
+      "knowledgePointName": "真分數、假分數與帶分數分類",
+      "scope": "依分子分母關係及整數部分分類分數。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬數學形式分類，不應強加故事。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u03_fraction_type_classification",
+          "operationFamilyId": "fraction_type",
+          "canonicalExpressions": [
+            "type = numerator < denominator ? proper : numerator == denominator ? wholeEquivalent : improper"
+          ],
+          "operandRoles": {
+            "numerator": "分子",
+            "denominator": "分母",
+            "wholePart": "帶分數整數部分",
+            "type": "分數類型"
+          },
+          "unknownRoles": [
+            "type"
+          ],
+          "numberConstraints": [
+            "denominator > 0",
+            "numerator >= 0"
+          ],
+          "equivalentForms": [
+            "proper fraction",
+            "improper fraction",
+            "mixed number"
+          ],
+          "answerType": "classification_label",
+          "validationInvariants": [
+            "classification follows numerator-denominator relation and whole-part presence"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u03_improper_mixed_conversion",
+      "knowledgePointName": "假分數、帶分數與整數互換",
+      "scope": "在固定分母下進行整數、假分數及帶分數互換。",
+      "evidencePages": [
+        1
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "核心是除法與分數結構的等值轉換。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u03_improper_mixed_conversion",
+          "operationFamilyId": "improper_mixed_conversion",
+          "canonicalExpressions": [
+            "whole = floor(numerator / denominator)",
+            "remainder = numerator mod denominator",
+            "improperNumerator = whole * denominator + remainder"
+          ],
+          "operandRoles": {
+            "numerator": "假分數分子",
+            "denominator": "固定分母",
+            "whole": "帶分數整數部分",
+            "remainder": "帶分數分子",
+            "improperNumerator": "換算後假分數分子"
+          },
+          "unknownRoles": [
+            "whole",
+            "remainder",
+            "improperNumerator"
+          ],
+          "numberConstraints": [
+            "denominator > 0",
+            "0 <= remainder < denominator"
+          ],
+          "equivalentForms": [
+            "improper fraction",
+            "mixed number",
+            "integer"
+          ],
+          "answerType": "fraction_or_mixed_number",
+          "validationInvariants": [
+            "both representations have equal value"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u03_fraction_compare_order",
+      "knowledgePointName": "假分數與帶分數比較排序",
+      "scope": "統一表徵後比較或排序假分數與帶分數。",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可比較實際份量，但數線與符號題已足以評量。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u03_fraction_compare_order",
+          "operationFamilyId": "fraction_compare",
+          "canonicalExpressions": [
+            "comparison = compare(leftNumerator * rightDenominator, rightNumerator * leftDenominator)"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分數分子",
+            "leftDenominator": "左分數分母",
+            "rightNumerator": "右分數分子",
+            "rightDenominator": "右分數分母",
+            "comparison": "大小關係"
+          },
+          "unknownRoles": [
+            "comparison"
+          ],
+          "numberConstraints": [
+            "leftDenominator > 0",
+            "rightDenominator > 0"
+          ],
+          "equivalentForms": [
+            "common-denominator comparison",
+            "cross-product comparison",
+            "number-line comparison"
+          ],
+          "answerType": "comparison_symbol_or_order",
+          "validationInvariants": [
+            "comparison must equal the exact rational-number relation"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u03_fraction_number_line",
+      "knowledgePointName": "分數數線定位",
+      "scope": "在數線上定位或讀取假分數與帶分數。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "classificationRationale": "屬數線座標與表徵能力。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u03_fraction_number_line",
+          "operationFamilyId": "number_line",
+          "canonicalExpressions": [
+            "coordinate = origin + stepCount * unitStep",
+            "distance = abs(rightCoordinate - leftCoordinate)"
+          ],
+          "operandRoles": {
+            "origin": "數線起點",
+            "unitStep": "每格代表值",
+            "stepCount": "格數",
+            "coordinate": "座標",
+            "distance": "兩點距離"
+          },
+          "unknownRoles": [
+            "coordinate",
+            "distance"
+          ],
+          "numberConstraints": [
+            "unitStep > 0",
+            "stepCount is integer"
+          ],
+          "equivalentForms": [
+            "fraction coordinate",
+            "decimal coordinate"
+          ],
+          "answerType": "number_or_distance",
+          "validationInvariants": [
+            "coordinate respects tick spacing",
+            "distance is nonnegative"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u03_mixed_fraction_add_sub",
+      "knowledgePointName": "同分母帶分數加減",
+      "scope": "進行同分母帶分數加減及整數減帶分數。",
+      "evidencePages": [
+        2
+      ],
+      "applicationClassification": "APPLICATION_COMPATIBLE",
+      "classificationRationale": "可承載測量合併或剩餘，也可直接計算。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u03_mixed_fraction_add_sub",
+          "operationFamilyId": "fraction_add_sub",
+          "canonicalExpressions": [
+            "result = leftNumerator/leftDenominator + rightNumerator/rightDenominator",
+            "result = leftNumerator/leftDenominator - rightNumerator/rightDenominator"
+          ],
+          "operandRoles": {
+            "leftNumerator": "左分數分子",
+            "leftDenominator": "左分數分母",
+            "rightNumerator": "右分數分子",
+            "rightDenominator": "右分數分母",
+            "result": "和或差"
+          },
+          "unknownRoles": [
+            "result"
+          ],
+          "numberConstraints": [
+            "leftDenominator > 0",
+            "rightDenominator > 0",
+            "subtraction result must satisfy the source scope"
+          ],
+          "equivalentForms": [
+            "common-denominator form",
+            "improper-fraction form",
+            "mixed-number form"
+          ],
+          "answerType": "fraction",
+          "validationInvariants": [
+            "result equals exact rational arithmetic",
+            "final form preserves value"
+          ]
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u03_fraction_times_integer_quantity",
+      "knowledgePointName": "分數或帶分數乘整數量",
+      "scope": "以重複等量求多份長度、寬度或重量。",
+      "evidencePages": [
+        3
+      ],
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "classificationRationale": "來源以桌面寬度與箱重建立每份量乘份數關係。",
+      "operationModels": [
+        {
+          "modelId": "op_g4b_u03_fraction_times_integer_quantity",
+          "operationFamilyId": "fraction_times_integer",
+          "canonicalExpressions": [
+            "total = amountPerGroup * groupCount"
+          ],
+          "operandRoles": {
+            "amountPerGroup": "每份分數或帶分數量",
+            "groupCount": "份數",
+            "total": "總量"
+          },
+          "unknownRoles": [
+            "total"
+          ],
+          "numberConstraints": [
+            "groupCount is a nonnegative integer",
+            "amountPerGroup >= 0"
+          ],
+          "equivalentForms": [
+            "repeated addition",
+            "fraction multiplication"
+          ],
+          "answerType": "fraction_measure",
+          "validationInvariants": [
+            "total equals repeated equal quantities",
+            "measurement unit is preserved"
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "knowledgePointCount": 6,
+    "canonicalOperationModelCount": 6
+  },
+  "productionBoundary": {
+    "patternSpecsAuthored": false,
+    "storyTemplatesAuthored": false,
+    "runtimeConsumerEnabled": false,
+    "worksheetOutputAllowed": false,
+    "publicSelectionEnabled": false,
+    "productionAdmissionAllowed": false
+  },
+  "nextRequiredGate": "PATTERNSPEC_CONTRACT_AND_HIDDEN_MATERIALIZATION"
+}

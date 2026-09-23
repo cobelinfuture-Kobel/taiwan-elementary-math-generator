@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "gs06-golden-controller-d0-v1",
+  "taskId": "GS06_G5AU08_BatchControllerAntiDriftAndGoldenD0Closeout",
+  "programId": "G5AU08_GOLDEN_SAMPLE_V1",
+  "status": "PASS_GOLDEN_D0_CLOSED_PENDING_FINAL_EXACT_HEAD_CI_AND_MERGE",
+  "goldenContractId": "G5AU08_GOLDEN_V1",
+  "goldenContractVersion": "1.0.0",
+  "goal": "Create the machine-enforced 15-unit conformance inventory, deterministic migration queue, production gate, anti-drift gate, and final Golden Sample program D0 closeout.",
+  "d0Definition": {
+    "means": [
+      "The six-task Golden Sample program is complete.",
+      "All 15 current public source units are present in one authoritative conformance registry.",
+      "Conformance and production states are machine validated.",
+      "One active unit and the remaining pending queue are deterministic.",
+      "New per-unit generator, validator, renderer, or workflow additions are blocked by CI.",
+      "Production eligibility requires GOLDEN_CONFORMANT.",
+      "Program D0 inherits and revalidates the production pipeline evidence created by GS01 through GS05."
+    ],
+    "doesNotMean": [
+      "All 15 source units are already GOLDEN_CONFORMANT.",
+      "The 11 pending units are migrated by GS06.",
+      "G3A-U01 is promoted to production.",
+      "GS06 changes learner-visible output.",
+      "A post-Golden unit migration program is approved."
+    ],
+    "closeoutMode": "program_controller_closeout"
+  },
+  "acceptance": {
+    "sourceAuthorityCount": 15,
+    "conformanceRegistryCount": 15,
+    "goldenConformantCount": 3,
+    "goldenNativeActiveCount": 1,
+    "legacyPendingValidationCount": 11,
+    "blockedCount": 0,
+    "exceptionCount": 0,
+    "notStartedCount": 0,
+    "oneActiveUnitMaximum": 1,
+    "newPerUnitGeneratorMax": 0,
+    "newPerUnitValidatorMax": 0,
+    "newPerUnitRendererMax": 0,
+    "newPerUnitWorkflowMax": 0,
+    "productionGateRequiresGoldenConformant": true,
+    "ordinaryD0PipelineRequirementPreserved": true,
+    "programControllerLineageRolesRequired": 5,
+    "gs01HtmlPdfAndHashesReinherited": true,
+    "controllerCandidateFocusedCIStatus": "PASS",
+    "candidateMilestoneClaimIntegrityStatus": "PASS",
+    "candidateNodeTestStatus": "PASS",
+    "candidateMathCIReadbackStatus": "PASS",
+    "gs05CompatibilityRuntimeStatus": "PASS",
+    "gs05MilestoneScopeAuditRestrictedToOriginalBranch": true,
+    "finalExactHeadCIRequired": true
+  },
+  "authorities": {
+    "sourceUnits": "site/modules/curriculum/batch-a/source-units.js",
+    "unitConformanceRegistry": "data/curriculum/golden/G5AU08_GOLDEN_V1.unit-conformance.json",
+    "batchController": "data/curriculum/golden/G5AU08_GOLDEN_V1.batch-controller.json",
+    "controllerCore": "site/modules/curriculum/golden/golden-batch-controller.js",
+    "validatorCLI": "tools/governance/validate-gs06-golden-controller.mjs",
+    "focusedTest": "tests/curriculum/gs06-g5a-u08-batch-controller-anti-drift-d0.test.js",
+    "d0GovernanceCore": "tools/governance/milestone-claim-integrity-core.mjs",
+    "d0GovernanceTest": "tests/governance/milestone-claim-integrity.test.js",
+    "gs05CompatibilityWorkflow": ".github/workflows/gs05-g5a-u08-cross-unit-conformance-pilot.yml",
+    "workflow": ".github/workflows/gs06-g5a-u08-batch-controller-anti-drift-d0.yml",
+    "claim": "data/project/milestones/GS06.claim.json",
+    "passMarker": "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_PASS.marker",
+    "readback": "docs/curriculum/output/GS06_G5AU08_GOLDEN_D0_READBACK.md"
+  },
+  "scope": {
+    "executesPostGoldenUnitMigration": false,
+    "changesPublicUI": false,
+    "changesPendingUnitProductionAdmission": false,
+    "weakensOrdinaryD0Evidence": false,
+    "generalizesGs05MilestoneScopeAudit": true,
+    "createsSeventhGoldenTask": false
+  },
+  "closeout": {
+    "programStatus": "PASS_GOLDEN_D0_CLOSED",
+    "completedCount": 6,
+    "remainingCount": 0,
+    "goalDistance": "D0_G5AU08_GOLDEN_V1_CONTROLLER_ACTIVE_AND_CLOSED",
+    "stopReason": "NEXT_STEP_OUTSIDE_APPROVED_SCOPE",
+    "nextResumeTask": "POST_GOLDEN_G3A_U01_CONFORMANCE_MIGRATION"
+  }
+}

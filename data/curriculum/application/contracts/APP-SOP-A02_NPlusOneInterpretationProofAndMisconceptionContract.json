@@ -1,0 +1,106 @@
+{
+  "schemaName": "APPSOPA02NPlusOneInterpretationProofAndMisconceptionContract",
+  "schemaVersion": 1,
+  "contractId": "N_PLUS_ONE_APPLICATION_INTERPRETATION_PROOF_V1",
+  "parentContractId": "APPLICATION_PROBLEM_SOP_V1",
+  "singleItemContractId": "SINGLE_APPLICATION_ITEM_SOP_V1",
+  "taskId": "APP-SOP-A02_NPlusOneInterpretationProofAndMisconceptionContract",
+  "status": "A02_PROOF_CONTRACT_LOCKED_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "prerequisite": {
+    "taskId": "APP-SOP-A01_SingleApplicationItemDetailedSOPAndSchemaContract",
+    "mergeSha": "ea8c2fd576dd7b494bcaf113f580d1adfed3a1d6",
+    "requiredEvidenceLevel": "E1_DATA_STRUCTURE_READY"
+  },
+  "authority": {
+    "normativeDocument": "docs/curriculum/contracts/NPlusOne_Application_Interpretation_Proof_SOP_V1.md",
+    "jsonSchema": "data/curriculum/application/schema/n-plus-one-interpretation-proof.schema.json",
+    "singleItemSchema": "data/curriculum/application/schema/single-application-item.schema.json"
+  },
+  "proofInvariants": {
+    "shortestSemanticDistance": 1,
+    "intermediateSemanticNodeRequired": false,
+    "missingPrerequisiteCount": 0,
+    "primaryInterpretiveActCount": 1,
+    "pairedControlRequired": true,
+    "interpretationForkRequired": true,
+    "interpretationWitnessRequired": true,
+    "minimumMisconceptionModels": 2,
+    "calculationPassInterpretationFailModelRequired": true,
+    "counterfactualRequired": true,
+    "crossContextInvarianceRequired": true,
+    "keywordRobustnessRequired": true,
+    "validatorDeltaRequired": true,
+    "answerMeaningValidationRequired": true
+  },
+  "misconceptionTaxonomy": [
+    "TARGET_ROLE_CONFUSION",
+    "OPERATION_KEYWORD_MATCHING",
+    "QUOTIENT_ONLY",
+    "REMAINDER_AS_TARGET",
+    "COMPUTED_NOT_INTERPRETED",
+    "RELATION_ORDER_REVERSAL",
+    "CONSTRAINT_IGNORED",
+    "UNIT_ROLE_CONFUSION",
+    "IRRELEVANT_INFORMATION_USED",
+    "PART_WHOLE_ROLE_SWAP",
+    "COMPARISON_DIRECTION_REVERSAL",
+    "CONSERVATION_VIOLATION"
+  ],
+  "verdicts": [
+    "PROVEN_N_PLUS_1_CANDIDATE",
+    "NOT_N_PLUS_1_SAME_CAPABILITY",
+    "DEFERRED_MISSING_PREREQUISITE",
+    "DEFERRED_NOT_ADJACENT",
+    "REJECTED_NUMERIC_LOAD_ONLY",
+    "REJECTED_DECORATIVE_CONTEXT",
+    "REJECTED_NO_INTERPRETATION_FORK",
+    "REJECTED_VALIDATOR_DELTA_MISSING",
+    "REJECTED_NON_UNIQUE_INTERPRETATION"
+  ],
+  "result": {
+    "prerequisiteClosureMachineRepresented": true,
+    "adjacencyMachineRepresented": true,
+    "pairedControlMachineRepresented": true,
+    "interpretationForkMandatory": true,
+    "misconceptionCoverageMandatory": true,
+    "counterfactualMandatory": true,
+    "crossContextInvarianceMandatory": true,
+    "keywordRobustnessMandatory": true,
+    "validatorDeltaMandatory": true,
+    "runtimeChanged": false,
+    "questionContentAdded": false,
+    "productionAdmissionChanged": false
+  },
+  "deliverables": {
+    "normativeDocument": "docs/curriculum/contracts/NPlusOne_Application_Interpretation_Proof_SOP_V1.md",
+    "jsonSchema": "data/curriculum/application/schema/n-plus-one-interpretation-proof.schema.json",
+    "contract": "data/curriculum/application/contracts/APP-SOP-A02_NPlusOneInterpretationProofAndMisconceptionContract.json",
+    "claim": "data/project/milestones/APP-SOP-A02.claim.json",
+    "tests": "tests/curriculum/application-problem-sop-a02.test.js"
+  },
+  "scope": {
+    "primaryPRLimit": 1,
+    "productionQuestionAuthoringAllowed": false,
+    "runtimeGeneratorModificationAllowed": false,
+    "runtimeValidatorModificationAllowed": false,
+    "rendererModificationAllowed": false,
+    "publicUIModificationAllowed": false,
+    "globalContextFamilyAuthoringAllowed": false,
+    "unitContextBindingAdmissionAllowed": false,
+    "pblSchemaImplementationAllowed": false,
+    "productionAdmissionChangeAllowed": false,
+    "postGoldenMigrationControllerModificationAllowed": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_SINGLE_APPLICATION_ITEM_SCHEMA_CONTRACT_MACHINE_LOCKED",
+    "goalDistanceAfterTarget": "D3_N_PLUS_ONE_INTERPRETATION_PROOF_CONTRACT_MACHINE_LOCKED",
+    "distanceReduced": "N+1 claims now require prerequisite closure, semantic adjacency, paired controls, a genuine interpretation fork, diagnostic misconceptions, counterfactual and cross-context evidence, keyword robustness, validator delta, and answer-meaning proof.",
+    "remainingBlockers": [
+      "A03 PBL dependency and final-product schema",
+      "A04 context binding admission registries",
+      "A05 executable validators and G3B-U01 fixtures",
+      "A06 shared runtime and worksheet QA"
+    ],
+    "nextShortestStep": "APP-SOP-A03_PBLTaskSetDependencyMilestoneAndFinalProductContract"
+  }
+}

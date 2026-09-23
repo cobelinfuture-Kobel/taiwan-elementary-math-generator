@@ -1,0 +1,29 @@
+{
+  "schemaVersion":"1.0.0",
+  "policyId":"UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId":"P06F_W6_Q016_PREFLIGHT",
+  "currentScope":"SHARED_RUNTIME",
+  "currentKnowledgePointIds":["kp_g6b_u06_compare_pie_charts"],
+  "unitExpectedKnowledgePointIds":["kp_g6b_u06_compare_pie_charts"],
+  "unitKnowledgePointGateStatus":{"kp_g6b_u06_compare_pie_charts":"PREFLIGHT_ONLY"},
+  "expectedDerivedGate":"SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath":"data/project/validation-plans/P06F_W6_Q016_PREFLIGHT.validation.json",
+  "changeImpact":{
+    "sharedExecutableChange":true,
+    "publicAuthorityCutover":false,
+    "legalRouteSemanticsChanged":false,
+    "affectedRoutes":"BOUNDED",
+    "globalReleaseCheckpoint":false,
+    "currentAuthorityChanged":true,
+    "planningAuthorityAdded":true
+  },
+  "scopeGuards":{
+    "productImplementation":false,
+    "publicAdmission":false,
+    "q001ToQ015ProductMutation":false,
+    "q017OrLater":false,
+    "frozenQueueMutation":false,
+    "r02Mutation":false,
+    "r04Mutation":false
+  }
+}

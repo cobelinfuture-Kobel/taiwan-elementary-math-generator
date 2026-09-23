@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P06F_W6_Q013_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "g4a_u07_4a07",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p06f-w6-q013-g4a-u07-missing-term-source-authority-preflight.test.js",
+          "tests/curriculum/p06f-w6-q012-g5b-u11-compare-construct-trend-source-authority-preflight.test.js",
+          "tests/curriculum/p06f-w6-q011-g4a-u07-multiplicative-pattern-source-authority-preflight.test.js",
+          "tests/curriculum/p06e-w6-direct-product-vertical-slice-queue.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/read-p06f-w6-q013-g4a-u07-missing-term-source-authority-preflight.mjs",
+        "runtime": "NODE_ONLY"
+      }
+    ]
+  }
+}

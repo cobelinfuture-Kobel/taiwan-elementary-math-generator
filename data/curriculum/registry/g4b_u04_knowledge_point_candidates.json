@@ -1,0 +1,291 @@
+{
+  "schemaName": "UnitKnowledgePointCandidateMap",
+  "schemaVersion": 1,
+  "task": "S62_G4B_U04_ManualPDFKnowledgePointExtraction",
+  "status": "manual_visual_extraction_complete_pending_qa",
+  "source": {
+    "sourceId": "g4b_u04_4b04",
+    "unitCode": "4B-U04",
+    "unitTitle": "概數",
+    "grade": 4,
+    "semester": "B",
+    "uploadedFileName": "題型總覽-4b04-概數.pdf",
+    "pageCount": 2,
+    "sourceAuthorityStatus": "manual_visual_read",
+    "ocrAuthority": "forbidden",
+    "sourceAnomalies": [
+      {
+        "code": "source_header_url_unit_mismatch",
+        "description": "The PDF title and repository metadata identify 4B-U04 概數, but the rendered page header displays https://meow911.com/4b03/. Keep the sourceId as g4b_u04_4b04 and preserve this discrepancy for QA."
+      }
+    ]
+  },
+  "knowledgePointCount": 12,
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g4b_u04_approximation_language_cues",
+      "displayName": "概數語意關鍵詞與精確數辨識",
+      "canonicalSkillCandidate": "rounding_approximation_concept",
+      "subskillTags": ["approximate_language", "exact_vs_approximate"],
+      "questionKindCandidates": ["concept_classification", "text_judgement"],
+      "difficultyTags": ["keyword_interpretation"],
+      "representationTags": ["short_text", "daily_life_statement"],
+      "answerModelCandidates": ["classificationAnswer", "booleanAnswer"],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "page": 1,
+          "panel": "top-left",
+          "summary": "Lists the approximation cues 大約、大概、差不多、將近、接近 and asks which everyday statements are approximate quantities."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_approximation_symbol_reading",
+      "displayName": "約等號、近似符號與讀法",
+      "canonicalSkillCandidate": "rounding_approximation_representation",
+      "subskillTags": ["approximation_symbol", "symbol_reading"],
+      "questionKindCandidates": ["symbol_identification", "representation"],
+      "difficultyTags": ["notation_literacy"],
+      "representationTags": ["mathematical_symbol", "short_text"],
+      "answerModelCandidates": ["symbolChoiceAnswer", "readingAnswer"],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "page": 1,
+          "panel": "top-right",
+          "summary": "Introduces the approximation symbols, names them 約等號, and gives the readings 約等於 and 近似於."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_three_approximation_methods_compare",
+      "displayName": "三種取概數方法的辨識與比較",
+      "canonicalSkillCandidate": "rounding_method_selection",
+      "subskillTags": ["unconditional_round_down", "unconditional_round_up", "round_half_up"],
+      "questionKindCandidates": ["method_classification", "concept_comparison"],
+      "difficultyTags": ["strategy_distinction"],
+      "representationTags": ["method_table", "numeric_example"],
+      "answerModelCandidates": ["methodChoiceAnswer"],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "page": 1,
+          "panel": "second-row-left",
+          "summary": "Compares 753 rounded to the hundreds place by 無條件捨去, 無條件進入, and 四捨五入."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_unconditional_round_down",
+      "displayName": "無條件捨去法取概數到指定數位",
+      "canonicalSkillCandidate": "rounding_unconditional_down",
+      "subskillTags": ["specified_place", "replace_lower_digits_with_zero"],
+      "questionKindCandidates": ["rounding_numeric"],
+      "difficultyTags": ["place_value_control", "large_integer"],
+      "representationTags": ["numeric_expression"],
+      "answerModelCandidates": ["numericAnswer"],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "page": 1,
+          "panel": "second-row-left",
+          "summary": "Shows unconditional round-down as one of the three approximation methods."
+        },
+        {
+          "page": 2,
+          "panel": "top-right",
+          "summary": "Uses 無條件捨去法 to approximate two city populations to the ten-thousands place before estimating their difference."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_unconditional_round_up",
+      "displayName": "無條件進入法取概數到指定數位",
+      "canonicalSkillCandidate": "rounding_unconditional_up",
+      "subskillTags": ["specified_place", "ceiling_to_place"],
+      "questionKindCandidates": ["rounding_numeric"],
+      "difficultyTags": ["place_value_control", "large_integer"],
+      "representationTags": ["numeric_expression"],
+      "answerModelCandidates": ["numericAnswer"],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "page": 1,
+          "panel": "second-row-left",
+          "summary": "Shows unconditional round-up as one of the three approximation methods."
+        },
+        {
+          "page": 2,
+          "panel": "top-right",
+          "summary": "Uses 無條件進入法 to approximate two city populations to the ten-thousands place before estimating their difference."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_round_half_up_place_value",
+      "displayName": "四捨五入到十位、百位、千位與萬位",
+      "canonicalSkillCandidate": "rounding_half_up",
+      "subskillTags": ["rounding_digit", "retained_place", "zero_fill", "multiple_places"],
+      "questionKindCandidates": ["rounding_numeric"],
+      "difficultyTags": ["place_value_control", "multi_digit_integer"],
+      "representationTags": ["numeric_expression", "place_value_annotation"],
+      "answerModelCandidates": ["numericAnswer"],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "page": 1,
+          "panel": "bottom-right",
+          "summary": "Explains how to inspect the next digit, carry when needed, and replace digits to the right of the retained place with zero."
+        },
+        {
+          "page": 2,
+          "panel": "top-left",
+          "summary": "Practises rounding 3195, 2768, and 26743041 to the tens, hundreds, thousands, and ten-thousands places."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_context_floor_ceiling_selection",
+      "displayName": "依最多完整數量或最少需求選擇捨去與進入",
+      "canonicalSkillCandidate": "rounding_context_method_selection",
+      "subskillTags": ["maximum_complete_groups", "minimum_required_groups", "quotient_remainder", "context_reasoning"],
+      "questionKindCandidates": ["word_problem", "method_selection"],
+      "difficultyTags": ["floor_vs_ceiling", "unit_interpretation"],
+      "representationTags": ["daily_life_word_problem", "packaging_context", "saving_context"],
+      "answerModelCandidates": ["integerAnswer", "methodChoiceAnswer"],
+      "implementationClassCandidate": "D",
+      "sourceEvidence": [
+        {
+          "page": 1,
+          "panel": "second-row-right",
+          "summary": "Contrasts the maximum number of full boxes with the minimum number of boxes needed for 8427 oranges packed 10 per box."
+        },
+        {
+          "page": 1,
+          "panel": "third-row-left",
+          "summary": "Contrasts full bags or boxes with the number of containers required to hold all 5788 hats at 100 or 1000 per container."
+        },
+        {
+          "page": 1,
+          "panel": "third-row-right",
+          "summary": "Finds the minimum number of months needed to save enough for a 12999-dollar television at 1000 dollars per month."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_payment_denomination_ceiling",
+      "displayName": "依鈔票面額決定取概數位置並用進入法付款",
+      "canonicalSkillCandidate": "rounding_payment_denomination",
+      "subskillTags": ["denomination_place", "payment_ceiling", "insufficient_payment_check"],
+      "questionKindCandidates": ["word_problem", "money_reasoning"],
+      "difficultyTags": ["place_value_selection", "constraint_reasoning"],
+      "representationTags": ["money_context", "banknote_count"],
+      "answerModelCandidates": ["moneyAmountAnswer", "banknoteCountAnswer"],
+      "implementationClassCandidate": "D",
+      "sourceEvidence": [
+        {
+          "page": 1,
+          "panel": "fourth-row-left-and-right",
+          "summary": "Uses a 7699-dollar price to show that rounding down to 7000 gives insufficient payment and that the number of thousand-dollar notes must cover the price."
+        },
+        {
+          "page": 1,
+          "panel": "bottom-left",
+          "summary": "Changes the denomination to hundred-dollar notes, identifies the hundreds place as the approximation place, and requires unconditional round-up."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_round_then_add_subtract",
+      "displayName": "先取概數再做大數加減估算",
+      "canonicalSkillCandidate": "estimate_add_subtract",
+      "subskillTags": ["round_operands_first", "approximate_sum", "approximate_difference", "ten_thousand_unit"],
+      "questionKindCandidates": ["multi_step_estimation", "word_problem"],
+      "difficultyTags": ["large_number", "operation_after_rounding", "unit_conversion"],
+      "representationTags": ["population_context", "numeric_expression"],
+      "answerModelCandidates": ["approximateQuantityAnswer"],
+      "implementationClassCandidate": "D",
+      "sourceEvidence": [
+        {
+          "page": 2,
+          "panel": "top-right",
+          "summary": "Rounds two city populations to the ten-thousands place by specified methods, then estimates their difference and total in ten-thousands of people."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_round_then_multiply_divide",
+      "displayName": "先取概數再做乘除估算",
+      "canonicalSkillCandidate": "estimate_multiply_divide",
+      "subskillTags": ["round_operand_first", "approximate_product", "approximate_quotient"],
+      "questionKindCandidates": ["multi_step_estimation", "word_problem"],
+      "difficultyTags": ["operation_after_rounding", "large_number"],
+      "representationTags": ["insurance_context", "cost_sharing_context", "numeric_expression"],
+      "answerModelCandidates": ["approximateQuantityAnswer"],
+      "implementationClassCandidate": "D",
+      "sourceEvidence": [
+        {
+          "page": 2,
+          "panel": "second-row-left",
+          "summary": "Rounds the yearly insurance cost 57389 to the ten-thousands place, then estimates the six-year total."
+        },
+        {
+          "page": 2,
+          "panel": "second-row-right",
+          "summary": "Rounds a 695400-dollar total to the ten-thousands place, then estimates each person's share among five people."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_inverse_rounding_unknown_digit",
+      "displayName": "已知四捨五入結果推回未知數字範圍",
+      "canonicalSkillCandidate": "inverse_rounding_digit_constraint",
+      "subskillTags": ["unknown_rounding_digit", "digit_candidate_set", "rounding_boundary"],
+      "questionKindCandidates": ["missing_digit", "constraint_reasoning"],
+      "difficultyTags": ["inverse_reasoning", "multiple_valid_answers"],
+      "representationTags": ["partial_number", "place_value_annotation"],
+      "answerModelCandidates": ["digitSetAnswer"],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "page": 2,
+          "panel": "third-row-left",
+          "summary": "Given 2□318 rounded to the ten-thousands place as 30000, determines which digits may fill the unknown thousands digit."
+        },
+        {
+          "page": 2,
+          "panel": "third-row-right",
+          "summary": "Given 47□61 rounded to the thousands place as 47000, determines which digits may fill the unknown hundreds digit."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g4b_u04_inverse_rounding_possible_original",
+      "displayName": "由近似值與部分數位推回可能原數",
+      "canonicalSkillCandidate": "inverse_rounding_original_value",
+      "subskillTags": ["rounding_interval", "partial_digits", "possible_original_values"],
+      "questionKindCandidates": ["open_response", "constraint_reasoning"],
+      "difficultyTags": ["inverse_reasoning", "range_intersection", "multiple_valid_answers"],
+      "representationTags": ["partial_number", "daily_life_word_problem"],
+      "answerModelCandidates": ["numericRangeAnswer", "possibleValuesAnswer"],
+      "implementationClassCandidate": "C",
+      "sourceEvidence": [
+        {
+          "page": 2,
+          "panel": "bottom-left",
+          "summary": "A television price rounds to about 45000 at the thousands place; with only the ten-thousands digit and final two digits visible, the learner infers possible original prices."
+        }
+      ]
+    }
+  ],
+  "scopeBoundary": {
+    "formalMappingCreated": false,
+    "patternSpecsCreated": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "publicSelectorEnabled": false,
+    "productionUse": "forbidden"
+  },
+  "nextGate": "S63_G4B_U04_KnowledgePointCandidateMapQA"
+}

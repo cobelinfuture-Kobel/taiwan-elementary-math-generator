@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_PREFLIGHT_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g4a_u04_3digit_by_2digit_tens_sufficient": "PENDING",
+    "kp_g4a_u04_3digit_by_2digit_tens_insufficient": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/PATH1_P1_09_LARGER_DIVIDEND_TWO_DIGIT_DIVISOR_SOURCE_PARITY_REMEDIATION_PREFLIGHT_V1.validation.json",
+  "classificationNote": "Planning/remediation preflight only. It converts the already accepted P1-09 source-parity gaps into a bounded future mutation contract limited to buildFourDigitByTwoDigitItems in the shared Path1 worksheet builder. This PR itself changes no executable runtime, public binding, matrix authority, canonical KP, PatternSpec, UI/query, P1-08, P1-10, or P1-11 semantics.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

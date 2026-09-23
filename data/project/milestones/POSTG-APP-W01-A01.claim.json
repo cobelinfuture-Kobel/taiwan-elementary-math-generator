@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "SHADOW_CANDIDATE_PACK_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w01-atomic-context-single-application-candidate-pack.mjs",
+      "tools/curriculum/validate-postg-app-w01-a01-candidate-pack.mjs",
+      "tests/curriculum/postg-app-w01-a01-candidate-pack.test.js",
+      "src/curriculum/application/postg-app-master-controller.mjs",
+      "tests/curriculum/postg-app-m00-master-controller.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/application/contracts/POSTG_APP_W01_Atomic_Context_Binding_And_Single_Application_Candidate_Pack_V1.md",
+      "data/curriculum/application/schema/w01-atomic-context-single-application-candidate.schema.json",
+      "data/curriculum/application/assessment/w01-atomic-context-binding-policy.json",
+      "data/curriculum/application/assessment/w01-atomic-context-single-application-candidate-pack-index.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "data/curriculum/application/contracts/POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D2",
+    "distanceReduced": "Wave 01 suitable KnowledgePoints move from broad application-fit and context eligibility to deterministic single-application candidates linked through complete M01 macro, meso, micro, atomic and surface chains. Selection balances all 16 macro domains, preserves existing pilot lineage, and materializes role, unit-flow, prompt, answer-meaning and validation candidates while keeping production closed."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W01-A02_Golden15NPlusOneProofMisconceptionAndPBLCandidateContract",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

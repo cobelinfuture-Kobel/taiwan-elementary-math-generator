@@ -1,0 +1,29 @@
+S45C_G3A_U02_OUTPUT_PDF_RECHECK_STATUS
+
+sourceId = g3a_u02_3a02
+pdf_checked = g3a_u02_同單元混合知識點_隨機.pdf
+status = OUTPUT_QA_BLOCKERS_FOUND
+operator_readback = tests 432, pass 432, fail 0, working tree clean
+pdf_metadata = 14 pages, page 14 blank
+
+validated_by_pdf_recheck:
+- S45B long-text layout guard is active: worksheet uses 2 columns and 8 rows per question page.
+- word-problem cards no longer split across pages in the rendered pages reviewed.
+- ordered-fill prompt wording exists in questions.
+- G3A-U02 mixed output includes rounding, estimation word problems, missing digit, equation blank, crossing-thousand add/subtract, and continuous-borrow-zero families.
+
+remaining_blockers:
+- page 14 is blank and should be removed or prevented.
+- exact duplicate prompt still appears across PatternSpecs in the PDF: 8003 - 104 = ___ appears twice.
+- exact duplicate prompt still appears: 3997 + 3 = ___ appears twice.
+- exact duplicate prompt still appears: 9000 - 1101 = ___ appears twice.
+- crossing-thousand direct expression family still shows visible template clusters such as 3006 - 107, 8003 - 104, 6008 - 109, 3008 - 1109, 8003 - 104, 2002 - 103, 9006 - 107, 2006 - 107, 5006 - 107, 5004 - 105, 6005 - 2106, 9000 - 1101, 6006 - 2107, 9000 - 5101, 9000 - 101, 3002 - 103.
+- no answer-key content was visible in the uploaded PDF; if answer key was intended, this remains unresolved.
+
+next_shortest_step = S45B2_G3A_U02_PDFRegressionFullFix
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U02_OUTPUT_QUALITY_FULLFIX_LOCAL_PASS
+GOAL_DISTANCE_AFTER = D1_G3A_U02_PDF_RECHECK_FOUND_RESIDUAL_BLOCKERS
+DISTANCE_REDUCED = S45C confirmed S45B layout improvements but isolated residual PDF-level blockers
+REMAINING_BLOCKERS = blank final page; cross-PatternSpec duplicate prompts; crossing-thousand template clusters; answer-key visibility uncertainty
+NEXT_SHORTEST_STEP = S45B2_G3A_U02_PDFRegressionFullFix

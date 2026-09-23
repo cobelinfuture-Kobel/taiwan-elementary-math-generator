@@ -1,0 +1,130 @@
+{
+  "schemaName": "GCIPM01HistoricalPostMergeE2EFanoutPolicyV1",
+  "schemaVersion": "1.0.0",
+  "programId": "GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1",
+  "taskId": "GCI-PM01_HistoricalPostMergeE2EFanoutBoundedCutover",
+  "status": "PASS_POSTMERGE_FANOUT_BOUNDED_BASELINE_FAILURE_SET_PARITY_CONFIRMED",
+  "scope": "POST_MERGE_SLICE_E2E_TRIGGER_FANOUT_ONLY",
+  "authority": {
+    "q010MergeSha": "61dbbb11c77c5da0c2c905b1dcf059310ddcf507",
+    "q010D0ReadbackCommitSha": "36a61dce3ba55943700e17906086160c178cfed2",
+    "q010D0Status": "PASS_E6_D0_COMPLETE",
+    "q010D0WorkflowRunId": 35744406174,
+    "q010D0DeploymentAttempt": 20
+  },
+  "baselineObservedFanout": {
+    "totalPushWorkflowRuns": 41,
+    "slicePostMergeE2EWorkflowRuns": 38,
+    "activeCurrentSliceWorkflowRuns": 1,
+    "historicalSliceWorkflowRuns": 37,
+    "observation": "Q010 merge changed shared current-pointer/aggregate/renderer paths and woke historical W5/W6/W7 slice E2E workflows."
+  },
+  "volatileSharedTriggerPaths": [
+    "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+    "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+    "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+    "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+    "site/modules/renderer/sector-elements-diagram.js"
+  ],
+  "activeCurrentSliceWorkflow": ".github/workflows/p07f-w7-q011-live-pages-e2e.yml",
+  "historicalCutoverWorkflows": [
+    ".github/workflows/p05f-w5-q014-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q015-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q027-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q029-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q030-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q031-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q062-live-pages-e2e.yml",
+    ".github/workflows/p05f-w5-q063-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q001-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q002-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q003-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q004-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q005-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q006-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q007-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q008-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q009-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q010-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q011-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q012-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q013-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q014-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q015-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q016-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q017-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q018-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q019-live-pages-e2e.yml",
+    ".github/workflows/p06f-w6-q020-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q001-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q002-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q003-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q004-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q005-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q006-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q007-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q008-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q009-live-pages-e2e.yml",
+    ".github/workflows/p07f-w7-q010-live-pages-e2e.yml"
+  ],
+  "invariants": {
+    "volatileSharedPathOwnerCountAmongW5W6W7SliceE2E": 1,
+    "volatileSharedPathOwnerMustBeActiveCurrentSliceWorkflow": true,
+    "historicalWorkflowMayWatchVolatileSharedPaths": false,
+    "historicalWorkflowMaySelfTriggerOnOwnWorkflowFile": false,
+    "historicalWorkflowMustRetainAtLeastOneOwnedPushPath": true,
+    "historicalWorkflowBodyAndE2ERunnerSemanticsChanged": false,
+    "q010CurrentWorkflowSemanticsChanged": false,
+    "productRuntimeChanged": false,
+    "curriculumAuthorityChanged": false,
+    "previousCurrentWorkflowDemotedTriggerOnly": true
+  },
+  "successorRule": {
+    "whenNextW7SliceBecomesCurrent": "Demote the previous current slice workflow by removing volatile shared trigger paths and its self-trigger; move activeCurrentSliceWorkflow authority to the new slice in the same implementation PR.",
+    "requiredOutcome": "Exactly one W5/W6/W7 slice post-merge E2E workflow owns volatile shared current-path triggers.",
+    "lastAppliedTaskId": "P07F_W7DirectProductVerticalSlice011Implementation",
+    "previousCurrentSliceWorkflow": ".github/workflows/p07f-w7-q010-live-pages-e2e.yml",
+    "newCurrentSliceWorkflow": ".github/workflows/p07f-w7-q011-live-pages-e2e.yml",
+    "previousCurrentDemotedToOwnedPathsOnly": true
+  },
+  "target": {
+    "historicalSliceWorkflowRunsOnSharedPointerOnlyPush": 0,
+    "currentSliceWorkflowRunsOnSharedPointerOnlyPush": 1,
+    "sliceE2EFanoutReductionFromObservedQ010Merge": 37
+  },
+  "closeout": {
+    "cutoverPrNumber": 1038,
+    "cutoverMergeSha": "339f0ebc476cc28bd73550b4ad4ca72e27842be4",
+    "cutoverPushWorkflowRunCount": 4,
+    "cutoverPushWorkflowNames": [
+      "Milestone Claim Integrity",
+      "Node Test Post-Merge",
+      "Math CI Readback",
+      "Deploy GitHub Pages"
+    ],
+    "historicalSliceE2ERunsAfterCutover": 0,
+    "fanoutTargetMet": true,
+    "nodeRegression": {
+      "beforeRunId": 35744405160,
+      "afterRunId": 35747943873,
+      "beforeFailureCount": 140,
+      "afterFailureCount": 140,
+      "exactFailureNameSetEqual": true,
+      "addedFailureNames": [],
+      "removedFailureNames": [],
+      "attribution": "BASELINE_ONLY"
+    },
+    "ciReadback": {
+      "beforeRunId": 35744405748,
+      "afterRunId": 35747943947,
+      "beforeFailureCount": 141,
+      "afterFailureCount": 141,
+      "exactFailureNameSetEqual": true,
+      "addedFailureNames": [],
+      "removedFailureNames": [],
+      "attribution": "BASELINE_ONLY"
+    },
+    "productRegressionIntroducedByCutover": false,
+    "closeoutDecision": "PASS_GCI_PM01"
+  }
+}

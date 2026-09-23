@@ -1,0 +1,115 @@
+{
+  "schemaName": "P05FW5Q001AnglePartsSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q001_AngleParts_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 1,
+    "sliceId": "p05e_q001_r0_g3a_u05_3a05_profile_geometry_property_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice001Implementation",
+    "primarySourceNodeId": "g3a_u05_3a05",
+    "intraWavePrerequisiteRank": 0,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "knowledgePointIds": [
+      "kp_angle_parts_identification"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ]
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g3a_u05_3a05",
+    "sourceTitle": "角與形狀",
+    "sourcePdfTitle": "meow911_3a05_angles.pdf",
+    "sourcePdfDriveFileId": "1SqfJ5IqI4lCeDGMA5TNhTd0MNw4BAe6K",
+    "sourceUrl": "https://meow911.com/3a05/",
+    "pageCount": 1,
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "reviewedPages": [1],
+    "page1DirectEvidence": {
+      "targetPanel": "TOP_LEFT_ANGLE_COMPOSITION",
+      "panelTitle": "角的組成",
+      "visibleLabels": [
+        "頂點",
+        "邊1",
+        "邊2",
+        "角"
+      ],
+      "visibleStatement": "兩條邊+1個頂點",
+      "directlySupportedConcepts": [
+        "ONE_VERTEX",
+        "TWO_SIDES",
+        "ANGLE_MARKER",
+        "ANGLE_PART_LABEL_IDENTIFICATION"
+      ],
+      "page1PanelsExplicitlyOutsideQ001": [
+        "ANGLE_SIZE_COMPARISON",
+        "RIGHT_ANGLE_RECOGNITION",
+        "ACUTE_OBTUSE_QUALITATIVE_CLASSIFICATION",
+        "QUADRILATERAL_INTERNAL_ANGLE_COUNT",
+        "RECTANGLE_SQUARE_SIDES_AND_ANGLES"
+      ]
+    },
+    "driveMetadataReadback": {
+      "sourceMetadataDriveFileId": "1J8_Wr7DfKC3dD9f-AdgJxxHGw-GAJI4o",
+      "verificationNotesDriveFileId": "1yr0uwYGMdUkYF5DQ_laE5BloO8Bb2LUW",
+      "metadataManualReviewed": false,
+      "verificationNotesStatus": "pending",
+      "reviewStatusUse": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-01.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g3a_u05_3a05",
+    "reviewedPages": [1],
+    "knowledgePointId": "kp_angle_parts_identification",
+    "canonicalNameZh": "角的組成與標記",
+    "capabilityStatement": "學生能辨認角的頂點、兩邊及角的符號標記。",
+    "reasoningInvariant": "一個角由共同端點的兩條射線構成，名稱與標記必須指向同一頂點。",
+    "category": "geometry",
+    "applicationSuitability": "APPLICATION_NOT_APPLICABLE"
+  },
+  "sourceConstraintReconciliation": {
+    "directPdfSupportsR02KnowledgePointIdentity": true,
+    "directPdfSupportsVertexTwoSidesAndAngleMarker": true,
+    "rayTerminologyAppearsInDirectPdf": false,
+    "rayTerminologyAuthority": "R02_REVIEWED_CANDIDATE_REASONING_INVARIANT_ONLY",
+    "learnerFacingImplementationMustNotRequireRayVocabularyWithoutAdditionalSourceEvidence": true
+  },
+  "q001ScopeLock": {
+    "includedRelations": [
+      "IDENTIFY_VERTEX",
+      "IDENTIFY_SIDE",
+      "IDENTIFY_ANGLE_MARKER",
+      "MATCH_ANGLE_PART_LABEL_TO_DIAGRAM"
+    ],
+    "excludedRelations": [
+      "COMPARE_ANGLE_SIZE",
+      "RECOGNIZE_RIGHT_ANGLE",
+      "CLASSIFY_ACUTE_RIGHT_OBTUSE",
+      "COUNT_QUADRILATERAL_ANGLES",
+      "RECTANGLE_SQUARE_PROPERTY_REASONING",
+      "ANGLE_MEASURE_NUMERIC",
+      "ANGLE_CONSTRUCTION",
+      "APPLICATION_CONTEXT"
+    ],
+    "requiresDiagramRepresentation": true,
+    "applicationSuitability": "APPLICATION_NOT_APPLICABLE",
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false
+  },
+  "preflightDecision": {
+    "sourceAuthoritySufficientForQ001ImplementationPlanning": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTaskRequiresSeparateImplementationApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice001Implementation"
+  }
+}

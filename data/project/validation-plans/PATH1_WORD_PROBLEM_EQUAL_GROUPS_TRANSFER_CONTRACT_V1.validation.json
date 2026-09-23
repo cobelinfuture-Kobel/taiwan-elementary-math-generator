@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "PATH1_WORD_PROBLEM_EQUAL_GROUPS_TRANSFER_CONTRACT_V1_BOUNDED_VALIDATION",
+  "unitId": "path1_integer_foundations",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-word-problem-equal-groups-transfer-contract-v1.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/path1-curriculum-matrix.test.js"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+S44I_G3A_U01_PACK1_LOCAL_PASS
+
+sourceId = g3a_u01_3a01
+operator_readback = tests 414, pass 414, fail 0, working tree clean
+status = PASS
+
+validated:
+- number to Chinese
+- Chinese to number
+- place-value decomposition
+- place-value composition
+
+GOAL_DISTANCE_BEFORE = D1_G3A_U01_PACK1_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3A_U01_PACK1_LOCAL_PASS
+DISTANCE_REDUCED = G3A-U01 Pack1 generator and validator passed local automated validation
+REMAINING_BLOCKERS = S44J-S44N pending
+NEXT_SHORTEST_STEP = S44J_G3A_U01_GeneratorValidatorPack2

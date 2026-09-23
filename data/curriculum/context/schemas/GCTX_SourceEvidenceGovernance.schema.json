@@ -1,0 +1,879 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taiwan-elementary-math-generator.example/schemas/gctx-source-evidence-governance-v1.json",
+  "title": "GCTX Source Mining, Common Knowledge and Evidence Governance Schema",
+  "description": "Design-time source admission, evidence review, freshness, contradiction and traceability governance for shared common knowledge and authentic problem-structure evidence. Runtime browsing and AI self-approval are forbidden.",
+  "$defs": {
+    "contextDomain": {
+      "type": "string",
+      "enum": ["daily_life", "sdg", "natural_science", "social_studies", "history"]
+    },
+    "gradeBand": {
+      "type": "string",
+      "enum": ["G1", "G2", "G3", "G4", "G5", "G6"]
+    },
+    "lifecycleStatus": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "reviewed",
+        "verified",
+        "approved",
+        "expired",
+        "disputed",
+        "deprecated",
+        "blocked",
+        "rejected"
+      ]
+    },
+    "evidenceKind": {
+      "type": "string",
+      "enum": [
+        "general_common_knowledge",
+        "specific_claim",
+        "exact_fact_or_statistic",
+        "authentic_problem_structure",
+        "visual_source_interpretation",
+        "source_metadata"
+      ]
+    },
+    "sourceAuthorityTier": {
+      "type": "string",
+      "enum": [
+        "official_public_authority",
+        "museum_library_university",
+        "education_or_science_institution",
+        "trusted_reference",
+        "discovery_only",
+        "disallowed"
+      ]
+    },
+    "sourceType": {
+      "type": "string",
+      "enum": [
+        "government",
+        "international_organization",
+        "museum",
+        "library",
+        "university",
+        "school_education",
+        "science_institution",
+        "encyclopedia",
+        "research_publication",
+        "news",
+        "social_media",
+        "operator_uploaded_pdf",
+        "repository_document",
+        "other"
+      ]
+    },
+    "sourceAdmissionStatus": {
+      "type": "string",
+      "enum": ["candidate", "admitted", "restricted", "suspended", "rejected"]
+    },
+    "sourceAuthorityEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceAuthorityId",
+        "organizationName",
+        "authorityTier",
+        "sourceType",
+        "permittedEvidenceKinds",
+        "permittedUses",
+        "approvedDomains",
+        "admissionStatus",
+        "reviewedAt",
+        "lifecycleStatus"
+      ],
+      "properties": {
+        "sourceAuthorityId": {
+          "type": "string",
+          "pattern": "^gctx_src_[a-z0-9_]+$"
+        },
+        "organizationName": {"type": "string", "minLength": 1},
+        "authorityTier": {"$ref": "#/$defs/sourceAuthorityTier"},
+        "sourceType": {"$ref": "#/$defs/sourceType"},
+        "baseUrl": {"type": ["string", "null"], "format": "uri"},
+        "permittedEvidenceKinds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/evidenceKind"}
+        },
+        "permittedUses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "discovery_only",
+              "general_common_knowledge",
+              "specific_claim",
+              "exact_fact",
+              "authentic_problem_structure",
+              "visual_source_interpretation",
+              "not_admissible"
+            ]
+          }
+        },
+        "approvedDomains": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/contextDomain"}
+        },
+        "admissionStatus": {"$ref": "#/$defs/sourceAdmissionStatus"},
+        "reviewedAt": {"type": "string", "format": "date-time"},
+        "reviewNotes": {"type": "string"},
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "legacyAliases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"authorityTier": {"const": "discovery_only"}},
+            "required": ["authorityTier"]
+          },
+          "then": {
+            "properties": {
+              "permittedUses": {
+                "contains": {"const": "discovery_only"}
+              },
+              "admissionStatus": {"enum": ["candidate", "restricted"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"authorityTier": {"const": "disallowed"}},
+            "required": ["authorityTier"]
+          },
+          "then": {
+            "properties": {
+              "permittedUses": {
+                "contains": {"const": "not_admissible"}
+              },
+              "admissionStatus": {"const": "rejected"},
+              "lifecycleStatus": {"const": "rejected"}
+            }
+          }
+        }
+      ]
+    },
+    "discoveryRecordEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "discoveryId",
+        "queryPurpose",
+        "discoveredUrl",
+        "sourceAuthorityId",
+        "candidateEvidenceKinds",
+        "discoveryMethod",
+        "discoveredAt",
+        "runtimeDiscovered",
+        "admissibleEvidence",
+        "requiresAdmissionReview",
+        "lifecycleStatus"
+      ],
+      "properties": {
+        "discoveryId": {
+          "type": "string",
+          "pattern": "^gctx_discovery_[a-z0-9_]+$"
+        },
+        "queryPurpose": {"type": "string", "minLength": 1},
+        "discoveredUrl": {"type": "string", "format": "uri"},
+        "sourceAuthorityId": {
+          "type": ["string", "null"],
+          "pattern": "^gctx_src_[a-z0-9_]+$"
+        },
+        "candidateEvidenceKinds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/evidenceKind"}
+        },
+        "discoveryMethod": {
+          "type": "string",
+          "enum": [
+            "manual_search",
+            "design_time_web_search",
+            "repository_source",
+            "google_drive_source",
+            "operator_upload",
+            "citation_following"
+          ]
+        },
+        "discoveredAt": {"type": "string", "format": "date-time"},
+        "runtimeDiscovered": {"const": false},
+        "admissibleEvidence": {"const": false},
+        "requiresAdmissionReview": {"const": true},
+        "lifecycleStatus": {
+          "type": "string",
+          "enum": ["candidate", "reviewed", "rejected"]
+        }
+      }
+    },
+    "sourceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "referenceId",
+        "sourceAuthorityId",
+        "title",
+        "url",
+        "accessedAt",
+        "publishedOrUpdatedAt",
+        "archivedUrl",
+        "evidenceLocator",
+        "supportsEvidenceKind",
+        "primarySource",
+        "copyrightUseMode"
+      ],
+      "properties": {
+        "referenceId": {
+          "type": "string",
+          "pattern": "^gctx_ref_[a-z0-9_]+$"
+        },
+        "sourceAuthorityId": {
+          "type": "string",
+          "pattern": "^gctx_src_[a-z0-9_]+$"
+        },
+        "title": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri"},
+        "accessedAt": {"type": "string", "format": "date-time"},
+        "publishedOrUpdatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "archivedUrl": {"type": ["string", "null"], "format": "uri"},
+        "evidenceLocator": {"type": "string", "minLength": 1},
+        "supportsEvidenceKind": {"$ref": "#/$defs/evidenceKind"},
+        "primarySource": {"type": "boolean"},
+        "sourceSnapshotHash": {"type": ["string", "null"]},
+        "copyrightUseMode": {
+          "type": "string",
+          "enum": [
+            "fact_citation_only",
+            "structure_only_paraphrase",
+            "metadata_only",
+            "operator_visual_notes_only"
+          ]
+        }
+      }
+    },
+    "reviewAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewId",
+        "reviewedByRole",
+        "reviewedById",
+        "reviewMethod",
+        "reviewedAt",
+        "aiSoleReviewer",
+        "ocrSoleEvidence",
+        "humanReviewRequired"
+      ],
+      "properties": {
+        "reviewId": {
+          "type": "string",
+          "pattern": "^gctx_review_[a-z0-9_]+$"
+        },
+        "reviewedByRole": {
+          "type": "string",
+          "enum": [
+            "operator_visual_reviewer",
+            "source_governance_reviewer",
+            "curriculum_reviewer"
+          ]
+        },
+        "reviewedById": {"type": "string", "minLength": 1},
+        "reviewMethod": {
+          "type": "string",
+          "enum": [
+            "direct_text_review",
+            "operator_visual_review",
+            "cross_source_confirmation",
+            "official_dataset_lookup",
+            "archived_snapshot_review",
+            "ocr_assisted_human_review"
+          ]
+        },
+        "reviewedAt": {"type": "string", "format": "date-time"},
+        "aiSoleReviewer": {"const": false},
+        "ocrSoleEvidence": {"const": false},
+        "humanReviewRequired": {"const": true},
+        "reviewNotes": {"type": "string"}
+      }
+    },
+    "freshnessPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "freshnessClass",
+        "verifiedAt",
+        "reviewDueAt",
+        "validUntil",
+        "autoApproveOnRefresh"
+      ],
+      "properties": {
+        "freshnessClass": {
+          "type": "string",
+          "enum": ["stable", "slow_changing", "time_bounded", "rapidly_changing"]
+        },
+        "verifiedAt": {"type": "string", "format": "date-time"},
+        "reviewDueAt": {"type": "string", "format": "date-time"},
+        "validUntil": {"type": ["string", "null"], "format": "date-time"},
+        "autoApproveOnRefresh": {"const": false}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "freshnessClass": {
+                "enum": ["time_bounded", "rapidly_changing"]
+              }
+            },
+            "required": ["freshnessClass"]
+          },
+          "then": {
+            "properties": {"validUntil": {"type": "string", "format": "date-time"}}
+          }
+        }
+      ]
+    },
+    "contradictionState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "conflictingReferenceIds",
+        "resolutionNote",
+        "resolvedByReviewId"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["none", "unresolved", "resolved"]
+        },
+        "conflictingReferenceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^gctx_ref_[a-z0-9_]+$"}
+        },
+        "resolutionNote": {"type": ["string", "null"]},
+        "resolvedByReviewId": {
+          "type": ["string", "null"],
+          "pattern": "^gctx_review_[a-z0-9_]+$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"const": "unresolved"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "conflictingReferenceIds": {"minItems": 2},
+              "resolutionNote": {"type": "null"},
+              "resolvedByReviewId": {"type": "null"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"status": {"const": "resolved"}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "conflictingReferenceIds": {"minItems": 2},
+              "resolutionNote": {"type": "string", "minLength": 1},
+              "resolvedByReviewId": {
+                "type": "string",
+                "pattern": "^gctx_review_[a-z0-9_]+$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "consumerTraceability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["consumerType", "consumerId", "useMode"],
+      "properties": {
+        "consumerType": {
+          "type": "string",
+          "enum": [
+            "common_knowledge_asset",
+            "context_family",
+            "approved_semantic_binding",
+            "scenario_chain",
+            "bounded_pbl_chain"
+          ]
+        },
+        "consumerId": {"type": "string", "minLength": 1},
+        "useMode": {
+          "type": "string",
+          "enum": [
+            "background_fact",
+            "semantic_constraint",
+            "project_structure_reference",
+            "decision_model_reference",
+            "visual_interpretation_reference"
+          ]
+        }
+      }
+    },
+    "exactClaimPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceBound", "valueMutationAllowed", "exactValueText"],
+      "properties": {
+        "sourceBound": {"type": "boolean"},
+        "valueMutationAllowed": {"type": "boolean"},
+        "exactValueText": {"type": ["string", "null"]}
+      }
+    },
+    "commonKnowledgeEvidenceEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenceId",
+        "claimTextZh",
+        "claimScope",
+        "primaryDomain",
+        "topicTags",
+        "eraTags",
+        "regionScope",
+        "gradeBands",
+        "references",
+        "reviewAuthority",
+        "freshnessPolicy",
+        "contradictionState",
+        "exactClaimPolicy",
+        "exerciseNumbersPolicy",
+        "allowedUses",
+        "forbiddenUses",
+        "consumerTraceability",
+        "lifecycleStatus",
+        "productionAdmissible"
+      ],
+      "properties": {
+        "evidenceId": {
+          "type": "string",
+          "pattern": "^gctx_evidence_ck_[a-z0-9_]+$"
+        },
+        "claimTextZh": {"type": "string", "minLength": 4},
+        "claimScope": {
+          "type": "string",
+          "enum": [
+            "general_common_knowledge",
+            "specific_species_region_era_or_institution",
+            "exact_fact_or_statistic"
+          ]
+        },
+        "primaryDomain": {"$ref": "#/$defs/contextDomain"},
+        "topicTags": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9_]+$"}
+        },
+        "eraTags": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "enum": ["modern", "ancient"]}
+        },
+        "regionScope": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9_]+$"}
+        },
+        "gradeBands": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/gradeBand"}
+        },
+        "references": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/sourceReference"}
+        },
+        "reviewAuthority": {"$ref": "#/$defs/reviewAuthority"},
+        "freshnessPolicy": {"$ref": "#/$defs/freshnessPolicy"},
+        "contradictionState": {"$ref": "#/$defs/contradictionState"},
+        "exactClaimPolicy": {"$ref": "#/$defs/exactClaimPolicy"},
+        "exerciseNumbersPolicy": {
+          "type": "string",
+          "enum": [
+            "fictionalized_for_practice",
+            "source_bound_exact_values_only",
+            "no_numeric_claim"
+          ]
+        },
+        "allowedUses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "background_clause",
+              "semantic_constraint",
+              "actor_selection",
+              "place_selection",
+              "object_selection",
+              "activity_selection",
+              "student_note"
+            ]
+          }
+        },
+        "forbiddenUses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "change_unit_mathematics",
+              "define_operation_signature",
+              "define_answer_model",
+              "unapproved_exact_value_mutation",
+              "runtime_fact_generation"
+            ]
+          }
+        },
+        "consumerTraceability": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/consumerTraceability"}
+        },
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "productionAdmissible": {"type": "boolean"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "claimScope": {
+                "const": "specific_species_region_era_or_institution"
+              }
+            },
+            "required": ["claimScope"]
+          },
+          "then": {"properties": {"references": {"minItems": 2}}}
+        },
+        {
+          "if": {
+            "properties": {
+              "claimScope": {"const": "exact_fact_or_statistic"}
+            },
+            "required": ["claimScope"]
+          },
+          "then": {
+            "properties": {
+              "exactClaimPolicy": {
+                "properties": {
+                  "sourceBound": {"const": true},
+                  "valueMutationAllowed": {"const": false},
+                  "exactValueText": {"type": "string", "minLength": 1}
+                }
+              },
+              "exerciseNumbersPolicy": {
+                "const": "source_bound_exact_values_only"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"lifecycleStatus": {"const": "approved"}},
+            "required": ["lifecycleStatus"]
+          },
+          "then": {
+            "properties": {
+              "productionAdmissible": {"const": true},
+              "contradictionState": {
+                "properties": {"status": {"enum": ["none", "resolved"]}}
+              }
+            }
+          },
+          "else": {"properties": {"productionAdmissible": {"const": false}}}
+        }
+      ]
+    },
+    "projectStructureExtraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectGoalSummaryZh",
+        "projectArchetypeCandidate",
+        "requiredMilestoneFunctions",
+        "eventFlowSummaryZh",
+        "decisionCriteriaSummaryZh",
+        "terminalDeliverableSummaryZh",
+        "mathematicalCompositionTags",
+        "originalWordingReuseAllowed",
+        "extractionIsApprovedPblChain"
+      ],
+      "properties": {
+        "projectGoalSummaryZh": {"type": "string", "minLength": 1},
+        "projectArchetypeCandidate": {
+          "type": "string",
+          "enum": [
+            "planning",
+            "comparison",
+            "resource_allocation",
+            "data_investigation",
+            "controlled_history_social_task",
+            "other_candidate"
+          ]
+        },
+        "requiredMilestoneFunctions": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+        },
+        "eventFlowSummaryZh": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "decisionCriteriaSummaryZh": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "terminalDeliverableSummaryZh": {"type": "string", "minLength": 1},
+        "mathematicalCompositionTags": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+        },
+        "originalWordingReuseAllowed": {"const": false},
+        "extractionIsApprovedPblChain": {"const": false}
+      }
+    },
+    "authenticProblemEvidenceEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenceId",
+        "sourceTitle",
+        "primaryDomain",
+        "gradeBandApplicability",
+        "references",
+        "reviewAuthority",
+        "freshnessPolicy",
+        "contradictionState",
+        "copyrightUsePolicy",
+        "extractedProjectStructure",
+        "consumerTraceability",
+        "lifecycleStatus",
+        "productionAdmissible"
+      ],
+      "properties": {
+        "evidenceId": {
+          "type": "string",
+          "pattern": "^gctx_evidence_problem_[a-z0-9_]+$"
+        },
+        "sourceTitle": {"type": "string", "minLength": 1},
+        "primaryDomain": {"$ref": "#/$defs/contextDomain"},
+        "gradeBandApplicability": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/gradeBand"}
+        },
+        "references": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/sourceReference"}
+        },
+        "reviewAuthority": {"$ref": "#/$defs/reviewAuthority"},
+        "freshnessPolicy": {"$ref": "#/$defs/freshnessPolicy"},
+        "contradictionState": {"$ref": "#/$defs/contradictionState"},
+        "copyrightUsePolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "structureOnlyParaphrase",
+            "fullPromptCopyAllowed",
+            "answerKeyCopyAllowed",
+            "sourceAttributionRequired"
+          ],
+          "properties": {
+            "structureOnlyParaphrase": {"const": true},
+            "fullPromptCopyAllowed": {"const": false},
+            "answerKeyCopyAllowed": {"const": false},
+            "sourceAttributionRequired": {"const": true}
+          }
+        },
+        "extractedProjectStructure": {
+          "$ref": "#/$defs/projectStructureExtraction"
+        },
+        "consumerTraceability": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/consumerTraceability"}
+        },
+        "lifecycleStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "productionAdmissible": {"type": "boolean"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"lifecycleStatus": {"const": "approved"}},
+            "required": ["lifecycleStatus"]
+          },
+          "then": {
+            "properties": {
+              "productionAdmissible": {"const": true},
+              "contradictionState": {
+                "properties": {"status": {"enum": ["none", "resolved"]}}
+              }
+            }
+          },
+          "else": {"properties": {"productionAdmissible": {"const": false}}}
+        }
+      ]
+    },
+    "verificationEventEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verificationEventId",
+        "evidenceId",
+        "eventType",
+        "reviewedByRole",
+        "reviewedById",
+        "occurredAt",
+        "previousStatus",
+        "nextStatus",
+        "automatedApproval",
+        "notes"
+      ],
+      "properties": {
+        "verificationEventId": {
+          "type": "string",
+          "pattern": "^gctx_verification_[a-z0-9_]+$"
+        },
+        "evidenceId": {
+          "type": "string",
+          "pattern": "^gctx_evidence_(?:ck|problem)_[a-z0-9_]+$"
+        },
+        "eventType": {
+          "type": "string",
+          "enum": [
+            "candidate_reviewed",
+            "reference_added",
+            "human_verified",
+            "approved",
+            "reverified",
+            "expired",
+            "disputed",
+            "contradiction_resolved",
+            "deprecated",
+            "rejected"
+          ]
+        },
+        "reviewedByRole": {
+          "type": "string",
+          "enum": [
+            "operator_visual_reviewer",
+            "source_governance_reviewer",
+            "curriculum_reviewer"
+          ]
+        },
+        "reviewedById": {"type": "string", "minLength": 1},
+        "occurredAt": {"type": "string", "format": "date-time"},
+        "previousStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "nextStatus": {"$ref": "#/$defs/lifecycleStatus"},
+        "automatedApproval": {"const": false},
+        "notes": {"type": "string", "minLength": 1}
+      }
+    },
+    "governancePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceDiscoveryDesignTimeOnly",
+        "runtimeWebSearchAllowed",
+        "runtimeEvidenceMutationAllowed",
+        "aiMaySelfApproveEvidence",
+        "ocrMayEstablishSourceBackedEvidence",
+        "ocrDraftRequiresHumanReview",
+        "visualPdfRequiresOperatorVisualReview",
+        "unapprovedEvidenceFallbackAllowed",
+        "evidenceMayChangeUnitMathematics",
+        "authenticProblemVerbatimReuseAllowed"
+      ],
+      "properties": {
+        "sourceDiscoveryDesignTimeOnly": {"const": true},
+        "runtimeWebSearchAllowed": {"const": false},
+        "runtimeEvidenceMutationAllowed": {"const": false},
+        "aiMaySelfApproveEvidence": {"const": false},
+        "ocrMayEstablishSourceBackedEvidence": {"const": false},
+        "ocrDraftRequiresHumanReview": {"const": true},
+        "visualPdfRequiresOperatorVisualReview": {"const": true},
+        "unapprovedEvidenceFallbackAllowed": {"const": false},
+        "evidenceMayChangeUnitMathematics": {"const": false},
+        "authenticProblemVerbatimReuseAllowed": {"const": false}
+      }
+    },
+    "registryEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "rulesetVersion",
+        "governancePolicy",
+        "sourceAuthorities",
+        "discoveryRecords",
+        "commonKnowledgeEvidence",
+        "authenticProblemEvidence",
+        "verificationEvents"
+      ],
+      "properties": {
+        "schemaVersion": {"const": "gctx-source-evidence-governance-v1"},
+        "rulesetVersion": {"const": "0.1.0"},
+        "governancePolicy": {"$ref": "#/$defs/governancePolicy"},
+        "sourceAuthorities": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/sourceAuthorityEntry"}
+        },
+        "discoveryRecords": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/discoveryRecordEntry"}
+        },
+        "commonKnowledgeEvidence": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/commonKnowledgeEvidenceEntry"}
+        },
+        "authenticProblemEvidence": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/authenticProblemEvidenceEntry"}
+        },
+        "verificationEvents": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/verificationEventEntry"}
+        }
+      }
+    }
+  },
+  "$ref": "#/$defs/registryEnvelope"
+}

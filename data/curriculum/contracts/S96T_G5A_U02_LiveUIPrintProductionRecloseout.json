@@ -1,0 +1,198 @@
+{
+  "task": "S96T_G5A_U02_LiveUIPrintProductionRecloseout",
+  "status": "PASS_CI_SYNCED_AND_MERGED",
+  "d0Scope": "D0_G5A_U02_DEPLOYED_UI_GENERATE_PREVIEW_PRINT_RELEASE",
+  "source": {
+    "sourceId": "g5a_u02_5a02",
+    "unitCode": "5A-U02",
+    "title": "因數與公因數"
+  },
+  "supersession": {
+    "originalCloseoutTask": "S96H_G5A_U02_ProductionPromotionAndCloseout",
+    "originalCloseoutMerge": "f6c1703405877787c255fb50d994c20ac81dc598",
+    "originalCloseoutDisposition": "superseded_by_live_ui_incident_recloseout",
+    "reopenReason": [
+      "public default text seed initially blocked generation",
+      "end-user deployed click-to-generate path was not a required S96H gate",
+      "question type, reasoning depth and context controls were not defined for G5A-U02",
+      "deployed print invocation was not required by S96H",
+      "public generated-count status reported zero while the preview contained twenty questions",
+      "public preview metadata displayed an undefined worksheet title"
+    ]
+  },
+  "milestones": {
+    "S96I": {
+      "name": "Live generation incident recovery",
+      "pullRequest": 175,
+      "mergeCommit": "a16cde2d4752da522eec85b5d27b1b69be7cfc13"
+    },
+    "S96J": {
+      "name": "Selector isolation",
+      "pullRequest": 176,
+      "mergeCommit": "6c407ce9292dd8b63318e821d357b1e04a1a8c68"
+    },
+    "S96K": {
+      "name": "Question-type contract",
+      "pullRequest": 177,
+      "mergeCommit": "bc975f1a77ac824a7ba7104c8c33d1016676ef14"
+    },
+    "S96L": {
+      "name": "Reasoning-depth contract",
+      "pullRequest": 178,
+      "mergeCommit": "c67b6389a57fd13cdf48d754d2324329978c664f"
+    },
+    "S96M": {
+      "name": "Context taxonomy",
+      "pullRequest": 179,
+      "mergeCommit": "2d03a5622c8ed77517bc5eb3829b49374d371c73"
+    },
+    "S96N": {
+      "name": "Shared public control profile",
+      "pullRequest": 180,
+      "mergeCommit": "3c3d821322da56cbb3f94b9f12efd31b171dc863"
+    },
+    "S96O": {
+      "name": "UI controls integration",
+      "pullRequest": 181,
+      "mergeCommit": "17f3981c390cc7db7d566081bb6d26f4cc1559a9"
+    },
+    "S96P": {
+      "name": "Preview and print integration",
+      "pullRequest": 182,
+      "mergeCommit": "edcb7e303a2d84e868a5c3ecdbd97eb9340f5978"
+    },
+    "S96Q": {
+      "name": "Browser DOM E2E",
+      "pullRequest": 183,
+      "mergeCommit": "289f6ab38807a5801762bc8ab4eb19d51e2b84fb"
+    },
+    "S96R": {
+      "name": "Control-matrix HTML/PDF stress",
+      "pullRequest": 184,
+      "mergeCommit": "0df2907cc5caa11a0395fbf824529e3799afe426"
+    },
+    "S96S": {
+      "name": "Deployed GitHub Pages smoke",
+      "pullRequest": 185,
+      "mergeCommit": "ec2c26cafdafe402e0e6d26838954daa256f562a"
+    },
+    "S96S_R1": {
+      "name": "Public generated-count status fix",
+      "pullRequest": 186,
+      "mergeCommit": "7af08e53f4c58a9f3f741cd250c23a66df8c047e"
+    },
+    "S96S_R2": {
+      "name": "Public preview-title fix",
+      "pullRequest": 187,
+      "mergeCommit": "286184d9d900392a96d8353bd4571d2d4554f6d7"
+    }
+  },
+  "curriculumRuntime": {
+    "knowledgePointCount": 18,
+    "patternGroupCount": 18,
+    "patternSpecCount": 22,
+    "singleKnowledgePointSelection": true,
+    "multiKnowledgePointSelection": true,
+    "customQuestionCount": true,
+    "deterministicTextSeed": true,
+    "answerKeyControl": true,
+    "queryStateRoundTrip": true,
+    "canonicalPatternOnly": true,
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "publicControls": {
+    "profileDriven": true,
+    "selectorIsolatedFromG4AU08": true,
+    "questionTypes": [
+      "mixed",
+      "concept",
+      "numeric",
+      "application",
+      "reasoning"
+    ],
+    "reasoningDepths": [
+      "mixed",
+      "basic",
+      "extended"
+    ],
+    "contexts": [
+      "mixed",
+      "abstract_math",
+      "daily_life",
+      "geometry_context"
+    ],
+    "sdgSupported": false,
+    "emptyIntersectionBehavior": "blocked_without_fallback"
+  },
+  "browserE2E": {
+    "realDomInteraction": true,
+    "queryStateVerified": true,
+    "previewIframeVerified": true,
+    "printButtonLifecycleVerified": true,
+    "blockedCombinationPrintDisabled": true,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0
+  },
+  "controlMatrixStress": {
+    "matrixSize": 24,
+    "successfulIntersections": 7,
+    "blockedIntersections": 17,
+    "questionCountPerSuccessfulCase": 20,
+    "answerCountPerSuccessfulCase": 20,
+    "htmlGenerated": true,
+    "pdfGenerated": true,
+    "domOverflowCount": 0,
+    "publicCountStatusVerified": true,
+    "genericFallback": false
+  },
+  "deployedProductionAuthority": {
+    "authorityPath": "docs/ci/latest-s96s-deployed-pages-smoke.json",
+    "authorityCommit": "8d563d676f573cad41b4d3a3c17d7038264b1b59",
+    "workflow": "S96S G5A-U02 Deployed GitHub Pages Smoke",
+    "runId": 29309803245,
+    "runNumber": 3,
+    "deploymentSha": "286184d9d900392a96d8353bd4571d2d4554f6d7",
+    "testedUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html",
+    "knowledgePointCount": 18,
+    "generatedKnowledgePointCount": 18,
+    "questionCount": 20,
+    "generationSeed": "batch-a-browser",
+    "publicCountStatusVerified": true,
+    "publicPreviewTitleVerified": true,
+    "expectedTitle": "因數與公因數",
+    "reportedStatus": "已產生 20 題，可預覽與列印。",
+    "reportedPreviewMeta": "因數與公因數｜20 題｜不含答案頁",
+    "reportedQuestionCards": 20,
+    "reportedAnswerCards": 0,
+    "printCalled": true,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "mainAssetSha256": "e4bd1a56c394133aaadc0f22bd2712a109c4b0aea80e4fc3fa4a9e0c13dbebd2",
+    "runtimeAssetSha256": "e915b4497235427c205bae672d57e7ac9ce1790e25b1770827b6b62db1fe10cf"
+  },
+  "ciAuthority": {
+    "authorityPath": "docs/ci/latest-public-math-ci-readback.json",
+    "authorityCommit": "7cbc87a8f854dfe0de908d8a8cfcb41fa82c04c1",
+    "sha": "286184d9d900392a96d8353bd4571d2d4554f6d7",
+    "runId": 29309756667,
+    "runNumber": 1626,
+    "tests": 1432,
+    "pass": 1432,
+    "fail": 0,
+    "workingTree": "clean"
+  },
+  "productionUse": {
+    "status": "allowed_deployed_live_ui_generate_preview_print",
+    "browserPreview": true,
+    "browserPrint": true,
+    "answerKeyPrint": true,
+    "deployedGitHubPagesVerified": true,
+    "genericFallback": false,
+    "freeFormAI": false
+  },
+  "distance": {
+    "before": "D1_G5A_U02_LIVE_UI_PRINT_REOPENED",
+    "after": "D0_G5A_U02_DEPLOYED_UI_GENERATE_PREVIEW_PRINT_VERIFIED_AND_CLOSED"
+  }
+}

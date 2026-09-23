@@ -1,0 +1,49 @@
+{
+  "schemaName": "R08FifteenUnitGlobalMigrationCloseoutPolicyV1",
+  "schemaVersion": 1,
+  "programId": "GLOBAL_CURRICULUM_KNOWLEDGE_GRAPH_AND_DELIVERY_WAVE_REBASE_V1",
+  "taskId": "R08_15UnitGlobalMigrationUIHTMLPDFCloseout",
+  "status": "GLOBAL_PRIMARY_UI_HTML_PDF_PRINT_CLOSEOUT_POLICY_READY",
+  "scope": {
+    "productUnitCount": 15,
+    "numericCaseCount": 15,
+    "applicationCaseCount": 15,
+    "pblCaseCount": 5,
+    "totalChromiumCaseCount": 35,
+    "newCurriculumUnitAllowed": false,
+    "newGeneratorAllowed": false,
+    "newValidatorAllowed": false,
+    "newRendererAllowed": false,
+    "recursiveImprovementAdminAllowed": false
+  },
+  "requiredChecks": {
+    "r07GlobalAuthorityPrimary": true,
+    "legacyAuthorityReadOnlyAlias": true,
+    "publicUiSelectable": "15/15",
+    "numericWorksheet": "15/15",
+    "applicationWorksheet": "15/15",
+    "approvedPblWorksheet": "5/5",
+    "answerKey": "35/35",
+    "globalAuthorityMetadata": "35/35",
+    "htmlRender": "35/35",
+    "chromiumPdf": "35/35",
+    "pageOverflowFindings": 0,
+    "liveUiModePreviewPrint": "PASS",
+    "fullNodeRegression": "PASS"
+  },
+  "authorityMetadataContract": {
+    "metadataPath": "worksheetDocument.metadata.r07AuthoritativeConsumerCutover",
+    "configSnapshotPath": "worksheetDocument.configSnapshot.globalAuthorityCutover",
+    "publicControlsPath": "worksheetDocument.publicControls.authorityMode",
+    "requiredAuthorityMode": "GLOBAL_PRIMARY",
+    "requiredLegacyRole": "COMPATIBILITY_ALIAS_READ_ONLY"
+  },
+  "closeoutSemantics": {
+    "closesMigrationProgram": true,
+    "closesFullProductLine": false,
+    "fullProductLineProgram": "FULL_PRODUCT_LINE_D0_V1",
+    "nextTask": "P01_W1ExistingCapabilityProductAdmission",
+    "fullProductLineCloseTask": "P10_FullUIHTMLPDFPrintProductCloseout",
+    "recursiveImprovementAdminStartAllowedAfter": "P10_FullUIHTMLPDFPrintProductCloseout"
+  }
+}

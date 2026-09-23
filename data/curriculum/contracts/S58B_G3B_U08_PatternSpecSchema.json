@@ -1,0 +1,103 @@
+{
+  "schemaName": "G3BU08SemanticPatternSpecSchema",
+  "schemaVersion": 1,
+  "task": "S58B_G3B_U08_FormalMappingPatternSpecAndSemanticValidatorDesignScan",
+  "sourceId": "g3b_u08_3b08",
+  "status": "design_contract_not_materialized",
+  "patternSpecKind": "g3bU08SemanticApplication",
+  "cardinality": {
+    "approvedKnowledgePointCount": 6,
+    "patternGroupCount": 6,
+    "frozenFamilyCount": 24,
+    "requiredPatternSpecCount": 24,
+    "oneFamilyPerPatternSpec": true
+  },
+  "requiredFields": [
+    "patternSpecId",
+    "sourceId",
+    "unitCode",
+    "unitTitle",
+    "kind",
+    "patternGroupId",
+    "knowledgePointId",
+    "templateFamilyId",
+    "semanticSignature",
+    "equationShape",
+    "unknownRole",
+    "quantityRoles",
+    "contextDomains",
+    "promptSkeletonZh",
+    "requiredConstraints",
+    "numericPolicyRef",
+    "answerModel",
+    "representation",
+    "validatorContractRef",
+    "selectorVisibility",
+    "productionUse",
+    "familyOrder",
+    "familyOrderWithinKnowledgePoint"
+  ],
+  "fixedValues": {
+    "sourceId": "g3b_u08_3b08",
+    "unitCode": "3B-U08",
+    "unitTitle": "乘法與除法",
+    "kind": "g3bU08SemanticApplication",
+    "representation": "horizontal_only",
+    "selectorVisibility": "hidden",
+    "productionUse": "forbidden",
+    "freeFormAIGeneration": "forbidden"
+  },
+  "identifierRules": {
+    "patternSpecIdPattern": "^ps_g3b_u08_[a-z0-9_]+$",
+    "patternGroupIdPattern": "^pg_g3b_u08_[a-z0-9_]+$",
+    "knowledgePointIdPattern": "^kp_g3b_u08_[a-z0-9_]+$",
+    "templateFamilyIdPattern": "^tpl_g3b_u08_[a-z0-9_]+$",
+    "allIdsUnique": true
+  },
+  "allowedEquationShapes": [
+    "a*b",
+    "a/b",
+    "round100(a)*b",
+    "ceil100(a)*b",
+    "(h+d)*b",
+    "(h-d)*b",
+    "a*b vs c*d"
+  ],
+  "answerModelByKnowledgePoint": {
+    "kp_g3b_u08_total_from_groups": "semantic_single_integer_with_unit",
+    "kp_g3b_u08_group_count_from_total": "semantic_single_integer_with_unit",
+    "kp_g3b_u08_per_group_from_total": "semantic_single_integer_with_unit",
+    "kp_g3b_u08_reverse_base_from_multiple": "semantic_single_integer_with_unit",
+    "kp_g3b_u08_shopping_estimation": "semantic_estimation_judgment",
+    "kp_g3b_u08_same_price_value_comparison": "semantic_same_price_comparison"
+  },
+  "forbiddenRepresentationMarkers": [
+    "vertical_multiplication",
+    "vertical_division",
+    "long_division",
+    "vertical_missing_digit",
+    "column_algorithm_grid"
+  ],
+  "forbiddenDomainMarkers": [
+    "decimal",
+    "fraction",
+    "percent",
+    "unit_rate",
+    "ratio_equation",
+    "general_two_step_mixed_operation",
+    "public_remainder_application"
+  ],
+  "requiredLifecycle": {
+    "materialization": "hidden_not_routed",
+    "generatorImplementation": "hidden",
+    "validatorRuntime": "blocking_before_return",
+    "selectorProjection": "future_gate_only",
+    "productionPromotion": "future_gate_only"
+  },
+  "fullFixDirectiveRefs": [
+    "SEGMENT_LENGTH_WORDING_NATURAL",
+    "SUCCESS_EVENT_PHRASE_NATURAL",
+    "SUCCESS_EVENT_CLASSIFIER_MATCH",
+    "SAME_PRICE_COMPARISON_UNIQUE_AND_COMPARABLE"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schemaName": "POSTGAPPW02KnowledgeOperationCandidateUnitV1", "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1", "taskId": "POSTG-APP-W02-A01B_PageLevelKnowledgeOperationCandidateMaterializationAndKPClassification",
+  "sourceNodeId": "g5a_u03_5a03a", "queueOrdinal": 10, "sourceCode": "5a03a", "sourceTitle": "倍數", "domainFamily": "multiple_enumeration_and_periodicity",
+  "candidateState": "PAGE_EVIDENCED_KP_CANDIDATES_CLASSIFIED_CANONICAL_MODEL_PENDING",
+  "sourceEvidence": {"inventoryPath": "data/curriculum/application/evidence/w02-source13-pdf-evidence-inventory.json", "sha256": "ad8b88287fe7de3fbe5e733ca8365c830ba6cc391ae9f7e541cf379ad2e15f8c", "contentIdentityGroup": "pdf_ad8b88287fe7", "pageCount": 2, "reviewedPages": [1, 2], "reviewMethod": "FULL_PAGE_VISUAL_READBACK"},
+  "knowledgePoints": [
+    {"candidateId": "kp_g5a_u03a_multiple_identify_enumerate", "name": "倍數辨識與列舉", "scope": "以乘法或整除關係判定並列出某數的倍數。", "evidencePages": [1], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬倍數定義與形式判定。"},
+    {"candidateId": "kp_g5a_u03a_bounded_or_nearest_multiple", "name": "範圍內與最接近的倍數", "scope": "找指定範圍內的倍數或最接近目標的倍數。", "evidencePages": [1], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可對應分裝數量，也可直接用數列求解。"},
+    {"candidateId": "kp_g5a_u03a_divisibility_rules", "name": "2、3、5、10 的倍數判別", "scope": "依末位或各位數字和判斷整除性。", "evidencePages": [1, 2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬數字特徵與整除規則。"},
+    {"candidateId": "kp_g5a_u03a_factor_multiple_relation", "name": "乘法算式中的因數倍數關係", "scope": "由乘法等式判定因數與倍數。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬關係名詞與算式結構。"},
+    {"candidateId": "kp_g5a_u03a_divisor_multiple_classification", "name": "因數與倍數集合分類", "scope": "從候選數列選出因數或倍數。", "evidencePages": [2], "applicationClassification": "APPLICATION_NOT_APPLICABLE", "classificationRationale": "屬集合辨識與整除判斷。"},
+    {"candidateId": "kp_g5a_u03a_count_multiples_interval", "name": "區間內倍數個數", "scope": "計算號碼或整數區間中符合倍數條件的個數。", "evidencePages": [2], "applicationClassification": "APPLICATION_COMPATIBLE", "classificationRationale": "可用號碼卡情境，也可視為區間計數。"},
+    {"candidateId": "kp_g5a_u03a_exact_grouping_feasibility", "name": "整除分組方案可行性", "scope": "判斷物品數量能否依指定規格整組分配。", "evidencePages": [2], "applicationClassification": "APPLICATION_REQUIRED", "classificationRationale": "來源以兌換卡與合併數量的完整分組決策呈現。"}
+  ],
+  "counts": {"knowledgePointCandidateCount": 7, "applicationRequiredCount": 1, "applicationCompatibleCount": 2, "applicationNotApplicableCount": 4},
+  "productionBoundary": {"canonicalOperationModelsComplete": false, "patternSpecsAuthored": false, "storyTemplatesAuthored": false, "runtimeConsumerEnabled": false, "worksheetOutputAllowed": false, "productionAdmissionAllowed": false},
+  "nextRequiredGate": "CANONICAL_OPERATION_MODEL_MATERIALIZATION"
+}

@@ -1,0 +1,272 @@
+{
+  "schemaName": "P05FW5Q034CompositeRectilinearAreaPerimeterPathSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P05F_W5_Q034_CompositeRectilinearAreaPerimeterPath_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q034_FROZEN_QUEUE_ROW_AVAILABLE_SOURCE_SCOPE_UNMATERIALIZED",
+    "after": "D2_Q034_TWO_KP_SOURCE_RUNTIME_EVIDENCE_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "7eeaa4edb19b9e87efc1035521b3d91356971e1c",
+  "queueAuthority": {
+    "queueVersion": "p05e-w5-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "a4dae65a1a907ba963a135fce84ba292b8486a12513ae8f1fa54fbf07a6598ae",
+    "queuePosition": 34,
+    "sliceId": "p05e_q034_r3_g4b_u07_4b07_profile_geometry_formula_c1",
+    "implementationTaskId": "P05F_W5DirectProductVerticalSlice034Implementation",
+    "previousSliceId": "p05e_q033_r3_g4b_u02_4b02_profile_geometry_property_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W5",
+    "primarySourceNodeId": "g4b_u07_4b07",
+    "supportingSourceNodeIds": ["g4b_u07_4b07"],
+    "intraWavePrerequisiteRank": 3,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_g4b_u07_composite_rectilinear_area",
+      "kp_g4b_u07_perimeter_path_sum"
+    ],
+    "requiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredProductNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ]
+  },
+  "previousSliceD0Evidence": {
+    "sliceId": "p05e_q033_r3_g4b_u02_4b02_profile_geometry_property_c1",
+    "preflightPrNumber": 907,
+    "productPrNumber": 908,
+    "productMergeSha": "d9294906d947b454463ccb26cf2ecc4d720a6933",
+    "prGateRunId": "34733749964",
+    "pagesDeploymentRunId": "34733802710",
+    "exactPagesRunId": "34733802755",
+    "evidenceArtifactId": "10310710023",
+    "evidenceArtifactName": "p05f-w5-q033-pages-e2e",
+    "evidenceArtifactDigest": "sha256:38a37e1a69dc462b7630b28ad371a72bff6f2a74c9a4defa4c1f3066cb692e66",
+    "status": "PASS_E6_D0_COMPLETE",
+    "exactPagesWorkflowConclusion": "success",
+    "exactPagesEvidenceUploaded": true
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g4b_u07_4b07",
+    "sourceTitle": "周長與面積",
+    "sourcePdfTitle": "meow911_4b07_source.pdf",
+    "sourcePdfDriveFileId": "19yZxx2bt_rQgqAA7Rx4HALoL3l3nfpw-",
+    "sourceMetadataDriveFileId": "1X-hyC3X8aw72FoLJql5v7BbUq601yjS5",
+    "verificationNotesDriveFileId": "1xYu4mXNY1R7JlNteWn65_9LsvZ8vwm_4",
+    "sourceUrlFromMetadata": "https://meow911.com/4b07/",
+    "metadataSourceTitle": "周長與面積",
+    "embeddedHeaderUrlFromPdf": "https://meow911.com/4b06/",
+    "pageCount": 3,
+    "reviewedPages": [1, 2, 3],
+    "authorityMethod": "FROZEN_QUEUE_PLUS_R02_REVIEWED_SOURCE_WITH_Q026_SAME_SOURCE_IDENTITY_AND_PAGE2_VISUAL_REUSE",
+    "sameSourcePriorAuthorityPaths": [
+      "data/curriculum/full-product/p05f/q026-g4b-u07-rectangle-square-area-formula-source-authority-preflight.json"
+    ],
+    "targetEvidenceReconciliation": {
+      "compositeRectilinearArea": {
+        "r02EvidencePages": [2],
+        "q026DirectVisualCorroborationPages": [2],
+        "q026ObservedPanels": [
+          "複合L形的面積",
+          "複合凸形的面積算法",
+          "複合凹形的面積"
+        ],
+        "disposition": "R02_PAGE_2_PLUS_Q026_DIRECT_VISUAL_PAGE_2_CORROBORATION"
+      },
+      "perimeterPathSum": {
+        "r02EvidencePages": [1],
+        "newDirectVisualClaimAddedByQ034Preflight": false,
+        "disposition": "R02_FULL_PAGE_REVIEW_AUTHORITY_ONLY"
+      },
+      "embeddedHeaderUrlMismatchObserved": true,
+      "embeddedHeaderUrlMismatchIsNonBlocking": true,
+      "r02AuthorityModified": false
+    },
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false
+  },
+  "r02ReviewedCandidateAuthority": [
+    {
+      "knowledgePointId": "kp_g4b_u07_composite_rectilinear_area",
+      "canonicalNameZh": "複合直角圖形面積",
+      "capabilityStatement": "學生能以分割或補形求複合圖形面積。",
+      "reasoningInvariant": "分割面積和或大圖扣小圖必須與原圖覆蓋區域等值。",
+      "category": "geometry",
+      "evidencePages": [2],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    {
+      "knowledgePointId": "kp_g4b_u07_perimeter_path_sum",
+      "canonicalNameZh": "周長與封閉邊界",
+      "capabilityStatement": "學生能將封閉圖形各邊長相加求周長。",
+      "reasoningInvariant": "周長只計外部邊界一次，內部線段不列入。",
+      "category": "geometry",
+      "evidencePages": [1],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    }
+  ],
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_geometry_formula",
+    "classificationRuleId": "rule_geometry_formula",
+    "perKnowledgePointMappings": [
+      {
+        "knowledgePointId": "kp_g4b_u07_composite_rectilinear_area",
+        "mappingId": "r04map_g4b_u07_composite_rectilinear_area",
+        "primaryRuntimeProfileId": "profile_geometry_formula",
+        "classificationRuleId": "rule_geometry_formula",
+        "appliedModifierIds": [],
+        "requiredRuntimeCapabilityIds": [
+          "cap_pattern_spec_resolution",
+          "cap_deterministic_answer_model",
+          "cap_worksheet_document_assembly",
+          "cap_answer_key_projection",
+          "cap_html_print_renderer",
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ],
+        "optionalRuntimeCapabilityIds": [],
+        "forbiddenRuntimeCapabilityIds": [],
+        "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+        "undeliveredRequiredCapabilityIds": [
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ]
+      },
+      {
+        "knowledgePointId": "kp_g4b_u07_perimeter_path_sum",
+        "mappingId": "r04map_g4b_u07_perimeter_path_sum",
+        "primaryRuntimeProfileId": "profile_geometry_formula",
+        "classificationRuleId": "rule_geometry_formula",
+        "appliedModifierIds": [],
+        "requiredRuntimeCapabilityIds": [
+          "cap_pattern_spec_resolution",
+          "cap_deterministic_answer_model",
+          "cap_worksheet_document_assembly",
+          "cap_answer_key_projection",
+          "cap_html_print_renderer",
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ],
+        "optionalRuntimeCapabilityIds": [],
+        "forbiddenRuntimeCapabilityIds": [],
+        "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+        "undeliveredRequiredCapabilityIds": [
+          "cap_geometry_formula_evaluation",
+          "cap_geometry_domain_validator",
+          "cap_geometry_diagram_representation"
+        ]
+      }
+    ],
+    "directR04ContractOnlyCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation"
+    ],
+    "r05DependencyClosureCapabilityIds": ["cap_geometry_property_reasoning"],
+    "exactFrozenQueueRequiredW5CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "r02CandidateCategories": ["geometry"],
+    "r02CategoryAlignedWithFrozenProfile": true,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false
+  },
+  "q034ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g4b_u07_composite_rectilinear_area",
+      "kp_g4b_u07_perimeter_path_sum"
+    ],
+    "includedRelations": [
+      "COMPUTE_COMPOSITE_RECTILINEAR_AREA_BY_NONOVERLAPPING_RECTANGLE_PARTITION",
+      "COMPUTE_COMPOSITE_RECTILINEAR_AREA_BY_ENCLOSING_RECTANGLE_COMPLEMENT",
+      "PRESERVE_AREA_EQUIVALENCE_UNDER_PARTITION_OR_COMPLEMENT",
+      "TRACE_CLOSED_OUTER_BOUNDARY",
+      "SUM_EACH_OUTER_BOUNDARY_SEGMENT_EXACTLY_ONCE",
+      "EXCLUDE_INTERIOR_SEGMENTS_FROM_PERIMETER"
+    ],
+    "protectedExistingSameSourceKnowledgePointIds": [
+      "kp_g4b_u07_rectangle_square_area_formula"
+    ],
+    "excludedSameSourceKnowledgePointIds": [
+      "kp_g4b_u07_rectangle_square_perimeter_formula",
+      "kp_g4b_u07_composite_perimeter"
+    ],
+    "deferredFrozenQueueOwnership": {
+      "kp_g4b_u07_rectangle_square_perimeter_formula": "Q043",
+      "kp_g4b_u07_composite_perimeter": "Q050"
+    },
+    "excludedRelations": [
+      "REOWN_RECTANGLE_SQUARE_AREA_FORMULA",
+      "RECTANGLE_SQUARE_PERIMETER_FORMULA_AS_TARGET_KP",
+      "COMPOSITE_PERIMETER_AS_TARGET_KP",
+      "AREA_PERIMETER_COMPARISON_CONTEXT",
+      "APPLICATION_CONTEXT_IMPLEMENTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "Q035_OR_LATER_SEMANTICS"
+    ],
+    "compositeAreaMustPreserveCoverageEquivalence": true,
+    "perimeterMustUseOuterBoundaryOnly": true,
+    "q026AreaFormulaPrerequisiteReusedNotReowned": true,
+    "applicationImplementationAllowedByThisPreflight": false,
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q035OrLaterTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "sourceAuthoritySufficientForQ034ImplementationPlanning": true,
+    "previousSliceD0Satisfied": true,
+    "r02AuthorityBoundForBothKnowledgePoints": true,
+    "runtimeCapabilityContractLockedForBothKnowledgePoints": true,
+    "twoKnowledgePointScopeLocked": true,
+    "existingSameSourceQ026Protected": true,
+    "q043Q050DeferredOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "separateImplementationApprovalSatisfiedByCurrentOperatorInstruction": false,
+    "nextTaskRequiresNewOperatorApproval": true,
+    "nextTask": "P05F_W5DirectProductVerticalSlice034Implementation"
+  }
+}

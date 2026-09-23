@@ -1,0 +1,59 @@
+{
+  "schemaName": "P03FSlice023ReciprocalConceptAuthorityV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P03F_W3DirectProductVerticalSlice023Implementation",
+  "status": "IMPLEMENTATION_SCOPE_FROZEN_PREDECESSOR_D0_RECONCILED",
+  "queueAuthority": {
+    "path": "data/curriculum/full-product/p03e/w3-direct-product-vertical-slice-queue.json",
+    "queuePosition": 23,
+    "sliceId": "p03e_q023_r7_g6a_u02_6a02_profile_fraction_c1",
+    "previousSliceId": "p03e_q022_r7_g5a_u04_5a04_profile_fraction_c1",
+    "previousSliceD0Complete": true,
+    "previousSliceClaimPath": "data/curriculum/final-milestone-claims/p03f-w3-slice022-e6-d0-v1.json",
+    "queueDigest": "06ce50b291f87f87dd4ef7a0dea04c21241dc70e7435fb62ab93dc64b31d4ce7"
+  },
+  "sourceAuthority": {
+    "path": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-06.json",
+    "sourceNodeId": "g6a_u02_6a02",
+    "sourceTitle": "分數除法",
+    "sourcePdfTitle": "meow911_6a02_source.pdf",
+    "reviewedPages": [1, 2],
+    "reviewMethod": "R02_REVIEWED_SOURCE_CANDIDATE"
+  },
+  "knowledgePoints": [{
+    "knowledgePointId": "kp_g6a_u02_reciprocal_concept",
+    "canonicalNameZh": "倒數概念",
+    "capabilityStatement": "學生能找出非零數的倒數並理解乘積為1。",
+    "reasoningInvariant": "一個非零數與其倒數相乘等於1。",
+    "applicationClassification": "APPLICATION_COMPATIBLE_BUT_NOT_ADMITTED",
+    "operationModelId": "op_g6a_u02_reciprocal_concept",
+    "operationFamilyId": "fraction_reciprocal",
+    "tagIds": ["grade_6", "domain_fraction", "concept_reciprocal", "operation_fraction_reciprocal", "relation_multiplicative_identity", "representation_fraction", "answer_fraction", "exact_rational_identity"]
+  }],
+  "formalMappings": [{
+    "formalMappingId": "fm_g6a_u02_reciprocal_concept",
+    "knowledgePointId": "kp_g6a_u02_reciprocal_concept",
+    "canonicalExpressions": ["reciprocal(a/b) = b/a, a != 0, b > 0", "(a/b) * (b/a) = 1", "reciprocal(n) = 1/n, n != 0"],
+    "validationInvariants": ["source rational is non-zero", "reciprocal denominator is positive", "source times reciprocal reduces exactly to 1/1"]
+  }],
+  "requiredCapabilityIds": ["cap_fraction_arithmetic", "cap_fraction_domain_validator", "cap_fraction_number_system"],
+  "patternSurface": {
+    "patternGroupIds": ["pg_g6a_u02_reciprocal_concept_numeric"],
+    "patternSpecIds": ["ps_g6a_u02_fraction_reciprocal_numeric", "ps_g6a_u02_integer_reciprocal_numeric", "ps_g6a_u02_reciprocal_identity_missing_factor_numeric"],
+    "numericPatternSpecCount": 3,
+    "applicationPatternSpecCount": 0,
+    "sharedGeneratorAdapterId": "SHARED_OPERATION_FAMILY_GENERATOR_V1",
+    "sharedValidatorAdapterId": "SHARED_OPERATION_FAMILY_VALIDATOR_V1"
+  },
+  "productBoundary": {
+    "publicSourceAlreadyExists": false,
+    "newPublicSourceAllowed": true,
+    "otherG6AU02KnowledgePointsExcluded": true,
+    "applicationContextCandidateExpansionAllowed": false,
+    "globalContextOntologyExpansionAllowed": false,
+    "parallelPipelineAllowed": false,
+    "sharedWorksheetRendererRequired": true,
+    "nextSliceMayStartBeforeD0Closeout": false
+  }
+}

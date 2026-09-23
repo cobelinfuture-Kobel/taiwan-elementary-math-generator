@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS01_G5AU08_DeployedPagesSmokeRecloseout",
+  "taskClass": "release",
+  "targetEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "actualEvidenceLevel": "E5_PRODUCTION_ADMITTED",
+  "claimedStatus": "GS01_DEPLOYED_PAGES_SMOKE_RECLOSEOUT_PASS_PENDING_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": true,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "tools/curriculum/run-g5a-u08-r1-deployed-pages-smoke.mjs",
+      "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs",
+      ".github/workflows/g5a-u08-r1-deployed-pages-smoke.yml",
+      ".github/workflows/gs01-g5a-u08-deployed-pages-smoke.yml",
+      "site/modules/curriculum/batch-a/g5a-u08-canonical-router.js",
+      "site/modules/curriculum/registry/g5a-u08-production-promotion.js"
+    ],
+    "rendererTestPaths": [
+      "site/modules/renderer/html-renderer-s60j-extension.js",
+      "tools/curriculum/run-g5a-u08-r1-deployed-pages-smoke.mjs",
+      "tools/curriculum/run-gs01-g5a-u08-deployed-pages-smoke.mjs"
+    ],
+    "htmlArtifactPaths": [
+      "docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html"
+    ],
+    "pdfArtifactPaths": [
+      "docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf"
+    ],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.manifest.json",
+      "docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/GS01_G5AU08_LIVE_EVIDENCE.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": [
+      {
+        "path": "docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.html",
+        "sha256": "a213617579927111741b18323460177031cf5a48094ebbfbc97f9e1263f69d1b"
+      },
+      {
+        "path": "docs/curriculum/output/smoke/S60L_G5A_U08_PublicWorksheet.pdf",
+        "sha256": "4544387d68c69fc5601f1352b2eee9051ede1b4e4ed7e8adf6c0b28353514df4"
+      },
+      {
+        "path": "docs/curriculum/output/stress/g5a-u08-r1-deployed-pages/GS01_G5AU08_LIVE_EVIDENCE.json",
+        "sha256": "6d53e3a04915d20dbe8e71f651a2561f02d097013b3e6155b462fb668f159086"
+      }
+    ]
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The stale deployed preview-metadata assertion is removed as a production blocker, and G5A-U08 is reverified through the live public selector, controls, generator, validator, renderer, HTML/PDF, answer-key and iframe print path."
+  },
+  "nextStep": {
+    "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
+    "requiredEvidenceLevelBeforeStart": "E5_PRODUCTION_ADMITTED"
+  }
+}

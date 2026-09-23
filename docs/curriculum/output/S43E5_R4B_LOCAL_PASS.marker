@@ -1,0 +1,27 @@
+S43E5_R4B_WORD_PROBLEM_SCHEMA_CONTRACT_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+unit = 3B-U01 除法
+
+operator_readback:
+- tests 378
+- pass 378
+- fail 0
+- branch public-main up to date with public/main
+- working tree clean
+
+completed_scope:
+- S43E5_R4B_G3BU01_WordProblemSchemaAndRegistryContract = PASS
+- word-problem TemplateSpec contract module exists
+- five word-problem UI KP candidates locked
+- twelve PatternSpec contracts locked
+- first-pass template target = 20 locked
+
+next_task:
+- S43E5_R4C_G3BU01_PartitiveDivisionTemplates
+
+GOAL_DISTANCE_BEFORE = D2_G3B_U01_WORD_PROBLEM_SCHEMA_REGISTRY_CONTRACT_IMPLEMENTED_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D2_G3B_U01_WORD_PROBLEM_SCHEMA_REGISTRY_CONTRACT_LOCAL_PASS
+DISTANCE_REDUCED = R4B schema/registry contract passed local automated validation
+REMAINING_BLOCKERS = partitive templates not implemented; generator/validator/UI not integrated; browser PDF smoke pending
+NEXT_SHORTEST_STEP = S43E5_R4C_G3BU01_PartitiveDivisionTemplates

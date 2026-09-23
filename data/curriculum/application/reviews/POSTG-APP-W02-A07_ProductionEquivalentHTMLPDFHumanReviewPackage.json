@@ -1,0 +1,67 @@
+{
+  "schemaName": "POSTGAPPW02A07ProductionEquivalentHTMLPDFHumanReviewPackageContractV1",
+  "schemaVersion": 1,
+  "programId": "POST_GOLDEN_APPLICATION_CAPABILITY_EXPANSION_V1",
+  "taskId": "POSTG-APP-W02-A07_ProductionEquivalentHTMLPDFHumanReviewPackage",
+  "parentTaskId": "POSTG-APP-W02-A06_SharedGeneratorValidatorRendererHTMLPDFIntegration",
+  "status": "W02_PRODUCTION_EQUIVALENT_HTML_PDF_HUMAN_REVIEW_READY",
+  "requiredEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "reviewScope": {
+    "sourceNodeCount": 13,
+    "applicationQuestionCount": 61,
+    "numericQuestionCount": 134,
+    "pblTaskSetCount": 31,
+    "pbl3TaskSetCount": 19,
+    "pbl5TaskSetCount": 12,
+    "operationFamilyCount": 49,
+    "applicationQuestionReviewMode": "FULL_COHORT",
+    "pblReviewMode": "FULL_COHORT",
+    "numericReviewMode": "OPERATION_FAMILY_BOUNDARY_REFERENCE"
+  },
+  "requiredArtifacts": {
+    "numericHtml": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.html",
+    "numericPdf": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_NUMERIC_WORKSHEET.pdf",
+    "applicationHtml": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.html",
+    "applicationPdf": "docs/curriculum/output/postg-app/w02-a06/POSTG_APP_W02_A06_APPLICATION_WORKSHEET.pdf",
+    "reviewIndex": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_INDEX.html",
+    "reviewData": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_DATA.json",
+    "reviewExtractedText": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW.extracted.txt",
+    "reviewManifest": "docs/curriculum/output/postg-app/w02-a07/POSTG_APP_W02_A07_HUMAN_REVIEW_MANIFEST.json"
+  },
+  "reviewChecklist": [
+    "APPLICATION_SEMANTIC_NATURALNESS",
+    "QUANTITY_ROLE_AND_UNIT_BINDING",
+    "MATHEMATICAL_WITNESS_PRESERVATION",
+    "ANSWER_UNIQUENESS_AND_ANSWER_KEY_PAIRING",
+    "PBL_DEPENDENCY_AND_FINAL_DECISION_COMPLETENESS",
+    "NUMERIC_APPLICATION_MODE_SEPARATION",
+    "HTML_PDF_LAYOUT_AND_PAGE_CONTAINMENT",
+    "FORBIDDEN_INTERNAL_LABEL_ABSENCE"
+  ],
+  "failClosedBoundary": {
+    "automaticApprovalAllowed": false,
+    "operatorDecisionRecorded": false,
+    "productionAdmissionGranted": false,
+    "publicSelectable": false,
+    "publicUIChanged": false,
+    "futureWaveContentAuthored": false
+  },
+  "nextShortestStepAfterPass": "POSTG-APP-W02-A08_OperatorHumanReviewDecisionAndProductionAdmission",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "humanReviewReady": true,
+  "reviewDecision": "NOT_STARTED",
+  "productionAdmissionGranted": false,
+  "publicSelectable": false,
+  "verifiedCoverage": {
+    "sourceNodeCount": 13,
+    "macroContextCount": 16,
+    "applicationQuestionCount": 61,
+    "numericQuestionCount": 134,
+    "pblTaskSetCount": 31,
+    "pbl3TaskSetCount": 19,
+    "pbl5TaskSetCount": 12,
+    "numericBoundaryReviewCount": 49,
+    "operationFamilyCount": 49,
+    "reviewArtifactCount": 10
+  }
+}

@@ -1,0 +1,201 @@
+import {
+  buildPath1ManualWorksheet as buildArithmeticPath1ManualWorksheet,
+  listPath1ManualWorksheetBlocks,
+} from "./build-path1-manual-worksheet-p1-03-extension.js";
+import {
+  buildPath1ManualWorksheet as buildBasePath1ManualWorksheet,
+} from "./build-path1-manual-worksheet.js";
+import {
+  buildPath1P103MultiplicativeModelingWorksheet,
+} from "./build-path1-p1-03-multiplicative-modeling-worksheet.js";
+import {
+  buildPath1P104MultiplicativeModelingWorksheet,
+} from "./build-path1-p1-04-multiplicative-modeling-worksheet.js";
+import {
+  buildPath1P105MultiplicativeModelingWorksheet,
+} from "./build-path1-p1-05-zero-special-multiplicative-modeling-worksheet.js";
+import {
+  buildPath1P106EstimateTrialQuotientWorksheet,
+} from "./build-path1-p1-06-estimate-trial-quotient-worksheet.js";
+import {
+  buildPath1P107QuotientStartPlaceWorksheet,
+} from "./build-path1-p1-07-quotient-start-place-worksheet.js";
+import {
+  PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-equal-groups-transfer-generator.js";
+import {
+  PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-p1-03-multiplicative-modeling-patterns.js";
+import {
+  PATH1_P1_04_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-p1-04-multiplicative-modeling-patterns.js";
+import {
+  PATH1_P1_05_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-p1-05-zero-special-multiplicative-modeling-patterns.js";
+import {
+  PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-p1-06-estimate-trial-quotient-patterns.js";
+import {
+  PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE,
+} from "../../../modules/curriculum/learning-paths/path1-p1-07-quotient-start-place-patterns.js";
+
+export const PATH1_MANUAL_ARITHMETIC_PRACTICE_MODE = "arithmetic";
+export const PATH1_EQUAL_GROUPS_MODELING_TRANSFER_GATE_ID =
+  "PATH1_EQUAL_GROUPS_MODELING_TRANSFER_CHECKPOINT_V1";
+export const PATH1_EQUAL_GROUPS_MODELING_TRANSFER_MASTERY_CREDIT =
+  "NONE_GENERATION_ONLY";
+export const PATH1_P103_MODELING_PUBLIC_CUTOVER_GATE_ID =
+  "PATH1_P103_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
+export const PATH1_P104_MODELING_PUBLIC_CUTOVER_GATE_ID =
+  "PATH1_P104_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
+export const PATH1_P105_MODELING_PUBLIC_CUTOVER_GATE_ID =
+  "PATH1_P105_MULTIPLICATIVE_MODELING_PUBLIC_CUTOVER_V1";
+export const PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_GATE_ID =
+  "PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_V1";
+export const PATH1_P107_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_GATE_ID =
+  "PATH1_P107_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_V1";
+
+function failed(blockId, practiceMode, code) {
+  return Object.freeze({
+    ok: false,
+    blockId,
+    practiceMode,
+    errors: Object.freeze([{ code, blockId, practiceMode }]),
+    warnings: Object.freeze([]),
+    worksheetDocument: null,
+  });
+}
+
+function modelingPublicCutoverGateId(blockId) {
+  if (blockId === "P1-03") return PATH1_P103_MODELING_PUBLIC_CUTOVER_GATE_ID;
+  if (blockId === "P1-04") return PATH1_P104_MODELING_PUBLIC_CUTOVER_GATE_ID;
+  if (blockId === "P1-05") return PATH1_P105_MODELING_PUBLIC_CUTOVER_GATE_ID;
+  return null;
+}
+
+function publicCutoverGateId(blockId, practiceMode) {
+  if (practiceMode === PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE) {
+    return modelingPublicCutoverGateId(blockId);
+  }
+  if (
+    practiceMode === PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE
+    && blockId === "P1-06"
+  ) {
+    return PATH1_P106_ESTIMATE_TRIAL_QUOTIENT_PUBLIC_CUTOVER_GATE_ID;
+  }
+  if (
+    practiceMode === PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE
+    && blockId === "P1-07"
+  ) {
+    return PATH1_P107_QUOTIENT_START_PLACE_PUBLIC_CUTOVER_GATE_ID;
+  }
+  return null;
+}
+
+function attachPracticeMetadata(result, { blockId, practiceMode }) {
+  if (!result?.ok || !result.worksheetDocument) return result;
+  const worksheetDocument = result.worksheetDocument;
+  const configSnapshot = worksheetDocument.configSnapshot ?? {};
+  const currentMetadata = configSnapshot.metadata ?? {};
+  const cutoverGateId = publicCutoverGateId(blockId, practiceMode);
+  const metadata = Object.freeze({
+    ...currentMetadata,
+    path1BlockId: blockId,
+    practiceMode,
+    ...(practiceMode === PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE ? {
+      modelingTransferGateId: PATH1_EQUAL_GROUPS_MODELING_TRANSFER_GATE_ID,
+      modelingTransferMasteryCredit: PATH1_EQUAL_GROUPS_MODELING_TRANSFER_MASTERY_CREDIT,
+    } : {}),
+    ...(cutoverGateId ? {
+      publicCutoverApplied: true,
+      publicRoute: "path1-manual",
+      publicCutoverGateId: cutoverGateId,
+    } : {}),
+  });
+  const projectedDocument = Object.freeze({
+    ...worksheetDocument,
+    configSnapshot: Object.freeze({
+      ...configSnapshot,
+      metadata,
+    }),
+  });
+  return Object.freeze({ ...result, worksheetDocument: projectedDocument });
+}
+
+export { listPath1ManualWorksheetBlocks };
+
+export function buildPath1ManualWorksheet(options = {}) {
+  const {
+    blockId,
+    practiceMode = PATH1_MANUAL_ARITHMETIC_PRACTICE_MODE,
+    ...rest
+  } = options;
+
+  if (practiceMode === PATH1_MANUAL_ARITHMETIC_PRACTICE_MODE) {
+    const result = buildArithmeticPath1ManualWorksheet({ blockId, ...rest });
+    return attachPracticeMetadata(result, { blockId, practiceMode });
+  }
+
+  if (practiceMode === PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE) {
+    const result = buildBasePath1ManualWorksheet({
+      blockId,
+      ...rest,
+      practiceMode: PATH1_EQUAL_GROUPS_TRANSFER_PRACTICE_MODE,
+    });
+    return attachPracticeMetadata(result, { blockId, practiceMode });
+  }
+
+  if (practiceMode === PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE) {
+    if (blockId === "P1-03") {
+      const result = buildPath1P103MultiplicativeModelingWorksheet({
+        blockId,
+        ...rest,
+        practiceMode: PATH1_P1_03_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+      });
+      return attachPracticeMetadata(result, { blockId, practiceMode });
+    }
+    if (blockId === "P1-04") {
+      const result = buildPath1P104MultiplicativeModelingWorksheet({
+        blockId,
+        ...rest,
+        practiceMode: PATH1_P1_04_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+      });
+      return attachPracticeMetadata(result, { blockId, practiceMode });
+    }
+    if (blockId === "P1-05") {
+      const result = buildPath1P105MultiplicativeModelingWorksheet({
+        blockId,
+        ...rest,
+        practiceMode: PATH1_P1_05_MULTIPLICATIVE_MODELING_PRACTICE_MODE,
+      });
+      return attachPracticeMetadata(result, { blockId, practiceMode });
+    }
+    return failed(blockId, practiceMode, "PATH1_P103_MODELING_MODE_BLOCK_NOT_SUPPORTED");
+  }
+
+  if (practiceMode === PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE) {
+    if (blockId !== "P1-06") {
+      return failed(blockId, practiceMode, "PATH1_P106_ESTIMATE_MODE_BLOCK_NOT_SUPPORTED");
+    }
+    const result = buildPath1P106EstimateTrialQuotientWorksheet({
+      blockId,
+      ...rest,
+      practiceMode: PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_PRACTICE_MODE,
+    });
+    return attachPracticeMetadata(result, { blockId, practiceMode });
+  }
+
+  if (practiceMode === PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE) {
+    if (blockId !== "P1-07") {
+      return failed(blockId, practiceMode, "PATH1_P107_QUOTIENT_PLACE_MODE_BLOCK_NOT_SUPPORTED");
+    }
+    const result = buildPath1P107QuotientStartPlaceWorksheet({
+      blockId,
+      ...rest,
+      practiceMode: PATH1_P1_07_QUOTIENT_START_PLACE_PRACTICE_MODE,
+    });
+    return attachPracticeMetadata(result, { blockId, practiceMode });
+  }
+
+  return failed(blockId, practiceMode, "PATH1_PRACTICE_MODE_NOT_SUPPORTED");
+}

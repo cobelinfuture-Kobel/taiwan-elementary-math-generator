@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "taskId": "POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "actualEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
+  "claimedStatus": "DETERMINISTIC_BASELINE_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/application/w01-golden15-application-assessment.mjs",
+      "tools/curriculum/validate-postg-app-w01-a00-assessment.mjs",
+      "tests/curriculum/postg-app-w01-a00-assessment.test.js",
+      "src/curriculum/application/postg-app-master-controller.mjs",
+      "tests/curriculum/postg-app-m00-master-controller.test.js"
+    ],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "docs/curriculum/application/contracts/POSTG_APP_W01_Golden15_Application_Capability_Assessment_V1.md",
+      "data/curriculum/application/assessment/w01-golden15-application-capability-policy.json",
+      "data/curriculum/application/assessment/w01-golden15-application-assessment-index.json",
+      "data/curriculum/application/controller/postg-app-master-controller-state.json",
+      "data/curriculum/application/contracts/POSTG-APP-W01-A00_Golden15ApplicationCapabilityAssessmentAndAdmissionBaseline.json"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D3",
+    "after": "D3",
+    "distanceReduced": "Wave 01 moves from an unclassified set of 156 golden KnowledgePoints to a deterministic application-fit baseline. Existing application evidence is preserved, suitable KnowledgePoints enter a non-production design backlog with mode and context-episode candidates, and unsuitable KnowledgePoints are excluded from forced story authoring."
+  },
+  "nextStep": {
+    "taskId": "POSTG-APP-W01-A01_Golden15AtomicContextBindingAndSingleApplicationCandidatePack",
+    "requiredEvidenceLevelBeforeStart": "E3_SHADOW_RUNTIME_INTEGRATED"
+  }
+}

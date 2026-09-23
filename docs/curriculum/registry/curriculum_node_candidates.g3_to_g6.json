@@ -1,0 +1,2091 @@
+{
+  "schemaVersion": "s22f.curriculumNodeCandidates.v0",
+  "status": "shallow_candidate",
+  "productionRuntime": false,
+  "sourceScope": {
+    "gradeRange": [
+      "g3a",
+      "g3b",
+      "g4a",
+      "g4b",
+      "g5a",
+      "g5b",
+      "g6a",
+      "g6b"
+    ],
+    "totalNodes": 79,
+    "sourceAuthority": "metadata_backed",
+    "visualVerification": false,
+    "formalMapping": false
+  },
+  "prioritySummary": {
+    "v1_priority": 13,
+    "future_priority": 56,
+    "planned_only": 10
+  },
+  "nodes": [
+    {
+      "curriculumNodeCandidateId": "g3a_u01_3a01",
+      "sourceCode": "3a01",
+      "sourceId": "g3a_u01_3a01",
+      "grade": 3,
+      "semester": "g3a",
+      "unit": "u01",
+      "sourceSubunit": null,
+      "sourceTitle": "10000以內的數",
+      "domainTags": [
+        "domain_number_sense"
+      ],
+      "canonicalSkillTags": [
+        "number_place_value",
+        "number_reading_writing",
+        "number_comparison",
+        "money_representation",
+        "number_line"
+      ],
+      "questionKindTags": [
+        "qk_number_sense",
+        "qk_representation",
+        "qk_visual_reading"
+      ],
+      "supportStatusTags": [
+        "v1NumberSenseSupported",
+        "v1TextFallbackSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3a_u02_3a02",
+      "sourceCode": "3a02",
+      "sourceId": "g3a_u02_3a02",
+      "grade": 3,
+      "semester": "g3a",
+      "unit": "u02",
+      "sourceSubunit": null,
+      "sourceTitle": "四位數的加減",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "integer_addition",
+        "integer_subtraction",
+        "integer_add_sub_mixed"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3a_u03_3a03",
+      "sourceCode": "3a03",
+      "sourceId": "g3a_u03_3a03",
+      "grade": 3,
+      "semester": "g3a",
+      "unit": "u03",
+      "sourceSubunit": null,
+      "sourceTitle": "乘法",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "integer_multiplication",
+        "multi_digit_multiplication"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3a_u04_3a04",
+      "sourceCode": "3a04",
+      "sourceId": "g3a_u04_3a04",
+      "grade": 3,
+      "semester": "g3a",
+      "unit": "u04",
+      "sourceSubunit": null,
+      "sourceTitle": "毫米與數線",
+      "domainTags": [
+        "domain_measurement",
+        "domain_number_line"
+      ],
+      "canonicalSkillTags": [
+        "measurement_length_mm",
+        "number_line"
+      ],
+      "questionKindTags": [
+        "qk_measurement_conversion",
+        "qk_visual_reading"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine",
+        "v1TextFallbackSupported"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3a_u05_3a05",
+      "sourceCode": "3a05",
+      "sourceId": "g3a_u05_3a05",
+      "grade": 3,
+      "semester": "g3a",
+      "unit": "u05",
+      "sourceSubunit": null,
+      "sourceTitle": "角",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "geometry_angle"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3a_u06_3a06",
+      "sourceCode": "3a06",
+      "sourceId": "g3a_u06_3a06",
+      "grade": 3,
+      "semester": "g3a",
+      "unit": "u06",
+      "sourceSubunit": null,
+      "sourceTitle": "二位數除以一位數",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "integer_division",
+        "two_digit_div_by_one_digit"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3a_u07_3a07",
+      "sourceCode": "3a07",
+      "sourceId": "g3a_u07_3a07",
+      "grade": 3,
+      "semester": "g3a",
+      "unit": "u07",
+      "sourceSubunit": null,
+      "sourceTitle": "尋找規律",
+      "domainTags": [
+        "domain_pattern_relationship"
+      ],
+      "canonicalSkillTags": [
+        "pattern_sequence"
+      ],
+      "questionKindTags": [
+        "qk_pattern_sequence"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3a_u08_3a08",
+      "sourceCode": "3a08",
+      "sourceId": "g3a_u08_3a08",
+      "grade": 3,
+      "semester": "g3a",
+      "unit": "u08",
+      "sourceSubunit": null,
+      "sourceTitle": "分數",
+      "domainTags": [
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "fraction_basic"
+      ],
+      "questionKindTags": [
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3a_u09_3a09",
+      "sourceCode": "3a09",
+      "sourceId": "g3a_u09_3a09",
+      "grade": 3,
+      "semester": "g3a",
+      "unit": "u09",
+      "sourceSubunit": null,
+      "sourceTitle": "圓",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "geometry_circle"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u01_3b01",
+      "sourceCode": "3b01",
+      "sourceId": "g3b_u01_3b01",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u01",
+      "sourceSubunit": null,
+      "sourceTitle": "除法",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "integer_division"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u02_3b02",
+      "sourceCode": "3b02",
+      "sourceId": "g3b_u02_3b02",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u02",
+      "sourceSubunit": null,
+      "sourceTitle": "公升與毫升",
+      "domainTags": [
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "measurement_capacity_l_ml"
+      ],
+      "questionKindTags": [
+        "qk_measurement_conversion"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u03_3b03",
+      "sourceCode": "3b03",
+      "sourceId": "g3b_u03_3b03",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u03",
+      "sourceSubunit": null,
+      "sourceTitle": "時間",
+      "domainTags": [
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "measurement_time"
+      ],
+      "questionKindTags": [
+        "qk_measurement_conversion",
+        "qk_word_problem"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u04_3b04",
+      "sourceCode": "3b04",
+      "sourceId": "g3b_u04_3b04",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u04",
+      "sourceSubunit": null,
+      "sourceTitle": "兩步驟計算",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "two_step_calculation",
+        "integer_mixed_operations"
+      ],
+      "questionKindTags": [
+        "qk_expression",
+        "qk_word_problem"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported",
+        "requiresWordProblemTemplate"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u05_3b05",
+      "sourceCode": "3b05",
+      "sourceId": "g3b_u05_3b05",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u05",
+      "sourceSubunit": null,
+      "sourceTitle": "平方公分與面積",
+      "domainTags": [
+        "domain_geometry",
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "area_cm2",
+        "geometry_area"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula",
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "futureGeometryFormulaEngine",
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u06_3b06",
+      "sourceCode": "3b06",
+      "sourceId": "g3b_u06_3b06",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u06",
+      "sourceSubunit": null,
+      "sourceTitle": "公斤公克",
+      "domainTags": [
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "measurement_mass_kg_g"
+      ],
+      "questionKindTags": [
+        "qk_measurement_conversion"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u07_3b07",
+      "sourceCode": "3b07",
+      "sourceId": "g3b_u07_3b07",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u07",
+      "sourceSubunit": null,
+      "sourceTitle": "分數的加減",
+      "domainTags": [
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "fraction_add_sub"
+      ],
+      "questionKindTags": [
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u08_3b08",
+      "sourceCode": "3b08",
+      "sourceId": "g3b_u08_3b08",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u08",
+      "sourceSubunit": null,
+      "sourceTitle": "乘法與除法",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "integer_mul_div_mixed"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u09_3b09",
+      "sourceCode": "3b09",
+      "sourceId": "g3b_u09_3b09",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u09",
+      "sourceSubunit": null,
+      "sourceTitle": "小數",
+      "domainTags": [
+        "domain_decimal"
+      ],
+      "canonicalSkillTags": [
+        "decimal_basic"
+      ],
+      "questionKindTags": [
+        "qk_decimal"
+      ],
+      "supportStatusTags": [
+        "futureDecimalDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g3b_u10_3b10",
+      "sourceCode": "3b10",
+      "sourceId": "g3b_u10_3b10",
+      "grade": 3,
+      "semester": "g3b",
+      "unit": "u10",
+      "sourceSubunit": null,
+      "sourceTitle": "統計表",
+      "domainTags": [
+        "domain_data"
+      ],
+      "canonicalSkillTags": [
+        "statistics_table"
+      ],
+      "questionKindTags": [
+        "qk_chart_data"
+      ],
+      "supportStatusTags": [
+        "requiresChartDataEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u01_4a01",
+      "sourceCode": "4a01",
+      "sourceId": "g4a_u01_4a01",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u01",
+      "sourceSubunit": null,
+      "sourceTitle": "1億以內的數",
+      "domainTags": [
+        "domain_number_sense"
+      ],
+      "canonicalSkillTags": [
+        "large_number_place_value",
+        "number_reading_writing"
+      ],
+      "questionKindTags": [
+        "qk_number_sense"
+      ],
+      "supportStatusTags": [
+        "v1NumberSenseSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u02_4a02",
+      "sourceCode": "4a02",
+      "sourceId": "g4a_u02_4a02",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u02",
+      "sourceSubunit": null,
+      "sourceTitle": "整數的乘法",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "integer_multiplication",
+        "multi_digit_multiplication"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u03_4a03",
+      "sourceCode": "4a03",
+      "sourceId": "g4a_u03_4a03",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u03",
+      "sourceSubunit": null,
+      "sourceTitle": "角度",
+      "domainTags": [
+        "domain_geometry",
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "angle_measurement",
+        "geometry_angle"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry",
+        "qk_measurement_conversion"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u04_4a04",
+      "sourceCode": "4a04",
+      "sourceId": "g4a_u04_4a04",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u04",
+      "sourceSubunit": null,
+      "sourceTitle": "整數的除法",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "integer_division",
+        "multi_digit_division"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u05_4a05",
+      "sourceCode": "4a05",
+      "sourceId": "g4a_u05_4a05",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u05",
+      "sourceSubunit": null,
+      "sourceTitle": "三角形",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "geometry_triangle"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u06_4a06",
+      "sourceCode": "4a06",
+      "sourceId": "g4a_u06_4a06",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u06",
+      "sourceSubunit": null,
+      "sourceTitle": "假分數與帶分數",
+      "domainTags": [
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "improper_fraction",
+        "mixed_number"
+      ],
+      "questionKindTags": [
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u07_4a07",
+      "sourceCode": "4a07",
+      "sourceId": "g4a_u07_4a07",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u07",
+      "sourceSubunit": null,
+      "sourceTitle": "數量規律",
+      "domainTags": [
+        "domain_pattern_relationship"
+      ],
+      "canonicalSkillTags": [
+        "quantity_pattern",
+        "pattern_sequence"
+      ],
+      "questionKindTags": [
+        "qk_pattern_sequence"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u08_4a08",
+      "sourceCode": "4a08",
+      "sourceId": "g4a_u08_4a08",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u08",
+      "sourceSubunit": null,
+      "sourceTitle": "整數四則",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "integer_mixed_operations",
+        "operation_precedence"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u09_4a09",
+      "sourceCode": "4a09",
+      "sourceId": "g4a_u09_4a09",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u09",
+      "sourceSubunit": null,
+      "sourceTitle": "2位小數",
+      "domainTags": [
+        "domain_decimal"
+      ],
+      "canonicalSkillTags": [
+        "decimal_basic",
+        "two_decimal_places"
+      ],
+      "questionKindTags": [
+        "qk_decimal"
+      ],
+      "supportStatusTags": [
+        "futureDecimalDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4a_u10_4a10",
+      "sourceCode": "4a10",
+      "sourceId": "g4a_u10_4a10",
+      "grade": 4,
+      "semester": "g4a",
+      "unit": "u10",
+      "sourceSubunit": null,
+      "sourceTitle": "公里",
+      "domainTags": [
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "measurement_length_km"
+      ],
+      "questionKindTags": [
+        "qk_measurement_conversion"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u01_4b01",
+      "sourceCode": "4b01",
+      "sourceId": "g4b_u01_4b01",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u01",
+      "sourceSubunit": null,
+      "sourceTitle": "多位數的乘與除",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "multi_digit_multiplication",
+        "multi_digit_division",
+        "integer_mul_div_mixed"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u02_4b02",
+      "sourceCode": "4b02",
+      "sourceId": "g4b_u02_4b02",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u02",
+      "sourceSubunit": null,
+      "sourceTitle": "垂直平行與四邊形",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "perpendicular_parallel",
+        "geometry_quadrilateral"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u03_4b03",
+      "sourceCode": "4b03",
+      "sourceId": "g4b_u03_4b03",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u03",
+      "sourceSubunit": null,
+      "sourceTitle": "假分數與帶分數",
+      "domainTags": [
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "improper_fraction",
+        "mixed_number"
+      ],
+      "questionKindTags": [
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u04_4b04",
+      "sourceCode": "4b04",
+      "sourceId": "g4b_u04_4b04",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u04",
+      "sourceSubunit": null,
+      "sourceTitle": "概數",
+      "domainTags": [
+        "domain_number_sense"
+      ],
+      "canonicalSkillTags": [
+        "rounding_approximation"
+      ],
+      "questionKindTags": [
+        "qk_rounding"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u05_4b05",
+      "sourceCode": "4b05",
+      "sourceId": "g4b_u05_4b05",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u05",
+      "sourceSubunit": null,
+      "sourceTitle": "統計圖表",
+      "domainTags": [
+        "domain_data"
+      ],
+      "canonicalSkillTags": [
+        "statistics_chart"
+      ],
+      "questionKindTags": [
+        "qk_chart_data"
+      ],
+      "supportStatusTags": [
+        "requiresChartDataEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u06_4b06",
+      "sourceCode": "4b06",
+      "sourceId": "g4b_u06_4b06",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u06",
+      "sourceSubunit": null,
+      "sourceTitle": "小數乘法",
+      "domainTags": [
+        "domain_decimal"
+      ],
+      "canonicalSkillTags": [
+        "decimal_multiplication"
+      ],
+      "questionKindTags": [
+        "qk_decimal"
+      ],
+      "supportStatusTags": [
+        "futureDecimalDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u07_4b07",
+      "sourceCode": "4b07",
+      "sourceId": "g4b_u07_4b07",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u07",
+      "sourceSubunit": null,
+      "sourceTitle": "周長與面積",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "geometry_perimeter",
+        "geometry_area"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula",
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "futureGeometryFormulaEngine",
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u08_4b08",
+      "sourceCode": "4b08",
+      "sourceId": "g4b_u08_4b08",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u08",
+      "sourceSubunit": null,
+      "sourceTitle": "等值分數",
+      "domainTags": [
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "equivalent_fraction"
+      ],
+      "questionKindTags": [
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u09_4b09",
+      "sourceCode": "4b09",
+      "sourceId": "g4b_u09_4b09",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u09",
+      "sourceSubunit": null,
+      "sourceTitle": "時間的計算",
+      "domainTags": [
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "measurement_time"
+      ],
+      "questionKindTags": [
+        "qk_measurement_conversion",
+        "qk_word_problem"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g4b_u10_4b10",
+      "sourceCode": "4b10",
+      "sourceId": "g4b_u10_4b10",
+      "grade": 4,
+      "semester": "g4b",
+      "unit": "u10",
+      "sourceSubunit": null,
+      "sourceTitle": "立方公分",
+      "domainTags": [
+        "domain_measurement",
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "volume_cm3",
+        "volume"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula",
+        "qk_measurement_conversion"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine",
+        "futureGeometryFormulaEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u01_5a01",
+      "sourceCode": "5a01",
+      "sourceId": "g5a_u01_5a01",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u01",
+      "sourceSubunit": null,
+      "sourceTitle": "多位小數與加減",
+      "domainTags": [
+        "domain_decimal"
+      ],
+      "canonicalSkillTags": [
+        "decimal_add_sub",
+        "decimal_place_value"
+      ],
+      "questionKindTags": [
+        "qk_decimal"
+      ],
+      "supportStatusTags": [
+        "futureDecimalDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u02_5a02a",
+      "sourceCode": "5a02a",
+      "sourceId": "g5a_u02_5a02a",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u02",
+      "sourceSubunit": "a",
+      "sourceTitle": "因數",
+      "domainTags": [
+        "domain_number_sense"
+      ],
+      "canonicalSkillTags": [
+        "factor"
+      ],
+      "questionKindTags": [
+        "qk_factor_multiple"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u02_5a02a1",
+      "sourceCode": "5a02a1",
+      "sourceId": "g5a_u02_5a02a1",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u02",
+      "sourceSubunit": "a1",
+      "sourceTitle": "因數",
+      "domainTags": [
+        "domain_number_sense"
+      ],
+      "canonicalSkillTags": [
+        "factor"
+      ],
+      "questionKindTags": [
+        "qk_factor_multiple"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u03_5a03a",
+      "sourceCode": "5a03a",
+      "sourceId": "g5a_u03_5a03a",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u03",
+      "sourceSubunit": "a",
+      "sourceTitle": "倍數",
+      "domainTags": [
+        "domain_number_sense"
+      ],
+      "canonicalSkillTags": [
+        "multiple"
+      ],
+      "questionKindTags": [
+        "qk_factor_multiple"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u03_5a03a1",
+      "sourceCode": "5a03a1",
+      "sourceId": "g5a_u03_5a03a1",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u03",
+      "sourceSubunit": "a1",
+      "sourceTitle": "公倍數",
+      "domainTags": [
+        "domain_number_sense"
+      ],
+      "canonicalSkillTags": [
+        "common_multiple"
+      ],
+      "questionKindTags": [
+        "qk_factor_multiple"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u04_5a04",
+      "sourceCode": "5a04",
+      "sourceId": "g5a_u04_5a04",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u04",
+      "sourceSubunit": null,
+      "sourceTitle": "擴分約分通分",
+      "domainTags": [
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "equivalent_fraction",
+        "simplify_fraction",
+        "common_denominator"
+      ],
+      "questionKindTags": [
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u05_5a05a",
+      "sourceCode": "5a05a",
+      "sourceId": "g5a_u05_5a05a",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u05",
+      "sourceSubunit": "a",
+      "sourceTitle": "多邊形與平面圖形",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "polygon",
+        "plane_geometry"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u05_5a05a1",
+      "sourceCode": "5a05a1",
+      "sourceId": "g5a_u05_5a05a1",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u05",
+      "sourceSubunit": "a1",
+      "sourceTitle": "扇形與圓心角",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "sector",
+        "central_angle"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u06_5a06",
+      "sourceCode": "5a06",
+      "sourceId": "g5a_u06_5a06",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u06",
+      "sourceSubunit": null,
+      "sourceTitle": "異分母分數加減",
+      "domainTags": [
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "unlike_denominator_fraction_add_sub"
+      ],
+      "questionKindTags": [
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u07_5a07",
+      "sourceCode": "5a07",
+      "sourceId": "g5a_u07_5a07",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u07",
+      "sourceSubunit": null,
+      "sourceTitle": "線對稱圖形",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "line_symmetry"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u08_5a08",
+      "sourceCode": "5a08",
+      "sourceId": "g5a_u08_5a08",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u08",
+      "sourceSubunit": null,
+      "sourceTitle": "整數四則",
+      "domainTags": [
+        "domain_operation"
+      ],
+      "canonicalSkillTags": [
+        "integer_mixed_operations",
+        "operation_precedence"
+      ],
+      "questionKindTags": [
+        "qk_expression"
+      ],
+      "supportStatusTags": [
+        "v1ExpressionSupported"
+      ],
+      "deepMappingPriority": "v1_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u09_5a09",
+      "sourceCode": "5a09",
+      "sourceId": "g5a_u09_5a09",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u09",
+      "sourceSubunit": null,
+      "sourceTitle": "面積",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "geometry_area"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula",
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "futureGeometryFormulaEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u10_5a10a",
+      "sourceCode": "5a10a",
+      "sourceId": "g5a_u10_5a10a",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u10",
+      "sourceSubunit": "a",
+      "sourceTitle": "柱體錐體和球",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "solid_geometry",
+        "prism_cone_sphere"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5a_u10_5a10a1",
+      "sourceCode": "5a10a1",
+      "sourceId": "g5a_u10_5a10a1",
+      "grade": 5,
+      "semester": "g5a",
+      "unit": "u10",
+      "sourceSubunit": "a1",
+      "sourceTitle": "正方體和長方體",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "cube_cuboid",
+        "volume"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula",
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "futureGeometryFormulaEngine",
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u01_5b01",
+      "sourceCode": "5b01",
+      "sourceId": "g5b_u01_5b01",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u01",
+      "sourceSubunit": null,
+      "sourceTitle": "體積",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "volume"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula",
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "futureGeometryFormulaEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u02_5b02",
+      "sourceCode": "5b02",
+      "sourceId": "g5b_u02_5b02",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u02",
+      "sourceSubunit": null,
+      "sourceTitle": "分數的計算",
+      "domainTags": [
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "fraction_operations"
+      ],
+      "questionKindTags": [
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u03_5b03",
+      "sourceCode": "5b03",
+      "sourceId": "g5b_u03_5b03",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u03",
+      "sourceSubunit": null,
+      "sourceTitle": "容積",
+      "domainTags": [
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "capacity_volume"
+      ],
+      "questionKindTags": [
+        "qk_measurement_conversion",
+        "qk_geometry_formula"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u04_5b04",
+      "sourceCode": "5b04",
+      "sourceId": "g5b_u04_5b04",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u04",
+      "sourceSubunit": null,
+      "sourceTitle": "小數的乘法",
+      "domainTags": [
+        "domain_decimal"
+      ],
+      "canonicalSkillTags": [
+        "decimal_multiplication"
+      ],
+      "questionKindTags": [
+        "qk_decimal"
+      ],
+      "supportStatusTags": [
+        "futureDecimalDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u05_5b05a",
+      "sourceCode": "5b05a",
+      "sourceId": "g5b_u05_5b05a",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u05",
+      "sourceSubunit": "a",
+      "sourceTitle": "數的十進位結構",
+      "domainTags": [
+        "domain_number_sense",
+        "domain_decimal"
+      ],
+      "canonicalSkillTags": [
+        "decimal_place_value",
+        "base10_structure"
+      ],
+      "questionKindTags": [
+        "qk_number_sense",
+        "qk_decimal"
+      ],
+      "supportStatusTags": [
+        "futureDecimalDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u06_5b06",
+      "sourceCode": "5b06",
+      "sourceId": "g5b_u06_5b06",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u06",
+      "sourceSubunit": null,
+      "sourceTitle": "整數小數除以整數",
+      "domainTags": [
+        "domain_decimal"
+      ],
+      "canonicalSkillTags": [
+        "decimal_division_by_integer",
+        "integer_division"
+      ],
+      "questionKindTags": [
+        "qk_decimal"
+      ],
+      "supportStatusTags": [
+        "futureDecimalDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u07_5b07",
+      "sourceCode": "5b07",
+      "sourceId": "g5b_u07_5b07",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u07",
+      "sourceSubunit": null,
+      "sourceTitle": "表面積",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "surface_area"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula",
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "futureGeometryFormulaEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u08_5b08",
+      "sourceCode": "5b08",
+      "sourceId": "g5b_u08_5b08",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u08",
+      "sourceSubunit": null,
+      "sourceTitle": "比率與百分率",
+      "domainTags": [
+        "domain_ratio_speed"
+      ],
+      "canonicalSkillTags": [
+        "ratio_percent"
+      ],
+      "questionKindTags": [
+        "qk_ratio_percent"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u09_5b09",
+      "sourceCode": "5b09",
+      "sourceId": "g5b_u09_5b09",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u09",
+      "sourceSubunit": null,
+      "sourceTitle": "時間的乘除",
+      "domainTags": [
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "time_multiplication_division"
+      ],
+      "questionKindTags": [
+        "qk_measurement_conversion",
+        "qk_word_problem"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u10_5b10a",
+      "sourceCode": "5b10a",
+      "sourceId": "g5b_u10_5b10a",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u10",
+      "sourceSubunit": "a",
+      "sourceTitle": "生活中的大單位",
+      "domainTags": [
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "large_units"
+      ],
+      "questionKindTags": [
+        "qk_measurement_conversion"
+      ],
+      "supportStatusTags": [
+        "futureMeasurementEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g5b_u11_5b11",
+      "sourceCode": "5b11",
+      "sourceId": "g5b_u11_5b11",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u11",
+      "sourceSubunit": null,
+      "sourceTitle": "長條圖與折線圖",
+      "domainTags": [
+        "domain_data"
+      ],
+      "canonicalSkillTags": [
+        "bar_chart",
+        "line_graph"
+      ],
+      "questionKindTags": [
+        "qk_chart_data"
+      ],
+      "supportStatusTags": [
+        "requiresChartDataEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6a_u01_6a01",
+      "sourceCode": "6a01",
+      "sourceId": "g6a_u01_6a01",
+      "grade": 6,
+      "semester": "g6a",
+      "unit": "u01",
+      "sourceSubunit": null,
+      "sourceTitle": "最大公因數與最小公倍數",
+      "domainTags": [
+        "domain_number_sense"
+      ],
+      "canonicalSkillTags": [
+        "gcd",
+        "lcm"
+      ],
+      "questionKindTags": [
+        "qk_factor_multiple"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6a_u02_6a02",
+      "sourceCode": "6a02",
+      "sourceId": "g6a_u02_6a02",
+      "grade": 6,
+      "semester": "g6a",
+      "unit": "u02",
+      "sourceSubunit": null,
+      "sourceTitle": "分數除法",
+      "domainTags": [
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "fraction_division"
+      ],
+      "questionKindTags": [
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6a_u03_6a03",
+      "sourceCode": "6a03",
+      "sourceId": "g6a_u03_6a03",
+      "grade": 6,
+      "semester": "g6a",
+      "unit": "u03",
+      "sourceSubunit": null,
+      "sourceTitle": "數量關係規律問題",
+      "domainTags": [
+        "domain_pattern_relationship"
+      ],
+      "canonicalSkillTags": [
+        "quantity_relationship",
+        "pattern_sequence"
+      ],
+      "questionKindTags": [
+        "qk_relationship",
+        "qk_pattern_sequence",
+        "qk_word_problem"
+      ],
+      "supportStatusTags": [
+        "requiresWordProblemTemplate"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6a_u04_6a04",
+      "sourceCode": "6a04",
+      "sourceId": "g6a_u04_6a04",
+      "grade": 6,
+      "semester": "g6a",
+      "unit": "u04",
+      "sourceSubunit": null,
+      "sourceTitle": "小數除法",
+      "domainTags": [
+        "domain_decimal"
+      ],
+      "canonicalSkillTags": [
+        "decimal_division"
+      ],
+      "questionKindTags": [
+        "qk_decimal"
+      ],
+      "supportStatusTags": [
+        "futureDecimalDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6a_u05_6a05",
+      "sourceCode": "6a05",
+      "sourceId": "g6a_u05_6a05",
+      "grade": 6,
+      "semester": "g6a",
+      "unit": "u05",
+      "sourceSubunit": null,
+      "sourceTitle": "比和比值",
+      "domainTags": [
+        "domain_ratio_speed"
+      ],
+      "canonicalSkillTags": [
+        "ratio_value"
+      ],
+      "questionKindTags": [
+        "qk_ratio_percent"
+      ],
+      "supportStatusTags": [
+        "plannedOnly"
+      ],
+      "deepMappingPriority": "planned_only",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6a_u06_6a06",
+      "sourceCode": "6a06",
+      "sourceId": "g6a_u06_6a06",
+      "grade": 6,
+      "semester": "g6a",
+      "unit": "u06",
+      "sourceSubunit": null,
+      "sourceTitle": "圓周長與扇形周長",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "geometry_perimeter",
+        "circle_circumference",
+        "sector_arc_length"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula"
+      ],
+      "supportStatusTags": [
+        "futureGeometryFormulaEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6a_u07_6a07",
+      "sourceCode": "6a07",
+      "sourceId": "g6a_u07_6a07",
+      "grade": 6,
+      "semester": "g6a",
+      "unit": "u07",
+      "sourceSubunit": null,
+      "sourceTitle": "圓面積和扇形面積",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "circle_area",
+        "sector_area"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula"
+      ],
+      "supportStatusTags": [
+        "futureGeometryFormulaEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6a_u08_6a08",
+      "sourceCode": "6a08",
+      "sourceId": "g6a_u08_6a08",
+      "grade": 6,
+      "semester": "g6a",
+      "unit": "u08",
+      "sourceSubunit": null,
+      "sourceTitle": "速率",
+      "domainTags": [
+        "domain_ratio_speed",
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "speed"
+      ],
+      "questionKindTags": [
+        "qk_word_problem",
+        "qk_relationship"
+      ],
+      "supportStatusTags": [
+        "requiresWordProblemTemplate"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6a_u09_6a09",
+      "sourceCode": "6a09",
+      "sourceId": "g6a_u09_6a09",
+      "grade": 6,
+      "semester": "g6a",
+      "unit": "u09",
+      "sourceSubunit": null,
+      "sourceTitle": "縮圖放大圖與比例尺",
+      "domainTags": [
+        "domain_ratio_speed",
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "scale_drawing",
+        "scale"
+      ],
+      "questionKindTags": [
+        "qk_visual_geometry",
+        "qk_ratio_percent"
+      ],
+      "supportStatusTags": [
+        "requiresVisualGenerator"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6b_u01_6b01",
+      "sourceCode": "6b01",
+      "sourceId": "g6b_u01_6b01",
+      "grade": 6,
+      "semester": "g6b",
+      "unit": "u01",
+      "sourceSubunit": null,
+      "sourceTitle": "小數與分數的計算",
+      "domainTags": [
+        "domain_decimal",
+        "domain_fraction"
+      ],
+      "canonicalSkillTags": [
+        "decimal_fraction_operations",
+        "fraction_operations"
+      ],
+      "questionKindTags": [
+        "qk_decimal",
+        "qk_fraction"
+      ],
+      "supportStatusTags": [
+        "futureDecimalDomain",
+        "futureFractionDomain"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6b_u02_6b02",
+      "sourceCode": "6b02",
+      "sourceId": "g6b_u02_6b02",
+      "grade": 6,
+      "semester": "g6b",
+      "unit": "u02",
+      "sourceSubunit": null,
+      "sourceTitle": "速率",
+      "domainTags": [
+        "domain_ratio_speed",
+        "domain_measurement"
+      ],
+      "canonicalSkillTags": [
+        "speed"
+      ],
+      "questionKindTags": [
+        "qk_word_problem",
+        "qk_relationship"
+      ],
+      "supportStatusTags": [
+        "requiresWordProblemTemplate"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6b_u03_6b03",
+      "sourceCode": "6b03",
+      "sourceId": "g6b_u03_6b03",
+      "grade": 6,
+      "semester": "g6b",
+      "unit": "u03",
+      "sourceSubunit": null,
+      "sourceTitle": "柱體體積與表面積",
+      "domainTags": [
+        "domain_geometry"
+      ],
+      "canonicalSkillTags": [
+        "prism_volume",
+        "volume",
+        "surface_area"
+      ],
+      "questionKindTags": [
+        "qk_geometry_formula",
+        "qk_visual_geometry"
+      ],
+      "supportStatusTags": [
+        "futureGeometryFormulaEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6b_u04_6b04",
+      "sourceCode": "6b04",
+      "sourceId": "g6b_u04_6b04",
+      "grade": 6,
+      "semester": "g6b",
+      "unit": "u04",
+      "sourceSubunit": null,
+      "sourceTitle": "基準量與比較量",
+      "domainTags": [
+        "domain_ratio_speed"
+      ],
+      "canonicalSkillTags": [
+        "base_quantity",
+        "comparison_quantity"
+      ],
+      "questionKindTags": [
+        "qk_ratio_percent",
+        "qk_word_problem"
+      ],
+      "supportStatusTags": [
+        "requiresWordProblemTemplate"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6b_u05_6b05",
+      "sourceCode": "6b05",
+      "sourceId": "g6b_u05_6b05",
+      "grade": 6,
+      "semester": "g6b",
+      "unit": "u05",
+      "sourceSubunit": null,
+      "sourceTitle": "怎樣解題康軒版",
+      "domainTags": [
+        "domain_word_problem_strategy"
+      ],
+      "canonicalSkillTags": [
+        "problem_solving_strategy"
+      ],
+      "questionKindTags": [
+        "qk_word_problem"
+      ],
+      "supportStatusTags": [
+        "requiresWordProblemTemplate"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    },
+    {
+      "curriculumNodeCandidateId": "g6b_u06_6b06",
+      "sourceCode": "6b06",
+      "sourceId": "g6b_u06_6b06",
+      "grade": 6,
+      "semester": "g6b",
+      "unit": "u06",
+      "sourceSubunit": null,
+      "sourceTitle": "圓形圖",
+      "domainTags": [
+        "domain_data"
+      ],
+      "canonicalSkillTags": [
+        "pie_chart"
+      ],
+      "questionKindTags": [
+        "qk_chart_data"
+      ],
+      "supportStatusTags": [
+        "requiresChartDataEngine"
+      ],
+      "deepMappingPriority": "future_priority",
+      "extractionStatus": "shallow_candidate",
+      "sourceAuthorityStatus": "metadata_backed"
+    }
+  ]
+}

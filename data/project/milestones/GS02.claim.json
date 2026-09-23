@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "taskId": "GS02_G5AU08_GlobalContext18FamilyExpansion",
+  "taskClass": "content",
+  "targetEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "actualEvidenceLevel": "E2_CONTENT_AUTHORED",
+  "claimedStatus": "GS02_18_FAMILY_CANDIDATE_CONTENT_PASS_PENDING_EXACT_HEAD_CI_AND_MERGE",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": true,
+    "runtimeIntegrated": false,
+    "productionEquivalentGeneratorUsed": false,
+    "productionRendererUsed": false,
+    "htmlOutputVerified": false,
+    "pdfOutputVerified": false,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [],
+    "rendererTestPaths": [],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/curriculum/context/registry/gs02-g5a-u08-global-context-families.json",
+      "data/curriculum/context/registry/gs02-g5a-u08-unit-context-bindings.json",
+      "docs/curriculum/output/GS02_G5AU08_GLOBAL_CONTEXT_COVERAGE.json",
+      "tools/curriculum/build-gs02-g5a-u08-global-context-expansion.mjs",
+      "tools/curriculum/validate-gs02-g5a-u08-global-context-expansion.mjs",
+      "tests/curriculum/gs02-g5a-u08-global-context-expansion.test.js"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D2",
+    "after": "D2",
+    "distanceReduced": "G5A-U08 now has an explicit global candidate corpus of 18 event-structure families, 54 surface templates, 90 recomputable QA seeds and 18 unit bindings, while production and runtime admission remain correctly blocked."
+  },
+  "nextStep": {
+    "taskId": "GS03_G5AU08_GoldenContractFreeze",
+    "requiredEvidenceLevelBeforeStart": "E2_CONTENT_AUTHORED"
+  }
+}

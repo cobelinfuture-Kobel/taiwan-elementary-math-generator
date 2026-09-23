@@ -1,0 +1,171 @@
+{
+  "schemaName": "PGCR08A00PublicGenerateButtonEndToEndScopeV1",
+  "schemaVersion": 1,
+  "programId": "PUBLIC_KP_GENERATION_CONFORMANCE_V1",
+  "selectionTaskId": "PGC-R07-A05_D0Closed_SelectNextApprovedProgram",
+  "taskId": "PGC-R08-A00_PublicGenerateButtonEndToEndAuthorityAndMatrixFreeze",
+  "selectedNextProgramId": "PGC-R08_PublicGenerateButtonEndToEndAcceptance",
+  "status": "PASS_R08_A00_PUBLIC_GENERATE_BUTTON_E2E_SCOPE_FROZEN",
+  "programGoal": "直接驗證使用者實際操作公開 UI，而不是只呼叫底層 Generator。",
+  "preconditions": {
+    "r07TaskId": "PGC-R07-A05_FinalSurfaceParityReconciliationAndCloseout",
+    "r07Status": "PASS_R07_A05_SURFACE_RENDERER_PRINT_PARITY_RECONCILED_AND_D0_CLOSED",
+    "r07GoalDistance": "D0_R07_REAL_PRINT_AND_SURFACE_PARITY_CLOSED",
+    "r07SurfaceProjectionGate": "12/12",
+    "r07RendererBranchGate": "4/4",
+    "r07AcceptanceDimensionGate": "7/7",
+    "r07RealChromiumPdfCount": 14,
+    "r07RepairQueueCount": 0,
+    "slice014Started": false,
+    "slice014FreezeRequiredThrough": "PGC-R09_PublicGenerationD0Closeout"
+  },
+  "sourceAuthorities": {
+    "publicScope": "data/curriculum/public-generation/public_generation_scope.json",
+    "capabilityMatrix": "data/curriculum/public-generation/public_generation_capability_matrix.json",
+    "capacityContract": "data/curriculum/public-generation/generator_capacity_contract.json",
+    "uiBindingContract": "data/curriculum/public-generation/ui_capability_binding_contract.json",
+    "r07Closeout": "data/curriculum/public-generation/PGC-R07-A05.final-surface-parity-closeout.json",
+    "publicUiEntry": "site/index.html",
+    "generateButton": "site/index.html#generate-button",
+    "previewEntry": "site/assets/browser/pipeline/render-preview-frame.js#renderPreviewFrame",
+    "printEntry": "site/assets/browser/pipeline/render-preview-frame.js#printPreviewFrame"
+  },
+  "matrixAuthority": {
+    "routeAuthority": "generator_capacity_contract.routes where legalRoute=true",
+    "routeCount": 1155,
+    "legalRouteCount": 793,
+    "illegalRouteCount": 362,
+    "verified20RouteCount": 724,
+    "verifiedLimitedRouteCount": 69,
+    "zeroCapacityRouteCount": 0,
+    "diversityGapRouteCount": 0,
+    "hardBlockerCount": 0,
+    "questionCountPerRoute": 20,
+    "executionSurface": "CLASSIC",
+    "executionEntryPath": "site/index.html",
+    "surfaceMultiplicationPolicy": "DO_NOT_MULTIPLY_BY_SURFACE_AFTER_R07_D0_PARITY",
+    "routeIdentityFields": [
+      "routeId",
+      "sourceId",
+      "selectionMode",
+      "selectedKnowledgePointIds",
+      "questionType",
+      "depthMode",
+      "contextMode"
+    ]
+  },
+  "userJourney": [
+    "OPEN_PUBLIC_UI",
+    "SELECT_KNOWLEDGE_POINT",
+    "SELECT_QUESTION_TYPE",
+    "SELECT_QUESTION_FORM",
+    "SELECT_DEPTH",
+    "SELECT_CONTEXT",
+    "INPUT_20_QUESTIONS",
+    "PRESS_GENERATE",
+    "CHECK_GENERATED_RESULT",
+    "PRESS_REGENERATE",
+    "OPEN_PREVIEW",
+    "EXECUTE_PRINT",
+    "VERIFY_ANSWER_KEY"
+  ],
+  "perRouteGateCodes": [
+    "UI_OPTIONS_PASS",
+    "GENERATE_BUTTON_PASS",
+    "QUESTION_COUNT_PASS",
+    "QUESTION_IDENTITY_PASS",
+    "ANSWER_VALIDATION_PASS",
+    "REGENERATE_PASS",
+    "HTML_PASS",
+    "PDF_PASS",
+    "ANSWER_KEY_PASS"
+  ],
+  "perRouteAcceptance": {
+    "uiOptionsRequired": true,
+    "generateButtonRequired": true,
+    "questionCountExpected": 20,
+    "questionIdentityRequired": true,
+    "answerValidationRequired": true,
+    "regenerateRequired": true,
+    "regenerateMustChangeQuestionIdentity": true,
+    "htmlRequired": true,
+    "realChromiumPdfRequired": true,
+    "answerKeyRequired": true,
+    "answerKeyItemCountExpected": 20,
+    "browserConsoleErrorsAllowed": 0,
+    "browserPageErrorsAllowed": 0
+  },
+  "forbiddenSubstituteEvidence": [
+    "DIRECT_NODE_FUNCTION_EXECUTION",
+    "UNIT_TEST_PASS_ONLY",
+    "COMMITTED_PDF_EXISTS",
+    "METADATA_DECLARES_SUPPORT",
+    "PATTERN_SPEC_EXISTS"
+  ],
+  "requiredOutputs": {
+    "acceptanceJson": "data/curriculum/public-generation/public_generate_button_acceptance.json",
+    "matrixCsv": "docs/curriculum/output/public_capability_e2e_matrix.csv",
+    "failedCombinationReport": "docs/curriculum/output/failed_combination_report.md",
+    "browserArtifactDirectory": "tmp/browser_acceptance_artifacts"
+  },
+  "orderedMilestones": [
+    "PGC-R08-A00_PublicGenerateButtonEndToEndAuthorityAndMatrixFreeze",
+    "PGC-R08-A01_LegalRouteBrowserAcceptanceMatrixMaterialization",
+    "PGC-R08-A02_PublicGenerateButtonCanaryAndHarnessQualification",
+    "PGC-R08-A03_AllLegalRoutesBrowserAcceptanceExecution",
+    "PGC-R08-A04_FailedCombinationFullFixAndReplay",
+    "PGC-R08-A05_FinalEndToEndReconciliationAndCloseout"
+  ],
+  "a00Gate": {
+    "programIdentityFrozen": true,
+    "legalRouteAuthorityFrozen": true,
+    "legalRouteCountFrozen": true,
+    "questionCountFrozen": true,
+    "executionSurfaceFrozen": true,
+    "userJourneyFrozen": true,
+    "perRouteGateCodesFrozen": true,
+    "forbiddenSubstitutesFrozen": true,
+    "requiredOutputsFrozen": true,
+    "orderedMilestonesFrozen": true
+  },
+  "exactHeadEvidence": {
+    "pullRequest": 483,
+    "acceptedHeadSha": "4ca1c2de53f8571c21238e24cc23640a7c9cb67f",
+    "nodeWorkflowRunId": 30563639136,
+    "nodeWorkflowRunNumber": 4409,
+    "pgcR00WorkflowRunId": 30563638497,
+    "pgcR00WorkflowRunNumber": 189,
+    "testCount": 2717,
+    "passCount": 2717,
+    "failCount": 0,
+    "nodeTest": "PASS",
+    "pgcR00Gate": "PASS",
+    "browserExecution": "NOT_APPLICABLE_A00_SCOPE_FREEZE"
+  },
+  "frozenBoundary": {
+    "newKnowledgePointAllowed": false,
+    "newPatternGroupAllowed": false,
+    "newPatternSpecAllowed": false,
+    "newGeneratorAllowed": false,
+    "secondValidatorAllowed": false,
+    "secondRendererAllowed": false,
+    "uiVisualRedesignAllowed": false,
+    "routeCountMutationAllowedInA00": false,
+    "browserExecutionAllowedInA00": false,
+    "slice014Allowed": false,
+    "batchExpansionAllowed": false,
+    "newWorkflowAllowed": false
+  },
+  "goalDistance": {
+    "before": "D1_R07_D0_CLOSED_PUBLIC_GENERATE_BUTTON_ALL_ROUTE_E2E_UNPROVEN",
+    "after": "D1_R08_PUBLIC_GENERATE_BUTTON_E2E_SCOPE_AND_MATRIX_CONTRACT_FROZEN",
+    "distanceReduced": "selected the approved R08 program and froze the 793-route real public UI user journey, nine per-route gates and browser artifact contract",
+    "remainingBlockers": [
+      "LEGAL_ROUTE_BROWSER_MATRIX_NOT_MATERIALIZED",
+      "PUBLIC_GENERATE_BUTTON_CANARY_NOT_QUALIFIED",
+      "ALL_793_LEGAL_ROUTES_NOT_EXECUTED",
+      "FAILED_COMBINATION_QUEUE_NOT_RECONCILED"
+    ],
+    "nextShortestStep": "PGC-R08-A01_LegalRouteBrowserAcceptanceMatrixMaterialization"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "taskId": "P03D_W3ProtectedD0CompatibilityRevalidation",
+  "taskClass": "runtime",
+  "targetEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "actualEvidenceLevel": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED",
+  "claimedStatus": "W3_PROTECTED_D0_COMPATIBILITY_REVALIDATED",
+  "claims": {
+    "dataStructureReady": true,
+    "contentAuthored": false,
+    "runtimeIntegrated": true,
+    "productionEquivalentGeneratorUsed": true,
+    "productionRendererUsed": true,
+    "htmlOutputVerified": true,
+    "pdfOutputVerified": true,
+    "visibleOutputChanged": false,
+    "humanReviewReady": false,
+    "productionAdmitted": false,
+    "d0Complete": false
+  },
+  "evidence": {
+    "runtimeTestPaths": [
+      "src/curriculum/full-product/p03d-w3-protected-d0-compatibility-revalidation.mjs",
+      "tools/curriculum/validate-p03d-w3-protected-d0-compatibility-revalidation.mjs",
+      "tests/curriculum/p03d-w3-protected-d0-compatibility-revalidation.test.js",
+      "tests/curriculum/p03d-w3-protected-d0-compatibility-integration.test.js"
+    ],
+    "rendererTestPaths": [
+      "tools/curriculum/render-p03d-protected-d0-compatibility.mjs",
+      "site/modules/renderer/html-renderer-s73-extension.js",
+      ".github/workflows/node-test.yml"
+    ],
+    "htmlArtifactPaths": [],
+    "pdfArtifactPaths": [],
+    "beforeAfterEvidencePaths": [
+      "data/project/milestones/FPL-P03C.claim.json",
+      "src/curriculum/full-product/p03c-w3-capability-closeout-product-unblock.mjs",
+      "data/curriculum/full-product/p03d/protected-d0-compatibility-revalidation-policy.json",
+      "data/curriculum/full-product/p03d/protected-d0-compatibility-revalidation.manifest.json",
+      "data/curriculum/public/15-unit-public-worksheet-closeout.json",
+      "docs/curriculum/contracts/P03D_W3_PROTECTED_D0_COMPATIBILITY_REVALIDATION_CONTRACT.md",
+      "docs/curriculum/output/P03D_W3_PROTECTED_D0_COMPATIBILITY_REVALIDATION_READBACK.md"
+    ],
+    "reviewArtifactPaths": [],
+    "artifactHashes": []
+  },
+  "humanReview": {
+    "type": "none",
+    "canUnlockProduction": false,
+    "reviewArtifactRequired": false
+  },
+  "distance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "The four protected existing-D0 KnowledgePoints are revalidated after the W3 capability cutover through their exact public selector, generator, validator, answer-key, HTML, Chromium PDF and print paths without changing their product content or admission identity."
+  },
+  "nextStep": {
+    "taskId": "P03E_W3DirectProductVerticalSliceQueueFreeze",
+    "requiredEvidenceLevelBeforeStart": "E4_PRODUCTION_EQUIVALENT_OUTPUT_VERIFIED"
+  }
+}

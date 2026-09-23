@@ -1,0 +1,18 @@
+S43E5_R4M_LOCAL_PASS
+
+sourceId = g3b_u01_3b01
+operator_readback = tests 410, pass 410, fail 0, working tree clean
+status = PASS_LOCAL_TESTS
+
+validated:
+- print CSS pagination fix passed local node test suite
+- renderer CSS pagination regression tests passed
+
+remaining:
+- manual regenerated PDF smoke
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U01_PDF_LAYOUT_FIX_PENDING_READBACK
+GOAL_DISTANCE_AFTER = D1_G3B_U01_PDF_LAYOUT_FIX_LOCAL_TEST_PASS
+DISTANCE_REDUCED = print CSS pagination fix passed local automated validation
+REMAINING_BLOCKERS = manual regenerated PDF smoke
+NEXT_SHORTEST_STEP = proceed to S44A while manual PDF smoke can be checked separately

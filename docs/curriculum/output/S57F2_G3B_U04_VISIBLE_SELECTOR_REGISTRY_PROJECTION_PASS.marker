@@ -1,0 +1,53 @@
+TASK = S57F2_G3B_U04_VisibleSelectorRegistryProjection_CIRerunAndMerge
+STATUS = PASS_CI_SYNCED_AND_MERGED
+SOURCE_ID = g3b_u04_3b04
+UNIT = 3B-U04 兩步驟計算
+PR = 14
+PR_URL = https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/pull/14
+PR_HEAD_SHA = 8e23b063208955c4cd662dec8de1abdd7271a7ad
+MERGE_COMMIT = 73051114e3b9253c9cfcb9e209f9e6071070f527
+
+PR_CI = PASS
+PR_CI_RUN = 29086257953
+PR_CI_TESTS = 624
+PR_CI_PASS = 624
+PR_CI_FAIL = 0
+PR_CI_WORKING_TREE = clean
+
+MAIN_CI = PASS_CI_SYNCED_AND_CLEAN
+MAIN_CI_RUN = 29086338282
+MAIN_CI_TESTS = 624
+MAIN_CI_PASS = 624
+MAIN_CI_FAIL = 0
+MAIN_CI_WORKING_TREE = clean
+
+VISIBLE_KNOWLEDGE_POINTS = 9
+VISIBLE_SEMANTIC_PATTERN_GROUPS = 9
+VISIBLE_NUMERIC_PATTERN_GROUPS = 1
+VISIBLE_PATTERN_GROUPS_TOTAL = 10
+PROMOTED_SEMANTIC_PATTERN_SPECS = 32
+PRESERVED_NUMERIC_PATTERN_SPECS = 1
+TOTAL_PATTERN_SPEC_MEMBERSHIPS = 33
+HISTORICAL_S43E6_ROWS_VISIBLE = 0
+DUPLICATE_KP_IDS = 0
+DUPLICATE_PATTERN_GROUP_IDS = 0
+DUPLICATE_SEMANTIC_PATTERN_SPEC_MEMBERSHIPS = 0
+
+RESOLVER_BEHAVIOR_CHANGED = false
+PRODUCTION_ELIGIBILITY_CHANGED = false
+CANONICAL_ROUTER_CHANGED = false
+WORKSHEET_RENDERER_CHANGED = false
+PUBLIC_HIDDEN_MODE_EXPOSED = false
+
+GOAL_DISTANCE_BEFORE = D1_G3B_U04_VISIBLE_SELECTOR_PROJECTION_IMPLEMENTED_CI_BLOCKED
+GOAL_DISTANCE_AFTER = D1_G3B_U04_VISIBLE_SELECTOR_PROJECTION_CLOSED_RESOLVER_NOT_INTEGRATED
+DISTANCE_REDUCED = Restored the upstream CI baseline, reran all PR gates successfully, merged the visible selector projection, and verified main at 624/624 with a clean working tree.
+REMAINING_BLOCKERS = [
+  "visible resolver and browser state are not connected",
+  "canonical router does not yet route resolver-derived semantic allocation",
+  "production eligibility remains unchanged",
+  "canonical worksheet long-text profile is not integrated",
+  "public selector and print controls have not completed S57F6 QA",
+  "public HTML/PDF promotion closeout has not completed"
+]
+NEXT_SHORTEST_STEP = S57F3_G3B_U04_ResolverAndBrowserStateIntegration

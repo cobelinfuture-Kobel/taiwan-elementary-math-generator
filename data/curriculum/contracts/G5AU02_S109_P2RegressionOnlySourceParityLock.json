@@ -1,0 +1,112 @@
+{
+  "schemaName": "G5AU02P2RegressionOnlySourceParityLock",
+  "schemaVersion": 1,
+  "task": "G5AU02-S109_P2RegressionOnlySourceParityLock",
+  "unitId": "g5a_u02",
+  "contractStatus": "implemented_pending_ci",
+  "authority": {
+    "programTask": "G5AU02-S105_P1P2SourceParityMilestoneDefinition",
+    "programPath": "data/curriculum/contracts/G5AU02_S105_P1P2SourceParityMilestoneDefinition.json",
+    "sourceAuditTask": "G5AU02-S98_All22SourceMethodAndRepresentationParityAudit",
+    "runtimeMutationAllowed": false,
+    "learnerFacingMutationAllowed": false,
+    "validatorMutationAllowed": false,
+    "rendererMutationAllowed": false,
+    "browserBundleMutationAllowed": false
+  },
+  "globalInvariants": {
+    "patternSpecIdsStable": true,
+    "knowledgePointIdsStable": true,
+    "patternGroupIdsStable": true,
+    "formalMappingIdsStable": true,
+    "answerModelIdsStable": true,
+    "deterministicGenerationRequired": true,
+    "canonicalAnswerRecomputationRequired": true,
+    "answerLeakageForbidden": true,
+    "traditionalChineseRequired": true,
+    "freeFormAI": "forbidden",
+    "genericFallback": "forbidden",
+    "runtimeWebSearch": "forbidden",
+    "crossUnitChangeForbidden": true,
+    "gctxFileChangeForbidden": true
+  },
+  "patternContracts": [
+    {
+      "patternOrder": 10,
+      "patternSpecId": "ps_g5a_u02_equal_partition_range_constrained_recipients",
+      "priority": "P2",
+      "sourceEvidence": ["g5a_u02_5a02a:p1:right-bottom"],
+      "answerModelId": "integerListWithUnitAnswer",
+      "sourceParityStatus": "PASS_LOCKED",
+      "requiredPromptRoles": [
+        "recipient range",
+        "equal share",
+        "no remainder",
+        "all feasible recipient counts"
+      ],
+      "canonicalRecomputation": "factors(total) filtered by minRecipients <= value <= maxRecipients",
+      "legacyMutationCode": "G5AU02_EQUAL_PARTITION_NONDIVISOR"
+    },
+    {
+      "patternOrder": 18,
+      "patternSpecId": "ps_g5a_u02_maximum_equal_grouping",
+      "priority": "P2",
+      "sourceEvidence": ["g5a_u02_5a02a1:p1:left-middle"],
+      "answerModelId": "integerAnswer",
+      "sourceParityStatus": "PASS_LOCKED",
+      "requiredPromptRoles": [
+        "both quantities",
+        "all items used",
+        "equal composition per group",
+        "maximum group count"
+      ],
+      "canonicalRecomputation": "gcd(red, blue)",
+      "legacyMutationCode": "G5AU02_GCF_NOT_MAXIMUM"
+    },
+    {
+      "patternOrder": 19,
+      "patternSpecId": "ps_g5a_u02_possible_equal_packaging_counts",
+      "priority": "P2",
+      "sourceEvidence": ["g5a_u02_5a02a1:p1:right-middle"],
+      "answerModelId": "integerListWithUnitAnswer",
+      "sourceParityStatus": "PASS_LOCKED",
+      "requiredPromptRoles": [
+        "both quantities",
+        "all items used",
+        "equal quantity of each type per box",
+        "all possible box counts"
+      ],
+      "canonicalRecomputation": "complete common-factor set of quantityA and quantityB",
+      "legacyMutationCode": "G5AU02_EQUAL_PARTITION_NONDIVISOR"
+    }
+  ],
+  "acceptance": {
+    "canonicalSeedsPerPattern": 64,
+    "canonicalPatternCount": 3,
+    "canonicalScenarioCount": 192,
+    "publicSeedsPerPattern": 64,
+    "publicPatternCount": 3,
+    "publicScenarioCount": 192,
+    "negativeMutationPatternCount": 3,
+    "deterministicReplayRequired": true,
+    "publicQuestionDisplayModelChangeExpected": false,
+    "fullRegressionRequired": true,
+    "scopeGuardRequired": true
+  },
+  "allowedChangePaths": [
+    ".github/workflows/g5a-u02-s109-regression-only-source-parity-lock.yml",
+    "data/curriculum/contracts/G5AU02_S109_P2RegressionOnlySourceParityLock.json",
+    "docs/curriculum/architecture/G5AU02_S109_P2RegressionOnlySourceParityLock.md",
+    "docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PENDING.marker",
+    "docs/curriculum/output/G5AU02_S109_P2_REGRESSION_ONLY_SOURCE_PARITY_PASS.marker",
+    "tests/curriculum/g5a-u02-s109-regression-only-source-parity-lock.test.js"
+  ],
+  "distance": {
+    "goalDistanceBefore": "D1_G5A_U02_S108_REMAINDER_TRANSFER_CONTEXT_FIXED_AND_MERGED",
+    "goalDistanceAfter": "D1_G5A_U02_S109_REGRESSION_ONLY_SOURCE_PARITY_LOCK_PENDING_CI",
+    "distanceReduced": "orders 10, 18 and 19 receive executable source-parity regression contracts without creating a second runtime authority",
+    "remainingBlockers": ["S109 CI acceptance", "merge", "S110"],
+    "d0Eligible": false,
+    "nextShortestStep": "accept and merge S109, then execute G5AU02-S110_All22IntegratedSemanticRendererHTMLPDFAcceptanceAndD0Closeout"
+  }
+}

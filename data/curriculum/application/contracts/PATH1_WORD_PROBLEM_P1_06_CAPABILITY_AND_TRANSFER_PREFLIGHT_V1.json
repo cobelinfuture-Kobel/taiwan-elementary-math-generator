@@ -1,0 +1,278 @@
+{
+  "schemaName": "Path1WordProblemP106CapabilityAndTransferPreflightV1",
+  "schemaVersion": 1,
+  "taskId": "PATH1_WORD_PROBLEM_P1_06_CAPABILITY_AND_TRANSFER_PREFLIGHT_V1",
+  "status": "P1_06_ESTIMATE_TRIAL_QUOTIENT_PREFLIGHT_LOCKED_NO_RUNTIME",
+  "operatorScope": "APPROVED_PREFLIGHT_ONLY",
+  "mainAtTaskStart": "2fbdae816e2018425d5759ce13cde22d1403426c",
+  "implementationAllowed": false,
+  "runtimeChanged": false,
+  "publicCutoverAllowed": false,
+  "publicBindingMutationAllowed": false,
+  "path1MatrixChanged": false,
+  "newCanonicalKnowledgePointMinted": false,
+  "newRelationMinted": false,
+  "newPatternSpecMaterialized": false,
+  "scope": {
+    "includedPathBlock": "P1-06",
+    "title": "估商",
+    "goal": "Determine P1-06's source-backed capability boundary and whether a word-problem modeling transfer is justified before any implementation.",
+    "excluded": [
+      "P1-07 商的位值 implementation or authority changes",
+      "P1-08 二位數除數 implementation or authority changes",
+      "P1-09 or later division-envelope expansion",
+      "P1-11 remainder interpretation/checking transfer",
+      "P1-12 inverse equal-groups transfer or public cutover",
+      "G4A-U04 canonical generator/validator/registry mutation",
+      "Path1 matrix mutation",
+      "public binding mutation",
+      "public query/UI changes",
+      "word-problem relation minting",
+      "mastery integration",
+      "full repository regression",
+      "global browser replay"
+    ]
+  },
+  "authorityRefs": {
+    "path1Matrix": "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+    "g4aU04KnowledgeOperation": "data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json",
+    "g4aU04PatternDefinitions": "site/modules/curriculum/batch-a/source-pattern-g4a-u04-extension.js",
+    "g4aU04Generator": "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+    "path1PublicBinding": "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+    "wordProblemCapabilityInventory": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_CAPABILITY_INVENTORY_V1.json",
+    "registeredSupplementaryCorpora": "data/curriculum/application/reviews/PATH1_WORD_PROBLEM_SOURCE_CORPUS_ADDITION_V1.json",
+    "validationPolicy": ".github/ci/unit-validation-policy.json"
+  },
+  "currentMatrixAuthority": {
+    "blockId": "P1-06",
+    "blockType": "COMPOSITE_KP",
+    "primaryKnowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "requiredPrerequisiteBlockIds": ["P1-05"],
+    "optionalSupportingKnowledgePointIds": [
+      "kp_g4a_u04_2digit_by_2digit_ten_multiple_divisor"
+    ],
+    "requiredPatternId": "estimate_trial_quotient",
+    "patternExpansionKind": "DESCRIPTIVE_DIFFICULTY_EXPANSION",
+    "patternExpansionDescription": "以除數量級與前位關係估商、試商；不宣告新的 canonical KP。"
+  },
+  "canonicalArithmeticAuthority": {
+    "sourceId": "g4a_u04_4a04",
+    "sourceFileName": "batchA_02-題型總覽-4a04-整數的除法.pdf",
+    "sourceDriveFileId": "1KgODz4ieK6XTFlV9OlqqXLtuDksP0t1f",
+    "applicationCapabilityAtCanonicalUnit": "NOT_APPLICABLE",
+    "primaryModels": [
+      {
+        "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+        "knowledgePointName": "3位數除以2位數：十位夠除",
+        "operationModelId": "op_g4a_u04_3digit_by_2digit_tens_sufficient",
+        "patternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+        "constraints": [
+          "100 <= dividend <= 999",
+          "10 <= divisor <= 99",
+          "firstTwoDigits >= divisor",
+          "0 <= remainder < divisor",
+          "quotient starts at tens place"
+        ]
+      },
+      {
+        "knowledgePointId": "kp_g4a_u04_3digit_by_2digit_tens_insufficient",
+        "knowledgePointName": "3位數除以2位數：十位不夠除",
+        "operationModelId": "op_g4a_u04_3digit_by_2digit_tens_insufficient",
+        "patternSpecId": "ps_g4a_u04_3digit_by_2digit_tens_insufficient",
+        "constraints": [
+          "100 <= dividend <= 999",
+          "10 <= divisor <= 99",
+          "firstTwoDigits < divisor",
+          "0 <= remainder < divisor",
+          "quotient starts at ones place"
+        ]
+      }
+    ],
+    "sharedInvariants": [
+      "quotient = floor(dividend / divisor)",
+      "remainder = dividend % divisor",
+      "dividend = divisor * quotient + remainder",
+      "0 <= remainder < divisor"
+    ]
+  },
+  "sourceBackedCapabilityFinding": {
+    "distinctiveCapability": "ESTIMATE_AND_TRIAL_QUOTIENT_ARITHMETIC_STRATEGY",
+    "notANewRelation": true,
+    "primarySourceSupports": [
+      "2位數除以2位數時，除數先用整十估算",
+      "3位數除以2位數第一型：十位夠除",
+      "3位數除以2位數第二型：十位不夠除"
+    ],
+    "interpretation": "P1-06 teaches how to estimate a two-digit divisor and use that estimate while executing division. The difficulty is an arithmetic/representation strategy layered on the two canonical quotient-start cases, not a quantity-relation modeling family."
+  },
+  "transferDecision": {
+    "decision": "DO_NOT_ADMIT_GENERIC_WORD_PROBLEM_MODELING_TRANSFER_IN_P1_06_V1",
+    "reasoning": [
+      "The canonical G4A-U04 authority marks these KPs applicationCapability NOT_APPLICABLE.",
+      "The Path1 matrix explicitly names estimate_trial_quotient as a descriptive difficulty expansion rather than a relation pattern.",
+      "School exams directly assess divisor-to-whole-ten estimation through selection/fill representations and then exact division, providing strong representation evidence without requiring a story relation.",
+      "Division story problems found in the same exam corpus require quotative/partitive or remainder interpretation semantics, which are separate relation capabilities and would cross the P1-11/P1-12 boundary.",
+      "P1-12 remains the formal Path1 inverse equal-groups relation stage and is intentionally not pulled forward."
+    ],
+    "relationId": null,
+    "unknownRole": null,
+    "wordProblemPracticeModePlanned": false,
+    "p112AuthorityReused": false
+  },
+  "schoolExamEvidence": [
+    {
+      "fileId": "17Xn_khLxO9AQfl5a4on07lf0SuvytvPg",
+      "title": "數學_109 上學期_四年級_彰化縣_縣立茄荖國小_第二次段考(期中考)_南一_試卷.pdf",
+      "positiveWitnesses": [
+        "下面哪個除數最適合看成30來估商？",
+        "98÷38，可將除數38看成幾十來估商",
+        "785÷92，可將除數92看成幾十來估商"
+      ],
+      "excludedSameFileWitness": "998顆巧克力、每36顆一盒、求盒數與餘數 belongs to division-relation/remainder interpretation, not P1-06 estimate-trial-quotient authority"
+    },
+    {
+      "fileId": "1WlXVM_G-gk_A9gvjof2j0C4cekL8umdw",
+      "title": "數學_112 上學期_四年級_彰化縣_縣立成功國小_第二次段考(期中考)_南一_試卷.pdf",
+      "positiveWitnesses": [
+        "59÷11，可以把除數11看成幾十來估商"
+      ],
+      "excludedSameFileWitnesses": [
+        "302÷42 商是幾位數 belongs to P1-07 商的位值 boundary",
+        "4048人搭368人飛機需要幾架 belongs to remainder/ceil context interpretation rather than P1-06"
+      ]
+    },
+    {
+      "fileId": "1knMV1ZIQ5dnUsfV28VuSbuZgBvLE1jrM",
+      "title": "數學_108 上學期_四年級_臺北市_市立成德國小_第一次段考(期中考)_康軒_試卷.pdf",
+      "positiveWitnesses": [
+        "86÷47 中，把除數47看成哪一個整十數估商比較快"
+      ],
+      "excludedSameFileWitness": "equal-group division application items are relation modeling evidence for later Path1 stages, not P1-06 estimate strategy authority"
+    }
+  ],
+  "liTeacherEvidence": {
+    "lectureFileId": "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+    "practiceFileId": "1ewWwnh4GayBL9dC-GPLZAJaDJ7egsHKU",
+    "directP106EstimateQuotientPatternWitnessFound": false,
+    "supportedUse": "The corpus separates calculation strategy from named application-problem modules, consistent with the project capability inventory's computation/modeling separation.",
+    "newP106PatternAdmissionFromLiTeacher": false,
+    "mustNotFabricateP106SpecificLiTeacherEvidence": true
+  },
+  "representationDecision": {
+    "strategy": "PATH1_LOCAL_ESTIMATE_TRIAL_QUOTIENT_REPRESENTATION_LAYER",
+    "candidateLocalPatternSpecIds": [
+      "P106_ESTIMATE_DIVISOR_TENS_SELECT",
+      "P106_ESTIMATE_DIVISOR_TENS_FILL",
+      "P106_ESTIMATE_THEN_DIVIDE_TENS_SUFFICIENT",
+      "P106_ESTIMATE_THEN_DIVIDE_TENS_INSUFFICIENT"
+    ],
+    "candidateMeaning": [
+      "Select the most appropriate whole-ten approximation for the divisor.",
+      "Fill the whole-ten approximation for the divisor.",
+      "Use an explicit estimate-first scaffold before exact 3-digit by 2-digit division in the tens-sufficient canonical case.",
+      "Use an explicit estimate-first scaffold before exact 3-digit by 2-digit division in the tens-insufficient canonical case."
+    ],
+    "newCanonicalKnowledgePointRequired": false,
+    "newRelationRequired": false,
+    "newContextFamilyRequired": false,
+    "multipleChoicePresentationMayBeLocal": true,
+    "exactDivisionAnswerMustStillUseCanonicalQuotientAndRemainder": true
+  },
+  "roundingEvidenceBoundary": {
+    "observedExamples": [
+      "11 -> 10",
+      "38 -> 40",
+      "47 -> 50",
+      "92 -> 90"
+    ],
+    "primarySourceAlsoVisuallySupports": [
+      "12 -> 10",
+      "14 -> 10",
+      "18 -> 20"
+    ],
+    "candidateEstimateRepresentationDivisorOnesDigits": [1,2,3,4,6,7,8,9],
+    "divisorsEndingInZero": "EXACT_TENS_TRIVIAL_NOT_REQUIRED_AS_ESTIMATION_WITNESS",
+    "divisorsEndingInFive": "DEFER_TIE_CONVENTION_UNTIL_EXPLICIT_SOURCE_WITNESS_OR_EXISTING_AUTHORITY_IS IDENTIFIED",
+    "canonicalArithmeticDomainStillRemains": "10..99 for the existing two primary KPs; this representation witness restriction does not narrow canonical arithmetic authority"
+  },
+  "publicBindingReconciliation": {
+    "matrixPrimaryKnowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "currentPublicBindingKnowledgePointIds": [
+      "kp_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "kp_g4a_u04_3digit_by_2digit_tens_insufficient"
+    ],
+    "status": "ALIGNED_NO_BINDING_DRIFT",
+    "publicBindingChangeRequired": false
+  },
+  "futureImplementationContract": {
+    "taskId": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_IMPLEMENTATION_V1",
+    "implementationType": "NON_PUBLIC_PATH1_LOCAL_REPRESENTATION_AND_VALIDATION_LAYER",
+    "implementationRequiresSeparateOperatorApproval": true,
+    "mustReuseCanonicalArithmeticAuthority": true,
+    "mustNotCreateWordProblemRelation": true,
+    "mustNotModify": [
+      "data/curriculum/learning-paths/path1-integer-foundations.curriculum-matrix.json",
+      "data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json",
+      "site/modules/curriculum/batch-a/source-pattern-g4a-u04-extension.js",
+      "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+      "site/modules/curriculum/learning-paths/path1-public-worksheet-binding.js",
+      "site/assets/browser/pipeline/build-path1-manual-worksheet-practice-mode-entry.js",
+      "site/assets/browser/state/path1-manual-query-state.js",
+      "site/assets/browser/path1-manual.js",
+      "site/path1/index.html",
+      "P1-07 or later runtime",
+      "P1-12 runtime/public route"
+    ]
+  },
+  "futureValidatorContract": {
+    "failClosed": true,
+    "requiredChecks": [
+      "block is exactly P1-06",
+      "knowledgePointId is one of the two matrix-primary G4A-U04 P1-06 KPs",
+      "dividend is 100..999 and divisor is 10..99",
+      "quotient and remainder reconstruct dividend and remainder is less than divisor",
+      "tens_sufficient item has firstTwoDigits >= divisor and quotient starts at tens place",
+      "tens_insufficient item has firstTwoDigits < divisor and quotient starts at ones place",
+      "estimate-choice/fill representations only use source-backed unambiguous divisor endings unless a later authority explicitly resolves the 5-tie convention",
+      "no application relation, unknown-role modeling, unit conversion, remainder context interpretation, or quotient-place teaching is introduced",
+      "no new canonical KP is minted"
+    ]
+  },
+  "boundaryWithAdjacentBlocks": {
+    "P1-07": "Owns 商的位值 as the next explicit learning target; P1-06 must not turn '商是幾位數' into a new P1-06 Pattern family.",
+    "P1-08": "Owns broader 二位數除數 practice and includes the optional 2-digit-by-2-digit ten-multiple support KP; P1-06 remains estimate/trial strategy over its two primary KPs.",
+    "P1-11": "Owns remainder and verification emphasis; P1-06 may compute a canonical remainder but must not teach context-dependent remainder interpretation.",
+    "P1-12": "Owns formal multiply/divide inverse relation and unknown-role rotation; no P1-12 relation semantics are pulled forward."
+  },
+  "validationPolicy": {
+    "currentScope": "KP_LEAF",
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false,
+    "derivedGate": "KP_FOCUSED",
+    "fullRepositoryRegressionRequired": false,
+    "globalBrowserReplayRequired": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D3_P106_CANONICAL_KPS_AND_SOURCE_EXIST_TRANSFER_BOUNDARY_UNRESOLVED",
+    "goalDistanceAfterTarget": "D2_P106_ESTIMATE_TRIAL_QUOTIENT_MAPPING_PATTERN_CANDIDATES_AND_VALIDATOR_BOUNDARY_LOCKED",
+    "distanceReduced": "Resolve that P1-06 is a source-backed estimate/trial-quotient arithmetic strategy rather than a word-problem relation, and lock the shortest implementation boundary without crossing P1-07/P1-11/P1-12.",
+    "remainingBlockers": [
+      "P106_ESTIMATE_TRIAL_QUOTIENT_IMPLEMENTATION_APPROVAL_REQUIRED",
+      "P106_LOCAL_REPRESENTATION_PATTERNS_NOT_MATERIALIZED",
+      "P106_LOCAL_VALIDATOR_NOT_MATERIALIZED",
+      "P106_NON_PUBLIC_WORKSHEET_NOT_MATERIALIZED",
+      "P106_PUBLIC_CUTOVER_NOT_PLANNED"
+    ],
+    "nextShortestStep": "PATH1_P1_06_ESTIMATE_TRIAL_QUOTIENT_IMPLEMENTATION_V1"
+  }
+}
