@@ -1,0 +1,172 @@
+{
+  "schemaName": "P07FW7Q013G5BU08RateAndPercentageQuantityImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice013Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q013_G5BU08_TWO_KP_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q013_TWO_KP_RATE_AND_PERCENTAGE_QUANTITY_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "dfaba522ac5d8f20dadcd99bb0e4a7dd09066ef9",
+  "preflight": {
+    "prNumber": 1045,
+    "mergeSha": "e05d3bd1913b23c69e4decf35584bcff02d905bb",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q013-g5b-u08-rate-and-percentage-quantity-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q012Status": "PASS_E6_D0_COMPLETE",
+    "q012MergeSha": "f027803e242d40a81d7c5bee16a3503ba3072e01",
+    "q012PostMergeWorkflowRunId": 35809533255,
+    "q012DurableReadbackPath": "docs/ci/latest-p07f-w7-q012-pages-e2e.json",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q012_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 13,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q013_r10_g5b_u08_5b08_profile_ratio_percent_c1",
+    "previousSliceId": "p07e_q012_r9_g6a_u09_6a09_profile_geometry_formula_c1",
+    "sourceId": "g5b_u08_5b08",
+    "knowledgePointIds": [
+      "kp_g5b_u08_find_percentage_rate",
+      "kp_g5b_u08_percentage_of_quantity"
+    ],
+    "runtimeProfileId": "profile_ratio_percent",
+    "classificationRuleId": "rule_ratio_percent",
+    "appliedModifierIds": [],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_5b08_source.pdf",
+    "sourcePdfDriveFileId": "1k6bQoFDRjVNtHwOXPlD5Op9dnD5RpPrw",
+    "sourcePdfSizeBytes": 716229,
+    "sourcePdfSha256": "5f170aa99ab3a8bde561a8c6bf0cbacce5fc368ab4ea5c9a89ddbc6e0e45c9e7",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "directVisualEvidencePages": [
+      2
+    ],
+    "semanticAuthority": "R02_REVIEWED_CANDIDATES_PLUS_CURRENT_DIRECT_VISUAL_RATE_FROM_QUANTITIES_AND_PERCENTAGE_OF_QUANTITY_EVIDENCE",
+    "findPercentageRateSupportLevel": "DIRECT_LITERAL_APPLICATION",
+    "percentageOfQuantitySupportLevel": "DIRECT_LITERAL_APPLICATION_WITH_COMPLEMENT_OR_RECONSTRUCTION_STEP"
+  },
+  "prerequisiteContract": {
+    "byKnowledgePoint": {
+      "kp_g5b_u08_find_percentage_rate": [
+        "kp_g5b_u08_ratio_fraction_decimal_percent_conversion"
+      ],
+      "kp_g5b_u08_percentage_of_quantity": [
+        "kp_g5b_u02_fraction_of_quantity",
+        "kp_g5b_u08_ratio_fraction_decimal_percent_conversion"
+      ]
+    }
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 6,
+    "patternSpecIds": [
+      "ps_g5b_u08_rate_from_comparison_base",
+      "ps_g5b_u08_error_rate_from_correct_wrong",
+      "ps_g5b_u08_updated_shooting_rate",
+      "ps_g5b_u08_percentage_of_base_quantity",
+      "ps_g5b_u08_correct_quantity_from_error_rate",
+      "ps_g5b_u08_reconstruct_made_quantity"
+    ],
+    "includedRelations": [
+      "FIND_PERCENTAGE_RATE_FROM_COMPARISON_AND_BASE_QUANTITIES",
+      "PERCENTAGE_OF_BASE_QUANTITY",
+      "SOURCE_BACKED_ERROR_RATE_APPLICATION",
+      "SOURCE_BACKED_UPDATED_SHOOTING_RATE_APPLICATION",
+      "SOURCE_BACKED_CORRECT_QUANTITY_FROM_ERROR_RATE_APPLICATION"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentation": "text_application",
+    "maxQuestionCountPerKnowledgePoint": 240,
+    "deterministicGeneration": true,
+    "answerModel": "PERCENT_OR_NONNEGATIVE_INTEGER_QUANTITY",
+    "sourceBackedApplicationContextAllowed": true
+  },
+  "exactSourceExemplars": {
+    "errorRate": {
+      "correct": 38,
+      "wrong": 12,
+      "answerPercent": 24
+    },
+    "correctQuantityFromErrorRate": {
+      "total": 20,
+      "wrongRatePercent": 5,
+      "answerCorrect": 19
+    },
+    "updatedShootingRate": {
+      "initialAttempts": 100,
+      "initialRatePercent": 42,
+      "additionalAttempts": 20,
+      "additionalMade": 12,
+      "answerPercent": 45
+    },
+    "reconstructMadeQuantity": {
+      "attempts": 100,
+      "ratePercent": 42,
+      "answerMade": 42
+    }
+  },
+  "scopeGuard": {
+    "q008RepresentationConversionTeachingReowned": false,
+    "q016FindBaseQuantityTouched": false,
+    "q016DiscountIncreaseApplicationTouched": false,
+    "discountPriceApplicationTouched": false,
+    "markupThenDiscountApplicationTouched": false,
+    "sugarWaterRatioAsCoreTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q012ProductTouched": false,
+    "q014OrLaterProductTouched": false,
+    "q001ThroughQ012CurrentPointerCompatibilityTestOnlyMutationAllowed": true,
+    "q020CurrentPointerCompatibilityTestOnlyMutationAllowed": true,
+    "sharedRendererMutation": false,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}

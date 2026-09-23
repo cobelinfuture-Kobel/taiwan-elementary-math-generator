@@ -6,18 +6,12 @@ on:
       - "site/modules/curriculum/batch-a/source-units.js"
       - "site/modules/curriculum/registry/g6a-u09-scale-area-change-selector-projection-p07f12.js"
       - "site/modules/curriculum/registry/batch-a-selector-p07f12-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p07f12.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g6a-u09-scale-area-change-runtime-p07f12.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f12.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f12-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
       - "site/modules/renderer/scale-area-change-diagram-p07f12.js"
       - "site/modules/renderer/html-renderer.js"
-      - "site/modules/renderer/sector-elements-diagram.js"
-      - ".github/workflows/p07f-w7-q012-live-pages-e2e.yml"
 permissions:
   contents: write
 jobs:
@@ -82,3 +76,4 @@ jobs:
             sleep $((attempt * 5))
           done
           exit 1
+
