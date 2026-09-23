@@ -46,12 +46,12 @@ function updatedShooting(v){
   const u=mod(v,240);
   if(u===0)return Object.freeze({variant:u,targetKind:"UPDATED_RATE_PERCENT",semanticCore:"COMPARISON_QUANTITY_DIVIDED_BY_BASE_QUANTITY_GIVES_PERCENTAGE_RATE",
     promptText:"小明前 100 球的進球率是 42%，接著再投 20 球，投進 12 球。現在總進球率是多少？",
-    answerValue:45,answerText:"45%",answerKind:"PERCENT",initialAttempts:100,initialRatePercent:42,initialMade:42,additionalAttempts:20,additionalMade:12,totalAttempts:120,totalMade:54,ratePercent:45,
+    answerValue:45,answerText:"45%",answerKind:"PERCENT",initialAttempts:100,initialRatePercent:42,initialMade:42,additionalAttempts:20,additionalMade:12,totalAttempts:120,totalMade:54,baseQuantity:120,comparisonQuantity:54,ratePercent:45,
     denominatorIsBaseQuantityVerified:true,reconstructedComparisonQuantityVerified:true,sourceContext:"SOURCE_UPDATED_SHOOTING_RATE",sourceExemplarMatch:true});
   const t=u-1,idx=t%19,m=Math.floor(t/19)+1,initialAttempts=100+20*m,initialRatePercent=5*(idx+1),initialMade=initialAttempts*initialRatePercent/100,additionalAttempts=20+5*(m%4),additionalMade=1+mod(idx*3+m,additionalAttempts),totalAttempts=initialAttempts+additionalAttempts,totalMade=initialMade+additionalMade,ratePercent=Number((totalMade/totalAttempts*100).toFixed(2));
   return Object.freeze({variant:u,targetKind:"UPDATED_RATE_PERCENT",semanticCore:"COMPARISON_QUANTITY_DIVIDED_BY_BASE_QUANTITY_GIVES_PERCENTAGE_RATE",
     promptText:"某球員前 "+initialAttempts+" 球的進球率是 "+initialRatePercent+"%，接著再投 "+additionalAttempts+" 球，投進 "+additionalMade+" 球。現在總進球率是多少？（百分率四捨五入到小數點後兩位）",
-    answerValue:ratePercent,answerText:trim(ratePercent)+"%",answerKind:"PERCENT",initialAttempts,initialRatePercent,initialMade,additionalAttempts,additionalMade,totalAttempts,totalMade,ratePercent,
+    answerValue:ratePercent,answerText:trim(ratePercent)+"%",answerKind:"PERCENT",initialAttempts,initialRatePercent,initialMade,additionalAttempts,additionalMade,totalAttempts,totalMade,baseQuantity:totalAttempts,comparisonQuantity:totalMade,ratePercent,
     denominatorIsBaseQuantityVerified:true,reconstructedComparisonQuantityVerified:Number.isInteger(initialMade),sourceContext:"SOURCE_UPDATED_SHOOTING_RATE",sourceExemplarMatch:false});
 }
 function quantityDirect(v){
