@@ -6,38 +6,31 @@ import {materializeP07EW7DirectProductVerticalSliceQueue} from "../../src/curric
 const pre=JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p07f/q013-g5b-u08-rate-and-percentage-quantity-source-authority-preflight.json",import.meta.url),"utf8"));
 const kps=["kp_g5b_u08_find_percentage_rate","kp_g5b_u08_percentage_of_quantity"];
 const strip=e=>({edgeId:e.edgeId,fromKnowledgePointId:e.fromKnowledgePointId,toKnowledgePointId:e.toKnowledgePointId,dependencyStrength:e.dependencyStrength,dependencyRole:e.dependencyRole,alternativeGroupId:e.alternativeGroupId,distanceBearing:e.distanceBearing,rationale:e.rationale,evidenceRefs:e.evidenceRefs});
-const queue=materializeP07EW7DirectProductVerticalSliceQueue(),row=queue.queueEntries[12];
-if(row.sliceId!=="p07e_q013_r10_g5b_u08_5b08_profile_ratio_percent_c1"||JSON.stringify([...row.knowledgePointIds])!==JSON.stringify(kps))throw new Error("P07F_W7_Q013_QUEUE_IDENTITY");
-if(pre.sourceAuthority.currentVisualReadbackAuthority.findPercentageRateDirectVisualEvidence.directEvidencePresent!==true||pre.sourceAuthority.currentVisualReadbackAuthority.percentageOfQuantityDirectVisualEvidence.directEvidencePresent!==true)throw new Error("P07F_W7_Q013_SOURCE_VISUAL");
-const rows={};
+const row=materializeP07EW7DirectProductVerticalSliceQueue().queueEntries[12];
+if(pre.status!=="PASS_SOURCE_AUTHORITY_PREFLIGHT")throw new Error("P07F_W7_Q013_STATUS");
+if(row.sliceId!==pre.queueAuthority.sliceId||JSON.stringify([...row.knowledgePointIds])!==JSON.stringify(kps))throw new Error("P07F_W7_Q013_QUEUE");
 for(const kp of kps){
-  const r03=getR03DirectPrerequisites(kp).map(strip).sort((a,b)=>a.edgeId.localeCompare(b.edgeId));
-  const r04=getR04KnowledgePointCapabilityMapping(kp),r05=getR05DeliveryWaveAssignment(kp);
-  if(!r04||!r05)throw new Error("P07F_W7_Q013_EXECUTABLE_AUTHORITY_MISSING:"+kp);
-  rows[kp]={
-    r03IncomingEdges:r03,
-    r04:{
-      primaryRuntimeProfileId:r04.primaryRuntimeProfileId,
-      classificationRuleId:r04.classificationRuleId,
-      appliedModifierIds:[...(r04.appliedModifierIds??[])],
-      requiredRuntimeCapabilityIds:[...(r04.requiredRuntimeCapabilityIds??[])],
-      optionalRuntimeCapabilityIds:[...(r04.optionalRuntimeCapabilityIds??[])],
-      forbiddenRuntimeCapabilityIds:[...(r04.forbiddenRuntimeCapabilityIds??[])]
-    },
-    r05:{
-      baseDeliveryWaveId:r05.baseDeliveryWaveId,
-      deliveryWaveId:r05.deliveryWaveId,
-      waveEscalatedByPrerequisite:r05.waveEscalatedByPrerequisite,
-      prerequisiteWaveLowerBound:r05.prerequisiteWaveLowerBound,
-      intraWavePrerequisiteRank:r05.intraWavePrerequisiteRank
-    }
-  };
+  const actualR03=getR03DirectPrerequisites(kp).map(strip).sort((a,b)=>a.edgeId.localeCompare(b.edgeId));
+  const expectedR03=[...pre.prerequisiteGraphAuthority.byKnowledgePoint[kp].exactIncomingRequiredDistanceBearingEdges].sort((a,b)=>a.edgeId.localeCompare(b.edgeId));
+  if(JSON.stringify(actualR03)!==JSON.stringify(expectedR03))throw new Error("P07F_W7_Q013_R03:"+kp);
+  const r04=getR04KnowledgePointCapabilityMapping(kp),e04=pre.runtimeCapabilityAuthority.executableR04MappingsByKnowledgePoint[kp];
+  if(!r04||r04.primaryRuntimeProfileId!==e04.primaryRuntimeProfileId||r04.classificationRuleId!==e04.classificationRuleId||JSON.stringify([...r04.appliedModifierIds])!==JSON.stringify(e04.appliedModifierIds)||JSON.stringify([...r04.requiredRuntimeCapabilityIds])!==JSON.stringify(e04.requiredRuntimeCapabilityIds))throw new Error("P07F_W7_Q013_R04:"+kp);
+  const r05=getR05DeliveryWaveAssignment(kp),e05=pre.r05AssignmentAuthority.exactR05AssignmentsByKnowledgePoint[kp];
+  if(!r05||["baseDeliveryWaveId","deliveryWaveId","waveEscalatedByPrerequisite","prerequisiteWaveLowerBound","intraWavePrerequisiteRank"].some(key=>r05[key]!==e05[key]))throw new Error("P07F_W7_Q013_R05:"+kp);
 }
-console.log("P07F_W7_Q013_EXECUTABLE_DISCOVERY_READBACK="+JSON.stringify({
-  status:"EXECUTABLE_READBACK_DISCOVERED",
-  queuePosition:row.queuePosition,
-  sliceId:row.sliceId,
+if(pre.sourceAuthority.currentVisualReadbackAuthority.findPercentageRateDirectVisualEvidence.directEvidencePresent!==true||pre.sourceAuthority.currentVisualReadbackAuthority.percentageOfQuantityDirectVisualEvidence.directEvidencePresent!==true)throw new Error("P07F_W7_Q013_SOURCE_VISUAL");
+if(pre.preflightDecision.separateImplementationApprovalRequired!==true)throw new Error("P07F_W7_Q013_APPROVAL_BOUNDARY");
+console.log("P07F_W7_Q013_EXECUTABLE_READBACK="+JSON.stringify({
+  schemaName:"P07FW7Q013RateAndPercentageQuantitySourceAuthorityExecutableReadbackV1",
+  status:"READY_FOR_IMPLEMENTATION_APPROVAL",
+  queuePosition:pre.queueAuthority.queuePosition,
+  sliceId:pre.queueAuthority.sliceId,
   knowledgePointIds:kps,
-  requiredW7CapabilityIds:[...row.requiredW7CapabilityIds],
-  rows
+  sourceDirectEvidencePages:pre.sourceAuthority.currentQ013DirectEvidencePages,
+  r03:pre.prerequisiteGraphAuthority.byKnowledgePoint,
+  r04:pre.runtimeCapabilityAuthority.executableR04MappingsByKnowledgePoint,
+  r05:pre.r05AssignmentAuthority.exactR05AssignmentsByKnowledgePoint,
+  semanticProfileLocks:pre.semanticProfileLocks,
+  separateImplementationApprovalRequired:true,
+  nextTask:pre.preflightDecision.nextTask
 },null,2));

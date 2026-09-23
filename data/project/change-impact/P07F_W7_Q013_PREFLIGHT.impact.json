@@ -12,8 +12,8 @@
     "kp_g5b_u08_percentage_of_quantity"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g5b_u08_find_percentage_rate": "PREFLIGHT_EXECUTABLE_READBACK_PENDING",
-    "kp_g5b_u08_percentage_of_quantity": "PREFLIGHT_EXECUTABLE_READBACK_PENDING"
+    "kp_g5b_u08_find_percentage_rate": "PREFLIGHT_READY_FOR_IMPLEMENTATION_APPROVAL",
+    "kp_g5b_u08_percentage_of_quantity": "PREFLIGHT_READY_FOR_IMPLEMENTATION_APPROVAL"
   },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P07F_W7_Q013_PREFLIGHT.validation.json",
