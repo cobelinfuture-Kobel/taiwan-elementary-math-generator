@@ -218,12 +218,131 @@
     "reasonPartialImplementationForbidden": "Frozen Q016 queue row groups both rank-11 ratio-percent KPs; implementation may not silently split the row or drop the unsupported reverse-base target."
   },
   "executableAuthorityReadback": {
-    "pending": true,
-    "discoveryPrNumber": null,
-    "discoveryHeadSha": null,
-    "discoveryPrGateRunId": null,
-    "discoveryPrGateStatus": "PENDING",
-    "targets": []
+    "pending": false,
+    "discoveryPrNumber": 1052,
+    "discoveryHeadSha": "e2ead3190db787bc633bc6f896422b79393a984b",
+    "discoveryPrGateRunId": 35871392096,
+    "discoveryPrGateStatus": "PASS_DISCOVERY_READBACK",
+    "targets": [
+      {
+        "knowledgePointId": "kp_g5b_u08_find_base_quantity_percent",
+        "r03IncomingEdges": [
+          {
+            "edgeId": "kpe_r03_0488",
+            "fromKnowledgePointId": "kp_g5b_u08_find_percentage_rate",
+            "toKnowledgePointId": "kp_g5b_u08_find_base_quantity_percent",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「由兩量求百分率」提供不可缺少的數量關係模型，因此是「由百分率反求基準量」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g5b_u08_5b08"
+            ]
+          },
+          {
+            "edgeId": "kpe_r03_0489",
+            "fromKnowledgePointId": "kp_g5b_u08_percentage_of_quantity",
+            "toKnowledgePointId": "kp_g5b_u08_find_base_quantity_percent",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「求百分率對應量」提供不可缺少的數量關係模型，因此是「由百分率反求基準量」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g5b_u08_5b08"
+            ]
+          }
+        ],
+        "r04": {
+          "primaryRuntimeProfileId": "profile_ratio_percent",
+          "classificationRuleId": "rule_ratio_percent",
+          "appliedModifierIds": [],
+          "requiredRuntimeCapabilityIds": [
+            "cap_pattern_spec_resolution",
+            "cap_deterministic_answer_model",
+            "cap_worksheet_document_assembly",
+            "cap_answer_key_projection",
+            "cap_html_print_renderer",
+            "cap_ratio_percent_reasoning",
+            "cap_ratio_rate_validator",
+            "cap_text_application_representation"
+          ],
+          "optionalRuntimeCapabilityIds": [],
+          "forbiddenRuntimeCapabilityIds": []
+        },
+        "r05": {
+          "baseDeliveryWaveId": "R05-W7",
+          "deliveryWaveId": "R05-W7",
+          "waveEscalatedByPrerequisite": false,
+          "prerequisiteWaveLowerBound": 7,
+          "intraWavePrerequisiteRank": 11
+        }
+      },
+      {
+        "knowledgePointId": "kp_g5b_u08_percent_discount_increase_application",
+        "r03IncomingEdges": [
+          {
+            "edgeId": "kpe_r03_0491",
+            "fromKnowledgePointId": "kp_g5a_u08_mixed_operation_order",
+            "toKnowledgePointId": "kp_g5b_u08_percent_discount_increase_application",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「KP1」提供不可缺少的數量關係模型，因此是「折扣與增減百分率」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g5a_u08_5a08",
+              "source:g5b_u08_5b08"
+            ]
+          },
+          {
+            "edgeId": "kpe_r03_0492",
+            "fromKnowledgePointId": "kp_g5b_u08_percentage_of_quantity",
+            "toKnowledgePointId": "kp_g5b_u08_percent_discount_increase_application",
+            "dependencyStrength": "required",
+            "dependencyRole": "relation_model_foundation",
+            "alternativeGroupId": null,
+            "distanceBearing": true,
+            "rationale": "「求百分率對應量」提供不可缺少的數量關係模型，因此是「折扣與增減百分率」的直接前置能力。",
+            "evidenceRefs": [
+              "source:g5b_u08_5b08"
+            ]
+          }
+        ],
+        "r04": {
+          "primaryRuntimeProfileId": "profile_ratio_percent",
+          "classificationRuleId": "rule_ratio_percent",
+          "appliedModifierIds": [
+            "mod_application_semantics"
+          ],
+          "requiredRuntimeCapabilityIds": [
+            "cap_pattern_spec_resolution",
+            "cap_deterministic_answer_model",
+            "cap_worksheet_document_assembly",
+            "cap_answer_key_projection",
+            "cap_html_print_renderer",
+            "cap_ratio_percent_reasoning",
+            "cap_ratio_rate_validator",
+            "cap_text_application_representation",
+            "cap_relation_model_binding",
+            "cap_word_problem_semantic_validation"
+          ],
+          "optionalRuntimeCapabilityIds": [
+            "cap_global_context_binding",
+            "cap_pbl_task_set_projection"
+          ],
+          "forbiddenRuntimeCapabilityIds": []
+        },
+        "r05": {
+          "baseDeliveryWaveId": "R05-W7",
+          "deliveryWaveId": "R05-W7",
+          "waveEscalatedByPrerequisite": false,
+          "prerequisiteWaveLowerBound": 7,
+          "intraWavePrerequisiteRank": 11
+        }
+      }
+    ]
   },
   "semanticOwnershipLock": {
     "findBaseQuantityPercent": {
@@ -275,9 +394,9 @@
     "predecessorQ015D0Verified": true,
     "sourceIdentityBound": true,
     "exactTwoKnowledgePointIdentityBound": true,
-    "exactR03Bound": false,
-    "exactR04Bound": false,
-    "exactR05Bound": false,
+    "exactR03Bound": true,
+    "exactR04Bound": true,
+    "exactR05Bound": true,
     "findBaseQuantityPercentSourceAuthoritySufficient": false,
     "percentDiscountIncreaseApplicationSourceAuthoritySufficient": true,
     "newSupplementaryEvidenceRequiredForFindBaseQuantityPercent": true,
