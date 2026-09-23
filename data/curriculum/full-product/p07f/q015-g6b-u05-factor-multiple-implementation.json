@@ -1,0 +1,140 @@
+{
+  "schemaName": "P07FW7Q015G6BU05FactorMultipleImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice015Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q015_TWO_KP_SOURCE_AUTHORITY_RECONCILED_AND_SEMANTIC_OWNERSHIP_LOCKED",
+    "after": "D1_Q015_FACTOR_MULTIPLE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "ff4054de056137eb47eb635ebe99dc49d157afff",
+  "supplementaryEvidenceRepair": {
+    "prNumber": 1050,
+    "mergeSha": "ff4054de056137eb47eb635ebe99dc49d157afff",
+    "status": "PASS_SUPPLEMENTARY_EVIDENCE_RECONCILED_TWO_KP_SEMANTIC_OWNERSHIP_LOCKED_IMPLEMENTATION_APPROVAL_REQUIRED",
+    "path": "data/curriculum/full-product/p07f/q015-g6b-u05-sum-multiple-supplementary-evidence-authority-repair.json"
+  },
+  "predecessorD0": {
+    "q014Status": "PASS_E6_D0_COMPLETE",
+    "q014MergeSha": "17186675396824566613f86ddad4ee29929f184c",
+    "q014PostMergeWorkflowRunId": 35818450969,
+    "q014DurableReadbackPath": "docs/ci/latest-p07f-w7-q014-pages-e2e.json",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q014_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 15,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q015_r10_g6b_u05_6b05_profile_factor_multiple_c1",
+    "previousSliceId": "p07e_q014_r10_g6a_u07_6a07_profile_geometry_formula_c1",
+    "sourceId": "g6b_u05_6b05",
+    "knowledgePointIds": [
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_sum_multiple_problem"
+    ],
+    "runtimeProfileId": "profile_factor_multiple",
+    "classificationRuleId": "rule_factor_multiple",
+    "appliedModifierIds": [],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "originalCurriculumSource": {
+      "driveFileId": "19lrR3_bvpKIoJq5DsKaiQOUecsCzNDsl",
+      "sha256": "1be6a253b422a427bf4a20a09ee478400f39a11e9b817c1acee308e5f6b9403b",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "differenceMultipleDirectEvidence": true,
+      "sumMultipleDirectEvidence": false
+    },
+    "supplementarySumMultipleEvidence": {
+      "driveFileId": "1-m7SwI4NcyWEhyymQ9gE3mL_KeDE21Wc",
+      "sha256": "b69d5e746ccc8c986dce156edcb92f7a75c2fad60dccf185a6894013d52d0467",
+      "page": 1,
+      "location": "二、填填看，第5題",
+      "exactRelation": "larger=5*smaller; sum=480; smaller=80; larger=400"
+    }
+  },
+  "prerequisiteContract": {
+    "kp_g6b_u05_difference_multiple_problem": [
+      "kp_g4a_u08_num_add_sub_left_assoc",
+      "kp_g6a_u05_ratio_partition_application"
+    ],
+    "kp_g6b_u05_sum_multiple_problem": [
+      "kp_g6a_u05_ratio_partition_application"
+    ]
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_factor_multiple_reasoning",
+      "cap_factor_multiple_validator",
+      "cap_text_numeric_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 4,
+    "patternSpecIds": [
+      "ps_g6b_u05_difference_multiple_find_smaller",
+      "ps_g6b_u05_difference_multiple_find_larger",
+      "ps_g6b_u05_sum_multiple_find_smaller",
+      "ps_g6b_u05_sum_multiple_find_larger"
+    ],
+    "includedSemanticCores": [
+      "DIFFERENCE_MULTIPLE_RELATION_MODEL",
+      "SUM_MULTIPLE_RELATION_MODEL"
+    ],
+    "questionMode": "numeric",
+    "representation": "text_numeric_factor_multiple_relation",
+    "applicationContextMode": "DIRECT_RELATION_TEXT_ONLY",
+    "maxQuestionCountPerKnowledgePoint": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_INTEGER"
+  },
+  "scopeGuard": {
+    "sumDifferenceProblemReowned": false,
+    "ageOrRepeatedRelationReowned": false,
+    "workOrDistributionStrategyReowned": false,
+    "affineMultipleOffsetUsed": false,
+    "combinatoricsUsed": false,
+    "routeCountingUsed": false,
+    "genericApplicationOverlayUsed": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q014ProductTouched": false,
+    "q016OrLaterProductTouched": false,
+    "sharedRendererMutation": false,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
