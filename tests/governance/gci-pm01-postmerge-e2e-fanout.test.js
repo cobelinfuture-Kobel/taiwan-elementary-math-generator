@@ -51,8 +51,8 @@ test("GCI-PM01 policy is tied to Q010 D0 evidence and exact observed fanout",()=
   assert.equal(policy.baselineObservedFanout.totalPushWorkflowRuns,41);
   assert.equal(policy.baselineObservedFanout.slicePostMergeE2EWorkflowRuns,38);
   assert.equal(policy.baselineObservedFanout.historicalSliceWorkflowRuns,37);
-  assert.equal(policy.historicalCutoverWorkflows.length,43);
-  assert.equal(new Set(policy.historicalCutoverWorkflows).size,43);
+  assert.equal(policy.historicalCutoverWorkflows.length,44);
+  assert.equal(new Set(policy.historicalCutoverWorkflows).size,44);
 });
 
 test("historical cutover workflows no longer watch volatile shared paths or their own workflow file",()=>{
@@ -75,16 +75,16 @@ test("exactly one W5/W6/W7 slice E2E owns each volatile shared trigger path",()=
   }
 });
 
-test("Q016 is the single current shared-path owner and Q015 is demoted to owned paths only",()=>{
+test("Q017 is the single current shared-path owner and Q016 is demoted to owned paths only",()=>{
   const current=policy.activeCurrentSliceWorkflow;
   assert.equal(fs.existsSync(current),true);
   const paths=pushPaths(current);
   for(const shared of policy.volatileSharedTriggerPaths)assert.ok(paths.includes(shared),shared);
   assert.ok(paths.includes(current),"current workflow remains self-observing while it is current");
   const text=fs.readFileSync(current,"utf8");
-  assert.match(text,/name: P07F W7 Q016 Post-Merge Pages E2E/);
-  assert.match(text,/node tools\/curriculum\/run-p07f-w7-q016-live-pages-e2e\.mjs/);
-  assert.ok(policy.historicalCutoverWorkflows.includes(".github/workflows/p07f-w7-q015-live-pages-e2e.yml"));
+  assert.match(text,/name: P07F W7 Q017 Post-Merge Pages E2E/);
+  assert.match(text,/node tools\/curriculum\/run-p07f-w7-q017-live-pages-e2e\.mjs/);
+  assert.ok(policy.historicalCutoverWorkflows.includes(".github/workflows/p07f-w7-q016-live-pages-e2e.yml"));
   assert.match(text,/Persist durable Pages E2E readback/);
 });
 
