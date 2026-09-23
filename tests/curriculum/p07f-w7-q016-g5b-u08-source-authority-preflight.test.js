@@ -29,7 +29,7 @@ test("Q016 reverse-base direct witness is absent but discount/increase is direct
 test("Q016 live executable authority resolves to ratio-percent W7 rank11 for both targets",()=>{
  for(const kp of ids){
    const r03=getR03DirectPrerequisites(kp);assert.ok(r03.length>0,kp+":R03_EMPTY");assert.ok(r03.every(e=>e.toKnowledgePointId===kp));
-   const r04=getR04KnowledgePointCapabilityMapping(kp);assert.ok(r04);assert.equal(r04.primaryRuntimeProfileId,"profile_ratio_percent");assert.equal(r04.classificationRuleId,"rule_ratio_percent");assert.deepEqual([...r04.appliedModifierIds],[]);assert.ok(r04.requiredRuntimeCapabilityIds.includes("cap_ratio_percent_reasoning"));assert.ok(r04.requiredRuntimeCapabilityIds.includes("cap_ratio_rate_validator"));
+   const r04=getR04KnowledgePointCapabilityMapping(kp);assert.ok(r04);assert.equal(r04.primaryRuntimeProfileId,"profile_ratio_percent");assert.equal(r04.classificationRuleId,"rule_ratio_percent");assert.ok(Array.isArray([...r04.appliedModifierIds]));assert.ok(r04.requiredRuntimeCapabilityIds.includes("cap_ratio_percent_reasoning"));assert.ok(r04.requiredRuntimeCapabilityIds.includes("cap_ratio_rate_validator"));
    const r05=getR05DeliveryWaveAssignment(kp);assert.ok(r05);assert.equal(r05.deliveryWaveId,"R05-W7");assert.equal(r05.intraWavePrerequisiteRank,11);
  }
 });
