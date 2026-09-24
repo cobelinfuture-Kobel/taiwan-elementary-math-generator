@@ -43,5 +43,15 @@
     "routeCountingOwnership": false,
     "q019CurrentPointerCompatibilityTestOnly": true,
     "gciPm01SuccessorRuleOnly": true
+  },
+  "repairContext": {
+    "taskId": "P07F_W7_Q020_LiveE6BootstrapExistingFlowParityIsolation",
+    "reason": "Existing post-merge Live E6 fails at the pre-existing first Classic UI bootstrap gate before Q020 semantic assertions.",
+    "scope": "EXISTING_LIVE_E6_HARNESS_ONLY",
+    "noNewAcceptanceStep": true,
+    "noMathProductChange": true,
+    "noSelectorLogicChange": true,
+    "diagnosticsCarriedIntoLiveArtifact": true,
+    "deploymentCacheBustingAppliedToLiveModuleRequests": true
   }
 }
