@@ -3,11 +3,11 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7_Q021_G6BU06_PieChartQuantityFromRate_SourceAuthorityPreflight",
-  "status": "SOURCE_AUTHORITY_BOUND_EXECUTABLE_READBACK_PENDING",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_Q021_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D2_PENDING_EXECUTABLE_AUTHORITY_READBACK",
-    "reduced": "SOURCE_AND_SEMANTIC_BOUNDARY_LOCKED_PENDING_RUNTIME_READBACK"
+    "after": "D2_Q021_PIE_CHART_QUANTITY_FROM_RATE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "fd6256d21ed12d24982ae377be24961b1f7002c0",
   "predecessorD0Evidence": {
@@ -177,16 +177,159 @@
     }
   },
   "executableAuthorityReadback": {
-    "pending": true,
+    "pending": false,
     "runnerPath": "tools/curriculum/read-p07f-w7-q021-g6b-u06-pie-chart-quantity-from-rate-source-authority-preflight.mjs",
-    "expectedRuntimeProfileId": "profile_ratio_percent",
-    "expectedRequiredW7CapabilityIds": [
-      "cap_ratio_percent_reasoning",
-      "cap_ratio_rate_validator"
+    "exactQueueRow": {
+      "queuePosition": 21,
+      "sliceId": "p07e_q021_r11_g6b_u06_6b06_profile_ratio_percent_c1",
+      "implementationTaskId": "P07F_W7DirectProductVerticalSlice021Implementation",
+      "previousSliceId": "p07e_q020_r11_g6b_u05_6b05_profile_factor_multiple_c1",
+      "previousSliceMustBeD0Complete": true,
+      "assignedDeliveryWaveId": "R05-W7",
+      "primarySourceNodeId": "g6b_u06_6b06",
+      "supportingSourceNodeIds": [
+        "g6b_u06_6b06"
+      ],
+      "intraWavePrerequisiteRank": 11,
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "chunkIndex": 1,
+      "knowledgePointCount": 1,
+      "knowledgePointIds": [
+        "kp_g6b_u06_pie_chart_quantity_from_rate"
+      ],
+      "requiredW7CapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator"
+      ],
+      "targetEvidenceLevel": "E6_D0_COMPLETE"
+    },
+    "exactR03IncomingEdges": [
+      {
+        "edgeId": "kpe_r03_0632",
+        "fromKnowledgePointId": "kp_g5b_u08_percentage_of_quantity",
+        "toKnowledgePointId": "kp_g6b_u06_pie_chart_quantity_from_rate",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「求百分率對應量」提供不可缺少的數量關係模型，因此是「由圓形圖比率求數量」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g5b_u08_5b08",
+          "source:g6b_u06_6b06"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0633",
+        "fromKnowledgePointId": "kp_g6b_u06_pie_chart_part_whole",
+        "toKnowledgePointId": "kp_g6b_u06_pie_chart_quantity_from_rate",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「圓形圖部分與全體」提供不可缺少的數量關係模型，因此是「由圓形圖比率求數量」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u06_6b06"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      }
     ],
-    "exactR03IncomingEdges": null,
-    "exactR04Mapping": null,
-    "exactR05Assignment": null
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6b_u06_pie_chart_quantity_from_rate",
+      "knowledgePointId": "kp_g6b_u06_pie_chart_quantity_from_rate",
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "classificationRuleId": "rule_ratio_percent",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_text_application_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "undeliveredRequiredCapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator"
+      ],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07"
+    },
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u06_pie_chart_quantity_from_rate",
+      "knowledgePointId": "kp_g6b_u06_pie_chart_quantity_from_rate",
+      "baseDeliveryWaveId": "R05-W7",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": false,
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_text_application_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "contractOnlyRequiredCapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator"
+      ],
+      "contractOnlyCapabilityWaveIds": [
+        "R05-W3",
+        "R05-W7"
+      ],
+      "sourceNodeIds": [
+        "g6b_u06_6b06"
+      ],
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED",
+      "r06CompatibilityMigrationRequired": false,
+      "legacyBatchRefs": [
+        "D"
+      ],
+      "legacyBatchUsedForAssignment": false
+    }
   },
   "q021ScopeLock": {
     "includedKnowledgePointIds": [
@@ -240,9 +383,153 @@
     "futureSameSourceCandidatesProtected": true,
     "manualSourceChoiceRequired": false,
     "manualEvidenceChoiceRequired": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "sourceAuthoritySufficientForQ021ImplementationPlanning": true,
     "separateImplementationApprovalRequired": true,
-    "nextTask": "P07F_W7DirectProductVerticalSlice021Implementation"
+    "nextTask": "P07F_W7DirectProductVerticalSlice021Implementation",
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true
+  },
+  "prerequisiteGraphAuthority": {
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g5b_u08_percentage_of_quantity",
+      "kp_g6b_u06_pie_chart_part_whole"
+    ],
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "edgeId": "kpe_r03_0632",
+        "fromKnowledgePointId": "kp_g5b_u08_percentage_of_quantity",
+        "toKnowledgePointId": "kp_g6b_u06_pie_chart_quantity_from_rate",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「求百分率對應量」提供不可缺少的數量關係模型，因此是「由圓形圖比率求數量」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g5b_u08_5b08",
+          "source:g6b_u06_6b06"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0633",
+        "fromKnowledgePointId": "kp_g6b_u06_pie_chart_part_whole",
+        "toKnowledgePointId": "kp_g6b_u06_pie_chart_quantity_from_rate",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「圓形圖部分與全體」提供不可缺少的數量關係模型，因此是「由圓形圖比率求數量」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u06_6b06"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      }
+    ],
+    "percentageOfQuantityPrerequisiteMayBeConsumed": true,
+    "pieChartPartWholePrerequisiteMayBeConsumed": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true,
+    "r03MutationApplied": false
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_ratio_percent",
+    "classificationRuleId": "rule_ratio_percent",
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "exactOptionalRuntimeCapabilityIds": [],
+    "exactFrozenQueueRequiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+    "contractOnlyRequiredCapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator"
+    ],
+    "runtimeProfileReclassificationAllowed": false,
+    "r04AuthorityTouched": false
+  },
+  "r05AssignmentAuthority": {
+    "baseDeliveryWaveId": "R05-W7",
+    "deliveryWaveId": "R05-W7",
+    "intraWavePrerequisiteRank": 11,
+    "prerequisiteWaveLowerBound": 7,
+    "waveEscalatedByPrerequisite": false,
+    "effectiveAddedCapabilityIds": [
+      "cap_fraction_number_system"
+    ],
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u06_pie_chart_quantity_from_rate",
+      "knowledgePointId": "kp_g6b_u06_pie_chart_quantity_from_rate",
+      "baseDeliveryWaveId": "R05-W7",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": false,
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_text_application_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "contractOnlyRequiredCapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator"
+      ],
+      "contractOnlyCapabilityWaveIds": [
+        "R05-W3",
+        "R05-W7"
+      ],
+      "sourceNodeIds": [
+        "g6b_u06_6b06"
+      ],
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED",
+      "r06CompatibilityMigrationRequired": false,
+      "legacyBatchRefs": [
+        "D"
+      ],
+      "legacyBatchUsedForAssignment": false
+    },
+    "r05AuthorityTouched": false
   }
 }
