@@ -1,0 +1,17 @@
+{
+  "schemaName": "P07FW7Q020PostMergeMainPagesE2EFailureV1",
+  "status": "FAIL",
+  "exactHeadSha": "6680fd8a6d2e292cc779c4a7f7e50e80b9b88ece",
+  "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+  "error": "Error: P07F20_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\npage.waitForFunction: Timeout 120000ms exceeded.\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice020-classic-ui-acceptance.mjs:15:13)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice020-classic-ui-acceptance.mjs:36:76 {\n  name: 'TimeoutError'\n}\n\nNode.js v22.23.2\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-q020-live-pages-e2e.mjs:21:487)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
+  "workflow": "P07F W7 Q020 Post-Merge Pages E2E",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "run": {
+    "id": "35967799822",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/35967799822"
+  },
+  "verifiedAt": "2026-09-24T07:09:41.224Z"
+}
