@@ -9,7 +9,7 @@
         "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
-          "tests/curriculum/p07f-w7-q023-speed-relation-source-authority-probe.test.js",
+          "tests/curriculum/p07f-w7-q023-speed-distance-time-relation-source-authority-preflight.test.js",
           "tests/curriculum/p07e-w7-direct-product-vertical-slice-queue.test.js",
           "tests/curriculum/r05-delivery-wave-rebase.test.js"
         ]
@@ -17,7 +17,7 @@
       {
         "gateId": "TARGETED_ROUTE_REPLAY",
         "kind": "NODE_RUNNER",
-        "path": "tools/curriculum/read-p07f-w7-q023-speed-relation-source-authority-probe.mjs",
+        "path": "tools/curriculum/read-p07f-w7-q023-speed-distance-time-relation-source-authority-preflight.mjs",
         "runtime": "NODE_ONLY"
       }
     ]
