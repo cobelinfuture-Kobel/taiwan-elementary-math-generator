@@ -1,0 +1,368 @@
+{
+  "schemaName": "P07FW7Q023SpeedDistanceTimeRelationSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q023_SpeedDistanceTimeRelation_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q023_FROZEN_SPEED_RELATION_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q023_SPEED_DISTANCE_TIME_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "05cf067a6b95e7dbd6a7864626635fef6900acac",
+  "predecessorD0Evidence": {
+    "q022TaskId": "P07F_W7DirectProductVerticalSlice022Implementation",
+    "q022Status": "PASS_E6_D0_COMPLETE",
+    "q022MergeSha": "db1b1ab9f11bb160dcc6f07981946a8385921d6b",
+    "q022PostMergeWorkflowRunId": 36074357256,
+    "q022DurableReadbackPath": "docs/ci/latest-p07f-w7-q022-pages-e2e.json",
+    "q022DurableReadbackCommitSha": "b306a7fc8136d52f1653f1c42dc3831860bdfe66",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q022_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queuePosition": 23,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q023_r13_g6a_u08_6a08_profile_speed_rate_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice023Implementation",
+    "previousSliceId": "p07e_q022_r12_g6b_u04_6b04_profile_ratio_percent_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6a_u08_6a08",
+    "supportingSourceNodeIds": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ],
+    "intraWavePrerequisiteRank": 13,
+    "primaryRuntimeProfileId": "profile_speed_rate",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_speed_distance_time_relation"
+    ],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_speed_rate_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "primary": {
+      "sourceNodeId": "g6a_u08_6a08",
+      "sourceTitleAuthority": "認識速率",
+      "sourcePdfTitle": "meow911_6a08_source.pdf",
+      "sourcePdfDriveFileId": "1mI0hgM7Nknw01PFUCPf-IwgZTtUi3zP-",
+      "sourcePdfSizeBytes": 666779,
+      "sourceMetadataDriveFileId": "1npWcnOW6aDFZaAhT90CSi24HaLDK1nnF",
+      "verificationNotesDriveFileId": "1dplJeRG01m76SYA-AYRcs74VSle8Bc2J",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "role": "PRIMARY",
+      "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+    },
+    "supporting": {
+      "sourceNodeId": "g6b_u02_6b02",
+      "sourceTitleAuthority": "認識速率",
+      "sourcePdfTitle": "meow911_6b02_source.pdf",
+      "sourcePdfDriveFileId": "1fvyF0xYVTUSRBJPIVTa5nfHb5li6wTi4",
+      "sourcePdfSizeBytes": 666779,
+      "sourceMetadataDriveFileId": "1aoo0Gjn8tmZ4q4WJCuT1LchRzSSalWwZ",
+      "verificationNotesDriveFileId": "1mheVsnPY8oIqnuK5dNYvaKa9quix5XLQ",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "role": "SUPPORTING_FOR_G6A_U08_SPEED_ROWS",
+      "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+    },
+    "authorityIndexPath": "data/curriculum/full-product/p07e/w7-source-authority-index.json",
+    "authorityIndexStatus": "W7_R02_REVIEWED_SOURCE_AUTHORITY_INDEX_LOCKED",
+    "historicalDriveMetadataState": {
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "sourceTitleLabel": "速率",
+      "disposition": "HISTORICAL_METADATA_NOT_R02_SEMANTIC_AUTHORITY"
+    },
+    "historicalVerificationNotesState": {
+      "status": "pending",
+      "visualVerificationCompleted": false,
+      "doNotTreatOcrAsAuthority": true,
+      "disposition": "HISTORICAL_NOTE_SUPERSEDED_FOR_R02_REVIEWED_AUTHORITY"
+    },
+    "currentSemanticAuthority": "R02_FULL_PAGE_VISUAL_READBACK_PLUS_P07E_W7_SOURCE_AUTHORITY_INDEX",
+    "currentDirectConnectorMetadataReadbackCompleted": true,
+    "connectorTextNotUsedAsSemanticAuthority": true,
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "newSupplementaryEvidenceRequired": false,
+    "silentRewriteAllowed": false
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "primaryChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "supportingChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "targetCandidate": {
+      "knowledgePointId": "kp_speed_distance_time_relation",
+      "canonicalNameZh": "速率距離時間關係",
+      "capabilityStatement": "學生能在距離、速率、時間三量間互求。",
+      "reasoningInvariant": "距離等於速率乘時間，三量單位必須相容。",
+      "category": "ratio",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "duplicateProjectionReconciledAcrossSourceNodes": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ],
+    "protectedNonQ023KnowledgePointIds": [
+      "kp_speed_unit_conversion",
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing",
+      "kp_effective_speed_current_wind"
+    ],
+    "protectedLaterW7KnowledgePointIds": [
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing",
+      "kp_effective_speed_current_wind"
+    ]
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "SOLVE_SPEED_DISTANCE_TIME_THREE_QUANTITY_RELATION",
+    "canonicalReasoningInvariant": "距離 = 速率 × 時間；反求速率時速率 = 距離 ÷ 時間；反求時間時時間 = 距離 ÷ 速率，三量單位必須相容。",
+    "implementationSemanticLock": {
+      "solveDistanceFromSpeedAndTimeAllowed": true,
+      "solveSpeedFromDistanceAndTimeAllowed": true,
+      "solveTimeFromDistanceAndSpeedAllowed": true,
+      "compatibleDistanceTimeRateUnitsRequired": true,
+      "answerBackSubstitutionRequired": true,
+      "quantitySemanticRoleBindingRequired": true,
+      "speedUnitConversionOwnershipAllowed": false,
+      "averageSpeedOwnershipAllowed": false,
+      "relativeSpeedMeetingChasingOwnershipAllowed": false,
+      "effectiveSpeedCurrentWindOwnershipAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "executableAuthorityReadback": {
+    "pending": false,
+    "workflowRunId": 36074796270,
+    "focusedValidationJobId": 107883557652,
+    "exactQueueRow": {
+      "queuePosition": 23,
+      "sliceId": "p07e_q023_r13_g6a_u08_6a08_profile_speed_rate_c1",
+      "implementationTaskId": "P07F_W7DirectProductVerticalSlice023Implementation",
+      "previousSliceId": "p07e_q022_r12_g6b_u04_6b04_profile_ratio_percent_c1",
+      "assignedDeliveryWaveId": "R05-W7",
+      "primarySourceNodeId": "g6a_u08_6a08",
+      "supportingSourceNodeIds": [
+        "g6a_u08_6a08",
+        "g6b_u02_6b02"
+      ],
+      "intraWavePrerequisiteRank": 13,
+      "primaryRuntimeProfileId": "profile_speed_rate",
+      "knowledgePointIds": [
+        "kp_speed_distance_time_relation"
+      ],
+      "requiredW7CapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_speed_rate_reasoning"
+      ]
+    },
+    "exactR03IncomingEdges": [
+      {
+        "edgeId": "kpe_r03_0656",
+        "fromKnowledgePointId": "kp_g6a_u04_decimal_division_rate_application",
+        "toKnowledgePointId": "kp_speed_distance_time_relation",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "distanceBearing": true,
+        "evidenceRefs": [
+          "source:g6a_u04_6a04",
+          "source:g6a_u08_6a08",
+          "source:g6b_u02_6b02"
+        ]
+      },
+      {
+        "edgeId": "kpe_r03_0657",
+        "fromKnowledgePointId": "kp_g6b_u04_base_comparison_rate_roles",
+        "toKnowledgePointId": "kp_speed_distance_time_relation",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "distanceBearing": true,
+        "evidenceRefs": [
+          "source:g6a_u08_6a08",
+          "source:g6b_u02_6b02",
+          "source:g6b_u04_6b04"
+        ]
+      }
+    ],
+    "exactR04Mapping": {
+      "mappingId": "r04map_speed_distance_time_relation",
+      "primaryRuntimeProfileId": "profile_speed_rate",
+      "classificationRuleId": "rule_speed_rate",
+      "appliedModifierIds": [
+        "mod_quantity_relation_semantics"
+      ],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_speed_rate_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_quantity_dimension_unit_identity",
+        "cap_text_application_representation",
+        "cap_quantity_semantic_role_binding"
+      ],
+      "optionalRuntimeCapabilityIds": [
+        "cap_unit_conversion",
+        "cap_global_context_binding"
+      ],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_text_application_representation"
+      ],
+      "shadowRequiredCapabilityIds": [
+        "cap_quantity_dimension_unit_identity",
+        "cap_quantity_semantic_role_binding"
+      ],
+      "undeliveredRequiredCapabilityIds": [
+        "cap_speed_rate_reasoning",
+        "cap_ratio_rate_validator"
+      ],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07"
+    },
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_speed_distance_time_relation",
+      "baseDeliveryWaveId": "R05-W7",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 13,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": false,
+      "primaryRuntimeProfileId": "profile_speed_rate",
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_speed_rate_reasoning",
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator",
+        "cap_quantity_dimension_unit_identity",
+        "cap_text_application_representation",
+        "cap_quantity_semantic_role_binding"
+      ],
+      "contractOnlyRequiredCapabilityIds": [
+        "cap_speed_rate_reasoning",
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator"
+      ],
+      "shadowRequiredCapabilityIds": [
+        "cap_quantity_dimension_unit_identity",
+        "cap_quantity_semantic_role_binding"
+      ],
+      "contractOnlyCapabilityWaveIds": [
+        "R05-W3",
+        "R05-W7"
+      ],
+      "sourceNodeIds": [
+        "g6a_u08_6a08",
+        "g6b_u02_6b02"
+      ],
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED"
+    }
+  },
+  "prerequisiteGraphAuthority": {
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g6a_u04_decimal_division_rate_application",
+      "kp_g6b_u04_base_comparison_rate_roles"
+    ],
+    "priorKnowledgePointOwnershipMayNotBeReowned": true
+  },
+  "q023ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_speed_distance_time_relation"
+    ],
+    "includedRelations": [
+      "SOLVE_DISTANCE_FROM_SPEED_AND_TIME",
+      "SOLVE_SPEED_FROM_DISTANCE_AND_TIME",
+      "SOLVE_TIME_FROM_DISTANCE_AND_SPEED",
+      "BACK_SUBSTITUTE_SPEED_DISTANCE_TIME_RELATION"
+    ],
+    "excludedRelations": [
+      "SPEED_UNIT_CONVERSION_OWNERSHIP",
+      "AVERAGE_SPEED",
+      "RELATIVE_SPEED_MEETING_CHASING",
+      "EFFECTIVE_SPEED_CURRENT_WIND",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_AUTHORITY_MUTATION",
+      "Q024_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q022ProductTouched": false,
+    "q024OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ022D0Verified": true,
+    "sourceIdentityBound": true,
+    "primaryAndSupportingR02AuthorityBound": true,
+    "semanticProfileLockBound": true,
+    "futureSpeedOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "newSupplementaryEvidenceRequired": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
+    "sourceAuthoritySufficientForQ023ImplementationPlanning": true,
+    "separateImplementationApprovalRequired": true,
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice023Implementation"
+  }
+}
