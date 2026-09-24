@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7DirectProductVerticalSlice018Implementation",
-  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "status": "IMPLEMENTATION_MATERIALIZED_FOCUSED_CI_RERUN_PENDING",
   "goalDistance": {
     "before": "D2_Q018_CYLINDER_VOLUME_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
     "after": "D1_Q018_CYLINDER_VOLUME_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
@@ -145,5 +145,16 @@
       "CLASSIC_UI_ACCEPTANCE_PASS",
       "DURABLE_POSTMERGE_READBACK_PASS"
     ]
+  },
+  "focusedCiFailureAttribution": {
+    "failedRunId": 35889350874,
+    "failedJobId": 107277669775,
+    "failingAssertion": "Q018 same-unit mixed remains fail-closed and prior same-source routes remain reachable",
+    "failingError": "P05F60_REQUEST_NOT_MATCHED",
+    "attribution": "BASELINE_ONLY_TEST_CONTRACT_MISMATCH",
+    "baselineSha": "89843a5402d2bc1781122f2dd0ecd5ffdc1e6ddf",
+    "productDefectFound": false,
+    "q018SemanticOrRuntimeRepairRequired": false,
+    "repair": "Historical owner-route compatibility assertion only"
   }
 }
