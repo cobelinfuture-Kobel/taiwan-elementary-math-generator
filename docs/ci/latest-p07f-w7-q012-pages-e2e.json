@@ -2,10 +2,10 @@
   "schemaName": "P07FW7Q012PostMergeMainPagesE2EV1",
   "taskId": "P07F_W7DirectProductVerticalSlice012Implementation",
   "status": "PASS_E6_D0_COMPLETE",
-  "exactHeadSha": "9917df2c0fa2678c7637a9d52b260dfdb4325a4c",
+  "exactHeadSha": "e3b29cb2d67839d796f6ce030f647adf8fe4611f",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
-    "attempt": 3,
+    "attempt": 9,
     "assets": [
       {
         "publicPath": "modules/curriculum/batch-a/source-units.js",
@@ -24,8 +24,8 @@
       },
       {
         "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
-        "expectedSha256": "879beeed301a3e94046578da4dfa8b4c3e3d721b7fbff82f8d6e4e1645217326",
-        "liveSha256": "879beeed301a3e94046578da4dfa8b4c3e3d721b7fbff82f8d6e4e1645217326"
+        "expectedSha256": "e738cdacb07f099ce42472eb9291ddda98dbbf31f266c92fb57840391b6a7073",
+        "liveSha256": "e738cdacb07f099ce42472eb9291ddda98dbbf31f266c92fb57840391b6a7073"
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p07f12.js",
@@ -34,8 +34,8 @@
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-        "expectedSha256": "4510854dbfbaae3b584e897a60505ddcba619cb34d2ad9acb2651e7ea3e6e182",
-        "liveSha256": "4510854dbfbaae3b584e897a60505ddcba619cb34d2ad9acb2651e7ea3e6e182"
+        "expectedSha256": "0f28f45df3b53872df475c68dc4c98a2b4a654f14ef3433c4ea8646ca77f7a2c",
+        "liveSha256": "0f28f45df3b53872df475c68dc4c98a2b4a654f14ef3433c4ea8646ca77f7a2c"
       },
       {
         "publicPath": "modules/curriculum/batch-a/g6a-u09-scale-area-change-runtime-p07f12.js",
@@ -49,8 +49,8 @@
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
-        "expectedSha256": "c151ef16edb01b66a6d20468eecb94da7b9828a144bc37c55eddb7b3ea5afd7b",
-        "liveSha256": "c151ef16edb01b66a6d20468eecb94da7b9828a144bc37c55eddb7b3ea5afd7b"
+        "expectedSha256": "9fb37974dd737322a367217d6f009ccac046a7995224dfbd41c763b6859aa581",
+        "liveSha256": "9fb37974dd737322a367217d6f009ccac046a7995224dfbd41c763b6859aa581"
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p07f12-extension.js",
@@ -59,8 +59,8 @@
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
-        "expectedSha256": "8566b678b991642571e702937d5407b72410903185ccb2180ab66a3e943b6674",
-        "liveSha256": "8566b678b991642571e702937d5407b72410903185ccb2180ab66a3e943b6674"
+        "expectedSha256": "37ddf112d1d7320de84ce283521bea07405fc79155e617fd8bb15513249aac4a",
+        "liveSha256": "37ddf112d1d7320de84ce283521bea07405fc79155e617fd8bb15513249aac4a"
       },
       {
         "publicPath": "modules/renderer/scale-area-change-diagram-p07f12.js",
@@ -69,8 +69,8 @@
       },
       {
         "publicPath": "modules/renderer/html-renderer.js",
-        "expectedSha256": "1f4addf0e62a021d2303e95a22712f9cdc8410a53d507a63971d5e078d03f646",
-        "liveSha256": "1f4addf0e62a021d2303e95a22712f9cdc8410a53d507a63971d5e078d03f646"
+        "expectedSha256": "9392a72819e0e3da34655f944fa1c29ef2cdf71c576d2100876633f2469aef52",
+        "liveSha256": "9392a72819e0e3da34655f944fa1c29ef2cdf71c576d2100876633f2469aef52"
       }
     ]
   },
@@ -153,10 +153,10 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "35883954454",
-    "number": "2",
+    "id": "35938361209",
+    "number": "3",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/35883954454"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/35938361209"
   },
-  "verifiedAt": "2026-09-23T15:47:19.486Z"
+  "verifiedAt": "2026-09-24T00:28:09.907Z"
 }
