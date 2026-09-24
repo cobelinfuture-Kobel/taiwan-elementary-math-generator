@@ -70,19 +70,19 @@ test("Q020 semantic lock owns shared multi-condition model and excludes combinat
   assert.equal(m.crossUnitMixedModeAllowed,false);
 });
 
-test("Q020 provisional preflight remains planning-only until exact executable authority readback",()=>{
-  assert.equal(pre.status,"PREFLIGHT_EXECUTABLE_AUTHORITY_READBACK_PENDING");
-  assert.equal(pre.executableAuthorityReadback.pending,true);
+test("Q020 preflight is planning-ready after exact executable authority readback",()=>{
+  assert.equal(pre.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
+  assert.equal(pre.executableAuthorityReadback.pending,false);
   assert.equal(pre.q020ScopeLock.implementationAllowedByThisPreflight,false);
   assert.equal(pre.q020ScopeLock.publicProductAdmissionAllowedByThisPreflight,false);
   assert.equal(pre.preflightDecision.sourceAuthoritySufficientForQ020ImplementationPlanning,true);
   assert.equal(pre.preflightDecision.manualSourceChoiceRequired,false);
   assert.equal(pre.preflightDecision.manualEvidenceChoiceRequired,false);
-  assert.equal(pre.preflightDecision.executableRuntimeReadbackRequiredBeforeMerge,true);
-  assert.equal(pre.preflightDecision.separateImplementationApprovalRequired,true);
+  assert.equal(pre.preflightDecision.executableRuntimeReadbackRequiredBeforeMerge,false);
+  assert.equal(pre.preflightDecision.separateImplementationApprovalRequired,true);assert.equal(pre.preflightDecision.exactRuntimeMappingBound,true);assert.equal(pre.preflightDecision.exactR05AssignmentBound,true);assert.equal(pre.preflightDecision.exactPrerequisiteGraphBound,true);
   const impact=read("data/project/change-impact/P07F_W7_Q020_PREFLIGHT.impact.json"),plan=read("data/project/validation-plans/P07F_W7_Q020_PREFLIGHT.validation.json");
   assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");
   assert.deepEqual(plan.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);
   assert.equal(pre.preflightValidationBoundary.fullRepositoryRegressionAllowed,false);
-  assert.equal(pre.preflightValidationBoundary.globalBrowserReplayAllowed,false);
+  assert.equal(pre.preflightValidationBoundary.globalBrowserReplayAllowed,false);assert.deepEqual(pre.prerequisiteGraphAuthority.requiredPrerequisiteKnowledgePointIds,["kp_g5a_u08_mixed_operation_order","kp_g6b_u05_difference_multiple_problem","kp_g6b_u05_sum_multiple_problem"]);assert.equal(pre.runtimeCapabilityAuthority.exactR04Mapping.mappingId,"r04map_g6b_u05_work_or_distribution_strategy");assert.equal(pre.runtimeCapabilityAuthority.semanticCollisionPolicy,"EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE");assert.deepEqual(pre.runtimeCapabilityAuthority.exactFrozenQueueRequiredW7CapabilityIds,[]);assert.equal(pre.r05AssignmentAuthority.deliveryWaveId,"R05-W7");assert.equal(pre.r05AssignmentAuthority.waveEscalatedByPrerequisite,true);assert.deepEqual(pre.r05AssignmentAuthority.effectiveAddedCapabilityIds,["cap_integer_division"]);
 });
