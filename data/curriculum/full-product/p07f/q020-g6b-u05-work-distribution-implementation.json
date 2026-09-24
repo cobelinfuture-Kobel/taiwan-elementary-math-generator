@@ -1,0 +1,166 @@
+{
+  "schemaName": "P07FW7Q020G6BU05WorkDistributionStrategyImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice020Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q020_WORK_DISTRIBUTION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q020_WORK_DISTRIBUTION_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "c708c56dc686a690633d8cb635e03c37d1fc5630",
+  "preflight": {
+    "prNumber": 1061,
+    "mergeSha": "6fb270f4ce1cc1aaca1c6efd1d2c4abab0f674ef",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q020-g6b-u05-work-distribution-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q019Status": "PASS_E6_D0_COMPLETE",
+    "q019MergeSha": "610a71b81faadb9b44d8c24adfb574d676c421e0",
+    "q019PostMergeWorkflowRunId": 35952506880,
+    "q019DurableReadbackPath": "docs/ci/latest-p07f-w7-q019-pages-e2e.json",
+    "q019DurableReadbackCommitSha": "e0e8d99874a425105e70b9fdfe9a82df7e5abfea",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q019_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 20,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q020_r11_g6b_u05_6b05_profile_factor_multiple_c1",
+    "sourceId": "g6b_u05_6b05",
+    "runtimeProfileId": "profile_factor_multiple",
+    "rank": 11,
+    "targetKnowledgePointIds": [
+      "kp_g6b_u05_work_or_distribution_strategy"
+    ],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g5a_u08_mixed_operation_order",
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_sum_multiple_problem"
+    ],
+    "prerequisiteCapabilitiesMayBeConsumed": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_factor_multiple_reasoning",
+      "cap_factor_multiple_validator",
+      "cap_text_numeric_representation"
+    ],
+    "effectiveAddedCapabilityIds": [
+      "cap_integer_division"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false,
+    "semanticCollisionPolicy": "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE"
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g6b_u05_boat_capacity_distribution",
+      "ps_g6b_u05_transport_cost_distribution",
+      "ps_g6b_u05_affine_price_composite_purchase"
+    ],
+    "questionMode": "numeric",
+    "representation": "text_numeric_multi_condition_distribution",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_INTEGER",
+    "semanticCore": "MULTI_CONDITION_TO_SHARED_QUANTITY_MODEL_AND_BACK_SUBSTITUTION"
+  },
+  "exactSourceCarriers": [
+    {
+      "patternSpecId": "ps_g6b_u05_boat_capacity_distribution",
+      "sourcePage": 2,
+      "highCapacity": 15,
+      "lowCapacity": 8,
+      "totalUnits": 7,
+      "weightedTotal": 91,
+      "highCount": 5,
+      "lowCount": 2,
+      "answer": 5
+    },
+    {
+      "patternSpecId": "ps_g6b_u05_transport_cost_distribution",
+      "sourcePage": 2,
+      "highFare": 1500,
+      "lowFare": 495,
+      "totalTrips": 8,
+      "totalCost": 8985,
+      "highTrips": 5,
+      "lowTrips": 3,
+      "answer": 5
+    },
+    {
+      "patternSpecId": "ps_g6b_u05_affine_price_composite_purchase",
+      "sourcePage": 2,
+      "multiplier": 9,
+      "offset": 5,
+      "priceDifference": 139,
+      "basePrice": 18,
+      "highPrice": 157,
+      "highQuantity": 2,
+      "baseQuantity": 3,
+      "answer": 368
+    }
+  ],
+  "sameSourceCandidateCompletion": {
+    "sourceId": "g6b_u05_6b05",
+    "visibleKnowledgePointIdsAfterImplementation": [
+      "kp_g6b_u05_sum_difference_problem",
+      "kp_g6b_u05_age_or_repeated_relation_problem",
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_sum_multiple_problem",
+      "kp_g6b_u05_work_or_distribution_strategy"
+    ],
+    "r02SameSourceCandidateSetComplete": true,
+    "sameUnitMixedStillNotAdmitted": true
+  },
+  "scopeGuard": {
+    "sumDifferenceProblemReowned": false,
+    "sumMultipleProblemReowned": false,
+    "differenceMultipleProblemReowned": false,
+    "ageOrRepeatedRelationProblemReowned": false,
+    "pureCombinatoricsOwned": false,
+    "routeCountingOwned": false,
+    "genericApplicationOverlayUsed": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q019ProductTouched": false,
+    "q021OrLaterProductTouched": false,
+    "sourceUnitMutation": false,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
