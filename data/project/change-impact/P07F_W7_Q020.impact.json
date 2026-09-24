@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P07F_W7_Q020",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6b_u05_work_or_distribution_strategy"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6b_u05_work_or_distribution_strategy"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6b_u05_work_or_distribution_strategy": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P07F_W7_Q020.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false,
+    "ciCurrentWorkflowOwnershipTransfer": true
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "q019ProductMutation": false,
+    "q021OrLaterProductMutation": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "sourceUnitMutation": false,
+    "sumDifferenceReownership": false,
+    "sumMultipleReownership": false,
+    "differenceMultipleReownership": false,
+    "ageRelationReownership": false,
+    "pureCombinatoricsOwnership": false,
+    "routeCountingOwnership": false,
+    "q019CurrentPointerCompatibilityTestOnly": true,
+    "gciPm01SuccessorRuleOnly": true
+  }
+}
