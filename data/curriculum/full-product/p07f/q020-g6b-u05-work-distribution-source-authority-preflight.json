@@ -3,11 +3,11 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P07F_W7_Q020_G6BU05_WorkDistributionStrategy_SourceAuthorityPreflight",
-  "status": "PREFLIGHT_EXECUTABLE_AUTHORITY_READBACK_PENDING",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_Q020_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D3_Q020_SOURCE_AND_DIRECT_MULTI_CONDITION_DISTRIBUTION_EVIDENCE_BOUND_EXECUTABLE_AUTHORITY_READBACK_PENDING",
-    "reduced": "QUEUE_SOURCE_AND_DIRECT_MULTI_CONDITION_MODEL_EVIDENCE_LOCKED"
+    "after": "D2_Q020_WORK_DISTRIBUTION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "e229fbe181ab846ea039719d9a7d90522fec00ce",
   "predecessorD0Evidence": {
@@ -41,8 +41,9 @@
     "knowledgePointIds": [
       "kp_g6b_u05_work_or_distribution_strategy"
     ],
-    "requiredW7CapabilityIdsPendingExecutableReadback": true,
-    "targetEvidenceLevel": "E6_D0_COMPLETE"
+    "requiredW7CapabilityIdsPendingExecutableReadback": false,
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredW7CapabilityIds": []
   },
   "sourceAuthority": {
     "sourceNodeId": "g6b_u05_6b05",
@@ -241,17 +242,210 @@
     "profileMismatchHandling": {
       "frozenRuntimeProfile": "profile_factor_multiple",
       "sourceSemanticCoreIsBroaderThanProfileName": true,
-      "profileMustRemainRuntimeEnvelopeUntilExactR04Readback": true,
+      "profileMustRemainRuntimeEnvelopeUntilExactR04Readback": false,
       "factorMultipleNameMayNotNarrowOrRewriteQ020SourceSemantics": true,
-      "silentReclassificationForbidden": true
+      "silentReclassificationForbidden": true,
+      "exactR04ReadbackConfirmsExplicitPatternRelationOverridesFactorMultiple": true,
+      "exactR04MappingBasis": {
+        "semanticFieldsOnly": true,
+        "legacyBatchUsedForClassification": false,
+        "sourceTitleOnlyClassificationAllowed": false,
+        "patternFactorCollisionPolicy": "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE"
+      }
     }
   },
   "executableAuthorityReadback": {
-    "pending": true,
-    "exactQueueRow": null,
-    "exactR03IncomingEdges": [],
-    "exactR04Mapping": null,
-    "exactR05Assignment": null
+    "pending": false,
+    "exactQueueRow": {
+      "queuePosition": 20,
+      "sliceId": "p07e_q020_r11_g6b_u05_6b05_profile_factor_multiple_c1",
+      "implementationTaskId": "P07F_W7DirectProductVerticalSlice020Implementation",
+      "previousSliceId": "p07e_q019_r11_g6b_u04_6b04_profile_ratio_percent_c1",
+      "previousSliceMustBeD0Complete": true,
+      "assignedDeliveryWaveId": "R05-W7",
+      "primarySourceNodeId": "g6b_u05_6b05",
+      "supportingSourceNodeIds": [
+        "g6b_u05_6b05"
+      ],
+      "intraWavePrerequisiteRank": 11,
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "chunkIndex": 1,
+      "knowledgePointCount": 1,
+      "knowledgePointIds": [
+        "kp_g6b_u05_work_or_distribution_strategy"
+      ],
+      "requiredW7CapabilityIds": [],
+      "targetEvidenceLevel": "E6_D0_COMPLETE"
+    },
+    "exactR03IncomingEdges": [
+      {
+        "edgeId": "kpe_r03_0620",
+        "fromKnowledgePointId": "kp_g5a_u08_mixed_operation_order",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「KP1」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g5a_u08_5a08",
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0621",
+        "fromKnowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「差倍問題」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0622",
+        "fromKnowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「和倍問題」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      }
+    ],
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6b_u05_work_or_distribution_strategy",
+      "knowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "classificationRuleId": "rule_factor_multiple",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "ALL_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED",
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "undeliveredRequiredCapabilityIds": [],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07",
+      "sourceRefs": [
+        {
+          "sourceNodeId": "g6b_u05_6b05",
+          "evidenceRole": "PRIMARY_EVIDENCE",
+          "evidenceRefs": [
+            "driveFileId:project-source:g6b_u05_6b05",
+            "sourcePdf:meow911_6b05_source.pdf",
+            "reviewMethod:FULL_PAGE_VISUAL_READBACK",
+            "page:1",
+            "page:2"
+          ]
+        }
+      ],
+      "legacyBatchRefs": [
+        "E"
+      ],
+      "mappingBasis": {
+        "semanticFieldsOnly": true,
+        "legacyBatchUsedForClassification": false,
+        "sourceTitleOnlyClassificationAllowed": false,
+        "patternFactorCollisionPolicy": "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE"
+      }
+    },
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u05_work_or_distribution_strategy",
+      "knowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+      "baseDeliveryWaveId": "R05-W1",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": true,
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_integer_division",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_integer_division",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "contractOnlyRequiredCapabilityIds": [],
+      "contractOnlyCapabilityWaveIds": [],
+      "sourceNodeIds": [
+        "g6b_u05_6b05"
+      ],
+      "protectedBaselineSourceNodeIds": [],
+      "protectedPublicProductUnitIds": [],
+      "protectedPrerequisiteCapabilityContradictionIds": [],
+      "legacyBatchRefs": [
+        "E"
+      ],
+      "legacyBatchUsedForAssignment": false,
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED",
+      "r06CompatibilityMigrationRequired": false,
+      "mappingBasis": {
+        "prerequisiteGraphUsed": true,
+        "runtimeCapabilityClosureUsed": true,
+        "productionBaselineProtectionUsed": false,
+        "legacyBatchUsedForAssignment": false
+      }
+    }
   },
   "q020ScopeLock": {
     "includedKnowledgePointIds": [
@@ -300,7 +494,7 @@
     "publicProductAdmissionAllowed": false
   },
   "preflightDecision": {
-    "exactFrozenQueueRowResolved": false,
+    "exactFrozenQueueRowResolved": true,
     "predecessorQ019D0Verified": true,
     "sourceIdentityBound": true,
     "currentVisualReadbackDirectlySupportsWorkDistributionTarget": true,
@@ -311,12 +505,228 @@
     "sameSourceCandidateSetCompletionIdentified": true,
     "manualSourceChoiceRequired": false,
     "manualEvidenceChoiceRequired": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "sourceAuthoritySufficientForQ020ImplementationPlanning": true,
     "separateImplementationApprovalRequired": true,
-    "exactRuntimeMappingBound": false,
-    "exactR05AssignmentBound": false,
-    "exactPrerequisiteGraphBound": false,
-    "nextTask": "P07F_W7_Q020_ExecutableAuthorityReadbackThenFinalizePreflight"
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice020Implementation"
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "edgeId": "kpe_r03_0620",
+        "fromKnowledgePointId": "kp_g5a_u08_mixed_operation_order",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「KP1」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g5a_u08_5a08",
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0621",
+        "fromKnowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「差倍問題」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0622",
+        "fromKnowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「和倍問題」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g5a_u08_mixed_operation_order",
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_sum_multiple_problem"
+    ],
+    "mixedOperationOrderPrerequisiteMayBeConsumed": true,
+    "differenceMultiplePrerequisiteMayBeConsumed": true,
+    "sumMultiplePrerequisiteMayBeConsumed": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true,
+    "r03MutationApplied": false
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_factor_multiple",
+    "classificationRuleId": "rule_factor_multiple",
+    "appliedModifierIds": [],
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_factor_multiple_reasoning",
+      "cap_factor_multiple_validator",
+      "cap_text_numeric_representation"
+    ],
+    "exactOptionalRuntimeCapabilityIds": [],
+    "exactFrozenQueueRequiredW7CapabilityIds": [],
+    "runtimeCapabilityDeliveryState": "ALL_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED",
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6b_u05_work_or_distribution_strategy",
+      "knowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "classificationRuleId": "rule_factor_multiple",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "ALL_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED",
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "undeliveredRequiredCapabilityIds": [],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07",
+      "sourceRefs": [
+        {
+          "sourceNodeId": "g6b_u05_6b05",
+          "evidenceRole": "PRIMARY_EVIDENCE",
+          "evidenceRefs": [
+            "driveFileId:project-source:g6b_u05_6b05",
+            "sourcePdf:meow911_6b05_source.pdf",
+            "reviewMethod:FULL_PAGE_VISUAL_READBACK",
+            "page:1",
+            "page:2"
+          ]
+        }
+      ],
+      "legacyBatchRefs": [
+        "E"
+      ],
+      "mappingBasis": {
+        "semanticFieldsOnly": true,
+        "legacyBatchUsedForClassification": false,
+        "sourceTitleOnlyClassificationAllowed": false,
+        "patternFactorCollisionPolicy": "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE"
+      }
+    },
+    "semanticCollisionPolicy": "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE",
+    "factorMultipleProfileIsRuntimeEnvelopeOnlyForQ020": true,
+    "r04AuthorityTouched": false,
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u05_work_or_distribution_strategy",
+      "knowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+      "baseDeliveryWaveId": "R05-W1",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": true,
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_integer_division",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_integer_division",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "contractOnlyRequiredCapabilityIds": [],
+      "contractOnlyCapabilityWaveIds": [],
+      "sourceNodeIds": [
+        "g6b_u05_6b05"
+      ],
+      "protectedBaselineSourceNodeIds": [],
+      "protectedPublicProductUnitIds": [],
+      "protectedPrerequisiteCapabilityContradictionIds": [],
+      "legacyBatchRefs": [
+        "E"
+      ],
+      "legacyBatchUsedForAssignment": false,
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED",
+      "r06CompatibilityMigrationRequired": false,
+      "mappingBasis": {
+        "prerequisiteGraphUsed": true,
+        "runtimeCapabilityClosureUsed": true,
+        "productionBaselineProtectionUsed": false,
+        "legacyBatchUsedForAssignment": false
+      }
+    },
+    "exactR05AssignmentVerified": true,
+    "baseDeliveryWaveId": "R05-W1",
+    "deliveryWaveId": "R05-W7",
+    "intraWavePrerequisiteRank": 11,
+    "prerequisiteWaveLowerBound": 7,
+    "waveEscalatedByPrerequisite": true,
+    "effectiveAddedCapabilityIds": [
+      "cap_integer_division"
+    ],
+    "contractOnlyRequiredCapabilityIds": [],
+    "r05AuthorityTouched": false
   }
 }
