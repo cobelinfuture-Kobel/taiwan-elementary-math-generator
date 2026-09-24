@@ -10,7 +10,7 @@
     "kp_g6b_u06_pie_chart_quantity_from_rate"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g6b_u06_pie_chart_quantity_from_rate": "PLANNING_READY_EXECUTABLE_READBACK_PENDING"
+    "kp_g6b_u06_pie_chart_quantity_from_rate": "PLANNING_READY_IMPLEMENTATION_APPROVAL_REQUIRED"
   },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P07F_W7_Q021_PREFLIGHT.validation.json",
