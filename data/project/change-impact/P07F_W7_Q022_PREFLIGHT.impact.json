@@ -6,20 +6,17 @@
   "currentKnowledgePointIds": [
     "kp_g6b_u04_find_base_quantity",
     "kp_g6b_u04_find_comparison_quantity",
-    "kp_g6b_u04_find_rate_from_quantities",
-    "kp_g6b_u04_successive_rate_change"
+    "kp_g6b_u04_find_rate_from_quantities"
   ],
   "unitExpectedKnowledgePointIds": [
     "kp_g6b_u04_find_base_quantity",
     "kp_g6b_u04_find_comparison_quantity",
-    "kp_g6b_u04_find_rate_from_quantities",
-    "kp_g6b_u04_successive_rate_change"
+    "kp_g6b_u04_find_rate_from_quantities"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g6b_u04_find_base_quantity": "PENDING",
-    "kp_g6b_u04_find_comparison_quantity": "PENDING",
-    "kp_g6b_u04_find_rate_from_quantities": "PENDING",
-    "kp_g6b_u04_successive_rate_change": "PENDING"
+    "kp_g6b_u04_find_base_quantity": "PLANNING_IDENTITY_RESOLVED_RUNTIME_AUTHORITY_PENDING",
+    "kp_g6b_u04_find_comparison_quantity": "PLANNING_IDENTITY_RESOLVED_RUNTIME_AUTHORITY_PENDING",
+    "kp_g6b_u04_find_rate_from_quantities": "PLANNING_IDENTITY_RESOLVED_RUNTIME_AUTHORITY_PENDING"
   },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P07F_W7_Q022_PREFLIGHT.validation.json",
@@ -29,11 +26,11 @@
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
-    "currentAuthorityChanged": false,
-    "planningAuthorityAdded": false
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true
   },
   "scopeGuards": {
-    "identityProbeOnly": true,
+    "identityProbeOnly": false,
     "productImplementation": false,
     "publicAdmission": false,
     "q021ProductMutation": false,
@@ -42,6 +39,7 @@
     "r02Mutation": false,
     "r03Mutation": false,
     "r04Mutation": false,
-    "r05Mutation": false
+    "r05Mutation": false,
+    "successiveRateChangeOwnership": false
   }
 }
