@@ -1,0 +1,160 @@
+{
+  "schemaName": "P07FW7Q018G6BU03CylinderVolumeImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice018Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_FOCUSED_CI_RERUN_PENDING",
+  "goalDistance": {
+    "before": "D2_Q018_CYLINDER_VOLUME_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q018_CYLINDER_VOLUME_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "89843a5402d2bc1781122f2dd0ecd5ffdc1e6ddf",
+  "preflight": {
+    "prNumber": 1057,
+    "mergeSha": "a3a89bbcd90d35e44830bb93048eac2c31e96684",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q018-g6b-u03-cylinder-volume-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q017Status": "PASS_E6_D0_COMPLETE",
+    "q017MergeSha": "9917df2c0fa2678c7637a9d52b260dfdb4325a4c",
+    "q017PostMergeWorkflowRunId": 35883954416,
+    "q017DurableReadbackPath": "docs/ci/latest-p07f-w7-q017-pages-e2e.json",
+    "q017DurableReadbackCommitSha": "ea3a0dd58bb9d414d2d3520c2ff7b969694b55da",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q017_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 18,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q018_r11_g6b_u03_6b03_profile_spatial_solid_c1",
+    "sourceId": "g6b_u03_6b03",
+    "knowledgePointIds": [
+      "kp_g6b_u03_cylinder_volume"
+    ],
+    "runtimeProfileId": "profile_spatial_solid",
+    "classificationRuleId": "rule_spatial_solid",
+    "appliedModifierIds": [],
+    "requiredW7CapabilityIds": [],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfDriveFileId": "10LlUyzn4WOkxHAY3S9SsZeGT0i_ixV9u",
+    "sourcePdfSizeBytes": 811369,
+    "sourcePdfSha256": "8689048604947c680fd1d3841048ec2c981474f18974f48a97ef8ea09777cf98",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "directVisualEvidencePages": [
+      1
+    ],
+    "supportingApplicationPages": [
+      2
+    ],
+    "semanticAuthority": "R02_FULL_PAGE_VISUAL_READBACK_PLUS_CURRENT_DIRECT_PDF_VISUAL_CORROBORATION",
+    "currentVisualSupportLevel": "DIRECT_LITERAL_CYLINDER_VOLUME_APPLICATION_EVIDENCE"
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g6a_u07_circle_area_formula",
+      "kp_g6b_u03_prism_base_area_height_volume"
+    ],
+    "priorKnowledgePointOwnershipMayNotBeReowned": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_spatial_solid_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_solid_geometry_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [
+      "cap_geometry_construction"
+    ],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g6b_u03_cylinder_radius_height",
+      "ps_g6b_u03_cylinder_diameter_height",
+      "ps_g6b_u03_cylinder_source_horizontal_diameter_height"
+    ],
+    "includedRelations": [
+      "CYLINDER_VOLUME_EQUALS_CIRCULAR_BASE_AREA_TIMES_HEIGHT",
+      "DIAMETER_TO_RADIUS_THEN_CIRCULAR_BASE_AREA",
+      "RADIUS_AND_HEIGHT_TO_CYLINDER_VOLUME"
+    ],
+    "questionMode": "diagram",
+    "rendererRepresentation": "cylinder_volume_diagram",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_DECIMAL_VOLUME",
+    "semanticCore": "CYLINDER_VOLUME_AS_CIRCULAR_BASE_AREA_TIMES_PERPENDICULAR_HEIGHT"
+  },
+  "exactSourceCarrier": {
+    "sourceVisualNumericCarrier": {
+      "diameter": 20,
+      "height": 25,
+      "radius": 10
+    },
+    "pi": 3.14,
+    "circularBaseArea": 314,
+    "volume": 7850,
+    "patternSpecId": "ps_g6b_u03_cylinder_source_horizontal_diameter_height",
+    "sourceLearnerTextExact": false
+  },
+  "scopeGuard": {
+    "q049PrismSurfaceAreaReowned": false,
+    "q055GenericPrismVolumeReowned": false,
+    "q060TriangularPrismVolumeReowned": false,
+    "q060CompositePrismReowned": false,
+    "cylinderSurfaceAreaTouched": false,
+    "halfCylinderCoreTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q017ProductTouched": false,
+    "q019OrLaterProductTouched": false,
+    "dedicatedRendererAdded": true,
+    "sharedRendererRegistryMinimalMutation": true,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  },
+  "focusedCiFailureAttribution": {
+    "failedRunId": 35889350874,
+    "failedJobId": 107277669775,
+    "failingAssertion": "Q018 same-unit mixed remains fail-closed and prior same-source routes remain reachable",
+    "failingError": "P05F60_REQUEST_NOT_MATCHED",
+    "attribution": "BASELINE_ONLY_TEST_CONTRACT_MISMATCH",
+    "baselineSha": "89843a5402d2bc1781122f2dd0ecd5ffdc1e6ddf",
+    "productDefectFound": false,
+    "q018SemanticOrRuntimeRepairRequired": false,
+    "repair": "Historical owner-route compatibility assertion only"
+  }
+}
