@@ -68,9 +68,9 @@ test("Q021 protects prior and later G6B-U06 ownership",()=>{
 
 test("Q021 executable authority is structurally compatible with frozen ratio-percent envelope",()=>{
   const r03=getR03DirectPrerequisites(KP),r04=getR04KnowledgePointCapabilityMapping(KP),r05=getR05DeliveryWaveAssignment(KP);
-  assert.ok(Array.isArray(r03));
-  assert.ok(r03.length>0);
-  assert.ok(r03.every(e=>e.toKnowledgePointId===KP));
+  assert.deepEqual(r03.map(e=>e.edgeId),["kpe_r03_0632","kpe_r03_0633"]);
+  assert.deepEqual(r03.map(e=>e.fromKnowledgePointId),["kp_g5b_u08_percentage_of_quantity","kp_g6b_u06_pie_chart_part_whole"]);
+  assert.ok(r03.every(e=>e.toKnowledgePointId===KP&&e.dependencyStrength==="required"&&e.distanceBearing===true));
   assert.ok(r04);assert.ok(r05);
   assert.equal(r04.primaryRuntimeProfileId,"profile_ratio_percent");
   assert.equal(r04.classificationRuleId,"rule_ratio_percent");
@@ -84,8 +84,11 @@ test("Q021 executable authority is structurally compatible with frozen ratio-per
     "cap_ratio_rate_validator",
     "cap_text_application_representation"
   ]);
+  assert.equal(r05.baseDeliveryWaveId,"R05-W7");
   assert.equal(r05.deliveryWaveId,"R05-W7");
   assert.equal(r05.intraWavePrerequisiteRank,11);
+  assert.equal(r05.prerequisiteWaveLowerBound,7);
+  assert.equal(r05.waveEscalatedByPrerequisite,false);
   assert.equal(r05.primaryRuntimeProfileId,"profile_ratio_percent");
   assert.deepEqual([...r05.contractOnlyRequiredCapabilityIds].sort(),[
     "cap_fraction_number_system",
@@ -95,6 +98,11 @@ test("Q021 executable authority is structurally compatible with frozen ratio-per
 });
 
 test("Q021 preflight remains planning-only SHARED_RUNTIME_BOUNDED",()=>{
+  assert.equal(pre.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
+  assert.equal(pre.executableAuthorityReadback.pending,false);
+  assert.deepEqual(pre.prerequisiteGraphAuthority.requiredPrerequisiteKnowledgePointIds,["kp_g5b_u08_percentage_of_quantity","kp_g6b_u06_pie_chart_part_whole"]);
+  assert.equal(pre.runtimeCapabilityAuthority.profileId,"profile_ratio_percent");
+  assert.equal(pre.r05AssignmentAuthority.deliveryWaveId,"R05-W7");
   assert.equal(pre.q021ScopeLock.implementationAllowedByThisPreflight,false);
   assert.equal(pre.q021ScopeLock.publicProductAdmissionAllowedByThisPreflight,false);
   assert.equal(pre.preflightDecision.separateImplementationApprovalRequired,true);
