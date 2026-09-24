@@ -1,0 +1,248 @@
+{
+  "schemaName": "P07FW7Q021G6BU06PieChartQuantityFromRateSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q021_G6BU06_PieChartQuantityFromRate_SourceAuthorityPreflight",
+  "status": "SOURCE_AUTHORITY_BOUND_EXECUTABLE_READBACK_PENDING",
+  "goalDistance": {
+    "before": "D3_Q021_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_PENDING_EXECUTABLE_AUTHORITY_READBACK",
+    "reduced": "SOURCE_AND_SEMANTIC_BOUNDARY_LOCKED_PENDING_RUNTIME_READBACK"
+  },
+  "baselineMainSha": "fd6256d21ed12d24982ae377be24961b1f7002c0",
+  "predecessorD0Evidence": {
+    "q020TaskId": "P07F_W7DirectProductVerticalSlice020Implementation",
+    "q020Status": "PASS_E6_D0_COMPLETE",
+    "q020MergeSha": "ace3ae699a96d24be43bdfeeb15cb57be6e279ad",
+    "q020PostMergeWorkflowRunId": 35970451725,
+    "q020DurableReadbackPath": "docs/ci/latest-p07f-w7-q020-pages-e2e.json",
+    "q020DurableReadbackCommitSha": "651a587df2856bd458c3e987b4d84c39b6c42925",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q020_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queuePosition": 21,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q021_r11_g6b_u06_6b06_profile_ratio_percent_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice021Implementation",
+    "previousSliceId": "p07e_q020_r11_g6b_u05_6b05_profile_factor_multiple_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6b_u06_6b06",
+    "supportingSourceNodeIds": [
+      "g6b_u06_6b06"
+    ],
+    "intraWavePrerequisiteRank": 11,
+    "primaryRuntimeProfileId": "profile_ratio_percent",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6b_u06_pie_chart_quantity_from_rate"
+    ],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6b_u06_6b06",
+    "sourceCode": "6b06",
+    "sourceTitle": "圓形圖",
+    "sourcePdfTitle": "meow911_6b06_source.pdf",
+    "originalFileName": "題型總覽-6b06-圓形圖.pdf",
+    "sourcePdfDriveFileId": "1mVO-Fp8NqR68eevJ3aJK-MdoiHEYWqhz",
+    "sourcePdfSizeBytes": 518350,
+    "driveMetadataFileId": "1d_IeSjusZI9cLMyeT7GF8sb6tR9guufd",
+    "driveVerificationNotesFileId": "1afZDldnoa3pxCvgZEEdbJvVU9idyKUJN",
+    "metadataSourceUrl": "https://meow911.com/6b06/",
+    "pageCount": 1,
+    "reviewedPages": [
+      1
+    ],
+    "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI_PLUS_R02_REVIEWED_AUTHORITY_REUSE",
+    "ocrUsedAsAuthority": false,
+    "historicalMetadataState": {
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "verificationNotesStatus": "pending",
+      "disposition": "STALE_METADATA_NOT_USED_AS_CURRENT_REVIEW_PROOF"
+    },
+    "currentDirectVisualVerification": {
+      "completed": true,
+      "method": "CHATGPT_DIRECT_RENDERED_PDF_FULL_PAGE_VISUAL_VERIFICATION_200_DPI",
+      "ocrUsedAsAuthority": false,
+      "reviewedPages": [
+        1
+      ],
+      "targetEvidencePages": [
+        1
+      ],
+      "observations": [
+        "頁首明確標示「圓形圖」與 6b06 source identity。",
+        "頁面以百分率圓形圖呈現部分與全體，並包含由表格數量、百分率與圓形圖互相對照的例子。",
+        "「2月份家用支出的百分圖」題提供總支出 80000 與各支出類別扇形比例，要求完成百分率／支出金額表；這直接支援『已知總量與扇形比率求部分量』。",
+        "同頁另含百分率↔圓心角與圓形圖繪製內容；Q021 不取得這兩個相鄰候選的 ownership。"
+      ],
+      "directlySupports": [
+        "kp_g6b_u06_pie_chart_quantity_from_rate"
+      ],
+      "directSupportClassification": "DIRECT_TOTAL_AND_PIE_CHART_RATE_TO_PART_QUANTITY_EVIDENCE"
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g6b_u06_6b06",
+    "sourceTitle": "圓形圖",
+    "sourcePdfTitle": "meow911_6b06_source.pdf",
+    "reviewedPages": [
+      1
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g6b_u06_pie_chart_quantity_from_rate",
+      "canonicalNameZh": "由圓形圖比率求數量",
+      "capabilityStatement": "學生能由總量與扇形比率求各類數量。",
+      "reasoningInvariant": "部分量等於總量乘扇形比例。",
+      "category": "data",
+      "evidencePages": [
+        1
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "sameSourceCandidateKnowledgePointIds": [
+      "kp_g6b_u06_pie_chart_part_whole",
+      "kp_g6b_u06_pie_chart_percent_angle_conversion",
+      "kp_g6b_u06_pie_chart_quantity_from_rate",
+      "kp_g6b_u06_construct_pie_chart",
+      "kp_g6b_u06_compare_pie_charts"
+    ],
+    "predecessorOwnedKnowledgePointIds": [
+      "kp_g6b_u06_pie_chart_part_whole",
+      "kp_g6b_u06_compare_pie_charts"
+    ],
+    "q021KnowledgePointIds": [
+      "kp_g6b_u06_pie_chart_quantity_from_rate"
+    ],
+    "protectedFutureSameSourceKnowledgePointIds": [
+      "kp_g6b_u06_pie_chart_percent_angle_conversion",
+      "kp_g6b_u06_construct_pie_chart"
+    ],
+    "sameSourceCandidateSetCompleteAfterQ021Implementation": false,
+    "remainingCandidateCountAfterQ021": 2
+  },
+  "sameSourceOwnershipBoundary": {
+    "sourceId": "g6b_u06_6b06",
+    "previouslyOwned": [
+      {
+        "knowledgePointId": "kp_g6b_u06_pie_chart_part_whole",
+        "ownerTask": "P06F_W6DirectProductVerticalSlice014Implementation"
+      },
+      {
+        "knowledgePointId": "kp_g6b_u06_compare_pie_charts",
+        "ownerTask": "P06F_W6DirectProductVerticalSlice016Implementation"
+      }
+    ],
+    "q021MayOwnOnly": [
+      "kp_g6b_u06_pie_chart_quantity_from_rate"
+    ],
+    "protectedForLater": [
+      "kp_g6b_u06_pie_chart_percent_angle_conversion",
+      "kp_g6b_u06_construct_pie_chart"
+    ]
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "PART_QUANTITY_FROM_TOTAL_TIMES_PIE_CHART_RATE",
+    "canonicalReasoningInvariant": "部分量 = 總量 × 扇形比率；百分率表示時必須先以百分率所代表的比例參與運算，答案需回代到總量與扇形比率。",
+    "implementationSemanticLock": {
+      "totalQuantityGiven": true,
+      "pieChartSectorRateGiven": true,
+      "solvePartQuantity": true,
+      "percentageRateMayBeUsed": true,
+      "decimalOrFractionEquivalentRateMayBeUsed": true,
+      "answerMustEqualTotalTimesRate": true,
+      "nonnegativeQuantityDomainMustBeValidated": true,
+      "discreteCountContextMayRequireIntegerAnswer": true,
+      "predecessorPartWholeReownershipAllowed": false,
+      "predecessorComparePieChartsReownershipAllowed": false,
+      "percentAngleConversionOwnershipAllowed": false,
+      "pieChartConstructionOwnershipAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "executableAuthorityReadback": {
+    "pending": true,
+    "runnerPath": "tools/curriculum/read-p07f-w7-q021-g6b-u06-pie-chart-quantity-from-rate-source-authority-preflight.mjs",
+    "expectedRuntimeProfileId": "profile_ratio_percent",
+    "expectedRequiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "exactR03IncomingEdges": null,
+    "exactR04Mapping": null,
+    "exactR05Assignment": null
+  },
+  "q021ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6b_u06_pie_chart_quantity_from_rate"
+    ],
+    "includedRelations": [
+      "TOTAL_TIMES_PIE_CHART_RATE_TO_PART_QUANTITY",
+      "PERCENT_RATE_TO_PART_QUANTITY",
+      "BACK_SUBSTITUTE_PART_QUANTITY_AGAINST_TOTAL_AND_RATE"
+    ],
+    "excludedRelations": [
+      "PIE_CHART_PART_WHOLE_REOWNERSHIP",
+      "COMPARE_PIE_CHARTS_REOWNERSHIP",
+      "PERCENT_TO_CENTRAL_ANGLE_CONVERSION",
+      "CENTRAL_ANGLE_TO_PERCENT_CONVERSION",
+      "PIE_CHART_CONSTRUCTION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_AUTHORITY_MUTATION",
+      "Q022_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ020D0Verified": true,
+    "sourceIdentityBound": true,
+    "currentVisualReadbackDirectlySupportsQuantityFromRateTarget": true,
+    "r02ReviewedCandidateBound": true,
+    "semanticProfileLockBound": true,
+    "priorSameSourceOwnershipProtected": true,
+    "futureSameSourceCandidatesProtected": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "sourceAuthoritySufficientForQ021ImplementationPlanning": true,
+    "separateImplementationApprovalRequired": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice021Implementation"
+  }
+}
