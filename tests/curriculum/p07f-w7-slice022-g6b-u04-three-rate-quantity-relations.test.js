@@ -78,7 +78,7 @@ for(const kp of KPS)test("Q022 aggregate worksheet is answer-key/print ready for
   const w=buildBatchABrowserWorksheetDocument(req(kp,{questionCount:12,includeAnswerKey:true,printLayout:{columns:2,rowsPerPage:4}}));
   assert.equal(w.ok,true,w.errors.join(","));assert.equal(w.worksheetDocument.questionCount,12);assert.equal(w.worksheetDocument.answerKeyItems.length,12);
   const html=renderWorksheetDocumentToHtml(w.worksheetDocument,{stylesheetHref:""}),visible=html.replace(/<[^>]*>/g," ");
-  assert.match(visible,/基準量與比較量/);
+  assert.match(w.worksheetDocument.title,/^基準量與比較量｜/);assert.match(visible,/已知/);assert.match(visible,/是/);
   for(const x of ["P07F22","kp_g6b_u04_","ps_g6b_u04_","連續折扣","年利率"])assert.equal(visible.includes(x),false,x);
 });
 
