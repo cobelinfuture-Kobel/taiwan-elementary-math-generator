@@ -1,163 +1,17 @@
 {
-  "schemaName": "P07FW7Q013PostMergeMainPagesE2EV1",
-  "taskId": "P07F_W7DirectProductVerticalSlice013Implementation",
-  "status": "PASS_E6_D0_COMPLETE",
-  "exactHeadSha": "8374df25adbfe50b42e436620243581f04568318",
+  "schemaName": "P07FW7Q013PostMergeMainPagesE2EFailureV1",
+  "status": "FAIL",
+  "exactHeadSha": "610a71b81faadb9b44d8c24adfb574d676c421e0",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
-  "deployment": {
-    "attempt": 6,
-    "assets": [
-      {
-        "publicPath": "modules/curriculum/batch-a/source-units.js",
-        "expectedSha256": "a568bbc89d5e106b7ef5e5335893eda6ba71df30c938ab072c37e094ffabad8d",
-        "liveSha256": "a568bbc89d5e106b7ef5e5335893eda6ba71df30c938ab072c37e094ffabad8d"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/g5b-u08-rate-percentage-quantity-selector-projection-p07f13.js",
-        "expectedSha256": "2f14ecc663e8a5107f4bd150d198730c91360db06107309260b7dc4b7cae11c4",
-        "liveSha256": "2f14ecc663e8a5107f4bd150d198730c91360db06107309260b7dc4b7cae11c4"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/batch-a-selector-p07f13-extension.js",
-        "expectedSha256": "34565c0f9e6c12eac456184ed6dfde4138a1a1088725ded3cbf37f92a92472c7",
-        "liveSha256": "34565c0f9e6c12eac456184ed6dfde4138a1a1088725ded3cbf37f92a92472c7"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
-        "expectedSha256": "ed8564ae3bd151c6aa56d0484df695f88798fccaed13e24082e4bd77ddb8f85f",
-        "liveSha256": "ed8564ae3bd151c6aa56d0484df695f88798fccaed13e24082e4bd77ddb8f85f"
-      },
-      {
-        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p07f13.js",
-        "expectedSha256": "dfee3065a505cf62e06fab7f1598391cfa1d7601a2f22b616fd750d96a4bba87",
-        "liveSha256": "dfee3065a505cf62e06fab7f1598391cfa1d7601a2f22b616fd750d96a4bba87"
-      },
-      {
-        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-        "expectedSha256": "7a97c73d3f4a88afccb036c2853a817560b6f17f8545def9686ca6f887f10bcb",
-        "liveSha256": "7a97c73d3f4a88afccb036c2853a817560b6f17f8545def9686ca6f887f10bcb"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/g5b-u08-rate-percentage-quantity-runtime-p07f13.js",
-        "expectedSha256": "4caf7b854fca3db12e4b52e9fb16bd85581c64056e96cb519b45142062a19315",
-        "liveSha256": "4caf7b854fca3db12e4b52e9fb16bd85581c64056e96cb519b45142062a19315"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p07f13.js",
-        "expectedSha256": "8199df15c632d78a65f2f7b944b7a488f049b8b577f1cd691db03d87e4c3058f",
-        "liveSha256": "8199df15c632d78a65f2f7b944b7a488f049b8b577f1cd691db03d87e4c3058f"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
-        "expectedSha256": "4a7d6809014ee919bf69e45da1c01b8256ae28eb36cc923060acffde2a1a348b",
-        "liveSha256": "4a7d6809014ee919bf69e45da1c01b8256ae28eb36cc923060acffde2a1a348b"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p07f13-extension.js",
-        "expectedSha256": "978b3f52c266065df19602d927ae71ccc2237e964452062de23e413fd0450a3b",
-        "liveSha256": "978b3f52c266065df19602d927ae71ccc2237e964452062de23e413fd0450a3b"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
-        "expectedSha256": "91a23c8232aec10b7aed98b057350a247c7ba5f793309fa1bc53d6953d35fb1c",
-        "liveSha256": "91a23c8232aec10b7aed98b057350a247c7ba5f793309fa1bc53d6953d35fb1c"
-      }
-    ]
-  },
-  "classicUiAcceptance": {
-    "schemaName": "P07FW7Q013ClassicUIAcceptanceV1",
-    "taskId": "P07F_W7DirectProductVerticalSlice013Implementation",
-    "status": "PASS_P07F_W7_Q013_CLASSIC_UI_ACCEPTANCE",
-    "sourceId": "g5b_u08_5b08",
-    "knowledgePointIds": [
-      "kp_g5b_u08_find_percentage_rate",
-      "kp_g5b_u08_percentage_of_quantity"
-    ],
-    "questionCountPerTarget": 12,
-    "target": {
-      "selector": {
-        "sourceId": "g5b_u08_5b08",
-        "visibleIds": [
-          "kp_g5b_u08_ratio_fraction_decimal_percent_conversion",
-          "kp_g5b_u08_find_percentage_rate",
-          "kp_g5b_u08_percentage_of_quantity"
-        ],
-        "q8Present": true,
-        "targetsPresent": true,
-        "protectedAbsent": true,
-        "sameUnitDisabled": true
-      },
-      "rate": {
-        "state": {
-          "status": "已產生 12 題，可預覽與列印。",
-          "tone": "success",
-          "valid": "false",
-          "preview": 13244,
-          "printDisabled": false
-        },
-        "worksheet": {
-          "questions": 12,
-          "answers": 12,
-          "overflow": 0
-        }
-      },
-      "quantity": {
-        "state": {
-          "status": "已產生 12 題，可預覽與列印。",
-          "tone": "success",
-          "valid": "false",
-          "preview": 12917,
-          "printDisabled": false
-        },
-        "worksheet": {
-          "questions": 12,
-          "answers": 12,
-          "overflow": 0
-        }
-      },
-      "printCount": 1
-    },
-    "browser": {
-      "consoleErrorCount": 0,
-      "pageErrorCount": 0,
-      "requestFailureCount": 0,
-      "assetHttpFailureCount": 0
-    },
-    "semanticInvariants": {
-      "q008RepresentationConversionOwnershipPreserved": true,
-      "findPercentageRateOwned": true,
-      "percentageOfQuantityOwned": true,
-      "baseQuantityRolePreserved": true,
-      "q016FutureOwnershipPreserved": true,
-      "sourceBackedApplicationContextsPresent": true,
-      "sameUnitMixedModeFailClosed": true
-    },
-    "forbiddenScope": {
-      "findBaseQuantity": false,
-      "discountIncreaseApplication": false,
-      "sameUnitMixed": false,
-      "crossUnitMixed": false,
-      "fullRepositoryRegression": false,
-      "globalBrowserReplay": false
-    }
-  },
-  "semanticInvariants": {
-    "q008RepresentationConversionOwnershipPreserved": true,
-    "findPercentageRateOwned": true,
-    "percentageOfQuantityOwned": true,
-    "q016FutureOwnershipPreserved": true,
-    "sourceBackedApplicationContextsPresent": true,
-    "sameUnitMixedModeFailClosed": true,
-    "w7QueueContinuesAfterQ013": true
-  },
+  "error": "Error: P07F13_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\npage.waitForFunction: Timeout 120000ms exceeded.\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice013-classic-ui-acceptance.mjs:6:972)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice013-classic-ui-acceptance.mjs:7:79 {\n  name: 'TimeoutError'\n}\n\nNode.js v22.23.2\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-q013-live-pages-e2e.mjs:4:1355)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
   "workflow": "P07F W7 Q013 Post-Merge Pages E2E",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "35814572189",
-    "number": "1",
+    "id": "35952506932",
+    "number": "2",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/35814572189"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/35952506932"
   },
-  "verifiedAt": "2026-09-23T03:32:11.211Z"
+  "verifiedAt": "2026-09-24T03:52:00.931Z"
 }
