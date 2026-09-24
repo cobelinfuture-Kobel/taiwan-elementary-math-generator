@@ -1,0 +1,147 @@
+{
+  "schemaName": "P07FW7Q021G6BU06PieChartQuantityFromRateImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice021Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q021_PIE_CHART_QUANTITY_FROM_RATE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q021_PIE_CHART_QUANTITY_FROM_RATE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "114103be6a5f96f7e7415f1acd868c82854d8c48",
+  "preflight": {
+    "prNumber": 1064,
+    "mergeSha": "1d4423eb953fcb846746eb699f5cae6585717d53",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q021-g6b-u06-pie-chart-quantity-from-rate-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q020Status": "PASS_E6_D0_COMPLETE",
+    "q020MergeSha": "ace3ae699a96d24be43bdfeeb15cb57be6e279ad",
+    "q020PostMergeWorkflowRunId": 35970451725,
+    "q020DurableReadbackPath": "docs/ci/latest-p07f-w7-q020-pages-e2e.json",
+    "q020DurableReadbackCommitSha": "651a587df2856bd458c3e987b4d84c39b6c42925",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q020_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 21,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q021_r11_g6b_u06_6b06_profile_ratio_percent_c1",
+    "sourceId": "g6b_u06_6b06",
+    "runtimeProfileId": "profile_ratio_percent",
+    "rank": 11,
+    "targetKnowledgePointIds": [
+      "kp_g6b_u06_pie_chart_quantity_from_rate"
+    ],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g5b_u08_percentage_of_quantity",
+      "kp_g6b_u06_pie_chart_part_whole"
+    ],
+    "prerequisiteCapabilitiesMayBeConsumed": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "effectiveRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g6b_u06_pie_sector_percent_to_quantity",
+      "ps_g6b_u06_pie_sector_decimal_rate_to_quantity",
+      "ps_g6b_u06_household_expense_pie_rate_to_amount"
+    ],
+    "questionMode": "numeric",
+    "representation": "text_application",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_INTEGER",
+    "semanticCore": "PART_QUANTITY_FROM_TOTAL_TIMES_PIE_CHART_RATE"
+  },
+  "sourceCarrier": {
+    "directVisualPages": [
+      1
+    ],
+    "sourceStructuralCarrier": "2月份家用支出百分圖＋總支出80000表格",
+    "exactSourceRateReproduction": false,
+    "controlledRateVariantsAllowed": true
+  },
+  "sameSourceCandidateState": {
+    "sourceId": "g6b_u06_6b06",
+    "visibleKnowledgePointIdsAfterImplementation": [
+      "kp_g6b_u06_pie_chart_part_whole",
+      "kp_g6b_u06_compare_pie_charts",
+      "kp_g6b_u06_pie_chart_quantity_from_rate"
+    ],
+    "protectedFutureKnowledgePointIds": [
+      "kp_g6b_u06_pie_chart_percent_angle_conversion",
+      "kp_g6b_u06_construct_pie_chart"
+    ],
+    "sameSourceCandidateSetComplete": false,
+    "sameUnitMixedStillNotAdmitted": true
+  },
+  "scopeGuard": {
+    "pieChartPartWholeReowned": false,
+    "comparePieChartsReowned": false,
+    "percentAngleConversionOwned": false,
+    "pieChartConstructionOwned": false,
+    "crossChartComparisonOwned": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q020ProductTouched": false,
+    "q022OrLaterProductTouched": false,
+    "sourceUnitMutation": false,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
