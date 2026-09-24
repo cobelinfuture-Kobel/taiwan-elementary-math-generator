@@ -14,6 +14,8 @@ on:
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f20-extension.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
       - "site/modules/renderer/sector-elements-diagram.js"
+      - "tools/curriculum/run-p07f-w7-q020-live-pages-e2e.mjs"
+      - "tools/curriculum/run-p07f-w7-slice020-classic-ui-acceptance.mjs"
       - ".github/workflows/p07f-w7-q020-live-pages-e2e.yml"
 permissions:
   contents: write
