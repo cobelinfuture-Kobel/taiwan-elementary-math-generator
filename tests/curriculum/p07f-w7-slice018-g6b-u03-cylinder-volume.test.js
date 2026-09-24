@@ -15,6 +15,8 @@ import {
 import {auditPublicUiCapabilityBinding,resolvePublicUiCapabilityBinding} from "../../site/modules/curriculum/public/public-ui-capability-binding-p07f18.js";
 import {buildG6BU03P07F18Question,generateG6BU03P07F18Questions,validateG6BU03P07F18Answer,validateG6BU03P07F18Question} from "../../site/modules/curriculum/batch-a/g6b-u03-cylinder-volume-runtime-p07f18.js";
 import {buildBatchABrowserPlan,generateBatchABrowserQuestions} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js";
+import {generateBatchABrowserQuestions as generateP05F49Questions} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f49.js";
+import {generateBatchABrowserQuestions as generateP05F55Questions} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f55.js";
 import {buildBatchABrowserWorksheetDocument} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js";
 import {renderWorksheetDocumentToHtml} from "../../site/modules/renderer/html-renderer.js";
 const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"));
@@ -76,13 +78,23 @@ test("Q018 aggregate worksheet HTML uses cylinder renderer",()=>{
   for(const x of ["P07F18","kp_g6b_u03_","ps_g6b_u03_","表面積","半圓柱","複合柱體"])assert.equal(visible.includes(x),false,x);
 });
 
-test("Q018 same-unit mixed remains fail-closed and prior same-source routes remain reachable",()=>{
+test("Q018 same-unit mixed remains fail-closed and historical same-source owners remain reachable",()=>{
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:["kp_g6b_u03_prism_base_area_height_volume",KP],questionMode:"diagram",questionCount:8});
   assert.equal(mixed.ok,false);
-  for(const prior of PRIOR){
-    const g=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[prior],questionMode:"diagram",questionCount:4,generationSeed:"prior-history"});
+  const q049=generateP05F49Questions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_g6b_u03_prism_surface_area"],questionMode:"diagram",questionCount:4,generationSeed:"q049-history"});
+  assert.equal(q049.ok,true,q049.errors.join(","));
+  const q055=generateP05F55Questions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_g6b_u03_prism_base_area_height_volume"],questionMode:"diagram",questionCount:4,generationSeed:"q055-history"});
+  assert.equal(q055.ok,true,q055.errors.join(","));
+  for(const prior of ["kp_g6b_u03_composite_prism_volume_surface","kp_g6b_u03_triangular_prism_volume"]){
+    const g=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[prior],questionMode:"diagram",questionCount:4,generationSeed:"q060-history"});
     assert.equal(g.ok,true,g.errors.join(","));
   }
+  const attribution=read("data/curriculum/full-product/p07f/q018-historical-q049-current-aggregate-baseline-parity-attribution.json");
+  assert.equal(attribution.status,"PASS_BASELINE_ONLY_TEST_CONTRACT_MISMATCH_CONFIRMED");
+  assert.equal(attribution.attribution,"BASELINE_ONLY_TEST_CONTRACT_MISMATCH");
+  assert.equal(attribution.parity.baselineContainsRequestsP05F49Dispatch,false);
+  assert.equal(attribution.parity.branchContainsRequestsP05F49Dispatch,false);
+  assert.equal(attribution.repairContract.noQ018ProductSemanticChange,true);
 });
 
 test("Q018 current pointers and bounded validation",()=>{
