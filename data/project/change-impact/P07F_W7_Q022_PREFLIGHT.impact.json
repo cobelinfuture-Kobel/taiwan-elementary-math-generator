@@ -14,9 +14,9 @@
     "kp_g6b_u04_find_rate_from_quantities"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g6b_u04_find_base_quantity": "PLANNING_IDENTITY_RESOLVED_RUNTIME_AUTHORITY_PENDING",
-    "kp_g6b_u04_find_comparison_quantity": "PLANNING_IDENTITY_RESOLVED_RUNTIME_AUTHORITY_PENDING",
-    "kp_g6b_u04_find_rate_from_quantities": "PLANNING_IDENTITY_RESOLVED_RUNTIME_AUTHORITY_PENDING"
+    "kp_g6b_u04_find_base_quantity": "PLANNING_READY_IMPLEMENTATION_APPROVAL_REQUIRED",
+    "kp_g6b_u04_find_comparison_quantity": "PLANNING_READY_IMPLEMENTATION_APPROVAL_REQUIRED",
+    "kp_g6b_u04_find_rate_from_quantities": "PLANNING_READY_IMPLEMENTATION_APPROVAL_REQUIRED"
   },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P07F_W7_Q022_PREFLIGHT.validation.json",
@@ -30,7 +30,6 @@
     "planningAuthorityAdded": true
   },
   "scopeGuards": {
-    "identityProbeOnly": false,
     "productImplementation": false,
     "publicAdmission": false,
     "q021ProductMutation": false,
@@ -40,6 +39,8 @@
     "r03Mutation": false,
     "r04Mutation": false,
     "r05Mutation": false,
+    "originalSourcePdfMutation": false,
+    "predecessorRoleOwnershipMutation": false,
     "successiveRateChangeOwnership": false
   }
 }
