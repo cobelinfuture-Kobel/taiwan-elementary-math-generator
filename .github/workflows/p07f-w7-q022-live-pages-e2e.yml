@@ -1,16 +1,22 @@
-name: P07F W7 Q021 Post-Merge Pages E2E
+name: P07F W7 Q022 Post-Merge Pages E2E
 on:
   push:
     branches: [main]
     paths:
-      - "site/modules/curriculum/registry/g6b-u06-pie-chart-quantity-from-rate-selector-projection-p07f21.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p07f21-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p07f21.js"
-      - "site/modules/curriculum/batch-a/g6b-u06-pie-chart-quantity-from-rate-runtime-p07f21.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f21.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f21-extension.js"
-      - "tools/curriculum/run-p07f-w7-q021-live-pages-e2e.mjs"
-      - "tools/curriculum/run-p07f-w7-slice021-classic-ui-acceptance.mjs"
+      - "site/modules/curriculum/registry/g6b-u04-three-rate-quantity-relations-selector-projection-p07f22.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p07f22-extension.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p07f22.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
+      - "site/modules/curriculum/batch-a/g6b-u04-three-rate-quantity-relations-runtime-p07f22.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f22.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f22-extension.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
+      - "site/modules/renderer/sector-elements-diagram.js"
+      - "tools/curriculum/run-p07f-w7-q022-live-pages-e2e.mjs"
+      - "tools/curriculum/run-p07f-w7-slice022-classic-ui-acceptance.mjs"
+      - ".github/workflows/p07f-w7-q022-live-pages-e2e.yml"
 permissions:
   contents: write
 jobs:
@@ -27,34 +33,34 @@ jobs:
       - run: |
           npm install --no-save --package-lock=false playwright@1.55.0
           npx playwright install --with-deps chromium
-      - run: node tools/curriculum/run-p07f-w7-q021-live-pages-e2e.mjs
+      - run: node tools/curriculum/run-p07f-w7-q022-live-pages-e2e.mjs
         env:
-          P07F21_DEPLOYMENT_RETRIES: "60"
-          P07F21_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+          P07F22_DEPLOYMENT_RETRIES: "60"
+          P07F22_DEPLOYMENT_RETRY_DELAY_MS: "15000"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: p07f-w7-q021-pages-e2e
-          path: tmp/p07f-w7-q021-live-pages-e2e
+          name: p07f-w7-q022-pages-e2e
+          path: tmp/p07f-w7-q022-live-pages-e2e
           if-no-files-found: error
           retention-days: 30
       - name: Persist durable Pages E2E readback
         if: always()
         env:
-          READBACK_PATH: docs/ci/latest-p07f-w7-q021-pages-e2e.json
-          READBACK_TMP: /tmp/p07f-w7-q021-pages-e2e-readback.json
+          READBACK_PATH: docs/ci/latest-p07f-w7-q022-pages-e2e.json
+          READBACK_TMP: /tmp/p07f-w7-q022-pages-e2e-readback.json
         run: |
           node <<'NODE'
           const fs = require("node:fs");
           const path = require("node:path");
-          const out = path.resolve("tmp/p07f-w7-q021-live-pages-e2e");
+          const out = path.resolve("tmp/p07f-w7-q022-live-pages-e2e");
           const reportPath = path.join(out, "report.json");
           const failurePath = path.join(out, "failure.json");
           let payload;
           if (fs.existsSync(reportPath)) payload = JSON.parse(fs.readFileSync(reportPath, "utf8"));
           else if (fs.existsSync(failurePath)) payload = JSON.parse(fs.readFileSync(failurePath, "utf8"));
-          else payload = {schemaName:"P07FW7Q021PostMergeMainPagesE2EReadbackV1",status:"FAIL_NO_STRUCTURED_EVIDENCE",exactHeadSha:process.env.GITHUB_SHA};
-          payload.workflow = "P07F W7 Q021 Post-Merge Pages E2E";
+          else payload = {schemaName:"P07FW7Q022PostMergeMainPagesE2EReadbackV1",status:"FAIL_NO_STRUCTURED_EVIDENCE",exactHeadSha:process.env.GITHUB_SHA};
+          payload.workflow = "P07F W7 Q022 Post-Merge Pages E2E";
           payload.repository = process.env.GITHUB_REPOSITORY;
           payload.ref = process.env.GITHUB_REF;
           payload.run = {id:process.env.GITHUB_RUN_ID,number:process.env.GITHUB_RUN_NUMBER,attempt:process.env.GITHUB_RUN_ATTEMPT,url:"https://github.com/"+process.env.GITHUB_REPOSITORY+"/actions/runs/"+process.env.GITHUB_RUN_ID};
@@ -70,7 +76,7 @@ jobs:
             cp "$READBACK_TMP" "$READBACK_PATH"
             git add "$READBACK_PATH"
             if git diff --cached --quiet; then exit 0; fi
-            git commit -m "ci: record P07F W7 Q021 deployed Pages E2E [skip ci]"
+            git commit -m "ci: record P07F W7 Q022 deployed Pages E2E [skip ci]"
             if git push origin HEAD:main; then exit 0; fi
             sleep $((attempt * 5))
           done
