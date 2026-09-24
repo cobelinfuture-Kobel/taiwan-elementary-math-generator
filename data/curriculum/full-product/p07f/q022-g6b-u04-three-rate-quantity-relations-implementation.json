@@ -1,0 +1,146 @@
+{
+  "schemaName": "P07FW7Q022G6BU04ThreeRateQuantityRelationsImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice022Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q022_THREE_RATE_QUANTITY_RELATIONS_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q022_THREE_RATE_QUANTITY_RELATIONS_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "ffaeb55f9072fd18ae241b3bd6fa45938ddcb73d",
+  "preflight": {
+    "prNumber": 1066,
+    "mergeSha": "911800725a831fc73b020467749cb9c5032e2e27",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q022-g6b-u04-three-rate-quantity-relations-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q021Status": "PASS_E6_D0_COMPLETE",
+    "q021MergeSha": "b5c106342e20cfcdcffe5f315499289cc569e63d",
+    "q021PostMergeWorkflowRunId": 35980401040,
+    "q021DurableReadbackPath": "docs/ci/latest-p07f-w7-q021-pages-e2e.json",
+    "q021DurableReadbackCommitSha": "4b697bd080865bef524e063a75c842675c2f6afe",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q021_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 22,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q022_r12_g6b_u04_6b04_profile_ratio_percent_c1",
+    "sourceId": "g6b_u04_6b04",
+    "runtimeProfileId": "profile_ratio_percent",
+    "rank": 12,
+    "targetKnowledgePointIds": [
+      "kp_g6b_u04_find_base_quantity",
+      "kp_g6b_u04_find_comparison_quantity",
+      "kp_g6b_u04_find_rate_from_quantities"
+    ],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g6b_u04_base_comparison_rate_roles"
+    ],
+    "prerequisiteCapabilitiesMayBeConsumed": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "effectiveRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 3,
+    "patternGroupCount": 3,
+    "patternSpecCount": 6,
+    "patternSpecIds": [
+      "ps_g6b_u04_find_base_from_decimal_rate",
+      "ps_g6b_u04_find_base_from_percent_rate",
+      "ps_g6b_u04_find_comparison_from_decimal_rate",
+      "ps_g6b_u04_find_comparison_from_percent_rate",
+      "ps_g6b_u04_find_decimal_rate_from_quantities",
+      "ps_g6b_u04_find_percent_rate_from_quantities"
+    ],
+    "questionMode": "numeric",
+    "representation": "text_application",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "semanticCores": [
+      "SOLVE_BASE_QUANTITY_FROM_COMPARISON_AND_RATE",
+      "SOLVE_COMPARISON_QUANTITY_FROM_BASE_AND_RATE",
+      "SOLVE_RATE_FROM_COMPARISON_AND_BASE"
+    ],
+    "relationModel": "comparison_quantity = base_quantity × rate",
+    "answerBackSubstitutionRequired": true
+  },
+  "sameSourceCandidateState": {
+    "sourceId": "g6b_u04_6b04",
+    "visibleKnowledgePointIdsAfterImplementation": [
+      "kp_g6b_u04_base_comparison_rate_roles",
+      "kp_g6b_u04_find_base_quantity",
+      "kp_g6b_u04_find_comparison_quantity",
+      "kp_g6b_u04_find_rate_from_quantities"
+    ],
+    "protectedFutureKnowledgePointIds": [
+      "kp_g6b_u04_successive_rate_change"
+    ],
+    "sameSourceCandidateSetComplete": false,
+    "sameUnitMixedStillNotAdmitted": true
+  },
+  "scopeGuard": {
+    "predecessorRoleClassificationReowned": false,
+    "successiveRateChangeOwned": false,
+    "multiStageDiscountGrowthDecreaseOwned": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q021ProductTouched": false,
+    "q023OrLaterProductTouched": false,
+    "sourceUnitMutation": false,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
