@@ -1,0 +1,434 @@
+{
+  "schemaName": "P07FW7Q019G6BU04BaseComparisonRateRolesSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q019_G6BU04_BaseComparisonRateRoles_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q019_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q019_BASE_COMPARISON_RATE_ROLE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "a1ae737bba38c8aa3f8e508e9896a17d0a6dcdf8",
+  "predecessorD0Evidence": {
+    "q018TaskId": "P07F_W7DirectProductVerticalSlice018Implementation",
+    "q018Status": "PASS_E6_D0_COMPLETE",
+    "q018MergeSha": "e3b29cb2d67839d796f6ce030f647adf8fe4611f",
+    "q018PostMergeWorkflowRunId": 35938361230,
+    "q018DurableReadbackPath": "docs/ci/latest-p07f-w7-q018-pages-e2e.json",
+    "q018DurableReadbackCommitSha": "99982c3dd2b1c9f023adebc77b9e502b252e4066",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q018_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queuePosition": 19,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q019_r11_g6b_u04_6b04_profile_ratio_percent_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice019Implementation",
+    "previousSliceId": "p07e_q018_r11_g6b_u03_6b03_profile_spatial_solid_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6b_u04_6b04",
+    "supportingSourceNodeIds": [
+      "g6b_u04_6b04"
+    ],
+    "intraWavePrerequisiteRank": 11,
+    "primaryRuntimeProfileId": "profile_ratio_percent",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6b_u04_base_comparison_rate_roles"
+    ],
+    "requiredW7CapabilityIdsPendingExecutableReadback": false,
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ]
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6b_u04_6b04",
+    "sourceCode": "6b04",
+    "sourceTitle": "基準量與比較量",
+    "sourcePdfTitle": "meow911_6b04_source.pdf",
+    "originalFileName": "題型總覽-6b04-基準量與比較量.pdf",
+    "sourceUrl": "https://meow911.com/6b04/",
+    "sourcePdfDriveFileId": "1hfuht0gTaeU21wGybATAxszE9R5T8ted",
+    "sourceMetadataDriveFileId": "1lnP5YnS21-T6fKBZJ26FF5penaet5cqd",
+    "verificationNotesDriveFileId": "1aVk6bEkOziZDZETEMGE2JC6LOZ1BAw6Q",
+    "sourcePdfSizeBytes": 998852,
+    "sourcePdfSha256": "5b4ac562056913988f3267eb745fb5bf5d1ba693ee2df039d831281930457b0b",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "historicalSourceMetadataState": {
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "sourceFileStatus": "private_repo_only",
+      "disposition": "HISTORICAL_METADATA_NOT_CURRENT_Q019_VISUAL_AUTHORITY"
+    },
+    "historicalVerificationNotesState": {
+      "status": "pending",
+      "visualVerificationCompleted": false,
+      "doNotTreatOcrAsAuthority": true,
+      "disposition": "HISTORICAL_NOTE_NOT_CURRENT_Q019_AUTHORITY"
+    },
+    "currentDirectVisualVerification": {
+      "completed": true,
+      "method": "CHATGPT_DIRECT_RENDERED_PDF_FULL_PAGE_VISUAL_VERIFICATION_200_DPI",
+      "ocrUsedAsAuthority": false,
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "page1Observations": [
+        "頁首標示「基準量與比較量」與來源網址 https://meow911.com/6b04/。",
+        "頁面多個題目直接使用「A 是 B 的 r 倍／百分率」語句，例如「水壺容量是杯子的 1又5/6 倍」、「女生是男生的 0.8 倍」、「今天賣出的量是昨天的 1.25 倍」，直接支援比較量／基準量／比率的角色方向。",
+        "「甲跑了 6/5 公里，是全程的 3/10」直接呈現已知比較量與比率、全程作為基準量的關係；Q019 只取得角色辨認與方向，不取得反求基準量計算 ownership。",
+        "成本加成、百分比增加與倍數應用同頁存在，但 Q019 不取得求比較量、求基準量、求比率或連續增減率的計算 ownership。"
+      ],
+      "page2Observations": [
+        "「羊群是牛的 0.7 倍」、「買書用掉全部的 35%」、「今年新生人數是去年的 95%」、「以成本的 140% 當作售價」等語句持續提供 A/B/r 的直接角色關係證據。",
+        "「今天賣出 1026 杯，比昨天賣出的少 5%」與折扣、年利率等題型屬後續百分率／變化率應用；Q019 不擴張為連續增減率或利息計算 ownership。",
+        "頁面未以欄位標籤逐題明寫「基準量／比較量／比率」，因此 Q019 authority 以題幹語義關係 + R02 reviewed candidate 作為角色定義，不宣稱來源有逐題角色標籤。"
+      ],
+      "targetDisposition": "DIRECT_VISUAL_CORROBORATES_R02_BASE_COMPARISON_RATE_ROLE_TARGET",
+      "directSupportClassification": "DIRECT_LITERAL_RATE_RELATION_ROLE_EVIDENCE"
+    },
+    "targetEvidenceReconciliation": {
+      "knowledgePointId": "kp_g6b_u04_base_comparison_rate_roles",
+      "canonicalNameZh": "基準量比較量比率角色",
+      "r02EvidencePages": [
+        1,
+        2
+      ],
+      "exactDirectVisualEvidencePages": [
+        1,
+        2
+      ],
+      "r02CapabilityStatement": "學生能辨認基準量、比較量與比率。",
+      "r02ReasoningInvariant": "比較量等於基準量乘比率，分母角色固定為基準量。",
+      "currentSemanticAuthority": "R02_FULL_PAGE_VISUAL_READBACK_PLUS_CURRENT_DIRECT_PDF_VISUAL_CORROBORATION",
+      "currentDirectPdfVisualCorroboration": true,
+      "disposition": "R02_PAGES_1_2_PLUS_DIRECT_A_IS_B_TIMES_RATE_VISUAL_AUTHORITY"
+    },
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "newSupplementaryEvidenceRequired": false,
+    "silentRewriteAllowed": false
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+    "chunkBlobSha": "2902e380adc896d6bd554b58272d9b65797cd844",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g6b_u04_6b04",
+    "sourceTitle": "基準量與比較量",
+    "sourcePdfTitle": "meow911_6b04_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g6b_u04_base_comparison_rate_roles",
+      "canonicalNameZh": "基準量比較量比率角色",
+      "capabilityStatement": "學生能辨認基準量、比較量與比率。",
+      "reasoningInvariant": "比較量等於基準量乘比率，分母角色固定為基準量。",
+      "category": "ratio",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "protectedFutureSameSourceKnowledgePointIds": [
+      "kp_g6b_u04_find_base_quantity",
+      "kp_g6b_u04_find_comparison_quantity",
+      "kp_g6b_u04_find_rate_from_quantities",
+      "kp_g6b_u04_successive_rate_change"
+    ],
+    "sameSourceCandidateSetCompleteAfterQ019Implementation": false
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "IDENTIFY_BASE_COMPARISON_RATE_ROLES_AND_DIRECTION",
+    "canonicalReasoningInvariant": "在「比較量是基準量的 r 倍／r%」關係中，基準量是比較基準，分母角色固定為基準量；比較量 = 基準量 × 比率，比率 = 比較量 ÷ 基準量。",
+    "implementationSemanticLock": {
+      "identifyBaseQuantityRoleRequired": true,
+      "identifyComparisonQuantityRoleRequired": true,
+      "identifyRateRoleRequired": true,
+      "relationDirectionRequired": true,
+      "baseQuantityIsDenominatorRoleRequired": true,
+      "comparisonEqualsBaseTimesRateRelationMayBeShown": true,
+      "rateEqualsComparisonDividedByBaseRelationMayBeShown": true,
+      "directRoleClassificationAllowed": true,
+      "solveForBaseQuantityAllowed": false,
+      "solveForComparisonQuantityAllowed": false,
+      "solveForRateAllowed": false,
+      "successiveRateChangeAllowed": false,
+      "discountInterestMultiStageComputationAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "executableAuthorityReadback": {
+    "pending": false,
+    "exactQueueRow": {
+      "queuePosition": 19,
+      "sliceId": "p07e_q019_r11_g6b_u04_6b04_profile_ratio_percent_c1",
+      "implementationTaskId": "P07F_W7DirectProductVerticalSlice019Implementation",
+      "previousSliceId": "p07e_q018_r11_g6b_u03_6b03_profile_spatial_solid_c1",
+      "assignedDeliveryWaveId": "R05-W7",
+      "primarySourceNodeId": "g6b_u04_6b04",
+      "intraWavePrerequisiteRank": 11,
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "knowledgePointIds": [
+        "kp_g6b_u04_base_comparison_rate_roles"
+      ],
+      "requiredW7CapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator"
+      ]
+    },
+    "exactR03IncomingEdges": [
+      {
+        "edgeId": "kpe_r03_0608",
+        "fromKnowledgePointId": "kp_g5b_u08_find_percentage_rate",
+        "toKnowledgePointId": "kp_g6b_u04_base_comparison_rate_roles",
+        "dependencyStrength": "required",
+        "dependencyRole": "conceptual_foundation",
+        "distanceBearing": true,
+        "evidenceRefs": [
+          "source:g5b_u08_5b08",
+          "source:g6b_u04_6b04"
+        ]
+      }
+    ],
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6b_u04_base_comparison_rate_roles",
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "classificationRuleId": "rule_ratio_percent",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "undeliveredRequiredCapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator"
+      ],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07"
+    },
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u04_base_comparison_rate_roles",
+      "baseDeliveryWaveId": "R05-W7",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": false,
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "contractOnlyRequiredCapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator"
+      ],
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED"
+    }
+  },
+  "q019ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6b_u04_base_comparison_rate_roles"
+    ],
+    "includedRelations": [
+      "IDENTIFY_BASE_QUANTITY_FROM_RATE_STATEMENT",
+      "IDENTIFY_COMPARISON_QUANTITY_FROM_RATE_STATEMENT",
+      "IDENTIFY_RATE_FROM_RATE_STATEMENT",
+      "ORIENT_COMPARISON_BASE_RATE_RELATION"
+    ],
+    "excludedRelations": [
+      "SOLVE_BASE_QUANTITY",
+      "SOLVE_COMPARISON_QUANTITY",
+      "SOLVE_RATE_FROM_QUANTITIES",
+      "SUCCESSIVE_RATE_CHANGE",
+      "MULTI_STAGE_DISCOUNT",
+      "INTEREST_COMPUTATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_AUTHORITY_MUTATION",
+      "Q020_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q018ProductTouched": false,
+    "q020OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ018D0Verified": true,
+    "sourceIdentityBound": true,
+    "currentVisualReadbackDirectlySupportsRoleRelationTarget": true,
+    "newSupplementaryEvidenceRequired": false,
+    "r02ReviewedCandidateBound": true,
+    "semanticProfileLockBound": true,
+    "futureSameSourceOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
+    "sourceAuthoritySufficientForQ019ImplementationPlanning": true,
+    "separateImplementationApprovalRequired": true,
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice019Implementation"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "sharedCapabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "runtimeMatrixModulePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "profileId": "profile_ratio_percent",
+    "classificationRuleId": "rule_ratio_percent",
+    "appliedModifierIds": [],
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "exactOptionalRuntimeCapabilityIds": [],
+    "exactFrozenQueueRequiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6b_u04_base_comparison_rate_roles",
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "classificationRuleId": "rule_ratio_percent",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "BLOCKED_BY_CONTRACT_ONLY_CAPABILITIES",
+      "undeliveredRequiredCapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator"
+      ],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07"
+    },
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "edgeId": "kpe_r03_0608",
+        "fromKnowledgePointId": "kp_g5b_u08_find_percentage_rate",
+        "toKnowledgePointId": "kp_g6b_u04_base_comparison_rate_roles",
+        "dependencyStrength": "required",
+        "dependencyRole": "conceptual_foundation",
+        "distanceBearing": true,
+        "evidenceRefs": [
+          "source:g5b_u08_5b08",
+          "source:g6b_u04_6b04"
+        ]
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g5b_u08_find_percentage_rate"
+    ],
+    "percentageRatePrerequisiteMayBeConsumed": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u04_base_comparison_rate_roles",
+      "baseDeliveryWaveId": "R05-W7",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": false,
+      "primaryRuntimeProfileId": "profile_ratio_percent",
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator",
+        "cap_text_application_representation"
+      ],
+      "contractOnlyRequiredCapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_fraction_number_system",
+        "cap_ratio_rate_validator"
+      ],
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED"
+    },
+    "exactR05AssignmentVerified": true,
+    "baseDeliveryWaveId": "R05-W7",
+    "deliveryWaveId": "R05-W7",
+    "intraWavePrerequisiteRank": 11,
+    "waveEscalatedByPrerequisite": false
+  }
+}
