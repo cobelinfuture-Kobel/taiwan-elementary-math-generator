@@ -1,0 +1,81 @@
+name: P07F W7 Q020 Post-Merge Pages E2E
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/modules/curriculum/registry/g6b-u05-work-distribution-selector-projection-p07f20.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p07f20-extension.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p07f20.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
+      - "site/modules/curriculum/batch-a/g6b-u05-work-distribution-runtime-p07f20.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f20.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f20-extension.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
+      - "site/modules/renderer/sector-elements-diagram.js"
+      - ".github/workflows/p07f-w7-q020-live-pages-e2e.yml"
+permissions:
+  contents: write
+jobs:
+  live-pages-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - run: node tools/curriculum/run-p07f-w7-q020-live-pages-e2e.mjs
+        env:
+          P07F20_DEPLOYMENT_RETRIES: "60"
+          P07F20_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p07f-w7-q020-pages-e2e
+          path: tmp/p07f-w7-q020-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30
+      - name: Persist durable Pages E2E readback
+        if: always()
+        env:
+          READBACK_PATH: docs/ci/latest-p07f-w7-q020-pages-e2e.json
+          READBACK_TMP: /tmp/p07f-w7-q020-pages-e2e-readback.json
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const out = path.resolve("tmp/p07f-w7-q020-live-pages-e2e");
+          const reportPath = path.join(out, "report.json");
+          const failurePath = path.join(out, "failure.json");
+          let payload;
+          if (fs.existsSync(reportPath)) payload = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+          else if (fs.existsSync(failurePath)) payload = JSON.parse(fs.readFileSync(failurePath, "utf8"));
+          else payload = {schemaName:"P07FW7Q020PostMergeMainPagesE2EReadbackV1",status:"FAIL_NO_STRUCTURED_EVIDENCE",exactHeadSha:process.env.GITHUB_SHA};
+          payload.workflow = "P07F W7 Q020 Post-Merge Pages E2E";
+          payload.repository = process.env.GITHUB_REPOSITORY;
+          payload.ref = process.env.GITHUB_REF;
+          payload.run = {id:process.env.GITHUB_RUN_ID,number:process.env.GITHUB_RUN_NUMBER,attempt:process.env.GITHUB_RUN_ATTEMPT,url:"https://github.com/"+process.env.GITHUB_REPOSITORY+"/actions/runs/"+process.env.GITHUB_RUN_ID};
+          payload.verifiedAt = new Date().toISOString();
+          fs.writeFileSync(process.env.READBACK_TMP, JSON.stringify(payload,null,2)+"\n");
+          NODE
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p "$(dirname "$READBACK_PATH")"
+            cp "$READBACK_TMP" "$READBACK_PATH"
+            git add "$READBACK_PATH"
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "ci: record P07F W7 Q020 deployed Pages E2E [skip ci]"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 5))
+          done
+          exit 1
