@@ -81,8 +81,10 @@ test("Q020 aggregate worksheet HTML is multi-condition, answer-key and print rea
   const g=generateBatchABrowserQuestions(req({questionCount:18}));assert.equal(g.ok,true,g.errors.join(","));
   const w=buildBatchABrowserWorksheetDocument(req({questionCount:12,includeAnswerKey:true,printLayout:{columns:2,rowsPerPage:3}}));
   assert.equal(w.ok,true,w.errors.join(","));assert.equal(w.worksheetDocument.questionCount,12);assert.equal(w.worksheetDocument.answerKeyItems.length,12);
+  assert.equal(w.worksheetDocument.title,"怎樣解題｜工作分配與策略問題");
   const html=renderWorksheetDocumentToHtml(w.worksheetDocument,{stylesheetHref:""}),visible=html.replace(/<[^>]*>/g," ");
-  assert.match(visible,/怎樣解題/);assert.match(visible,/快艇/);assert.match(visible,/高速列車/);assert.match(visible,/麥克筆/);
+  assert.match(html,/<title>數學練習題預覽<\/title>/);assert.equal(visible.includes("怎樣解題"),false);
+  assert.match(visible,/快艇/);assert.match(visible,/高速列車/);assert.match(visible,/麥克筆/);
   for(const x of ["P07F20","kp_g6b_u05_","ps_g6b_u05_","排列幾種","走法"])assert.equal(visible.includes(x),false,x);
 });
 
