@@ -1,0 +1,732 @@
+{
+  "schemaName": "P07FW7Q020G6BU05WorkDistributionStrategySourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q020_G6BU05_WorkDistributionStrategy_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q020_FROZEN_QUEUE_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q020_WORK_DISTRIBUTION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "e229fbe181ab846ea039719d9a7d90522fec00ce",
+  "predecessorD0Evidence": {
+    "q019TaskId": "P07F_W7DirectProductVerticalSlice019Implementation",
+    "q019Status": "PASS_E6_D0_COMPLETE",
+    "q019MergeSha": "610a71b81faadb9b44d8c24adfb574d676c421e0",
+    "q019PostMergeWorkflowRunId": 35952506880,
+    "q019DurableReadbackPath": "docs/ci/latest-p07f-w7-q019-pages-e2e.json",
+    "q019DurableReadbackCommitSha": "e0e8d99874a425105e70b9fdfe9a82df7e5abfea",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q019_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queuePosition": 20,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q020_r11_g6b_u05_6b05_profile_factor_multiple_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice020Implementation",
+    "previousSliceId": "p07e_q019_r11_g6b_u04_6b04_profile_ratio_percent_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6b_u05_6b05",
+    "supportingSourceNodeIds": [
+      "g6b_u05_6b05"
+    ],
+    "intraWavePrerequisiteRank": 11,
+    "primaryRuntimeProfileId": "profile_factor_multiple",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6b_u05_work_or_distribution_strategy"
+    ],
+    "requiredW7CapabilityIdsPendingExecutableReadback": false,
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredW7CapabilityIds": []
+  },
+  "sourceAuthority": {
+    "sourceNodeId": "g6b_u05_6b05",
+    "sourceCode": "6b05",
+    "sourceTitleCanonicalForPreflight": "怎樣解題",
+    "driveMetadataSourceTitle": "怎樣解題康軒版",
+    "sourcePdfTitle": "meow911_6b05_source.pdf",
+    "originalFileName": "題型總覽-6b05-怎樣解題康軒版.pdf",
+    "sourcePdfDriveFileId": "19lrR3_bvpKIoJq5DsKaiQOUecsCzNDsl",
+    "sourcePdfSizeBytes": 849178,
+    "sourcePdfSha256": "1be6a253b422a427bf4a20a09ee478400f39a11e9b817c1acee308e5f6b9403b",
+    "driveMetadataFileId": "185bVhuNUi5geC7cpX9UhOy4i9rVzSgfE",
+    "driveVerificationNotesFileId": "1_sFVQxB9DjS3ZK94YjlvJ-uJMkmMFsah",
+    "metadataSourceUrl": "https://meow911.com/6b05/",
+    "renderedHeaderUrl": "https://meow911.com/6b051/",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+    "ocrUsedAsAuthority": false,
+    "historicalSourceMetadataState": {
+      "manualReviewed": false,
+      "extractionStatus": "pending",
+      "sourceFileStatus": "private_repo_only",
+      "disposition": "HISTORICAL_METADATA_SUPERSEDED_FOR_Q020_BY_CURRENT_VISUAL_READBACK"
+    },
+    "historicalVerificationNotesState": {
+      "status": "pending",
+      "visualVerificationCompleted": false,
+      "doNotTreatOcrAsAuthority": true,
+      "disposition": "HISTORICAL_NOTE_SUPERSEDED_FOR_Q020_BY_CURRENT_VISUAL_READBACK"
+    },
+    "sourceIdentityArtifactLock": {
+      "titleNormalizationDifference": {
+        "present": true,
+        "r02SourceTitle": "怎樣解題",
+        "driveMetadataSourceTitle": "怎樣解題康軒版",
+        "classification": "NON_BLOCKING_SOURCE_TITLE_NORMALIZATION_DIFFERENCE"
+      },
+      "urlPathDifference": {
+        "present": true,
+        "metadataUrl": "https://meow911.com/6b05/",
+        "renderedPdfHeaderUrl": "https://meow911.com/6b051/",
+        "classification": "NON_BLOCKING_SOURCE_PAGE_URL_VARIANT"
+      },
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    },
+    "currentDirectVisualVerification": {
+      "completed": true,
+      "method": "CHATGPT_DIRECT_RENDERED_PDF_FULL_PAGE_VISUAL_VERIFICATION_200_DPI",
+      "ocrUsedAsAuthority": false,
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "page1Disposition": {
+        "directTargetEvidence": false,
+        "observations": [
+          "頁首為「怎樣解題《康軒 6 下第 5 課》」，並顯示 https://meow911.com/6b051/。",
+          "A+B=固定值、A-B=固定值、班級和差、移動使兩排相等、年齡差不變與倍數等題型屬已由 P06F19/P06F20/P07F15 取得 ownership 的相鄰語意。",
+          "Q020 不使用 page 1 重新取得和差、和倍、差倍或年齡關係 ownership。"
+        ]
+      },
+      "page2Disposition": {
+        "directTargetEvidence": true,
+        "observations": [
+          "遊艇公司有 15 人座與 8 人座兩種快艇；91 人共租 7 艘，要求兩種快艇各幾艘。題面同時提供『艘數總量』與『座位加權總量』兩個條件，直接支援同一未知量模型中的分配策略與回代驗證。",
+          "搭乘高鐵與火車往返 4 次；高鐵每趟 1500 元、火車每趟 495 元，總費用 8985 元，要求兩者各幾趟。題面同時提供『次數總量』與『費用加權總量』，直接支援多條件分配模型。",
+          "麥克筆與中性筆題提供一個仿射價格關係、兩筆價格差與最後購買總價要求，直接支援把多個條件綁到同一數量模型並以回代驗證。",
+          "頁面下半另含選麵包、衣褲搭配、數字排列、路徑計數等組合策略題。這些視覺例題存在，但 Q020 preflight 不把 combinatorics / route counting 靜默併入 work-distribution semantic core。"
+        ]
+      },
+      "targetEvidencePages": [
+        2
+      ],
+      "adjacentContextPages": [
+        1
+      ],
+      "directlySupports": [
+        "kp_g6b_u05_work_or_distribution_strategy"
+      ],
+      "targetDisposition": "DIRECT_VISUAL_MULTI_CONDITION_DISTRIBUTION_AND_RELATION_STRATEGY_EVIDENCE",
+      "directSupportClassification": "DIRECT_LITERAL_MULTI_CONDITION_SHARED_QUANTITY_MODEL_EVIDENCE"
+    },
+    "evidenceResolution": {
+      "r02CandidateEvidencePagesRemain": [
+        1,
+        2
+      ],
+      "exactQ020DirectVisualAnchorPages": [
+        2
+      ],
+      "page1ReservedForPreviouslyOwnedSameSourceSemantics": true,
+      "page2CombinatoricsAndRouteCountingObservedButNotAutoOwned": true,
+      "newSupplementaryEvidenceRequired": false,
+      "manualEvidenceChoiceRequired": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "chunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+    "chunkBlobSha": "2902e380adc896d6bd554b58272d9b65797cd844",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceNodeId": "g6b_u05_6b05",
+    "sourceTitle": "怎樣解題",
+    "sourcePdfTitle": "meow911_6b05_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetCandidate": {
+      "knowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+      "canonicalNameZh": "工作分配與策略問題",
+      "capabilityStatement": "學生能把複合條件轉成份數、倍數或總量關係。",
+      "reasoningInvariant": "每個條件都必須在同一數量模型中成立，答案須回代驗證。",
+      "category": "problem",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    "sameSourceCandidateKnowledgePointIds": [
+      "kp_g6b_u05_sum_difference_problem",
+      "kp_g6b_u05_sum_multiple_problem",
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_age_or_repeated_relation_problem",
+      "kp_g6b_u05_work_or_distribution_strategy"
+    ],
+    "predecessorOwnedKnowledgePointIds": [
+      "kp_g6b_u05_sum_difference_problem",
+      "kp_g6b_u05_age_or_repeated_relation_problem",
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_sum_multiple_problem"
+    ],
+    "q020KnowledgePointIds": [
+      "kp_g6b_u05_work_or_distribution_strategy"
+    ],
+    "sameSourceCandidateSetCompleteAfterQ020Implementation": true
+  },
+  "sameSourceOwnershipBoundary": {
+    "sourceId": "g6b_u05_6b05",
+    "previouslyOwned": [
+      {
+        "knowledgePointId": "kp_g6b_u05_sum_difference_problem",
+        "ownerTask": "P06F_W6DirectProductVerticalSlice019Implementation"
+      },
+      {
+        "knowledgePointId": "kp_g6b_u05_age_or_repeated_relation_problem",
+        "ownerTask": "P06F_W6DirectProductVerticalSlice020Implementation"
+      },
+      {
+        "knowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+        "ownerTask": "P07F_W7DirectProductVerticalSlice015Implementation"
+      },
+      {
+        "knowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+        "ownerTask": "P07F_W7DirectProductVerticalSlice015Implementation"
+      }
+    ],
+    "q020MayOwnOnly": [
+      "kp_g6b_u05_work_or_distribution_strategy"
+    ],
+    "q020CompletesR02SameSourceCandidateSet": true
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "MULTI_CONDITION_TO_SHARED_QUANTITY_MODEL_AND_BACK_SUBSTITUTION",
+    "canonicalReasoningInvariant": "將兩個以上條件綁定到同一組未知量／份數／總量模型；求解後必須逐一回代，所有來源條件都同時成立。",
+    "implementationSemanticLock": {
+      "multipleConditionsMustBindSameUnknownQuantities": true,
+      "totalCountOrTotalQuantityConditionAllowed": true,
+      "weightedTotalConditionAllowed": true,
+      "affineRelationConditionAllowed": true,
+      "answerMustBackSubstituteAllSourceConditions": true,
+      "nonnegativeOrPositiveCountDomainMustBeValidated": true,
+      "integerCountWhereContextRequiresDiscreteUnits": true,
+      "sourceBoatDistributionFamilyAllowed": true,
+      "sourceTransportCostDistributionFamilyAllowed": true,
+      "sourceCompositePriceRelationFamilyAllowed": true,
+      "sumDifferenceProblemReownershipAllowed": false,
+      "sumMultipleProblemReownershipAllowed": false,
+      "differenceMultipleProblemReownershipAllowed": false,
+      "ageOrRepeatedRelationProblemReownershipAllowed": false,
+      "pureCombinatoricsOwnershipAllowed": false,
+      "routeCountingOwnershipAllowed": false,
+      "genericApplicationOverlayAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    },
+    "profileMismatchHandling": {
+      "frozenRuntimeProfile": "profile_factor_multiple",
+      "sourceSemanticCoreIsBroaderThanProfileName": true,
+      "profileMustRemainRuntimeEnvelopeUntilExactR04Readback": false,
+      "factorMultipleNameMayNotNarrowOrRewriteQ020SourceSemantics": true,
+      "silentReclassificationForbidden": true,
+      "exactR04ReadbackConfirmsExplicitPatternRelationOverridesFactorMultiple": true,
+      "exactR04MappingBasis": {
+        "semanticFieldsOnly": true,
+        "legacyBatchUsedForClassification": false,
+        "sourceTitleOnlyClassificationAllowed": false,
+        "patternFactorCollisionPolicy": "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE"
+      }
+    }
+  },
+  "executableAuthorityReadback": {
+    "pending": false,
+    "exactQueueRow": {
+      "queuePosition": 20,
+      "sliceId": "p07e_q020_r11_g6b_u05_6b05_profile_factor_multiple_c1",
+      "implementationTaskId": "P07F_W7DirectProductVerticalSlice020Implementation",
+      "previousSliceId": "p07e_q019_r11_g6b_u04_6b04_profile_ratio_percent_c1",
+      "previousSliceMustBeD0Complete": true,
+      "assignedDeliveryWaveId": "R05-W7",
+      "primarySourceNodeId": "g6b_u05_6b05",
+      "supportingSourceNodeIds": [
+        "g6b_u05_6b05"
+      ],
+      "intraWavePrerequisiteRank": 11,
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "chunkIndex": 1,
+      "knowledgePointCount": 1,
+      "knowledgePointIds": [
+        "kp_g6b_u05_work_or_distribution_strategy"
+      ],
+      "requiredW7CapabilityIds": [],
+      "targetEvidenceLevel": "E6_D0_COMPLETE"
+    },
+    "exactR03IncomingEdges": [
+      {
+        "edgeId": "kpe_r03_0620",
+        "fromKnowledgePointId": "kp_g5a_u08_mixed_operation_order",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「KP1」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g5a_u08_5a08",
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0621",
+        "fromKnowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「差倍問題」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0622",
+        "fromKnowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「和倍問題」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      }
+    ],
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6b_u05_work_or_distribution_strategy",
+      "knowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "classificationRuleId": "rule_factor_multiple",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "ALL_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED",
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "undeliveredRequiredCapabilityIds": [],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07",
+      "sourceRefs": [
+        {
+          "sourceNodeId": "g6b_u05_6b05",
+          "evidenceRole": "PRIMARY_EVIDENCE",
+          "evidenceRefs": [
+            "driveFileId:project-source:g6b_u05_6b05",
+            "sourcePdf:meow911_6b05_source.pdf",
+            "reviewMethod:FULL_PAGE_VISUAL_READBACK",
+            "page:1",
+            "page:2"
+          ]
+        }
+      ],
+      "legacyBatchRefs": [
+        "E"
+      ],
+      "mappingBasis": {
+        "semanticFieldsOnly": true,
+        "legacyBatchUsedForClassification": false,
+        "sourceTitleOnlyClassificationAllowed": false,
+        "patternFactorCollisionPolicy": "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE"
+      }
+    },
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u05_work_or_distribution_strategy",
+      "knowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+      "baseDeliveryWaveId": "R05-W1",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": true,
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_integer_division",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_integer_division",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "contractOnlyRequiredCapabilityIds": [],
+      "contractOnlyCapabilityWaveIds": [],
+      "sourceNodeIds": [
+        "g6b_u05_6b05"
+      ],
+      "protectedBaselineSourceNodeIds": [],
+      "protectedPublicProductUnitIds": [],
+      "protectedPrerequisiteCapabilityContradictionIds": [],
+      "legacyBatchRefs": [
+        "E"
+      ],
+      "legacyBatchUsedForAssignment": false,
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED",
+      "r06CompatibilityMigrationRequired": false,
+      "mappingBasis": {
+        "prerequisiteGraphUsed": true,
+        "runtimeCapabilityClosureUsed": true,
+        "productionBaselineProtectionUsed": false,
+        "legacyBatchUsedForAssignment": false
+      }
+    }
+  },
+  "q020ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6b_u05_work_or_distribution_strategy"
+    ],
+    "includedRelations": [
+      "BIND_MULTIPLE_CONDITIONS_TO_SHARED_QUANTITY_MODEL",
+      "SOLVE_TOTAL_COUNT_PLUS_WEIGHTED_TOTAL_DISTRIBUTION",
+      "SOLVE_TOTAL_TRIPS_PLUS_TOTAL_COST_DISTRIBUTION",
+      "BACK_SUBSTITUTE_ALL_SOURCE_CONDITIONS"
+    ],
+    "excludedRelations": [
+      "SUM_DIFFERENCE_PROBLEM_REOWNERSHIP",
+      "SUM_MULTIPLE_PROBLEM_REOWNERSHIP",
+      "DIFFERENCE_MULTIPLE_PROBLEM_REOWNERSHIP",
+      "AGE_OR_REPEATED_RELATION_REOWNERSHIP",
+      "PURE_COMBINATORICS",
+      "ROUTE_COUNTING",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_AUTHORITY_MUTATION",
+      "Q021_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q019ProductTouched": false,
+    "q021OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ019D0Verified": true,
+    "sourceIdentityBound": true,
+    "currentVisualReadbackDirectlySupportsWorkDistributionTarget": true,
+    "newSupplementaryEvidenceRequired": false,
+    "r02ReviewedCandidateBound": true,
+    "semanticProfileLockBound": true,
+    "priorSameSourceOwnershipProtected": true,
+    "sameSourceCandidateSetCompletionIdentified": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
+    "sourceAuthoritySufficientForQ020ImplementationPlanning": true,
+    "separateImplementationApprovalRequired": true,
+    "exactRuntimeMappingBound": true,
+    "exactR05AssignmentBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice020Implementation"
+  },
+  "prerequisiteGraphAuthority": {
+    "exactIncomingRequiredDistanceBearingEdges": [
+      {
+        "edgeId": "kpe_r03_0620",
+        "fromKnowledgePointId": "kp_g5a_u08_mixed_operation_order",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「KP1」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g5a_u08_5a08",
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0621",
+        "fromKnowledgePointId": "kp_g6b_u05_difference_multiple_problem",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「差倍問題」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      },
+      {
+        "edgeId": "kpe_r03_0622",
+        "fromKnowledgePointId": "kp_g6b_u05_sum_multiple_problem",
+        "toKnowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+        "dependencyStrength": "required",
+        "dependencyRole": "relation_model_foundation",
+        "alternativeGroupId": null,
+        "isImmediatePrerequisite": true,
+        "distanceBearing": true,
+        "rationale": "「和倍問題」提供不可缺少的數量關係模型，因此是「工作分配與策略問題」的直接前置能力。",
+        "evidenceRefs": [
+          "source:g6b_u05_6b05"
+        ],
+        "status": "approved",
+        "introducedVersion": "1.0.0"
+      }
+    ],
+    "requiredPrerequisiteKnowledgePointIds": [
+      "kp_g5a_u08_mixed_operation_order",
+      "kp_g6b_u05_difference_multiple_problem",
+      "kp_g6b_u05_sum_multiple_problem"
+    ],
+    "mixedOperationOrderPrerequisiteMayBeConsumed": true,
+    "differenceMultiplePrerequisiteMayBeConsumed": true,
+    "sumMultiplePrerequisiteMayBeConsumed": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true,
+    "r03MutationApplied": false
+  },
+  "runtimeCapabilityAuthority": {
+    "profileId": "profile_factor_multiple",
+    "classificationRuleId": "rule_factor_multiple",
+    "appliedModifierIds": [],
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_factor_multiple_reasoning",
+      "cap_factor_multiple_validator",
+      "cap_text_numeric_representation"
+    ],
+    "exactOptionalRuntimeCapabilityIds": [],
+    "exactFrozenQueueRequiredW7CapabilityIds": [],
+    "runtimeCapabilityDeliveryState": "ALL_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED",
+    "exactR04Mapping": {
+      "mappingId": "r04map_g6b_u05_work_or_distribution_strategy",
+      "knowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "classificationRuleId": "rule_factor_multiple",
+      "appliedModifierIds": [],
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "optionalRuntimeCapabilityIds": [],
+      "forbiddenRuntimeCapabilityIds": [],
+      "runtimeCapabilityDeliveryState": "ALL_REQUIRED_CAPABILITIES_PRODUCTION_ADMITTED",
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "undeliveredRequiredCapabilityIds": [],
+      "knowledgePointProductionAdmissionState": "DEFERRED_TO_R06_R07",
+      "sourceRefs": [
+        {
+          "sourceNodeId": "g6b_u05_6b05",
+          "evidenceRole": "PRIMARY_EVIDENCE",
+          "evidenceRefs": [
+            "driveFileId:project-source:g6b_u05_6b05",
+            "sourcePdf:meow911_6b05_source.pdf",
+            "reviewMethod:FULL_PAGE_VISUAL_READBACK",
+            "page:1",
+            "page:2"
+          ]
+        }
+      ],
+      "legacyBatchRefs": [
+        "E"
+      ],
+      "mappingBasis": {
+        "semanticFieldsOnly": true,
+        "legacyBatchUsedForClassification": false,
+        "sourceTitleOnlyClassificationAllowed": false,
+        "patternFactorCollisionPolicy": "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE"
+      }
+    },
+    "semanticCollisionPolicy": "EXPLICIT_PATTERN_RELATION_OVERRIDES_FACTOR_MULTIPLE",
+    "factorMultipleProfileIsRuntimeEnvelopeOnlyForQ020": true,
+    "r04AuthorityTouched": false,
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "r05AssignmentAuthority": {
+    "exactR05Assignment": {
+      "assignmentId": "r05wave_g6b_u05_work_or_distribution_strategy",
+      "knowledgePointId": "kp_g6b_u05_work_or_distribution_strategy",
+      "baseDeliveryWaveId": "R05-W1",
+      "deliveryWaveId": "R05-W7",
+      "intraWavePrerequisiteRank": 11,
+      "prerequisiteWaveLowerBound": 7,
+      "waveEscalatedByPrerequisite": true,
+      "primaryRuntimeProfileId": "profile_factor_multiple",
+      "requiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "effectiveRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_integer_division",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "productionAdmittedRequiredCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_factor_multiple_reasoning",
+        "cap_integer_division",
+        "cap_factor_multiple_validator",
+        "cap_text_numeric_representation"
+      ],
+      "shadowRequiredCapabilityIds": [],
+      "contractOnlyRequiredCapabilityIds": [],
+      "contractOnlyCapabilityWaveIds": [],
+      "sourceNodeIds": [
+        "g6b_u05_6b05"
+      ],
+      "protectedBaselineSourceNodeIds": [],
+      "protectedPublicProductUnitIds": [],
+      "protectedPrerequisiteCapabilityContradictionIds": [],
+      "legacyBatchRefs": [
+        "E"
+      ],
+      "legacyBatchUsedForAssignment": false,
+      "productionAdmissionState": "PLANNED_NOT_ADMITTED",
+      "r06CompatibilityMigrationRequired": false,
+      "mappingBasis": {
+        "prerequisiteGraphUsed": true,
+        "runtimeCapabilityClosureUsed": true,
+        "productionBaselineProtectionUsed": false,
+        "legacyBatchUsedForAssignment": false
+      }
+    },
+    "exactR05AssignmentVerified": true,
+    "baseDeliveryWaveId": "R05-W1",
+    "deliveryWaveId": "R05-W7",
+    "intraWavePrerequisiteRank": 11,
+    "prerequisiteWaveLowerBound": 7,
+    "waveEscalatedByPrerequisite": true,
+    "effectiveAddedCapabilityIds": [
+      "cap_integer_division"
+    ],
+    "contractOnlyRequiredCapabilityIds": [],
+    "r05AuthorityTouched": false
+  }
+}
