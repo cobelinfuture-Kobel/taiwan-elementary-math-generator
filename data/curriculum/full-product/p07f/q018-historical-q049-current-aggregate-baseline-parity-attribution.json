@@ -1,0 +1,71 @@
+{
+  "schemaName": "P07FW7Q018HistoricalQ049CurrentAggregateBaselineParityAttributionV1",
+  "schemaVersion": 1,
+  "taskId": "P07F_W7_Q018_HistoricalQ049CurrentAggregateBaselineParityAttribution",
+  "status": "PASS_BASELINE_ONLY_TEST_CONTRACT_MISMATCH_CONFIRMED",
+  "failingPrNumber": 1058,
+  "failingPrGateRunId": 35889350874,
+  "failingJobId": 107277669775,
+  "failingTest": "Q018 same-unit mixed remains fail-closed and prior same-source routes remain reachable",
+  "failingError": "P05F60_REQUEST_NOT_MATCHED",
+  "failingKnowledgePointId": "kp_g6b_u03_prism_surface_area",
+  "baselineSha": "89843a5402d2bc1781122f2dd0ecd5ffdc1e6ddf",
+  "q018Branch": "codex/p07f-w7-q018-cylinder-volume-implementation",
+  "parity": {
+    "baselineAggregatePath": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+    "baselineContainsQ049KnowledgePointLiteral": false,
+    "baselineContainsRequestsP05F49Dispatch": false,
+    "baselineContainsP05F60RequestNotMatchedFallback": true,
+    "branchContainsQ049KnowledgePointLiteral": false,
+    "branchContainsRequestsP05F49Dispatch": false,
+    "branchContainsP05F60RequestNotMatchedFallback": true,
+    "conclusion": "Q049 was not owned by the P05F60 current aggregate before Q018; forcing Q049 through that aggregate is not a valid historical-compatibility contract."
+  },
+  "immutableHistoricalOwnershipFiles": [
+    {
+      "path": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f49.js",
+      "sha": "c4987943fc633d9ec739f4fa3c13868bb1002afa"
+    },
+    {
+      "path": "site/modules/curriculum/batch-a/g6b-u03-prism-surface-area-runtime-p05f49.js",
+      "sha": "7e08b9ee79af1d7c3883bcd1827ecb034dba0890"
+    },
+    {
+      "path": "site/modules/curriculum/registry/g6b-u03-prism-surface-area-selector-projection-p05f49.js",
+      "sha": "38321a674c3cb9ccbf607da0f2d3d64c7f7ebf99"
+    },
+    {
+      "path": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f55.js",
+      "sha": "5886dc128dc85b4c71b5d95addec5faa1250145a"
+    },
+    {
+      "path": "site/modules/curriculum/batch-a/g6b-u03-prism-base-area-height-volume-runtime-p05f55.js",
+      "sha": "49be39c38c1a2fe196bdca2a8fa8f8bfbac8e8f9"
+    },
+    {
+      "path": "site/modules/curriculum/registry/g6b-u03-prism-base-area-height-volume-selector-projection-p05f55.js",
+      "sha": "6c8dbe46cc279b19a1169ccbec947eb8ec818826"
+    },
+    {
+      "path": "site/modules/curriculum/batch-a/g6b-u03-triangular-composite-prism-runtime-p05f60.js",
+      "sha": "2605ad12ef888efde416444fb7fdaddebb055023"
+    },
+    {
+      "path": "site/modules/curriculum/registry/g6b-u03-triangular-composite-prism-selector-projection-p05f60.js",
+      "sha": "efecea0a48fd4f9b22961c72f554ee34de46ebd9"
+    }
+  ],
+  "repairContract": {
+    "keepSameUnitMixedFailClosedAssertion": true,
+    "q049ReachabilityMustUseHistoricalOwningGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f49.js",
+    "q055ReachabilityMustUseHistoricalOwningGenerator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f55.js",
+    "q060ReachabilityMayUseP05F60Owner": true,
+    "noQ018ProductSemanticChange": true,
+    "noHistoricalGeneratorMutation": true,
+    "noSelectorOwnershipMutation": true,
+    "noR02R03R04R05Mutation": true
+  },
+  "attribution": "BASELINE_ONLY_TEST_CONTRACT_MISMATCH",
+  "blockerResolved": true,
+  "nextStep": "MINIMAL_COMPATIBILITY_TEST_REPAIR_AND_EXACT_PR_GATE_RERUN"
+}
