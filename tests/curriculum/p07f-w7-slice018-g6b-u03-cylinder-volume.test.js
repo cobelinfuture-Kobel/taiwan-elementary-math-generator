@@ -103,9 +103,9 @@ test("Q018 current pointers and bounded validation",()=>{
   const g=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const w=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
   const h=readFileSync(new URL("../../site/modules/renderer/html-renderer.js",import.meta.url),"utf8");
-  assert.match(s,/batch-a-selector-p07f18-extension/);assert.match(b,/public-ui-capability-binding-p07f18/);
-  for(const id of ["18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(g,new RegExp("requestsP07F"+id));
-  for(const id of ["18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(w,new RegExp("buildP07F"+id+"Worksheet"));
+  assert.match(s,/batch-a-selector-p07f19-extension/);assert.match(b,/public-ui-capability-binding-p07f19/);
+  for(const id of ["19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(g,new RegExp("requestsP07F"+id));
+  for(const id of ["19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(w,new RegExp("buildP07F"+id+"Worksheet"));
   assert.match(h,/cylinder-volume-diagram-p07f18/);
   assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");assert.deepEqual(plan.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);assert.equal(JSON.stringify(plan).includes("FULL_REPOSITORY"),false);
 });
