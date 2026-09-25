@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P07F_W7_Q023",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_speed_distance_time_relation"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_speed_distance_time_relation"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_speed_distance_time_relation": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P07F_W7_Q023.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false,
+    "sourceUnitPublicAdmission": true,
+    "ciCurrentWorkflowOwnershipTransfer": true
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "q022ProductMutation": false,
+    "q024OrLaterProductMutation": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "primarySourceUnitAdmissionOnly": true,
+    "supportingSourceUnitAdmission": false,
+    "speedUnitConversionOwnership": false,
+    "averageSpeedOwnership": false,
+    "relativeSpeedMeetingChasingOwnership": false,
+    "effectiveSpeedCurrentWindOwnership": false,
+    "q022CurrentPointerCompatibilityTestOnly": true,
+    "gciPm01SuccessorRuleOnly": true
+  }
+}

@@ -46,7 +46,10 @@ export const W7_SLICE011_PUBLIC_SOURCE_UNITS=Object.freeze([
 export const W7_SLICE019_PUBLIC_SOURCE_UNITS=Object.freeze([
   Object.freeze({sourceId:"g6b_u04_6b04",grade:6,semester:"lower",unitCode:"6B-U04",title:"基準量與比較量",domain:"ratio_percent",lifecycle:"public_full_product_w7_slice019_candidate"})
 ]);
-const q049=W5_SLICE049_PUBLIC_SOURCE_UNITS[0],qW6_001=W6_SLICE001_PUBLIC_SOURCE_UNITS[0],qW6_003=W6_SLICE003_PUBLIC_SOURCE_UNITS[0],qW6_005=W6_SLICE005_PUBLIC_SOURCE_UNITS[0],qW6_007=W6_SLICE007_PUBLIC_SOURCE_UNITS[0],qW6_010=W6_SLICE010_PUBLIC_SOURCE_UNITS[0],qW6_014=W6_SLICE014_PUBLIC_SOURCE_UNITS[0],qW6_015=W6_SLICE015_PUBLIC_SOURCE_UNITS[0],qW6_019=W6_SLICE019_PUBLIC_SOURCE_UNITS[0],qW7_001=W7_SLICE001_PUBLIC_SOURCE_UNITS[0],qW7_004=W7_SLICE004_PUBLIC_SOURCE_UNITS[0],qW7_007=W7_SLICE007_PUBLIC_SOURCE_UNITS[0],qW7_008=W7_SLICE008_PUBLIC_SOURCE_UNITS[0],qW7_011=W7_SLICE011_PUBLIC_SOURCE_UNITS[0],qW7_019=W7_SLICE019_PUBLIC_SOURCE_UNITS[0];
+export const W7_SLICE023_PUBLIC_SOURCE_UNITS=Object.freeze([
+  Object.freeze({sourceId:"g6a_u08_6a08",grade:6,semester:"upper",unitCode:"6A-U08",title:"認識速率",domain:"speed_rate",lifecycle:"public_full_product_w7_slice023_candidate"})
+]);
+const q049=W5_SLICE049_PUBLIC_SOURCE_UNITS[0],qW6_001=W6_SLICE001_PUBLIC_SOURCE_UNITS[0],qW6_003=W6_SLICE003_PUBLIC_SOURCE_UNITS[0],qW6_005=W6_SLICE005_PUBLIC_SOURCE_UNITS[0],qW6_007=W6_SLICE007_PUBLIC_SOURCE_UNITS[0],qW6_010=W6_SLICE010_PUBLIC_SOURCE_UNITS[0],qW6_014=W6_SLICE014_PUBLIC_SOURCE_UNITS[0],qW6_015=W6_SLICE015_PUBLIC_SOURCE_UNITS[0],qW6_019=W6_SLICE019_PUBLIC_SOURCE_UNITS[0],qW7_001=W7_SLICE001_PUBLIC_SOURCE_UNITS[0],qW7_004=W7_SLICE004_PUBLIC_SOURCE_UNITS[0],qW7_007=W7_SLICE007_PUBLIC_SOURCE_UNITS[0],qW7_008=W7_SLICE008_PUBLIC_SOURCE_UNITS[0],qW7_011=W7_SLICE011_PUBLIC_SOURCE_UNITS[0],qW7_019=W7_SLICE019_PUBLIC_SOURCE_UNITS[0],qW7_023=W7_SLICE023_PUBLIC_SOURCE_UNITS[0];
 
 export function listBatchASourceUnits(options={}){
   let units=base.listBatchASourceUnits(options);
@@ -67,6 +70,7 @@ export function listBatchASourceUnits(options={}){
   const includeW7Q008=options.includeW7Slice008??options.includeCurrentFullProductPublic??defaultPublic;
   const includeW7Q011=options.includeW7Slice011??options.includeCurrentFullProductPublic??defaultPublic;
   const includeW7Q019=options.includeW7Slice019??options.includeCurrentFullProductPublic??defaultPublic;
+  const includeW7Q023=options.includeW7Slice023??options.includeCurrentFullProductPublic??defaultPublic;
   if(includeQ049&&!units.some(unit=>unit.sourceId===q049.sourceId))units=[...units,{...q049}];
   if(includeW6Q001&&!units.some(unit=>unit.sourceId===qW6_001.sourceId))units=[...units,{...qW6_001}];
   if(includeW6Q003&&!units.some(unit=>unit.sourceId===qW6_003.sourceId))units=[...units,{...qW6_003}];
@@ -82,7 +86,8 @@ export function listBatchASourceUnits(options={}){
   if(includeW7Q008&&!units.some(unit=>unit.sourceId===qW7_008.sourceId))units=[...units,{...qW7_008}];
   if(includeW7Q011&&!units.some(unit=>unit.sourceId===qW7_011.sourceId))units=[...units,{...qW7_011}];
   if(includeW7Q019&&!units.some(unit=>unit.sourceId===qW7_019.sourceId))units=[...units,{...qW7_019}];
+  if(includeW7Q023&&!units.some(unit=>unit.sourceId===qW7_023.sourceId))units=[...units,{...qW7_023}];
   return units;
 }
-export function getBatchASourceUnit(sourceId){if(sourceId===qW7_019.sourceId)return {...qW7_019};if(sourceId===qW7_011.sourceId)return {...qW7_011};if(sourceId===qW7_008.sourceId)return {...qW7_008};if(sourceId===qW7_007.sourceId)return {...qW7_007};if(sourceId===qW7_004.sourceId)return {...qW7_004};if(sourceId===qW7_001.sourceId)return {...qW7_001};if(sourceId===qW6_019.sourceId)return {...qW6_019};if(sourceId===qW6_015.sourceId)return {...qW6_015};if(sourceId===qW6_014.sourceId)return {...qW6_014};if(sourceId===qW6_010.sourceId)return {...qW6_010};if(sourceId===qW6_007.sourceId)return {...qW6_007};if(sourceId===qW6_005.sourceId)return {...qW6_005};if(sourceId===qW6_003.sourceId)return {...qW6_003};if(sourceId===qW6_001.sourceId)return {...qW6_001};return sourceId===q049.sourceId?{...q049}:base.getBatchASourceUnit(sourceId);}
-export function isBatchASourceId(sourceId){return sourceId===qW7_019.sourceId||sourceId===qW7_011.sourceId||sourceId===qW7_008.sourceId||sourceId===qW7_007.sourceId||sourceId===qW7_004.sourceId||sourceId===qW7_001.sourceId||sourceId===qW6_019.sourceId||sourceId===qW6_015.sourceId||sourceId===qW6_014.sourceId||sourceId===qW6_010.sourceId||sourceId===qW6_007.sourceId||sourceId===qW6_005.sourceId||sourceId===qW6_003.sourceId||sourceId===qW6_001.sourceId||sourceId===q049.sourceId||base.isBatchASourceId(sourceId);}
+export function getBatchASourceUnit(sourceId){if(sourceId===qW7_023.sourceId)return {...qW7_023};if(sourceId===qW7_019.sourceId)return {...qW7_019};if(sourceId===qW7_011.sourceId)return {...qW7_011};if(sourceId===qW7_008.sourceId)return {...qW7_008};if(sourceId===qW7_007.sourceId)return {...qW7_007};if(sourceId===qW7_004.sourceId)return {...qW7_004};if(sourceId===qW7_001.sourceId)return {...qW7_001};if(sourceId===qW6_019.sourceId)return {...qW6_019};if(sourceId===qW6_015.sourceId)return {...qW6_015};if(sourceId===qW6_014.sourceId)return {...qW6_014};if(sourceId===qW6_010.sourceId)return {...qW6_010};if(sourceId===qW6_007.sourceId)return {...qW6_007};if(sourceId===qW6_005.sourceId)return {...qW6_005};if(sourceId===qW6_003.sourceId)return {...qW6_003};if(sourceId===qW6_001.sourceId)return {...qW6_001};return sourceId===q049.sourceId?{...q049}:base.getBatchASourceUnit(sourceId);}
+export function isBatchASourceId(sourceId){return sourceId===qW7_023.sourceId||sourceId===qW7_019.sourceId||sourceId===qW7_011.sourceId||sourceId===qW7_008.sourceId||sourceId===qW7_007.sourceId||sourceId===qW7_004.sourceId||sourceId===qW7_001.sourceId||sourceId===qW6_019.sourceId||sourceId===qW6_015.sourceId||sourceId===qW6_014.sourceId||sourceId===qW6_010.sourceId||sourceId===qW6_007.sourceId||sourceId===qW6_005.sourceId||sourceId===qW6_003.sourceId||sourceId===qW6_001.sourceId||sourceId===q049.sourceId||base.isBatchASourceId(sourceId);}

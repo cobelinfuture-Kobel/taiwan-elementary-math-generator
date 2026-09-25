@@ -1,0 +1,171 @@
+{
+  "schemaName": "P07FW7Q023G6AU08SpeedDistanceTimeRelationImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice023Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q023_SPEED_DISTANCE_TIME_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q023_SPEED_DISTANCE_TIME_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "5d08670887496b60f11b2115f83c5e03458f0d1e",
+  "preflight": {
+    "prNumber": 1068,
+    "mergeSha": "303478a009198b58edc3bf1ceeef2abe1a15ea27",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q023-speed-distance-time-relation-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q022Status": "PASS_E6_D0_COMPLETE",
+    "q022MergeSha": "db1b1ab9f11bb160dcc6f07981946a8385921d6b",
+    "q022PostMergeWorkflowRunId": 36074357256,
+    "q022DurableReadbackPath": "docs/ci/latest-p07f-w7-q022-pages-e2e.json",
+    "q022DurableReadbackCommitSha": "b306a7fc8136d52f1653f1c42dc3831860bdfe66",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q022_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 23,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q023_r13_g6a_u08_6a08_profile_speed_rate_c1",
+    "sourceId": "g6a_u08_6a08",
+    "supportingSourceIds": [
+      "g6b_u02_6b02"
+    ],
+    "runtimeProfileId": "profile_speed_rate",
+    "rank": 13,
+    "targetKnowledgePointIds": [
+      "kp_speed_distance_time_relation"
+    ],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_speed_rate_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g6a_u04_decimal_division_rate_application",
+      "kp_g6b_u04_base_comparison_rate_roles"
+    ],
+    "prerequisiteCapabilitiesMayBeConsumed": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_speed_rate_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_quantity_dimension_unit_identity",
+      "cap_text_application_representation",
+      "cap_quantity_semantic_role_binding"
+    ],
+    "effectiveRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_speed_rate_reasoning",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_quantity_dimension_unit_identity",
+      "cap_text_application_representation",
+      "cap_quantity_semantic_role_binding"
+    ],
+    "optionalRuntimeCapabilityIds": [
+      "cap_unit_conversion",
+      "cap_global_context_binding"
+    ],
+    "appliedModifierIds": [
+      "mod_quantity_relation_semantics"
+    ],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g6a_u08_solve_distance_from_speed_time",
+      "ps_g6a_u08_solve_speed_from_distance_time",
+      "ps_g6a_u08_solve_time_from_distance_speed"
+    ],
+    "questionMode": "numeric",
+    "representation": "text_application",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_INTEGER",
+    "semanticCore": "SOLVE_SPEED_DISTANCE_TIME_THREE_QUANTITY_RELATION",
+    "relationModel": "distance = speed × time",
+    "fixedSpeedContextRequired": true,
+    "compatibleUnitsRequired": true,
+    "quantitySemanticRoleBindingRequired": true,
+    "answerBackSubstitutionRequired": true
+  },
+  "sourceCarrier": {
+    "primarySourceId": "g6a_u08_6a08",
+    "supportingSourceIds": [
+      "g6b_u02_6b02"
+    ],
+    "directVisualPages": [
+      1,
+      2
+    ],
+    "exactSourceTextReproduction": false,
+    "controlledNumericVariantsAllowed": true,
+    "unitConversionGenerationAllowed": false
+  },
+  "sameSourceCandidateState": {
+    "sourceId": "g6a_u08_6a08",
+    "visibleKnowledgePointIdsAfterImplementation": [
+      "kp_speed_distance_time_relation"
+    ],
+    "protectedFutureKnowledgePointIds": [
+      "kp_speed_unit_conversion",
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing",
+      "kp_effective_speed_current_wind"
+    ],
+    "sameSourceCandidateSetComplete": false,
+    "sameUnitMixedStillNotAdmitted": true
+  },
+  "scopeGuard": {
+    "speedUnitConversionOwned": false,
+    "averageSpeedOwned": false,
+    "relativeSpeedMeetingChasingOwned": false,
+    "effectiveSpeedCurrentWindOwned": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q022ProductTouched": false,
+    "q024OrLaterProductTouched": false,
+    "primarySourceUnitAddedForPublicSelection": true,
+    "supportingSourceUnitPublicAdmission": false,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
