@@ -3,9 +3,15 @@
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
   "taskId": "P07F_W7_Q026_SOURCE_AUTHORITY_PREFLIGHT",
   "currentScope": "SHARED_RUNTIME",
-  "currentKnowledgePointIds": [],
-  "unitExpectedKnowledgePointIds": [],
-  "unitKnowledgePointGateStatus": {},
+  "currentKnowledgePointIds": [
+    "kp_effective_speed_current_wind"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_effective_speed_current_wind"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_effective_speed_current_wind": "PLANNING_READY_IMPLEMENTATION_APPROVAL_REQUIRED"
+  },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P07F_W7_Q026_PREFLIGHT.validation.json",
   "changeImpact": {
@@ -14,11 +20,10 @@
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
-    "currentAuthorityChanged": false,
-    "planningAuthorityAdded": false
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true
   },
   "scopeGuards": {
-    "identityProbeOnly": true,
     "productImplementation": false,
     "publicAdmission": false,
     "q025ProductMutation": false,
@@ -26,6 +31,10 @@
     "r02Mutation": false,
     "r03Mutation": false,
     "r04Mutation": false,
-    "r05Mutation": false
+    "r05Mutation": false,
+    "originalSourcePdfMutation": false,
+    "speedUnitConversionOwnership": false,
+    "averageSpeedOwnershipMutation": false,
+    "relativeSpeedOwnershipMutation": false
   }
 }
