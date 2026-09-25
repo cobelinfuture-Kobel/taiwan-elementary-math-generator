@@ -1,0 +1,173 @@
+{
+  "schemaName": "P07FW7Q025PostMergeMainPagesE2EV1",
+  "taskId": "P07F_W7DirectProductVerticalSlice025Implementation",
+  "status": "PASS_E6_D0_COMPLETE",
+  "exactHeadSha": "2f5a50b6284df48e16bcb6f23c8919fad7ed808d",
+  "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+  "deployment": {
+    "attempt": 4,
+    "assets": [
+      {
+        "publicPath": "modules/curriculum/registry/g6a-u08-average-relative-speed-selector-projection-p07f25.js",
+        "expectedSha256": "45dbd6420c872d9d709aa07c7a22931bd403898c19e7c008b4279d66543f6861",
+        "liveSha256": "45dbd6420c872d9d709aa07c7a22931bd403898c19e7c008b4279d66543f6861"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p07f25-extension.js",
+        "expectedSha256": "e7e31ce8dcd2c9bc87973d7cee9e116e0eb9266aa026632b07b422dc6472810f",
+        "liveSha256": "e7e31ce8dcd2c9bc87973d7cee9e116e0eb9266aa026632b07b422dc6472810f"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+        "expectedSha256": "a7c7a20898440fedc84b9cc6d3522e525eaeb7586d78a9f217461c5ad02120f4",
+        "liveSha256": "a7c7a20898440fedc84b9cc6d3522e525eaeb7586d78a9f217461c5ad02120f4"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p07f25.js",
+        "expectedSha256": "60ac143794c060584e162e533ea97c7a84f033e3378a042239cabb85b8f1e347",
+        "liveSha256": "60ac143794c060584e162e533ea97c7a84f033e3378a042239cabb85b8f1e347"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+        "expectedSha256": "1e0de9fd6fd94f54654bf70a790e9fbd6bd2d26a04135ff1b54bfe0fea71eda6",
+        "liveSha256": "1e0de9fd6fd94f54654bf70a790e9fbd6bd2d26a04135ff1b54bfe0fea71eda6"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/g6a-u08-average-relative-speed-runtime-p07f25.js",
+        "expectedSha256": "4686f9c4dcd41f2db8df6a53ffdcc4d9ccb0a0dd8668a7914ba724139423de3a",
+        "liveSha256": "4686f9c4dcd41f2db8df6a53ffdcc4d9ccb0a0dd8668a7914ba724139423de3a"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p07f25.js",
+        "expectedSha256": "a3ec5be8c4fa8b238e83adc1472cf2afa8694a7aa03c684b08da192d61d27614",
+        "liveSha256": "a3ec5be8c4fa8b238e83adc1472cf2afa8694a7aa03c684b08da192d61d27614"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+        "expectedSha256": "a9820d79f4e218a386bc9209db45d71b80e89524a40d05f83b3ff29cf844e4f8",
+        "liveSha256": "a9820d79f4e218a386bc9209db45d71b80e89524a40d05f83b3ff29cf844e4f8"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p07f25-extension.js",
+        "expectedSha256": "7876b05317d5e922c3f8c03eba700badb9811d660175f435ce26ad51193b9e8c",
+        "liveSha256": "7876b05317d5e922c3f8c03eba700badb9811d660175f435ce26ad51193b9e8c"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+        "expectedSha256": "34cd6147451ae83a98543fdd3f417c33345c39e80fc3178b0c716b6493ff6217",
+        "liveSha256": "34cd6147451ae83a98543fdd3f417c33345c39e80fc3178b0c716b6493ff6217"
+      }
+    ]
+  },
+  "classicUiAcceptance": {
+    "schemaName": "P07FW7Q025ClassicUIAcceptanceV1",
+    "taskId": "P07F_W7DirectProductVerticalSlice025Implementation",
+    "status": "PASS_P07F_W7_Q025_CLASSIC_UI_ACCEPTANCE",
+    "sourceId": "g6a_u08_6a08",
+    "knowledgePointIds": [
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing"
+    ],
+    "questionCountPerKnowledgePoint": 12,
+    "targets": [
+      {
+        "knowledgePointId": "kp_average_speed_total_distance_time",
+        "selector": {
+          "sourceId": "g6a_u08_6a08",
+          "visibleIds": [
+            "kp_speed_distance_time_relation",
+            "kp_average_speed_total_distance_time",
+            "kp_relative_speed_meeting_chasing"
+          ],
+          "targetPresent": true,
+          "sameUnitDisabled": true
+        },
+        "state": {
+          "status": "已產生 12 題，可預覽與列印。",
+          "tone": "success",
+          "valid": "false",
+          "preview": 13620,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 12,
+          "answers": 12,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "knowledgePointId": "kp_relative_speed_meeting_chasing",
+        "selector": {
+          "sourceId": "g6a_u08_6a08",
+          "visibleIds": [
+            "kp_speed_distance_time_relation",
+            "kp_average_speed_total_distance_time",
+            "kp_relative_speed_meeting_chasing"
+          ],
+          "targetPresent": true,
+          "sameUnitDisabled": true
+        },
+        "state": {
+          "status": "已產生 12 題，可預覽與列印。",
+          "tone": "success",
+          "valid": "false",
+          "preview": 13689,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 12,
+          "answers": 12,
+          "overflow": 0
+        },
+        "printCount": 1
+      }
+    ],
+    "browser": {
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "requestFailureCount": 0,
+      "assetHttpFailureCount": 0
+    },
+    "semanticInvariants": {
+      "totalDistanceOverTotalTime": true,
+      "directSegmentSpeedArithmeticMeanRejected": true,
+      "meetingSpeedSum": true,
+      "chasingSpeedDifference": true,
+      "compatibleUnits": true,
+      "answerBackSubstitution": true,
+      "speedUnitConversionProtected": true,
+      "effectiveSpeedCurrentWindProtected": true,
+      "sameUnitMixedModeFailClosed": true
+    },
+    "forbiddenScope": {
+      "speedUnitConversion": false,
+      "effectiveSpeedCurrentWind": false,
+      "predecessorSpeedRelationReownership": false,
+      "sameUnitMixed": false,
+      "crossUnitMixed": false,
+      "fullRepositoryRegression": false,
+      "globalBrowserReplay": false
+    }
+  },
+  "semanticInvariants": {
+    "averageSpeedTotalQuantityOwned": true,
+    "relativeSpeedMeetingChasingOwned": true,
+    "primaryAndSupportingSourceAuthorityConsumed": true,
+    "directSegmentSpeedArithmeticMeanRejected": true,
+    "speedUnitConversionProtected": true,
+    "effectiveSpeedCurrentWindProtected": true,
+    "sameUnitMixedModeFailClosed": true,
+    "w7QueueContinuesAfterQ025": true
+  },
+  "workflow": "P07F W7 Q025 Post-Merge Pages E2E",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "run": {
+    "id": "36159316294",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36159316294"
+  },
+  "verifiedAt": "2026-09-25T16:14:28.370Z"
+}
