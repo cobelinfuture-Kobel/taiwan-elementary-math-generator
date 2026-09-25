@@ -1,0 +1,144 @@
+{
+  "schemaName": "P07FW7Q026PostMergeMainPagesE2EV1",
+  "taskId": "P07F_W7DirectProductVerticalSlice026Implementation",
+  "status": "PASS_E6_D0_COMPLETE",
+  "exactHeadSha": "281c059a39e42bd5af1def2a52d6cbe4dbde3a16",
+  "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+  "deployment": {
+    "attempt": 3,
+    "assets": [
+      {
+        "publicPath": "modules/curriculum/registry/g6a-u08-effective-speed-current-wind-selector-projection-p07f26.js",
+        "expectedSha256": "8920908484fe2d03a09242d3e21ed0dc3adfd4cfc6cbca37a87c74f981c476cb",
+        "liveSha256": "8920908484fe2d03a09242d3e21ed0dc3adfd4cfc6cbca37a87c74f981c476cb"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p07f26-extension.js",
+        "expectedSha256": "ff4e47a5c55d7fcfbf558f4f03c971b8b209ce626ee3ad863a232efd8a4b1e00",
+        "liveSha256": "ff4e47a5c55d7fcfbf558f4f03c971b8b209ce626ee3ad863a232efd8a4b1e00"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+        "expectedSha256": "0434500f1973f0e7b4d58ccd623653e5af02fd27e39e862468602c7563affb79",
+        "liveSha256": "0434500f1973f0e7b4d58ccd623653e5af02fd27e39e862468602c7563affb79"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p07f26.js",
+        "expectedSha256": "4fdd963f627d12d58f9ee547566fab0292f9becf49fd9948c7ae3d901d5ab2f8",
+        "liveSha256": "4fdd963f627d12d58f9ee547566fab0292f9becf49fd9948c7ae3d901d5ab2f8"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+        "expectedSha256": "257ed600b870d24f11211ca0fcf10ea1158943dcddb8fdd16f49bec162283416",
+        "liveSha256": "257ed600b870d24f11211ca0fcf10ea1158943dcddb8fdd16f49bec162283416"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/g6a-u08-effective-speed-current-wind-runtime-p07f26.js",
+        "expectedSha256": "11795a833ee2bd9fd5ee2937415abdd689774f7f6c4c621589ff4b91f521a127",
+        "liveSha256": "11795a833ee2bd9fd5ee2937415abdd689774f7f6c4c621589ff4b91f521a127"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p07f26.js",
+        "expectedSha256": "df31c45b62369a36a858be322448abb620c2288a606e97b8063b9dda09c2b26a",
+        "liveSha256": "df31c45b62369a36a858be322448abb620c2288a606e97b8063b9dda09c2b26a"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+        "expectedSha256": "2840c5c5049d7a3f55d3c20b73db25bff2146108a2ab59ad13d8e1e820807316",
+        "liveSha256": "2840c5c5049d7a3f55d3c20b73db25bff2146108a2ab59ad13d8e1e820807316"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p07f26-extension.js",
+        "expectedSha256": "f1add2fba2545a5091cb709d4db6dac1c51ece98de24a9042168a369a57b202d",
+        "liveSha256": "f1add2fba2545a5091cb709d4db6dac1c51ece98de24a9042168a369a57b202d"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+        "expectedSha256": "c9e60dd6d2baaa486095a31dc5887e25941ab022937ad5725deea607332eef35",
+        "liveSha256": "c9e60dd6d2baaa486095a31dc5887e25941ab022937ad5725deea607332eef35"
+      }
+    ]
+  },
+  "classicUiAcceptance": {
+    "schemaName": "P07FW7Q026ClassicUIAcceptanceV1",
+    "taskId": "P07F_W7DirectProductVerticalSlice026Implementation",
+    "status": "PASS_P07F_W7_Q026_CLASSIC_UI_ACCEPTANCE",
+    "sourceId": "g6a_u08_6a08",
+    "knowledgePointId": "kp_effective_speed_current_wind",
+    "questionCount": 12,
+    "target": {
+      "selector": {
+        "sourceId": "g6a_u08_6a08",
+        "visibleIds": [
+          "kp_speed_distance_time_relation",
+          "kp_average_speed_total_distance_time",
+          "kp_relative_speed_meeting_chasing",
+          "kp_effective_speed_current_wind"
+        ],
+        "targetPresent": true,
+        "sameUnitDisabled": true
+      },
+      "state": {
+        "status": "已產生 12 題，可預覽與列印。",
+        "tone": "success",
+        "valid": "false",
+        "preview": 13414,
+        "printDisabled": false
+      },
+      "worksheet": {
+        "questions": 12,
+        "answers": 12,
+        "overflow": 0
+      },
+      "printCount": 1
+    },
+    "browser": {
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "requestFailureCount": 0,
+      "assetHttpFailureCount": 0
+    },
+    "semanticInvariants": {
+      "effectiveSpeedCurrentWindOwned": true,
+      "sameDirectionAddition": true,
+      "oppositeDirectionSubtraction": true,
+      "positiveOpposingEffectiveSpeed": true,
+      "reverseSolveRejected": true,
+      "speedUnitConversionProtected": true,
+      "averageRelativeOwnershipProtected": true,
+      "sameUnitMixedModeFailClosed": true,
+      "w7FrozenQueueComplete": true
+    },
+    "forbiddenScope": {
+      "speedUnitConversion": false,
+      "reverseSolveOwnSpeed": false,
+      "reverseSolveCurrentWindSpeed": false,
+      "averageSpeedReownership": false,
+      "relativeSpeedReownership": false,
+      "sameUnitMixed": false,
+      "crossUnitMixed": false,
+      "fullRepositoryRegression": false,
+      "globalBrowserReplay": false
+    }
+  },
+  "semanticInvariants": {
+    "effectiveSpeedCurrentWindOwned": true,
+    "primaryAndSupportingSourceAuthorityConsumed": true,
+    "speedUnitConversionProtected": true,
+    "averageRelativeOwnershipProtected": true,
+    "sameUnitMixedModeFailClosed": true,
+    "w7FrozenQueueComplete": true,
+    "w7DirectSliceCount": 26,
+    "w7ConfirmedD0AfterThisRun": 26
+  },
+  "workflow": "P07F W7 Q026 Post-Merge Pages E2E",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "run": {
+    "id": "36162198730",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36162198730"
+  },
+  "verifiedAt": "2026-09-25T16:41:31.824Z"
+}
