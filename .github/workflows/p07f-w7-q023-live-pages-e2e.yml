@@ -5,19 +5,13 @@ on:
     paths:
       - "site/modules/curriculum/registry/g6a-u08-speed-distance-time-selector-projection-p07f23.js"
       - "site/modules/curriculum/registry/batch-a-selector-p07f23-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p07f23.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/source-units.js"
       - "site/modules/curriculum/batch-a/g6a-u08-speed-distance-time-runtime-p07f23.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f23.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f23-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - "site/modules/renderer/sector-elements-diagram.js"
       - "tools/curriculum/run-p07f-w7-q023-live-pages-e2e.mjs"
       - "tools/curriculum/run-p07f-w7-slice023-classic-ui-acceptance.mjs"
-      - ".github/workflows/p07f-w7-q023-live-pages-e2e.yml"
 permissions:
   contents: write
 jobs:
