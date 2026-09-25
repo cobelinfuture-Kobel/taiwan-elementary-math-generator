@@ -1,0 +1,141 @@
+{
+  "schemaName": "P07FW7Q025G6AU08AverageRelativeSpeedImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice025Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q025_AVERAGE_AND_RELATIVE_SPEED_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q025_AVERAGE_AND_RELATIVE_SPEED_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "b9c7e2beab90a0e155debfe8d4455d4239a4af7d",
+  "preflight": {
+    "prNumber": 1072,
+    "mergeSha": "d3f1816e73c6ff1d165ec9916a11045bf695ab3a",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q025-g6a-u08-average-and-relative-speed-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q024Status": "PASS_E6_D0_COMPLETE",
+    "q024MergeSha": "23654f2af6f638a52ea0ed0b3a934e0f874e9194",
+    "q024PostMergeWorkflowRunId": 36156144172,
+    "q024DurableReadbackPath": "docs/ci/latest-p07f-w7-q024-pages-e2e.json",
+    "q024DurableReadbackCommitSha": "1a6e29f0fb28d3ba46a43a849eefced9d8421cb3",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q024_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 25,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q025_r14_g6a_u08_6a08_profile_speed_rate_c1",
+    "sourceId": "g6a_u08_6a08",
+    "supportingSourceIds": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ],
+    "runtimeProfileId": "profile_speed_rate",
+    "rank": 14,
+    "targetKnowledgePointIds": [
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing"
+    ],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_speed_rate_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "productContract": {
+    "formalMappingCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 3,
+    "patternSpecsByKnowledgePoint": {
+      "kp_average_speed_total_distance_time": [
+        "ps_g6a_u08_average_speed_two_segments"
+      ],
+      "kp_relative_speed_meeting_chasing": [
+        "ps_g6a_u08_meeting_relative_speed_sum",
+        "ps_g6a_u08_chasing_relative_speed_difference"
+      ]
+    },
+    "questionMode": "numeric",
+    "representation": "text_application",
+    "maxQuestionCountPerSingleKnowledgePoint": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_INTEGER",
+    "averageSpeedSemanticCore": "SOLVE_AVERAGE_SPEED_FROM_TOTAL_DISTANCE_AND_TOTAL_TIME",
+    "relativeSpeedSemanticCore": "SOLVE_MEETING_CHASING_BY_RELATIVE_SPEED",
+    "totalDistanceOverTotalTimeRequired": true,
+    "directSegmentSpeedArithmeticMeanAllowed": false,
+    "meetingUsesSpeedSumRequired": true,
+    "chasingUsesPositiveSpeedDifferenceRequired": true,
+    "compatibleUnitsRequired": true,
+    "quantitySemanticRoleBindingRequired": true,
+    "answerBackSubstitutionRequired": true
+  },
+  "runtimeContract": {
+    "averageR04MappingId": "r04map_average_speed_total_distance_time",
+    "relativeR04MappingId": "r04map_relative_speed_meeting_chasing",
+    "averageAppliedModifierIds": [
+      "mod_quantity_relation_semantics"
+    ],
+    "relativeAppliedModifierIds": [
+      "mod_quantity_relation_semantics",
+      "mod_application_semantics"
+    ],
+    "averagePrerequisiteKnowledgePointIds": [
+      "kp_speed_distance_time_relation"
+    ],
+    "relativePrerequisiteKnowledgePointIds": [
+      "kp_g4a_u08_num_add_sub_left_assoc",
+      "kp_speed_distance_time_relation"
+    ],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "sameSourceCandidateState": {
+    "sourceId": "g6a_u08_6a08",
+    "visibleKnowledgePointIdsAfterImplementation": [
+      "kp_speed_distance_time_relation",
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing"
+    ],
+    "protectedFutureKnowledgePointIds": [
+      "kp_speed_unit_conversion",
+      "kp_effective_speed_current_wind"
+    ],
+    "sameSourceCandidateSetComplete": false,
+    "sameUnitMixedStillNotAdmitted": true
+  },
+  "scopeGuard": {
+    "speedUnitConversionOwned": false,
+    "effectiveSpeedCurrentWindOwned": false,
+    "predecessorSpeedDistanceTimeRelationReowned": false,
+    "directSegmentSpeedArithmeticMeanUsed": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q024ProductTouched": false,
+    "q026ProductTouched": false,
+    "supportingSourcePublicAdmissionChanged": false,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
