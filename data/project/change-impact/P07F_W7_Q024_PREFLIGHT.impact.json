@@ -10,7 +10,7 @@
     "kp_g6b_u04_successive_rate_change"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g6b_u04_successive_rate_change": "PLANNING_IDENTITY_RESOLVED_RUNTIME_AUTHORITY_PENDING"
+    "kp_g6b_u04_successive_rate_change": "PLANNING_READY_IMPLEMENTATION_APPROVAL_REQUIRED"
   },
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P07F_W7_Q024_PREFLIGHT.validation.json",
@@ -20,11 +20,10 @@
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
-    "currentAuthorityChanged": false,
-    "planningAuthorityAdded": false
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true
   },
   "scopeGuards": {
-    "identityProbeOnly": true,
     "productImplementation": false,
     "publicAdmission": false,
     "q023ProductMutation": false,
@@ -33,6 +32,9 @@
     "r02Mutation": false,
     "r03Mutation": false,
     "r04Mutation": false,
-    "r05Mutation": false
+    "r05Mutation": false,
+    "originalSourcePdfMutation": false,
+    "priorSameSourceOwnershipMutation": false,
+    "singleStagePercentOwnership": false
   }
 }
