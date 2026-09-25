@@ -5,18 +5,12 @@ on:
     paths:
       - "site/modules/curriculum/registry/g6b-u04-successive-rate-change-selector-projection-p07f24.js"
       - "site/modules/curriculum/registry/batch-a-selector-p07f24-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p07f24.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
       - "site/modules/curriculum/batch-a/g6b-u04-successive-rate-change-runtime-p07f24.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f24.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f24-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - "site/modules/renderer/sector-elements-diagram.js"
       - "tools/curriculum/run-p07f-w7-q024-live-pages-e2e.mjs"
       - "tools/curriculum/run-p07f-w7-slice024-classic-ui-acceptance.mjs"
-      - ".github/workflows/p07f-w7-q024-live-pages-e2e.yml"
 permissions:
   contents: write
 jobs:
