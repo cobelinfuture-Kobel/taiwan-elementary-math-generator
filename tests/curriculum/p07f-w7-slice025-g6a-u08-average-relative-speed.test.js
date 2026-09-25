@@ -90,15 +90,15 @@ for(const kp of KPS)test("Q025 aggregate worksheet materializes "+kp+" with answ
   for(const x of ["P07F25","kp_average_speed_","kp_relative_speed_","ps_g6a_u08_","順流","逆流","風速","換算成"])assert.equal(visible.includes(x),false,x);
 });
 
-test("Q025 preserves Q023 route and keeps mixed/Q026 scopes fail-closed",()=>{
+test("Q025 preserves predecessor routes while Q026 successor becomes legal and unit-conversion remains closed",()=>{
   const old=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_speed_distance_time_relation"],questionMode:"numeric",questionCount:6,generationSeed:"q023-history"});
   assert.equal(old.ok,true,old.errors.join(","));assert.equal(old.questions.length,6);
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[AVG_KP,REL_KP],questionMode:"numeric",questionCount:8});
   assert.equal(mixed.ok,false);
-  for(const future of PROTECTED){
-    const g=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[future],questionMode:"numeric",questionCount:4,generationSeed:"future-guard"});
-    assert.equal(g.ok,false);
-  }
+  const successor=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_effective_speed_current_wind"],questionMode:"numeric",questionCount:4,generationSeed:"q026-successor"});
+  assert.equal(successor.ok,true,successor.errors.join(","));assert.equal(successor.questions.length,4);
+  const unitConversion=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_speed_unit_conversion"],questionMode:"numeric",questionCount:4,generationSeed:"future-guard"});
+  assert.equal(unitConversion.ok,false);
 });
 
 test("Q025 current pointers and bounded validation are successor-safe",()=>{
@@ -106,9 +106,9 @@ test("Q025 current pointers and bounded validation are successor-safe",()=>{
   const b=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const g=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const w=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(s,/batch-a-selector-p07f25-extension/);assert.match(b,/public-ui-capability-binding-p07f25/);
-  for(const id of ["25","24","23","22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(g,new RegExp("requestsP07F"+id));
-  for(const id of ["25","24","23","22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(w,new RegExp("buildP07F"+id+"Worksheet"));
+  assert.match(s,/batch-a-selector-p07f26-extension/);assert.match(b,/public-ui-capability-binding-p07f26/);
+  for(const id of ["26","25","24","23","22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(g,new RegExp("requestsP07F"+id));
+  for(const id of ["26","25","24","23","22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(w,new RegExp("buildP07F"+id+"Worksheet"));
   assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");assert.deepEqual(plan.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);
   assert.equal(JSON.stringify(plan).includes("FULL_REPOSITORY"),false);
 });
