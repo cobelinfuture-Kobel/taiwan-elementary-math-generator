@@ -1,0 +1,131 @@
+{
+  "schemaName": "P07FW7Q026G6AU08EffectiveSpeedCurrentWindImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7DirectProductVerticalSlice026Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q026_EFFECTIVE_SPEED_CURRENT_WIND_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q026_EFFECTIVE_SPEED_CURRENT_WIND_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "c5f7a9b3325a7e3ab8b209271888fdcba978dea8",
+  "preflight": {
+    "prNumber": 1074,
+    "mergeSha": "d758c04e33cfebae004ef64a747dddbf892478ea",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p07f/q026-g6a-u08-effective-speed-current-wind-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q025Status": "PASS_E6_D0_COMPLETE",
+    "q025MergeSha": "2f5a50b6284df48e16bcb6f23c8919fad7ed808d",
+    "q025PostMergeWorkflowRunId": 36159316294,
+    "q025DurableReadbackPath": "docs/ci/latest-p07f-w7-q025-pages-e2e.json",
+    "q025DurableReadbackCommitSha": "2e3c1acb3647af2bf8b91f71493c71034c72a44c",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q025_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePosition": 26,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q026_r15_g6a_u08_6a08_profile_speed_rate_c1",
+    "sourceId": "g6a_u08_6a08",
+    "supportingSourceIds": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ],
+    "runtimeProfileId": "profile_speed_rate",
+    "rank": 15,
+    "targetKnowledgePointIds": [
+      "kp_effective_speed_current_wind"
+    ],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_speed_rate_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "finalFrozenW7Slice": true
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 4,
+    "patternSpecIds": [
+      "ps_g6a_u08_downstream_effective_speed",
+      "ps_g6a_u08_upstream_effective_speed",
+      "ps_g6a_u08_tailwind_effective_speed",
+      "ps_g6a_u08_headwind_effective_speed"
+    ],
+    "questionMode": "numeric",
+    "representation": "text_application",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_INTEGER",
+    "semanticCore": "SOLVE_EFFECTIVE_SPEED_FROM_OWN_SPEED_AND_CURRENT_OR_WIND",
+    "sameDirectionAdditionRequired": true,
+    "oppositeDirectionSubtractionRequired": true,
+    "positiveOpposingEffectiveSpeedRequired": true,
+    "computeEffectiveSpeedFromOwnAndCurrentWindRequired": true,
+    "reverseSolveOwnSpeedAllowed": false,
+    "reverseSolveCurrentWindSpeedAllowed": false,
+    "compatibleUnitsRequired": true,
+    "quantitySemanticRoleBindingRequired": true,
+    "answerBackSubstitutionRequired": true
+  },
+  "runtimeContract": {
+    "r04MappingId": "r04map_effective_speed_current_wind",
+    "appliedModifierIds": [
+      "mod_quantity_relation_semantics",
+      "mod_application_semantics"
+    ],
+    "prerequisiteKnowledgePointIds": [
+      "kp_relative_speed_meeting_chasing"
+    ],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "sameSourceCandidateState": {
+    "sourceId": "g6a_u08_6a08",
+    "visibleKnowledgePointIdsAfterImplementation": [
+      "kp_speed_distance_time_relation",
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing",
+      "kp_effective_speed_current_wind"
+    ],
+    "protectedNonW7KnowledgePointIds": [
+      "kp_speed_unit_conversion"
+    ],
+    "sameSourceCandidateSetComplete": false,
+    "sameUnitMixedStillNotAdmitted": true,
+    "w7FrozenQueueComplete": true
+  },
+  "scopeGuard": {
+    "speedUnitConversionOwned": false,
+    "averageSpeedReowned": false,
+    "relativeSpeedMeetingChasingReowned": false,
+    "reverseSolveOwnSpeed": false,
+    "reverseSolveCurrentWindSpeed": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q025ProductTouched": false,
+    "gciPm01SuccessorWorkflowOwnershipTransferAllowed": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
