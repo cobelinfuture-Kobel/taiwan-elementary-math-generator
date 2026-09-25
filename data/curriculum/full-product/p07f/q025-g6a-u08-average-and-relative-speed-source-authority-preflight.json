@@ -1,0 +1,403 @@
+{
+  "schemaName": "P07FW7Q025G6AU08AverageAndRelativeSpeedSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P07F_W7_Q025_G6AU08_AverageAndRelativeSpeed_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_Q025_FROZEN_TWO_KP_SPEED_SUCCESSOR_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q025_AVERAGE_AND_RELATIVE_SPEED_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "fae55d1794bdf3505470718546d1cf7156fb3146",
+  "predecessorD0Evidence": {
+    "q024TaskId": "P07F_W7DirectProductVerticalSlice024Implementation",
+    "q024Status": "PASS_E6_D0_COMPLETE",
+    "q024MergeSha": "23654f2af6f638a52ea0ed0b3a934e0f874e9194",
+    "q024PostMergeWorkflowRunId": 36156144172,
+    "q024DurableReadbackPath": "docs/ci/latest-p07f-w7-q024-pages-e2e.json",
+    "q024DurableReadbackCommitSha": "1a6e29f0fb28d3ba46a43a849eefced9d8421cb3",
+    "exactDeployedAssetDigestParity": true,
+    "classicUiAcceptanceStatus": "PASS_P07F_W7_Q024_CLASSIC_UI_ACCEPTANCE"
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p07e/w7-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p07e-w7-direct-product-vertical-slice-queue-v1",
+    "queuePosition": 25,
+    "queueSliceCount": 26,
+    "sliceId": "p07e_q025_r14_g6a_u08_6a08_profile_speed_rate_c1",
+    "implementationTaskId": "P07F_W7DirectProductVerticalSlice025Implementation",
+    "previousSliceId": "p07e_q024_r13_g6b_u04_6b04_profile_ratio_percent_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W7",
+    "primarySourceNodeId": "g6a_u08_6a08",
+    "supportingSourceNodeIds": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ],
+    "intraWavePrerequisiteRank": 14,
+    "primaryRuntimeProfileId": "profile_speed_rate",
+    "chunkIndex": 1,
+    "knowledgePointCount": 2,
+    "knowledgePointIds": [
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing"
+    ],
+    "requiredW7CapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_speed_rate_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "primary": {
+      "sourceNodeId": "g6a_u08_6a08",
+      "sourceTitleAuthority": "認識速率",
+      "sourcePdfTitle": "meow911_6a08_source.pdf",
+      "sourcePdfDriveFileId": "1mI0hgM7Nknw01PFUCPf-IwgZTtUi3zP-",
+      "sourcePdfSizeBytes": 666779,
+      "sourceMetadataDriveFileId": "1npWcnOW6aDFZaAhT90CSi24HaLDK1nnF",
+      "verificationNotesDriveFileId": "1dplJeRG01m76SYA-AYRcs74VSle8Bc2J",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "role": "PRIMARY",
+      "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+    },
+    "supporting": {
+      "sourceNodeId": "g6b_u02_6b02",
+      "sourceTitleAuthority": "認識速率",
+      "sourcePdfTitle": "meow911_6b02_source.pdf",
+      "sourcePdfDriveFileId": "1fvyF0xYVTUSRBJPIVTa5nfHb5li6wTi4",
+      "sourcePdfSizeBytes": 666779,
+      "sourceMetadataDriveFileId": "1aoo0Gjn8tmZ4q4WJCuT1LchRzSSalWwZ",
+      "verificationNotesDriveFileId": "1mheVsnPY8oIqnuK5dNYvaKa9quix5XLQ",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "role": "SUPPORTING_FOR_G6A_U08_SPEED_ROWS",
+      "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+    },
+    "authorityIndexPath": "data/curriculum/full-product/p07e/w7-source-authority-index.json",
+    "currentSemanticAuthority": "R02_FULL_PAGE_VISUAL_READBACK_PLUS_P07E_W7_SOURCE_AUTHORITY_INDEX",
+    "connectorTextNotUsedAsSemanticAuthority": true,
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "newSupplementaryEvidenceRequired": false,
+    "silentRewriteAllowed": false
+  },
+  "r02ReviewedCandidateAuthority": {
+    "manifestPath": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "primaryChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "supportingChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "targetCandidates": [
+      {
+        "knowledgePointId": "kp_average_speed_total_distance_time",
+        "canonicalNameZh": "全程平均速率",
+        "capabilityStatement": "學生能以總距離除以總時間求平均速率。",
+        "reasoningInvariant": "平均速率不能直接平均各段速率，必須使用全程總量。",
+        "category": "ratio",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      },
+      {
+        "knowledgePointId": "kp_relative_speed_meeting_chasing",
+        "canonicalNameZh": "相遇追趕相對速率",
+        "capabilityStatement": "學生能以速率和或差處理相遇與追趕。",
+        "reasoningInvariant": "相向距離縮短率為速率和，同向追趕率為速率差。",
+        "category": "ratio",
+        "evidencePages": [
+          1,
+          2
+        ],
+        "applicationSuitability": "APPLICATION_COMPATIBLE"
+      }
+    ],
+    "duplicateProjectionReconciledAcrossSourceNodes": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ],
+    "predecessorOwnedKnowledgePointIds": [
+      "kp_speed_distance_time_relation"
+    ],
+    "protectedNonQ025KnowledgePointIds": [
+      "kp_speed_unit_conversion",
+      "kp_effective_speed_current_wind"
+    ],
+    "protectedLaterW7KnowledgePointIds": [
+      "kp_effective_speed_current_wind"
+    ]
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCores": [
+      {
+        "knowledgePointId": "kp_average_speed_total_distance_time",
+        "semanticCore": "SOLVE_AVERAGE_SPEED_FROM_TOTAL_DISTANCE_AND_TOTAL_TIME",
+        "invariant": "average speed = total distance ÷ total time; do not take the arithmetic mean of segment speeds"
+      },
+      {
+        "knowledgePointId": "kp_relative_speed_meeting_chasing",
+        "semanticCore": "SOLVE_MEETING_CHASING_BY_RELATIVE_SPEED",
+        "invariant": "opposite-direction closing speed = sum; same-direction chasing speed = difference"
+      }
+    ],
+    "implementationSemanticLock": {
+      "totalDistanceOverTotalTimeRequired": true,
+      "directSegmentSpeedArithmeticMeanAllowed": false,
+      "meetingUsesSpeedSumRequired": true,
+      "chasingUsesPositiveSpeedDifferenceRequired": true,
+      "compatibleDistanceTimeRateUnitsRequired": true,
+      "quantitySemanticRoleBindingRequired": true,
+      "answerBackSubstitutionRequired": true,
+      "speedUnitConversionOwnershipAllowed": false,
+      "effectiveSpeedCurrentWindOwnershipAllowed": false,
+      "predecessorSpeedRelationReownershipAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "executableAuthorityReadback": {
+    "pending": false,
+    "workflowRunId": 36156651659,
+    "focusedValidationJobId": 108142904649,
+    "exactQueueRow": {
+      "queuePosition": 25,
+      "sliceId": "p07e_q025_r14_g6a_u08_6a08_profile_speed_rate_c1",
+      "implementationTaskId": "P07F_W7DirectProductVerticalSlice025Implementation",
+      "previousSliceId": "p07e_q024_r13_g6b_u04_6b04_profile_ratio_percent_c1",
+      "assignedDeliveryWaveId": "R05-W7",
+      "primarySourceNodeId": "g6a_u08_6a08",
+      "supportingSourceNodeIds": [
+        "g6a_u08_6a08",
+        "g6b_u02_6b02"
+      ],
+      "intraWavePrerequisiteRank": 14,
+      "primaryRuntimeProfileId": "profile_speed_rate",
+      "knowledgePointIds": [
+        "kp_average_speed_total_distance_time",
+        "kp_relative_speed_meeting_chasing"
+      ],
+      "requiredW7CapabilityIds": [
+        "cap_ratio_percent_reasoning",
+        "cap_ratio_rate_validator",
+        "cap_speed_rate_reasoning"
+      ]
+    },
+    "exactTargets": [
+      {
+        "knowledgePointId": "kp_average_speed_total_distance_time",
+        "incomingRequiredEdges": [
+          {
+            "edgeId": "kpe_r03_0009",
+            "fromKnowledgePointId": "kp_speed_distance_time_relation",
+            "dependencyRole": "relation_model_foundation",
+            "distanceBearing": true
+          }
+        ],
+        "r04": {
+          "mappingId": "r04map_average_speed_total_distance_time",
+          "classificationRuleId": "rule_speed_rate",
+          "appliedModifierIds": [
+            "mod_quantity_relation_semantics"
+          ],
+          "requiredRuntimeCapabilityIds": [
+            "cap_pattern_spec_resolution",
+            "cap_deterministic_answer_model",
+            "cap_worksheet_document_assembly",
+            "cap_answer_key_projection",
+            "cap_html_print_renderer",
+            "cap_speed_rate_reasoning",
+            "cap_ratio_rate_validator",
+            "cap_quantity_dimension_unit_identity",
+            "cap_text_application_representation",
+            "cap_quantity_semantic_role_binding"
+          ],
+          "optionalRuntimeCapabilityIds": [
+            "cap_unit_conversion",
+            "cap_global_context_binding"
+          ],
+          "shadowRequiredCapabilityIds": [
+            "cap_quantity_dimension_unit_identity",
+            "cap_quantity_semantic_role_binding"
+          ]
+        },
+        "r05": {
+          "assignmentId": "r05wave_average_speed_total_distance_time",
+          "baseDeliveryWaveId": "R05-W7",
+          "deliveryWaveId": "R05-W7",
+          "rank": 14,
+          "prerequisiteWaveLowerBound": 7,
+          "waveEscalatedByPrerequisite": false,
+          "contractOnlyRequiredCapabilityIds": [
+            "cap_speed_rate_reasoning",
+            "cap_ratio_percent_reasoning",
+            "cap_fraction_number_system",
+            "cap_ratio_rate_validator"
+          ],
+          "sourceNodeIds": [
+            "g6a_u08_6a08",
+            "g6b_u02_6b02"
+          ],
+          "productionAdmissionState": "PLANNED_NOT_ADMITTED"
+        }
+      },
+      {
+        "knowledgePointId": "kp_relative_speed_meeting_chasing",
+        "incomingRequiredEdges": [
+          {
+            "edgeId": "kpe_r03_0650",
+            "fromKnowledgePointId": "kp_g4a_u08_num_add_sub_left_assoc",
+            "dependencyRole": "relation_model_foundation",
+            "distanceBearing": true
+          },
+          {
+            "edgeId": "kpe_r03_0651",
+            "fromKnowledgePointId": "kp_speed_distance_time_relation",
+            "dependencyRole": "relation_model_foundation",
+            "distanceBearing": true
+          }
+        ],
+        "r04": {
+          "mappingId": "r04map_relative_speed_meeting_chasing",
+          "classificationRuleId": "rule_speed_rate",
+          "appliedModifierIds": [
+            "mod_quantity_relation_semantics",
+            "mod_application_semantics"
+          ],
+          "requiredRuntimeCapabilityIds": [
+            "cap_pattern_spec_resolution",
+            "cap_deterministic_answer_model",
+            "cap_worksheet_document_assembly",
+            "cap_answer_key_projection",
+            "cap_html_print_renderer",
+            "cap_speed_rate_reasoning",
+            "cap_ratio_rate_validator",
+            "cap_quantity_dimension_unit_identity",
+            "cap_text_application_representation",
+            "cap_quantity_semantic_role_binding",
+            "cap_relation_model_binding",
+            "cap_word_problem_semantic_validation"
+          ],
+          "optionalRuntimeCapabilityIds": [
+            "cap_unit_conversion",
+            "cap_global_context_binding",
+            "cap_pbl_task_set_projection"
+          ],
+          "shadowRequiredCapabilityIds": [
+            "cap_quantity_dimension_unit_identity",
+            "cap_quantity_semantic_role_binding"
+          ]
+        },
+        "r05": {
+          "assignmentId": "r05wave_relative_speed_meeting_chasing",
+          "baseDeliveryWaveId": "R05-W7",
+          "deliveryWaveId": "R05-W7",
+          "rank": 14,
+          "prerequisiteWaveLowerBound": 7,
+          "waveEscalatedByPrerequisite": false,
+          "contractOnlyRequiredCapabilityIds": [
+            "cap_speed_rate_reasoning",
+            "cap_ratio_percent_reasoning",
+            "cap_fraction_number_system",
+            "cap_ratio_rate_validator"
+          ],
+          "sourceNodeIds": [
+            "g6a_u08_6a08",
+            "g6b_u02_6b02"
+          ],
+          "productionAdmissionState": "PLANNED_NOT_ADMITTED"
+        }
+      }
+    ]
+  },
+  "ownershipBoundary": {
+    "predecessorOwnedKnowledgePointIds": [
+      "kp_speed_distance_time_relation",
+      "kp_g4a_u08_num_add_sub_left_assoc"
+    ],
+    "q025OwnedKnowledgePointIds": [
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing"
+    ],
+    "protectedSameSourceKnowledgePointIds": [
+      "kp_speed_unit_conversion",
+      "kp_effective_speed_current_wind"
+    ],
+    "predecessorMayBeConsumedAsPrerequisite": true,
+    "predecessorMayNotBeReowned": true
+  },
+  "q025ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing"
+    ],
+    "includedRelations": [
+      "TOTAL_DISTANCE_DIVIDED_BY_TOTAL_TIME",
+      "MEETING_RELATIVE_SPEED_SUM",
+      "CHASING_RELATIVE_SPEED_DIFFERENCE",
+      "BACK_SUBSTITUTE_RELATIVE_SPEED_RELATION"
+    ],
+    "excludedRelations": [
+      "ARITHMETIC_MEAN_OF_SEGMENT_SPEEDS",
+      "SPEED_UNIT_CONVERSION_OWNERSHIP",
+      "EFFECTIVE_SPEED_CURRENT_WIND",
+      "REOWN_SPEED_DISTANCE_TIME_RELATION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_AUTHORITY_MUTATION",
+      "Q026_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q024ProductTouched": false,
+    "q026Touched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ024D0Verified": true,
+    "exactTwoKnowledgePointSetResolved": true,
+    "sourceIdentityBound": true,
+    "primaryAndSupportingR02AuthorityBound": true,
+    "semanticProfileLockBound": true,
+    "futureSpeedOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "newSupplementaryEvidenceRequired": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
+    "sourceAuthoritySufficientForQ025ImplementationPlanning": true,
+    "separateImplementationApprovalRequired": true,
+    "exactRuntimeMappingsBound": true,
+    "exactR05AssignmentsBound": true,
+    "exactPrerequisiteGraphBound": true,
+    "nextTask": "P07F_W7DirectProductVerticalSlice025Implementation"
+  }
+}
