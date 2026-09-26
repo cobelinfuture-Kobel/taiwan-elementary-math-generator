@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {generateG4AU03P08F01Questions,validateG4AU03P08F01Question,validateG4AU03P08F01Answer} from "../../site/modules/curriculum/batch-a/g4a-u03-protractor-angle-measurement-runtime-p08f01.js";
 import {buildBatchABrowserWorksheetDocument} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f01-extension.js";
+import {buildWorksheetDocumentFromPlan as buildPublicPipelineDocument} from "../../site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js";
 import {renderWorksheetDocumentToHtml,renderProtractorAngleMeasurementDiagram} from "../../site/modules/renderer/html-renderer.js";
 import {G4A_U03_P08F01_KP_ID as KP,G4A_U03_P08F01_SOURCE_ID as SRC,G4A_U03_P08F01_PATTERN_SPECS as SPECS} from "../../site/modules/curriculum/registry/g4a-u03-protractor-angle-measurement-selector-projection-p08f01.js";
 
@@ -42,6 +43,12 @@ test("Q001 3x5 request is print-safely materialized as 3x4 pages so 15 items can
  assert.ok(w.warnings.includes("P08F01_PROTRACTOR_LAYOUT_ROWS_CLAMPED_FOR_PRINT_SAFETY"));
  const html=renderWorksheetDocumentToHtml(w.worksheetDocument,{stylesheetHref:""});
  assert.equal((html.match(/data-dual-scale="true"/g)||[]).length,30);
+});
+
+test("Q001 current public worksheet pipeline uses the same protractor-safe pagination contract",()=>{
+ const w=buildPublicPipelineDocument(req(15,"lf-public-pipeline"));assert.equal(w.ok,true,w.errors?.join("\\n")??"");
+ assert.equal(w.p08f01Implemented,true);assert.equal(w.worksheetDocument.printOptions.columns,3);assert.equal(w.worksheetDocument.printOptions.rowsPerPage,4);
+ assert.equal(w.worksheetDocument.questionPages.length,2);assert.deepEqual(w.worksheetDocument.questionPages.map(p=>p.cells.filter(c=>c.cellType==="question").length),[12,3]);
 });
 
 test("Q001 repair preserves source FormalMapping identity and does not admit later G4A-U03 scope",()=>{
