@@ -1,0 +1,179 @@
+{
+  "schemaName": "P08FW8Q001FinalD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q001_FINAL_D0_CLOSEOUT_V1",
+  "status": "Q001_PASS_E6_D0_EXACT_FAILURE_SET_PARITY_CLOSED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 1,
+    "sliceId": "p08e_q001_r1_g4a_u03_4a03_profile_geometry_property_c1",
+    "sourceId": "g4a_u03_4a03",
+    "knowledgePointId": "kp_protractor_angle_measurement",
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "patternSpecsChanged": false,
+    "frozenQueueChanged": false,
+    "q002OrLaterProductChanged": false
+  },
+  "productAuthority": {
+    "sourceAuthorityPreflightPr": 1079,
+    "sourceAuthorityPreflightMergeSha": "90d00e40083c0240f9bd52b87d3187427a1e006f",
+    "implementationPr": 1080,
+    "implementationPrGateRunId": 36227934663,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "2ddee98f99b4dec18ab6f24d9fb3acac31f18aa1",
+    "implementationHeadSha": "9fd400554d8deca564d058a55c0a3f190aa27557",
+    "pagesE2ERunId": 36228010421,
+    "pagesE2EJobId": 108365650915,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_D0_COMPLETE",
+    "pagesE2EArtifactId": 10902015715,
+    "pagesE2EArtifactDigest": "sha256:7bbd8686ed9bedf78eb18fb470dc53aba0349aacc16f4f2935cb78d9157eb5bf",
+    "exactDeployedHeadSha": "2ddee98f99b4dec18ab6f24d9fb3acac31f18aa1",
+    "classicUiAcceptanceStatus": "PASS_P08F_W8_Q001_CLASSIC_UI_ACCEPTANCE",
+    "questionCount": 12,
+    "worksheetQuestionCount": 12,
+    "answerCount": 12,
+    "diagramCount": 24,
+    "consoleErrorCount": 0,
+    "pageErrorCount": 0,
+    "requestFailureCount": 0,
+    "assetHttpFailureCount": 0
+  },
+  "compatibilityRepairs": {
+    "successorCompatibility": {
+      "pr": 1081,
+      "mergeSha": "037bb8dd5cf0f7eb833e9e953ed6bb90a5cfb815",
+      "repairClass": "TEST_ONLY_W7_Q024_Q025_SUCCESSOR_COMPATIBILITY",
+      "productSemanticsChanged": false
+    },
+    "q023DurableReadbackOwnershipIsolation": {
+      "pr": 1082,
+      "prHeadSha": "1e9c7eef60241b964ea23b28c25d8095efa2fc75",
+      "prGateRunId": 36229836224,
+      "prGateConclusion": "success",
+      "mergeSha": "40c65153ea5fad1a842602e271896b60220ccb7a",
+      "repairClass": "GOVERNANCE_ONLY_HISTORICAL_DURABLE_READBACK_OWNERSHIP_ISOLATION",
+      "productSemanticsChanged": false
+    }
+  },
+  "postMergeExactHeadFailureSetParity": {
+    "comparisonBasis": "IMMEDIATELY_PREVIOUS_Q001_SUCCESSOR_COMPATIBILITY_REPAIR_HEAD",
+    "baselineHeadSha": "037bb8dd5cf0f7eb833e9e953ed6bb90a5cfb815",
+    "exactOwnershipRepairHeadSha": "40c65153ea5fad1a842602e271896b60220ccb7a",
+    "nodeTest": {
+      "baseline": {
+        "workflowRunId": 36228660531,
+        "jobId": 108367485600,
+        "artifactId": 10902066594,
+        "artifactDigest": "sha256:6f123859ae032f913618da1fcc42d1a15e2b2a261af37c6a9b3ce32a54913ffc",
+        "tests": 6112,
+        "pass": 5939,
+        "fail": 173
+      },
+      "afterOwnershipIsolation": {
+        "workflowRunId": 36232131459,
+        "jobId": 108377138836,
+        "artifactId": 10903285537,
+        "artifactDigest": "sha256:56ab1c7256fe4047eddcc0fc880e4be797d9beefa6d9962a79003832dd9a1a35",
+        "tests": 6117,
+        "pass": 5946,
+        "fail": 171
+      },
+      "exactSetDelta": {
+        "overlapFailures": 171,
+        "removedFailures": 2,
+        "addedFailures": 0,
+        "removedFailureTitles": [
+          "Q024 exact frozen successor follows Q023 D0",
+          "Q024 exact identity consumes merged preflight and Q023 D0"
+        ],
+        "addedFailureTitles": []
+      }
+    },
+    "mathCiReadback": {
+      "baseline": {
+        "workflowRunId": 36228660474,
+        "jobId": 108367445103,
+        "artifactId": 10902500243,
+        "artifactDigest": "sha256:56a98e16dd04dfeeb2a466d14677021f27824426ba8ea3a9da0c9a5ac08a88db",
+        "tests": 6112,
+        "pass": 5938,
+        "fail": 174
+      },
+      "afterOwnershipIsolation": {
+        "workflowRunId": 36232131420,
+        "jobId": 108377138579,
+        "artifactId": 10902618363,
+        "artifactDigest": "sha256:cc7f3183e47ecdb748ef432eb0ba0e14e36c5ed504bfff0b0fe756154222d2ed",
+        "tests": 6117,
+        "pass": 5945,
+        "fail": 172
+      },
+      "exactSetDelta": {
+        "overlapFailures": 172,
+        "removedFailures": 2,
+        "addedFailures": 0,
+        "removedFailureTitles": [
+          "Q024 exact frozen successor follows Q023 D0",
+          "Q024 exact identity consumes merged preflight and Q023 D0"
+        ],
+        "addedFailureTitles": []
+      }
+    },
+    "causalNewFailures": 0,
+    "q023OwnershipFailuresRemoved": true,
+    "disposition": "STRICT_SUBSET_OF_PRE_OWNERSHIP_REPAIR_FAILURE_SET",
+    "remainingNodeFailureCount": 171,
+    "remainingMathCiReadbackFailureCount": 172,
+    "remainingFailuresOwnership": "PRE_EXISTING_BEFORE_Q023_OWNERSHIP_ISOLATION_OR_ALREADY_ATTRIBUTED_HISTORICAL_DEBT"
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "f95030f52a577ef9a1f8db19acaa69d15213219d",
+    "exactOwnershipRepairHeadSha": "40c65153ea5fad1a842602e271896b60220ccb7a",
+    "commitsAfterExactHead": 6,
+    "onlyCiEvidenceFilesChanged": true,
+    "productRuntimeFilesChanged": false,
+    "curriculumRuntimeFilesChanged": false,
+    "changedFilesAfterExactHead": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "antiScopeCreep": {
+    "repairRemainingRepositoryBaselineFailures": false,
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ001ProductRuntime": false,
+    "modifyQ001SourceAuthority": false,
+    "modifyW8FrozenQueue": false,
+    "modifyPatternSpecs": false,
+    "modifyPublicBinding": false,
+    "modifyGeneratorValidatorRenderer": false,
+    "implementQ002": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q001_PRODUCT_E6_COMPLETE_WAITING_EXACT_POSTMERGE_FAILURE_SET_PARITY",
+    "goalDistanceAfter": "D0_Q001_FINAL_EXACT_PARITY_CLOSED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ001Blockers": [],
+    "scopeExternalDebt": [
+      "171 Node Test Post-Merge failures remain on the exact ownership-isolation head",
+      "172 Math CI Readback failures remain on the exact ownership-isolation head"
+    ],
+    "nextShortestStep": "P08F_W8_Q002_SourceAuthorityPreflight",
+    "nextTaskRequiresSeparateOperatorApproval": false
+  }
+}
