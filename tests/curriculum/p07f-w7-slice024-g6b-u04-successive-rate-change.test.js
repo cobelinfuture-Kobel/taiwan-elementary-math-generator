@@ -112,12 +112,12 @@ test("Q024 mixed modes remain fail-closed and Q016 single-stage application rout
   assert.equal(old.ok,true,old.errors.join(","));assert.equal(old.questions.length,6);
 });
 
-test("Q024 current pointers and bounded validation are successor-safe",()=>{
+test("Q024 historical W7 route remains reachable after the approved W8 current-pointer advance",()=>{
   const s=readFileSync(new URL("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",import.meta.url),"utf8");
   const b=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const g=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const w=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(s,/batch-a-selector-p07f26-extension/);assert.match(b,/public-ui-capability-binding-p07f26/);
+  assert.match(s,/batch-a-selector-p08f01-extension/);assert.match(b,/public-ui-capability-binding-p08f01/);
   for(const id of ["26","25","24","23","22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(g,new RegExp("requestsP07F"+id));
   for(const id of ["26","25","24","23","22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(w,new RegExp("buildP07F"+id+"Worksheet"));
   assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");assert.deepEqual(plan.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);

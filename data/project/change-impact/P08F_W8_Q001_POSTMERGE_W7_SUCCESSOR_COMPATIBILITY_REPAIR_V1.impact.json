@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q001_POSTMERGE_W7_SUCCESSOR_COMPATIBILITY_REPAIR_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_protractor_angle_measurement",
+  "unitExpectedKnowledgePointIds": [
+    "kp_protractor_angle_measurement"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_protractor_angle_measurement": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q001_POSTMERGE_W7_SUCCESSOR_COMPATIBILITY_REPAIR_V1.validation.json",
+  "classificationNote": "Test-only reconciliation of two stale historical W7 Q024/Q025 successor-safe current-pointer assertions after approved W8 Q001 became the active selector/public-binding owner. No W8 product semantics, source authority, PatternSpec, generator, validator, selector runtime, public binding runtime, worksheet runtime, renderer, queue authority, legal-route semantics, or Q002+ product code changes.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
