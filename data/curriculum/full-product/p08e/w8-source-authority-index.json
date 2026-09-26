@@ -1,0 +1,236 @@
+{
+  "schemaName": "P08EW8SourceAuthorityIndexV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_SourceAuthorityAndFrozenQueueDiscoveryPreflight",
+  "status": "W8_R02_REVIEWED_SOURCE_AUTHORITY_INDEX_LOCKED",
+  "authority": "R02_G3toG6_79SourceNodeKnowledgePointCandidateReconciliation",
+  "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+  "primarySourceNodeCount": 11,
+  "supportingAuthoritySourceNodeCount": 12,
+  "directW8KnowledgePointCount": 24,
+  "sources": [
+    {
+      "sourceNodeId": "g4a_u03_4a03",
+      "role": "PRIMARY",
+      "sourceTitle": "角度",
+      "sourcePdfTitle": "meow911_4a03_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w8KnowledgePointIds": [
+        "kp_protractor_angle_measurement",
+        "kp_angle_composition_decomposition",
+        "kp_rotation_angle_clock",
+        "kp_angle_estimation_and_classification",
+        "kp_unknown_angle_linear_full_vertical"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_protractor_angle_measurement",
+        "kp_angle_composition_decomposition",
+        "kp_rotation_angle_clock",
+        "kp_angle_estimation_and_classification",
+        "kp_unknown_angle_linear_full_vertical"
+      ]
+    },
+    {
+      "sourceNodeId": "g4a_u05_4a05",
+      "role": "PRIMARY",
+      "sourceTitle": "三角形與全等",
+      "sourcePdfTitle": "meow911_4a05_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w8KnowledgePointIds": [
+        "kp_g4a_u05_triangle_angle_classification",
+        "kp_g4a_u05_congruent_triangle_correspondence"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_g4a_u05_triangle_angle_classification",
+        "kp_g4a_u05_congruent_triangle_correspondence"
+      ]
+    },
+    {
+      "sourceNodeId": "g5a_u05_5a05a",
+      "role": "PRIMARY",
+      "sourceTitle": "多邊形與平面圖形",
+      "sourcePdfTitle": "meow911_5a05a_source.pdf",
+      "reviewedPages": [
+        1,
+        2,
+        3
+      ],
+      "w8KnowledgePointIds": [
+        "kp_g5a_u05a_polygon_angle_sum_reasoning"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_g5a_u05a_polygon_angle_sum_reasoning"
+      ]
+    },
+    {
+      "sourceNodeId": "g5a_u05_5a05a1",
+      "role": "PRIMARY",
+      "sourceTitle": "扇形與圓心角",
+      "sourcePdfTitle": "meow911_5a05a1_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w8KnowledgePointIds": [
+        "kp_g5a_u05a1_central_angle_measurement",
+        "kp_g5a_u05a1_combined_sector_angle",
+        "kp_g5a_u05a1_sector_fraction_of_circle",
+        "kp_g5a_u05a1_sector_compare_same_circle"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_g5a_u05a1_central_angle_measurement",
+        "kp_g5a_u05a1_combined_sector_angle",
+        "kp_g5a_u05a1_sector_fraction_of_circle",
+        "kp_g5a_u05a1_sector_compare_same_circle"
+      ]
+    },
+    {
+      "sourceNodeId": "g5a_u07_5a07",
+      "role": "PRIMARY",
+      "sourceTitle": "線對稱圖形",
+      "sourcePdfTitle": "meow911_5a07_source.pdf",
+      "reviewedPages": [
+        1
+      ],
+      "w8KnowledgePointIds": [
+        "kp_g5a_u07_coordinate_reflection"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_g5a_u07_coordinate_reflection"
+      ]
+    },
+    {
+      "sourceNodeId": "g5a_u10_5a10a",
+      "role": "PRIMARY",
+      "sourceTitle": "柱體錐體和球",
+      "sourcePdfTitle": "meow911_5a10a_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w8KnowledgePointIds": [
+        "kp_g5a_u10a_solid_viewpoint_representation"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_g5a_u10a_solid_viewpoint_representation"
+      ]
+    },
+    {
+      "sourceNodeId": "g6a_u06_6a06",
+      "role": "PRIMARY",
+      "sourceTitle": "圓周長與扇形周長",
+      "sourcePdfTitle": "meow911_6a06_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w8KnowledgePointIds": [
+        "kp_g6a_u06_sector_arc_length",
+        "kp_g6a_u06_composite_arc_perimeter"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_g6a_u06_sector_arc_length",
+        "kp_g6a_u06_composite_arc_perimeter"
+      ]
+    },
+    {
+      "sourceNodeId": "g6a_u07_6a07",
+      "role": "PRIMARY",
+      "sourceTitle": "圓面積和扇形面積",
+      "sourcePdfTitle": "meow911_6a07_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w8KnowledgePointIds": [
+        "kp_g6a_u07_sector_area",
+        "kp_g6a_u07_composite_circle_area"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_g6a_u07_sector_area",
+        "kp_g6a_u07_composite_circle_area"
+      ]
+    },
+    {
+      "sourceNodeId": "g6a_u08_6a08",
+      "role": "PRIMARY",
+      "sourceTitle": "認識速率",
+      "sourcePdfTitle": "meow911_6a08_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w8KnowledgePointIds": [
+        "kp_speed_unit_conversion"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_speed_unit_conversion"
+      ]
+    },
+    {
+      "sourceNodeId": "g6a_u09_6a09",
+      "role": "PRIMARY",
+      "sourceTitle": "放大圖縮圖與比例尺",
+      "sourcePdfTitle": "meow911_6a09_source.pdf",
+      "reviewedPages": [
+        1
+      ],
+      "w8KnowledgePointIds": [
+        "kp_g6a_u09_map_scale_distance",
+        "kp_g6a_u09_scale_drawing_construction",
+        "kp_g6a_u09_similar_shape_angle"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_g6a_u09_map_scale_distance",
+        "kp_g6a_u09_scale_drawing_construction",
+        "kp_g6a_u09_similar_shape_angle"
+      ]
+    },
+    {
+      "sourceNodeId": "g6b_u02_6b02",
+      "role": "SUPPORTING_FOR_MULTI_SOURCE_W8_ROWS",
+      "sourceTitle": "認識速率",
+      "sourcePdfTitle": "meow911_6b02_source.pdf",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "w8KnowledgePointIds": [
+        "kp_speed_unit_conversion"
+      ],
+      "primaryW8KnowledgePointIds": []
+    },
+    {
+      "sourceNodeId": "g6b_u06_6b06",
+      "role": "PRIMARY",
+      "sourceTitle": "圓形圖",
+      "sourcePdfTitle": "meow911_6b06_source.pdf",
+      "reviewedPages": [
+        1
+      ],
+      "w8KnowledgePointIds": [
+        "kp_g6b_u06_pie_chart_percent_angle_conversion",
+        "kp_g6b_u06_construct_pie_chart"
+      ],
+      "primaryW8KnowledgePointIds": [
+        "kp_g6b_u06_pie_chart_percent_angle_conversion",
+        "kp_g6b_u06_construct_pie_chart"
+      ]
+    }
+  ],
+  "notes": {
+    "waveTheme": "MULTI_DOMAIN_COMPLETION",
+    "directCapabilityPlanCount": 0,
+    "baseW8KnowledgePointCount": 6,
+    "prerequisiteEscalatedKnowledgePointCount": 18,
+    "legacyBatchUsedForAssignment": false,
+    "sourceAuthorityMutationAllowed": false
+  }
+}

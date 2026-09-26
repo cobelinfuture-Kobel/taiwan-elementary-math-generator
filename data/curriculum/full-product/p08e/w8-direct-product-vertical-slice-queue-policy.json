@@ -1,0 +1,92 @@
+{
+  "schemaName": "P08EW8DirectProductVerticalSliceQueuePolicyV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_SourceAuthorityAndFrozenQueueDiscoveryPreflight",
+  "status": "W8_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_DISCOVERY_POLICY_READY",
+  "authorities": {
+    "deliveryWaveAuthority": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "deliveryWavePolicy": "data/curriculum/global/delivery/r05/delivery-wave-policy.json",
+    "sourceCandidateAuthority": "data/curriculum/global/candidates/r02/reviewed-source-candidate-pack.manifest.json",
+    "runtimeCapabilityAuthority": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "assignedDeliveryWaveId": "R05-W8"
+  },
+  "cohortRules": {
+    "assignedDeliveryWaveId": "R05-W8",
+    "expectedKnowledgePointCount": 24,
+    "expectedCapabilityPlanCount": 0,
+    "protectedExistingD0Excluded": true,
+    "requiredProductionAdmissionState": "PLANNED_NOT_ADMITTED",
+    "baseW8OrPrerequisiteEscalatedRequired": true
+  },
+  "w8Semantics": {
+    "waveName": "MULTI_DOMAIN_COMPLETION",
+    "directCapabilityPlanExpectedEmpty": true,
+    "multiContractDomainGapUsesWave": "R05-W8",
+    "legacyBatchMayAssignWave": false
+  },
+  "sliceRules": {
+    "primarySourceNodeSelection": "LEXICOGRAPHIC_FIRST_CANONICAL_SOURCE_NODE_ID",
+    "doNotMixPrimarySourceNodes": true,
+    "doNotMixIntraWavePrerequisiteRanks": true,
+    "doNotMixPrimaryRuntimeProfiles": true,
+    "maxKnowledgePointsPerSlice": 8,
+    "knowledgePointOrder": [
+      "intraWavePrerequisiteRank_ASC",
+      "primarySourceNodeId_ASC",
+      "primaryRuntimeProfileId_ASC",
+      "knowledgePointId_ASC"
+    ],
+    "sliceOrder": [
+      "intraWavePrerequisiteRank_ASC",
+      "primarySourceNodeId_ASC",
+      "primaryRuntimeProfileId_ASC",
+      "chunkIndex_ASC"
+    ],
+    "executionMode": "STRICT_SINGLE_SLICE_SERIAL",
+    "oneImplementationMilestoneMayConsumeAtMostOneSlice": true,
+    "previousSliceMustBeD0BeforeNextSliceStarts": true,
+    "silentReorderAllowed": false,
+    "queueChangeRequiresExplicitReconciliationTask": true
+  },
+  "sourceAuthorityRules": {
+    "everyKnowledgePointMustExistInR02ReviewedAuthority": true,
+    "everyPrimarySourceNodeMustBePresentInKnowledgePointSourceRefs": true,
+    "sourceEvidenceMustRemainReadOnlyDuringQueueDiscoveryAndFreeze": true,
+    "sourceChoiceMustNotBeInferredFromLegacyBatch": true
+  },
+  "verticalSliceD0Gate": {
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "requiredNodes": [
+      "SOURCE_EVIDENCE",
+      "KNOWLEDGE_POINT_IDENTITY",
+      "TAG_REGISTRY_BINDING",
+      "FORMAL_MAPPING",
+      "PATTERN_SPEC",
+      "SHARED_GENERATOR_BINDING",
+      "DETERMINISTIC_VALIDATOR_BINDING",
+      "PUBLIC_SOURCE_ADAPTER",
+      "PUBLIC_UI_SELECTION",
+      "WORKSHEET_AND_ANSWER_KEY",
+      "PRODUCTION_HTML",
+      "CHROMIUM_PDF_AND_PRINT",
+      "PRODUCT_ADMISSION_CLAIM"
+    ],
+    "admissionFailClosedUntilEveryRequiredNodePasses": true,
+    "partialSliceAdmissionAllowed": false
+  },
+  "scopeBoundary": {
+    "queueDiscoveryAndFreezeOnly": true,
+    "productImplementationAllowed": false,
+    "formalMappingImplementationAllowed": false,
+    "patternSpecImplementationAllowed": false,
+    "generatorImplementationAllowed": false,
+    "validatorImplementationAllowed": false,
+    "publicAdapterImplementationAllowed": false,
+    "publicUiImplementationAllowed": false,
+    "worksheetRendererImplementationAllowed": false,
+    "newProductAdmissionAllowed": false,
+    "visibleOutputChangeExpected": false
+  },
+  "nextTaskTemplate": "P08F_W8DirectProductVerticalSlice{NNN}Implementation"
+}

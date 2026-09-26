@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_SOURCE_AUTHORITY_FROZEN_QUEUE_DISCOVERY_PREFLIGHT",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_SOURCE_AUTHORITY_FROZEN_QUEUE_DISCOVERY_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true
+  },
+  "scopeGuards": {
+    "productImplementation": false,
+    "publicAdmission": false,
+    "w7ProductMutation": false,
+    "frozenW7Mutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false
+  }
+}
