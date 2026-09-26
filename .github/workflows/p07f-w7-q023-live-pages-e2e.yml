@@ -6,7 +6,6 @@ on:
       - "site/modules/curriculum/registry/g6a-u08-speed-distance-time-selector-projection-p07f23.js"
       - "site/modules/curriculum/registry/batch-a-selector-p07f23-extension.js"
       - "site/modules/curriculum/public/public-ui-capability-binding-p07f23.js"
-      - "site/modules/curriculum/batch-a/source-units.js"
       - "site/modules/curriculum/batch-a/g6a-u08-speed-distance-time-runtime-p07f23.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f23.js"
       - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f23-extension.js"
@@ -55,6 +54,15 @@ jobs:
           if (fs.existsSync(reportPath)) payload = JSON.parse(fs.readFileSync(reportPath, "utf8"));
           else if (fs.existsSync(failurePath)) payload = JSON.parse(fs.readFileSync(failurePath, "utf8"));
           else payload = {schemaName:"P07FW7Q023PostMergeMainPagesE2EReadbackV1",status:"FAIL_NO_STRUCTURED_EVIDENCE",exactHeadSha:process.env.GITHUB_SHA};
+          const existingPath = path.resolve(process.env.READBACK_PATH);
+          if (fs.existsSync(existingPath)) {
+            const existing = JSON.parse(fs.readFileSync(existingPath, "utf8"));
+            if (existing.status === "PASS_E6_D0_COMPLETE"
+                && (payload.status !== "PASS_E6_D0_COMPLETE" || payload.exactHeadSha !== existing.exactHeadSha)) {
+              console.error("P07F23_HISTORICAL_PASS_READBACK_LOCKED:"+existing.exactHeadSha+":"+String(payload.exactHeadSha||"missing"));
+              process.exit(23);
+            }
+          }
           payload.workflow = "P07F W7 Q023 Post-Merge Pages E2E";
           payload.repository = process.env.GITHUB_REPOSITORY;
           payload.ref = process.env.GITHUB_REF;

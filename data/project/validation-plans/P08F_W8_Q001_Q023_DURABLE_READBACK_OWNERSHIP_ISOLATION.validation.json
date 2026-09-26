@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q001_Q023_DURABLE_READBACK_OWNERSHIP_ISOLATION_KP_FOCUSED_VALIDATION",
+  "unitId": "g4a_u03_4a03",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q001-q023-durable-readback-ownership-isolation.test.js",
+          "tests/curriculum/p07f-w7-q024-g6b-u04-successive-rate-change-source-authority-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p08f-w8-slice001-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p07f-w7-slice024-g6b-u04-successive-rate-change.test.js",
+          "tests/curriculum/p07f-w7-slice025-g6a-u08-average-relative-speed.test.js",
+          "tests/curriculum/p07f-w7-slice026-g6a-u08-effective-speed-current-wind.test.js",
+          "tests/curriculum/p08f-w8-slice001-g4a-u03-protractor-angle-measurement.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}

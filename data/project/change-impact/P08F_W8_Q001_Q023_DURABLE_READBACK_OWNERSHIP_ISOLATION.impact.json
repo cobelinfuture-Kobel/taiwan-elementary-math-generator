@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q001_Q023_DURABLE_READBACK_OWNERSHIP_ISOLATION",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_protractor_angle_measurement",
+  "unitExpectedKnowledgePointIds": [
+    "kp_protractor_angle_measurement"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_protractor_angle_measurement": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q001_Q023_DURABLE_READBACK_OWNERSHIP_ISOLATION.validation.json",
+  "classificationNote": "Governance-only post-merge repair. Restores the canonical W7 Q023 durable E6 readback and prevents the historical Q023 workflow from being retriggered by shared source-unit successor advances or silently overwriting an existing PASS readback with a different exact head SHA. No W8 Q001 product semantics or Q023 product semantics change.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "scopeGuards": {
+    "w8ProductSemanticMutation": false,
+    "q023ProductSemanticMutation": false,
+    "q002OrLaterProductMutation": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false
+  }
+}
