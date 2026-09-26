@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q001_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "R05-W8-Q001",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q001-g4a-u03-protractor-angle-measurement-source-authority-preflight.test.js",
+          "tests/curriculum/p08e-w8-direct-product-vertical-slice-queue.test.js",
+          "tests/curriculum/r05-delivery-wave-rebase.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/read-p08f-w8-q001-g4a-u03-protractor-angle-measurement-source-authority-preflight.mjs",
+        "runtime": "NODE_ONLY"
+      }
+    ]
+  }
+}
