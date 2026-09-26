@@ -38,7 +38,7 @@ test("Q001 renderer always shows dual left-origin and right-origin scales",()=>{
 test("Q001 3x5 request is print-safely materialized as 3x4 pages so 15 items cannot occupy one page",()=>{
  const w=buildBatchABrowserWorksheetDocument(req(15,"lf-pagination"));assert.equal(w.ok,true,w.errors.join("\n"));
  assert.equal(w.worksheetDocument.printOptions.columns,3);assert.equal(w.worksheetDocument.printOptions.requestedRowsPerPage,5);assert.equal(w.worksheetDocument.printOptions.rowsPerPage,4);
- assert.equal(w.worksheetDocument.printOptions.layoutAdjustedForProtractor,true);assert.equal(w.worksheetDocument.questionPages.length,2);
+ assert.equal(w.worksheetDocument.printOptions.layoutAdjustedForProtractor,true);assert.equal(w.worksheetDocument.questionPages.length,2);assert.equal(w.worksheetDocument.configSnapshot.answerKeyPrintLayout.rowsPerPage,3);
  assert.deepEqual(w.worksheetDocument.questionPages.map(p=>p.cells.filter(c=>c.cellType==="question").length),[12,3]);
  assert.ok(w.warnings.includes("P08F01_PROTRACTOR_LAYOUT_ROWS_CLAMPED_FOR_PRINT_SAFETY"));
  const html=renderWorksheetDocumentToHtml(w.worksheetDocument,{stylesheetHref:""});
@@ -48,7 +48,7 @@ test("Q001 3x5 request is print-safely materialized as 3x4 pages so 15 items can
 test("Q001 current public worksheet pipeline uses the same protractor-safe pagination contract",()=>{
  const w=buildPublicPipelineDocument(req(15,"lf-public-pipeline"));assert.equal(w.ok,true,w.errors?.join("\\n")??"");
  assert.equal(w.p08f01Implemented,true);assert.equal(w.worksheetDocument.printOptions.columns,3);assert.equal(w.worksheetDocument.printOptions.rowsPerPage,4);
- assert.equal(w.worksheetDocument.questionPages.length,2);assert.deepEqual(w.worksheetDocument.questionPages.map(p=>p.cells.filter(c=>c.cellType==="question").length),[12,3]);
+ assert.equal(w.worksheetDocument.questionPages.length,2);assert.deepEqual(w.worksheetDocument.questionPages.map(p=>p.cells.filter(c=>c.cellType==="question").length),[12,3]);assert.equal(w.worksheetDocument.answerKeyPages.length,2);assert.deepEqual(w.worksheetDocument.answerKeyPages.map(p=>p.cells.filter(c=>c.cellType==="answerKey").length),[9,6]);
 });
 
 test("Q001 repair preserves source FormalMapping identity and does not admit later G4A-U03 scope",()=>{
