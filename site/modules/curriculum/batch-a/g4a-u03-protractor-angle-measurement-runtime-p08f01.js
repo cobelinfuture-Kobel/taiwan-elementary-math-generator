@@ -8,21 +8,22 @@ import {
 
 export const G4A_U03_P08F01_MAX_QUESTION_COUNT=240;
 export const G4A_U03_P08F01_SHARED_RUNTIME_SCOPE="SHARED_RUNTIME_BOUNDED";
-const ANGLES=Object.freeze(Array.from({length:16},(_,i)=>(i+1)*10));
-const ROTATIONS=Object.freeze(Array.from({length:15},(_,i)=>i*12));
+const ANGLES=Object.freeze(Array.from({length:81},(_,i)=>10+i*2));
+const RAY_LENGTHS=Object.freeze([102,110,118]);
+const ROTATIONS=Object.freeze([0]);
 const BY_SPEC=new Map(SPECS.map(x=>[x.patternSpecId,x]));
 function hashSeed(seed="p08f01"){let h=2166136261;for(const ch of String(seed)){h^=ch.codePointAt(0);h=Math.imul(h,16777619);}return h>>>0;}
 function rng(seed){let x=hashSeed(seed)||0x9e3779b9;return()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return(x>>>0)/4294967296;};}
 function shuffled(values,seed){const out=[...values],random=rng(seed);for(let i=out.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;}
 function variant(index,specIndex,seed){return (hashSeed(seed)+specIndex*79+index*7)%240;}
 function rowFor(spec,v){
-  const targetDegrees=ANGLES[v%ANGLES.length],rotationDeg=ROTATIONS[Math.floor(v/ANGLES.length)%ROTATIONS.length];
+  const targetDegrees=ANGLES[v%ANGLES.length],targetRayLength=RAY_LENGTHS[Math.floor(v/ANGLES.length)%RAY_LENGTHS.length],rotationDeg=0;
   if(spec.relation==="VERIFY_PROTRACTOR_ALIGNMENT"){
-    const mode=v%4,centerAligned=mode===0||mode===2,zeroBaselineAligned=mode===0||mode===1;
-    return Object.freeze({variant:v,targetDegrees,rotationDeg,baselineSide:v%2===0?"LEFT":"RIGHT",centerAligned,zeroBaselineAligned,
-      centerOffsetPx:centerAligned?0:(v%2===0?16:-16),scaleRotationOffsetDeg:zeroBaselineAligned?0:(v%2===0?12:-12)});
+    const mode=v%4,centerAligned=mode===0||mode===1,zeroBaselineAligned=mode===0||mode===2,sign=v%2===0?1:-1;
+    return Object.freeze({variant:v,targetDegrees,targetRayLength,rotationDeg,baselineSide:v%2===0?"LEFT":"RIGHT",centerAligned,zeroBaselineAligned,
+      centerOffsetPx:centerAligned?0:sign*(14+(v%3)*2),scaleRotationOffsetDeg:zeroBaselineAligned?0:sign*(12+(v%2)*4)});
   }
-  return Object.freeze({variant:v,targetDegrees,rotationDeg,baselineSide:spec.baselineSide,centerAligned:true,zeroBaselineAligned:true,centerOffsetPx:0,scaleRotationOffsetDeg:0});
+  return Object.freeze({variant:v,targetDegrees,targetRayLength,rotationDeg,baselineSide:spec.baselineSide,centerAligned:true,zeroBaselineAligned:true,centerOffsetPx:0,scaleRotationOffsetDeg:0});
 }
 function alignmentState(row){
   if(row.centerAligned&&row.zeroBaselineAligned)return Object.freeze({code:"A",text:"A"});
@@ -31,24 +32,25 @@ function alignmentState(row){
   return Object.freeze({code:"D",text:"D"});
 }
 function promptFor(spec){
-  if(spec.relation==="VERIFY_PROTRACTOR_ALIGNMENT")return "判斷量角器的放置：\nA 都正確　B 只中心正確\nC 只 0° 線正確　D 都不正確";
-  return "請看量角器，這個角是多少度？";
+  if(spec.relation==="VERIFY_PROTRACTOR_ALIGNMENT")return "量角器放置是否正確？\nA 都正確　B 只中心正確\nC 只 0° 線正確　D 都不正確\n答案：______";
+  return "請看量角器，這個角是多少度？\n答：______ 度";
 }
 function answerFor(spec,row){
   if(spec.relation==="VERIFY_PROTRACTOR_ALIGNMENT"){const state=alignmentState(row);return Object.freeze({answerText:state.text,answerValue:state.code,alignmentStateCode:state.code});}
   return Object.freeze({answerText:`${row.targetDegrees}°`,answerValue:row.targetDegrees,alignmentStateCode:null});
 }
-function diagramFor(row){return Object.freeze({kind:"protractor_angle_measurement_diagram",targetDegrees:row.targetDegrees,rotationDeg:row.rotationDeg,baselineSide:row.baselineSide,centerAligned:row.centerAligned,zeroBaselineAligned:row.zeroBaselineAligned,centerOffsetPx:row.centerOffsetPx,scaleRotationOffsetDeg:row.scaleRotationOffsetDeg,dualScale:true});}
-function signature(q){const d=q.geometryDiagram;return [q.patternSpecId,d.targetDegrees,d.rotationDeg,d.baselineSide,d.centerAligned,d.zeroBaselineAligned,d.centerOffsetPx,d.scaleRotationOffsetDeg].join("|");}
+function diagramFor(row){return Object.freeze({kind:"protractor_angle_measurement_diagram",targetDegrees:row.targetDegrees,targetRayLength:row.targetRayLength,rotationDeg:0,baselineSide:row.baselineSide,centerAligned:row.centerAligned,zeroBaselineAligned:row.zeroBaselineAligned,centerOffsetPx:row.centerOffsetPx,scaleRotationOffsetDeg:row.scaleRotationOffsetDeg,dualScale:true,instrumentFixedHorizontal:true});}
+function signature(q){const d=q.geometryDiagram;return [q.patternSpecId,d.targetDegrees,d.targetRayLength,d.rotationDeg,d.baselineSide,d.centerAligned,d.zeroBaselineAligned,d.centerOffsetPx,d.scaleRotationOffsetDeg,d.instrumentFixedHorizontal].join("|");}
 function selected(ids){if(!Array.isArray(ids)||ids.length===0)return [...SPECS];const u=[...new Set(ids)];if(u.some(id=>!BY_SPEC.has(id)))return null;return u.map(id=>BY_SPEC.get(id));}
 function build(spec,index,seed){const si=SPEC_IDS.indexOf(spec.patternSpecId),r=rowFor(spec,variant(index,si,seed)),a=answerFor(spec,r),promptText=promptFor(spec),geometryDiagram=diagramFor(r);const q={
  id:`p08f01-q001-${si+1}-${r.variant+1}`,generatedItemId:`p08f01-q001-${si+1}-${r.variant+1}`,sourceId:SRC,sourceNodeId:SRC,knowledgePointId:KP,
  patternGroupId:GROUP.patternGroupId,patternSpecId:spec.patternSpecId,relation:spec.relation,questionMode:"diagram",mode:"diagram",promptText,prompt:promptText,
  blankedDisplayText:promptText,displayText:`${promptText} ${a.answerText}`,answerText:a.answerText,answerValue:a.answerValue,geometryDiagram,
- metadata:Object.freeze({taskId:"P08F_W8_Q001_LearnerFacingAcceptanceRepair",authority:"R02_FULL_PAGE_REVIEWED_PLUS_P08F01_PREFLIGHT",sourcePages:Object.freeze([1,2]),
+ metadata:Object.freeze({taskId:"P08F_W8_Q001_LearnerVisualAcceptanceReopen",authority:"R02_FULL_PAGE_REVIEWED_PLUS_P08F01_PREFLIGHT",sourcePages:Object.freeze([1,2]),
  sharedRuntimeScope:G4A_U03_P08F01_SHARED_RUNTIME_SCOPE,frozenRuntimeProfile:"profile_geometry_property",scaleInstrumentModifier:"mod_scale_instrument",
- protractorCenterAligned:r.centerAligned,zeroDegreeBaselineAligned:r.zeroBaselineAligned,readingDirectionMatchesSelectedZero:true,dualScaleVisible:true,
+ protractorCenterAligned:r.centerAligned,zeroDegreeBaselineAligned:r.zeroBaselineAligned,readingDirectionMatchesSelectedZero:true,dualScaleVisible:true,instrumentFixedHorizontal:true,
  alignmentStateCode:a.alignmentStateCode,alignmentDiagnosticResolution:a.alignmentStateCode?"CENTER_AND_ZERO_LINE_4_STATE":null,
+ learnerVisualContract:"FULL_PROTRACTOR_FIXED_HORIZONTAL_TWO_COLUMN",humanVisualReviewRequired:true,
  angleCompositionReowned:false,rotationClockReowned:false,estimationClassificationReowned:false,unknownAngleReowned:false,q002OrLaterTouched:false})
  };return Object.freeze({...q,questionSignature:signature(q)});}
 export function validateG4AU03P08F01Question(q){
@@ -56,11 +58,11 @@ export function validateG4AU03P08F01Question(q){
  if(q?.sourceId!==SRC||q?.sourceNodeId!==SRC)e.push("P08F01_SOURCE_INVALID");if(q?.knowledgePointId!==KP||q?.patternGroupId!==GROUP.patternGroupId)e.push("P08F01_KP_OR_GROUP_INVALID");
  if(q?.questionMode!=="diagram"||q?.mode!=="diagram")e.push("P08F01_MODE_INVALID");const d=q?.geometryDiagram;
  if(!d||d.kind!=="protractor_angle_measurement_diagram")e.push("P08F01_DIAGRAM_MISSING");else{
-  if(!ANGLES.includes(d.targetDegrees)||!ROTATIONS.includes(d.rotationDeg)||!["LEFT","RIGHT"].includes(d.baselineSide)||d.dualScale!==true)e.push("P08F01_DIAGRAM_GEOMETRY_INVALID");
+  if(!ANGLES.includes(d.targetDegrees)||!RAY_LENGTHS.includes(d.targetRayLength)||!ROTATIONS.includes(d.rotationDeg)||!["LEFT","RIGHT"].includes(d.baselineSide)||d.dualScale!==true||d.instrumentFixedHorizontal!==true)e.push("P08F01_DIAGRAM_GEOMETRY_INVALID");
   if(typeof d.centerAligned!=="boolean"||typeof d.zeroBaselineAligned!=="boolean")e.push("P08F01_ALIGNMENT_FLAGS_INVALID");
   if(d.centerAligned!== (d.centerOffsetPx===0))e.push("P08F01_CENTER_ALIGNMENT_INVALID");
   if(d.zeroBaselineAligned!== (d.scaleRotationOffsetDeg===0))e.push("P08F01_ZERO_ALIGNMENT_INVALID");
-  if(spec?.relation!=="VERIFY_PROTRACTOR_ALIGNMENT"&&(!d.centerAligned||!d.zeroBaselineAligned))e.push("P08F01_READING_REQUIRES_VALID_PLACEMENT");
+  if(spec?.relation!=="VERIFY_PROTRACTOR_ALIGNMENT"&&(!d.centerAligned||!d.zeroBaselineAligned||d.rotationDeg!==0))e.push("P08F01_READING_REQUIRES_VALID_PLACEMENT");
   if(spec?.relation==="VERIFY_PROTRACTOR_ALIGNMENT"){
     const expected=alignmentState(d).code;if(q.answerText!==expected||q.answerValue!==expected||q?.metadata?.alignmentStateCode!==expected)e.push("P08F01_ANSWER_INVALID");
   }else if(q.answerText!==`${d.targetDegrees}°`||q.answerValue!==d.targetDegrees)e.push("P08F01_ANSWER_INVALID");

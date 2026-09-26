@@ -32,23 +32,23 @@ test("Q001 renderer always shows dual left-origin and right-origin scales",()=>{
  const q=generateG4AU03P08F01Questions({questionCount:1,patternSpecIds:[SPECS[0].patternSpecId],generationSeed:"lf-dual"}).questions[0];
  const html=renderProtractorAngleMeasurementDiagram(q.geometryDiagram);
  assert.match(html,/data-dual-scale="true"/);assert.match(html,/protractor-scale-label--outer/);assert.match(html,/protractor-scale-label--inner/);
- assert.match(html,/data-scale-origin="LEFT"/);assert.match(html,/data-scale-origin="RIGHT"/);assert.match(html,/aria-label="雙刻度量角器量角圖"/);
+ assert.match(html,/data-scale-origin="LEFT"/);assert.match(html,/data-scale-origin="RIGHT"/);assert.match(html,/aria-label="完整雙刻度量角器量角圖"/);assert.match(html,/data-instrument-horizontal="true"/);
 });
 
-test("Q001 3x5 request is print-safely materialized as 3x4 pages so 15 items cannot occupy one page",()=>{
+test("Q001 3x5 request is readability-clamped to 2x3 pages for actual learner use",()=>{
  const w=buildBatchABrowserWorksheetDocument(req(15,"lf-pagination"));assert.equal(w.ok,true,w.errors.join("\n"));
- assert.equal(w.worksheetDocument.printOptions.columns,3);assert.equal(w.worksheetDocument.printOptions.requestedRowsPerPage,5);assert.equal(w.worksheetDocument.printOptions.rowsPerPage,4);
- assert.equal(w.worksheetDocument.printOptions.layoutAdjustedForProtractor,true);assert.equal(w.worksheetDocument.questionPages.length,2);assert.equal(w.worksheetDocument.configSnapshot.answerKeyPrintLayout.rowsPerPage,3);
- assert.deepEqual(w.worksheetDocument.questionPages.map(p=>p.cells.filter(c=>c.cellType==="question").length),[12,3]);
- assert.ok(w.warnings.includes("P08F01_PROTRACTOR_LAYOUT_ROWS_CLAMPED_FOR_PRINT_SAFETY"));
+ assert.equal(w.worksheetDocument.printOptions.requestedColumns,3);assert.equal(w.worksheetDocument.printOptions.columns,2);assert.equal(w.worksheetDocument.printOptions.requestedRowsPerPage,5);assert.equal(w.worksheetDocument.printOptions.rowsPerPage,3);
+ assert.equal(w.worksheetDocument.printOptions.layoutAdjustedForProtractor,true);assert.equal(w.worksheetDocument.questionPages.length,3);assert.equal(w.worksheetDocument.configSnapshot.answerKeyPrintLayout.rowsPerPage,3);
+ assert.deepEqual(w.worksheetDocument.questionPages.map(p=>p.cells.filter(c=>c.cellType==="question").length),[6,6,3]);
+ assert.ok(w.warnings.includes("P08F01_PROTRACTOR_LAYOUT_FORCED_TO_TWO_COLUMNS_THREE_ROWS_FOR_HUMAN_READABILITY"));
  const html=renderWorksheetDocumentToHtml(w.worksheetDocument,{stylesheetHref:""});
  assert.equal((html.match(/data-dual-scale="true"/g)||[]).length,30);
 });
 
 test("Q001 current public worksheet pipeline uses the same protractor-safe pagination contract",()=>{
  const w=buildPublicPipelineDocument(req(15,"lf-public-pipeline"));assert.equal(w.ok,true,w.errors?.join("\\n")??"");
- assert.equal(w.p08f01Implemented,true);assert.equal(w.worksheetDocument.printOptions.columns,3);assert.equal(w.worksheetDocument.printOptions.rowsPerPage,4);
- assert.equal(w.worksheetDocument.questionPages.length,2);assert.deepEqual(w.worksheetDocument.questionPages.map(p=>p.cells.filter(c=>c.cellType==="question").length),[12,3]);assert.equal(w.worksheetDocument.answerKeyPages.length,2);assert.deepEqual(w.worksheetDocument.answerKeyPages.map(p=>p.cells.filter(c=>c.cellType==="answerKey").length),[9,6]);
+ assert.equal(w.p08f01Implemented,true);assert.equal(w.worksheetDocument.printOptions.columns,2);assert.equal(w.worksheetDocument.printOptions.rowsPerPage,3);
+ assert.equal(w.worksheetDocument.questionPages.length,3);assert.deepEqual(w.worksheetDocument.questionPages.map(p=>p.cells.filter(c=>c.cellType==="question").length),[6,6,3]);assert.equal(w.worksheetDocument.answerKeyPages.length,3);assert.deepEqual(w.worksheetDocument.answerKeyPages.map(p=>p.cells.filter(c=>c.cellType==="answerKey").length),[6,6,3]);
 });
 
 test("Q001 repair preserves source FormalMapping identity and does not admit later G4A-U03 scope",()=>{

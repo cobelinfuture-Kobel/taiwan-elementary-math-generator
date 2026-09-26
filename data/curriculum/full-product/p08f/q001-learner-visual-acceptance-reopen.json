@@ -1,0 +1,86 @@
+{
+  "schemaName": "P08FW8Q001LearnerVisualAcceptanceReopenV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q001_LearnerVisualAcceptanceReopen",
+  "status": "REOPENED_IMPLEMENTATION_MATERIALIZED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW",
+  "baselineMainSha": "5d5c2f1b74a776934f0958cc735a1b668558e701",
+  "knowledgePointId": "kp_protractor_angle_measurement",
+  "sourceId": "g4a_u03_4a03",
+  "previousCloseout": {
+    "historicalStatus": "Q001_PASS_E6_D0_EXACT_FAILURE_SET_PARITY_CLOSED",
+    "disposition": "REVOKED_AS_CURRENT_D0_AUTHORITY_BY_OPERATOR_VISUAL_EVIDENCE",
+    "reason": "Actual learner-facing output showed internally clipped/partial protractors, unreadable double scales, ambiguous placement diagrams, and overly dense three-column presentation despite technical overflow checks passing."
+  },
+  "operatorVisualEvidence": {
+    "evidenceClass": "ACTUAL_LEARNER_FACING_SCREENSHOT",
+    "observedDefects": [
+      "SEMICIRCLE_AND_SCALE_PARTIALLY_OUTSIDE_SVG_VIEWPORT",
+      "ROTATED_PROTRACTOR_MAKES_SCALE_READING_UNNATURAL",
+      "DOUBLE_SCALE_NUMBERS_TOO_SMALL_OR_CROWDED",
+      "ANGLE_RAYS_CROSS_OR_OBSCURE_SCALE_LABELS",
+      "ALIGNMENT_DIAGRAMS_VISUALLY_AMBIGUOUS",
+      "THREE_COLUMN_LAYOUT_TOO_DENSE_FOR_GRADE4",
+      "NO_CLEAR_WRITTEN_RESPONSE_SPACE_IN_READING_ITEMS"
+    ],
+    "technicalPassWasInsufficient": true,
+    "humanPedagogicalAcceptanceFailed": true
+  },
+  "repairContract": {
+    "protractorMustRemainFullyInsideSvg": true,
+    "instrumentFixedHorizontal": true,
+    "completeSemicircleRequired": true,
+    "dualScaleRequired": true,
+    "labelsRemainHorizontal": true,
+    "scaleTickResolutionDegrees": 1,
+    "targetAngleDomain": {
+      "min": 10,
+      "max": 170,
+      "step": 2
+    },
+    "readingResponseLineRequired": true,
+    "alignmentResponseLineRequired": true,
+    "alignmentStates": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "centerMisalignmentShownByVertexOffset": true,
+    "zeroLineMisalignmentShownByAngleBaselineRotation": true,
+    "maxWorksheetColumns": 2,
+    "maxRowsPerPage": 3,
+    "allowExtraPagesInsteadOfShrinking": true,
+    "actualPrintPdfRequired": true,
+    "actualPrintPngRequired": true,
+    "operatorHumanReviewRequiredBeforeD0": true
+  },
+  "preservedAuthority": {
+    "sourceAuthority": true,
+    "knowledgePointIdentity": true,
+    "formalMappingIdentity": true,
+    "patternSpecIds": true,
+    "runtimeProfile": true,
+    "frozenQueue": true,
+    "q002Preflight": true
+  },
+  "forbiddenScope": {
+    "q002Implementation": false,
+    "newKnowledgePoint": false,
+    "newPatternSpecId": false,
+    "sourceAuthorityMutation": false,
+    "r02Mutation": false,
+    "r04ProfileReclassification": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D0_FALSE_POSITIVE_REVOKED",
+    "goalDistanceAfter": "D1_LEARNER_VISUAL_REPAIR_IMPLEMENTED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW",
+    "distanceReduced": "FALSE_D0_CORRECTED_AND_PRODUCT_VISUAL_REPAIR_MATERIALIZED",
+    "remainingBlockers": [
+      "OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW"
+    ],
+    "nextShortestStep": "P08F_W8_Q001_ActualPrintHumanReview"
+  }
+}
