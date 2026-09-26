@@ -1,7 +1,4 @@
 import {
-  G4A_U03_P08F01_GROUP_ID as UNUSED_GROUP,
-} from "../registry/g4a-u03-protractor-angle-measurement-selector-projection-p08f01.js";
-import {
   G4A_U03_P08F01_KP_ID as KP,
   G4A_U03_P08F01_PATTERN_GROUP as GROUP,
   G4A_U03_P08F01_PATTERN_SPECS as SPECS,
