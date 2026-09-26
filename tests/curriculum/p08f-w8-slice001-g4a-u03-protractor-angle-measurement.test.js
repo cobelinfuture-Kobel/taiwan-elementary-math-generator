@@ -4,7 +4,6 @@ import {readFileSync} from "node:fs";
 import {auditG4AU03P08F01Projection,G4A_U03_P08F01_KP_ID as KP,G4A_U03_P08F01_PROTECTED_FUTURE_KP_IDS as PROTECTED,G4A_U03_P08F01_SOURCE_ID as SRC,G4A_U03_P08F01_SPEC_IDS as SPECS} from "../../site/modules/curriculum/registry/g4a-u03-protractor-angle-measurement-selector-projection-p08f01.js";
 import {auditP08F01PublicSelectorComposition,getVisibleBatchAKnowledgePoint,listBatchAKnowledgePointAvailabilityBySource,listVisibleBatchAKnowledgePoints,resolveVisiblePatternSpecIdsForKnowledgePoint} from "../../site/modules/curriculum/registry/batch-a-selector-p08f01-extension.js";
 import {auditPublicUiCapabilityBinding,resolvePublicUiCapabilityBinding} from "../../site/modules/curriculum/public/public-ui-capability-binding-p08f01.js";
-import {buildG4AU03P08F01Question as missing} from "../../site/modules/curriculum/batch-a/g4a-u03-protractor-angle-measurement-runtime-p08f01.js";
 import {generateG4AU03P08F01Questions,validateG4AU03P08F01Answer,validateG4AU03P08F01Question} from "../../site/modules/curriculum/batch-a/g4a-u03-protractor-angle-measurement-runtime-p08f01.js";
 import {buildBatchABrowserPlan,generateBatchABrowserQuestions} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js";
 import {buildBatchABrowserWorksheetDocument} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js";
