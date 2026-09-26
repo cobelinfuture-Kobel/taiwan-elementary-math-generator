@@ -8,7 +8,7 @@
     "kp_protractor_angle_measurement"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_protractor_angle_measurement": "FOCUSED_PASS_E6_D0"
+    "kp_protractor_angle_measurement": "FOCUSED_PASS"
   },
   "expectedDerivedGate": "KP_FOCUSED",
   "validationPlanPath": "data/project/validation-plans/P08F_W8_Q001_FINAL_D0_CLOSEOUT_V1.validation.json",
