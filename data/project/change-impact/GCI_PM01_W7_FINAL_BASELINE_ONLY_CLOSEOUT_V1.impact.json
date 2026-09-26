@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "GCI_PM01_W7_FINAL_BASELINE_ONLY_CLOSEOUT_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_effective_speed_current_wind",
+  "unitExpectedKnowledgePointIds": [
+    "kp_effective_speed_current_wind"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_effective_speed_current_wind": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/GCI_PM01_W7_FINAL_BASELINE_ONLY_CLOSEOUT_V1.validation.json",
+  "classificationNote": "Evidence/governance-only W7 final closeout after exact Q026-baseline versus Q024-repair failure-title-set attribution proved zero added failures and removed the stale Q024 current-pointer failure. No product runtime, source authority, PatternSpec, generator, validator, renderer, selector/public binding runtime, worksheet runtime, frozen queue, or W8 mutation.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
