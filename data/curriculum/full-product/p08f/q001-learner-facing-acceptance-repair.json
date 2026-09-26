@@ -1,0 +1,129 @@
+{
+  "schemaName": "P08FW8Q001LearnerFacingAcceptanceRepairV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q001_LearnerFacingAcceptanceRepair",
+  "status": "REPAIR_MATERIALIZED_EXACT_FINAL_OVERFLOW_ISOLATED_AWAITING_FOCUSED_CI_AND_LIVE_E6",
+  "baselineMainSha": "c489f4fde49ec08ab204704366c719bb806a54ac",
+  "sourceAuthorityPreserved": true,
+  "formalMappingPreserved": true,
+  "knowledgePointScopePreserved": true,
+  "knowledgePointId": "kp_protractor_angle_measurement",
+  "observedLearnerFacingDefects": [
+    {
+      "defectId": "LF01_PRINT_CLIPPING",
+      "evidence": "Operator PDF showed questions 13-15 clipped at the bottom of a one-page 3x5 layout.",
+      "repair": "Q001-specific print-safe layout clamps 3-column protractor worksheets to four rows per page."
+    },
+    {
+      "defectId": "LF02_SINGLE_SCALE_UNDERTESTS_DIRECTION",
+      "evidence": "Rendered protractor exposed only one numeric scale direction.",
+      "repair": "Renderer now exposes both left-origin and right-origin scales simultaneously with upright labels."
+    },
+    {
+      "defectId": "LF03_PREDICTABLE_SEQUENCE",
+      "evidence": "PatternSpecs repeated in a fixed three-item cycle and target angles advanced linearly.",
+      "repair": "Balanced PatternSpec allocation is deterministically shuffled by seed and per-spec variants use a coprime affine permutation."
+    },
+    {
+      "defectId": "LF04_ALIGNMENT_BOOLEAN_LOW_DIAGNOSTIC_RESOLUTION",
+      "evidence": "Alignment items collapsed center and zero-line placement into correct/incorrect.",
+      "repair": "The existing alignment PatternSpec now uses four learner-facing states A-D without adding a new KnowledgePoint or relation."
+    }
+  ],
+  "contractAfterRepair": {
+    "readingRelations": [
+      "READ_PROTRACTOR_FROM_ZERO_LEFT",
+      "READ_PROTRACTOR_FROM_ZERO_RIGHT"
+    ],
+    "alignmentRelation": "VERIFY_PROTRACTOR_ALIGNMENT",
+    "alignmentAnswerDomain": "ALIGNMENT_STATE_4WAY_ZH",
+    "dualScaleRequired": true,
+    "maxSafeRowsPerPageByColumns": {
+      "1": 5,
+      "2": 4,
+      "3": 4
+    },
+    "questionCountsForAcceptance": [
+      15,
+      20,
+      120
+    ],
+    "maxQuestionCount": 240,
+    "deterministicBySeed": true,
+    "exactRepeatabilityForSameSeed": true,
+    "noNewPatternSpecIds": true,
+    "noNewKnowledgePointIds": true,
+    "answerKeyMaxSafeRowsPerPageByColumns": {
+      "1": 4,
+      "2": 3,
+      "3": 3
+    }
+  },
+  "scopeGuard": {
+    "sourceAuthorityTouched": false,
+    "formalMappingIdentityTouched": false,
+    "patternSpecIdentityTouched": false,
+    "newPatternSpecAdded": false,
+    "newKnowledgePointAdded": false,
+    "q002ProductTouched": false,
+    "frozenQueueTouched": false,
+    "r02Touched": false,
+    "r04ProfileReclassified": false,
+    "sameUnitMixedEnabled": false,
+    "crossUnitMixedEnabled": false
+  },
+  "distance": {
+    "before": "D1_Q001_TECHNICAL_D0_REOPENED_BY_LEARNER_FACING_ACCEPTANCE_DEFECTS",
+    "after": "D1_Q001_EXACT_FINAL_8PX_QUESTION_PAGE_OVERFLOW_MINIMAL_REPAIR_MATERIALIZED_AWAITING_E6_ACCEPTANCE",
+    "reduced": "D1_INTERNAL_REPAIR_MATERIALIZATION",
+    "nextOnPass": "Q001_LEARNER_FACING_ACCEPTANCE_D0_CLOSEOUT"
+  },
+  "ciFailureIsolation": {
+    "prNumber": 1085,
+    "failedRunId": 36239208272,
+    "failure": "CLASSIC_UI_15_ITEM_3X5_PATH_STILL_USED_GENERIC_PUBLIC_WORKSHEET_PIPELINE",
+    "observed": {
+      "questions": 15,
+      "questionPages": 1,
+      "clippedQuestionCells": 3,
+      "overflowPages": 4
+    },
+    "nodeContractsPassed": true,
+    "rootCause": "Q001-specific worksheet builder had the safe 3x4 layout, but the stable public browser pipeline build-worksheet-document-p01e-closeout.js delegated Q001 to generic buildBase instead of the Q001 worksheet extension.",
+    "minimalRepair": "Route only requestsP08F01(plan) to buildP08F01Worksheet(plan) before generic/shared application branches.",
+    "scopeExpansion": false,
+    "secondFailure": {
+      "runId": 36239362731,
+      "failure": "QUESTION_PAGES_SAFE_BUT_ANSWER_KEY_PAGES_OVERFLOWED",
+      "observed": {
+        "questions": 15,
+        "questionPages": 2,
+        "clippedQuestionCells": 0,
+        "overflowPages": 2
+      },
+      "nodeContractsPassed": true,
+      "rootCause": "The question page clamp was effective, but answer-key pages reused the same 3x4 layout even though each answer cell adds an answer line below the protractor diagram.",
+      "minimalRepair": "Use a separate answer-key pagination layout with 3 rows/page at 3 or 2 columns, preserving the question-page 3x4 layout.",
+      "scopeExpansion": false
+    },
+    "thirdFailure": {
+      "runId": 36242236032,
+      "failure": "FIRST_QUESTION_PAGE_INTRINSIC_HEIGHT_OVERFLOW_8PX_WITH_ZERO_CLIPPED_CELLS",
+      "observed": {
+        "pageIndex": 1,
+        "pageType": "questions",
+        "cellCount": 12,
+        "scrollHeight": 1127,
+        "clientHeight": 1119,
+        "overflowY": 8,
+        "overflowX": 0,
+        "clippedCells": 0,
+        "remainingOtherPageOverflowCount": 0
+      },
+      "rootCause": "The full 3x4 question page had 8 px intrinsic vertical overflow even though no cell crossed the page boundary; all answer pages and the partial second question page were already within bounds.",
+      "minimalRepair": "Reduce only the protractor SVG rendered height from 120 px to 116 px, retaining the 3x4 question-page contract, dual-scale labels, and all semantic geometry.",
+      "scopeExpansion": false
+    }
+  }
+}
