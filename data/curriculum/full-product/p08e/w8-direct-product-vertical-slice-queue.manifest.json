@@ -3,24 +3,28 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8_SourceAuthorityAndFrozenQueueDiscoveryPreflight",
-  "status": "W8_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_DISCOVERY_DERIVED_PENDING_SNAPSHOT_FREEZE",
+  "status": "W8_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FROZEN",
   "targetDeliveryWaveId": "R05-W8",
   "expectedKnowledgePointCount": 24,
   "expectedCapabilityPlanCount": 0,
   "targetEvidenceLevel": "E3_SHADOW_RUNTIME_INTEGRATED",
-  "derivedQueue": {
+  "frozenQueue": {
     "queueVersion": "p08e-w8-direct-product-vertical-slice-queue-v1",
-    "queueSliceCount": null,
+    "queueSliceCount": 22,
     "directW8KnowledgePointCount": 24,
     "directW8CapabilityPlanCount": 0,
-    "directW8PrimarySourceNodeCount": null,
-    "directW8SupportingAuthoritySourceNodeCount": null,
-    "directW8RuntimeProfileCount": null,
-    "directW8PrerequisiteRankCount": null,
-    "queueDigest": null,
-    "firstExecutableSliceId": null,
-    "firstExecutableKnowledgePointIds": [],
-    "lastSliceId": null
+    "directW8PrimarySourceNodeCount": 11,
+    "directW8SupportingAuthoritySourceNodeCount": 12,
+    "directW8RuntimeProfileCount": 5,
+    "directW8PrerequisiteRankCount": 12,
+    "baseW8KnowledgePointCount": 6,
+    "prerequisiteEscalatedKnowledgePointCount": 18,
+    "queueDigest": "597a6fa497c8ac7738247847ef321d0c753e79800f5c38097b7a7a160be2f484",
+    "firstExecutableSliceId": "p08e_q001_r1_g4a_u03_4a03_profile_geometry_property_c1",
+    "firstExecutableKnowledgePointIds": [
+      "kp_protractor_angle_measurement"
+    ],
+    "lastSliceId": "p08e_q022_r14_g6a_u08_6a08_profile_speed_rate_c1"
   },
   "exactAcceptance": null,
   "scope": {
