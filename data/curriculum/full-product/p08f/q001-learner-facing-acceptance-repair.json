@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8_Q001_LearnerFacingAcceptanceRepair",
-  "status": "REPAIR_MATERIALIZED_PUBLIC_PIPELINE_AND_ANSWER_KEY_PAGINATION_FIXED_AWAITING_FOCUSED_CI_AND_LIVE_E6",
+  "status": "REPAIR_MATERIALIZED_EXACT_FINAL_OVERFLOW_ISOLATED_AWAITING_FOCUSED_CI_AND_LIVE_E6",
   "baselineMainSha": "c489f4fde49ec08ab204704366c719bb806a54ac",
   "sourceAuthorityPreserved": true,
   "formalMappingPreserved": true,
@@ -75,7 +75,7 @@
   },
   "distance": {
     "before": "D1_Q001_TECHNICAL_D0_REOPENED_BY_LEARNER_FACING_ACCEPTANCE_DEFECTS",
-    "after": "D1_Q001_LEARNER_FACING_REPAIR_MATERIALIZED_AWAITING_E6_ACCEPTANCE",
+    "after": "D1_Q001_EXACT_FINAL_8PX_QUESTION_PAGE_OVERFLOW_MINIMAL_REPAIR_MATERIALIZED_AWAITING_E6_ACCEPTANCE",
     "reduced": "D1_INTERNAL_REPAIR_MATERIALIZATION",
     "nextOnPass": "Q001_LEARNER_FACING_ACCEPTANCE_D0_CLOSEOUT"
   },
@@ -105,6 +105,24 @@
       "nodeContractsPassed": true,
       "rootCause": "The question page clamp was effective, but answer-key pages reused the same 3x4 layout even though each answer cell adds an answer line below the protractor diagram.",
       "minimalRepair": "Use a separate answer-key pagination layout with 3 rows/page at 3 or 2 columns, preserving the question-page 3x4 layout.",
+      "scopeExpansion": false
+    },
+    "thirdFailure": {
+      "runId": 36242236032,
+      "failure": "FIRST_QUESTION_PAGE_INTRINSIC_HEIGHT_OVERFLOW_8PX_WITH_ZERO_CLIPPED_CELLS",
+      "observed": {
+        "pageIndex": 1,
+        "pageType": "questions",
+        "cellCount": 12,
+        "scrollHeight": 1127,
+        "clientHeight": 1119,
+        "overflowY": 8,
+        "overflowX": 0,
+        "clippedCells": 0,
+        "remainingOtherPageOverflowCount": 0
+      },
+      "rootCause": "The full 3x4 question page had 8 px intrinsic vertical overflow even though no cell crossed the page boundary; all answer pages and the partial second question page were already within bounds.",
+      "minimalRepair": "Reduce only the protractor SVG rendered height from 120 px to 116 px, retaining the 3x4 question-page contract, dual-scale labels, and all semantic geometry.",
       "scopeExpansion": false
     }
   }
