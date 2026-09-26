@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8_Q001_LearnerFacingAcceptanceRepair",
-  "status": "REPAIR_MATERIALIZED_PUBLIC_PIPELINE_ROUTE_FIXED_AWAITING_FOCUSED_CI_AND_LIVE_E6",
+  "status": "REPAIR_MATERIALIZED_PUBLIC_PIPELINE_AND_ANSWER_KEY_PAGINATION_FIXED_AWAITING_FOCUSED_CI_AND_LIVE_E6",
   "baselineMainSha": "c489f4fde49ec08ab204704366c719bb806a54ac",
   "sourceAuthorityPreserved": true,
   "formalMappingPreserved": true,
@@ -53,7 +53,12 @@
     "deterministicBySeed": true,
     "exactRepeatabilityForSameSeed": true,
     "noNewPatternSpecIds": true,
-    "noNewKnowledgePointIds": true
+    "noNewKnowledgePointIds": true,
+    "answerKeyMaxSafeRowsPerPageByColumns": {
+      "1": 4,
+      "2": 3,
+      "3": 3
+    }
   },
   "scopeGuard": {
     "sourceAuthorityTouched": false,
@@ -87,6 +92,20 @@
     "nodeContractsPassed": true,
     "rootCause": "Q001-specific worksheet builder had the safe 3x4 layout, but the stable public browser pipeline build-worksheet-document-p01e-closeout.js delegated Q001 to generic buildBase instead of the Q001 worksheet extension.",
     "minimalRepair": "Route only requestsP08F01(plan) to buildP08F01Worksheet(plan) before generic/shared application branches.",
-    "scopeExpansion": false
+    "scopeExpansion": false,
+    "secondFailure": {
+      "runId": 36239362731,
+      "failure": "QUESTION_PAGES_SAFE_BUT_ANSWER_KEY_PAGES_OVERFLOWED",
+      "observed": {
+        "questions": 15,
+        "questionPages": 2,
+        "clippedQuestionCells": 0,
+        "overflowPages": 2
+      },
+      "nodeContractsPassed": true,
+      "rootCause": "The question page clamp was effective, but answer-key pages reused the same 3x4 layout even though each answer cell adds an answer line below the protractor diagram.",
+      "minimalRepair": "Use a separate answer-key pagination layout with 3 rows/page at 3 or 2 columns, preserving the question-page 3x4 layout.",
+      "scopeExpansion": false
+    }
   }
 }
