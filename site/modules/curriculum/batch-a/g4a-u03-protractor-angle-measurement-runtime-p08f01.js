@@ -16,7 +16,7 @@ function variant(index,specIndex,seed){return (hashSeed(seed)+specIndex*79+index
 function rowFor(spec,v){
   const targetDegrees=ANGLES[v%ANGLES.length],rotationDeg=ROTATIONS[Math.floor(v/ANGLES.length)%ROTATIONS.length];
   if(spec.relation==="VERIFY_PROTRACTOR_ALIGNMENT"){
-    const centerAligned=v%3!==0,zeroBaselineAligned=v%5!==0;
+    const mode=v%4,centerAligned=mode===0||mode===2,zeroBaselineAligned=mode===0||mode===1;
     return Object.freeze({variant:v,targetDegrees,rotationDeg,baselineSide:v%2===0?"LEFT":"RIGHT",centerAligned,zeroBaselineAligned,
       centerOffsetPx:centerAligned?0:(v%2===0?12:-12),scaleRotationOffsetDeg:zeroBaselineAligned?0:(v%2===0?8:-8)});
   }
