@@ -1,35 +1,34 @@
 import assert from "node:assert/strict";
 import {materializeP08EW8DirectProductVerticalSliceQueue} from "../../src/curriculum/full-product/p08e-w8-direct-product-vertical-slice-queue.mjs";
 const r=materializeP08EW8DirectProductVerticalSliceQueue();
-assert.equal(r.status,"W8_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_DERIVED_PENDING_SNAPSHOT_FREEZE");
-assert.equal(r.queueRegistryPresent,false);
-assert.equal(r.queueFrozen,false);
+assert.equal(r.status,"W8_DIRECT_PRODUCT_VERTICAL_SLICE_QUEUE_FROZEN");
+assert.equal(r.queueRegistryPresent,true);
+assert.equal(r.queueRegistryParity,true);
+assert.equal(r.queueFrozen,true);
 assert.equal(r.metrics.directW8KnowledgePointCount,24);
 assert.equal(r.metrics.directW8CapabilityPlanCount,0);
-const sourceViews=r.predecessorR05.prerequisiteGraph.sourceViews;
-const sourceById=new Map(sourceViews.map(row=>[row.sourceNodeId,row]));
-const supportingIds=[...new Set(r.directRows.flatMap(row=>row.supportingSourceNodeIds))].sort();
-console.log("P08E_W8_SOURCE_AUTHORITY="+JSON.stringify(supportingIds.map(id=>sourceById.get(id))));
+assert.equal(r.metrics.directW8SourceNodeCount,11);
+assert.equal(r.metrics.directW8SupportingSourceNodeCount,12);
+assert.equal(r.metrics.queueSliceCount,22);
+assert.equal(r.derivedRegistrySnapshot.queueDigest,"597a6fa497c8ac7738247847ef321d0c753e79800f5c38097b7a7a160be2f484");
+console.log("P08E_W8_ESCALATION="+JSON.stringify(r.directRows.map(row=>({
+  knowledgePointId:row.knowledgePointId,
+  baseDeliveryWaveId:row.baseDeliveryWaveId,
+  deliveryWaveId:row.deliveryWaveId,
+  waveEscalatedByPrerequisite:row.waveEscalatedByPrerequisite,
+  prerequisiteWaveLowerBound:row.prerequisiteWaveLowerBound,
+  primarySourceNodeId:row.primarySourceNodeId,
+  primaryRuntimeProfileId:row.primaryRuntimeProfileId,
+  blockingCapabilityWaveIds:[...row.blockingCapabilityWaveIds]
+}))));
 console.log(JSON.stringify({
-  schemaName:"P08EW8QueueDiscoveryReadbackV1",
+  schemaName:"P08EW8QueueFrozenReadbackV1",
   status:"PASS",
   queueState:r.status,
+  queueRegistryParity:r.queueRegistryParity,
   metrics:r.metrics,
-  queueDigest:r.derivedRegistrySnapshot.queueDigest,
   firstExecutableSlice:r.nextExecutableSlice,
-  lastSliceId:r.derivedRegistrySnapshot.lastSliceId,
+  queueDigest:r.derivedRegistrySnapshot.queueDigest,
   orderedSliceIds:r.derivedRegistrySnapshot.orderedSliceIds,
-  orderedKnowledgePointIds:r.derivedRegistrySnapshot.orderedKnowledgePointIds,
-  rows:r.directRows.map(row=>({
-    knowledgePointId:row.knowledgePointId,
-    baseDeliveryWaveId:row.baseDeliveryWaveId,
-    waveEscalatedByPrerequisite:row.waveEscalatedByPrerequisite,
-    prerequisiteWaveLowerBound:row.prerequisiteWaveLowerBound,
-    primarySourceNodeId:row.primarySourceNodeId,
-    supportingSourceNodeIds:[...row.supportingSourceNodeIds],
-    intraWavePrerequisiteRank:row.intraWavePrerequisiteRank,
-    primaryRuntimeProfileId:row.primaryRuntimeProfileId,
-    blockingCapabilityIds:[...row.blockingCapabilityIds],
-    blockingCapabilityWaveIds:[...row.blockingCapabilityWaveIds]
-  }))
+  orderedKnowledgePointIds:r.derivedRegistrySnapshot.orderedKnowledgePointIds
 },null,2));
