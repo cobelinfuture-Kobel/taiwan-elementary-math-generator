@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q001_FINAL_D0_CLOSEOUT_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_protractor_angle_measurement",
+  "unitExpectedKnowledgePointIds": [
+    "kp_protractor_angle_measurement"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_protractor_angle_measurement": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q001_FINAL_D0_CLOSEOUT_V1.validation.json",
+  "classificationNote": "Evidence/governance-only final closeout after exact-head Node Test and Math CI failure-title-set parity proved the Q023 durable-readback ownership isolation added zero failures and removed both Q024/Q023 ownership failures. Q001 product semantics and W8 queue are unchanged.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
