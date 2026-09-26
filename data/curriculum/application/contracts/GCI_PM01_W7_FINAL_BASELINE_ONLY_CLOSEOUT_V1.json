@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "GCI_PM01_W7_FINAL_BASELINE_ONLY_CLOSEOUT_V1",
+  "status": "W7_D0_BASELINE_ONLY_FINAL_CLOSEOUT_MATERIALIZED_AWAITING_CI",
+  "operatorApproval": "APPROVED_GCI_PM01_W7FINAL_POSTMERGE_FAILURE_SET_PARITY_ATTRIBUTION_BASELINE_ONLY_CLOSEOUT",
+  "scope": {
+    "waveId": "W7",
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "queueSliceCount": 26,
+    "directW7KnowledgePointCount": 32,
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "patternSpecsChanged": false,
+    "frozenQueueChanged": false
+  },
+  "w7FinalAuthority": {
+    "queueDigest": "ad37a23f07b3de22a088f5bf9f59e2b45f13cc3c350bb84def21860d21135843",
+    "finalSliceId": "p07e_q026_r15_g6a_u08_6a08_profile_speed_rate_c1",
+    "finalSourceId": "g6a_u08_6a08",
+    "finalKnowledgePointId": "kp_effective_speed_current_wind",
+    "finalProductPr": 1075,
+    "finalProductMergeSha": "281c059a39e42bd5af1def2a52d6cbe4dbde3a16",
+    "finalProductPagesDeploymentRunId": 36162198705,
+    "finalProductPagesE2ERunId": 36162198730,
+    "finalProductPagesE2EConclusion": "success"
+  },
+  "q024FinalCompatibilityRepair": {
+    "pr": 1076,
+    "prGateRunId": 36203153793,
+    "prGateConclusion": "success",
+    "mergeSha": "1de11644f510f36bf88036882a1440ce9aedf235",
+    "pagesDeploymentRunId": 36203264653,
+    "pagesDeploymentConclusion": "success",
+    "repairClass": "TEST_ONLY_SUCCESSOR_SAFE_CURRENT_POINTER_COMPATIBILITY",
+    "productSemanticsChanged": false
+  },
+  "postMergeRegressionAttribution": {
+    "comparisonBasis": "IMMEDIATELY_PREVIOUS_Q026_FINAL_PRODUCT_POSTMERGE_FAILURE_TITLE_SET",
+    "nodeTest": {
+      "baseline": {
+        "workflowRunId": 36162198684,
+        "jobId": 108161235652,
+        "headSha": "281c059a39e42bd5af1def2a52d6cbe4dbde3a16",
+        "artifactId": 10876067958,
+        "artifactDigest": "sha256:50b1515ea06918ef6af355b22de12e816390fe1c555a1de6768f93bbd13ec9aa",
+        "tests": 6083,
+        "pass": 5911,
+        "fail": 172
+      },
+      "afterRepair": {
+        "workflowRunId": 36203264561,
+        "jobId": 108294247750,
+        "headSha": "1de11644f510f36bf88036882a1440ce9aedf235",
+        "artifactId": 10893076517,
+        "artifactDigest": "sha256:abe744432dd633a13ac845e25160fd531e97107d2c516c7ee9edc27f6e334471",
+        "tests": 6083,
+        "pass": 5913,
+        "fail": 170
+      },
+      "exactSetDelta": {
+        "overlapFailures": 170,
+        "removedFailures": 2,
+        "addedFailures": 0,
+        "removedFailureTitles": [
+          "Q024 current pointers and bounded validation are successor-safe",
+          "PGC-R07 A01 preserves its historical Classic failure while later deployed smokes may advance"
+        ],
+        "addedFailureTitles": []
+      }
+    },
+    "mathCiReadback": {
+      "baseline": {
+        "workflowRunId": 36162198701,
+        "jobId": 108161235703,
+        "headSha": "281c059a39e42bd5af1def2a52d6cbe4dbde3a16",
+        "artifactId": 10876745378,
+        "artifactDigest": "sha256:122b9955c06b23e00bd94c30da01111ca71e861d682681867b7063e82bce91a5",
+        "tests": 6083,
+        "pass": 5910,
+        "fail": 173
+      },
+      "afterRepair": {
+        "workflowRunId": 36203264650,
+        "jobId": 108294247764,
+        "headSha": "1de11644f510f36bf88036882a1440ce9aedf235",
+        "artifactId": 10893127475,
+        "artifactDigest": "sha256:5f0e99d9cf1a0c4d4ecb724eec2b9fde87b68fd830e62d97d7d8a1bc6fda7442",
+        "tests": 6083,
+        "pass": 5912,
+        "fail": 171
+      },
+      "exactSetDelta": {
+        "overlapFailures": 171,
+        "removedFailures": 2,
+        "addedFailures": 0,
+        "removedFailureTitles": [
+          "Q024 current pointers and bounded validation are successor-safe",
+          "PGC-R07 A01 preserves its historical Classic failure while later deployed smokes may advance"
+        ],
+        "addedFailureTitles": []
+      }
+    },
+    "finalRepairCausalNewFailures": 0,
+    "q024CompatibilityFailureRemoved": true,
+    "disposition": "BASELINE_ONLY_RELATIVE_TO_Q026_FINAL_PRODUCT_BASELINE",
+    "remainingNodeFailureCount": 170,
+    "remainingReadbackFailureCount": 171,
+    "remainingFailuresOwnership": "PRE_EXISTING_AT_Q026_FINAL_PRODUCT_BASELINE_OR_ALREADY_ATTRIBUTED_HISTORICAL_DEBT_NOT_NEW_AT_FINAL_REPAIR"
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "87275f4a165733fab812e95c3ab9764c2b08bef9",
+    "q024RepairMergeSha": "1de11644f510f36bf88036882a1440ce9aedf235",
+    "commitsAfterRepair": 6,
+    "siteFilesChangedAfterRepair": false,
+    "curriculumRuntimeFilesChangedAfterRepair": false,
+    "onlyCiEvidenceFilesChangedAfterRepair": true,
+    "changedFilesAfterRepair": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "antiScopeCreep": {
+    "repairRemainingRepositoryBaselineFailures": false,
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyW7ProductRuntime": false,
+    "modifyW7SourceAuthority": false,
+    "modifyW7FrozenQueue": false,
+    "modifyPatternSpecs": false,
+    "modifyPublicBinding": false,
+    "modifyGeneratorValidatorRenderer": false,
+    "openW8Implementation": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_W7_26_OF_26_PRODUCT_D0_WAITING_FINAL_FAILURE_SET_ATTRIBUTION",
+    "goalDistanceAfter": "D0_W7_26_OF_26_FINAL_PARITY_BASELINE_ONLY_CLOSED",
+    "distanceReduced": "Final post-merge failure-title-set attribution now proves the Q024 compatibility repair introduced zero new failures, removed the Q024 stale current-pointer failure, preserved Q026 final product authority, and leaves only the already-existing final-product baseline fleet outside this closeout scope.",
+    "remainingW7Blockers": [],
+    "scopeExternalDebt": [
+      "170 Node Test Post-Merge failures remain on the repaired head",
+      "171 Math CI Readback failures remain on the repaired head"
+    ],
+    "nextShortestStep": "W8_SOURCE_AUTHORITY_AND_FROZEN_QUEUE_DISCOVERY_PREFLIGHT",
+    "nextTaskRequiresSeparateOperatorApproval": true
+  }
+}
