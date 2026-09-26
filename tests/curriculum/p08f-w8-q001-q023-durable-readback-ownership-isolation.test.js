@@ -55,6 +55,8 @@ test("ownership-isolation repair is governance-only and bounded",()=>{
   assert.equal(impact.scopeGuards.q023ProductSemanticMutation,false);
   assert.equal(impact.scopeGuards.q002OrLaterProductMutation,false);
   assert.deepEqual(validation.lanes.KP_FOCUSED.map(x=>x.gateId),["FOCUSED_TEST","TARGETED_BROWSER_E2E","DIRECT_DEPENDENCY_CONTRACTS"]);
-  assert.equal(JSON.stringify(validation).includes("FULL_NODE_REGRESSION"),false);
-  assert.equal(JSON.stringify(validation).includes("GLOBAL_BROWSER_REPLAY"),false);
+  const gateIds=validation.lanes.KP_FOCUSED.map(x=>x.gateId);
+  assert.equal(gateIds.includes("FULL_NODE_REGRESSION"),false);
+  assert.equal(gateIds.includes("GLOBAL_BROWSER_REPLAY"),false);
+  assert.deepEqual(validation.forbidden,["FULL_NODE_REGRESSION","GLOBAL_BROWSER_REPLAY"]);
 });
