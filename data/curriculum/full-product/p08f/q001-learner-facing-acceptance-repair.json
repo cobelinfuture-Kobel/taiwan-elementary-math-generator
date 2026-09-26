@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8_Q001_LearnerFacingAcceptanceRepair",
-  "status": "REPAIR_MATERIALIZED_AWAITING_FOCUSED_CI_AND_LIVE_E6",
+  "status": "REPAIR_MATERIALIZED_PUBLIC_PIPELINE_ROUTE_FIXED_AWAITING_FOCUSED_CI_AND_LIVE_E6",
   "baselineMainSha": "c489f4fde49ec08ab204704366c719bb806a54ac",
   "sourceAuthorityPreserved": true,
   "formalMappingPreserved": true,
@@ -73,5 +73,20 @@
     "after": "D1_Q001_LEARNER_FACING_REPAIR_MATERIALIZED_AWAITING_E6_ACCEPTANCE",
     "reduced": "D1_INTERNAL_REPAIR_MATERIALIZATION",
     "nextOnPass": "Q001_LEARNER_FACING_ACCEPTANCE_D0_CLOSEOUT"
+  },
+  "ciFailureIsolation": {
+    "prNumber": 1085,
+    "failedRunId": 36239208272,
+    "failure": "CLASSIC_UI_15_ITEM_3X5_PATH_STILL_USED_GENERIC_PUBLIC_WORKSHEET_PIPELINE",
+    "observed": {
+      "questions": 15,
+      "questionPages": 1,
+      "clippedQuestionCells": 3,
+      "overflowPages": 4
+    },
+    "nodeContractsPassed": true,
+    "rootCause": "Q001-specific worksheet builder had the safe 3x4 layout, but the stable public browser pipeline build-worksheet-document-p01e-closeout.js delegated Q001 to generic buildBase instead of the Q001 worksheet extension.",
+    "minimalRepair": "Route only requestsP08F01(plan) to buildP08F01Worksheet(plan) before generic/shared application branches.",
+    "scopeExpansion": false
   }
 }
