@@ -12,7 +12,8 @@ const req=(count,seed="visual")=>({sourceId:SRC,selectionMode:"singleKnowledgePo
 test("Q001 false D0 is reopened until actual print human review",()=>{
  assert.equal(authority.status,"REOPENED_HUMAN_REVIEW_MINIMAL_REPAIR_MATERIALIZED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW");
  assert.equal(authority.previousCloseout.disposition,"REVOKED_AS_CURRENT_D0_AUTHORITY_BY_OPERATOR_VISUAL_EVIDENCE");
- assert.deepEqual(authority.distance.remainingBlockers,["OPERATOR_SECOND_ACTUAL_PRINT_HUMAN_REVIEW"]);\n assert.equal(authority.operatorHumanReviewDecision.instrumentOrientation,"ACCEPTED_FIXED_HORIZONTAL_NO_FLIP");
+ assert.deepEqual(authority.distance.remainingBlockers,["OPERATOR_SECOND_ACTUAL_PRINT_HUMAN_REVIEW"]);
+ assert.equal(authority.operatorHumanReviewDecision.instrumentOrientation,"ACCEPTED_FIXED_HORIZONTAL_NO_FLIP");
  assert.equal(authority.forbiddenScope.q002Implementation,false);
 });
 
