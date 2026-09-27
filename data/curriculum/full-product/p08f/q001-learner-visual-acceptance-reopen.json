@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8_Q001_LearnerVisualAcceptanceReopen",
-  "status": "REOPENED_IMPLEMENTATION_MATERIALIZED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW",
+  "status": "REOPENED_HUMAN_REVIEW_MINIMAL_REPAIR_MATERIALIZED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW",
   "baselineMainSha": "5d5c2f1b74a776934f0958cc735a1b668558e701",
   "knowledgePointId": "kp_protractor_angle_measurement",
   "sourceId": "g4a_u03_4a03",
@@ -24,7 +24,23 @@
       "NO_CLEAR_WRITTEN_RESPONSE_SPACE_IN_READING_ITEMS"
     ],
     "technicalPassWasInsufficient": true,
-    "humanPedagogicalAcceptanceFailed": true
+    "humanPedagogicalAcceptanceFailed": true,
+    "secondReview": {
+      "accepted": [
+        "COMPLETE_PROTRACTOR",
+        "FIXED_HORIZONTAL_NO_FLIP",
+        "TWO_COLUMN_LAYOUT",
+        "NO_CLIPPING",
+        "NO_OVERFLOW",
+        "FOUR_STATE_ALIGNMENT"
+      ],
+      "remainingBlockers": [
+        "ANGLE_COVERAGE_ALL_OBTUSE",
+        "BASELINE_RAY_SIDE_NOT_EXPLICIT_ENOUGH",
+        "SCALE_LABEL_READABILITY",
+        "ANSWER_UNIT_LINE_WRAP"
+      ]
+    }
   },
   "repairContract": {
     "protractorMustRemainFullyInsideSvg": true,
@@ -53,7 +69,17 @@
     "allowExtraPagesInsteadOfShrinking": true,
     "actualPrintPdfRequired": true,
     "actualPrintPngRequired": true,
-    "operatorHumanReviewRequiredBeforeD0": true
+    "operatorHumanReviewRequiredBeforeD0": true,
+    "noInstrumentFlip": true,
+    "angleCoverageBucketsRequired": [
+      "ACUTE",
+      "NEAR_RIGHT",
+      "OBTUSE"
+    ],
+    "explicitBaselineRayRequired": true,
+    "scaleLabelCadenceDegrees": 20,
+    "sharedNinetyDegreeLabel": true,
+    "readingPromptFormat": "答：______°"
   },
   "preservedAuthority": {
     "sourceAuthority": true,
@@ -76,11 +102,17 @@
   },
   "distance": {
     "goalDistanceBefore": "D0_FALSE_POSITIVE_REVOKED",
-    "goalDistanceAfter": "D1_LEARNER_VISUAL_REPAIR_IMPLEMENTED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW",
-    "distanceReduced": "FALSE_D0_CORRECTED_AND_PRODUCT_VISUAL_REPAIR_MATERIALIZED",
+    "goalDistanceAfter": "D1_HUMAN_REVIEW_MINIMAL_REPAIR_MATERIALIZED_AWAITING_SECOND_ACTUAL_PRINT_REVIEW",
+    "distanceReduced": "FIXED_HORIZONTAL_APPROVED_AND_REMAINING_FOUR_HUMAN_REVIEW_BLOCKERS_MATERIALIZED_AS_MINIMAL_REPAIR",
     "remainingBlockers": [
-      "OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW"
+      "OPERATOR_SECOND_ACTUAL_PRINT_HUMAN_REVIEW"
     ],
-    "nextShortestStep": "P08F_W8_Q001_ActualPrintHumanReview"
+    "nextShortestStep": "P08F_W8_Q001_SecondActualPrintHumanReview"
+  },
+  "operatorHumanReviewDecision": {
+    "reviewedArtifact": "q001-human-review.pdf/png from merge 1683b11e05a95238d3a1a66a541ef144f6795a9c",
+    "instrumentOrientation": "ACCEPTED_FIXED_HORIZONTAL_NO_FLIP",
+    "decisionTextZh": "這次圖不翻轉。可以",
+    "d0Granted": false
   }
 }

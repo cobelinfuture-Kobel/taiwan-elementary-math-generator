@@ -10,22 +10,35 @@ const authority=read("data/curriculum/full-product/p08f/q001-learner-visual-acce
 const req=(count,seed="visual")=>({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[KP],questionMode:"diagram",questionCount:count,generationSeed:seed,includeAnswerKey:true,printLayout:{columns:3,rowsPerPage:5,showAnswerKeyPage:true}});
 
 test("Q001 false D0 is reopened until actual print human review",()=>{
- assert.equal(authority.status,"REOPENED_IMPLEMENTATION_MATERIALIZED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW");
+ assert.equal(authority.status,"REOPENED_HUMAN_REVIEW_MINIMAL_REPAIR_MATERIALIZED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW");
  assert.equal(authority.previousCloseout.disposition,"REVOKED_AS_CURRENT_D0_AUTHORITY_BY_OPERATOR_VISUAL_EVIDENCE");
- assert.deepEqual(authority.distance.remainingBlockers,["OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW"]);
+ assert.deepEqual(authority.distance.remainingBlockers,["OPERATOR_SECOND_ACTUAL_PRINT_HUMAN_REVIEW"]);
+ assert.equal(authority.operatorHumanReviewDecision.instrumentOrientation,"ACCEPTED_FIXED_HORIZONTAL_NO_FLIP");
  assert.equal(authority.forbiddenScope.q002Implementation,false);
 });
 
 test("Q001 reading questions use fixed-horizontal complete dual-scale protractors and explicit answer space",()=>{
  for(const s of SPECS.filter(x=>x.relation!=="VERIFY_PROTRACTOR_ALIGNMENT")){
   const q=generateG4AU03P08F01Questions({questionCount:40,patternSpecIds:[s.patternSpecId],generationSeed:"visual-"+s.patternSpecId});assert.equal(q.ok,true,q.errors.join("\n"));
-  assert.ok(q.questions.every(x=>x.geometryDiagram.rotationDeg===0&&x.geometryDiagram.instrumentFixedHorizontal===true&&x.geometryDiagram.centerAligned&&x.geometryDiagram.zeroBaselineAligned));
-  assert.ok(q.questions.every(x=>/答：______ 度/.test(x.promptText)));
+  assert.ok(q.questions.every(x=>x.geometryDiagram.rotationDeg===0&&x.geometryDiagram.instrumentFixedHorizontal===true&&x.geometryDiagram.baselineRayExplicit===true&&x.geometryDiagram.centerAligned&&x.geometryDiagram.zeroBaselineAligned));
+  assert.ok(q.questions.every(x=>/答：______°/.test(x.promptText)));
   assert.equal(new Set(q.questions.map(x=>x.answerValue)).size,40);
   const html=renderProtractorAngleMeasurementDiagram(q.questions[0].geometryDiagram);
-  assert.match(html,/viewBox="0 0 320 205"/);assert.match(html,/height="165"/);assert.match(html,/data-instrument-horizontal="true"/);assert.match(html,/protractor-tick--minor/);
+  assert.match(html,/viewBox="0 0 320 205"/);assert.match(html,/height="165"/);assert.match(html,/data-instrument-horizontal="true"/);assert.match(html,/data-baseline-ray-explicit="true"/);assert.match(html,/angle-ray-baseline-endpoint/);assert.match(html,/protractor-tick--minor/);
   assert.match(html,/data-scale-origin="LEFT"/);assert.match(html,/data-scale-origin="RIGHT"/);
  }
+});
+
+
+test("Q001 human-review sample guarantees acute near-right and obtuse reading coverage without flipping",()=>{
+ const q=generateG4AU03P08F01Questions({questionCount:15,generationSeed:"p08f01-protractor-human-review"});assert.equal(q.ok,true,q.errors.join("\n"));
+ const reading=q.questions.filter(x=>x.relation!=="VERIFY_PROTRACTOR_ALIGNMENT");
+ const buckets=[...new Set(reading.map(x=>x.metadata.angleCoverageBucket))].sort();
+ assert.deepEqual(buckets,["ACUTE","NEAR_RIGHT","OBTUSE"]);
+ assert.ok(reading.every(x=>x.geometryDiagram.rotationDeg===0&&x.geometryDiagram.instrumentFixedHorizontal===true));
+ assert.ok(reading.some(x=>x.answerValue<=74));
+ assert.ok(reading.some(x=>x.answerValue>=76&&x.answerValue<=104));
+ assert.ok(reading.some(x=>x.answerValue>=106));
 });
 
 test("Q001 alignment keeps instrument horizontal and expresses center/zero errors on the angle itself",()=>{
@@ -34,7 +47,7 @@ test("Q001 alignment keeps instrument horizontal and expresses center/zero error
  assert.ok(q.questions.every(x=>x.geometryDiagram.rotationDeg===0&&x.geometryDiagram.instrumentFixedHorizontal===true));
  assert.ok(q.questions.some(x=>!x.geometryDiagram.centerAligned&&x.geometryDiagram.centerOffsetPx!==0));
  assert.ok(q.questions.some(x=>!x.geometryDiagram.zeroBaselineAligned&&x.geometryDiagram.scaleRotationOffsetDeg!==0));
- assert.ok(q.questions.every(x=>/答案：______/.test(x.promptText)));
+ assert.ok(q.questions.every(x=>/答：______/.test(x.promptText)));
 });
 
 test("Q001 learner worksheet forces 2 columns x 3 rows and expands pages instead of shrinking diagrams",()=>{
