@@ -9,11 +9,15 @@ const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"
 const authority=read("data/curriculum/full-product/p08f/q001-learner-visual-acceptance-reopen.json");
 const req=(count,seed="visual")=>({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[KP],questionMode:"diagram",questionCount:count,generationSeed:seed,includeAnswerKey:true,printLayout:{columns:3,rowsPerPage:5,showAnswerKeyPage:true}});
 
-test("Q001 false D0 is reopened until actual print human review",()=>{
- assert.equal(authority.status,"REOPENED_HUMAN_REVIEW_MINIMAL_REPAIR_MATERIALIZED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW");
+test("Q001 reopened learner-visual authority records final operator acceptance after repair",()=>{
+ assert.equal(authority.status,"OPERATOR_SECOND_ACTUAL_PRINT_HUMAN_REVIEW_ACCEPTED_D0_ELIGIBLE");
  assert.equal(authority.previousCloseout.disposition,"REVOKED_AS_CURRENT_D0_AUTHORITY_BY_OPERATOR_VISUAL_EVIDENCE");
- assert.deepEqual(authority.distance.remainingBlockers,["OPERATOR_SECOND_ACTUAL_PRINT_HUMAN_REVIEW"]);
+ assert.deepEqual(authority.distance.remainingBlockers,[]);
  assert.equal(authority.operatorHumanReviewDecision.instrumentOrientation,"ACCEPTED_FIXED_HORIZONTAL_NO_FLIP");
+ assert.equal(authority.operatorFinalHumanReviewDecision.actualPrintAccepted,true);
+ assert.equal(authority.operatorFinalHumanReviewDecision.learnerUsabilityAccepted,true);
+ assert.equal(authority.operatorFinalHumanReviewDecision.d0Eligible,true);
+ assert.equal(authority.operatorFinalHumanReviewDecision.decisionTextZh,"核準。可驗收");
  assert.equal(authority.forbiddenScope.q002Implementation,false);
 });
 
