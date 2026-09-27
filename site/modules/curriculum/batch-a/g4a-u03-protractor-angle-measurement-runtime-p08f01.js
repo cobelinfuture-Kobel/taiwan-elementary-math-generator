@@ -18,7 +18,7 @@ function hashSeed(seed="p08f01"){let h=2166136261;for(const ch of String(seed)){
 function rng(seed){let x=hashSeed(seed)||0x9e3779b9;return()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return(x>>>0)/4294967296;};}
 function shuffled(values,seed){const out=[...values],random=rng(seed);for(let i=out.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;}
 
-function expandGeometry(angles){return angles.flatMap(targetDegrees=>RAY_LENGTHS.map(targetRayLength=>Object.freeze({targetDegrees,targetRayLength})));}
+function expandGeometry(angles){return RAY_LENGTHS.flatMap(targetRayLength=>angles.map(targetDegrees=>Object.freeze({targetDegrees,targetRayLength})));}
 function buildGeometryPool(){
   const low=expandGeometry(ANGLES.filter(x=>x<=74));
   const near=expandGeometry(ANGLES.filter(x=>x>=76&&x<=104));
