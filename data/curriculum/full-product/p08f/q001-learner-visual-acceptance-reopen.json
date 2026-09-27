@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8_Q001_LearnerVisualAcceptanceReopen",
-  "status": "OPERATOR_SECOND_ACTUAL_PRINT_HUMAN_REVIEW_ACCEPTED_D0_ELIGIBLE",
+  "status": "REOPENED_HUMAN_REVIEW_MINIMAL_REPAIR_MATERIALIZED_AWAITING_ACTUAL_PRINT_HUMAN_REVIEW",
   "baselineMainSha": "5d5c2f1b74a776934f0958cc735a1b668558e701",
   "knowledgePointId": "kp_protractor_angle_measurement",
   "sourceId": "g4a_u03_4a03",
@@ -102,24 +102,17 @@
   },
   "distance": {
     "goalDistanceBefore": "D0_FALSE_POSITIVE_REVOKED",
-    "goalDistanceAfter": "D0_ELIGIBLE_OPERATOR_SECOND_ACTUAL_PRINT_ACCEPTED",
-    "distanceReduced": "SECOND_ACTUAL_PRINT_HUMAN_REVIEW_ACCEPTED_ALL_Q001_LEARNER_VISUAL_BLOCKERS_CLEARED",
-    "remainingBlockers": [],
-    "nextShortestStep": "P08F_W8_Q001_FinalLearnerVisualD0CloseoutV2"
+    "goalDistanceAfter": "D1_HUMAN_REVIEW_MINIMAL_REPAIR_MATERIALIZED_AWAITING_SECOND_ACTUAL_PRINT_REVIEW",
+    "distanceReduced": "FIXED_HORIZONTAL_APPROVED_AND_REMAINING_FOUR_HUMAN_REVIEW_BLOCKERS_MATERIALIZED_AS_MINIMAL_REPAIR",
+    "remainingBlockers": [
+      "OPERATOR_SECOND_ACTUAL_PRINT_HUMAN_REVIEW"
+    ],
+    "nextShortestStep": "P08F_W8_Q001_SecondActualPrintHumanReview"
   },
   "operatorHumanReviewDecision": {
     "reviewedArtifact": "q001-human-review.pdf/png from merge 1683b11e05a95238d3a1a66a541ef144f6795a9c",
     "instrumentOrientation": "ACCEPTED_FIXED_HORIZONTAL_NO_FLIP",
     "decisionTextZh": "這次圖不翻轉。可以",
     "d0Granted": false
-  },
-  "operatorFinalHumanReviewDecision": {
-    "reviewedArtifact": "q001-human-review.pdf/png from post-merge Pages E2E run 36316887176, artifact 10930718075",
-    "exactProductMergeSha": "a70869c489eb39ec484772d7382c3a2bccedf0cf",
-    "decisionTextZh": "核準。可驗收",
-    "acceptedAtLocal": "2026-09-27T23:28:00+08:00",
-    "actualPrintAccepted": true,
-    "learnerUsabilityAccepted": true,
-    "d0Eligible": true
   }
 }

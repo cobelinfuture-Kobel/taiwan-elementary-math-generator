@@ -1,0 +1,157 @@
+{
+  "schemaName": "P08FW8Q001FinalLearnerVisualD0CloseoutV2",
+  "schemaVersion": 2,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q001_FINAL_LEARNER_VISUAL_D0_CLOSEOUT_V2",
+  "status": "Q001_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 1,
+    "sliceId": "p08e_q001_r1_g4a_u03_4a03_profile_geometry_property_c1",
+    "sourceId": "g4a_u03_4a03",
+    "knowledgePointId": "kp_protractor_angle_measurement",
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "frozenQueueChanged": false,
+    "q002OrLaterProductChanged": false
+  },
+  "supersession": {
+    "historicalTechnicalCloseoutPath": "data/curriculum/full-product/p08f/q001-g4a-u03-protractor-angle-measurement-final-d0-closeout.json",
+    "historicalTechnicalCloseoutStatus": "Q001_PASS_E6_D0_EXACT_FAILURE_SET_PARITY_CLOSED",
+    "historicalCloseoutWasRevokedByHumanVisualEvidence": true,
+    "reopenedAuthorityPath": "data/curriculum/full-product/p08f/q001-learner-visual-acceptance-reopen.json",
+    "thisCloseoutSupersedesHistoricalTechnicalD0AsCurrentQ001Authority": true
+  },
+  "finalProductAuthority": {
+    "humanReviewRepairPr": 1087,
+    "humanReviewRepairPrGateRunId": 36316781538,
+    "humanReviewRepairPrGateConclusion": "success",
+    "humanReviewRepairMergeSha": "a70869c489eb39ec484772d7382c3a2bccedf0cf",
+    "deployPagesRunId": 36316887157,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36316887176,
+    "pagesE2EJobId": 108613160284,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "pagesE2EArtifactId": 10930718075,
+    "pagesE2EArtifactDigest": "sha256:ca6570c61d7b905554d87475287f1b70c43c53e1c7d0f5b5ebbfae575b72abe5",
+    "exactDeployedHeadSha": "a70869c489eb39ec484772d7382c3a2bccedf0cf"
+  },
+  "finalLearnerFacingEvidence": {
+    "questionCount": 15,
+    "answerCount": 15,
+    "diagramCount": 30,
+    "questionPageCount": 3,
+    "answerPageCount": 3,
+    "worksheetColumns": 2,
+    "rowsPerPage": 3,
+    "clippedCellCount": 0,
+    "overflowPageCount": 0,
+    "internalDiagramClippingCount": 0,
+    "instrumentHorizontalCount": 30,
+    "baselineRayExplicitCount": 30,
+    "dualScaleDiagramCount": 30,
+    "rotatedScaleLabelCount": 0,
+    "angleCoverageBuckets": [
+      "ACUTE",
+      "NEAR_RIGHT",
+      "OBTUSE"
+    ],
+    "numericAnswerSample": [
+      136,
+      88,
+      32,
+      96,
+      42,
+      138,
+      128,
+      44,
+      34,
+      130
+    ],
+    "alignmentAnswerStates": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "scaleLabelsPerDiagram": 21,
+    "compactDegreePromptCount": 10,
+    "responseLineCount": 15
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "reviewedArtifact": "q001-human-review.pdf/png",
+    "exactArtifactId": 10930718075,
+    "exactArtifactDigest": "sha256:ca6570c61d7b905554d87475287f1b70c43c53e1c7d0f5b5ebbfae575b72abe5",
+    "decisionTextZh": "核準。可驗收",
+    "acceptedAtLocal": "2026-09-27T23:28:00+08:00",
+    "actualPrintAccepted": true,
+    "learnerFacingAccepted": true,
+    "d0Granted": true
+  },
+  "learnerVisualContract": {
+    "completeProtractorInsideSvg": true,
+    "instrumentFixedHorizontal": true,
+    "noInstrumentFlip": true,
+    "dualScaleVisible": true,
+    "horizontalScaleLabels": true,
+    "explicitBaselineRay": true,
+    "balancedAngleCoverage": true,
+    "scaleLabelCadenceDegrees": 20,
+    "compactDegreePrompt": true,
+    "alignmentFourStateDiagnostic": true,
+    "twoColumnPrintLayout": true,
+    "printSafePagination": true,
+    "responseLineVisible": true
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "639f1a4b137cdd46d5c6510a05627cdd84e89808",
+    "exactProductMergeSha": "a70869c489eb39ec484772d7382c3a2bccedf0cf",
+    "commitsAfterExactProductMerge": 6,
+    "onlyCiEvidenceFilesChanged": true,
+    "productRuntimeFilesChanged": false,
+    "curriculumRuntimeFilesChanged": false,
+    "changedFilesAfterExactProductMerge": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "q002SuccessorReadiness": {
+    "preflightPath": "data/curriculum/full-product/p08f/q002-g5a-u10a-solid-viewpoint-representation-source-authority-preflight.json",
+    "preflightStatus": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "implementationTaskId": "P08F_W8DirectProductVerticalSlice002Implementation",
+    "implementationRequiresSeparateOperatorApproval": true
+  },
+  "antiScopeCreep": {
+    "repairRepositoryHistoricalFailures": false,
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ001ProductRuntime": false,
+    "modifyQ001SourceAuthority": false,
+    "modifyFormalMappingIdentity": false,
+    "modifyPatternSpecIdentity": false,
+    "modifyW8FrozenQueue": false,
+    "implementQ002": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_SECOND_ACTUAL_PRINT_HUMAN_REVIEW_PENDING",
+    "goalDistanceAfter": "D0_Q001_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ001Blockers": [],
+    "nextShortestStep": "P08F_W8_Q002_PredecessorAuthorityRefresh_Then_ImplementationBoundary"
+  }
+}
