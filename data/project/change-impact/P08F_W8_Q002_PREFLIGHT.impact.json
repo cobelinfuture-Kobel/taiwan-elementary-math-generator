@@ -17,7 +17,8 @@
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
     "currentAuthorityChanged": true,
-    "planningAuthorityAdded": true
+    "planningAuthorityAdded": true,
+    "predecessorAuthorityRefresh": true
   },
   "scopeGuards": {
     "productImplementation": false,
@@ -25,6 +26,9 @@
     "w8FrozenQueueMutation": false,
     "r02Mutation": false,
     "r04Mutation": false,
-    "q003OrLaterMutation": false
-  }
+    "q003OrLaterMutation": false,
+    "predecessorAuthorityRefreshed": true,
+    "q002SemanticScopeMutation": false
+  },
+  "classificationNote": "Planning-authority predecessor refresh only: Q002 now consumes the current Q001 learner-visual human-accepted D0 closeout. Q002 source/runtime/semantic scope and product implementation remain unchanged."
 }
