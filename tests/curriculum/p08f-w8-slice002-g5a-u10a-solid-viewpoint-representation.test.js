@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {auditG5AU10AP08F02Projection,G5A_U10A_P08F02_KP_ID as KP,G5A_U10A_P08F02_PROTECTED_FUTURE_KP_IDS as PROTECTED,G5A_U10A_P08F02_SOURCE_ID as SRC,G5A_U10A_P08F02_SPEC_IDS as SPECS} from "../../site/modules/curriculum/registry/g5a-u10a-solid-viewpoint-selector-projection-p08f02.js";
 import {auditP08F02PublicSelectorComposition,getVisibleBatchAKnowledgePoint,listBatchAKnowledgePointAvailabilityBySource,listVisibleBatchAKnowledgePoints,resolveVisiblePatternSpecIdsForKnowledgePoint} from "../../site/modules/curriculum/registry/batch-a-selector-p08f02-extension.js";
+import * as preSelector from "../../site/modules/curriculum/registry/batch-a-selector-p08f01-extension.js";
 import {auditPublicUiCapabilityBinding,resolvePublicUiCapabilityBinding} from "../../site/modules/curriculum/public/public-ui-capability-binding-p08f02.js";
 import {generateG5AU10AP08F02Questions,validateG5AU10AP08F02Answer,validateG5AU10AP08F02Question} from "../../site/modules/curriculum/batch-a/g5a-u10a-solid-viewpoint-runtime-p08f02.js";
 import {buildBatchABrowserPlan,generateBatchABrowserQuestions} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js";
@@ -34,11 +35,13 @@ test("W8 Q002 materializes one viewpoint KP with three source-bounded PatternSpe
  assert.equal(implementation.productContract.humanVisualReviewRequiredBeforeD0,true);
 });
 
-test("W8 Q002 selector exposes viewpoint only and protects four future same-source KPs",()=>{
+test("W8 Q002 selector adds viewpoint while preserving four prior same-source product owners",()=>{
  const a=auditP08F02PublicSelectorComposition();assert.equal(a.ok,true,a.errors.join("\n"));
+ const before=preSelector.listVisibleBatchAKnowledgePoints().filter(x=>x.sourceId===SRC).map(x=>x.knowledgePointId);
  const s=listBatchAKnowledgePointAvailabilityBySource(SRC),visible=listVisibleBatchAKnowledgePoints().filter(x=>x.sourceId===SRC).map(x=>x.knowledgePointId);
- assert.deepEqual(visible,[KP]);assert.ok(getVisibleBatchAKnowledgePoint(KP));assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(KP,"diagram"),SPECS);
- for(const id of PROTECTED){assert.equal(visible.includes(id),false);assert.ok(s.hiddenPendingKnowledgePointIds.includes(id));assert.ok(s.notSelectableKnowledgePointIds.includes(id));}
+ assert.deepEqual(visible,[...before,KP]);assert.ok(getVisibleBatchAKnowledgePoint(KP));assert.deepEqual(resolveVisiblePatternSpecIdsForKnowledgePoint(KP,"diagram"),SPECS);
+ for(const id of PROTECTED){assert.ok(before.includes(id));assert.ok(visible.includes(id));assert.ok(getVisibleBatchAKnowledgePoint(id));}
+ assert.equal(s.hiddenPendingKnowledgePointIds.includes(KP),false);assert.equal(s.notSelectableKnowledgePointIds.includes(KP),false);
  assert.equal(s.sameUnitMixedAllowed,false);assert.equal(s.w8FrozenQueueComplete,false);
 });
 
