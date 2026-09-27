@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q001_FINAL_LEARNER_VISUAL_D0_CLOSEOUT_V2",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_protractor_angle_measurement",
+  "unitExpectedKnowledgePointIds": [
+    "kp_protractor_angle_measurement"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_protractor_angle_measurement": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q001_FINAL_LEARNER_VISUAL_D0_CLOSEOUT_V2.validation.json",
+  "classificationNote": "Evidence/governance-only D0 closeout after the operator accepted the exact post-merge actual-print PDF/PNG. No learner runtime, source authority, FormalMapping identity, PatternSpec identity, frozen W8 queue, or Q002 product changes.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
