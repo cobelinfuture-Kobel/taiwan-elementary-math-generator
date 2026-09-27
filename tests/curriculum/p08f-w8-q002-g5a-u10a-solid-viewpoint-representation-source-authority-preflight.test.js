@@ -8,14 +8,19 @@ const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"
 const p=read("data/curriculum/full-product/p08f/q002-g5a-u10a-solid-viewpoint-representation-source-authority-preflight.json");
 const r02=read("data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-03.json");
 const index=read("data/curriculum/full-product/p08e/w8-source-authority-index.json");
-const q001=read("data/curriculum/full-product/p08f/q001-g4a-u03-protractor-angle-measurement-final-d0-closeout.json");
+const q001=read("data/curriculum/full-product/p08f/q001-final-learner-visual-d0-closeout-v2.json");
 const impact=read("data/project/change-impact/P08F_W8_Q002_PREFLIGHT.impact.json");
 const validation=read("data/project/validation-plans/P08F_W8_Q002_PREFLIGHT.validation.json");
 const KP="kp_g5a_u10a_solid_viewpoint_representation";
 
 test("W8 Q002 preflight binds exact second frozen queue slice after Q001 D0",()=>{
   const result=materializeP08EW8DirectProductVerticalSliceQueue(),slice=result.queueEntries[1];
-  assert.equal(q001.status,"Q001_PASS_E6_D0_EXACT_FAILURE_SET_PARITY_CLOSED");
+  assert.equal(q001.status,"Q001_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED");
+  assert.equal(q001.operatorAcceptance.d0Granted,true);
+  assert.equal(p.predecessorAuthority.q001FinalCloseoutPath,"data/curriculum/full-product/p08f/q001-final-learner-visual-d0-closeout-v2.json");
+  assert.equal(p.predecessorAuthority.q001FinalCloseoutStatus,"Q001_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED");
+  assert.equal(p.predecessorAuthority.q001FinalCloseoutMergeSha,"a6cc3e3be57ef6e374ada627538f27a16d462201");
+  assert.equal(p.predecessorAuthority.q001ActualPrintHumanAccepted,true);
   assert.equal(p.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
   assert.equal(result.queueFrozen,true);
   assert.equal(result.queueEntries.length,22);

@@ -10,7 +10,7 @@
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/p08f-w8-q002-g5a-u10a-solid-viewpoint-representation-source-authority-preflight.test.js",
-          "tests/curriculum/p08f-w8-q001-final-d0-closeout-v1.test.js",
+          "tests/curriculum/p08f-w8-q001-final-learner-visual-d0-closeout-v2.test.js",
           "tests/curriculum/p08e-w8-direct-product-vertical-slice-queue.test.js",
           "tests/curriculum/r05-delivery-wave-rebase.test.js"
         ]
