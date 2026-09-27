@@ -3,6 +3,8 @@ import {
   buildWorksheetDocumentFromPlan as buildBase,
 } from "./build-worksheet-document-core-closeout.js";
 import { generateBatchABrowserQuestions } from "../../../modules/curriculum/batch-a/batch-a-browser-question-router.js";
+import { requestsP08F02 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f02.js";
+import { buildBatchABrowserWorksheetDocument as buildP08F02Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f02-extension.js";
 import { requestsP08F01 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f01.js";
 import { buildBatchABrowserWorksheetDocument as buildP08F01Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f01-extension.js";
 import { applyW1FullProductPublicApplicationAdmission } from "../../../modules/curriculum/batch-a/w1-full-product-public-application-admission.js";
@@ -259,6 +261,7 @@ function buildCurrentRouterBaseResult(plan, generation) {
 }
 
 export function buildWorksheetDocumentFromPlan(plan = {}) {
+  if (requestsP08F02(plan)) return buildP08F02Worksheet(plan);
   if (requestsP08F01(plan)) return buildP08F01Worksheet(plan);
   const useW1SharedBuilder = plan.questionMode === "application" && W1_PUBLIC_SOURCE_IDS.has(plan.sourceId);
   if (useW1SharedBuilder) {
