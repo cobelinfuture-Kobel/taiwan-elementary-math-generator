@@ -11,9 +11,11 @@
   },
   "baselineMainSha": "e8f2665063cbf0ca653d03dff194613136b76fb2",
   "predecessorAuthority": {
-    "q001FinalCloseoutPath": "data/curriculum/full-product/p08f/q001-g4a-u03-protractor-angle-measurement-final-d0-closeout.json",
-    "q001FinalCloseoutStatus": "Q001_PASS_E6_D0_EXACT_FAILURE_SET_PARITY_CLOSED",
-    "q001FinalCloseoutMergeSha": "e8f2665063cbf0ca653d03dff194613136b76fb2",
+    "q001FinalCloseoutPath": "data/curriculum/full-product/p08f/q001-final-learner-visual-d0-closeout-v2.json",
+    "q001FinalCloseoutStatus": "Q001_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "q001FinalCloseoutMergeSha": "a6cc3e3be57ef6e374ada627538f27a16d462201",
+    "q001ActualPrintHumanAccepted": true,
+    "q001OperatorArtifactId": 10930718075,
     "previousSliceD0Required": true,
     "previousSliceD0Satisfied": true
   },
@@ -195,5 +197,12 @@
     "manualSourceChoiceRequired": false,
     "sourceRefAmbiguity": false,
     "nextTask": "P08F_W8DirectProductVerticalSlice002Implementation"
+  },
+  "predecessorAuthorityRefresh": {
+    "reason": "Historical technical D0 was revoked by learner-facing visual review; Q001 has now been re-closed at D0 after exact actual-print operator acceptance.",
+    "historicalPredecessorPath": "data/curriculum/full-product/p08f/q001-g4a-u03-protractor-angle-measurement-final-d0-closeout.json",
+    "refreshedToLearnerVisualCloseoutV2": true,
+    "productImplementationChanged": false,
+    "q002SemanticScopeChanged": false
   }
 }
