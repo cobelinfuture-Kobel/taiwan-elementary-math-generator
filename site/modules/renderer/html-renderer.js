@@ -1,5 +1,6 @@
 import { renderAnglePartsDiagram } from "./angle-parts-diagram.js";
 import { renderAngleCompositionRotationClockDiagram } from "./angle-composition-rotation-clock-diagram-p08f03.js";
+import { renderSectorFractionOfCircleDiagram } from "./sector-fraction-of-circle-diagram-p08f10.js";
 import { renderCongruentTriangleCorrespondenceDiagram } from "./congruent-triangle-correspondence-diagram-p08f09.js";
 import { renderTriangleAngleClassificationDiagram } from "./triangle-angle-classification-diagram-p08f08.js";
 import { renderUnknownAngleLinearFullVerticalDiagram } from "./unknown-angle-linear-full-vertical-diagram-p08f07.js";
@@ -108,7 +109,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderCongruentTriangleCorrespondenceDiagram, renderTriangleAngleClassificationDiagram, renderUnknownAngleLinearFullVerticalDiagram, renderCombinedSectorAngleDiagram, renderAngleEstimationClassificationDiagram, renderAngleCompositionRotationClockDiagram, renderSolidViewpointRepresentationDiagram, renderProtractorAngleMeasurementDiagram, renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderCylinderVolumeDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
+export { renderSectorFractionOfCircleDiagram, renderCongruentTriangleCorrespondenceDiagram, renderTriangleAngleClassificationDiagram, renderUnknownAngleLinearFullVerticalDiagram, renderCombinedSectorAngleDiagram, renderAngleEstimationClassificationDiagram, renderAngleCompositionRotationClockDiagram, renderSolidViewpointRepresentationDiagram, renderProtractorAngleMeasurementDiagram, renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderCylinderVolumeDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -117,6 +118,7 @@ export function renderNumberLine(model) {
 }
 
 function renderGeometryDiagram(model) {
+  if (model?.kind === "sector_fraction_of_circle_diagram") return renderSectorFractionOfCircleDiagram(model);
   if (model?.kind === "congruent_triangle_correspondence_diagram") return renderCongruentTriangleCorrespondenceDiagram(model);
   if (model?.kind === "triangle_angle_classification_diagram") return renderTriangleAngleClassificationDiagram(model);
   if (model?.kind === "unknown_angle_linear_full_vertical_diagram") return renderUnknownAngleLinearFullVerticalDiagram(model);
