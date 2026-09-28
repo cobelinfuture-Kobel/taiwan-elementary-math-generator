@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q011",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5a_u07_coordinate_reflection"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q011.validation.json",
+  "classificationNote": "Q011 materializes one new, frozen G5A-U07 coordinate-reflection route with a dedicated coordinate-grid renderer and mod_coordinate_map runtime capability. Shared executable and public-authority pointer changes are route-bounded to the exact Q011 source/KP admission; existing legal routes keep their semantics. No R02/R04/frozen-queue/Q012+ semantic mutation. This matches the established Q008-Q010 SHARED_RUNTIME_BOUNDED cutover pattern.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q010ProductPreserved": true,
+    "priorG5AU07OwnersPreserved": true,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "frozenQueueMutation": false,
+    "q012OrLaterMutation": false,
+    "legalRouteSemanticsPreservedForExistingRoutes": true,
+    "q011NewRouteAdmissionBounded": true
+  }
+}
