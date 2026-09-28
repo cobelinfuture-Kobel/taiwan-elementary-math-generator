@@ -1,17 +1,162 @@
 {
-  "schemaName": "P07FW7Q012PostMergeMainPagesE2EFailureV1",
-  "status": "FAIL",
-  "exactHeadSha": "89badfe30bea34c94901d6dfdcf9ddeb67df08df",
+  "schemaName": "P07FW7Q012PostMergeMainPagesE2EV1",
+  "taskId": "P07F_W7DirectProductVerticalSlice012Implementation",
+  "status": "PASS_E6_D0_COMPLETE",
+  "exactHeadSha": "b05a2aca6701d29554f3a81985d87d985ad3107c",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
-  "error": "Error: P07F12_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\npage.waitForFunction: Timeout 120000ms exceeded.\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice012-classic-ui-acceptance.mjs:13:807)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice012-classic-ui-acceptance.mjs:14:79 {\n  name: 'TimeoutError'\n}\n\nNode.js v22.23.2\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-q012-live-pages-e2e.mjs:24:503)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
+  "deployment": {
+    "attempt": 32,
+    "assets": [
+      {
+        "publicPath": "modules/curriculum/batch-a/source-units.js",
+        "expectedSha256": "83a5b1f8fb6d23ba66b310527e8aead135ac176b02946fffeb52039dc437a5b5",
+        "liveSha256": "83a5b1f8fb6d23ba66b310527e8aead135ac176b02946fffeb52039dc437a5b5"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/g6a-u09-scale-area-change-selector-projection-p07f12.js",
+        "expectedSha256": "3b7ffcdf444a3d8a0ed72e134c7a7d27080b49852a6ba595f0543f3993f3b80b",
+        "liveSha256": "3b7ffcdf444a3d8a0ed72e134c7a7d27080b49852a6ba595f0543f3993f3b80b"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p07f12-extension.js",
+        "expectedSha256": "88dd32241503d002802777b58f266ed5a13a958c68488b20e3dea55feb64d06f",
+        "liveSha256": "88dd32241503d002802777b58f266ed5a13a958c68488b20e3dea55feb64d06f"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+        "expectedSha256": "f042d3e1752180c35e89784a55cc2498e02d3723e7a5d235e14b9179d54cd6f1",
+        "liveSha256": "f042d3e1752180c35e89784a55cc2498e02d3723e7a5d235e14b9179d54cd6f1"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p07f12.js",
+        "expectedSha256": "16022d8932ffb2a61eb9df957876f11566cbc31706df775dd0c410c189751b02",
+        "liveSha256": "16022d8932ffb2a61eb9df957876f11566cbc31706df775dd0c410c189751b02"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+        "expectedSha256": "dc7a7c24d43fcb62b9dc54a163721057f6cb67002e41ade4920bc3563db25e43",
+        "liveSha256": "dc7a7c24d43fcb62b9dc54a163721057f6cb67002e41ade4920bc3563db25e43"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/g6a-u09-scale-area-change-runtime-p07f12.js",
+        "expectedSha256": "57d4de7c9cfe27977fd3073297dd094b84deef9bc4340c4a670d3b8c6ce6d35c",
+        "liveSha256": "57d4de7c9cfe27977fd3073297dd094b84deef9bc4340c4a670d3b8c6ce6d35c"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p07f12.js",
+        "expectedSha256": "e057597a7a0932169c78a2ce52fb69e8e2ed151801fc380108343109e78fd991",
+        "liveSha256": "e057597a7a0932169c78a2ce52fb69e8e2ed151801fc380108343109e78fd991"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+        "expectedSha256": "7dacbd414bf9d308e8f5c8821f6f7b43d5cb2257f7505dbb786c2a640d16d9f1",
+        "liveSha256": "7dacbd414bf9d308e8f5c8821f6f7b43d5cb2257f7505dbb786c2a640d16d9f1"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p07f12-extension.js",
+        "expectedSha256": "94fdce5f039fc4c95992a9606dc3b8655d8ca047fd86d1459d93b1458d43e158",
+        "liveSha256": "94fdce5f039fc4c95992a9606dc3b8655d8ca047fd86d1459d93b1458d43e158"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+        "expectedSha256": "dd083466f001a927e7bf3aa6c18930df2de802671a307e00ce2711bb8303334d",
+        "liveSha256": "dd083466f001a927e7bf3aa6c18930df2de802671a307e00ce2711bb8303334d"
+      },
+      {
+        "publicPath": "modules/renderer/scale-area-change-diagram-p07f12.js",
+        "expectedSha256": "f2493b6d520999f7d643fe10a84bb054ea86369737e68c350e2918f039bd163b",
+        "liveSha256": "f2493b6d520999f7d643fe10a84bb054ea86369737e68c350e2918f039bd163b"
+      },
+      {
+        "publicPath": "modules/renderer/html-renderer.js",
+        "expectedSha256": "fe111ec609cd80637b063baeb492ac2a208786d89635de32f673be8d93a7f566",
+        "liveSha256": "fe111ec609cd80637b063baeb492ac2a208786d89635de32f673be8d93a7f566"
+      }
+    ]
+  },
+  "classicUiAcceptance": {
+    "schemaName": "P07FW7Q012ClassicUIAcceptanceV1",
+    "taskId": "P07F_W7DirectProductVerticalSlice012Implementation",
+    "status": "PASS_P07F_W7_Q012_CLASSIC_UI_ACCEPTANCE",
+    "sourceId": "g6a_u09_6a09",
+    "knowledgePointIds": [
+      "kp_g6a_u09_scale_area_change"
+    ],
+    "questionCountPerTarget": 12,
+    "target": {
+      "selector": {
+        "sourceId": "g6a_u09_6a09",
+        "visibleIds": [
+          "kp_g6a_u09_scale_factor_length",
+          "kp_g6a_u09_scale_area_change"
+        ],
+        "targetPresent": true,
+        "predecessorPresent": true,
+        "protectedAbsent": true,
+        "sameUnitDisabled": true
+      },
+      "target": {
+        "state": {
+          "status": "已產生 12 題，可預覽與列印。",
+          "tone": "success",
+          "valid": "false",
+          "preview": 46085,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 12,
+          "answers": 12,
+          "diagrams": 24,
+          "overflow": 0
+        }
+      },
+      "printCount": 1
+    },
+    "browser": {
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "requestFailureCount": 0,
+      "assetHttpFailureCount": 0
+    },
+    "semanticInvariants": {
+      "rectangleAreaFormulaPrerequisitePreserved": true,
+      "scaleFactorLengthPrerequisitePreserved": true,
+      "scaleAreaChangeOwned": true,
+      "areaScaleFactorEqualsSquareOfLinearScaleFactor": true,
+      "sourceBackedRectangleApplicationPresent": true,
+      "q007LengthScaleFactorTeachingNotReowned": true,
+      "sameUnitMixedModeFailClosed": true
+    },
+    "forbiddenScope": {
+      "similarShapeAngle": false,
+      "scaleDrawingConstruction": false,
+      "mapScaleDistance": false,
+      "mapScaleBarInterpretation": false,
+      "genericGeometryAreaFormulaTeaching": false,
+      "sameUnitMixed": false,
+      "crossUnitMixed": false,
+      "fullRepositoryRegression": false,
+      "globalBrowserReplay": false
+    }
+  },
+  "semanticInvariants": {
+    "rectangleAreaFormulaPrerequisitePreserved": true,
+    "scaleFactorLengthPrerequisitePreserved": true,
+    "scaleAreaChangeOwned": true,
+    "areaScaleFactorEqualsSquareOfLinearScaleFactor": true,
+    "sourceBackedRectangleApplicationPresent": true,
+    "q007LengthScaleFactorTeachingNotReowned": true,
+    "sameUnitMixedModeFailClosed": true,
+    "w7QueueContinuesAfterQ012": true
+  },
   "workflow": "P07F W7 Q012 Post-Merge Pages E2E",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36403346875",
-    "number": "12",
+    "id": "36408069287",
+    "number": "13",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36403346875"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36408069287"
   },
-  "verifiedAt": "2026-09-28T09:35:40.358Z"
+  "verifiedAt": "2026-09-28T10:18:36.978Z"
 }
