@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q003_PREFLIGHT",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_angle_composition_decomposition"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q003_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true,
+    "predecessorAuthorityRefresh": true
+  },
+  "scopeGuards": {
+    "productImplementation": false,
+    "publicAdmission": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "q004OrLaterMutation": false,
+    "predecessorAuthorityRefreshed": true,
+    "q003SemanticScopeMutation": false
+  },
+  "classificationNote": "Planning-only Q003 source/runtime/semantic authority lock after Q002 learner-visual human-accepted D0. The planned Q003 product path is bounded to g4a_u03_4a03 / kp_angle_composition_decomposition; no runtime implementation or public admission occurs in this preflight."
+}
