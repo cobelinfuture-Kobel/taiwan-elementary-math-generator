@@ -1,4 +1,5 @@
-import {buildBatchABrowserPlan as buildP08F07Plan,generateBatchABrowserQuestions as generateP08F07Questions,requestsP08F07} from "./batch-a-browser-generator-p08f07.js";\nimport {buildBatchABrowserPlan as buildP08F06Plan,generateBatchABrowserQuestions as generateP08F06Questions,requestsP08F06} from "./batch-a-browser-generator-p08f06.js";
+import {buildBatchABrowserPlan as buildP08F07Plan,generateBatchABrowserQuestions as generateP08F07Questions,requestsP08F07} from "./batch-a-browser-generator-p08f07.js";
+import {buildBatchABrowserPlan as buildP08F06Plan,generateBatchABrowserQuestions as generateP08F06Questions,requestsP08F06} from "./batch-a-browser-generator-p08f06.js";
 import {buildBatchABrowserPlan as buildP08F05Plan,generateBatchABrowserQuestions as generateP08F05Questions,requestsP08F05} from "./batch-a-browser-generator-p08f05.js";
 import {buildBatchABrowserPlan as baseBuildPlan} from "./batch-a-browser-generator-p05f31.js";
 import {buildBatchABrowserPlan as buildP08F04Plan,generateBatchABrowserQuestions as generateP08F04Questions,requestsP08F04} from "./batch-a-browser-generator-p08f04.js";
