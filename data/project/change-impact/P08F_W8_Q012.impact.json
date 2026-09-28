@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q012",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5a_u05a1_sector_compare_same_circle"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q012.validation.json",
+  "classificationNote": "Q012 materializes one new frozen G5A-U05A1 same-radius sector-comparison route with a dedicated diagram renderer. Shared executable and public-authority pointer changes are route-bounded to the exact Q012 source/KP admission; existing legal routes retain their semantics. No R02/R04/frozen-queue/Q013+ semantic mutation.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q011ProductPreserved": true,
+    "priorG5AU05A1OwnersPreserved": true,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "frozenQueueMutation": false,
+    "q013OrLaterMutation": false,
+    "legalRouteSemanticsPreservedForExistingRoutes": true,
+    "q012NewRouteAdmissionBounded": true
+  }
+}
