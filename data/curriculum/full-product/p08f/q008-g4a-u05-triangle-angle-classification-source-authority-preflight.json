@@ -1,0 +1,205 @@
+{
+  "schemaName": "P08FW8Q008G4AU05TriangleAngleClassificationSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q008_G4AU05_TriangleAngleClassification_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_W8_Q008_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q008_G4AU05_TRIANGLE_ANGLE_CLASSIFICATION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "18ed9a678b7c95e64692fa4af4012865be0911ab",
+  "predecessorAuthority": {
+    "q007FinalCloseoutPath": "data/curriculum/full-product/p08f/q007-final-learner-visual-d0-closeout.json",
+    "q007FinalCloseoutStatus": "Q007_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "q007FinalCloseoutMergeSha": "18ed9a678b7c95e64692fa4af4012865be0911ab",
+    "q007ActualPrintHumanAccepted": true,
+    "q007ExactArtifactId": 10959480331
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p08e/w8-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p08e-w8-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "597a6fa497c8ac7738247847ef321d0c753e79800f5c38097b7a7a160be2f484",
+    "queuePosition": 8,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q008_r4_g4a_u05_4a05_profile_geometry_property_c1",
+    "implementationTaskId": "P08F_W8DirectProductVerticalSlice008Implementation",
+    "previousSliceId": "p08e_q007_r4_g4a_u03_4a03_profile_geometry_property_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W8",
+    "primarySourceNodeId": "g4a_u05_4a05",
+    "supportingSourceNodeIds": [
+      "g4a_u05_4a05"
+    ],
+    "intraWavePrerequisiteRank": 4,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g4a_u05_triangle_angle_classification"
+    ],
+    "blockingCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "blockingCapabilityWaveIds": [
+      "R05-W5"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "authorityPath": "data/curriculum/full-product/p08e/w8-source-authority-index.json",
+    "r02ChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+    "sourceNodeId": "g4a_u05_4a05",
+    "sourceTitle": "三角形與全等",
+    "sourcePdfTitle": "meow911_4a05_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "targetEvidencePages": [
+      1,
+      2
+    ],
+    "priorSameSourceAuthorityPaths": [
+      "data/curriculum/full-product/p05f/q013-g4a-u05-triangle-elements-naming-source-authority-preflight.json",
+      "data/curriculum/full-product/p05f/q024-g4a-u05-triangle-side-classification-source-authority-preflight.json",
+      "data/curriculum/full-product/p05f/q032-g4a-u05-triangle-inequality-source-authority-preflight.json"
+    ],
+    "sourceIdentityArtifactLock": {
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "knowledgePointId": "kp_g4a_u05_triangle_angle_classification",
+    "canonicalNameZh": "依角度分類三角形",
+    "capabilityStatement": "學生能依最大內角分類銳角、直角與鈍角三角形。",
+    "reasoningInvariant": "三角形只能依其角度結構歸入一種角類別。",
+    "category": "geometry",
+    "evidencePages": [
+      1,
+      2
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "sameSourceOwnershipBoundary": {
+    "priorImplementedKnowledgePointIds": [
+      "kp_g4a_u05_triangle_elements_naming",
+      "kp_g4a_u05_triangle_side_classification",
+      "kp_g4a_u05_triangle_inequality"
+    ],
+    "futureW8KnowledgePointIds": [
+      "kp_g4a_u05_congruent_triangle_correspondence"
+    ],
+    "priorOwnersMustRemainReachable": true,
+    "futureW8KnowledgePointsRemainUnimplemented": true,
+    "targetCompletesG4AU05W8CandidateSetIfImplemented": false
+  },
+  "runtimeCapabilityAuthority": {
+    "knowledgePointId": "kp_g4a_u05_triangle_angle_classification",
+    "profileId": "profile_geometry_property",
+    "classificationRuleId": "rule_geometry_property",
+    "appliedModifierIds": [],
+    "exactMappingRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "exactMappingOptionalRuntimeCapabilityIds": [
+      "cap_geometry_construction"
+    ],
+    "exactMappingForbiddenRuntimeCapabilityIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "semanticProfileLock": {
+    "targetSemanticCore": "TRIANGLE_CLASSIFICATION_BY_INTERIOR_ANGLE_STRUCTURE",
+    "triangleAngleClassification": {
+      "categorySet": [
+        "ACUTE_TRIANGLE",
+        "RIGHT_TRIANGLE",
+        "OBTUSE_TRIANGLE"
+      ],
+      "classificationBasis": "MAXIMUM_INTERIOR_ANGLE",
+      "acuteTriangleRule": "ALL_INTERIOR_ANGLES_LESS_THAN_90_DEGREES",
+      "rightTriangleRule": "EXACTLY_ONE_INTERIOR_ANGLE_EQUALS_90_DEGREES",
+      "obtuseTriangleRule": "EXACTLY_ONE_INTERIOR_ANGLE_GREATER_THAN_90_DEGREES",
+      "exactlyOneCategoryRequired": true,
+      "rotationOrTranslationPreservesCategory": true
+    },
+    "ownershipGuards": {
+      "triangleElementsNamingReownershipAllowed": false,
+      "triangleSideClassificationReownershipAllowed": false,
+      "triangleInequalityReownershipAllowed": false,
+      "congruentTriangleCorrespondenceReownershipAllowed": false,
+      "geometryConstructionReownershipAllowed": false,
+      "applicationContextRequired": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "q008ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g4a_u05_triangle_angle_classification"
+    ],
+    "includedRelations": [
+      "CLASSIFY_ACUTE_TRIANGLE_BY_INTERIOR_ANGLES",
+      "CLASSIFY_RIGHT_TRIANGLE_BY_INTERIOR_ANGLES",
+      "CLASSIFY_OBTUSE_TRIANGLE_BY_INTERIOR_ANGLES"
+    ],
+    "excludedRelations": [
+      "TRIANGLE_ELEMENTS_NAMING",
+      "TRIANGLE_SIDE_CLASSIFICATION",
+      "TRIANGLE_INEQUALITY",
+      "CONGRUENT_TRIANGLE_CORRESPONDENCE",
+      "GEOMETRY_CONSTRUCTION",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q009_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q009OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ007D0Satisfied": true,
+    "sourceAuthoritySufficientForQ008Implementation": true,
+    "r02ReviewedCandidateBound": true,
+    "runtimeProfileAlignmentLockedWithoutReclassification": true,
+    "semanticProfileLockBound": true,
+    "priorSameSourceOwnershipProtected": true,
+    "futureSameSourceOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTask": "P08F_W8DirectProductVerticalSlice008Implementation"
+  }
+}
