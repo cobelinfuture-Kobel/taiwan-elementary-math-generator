@@ -271,6 +271,7 @@ function buildCurrentRouterBaseResult(plan, generation) {
 }
 
 export function buildWorksheetDocumentFromPlan(plan = {}) {
+  if (requestsP08F07(plan)) return buildP08F07Worksheet(plan);
   if (requestsP08F06(plan)) return buildP08F06Worksheet(plan);
   if (requestsP08F05(plan)) return buildP08F05Worksheet(plan);
   if (requestsP08F04(plan)) return buildP08F04Worksheet(plan);
