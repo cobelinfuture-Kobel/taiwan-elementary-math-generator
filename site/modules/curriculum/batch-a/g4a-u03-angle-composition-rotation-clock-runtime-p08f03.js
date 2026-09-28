@@ -4,7 +4,8 @@ export const G4A_U03_P08F03_SHARED_RUNTIME_SCOPE="SHARED_RUNTIME_BOUNDED";
 const GROUP_BY_KP=new Map(GROUPS.map(x=>[x.primaryKnowledgePointId,x])),BY_SPEC=new Map(SPECS.map(x=>[x.patternSpecId,x]));
 const ROTATIONS=Object.freeze(Array.from({length:12},(_,i)=>i*30)),DIRECTIONS=Object.freeze(["CLOCKWISE","COUNTERCLOCKWISE"]);
 const ANGLE_PAIRS=Object.freeze(Array.from({length:8},(_,i)=>(i+1)*10).flatMap(a=>Array.from({length:8},(_,i)=>(i+1)*10).map(b=>Object.freeze({a,b,total:a+b}))));
-const TURN_FRACTIONS=Object.freeze([{n:1,d:4,text:"1/4",degrees:90,steps:3},{n:1,d:2,text:"1/2",degrees:180,steps:6},{n:3,d:4,text:"3/4",degrees:270,steps:9},{n:1,d:1,text:"1",degrees:360,steps:12}].map(Object.freeze));
+const TURN_FRACTIONS=Object.freeze(Array.from({length:12},(_,i)=>Object.freeze({n:i+1,d:12,text:i===11?"1":`${i+1}/12`,degrees:(i+1)*30,steps:i+1})));
+const CLOCK_HAND_ROWS=Object.freeze((()=>{const rows=[];for(let a=1;a<=12;a++)for(let b=1;b<=12;b++)if(a!==b){const raw=Math.abs(a-b),steps=Math.min(raw,12-raw);rows.push(Object.freeze({hourA:a,hourB:b,clockSteps:steps,angleChoice:"SMALLER"}));if(steps<6)rows.push(Object.freeze({hourA:a,hourB:b,clockSteps:steps,angleChoice:"LARGER"}));}return rows;})());
 const dirZh=d=>d==="CLOCKWISE"?"順時針":"逆時針";
 const hourNorm=n=>((n-1)%12+12)%12+1;
 function hashSeed(seed="p08f03"){let h=2166136261;for(const ch of String(seed)){h^=ch.codePointAt(0);h=Math.imul(h,16777619);}return h>>>0;}
@@ -19,17 +20,16 @@ function angleRow(spec,index,seed){
  return Object.freeze({...base,knownDeg:pair.a,missingDeg:pair.b,rayLabels:Object.freeze(["A","C","B"]),answerValue:pair.b});
 }
 function rotationTurnRow(spec,index,seed){
- const off=offset(seed,spec),v=(off+index)%96,startHour=v%12+1,direction=DIRECTIONS[Math.floor(v/12)%2],fraction=TURN_FRACTIONS[Math.floor(v/24)%4],sign=direction==="CLOCKWISE"?1:-1,endHour=hourNorm(startHour+sign*fraction.steps);
+ const off=offset(seed,spec),v=(off+index)%288,startHour=v%12+1,direction=DIRECTIONS[Math.floor(v/12)%2],fraction=TURN_FRACTIONS[Math.floor(v/24)%12],sign=direction==="CLOCKWISE"?1:-1,endHour=hourNorm(startHour+sign*fraction.steps);
  return Object.freeze({variant:v,diagramMode:spec.diagramMode,startHour,endHour,direction,turnNumerator:fraction.n,turnDenominator:fraction.d,turnText:fraction.text,turnDegrees:fraction.degrees,clockSteps:fraction.steps,answerValue:fraction.degrees});
 }
 function clockStepRow(spec,index,seed){
- const off=offset(seed,spec),v=(off+index)%144,startHour=v%12+1,stepCount=Math.floor(v/12)%6+1,direction=DIRECTIONS[Math.floor(v/72)%2],sign=direction==="CLOCKWISE"?1:-1,endHour=hourNorm(startHour+sign*stepCount);
+ const off=offset(seed,spec),v=(off+index)%264,startHour=v%12+1,stepCount=Math.floor(v/12)%11+1,direction=DIRECTIONS[Math.floor(v/132)%2],sign=direction==="CLOCKWISE"?1:-1,endHour=hourNorm(startHour+sign*stepCount);
  return Object.freeze({variant:v,diagramMode:spec.diagramMode,startHour,endHour,direction,clockSteps:stepCount,answerValue:stepCount*30});
 }
 function clockHandsRow(spec,index,seed){
- const ordered=[];for(let a=1;a<=12;a++)for(let b=1;b<=12;b++)if(a!==b)ordered.push([a,b]);
- const off=offset(seed,spec),v=(off+index)%ordered.length,[hourA,hourB]=ordered[v],raw=Math.abs(hourA-hourB),steps=Math.min(raw,12-raw);
- return Object.freeze({variant:v,diagramMode:spec.diagramMode,hourA,hourB,clockSteps:steps,answerValue:steps*30});
+ const off=offset(seed,spec),v=(off+index)%CLOCK_HAND_ROWS.length,row=CLOCK_HAND_ROWS[v],small=row.clockSteps*30,answerValue=row.angleChoice==="SMALLER"?small:360-small;
+ return Object.freeze({variant:v,diagramMode:spec.diagramMode,...row,answerValue});
 }
 function rowFor(spec,index,seed){if(spec.knowledgePointId===ANGLE)return angleRow(spec,index,seed);if(spec.relation==="ROTATION_TURN_TO_ANGLE")return rotationTurnRow(spec,index,seed);if(spec.relation==="CLOCK_FACE_STEP_TO_ANGLE")return clockStepRow(spec,index,seed);return clockHandsRow(spec,index,seed);}
 function promptFor(spec,row){
@@ -38,16 +38,16 @@ function promptFor(spec,row){
  if(spec.relation==="SOLVE_MISSING_PART_FROM_WHOLE_AND_KNOWN_PART")return `∠AOB = ${row.totalDeg}°，∠AOC = ${row.knownDeg}°。求 ∠COB。\n答：______°`;
  if(spec.relation==="ROTATION_TURN_TO_ANGLE")return `從鐘面上的 ${row.startHour} 方向開始，${dirZh(row.direction)}轉 ${row.turnText} 圈。轉過的角度是多少？\n答：______°`;
  if(spec.relation==="CLOCK_FACE_STEP_TO_ANGLE")return `從鐘面上的 ${row.startHour} 沿${dirZh(row.direction)}方向轉到 ${row.endHour}。轉過的角度是多少？\n答：______°`;
- return `鐘面上兩根指針分別指向 ${row.hourA} 和 ${row.hourB}。兩針較小的夾角是多少度？\n答：______°`;
+ return `鐘面上兩根指針分別指向 ${row.hourA} 和 ${row.hourB}。兩針${row.angleChoice==="SMALLER"?"較小":"較大"}的夾角是多少度？\n答：______°`;
 }
 function diagramFor(spec,row){
  const common={kind:"angle_composition_rotation_clock_diagram",variant:row.variant,diagramMode:row.diagramMode,relation:spec.relation};
  if(spec.knowledgePointId===ANGLE)return Object.freeze({...common,rotationDeg:row.rotationDeg,partA:row.partA,partB:row.partB,totalDeg:row.totalDeg,knownPartIndex:row.knownPartIndex,knownDeg:row.knownDeg??null,missingDeg:row.missingDeg??null,rayLabels:row.rayLabels??null,adjacentNonOverlapping:true,wholeEqualsParts:true});
  if(spec.relation==="ROTATION_TURN_TO_ANGLE")return Object.freeze({...common,startHour:row.startHour,endHour:row.endHour,direction:row.direction,turnNumerator:row.turnNumerator,turnDenominator:row.turnDenominator,turnText:row.turnText,turnDegrees:row.turnDegrees,clockSteps:row.clockSteps,fullTurnDegrees:360,clockDivisionCount:12,clockDegreesPerDivision:30});
  if(spec.relation==="CLOCK_FACE_STEP_TO_ANGLE")return Object.freeze({...common,startHour:row.startHour,endHour:row.endHour,direction:row.direction,clockSteps:row.clockSteps,fullTurnDegrees:360,clockDivisionCount:12,clockDegreesPerDivision:30});
- return Object.freeze({...common,hourA:row.hourA,hourB:row.hourB,clockSteps:row.clockSteps,fullTurnDegrees:360,clockDivisionCount:12,clockDegreesPerDivision:30});
+ return Object.freeze({...common,hourA:row.hourA,hourB:row.hourB,clockSteps:row.clockSteps,angleChoice:row.angleChoice,fullTurnDegrees:360,clockDivisionCount:12,clockDegreesPerDivision:30});
 }
-function signature(q){const d=q.geometryDiagram;return [q.patternSpecId,d.variant,d.diagramMode,d.rotationDeg??"",d.partA??"",d.partB??"",d.knownPartIndex??"",d.startHour??"",d.endHour??"",d.direction??"",d.turnText??"",d.hourA??"",d.hourB??""].join("|");}
+function signature(q){const d=q.geometryDiagram;return [q.patternSpecId,d.variant,d.diagramMode,d.rotationDeg??"",d.partA??"",d.partB??"",d.knownPartIndex??"",d.startHour??"",d.endHour??"",d.direction??"",d.turnText??"",d.hourA??"",d.hourB??"",d.angleChoice??""].join("|");}
 function targetKp(o={}){const ids=[...new Set((o.selectedKnowledgePointIds??o.knowledgePointIds??[]).filter(Boolean))];if(ids.length)return ids.length===1&&TARGETS.includes(ids[0])?ids[0]:null;if(TARGETS.includes(o.knowledgePointId))return o.knowledgePointId;const kps=[...new Set((o.patternSpecIds??[]).map(id=>BY_SPEC.get(id)?.knowledgePointId).filter(Boolean))];return kps.length===1?kps[0]:null;}
 function selected(kp,ids){const own=SPECS.filter(x=>x.knowledgePointId===kp);if(!Array.isArray(ids)||ids.length===0)return own;const u=[...new Set(ids)];if(u.some(id=>!BY_SPEC.has(id)||BY_SPEC.get(id).knowledgePointId!==kp))return null;return u.map(id=>BY_SPEC.get(id));}
 function build(spec,index,seed){
@@ -67,8 +67,8 @@ export function validateG4AU03P08F03Question(q){
   if(d.fullTurnDegrees!==360||d.clockDivisionCount!==12||d.clockDegreesPerDivision!==30)e.push("P08F03_CLOCK_INVARIANT_INVALID");
   let expected=null;
   if(spec?.relation==="ROTATION_TURN_TO_ANGLE"){if(!DIRECTIONS.includes(d.direction)||!TURN_FRACTIONS.some(x=>x.text===d.turnText&&x.degrees===d.turnDegrees&&x.steps===d.clockSteps))e.push("P08F03_ROTATION_MODEL_INVALID");expected=d.turnDegrees;}
-  else if(spec?.relation==="CLOCK_FACE_STEP_TO_ANGLE"){if(!DIRECTIONS.includes(d.direction)||!Number.isInteger(d.startHour)||!Number.isInteger(d.endHour)||d.startHour<1||d.startHour>12||d.endHour<1||d.endHour>12||!Number.isInteger(d.clockSteps)||d.clockSteps<1||d.clockSteps>6)e.push("P08F03_CLOCK_STEP_MODEL_INVALID");const sign=d.direction==="CLOCKWISE"?1:-1;if(hourNorm(d.startHour+sign*d.clockSteps)!==d.endHour)e.push("P08F03_CLOCK_STEP_ENDPOINT_INVALID");expected=d.clockSteps*30;}
-  else{if(!Number.isInteger(d.hourA)||!Number.isInteger(d.hourB)||d.hourA<1||d.hourA>12||d.hourB<1||d.hourB>12||d.hourA===d.hourB)e.push("P08F03_CLOCK_HAND_MODEL_INVALID");const raw=Math.abs(d.hourA-d.hourB);expected=Math.min(raw,12-raw)*30;}
+  else if(spec?.relation==="CLOCK_FACE_STEP_TO_ANGLE"){if(!DIRECTIONS.includes(d.direction)||!Number.isInteger(d.startHour)||!Number.isInteger(d.endHour)||d.startHour<1||d.startHour>12||d.endHour<1||d.endHour>12||!Number.isInteger(d.clockSteps)||d.clockSteps<1||d.clockSteps>11)e.push("P08F03_CLOCK_STEP_MODEL_INVALID");const sign=d.direction==="CLOCKWISE"?1:-1;if(hourNorm(d.startHour+sign*d.clockSteps)!==d.endHour)e.push("P08F03_CLOCK_STEP_ENDPOINT_INVALID");expected=d.clockSteps*30;}
+  else{if(!Number.isInteger(d.hourA)||!Number.isInteger(d.hourB)||d.hourA<1||d.hourA>12||d.hourB<1||d.hourB>12||d.hourA===d.hourB)e.push("P08F03_CLOCK_HAND_MODEL_INVALID");const raw=Math.abs(d.hourA-d.hourB),small=Math.min(raw,12-raw)*30;if(!["SMALLER","LARGER"].includes(d.angleChoice)||(d.angleChoice==="LARGER"&&small===180))e.push("P08F03_CLOCK_HAND_CHOICE_INVALID");expected=d.angleChoice==="LARGER"?360-small:small;}
   if(q.answerValue!==expected||q.answerText!==`${expected}°`)e.push("P08F03_CLOCK_ANSWER_INVALID");
  }
  if(q?.metadata?.protractorMeasurementReowned||q?.metadata?.estimationClassificationReowned||q?.metadata?.linearFullVerticalAngleReowned||q?.metadata?.geometryConstructionReowned||q?.metadata?.sameUnitMixedUsed||q?.metadata?.crossUnitMixedUsed||q?.metadata?.q004OrLaterTouched)e.push("P08F03_SCOPE_LEAK");
