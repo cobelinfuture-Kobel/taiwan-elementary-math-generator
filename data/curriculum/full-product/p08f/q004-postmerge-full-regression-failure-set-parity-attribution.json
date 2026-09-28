@@ -1,0 +1,123 @@
+{
+  "schemaName": "P08FW8Q004PostMergeFullRegressionFailureSetParityAttributionV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q004_PostMergeFullRegressionFailureSetParityAttribution",
+  "status": "PASS_BASELINE_ONLY_FAILURE_SET_PARITY",
+  "scope": {
+    "sourceId": "g5a_u05_5a05a1",
+    "knowledgePointId": "kp_g5a_u05a1_central_angle_measurement",
+    "implementationPr": 1096,
+    "implementationMergeSha": "393620f73b11822aa7f19f40cfd593bb0ecd1afa",
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "selectorChanged": false,
+    "publicBindingChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "worksheetChanged": false,
+    "rendererChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingChanged": false,
+    "patternSpecChanged": false,
+    "frozenQueueChanged": false,
+    "q005OrLaterProductChanged": false
+  },
+  "comparison": {
+    "nodePostMergeLane": {
+      "baseline": {
+        "runId": 36364836763,
+        "jobId": 108749118637,
+        "tests": 6191,
+        "pass": 6018,
+        "fail": 173,
+        "namedFailureCount": 173
+      },
+      "q004PostMerge": {
+        "runId": 36366018858,
+        "jobId": 108752463977,
+        "tests": 6207,
+        "pass": 6034,
+        "fail": 173,
+        "namedFailureCount": 173
+      },
+      "testCountDelta": 16,
+      "passCountDelta": 16,
+      "failCountDelta": 0,
+      "namedFailureAdded": [],
+      "namedFailureRemoved": [],
+      "exactNamedFailureSetParity": true,
+      "attribution": "BASELINE_ONLY"
+    },
+    "mathCiReadbackLane": {
+      "baseline": {
+        "runId": 36364836798,
+        "jobId": 108749120162,
+        "tests": 6191,
+        "pass": 6017,
+        "fail": 174,
+        "namedFailureCount": 174
+      },
+      "q004PostMerge": {
+        "runId": 36366018874,
+        "jobId": 108752464497,
+        "tests": 6207,
+        "pass": 6033,
+        "fail": 174,
+        "namedFailureCount": 174
+      },
+      "testCountDelta": 16,
+      "passCountDelta": 16,
+      "failCountDelta": 0,
+      "namedFailureAdded": [],
+      "namedFailureRemoved": [],
+      "exactNamedFailureSetParity": true,
+      "attribution": "BASELINE_ONLY"
+    }
+  },
+  "q004ProductEvidence": {
+    "prGateRunId": 36365940382,
+    "prGateConclusion": "success",
+    "pagesDeployRunId": 36366018905,
+    "pagesDeployRunNumber": 2378,
+    "pagesDeployConclusion": "success",
+    "livePagesE2ERunId": 36366018910,
+    "livePagesE2EConclusion": "success",
+    "livePagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "livePagesArtifactId": 10947402867,
+    "livePagesArtifactDigest": "sha256:033ba0c7c7a4d490db2d6a03627291bd914ba85a12f7c8b3ae1c741568ee1e53",
+    "exactDeployedHeadSha": "393620f73b11822aa7f19f40cfd593bb0ecd1afa"
+  },
+  "currentMainReadbackAtAttribution": {
+    "mainSha": "fffefe06068f5d0318012669b33b4a0a6c14900d",
+    "exactProductMergeSha": "393620f73b11822aa7f19f40cfd593bb0ecd1afa",
+    "commitsAfterExactProductMerge": 6,
+    "onlyCiEvidenceFilesChanged": true,
+    "productRuntimeFilesChanged": false,
+    "changedFilesAfterExactProductMerge": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-p07f-w7-q026-pages-e2e.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "decision": {
+    "q004IntroducedNewNamedRegression": false,
+    "q004RegressionRepairRequired": false,
+    "historicalRepositoryFailureRepairInScope": false,
+    "technicalE6BlockerCleared": true,
+    "nextGate": "ACTUAL_PRINT_HUMAN_REVIEW"
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q004_POSTMERGE_FAILURE_SET_PARITY_UNRESOLVED",
+    "goalDistanceAfter": "D1_Q004_TECHNICAL_E6_PASS_BASELINE_FAILURES_ATTRIBUTED_HUMAN_REVIEW_PENDING",
+    "distanceReduced": "D1_INTERNAL_BLOCKER_CLEARED",
+    "remainingQ004Blockers": [
+      "ACTUAL_PRINT_HUMAN_REVIEW_PENDING",
+      "FINAL_D0_CLOSEOUT_PENDING"
+    ],
+    "nextShortestStep": "P08F_W8_Q004_ActualPrintHumanReview"
+  }
+}
