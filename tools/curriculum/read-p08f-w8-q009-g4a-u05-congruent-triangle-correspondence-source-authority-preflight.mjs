@@ -1,0 +1,16 @@
+import {readFileSync} from "node:fs";
+import {materializeP08EW8DirectProductVerticalSliceQueue} from "../../src/curriculum/full-product/p08e-w8-direct-product-vertical-slice-queue.mjs";
+import {getR04KnowledgePointCapabilityMapping} from "../../src/curriculum/global/r04-shared-runtime-capability-matrix.mjs";
+const p=JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p08f/q009-g4a-u05-congruent-triangle-correspondence-source-authority-preflight.json",import.meta.url),"utf8"));
+const q008=JSON.parse(readFileSync(new URL("../../data/curriculum/full-product/p08f/q008-final-learner-visual-d0-closeout.json",import.meta.url),"utf8"));
+const result=materializeP08EW8DirectProductVerticalSliceQueue(),row=result.queueEntries[8],m=getR04KnowledgePointCapabilityMapping("kp_g4a_u05_congruent_triangle_correspondence");
+if(p.status!=="PASS_SOURCE_AUTHORITY_PREFLIGHT")throw new Error("P08F_Q009_PREFLIGHT_STATUS_INVALID");
+if(q008.status!=="Q008_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED"||q008.operatorAcceptance?.d0Granted!==true)throw new Error("P08F_Q009_PREDECESSOR_NOT_D0");
+if(row.sliceId!==p.queueAuthority.sliceId)throw new Error("P08F_Q009_QUEUE_IDENTITY_MISMATCH:"+row.sliceId);
+if(row.knowledgePointIds.join("|")!==p.queueAuthority.knowledgePointIds.join("|"))throw new Error("P08F_Q009_KP_IDENTITY_MISMATCH:"+row.knowledgePointIds.join("|"));
+if(row.blockingCapabilityIds.join("|")!==p.queueAuthority.blockingCapabilityIds.join("|"))throw new Error("P08F_Q009_BLOCKING_CAPABILITY_MISMATCH:"+row.blockingCapabilityIds.join("|"));
+if(row.blockingCapabilityWaveIds.join("|")!==p.queueAuthority.blockingCapabilityWaveIds.join("|"))throw new Error("P08F_Q009_BLOCKING_WAVE_MISMATCH:"+row.blockingCapabilityWaveIds.join("|"));
+if(m.primaryRuntimeProfileId!==p.runtimeCapabilityAuthority.profileId)throw new Error("P08F_Q009_RUNTIME_PROFILE_MISMATCH");
+if(m.appliedModifierIds.length!==0)throw new Error("P08F_Q009_UNEXPECTED_RUNTIME_MODIFIER:"+m.appliedModifierIds.join("|"));
+if(p.q009ScopeLock.implementationAllowedByThisPreflight||p.q009ScopeLock.publicProductAdmissionAllowedByThisPreflight)throw new Error("P08F_Q009_PREFLIGHT_SCOPE_LEAK");
+console.log("P08F_W8_Q009_PREFLIGHT_READBACK="+JSON.stringify({status:p.status,predecessorQ008Status:q008.status,predecessorQ008HumanAccepted:q008.operatorAcceptance?.d0Granted===true,queueFrozen:result.queueFrozen,queuePosition:row.queuePosition,sliceId:row.sliceId,sourceId:row.primarySourceNodeId,knowledgePointIds:row.knowledgePointIds,runtimeProfileId:m.primaryRuntimeProfileId,appliedModifierIds:m.appliedModifierIds,blockingCapabilityIds:row.blockingCapabilityIds,blockingCapabilityWaveIds:row.blockingCapabilityWaveIds,nextTask:p.preflightDecision.nextTask}));
