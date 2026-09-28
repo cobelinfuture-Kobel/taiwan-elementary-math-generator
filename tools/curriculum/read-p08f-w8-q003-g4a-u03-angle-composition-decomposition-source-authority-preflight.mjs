@@ -6,7 +6,7 @@ const p=read("data/curriculum/full-product/p08f/q003-g4a-u03-angle-composition-d
 const q002=read("data/curriculum/full-product/p08f/q002-final-learner-visual-d0-closeout.json");
 const result=materializeP08EW8DirectProductVerticalSliceQueue();
 const row=result.queueEntries[2];
-const mapping=getR04KnowledgePointCapabilityMapping("kp_angle_composition_decomposition");
+const mappings=row.knowledgePointIds.map(id=>getR04KnowledgePointCapabilityMapping(id));
 console.log("P08F_W8_Q003_PREFLIGHT="+JSON.stringify({
   status:p.status,
   predecessorQ002Status:q002.status,
@@ -20,7 +20,13 @@ console.log("P08F_W8_Q003_PREFLIGHT="+JSON.stringify({
   sourceId:row.primarySourceNodeId,
   profile:row.primaryRuntimeProfileId,
   blockingCapabilityIds:row.blockingCapabilityIds,
-  requiredRuntimeCapabilityIds:mapping.requiredRuntimeCapabilityIds,
-  optionalRuntimeCapabilityIds:mapping.optionalRuntimeCapabilityIds,
+  blockingCapabilityWaveIds:row.blockingCapabilityWaveIds,
+  runtimeMappings:mappings.map(m=>({
+    knowledgePointId:m.knowledgePointId,
+    profile:m.primaryRuntimeProfileId,
+    appliedModifierIds:m.appliedModifierIds,
+    requiredRuntimeCapabilityIds:m.requiredRuntimeCapabilityIds,
+    optionalRuntimeCapabilityIds:m.optionalRuntimeCapabilityIds
+  })),
   nextTask:p.preflightDecision.nextTask
 }));
