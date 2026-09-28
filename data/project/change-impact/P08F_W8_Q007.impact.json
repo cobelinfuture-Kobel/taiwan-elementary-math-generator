@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q007",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_unknown_angle_linear_full_vertical"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q007.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q006ProductMutation": false,
+    "q008OrLaterMutation": false,
+    "sourceAuthorityMutation": false,
+    "r04ProfileReclassification": false,
+    "frozenQueueMutation": false,
+    "priorProtractorMutation": false,
+    "priorCompositionRotationMutation": false,
+    "priorEstimationClassificationMutation": false
+  },
+  "classificationNote": "Q007 adds a bounded public selector/binding/current-pointer cutover for kp_unknown_angle_linear_full_vertical under the already-public g4a_u03_4a03 source, with a dedicated unknown-angle renderer. Shared executable and public authority changes are route-bounded; no legal-route, global-release, frozen-queue, R02, R04, prior G4A-U03 owner, Q006, or Q008+ mutation."
+}
