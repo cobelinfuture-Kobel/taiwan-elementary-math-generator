@@ -4,9 +4,9 @@ function valid(m){
  if(!m||m.kind!=="angle_composition_rotation_clock_diagram"||!MODES.has(m.diagramMode)||!Number.isInteger(m.variant)||m.variant<0||m.variant>767)return false;
  if(["ADJACENT_COMPOSITION","WHOLE_PART_DECOMPOSITION","NAMED_RAY_MISSING_PART"].includes(m.diagramMode))return Number.isInteger(m.rotationDeg)&&m.rotationDeg%30===0&&m.rotationDeg>=0&&m.rotationDeg<360&&Number.isInteger(m.partA)&&Number.isInteger(m.partB)&&m.partA>=10&&m.partA<=80&&m.partB>=10&&m.partB<=80&&m.totalDeg===m.partA+m.partB&&m.totalDeg<180&&m.adjacentNonOverlapping===true&&m.wholeEqualsParts===true;
  if(m.fullTurnDegrees!==360||m.clockDivisionCount!==12||m.clockDegreesPerDivision!==30)return false;
- if(m.diagramMode==="ROTATION_TURN")return Number.isInteger(m.startHour)&&m.startHour>=1&&m.startHour<=12&&Number.isInteger(m.endHour)&&m.endHour>=1&&m.endHour<=12&&DIRECTIONS.has(m.direction)&&[90,180,270,360].includes(m.turnDegrees)&&[3,6,9,12].includes(m.clockSteps);
- if(m.diagramMode==="CLOCK_STEP")return Number.isInteger(m.startHour)&&m.startHour>=1&&m.startHour<=12&&Number.isInteger(m.endHour)&&m.endHour>=1&&m.endHour<=12&&DIRECTIONS.has(m.direction)&&Number.isInteger(m.clockSteps)&&m.clockSteps>=1&&m.clockSteps<=6;
- return Number.isInteger(m.hourA)&&m.hourA>=1&&m.hourA<=12&&Number.isInteger(m.hourB)&&m.hourB>=1&&m.hourB<=12&&m.hourA!==m.hourB&&Number.isInteger(m.clockSteps)&&m.clockSteps>=1&&m.clockSteps<=6;
+ if(m.diagramMode==="ROTATION_TURN")return Number.isInteger(m.startHour)&&m.startHour>=1&&m.startHour<=12&&Number.isInteger(m.endHour)&&m.endHour>=1&&m.endHour<=12&&DIRECTIONS.has(m.direction)&&Number.isInteger(m.turnDegrees)&&m.turnDegrees>=30&&m.turnDegrees<=360&&m.turnDegrees%30===0&&Number.isInteger(m.clockSteps)&&m.clockSteps>=1&&m.clockSteps<=12&&m.turnDegrees===m.clockSteps*30;
+ if(m.diagramMode==="CLOCK_STEP")return Number.isInteger(m.startHour)&&m.startHour>=1&&m.startHour<=12&&Number.isInteger(m.endHour)&&m.endHour>=1&&m.endHour<=12&&DIRECTIONS.has(m.direction)&&Number.isInteger(m.clockSteps)&&m.clockSteps>=1&&m.clockSteps<=11;
+ return Number.isInteger(m.hourA)&&m.hourA>=1&&m.hourA<=12&&Number.isInteger(m.hourB)&&m.hourB>=1&&m.hourB<=12&&m.hourA!==m.hourB&&Number.isInteger(m.clockSteps)&&m.clockSteps>=1&&m.clockSteps<=6&&["SMALLER","LARGER"].includes(m.angleChoice)&&(m.angleChoice!=="LARGER"||m.clockSteps<6);
 }
 function point(cx,cy,r,deg){const a=deg*Math.PI/180;return{x:cx+r*Math.cos(a),y:cy-r*Math.sin(a)};}
 function arc(cx,cy,r,start,end,sweep=0,large=null){const a=point(cx,cy,r,start),b=point(cx,cy,r,end),delta=((end-start)%360+360)%360,lf=large==null?(delta>180?1:0):large;return `M ${fix(a.x)} ${fix(a.y)} A ${r} ${r} 0 ${lf} ${sweep} ${fix(b.x)} ${fix(b.y)}`;}
@@ -31,8 +31,8 @@ function clockBody(m){
  const cx=160,cy=84,r=62,parts=[clockBase(cx,cy,r)];
  if(m.diagramMode==="CLOCK_HANDS"){
   parts.push(hand(cx,cy,m.hourA,47,"p08f03-clock-hand-a"),hand(cx,cy,m.hourB,40,"p08f03-clock-hand-b"));
-  const cw=((m.hourB-m.hourA)%12+12)%12,sweep=cw<=6?1:0,steps=Math.min(cw,12-cw),endAngle=sweep?hourAngle(m.hourB):hourAngle(m.hourB),startAngle=hourAngle(m.hourA);
-  parts.push(`<path d="${arc(cx,cy,29,startAngle,endAngle,sweep,0)}" fill="none" stroke="currentColor" stroke-width="2.2"/>`,`<text x="160" y="166" text-anchor="middle" font-size="11">較小夾角</text>`);
+  const cw=((m.hourB-m.hourA)%12+12)%12,smallSweep=cw<=6?1:0,startAngle=hourAngle(m.hourA),endAngle=hourAngle(m.hourB),largeChoice=m.angleChoice==="LARGER",sweep=largeChoice?(smallSweep?0:1):smallSweep,large=largeChoice?1:0;
+  parts.push(`<path d="${arc(cx,cy,29,startAngle,endAngle,sweep,large)}" fill="none" stroke="currentColor" stroke-width="2.2"/>`,`<text x="160" y="166" text-anchor="middle" font-size="11">${largeChoice?"較大夾角":"較小夾角"}</text>`);
   return parts.join("");
  }
  parts.push(hand(cx,cy,m.startHour,47,"p08f03-clock-start"),hand(cx,cy,m.endHour,41,"p08f03-clock-end"));
