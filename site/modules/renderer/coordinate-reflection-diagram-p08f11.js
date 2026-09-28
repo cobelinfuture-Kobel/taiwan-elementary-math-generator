@@ -30,7 +30,7 @@ export function renderCoordinateReflectionDiagramP08F11(m){
  const reflected=m.reflectedPointVisible?pointMarkup(m.reflectedPoint,"p08f11-reflected-point"):"";
  return [
   `<div class="worksheet-cell__representation worksheet-cell__representation--coordinate-reflection" data-representation="coordinate-reflection-diagram" data-diagram-mode="${m.diagramMode}" data-axis-orientation="${m.axis.orientation}" data-axis-value="${m.axis.value}" data-ruler-required="false">`,
-  '<svg class="worksheet-coordinate-reflection-diagram" viewBox="0 0 320 225" width="100%" height="165" role="img" aria-label="方格座標鏡射圖" preserveAspectRatio="xMidYMid meet">',
+  `<svg class="worksheet-coordinate-reflection-diagram" viewBox="0 0 320 225" width="100%" height="${m.reflectedPointVisible?140:165}" role="img" aria-label="方格座標鏡射圖" preserveAspectRatio="xMidYMid meet">`,
   '<g class="p08f11-diagram-content">',grid(),axis,connector,pointMarkup(m.sourcePoint,"p08f11-source-point"),reflected,
   `<text class="p08f11-axis-label" x="160" y="218" text-anchor="middle" font-size="10">${learnerAxisLabel(m)}；每格代表 1 單位</text>`,
   '</g></svg></div>'
