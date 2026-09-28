@@ -84,6 +84,6 @@ test("UNIT_INCREMENTAL_VALIDATION_V1 keeps Q006 final D0 closeout KP-focused",()
     globalReleaseCheckpoint:false,
     currentAuthorityChanged:false
   });
-  assert.deepEqual(plan.lanes.KP_FOCUSED.map(x=>x.gateId),["FOCUSED_TEST","DIRECT_DEPENDENCY_CONTRACTS"]);
+  assert.deepEqual(plan.lanes.KP_FOCUSED.map(x=>x.gateId),["FOCUSED_TEST","TARGETED_BROWSER_E2E","DIRECT_DEPENDENCY_CONTRACTS"]);
   assert.deepEqual(plan.forbidden,["FULL_NODE_REGRESSION","GLOBAL_BROWSER_REPLAY"]);
 });
