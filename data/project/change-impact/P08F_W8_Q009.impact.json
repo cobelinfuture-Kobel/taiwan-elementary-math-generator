@@ -29,7 +29,7 @@
     "priorTriangleInequalityMutation": false,
     "priorTriangleAngleClassificationMutation": false
   },
-  "classificationNote": "Q009 bounded remediation only: repair malformed literal newline escapes in the dedicated Q009 live-E2E paths list and include the workflow file itself so future workflow-only repairs retrigger Q009 E2E. No learner-content, route, source, R02, R04, Q008, or Q010+ semantic change.",
+  "classificationNote": "Q009 learner content and route semantics are unchanged. This bounded follow-up repairs a literal \\\\n materialization defect in the dedicated Q009 live-E2E runner so the already-approved no-ruler invariants can execute and be reported correctly. No source, R02, R04, prior G4A-U05 owner, Q008, or Q010+ semantic change.",
   "remediation": {
     "reason": "ACTUAL_PRINT_HUMAN_REVIEW_CLARIFIED_NO_RULER_REQUIREMENT",
     "learnerEvidence": "EXPLICIT_NUMERIC_SIDE_LENGTHS_PLUS_MATCHED_TICK_MARKS",
@@ -40,6 +40,7 @@
     "liveReadbackBooleanSemanticsRepair": true,
     "liveE2ERunnerPathTriggerCoverage": true,
     "workflowLiteralNewlineRepair": true,
-    "workflowSelfTriggerCoverage": true
+    "workflowSelfTriggerCoverage": true,
+    "liveE2ERunnerLiteralNewlineRepair": true
   }
 }
