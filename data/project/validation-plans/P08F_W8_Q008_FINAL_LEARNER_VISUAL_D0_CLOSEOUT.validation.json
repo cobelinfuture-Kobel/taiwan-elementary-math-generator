@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q008_FINAL_LEARNER_VISUAL_D0_CLOSEOUT_KP_FOCUSED_VALIDATION",
+  "unitId": "g4a_u05_4a05",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q008-final-learner-visual-d0-closeout.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p08f-w8-slice008-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-slice008-g4a-u05-triangle-angle-classification.test.js",
+          "tests/curriculum/p08f-w8-q008-g4a-u05-triangle-angle-classification-source-authority-preflight.test.js",
+          "tests/curriculum/p08f-w8-q007-final-learner-visual-d0-closeout.test.js",
+          "tests/curriculum/p05f-w5-slice024-g4a-u05-triangle-side-classification.test.js",
+          "tests/curriculum/p05f-w5-slice032-g4a-u05-triangle-inequality.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}

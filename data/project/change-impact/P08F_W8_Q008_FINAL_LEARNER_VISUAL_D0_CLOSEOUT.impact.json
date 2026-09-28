@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q008_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g4a_u05_triangle_angle_classification",
+  "currentKnowledgePointIds": [
+    "kp_g4a_u05_triangle_angle_classification"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g4a_u05_triangle_angle_classification"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g4a_u05_triangle_angle_classification": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q008_FINAL_LEARNER_VISUAL_D0_CLOSEOUT.validation.json",
+  "classificationNote": "Evidence/governance-only D0 closeout for W8 Q008 after exact deployed E6 and explicit operator actual-print learner-visual acceptance. No runtime, source authority, mapping, pattern, frozen-queue, or Q009 product mutation.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
