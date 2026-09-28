@@ -28,7 +28,7 @@
   },
   "finalProductAuthority": {
     "originalImplementationPr": 1114,
-    "originalImplementationMergeSha": "96b8f1ad90b60299f3e1c3f60ef3153fdb1b4718",
+    "originalImplementationMergeSha": "b05a2aca6701d29554f3a81985d87d985ad3107c",
     "learnerVisualRemediationPr": 1115,
     "learnerVisualRemediationPrGateRunId": 36411893709,
     "learnerVisualRemediationPrGateRunNumber": 1010,
@@ -66,7 +66,10 @@
     "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
     "pagesE2EArtifactId": 10968062067,
     "pagesE2EArtifactZipSha256": "a60cb849c8045878140ce1f7fb0fb0a7319169d22dfd0941c94961349df24fd8",
-    "exactDeployedHeadSha": "31c02e49600011f1851b7666935487a4e062b9e2"
+    "exactDeployedHeadSha": "31c02e49600011f1851b7666935487a4e062b9e2",
+    "originalImplementationPrGateRunId": 36407913973,
+    "originalImplementationPrGateRunNumber": 1007,
+    "originalImplementationPrGateConclusion": "success"
   },
   "finalLearnerFacingEvidence": {
     "congruentTriangleCorrespondence": {
