@@ -2,17 +2,17 @@
   "schemaVersion": "g4b-u04-r1-deployed-pages-smoke-v1",
   "task": "G4B_U04_R1_DeployedLiveUIGeneratePreviewPrintAuditAndRecloseout",
   "status": "FAIL",
-  "deploymentSha": "b17d62dcd408d519b084c9159a23a768c3b032bf",
+  "deploymentSha": "1c8cfcda54acab8b222cada5add1cc9413a35df4",
   "message": "G4B-U04-R1 workflow failed before the browser harness wrote structured evidence.",
   "details": null,
   "workflow": "G4B-U04-R1 Deployed GitHub Pages Smoke",
   "run": {
-    "id": "36440874347",
-    "number": "946",
+    "id": "36446490667",
+    "number": "947",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36440874347"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36446490667"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-09-28T15:05:44.893Z"
+  "verifiedAt": "2026-09-28T15:50:19.627Z"
 }
