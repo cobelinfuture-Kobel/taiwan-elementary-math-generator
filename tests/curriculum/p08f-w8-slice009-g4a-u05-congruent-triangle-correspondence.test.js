@@ -50,7 +50,7 @@ for(const count of [1,20,120,121,240])test("W8 Q009 generates "+count+" validate
 test("W8 Q009 preserves congruence under translation rotation and reflection",()=>{
  const qs=generateG4AU05P08F09Questions({selectedKnowledgePointIds:[KP],questionCount:240,generationSeed:"semantic-coverage"}).questions;
  assert.deepEqual([...new Set(qs.map(q=>q.geometryDiagram.transformMode))].sort(),["REFLECTION","ROTATION","TRANSLATION"]);
- for(const q of qs){const d=q.geometryDiagram;for(const [a,b] of [[0,1],[1,2],[2,0]])assert.ok(Math.abs(distance(d.leftVertices[a],d.leftVertices[b])-distance(d.rightVertices[a],d.rightVertices[b]))<0.15);assert.equal(d.vertexCorrespondence.A,"D");assert.equal(d.vertexCorrespondence.B,"E");assert.equal(d.vertexCorrespondence.C,"F");assert.equal(d.sideCorrespondence.AB,"DE");assert.equal(d.sideCorrespondence.BC,"EF");assert.equal(d.sideCorrespondence.CA,"FD");}
+ for(const q of qs){const d=q.geometryDiagram;for(const [a,b] of [[0,1],[1,2],[2,0]])assert.ok(Math.abs(distance(d.leftVertices[a],d.leftVertices[b])-distance(d.rightVertices[a],d.rightVertices[b]))<0.15);assert.equal(d.vertexCorrespondence.A,"D");assert.equal(d.vertexCorrespondence.B,"E");assert.equal(d.vertexCorrespondence.C,"F");assert.equal(d.sideCorrespondence.AB,"DE");assert.equal(d.sideCorrespondence.BC,"EF");assert.equal(d.sideCorrespondence.CA,"FD");assert.deepEqual(d.sideTickCounts,{AB:1,BC:2,CA:3,DE:1,EF:2,FD:3});assert.equal(d.sideMeasurementEvidence,"EXPLICIT_NUMERIC_LABELS_PLUS_MATCHED_TICK_MARKS");assert.equal(d.rulerMeasurementRequired,false);assert.equal(d.printScaleIsAnswerAuthority,false);}
 });
 
 test("W8 Q009 correspondence task covers vertices sides and angles consistently",()=>{
@@ -64,6 +64,19 @@ test("W8 Q009 measure transfer uses equal corresponding side lengths",()=>{
  for(const q of qs){const d=q.geometryDiagram;assert.equal(q.answerValue,d.knownMeasureCm);assert.equal(q.answerText,`${d.knownMeasureCm} 公分`);assert.equal(d.sideCorrespondence[d.sourceToken],d.targetToken);}
 });
 
+test("W8 Q009 learner diagrams expose numeric side evidence and matching tick marks without ruler dependency",()=>{
+ const identify=generateG4AU05P08F09Questions({selectedKnowledgePointIds:[KP],questionCount:1,patternSpecIds:[SPEC_IDS[0]],generationSeed:"explicit-evidence-identify"}).questions[0];
+ const identifyHtml=renderCongruentTriangleCorrespondenceDiagram(identify.geometryDiagram);
+ assert.equal((identifyHtml.match(/class="p08f09-side-tick"/g)||[]).length,12);
+ assert.equal((identifyHtml.match(/class="p08f09-side-length-label"/g)||[]).length,6);
+ assert.match(identifyHtml,/data-side-evidence="numeric-plus-ticks"/);assert.match(identifyHtml,/data-ruler-required="false"/);assert.match(identifyHtml,/相同刻痕表示等長；邊長單位：公分/);
+ for(const token of ["AB","BC","CA","DE","EF","FD"])assert.match(identifyHtml,new RegExp(`data-side-token="${token}"`));
+ const transfer=generateG4AU05P08F09Questions({selectedKnowledgePointIds:[KP],questionCount:1,patternSpecIds:[SPEC_IDS[2]],generationSeed:"explicit-evidence-transfer"}).questions[0];
+ const transferHtml=renderCongruentTriangleCorrespondenceDiagram(transfer.geometryDiagram);
+ assert.equal((transferHtml.match(/class="p08f09-side-tick"/g)||[]).length,12);assert.equal((transferHtml.match(/class="p08f09-side-length-label"/g)||[]).length,6);assert.match(transferHtml,/>\?<\/text>/);
+ assert.equal(transfer.geometryDiagram.rulerMeasurementRequired,false);assert.equal(transfer.geometryDiagram.printScaleIsAnswerAuthority,false);
+});
+
 test("W8 Q009 validator fails closed for wrong answer altered geometry and ownership leakage",()=>{
  const q=generateG4AU05P08F09Questions({selectedKnowledgePointIds:[KP],questionCount:1,patternSpecIds:[SPEC_IDS[1]],generationSeed:"wrong"}).questions[0];
  assert.equal(validateG4AU05P08F09Answer(q,"錯誤").ok,false);
@@ -75,7 +88,7 @@ test("W8 Q009 validator fails closed for wrong answer altered geometry and owner
 test("W8 Q009 aggregate generator worksheet and dedicated renderer are wired",()=>{
  const p=buildBatchABrowserPlan(req({questionCount:15}));assert.deepEqual(p.selectedKnowledgePointIds,[KP]);assert.equal(p.questionCountMax,240);assert.equal(p.questionMode,"diagram");
  const g=generateBatchABrowserQuestions(req({questionCount:15}));assert.equal(g.ok,true,g.errors.join("\n"));assert.equal(g.questions.length,15);assert.ok(g.questions.every(q=>q.knowledgePointId===KP));
- const direct=renderCongruentTriangleCorrespondenceDiagram(g.questions[0].geometryDiagram);assert.match(direct,/worksheet-congruent-triangle-correspondence-diagram/);assert.match(direct,/data-representation="congruent-triangle-correspondence-diagram"/);
+ const direct=renderCongruentTriangleCorrespondenceDiagram(g.questions[0].geometryDiagram);assert.match(direct,/worksheet-congruent-triangle-correspondence-diagram/);assert.match(direct,/data-representation="congruent-triangle-correspondence-diagram"/);assert.match(direct,/p08f09-side-tick/);assert.match(direct,/p08f09-side-length-label/);assert.match(direct,/data-ruler-required="false"/);
  const w=buildBatchABrowserWorksheetDocument(req({questionCount:15,includeAnswerKey:true,printLayout:{columns:3,rowsPerPage:5,showAnswerKeyPage:true}}));assert.equal(w.ok,true,w.errors.join("\n"));
  assert.equal(w.worksheetDocument.printOptions.columns,2);assert.equal(w.worksheetDocument.printOptions.rowsPerPage,3);assert.equal(w.worksheetDocument.questionPages.length,3);assert.equal(w.worksheetDocument.answerKeyPages.length,3);
  const html=renderWorksheetDocumentToHtml(w.worksheetDocument,{stylesheetHref:""});assert.match(html,/worksheet-congruent-triangle-correspondence-diagram/);assert.match(html,/data-representation="congruent-triangle-correspondence-diagram"/);

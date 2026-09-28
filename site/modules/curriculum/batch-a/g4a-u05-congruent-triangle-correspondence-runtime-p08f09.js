@@ -11,6 +11,7 @@ const SIDE_TEMPLATES=Object.freeze([
 ].map(Object.freeze));
 const VERTEX_CORRESPONDENCE=Object.freeze({A:"D",B:"E",C:"F"});
 const SIDE_CORRESPONDENCE=Object.freeze({AB:"DE",BC:"EF",CA:"FD"});
+const SIDE_TICK_COUNTS=Object.freeze({AB:1,BC:2,CA:3,DE:1,EF:2,FD:3});
 const ANGLE_CORRESPONDENCE=Object.freeze({"∠A":"∠D","∠B":"∠E","∠C":"∠F"});
 const BY_SPEC=new Map(SPECS.map(x=>[x.patternSpecId,x]));
 
@@ -94,6 +95,10 @@ function diagramFor(spec,row,target){
   leftVertices:row.leftVertices,
   rightVertices:row.rightVertices,
   sideLengthsCm:row.sideLengths,
+  sideTickCounts:SIDE_TICK_COUNTS,
+  sideMeasurementEvidence:"EXPLICIT_NUMERIC_LABELS_PLUS_MATCHED_TICK_MARKS",
+  rulerMeasurementRequired:false,
+  printScaleIsAnswerAuthority:false,
   vertexCorrespondence:VERTEX_CORRESPONDENCE,
   sideCorrespondence:SIDE_CORRESPONDENCE,
   angleCorrespondence:ANGLE_CORRESPONDENCE,
@@ -114,7 +119,7 @@ function signature(q){
 }
 function build(spec,index,seed){
  const row=variantFor(spec,index,seed),target=targetFor(spec,row),geometryDiagram=diagramFor(spec,row,target),promptText=promptFor(spec,target);
- const q={id:`p08f09-q009-${spec.patternSpecId}-${row.variant}`,generatedItemId:`p08f09-q009-${spec.patternSpecId}-${row.variant}`,sourceId:SRC,sourceNodeId:SRC,knowledgePointId:KP,patternGroupId:GROUP.patternGroupId,patternSpecId:spec.patternSpecId,relation:spec.relation,questionMode:"diagram",mode:"diagram",promptText,prompt:promptText,blankedDisplayText:promptText,displayText:`${promptText} ${target.answerText}`,answerText:target.answerText,answerValue:target.answerValue,geometryDiagram,metadata:Object.freeze({taskId:"P08F_W8DirectProductVerticalSlice009Implementation",authority:"R02_FULL_PAGE_REVIEWED_PLUS_P08F09_PREFLIGHT",sourcePages:Object.freeze([1,2]),sharedRuntimeScope:G4A_U05_P08F09_SHARED_RUNTIME_SCOPE,frozenRuntimeProfile:"profile_geometry_property",congruentTriangleCorrespondenceOwned:true,allowedRigidMotions:Object.freeze(["TRANSLATION","ROTATION","REFLECTION"]),sameShapeRequired:true,sameSizeRequired:true,correspondingSidesEqual:true,correspondingAnglesEqual:true,vertexCorrespondenceConsistent:true,triangleElementsNamingReowned:false,triangleSideClassificationReowned:false,triangleInequalityReowned:false,triangleAngleClassificationReowned:false,geometryConstructionReowned:false,applicationContextUsed:false,sameUnitMixedUsed:false,crossUnitMixedUsed:false,q010OrLaterTouched:false,humanVisualReviewRequired:true})};
+ const q={id:`p08f09-q009-${spec.patternSpecId}-${row.variant}`,generatedItemId:`p08f09-q009-${spec.patternSpecId}-${row.variant}`,sourceId:SRC,sourceNodeId:SRC,knowledgePointId:KP,patternGroupId:GROUP.patternGroupId,patternSpecId:spec.patternSpecId,relation:spec.relation,questionMode:"diagram",mode:"diagram",promptText,prompt:promptText,blankedDisplayText:promptText,displayText:`${promptText} ${target.answerText}`,answerText:target.answerText,answerValue:target.answerValue,geometryDiagram,metadata:Object.freeze({taskId:"P08F_W8DirectProductVerticalSlice009Implementation",authority:"R02_FULL_PAGE_REVIEWED_PLUS_P08F09_PREFLIGHT",sourcePages:Object.freeze([1,2]),sharedRuntimeScope:G4A_U05_P08F09_SHARED_RUNTIME_SCOPE,frozenRuntimeProfile:"profile_geometry_property",congruentTriangleCorrespondenceOwned:true,allowedRigidMotions:Object.freeze(["TRANSLATION","ROTATION","REFLECTION"]),sameShapeRequired:true,sameSizeRequired:true,correspondingSidesEqual:true,correspondingAnglesEqual:true,vertexCorrespondenceConsistent:true,triangleElementsNamingReowned:false,triangleSideClassificationReowned:false,triangleInequalityReowned:false,triangleAngleClassificationReowned:false,geometryConstructionReowned:false,applicationContextUsed:false,sameUnitMixedUsed:false,crossUnitMixedUsed:false,q010OrLaterTouched:false,humanVisualReviewRequired:true,explicitSideLengthLabelsRequired:true,matchingSideTickMarksRequired:true,rulerMeasurementRequired:false,printScaleIsAnswerAuthority:false})};
  return Object.freeze({...q,questionSignature:signature(q)});
 }
 
@@ -128,6 +133,8 @@ function geometryValid(d,spec){
  if(!Array.isArray(d.leftVertices)||d.leftVertices.length!==3||!Array.isArray(d.rightVertices)||d.rightVertices.length!==3||d.leftVertices.map(x=>x.label).join(",")!=="A,B,C"||d.rightVertices.map(x=>x.label).join(",")!=="D,E,F")return false;
  if(!d.leftVertices.concat(d.rightVertices).every(v=>Number.isFinite(v.x)&&Number.isFinite(v.y)))return false;
  if(!Array.isArray(d.sideLengthsCm)||d.sideLengthsCm.length!==3||d.sideLengthsCm.some(x=>!Number.isInteger(x)||x<=0))return false;
+ if(d.sideTickCounts?.AB!==1||d.sideTickCounts?.BC!==2||d.sideTickCounts?.CA!==3||d.sideTickCounts?.DE!==1||d.sideTickCounts?.EF!==2||d.sideTickCounts?.FD!==3)return false;
+ if(d.sideMeasurementEvidence!=="EXPLICIT_NUMERIC_LABELS_PLUS_MATCHED_TICK_MARKS"||d.rulerMeasurementRequired!==false||d.printScaleIsAnswerAuthority!==false)return false;
  if(!sameLengths(d.leftVertices,d.rightVertices)||!correspondenceValid(d)||d.sameShape!==true||d.sameSize!==true||d.correspondingSidesEqual!==true||d.correspondingAnglesEqual!==true||d.vertexCorrespondenceConsistent!==true)return false;
  if(d.transformMode==="TRANSLATION"&&d.relativeRotationDeg!==0)return false;
  if(d.transformMode==="ROTATION"&&(!Number.isInteger(d.relativeRotationDeg)||d.relativeRotationDeg===0))return false;
