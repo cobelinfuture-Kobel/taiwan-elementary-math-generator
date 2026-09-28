@@ -46,7 +46,7 @@ export function renderCongruentTriangleCorrespondenceDiagram(m){
  if(!valid(m)){const e=new Error("Congruent-triangle correspondence diagram is invalid.");e.code="congruent_triangle_correspondence_diagram_invalid";throw e;}
  const left=m.leftVertices,right=m.rightVertices;
  return [`<div class="worksheet-cell__representation worksheet-cell__representation--congruent-triangle-correspondence" data-representation="congruent-triangle-correspondence-diagram" data-diagram-mode="${m.diagramMode}" data-transform-mode="${m.transformMode}" data-relation="${m.relation}" data-side-evidence="numeric-plus-ticks" data-ruler-required="false">`,
- '<svg class="worksheet-congruent-triangle-correspondence-diagram" viewBox="0 0 360 200" width="100%" height="175" role="img" aria-label="全等三角形對應關係圖，圖上標示邊長與相同刻痕" preserveAspectRatio="xMidYMid meet">',
+ '<svg class="worksheet-congruent-triangle-correspondence-diagram" viewBox="0 0 360 200" width="100%" height="165" role="img" aria-label="全等三角形對應關係圖，圖上標示邊長與相同刻痕" preserveAspectRatio="xMidYMid meet">',
  '<g class="p08f09-diagram-content">',
  polygon(left,"p08f09-left-triangle"),polygon(right,"p08f09-right-triangle"),
  verticesMarkup(left,"p08f09-left-label"),verticesMarkup(right,"p08f09-right-label"),
