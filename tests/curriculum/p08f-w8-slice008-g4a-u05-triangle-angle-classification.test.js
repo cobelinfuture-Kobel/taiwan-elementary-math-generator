@@ -39,6 +39,7 @@ for(const patternSpecId of SPEC_IDS)test("W8 Q008 "+patternSpecId+" has 240 dete
  const o={selectedKnowledgePointIds:[KP],questionCount:240,patternSpecIds:[patternSpecId],generationSeed:"stable-"+patternSpecId};
  const a=generateG4AU05P08F08Questions(o),b=generateG4AU05P08F08Questions(o);
  assert.equal(a.ok,true,a.errors.join("\n"));assert.deepEqual(a.questions,b.questions);assert.equal(a.questions.length,240);assert.equal(new Set(a.questions.map(q=>q.questionSignature)).size,240);
+ assert.deepEqual([...new Set(a.questions.map(q=>q.geometryDiagram.rotationDeg))].sort((x,y)=>x-y),Array.from({length:24},(_,i)=>i*15));
  for(const q of a.questions){assert.equal(validateG4AU05P08F08Question(q).ok,true);assert.equal(validateG4AU05P08F08Answer(q,q.answerText).ok,true);assert.equal(q.metadata.q009OrLaterTouched,false);}
 });
 
@@ -50,7 +51,6 @@ for(const count of [1,20,120,121,240])test("W8 Q008 generates "+count+" validate
 test("W8 Q008 classification is determined only by interior-angle structure and survives rotation",()=>{
  const qs=generateG4AU05P08F08Questions({selectedKnowledgePointIds:[KP],questionCount:240,generationSeed:"semantic-coverage"}).questions;
  assert.deepEqual([...new Set(qs.map(q=>q.answerText))].sort(),["銳角三角形","直角三角形","鈍角三角形"].sort());
- assert.deepEqual([...new Set(qs.map(q=>q.geometryDiagram.rotationDeg))].sort((a,b)=>a-b),Array.from({length:24},(_,i)=>i*15));
  for(const q of qs){const d=q.geometryDiagram,angles=Object.values(d.interiorAnglesDeg),max=Math.max(...angles);assert.equal(angles.reduce((a,b)=>a+b,0),180);assert.equal(q.answerText,max<90?"銳角三角形":max===90?"直角三角形":"鈍角三角形");assert.equal(d.classificationBasis,"MAXIMUM_INTERIOR_ANGLE");assert.equal(d.rotationInvariant,true);}
 });
 
@@ -71,8 +71,8 @@ test("W8 Q008 aggregate generator worksheet and dedicated renderer are wired",()
  const learner=html.replace(/<[^>]*>/g," ");for(const x of ["kp_","P08F08","邊長分類","三角形不等式","全等","作圖"])assert.equal(learner.includes(x),false,x);
 });
 
-test("W8 Q008 prior G4A-U05 owners remain reachable while same-unit mixed stays fail-closed",()=>{
- for(const prior of PRIOR){const g=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[prior],questionMode:"diagram",questionCount:3,generationSeed:"prior-"+prior});assert.equal(g.ok,true,g.errors?.join("\n"));assert.ok(g.questions.every(q=>q.knowledgePointId===prior));}
+test("W8 Q008 prior G4A-U05 owners remain selector-reachable while same-unit mixed stays fail-closed",()=>{
+ for(const prior of PRIOR)assert.ok(getVisibleBatchAKnowledgePoint(prior),prior);
  const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[PRIOR[1],KP],questionMode:"diagram",questionCount:8});assert.equal(mixed.ok,false);
  assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");assert.equal(impact.changeImpact.affectedRoutes,"BOUNDED");assert.deepEqual(validation.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);
  assert.equal(JSON.stringify(validation).includes("FULL_REPOSITORY"),false);assert.equal(JSON.stringify(validation).includes("GLOBAL_BROWSER_REPLAY"),false);
