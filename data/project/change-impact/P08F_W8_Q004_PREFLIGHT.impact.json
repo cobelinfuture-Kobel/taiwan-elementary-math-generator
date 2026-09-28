@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q004_PREFLIGHT",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5a_u05a1_central_angle_measurement"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q004_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true,
+    "predecessorAuthorityRefresh": true
+  },
+  "scopeGuards": {
+    "productImplementation": false,
+    "publicAdmission": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "q005OrLaterMutation": false,
+    "predecessorAuthorityRefreshed": true,
+    "q004SemanticScopeMutation": false
+  },
+  "classificationNote": "Planning-only Q004 source/runtime/semantic authority lock after Q003 learner-visual human-accepted D0. The exact frozen Q004 slice contains kp_g5a_u05a1_central_angle_measurement under g5a_u05_5a05a1 / profile_geometry_property. No runtime implementation or public admission occurs in this preflight."
+}
