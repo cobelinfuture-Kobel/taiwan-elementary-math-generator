@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q003_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointIds": [
+    "kp_angle_composition_decomposition",
+    "kp_rotation_angle_clock"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_angle_composition_decomposition",
+    "kp_rotation_angle_clock"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_angle_composition_decomposition": "FOCUSED_PASS",
+    "kp_rotation_angle_clock": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q003_FINAL_LEARNER_VISUAL_D0_CLOSEOUT.validation.json",
+  "classificationNote": "Evidence/governance-only D0 closeout after the operator accepted the exact post-merge Angle and Clock actual-print PDF/PNG artifacts. No learner runtime, source authority, FormalMapping identity, PatternSpec identity, frozen W8 queue, or Q004 product changes.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
