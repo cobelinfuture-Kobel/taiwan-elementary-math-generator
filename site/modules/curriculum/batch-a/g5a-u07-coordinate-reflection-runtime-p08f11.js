@@ -49,9 +49,10 @@ function diagramFor(spec,v){return Object.freeze({
   printScaleIsAnswerAuthority:false
 });}
 function promptFor(spec,v){
-  if(spec.diagramMode==="VERTICAL_AXIS")return `點 ${v.source.label} 的座標是 ${coordText(v.source)}。以 y 軸（x = 0）為對稱軸鏡射後，點 ${v.image.label} 的座標是多少？\n答：______`;
-  if(spec.diagramMode==="HORIZONTAL_AXIS")return `點 ${v.source.label} 的座標是 ${coordText(v.source)}。以 x 軸（y = 0）為對稱軸鏡射後，點 ${v.image.label} 的座標是多少？\n答：______`;
-  return `點 ${v.source.label} 的座標是 ${coordText(v.source)}。以直線 ${v.axis.label} 為對稱軸鏡射後，點 ${v.image.label} 的座標是多少？\n答：______`;
+  if(spec.diagramMode==="VERTICAL_AXIS")return `點 ${v.source.label} 的座標是 ${coordText(v.source)}。以 y 軸（x = 0）為對稱軸鏡射後，點 ${v.image.label} 的座標是多少？\n提示：y 軸是垂直線，做左右鏡射；y 座標不變。\n答：______`;
+  if(spec.diagramMode==="HORIZONTAL_AXIS")return `點 ${v.source.label} 的座標是 ${coordText(v.source)}。以 x 軸（y = 0）為對稱軸鏡射後，點 ${v.image.label} 的座標是多少？\n提示：x 軸是水平線，做上下鏡射；x 座標不變。\n答：______`;
+  if(v.axis.orientation==="VERTICAL")return `點 ${v.source.label} 的座標是 ${coordText(v.source)}。以直線 ${v.axis.label} 為對稱軸鏡射後，點 ${v.image.label} 的座標是多少？\n提示：${v.axis.label} 是垂直線，做左右鏡射；y 座標不變。\n答：______`;
+  return `點 ${v.source.label} 的座標是 ${coordText(v.source)}。以直線 ${v.axis.label} 為對稱軸鏡射後，點 ${v.image.label} 的座標是多少？\n提示：${v.axis.label} 是水平線，做上下鏡射；x 座標不變。\n答：______`;
 }
 function answerDiagramFor(d){return Object.freeze({...d,reflectedPointVisible:true});}
 function signature(q){const d=q.geometryDiagram;return[q.patternSpecId,d.variant,d.axis.orientation,d.axis.value,d.sourcePoint.x,d.sourcePoint.y,d.reflectedPoint.x,d.reflectedPoint.y,d.sourcePoint.label].join("|");}
@@ -60,7 +61,7 @@ function build(spec,index,seed){
     id:`p08f11-q011-${spec.patternSpecId}-${v.variant}`,generatedItemId:`p08f11-q011-${spec.patternSpecId}-${v.variant}`,
     sourceId:SRC,sourceNodeId:SRC,knowledgePointId:KP,patternGroupId:GROUP.patternGroupId,patternSpecId:spec.patternSpecId,relation:spec.relation,
     questionMode:"diagram",mode:"diagram",promptText,prompt:promptText,blankedDisplayText:promptText,displayText:`${promptText} ${answerText}`,answerText,answerValue:Object.freeze({x:v.image.x,y:v.image.y}),geometryDiagram,answerGeometryDiagram,
-    metadata:Object.freeze({taskId:"P08F_W8DirectProductVerticalSlice011Implementation",authority:"R02_FULL_PAGE_REVIEWED_PLUS_P08F11_PREFLIGHT",sourcePages:Object.freeze([1]),sharedRuntimeScope:G5A_U07_P08F11_SHARED_RUNTIME_SCOPE,frozenRuntimeProfile:"profile_geometry_property",appliedRuntimeModifierIds:Object.freeze(["mod_coordinate_map"]),coordinateReflectionOwned:true,lineSymmetryRecognitionReowned:false,symmetryAxisCountReowned:false,symmetricPointDistanceStandaloneReowned:false,completeSymmetricFigureReowned:false,geometryConstructionReowned:false,applicationContextUsed:false,sameUnitMixedUsed:false,crossUnitMixedUsed:false,q012OrLaterTouched:false,humanVisualReviewRequired:true,rulerMeasurementRequired:false,printScaleIsAnswerAuthority:false})
+    metadata:Object.freeze({taskId:"P08F_W8DirectProductVerticalSlice011Implementation",authority:"R02_FULL_PAGE_REVIEWED_PLUS_P08F11_PREFLIGHT",sourcePages:Object.freeze([1]),sharedRuntimeScope:G5A_U07_P08F11_SHARED_RUNTIME_SCOPE,frozenRuntimeProfile:"profile_geometry_property",appliedRuntimeModifierIds:Object.freeze(["mod_coordinate_map"]),coordinateReflectionOwned:true,lineSymmetryRecognitionReowned:false,symmetryAxisCountReowned:false,symmetricPointDistanceStandaloneReowned:false,completeSymmetricFigureReowned:false,geometryConstructionReowned:false,applicationContextUsed:false,sameUnitMixedUsed:false,crossUnitMixedUsed:false,q012OrLaterTouched:false,humanVisualReviewRequired:true,axisOrientationHintRequired:true,rulerMeasurementRequired:false,printScaleIsAnswerAuthority:false})
   };
   return Object.freeze({...q,questionSignature:signature(q)});
 }
@@ -84,7 +85,7 @@ export function validateG5AU07P08F11Question(q){
   if(!diagramValid(d,false)||!diagramValid(a,true)||d?.relation!==spec?.relation||d?.diagramMode!==spec?.diagramMode)e.push("P08F11_DIAGRAM_INVALID");
   if(d&&a){const expected=answerDiagramFor(d);if(JSON.stringify(a)!==JSON.stringify(expected))e.push("P08F11_ANSWER_DIAGRAM_INVALID");if(q.answerValue?.x!==d.reflectedPoint.x||q.answerValue?.y!==d.reflectedPoint.y||q.answerText!==coordText(d.reflectedPoint))e.push("P08F11_ANSWER_INVALID");}
   if(spec&&d){const v={source:d.sourcePoint,image:d.reflectedPoint,axis:d.axis};if(q.promptText!==promptFor(spec,v)||q.blankedDisplayText!==promptFor(spec,v))e.push("P08F11_PROMPT_INVALID");if(q.questionSignature!==signature(q))e.push("P08F11_SIGNATURE_INVALID");}
-  const m=q?.metadata;if(m?.coordinateReflectionOwned!==true||m?.lineSymmetryRecognitionReowned||m?.symmetryAxisCountReowned||m?.symmetricPointDistanceStandaloneReowned||m?.completeSymmetricFigureReowned||m?.geometryConstructionReowned||m?.applicationContextUsed||m?.sameUnitMixedUsed||m?.crossUnitMixedUsed||m?.q012OrLaterTouched||m?.rulerMeasurementRequired!==false||m?.printScaleIsAnswerAuthority!==false)e.push("P08F11_SCOPE_LEAK");
+  const m=q?.metadata;if(m?.coordinateReflectionOwned!==true||m?.lineSymmetryRecognitionReowned||m?.symmetryAxisCountReowned||m?.symmetricPointDistanceStandaloneReowned||m?.completeSymmetricFigureReowned||m?.geometryConstructionReowned||m?.applicationContextUsed||m?.sameUnitMixedUsed||m?.crossUnitMixedUsed||m?.q012OrLaterTouched||m?.axisOrientationHintRequired!==true||m?.rulerMeasurementRequired!==false||m?.printScaleIsAnswerAuthority!==false)e.push("P08F11_SCOPE_LEAK");
   const learner=`${q?.promptText??""} ${q?.answerText??""}`;for(const term of ["找出所有對稱軸","補全圖形","作圖","量角器","尺量"])if(learner.includes(term))e.push("P08F11_FORBIDDEN_LEARNER_TERM:"+term);
   return Object.freeze({ok:e.length===0,errors:Object.freeze(e)});
 }

@@ -13,6 +13,14 @@ function grid(){
  let s="";for(let i=-7;i<=7;i++){const x=sx(i),y=sy(i);s+=`<line x1="${fix(x)}" y1="${fix(sy(-7))}" x2="${fix(x)}" y2="${fix(sy(7))}" stroke="currentColor" stroke-opacity="${i===0?0.28:0.09}" stroke-width="${i===0?1.2:0.6}"/>`;s+=`<line x1="${fix(sx(-7))}" y1="${fix(y)}" x2="${fix(sx(7))}" y2="${fix(y)}" stroke="currentColor" stroke-opacity="${i===0?0.28:0.09}" stroke-width="${i===0?1.2:0.6}"/>`;}return s;
 }
 function pointMarkup(p,cls){return `<g class="${cls}"><circle cx="${fix(sx(p.x))}" cy="${fix(sy(p.y))}" r="4" fill="currentColor"/><text x="${fix(sx(p.x)+7)}" y="${fix(sy(p.y)-7)}" font-size="11" font-weight="700">${p.label}</text></g>`;}
+function learnerAxisLabel(m){
+ if(m.axis.orientation==="VERTICAL"){
+   if(m.axis.value===0)return "對稱軸：y 軸（x = 0，垂直線，左右鏡射）";
+   return `對稱軸：${m.axis.label}（垂直線，左右鏡射）`;
+ }
+ if(m.axis.value===0)return "對稱軸：x 軸（y = 0，水平線，上下鏡射）";
+ return `對稱軸：${m.axis.label}（水平線，上下鏡射）`;
+}
 export function renderCoordinateReflectionDiagramP08F11(m){
  if(!valid(m)){const e=new Error("Coordinate-reflection diagram is invalid.");e.code="coordinate_reflection_diagram_invalid";throw e;}
  const axis=m.axis.orientation==="VERTICAL"
@@ -22,9 +30,9 @@ export function renderCoordinateReflectionDiagramP08F11(m){
  const reflected=m.reflectedPointVisible?pointMarkup(m.reflectedPoint,"p08f11-reflected-point"):"";
  return [
   `<div class="worksheet-cell__representation worksheet-cell__representation--coordinate-reflection" data-representation="coordinate-reflection-diagram" data-diagram-mode="${m.diagramMode}" data-axis-orientation="${m.axis.orientation}" data-axis-value="${m.axis.value}" data-ruler-required="false">`,
-  '<svg class="worksheet-coordinate-reflection-diagram" viewBox="0 0 320 225" width="100%" height="165" role="img" aria-label="方格座標鏡射圖" preserveAspectRatio="xMidYMid meet">',
+  `<svg class="worksheet-coordinate-reflection-diagram" viewBox="0 0 320 225" width="100%" height="${m.reflectedPointVisible?140:165}" role="img" aria-label="方格座標鏡射圖" preserveAspectRatio="xMidYMid meet">`,
   '<g class="p08f11-diagram-content">',grid(),axis,connector,pointMarkup(m.sourcePoint,"p08f11-source-point"),reflected,
-  `<text class="p08f11-axis-label" x="160" y="218" text-anchor="middle" font-size="10">對稱軸：${m.axis.label}；每格代表 1 單位</text>`,
+  `<text class="p08f11-axis-label" x="160" y="218" text-anchor="middle" font-size="10">${learnerAxisLabel(m)}；每格代表 1 單位</text>`,
   '</g></svg></div>'
  ].join("");
 }

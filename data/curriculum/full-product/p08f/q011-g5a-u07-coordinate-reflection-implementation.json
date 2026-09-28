@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8DirectProductVerticalSlice011Implementation",
-  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI_LIVE_E6_AND_ACTUAL_PRINT_REVIEW",
+  "status": "IMPLEMENTATION_VISUAL_REMEDIATION_MATERIALIZED_AWAITING_FOCUSED_CI_LIVE_E6_AND_ACTUAL_PRINT_REVIEW",
   "goalDistance": {
     "before": "D2_Q011_G5AU07_COORDINATE_REFLECTION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
     "after": "D1_Q011_G5AU07_COORDINATE_REFLECTION_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_REVIEW",
@@ -106,6 +106,13 @@
     "printLayout": {
       "maxColumns": 2,
       "maxRowsPerPage": 3
+    },
+    "axisOrientationHintRequired": true,
+    "axisOrientationHintContract": {
+      "xAxis": "水平線；上下鏡射；x 座標不變",
+      "yAxis": "垂直線；左右鏡射；y 座標不變",
+      "shiftedVerticalAxis": "垂直線；左右鏡射；y 座標不變",
+      "shiftedHorizontalAxis": "水平線；上下鏡射；x 座標不變"
     },
     "humanVisualReviewRequiredBeforeD0": true
   },

@@ -97,7 +97,22 @@ for(const count of [1,20,120,121,240])test("W8 Q011 generates "+count+" validate
 test("W8 Q011 relation coverage remains coordinate reflection semantics",()=>{
  const qs=generateG5AU07P08F11Questions({selectedKnowledgePointIds:[KP],questionCount:90,generationSeed:"semantic-coverage"}).questions;
  assert.deepEqual([...new Set(qs.map(q=>q.relation))].sort(),["REFLECT_POINT_ACROSS_VERTICAL_AXIS","REFLECT_POINT_ACROSS_HORIZONTAL_AXIS","REFLECT_POINT_ACROSS_SHIFTED_GRID_AXIS"].sort());
- for(const q of qs){const d=q.geometryDiagram;assert.equal(d.coordinateOrGridRepresentationRequired,true);assert.equal(d.perpendicularDistanceToAxisPreserved,true);assert.equal(d.segmentLengthsPreserved,true);assert.equal(d.angleMeasuresPreserved,true);assert.equal(d.reflectionAxisRequired,true);}
+ for(const q of qs){const d=q.geometryDiagram;assert.equal(d.coordinateOrGridRepresentationRequired,true);assert.equal(d.perpendicularDistanceToAxisPreserved,true);assert.equal(d.segmentLengthsPreserved,true);assert.equal(d.angleMeasuresPreserved,true);assert.equal(d.reflectionAxisRequired,true);assert.equal(q.metadata.axisOrientationHintRequired,true);}
+});
+
+test("W8 Q011 learner hints make x/y axis orientation and reflection direction explicit",()=>{
+ const vertical=generateG5AU07P08F11Questions({selectedKnowledgePointIds:[KP],questionCount:1,patternSpecIds:[SPEC_IDS[0]],generationSeed:"axis-hint-v"}).questions[0];
+ const horizontal=generateG5AU07P08F11Questions({selectedKnowledgePointIds:[KP],questionCount:1,patternSpecIds:[SPEC_IDS[1]],generationSeed:"axis-hint-h"}).questions[0];
+ const shifted=generateG5AU07P08F11Questions({selectedKnowledgePointIds:[KP],questionCount:40,patternSpecIds:[SPEC_IDS[2]],generationSeed:"axis-hint-shifted"}).questions;
+ assert.match(vertical.promptText,/y 軸是垂直線，做左右鏡射；y 座標不變/);
+ assert.match(horizontal.promptText,/x 軸是水平線，做上下鏡射；x 座標不變/);
+ const vShift=shifted.find(q=>q.geometryDiagram.axis.orientation==="VERTICAL"),hShift=shifted.find(q=>q.geometryDiagram.axis.orientation==="HORIZONTAL");
+ assert.ok(vShift);assert.ok(hShift);
+ assert.match(vShift.promptText,/是垂直線，做左右鏡射；y 座標不變/);
+ assert.match(hShift.promptText,/是水平線，做上下鏡射；x 座標不變/);
+ const verticalHtml=renderCoordinateReflectionDiagramP08F11(vertical.geometryDiagram),horizontalHtml=renderCoordinateReflectionDiagramP08F11(horizontal.geometryDiagram);
+ assert.match(verticalHtml,/y 軸（x = 0，垂直線，左右鏡射）/);
+ assert.match(horizontalHtml,/x 軸（y = 0，水平線，上下鏡射）/);
 });
 
 test("W8 Q011 validator accepts normalized coordinate punctuation but fails wrong coordinate, altered diagram and ownership leakage",()=>{
