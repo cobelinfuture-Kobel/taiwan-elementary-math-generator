@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q011_BOUNDED_VALIDATION",
+  "unitId": "g5a_u07_5a07",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-slice011-g5a-u07-coordinate-reflection.test.js",
+          "tests/curriculum/p08f-w8-q011-g5a-u07-coordinate-reflection-source-authority-preflight.test.js",
+          "tests/curriculum/p08f-w8-q010-final-learner-visual-d0-closeout.test.js",
+          "tests/curriculum/p05f-w5-slice006-g5a-u07-line-symmetry-recognition.test.js",
+          "tests/curriculum/p05f-w5-slice016-g5a-u07-symmetry-axis-count.test.js",
+          "tests/curriculum/p05f-w5-slice036-g5a-u07-symmetric-point-distance.test.js",
+          "tests/curriculum/p05f-w5-slice045-g5a-u07-complete-symmetric-figure.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p08f-w8-slice011-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  }
+}
