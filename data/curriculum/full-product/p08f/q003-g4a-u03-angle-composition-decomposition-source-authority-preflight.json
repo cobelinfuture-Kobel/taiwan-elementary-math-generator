@@ -1,12 +1,12 @@
 {
-  "schemaName": "P08FW8Q003G4AU03AngleCompositionDecompositionSourceAuthorityPreflightV1",
+  "schemaName": "P08FW8Q003G4AU03AngleCompositionRotationClockSourceAuthorityPreflightV1",
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
-  "taskId": "P08F_W8_Q003_G4AU03_AngleCompositionDecomposition_SourceAuthorityPreflight",
+  "taskId": "P08F_W8_Q003_G4AU03_AngleCompositionRotationClock_SourceAuthorityPreflight",
   "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
   "goalDistance": {
     "before": "D3_W8_Q003_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
-    "after": "D2_Q003_G4AU03_ANGLE_COMPOSITION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D2_Q003_G4AU03_ANGLE_COMPOSITION_ROTATION_CLOCK_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
     "reduced": "D3_TO_D2"
   },
   "baselineMainSha": "f5c123de103fcf4785f7d6c8e1e3dbbddb517fe6",
@@ -35,16 +35,19 @@
     "intraWavePrerequisiteRank": 2,
     "primaryRuntimeProfileId": "profile_geometry_property",
     "chunkIndex": 1,
-    "knowledgePointCount": 1,
+    "knowledgePointCount": 2,
     "knowledgePointIds": [
-      "kp_angle_composition_decomposition"
+      "kp_angle_composition_decomposition",
+      "kp_rotation_angle_clock"
     ],
     "blockingCapabilityIds": [
       "cap_geometry_diagram_representation",
       "cap_geometry_domain_validator",
-      "cap_geometry_property_reasoning"
+      "cap_geometry_property_reasoning",
+      "cap_scale_instrument_representation"
     ],
     "blockingCapabilityWaveIds": [
+      "R05-W4",
       "R05-W5"
     ],
     "targetEvidenceLevel": "E6_D0_COMPLETE"
@@ -70,52 +73,100 @@
       "silentRewriteAllowed": false
     }
   },
-  "r02ReviewedCandidateAuthority": {
-    "knowledgePointId": "kp_angle_composition_decomposition",
-    "canonicalNameZh": "角的合成與分解",
-    "capabilityStatement": "學生能將相鄰角合成或把大角分解求未知角。",
-    "reasoningInvariant": "相鄰且不重疊角的角度可相加，分解後各部分和等於原角。",
-    "category": "geometry",
-    "evidencePages": [
-      1,
-      2
-    ],
-    "applicationSuitability": "APPLICATION_COMPATIBLE",
-    "futureSameSourceKnowledgePointIds": [
-      "kp_rotation_angle_clock",
-      "kp_angle_estimation_and_classification",
-      "kp_unknown_angle_linear_full_vertical"
-    ]
-  },
-  "runtimeCapabilityAuthority": {
-    "profileId": "profile_geometry_property",
-    "classificationRuleId": "rule_geometry_property",
-    "appliedModifierIds": [],
-    "exactMappingRequiredRuntimeCapabilityIds": [
-      "cap_pattern_spec_resolution",
-      "cap_deterministic_answer_model",
-      "cap_worksheet_document_assembly",
-      "cap_answer_key_projection",
-      "cap_html_print_renderer",
-      "cap_geometry_property_reasoning",
-      "cap_geometry_domain_validator",
-      "cap_geometry_diagram_representation"
-    ],
-    "exactMappingOptionalRuntimeCapabilityIds": [
-      "cap_geometry_construction"
-    ],
-    "exactMappingForbiddenRuntimeCapabilityIds": [],
+  "r02ReviewedCandidateAuthorities": [
+    {
+      "knowledgePointId": "kp_angle_composition_decomposition",
+      "canonicalNameZh": "角的合成與分解",
+      "capabilityStatement": "學生能將相鄰角合成或把大角分解求未知角。",
+      "reasoningInvariant": "相鄰且不重疊角的角度可相加，分解後各部分和等於原角。",
+      "category": "geometry",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    },
+    {
+      "knowledgePointId": "kp_rotation_angle_clock",
+      "canonicalNameZh": "旋轉角與鐘面角",
+      "capabilityStatement": "學生能把旋轉方向與圈數轉換為角度，並計算鐘面指針角。",
+      "reasoningInvariant": "一周為360度，鐘面12等分，每格30度。",
+      "category": "geometry",
+      "evidencePages": [
+        1,
+        2
+      ],
+      "applicationSuitability": "APPLICATION_COMPATIBLE"
+    }
+  ],
+  "futureSameSourceKnowledgePointIds": [
+    "kp_angle_estimation_and_classification",
+    "kp_unknown_angle_linear_full_vertical"
+  ],
+  "runtimeCapabilityAuthorities": {
+    "kp_angle_composition_decomposition": {
+      "profileId": "profile_geometry_property",
+      "classificationRuleId": "rule_geometry_property",
+      "appliedModifierIds": [],
+      "exactMappingRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation"
+      ],
+      "exactMappingOptionalRuntimeCapabilityIds": [
+        "cap_geometry_construction"
+      ],
+      "exactMappingForbiddenRuntimeCapabilityIds": []
+    },
+    "kp_rotation_angle_clock": {
+      "profileId": "profile_geometry_property",
+      "classificationRuleId": "rule_geometry_property",
+      "appliedModifierIds": [
+        "mod_scale_instrument"
+      ],
+      "exactMappingRequiredRuntimeCapabilityIds": [
+        "cap_pattern_spec_resolution",
+        "cap_deterministic_answer_model",
+        "cap_worksheet_document_assembly",
+        "cap_answer_key_projection",
+        "cap_html_print_renderer",
+        "cap_geometry_property_reasoning",
+        "cap_geometry_domain_validator",
+        "cap_geometry_diagram_representation",
+        "cap_scale_instrument_representation"
+      ],
+      "exactMappingOptionalRuntimeCapabilityIds": [
+        "cap_geometry_construction"
+      ],
+      "exactMappingForbiddenRuntimeCapabilityIds": []
+    },
     "runtimeProfileReclassificationAllowed": false
   },
   "semanticProfileLock": {
-    "targetSemanticCore": "ADJACENT_ANGLE_COMPOSITION_AND_WHOLE_PART_DECOMPOSITION",
-    "implementationSemanticLock": {
+    "targetSemanticCores": [
+      "ADJACENT_ANGLE_COMPOSITION_AND_WHOLE_PART_DECOMPOSITION",
+      "ROTATION_TURN_AND_CLOCK_FACE_ANGLE"
+    ],
+    "angleCompositionDecomposition": {
       "adjacentAnglesShareVertex": true,
       "nonOverlappingPartsRequired": true,
       "wholeAngleEqualsSumOfParts": true,
-      "missingPartMayBeDerivedFromWholeMinusKnownPart": true,
+      "missingPartMayBeDerivedFromWholeMinusKnownPart": true
+    },
+    "rotationAngleClock": {
+      "rotationDirectionAndTurnMagnitudeRequired": true,
+      "fullTurnDegrees": 360,
+      "clockDivisionCount": 12,
+      "clockDegreesPerDivision": 30,
+      "clockHandAngleUsesStepDistance": true
+    },
+    "ownershipGuards": {
       "protractorMeasurementReownershipAllowed": false,
-      "rotationClockReownershipAllowed": false,
       "estimationClassificationReownershipAllowed": false,
       "linearFullVerticalAngleReownershipAllowed": false,
       "freehandConstructionReownershipAllowed": false,
@@ -127,16 +178,19 @@
   },
   "q003ScopeLock": {
     "includedKnowledgePointIds": [
-      "kp_angle_composition_decomposition"
+      "kp_angle_composition_decomposition",
+      "kp_rotation_angle_clock"
     ],
     "includedRelations": [
       "COMPOSE_ADJACENT_NON_OVERLAPPING_ANGLES",
       "DECOMPOSE_WHOLE_ANGLE_INTO_PARTS",
-      "SOLVE_MISSING_PART_FROM_WHOLE_AND_KNOWN_PART"
+      "SOLVE_MISSING_PART_FROM_WHOLE_AND_KNOWN_PART",
+      "ROTATION_TURN_TO_ANGLE",
+      "CLOCK_FACE_STEP_TO_ANGLE",
+      "CLOCK_HAND_ANGLE"
     ],
     "excludedRelations": [
       "PROTRACTOR_MEASUREMENT",
-      "ROTATION_OR_CLOCK_ANGLE",
       "ANGLE_ESTIMATION_CLASSIFICATION",
       "UNKNOWN_ANGLE_LINEAR_FULL_VERTICAL",
       "ANGLE_CONSTRUCTION",
@@ -170,7 +224,7 @@
     "exactFrozenQueueRowResolved": true,
     "predecessorQ002D0Satisfied": true,
     "sourceAuthoritySufficientForQ003Implementation": true,
-    "r02ReviewedCandidateBound": true,
+    "r02ReviewedCandidatesBound": true,
     "runtimeProfileAlignmentLockedWithoutReclassification": true,
     "semanticProfileLockBound": true,
     "futureSameSourceOwnershipProtected": true,
