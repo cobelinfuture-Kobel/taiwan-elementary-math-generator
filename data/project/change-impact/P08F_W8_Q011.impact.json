@@ -10,7 +10,7 @@
   "unitKnowledgePointGateStatus": {},
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P08F_W8_Q011.validation.json",
-  "classificationNote": "Q011 materializes one new, frozen G5A-U07 coordinate-reflection route with a dedicated coordinate-grid renderer and mod_coordinate_map runtime capability. Shared executable and public-authority pointer changes are route-bounded to the exact Q011 source/KP admission; existing legal routes keep their semantics. No R02/R04/frozen-queue/Q012+ semantic mutation. This matches the established Q008-Q010 SHARED_RUNTIME_BOUNDED cutover pattern.",
+  "classificationNote": "Q011 bounded learner-visual remediation makes axis orientation explicit: x axis/y=0 is horizontal with up-down reflection, y axis/x=0 is vertical with left-right reflection, and shifted axes receive the same orientation cue. Mathematical semantics, source/KP identity, R02/R04, frozen queue, and Q012+ remain unchanged.",
   "changeImpact": {
     "sharedExecutableChange": true,
     "publicAuthorityCutover": true,
@@ -29,6 +29,7 @@
     "frozenQueueMutation": false,
     "q012OrLaterMutation": false,
     "legalRouteSemanticsPreservedForExistingRoutes": true,
-    "q011NewRouteAdmissionBounded": true
+    "q011NewRouteAdmissionBounded": true,
+    "learnerAxisOrientationHintClarityRemediation": true
   }
 }
