@@ -115,6 +115,7 @@ export function renderNumberLine(model) {
 }
 
 function renderGeometryDiagram(model) {
+  if (model?.kind === "unknown_angle_linear_full_vertical_diagram") return renderUnknownAngleLinearFullVerticalDiagram(model);
   if (model?.kind === "combined_sector_angle_diagram") return renderCombinedSectorAngleDiagram(model);
   if (model?.kind === "angle_estimation_classification_diagram") return renderAngleEstimationClassificationDiagram(model);
   if (model?.kind === "angle_composition_rotation_clock_diagram") return renderAngleCompositionRotationClockDiagram(model);
