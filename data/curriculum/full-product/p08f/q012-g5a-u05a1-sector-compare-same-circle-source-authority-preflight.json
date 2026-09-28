@@ -1,0 +1,201 @@
+{
+  "schemaName": "P08FW8Q012G5AU05A1SectorCompareSameCircleSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q012_G5AU05A1_SectorCompareSameCircle_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_W8_Q012_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q012_G5AU05A1_SECTOR_COMPARE_SAME_CIRCLE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "64e9399ab7705de2450f44696e3c279dc318cf51",
+  "predecessorAuthority": {
+    "q011FinalCloseoutPath": "data/curriculum/full-product/p08f/q011-final-learner-visual-d0-closeout.json",
+    "q011FinalCloseoutStatus": "Q011_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "q011FinalCloseoutMergeSha": "64e9399ab7705de2450f44696e3c279dc318cf51",
+    "q011ActualPrintHumanAccepted": true,
+    "q011ExactArtifactId": 10975939114
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p08e/w8-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p08e-w8-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "597a6fa497c8ac7738247847ef321d0c753e79800f5c38097b7a7a160be2f484",
+    "queuePosition": 12,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q012_r6_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "implementationTaskId": "P08F_W8DirectProductVerticalSlice012Implementation",
+    "previousSliceId": "p08e_q011_r5_g5a_u07_5a07_profile_geometry_property_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W8",
+    "primarySourceNodeId": "g5a_u05_5a05a1",
+    "supportingSourceNodeIds": [
+      "g5a_u05_5a05a1"
+    ],
+    "intraWavePrerequisiteRank": 6,
+    "primaryRuntimeProfileId": "profile_geometry_property",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g5a_u05a1_sector_compare_same_circle"
+    ],
+    "blockingCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "blockingCapabilityWaveIds": [
+      "R05-W5"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "authorityPath": "data/curriculum/full-product/p08e/w8-source-authority-index.json",
+    "r02ChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-02.json",
+    "sourceNodeId": "g5a_u05_5a05a1",
+    "sourceTitle": "扇形與圓心角",
+    "sourcePdfTitle": "meow911_5a05a1_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "targetEvidencePages": [
+      1,
+      2
+    ],
+    "sourceIdentityArtifactLock": {
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "knowledgePointId": "kp_g5a_u05a1_sector_compare_same_circle",
+    "canonicalNameZh": "同圓扇形大小比較",
+    "capabilityStatement": "學生能在同半徑下比較扇形大小。",
+    "reasoningInvariant": "同一圓中圓心角越大，弧與扇形越大。",
+    "category": "geometry",
+    "evidencePages": [
+      1,
+      2
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "sameSourceOwnershipBoundary": {
+    "priorImplementedKnowledgePointIds": [
+      "kp_g5a_u05a1_central_angle_measurement",
+      "kp_g5a_u05a1_combined_sector_angle",
+      "kp_g5a_u05a1_sector_fraction_of_circle"
+    ],
+    "protectedNonTargetKnowledgePointIds": [
+      "kp_g5a_u05a1_sector_center_radius_arc"
+    ],
+    "futureW8KnowledgePointIds": [],
+    "priorOwnersMustRemainReachable": true,
+    "q012CompletesW8CandidateSetForSource": true
+  },
+  "runtimeCapabilityAuthority": {
+    "knowledgePointId": "kp_g5a_u05a1_sector_compare_same_circle",
+    "profileId": "profile_geometry_property",
+    "classificationRuleId": "rule_geometry_property",
+    "appliedModifierIds": [],
+    "exactMappingRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "exactMappingOptionalRuntimeCapabilityIds": [
+      "cap_geometry_construction"
+    ],
+    "exactMappingForbiddenRuntimeCapabilityIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "semanticProfileLock": {
+    "targetSemanticCore": "COMPARE_SECTORS_IN_SAME_CIRCLE_BY_CENTRAL_ANGLE",
+    "sameCircleSectorComparison": {
+      "sameCircleOrEqualRadiusRequired": true,
+      "comparedSectorCentralAnglesRequired": true,
+      "largerCentralAngleImpliesLargerArc": true,
+      "largerCentralAngleImpliesLargerSector": true,
+      "equalCentralAnglesImplyEqualSectorSize": true,
+      "noAreaFormulaRequired": true,
+      "noArcLengthFormulaRequired": true,
+      "noRulerMeasurementRequired": true
+    },
+    "ownershipGuards": {
+      "centralAngleMeasurementReownershipAllowed": false,
+      "combinedSectorUnknownAngleReownershipAllowed": false,
+      "sectorFractionReownershipAllowed": false,
+      "sectorElementNamingReownershipAllowed": false,
+      "sectorAreaOrArcLengthFormulaReownershipAllowed": false,
+      "geometryConstructionReownershipAllowed": false,
+      "applicationContextRequired": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "q012ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g5a_u05a1_sector_compare_same_circle"
+    ],
+    "includedRelations": [
+      "COMPARE_SECTOR_SIZE_BY_CENTRAL_ANGLE_SAME_CIRCLE",
+      "ORDER_SECTORS_BY_CENTRAL_ANGLE_SAME_RADIUS",
+      "IDENTIFY_EQUAL_SECTOR_SIZE_FROM_EQUAL_CENTRAL_ANGLES"
+    ],
+    "excludedRelations": [
+      "GENERAL_PROTRACTOR_MEASUREMENT",
+      "CENTRAL_ANGLE_MEASUREMENT_REOWNERSHIP",
+      "COMBINED_SECTOR_UNKNOWN_ANGLE",
+      "SECTOR_FRACTION_OF_CIRCLE",
+      "SECTOR_ELEMENT_NAMING",
+      "SECTOR_AREA_FORMULA",
+      "ARC_LENGTH_FORMULA",
+      "GEOMETRY_CONSTRUCTION",
+      "APPLICATION_CONTEXT",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "Q013_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q013OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ011D0Satisfied": true,
+    "sourceAuthoritySufficientForQ012Implementation": true,
+    "r02ReviewedCandidateBound": true,
+    "runtimeProfileAlignmentLockedWithoutReclassification": true,
+    "semanticProfileLockBound": true,
+    "priorSameSourceOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "nextTask": "P08F_W8DirectProductVerticalSlice012Implementation"
+  }
+}
