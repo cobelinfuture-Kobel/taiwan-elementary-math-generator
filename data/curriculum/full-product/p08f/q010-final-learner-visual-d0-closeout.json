@@ -1,0 +1,173 @@
+{
+  "schemaName": "P08FW8Q010FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q010_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q010_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 10,
+    "sliceId": "p08e_q010_r5_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "sourceId": "g5a_u05_5a05a1",
+    "knowledgePointIds": [
+      "kp_g5a_u05a1_sector_fraction_of_circle"
+    ],
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "frozenQueueChanged": false,
+    "q011OrLaterProductChanged": false
+  },
+  "finalProductAuthority": {
+    "preflightPr": 1120,
+    "preflightMergeSha": "cecff9311ef5a0ca49aa099455fb29ae2bfb8e45",
+    "implementationPr": 1121,
+    "implementationPrHeadSha": "9ad87679c8d4e549efcbf6a85728eff5a15970d0",
+    "implementationPrGateRunId": 36423162791,
+    "implementationPrGateRunNumber": 1018,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "f7accf4b8157eb3300450f5ae3c7ea5f92dbfc57",
+    "deployPagesRunId": 36423328015,
+    "deployPagesRunNumber": 2403,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36423328210,
+    "pagesE2ERunNumber": 1,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "pagesE2EArtifactId": 10970473252,
+    "pagesE2EArtifactZipSha256": "0ba0cdd7a4628c509ffe7706c7756203b143cd68079408d0b6162f59d5d8ad7d",
+    "exactDeployedHeadSha": "f7accf4b8157eb3300450f5ae3c7ea5f92dbfc57"
+  },
+  "finalLearnerFacingEvidence": {
+    "sectorFractionOfCircle": {
+      "questionCount": 15,
+      "answerCount": 15,
+      "diagramCount": 30,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "allPageCount": 6,
+      "worksheetColumns": 2,
+      "rowsPerPage": 3,
+      "clippedCellCount": 0,
+      "overflowPageCount": 0,
+      "internalDiagramClippingCount": 0,
+      "minDiagramWidthPx": 311.9375,
+      "minDiagramHeightPx": 165,
+      "diagramModes": [
+        "ANGLE_TO_FRACTION",
+        "REDUCE_ANGLE_OVER_360",
+        "ROTATED_SECTOR_FRACTION"
+      ],
+      "patternSpecIds": [
+        "ps_g5a_u05a1_sector_fraction_from_labeled_angle",
+        "ps_g5a_u05a1_sector_fraction_reduce_angle_over_360",
+        "ps_g5a_u05a1_sector_fraction_rotation_invariant"
+      ],
+      "fractionAnswerCount": 15,
+      "responseLineCount": 15,
+      "printInvocationCount": 1
+    },
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "browserRequestFailureCount": 0,
+    "browserAssetHttpFailureCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "reviewedArtifacts": [
+      "q010-sector-fraction-of-circle-human-review.pdf",
+      "q010-sector-fraction-of-circle-human-review.png",
+      "q010-sector-fraction-of-circle-worksheet.png",
+      "q010-sector-fraction-of-circle-ui.png"
+    ],
+    "exactArtifactId": 10970473252,
+    "exactArtifactZipSha256": "0ba0cdd7a4628c509ffe7706c7756203b143cd68079408d0b6162f59d5d8ad7d",
+    "decisionTextZh": "核准 Q010 D0",
+    "acceptedAtLocalDate": "2026-09-28",
+    "actualPrintAccepted": true,
+    "learnerFacingAccepted": true,
+    "d0Granted": true
+  },
+  "learnerVisualContract": {
+    "fullCircleDegrees360": true,
+    "sectorFractionEqualsCentralAngleOver360": true,
+    "reducedFractionRequired": true,
+    "fractionRepresentsSameFullCircle": true,
+    "targetIsFractionNotAreaOrArcLength": true,
+    "rulerMeasurementRequired": false,
+    "printScaleIsAnswerAuthority": false,
+    "twoColumnPrintLayout": true,
+    "printSafePagination": true,
+    "responseLineVisible": true,
+    "priorSameSourceOwnersPreserved": true,
+    "laterSameSourceSemanticsHidden": true,
+    "sameUnitMixedModeFailClosed": true
+  },
+  "postMergeFullRegressionReadback": {
+    "runId": 36423328399,
+    "runNumber": 5992,
+    "conclusion": "failure",
+    "d0Required": false,
+    "q010FocusedContractsObservedPassing": true,
+    "q010FocusedSubtestRanges": [
+      [
+        4440,
+        4444
+      ],
+      [
+        4576,
+        4591
+      ]
+    ],
+    "unrelatedRepositoryBaselineFailuresPresent": true,
+    "note": "Q010 preflight and implementation subtests are PASS inside the full run; unrelated repository baseline assertions fail outside the Q010 D0-required validation lane."
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "7d75aef0b1e0d31ea5a11ef388274421734df7b9",
+    "exactProductHeadSha": "f7accf4b8157eb3300450f5ae3c7ea5f92dbfc57",
+    "commitsAfterExactProductHead": 8,
+    "q010RuntimeFilesChanged": false,
+    "q010CurriculumIdentityFilesChanged": false,
+    "interveningUnrelatedEvidenceOnlyChanges": true,
+    "changedFilesAfterExactProductHead": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-p07f-w7-q011-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q012-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q026-pages-e2e.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "q011SuccessorReadiness": {
+    "nextPreflightTaskId": "P08F_W8_Q011_SourceAuthorityPreflight",
+    "nextImplementationTaskId": "P08F_W8DirectProductVerticalSlice011Implementation",
+    "implementationRequiresSeparateOperatorApproval": true
+  },
+  "antiScopeCreep": {
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ010ProductRuntime": false,
+    "modifyQ010SourceAuthority": false,
+    "modifyFormalMappingIdentity": false,
+    "modifyPatternSpecIdentity": false,
+    "modifyW8FrozenQueue": false,
+    "implementQ011": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q010_ACTUAL_PRINT_HUMAN_REVIEW_PENDING",
+    "goalDistanceAfter": "D0_Q010_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ010Blockers": [],
+    "nextShortestStep": "P08F_W8_Q011_SourceAuthorityPreflight"
+  }
+}
