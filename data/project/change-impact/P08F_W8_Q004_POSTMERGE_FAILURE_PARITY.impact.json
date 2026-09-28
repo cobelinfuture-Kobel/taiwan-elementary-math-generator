@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q004_POSTMERGE_FAILURE_PARITY",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g5a_u05a1_central_angle_measurement",
+  "currentKnowledgePointIds": [
+    "kp_g5a_u05a1_central_angle_measurement"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5a_u05a1_central_angle_measurement"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5a_u05a1_central_angle_measurement": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q004_POSTMERGE_FAILURE_PARITY.validation.json",
+  "classificationNote": "Evidence/governance-only attribution proving exact named-failure-set parity between pre-Q004 baseline and Q004 post-merge repository-wide lanes. Q004 adds 16 tests and 16 passes in both compared lanes with zero failure-count delta and zero named-failure-set delta. No runtime or authority mutation.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
