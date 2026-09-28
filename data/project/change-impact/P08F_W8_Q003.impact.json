@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q003",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_angle_composition_decomposition",
+    "kp_rotation_angle_clock"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q003.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q001ProductMutation": false,
+    "q002ProductMutation": false,
+    "q004OrLaterMutation": false,
+    "sourceAuthorityMutation": false,
+    "r04ProfileReclassification": false,
+    "frozenQueueMutation": false
+  },
+  "classificationNote": "Q003 adds a bounded public selector/binding/current-pointer cutover for the exact two-KP frozen slice under g4a_u03_4a03. Shared executable and public authority changes are route-bounded to angle composition/decomposition and rotation/clock-angle diagram products; no legal route semantics, global release checkpoint, frozen queue, R02, or R04 mutation."
+}
