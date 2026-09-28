@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q011",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5a_u07_coordinate_reflection"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q011.validation.json",
+  "classificationNote": "Q011 materializes the frozen G5A-U07 coordinate-reflection product path with a dedicated coordinate-grid renderer and mod_coordinate_map runtime capability. Changes are bounded to Q011 route wiring plus current selector/binding/renderer pointers. No R02/R04/frozen-queue/Q012+ semantic mutation.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": true,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q010ProductPreserved": true,
+    "priorG5AU07OwnersPreserved": true,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "frozenQueueMutation": false,
+    "q012OrLaterMutation": false
+  }
+}
