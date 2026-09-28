@@ -1,0 +1,17 @@
+import {buildBatchABrowserPlan as baseBuildPlan,generateBatchABrowserQuestions as baseGenerate} from "./batch-a-browser-generator-p08f04.js";
+import {generateG4AU03P08F05Questions,G4A_U03_P08F05_MAX_QUESTION_COUNT} from "./g4a-u03-angle-estimation-classification-runtime-p08f05.js";
+import {G4A_U03_P08F05_KP_ID as KP,G4A_U03_P08F05_PATTERN_GROUP as GROUP,G4A_U03_P08F05_SOURCE_ID as SRC,G4A_U03_P08F05_SPEC_IDS as SPEC_IDS} from "../registry/g4a-u03-angle-estimation-classification-selector-projection-p08f05.js";
+function target(o={}){
+ if(o.sourceId!==SRC||["sourceUnit","mixedKnowledgePointsSameUnit","mixedKnowledgePointsCrossUnit"].includes(o.selectionMode))return false;
+ const ids=[...new Set((o.selectedKnowledgePointIds??o.knowledgePointIds??[]).filter(Boolean))];if(ids.length)return ids.length===1&&ids[0]===KP;
+ if((o.selectedPatternGroupIds??[]).includes(GROUP.patternGroupId))return true;
+ return (o.patternSpecIds??[]).some(id=>SPEC_IDS.includes(id));
+}
+export const requestsP08F05=o=>target(o);
+export function buildBatchABrowserPlan(o={}){
+ if(!target(o))return baseBuildPlan(o);
+ const base=baseBuildPlan(o),requested=Array.isArray(o.patternSpecIds)?SPEC_IDS.filter(id=>o.patternSpecIds.includes(id)):[],patternSpecIds=requested.length?requested:SPEC_IDS;
+ return Object.freeze({...base,sourceId:SRC,sourceUnit:Object.freeze({sourceId:SRC,grade:4,semester:"upper",unitCode:"4A-U03",title:"角度",domain:"geometry_property"}),selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:Object.freeze([KP]),knowledgePointIds:Object.freeze([KP]),requestedKnowledgePointIds:Object.freeze([KP]),selectedPatternGroupIds:Object.freeze([GROUP.patternGroupId]),requestedPatternGroupIds:Object.freeze([GROUP.patternGroupId]),patternSpecIds:Object.freeze(patternSpecIds),questionMode:"diagram",requestedQuestionType:"diagram",questionCount:Number.isInteger(o.questionCount)?o.questionCount:20,questionCountMax:G4A_U03_P08F05_MAX_QUESTION_COUNT,generationSeed:String(o.generationSeed??"p08f05-angle-estimation-classification"),publicControls:Object.freeze({sourceId:SRC,questionMode:"diagram",requestedQuestionType:"diagram",productWave:"P08F",productAdmissionTask:"P08F_W8DirectProductVerticalSlice005Implementation"}),publicPatternSpecInjectionUsed:false,genericFallback:false,genericFallbackAllowed:false,freeFormAI:false,applicationContextMode:"NOT_REQUIRED_CORE_DIAGRAM",sameUnitMixedMode:"NOT_ADMITTED",sharedRuntimeScope:"SHARED_RUNTIME_BOUNDED"});
+}
+export const buildBatchABrowserGenerationPlan=buildBatchABrowserPlan;
+export function generateBatchABrowserQuestions(o={}){if(!target(o))return baseGenerate(o);const plan=buildBatchABrowserPlan(o),generated=generateG4AU03P08F05Questions(plan);return Object.freeze({...generated,plan,sourceId:SRC,questionMode:"diagram"});}

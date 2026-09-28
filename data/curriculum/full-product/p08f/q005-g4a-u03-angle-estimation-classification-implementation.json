@@ -1,0 +1,93 @@
+{
+  "schemaName": "P08FW8Q005G4AU03AngleEstimationClassificationImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice005Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI_LIVE_E6_AND_ACTUAL_PRINT_REVIEW",
+  "goalDistance": {
+    "before": "D2_Q005_G4AU03_ANGLE_ESTIMATION_CLASSIFICATION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q005_G4AU03_ANGLE_ESTIMATION_CLASSIFICATION_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_REVIEW",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "1c44328e87dc7ebd0ad337228914ff1dc4a5bc2b",
+  "preflight": {
+    "prNumber": 1100,
+    "mergeSha": "c62dd73667297d1cca15dec2fc374ff71fb1d816",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p08f/q005-g4a-u03-angle-estimation-classification-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q004Status": "Q004_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "q004CloseoutPath": "data/curriculum/full-product/p08f/q004-final-learner-visual-d0-closeout.json",
+    "q004CloseoutMergeSha": "8d763c6e56cb1cf5df1a3c913282c153c4db7c9d",
+    "q004ActualPrintHumanAccepted": true,
+    "q004OperatorArtifactId": 10947402867
+  },
+  "queueAuthority": {
+    "queuePosition": 5,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q005_r3_g4a_u03_4a03_profile_geometry_property_c1",
+    "sourceId": "g4a_u03_4a03",
+    "knowledgePointIds": ["kp_angle_estimation_and_classification"],
+    "runtimeProfileId": "profile_geometry_property",
+    "blockingCapabilityIds": ["cap_geometry_diagram_representation","cap_geometry_domain_validator","cap_geometry_property_reasoning"],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_4a03_source.pdf",
+    "reviewedPages": [1,2],
+    "targetEvidencePages": [1,2],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceIdentity": "角度",
+    "sourceLearnerFigureCopied": false
+  },
+  "runtimeContract": {
+    "requiredCapabilityIds": ["cap_pattern_spec_resolution","cap_deterministic_answer_model","cap_worksheet_document_assembly","cap_answer_key_projection","cap_html_print_renderer","cap_geometry_property_reasoning","cap_geometry_domain_validator","cap_geometry_diagram_representation"],
+    "optionalCapabilityIds": ["cap_geometry_construction"],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": ["ps_g4a_u03_estimate_angle_from_right_angle_reference","ps_g4a_u03_classify_angle_by_magnitude","ps_g4a_u03_arm_length_invariant_classification"],
+    "includedRelations": ["ESTIMATE_ANGLE_USING_REFERENCE_ANGLE","CLASSIFY_ANGLE_BY_MAGNITUDE_RANGE","RECOGNIZE_CLASSIFICATION_INVARIANT_UNDER_ARM_LENGTH_CHANGE"],
+    "questionMode": "diagram",
+    "rendererRepresentation": "angle_estimation_classification_diagram",
+    "maxQuestionCountPerSelectedKnowledgePoint": 240,
+    "deterministicGeneration": true,
+    "answerModel": "APPROXIMATE_INTEGER_DEGREES_OR_ANGLE_CLASSIFICATION_ZH",
+    "referenceAngleDegrees": 90,
+    "classificationLabelsZh": ["銳角","直角","鈍角","平角","周角"],
+    "classificationIndependentOfArmLength": true,
+    "exactDegreeMeasurementRequiredForEveryItem": false,
+    "printLayout": {"maxColumns":2,"maxRowsPerPage":3},
+    "humanVisualReviewRequiredBeforeD0": true
+  },
+  "scopeGuard": {
+    "protractorMeasurementReowned": false,
+    "angleCompositionDecompositionReowned": false,
+    "rotationClockAngleReowned": false,
+    "linearFullVerticalUnknownAngleReowned": false,
+    "geometryConstructionReowned": false,
+    "sourceLearnerFigureCopied": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q001Q003ProductsPreserved": true,
+    "q004ProductPreserved": true,
+    "q006OrLaterProductTouched": false,
+    "dedicatedRendererAdded": true,
+    "sharedRendererRegistryMinimalMutation": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": ["FOCUSED_PR_GATE_PASS","PR_MERGED","EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY","CLASSIC_UI_TECHNICAL_VISUAL_PRECHECK_PASS","ACTUAL_PRINT_OPERATOR_HUMAN_REVIEW_PASS"]
+  }
+}
