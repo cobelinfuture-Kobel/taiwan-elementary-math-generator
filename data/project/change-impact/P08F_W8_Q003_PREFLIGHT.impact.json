@@ -4,7 +4,8 @@
   "taskId": "P08F_W8_Q003_PREFLIGHT",
   "currentScope": "SHARED_RUNTIME",
   "currentKnowledgePointIds": [
-    "kp_angle_composition_decomposition"
+    "kp_angle_composition_decomposition",
+    "kp_rotation_angle_clock"
   ],
   "unitExpectedKnowledgePointIds": [],
   "unitKnowledgePointGateStatus": {},
@@ -30,5 +31,5 @@
     "predecessorAuthorityRefreshed": true,
     "q003SemanticScopeMutation": false
   },
-  "classificationNote": "Planning-only Q003 source/runtime/semantic authority lock after Q002 learner-visual human-accepted D0. The planned Q003 product path is bounded to g4a_u03_4a03 / kp_angle_composition_decomposition; no runtime implementation or public admission occurs in this preflight."
+  "classificationNote": "Planning-only Q003 source/runtime/semantic authority lock after Q002 learner-visual human-accepted D0. The exact frozen Q003 slice contains two same-source/rank/profile KPs: kp_angle_composition_decomposition and kp_rotation_angle_clock. No runtime implementation or public admission occurs in this preflight."
 }
