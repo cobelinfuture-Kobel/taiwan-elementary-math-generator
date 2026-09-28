@@ -1,5 +1,6 @@
 import { renderAnglePartsDiagram } from "./angle-parts-diagram.js";
 import { renderAngleCompositionRotationClockDiagram } from "./angle-composition-rotation-clock-diagram-p08f03.js";
+import { renderCombinedSectorAngleDiagram } from "./combined-sector-angle-diagram-p08f06.js";
 import { renderAngleEstimationClassificationDiagram } from "./angle-estimation-classification-diagram-p08f05.js";
 import { renderProtractorAngleMeasurementDiagram } from "./protractor-angle-measurement-diagram-p08f01.js";
 import { renderSolidViewpointRepresentationDiagram } from "./solid-viewpoint-representation-diagram-p08f02.js";
@@ -104,7 +105,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderAngleEstimationClassificationDiagram, renderAngleCompositionRotationClockDiagram, renderSolidViewpointRepresentationDiagram, renderProtractorAngleMeasurementDiagram, renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderCylinderVolumeDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
+export { renderCombinedSectorAngleDiagram, renderAngleEstimationClassificationDiagram, renderAngleCompositionRotationClockDiagram, renderSolidViewpointRepresentationDiagram, renderProtractorAngleMeasurementDiagram, renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderCylinderVolumeDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -113,6 +114,7 @@ export function renderNumberLine(model) {
 }
 
 function renderGeometryDiagram(model) {
+  if (model?.kind === "combined_sector_angle_diagram") return renderCombinedSectorAngleDiagram(model);
   if (model?.kind === "angle_estimation_classification_diagram") return renderAngleEstimationClassificationDiagram(model);
   if (model?.kind === "angle_composition_rotation_clock_diagram") return renderAngleCompositionRotationClockDiagram(model);
   if (model?.kind === "solid_viewpoint_representation_diagram") return renderSolidViewpointRepresentationDiagram(model);
