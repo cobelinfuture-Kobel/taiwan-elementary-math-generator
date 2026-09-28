@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q005",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": ["kp_angle_estimation_and_classification"],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q005.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q005Only": true,
+    "q006OrLaterMutation": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false
+  },
+  "classificationNote": "Q005 promotes the frozen G4A-U03 angle-estimation/classification KP through selector, binding, deterministic generator, validator, dedicated geometry renderer and print worksheet. Prior G4A-U03 angle owners remain reachable; Q006+ remains hidden."
+}
