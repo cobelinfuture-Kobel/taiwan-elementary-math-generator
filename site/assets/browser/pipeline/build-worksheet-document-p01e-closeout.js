@@ -3,7 +3,9 @@ import {
   buildWorksheetDocumentFromPlan as buildBase,
 } from "./build-worksheet-document-core-closeout.js";
 import { generateBatchABrowserQuestions } from "../../../modules/curriculum/batch-a/batch-a-browser-question-router.js";
-import { requestsP08F07 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f07.js";\nimport { buildBatchABrowserWorksheetDocument as buildP08F07Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f07-extension.js";\nimport { requestsP08F06 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f06.js";
+import { requestsP08F07 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f07.js";
+import { buildBatchABrowserWorksheetDocument as buildP08F07Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f07-extension.js";
+import { requestsP08F06 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f06.js";
 import { buildBatchABrowserWorksheetDocument as buildP08F06Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f06-extension.js";
 import { requestsP08F05 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f05.js";
 import { buildBatchABrowserWorksheetDocument as buildP08F05Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f05-extension.js";
