@@ -77,5 +77,70 @@
     "validatorImplementation": "not_started",
     "rendererChange": "not_required_for_candidate_freeze"
   },
-  "nextShortestStep": "Design a bounded PatternSpec candidate contract for step-sequence generation and uniqueness validation without changing the seven canonical G4A-U04 KnowledgePoints."
+  "nextShortestStep": "Materialize the operator-approved bounded PatternSpec contract for G1-G6 without runtime implementation.",
+  "questionGroupReview": {
+    "status": "OPERATOR_APPROVED",
+    "operatorDecision": "KEEP_ALL_PROPOSED_GROUPS_AND_ADD_FILL_IN",
+    "approvedQuestionGroups": [
+      {
+        "questionGroupId": "G1_STEP_SEQUENCE_ORDERING",
+        "responseMode": "ordering",
+        "role": "atomic",
+        "description": "將分解後的直式除法步驟排列成正確順序。"
+      },
+      {
+        "questionGroupId": "G2_WHOLE_EXPRESSION_RECONSTRUCTION",
+        "responseMode": "multiple_choice_or_fill_in",
+        "role": "atomic",
+        "description": "由全部步驟反推完整除法算式。"
+      },
+      {
+        "questionGroupId": "G3_INTERMEDIATE_STEP_IDENTIFICATION",
+        "responseMode": "multiple_choice_or_fill_in",
+        "role": "atomic",
+        "description": "辨認局部算式在完整直式中的位值與步驟角色。"
+      },
+      {
+        "questionGroupId": "G4_ERROR_DIAGNOSIS",
+        "responseMode": "multiple_choice_or_fill_in",
+        "role": "atomic",
+        "description": "找出換位、商位、餘數或局部重組中的錯誤。"
+      },
+      {
+        "questionGroupId": "G5_COMPOSITE_2SUB",
+        "responseMode": "composite_two_subitems",
+        "role": "composite",
+        "description": "共享同一 stimulus；小題1為步驟排序，小題2為完整算式反推；兩小題獨立可判分。"
+      },
+      {
+        "questionGroupId": "G6_FILL_IN_RECONSTRUCTION",
+        "responseMode": "fill_in",
+        "role": "atomic_or_subitem_variant",
+        "description": "以填答方式補出位值換算、局部商餘或完整算式中的缺項；必須保持同一 division trace 語意。"
+      }
+    ],
+    "compositePolicy": {
+      "maxSubitemsInFirstVersion": 2,
+      "sharedStimulusAllowed": true,
+      "answerDependencyBetweenSubitems": "forbidden",
+      "errorPropagationBetweenSubitems": "forbidden",
+      "paginationRequirement": "keep_composite_together_when_practical"
+    },
+    "fillInPolicy": {
+      "allowed": true,
+      "allowedTargets": [
+        "place_value_conversion",
+        "intermediate_quotient",
+        "intermediate_remainder",
+        "whole_expression_dividend",
+        "whole_expression_divisor",
+        "whole_expression_quotient",
+        "whole_expression_remainder"
+      ],
+      "forbiddenDrift": [
+        "do_not_reduce_to_plain_direct_division_without_step_stimulus",
+        "do_not_create_new_canonical_knowledge_point_for_response_format_only"
+      ]
+    }
+  }
 }
