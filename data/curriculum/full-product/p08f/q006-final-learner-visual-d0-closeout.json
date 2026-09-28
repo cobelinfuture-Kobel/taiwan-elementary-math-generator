@@ -1,0 +1,148 @@
+{
+  "schemaName": "P08FW8Q006FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q006_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q006_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 6,
+    "sliceId": "p08e_q006_r3_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "sourceId": "g5a_u05_5a05a1",
+    "knowledgePointIds": [
+      "kp_g5a_u05a1_combined_sector_angle"
+    ],
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "frozenQueueChanged": false,
+    "q007OrLaterProductChanged": false
+  },
+  "finalProductAuthority": {
+    "implementationPr": 1105,
+    "implementationPrGateRunId": 36379375826,
+    "implementationPrGateRunNumber": 990,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "b06d8dbb2f3b8a213e85e8ca62d3b0bdb8b66f0b",
+    "deployPagesRunId": 36379473911,
+    "deployPagesRunNumber": 2387,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36379473762,
+    "pagesE2ERunNumber": 1,
+    "pagesE2EJobId": 108792051936,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "pagesE2EArtifactId": 10952605180,
+    "pagesE2EArtifactDigest": "sha256:5fd9b94a0b97ec38ecc38088f6554adf9abd2537193b18c762054de654830537",
+    "exactDeployedHeadSha": "b06d8dbb2f3b8a213e85e8ca62d3b0bdb8b66f0b"
+  },
+  "finalLearnerFacingEvidence": {
+    "combinedSectorAngle": {
+      "questionCount": 15,
+      "answerCount": 15,
+      "diagramCount": 30,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "allPageCount": 6,
+      "worksheetColumns": 2,
+      "rowsPerPage": 3,
+      "clippedCellCount": 0,
+      "overflowPageCount": 0,
+      "minDiagramWidthPx": 311.9375,
+      "minDiagramHeightPx": 165,
+      "diagramModes": [
+        "ROTATED_UNKNOWN_REMAINDER",
+        "THREE_KNOWN_ONE_UNKNOWN",
+        "TWO_KNOWN_ONE_UNKNOWN"
+      ],
+      "patternSpecIds": [
+        "ps_g5a_u05a1_unknown_sector_from_three_known",
+        "ps_g5a_u05a1_unknown_sector_from_two_known",
+        "ps_g5a_u05a1_unknown_sector_rotation_invariant"
+      ],
+      "degreeAnswerCount": 15,
+      "responseLineCount": 15,
+      "printInvocationCount": 1
+    },
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "browserRequestFailureCount": 0,
+    "browserAssetHttpFailureCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "reviewedArtifacts": [
+      "q006-combined-sector-angle-human-review.pdf",
+      "q006-combined-sector-angle-human-review.png",
+      "q006-combined-sector-angle-worksheet.png",
+      "q006-combined-sector-angle-ui.png"
+    ],
+    "exactArtifactId": 10952605180,
+    "exactArtifactDigest": "sha256:5fd9b94a0b97ec38ecc38088f6554adf9abd2537193b18c762054de654830537",
+    "decisionTextZh": "圖形OK",
+    "acceptedAtLocalDate": "2026-09-28",
+    "actualPrintAccepted": true,
+    "learnerFacingAccepted": true,
+    "d0Granted": true
+  },
+  "learnerVisualContract": {
+    "sameCircleCenter": true,
+    "nonOverlappingCentralAngles": true,
+    "fullCircleDegrees360": true,
+    "unknownEquals360MinusKnownSum": true,
+    "twoColumnPrintLayout": true,
+    "printSafePagination": true,
+    "responseLineVisible": true,
+    "priorSameSourceOwnersPreserved": true,
+    "laterSameSourceSemanticsHidden": true,
+    "sameUnitMixedModeFailClosed": true
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "af5c05c48099d4ef7ae976560075d8a7180c3ef1",
+    "exactProductMergeSha": "b06d8dbb2f3b8a213e85e8ca62d3b0bdb8b66f0b",
+    "commitsAfterExactProductMerge": 8,
+    "q006RuntimeFilesChanged": false,
+    "q006CurriculumIdentityFilesChanged": false,
+    "interveningUnrelatedEvidenceOnlyChanges": true,
+    "changedFilesAfterExactProductMerge": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-p07f-w7-q011-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q012-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q026-pages-e2e.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "q007SuccessorReadiness": {
+    "nextPreflightTaskId": "P08F_W8_Q007_SourceAuthorityPreflight",
+    "nextImplementationTaskId": "P08F_W8DirectProductVerticalSlice007Implementation",
+    "implementationRequiresSeparateOperatorApproval": true
+  },
+  "antiScopeCreep": {
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ006ProductRuntime": false,
+    "modifyQ006SourceAuthority": false,
+    "modifyFormalMappingIdentity": false,
+    "modifyPatternSpecIdentity": false,
+    "modifyW8FrozenQueue": false,
+    "implementQ007": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q006_ACTUAL_PRINT_HUMAN_REVIEW_PENDING",
+    "goalDistanceAfter": "D0_Q006_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ006Blockers": [],
+    "nextShortestStep": "P08F_W8_Q007_SourceAuthorityPreflight"
+  }
+}
