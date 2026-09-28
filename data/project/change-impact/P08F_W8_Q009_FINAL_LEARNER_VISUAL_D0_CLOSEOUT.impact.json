@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q009_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g4a_u05_congruent_triangle_correspondence",
+  "currentKnowledgePointIds": [
+    "kp_g4a_u05_congruent_triangle_correspondence"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g4a_u05_congruent_triangle_correspondence"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g4a_u05_congruent_triangle_correspondence": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q009_FINAL_LEARNER_VISUAL_D0_CLOSEOUT.validation.json",
+  "classificationNote": "Evidence/governance-only D0 closeout for W8 Q009 after exact deployed E6, explicit numeric-side-plus-tick learner evidence, no-ruler/no-print-scale authority lock, and explicit operator learner-visual acceptance. No runtime, source authority, mapping, pattern, frozen-queue, or Q010 product mutation.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
