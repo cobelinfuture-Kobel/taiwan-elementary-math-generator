@@ -17,7 +17,7 @@
   },
   "expectedDerivedGate": "KP_FOCUSED",
   "validationPlanPath": "data/project/validation-plans/P08F_W8_Q003_FINAL_LEARNER_VISUAL_D0_CLOSEOUT.validation.json",
-  "classificationNote": "Evidence/governance-only D0 closeout after the operator accepted the exact post-merge Angle and Clock actual-print PDF/PNG artifacts. No learner runtime, source authority, FormalMapping identity, PatternSpec identity, frozen W8 queue, or Q004 product changes.",
+  "classificationNote": "Evidence/governance-only D0 closeout for the exact two-KP Q003 slice. The KP_FOCUSED classifier anchor is the slice's primary/first KP (kp_angle_composition_decomposition), while the closeout evidence and focused gate status explicitly cover both Q003 KPs. No learner runtime, source authority, FormalMapping identity, PatternSpec identity, frozen W8 queue, or Q004 product changes.",
   "changeImpact": {
     "sharedExecutableChange": false,
     "publicAuthorityCutover": false,
@@ -25,5 +25,6 @@
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
     "currentAuthorityChanged": false
-  }
+  },
+  "currentKnowledgePointId": "kp_angle_composition_decomposition"
 }
