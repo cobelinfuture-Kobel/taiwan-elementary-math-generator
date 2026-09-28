@@ -30,7 +30,7 @@ export function renderSameRadiusSectorComparisonDiagramP08F12(m){
  const sectors=m.sectors.map((s,i)=>sectorMarkup(s,centers[i][0],centers[i][1])).join("");
  return [
   `<div class="worksheet-cell__representation worksheet-cell__representation--same-radius-sector-comparison" data-representation="same-radius-sector-comparison-diagram" data-diagram-mode="${m.diagramMode}" data-ruler-required="false">`,
-  '<svg class="worksheet-same-radius-sector-comparison-diagram" viewBox="0 0 360 180" width="100%" height="155" role="img" aria-label="同半徑扇形大小比較圖" preserveAspectRatio="xMidYMid meet">',
+  `<svg class="worksheet-same-radius-sector-comparison-diagram" viewBox="0 0 360 180" width="100%" height="${m.answerKeyCompact?132:155}" role="img" aria-label="同半徑扇形大小比較圖" preserveAspectRatio="xMidYMid meet">`,
   '<g class="p08f12-diagram-content">',sectors,
   '<text class="p08f12-comparison-hint" x="180" y="171" text-anchor="middle" font-size="10">半徑相同｜比較圓心角，不需要量尺</text>',
   '</g></svg></div>'
