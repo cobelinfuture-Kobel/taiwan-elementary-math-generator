@@ -1,0 +1,135 @@
+{
+  "schemaName": "P08FW8Q010G5AU05A1SectorFractionOfCircleImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice010Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI_LIVE_E6_AND_ACTUAL_PRINT_REVIEW",
+  "goalDistance": {
+    "before": "D2_Q010_G5AU05A1_SECTOR_FRACTION_OF_CIRCLE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q010_G5AU05A1_SECTOR_FRACTION_OF_CIRCLE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_REVIEW",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "a275a92fa54d9e13aca657ec9cf2e14a933c2241",
+  "preflight": {
+    "prNumber": 1120,
+    "mergeSha": "cecff9311ef5a0ca49aa099455fb29ae2bfb8e45",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p08f/q010-g5a-u05a1-sector-fraction-of-circle-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q009Status": "Q009_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "q009CloseoutPath": "data/curriculum/full-product/p08f/q009-final-learner-visual-d0-closeout.json",
+    "q009CloseoutMergeSha": "de41aad4a6e4aba133fd58d242a2d33f1cbcc6e3",
+    "q009ActualPrintHumanAccepted": true,
+    "q009OperatorArtifactId": 10968062067
+  },
+  "queueAuthority": {
+    "queuePosition": 10,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q010_r5_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "sourceId": "g5a_u05_5a05a1",
+    "knowledgePointIds": [
+      "kp_g5a_u05a1_sector_fraction_of_circle"
+    ],
+    "runtimeProfileId": "profile_geometry_property",
+    "blockingCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_5a05a1_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetEvidencePages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceIdentity": "扇形與圓心角",
+    "sourceLearnerFigureCopied": false
+  },
+  "runtimeContract": {
+    "requiredCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "optionalCapabilityIds": [
+      "cap_geometry_construction"
+    ],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g5a_u05a1_sector_fraction_from_labeled_angle",
+      "ps_g5a_u05a1_sector_fraction_reduce_angle_over_360",
+      "ps_g5a_u05a1_sector_fraction_rotation_invariant"
+    ],
+    "includedRelations": [
+      "READ_TARGET_SECTOR_CENTRAL_ANGLE",
+      "EXPRESS_CENTRAL_ANGLE_AS_FRACTION_OF_FULL_TURN_360",
+      "INTERPRET_SECTOR_AS_FRACTION_OF_FULL_CIRCLE"
+    ],
+    "questionMode": "diagram",
+    "rendererRepresentation": "sector_fraction_of_circle_diagram",
+    "rendererStrategy": "DEDICATED_P08F10_SECTOR_FRACTION_OF_CIRCLE_RENDERER",
+    "maxQuestionCountPerSelectedKnowledgePoint": 240,
+    "deterministicGeneration": true,
+    "answerModel": "REDUCED_FRACTION_TEXT",
+    "fullTurnInvariantDegrees": 360,
+    "sectorFractionEqualsCentralAngleOver360": true,
+    "targetIsFractionOfCircleNotAreaOrArcLength": true,
+    "rulerMeasurementRequired": false,
+    "printScaleIsAnswerAuthority": false,
+    "printLayout": {
+      "maxColumns": 2,
+      "maxRowsPerPage": 3
+    },
+    "humanVisualReviewRequiredBeforeD0": true
+  },
+  "scopeGuard": {
+    "priorCentralAngleMeasurementReowned": false,
+    "priorCombinedSectorAngleReowned": false,
+    "priorSectorElementsReowned": false,
+    "sameCircleSectorSizeComparisonReowned": false,
+    "sectorAreaArcLengthReowned": false,
+    "geometryConstructionReowned": false,
+    "applicationContextUsed": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q009ProductPreserved": true,
+    "q011OrLaterProductTouched": false,
+    "dedicatedRendererAdded": true,
+    "sharedRendererRegistryMinimalMutation": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_TECHNICAL_VISUAL_PRECHECK_PASS",
+      "ACTUAL_PRINT_OPERATOR_HUMAN_REVIEW_PASS"
+    ]
+  }
+}

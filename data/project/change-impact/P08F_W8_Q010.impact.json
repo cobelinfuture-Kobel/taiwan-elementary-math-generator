@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q010",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5a_u05a1_sector_fraction_of_circle"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q010.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q009ProductMutation": false,
+    "q011OrLaterMutation": false,
+    "sourceAuthorityMutation": false,
+    "r04ProfileReclassification": false,
+    "frozenQueueMutation": false,
+    "priorCentralAngleMeasurementMutation": false,
+    "priorCombinedSectorAngleMutation": false,
+    "priorSectorElementMutation": false,
+    "futureSameCircleSectorComparisonMutation": false
+  },
+  "classificationNote": "Q010 materializes the frozen G5A-U05A1 sector-fraction-of-circle route only. It adds one FormalMapping, one PatternGroup, three source-bounded PatternSpecs, deterministic fraction generation/validation, a dedicated sector-fraction renderer, selector/binding admission, worksheet/answer projection, and targeted visual E2E. Prior same-source owners and Q011+ remain unchanged."
+}
