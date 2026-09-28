@@ -1,0 +1,131 @@
+{
+  "schemaName": "P08FW8Q006G5AU05A1CombinedSectorAngleImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice006Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI_LIVE_E6_AND_ACTUAL_PRINT_REVIEW",
+  "goalDistance": {
+    "before": "D2_Q006_G5AU05A1_COMBINED_SECTOR_ANGLE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q006_G5AU05A1_COMBINED_SECTOR_ANGLE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_REVIEW",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "3ffa4a79011db67b3880ecbd82c8cd07d93ab0b4",
+  "preflight": {
+    "prNumber": 1104,
+    "mergeSha": "4c4606b8d5fc4a6e1240695471f54d696825d14d",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p08f/q006-g5a-u05a1-combined-sector-angle-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q005Status": "Q005_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "q005CloseoutPath": "data/curriculum/full-product/p08f/q005-final-learner-visual-d0-closeout.json",
+    "q005CloseoutMergeSha": "73accbb1fe475e70c42e65c8a30e22353937b85b",
+    "q005ActualPrintHumanAccepted": true,
+    "q005OperatorArtifactId": 10950544289
+  },
+  "queueAuthority": {
+    "queuePosition": 6,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q006_r3_g5a_u05_5a05a1_profile_geometry_property_c1",
+    "sourceId": "g5a_u05_5a05a1",
+    "knowledgePointIds": [
+      "kp_g5a_u05a1_combined_sector_angle"
+    ],
+    "runtimeProfileId": "profile_geometry_property",
+    "blockingCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_5a05a1_source.pdf",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "targetEvidencePages": [
+      1,
+      2
+    ],
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceIdentity": "扇形與圓心角",
+    "sourceLearnerFigureCopied": false
+  },
+  "runtimeContract": {
+    "requiredCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "optionalCapabilityIds": [
+      "cap_geometry_construction"
+    ],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 3,
+    "patternSpecIds": [
+      "ps_g5a_u05a1_unknown_sector_from_two_known",
+      "ps_g5a_u05a1_unknown_sector_from_three_known",
+      "ps_g5a_u05a1_unknown_sector_rotation_invariant"
+    ],
+    "includedRelations": [
+      "SUM_KNOWN_CENTRAL_ANGLES_AROUND_SAME_CENTER",
+      "SUBTRACT_KNOWN_ANGLE_SUM_FROM_FULL_TURN_360",
+      "SOLVE_UNKNOWN_COMBINED_SECTOR_ANGLE"
+    ],
+    "questionMode": "diagram",
+    "rendererRepresentation": "combined_sector_angle_diagram",
+    "rendererStrategy": "DEDICATED_P08F06_COMBINED_SECTOR_ANGLE_RENDERER",
+    "maxQuestionCountPerSelectedKnowledgePoint": 240,
+    "deterministicGeneration": true,
+    "answerModel": "INTEGER_DEGREES",
+    "fullTurnInvariantDegrees": 360,
+    "printLayout": {
+      "maxColumns": 2,
+      "maxRowsPerPage": 3
+    },
+    "humanVisualReviewRequiredBeforeD0": true
+  },
+  "scopeGuard": {
+    "priorCentralAngleMeasurementReowned": false,
+    "priorSectorElementsReowned": false,
+    "sectorFractionOfCircleReowned": false,
+    "sameCircleSectorSizeComparisonReowned": false,
+    "sectorAreaArcLengthReowned": false,
+    "geometryConstructionReowned": false,
+    "applicationContextUsed": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q005ProductPreserved": true,
+    "q007OrLaterProductTouched": false,
+    "dedicatedRendererAdded": true,
+    "sharedRendererRegistryMinimalMutation": true
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_TECHNICAL_VISUAL_PRECHECK_PASS",
+      "ACTUAL_PRINT_OPERATOR_HUMAN_REVIEW_PASS"
+    ]
+  }
+}
