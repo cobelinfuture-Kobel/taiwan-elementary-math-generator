@@ -3,8 +3,10 @@ import {
   buildWorksheetDocumentFromPlan as buildBase,
 } from "./build-worksheet-document-core-closeout.js";
 import { generateBatchABrowserQuestions } from "../../../modules/curriculum/batch-a/batch-a-browser-question-router.js";
+import { requestsP08F11 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f11.js";
 import { requestsP08F10 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f10.js";
 import { requestsP08F09 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f09.js";
+import { buildBatchABrowserWorksheetDocument as buildP08F11Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f11-extension.js";
 import { buildBatchABrowserWorksheetDocument as buildP08F10Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f10-extension.js";
 import { buildBatchABrowserWorksheetDocument as buildP08F09Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f09-extension.js";
 import { requestsP08F08 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f08.js";
@@ -277,6 +279,7 @@ function buildCurrentRouterBaseResult(plan, generation) {
 }
 
 export function buildWorksheetDocumentFromPlan(plan = {}) {
+  if (requestsP08F11(plan)) return buildP08F11Worksheet(plan);
   if (requestsP08F10(plan)) return buildP08F10Worksheet(plan);
   if (requestsP08F09(plan)) return buildP08F09Worksheet(plan);
   if (requestsP08F08(plan)) return buildP08F08Worksheet(plan);
