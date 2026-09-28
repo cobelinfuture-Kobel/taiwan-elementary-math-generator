@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q009",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g4a_u05_congruent_triangle_correspondence"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q009.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q008ProductMutation": false,
+    "q010OrLaterMutation": false,
+    "sourceAuthorityMutation": false,
+    "r04ProfileReclassification": false,
+    "frozenQueueMutation": false,
+    "priorTriangleElementsMutation": false,
+    "priorTriangleSideClassificationMutation": false,
+    "priorTriangleInequalityMutation": false,
+    "priorTriangleAngleClassificationMutation": false
+  },
+  "classificationNote": "Q009 adds a bounded public selector/binding/current-pointer cutover for kp_g4a_u05_congruent_triangle_correspondence under the already-public g4a_u05_4a05 source, with a dedicated congruent-triangle correspondence renderer. Shared executable and public authority changes are route-bounded; no legal-route, global-release, frozen-queue, R02, R04, prior G4A-U05 owner, Q008, or Q010+ mutation."
+}
