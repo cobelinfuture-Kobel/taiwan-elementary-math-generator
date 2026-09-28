@@ -1,6 +1,8 @@
-import {requestsP08F07} from "./batch-a-browser-generator-p08f07.js";\nimport {requestsP08F06} from "./batch-a-browser-generator-p08f06.js";
+import {requestsP08F07} from "./batch-a-browser-generator-p08f07.js";
+import {requestsP08F06} from "./batch-a-browser-generator-p08f06.js";
 import {requestsP08F05} from "./batch-a-browser-generator-p08f05.js";
-import {buildBatchABrowserWorksheetDocument as buildP08F07Worksheet} from "./batch-a-browser-worksheet-p08f07-extension.js";\nimport {buildBatchABrowserWorksheetDocument as buildP08F06Worksheet} from "./batch-a-browser-worksheet-p08f06-extension.js";
+import {buildBatchABrowserWorksheetDocument as buildP08F07Worksheet} from "./batch-a-browser-worksheet-p08f07-extension.js";
+import {buildBatchABrowserWorksheetDocument as buildP08F06Worksheet} from "./batch-a-browser-worksheet-p08f06-extension.js";
 import {buildBatchABrowserWorksheetDocument as buildP08F05Worksheet} from "./batch-a-browser-worksheet-p08f05-extension.js";
 import {requestsP08F04} from "./batch-a-browser-generator-p08f04.js";
 import {buildBatchABrowserWorksheetDocument as buildP08F04Worksheet} from "./batch-a-browser-worksheet-p08f04-extension.js";
