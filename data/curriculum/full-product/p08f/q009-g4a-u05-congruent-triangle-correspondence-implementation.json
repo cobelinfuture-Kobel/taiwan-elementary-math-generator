@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8DirectProductVerticalSlice009Implementation",
-  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI_LIVE_E6_AND_ACTUAL_PRINT_REVIEW",
+  "status": "IMPLEMENTATION_VISUAL_REMEDIATION_MATERIALIZED_AWAITING_FOCUSED_CI_LIVE_E6_AND_ACTUAL_PRINT_REVIEW",
   "goalDistance": {
     "before": "D2_Q009_G4AU05_CONGRUENT_TRIANGLE_CORRESPONDENCE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
     "after": "D1_Q009_G4AU05_CONGRUENT_TRIANGLE_CORRESPONDENCE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_REVIEW",
@@ -108,7 +108,17 @@
       "maxColumns": 2,
       "maxRowsPerPage": 3
     },
-    "humanVisualReviewRequiredBeforeD0": true
+    "humanVisualReviewRequiredBeforeD0": true,
+    "explicitSideLengthLabelsVisible": true,
+    "matchingSideTickMarksVisible": true,
+    "sideMeasurementEvidence": "EXPLICIT_NUMERIC_LABELS_PLUS_MATCHED_TICK_MARKS",
+    "rulerMeasurementRequired": false,
+    "printScaleIsAnswerAuthority": false,
+    "sideTickConvention": {
+      "AB_DE": 1,
+      "BC_EF": 2,
+      "CA_FD": 3
+    }
   },
   "scopeGuard": {
     "triangleElementsNamingReowned": false,
