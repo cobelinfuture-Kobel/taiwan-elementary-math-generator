@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q004",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5a_u05a1_central_angle_measurement"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q004.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "q003ProductMutation": false,
+    "q005OrLaterMutation": false,
+    "sourceAuthorityMutation": false,
+    "r04ProfileReclassification": false,
+    "frozenQueueMutation": false,
+    "priorP05F15SectorElementsMutation": false,
+    "rendererMutation": false
+  },
+  "classificationNote": "Q004 adds a bounded public selector/binding/current-pointer cutover for kp_g5a_u05a1_central_angle_measurement under the already-public g5a_u05_5a05a1 source. The existing P05F15 sector-elements renderer is reused without mutation. Shared executable and public authority changes are route-bounded; no legal-route, global-release, frozen-queue, R02, R04, prior sector-elements, or Q005+ mutation."
+}
