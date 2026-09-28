@@ -1,0 +1,166 @@
+{
+  "schemaName": "P08FW8Q003FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q003_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q003_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 3,
+    "sliceId": "p08e_q003_r2_g4a_u03_4a03_profile_geometry_property_c1",
+    "sourceId": "g4a_u03_4a03",
+    "knowledgePointIds": [
+      "kp_angle_composition_decomposition",
+      "kp_rotation_angle_clock"
+    ],
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "frozenQueueChanged": false,
+    "q004OrLaterProductChanged": false
+  },
+  "finalProductAuthority": {
+    "implementationPr": 1093,
+    "implementationPrGateRunId": 36362562756,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+    "deployPagesRunId": 36362656694,
+    "deployPagesRunNumber": 2375,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36362656798,
+    "pagesE2ERunAttempt": 2,
+    "pagesE2EJobId": 108746502493,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "pagesE2EArtifactId": 10946607637,
+    "pagesE2EArtifactDigest": "sha256:99b4668b2a488e05b7dc7156016d01a7923b828b142d723d2b600736a73bb862",
+    "exactDeployedHeadSha": "20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+    "initialLiveAttemptFailureClass": "TRANSIENT_POST_DEPLOY_CLASSIC_UI_BOOTSTRAP_TIMEOUT",
+    "initialLiveAttemptRequiredCodeRepair": false
+  },
+  "finalLearnerFacingEvidence": {
+    "angleCompositionDecomposition": {
+      "questionCount": 15,
+      "answerCount": 15,
+      "diagramCount": 30,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "worksheetColumns": 2,
+      "rowsPerPage": 3,
+      "clippedCellCount": 0,
+      "overflowPageCount": 0,
+      "internalDiagramClippingCount": 0,
+      "minDiagramWidthPx": 311.9375,
+      "minDiagramHeightPx": 165,
+      "diagramModes": [
+        "ADJACENT_COMPOSITION",
+        "NAMED_RAY_MISSING_PART",
+        "WHOLE_PART_DECOMPOSITION"
+      ],
+      "degreeAnswerCount": 15,
+      "responseLineCount": 15
+    },
+    "rotationAngleClock": {
+      "questionCount": 15,
+      "answerCount": 15,
+      "diagramCount": 30,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "worksheetColumns": 2,
+      "rowsPerPage": 3,
+      "clippedCellCount": 0,
+      "overflowPageCount": 0,
+      "internalDiagramClippingCount": 0,
+      "minDiagramWidthPx": 311.9375,
+      "minDiagramHeightPx": 165,
+      "diagramModes": [
+        "CLOCK_HANDS",
+        "CLOCK_STEP",
+        "ROTATION_TURN"
+      ],
+      "clockwiseAndCounterclockwiseBothCovered": true,
+      "degreeAnswerCount": 15,
+      "responseLineCount": 15
+    },
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "browserRequestFailureCount": 0,
+    "browserAssetHttpFailureCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "reviewedArtifacts": [
+      "q003-angle-human-review.pdf",
+      "q003-angle-human-review.png",
+      "q003-clock-human-review.pdf",
+      "q003-clock-human-review.png"
+    ],
+    "exactArtifactId": 10946607637,
+    "exactArtifactDigest": "sha256:99b4668b2a488e05b7dc7156016d01a7923b828b142d723d2b600736a73bb862",
+    "decisionTextZh": "圖形檢查 OK",
+    "acceptedAtLocalDate": "2026-09-28",
+    "actualPrintAccepted": true,
+    "learnerFacingAccepted": true,
+    "d0Granted": true
+  },
+  "learnerVisualContract": {
+    "adjacentAngleWholePartArithmetic": true,
+    "fullTurnDegrees360": true,
+    "clock12Divisions30DegreesEach": true,
+    "twoColumnPrintLayout": true,
+    "printSafePagination": true,
+    "responseLineVisible": true,
+    "q001PriorOwnerPreserved": true,
+    "laterSameSourceSemanticsHidden": true,
+    "sameUnitMixedModeFailClosed": true
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "d784f51b60b4a90370a8504aa5d186e508178397",
+    "exactProductMergeSha": "20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+    "commitsAfterExactProductMerge": 9,
+    "onlyCiEvidenceFilesChanged": true,
+    "productRuntimeFilesChanged": false,
+    "curriculumRuntimeFilesChanged": false,
+    "changedFilesAfterExactProductMerge": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-p07f-w7-q011-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q012-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q026-pages-e2e.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "q004SuccessorReadiness": {
+    "nextPreflightTaskId": "P08F_W8_Q004_SourceAuthorityPreflight",
+    "implementationRequiresSeparateOperatorApproval": true
+  },
+  "antiScopeCreep": {
+    "repairRepositoryHistoricalFailures": false,
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ003ProductRuntime": false,
+    "modifyQ003SourceAuthority": false,
+    "modifyFormalMappingIdentity": false,
+    "modifyPatternSpecIdentity": false,
+    "modifyW8FrozenQueue": false,
+    "implementQ004": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q003_ACTUAL_PRINT_HUMAN_REVIEW_PENDING",
+    "goalDistanceAfter": "D0_Q003_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ003Blockers": [],
+    "nextShortestStep": "P08F_W8_Q004_SourceAuthorityPreflight"
+  }
+}
