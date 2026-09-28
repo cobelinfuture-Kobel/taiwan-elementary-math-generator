@@ -1,0 +1,39 @@
+import {buildBatchABrowserPlan as baseBuildPlan,generateBatchABrowserQuestions as baseGenerate} from "./batch-a-browser-generator-p08f03.js";
+import {generateG5AU05A1P08F04Questions,G5A_U05A1_P08F04_MAX_QUESTION_COUNT} from "./g5a-u05a1-central-angle-measurement-runtime-p08f04.js";
+import {G5A_U05A1_P08F04_KP_ID as KP,G5A_U05A1_P08F04_PATTERN_GROUP as GROUP,G5A_U05A1_P08F04_SOURCE_ID as SRC,G5A_U05A1_P08F04_SPEC_IDS as SPEC_IDS} from "../registry/g5a-u05a1-central-angle-measurement-selector-projection-p08f04.js";
+function target(o={}){
+  if(o.sourceId!==SRC||["sourceUnit","mixedKnowledgePointsSameUnit","mixedKnowledgePointsCrossUnit"].includes(o.selectionMode))return false;
+  const ids=[...new Set((o.selectedKnowledgePointIds??o.knowledgePointIds??[]).filter(Boolean))];
+  if(ids.length)return ids.length===1&&ids[0]===KP;
+  if((o.selectedPatternGroupIds??[]).includes(GROUP.patternGroupId))return true;
+  return (o.patternSpecIds??[]).some(id=>SPEC_IDS.includes(id));
+}
+export const requestsP08F04=o=>target(o);
+export function buildBatchABrowserPlan(o={}){
+  if(!target(o))return baseBuildPlan(o);
+  const base=baseBuildPlan(o),requested=Array.isArray(o.patternSpecIds)?SPEC_IDS.filter(id=>o.patternSpecIds.includes(id)):[],patternSpecIds=requested.length?requested:SPEC_IDS;
+  return Object.freeze({...base,
+    sourceId:SRC,
+    sourceUnit:Object.freeze({sourceId:SRC,grade:5,semester:"upper",unitCode:"5A-U05A1",title:"扇形與圓心角",domain:"geometry_property"}),
+    selectionMode:"singleKnowledgePoint",
+    selectedKnowledgePointIds:Object.freeze([KP]),
+    knowledgePointIds:Object.freeze([KP]),
+    requestedKnowledgePointIds:Object.freeze([KP]),
+    selectedPatternGroupIds:Object.freeze([GROUP.patternGroupId]),
+    requestedPatternGroupIds:Object.freeze([GROUP.patternGroupId]),
+    patternSpecIds:Object.freeze(patternSpecIds),
+    questionMode:"diagram",requestedQuestionType:"diagram",
+    questionCount:Number.isInteger(o.questionCount)?o.questionCount:20,
+    questionCountMax:G5A_U05A1_P08F04_MAX_QUESTION_COUNT,
+    generationSeed:String(o.generationSeed??"p08f04-central-angle"),
+    publicControls:Object.freeze({sourceId:SRC,questionMode:"diagram",requestedQuestionType:"diagram",productWave:"P08F",productAdmissionTask:"P08F_W8DirectProductVerticalSlice004Implementation"}),
+    publicPatternSpecInjectionUsed:false,genericFallback:false,genericFallbackAllowed:false,freeFormAI:false,
+    applicationContextMode:"NOT_REQUIRED_CORE_DIAGRAM",sameUnitMixedMode:"NOT_ADMITTED",sharedRuntimeScope:"SHARED_RUNTIME_BOUNDED"
+  });
+}
+export const buildBatchABrowserGenerationPlan=buildBatchABrowserPlan;
+export function generateBatchABrowserQuestions(o={}){
+  if(!target(o))return baseGenerate(o);
+  const plan=buildBatchABrowserPlan(o),generated=generateG5AU05A1P08F04Questions(plan);
+  return Object.freeze({...generated,plan,sourceId:SRC,questionMode:"diagram"});
+}
