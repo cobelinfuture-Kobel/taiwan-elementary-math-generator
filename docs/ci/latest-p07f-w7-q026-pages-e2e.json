@@ -1,144 +1,1172 @@
 {
-  "schemaName": "P07FW7Q026PostMergeMainPagesE2EV1",
-  "taskId": "P07F_W7DirectProductVerticalSlice026Implementation",
-  "status": "PASS_E6_D0_COMPLETE",
-  "exactHeadSha": "a01573722def1d761fce0bb5591415bfa1773649",
+  "schemaName": "P07FW7Q026PostMergeMainPagesE2EFailureV1",
+  "status": "FAIL",
+  "exactHeadSha": "20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
-  "deployment": {
-    "attempt": 32,
-    "assets": [
-      {
-        "publicPath": "modules/curriculum/registry/g6a-u08-effective-speed-current-wind-selector-projection-p07f26.js",
-        "expectedSha256": "8920908484fe2d03a09242d3e21ed0dc3adfd4cfc6cbca37a87c74f981c476cb",
-        "liveSha256": "8920908484fe2d03a09242d3e21ed0dc3adfd4cfc6cbca37a87c74f981c476cb"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/batch-a-selector-p07f26-extension.js",
-        "expectedSha256": "ff4e47a5c55d7fcfbf558f4f03c971b8b209ce626ee3ad863a232efd8a4b1e00",
-        "liveSha256": "ff4e47a5c55d7fcfbf558f4f03c971b8b209ce626ee3ad863a232efd8a4b1e00"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
-        "expectedSha256": "d2936cbc931335da6ab203246f367a4c6fc123d1ad2d42328742cd8836c6a54a",
-        "liveSha256": "d2936cbc931335da6ab203246f367a4c6fc123d1ad2d42328742cd8836c6a54a"
-      },
-      {
-        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p07f26.js",
-        "expectedSha256": "4fdd963f627d12d58f9ee547566fab0292f9becf49fd9948c7ae3d901d5ab2f8",
-        "liveSha256": "4fdd963f627d12d58f9ee547566fab0292f9becf49fd9948c7ae3d901d5ab2f8"
-      },
-      {
-        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-        "expectedSha256": "1a96c9bb714037b327d29726ecbf0e73125496671abe2ae75dd143cc452113d5",
-        "liveSha256": "1a96c9bb714037b327d29726ecbf0e73125496671abe2ae75dd143cc452113d5"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/g6a-u08-effective-speed-current-wind-runtime-p07f26.js",
-        "expectedSha256": "11795a833ee2bd9fd5ee2937415abdd689774f7f6c4c621589ff4b91f521a127",
-        "liveSha256": "11795a833ee2bd9fd5ee2937415abdd689774f7f6c4c621589ff4b91f521a127"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p07f26.js",
-        "expectedSha256": "df31c45b62369a36a858be322448abb620c2288a606e97b8063b9dda09c2b26a",
-        "liveSha256": "df31c45b62369a36a858be322448abb620c2288a606e97b8063b9dda09c2b26a"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
-        "expectedSha256": "4169139e53f3c077001ce0dd3a13c4ac8c1bf2ca605e8f52558dbf5098ae5e94",
-        "liveSha256": "4169139e53f3c077001ce0dd3a13c4ac8c1bf2ca605e8f52558dbf5098ae5e94"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p07f26-extension.js",
-        "expectedSha256": "f1add2fba2545a5091cb709d4db6dac1c51ece98de24a9042168a369a57b202d",
-        "liveSha256": "f1add2fba2545a5091cb709d4db6dac1c51ece98de24a9042168a369a57b202d"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
-        "expectedSha256": "f1f0e49e14d60d7e69dce1d3dc6e7ede7fd1dd022e4b1ccd91f52e6346020261",
-        "liveSha256": "f1f0e49e14d60d7e69dce1d3dc6e7ede7fd1dd022e4b1ccd91f52e6346020261"
-      }
-    ]
-  },
-  "classicUiAcceptance": {
-    "schemaName": "P07FW7Q026ClassicUIAcceptanceV1",
-    "taskId": "P07F_W7DirectProductVerticalSlice026Implementation",
-    "status": "PASS_P07F_W7_Q026_CLASSIC_UI_ACCEPTANCE",
-    "sourceId": "g6a_u08_6a08",
-    "knowledgePointId": "kp_effective_speed_current_wind",
-    "questionCount": 12,
-    "target": {
-      "selector": {
-        "sourceId": "g6a_u08_6a08",
-        "visibleIds": [
-          "kp_speed_distance_time_relation",
-          "kp_average_speed_total_distance_time",
-          "kp_relative_speed_meeting_chasing",
-          "kp_effective_speed_current_wind"
-        ],
-        "targetPresent": true,
-        "sameUnitDisabled": true
-      },
-      "state": {
-        "status": "已產生 12 題，可預覽與列印。",
-        "tone": "success",
-        "valid": "false",
-        "preview": 13414,
-        "printDisabled": false
-      },
-      "worksheet": {
-        "questions": 12,
-        "answers": 12,
-        "overflow": 0
-      },
-      "printCount": 1
-    },
+  "error": "Error: P07F26_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\npage.waitForFunction: Timeout 30000ms exceeded.\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice026-classic-ui-acceptance.mjs:20:14)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice026-classic-ui-acceptance.mjs:52:77 {\n  name: 'TimeoutError'\n}\n\nNode.js v22.23.2\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-q026-live-pages-e2e.mjs:27:227)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
+  "childFailure": {
+    "schemaName": "P07FW7Q026ClassicUIAcceptanceFailureV1",
+    "status": "FAIL",
+    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00-1790555930089",
+    "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice026-classic-ui-acceptance.mjs:20:14)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p07f-w7-slice026-classic-ui-acceptance.mjs:52:77",
     "browser": {
-      "consoleErrorCount": 0,
-      "pageErrorCount": 0,
-      "requestFailureCount": 0,
-      "assetHttpFailureCount": 0
+      "console": [
+        "Failed to load resource: the server responded with a status of 503 ()"
+      ],
+      "page": [],
+      "request": [
+        {
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4a-u03-protractor-angle-measurement-selector-projection-p08f01.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "http": [
+        {
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4a-u03-protractor-angle-measurement-selector-projection-p08f01.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+          "status": 503
+        }
+      ]
     },
-    "semanticInvariants": {
-      "effectiveSpeedCurrentWindOwned": true,
-      "sameDirectionAddition": true,
-      "oppositeDirectionSubtraction": true,
-      "positiveOpposingEffectiveSpeed": true,
-      "reverseSolveRejected": true,
-      "speedUnitConversionProtected": true,
-      "averageRelativeOwnershipProtected": true,
-      "sameUnitMixedModeFailClosed": true,
-      "w7FrozenQueueComplete": true
+    "moduleResponses": [
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/main.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-5ddc\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/public-capability-ui.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1dea\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/public-ui-capability-binding-p04f33.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-314\"",
+        "age": "1",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/source-units.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2b2e\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/state/config-state.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-26c4\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-867\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/global-public-layout-controls.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-622\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g5a-u08-promotion.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-f70\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/pipeline/render-preview-frame.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-202e\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/pipeline/build-worksheet-document.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-14dd\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/state/query-state.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2b6\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/state/public-pattern-group-selection.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1625\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p04f33-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-4ad\"",
+        "age": "1",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/public-ui-capability-binding-p04f33-base.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1383\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/public-ui-capability-binding-p08f03.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1255\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/state/public-ui-messages.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2a58\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/source-units-pre-p05f49.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2f0f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4b-u04-promotion.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1f8d\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/state/config-state-core.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-4a64\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/global-public-layout-contract.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-10ce\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/full-product-public-control-profiles.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-3e26\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/public-control-profiles.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-112f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/fifteen-unit-public-pbl-worksheet.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1faf\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/source-pattern-g5a-u08-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-266f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-3087\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/html-renderer-s73-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-248e\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/w01-public-application-groups.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-b6f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/global/r07-authoritative-consumer-cutover.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-3351\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-composer.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-29e1\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/fifteen-unit-public-application-groups.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-b5f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p01e-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-b98\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/w1-full-product-public-application-groups.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-15d2\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/g4b-u04-public-controls.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2870\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/state/query-state-p04f10.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2b4\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p04f33-base.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-12f2\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4a-u03-angle-composition-rotation-clock-selector-projection-p08f03.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2a93\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g6a-u02-fraction-divided-by-integer-selector-projection-p04f33.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-137b\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/public-ui-capability-binding-p04f32.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-136e\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p08f03-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-11d7\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/public-ui-capability-binding-p08f02.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-f2d\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/source-units-pre-p04f11.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-3925\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/source-pattern-g4b-u04-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2ef0\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-layout-resolution.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-143a\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/state/presets.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1f95\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-controlled-context-variants.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-5ab3\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/constants.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1025\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/fifteen-unit-public-control-profiles.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1052\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g5a-u02-reasoning-depth-contract.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-e48\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/state/config-validation.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-16ce\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g5a-u02-context-taxonomy.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-e86\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f01-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-16f0\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-question-router.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-223b\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/fifteen-unit-public-pbl-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2b87\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/html-renderer-s60j-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2194\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/index.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-22d\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/worksheet-pagination.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-abe\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f26-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1418\"",
+        "age": "1",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f02-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-161d\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-generator-p08f02.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-afa\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-generator-p08f01.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-afc\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g5a-u02-public-question-type-contract.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-fd4\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/g4b-u04-public-semantic-format.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-f1a\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f03-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1752\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-g4a-u08-all-canonical.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2a57\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/g5a-u02-s101-public-renderer.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-5a66\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-g4a-u08-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-248d\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/w1-full-product-public-application-admission.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2d79\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/global-public-source-unit-adapter-registry.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-593f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g5a-u02-selector-projection.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-110a\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/state/query-state-p04f9.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-3271\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/pipeline/build-worksheet-document-core-closeout.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-4300\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g6a-u02-reciprocal-selector-projection.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-d07\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p01d3-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1312\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-generator-p07f26.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-c03\"",
+        "age": "1",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g6a-u08-effective-speed-current-wind-selector-projection-p07f26.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2671\"",
+        "age": "2",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g6a-u08-effective-speed-current-wind-runtime-p07f26.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2637\"",
+        "age": "1",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g5b-u02-fraction-rank8-selector-projection-p04f32.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2373\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p04f10-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-dda\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/public-ui-capability-binding-p04f31.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-d6e\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-generator-p08f03.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-cb7\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p08f02-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-f4f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-class-d-semantic-validator.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-6232\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p04f32-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-14d1\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-class-d-semantic-generator.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-65e2\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g5a-u10a-solid-viewpoint-selector-projection-p08f02.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1de3\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4a-u03-protractor-angle-measurement-selector-projection-p08f01.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 503,
+        "etag": null,
+        "age": null,
+        "cacheControl": null
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/source-pattern-g5a-u02-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-3775\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/public-ui-capability-binding-p08f01.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-eaa\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g4a-u03-protractor-angle-measurement-runtime-p08f01.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2723\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-question-router-pre-p01d1.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1ddf\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/number-theory-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-430e\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-generator-p03f13.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-db8\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/factor-multiple-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-5977\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/large-number-place-value-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-3f91\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/html-renderer-s59j-r1-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-11e8\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/public-ui-capability-binding-p07f26.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-11e5\"",
+        "age": "2",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/regenerate-identity-seed-order.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1262\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/hundredth-decimal-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2694\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/part-whole-fraction-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1f7c\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/quotient-fraction-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1b30\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/discrete-fraction-conversion-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-4364\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/numeric-unique-allocation-fullfix.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-201a\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/slice002-fraction-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-4875\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/same-denominator-fraction-compare-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-30f5\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/one-decimal-times-integer-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2b1f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/simplest-fraction-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2238\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/decimal-slice008-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-10f8\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/report.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-5be\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/quotient-as-fraction-context-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-3396\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/equivalence-cross-product-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-c35\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/tenths-fraction-decimal-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-261b\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/tenth-decimal-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1e8c\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g5a-u02-public-knowledge-points.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-102a\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/default-config.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-d9e\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/fifteen-unit-global-context-registry.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-15aa\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/pattern-planning.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1a82\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/generate-expression.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-4e06\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/g5a-u02-s107-public-representation.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-be3\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g5a-u02-global-layout-projection.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2c86\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/worksheet-formatting.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1356\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/evaluate-expression.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-fad\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-candidates.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1f86\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p01d2-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-ec4\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/g5a-u02-s106-public-representation.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-13ff\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/equivalent-fraction-runtime.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2edb\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/random.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-4ba\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f25-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1468\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/worksheet-assembly.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-154b\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g5a-u10a-solid-viewpoint-runtime-p08f02.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-23b1\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/config-schema.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-134e\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/operators.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-9dc\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4a-u08-phase2b-promotion.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-fa4\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/golden/shared-golden-runtime-consumer.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1caf\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g5a-u02-public-candidate.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-fd5\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/public/public-ui-capability-binding-p04f30.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-d74\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4a-u10-kilometer-unit-identity-selector-projection-p04f5.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-fc0\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g5a-u02-browser-resolver.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-e68\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/expression-model.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-a7f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/g5a-u02-s108-public-representation.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-9ae\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-gctx-p13-entry.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1269\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g4a-u03-angle-composition-rotation-clock-runtime-p08f03.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-37e2\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g5a-u03-factor-multiple-selector-projection.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1df6\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p04f31-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-134f\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4a-u10-km-m-conversion-selector-projection-p04f10.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-1081\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/number-value.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-518\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-class-c-generator.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-3ded\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/global-public-layout-overlay.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-373d\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/assets/browser/pipeline/public-control-output-metadata.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-b26\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2a04\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-generator-p07f25.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-dcd\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g4b-u04-class-c-validator.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-5166\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g5b-u02-fraction-times-integer-selector-projection-p04f31.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-e19\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p08f01-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-faf\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-g4b-u04-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-34a5\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g4b-u01-horizontal-promotion.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-175e\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/batch-a-selector-p04f9-extension.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-dfe\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/core/validate-config.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2d63\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/fifteen-unit-public-application-admission.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2810\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/global-public-source-unit-adapter.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-2c0c\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      },
+      {
+        "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-b/g5a-u02-browser-dynamic-runtime.bundle.js?p07f26-e6=20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+        "status": 200,
+        "etag": "W/\"6ab9b717-28280\"",
+        "age": "0",
+        "cacheControl": "max-age=600"
+      }
+    ],
+    "cacheStrategy": {
+      "remote": true,
+      "token": "20b5c2dbacecdf96a414ea8ec70ad3f26ae6cc00",
+      "moduleQueryParam": "p07f26-e6"
     },
-    "forbiddenScope": {
-      "speedUnitConversion": false,
-      "reverseSolveOwnSpeed": false,
-      "reverseSolveCurrentWindSpeed": false,
-      "averageSpeedReownership": false,
-      "relativeSpeedReownership": false,
-      "sameUnitMixed": false,
-      "crossUnitMixed": false,
-      "fullRepositoryRegression": false,
-      "globalBrowserReplay": false
+    "server": {
+      "stdout": "",
+      "stderr": ""
     }
-  },
-  "semanticInvariants": {
-    "effectiveSpeedCurrentWindOwned": true,
-    "primaryAndSupportingSourceAuthorityConsumed": true,
-    "speedUnitConversionProtected": true,
-    "averageRelativeOwnershipProtected": true,
-    "sameUnitMixedModeFailClosed": true,
-    "w7FrozenQueueComplete": true,
-    "w7DirectSliceCount": 26,
-    "w7ConfirmedD0AfterThisRun": 26
   },
   "workflow": "P07F W7 Q026 Post-Merge Pages E2E",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36332387731",
-    "number": "3",
+    "id": "36362656692",
+    "number": "4",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36332387731"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36362656692"
   },
-  "verifiedAt": "2026-09-27T16:21:16.526Z"
+  "verifiedAt": "2026-09-28T00:39:23.431Z"
 }
