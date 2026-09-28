@@ -1,6 +1,7 @@
 import { renderAnglePartsDiagram } from "./angle-parts-diagram.js";
 import { renderAngleCompositionRotationClockDiagram } from "./angle-composition-rotation-clock-diagram-p08f03.js";
-import { renderUnknownAngleLinearFullVerticalDiagram } from "./unknown-angle-linear-full-vertical-diagram-p08f07.js";\nimport { renderCombinedSectorAngleDiagram } from "./combined-sector-angle-diagram-p08f06.js";
+import { renderUnknownAngleLinearFullVerticalDiagram } from "./unknown-angle-linear-full-vertical-diagram-p08f07.js";
+import { renderCombinedSectorAngleDiagram } from "./combined-sector-angle-diagram-p08f06.js";
 import { renderAngleEstimationClassificationDiagram } from "./angle-estimation-classification-diagram-p08f05.js";
 import { renderProtractorAngleMeasurementDiagram } from "./protractor-angle-measurement-diagram-p08f01.js";
 import { renderSolidViewpointRepresentationDiagram } from "./solid-viewpoint-representation-diagram-p08f02.js";
