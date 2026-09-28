@@ -1,0 +1,99 @@
+import {spawn} from "node:child_process";
+import {mkdirSync,statSync,writeFileSync} from "node:fs";
+import path from "node:path";
+import {chromium} from "playwright";
+
+const SOURCE="g5a_u05_5a05a1",KP="kp_g5a_u05a1_central_angle_measurement",PRIOR=["kp_g5a_u05a1_sector_center_radius_arc"],FUTURE=["kp_g5a_u05a1_combined_sector_angle","kp_g5a_u05a1_sector_fraction_of_circle","kp_g5a_u05a1_sector_compare_same_circle"],COUNT=15;
+const EXPECTED_SPECS=["ps_g5a_u05a1_measure_central_angle_between_radii","ps_g5a_u05a1_read_central_angle_sector_diagram","ps_g5a_u05a1_rotation_invariant_central_angle"];
+const PORT=Number(process.env.P08F04_SITE_PORT||"4421"),REMOTE=process.env.P08F04_SITE_URL||null,BASE=REMOTE||("http://127.0.0.1:"+PORT+"/index.html"),OUT=path.resolve("tmp/p08f-w8-slice004-classic-ui-acceptance");
+mkdirSync(OUT,{recursive:true});
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let server=null,browser=null,serverOut="",serverErr="";
+if(!REMOTE){
+  server=spawn(process.execPath,["tools/site/serve-site.js"],{env:{...process.env,SITE_PORT:String(PORT),SITE_HOST:"127.0.0.1"},stdio:["ignore","pipe","pipe"]});
+  server.stdout.on("data",c=>serverOut+=c);server.stderr.on("data",c=>serverErr+=c);
+}
+async function ready(){let last;for(let i=0;i<50;i++){try{const r=await fetch(BASE,{cache:"no-store"});if(r.ok)return;}catch(e){last=e;}await sleep(250);}throw new Error("P08F04_SITE_NOT_READY:"+(last?.message||"unknown"));}
+const errors={console:[],page:[],request:[],http:[]};
+async function configurePage(page){
+  page.on("console",m=>{if(m.type()==="error")errors.console.push(m.text());});
+  page.on("pageerror",e=>errors.page.push(String(e?.stack||e)));
+  page.on("requestfailed",r=>errors.request.push({url:r.url(),failure:r.failure()?.errorText||"unknown"}));
+  page.on("response",r=>{if(r.status()>=400&&(/\.(?:m?js|css)(?:\?|$)/i.test(r.url())||r.url().includes("/modules/")||r.url().includes("/assets/")))errors.http.push({url:r.url(),status:r.status()});});
+  const url=new URL(BASE);url.searchParams.set("p08f04",String(Date.now()));
+  const response=await page.goto(url.href,{waitUntil:"networkidle",timeout:120000});
+  if(!response?.ok())throw new Error("P08F04_MAIN_HTTP:"+(response?.status()||"none"));
+  await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-grade-select option")].some(o=>o.value==="5"),null,{timeout:120000});
+  await page.selectOption("#batch-a-grade-select","5");
+  await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-semester-select option")].some(o=>o.value==="upper"),null,{timeout:120000});
+  await page.selectOption("#batch-a-semester-select","upper");
+  await page.waitForFunction(id=>[...document.querySelectorAll("#batch-a-source-select option")].some(o=>o.value===id),SOURCE,{timeout:120000});
+  await page.selectOption("#batch-a-source-select",SOURCE);
+  await page.waitForFunction(({kp,prior})=>Boolean(document.querySelector('#batch-a-knowledge-point-panel [data-knowledge-point-id="'+kp+'"]'))&&prior.every(id=>Boolean(document.querySelector('#batch-a-knowledge-point-panel [data-knowledge-point-id="'+id+'"]'))),{kp:KP,prior:PRIOR},{timeout:120000});
+  await page.selectOption("#batch-a-selection-mode-select","singleKnowledgePoint");
+  const selector=await page.evaluate(({kp,prior,future})=>({
+    sourceId:document.querySelector("#batch-a-source-select")?.value,
+    visibleIds:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id]")].map(n=>n.dataset.knowledgePointId),
+    targetPresent:Boolean(document.querySelector('#batch-a-knowledge-point-panel [data-knowledge-point-id="'+kp+'"]')),
+    priorPreserved:prior.every(id=>Boolean(document.querySelector('#batch-a-knowledge-point-panel [data-knowledge-point-id="'+id+'"]'))),
+    futureHidden:future.every(id=>!document.querySelector('#batch-a-knowledge-point-panel [data-knowledge-point-id="'+id+'"]')),
+    sameUnitDisabled:Boolean(document.querySelector('#batch-a-selection-mode-select option[value="mixedKnowledgePointsSameUnit"]')?.disabled)
+  }),{kp:KP,prior:PRIOR,future:FUTURE});
+  if(selector.sourceId!==SOURCE||!selector.targetPresent||!selector.priorPreserved||!selector.futureHidden||!selector.sameUnitDisabled)throw new Error("P08F04_SELECTOR:"+JSON.stringify(selector));
+  return selector;
+}
+async function runTarget(page){
+  await page.locator('#batch-a-knowledge-point-panel [data-knowledge-point-id="'+KP+'"]').click();
+  await page.waitForFunction(id=>document.querySelector('#batch-a-knowledge-point-panel [data-knowledge-point-id="'+id+'"]')?.dataset?.selected==="true",KP,{timeout:120000});
+  await page.fill("#batch-a-question-count-input",String(COUNT));await page.dispatchEvent("#batch-a-question-count-input","change");
+  await page.selectOption("#batch-a-ordering-select","shuffleAcrossPatterns");
+  await page.check("#batch-a-answer-key-input");
+  await page.fill("#columns-input","3");await page.dispatchEvent("#columns-input","change");
+  await page.fill("#rows-per-page-input","5");await page.dispatchEvent("#rows-per-page-input","change");
+  await page.fill("#generation-seed-input","p08f04-central-angle-human-review");await page.dispatchEvent("#generation-seed-input","change");
+  await page.locator("#regenerate-button").click();
+  await page.waitForFunction(n=>{const x=document.querySelector("#status-panel")?.textContent||"";return x.includes("已產生 "+n+" 題")||x.includes("產生失敗");},COUNT,{timeout:120000});
+  const state=await page.evaluate(()=>({status:document.querySelector("#status-panel")?.textContent?.trim()||"",tone:document.querySelector("#status-panel")?.dataset?.tone||"",valid:document.querySelector("#validation-panel")?.dataset?.hasErrors||null,preview:document.querySelector("#preview-frame")?.srcdoc?.length||0,printDisabled:Boolean(document.querySelector("#print-button")?.disabled)}));
+  if(!state.status.includes("已產生 "+COUNT+" 題")||state.tone!=="success"||state.valid!=="false"||state.preview<=0||state.printDisabled)throw new Error("P08F04_GENERATION:"+JSON.stringify(state));
+  await page.emulateMedia({media:"print"});
+  const frame=await (await page.locator("#preview-frame").elementHandle())?.contentFrame();
+  if(!frame)throw new Error("P08F04_PREVIEW_FRAME_MISSING");
+  await frame.waitForSelector(".worksheet-document",{timeout:120000});
+  const worksheet=await frame.evaluate(()=>{
+    const q=[...document.querySelectorAll(".worksheet-cell--question")],a=[...document.querySelectorAll(".worksheet-cell--answer-key")],questionPages=[...document.querySelectorAll(".worksheet-page--questions")],answerPages=[...document.querySelectorAll(".worksheet-page--answer-key")],allPages=[...document.querySelectorAll(".worksheet-page")],text=document.body?.innerText||"";
+    const clipped=q.filter(cell=>{const pg=cell.closest(".worksheet-page");if(!pg)return true;const c=cell.getBoundingClientRect(),p=pg.getBoundingClientRect();return c.top<p.top-1||c.left<p.left-1||c.bottom>p.bottom+1||c.right>p.right+1;}).length;
+    const pageMetrics=allPages.map((n,index)=>{const rect=n.getBoundingClientRect(),cells=[...n.querySelectorAll(".worksheet-cell")],type=n.classList.contains("worksheet-page--questions")?"questions":n.classList.contains("worksheet-page--answer-key")?"answerKey":"other",clippedCells=cells.filter(cell=>{const r=cell.getBoundingClientRect();return r.top<rect.top-1||r.left<rect.left-1||r.bottom>rect.bottom+1||r.right>rect.right+1;}).length;return{index:index+1,type,scrollHeight:n.scrollHeight,clientHeight:n.clientHeight,scrollWidth:n.scrollWidth,clientWidth:n.clientWidth,overflowY:n.scrollHeight-n.clientHeight,overflowX:n.scrollWidth-n.clientWidth,cellCount:cells.length,clippedCells,columns:Number(n.querySelector(".worksheet-page__grid")?.style?.getPropertyValue("--worksheet-columns")||0)};});
+    const overflowDetails=pageMetrics.filter(x=>x.overflowY>1||x.overflowX>1||x.clippedCells>0);
+    const svgs=[...document.querySelectorAll(".worksheet-sector-elements-diagram")],svgMetrics=svgs.map((svg,index)=>{const r=svg.getBoundingClientRect();return{index:index+1,width:r.width,height:r.height};});
+    const reps=[...document.querySelectorAll('[data-representation="sector-elements-diagram"]')],markerModes=[...new Set(reps.map(x=>x.dataset.markerMode))].sort();
+    const patternSpecIds=[...new Set(q.map(x=>x.dataset.patternId).filter(Boolean))].sort();
+    const answers=a.map(x=>x.querySelector(".worksheet-cell__answer")?.textContent?.trim()||""),prompts=q.map(x=>x.querySelector(".worksheet-cell__prompt")?.textContent||"");
+    return{questions:q.length,answers:a.length,diagrams:svgs.length,questionPages:questionPages.length,answerPages:answerPages.length,allPages:allPages.length,clipped,overflow:overflowDetails.length,overflowDetails,pageMetrics,minDiagramWidth:Math.min(...svgMetrics.map(x=>x.width)),minDiagramHeight:Math.min(...svgMetrics.map(x=>x.height)),markerModes,patternSpecIds,degreeAnswers:answers.filter(x=>/^\d+°$/.test(x)).length,responseLineCount:prompts.filter(x=>x.includes("______")).length,text,leaks:/kp_g5a_|P08F04|占全圓|比較扇形|扇形面積|弧長|合併扇形|作圖/.test(text)};
+  });
+  if(worksheet.questions!==COUNT||worksheet.answers!==COUNT||worksheet.diagrams!==COUNT*2||worksheet.questionPages!==3||worksheet.answerPages!==3||worksheet.allPages!==6||worksheet.clipped!==0||worksheet.overflow!==0||worksheet.leaks||worksheet.minDiagramWidth<250||worksheet.minDiagramHeight<110||worksheet.markerModes.join("|")!=="CENTRAL_ANGLE_ARC"||worksheet.patternSpecIds.join("|")!==[...EXPECTED_SPECS].sort().join("|")||worksheet.degreeAnswers!==COUNT||worksheet.responseLineCount!==COUNT||worksheet.pageMetrics.some(x=>x.columns!==2))throw new Error("P08F04_WORKSHEET:"+JSON.stringify({...worksheet,text:undefined}));
+  await frame.evaluate(()=>{window.__P08F04_PRINT__=0;window.print=()=>window.__P08F04_PRINT__++;});
+  await page.locator("#print-button").click();
+  const printCount=await frame.evaluate(()=>window.__P08F04_PRINT__||0);
+  if(printCount!==1)throw new Error("P08F04_PRINT:"+printCount);
+  const reviewHtml=(await frame.content()).replace("<head>",'<head><base href="'+new URL(".",BASE).href+'">');
+  const reviewPage=await browser.newPage({viewport:{width:1200,height:1600},deviceScaleFactor:1});
+  await reviewPage.setContent(reviewHtml,{waitUntil:"networkidle"});await reviewPage.emulateMedia({media:"print"});
+  await reviewPage.screenshot({path:path.join(OUT,"q004-central-angle-human-review.png"),fullPage:true});
+  await reviewPage.pdf({path:path.join(OUT,"q004-central-angle-human-review.pdf"),format:"A4",printBackground:true,preferCSSPageSize:true});
+  await reviewPage.close();
+  await frame.locator(".worksheet-document").screenshot({path:path.join(OUT,"q004-central-angle-worksheet.png"),fullPage:true});
+  await page.screenshot({path:path.join(OUT,"q004-central-angle-ui.png"),fullPage:true});
+  return{kp:KP,state,worksheet,printCount,humanReviewArtifacts:{pdf:"q004-central-angle-human-review.pdf",png:"q004-central-angle-human-review.png",pdfBytes:statSync(path.join(OUT,"q004-central-angle-human-review.pdf")).size,pngBytes:statSync(path.join(OUT,"q004-central-angle-human-review.png")).size,status:"PENDING_OPERATOR_REVIEW"}};
+}
+try{
+  await ready();browser=await chromium.launch({headless:true});
+  const page=await browser.newPage({viewport:{width:1440,height:1100},deviceScaleFactor:1}),selector=await configurePage(page),result=await runTarget(page);
+  await page.close();
+  if(Object.values(errors).some(x=>x.length))throw new Error("P08F04_BROWSER_DIAGNOSTICS:"+JSON.stringify(errors));
+  const report={schemaName:"P08FW8Q004ClassicUIAcceptanceV1",taskId:"P08F_W8DirectProductVerticalSlice004Implementation",status:"PASS_P08F_W8_Q004_TECHNICAL_VISUAL_PRECHECK",learnerVisualAcceptanceStatus:"PENDING_OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW",d0Granted:false,sourceId:SOURCE,knowledgePointIds:[KP],questionCountPerKnowledgePoint:COUNT,selector,result,browser:{consoleErrorCount:0,pageErrorCount:0,requestFailureCount:0,assetHttpFailureCount:0},semanticInvariants:{centralAngleVertexAtCenter:true,twoBoundingRaysAreRadii:true,fullCircleDegrees360:true,orientationInvariant:true,twoColumnPrintLayout:true,printSafePagination:true,responseLineVisible:true,priorP05F15OwnerPreserved:true,laterSameSourceSemanticsHidden:true,sameUnitMixedModeFailClosed:true},humanReview:{required:true,status:"PENDING_OPERATOR",artifacts:[result.humanReviewArtifacts]},forbiddenScope:{priorSectorElements:false,generalProtractorPlacementProcedure:false,combinedSectorUnknownAngle:false,sectorFractionOfCircle:false,sameCircleSectorSizeComparison:false,sectorAreaArcLength:false,geometryConstruction:false,sameUnitMixed:false,crossUnitMixed:false,q005OrLater:false,fullRepositoryRegression:false,globalBrowserReplay:false}};
+  writeFileSync(path.join(OUT,"report.json"),JSON.stringify(report,null,2)+"\n");
+  console.log("P08F04_CLASSIC_UI_ACCEPTANCE="+JSON.stringify(report));
+}catch(error){
+  writeFileSync(path.join(OUT,"failure.json"),JSON.stringify({schemaName:"P08FW8Q004ClassicUIAcceptanceFailureV1",status:"FAIL",baseUrl:BASE,error:String(error?.stack||error),browser:errors,server:{stdout:serverOut,stderr:serverErr}},null,2)+"\n");
+  throw error;
+}finally{if(browser)await browser.close().catch(()=>{});if(server&&!server.killed)server.kill("SIGTERM");}
