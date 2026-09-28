@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q006_FINAL_LEARNER_VISUAL_D0_CLOSEOUT_KP_FOCUSED_VALIDATION",
+  "unitId": "g5a_u05_5a05a1",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q006-final-learner-visual-d0-closeout.test.js"
+        ]
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-slice006-g5a-u05a1-combined-sector-angle.test.js",
+          "tests/curriculum/p08f-w8-q006-g5a-u05a1-combined-sector-angle-source-authority-preflight.test.js",
+          "tests/curriculum/p08f-w8-q005-final-learner-visual-d0-closeout.test.js",
+          "tests/curriculum/p08f-w8-slice004-g5a-u05a1-central-angle-measurement.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}
