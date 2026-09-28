@@ -1,0 +1,191 @@
+{
+  "schemaName": "P08FW8Q011FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q011_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q011_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 11,
+    "sliceId": "p08e_q011_r5_g5a_u07_5a07_profile_geometry_property_c1",
+    "sourceId": "g5a_u07_5a07",
+    "knowledgePointIds": [
+      "kp_g5a_u07_coordinate_reflection"
+    ],
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "frozenQueueChanged": false,
+    "q012OrLaterProductChanged": false
+  },
+  "finalProductAuthority": {
+    "preflightPr": 1123,
+    "preflightMergeSha": "86507c860c754103a5f8eabc9554629c0a37f90a",
+    "implementationPr": 1124,
+    "implementationPrHeadSha": "0731f66fec4fcf2dd555b83cec6352e9d8f6ee2d",
+    "implementationPrGateRunId": 36429434916,
+    "implementationPrGateRunNumber": 1025,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "1e65d308163f4e905b4f0d6b3d556a448225fff6",
+    "learnerHintRemediationPr": 1125,
+    "learnerHintRemediationPrHeadSha": "507efe577cbb1f67fb9ba5b7c198bb9dea76cfe0",
+    "learnerHintRemediationPrGateRunId": 36436414844,
+    "learnerHintRemediationPrGateRunNumber": 1027,
+    "learnerHintRemediationPrGateConclusion": "success",
+    "learnerHintRemediationMergeSha": "241f9d022b93b664024f8d0eae777ef38237292b",
+    "deployPagesRunId": 36436727047,
+    "deployPagesRunNumber": 2407,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36436727133,
+    "pagesE2ERunNumber": 2,
+    "pagesE2ERunAttempt": 2,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "pagesE2EArtifactId": 10975939114,
+    "pagesE2EArtifactZipSha256": "2f25fd7be00e41e07ce542fd68eae6b36baf52691ec509badc0a9c0aba6e3b07",
+    "exactDeployedHeadSha": "241f9d022b93b664024f8d0eae777ef38237292b"
+  },
+  "finalLearnerFacingEvidence": {
+    "coordinateReflection": {
+      "questionCount": 15,
+      "answerCount": 15,
+      "diagramCount": 30,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "allPageCount": 6,
+      "worksheetColumns": 2,
+      "maxRowsPerPage": 3,
+      "clippedCellCount": 0,
+      "overflowPageCount": 0,
+      "internalDiagramClippingCount": 0,
+      "minDiagramWidthPx": 852,
+      "minDiagramHeightPx": 140,
+      "diagramModes": [
+        "HORIZONTAL_AXIS",
+        "SHIFTED_AXIS",
+        "VERTICAL_AXIS"
+      ],
+      "patternSpecIds": [
+        "ps_g5a_u07_coordinate_reflection_horizontal_axis",
+        "ps_g5a_u07_coordinate_reflection_shifted_axis",
+        "ps_g5a_u07_coordinate_reflection_vertical_axis"
+      ],
+      "coordinateAnswerCount": 15,
+      "responseLineCount": 15,
+      "reflectedAnswerPointCount": 15,
+      "reflectionAxisCount": 30,
+      "axisOrientationHints": {
+        "xAxis": "水平線；上下鏡射；x 座標不變",
+        "yAxis": "垂直線；左右鏡射；y 座標不變",
+        "shiftedVerticalAxis": "垂直線；左右鏡射；y 座標不變",
+        "shiftedHorizontalAxis": "水平線；上下鏡射；x 座標不變"
+      }
+    },
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "browserRequestFailureCount": 0,
+    "browserAssetHttpFailureCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "reviewedArtifacts": [
+      "q011-coordinate-reflection-human-review.pdf",
+      "q011-coordinate-reflection-human-review.png",
+      "q011-coordinate-reflection-worksheet.png",
+      "q011-coordinate-reflection-ui.png"
+    ],
+    "exactArtifactId": 10975939114,
+    "exactArtifactZipSha256": "2f25fd7be00e41e07ce542fd68eae6b36baf52691ec509badc0a9c0aba6e3b07",
+    "decisionTextZh": "核准 Q011 D0",
+    "acceptedAtLocalDate": "2026-09-28",
+    "actualPrintAccepted": true,
+    "learnerFacingAccepted": true,
+    "axisOrientationHintAccepted": true,
+    "d0Granted": true
+  },
+  "learnerVisualContract": {
+    "coordinateReflectionRequired": true,
+    "coordinateMapRepresentationRequired": true,
+    "reflectionAxisRequired": true,
+    "perpendicularDistanceToAxisPreserved": true,
+    "lengthAndAnglePreserved": true,
+    "pointsOnAxisRemainFixed": true,
+    "xAxisHorizontalUpDownReflection": true,
+    "xCoordinateUnchangedAcrossXAxis": true,
+    "yAxisVerticalLeftRightReflection": true,
+    "yCoordinateUnchangedAcrossYAxis": true,
+    "shiftedAxisOrientationHintRequired": true,
+    "rulerMeasurementRequired": false,
+    "printScaleIsAnswerAuthority": false,
+    "twoColumnPrintLayout": true,
+    "printSafePagination": true,
+    "responseLineVisible": true,
+    "priorSameSourceOwnersPreserved": true,
+    "sameSourceCandidateSetComplete": true,
+    "sameUnitMixedModeFailClosed": true
+  },
+  "postMergeFullRegressionReadback": {
+    "runId": 36436727077,
+    "runNumber": 5996,
+    "conclusion": "failure",
+    "d0Required": false,
+    "q011FocusedContractsObservedPassing": true,
+    "q011PreflightSubtestRange": [
+      4451,
+      4455
+    ],
+    "q011ImplementationSubtestRange": [
+      4603,
+      4619
+    ],
+    "unrelatedRepositoryBaselineFailuresPresent": true,
+    "unrelatedFailureCount": 173,
+    "note": "Q011 preflight and implementation/hint subtests are PASS inside the full repository run; failures are outside the Q011 D0-required validation lane."
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "a2b68b6fe1b7e428977933f4a9cb2c8429bbbe16",
+    "exactProductHeadSha": "241f9d022b93b664024f8d0eae777ef38237292b",
+    "commitsAfterExactProductHead": 6,
+    "q011RuntimeFilesChanged": false,
+    "q011CurriculumIdentityFilesChanged": false,
+    "interveningUnrelatedEvidenceOnlyChanges": true,
+    "changedFilesAfterExactProductHead": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "q012SuccessorReadiness": {
+    "nextPreflightTaskId": "P08F_W8_Q012_SourceAuthorityPreflight",
+    "nextImplementationTaskId": "P08F_W8DirectProductVerticalSlice012Implementation",
+    "implementationRequiresSeparateOperatorApproval": true
+  },
+  "antiScopeCreep": {
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ011ProductRuntime": false,
+    "modifyQ011SourceAuthority": false,
+    "modifyFormalMappingIdentity": false,
+    "modifyPatternSpecIdentity": false,
+    "modifyW8FrozenQueue": false,
+    "implementQ012": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q011_REVISED_ACTUAL_PRINT_HUMAN_REVIEW_PENDING",
+    "goalDistanceAfter": "D0_Q011_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ011Blockers": [],
+    "nextShortestStep": "P08F_W8_Q012_SourceAuthorityPreflight"
+  }
+}
