@@ -1,0 +1,155 @@
+{
+  "schemaName": "P08FW8Q005FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q005_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q005_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 5,
+    "sliceId": "p08e_q005_r3_g4a_u03_4a03_profile_geometry_property_c1",
+    "sourceId": "g4a_u03_4a03",
+    "knowledgePointIds": [
+      "kp_angle_estimation_and_classification"
+    ],
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "frozenQueueChanged": false,
+    "q006OrLaterProductChanged": false
+  },
+  "finalProductAuthority": {
+    "implementationPr": 1101,
+    "implementationPrGateRunId": 36375162629,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "682920d960927ebf1ed6ea29ab2cd3197a90b457",
+    "deployPagesRunId": 36375250944,
+    "deployPagesRunNumber": 2383,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36375250958,
+    "pagesE2ERunNumber": 1,
+    "pagesE2ERunAttempt": 1,
+    "pagesE2EJobId": 108779654955,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "pagesE2EArtifactId": 10950544289,
+    "pagesE2EArtifactDigest": "sha256:ee6f525eafc11dd23e1570a96073fb59a9e779e2e4267bf11f78e7dfbf5f5218",
+    "exactDeployedHeadSha": "682920d960927ebf1ed6ea29ab2cd3197a90b457"
+  },
+  "finalLearnerFacingEvidence": {
+    "angleEstimationAndClassification": {
+      "questionCount": 15,
+      "answerCount": 15,
+      "diagramCount": 30,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "worksheetColumns": 2,
+      "rowsPerPage": 3,
+      "clippedCellCount": 0,
+      "overflowPageCount": 0,
+      "internalDiagramClippingCount": 0,
+      "minDiagramWidthPx": 311.9375,
+      "minDiagramHeightPx": 165,
+      "diagramModes": [
+        "ARM_LENGTH_INVARIANT_PAIR",
+        "CLASSIFY_SINGLE",
+        "ESTIMATE_REFERENCE_90"
+      ],
+      "patternSpecIds": [
+        "ps_g4a_u03_arm_length_invariant_classification",
+        "ps_g4a_u03_classify_angle_by_magnitude",
+        "ps_g4a_u03_estimate_angle_from_right_angle_reference"
+      ],
+      "degreeAnswerCount": 5,
+      "classificationAnswerCount": 10,
+      "responseLineCount": 15,
+      "printInvocationCount": 1
+    },
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "browserRequestFailureCount": 0,
+    "browserAssetHttpFailureCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "reviewedArtifacts": [
+      "q005-angle-estimation-classification-human-review.pdf",
+      "q005-angle-estimation-classification-human-review.png",
+      "q005-angle-estimation-classification-worksheet.png",
+      "q005-angle-estimation-classification-ui.png"
+    ],
+    "exactArtifactId": 10950544289,
+    "exactArtifactDigest": "sha256:ee6f525eafc11dd23e1570a96073fb59a9e779e2e4267bf11f78e7dfbf5f5218",
+    "decisionTextZh": "圖形OK",
+    "acceptedAtLocalDate": "2026-09-28",
+    "actualPrintAccepted": true,
+    "learnerFacingAccepted": true,
+    "d0Granted": true
+  },
+  "learnerVisualContract": {
+    "referenceAngle90UsedForEstimation": true,
+    "classificationByMagnitudeRange": true,
+    "classificationIndependentOfArmLength": true,
+    "noProtractorProcedure": true,
+    "twoColumnPrintLayout": true,
+    "printSafePagination": true,
+    "responseLineVisible": true,
+    "priorG4AU03OwnersPreserved": true,
+    "laterSameSourceSemanticsHidden": true,
+    "sameUnitMixedModeFailClosed": true
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "545e2cc4ba03cf270aebe9ab0b7b2f7f929bb3be",
+    "exactProductMergeSha": "682920d960927ebf1ed6ea29ab2cd3197a90b457",
+    "commitsAfterExactProductMerge": 13,
+    "q005RuntimeFilesChanged": false,
+    "q005CurriculumIdentityFilesChanged": false,
+    "interveningUnrelatedProductContractChanges": true,
+    "changedFilesAfterExactProductMerge": [
+      "data/curriculum/contracts/G4A_U04_ExamDerived_LongDivisionStepReconstructionCandidate.json",
+      "data/curriculum/contracts/G4A_U04_LongDivisionStepReconstruction_PatternSpecContract.json",
+      "data/project/change-impact/G4A_U04_LONG_DIVISION_STEP_RECONSTRUCTION_QUESTION_GROUPS.impact.json",
+      "data/project/validation-plans/G4A_U04_LONG_DIVISION_STEP_RECONSTRUCTION_QUESTION_GROUPS.validation.json",
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-p07f-w7-q011-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q012-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q026-pages-e2e.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json",
+      "tests/curriculum/g4a-u04-long-division-step-reconstruction-contract.test.js",
+      "tools/curriculum/read-g4a-u04-long-division-step-reconstruction-contract.mjs"
+    ]
+  },
+  "q006SuccessorReadiness": {
+    "nextPreflightTaskId": "P08F_W8_Q006_SourceAuthorityPreflight",
+    "nextImplementationTaskId": "P08F_W8DirectProductVerticalSlice006Implementation",
+    "implementationRequiresSeparateOperatorApproval": true
+  },
+  "antiScopeCreep": {
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ005ProductRuntime": false,
+    "modifyQ005SourceAuthority": false,
+    "modifyFormalMappingIdentity": false,
+    "modifyPatternSpecIdentity": false,
+    "modifyW8FrozenQueue": false,
+    "implementQ006": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q005_ACTUAL_PRINT_HUMAN_REVIEW_PENDING",
+    "goalDistanceAfter": "D0_Q005_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ005Blockers": [],
+    "nextShortestStep": "P08F_W8_Q006_SourceAuthorityPreflight"
+  }
+}
