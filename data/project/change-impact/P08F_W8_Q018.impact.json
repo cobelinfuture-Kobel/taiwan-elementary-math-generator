@@ -12,7 +12,7 @@
   "validationPlanPath": "data/project/validation-plans/P08F_W8_Q018.validation.json",
   "changeImpact": {
     "sharedExecutableChange": true,
-    "publicAuthorityCutover": false,
+    "publicAuthorityCutover": true,
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
@@ -38,5 +38,5 @@
     "applicationContextAdmission": false,
     "humanVisualReviewRequired": false
   },
-  "classificationNote": "Q018 implements only bidirectional percentage↔central-angle conversion for G6B-U06 under the frozen profile_ratio_percent envelope. It promotes one selector row and current browser route, preserves three existing same-source owners, and keeps pie-chart construction pending."
+  "classificationNote": "Q018 implements only bidirectional percentage↔central-angle conversion for G6B-U06 under the frozen profile_ratio_percent envelope. It promotes one selector row and current public browser authority route, preserves three existing same-source owners, and keeps pie-chart construction pending."
 }
