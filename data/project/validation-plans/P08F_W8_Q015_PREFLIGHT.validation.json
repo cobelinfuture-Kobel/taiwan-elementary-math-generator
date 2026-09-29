@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q015_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "R05-W8-Q015",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q015-g6a-u06-sector-arc-length-source-authority-preflight.test.js",
+          "tests/curriculum/p08f-w8-q014-final-learner-visual-d0-closeout.test.js",
+          "tests/curriculum/p08e-w8-direct-product-vertical-slice-queue.test.js",
+          "tests/curriculum/r05-delivery-wave-rebase.test.js",
+          "tests/curriculum/p07f-w7-q004-g6a-u06-pi-circumference-relation-source-authority-preflight.test.js",
+          "tests/curriculum/p07f-w7-q006-g6a-u06-circle-circumference-formula-source-authority-preflight.test.js",
+          "tests/curriculum/p07f-w7-q010-g6a-u06-semicircle-perimeter-source-authority-preflight.test.js",
+          "tests/curriculum/p08f-w8-q010-g5a-u05a1-sector-fraction-of-circle-source-authority-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/read-p08f-w8-q015-g6a-u06-sector-arc-length-source-authority-preflight.mjs",
+        "runtime": "NODE_ONLY"
+      }
+    ]
+  }
+}
