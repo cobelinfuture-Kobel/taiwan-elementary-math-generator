@@ -1,0 +1,73 @@
+{
+  "schemaName": "P08FW8Q013TechnicalE6LearnerVisualReviewPendingV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q013_LEARNER_VISUAL_EVIDENCE_REPAIR",
+  "status": "Q013_TECHNICAL_E6_CONFIRMED_VISUAL_ARTIFACT_PACKAGING_REPAIR_IN_PROGRESS",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 13,
+    "sourceId": "g5a_u05_5a05a",
+    "knowledgePointIds": [
+      "kp_g5a_u05a_polygon_angle_sum_reasoning"
+    ],
+    "mutationClass": "EVIDENCE_PATH_ONLY",
+    "productRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "selectorSemanticsChanged": false,
+    "q014OrLaterProductChanged": false
+  },
+  "technicalE6Authority": {
+    "implementationPr": 1131,
+    "implementationPrHeadSha": "995a11041718d1ebd4a67e349e1debfa5486566d",
+    "implementationPrGateRunId": 36503688619,
+    "implementationPrGateRunNumber": 1035,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "576ac17ee6ba5a0096783f2fd5054e51de5f4a9a",
+    "deployPagesRunId": 36503849169,
+    "deployPagesRunNumber": 2413,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36503849113,
+    "pagesE2ERunNumber": 1,
+    "pagesE2EConclusion": "success",
+    "pagesE2EArtifactId": 11006416348,
+    "exactDeployedHeadSha": "576ac17ee6ba5a0096783f2fd5054e51de5f4a9a",
+    "technicalClassicUiQuestionCount": 18,
+    "technicalClassicUiAnswerCount": 18,
+    "technicalClassicUiDiagramCount": 36,
+    "technicalClassicUiPatternCounts": [
+      6,
+      6,
+      6
+    ],
+    "technicalClassicUiOverflowPageCount": 0,
+    "technicalClassicUiPrintCount": 1
+  },
+  "correction": {
+    "initialRunnerStatus": "PASS_E6_D0_COMPLETE",
+    "correctW8Status": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "d0Granted": false,
+    "reason": "W8 diagram slices require explicit operator learner-facing visual / actual-print acceptance; the initial Q013 artifact did not package the required review PDF/PNG."
+  },
+  "learnerVisualReviewGate": {
+    "required": true,
+    "status": "PENDING_OPERATOR",
+    "requiredArtifacts": [
+      "q013-polygon-angle-sum-human-review.pdf",
+      "q013-polygon-angle-sum-human-review.png",
+      "q013-polygon-angle-sum-worksheet.png",
+      "q013-polygon-angle-sum-ui.png"
+    ],
+    "finalD0RequiresExplicitOperatorAcceptance": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q013_TECHNICAL_E6_COMPLETE_REVIEW_ARTIFACT_MISSING",
+    "goalDistanceAfterCandidate": "D1_Q013_TECHNICAL_E6_COMPLETE_EXACT_VISUAL_ARTIFACT_PENDING_OPERATOR_REVIEW",
+    "d0BlockedBy": [
+      "OPERATOR_LEARNER_VISUAL_ACCEPTANCE"
+    ],
+    "nextShortestStep": "MATERIALIZE_EXACT_Q013_HUMAN_REVIEW_ARTIFACT"
+  }
+}
