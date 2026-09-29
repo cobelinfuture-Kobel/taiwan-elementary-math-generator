@@ -33,7 +33,7 @@ test("W8 Q015 preflight binds exact fifteenth frozen queue slice after Q014 D0",
   assert.equal(slice.primarySourceNodeId,SRC);assert.deepEqual(slice.supportingSourceNodeIds,[SRC]);
   assert.equal(slice.intraWavePrerequisiteRank,9);assert.equal(slice.primaryRuntimeProfileId,"profile_geometry_formula");
   assert.equal(slice.chunkIndex,1);assert.equal(slice.knowledgePointCount,1);assert.deepEqual(slice.knowledgePointIds,[KP]);
-  assert.deepEqual(slice.blockingCapabilityIds,["cap_geometry_diagram_representation","cap_geometry_domain_validator","cap_geometry_formula_evaluation"]);
+  assert.deepEqual(slice.blockingCapabilityIds,["cap_geometry_diagram_representation","cap_geometry_domain_validator","cap_geometry_formula_evaluation","cap_geometry_property_reasoning"]);
   assert.deepEqual(slice.blockingCapabilityWaveIds,["R05-W5"]);assert.equal(slice.targetEvidenceLevel,"E6_D0_COMPLETE");
   assert.equal(p.queueAuthority.queueDigest,"597a6fa497c8ac7738247847ef321d0c753e79800f5c38097b7a7a160be2f484");
 });
@@ -74,7 +74,7 @@ test("W8 Q015 remains prerequisite-escalated R05-W8 assignment",()=>{
   assert.equal(row.waveEscalatedByPrerequisite,true);
   assert.equal(row.intraWavePrerequisiteRank,9);
   assert.equal(row.primaryRuntimeProfileId,"profile_geometry_formula");
-  assert.deepEqual(row.contractOnlyRequiredCapabilityIds,["cap_geometry_formula_evaluation","cap_geometry_domain_validator","cap_geometry_diagram_representation"]);
+  assert.deepEqual(row.contractOnlyRequiredCapabilityIds,["cap_geometry_formula_evaluation","cap_geometry_property_reasoning","cap_geometry_domain_validator","cap_geometry_diagram_representation"]);
   assert.deepEqual(row.contractOnlyCapabilityWaveIds,["R05-W5"]);
 });
 
