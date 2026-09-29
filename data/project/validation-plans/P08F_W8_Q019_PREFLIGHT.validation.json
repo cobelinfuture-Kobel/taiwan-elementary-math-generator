@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q019_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "R05-W8-Q019",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q019-g6a-u07-sector-area-source-authority-preflight.test.js",
+          "tests/curriculum/p08f-w8-slice018-g6b-u06-pie-chart-percent-angle-conversion.test.js",
+          "tests/curriculum/p08e-w8-direct-product-vertical-slice-queue.test.js",
+          "tests/curriculum/r05-delivery-wave-rebase.test.js",
+          "tests/curriculum/p07f-w7-q014-g6a-u07-circle-area-formula-source-authority-preflight.test.js",
+          "tests/curriculum/p07f-w7-q017-g6a-u07-annulus-area-source-authority-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/read-p08f-w8-q019-g6a-u07-sector-area-source-authority-preflight.mjs",
+        "runtime": "NODE_ONLY"
+      }
+    ]
+  }
+}
