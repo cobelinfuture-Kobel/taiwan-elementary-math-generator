@@ -103,7 +103,7 @@ async function run(){
       text
     };
   });
-  if(worksheet.questions!==COUNT||worksheet.answers!==COUNT||worksheet.questionPages!==2||worksheet.answerPages!==2||worksheet.allPages!==4||worksheet.patternCounts.some(n=>n!==COUNT/2)||worksheet.overflow!==0||worksheet.pageMetrics.some(x=>x.columns!==2)||worksheet.nonEmptyAnswers!==COUNT)throw new Error("P08F18_WORKSHEET:"+JSON.stringify({...worksheet,text:undefined}));
+  if(worksheet.questions!==COUNT||worksheet.answers!==COUNT||worksheet.questionPages!==2||worksheet.answerPages!==4||worksheet.allPages!==6||worksheet.patternCounts.some(n=>n!==COUNT/2)||worksheet.overflow!==0||worksheet.pageMetrics.filter(x=>x.type==="questions").some(x=>x.columns!==2)||worksheet.pageMetrics.filter(x=>x.type==="answerKey").some(x=>x.columns!==1)||worksheet.nonEmptyAnswers!==COUNT)throw new Error("P08F18_WORKSHEET:"+JSON.stringify({...worksheet,text:undefined}));
   if(!worksheet.text.includes("圓形圖")||!worksheet.text.includes("圓心角")||!worksheet.text.includes("360°")||!worksheet.text.includes("%"))throw new Error("P08F18_SEMANTICS_MISSING");
   for(const token of ["P08F18","kp_g6b_u06_","ps_g6b_u06_","求數量","支出金額","比較兩個圓形圖","畫出圓形圖","繪製圓形圖","扇形面積"])if(worksheet.text.includes(token))throw new Error("P08F18_FORBIDDEN_SEMANTIC_LEAK:"+token);
   await frame.evaluate(()=>{window.__P08F18_PRINT__=0;window.print=()=>window.__P08F18_PRINT__++;});
@@ -132,7 +132,7 @@ try{
     questionCount:COUNT,
     target,
     browser:{consoleErrorCount:0,pageErrorCount:0,requestFailureCount:0,assetHttpFailureCount:0},
-    semanticInvariants:{percentToCentralAngle:true,centralAngleToPercent:true,fullCircle100Percent360Degrees:true,equivalenceBackCheck:true,priorSameSourceOwnershipProtected:true,futurePieChartConstructionProtected:true,twoColumnFourRowPrintLayout:true,printSafePagination:true,noInternalIds:true},
+    semanticInvariants:{percentToCentralAngle:true,centralAngleToPercent:true,fullCircle100Percent360Degrees:true,equivalenceBackCheck:true,priorSameSourceOwnershipProtected:true,futurePieChartConstructionProtected:true,twoColumnQuestionOneColumnAnswerPrintLayout:true,printSafePagination:true,noInternalIds:true},
     forbiddenScope:{partWholeReownership:false,comparePieChartsReownership:false,quantityFromRateReownership:false,pieChartConstruction:false,genericSectorGeometry:false,application:false,sameUnitMixed:false,crossUnitMixed:false,q019OrLater:false,fullRepositoryRegression:false,globalBrowserReplay:false}
   };
   writeFileSync(path.join(OUT,"report.json"),JSON.stringify(report,null,2)+"\n");
