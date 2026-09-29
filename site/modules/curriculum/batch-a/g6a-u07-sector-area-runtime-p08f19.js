@@ -55,7 +55,7 @@ function payload(spec,v){
   const u=mod(v,240),param=PARAMS[u],radius=param.radius,diameter=radius*2,centralAngleDeg=param.centralAngleDeg;
   const circleArea=fmt(3.14*radius*radius);
   const angleFraction=centralAngleDeg/360;
-  const sectorArea=fmt(circleArea*angleFraction);
+  const sectorArea=fmt(3.14*radius*radius*centralAngleDeg/360);
   const sourceParameterCarrier=radius===18&&centralAngleDeg===30
     ?"SOURCE_PAGE1_RADIUS_18_ANGLE_30_EXACT"
     :"CONTROLLED_SECTOR_AREA_VARIANT";
