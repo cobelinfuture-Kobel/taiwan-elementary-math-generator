@@ -11,7 +11,7 @@
     "kp_g5a_u05a_polygon_angle_sum_reasoning"
   ],
   "unitKnowledgePointGateStatus": {
-    "kp_g5a_u05a_polygon_angle_sum_reasoning": "FOCUSED_PASS_TECHNICAL_E6_VISUAL_REVIEW_PENDING"
+    "kp_g5a_u05a_polygon_angle_sum_reasoning": "FOCUSED_PASS"
   },
   "expectedDerivedGate": "KP_FOCUSED",
   "validationPlanPath": "data/project/validation-plans/P08F_W8_Q013_LEARNER_VISUAL_EVIDENCE_REPAIR.validation.json",
