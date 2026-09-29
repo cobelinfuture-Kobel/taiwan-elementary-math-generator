@@ -30,7 +30,10 @@
     "r05Mutation": false,
     "q020OrLaterMutation": false,
     "predecessorAuthorityRefreshed": true,
-    "q019SemanticScopeMutation": false
+    "q019SemanticScopeMutation": false,
+    "q017HistoricalCompatibilityTestOnlyMutation": true,
+    "q017ProductMutation": false,
+    "q019ExecutableR04ModifierAuthorityCorrection": true
   },
-  "classificationNote": "Planning-only Q019 source/runtime/semantic authority lock after Q018 exact deployed D0. Q019 owns G6A-U07 sector area only; prior circle-area/annulus owners and future composite-circle-area ownership remain protected."
+  "classificationNote": "Planning-only Q019 source/runtime/semantic authority lock after Q018 exact deployed D0. Focused CI repair aligns the preflight with the executable R04 mod_integer_division contract and updates one historical Q017 compatibility assertion so mutable durable readback heads do not replace frozen predecessor merge authority. No Q017 product mutation and no R04 mutation."
 }
