@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q016",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u09_scale_drawing_construction",
+    "kp_g6a_u09_similar_shape_angle"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6a_u09_scale_drawing_construction",
+    "kp_g6a_u09_similar_shape_angle"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6a_u09_scale_drawing_construction": "IMPLEMENTED",
+    "kp_g6a_u09_similar_shape_angle": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q016.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false,
+    "sharedRendererExtension": true
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "applicationContextImplementation": false,
+    "q007ProductMutation": false,
+    "q012ProductMutation": false,
+    "q014ProductMutation": false,
+    "q017OrLaterProductMutation": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "unboundedFreehandConstruction": false
+  }
+}
