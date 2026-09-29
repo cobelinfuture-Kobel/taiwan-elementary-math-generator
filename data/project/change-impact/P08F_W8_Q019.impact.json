@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q019",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u07_sector_area"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q019.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "productImplementation": true,
+    "selectorVisibilityChanged": true,
+    "currentBrowserRoutingChanged": true,
+    "sharedRendererChanged": true
+  },
+  "scopeGuards": {
+    "q019Only": true,
+    "q020OrLaterMutation": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "q011OwnershipMutation": false,
+    "q014OwnershipMutation": false,
+    "q017OwnershipMutation": false,
+    "futureCompositeCircleAreaMutation": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "applicationContextAdmission": false,
+    "humanVisualReviewRequired": true,
+    "q011Q014Q017HistoricalCompatibilityTestOnlyMutation": true,
+    "q011Q014Q017ProductMutation": false
+  },
+  "classificationNote": "Q019 implements only G6A-U07 sector area under frozen profile_geometry_formula + mod_integer_division. It promotes one selector row, adds a dedicated sector-area renderer, preserves Q011/Q014/Q017 ownership, and keeps composite-circle-area pending."
+}

@@ -1,0 +1,176 @@
+{
+  "schemaName": "P08FW8Q019G6AU07SectorAreaImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice019Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q019_G6AU07_SECTOR_AREA_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q019_G6AU07_SECTOR_AREA_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_VISUAL_REVIEW",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "aa1e91f850386e0137d21b6ee0f7380555cddafa",
+  "preflight": {
+    "prNumber": 1150,
+    "mergeSha": "644b500153a7457673d8850262ac364cf5fd374d",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p08f/q019-g6a-u07-sector-area-source-authority-preflight.json"
+  },
+  "currentMainCompatibilityReadback": {
+    "comparedFromPreflightMergeSha": "644b500153a7457673d8850262ac364cf5fd374d",
+    "currentMainShaAtImplementation": "aa1e91f850386e0137d21b6ee0f7380555cddafa",
+    "commitsAhead": 6,
+    "changedPaths": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ],
+    "onlyDocsCiReadbackChanged": true,
+    "q019AuthorityOrQ018ProductRuntimePathsChanged": false,
+    "compatibilityDecision": "SAFE_TO_IMPLEMENT_Q019_FROM_CURRENT_MAIN"
+  },
+  "queueAuthority": {
+    "queuePosition": 19,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q019_r11_g6a_u07_6a07_profile_geometry_formula_c1",
+    "previousSliceId": "p08e_q018_r10_g6b_u06_6b06_profile_ratio_percent_c1",
+    "sourceId": "g6a_u07_6a07",
+    "knowledgePointIds": [
+      "kp_g6a_u07_sector_area"
+    ],
+    "runtimeProfileId": "profile_geometry_formula",
+    "classificationRuleId": "rule_geometry_formula",
+    "appliedModifierIds": [
+      "mod_integer_division"
+    ],
+    "blockingCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "blockingCapabilityWaveIds": [
+      "R05-W5"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_6a07_source.pdf",
+    "sourcePdfDriveFileId": "1mPMMJVgnBrbghylTKnlWL3nnjX9MPIYQ",
+    "sourcePdfSizeBytes": 523526,
+    "sourcePdfSha256": "e4290341b2ddc3c3dd4a675272b2c77932748548fe89edef88e3dc799fa81648",
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "directVisualWitnessPage": 1,
+    "directVisualWitnessFamily": "SECTOR_AREA_RADIUS_18_ANGLE_30",
+    "semanticAuthority": "R02_REVIEWED_CANDIDATE_PRIMARY_CURRENT_VISUAL_SECTOR_AREA_WITNESS_SECONDARY"
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation",
+      "cap_integer_division"
+    ],
+    "contractOnlyRequiredCapabilityIds": [
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [
+      "mod_integer_division"
+    ],
+    "runtimeProfileReclassificationAllowed": false,
+    "r05AssignmentMutationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 2,
+    "patternSpecIds": [
+      "ps_g6a_u07_sector_area_from_radius_angle",
+      "ps_g6a_u07_sector_area_from_diameter_angle"
+    ],
+    "includedRelations": [
+      "COMPUTE_SECTOR_AREA_FROM_RADIUS_AND_CENTRAL_ANGLE",
+      "COMPUTE_SECTOR_AREA_FROM_DIAMETER_AFTER_RADIUS_NORMALIZATION",
+      "VERIFY_SECTOR_AREA_AS_CIRCLE_AREA_TIMES_ANGLE_FRACTION",
+      "VERIFY_FULL_CIRCLE_360_DEGREE_CLOSURE"
+    ],
+    "questionMode": "diagram",
+    "rendererRepresentation": "sector_area_diagram_p08f19",
+    "visualContractVersion": "P08F19_R1",
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_DECIMAL_AREA",
+    "humanVisualReviewRequired": true
+  },
+  "semanticContract": {
+    "semanticCore": "SECTOR_AREA_AS_CIRCLE_AREA_TIMES_CENTRAL_ANGLE_OVER_360",
+    "wholeCircleDegrees": 360,
+    "approximatePiValue": 3.14,
+    "circleAreaAsWholeReferenceRequired": true,
+    "centralAngleFractionOf360Required": true,
+    "sectorAreaFormula": "π × r² × centralAngle ÷ 360",
+    "diameterToRadiusNormalizationAllowed": true,
+    "fullCircleClosureRequired": true
+  },
+  "ownershipGuard": {
+    "q011CircleAreaDerivationTeachingReowned": false,
+    "q014CircleAreaFormulaTeachingReowned": false,
+    "q017AnnulusAreaTeachingReowned": false,
+    "compositeCircleAreaReowned": false,
+    "arcLengthOrPerimeterTeachingUsed": false,
+    "genericSectorFractionTeachingReowned": false,
+    "applicationContextUsed": false,
+    "sameUnitMixedUsed": false,
+    "crossUnitMixedUsed": false,
+    "q020OrLaterTouched": false,
+    "frozenQueueTouched": false,
+    "r02Touched": false,
+    "r03Touched": false,
+    "r04Touched": false,
+    "r05Touched": false
+  },
+  "productChain": {
+    "selectorProjection": "site/modules/curriculum/registry/g6a-u07-sector-area-selector-projection-p08f19.js",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p08f19-extension.js",
+    "runtime": "site/modules/curriculum/batch-a/g6a-u07-sector-area-runtime-p08f19.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f19.js",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f19-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p08f19.js",
+    "renderer": "site/modules/renderer/sector-area-diagram-p08f19.js",
+    "sharedHtmlRenderer": "site/modules/renderer/html-renderer.js",
+    "currentSelectorPointer": "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+    "currentBindingPointer": "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+    "currentGeneratorBridge": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+    "currentWorksheetBridge": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+    "browserPipeline": "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN",
+    "globalBrowserReplay": "FORBIDDEN",
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "OPERATOR_LEARNER_VISUAL_ACCEPTANCE"
+    ]
+  }
+}
