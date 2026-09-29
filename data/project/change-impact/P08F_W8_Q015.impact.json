@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q015",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u06_sector_arc_length"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6a_u06_sector_arc_length"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6a_u06_sector_arc_length": "IMPLEMENTED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q015.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": false,
+    "sharedRendererExtension": false
+  },
+  "scopeGuards": {
+    "sameUnitMixedImplementation": false,
+    "crossUnitMixedImplementation": false,
+    "q014ProductMutation": false,
+    "q004Q006Q010ProductMutation": false,
+    "q004Q006Q010HistoricalCompatibilityTestOnlyMutation": true,
+    "q016OrLaterProductMutation": false,
+    "frozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "compositeArcPerimeter": false,
+    "sectorPerimeter": false,
+    "sectorArea": false,
+    "applicationContext": false,
+    "genericGeometryFormulaDrill": false
+  }
+}
