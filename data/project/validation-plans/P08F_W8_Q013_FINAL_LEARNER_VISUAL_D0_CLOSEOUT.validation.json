@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q013_FINAL_LEARNER_VISUAL_D0_CLOSEOUT_KP_FOCUSED_VALIDATION",
+  "unitId": "g5a_u05_5a05a",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q013-final-learner-visual-d0-closeout.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p08f-w8-slice013-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-slice013-g5a-u05-polygon-angle-sum-reasoning.test.js",
+          "tests/curriculum/p08f-w8-q013-g5a-u05-polygon-angle-sum-reasoning-source-authority-preflight.test.js",
+          "tests/curriculum/p08f-w8-q013-learner-visual-evidence-repair.test.js",
+          "tests/curriculum/p08f-w8-q012-final-learner-visual-d0-closeout.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}
