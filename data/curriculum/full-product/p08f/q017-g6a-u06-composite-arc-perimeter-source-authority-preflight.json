@@ -9,7 +9,7 @@
     "after": "D2_Q017_G6AU06_COMPOSITE_ARC_PERIMETER_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
     "reduced": "D3_TO_D2"
   },
-  "baselineMainSha": "2c3ccb8955ccafe95b0a1b13027a02b67448e9fe",
+  "baselineMainSha": "cc92682b9d4484083f6737c314404cb0c6788b91",
   "predecessorAuthority": {
     "q016FinalCloseoutPath": "data/curriculum/full-product/p08f/q016-final-learner-visual-d0-closeout.json",
     "q016FinalCloseoutTaskId": "P08F_W8_Q016_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
@@ -19,11 +19,18 @@
     "q016ExactArtifactId": 11019349672,
     "q016D0Granted": true,
     "currentMainCompatibilityReadback": {
-      "currentMainShaAtPreflight": "2c3ccb8955ccafe95b0a1b13027a02b67448e9fe",
+      "currentMainShaAtPreflight": "cc92682b9d4484083f6737c314404cb0c6788b91",
       "comparedFromQ016CloseoutMergeSha": "2c3ccb8955ccafe95b0a1b13027a02b67448e9fe",
-      "commitsAhead": 0,
-      "changedPaths": [],
-      "noInterveningCommits": true,
+      "commitsAhead": 6,
+      "changedPaths": [
+        "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+        "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+        "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+        "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+        "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+        "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+      ],
+      "onlyDocsCiReadbackChanged": true,
       "q017AuthorityOrQ016ProductRuntimePathsChanged": false,
       "compatibilityDecision": "SAFE_TO_PREFLIGHT_Q017_FROM_CURRENT_MAIN"
     }
