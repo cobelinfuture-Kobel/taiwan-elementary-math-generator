@@ -5,7 +5,8 @@ import {
   G6A_U06_P08F17_PATTERN_GROUP as GROUP,
   G6A_U06_P08F17_PATTERN_SPECS as SPECS,
   G6A_U06_P08F17_SOURCE_ID as SRC,
-  G6A_U06_P08F17_SPEC_IDS as SPEC_IDS
+  G6A_U06_P08F17_SPEC_IDS as SPEC_IDS,
+  P08F17_TASK_ID
 } from "../registry/g6a-u06-composite-arc-perimeter-selector-projection-p08f17.js";
 
 export const G6A_U06_P08F17_MAX_QUESTION_COUNT=240;
