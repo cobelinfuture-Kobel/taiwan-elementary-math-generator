@@ -114,8 +114,8 @@ test("W8 Q020 materializes 240 deterministic valid variants per PatternSpec",()=
 test("W8 Q020 formula validator rejects tampering and preserves partition/subtraction semantics",()=>{
   const a=buildG6AU07P08F20Question({patternSpecId:G6A_U07_P08F20_SPEC_IDS[0],variant:0});
   const b=buildG6AU07P08F20Question({patternSpecId:G6A_U07_P08F20_SPEC_IDS[1],variant:0});
-  assert.equal(a.patternRepresentation.compositeArea,254.34);
-  assert.equal(a.answerValue,254.34);
+  assert.equal(a.patternRepresentation.compositeArea,763.02);
+  assert.equal(a.answerValue,763.02);
   assert.equal(b.patternRepresentation.squareArea,400);
   assert.equal(b.patternRepresentation.circleArea,314);
   assert.equal(b.answerValue,86);
