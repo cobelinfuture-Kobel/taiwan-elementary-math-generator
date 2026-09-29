@@ -31,6 +31,15 @@ function dimLine(x1,y1,x2,y2,label,offset=-8){
     text(mx,my,label,11)
   ].join("");
 }
+function verticalDimLine(x,y1,y2,label){
+  const t=4,tx=x-12,ty=(y1+y2)/2;
+  return [
+    line(x,y1,x,y2,1.2,"","q017-height-dimension-line"),
+    line(x-t,y1,x+t,y1,1.2,"","q017-height-dimension-tick"),
+    line(x-t,y2,x+t,y2,1.2,"","q017-height-dimension-tick"),
+    '<text class="q017-height-dimension-label" x="'+tx+'" y="'+ty+'" text-anchor="middle" font-size="10" fill="currentColor" transform="rotate(-90 '+tx+' '+ty+')">'+esc(label)+'</text>'
+  ].join("");
+}
 
 function renderSector(m){
   const angle=Number(m.centralAngleDeg??90),r=56,cx=180,cy=132,startDeg=-90-angle/2,endDeg=-90+angle/2,p1=point(cx,cy,r,startDeg),p2=point(cx,cy,r,endDeg),large=angle>180?1:0;
@@ -46,7 +55,7 @@ function renderSector(m){
     text(cx+7,cy+6,"O",11,"start"),
     text(am.x.toFixed(1),am.y.toFixed(1),"A",11),
     text(bm.x.toFixed(1),bm.y.toFixed(1),"B",11),
-    text(mid.x-8,mid.y+2,"r = "+m.radius,11,"end"),
+    text(mid.x-8,mid.y+2,"半徑 "+m.radius+" 公分",10,"end"),
     text(cx,cy-25,angle+"°",11),
     text(180,180,"圓周率取 3.14；只算實線外框",11)
   ].join(""),"扇形外部邊界圖",{
@@ -82,21 +91,22 @@ function renderStadium(m){
 }
 
 function renderRectSemicircle(m){
-  const radius=Number(m.radius),height=Number(m.height),unitsW=2*radius,unitsH=radius+height,maxW=218,maxH=112,scale=Math.min(maxW/unitsW,maxH/unitsH),rp=radius*scale,hp=height*scale,w=2*rp,x=180-w/2,top=48,baseY=top+rp,bottom=baseY+hp;
+  const radius=Number(m.radius),height=Number(m.height),unitsW=2*radius,unitsH=radius+height,maxW=218,maxH=112,scale=Math.min(maxW/unitsW,maxH/unitsH),rp=radius*scale,hp=height*scale,w=2*rp,x=180-w/2,top=55,baseY=top+rp,bottom=baseY+hp;
   const outer="M "+x+" "+baseY+" A "+rp+" "+rp+" 0 0 1 "+(x+w)+" "+baseY+" L "+(x+w)+" "+bottom+" L "+x+" "+bottom+" Z";
   return wrap([
     text(180,18,"實線才算周長；虛線是共用直徑",13,"middle","700"),
+    text(180,36,"虛線＝共用直徑 "+m.diameter+" 公分",10,"middle","400","q017-shared-diameter-label"),
     path(outer,"q017-external-boundary"),
     line(x,baseY,x+w,baseY,1.5,"5 4","q017-shared-diameter"),
-    text(180,baseY+13,"共用直徑 "+m.diameter+" 公分",10),
-    dimLine(x-12,baseY,x-12,bottom,"高 "+height+" 公分",-10),
-    text(180,181,"外部邊界＝半圓弧＋底邊＋左右兩邊",11)
+    verticalDimLine(x-12,baseY,bottom,"高 "+height+" 公分"),
+    text(180,183,"外部邊界＝半圓弧＋底邊＋左右兩邊",11)
   ].join(""),"長方形接半圓的外部邊界圖",{
     "shape-mode":"RECT_SEMICIRCLE",
     "visual-contract-version":"P08F17_R2",
     "external-arc-count":"1",
     "shared-diameter-count":"1",
     "proportional-geometry":"true",
+    "annotation-layout":"external",
     "source-width-units":unitsW,
     "source-height-units":unitsH
   });

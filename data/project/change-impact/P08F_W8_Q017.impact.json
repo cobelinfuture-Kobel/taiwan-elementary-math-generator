@@ -23,7 +23,9 @@
     "currentAuthorityChanged": true,
     "sharedRendererExtension": true,
     "q017LearnerVisualRepair": true,
-    "visualContractVersion": "P08F17_R2"
+    "visualContractVersion": "P08F17_R2",
+    "q017LearnerVisualRepairFollowupR2": true,
+    "visualAnnotationLayout": "EXTERNAL_DIMENSION_LABELS"
   },
   "scopeGuards": {
     "sameUnitMixedImplementation": false,
@@ -42,6 +44,8 @@
     "q017SourceAuthorityMutation": false,
     "q017FormalMappingMutation": false,
     "q017PatternSpecIdentityMutation": false,
-    "q017RendererAndVisualRuntimeRepairOnly": true
+    "q017RendererAndVisualRuntimeRepairOnly": true,
+    "q017RuntimeAnswerSemanticMutation": false,
+    "q017RendererAnnotationRepairOnly": true
   }
 }

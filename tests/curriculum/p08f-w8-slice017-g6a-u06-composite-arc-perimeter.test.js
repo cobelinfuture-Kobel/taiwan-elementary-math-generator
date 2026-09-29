@@ -29,7 +29,7 @@ const occ=(s,t)=>s.split(t).length-1;
 test("Q017 materializes exact preflight mapping and four composite-boundary PatternSpecs",()=>{
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
   assert.equal(implementation.preflight.mergeSha,"604737528f0d490387b5c81f95bc1e4618bf8e02");
-  assert.equal(implementation.status,"HUMAN_VISUAL_REJECTED_REPAIR_R1_MATERIALIZED_AWAITING_FOCUSED_CI");
+  assert.equal(implementation.status,"HUMAN_VISUAL_REJECTED_REPAIR_R2_MATERIALIZED_AWAITING_FOCUSED_CI");
   assert.equal(implementation.queueAuthority.queuePosition,17);
   assert.deepEqual(implementation.queueAuthority.knowledgePointIds,[KP]);
   assert.equal(MAP.r04MappingId,"r04map_g6a_u06_composite_arc_perimeter");
@@ -113,8 +113,16 @@ test("Q017 R2 visual contract fixes label, proportion, shared-edge and outward-b
   const rect=buildG6AU06P08F17Question({patternSpecId:rectSpec.patternSpecId,variant:77});
   const rectHtml=renderCompositeArcPerimeterDiagramP08F17(rect.geometryDiagram);
   assert.match(rectHtml,/data-proportional-geometry="true"/);
-  assert.equal(occ(rectHtml,"q017-shared-diameter"),1);
-  assert.match(rectHtml,/共用直徑/);
+  assert.match(rectHtml,/data-annotation-layout="external"/);
+  assert.equal(occ(rectHtml,'class="q017-shared-diameter"'),1);
+  assert.equal(occ(rectHtml,'class="q017-shared-diameter-label"'),1);
+  assert.equal(occ(rectHtml,'class="q017-height-dimension-label"'),1);
+  assert.match(rectHtml,/transform="rotate\(-90 /);
+  const narrowRect=buildG6AU06P08F17Question({patternSpecId:rectSpec.patternSpecId,variant:60});
+  const narrowRectHtml=renderCompositeArcPerimeterDiagramP08F17(narrowRect.geometryDiagram);
+  assert.match(narrowRectHtml,/共用直徑 4 公分/);
+  assert.match(narrowRectHtml,/高 6 公分/);
+  assert.equal(occ(narrowRectHtml,'class="q017-height-dimension-label"'),1);
 
   const expected=[["TOP","RIGHT"],["RIGHT","BOTTOM"],["BOTTOM","LEFT"],["LEFT","TOP"]];
   for(let variant=0;variant<4;variant++){
