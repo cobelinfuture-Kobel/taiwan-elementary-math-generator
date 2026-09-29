@@ -36,7 +36,9 @@
     "sameUnitMixedAdmission": false,
     "crossUnitMixedAdmission": false,
     "applicationContextAdmission": false,
-    "humanVisualReviewRequired": false
+    "humanVisualReviewRequired": false,
+    "q014Q016Q021HistoricalCompatibilityTestOnlyMutation": true,
+    "q014Q016Q021ProductMutation": false
   },
   "classificationNote": "Q018 implements only bidirectional percentage↔central-angle conversion for G6B-U06 under the frozen profile_ratio_percent envelope. It promotes one selector row and current public browser authority route, preserves three existing same-source owners, and keeps pie-chart construction pending."
 }
