@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice013Implementation",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g5a_u05a_polygon_angle_sum_reasoning"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5a_u05a_polygon_definition_classification",
+    "kp_g5a_u05a_polygon_diagonal",
+    "kp_g5a_u05a_regular_polygon_properties",
+    "kp_g5a_u05a_polygon_triangulation",
+    "kp_g5a_u05a_polygon_angle_sum_reasoning"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5a_u05a_polygon_definition_classification": "D0_PRIOR_OWNER",
+    "kp_g5a_u05a_polygon_diagonal": "D0_PRIOR_OWNER",
+    "kp_g5a_u05a_regular_polygon_properties": "D0_PRIOR_OWNER",
+    "kp_g5a_u05a_polygon_triangulation": "D0_PRIOR_OWNER",
+    "kp_g5a_u05a_polygon_angle_sum_reasoning": "IMPLEMENTATION_TARGET"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q013.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  }
+}

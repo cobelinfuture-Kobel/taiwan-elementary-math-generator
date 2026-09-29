@@ -1,0 +1,113 @@
+{
+  "schemaName": "P08FW8Q013PolygonAngleSumReasoningImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice013Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "baselineMainSha": "f36689ad70a2f6c57ce69e14017c0f83eb19dd74",
+  "preflightMergeSha": "28d5046325e99daa4e4e250cfe728f31b147d132",
+  "queueAuthority": {
+    "queuePosition": 13,
+    "sliceId": "p08e_q013_r7_g5a_u05_5a05a_profile_geometry_property_c1",
+    "sourceId": "g5a_u05_5a05a",
+    "runtimeProfileId": "profile_geometry_property",
+    "knowledgePointIds": [
+      "kp_g5a_u05a_polygon_angle_sum_reasoning"
+    ],
+    "requiredW8CapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflight": "data/curriculum/full-product/p08f/q013-g5a-u05-polygon-angle-sum-reasoning-source-authority-preflight.json",
+    "sourceTitle": "多邊形與平面圖形",
+    "sourcePdfTitle": "meow911_5a05a_source.pdf",
+    "sourcePages": [
+      2
+    ],
+    "sourcePdfDriveFileId": "1FQuOHAf5-DTUS31bwBxFcWzAvCOZclbT"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g5a_u05a_polygon_angle_sum_reasoning_p08f13",
+    "r04MappingId": "r04map_g5a_u05a_polygon_angle_sum_reasoning",
+    "canonicalNameZh": "多邊形內角和推理",
+    "capabilityStatement": "學生能利用三角形分割求多邊形內角和。",
+    "reasoningInvariant": "內角和等於分割三角形數乘180度。"
+  },
+  "patternSpecs": {
+    "count": 3,
+    "maxQuestionCount": 240,
+    "families": [
+      "COMPUTE_ANGLE_SUM_FROM_SIDE_COUNT",
+      "COMPLETE_TRIANGLE_COUNT_AND_ANGLE_SUM",
+      "COMPLETE_N_MINUS_2_TIMES_180_EXPRESSION"
+    ]
+  },
+  "productChain": {
+    "selectorProjection": "site/modules/curriculum/registry/g5a-u05-polygon-angle-sum-reasoning-selector-projection-p08f13.js",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p08f13-extension.js",
+    "runtime": "site/modules/curriculum/batch-a/g5a-u05-polygon-angle-sum-reasoning-runtime-p08f13.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f13.js",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f13-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p08f13.js",
+    "renderer": "site/modules/renderer/g5a-u05-polygon-angle-sum-reasoning-diagram-p08f13.js"
+  },
+  "runtimeContract": {
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "frozenRuntimeProfile": "profile_geometry_property",
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false,
+    "triangleCountFormula": "sideCount - 2",
+    "triangleInteriorAngleSumDeg": 180,
+    "interiorAngleSumFormula": "(sideCount - 2) * 180",
+    "priorTriangulationConsumedAsPrerequisite": true,
+    "standaloneTriangulationReowned": false,
+    "geometryConstructionRequired": false
+  },
+  "publicAdmission": {
+    "selectionMode": "singleKnowledgePoint",
+    "questionType": "diagram",
+    "sourceAlreadyAdmittedBeforeQ013": true,
+    "expectedGlobalPublicSourceDelta": 0,
+    "expectedSourceVisibleKnowledgePointDelta": 1,
+    "sameSourceCandidateSetComplete": true,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "applicationContextAdmission": false
+  },
+  "scopeGuard": {
+    "q044PolygonDefinitionReowned": false,
+    "q051PolygonDiagonalReowned": false,
+    "q051RegularPolygonPropertiesReowned": false,
+    "q056PolygonTriangulationStandaloneReowned": false,
+    "regularPolygonSingleInteriorAngleTouched": false,
+    "polygonExteriorAngleTouched": false,
+    "adjacent5a05a1Touched": false,
+    "interactiveOrFreeFormGeometryConstructionTouched": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "q014OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN",
+    "globalBrowserReplay": "FORBIDDEN",
+    "targetedRouteReplay": "tools/curriculum/run-p08f-w8-slice013-classic-ui-acceptance.mjs"
+  },
+  "goalDistance": {
+    "before": "D2_Q013_G5AU05_POLYGON_ANGLE_SUM_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "afterCandidate": "D1_Q013_GENERATOR_VALIDATOR_RENDERER_WORKSHEET_PUBLIC_ROUTE_MATERIALIZED",
+    "reduced": "D2_TO_D1",
+    "d0Requires": "SHARED_RUNTIME_BOUNDED_CI_MERGE_AND_POST_MERGE_EXACT_PAGES_ACCEPTANCE"
+  }
+}
