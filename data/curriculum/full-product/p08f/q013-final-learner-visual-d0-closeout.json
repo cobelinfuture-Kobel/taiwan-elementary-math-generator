@@ -1,0 +1,177 @@
+{
+  "schemaName": "P08FW8Q013FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q013_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q013_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 13,
+    "sliceId": "p08e_q013_r7_g5a_u05_5a05a_profile_geometry_property_c1",
+    "sourceId": "g5a_u05_5a05a",
+    "knowledgePointIds": [
+      "kp_g5a_u05a_polygon_angle_sum_reasoning"
+    ],
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "frozenQueueChanged": false,
+    "q014OrLaterProductChanged": false
+  },
+  "finalProductAuthority": {
+    "preflightPr": 1130,
+    "preflightMergeSha": "28d5046325e99daa4e4e250cfe728f31b147d132",
+    "implementationPr": 1131,
+    "implementationPrHeadSha": "995a11041718d1ebd4a67e349e1debfa5486566d",
+    "implementationPrGateRunId": 36503688619,
+    "implementationPrGateRunNumber": 1035,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "576ac17ee6ba5a0096783f2fd5054e51de5f4a9a",
+    "learnerVisualEvidenceRepairPr": 1132,
+    "learnerVisualEvidenceRepairPrHeadSha": "4efb307fd22ef1bc3a2746f64b27cf18c233ab9a",
+    "learnerVisualEvidenceRepairPrGateRunId": 36504681238,
+    "learnerVisualEvidenceRepairPrGateRunNumber": 1041,
+    "learnerVisualEvidenceRepairPrGateConclusion": "success",
+    "learnerVisualEvidenceRepairMergeSha": "46309aa93b4341637ad1de14ae8b0eac07f70f5a",
+    "deployPagesRunId": 36504809842,
+    "deployPagesRunNumber": 2414,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36504809811,
+    "pagesE2ERunNumber": 2,
+    "pagesE2ERunAttempt": 1,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "pagesE2EArtifactId": 11006378131,
+    "pagesE2EArtifactZipSha256": "e1d75b76458e4069c7026d049f163e51e77f9798b1dbb27d110e285c7e311e1e",
+    "exactDeployedHeadSha": "46309aa93b4341637ad1de14ae8b0eac07f70f5a"
+  },
+  "finalLearnerFacingEvidence": {
+    "polygonAngleSumReasoning": {
+      "questionCount": 18,
+      "answerCount": 18,
+      "diagramCount": 36,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "allPageCount": 6,
+      "worksheetColumns": 2,
+      "rowsPerPage": 3,
+      "patternCounts": [
+        6,
+        6,
+        6
+      ],
+      "patternSpecIds": [
+        "ps_g5a_u05a_polygon_angle_sum_direct",
+        "ps_g5a_u05a_polygon_angle_sum_reasoning_chain",
+        "ps_g5a_u05a_polygon_angle_sum_expression"
+      ],
+      "overflowPageCount": 0,
+      "minDiagramWidthPx": 852,
+      "minDiagramHeightPx": 120,
+      "nonEmptyAnswerCount": 18,
+      "printCount": 1
+    },
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "browserRequestFailureCount": 0,
+    "browserAssetHttpFailureCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "reviewedArtifacts": [
+      "q013-polygon-angle-sum-human-review.pdf",
+      "q013-polygon-angle-sum-human-review.png",
+      "q013-polygon-angle-sum-worksheet.png",
+      "q013-polygon-angle-sum-ui.png"
+    ],
+    "exactArtifactId": 11006378131,
+    "exactArtifactZipSha256": "e1d75b76458e4069c7026d049f163e51e77f9798b1dbb27d110e285c7e311e1e",
+    "decisionTextZh": "圖形 OK",
+    "finalCloseoutResumeTask": "P08F_W8_Q013_FinalLearnerVisualD0Closeout_Then_Q014_SourceAuthorityPreflight",
+    "acceptedAtLocalDate": "2026-09-29",
+    "actualPrintAccepted": true,
+    "learnerFacingAccepted": true,
+    "finalCloseoutResumeAuthorized": true,
+    "d0Granted": true
+  },
+  "learnerVisualContract": {
+    "polygonSideCountRequired": true,
+    "triangleCountFormula": "n-2",
+    "triangleInteriorAngleSumDeg": 180,
+    "polygonInteriorAngleSumFormula": "(n-2)*180",
+    "priorTriangulationConsumedAsPrerequisite": true,
+    "standaloneTriangulationReowned": false,
+    "regularPolygonSingleInteriorAngleIncluded": false,
+    "polygonExteriorAngleIncluded": false,
+    "interactiveOrFreeFormConstructionIncluded": false,
+    "applicationContextIncluded": false,
+    "twoColumnPrintLayout": true,
+    "printSafePagination": true,
+    "noInternalIds": true,
+    "priorSameSourceOwnersPreserved": true,
+    "sameUnitMixedModeFailClosed": true,
+    "crossUnitMixedModeFailClosed": true
+  },
+  "postMergeFullRegressionReadback": {
+    "nodeTestRunId": 36504809948,
+    "nodeTestRunNumber": 6003,
+    "nodeTestConclusion": "failure",
+    "ciReadbackRunId": 36504809776,
+    "ciReadbackRunNumber": 3745,
+    "ciReadbackConclusion": "failure",
+    "d0Required": false,
+    "q013FocusedContractsObservedPassing": true,
+    "unrelatedRepositoryBaselineFailuresPresent": true,
+    "namedFailureCount": 173,
+    "previousNamedFailureCount": 173,
+    "newNamedFailures": 0,
+    "resolvedNamedFailures": 0,
+    "aggregateFailCountObserved": 174,
+    "note": "The named full-regression failure set is unchanged from the previous baseline; no new named Q013 failure was introduced. Q013 D0 authority remains the focused PR gate plus exact deployed Pages E6 and explicit operator visual acceptance."
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "a4157b877a97bc3a2fdb83d42bc706f25a46962a",
+    "exactProductHeadSha": "46309aa93b4341637ad1de14ae8b0eac07f70f5a",
+    "commitsAfterExactProductHead": 5,
+    "q013RuntimeFilesChanged": false,
+    "q013CurriculumIdentityFilesChanged": false,
+    "interveningUnrelatedCiReadbackOnlyChanges": true,
+    "changedFilesAfterExactProductHead": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json"
+    ]
+  },
+  "q014SuccessorReadiness": {
+    "nextPreflightTaskId": "P08F_W8_Q014_SourceAuthorityPreflight",
+    "nextImplementationTaskId": "P08F_W8DirectProductVerticalSlice014Implementation",
+    "implementationRequiresSeparateOperatorApproval": true
+  },
+  "antiScopeCreep": {
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ013ProductRuntime": false,
+    "modifyQ013SourceAuthority": false,
+    "modifyFormalMappingIdentity": false,
+    "modifyPatternSpecIdentity": false,
+    "modifyW8FrozenQueue": false,
+    "implementQ014": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q013_TECHNICAL_E6_COMPLETE_OPERATOR_VISUAL_ACCEPTANCE_PENDING",
+    "goalDistanceAfter": "D0_Q013_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ013Blockers": [],
+    "nextShortestStep": "P08F_W8_Q014_SourceAuthorityPreflight"
+  }
+}
