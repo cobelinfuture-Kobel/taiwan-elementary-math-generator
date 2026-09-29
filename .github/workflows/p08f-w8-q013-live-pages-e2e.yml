@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - 'data/curriculum/full-product/p08f/q013-g5a-u05-polygon-angle-sum-reasoning-implementation.json'
+      - 'data/curriculum/full-product/p08f/q013-technical-e6-learner-visual-review-pending.json'
+      - 'tools/curriculum/run-p08f-w8-slice013-classic-ui-acceptance.mjs'
+      - 'tools/curriculum/run-p08f-w8-q013-live-pages-e2e.mjs'
       - '.github/workflows/p08f-w8-q013-live-pages-e2e.yml'
   workflow_dispatch:
 
