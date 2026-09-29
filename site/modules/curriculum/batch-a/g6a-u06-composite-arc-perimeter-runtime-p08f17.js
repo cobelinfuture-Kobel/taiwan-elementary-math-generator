@@ -12,7 +12,7 @@ import {
 export const G6A_U06_P08F17_MAX_QUESTION_COUNT=240;
 export const G6A_U06_P08F17_SHARED_RUNTIME_SCOPE="SHARED_RUNTIME_BOUNDED";
 const BY_SPEC=new Map(SPECS.map(x=>[x.patternSpecId,x]));
-const ANGLES=Object.freeze([60,90,120,180]);
+const ANGLES=Object.freeze([60,90,120]);
 const ORIENTATIONS=Object.freeze(["上、右","右、下","下、左","左、上"]);
 const mod=(n,m)=>((n%m)+m)%m;
 const fmt=n=>Number(Number(n).toFixed(2));
@@ -25,6 +25,10 @@ function makeDiagram(shapeMode,p){
     semanticRole:"COMPOSITE_ARC_PERIMETER",
     externalBoundaryOnly:true,
     internalSharedEdgesExcluded:true,
+    visualContractVersion:"P08F17_R2",
+    externalArcCount:(p.boundaryParts??[]).filter(x=>x.kind==="arc").length,
+    sharedDiameterCount:(p.omittedInternalParts??[]).length,
+    proportionalGeometryRequired:shapeMode==="STADIUM"||shapeMode==="RECT_SEMICIRCLE",
     answerKeyCompact:false,
     radius:p.radius??null,
     diameter:p.diameter??null,
@@ -39,13 +43,13 @@ function makeDiagram(shapeMode,p){
   });
 }
 function sectorPayload(u){
-  const angle=ANGLES[u%ANGLES.length],radius=5+Math.floor(u/4),arcLength=fmt(2*3.14*radius*angle/360),straightTotal=2*radius,totalPerimeter=fmt(arcLength+straightTotal);
+  const angle=ANGLES[u%ANGLES.length],radius=5+Math.floor(u/ANGLES.length),arcLength=fmt(2*3.14*radius*angle/360),straightTotal=2*radius,totalPerimeter=fmt(arcLength+straightTotal);
   const boundaryParts=[
     {kind:"arc",label:"弧 AB",radius,centralAngleDeg:angle,length:arcLength},
     {kind:"straight",label:"OA",length:radius},
     {kind:"straight",label:"OB",length:radius}
   ];
-  const promptText="圖中陰影扇形的外部邊界由弧 AB、OA、OB 組成。半徑是 "+radius+" 公分，圓心角是 "+angle+"°，圓周率取 3.14。只計外部邊界，求周長。";
+  const promptText="圖中扇形的外部邊界由弧 AB、OA、OB 組成。半徑是 "+radius+" 公分，圓心角是 "+angle+"°，圓周率取 3.14。只計外部邊界，求周長。";
   return {shapeMode:"SECTOR",radius,diameter:2*radius,centralAngleDeg:angle,arcLength,straightTotal,totalPerimeter,boundaryParts,omittedInternalParts:[],promptText};
 }
 function stadiumPayload(u){
@@ -192,13 +196,15 @@ export function validateG6AU06P08F17Question(q){
   if(q?.questionMode!=="diagram"||q?.mode!=="diagram")e.push("P08F17_MODE_INVALID");
   const p=q?.patternRepresentation,d=q?.geometryDiagram;
   if(!p||!Number.isInteger(p.variant)||p.variant<0||p.variant>=240)e.push("P08F17_REPRESENTATION_INVALID");
-  if(!d||d.kind!=="composite_arc_perimeter_diagram"||d.semanticRole!=="COMPOSITE_ARC_PERIMETER"||d.externalBoundaryOnly!==true||d.internalSharedEdgesExcluded!==true||d.representationVariant!==p?.shapeMode)e.push("P08F17_DIAGRAM_INVALID");
+  if(!d||d.kind!=="composite_arc_perimeter_diagram"||d.semanticRole!=="COMPOSITE_ARC_PERIMETER"||d.externalBoundaryOnly!==true||d.internalSharedEdgesExcluded!==true||d.representationVariant!==p?.shapeMode||d.visualContractVersion!=="P08F17_R2"||d.externalArcCount!==(p?.boundaryParts??[]).filter(x=>x.kind==="arc").length||d.sharedDiameterCount!==(p?.omittedInternalParts??[]).length)e.push("P08F17_DIAGRAM_INVALID");
   if(spec&&p){
     const x=payload(spec,p.variant);
     if(JSON.stringify(p)!==JSON.stringify(x)||JSON.stringify(d)!==JSON.stringify(x.geometryDiagram))e.push("P08F17_PAYLOAD_INVALID");
     if(q.promptText!==x.promptText||q.answerText!==x.answerText||Number(q.answerValue)!==x.answer||q.questionSignature!==signature(q))e.push("P08F17_PROMPT_ANSWER_SIGNATURE_INVALID");
     if(p.externalBoundaryOnly!==true||p.internalSharedEdgesExcluded!==true||!(p.totalPerimeter>0)||!(p.arcLength>0)||!(p.straightTotal>0)||Math.abs(fmt(p.arcLength+p.straightTotal)-p.totalPerimeter)>1e-9||p.boundaryReconstructionMatches!==true)e.push("P08F17_BOUNDARY_INVARIANT_INVALID");
     if(!Array.isArray(p.boundaryParts)||!p.boundaryParts.some(x=>x.kind==="arc")||!p.boundaryParts.some(x=>x.kind==="straight"))e.push("P08F17_BOUNDARY_PARTS_INVALID");
+    if(spec.shapeMode==="SECTOR"&&![60,90,120].includes(p.centralAngleDeg))e.push("P08F17_SECTOR_VISUAL_ANGLE_INVALID");
+    if((spec.shapeMode==="STADIUM"||spec.shapeMode==="RECT_SEMICIRCLE")&&d?.proportionalGeometryRequired!==true)e.push("P08F17_PROPORTIONAL_GEOMETRY_CONTRACT_INVALID");
     if(spec.shapeMode==="RECT_SEMICIRCLE"||spec.shapeMode==="DOUBLE_BUMP"){
       if(!Array.isArray(p.omittedInternalParts)||p.omittedInternalParts.length<1)e.push("P08F17_INTERNAL_EDGE_EXCLUSION_INVALID");
     }
