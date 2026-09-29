@@ -1,0 +1,141 @@
+{
+  "schemaName": "P08FW8Q014MapScaleDistanceImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice014Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "baselineMainSha": "9e055a5d4e22df2b95b8a1c33140577336af183c",
+  "preflightMergeSha": "2092fc935a17ae4a47e84e0e6c5ca4599eec4624",
+  "queueAuthority": {
+    "queuePosition": 14,
+    "sliceId": "p08e_q014_r7_g6a_u09_6a09_profile_geometry_property_c1",
+    "sourceId": "g6a_u09_6a09",
+    "runtimeProfileId": "profile_geometry_property",
+    "appliedRuntimeModifierIds": [
+      "mod_coordinate_map"
+    ],
+    "knowledgePointIds": [
+      "kp_g6a_u09_map_scale_distance"
+    ],
+    "requiredW8CapabilityIds": [
+      "cap_coordinate_map_representation",
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "preflight": "data/curriculum/full-product/p08f/q014-g6a-u09-map-scale-distance-source-authority-preflight.json",
+    "sourceTitle": "放大圖縮圖與比例尺",
+    "sourcePdfTitle": "meow911_6a09_source.pdf",
+    "sourcePages": [
+      1
+    ],
+    "sourcePdfDriveFileId": "1qnZyEDcmOgb94BYU350cmjvUN4kESlEZ",
+    "sourcePdfSha256": "80ec4d8df9a4d5bf98392cf846fac7df68c49781ba60eefa78e70e9109cbbe2c"
+  },
+  "formalMapping": {
+    "mappingId": "fm_g6a_u09_map_scale_distance_p08f14",
+    "r04MappingId": "r04map_g6a_u09_map_scale_distance",
+    "canonicalNameZh": "比例尺與實際距離",
+    "capabilityStatement": "學生能由圖上距離與比例尺求實際距離。",
+    "reasoningInvariant": "圖上距離與實際距離的比固定且單位須統一。"
+  },
+  "patternSpecs": {
+    "count": 4,
+    "maxQuestionCount": 240,
+    "families": [
+      "NUMERIC_RATIO_DIRECT",
+      "SOURCE_SCALE_BAR_DIRECT",
+      "FIXED_RATIO_ROUTE_DISTANCE",
+      "EXPLICIT_UNIT_NORMALIZATION"
+    ]
+  },
+  "productChain": {
+    "selectorProjection": "site/modules/curriculum/registry/g6a-u09-map-scale-distance-selector-projection-p08f14.js",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p08f14-extension.js",
+    "runtime": "site/modules/curriculum/batch-a/g6a-u09-map-scale-distance-runtime-p08f14.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f14.js",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f14-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p08f14.js",
+    "renderer": "site/modules/renderer/map-scale-distance-diagram-p08f14.js"
+  },
+  "runtimeContract": {
+    "questionMode": "diagram",
+    "maxQuestionCount": 240,
+    "frozenRuntimeProfile": "profile_geometry_property",
+    "appliedRuntimeModifierIds": [
+      "mod_coordinate_map"
+    ],
+    "sharedRuntimeScope": "SHARED_RUNTIME_BOUNDED",
+    "genericFallback": false,
+    "freeFormAI": false,
+    "mapToActualDirectionOnly": true,
+    "ratioScaleNumerator": 1,
+    "supportedUnitNormalization": [
+      {
+        "from": "cm",
+        "to": "m",
+        "divisor": 100
+      },
+      {
+        "from": "cm",
+        "to": "km",
+        "divisor": 100000
+      }
+    ],
+    "unsupportedUnitPairsFailClosed": true,
+    "globalUnitConversionCapabilityReclassified": false,
+    "sourceBackedScaleBarAllowed": true,
+    "reverseActualToMapAllowed": false
+  },
+  "publicAdmission": {
+    "selectionMode": "singleKnowledgePoint",
+    "questionType": "diagram",
+    "sourceAlreadyAdmittedBeforeQ014": true,
+    "expectedGlobalPublicSourceDelta": 0,
+    "expectedSourceVisibleKnowledgePointDelta": 1,
+    "sameSourceCandidateSetComplete": false,
+    "remainingProtectedKnowledgePointIds": [
+      "kp_g6a_u09_scale_drawing_construction",
+      "kp_g6a_u09_similar_shape_angle"
+    ],
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "applicationContextAdmission": true
+  },
+  "scopeGuard": {
+    "q007ScaleFactorLengthReowned": false,
+    "q012ScaleAreaChangeReowned": false,
+    "scaleDrawingConstructionTouched": false,
+    "similarShapeAngleTouched": false,
+    "reverseActualToMapTouched": false,
+    "genericCoordinateGeometryTouched": false,
+    "unboundedUnitConversionTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "q015OrLaterTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN",
+    "globalBrowserReplay": "FORBIDDEN",
+    "targetedRouteReplay": "tools/curriculum/run-p08f-w8-slice014-classic-ui-acceptance.mjs"
+  },
+  "learnerVisualReview": {
+    "required": true,
+    "status": "PENDING_TECHNICAL_E6_THEN_OPERATOR_REVIEW"
+  },
+  "goalDistance": {
+    "before": "D2_Q014_G6AU09_MAP_SCALE_DISTANCE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "afterCandidate": "D1_Q014_GENERATOR_VALIDATOR_RENDERER_WORKSHEET_PUBLIC_ROUTE_MATERIALIZED",
+    "reduced": "D2_TO_D1",
+    "d0Requires": "SHARED_RUNTIME_BOUNDED_CI_MERGE_POST_MERGE_EXACT_PAGES_E6_AND_OPERATOR_VISUAL_ACCEPTANCE"
+  }
+}
