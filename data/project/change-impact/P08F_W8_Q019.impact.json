@@ -37,7 +37,9 @@
     "sameUnitMixedAdmission": false,
     "crossUnitMixedAdmission": false,
     "applicationContextAdmission": false,
-    "humanVisualReviewRequired": true
+    "humanVisualReviewRequired": true,
+    "q011Q014Q017HistoricalCompatibilityTestOnlyMutation": true,
+    "q011Q014Q017ProductMutation": false
   },
   "classificationNote": "Q019 implements only G6A-U07 sector area under frozen profile_geometry_formula + mod_integer_division. It promotes one selector row, adds a dedicated sector-area renderer, preserves Q011/Q014/Q017 ownership, and keeps composite-circle-area pending."
 }
