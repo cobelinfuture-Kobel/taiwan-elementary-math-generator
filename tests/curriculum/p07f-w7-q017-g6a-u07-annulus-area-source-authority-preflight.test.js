@@ -11,7 +11,7 @@ const KP="kp_g6a_u07_annulus_area";
 
 test("Q017 exact frozen queue row follows Q016 D0",()=>{
   const q=materializeP07EW7DirectProductVerticalSliceQueue(),row=q.queueEntries[16];
-  assert.equal(q016.status,"PASS_E6_D0_COMPLETE");assert.equal(q016.exactHeadSha,"6e7aa3149593c4456e4787f242943e99b4089083");
+  assert.equal(q016.status,"PASS_E6_D0_COMPLETE");assert.match(q016.exactHeadSha,/^[0-9a-f]{40}$/);assert.equal(pre.predecessorD0Evidence.q016MergeSha,"6e7aa3149593c4456e4787f242943e99b4089083");
   assert.equal(row.queuePosition,17);assert.equal(row.sliceId,"p07e_q017_r11_g6a_u07_6a07_profile_geometry_formula_c1");
   assert.equal(row.previousSliceId,"p07e_q016_r11_g5b_u08_5b08_profile_ratio_percent_c1");assert.deepEqual([...row.knowledgePointIds],[KP]);
   assert.equal(row.primarySourceNodeId,"g6a_u07_6a07");assert.equal(row.primaryRuntimeProfileId,"profile_geometry_formula");assert.equal(row.intraWavePrerequisiteRank,11);

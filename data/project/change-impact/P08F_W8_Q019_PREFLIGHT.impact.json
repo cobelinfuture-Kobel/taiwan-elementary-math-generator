@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q019_PREFLIGHT",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u07_sector_area"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q019_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true,
+    "predecessorAuthorityRefresh": true
+  },
+  "scopeGuards": {
+    "productImplementation": false,
+    "publicAdmission": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "q020OrLaterMutation": false,
+    "predecessorAuthorityRefreshed": true,
+    "q019SemanticScopeMutation": false,
+    "q017HistoricalCompatibilityTestOnlyMutation": true,
+    "q017ProductMutation": false,
+    "q019ExecutableR04ModifierAuthorityCorrection": true
+  },
+  "classificationNote": "Planning-only Q019 source/runtime/semantic authority lock after Q018 exact deployed D0. Focused CI repair aligns the preflight with the executable R04 mod_integer_division contract and updates one historical Q017 compatibility assertion so mutable durable readback heads do not replace frozen predecessor merge authority. No Q017 product mutation and no R04 mutation."
+}
