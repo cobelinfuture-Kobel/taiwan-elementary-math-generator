@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8DirectProductVerticalSlice017Implementation",
-  "status": "HUMAN_VISUAL_REJECTED_REPAIR_R1_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "status": "HUMAN_VISUAL_REJECTED_REPAIR_R2_MATERIALIZED_AWAITING_FOCUSED_CI",
   "goalDistance": {
     "before": "D2_Q017_G6AU06_COMPOSITE_ARC_PERIMETER_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
     "after": "D1_Q017_G6AU06_COMPOSITE_ARC_PERIMETER_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_VISUAL_REVIEW",
@@ -194,6 +194,30 @@
     "sourceAuthorityUnchanged": true,
     "formalMappingUnchanged": true,
     "patternSpecIdentityUnchanged": true,
-    "q018OrLaterTouched": false
+    "q018OrLaterTouched": false,
+    "followupR2": {
+      "trigger": "ASSISTANT_SELF_VISUAL_REVIEW_AFTER_R1_E6",
+      "priorR1ExactHeadSha": "f906a02476e6bb444064fd82aa9f4cf6dcc4df71",
+      "priorR1E6RunId": 36560878686,
+      "priorR1ArtifactId": 11030195550,
+      "priorR1ArtifactDigest": "sha256:8a5c4d468956725794ee0087c385208f3a8e08afc107d9a6d211f765eb138f39",
+      "selfReviewDecision": "REPAIR_REQUIRED_BEFORE_OPERATOR_REVIEW",
+      "observedDefects": [
+        "RECT_SEMICIRCLE_HORIZONTAL_HEIGHT_LABEL_OVERLAPPED_VERTICAL_DIMENSION_AND_SHAPE",
+        "NARROW_RECT_SEMICIRCLE_VARIANTS_COULD_PLACE_SHARED_DIAMETER_AND_HEIGHT_TEXT_INSIDE_A_VERY_SMALL_GEOMETRY_REGION",
+        "SECTOR_RADIUS_LABEL_SHOULD_USE_LEARNER_FACING_CHINESE_UNIT_TEXT"
+      ],
+      "repairContract": [
+        "RECT_SEMICIRCLE_SHARED_DIAMETER_LABEL_MOVED_TO_DEDICATED_EXTERNAL_ANNOTATION_BAND",
+        "RECT_SEMICIRCLE_HEIGHT_DIMENSION_USES_ROTATED_EXTERNAL_VERTICAL_LABEL",
+        "RECT_SEMICIRCLE_EXTREME_NARROW_VARIANTS_MUST_KEEP_DIMENSION_TEXT_OUTSIDE_GEOMETRY",
+        "SECTOR_RADIUS_LABEL_USES_HALF_WIDTH_LEARNER_FACING_CHINESE_UNIT_TEXT"
+      ],
+      "sourceAuthorityUnchanged": true,
+      "formalMappingUnchanged": true,
+      "patternSpecIdentityUnchanged": true,
+      "runtimeAnswerSemanticsUnchanged": true,
+      "q018OrLaterTouched": false
+    }
   }
 }
