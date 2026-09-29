@@ -28,6 +28,7 @@ import { renderCylinderVolumeDiagram } from "./cylinder-volume-diagram-p07f18.js
 import { renderScaleAreaChangeDiagram } from "./scale-area-change-diagram-p07f12.js";
 import { renderScaleDrawingSimilarityDiagramP08F16 } from "./scale-drawing-similarity-diagram-p08f16.js";
 import { renderCompositeArcPerimeterDiagramP08F17 } from "./composite-arc-perimeter-diagram-p08f17.js";
+import { renderSectorAreaDiagramP08F19 } from "./sector-area-diagram-p08f19.js";
 import { renderMapScaleDistanceDiagramP08F14 } from "./map-scale-distance-diagram-p08f14.js";
 import { renderAreaGridCountingDiagram } from "./area-grid-counting-diagram.js";
 import { renderRectangleSquareAreaFormulaDiagram } from "./rectangle-square-area-formula-diagram.js";
@@ -114,7 +115,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderCompositeArcPerimeterDiagramP08F17, renderScaleDrawingSimilarityDiagramP08F16, renderMapScaleDistanceDiagramP08F14, renderSameRadiusSectorComparisonDiagramP08F12, renderCoordinateReflectionDiagramP08F11, renderSectorFractionOfCircleDiagram, renderCongruentTriangleCorrespondenceDiagram, renderTriangleAngleClassificationDiagram, renderUnknownAngleLinearFullVerticalDiagram, renderCombinedSectorAngleDiagram, renderAngleEstimationClassificationDiagram, renderAngleCompositionRotationClockDiagram, renderSolidViewpointRepresentationDiagram, renderProtractorAngleMeasurementDiagram, renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderCylinderVolumeDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
+export { renderSectorAreaDiagramP08F19, renderCompositeArcPerimeterDiagramP08F17, renderScaleDrawingSimilarityDiagramP08F16, renderMapScaleDistanceDiagramP08F14, renderSameRadiusSectorComparisonDiagramP08F12, renderCoordinateReflectionDiagramP08F11, renderSectorFractionOfCircleDiagram, renderCongruentTriangleCorrespondenceDiagram, renderTriangleAngleClassificationDiagram, renderUnknownAngleLinearFullVerticalDiagram, renderCombinedSectorAngleDiagram, renderAngleEstimationClassificationDiagram, renderAngleCompositionRotationClockDiagram, renderSolidViewpointRepresentationDiagram, renderProtractorAngleMeasurementDiagram, renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderCylinderVolumeDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -123,6 +124,7 @@ export function renderNumberLine(model) {
 }
 
 function renderGeometryDiagram(model) {
+  if (model?.kind === "sector_area_diagram_p08f19") return renderSectorAreaDiagramP08F19(model);
   if (model?.kind === "composite_arc_perimeter_diagram") return renderCompositeArcPerimeterDiagramP08F17(model);
   if (model?.kind === "scale_drawing_similarity_diagram") return renderScaleDrawingSimilarityDiagramP08F16(model);
   if (model?.kind === "map_scale_distance_diagram") return renderMapScaleDistanceDiagramP08F14(model);
