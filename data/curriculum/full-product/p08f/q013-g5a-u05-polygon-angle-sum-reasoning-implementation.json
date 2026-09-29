@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "programId": "FULL_PRODUCT_LINE_D0_V1",
   "taskId": "P08F_W8DirectProductVerticalSlice013Implementation",
-  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "status": "IMPLEMENTATION_MERGED_TECHNICAL_E6_AWAITING_HUMAN_VISUAL_REVIEW",
   "baselineMainSha": "f36689ad70a2f6c57ce69e14017c0f83eb19dd74",
   "preflightMergeSha": "28d5046325e99daa4e4e250cfe728f31b147d132",
   "queueAuthority": {
@@ -106,8 +106,39 @@
   },
   "goalDistance": {
     "before": "D2_Q013_G5AU05_POLYGON_ANGLE_SUM_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
-    "afterCandidate": "D1_Q013_GENERATOR_VALIDATOR_RENDERER_WORKSHEET_PUBLIC_ROUTE_MATERIALIZED",
+    "afterCandidate": "D1_Q013_TECHNICAL_E6_COMPLETE_OPERATOR_LEARNER_VISUAL_ACCEPTANCE_PENDING",
     "reduced": "D2_TO_D1",
-    "d0Requires": "SHARED_RUNTIME_BOUNDED_CI_MERGE_AND_POST_MERGE_EXACT_PAGES_ACCEPTANCE"
+    "d0Requires": "EXACT_HUMAN_REVIEW_ARTIFACT_PLUS_EXPLICIT_OPERATOR_LEARNER_VISUAL_ACCEPTANCE"
+  },
+  "technicalE6BeforeVisualEvidenceRepair": {
+    "implementationPr": 1131,
+    "implementationPrHeadSha": "995a11041718d1ebd4a67e349e1debfa5486566d",
+    "implementationPrGateRunId": 36503688619,
+    "implementationPrGateRunNumber": 1035,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "576ac17ee6ba5a0096783f2fd5054e51de5f4a9a",
+    "deployPagesRunId": 36503849169,
+    "deployPagesRunNumber": 2413,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36503849113,
+    "pagesE2ERunNumber": 1,
+    "pagesE2EConclusion": "success",
+    "pagesE2EArtifactId": 11006416348,
+    "exactDeployedHeadSha": "576ac17ee6ba5a0096783f2fd5054e51de5f4a9a",
+    "technicalResult": "PASS_E6_EXACT_DEPLOYMENT_AND_CLASSIC_UI",
+    "d0Granted": false,
+    "reason": "W8 requires operator learner-facing visual/actual-print acceptance before D0. Initial Q013 runner labeled technical E6 too strongly and did not package the human-review PDF/PNG."
+  },
+  "learnerVisualReviewGate": {
+    "required": true,
+    "status": "PENDING_OPERATOR",
+    "evidenceRepairTaskId": "P08F_W8_Q013_LEARNER_VISUAL_EVIDENCE_REPAIR",
+    "requiredArtifacts": [
+      "q013-polygon-angle-sum-human-review.pdf",
+      "q013-polygon-angle-sum-human-review.png",
+      "q013-polygon-angle-sum-worksheet.png",
+      "q013-polygon-angle-sum-ui.png"
+    ],
+    "finalD0RequiresExplicitOperatorAcceptance": true
   }
 }
