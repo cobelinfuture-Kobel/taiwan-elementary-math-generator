@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice014Implementation",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u09_map_scale_distance"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6a_u09_scale_factor_length",
+    "kp_g6a_u09_scale_area_change",
+    "kp_g6a_u09_map_scale_distance",
+    "kp_g6a_u09_scale_drawing_construction",
+    "kp_g6a_u09_similar_shape_angle"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6a_u09_scale_factor_length": "D0_PRIOR_OWNER",
+    "kp_g6a_u09_scale_area_change": "D0_PRIOR_OWNER",
+    "kp_g6a_u09_map_scale_distance": "IMPLEMENTATION_TARGET",
+    "kp_g6a_u09_scale_drawing_construction": "FUTURE_FROZEN_QUEUE",
+    "kp_g6a_u09_similar_shape_angle": "FUTURE_FROZEN_QUEUE"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q014.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  }
+}
