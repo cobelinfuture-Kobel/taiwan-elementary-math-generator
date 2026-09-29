@@ -1,0 +1,178 @@
+{
+  "schemaName": "P08FW8Q014FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q014_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q014_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 14,
+    "sliceId": "p08e_q014_r7_g6a_u09_6a09_profile_geometry_property_c1",
+    "sourceId": "g6a_u09_6a09",
+    "knowledgePointIds": [
+      "kp_g6a_u09_map_scale_distance"
+    ],
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "frozenQueueChanged": false,
+    "q015OrLaterProductChanged": false
+  },
+  "finalProductAuthority": {
+    "preflightPr": 1134,
+    "preflightMergeSha": "2092fc935a17ae4a47e84e0e6c5ca4599eec4624",
+    "implementationPr": 1135,
+    "implementationPrHeadSha": "d0f8a95410740ce28261e48b570dae99f647df92",
+    "implementationPrGateRunId": 36518499306,
+    "implementationPrGateRunNumber": 1045,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "8438cde4e566c7adb334cc3b73b5b412bf941904",
+    "deployPagesRunId": 36518993132,
+    "deployPagesRunNumber": 2417,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36518993069,
+    "pagesE2ERunNumber": 1,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "pagesE2EArtifactId": 11012685398,
+    "pagesE2EArtifactZipSha256": "692b220046318e2b139219a8de9b6fe9c9c4af30a8fc2fa52a1da3eade6c0cd6",
+    "exactDeployedHeadSha": "8438cde4e566c7adb334cc3b73b5b412bf941904"
+  },
+  "finalLearnerFacingEvidence": {
+    "mapScaleDistance": {
+      "questionCount": 16,
+      "answerCount": 16,
+      "diagramCount": 32,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "allPageCount": 6,
+      "worksheetColumns": 2,
+      "rowsPerPage": 3,
+      "patternCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "patternSpecIds": [
+        "ps_g6a_u09_map_scale_numeric_actual_distance",
+        "ps_g6a_u09_map_scale_bar_actual_distance",
+        "ps_g6a_u09_map_scale_fixed_ratio_actual_distance",
+        "ps_g6a_u09_map_scale_unit_normalization"
+      ],
+      "overflowPageCount": 0,
+      "minDiagramWidthPx": 852,
+      "minDiagramHeightPx": 120,
+      "nonEmptyAnswerCount": 16,
+      "printCount": 1
+    },
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "browserRequestFailureCount": 0,
+    "browserAssetHttpFailureCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "reviewedArtifacts": [
+      "q014-map-scale-distance-human-review.pdf",
+      "q014-map-scale-distance-human-review.png",
+      "q014-map-scale-distance-worksheet.png",
+      "q014-map-scale-distance-ui.png"
+    ],
+    "exactArtifactId": 11012685398,
+    "exactArtifactZipSha256": "692b220046318e2b139219a8de9b6fe9c9c4af30a8fc2fa52a1da3eade6c0cd6",
+    "decisionTextZh": "圖形 OK",
+    "finalCloseoutResumeTask": "P08F_W8_Q014_FinalLearnerVisualD0Closeout_Then_Q015_SourceAuthorityPreflight",
+    "acceptedAtLocalDate": "2026-09-29",
+    "actualPrintAccepted": true,
+    "learnerFacingAccepted": true,
+    "finalCloseoutResumeAuthorized": true,
+    "d0Granted": true
+  },
+  "learnerVisualContract": {
+    "mapToActualDirectionOnly": true,
+    "boundedUnitNormalizationPairs": [
+      "cm_to_m",
+      "cm_to_km"
+    ],
+    "unsupportedUnitPairsFailClosed": true,
+    "sourceBackedScaleBarAllowed": true,
+    "reverseActualToMapAllowed": false,
+    "scaleFactorLengthTeachingReowned": false,
+    "scaleAreaChangeTeachingReowned": false,
+    "scaleDrawingConstructionIncluded": false,
+    "similarShapeAngleIncluded": false,
+    "twoColumnPrintLayout": true,
+    "printSafePagination": true,
+    "noInternalIds": true,
+    "priorSameSourceOwnersPreserved": true,
+    "sameUnitMixedModeFailClosed": true,
+    "crossUnitMixedModeFailClosed": true
+  },
+  "postMergeFullRegressionReadback": {
+    "nodeTestRunId": 36518993155,
+    "nodeTestRunNumber": 6006,
+    "nodeTestConclusion": "failure",
+    "ciReadbackRunId": 36518993052,
+    "ciReadbackRunNumber": 3748,
+    "ciReadbackConclusion": "failure",
+    "d0Required": false,
+    "q014FocusedContractsObservedPassing": true,
+    "unrelatedRepositoryBaselineFailuresPresent": true,
+    "namedFailureCount": 173,
+    "previousNamedFailureCount": 173,
+    "newNamedFailures": 0,
+    "resolvedNamedFailures": 0,
+    "note": "The named full-regression failure set is identical to the previous Node Test Post-Merge #6005 baseline. Q014 D0 authority is the focused PR gate plus exact deployed Pages E6 and explicit operator learner-facing visual acceptance."
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "959f1d9538081d6526ef5b055f55c14de2f6cf2f",
+    "exactProductHeadSha": "8438cde4e566c7adb334cc3b73b5b412bf941904",
+    "commitsAfterExactProductHead": 10,
+    "q014RuntimeFilesChanged": false,
+    "q014CurriculumIdentityFilesChanged": false,
+    "interveningUnrelatedCiReadbackOnlyChanges": true,
+    "changedFilesAfterExactProductHead": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-p07f-w7-q011-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q012-pages-e2e.json",
+      "docs/ci/latest-p07f-w7-q026-pages-e2e.json",
+      "docs/ci/latest-public-math-ci-readback.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "q015SuccessorReadiness": {
+    "nextPreflightTaskId": "P08F_W8_Q015_SourceAuthorityPreflight",
+    "nextImplementationTaskId": "P08F_W8DirectProductVerticalSlice015Implementation",
+    "implementationRequiresSeparateOperatorApproval": true
+  },
+  "antiScopeCreep": {
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ014ProductRuntime": false,
+    "modifyQ014SourceAuthority": false,
+    "modifyFormalMappingIdentity": false,
+    "modifyPatternSpecIdentity": false,
+    "modifyW8FrozenQueue": false,
+    "implementQ015": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q014_TECHNICAL_E6_COMPLETE_OPERATOR_VISUAL_ACCEPTANCE_PENDING",
+    "goalDistanceAfter": "D0_Q014_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ014Blockers": [],
+    "nextShortestStep": "P08F_W8_Q015_SourceAuthorityPreflight"
+  }
+}
