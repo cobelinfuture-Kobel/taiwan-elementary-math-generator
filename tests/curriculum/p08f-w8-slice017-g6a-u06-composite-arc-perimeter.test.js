@@ -11,11 +11,12 @@ import {
   G6A_U06_P08F17_SOURCE_ID as SRC,
   G6A_U06_P08F17_SPEC_IDS as SPEC_IDS
 } from "../../site/modules/curriculum/registry/g6a-u06-composite-arc-perimeter-selector-projection-p08f17.js";
-import {generateG6AU06P08F17Questions,validateG6AU06P08F17Question,validateG6AU06P08F17Answer} from "../../site/modules/curriculum/batch-a/g6a-u06-composite-arc-perimeter-runtime-p08f17.js";
+import {buildG6AU06P08F17Question,generateG6AU06P08F17Questions,validateG6AU06P08F17Question,validateG6AU06P08F17Answer} from "../../site/modules/curriculum/batch-a/g6a-u06-composite-arc-perimeter-runtime-p08f17.js";
 import {requestsP08F17,buildBatchABrowserPlan} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p08f17.js";
 import {buildBatchABrowserWorksheetDocument as buildQ017} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f17-extension.js";
 import {buildBatchABrowserWorksheetDocument as buildCurrent} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js";
 import {renderWorksheetDocumentToHtml} from "../../site/modules/renderer/html-renderer.js";
+import {renderCompositeArcPerimeterDiagramP08F17} from "../../site/modules/renderer/composite-arc-perimeter-diagram-p08f17.js";
 
 const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"));
 const implementation=read("data/curriculum/full-product/p08f/q017-g6a-u06-composite-arc-perimeter-implementation.json");
@@ -28,7 +29,7 @@ const occ=(s,t)=>s.split(t).length-1;
 test("Q017 materializes exact preflight mapping and four composite-boundary PatternSpecs",()=>{
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
   assert.equal(implementation.preflight.mergeSha,"604737528f0d490387b5c81f95bc1e4618bf8e02");
-  assert.equal(implementation.status,"IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI");
+  assert.equal(implementation.status,"HUMAN_VISUAL_REJECTED_REPAIR_R1_MATERIALIZED_AWAITING_FOCUSED_CI");
   assert.equal(implementation.queueAuthority.queuePosition,17);
   assert.deepEqual(implementation.queueAuthority.knowledgePointIds,[KP]);
   assert.equal(MAP.r04MappingId,"r04map_g6a_u06_composite_arc_perimeter");
@@ -86,6 +87,44 @@ test("Q017 sums only external straight and arc boundary parts without reowning p
   }
   assert.deepEqual(modes,new Set(["SECTOR","STADIUM","RECT_SEMICIRCLE","DOUBLE_BUMP"]));
   assert.ok(internalExclusionCases>0);
+});
+
+test("Q017 R2 visual contract fixes label, proportion, shared-edge and outward-bump defects",()=>{
+  const sectorSpec=SPECS.find(x=>x.shapeMode==="SECTOR");
+  const stadiumSpec=SPECS.find(x=>x.shapeMode==="STADIUM");
+  const rectSpec=SPECS.find(x=>x.shapeMode==="RECT_SEMICIRCLE");
+  const bumpSpec=SPECS.find(x=>x.shapeMode==="DOUBLE_BUMP");
+  const sectors=generateG6AU06P08F17Questions({knowledgePointId:KP,patternSpecIds:[sectorSpec.patternSpecId],questionCount:240,generationSeed:"q017-r2-sector"});
+  assert.equal(sectors.ok,true,sectors.errors.join("\n"));
+  assert.ok(sectors.questions.every(q=>[60,90,120].includes(q.patternRepresentation.centralAngleDeg)));
+  assert.ok(sectors.questions.every(q=>!q.promptText.includes("陰影")));
+  const sectorHtml=renderCompositeArcPerimeterDiagramP08F17(buildG6AU06P08F17Question({patternSpecId:sectorSpec.patternSpecId,variant:17}).geometryDiagram);
+  assert.match(sectorHtml,/data-visual-contract-version="P08F17_R2"/);
+  assert.match(sectorHtml,/>A<\/text>/);
+  assert.match(sectorHtml,/>B<\/text>/);
+  assert.match(sectorHtml,/q017-angle-marker/);
+
+  const stadium=buildG6AU06P08F17Question({patternSpecId:stadiumSpec.patternSpecId,variant:26});
+  const stadiumHtml=renderCompositeArcPerimeterDiagramP08F17(stadium.geometryDiagram);
+  assert.match(stadiumHtml,/data-proportional-geometry="true"/);
+  assert.match(stadiumHtml,/q017-radius-guide/);
+  assert.equal(occ(stadiumHtml,"q017-shared-diameter"),0);
+
+  const rect=buildG6AU06P08F17Question({patternSpecId:rectSpec.patternSpecId,variant:77});
+  const rectHtml=renderCompositeArcPerimeterDiagramP08F17(rect.geometryDiagram);
+  assert.match(rectHtml,/data-proportional-geometry="true"/);
+  assert.equal(occ(rectHtml,"q017-shared-diameter"),1);
+  assert.match(rectHtml,/共用直徑/);
+
+  const expected=[["TOP","RIGHT"],["RIGHT","BOTTOM"],["BOTTOM","LEFT"],["LEFT","TOP"]];
+  for(let variant=0;variant<4;variant++){
+    const q=buildG6AU06P08F17Question({patternSpecId:bumpSpec.patternSpecId,variant});
+    const html=renderCompositeArcPerimeterDiagramP08F17(q.geometryDiagram);
+    assert.equal(occ(html,'class="q017-bump-arc"'),2);
+    assert.equal(occ(html,'class="q017-shared-diameter"'),2);
+    assert.equal(occ(html,'class="q017-external-straight"'),2);
+    assert.match(html,new RegExp('data-bump-sides="'+expected[variant].join(",")+'"'));
+  }
 });
 
 test("Q017 worksheet current bridge selector answer and print representation stay learner-facing",async()=>{
