@@ -1,0 +1,157 @@
+{
+  "schemaName": "P08FW8Q017G6AU06CompositeArcPerimeterImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice017Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q017_G6AU06_COMPOSITE_ARC_PERIMETER_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q017_G6AU06_COMPOSITE_ARC_PERIMETER_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_VISUAL_REVIEW",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "ad9b5895105c01d94dae12479011e2db21162f21",
+  "preflight": {
+    "prNumber": 1143,
+    "mergeSha": "604737528f0d490387b5c81f95bc1e4618bf8e02",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p08f/q017-g6a-u06-composite-arc-perimeter-source-authority-preflight.json"
+  },
+  "currentMainCompatibilityReadback": {
+    "comparedFromPreflightMergeSha": "604737528f0d490387b5c81f95bc1e4618bf8e02",
+    "currentMainShaAtImplementation": "ad9b5895105c01d94dae12479011e2db21162f21",
+    "commitsAhead": 4,
+    "changedPaths": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ],
+    "onlyDocsCiReadbackChanged": true,
+    "q017AuthorityOrQ016ProductRuntimePathsChanged": false,
+    "compatibilityDecision": "SAFE_TO_IMPLEMENT_Q017_FROM_CURRENT_MAIN"
+  },
+  "queueAuthority": {
+    "queuePosition": 17,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q017_r10_g6a_u06_6a06_profile_geometry_formula_c1",
+    "previousSliceId": "p08e_q016_r9_g6a_u09_6a09_profile_geometry_property_c1",
+    "sourceId": "g6a_u06_6a06",
+    "knowledgePointIds": [
+      "kp_g6a_u06_composite_arc_perimeter"
+    ],
+    "runtimeProfileId": "profile_geometry_formula",
+    "classificationRuleId": "rule_geometry_formula",
+    "appliedModifierIds": [],
+    "blockingCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_6a06_source.pdf",
+    "sourcePdfDriveFileId": "1kUsHZcQ9pyLNyBc6bduLb7UOnQPUFmOk",
+    "sourcePdfSha256": "e21d00e73df47d6ce7ae2d8d1dd2e8cbed04380a45ece38bc4d4df7fe08ebcf4",
+    "reviewedPages": [1, 2],
+    "r02EvidencePages": [1, 2],
+    "semanticAuthority": "R02_REVIEWED_CANDIDATE_PRIMARY_CURRENT_VISUAL_COMPOSITE_ARC_BOUNDARY_CONTEXT_SECONDARY",
+    "sourceRefAmbiguity": false
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_diagram_representation"
+    ],
+    "contractOnlyRequiredCapabilityIds": [
+      "cap_geometry_property_reasoning"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false,
+    "r05AssignmentMutationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 4,
+    "patternSpecIds": [
+      "ps_g6a_u06_composite_sector_perimeter",
+      "ps_g6a_u06_composite_stadium_perimeter",
+      "ps_g6a_u06_composite_rect_semicircle_perimeter",
+      "ps_g6a_u06_composite_double_bump_verify"
+    ],
+    "includedRelations": [
+      "IDENTIFY_EXTERNALLY_EXPOSED_BOUNDARY_COMPONENTS",
+      "COMPUTE_ARC_COMPONENTS_FROM_RADIUS_AND_CENTRAL_ANGLE",
+      "SUM_STRAIGHT_AND_ARC_COMPONENTS_FOR_TOTAL_PERIMETER",
+      "EXCLUDE_INTERNAL_OR_SHARED_EDGES",
+      "VERIFY_DECOMPOSED_BOUNDARY_RECONSTRUCTS_THE_SAME_OUTER_PERIMETER"
+    ],
+    "questionMode": "diagram",
+    "rendererRepresentation": "composite_arc_perimeter_diagram",
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_PERIMETER_CM",
+    "humanVisualReviewRequired": true
+  },
+  "semanticContract": {
+    "semanticCore": "SUM_ONLY_EXTERNALLY_EXPOSED_STRAIGHT_SEGMENTS_AND_CIRCULAR_ARCS_TO_OBTAIN_COMPOSITE_PERIMETER",
+    "approximatePiValue": 3.14,
+    "externalBoundaryOnlyRequired": true,
+    "internalOrSharedEdgesExcluded": true,
+    "straightBoundarySegmentsAllowed": true,
+    "multipleArcSegmentsAllowed": true,
+    "eachArcUsesItsOwnRadiusAndCentralAngle": true,
+    "sectorPerimeterAsCompositeBoundaryPatternAllowed": true,
+    "stadiumCapsuleBoundaryPatternAllowed": true,
+    "semicircleArcCompositionAllowed": true
+  },
+  "ownershipGuard": {
+    "q004PiCircumferenceRelationTeachingReowned": false,
+    "q006CircleCircumferenceFormulaTeachingReowned": false,
+    "q010SemicirclePerimeterTeachingReowned": false,
+    "q015SectorArcLengthTeachingReowned": false,
+    "sectorAreaUsed": false,
+    "compositeCircleAreaUsed": false,
+    "genericGeometryFormulaDrillUsed": false,
+    "applicationContextUsed": false,
+    "sameUnitMixedUsed": false,
+    "crossUnitMixedUsed": false,
+    "q018OrLaterTouched": false,
+    "frozenQueueTouched": false,
+    "r02Touched": false,
+    "r04Touched": false,
+    "r05Touched": false
+  },
+  "productChain": {
+    "selectorProjection": "site/modules/curriculum/registry/g6a-u06-composite-arc-perimeter-selector-projection-p08f17.js",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p08f17-extension.js",
+    "runtime": "site/modules/curriculum/batch-a/g6a-u06-composite-arc-perimeter-runtime-p08f17.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f17.js",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f17-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p08f17.js",
+    "renderer": "site/modules/renderer/composite-arc-perimeter-diagram-p08f17.js"
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN",
+    "globalBrowserReplay": "FORBIDDEN",
+    "targetedRouteReplay": "tools/curriculum/run-p08f-w8-slice017-classic-ui-acceptance.mjs"
+  },
+  "d0Gate": {
+    "technicalE6Required": true,
+    "operatorLearnerVisualAcceptanceRequired": true,
+    "d0Granted": false,
+    "nextAfterTechnicalE6": "P08F_W8_Q017_FinalLearnerVisualD0Closeout_Then_Q018_SourceAuthorityPreflight"
+  }
+}
