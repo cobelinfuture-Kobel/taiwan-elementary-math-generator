@@ -69,7 +69,7 @@ test("Q014 bounded unit normalization and scale-bar relations fail closed",()=>{
   assert.ok(bars>0);
 });
 
-test("Q014 worksheet current bridge and renderer preserve prior owners and future hidden owners",async()=>{
+test("Q014 worksheet remains reachable after Q016 promotes its previously protected successors",async()=>{
   const r=buildQ014(req());
   assert.equal(r.ok,true,r.errors.join("\n"));
   assert.equal(r.worksheetDocument.questionCount,16);
@@ -87,7 +87,7 @@ test("Q014 worksheet current bridge and renderer preserve prior owners and futur
     const binding=await import("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js?p08f14="+Date.now());
     for(const id of [...PRIOR,KP])assert.equal(selector.getVisibleBatchAKnowledgePoint(id)?.sourceId,SRC,id);
     const s=selector.listBatchAKnowledgePointAvailabilityBySource(SRC);
-    for(const id of FUTURE){assert.ok(s.hiddenPendingKnowledgePointIds.includes(id));assert.ok(s.notSelectableKnowledgePointIds.includes(id));assert.equal(selector.getVisibleBatchAKnowledgePoint(id),null);}
+    for(const id of FUTURE){assert.equal(s.hiddenPendingKnowledgePointIds.includes(id),false);assert.equal(s.notSelectableKnowledgePointIds.includes(id),false);assert.equal(selector.getVisibleBatchAKnowledgePoint(id)?.sourceId,SRC,id);}
     const b=binding.resolvePublicUiCapabilityBinding(req());
     assert.equal(b.mapScaleDistanceRequired,true);
     assert.equal(b.boundedUnitNormalizationRequired,true);
