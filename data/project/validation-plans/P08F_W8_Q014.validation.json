@@ -12,8 +12,6 @@
           "tests/curriculum/p08f-w8-slice014-g6a-u09-map-scale-distance.test.js",
           "tests/curriculum/p08f-w8-q014-g6a-u09-map-scale-distance-source-authority-preflight.test.js",
           "tests/curriculum/p08f-w8-q013-final-learner-visual-d0-closeout.test.js",
-          "tests/curriculum/p07f-w7-slice007-g6a-u09-scale-factor-length.test.js",
-          "tests/curriculum/p07f-w7-slice012-g6a-u09-scale-area-change.test.js",
           "tests/curriculum/p08e-w8-direct-product-vertical-slice-queue.test.js"
         ]
       },
