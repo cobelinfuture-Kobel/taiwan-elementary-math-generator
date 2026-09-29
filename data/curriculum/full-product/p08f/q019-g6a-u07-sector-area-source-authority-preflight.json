@@ -9,7 +9,7 @@
     "after": "D2_Q019_G6AU07_SECTOR_AREA_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
     "reduced": "D3_TO_D2"
   },
-  "baselineMainSha": "d18a48441112eb29dc5dd939914cb3a854eca94f",
+  "baselineMainSha": "a8f4f26a102a97cfea862d1bf4b513ffc83038f6",
   "predecessorAuthority": {
     "q018TaskId": "P08F_W8DirectProductVerticalSlice018Implementation",
     "q018Status": "PASS_E6_D0_COMPLETE",
@@ -28,13 +28,17 @@
     "q018DurableReadbackPath": "docs/ci/latest-p08f-w8-q018-pages-e2e.json",
     "q018HumanVisualReviewRequired": false,
     "currentMainCompatibilityReadback": {
-      "currentMainShaAtPreflight": "d18a48441112eb29dc5dd939914cb3a854eca94f",
+      "currentMainShaAtPreflight": "a8f4f26a102a97cfea862d1bf4b513ffc83038f6",
       "comparedFromQ018ExactProductHeadSha": "6825e02fa1834d13929941400d2d06b6cb74cd65",
-      "commitsAhead": 3,
+      "commitsAhead": 7,
       "changedPaths": [
         "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+        "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+        "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+        "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
         "docs/ci/latest-p07f-w7-q026-pages-e2e.json",
-        "docs/ci/latest-p08f-w8-q018-pages-e2e.json"
+        "docs/ci/latest-p08f-w8-q018-pages-e2e.json",
+        "docs/ci/latest-s76r2-deployed-pages-smoke.json"
       ],
       "onlyDocsCiReadbackChanged": true,
       "q019AuthorityOrQ018ProductRuntimePathsChanged": false,
