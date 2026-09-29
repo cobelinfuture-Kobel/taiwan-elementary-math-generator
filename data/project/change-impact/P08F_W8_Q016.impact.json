@@ -39,6 +39,7 @@
     "r02Mutation": false,
     "r04Mutation": false,
     "r05Mutation": false,
-    "unboundedFreehandConstruction": false
+    "unboundedFreehandConstruction": false,
+    "q007Q012Q014HistoricalCompatibilityTestOnlyMutation": true
   }
 }
