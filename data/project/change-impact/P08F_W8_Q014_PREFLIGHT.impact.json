@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q014_PREFLIGHT",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u09_map_scale_distance"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q014_PREFLIGHT.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "planningAuthorityAdded": true,
+    "predecessorAuthorityRefresh": true
+  },
+  "scopeGuards": {
+    "productImplementation": false,
+    "publicAdmission": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "q015OrLaterMutation": false,
+    "predecessorAuthorityRefreshed": true,
+    "q014SemanticScopeMutation": false
+  },
+  "classificationNote": "Planning-only Q014 source/runtime/semantic authority lock after Q013 learner-visual D0. The exact frozen Q014 slice targets kp_g6a_u09_map_scale_distance under g6a_u09_6a09 / profile_geometry_property with mod_coordinate_map. Unit normalization is locked as bounded fail-closed Q014 domain semantics without changing R04."
+}
