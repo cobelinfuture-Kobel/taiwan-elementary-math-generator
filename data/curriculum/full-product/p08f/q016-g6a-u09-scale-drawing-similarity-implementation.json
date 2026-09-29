@@ -1,0 +1,128 @@
+{
+  "schemaName": "P08FW8Q016ScaleDrawingSimilarityImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice016Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q016_G6AU09_SCALE_DRAWING_AND_SIMILAR_ANGLE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q016_GENERATOR_VALIDATOR_SELECTOR_RENDERER_WORKSHEET_PRINT_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_VISUAL_REVIEW",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "0da6cf56123546a96003382fddad0cf043f054e0",
+  "preflight": {
+    "prNumber": 1140,
+    "mergeSha": "4853edb26aee5f0ae0b87d291f8422b3981f9c6f",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p08f/q016-g6a-u09-scale-drawing-similar-angle-source-authority-preflight.json"
+  },
+  "currentMainCompatibilityReadback": {
+    "comparedFromPreflightMergeSha": "4853edb26aee5f0ae0b87d291f8422b3981f9c6f",
+    "currentMainShaAtImplementation": "0da6cf56123546a96003382fddad0cf043f054e0",
+    "commitsAhead": 4,
+    "changedPaths": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ],
+    "onlyDocsCiReadbackChanged": true,
+    "q016AuthorityOrQ015ProductRuntimePathsChanged": false,
+    "compatibilityDecision": "SAFE_TO_IMPLEMENT_Q016_FROM_CURRENT_MAIN"
+  },
+  "queueAuthority": {
+    "queuePosition": 16,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q016_r9_g6a_u09_6a09_profile_geometry_property_c1",
+    "previousSliceId": "p08e_q015_r9_g6a_u06_6a06_profile_geometry_formula_c1",
+    "sourceId": "g6a_u09_6a09",
+    "knowledgePointIds": [
+      "kp_g6a_u09_scale_drawing_construction",
+      "kp_g6a_u09_similar_shape_angle"
+    ],
+    "runtimeProfileId": "profile_geometry_property",
+    "blockingCapabilityIds": [
+      "cap_geometry_construction",
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_property_reasoning"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourceTitle": "放大圖縮圖與比例尺",
+    "sourcePdfTitle": "meow911_6a09_source.pdf",
+    "sourcePages": [1],
+    "sourcePdfDriveFileId": "1qnZyEDcmOgb94BYU350cmjvUN4kESlEZ",
+    "sourcePdfSha256": "80ec4d8df9a4d5bf98392cf846fac7df68c49781ba60eefa78e70e9109cbbe2c"
+  },
+  "productContract": {
+    "formalMappingCount": 2,
+    "patternGroupCount": 2,
+    "patternSpecCount": 8,
+    "patternSpecsPerKnowledgePoint": 4,
+    "maxQuestionCountPerSingleKnowledgePoint": 240,
+    "deterministicGeneration": true,
+    "questionMode": "diagram",
+    "rendererRepresentation": "scale_drawing_similarity_diagram",
+    "singleKnowledgePointRoutesOnly": true,
+    "sameUnitMixedMode": "NOT_ADMITTED",
+    "crossUnitMixedMode": "NOT_ADMITTED",
+    "applicationContextMode": "NOT_ADMITTED",
+    "humanVisualReviewRequired": true
+  },
+  "semanticContract": {
+    "scaleDrawingConstruction": {
+      "singlePositiveNonzeroScaleFactorRequired": true,
+      "allCorrespondingPointOffsetsUseSameScaleFactor": true,
+      "boundedGridOrCoordinateRepresentation": true,
+      "enlargementAndReductionSupported": true,
+      "questionDrawingShowsTargetWorkspace": true,
+      "answerKeyShowsCompletedTarget": true
+    },
+    "similarShapeAngle": {
+      "correspondingAngleEqualityRequired": true,
+      "parallelRelationPreservationRequired": true,
+      "shapePreservationRequired": true,
+      "lengthsMayScaleWhileAnglesRemainInvariant": true
+    }
+  },
+  "ownershipGuard": {
+    "q007ScaleFactorLengthReowned": false,
+    "q012ScaleAreaChangeReowned": false,
+    "q014MapScaleDistanceReowned": false,
+    "genericCoordinateGeometryReowned": false,
+    "genericAngleMeasurementReowned": false,
+    "unboundedFreehandConstructionUsed": false,
+    "applicationContextUsed": false,
+    "sameUnitMixedUsed": false,
+    "crossUnitMixedUsed": false,
+    "q017OrLaterTouched": false,
+    "frozenQueueTouched": false,
+    "r02Touched": false,
+    "r04Touched": false,
+    "r05Touched": false
+  },
+  "productChain": {
+    "selectorProjection": "site/modules/curriculum/registry/g6a-u09-scale-drawing-similarity-selector-projection-p08f16.js",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p08f16-extension.js",
+    "runtime": "site/modules/curriculum/batch-a/g6a-u09-scale-drawing-similarity-runtime-p08f16.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f16.js",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f16-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p08f16.js",
+    "renderer": "site/modules/renderer/scale-drawing-similarity-diagram-p08f16.js"
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN",
+    "globalBrowserReplay": "FORBIDDEN",
+    "targetedRouteReplay": "tools/curriculum/run-p08f-w8-slice016-classic-ui-acceptance.mjs"
+  },
+  "d0Gate": {
+    "technicalE6Required": true,
+    "operatorLearnerVisualAcceptanceRequired": true,
+    "d0Granted": false,
+    "nextAfterTechnicalE6": "P08F_W8_Q016_FinalLearnerVisualD0Closeout_Then_Q017_SourceAuthorityPreflight"
+  }
+}
