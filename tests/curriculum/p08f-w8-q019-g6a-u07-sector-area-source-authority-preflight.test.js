@@ -90,8 +90,8 @@ test("W8 Q019 locks exact R04 geometry-formula mapping and R05 W8 assignment",()
   assert.equal(mapping.mappingId,p.runtimeCapabilityAuthority.mappingId);
   assert.equal(mapping.primaryRuntimeProfileId,"profile_geometry_formula");
   assert.equal(mapping.classificationRuleId,"rule_geometry_formula");
-  assert.deepEqual(mapping.appliedModifierIds,[]);
-  assert.deepEqual(mapping.requiredRuntimeCapabilityIds,p.runtimeCapabilityAuthority.requiredRuntimeCapabilityIds);
+  assert.deepEqual(mapping.appliedModifierIds,["mod_integer_division"]);
+  assert.deepEqual(mapping.requiredRuntimeCapabilityIds,p.runtimeCapabilityAuthority.requiredRuntimeCapabilityIds);\n  assert.ok(mapping.requiredRuntimeCapabilityIds.includes("cap_integer_division"));
   assert.deepEqual(mapping.optionalRuntimeCapabilityIds,[]);
   assert.deepEqual(mapping.forbiddenRuntimeCapabilityIds,[]);
   const row=getR05DeliveryWaveAssignment(KP);assert.ok(row);
