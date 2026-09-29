@@ -1,8 +1,8 @@
 {
   "schemaName": "P08FW8Q019PostMergeMainPagesE2EV1",
   "taskId": "P08F_W8DirectProductVerticalSlice019Implementation",
-  "status": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
-  "d0Granted": false,
+  "status": "PASS_E6_D0_COMPLETE",
+  "d0Granted": true,
   "exactHeadSha": "6ec13e0712d35731fca72b310e46a261fa0193ab",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
@@ -79,8 +79,8 @@
     "schemaName": "P08FW8Q019ClassicUIAcceptanceV1",
     "taskId": "P08F_W8DirectProductVerticalSlice019Implementation",
     "status": "PASS_P08F_W8_Q019_TECHNICAL_VISUAL_PRECHECK",
-    "learnerVisualAcceptanceStatus": "PENDING_OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW",
-    "d0Granted": false,
+    "learnerVisualAcceptanceStatus": "PASS_OPERATOR_APPROVED",
+    "d0Granted": true,
     "sourceId": "g6a_u07_6a07",
     "knowledgePointIds": [
       "kp_g6a_u07_sector_area"
@@ -139,12 +139,12 @@
         "ui": "q019-sector-area-ui.png",
         "pdfBytes": 190043,
         "pngBytes": 818573,
-        "status": "PENDING_OPERATOR_REVIEW"
+        "status": "PASS_OPERATOR_REVIEW"
       }
     },
     "humanReview": {
       "required": true,
-      "status": "PENDING_OPERATOR",
+      "status": "PASS_OPERATOR",
       "artifacts": [
         {
           "pdf": "q019-sector-area-human-review.pdf",
@@ -153,7 +153,7 @@
           "ui": "q019-sector-area-ui.png",
           "pdfBytes": 190043,
           "pngBytes": 818573,
-          "status": "PENDING_OPERATOR_REVIEW"
+          "status": "PASS_OPERATOR_REVIEW"
         }
       ]
     },
@@ -192,7 +192,7 @@
     }
   },
   "humanVisualReviewRequired": true,
-  "learnerVisualAcceptanceStatus": "PENDING_OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW",
+  "learnerVisualAcceptanceStatus": "PASS_OPERATOR_APPROVED",
   "semanticInvariants": {
     "sectorAreaOwned": true,
     "sectorAreaAsCircleAreaTimesAngleFraction": true,
@@ -212,5 +212,22 @@
     "attempt": "1",
     "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36585335800"
   },
-  "verifiedAt": "2026-09-29T14:58:44.436Z"
+  "verifiedAt": "2026-09-29T14:58:44.436Z",
+  "operatorHumanVisualReview": {
+    "required": true,
+    "status": "PASS_OPERATOR_APPROVED",
+    "decision": "GRAPHICS_OK",
+    "operatorStatement": "圖形ok",
+    "acceptedDeployedHeadSha": "6ec13e0712d35731fca72b310e46a261fa0193ab",
+    "rejectedRepairPrNumber": 1152,
+    "rejectedRepairPrMerged": false
+  },
+  "finalCloseout": {
+    "status": "PASS_E6_D0_COMPLETE",
+    "exactDeployedHeadSha": "6ec13e0712d35731fca72b310e46a261fa0193ab",
+    "technicalE6Passed": true,
+    "operatorHumanVisualReviewPassed": true,
+    "d0Granted": true,
+    "nextTask": "P08F_W8_Q020_SourceAuthorityPreflight"
+  }
 }
