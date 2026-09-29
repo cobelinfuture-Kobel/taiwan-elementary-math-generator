@@ -39,15 +39,15 @@ export function renderSectorAreaDiagramP08F19(model){
   const measure=model.measurementMode==="RADIUS"
     ? [
         line(cx,cy,cx-r,cy,"sector-area-diagram__measure sector-area-diagram__radius","4 3"),
-        text(cx-r/2,cy+16,"半徑 "+model.radiusValue+" 公分",10)
+        text(cx,158,"半徑 "+model.radiusValue+" 公分",10,"middle","600","sector-area-diagram__measure-label")
       ].join("")
     : [
         line(cx-r,cy,cx+r,cy,"sector-area-diagram__measure sector-area-diagram__diameter","4 3"),
-        text(cx,cy+16,"直徑 "+model.diameterValue+" 公分",10)
+        text(cx,158,"直徑 "+model.diameterValue+" 公分",10,"middle","600","sector-area-diagram__measure-label")
       ].join("");
   return [
     '<div class="worksheet-cell__representation worksheet-cell__representation--sector-area" data-representation="sector-area-diagram-p08f19" data-measurement-mode="'+model.measurementMode+'" data-visual-contract-version="P08F19_R1" data-central-angle-deg="'+esc(model.centralAngleDeg)+'">',
-    '<svg class="worksheet-sector-area-diagram-p08f19" viewBox="0 0 240 160" width="100%" height="138" role="img" aria-label="陰影扇形面積圖" preserveAspectRatio="xMidYMid meet">',
+    '<svg class="worksheet-sector-area-diagram-p08f19" viewBox="0 0 240 190" width="100%" height="160" role="img" aria-label="陰影扇形面積圖" preserveAspectRatio="xMidYMid meet">',
     text(cx,16,"陰影部分＝要計算的扇形",12,"middle","700"),
     '<circle class="sector-area-diagram__whole-circle" cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="currentColor" stroke-width="2.5" />',
     '<path class="sector-area-diagram__sector-fill" d="'+sectorPath+'" fill="currentColor" fill-opacity="0.12" stroke="none" />',
@@ -55,11 +55,11 @@ export function renderSectorAreaDiagramP08F19(model){
     '<path class="sector-area-diagram__angle-marker" d="'+marker+'" fill="none" stroke="currentColor" stroke-width="1.4" />',
     measure,
     '<circle class="sector-area-diagram__center" cx="'+cx+'" cy="'+cy+'" r="2.5" fill="currentColor" />',
-    text(cx+7,cy+5,"O",10,"start","700"),
-    text(labelA.x,labelA.y,"A",10,"middle","700"),
-    text(labelB.x,labelB.y,"B",10,"middle","700"),
+    text(cx+7,cy+5,"O",10,"start","700","sector-area-diagram__center-label"),
+    text(labelA.x,labelA.y,"A",10,"middle","700","sector-area-diagram__endpoint-label"),
+    text(labelB.x,labelB.y,"B",10,"middle","700","sector-area-diagram__endpoint-label"),
     text(mid.x,mid.y+4,String(model.centralAngleDeg)+"°",10,"middle","700","sector-area-diagram__angle-label"),
-    text(cx,151,"整圓＝360°；扇形面積＝圓面積×圓心角÷360",10),
+    text(cx,180,"整圓＝360°；扇形面積＝圓面積×圓心角÷360",10,"middle","400","sector-area-diagram__formula-label"),
     "</svg></div>"
   ].join("");
 }
