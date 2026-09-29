@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q018",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6b_u06_pie_chart_percent_angle_conversion"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q018.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "productImplementation": true,
+    "selectorVisibilityChanged": true,
+    "currentBrowserRoutingChanged": true
+  },
+  "scopeGuards": {
+    "q018Only": true,
+    "q019OrLaterMutation": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "q014OwnershipMutation": false,
+    "q016OwnershipMutation": false,
+    "q021OwnershipMutation": false,
+    "futurePieChartConstructionMutation": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "applicationContextAdmission": false,
+    "humanVisualReviewRequired": false,
+    "q014Q016Q021HistoricalCompatibilityTestOnlyMutation": true,
+    "q014Q016Q021ProductMutation": false
+  },
+  "classificationNote": "Q018 implements only bidirectional percentage↔central-angle conversion for G6B-U06 under the frozen profile_ratio_percent envelope. It promotes one selector row and current public browser authority route, preserves three existing same-source owners, and keeps pie-chart construction pending."
+}

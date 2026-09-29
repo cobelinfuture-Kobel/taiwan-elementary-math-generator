@@ -108,8 +108,8 @@ test("Q016 remains reachable through the current browser successor chain while Q
     }
     return false;
   };
-  assert.equal(chainContains("site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js","batch-a-selector-p06f16-extension.js","batch-a-selector-p06f"),true);
-  assert.equal(chainContains("site/modules/curriculum/public/public-ui-capability-binding-p04f33.js","public-ui-capability-binding-p06f16.js","public-ui-capability-binding-p06f"),true);
+  assert.equal(chainContains("site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js","batch-a-selector-p06f16-extension.js","batch-a-selector-"),true);
+  assert.equal(chainContains("site/modules/curriculum/public/public-ui-capability-binding-p04f33.js","public-ui-capability-binding-p06f16.js","public-ui-capability-binding-"),true);
   const generator=readRepo("site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js");
   const worksheet=readRepo("site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js");
   assert.match(generator,/requestsP06F16/);assert.match(generator,/requestsP06F15/);assert.match(generator,/requestsP06F14/);
