@@ -5,7 +5,7 @@ import {validateG6AU06P08F17Question} from "./g6a-u06-composite-arc-perimeter-ru
 import {G6A_U06_P08F17_KP_ID as KP,G6A_U06_P08F17_SOURCE_ID as SRC} from "../registry/g6a-u06-composite-arc-perimeter-selector-projection-p08f17.js";
 
 function layout(o={}){
-  const p=o.printLayout??{},requestedColumns=Number.isInteger(p.columns)?Math.max(p.columns,1):2,requestedRows=Number.isInteger(p.rowsPerPage)?Math.max(p.rowsPerPage,1):3,columns=Math.min(requestedColumns,2),rowsPerPage=Math.min(requestedRows,3);
+  const p=o.printLayout??{},requestedColumns=Number.isInteger(p.columns)?Math.max(p.columns,1):2,requestedRows=Number.isInteger(p.rowsPerPage)?Math.max(p.rowsPerPage,1):3,columns=Math.min(requestedColumns,2),rowsPerPage=Math.min(requestedRows,2);
   return Object.freeze({paperSize:p.paperSize??"A4",columns,rowsPerPage,requestedColumns,requestedRowsPerPage:requestedRows,layoutAdjustedForP08F17:columns!==requestedColumns||rowsPerPage!==requestedRows,showQuestionNumbers:p.showQuestionNumbers!==false,showAnswerKeyPage:o.includeAnswerKey!==false&&p.showAnswerKeyPage!==false});
 }
 function models(qs,l){
@@ -22,7 +22,7 @@ function models(qs,l){
     questionNumberText:l.showQuestionNumbers?String(i+1)+".":null,
     geometryDiagram:q.geometryDiagram,
     metadataSnapshot:Object.freeze({...q.metadata,questionSignature:q.questionSignature,sourceId:q.sourceId,knowledgePointId:q.knowledgePointId,relation:q.relation,questionMode:"diagram"}),
-    layoutHints:Object.freeze({estimatedTextLength:q.blankedDisplayText.length,hasGrouping:false,avoidPageBreakInside:true,questionMode:"diagram",representation:"composite_arc_perimeter_diagram",maxSafeColumns:2,maxSafeRowsPerPage:3})
+    layoutHints:Object.freeze({estimatedTextLength:q.blankedDisplayText.length,hasGrouping:false,avoidPageBreakInside:true,questionMode:"diagram",representation:"composite_arc_perimeter_diagram",maxSafeColumns:2,maxSafeRowsPerPage:2})
   }));
 }
 function answers(qs,m){
@@ -84,6 +84,6 @@ export function buildBatchABrowserWorksheetDocument(o={}){
     }),
     summary:Object.freeze({questionCount:generation.questions.length,questionPageCount:questionPages.length,answerKeyPageCount:answerKeyPages.length,diagramQuestionCount:generation.questions.length,applicationQuestionCount:0,learnerVisualReviewRequired:true})
   });
-  const warnings=l.layoutAdjustedForP08F17?Object.freeze(["P08F17_DIAGRAM_LAYOUT_FORCED_TO_TWO_COLUMNS_THREE_ROWS_FOR_HUMAN_READABILITY"]):Object.freeze([]);
+  const warnings=l.layoutAdjustedForP08F17?Object.freeze(["P08F17_DIAGRAM_LAYOUT_FORCED_TO_TWO_COLUMNS_TWO_ROWS_FOR_HUMAN_READABILITY"]):Object.freeze([]);
   return Object.freeze({ok:true,errors:Object.freeze([]),warnings,worksheetDocument,generation,p08f17Implemented:true,q018OrLaterTouched:false,learnerVisualReviewRequired:true});
 }
