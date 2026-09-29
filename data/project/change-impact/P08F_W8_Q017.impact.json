@@ -3,8 +3,12 @@
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
   "taskId": "P08F_W8_Q017",
   "currentScope": "SHARED_RUNTIME",
-  "currentKnowledgePointIds": ["kp_g6a_u06_composite_arc_perimeter"],
-  "unitExpectedKnowledgePointIds": ["kp_g6a_u06_composite_arc_perimeter"],
+  "currentKnowledgePointIds": [
+    "kp_g6a_u06_composite_arc_perimeter"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6a_u06_composite_arc_perimeter"
+  ],
   "unitKnowledgePointGateStatus": {
     "kp_g6a_u06_composite_arc_perimeter": "IMPLEMENTED"
   },
@@ -32,6 +36,6 @@
     "r02Mutation": false,
     "r04Mutation": false,
     "r05Mutation": false,
-    "q015HistoricalCompatibilityTestOnlyMutation": true
+    "q004Q006Q010Q015HistoricalCompatibilityTestOnlyMutation": true
   }
 }
