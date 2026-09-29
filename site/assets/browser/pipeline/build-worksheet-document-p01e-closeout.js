@@ -3,6 +3,7 @@ import {
   buildWorksheetDocumentFromPlan as buildBase,
 } from "./build-worksheet-document-core-closeout.js";
 import { generateBatchABrowserQuestions } from "../../../modules/curriculum/batch-a/batch-a-browser-question-router.js";
+import { requestsP08F19 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f19.js";
 import { requestsP08F17 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f17.js";
 import { requestsP08F16 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f16.js";
 import { requestsP08F15 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f15.js";
@@ -12,6 +13,7 @@ import { requestsP08F12 } from "../../../modules/curriculum/batch-a/batch-a-brow
 import { requestsP08F11 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f11.js";
 import { requestsP08F10 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f10.js";
 import { requestsP08F09 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p08f09.js";
+import { buildBatchABrowserWorksheetDocument as buildP08F19Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f19-extension.js";
 import { buildBatchABrowserWorksheetDocument as buildP08F17Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f17-extension.js";
 import { buildBatchABrowserWorksheetDocument as buildP08F16Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f16-extension.js";
 import { buildBatchABrowserWorksheetDocument as buildP08F15Worksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p08f15-extension.js";
@@ -291,6 +293,7 @@ function buildCurrentRouterBaseResult(plan, generation) {
 }
 
 export function buildWorksheetDocumentFromPlan(plan = {}) {
+  if (requestsP08F19(plan)) return buildP08F19Worksheet(plan);
   if (requestsP08F17(plan)) return buildP08F17Worksheet(plan);
   if (requestsP08F16(plan)) return buildP08F16Worksheet(plan);
   if (requestsP08F15(plan)) return buildP08F15Worksheet(plan);
