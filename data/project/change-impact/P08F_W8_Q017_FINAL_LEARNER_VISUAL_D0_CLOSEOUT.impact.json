@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q017_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g6a_u06_composite_arc_perimeter",
+  "currentKnowledgePointIds": ["kp_g6a_u06_composite_arc_perimeter"],
+  "unitExpectedKnowledgePointIds": ["kp_g6a_u06_composite_arc_perimeter"],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6a_u06_composite_arc_perimeter": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q017_FINAL_LEARNER_VISUAL_D0_CLOSEOUT.validation.json",
+  "classificationNote": "Evidence/governance-only D0 closeout after exact R2 deployed E6 and explicit operator learner-facing visual acceptance. No runtime, source authority, mapping, PatternSpec identity, frozen queue, or Q018 product mutation.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
