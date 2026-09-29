@@ -1,0 +1,162 @@
+{
+  "schemaName": "P08FW8Q015FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q015_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q015_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 15,
+    "sliceId": "p08e_q015_r9_g6a_u06_6a06_profile_geometry_formula_c1",
+    "sourceId": "g6a_u06_6a06",
+    "knowledgePointIds": [
+      "kp_g6a_u06_sector_arc_length"
+    ],
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "formalMappingIdentityChanged": false,
+    "patternSpecIdentityChanged": false,
+    "frozenQueueChanged": false,
+    "q016OrLaterProductChanged": false
+  },
+  "finalProductAuthority": {
+    "preflightPr": 1137,
+    "preflightMergeSha": "70386ab697b5572ab05c24f16dc956206b7fbf8c",
+    "implementationPr": 1138,
+    "implementationPrHeadSha": "ecc54c90a450fe592add81e604dbb4d036b4bb63",
+    "implementationPrGateRunId": 36531230873,
+    "implementationPrGateRunNumber": 1052,
+    "implementationPrGateConclusion": "success",
+    "implementationMergeSha": "06db424874d0e058ef3c5809c658137a3d582d79",
+    "deployPagesRunId": 36531368144,
+    "deployPagesRunNumber": 2420,
+    "deployPagesConclusion": "success",
+    "pagesE2ERunId": 36531368123,
+    "pagesE2ERunNumber": 1,
+    "pagesE2EConclusion": "success",
+    "pagesE2EStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "pagesE2EArtifactId": 11016860080,
+    "pagesE2EArtifactZipSha256": "0e071422a85f04745d60716cea9cc410880b788ae7afb6c0feec75d52100132a",
+    "exactDeployedHeadSha": "06db424874d0e058ef3c5809c658137a3d582d79"
+  },
+  "finalLearnerFacingEvidence": {
+    "sectorArcLength": {
+      "questionCount": 16,
+      "answerCount": 16,
+      "diagramCount": 32,
+      "questionPageCount": 3,
+      "answerPageCount": 3,
+      "allPageCount": 6,
+      "worksheetColumns": 2,
+      "rowsPerPage": 3,
+      "patternCounts": [4, 4, 4, 4],
+      "patternSpecIds": [
+        "ps_g6a_u06_sector_arc_from_known_circumference",
+        "ps_g6a_u06_sector_arc_from_radius",
+        "ps_g6a_u06_sector_arc_from_diameter",
+        "ps_g6a_u06_sector_arc_proportion_verify"
+      ],
+      "overflowPageCount": 0,
+      "minimumDiagramWidthContractPx": 200,
+      "minimumDiagramHeightContractPx": 100,
+      "nonEmptyAnswerCount": 16,
+      "printCount": 1
+    },
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "browserRequestFailureCount": 0,
+    "browserAssetHttpFailureCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "reviewedArtifacts": [
+      "q015-sector-arc-length-human-review.pdf",
+      "q015-sector-arc-length-human-review.png",
+      "q015-sector-arc-length-worksheet.png",
+      "q015-sector-arc-length-ui.png"
+    ],
+    "exactArtifactId": 11016860080,
+    "exactArtifactZipSha256": "0e071422a85f04745d60716cea9cc410880b788ae7afb6c0feec75d52100132a",
+    "decisionTextZh": "圖形 OK",
+    "finalCloseoutResumeTask": "P08F_W8_Q015_FinalLearnerVisualD0Closeout_Then_Q016_SourceAuthorityPreflight",
+    "acceptedAtLocalDate": "2026-09-29",
+    "actualPrintLayoutAccepted": true,
+    "learnerFacingAccepted": true,
+    "finalCloseoutResumeAuthorized": true,
+    "d0Granted": true
+  },
+  "learnerVisualContract": {
+    "semanticCore": "SECTOR_ARC_LENGTH_EQUALS_CIRCUMFERENCE_TIMES_CENTRAL_ANGLE_OVER_360",
+    "arcLengthFormula": "ARC_LENGTH = CIRCUMFERENCE * CENTRAL_ANGLE / 360",
+    "fullCircleDegrees": 360,
+    "knownCircumferenceInputAllowed": true,
+    "radiusOrDiameterMayFeedCircumferencePrerequisite": true,
+    "centralAngleFractionRequired": true,
+    "priorCircumferenceOwnersPreserved": true,
+    "priorSectorFractionOwnerPreserved": true,
+    "futureCompositeArcPerimeterPreserved": true,
+    "sectorPerimeterIncluded": false,
+    "sectorAreaIncluded": false,
+    "applicationContextIncluded": false,
+    "twoColumnPrintLayout": true,
+    "printSafePagination": true,
+    "noInternalIds": true,
+    "sameUnitMixedModeFailClosed": true,
+    "crossUnitMixedModeFailClosed": true
+  },
+  "postMergeRepositoryWideReadback": {
+    "nodeTestRunId": 36531368142,
+    "nodeTestConclusion": "failure",
+    "ciReadbackRunId": 36531368169,
+    "ciReadbackConclusion": "failure",
+    "d0Required": false,
+    "q015FocusedPrGatePassed": true,
+    "q015ExactPagesE6Passed": true,
+    "note": "Repository-wide post-merge failures are outside the Q015 SHARED_RUNTIME_BOUNDED D0-required lane. Q015 D0 authority is the successful focused PR gate, exact deployed Pages E6, and explicit operator learner-facing visual acceptance."
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "30a8fdbd7aa5a3616b6a782faa625720e244c5b5",
+    "exactProductHeadSha": "06db424874d0e058ef3c5809c658137a3d582d79",
+    "commitsAfterExactProductHead": 6,
+    "q015RuntimeFilesChanged": false,
+    "q015CurriculumIdentityFilesChanged": false,
+    "interveningUnrelatedCiReadbackOnlyChanges": true,
+    "changedFilesAfterExactProductHead": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-p07f-w7-q026-pages-e2e.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "q016SuccessorReadiness": {
+    "nextPreflightTaskId": "P08F_W8_Q016_SourceAuthorityPreflight",
+    "nextImplementationTaskId": "P08F_W8DirectProductVerticalSlice016Implementation",
+    "implementationRequiresSeparateOperatorApproval": true
+  },
+  "antiScopeCreep": {
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyQ015ProductRuntime": false,
+    "modifyQ015SourceAuthority": false,
+    "modifyFormalMappingIdentity": false,
+    "modifyPatternSpecIdentity": false,
+    "modifyW8FrozenQueue": false,
+    "implementQ016": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q015_TECHNICAL_E6_COMPLETE_OPERATOR_VISUAL_ACCEPTANCE_PENDING",
+    "goalDistanceAfter": "D0_Q015_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ015Blockers": [],
+    "nextShortestStep": "P08F_W8_Q016_SourceAuthorityPreflight"
+  }
+}
