@@ -21,7 +21,9 @@
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
     "currentAuthorityChanged": true,
-    "sharedRendererExtension": true
+    "sharedRendererExtension": true,
+    "q017LearnerVisualRepair": true,
+    "visualContractVersion": "P08F17_R2"
   },
   "scopeGuards": {
     "sameUnitMixedImplementation": false,
@@ -36,6 +38,10 @@
     "r02Mutation": false,
     "r04Mutation": false,
     "r05Mutation": false,
-    "q004Q006Q010Q015HistoricalCompatibilityTestOnlyMutation": true
+    "q004Q006Q010Q015HistoricalCompatibilityTestOnlyMutation": true,
+    "q017SourceAuthorityMutation": false,
+    "q017FormalMappingMutation": false,
+    "q017PatternSpecIdentityMutation": false,
+    "q017RendererAndVisualRuntimeRepairOnly": true
   }
 }
