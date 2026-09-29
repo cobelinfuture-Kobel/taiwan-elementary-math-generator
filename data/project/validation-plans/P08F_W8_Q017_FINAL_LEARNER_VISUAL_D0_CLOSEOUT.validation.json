@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q017_FINAL_LEARNER_VISUAL_D0_CLOSEOUT_KP_FOCUSED_VALIDATION",
+  "unitId": "g6a_u06_6a06",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q017-final-learner-visual-d0-closeout.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p08f-w8-slice017-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-slice017-g6a-u06-composite-arc-perimeter.test.js",
+          "tests/curriculum/p08f-w8-q017-g6a-u06-composite-arc-perimeter-source-authority-preflight.test.js",
+          "tests/curriculum/p08f-w8-q016-final-learner-visual-d0-closeout.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}
