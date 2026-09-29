@@ -73,7 +73,6 @@ async function run(){
     }).length;
     return{questions:q.length,answers:a.length,representations:reps.length,questionPages:questionPages.length,answerPages:answerPages.length,allPages:allPages.length,patternCounts:tokens.map(token=>prompts.filter(x=>x.includes(token)).length),overflow:pageMetrics.filter(x=>x.overflowY>1||x.overflowX>1||x.clippedCells>0).length,pageMetrics,minDiagramWidth:sizes.length?Math.min(...sizes.map(x=>x.width)):0,minDiagramHeight:sizes.length?Math.min(...sizes.map(x=>x.height)):0,nonEmptyAnswers:a.filter(x=>(x.querySelector(".worksheet-cell__answer")?.textContent??"").trim()).length,visualContractViolations,visuals,text};
   },TOKENS);
-  },TOKENS);
   if(worksheet.questions!==COUNT||worksheet.answers!==COUNT||worksheet.representations!==COUNT*2||worksheet.questionPages!==4||worksheet.answerPages!==4||worksheet.allPages!==8||worksheet.overflow!==0||worksheet.patternCounts.some(n=>n!==COUNT/4)||worksheet.pageMetrics.some(x=>x.columns!==2)||worksheet.minDiagramWidth<200||worksheet.minDiagramHeight<100||worksheet.nonEmptyAnswers!==COUNT||worksheet.visualContractViolations!==0||/kp_g6a_u06_|ps_g6a_u06_|扇形面積|圓面積|陰影扇形/.test(worksheet.text))throw new Error("P08F17_WORKSHEET:"+JSON.stringify({...worksheet,text:undefined}));
   await frame.evaluate(()=>{window.__P08F17_PRINT__=0;window.print=()=>window.__P08F17_PRINT__++;});
   await page.locator("#print-button").click();
