@@ -1,0 +1,180 @@
+{
+  "schemaName": "P08FW8Q018G6BU06PieChartPercentAngleConversionImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice018Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q018_G6BU06_PIE_CHART_PERCENT_ANGLE_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q018_G6BU06_PIE_CHART_PERCENT_ANGLE_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "b03ff74f61a5550822ceebe7321e434ad987ae9d",
+  "preflight": {
+    "prNumber": 1148,
+    "mergeSha": "19c2639e02ec61b59a69ae004b4fbb5e63e8f8a6",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p08f/q018-g6b-u06-pie-chart-percent-angle-conversion-source-authority-preflight.json"
+  },
+  "currentMainCompatibilityReadback": {
+    "comparedFromPreflightMergeSha": "19c2639e02ec61b59a69ae004b4fbb5e63e8f8a6",
+    "currentMainShaAtImplementation": "b03ff74f61a5550822ceebe7321e434ad987ae9d",
+    "commitsAhead": 6,
+    "changedPaths": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ],
+    "onlyDocsCiReadbackChanged": true,
+    "q018AuthorityOrQ017ProductRuntimePathsChanged": false,
+    "compatibilityDecision": "SAFE_TO_IMPLEMENT_Q018_FROM_CURRENT_MAIN"
+  },
+  "queueAuthority": {
+    "queuePosition": 18,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q018_r10_g6b_u06_6b06_profile_ratio_percent_c1",
+    "previousSliceId": "p08e_q017_r10_g6a_u06_6a06_profile_geometry_formula_c1",
+    "sourceId": "g6b_u06_6b06",
+    "knowledgePointIds": [
+      "kp_g6b_u06_pie_chart_percent_angle_conversion"
+    ],
+    "runtimeProfileId": "profile_ratio_percent",
+    "classificationRuleId": "rule_ratio_percent",
+    "appliedModifierIds": [],
+    "blockingCapabilityIds": [
+      "cap_fraction_number_system",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "blockingCapabilityWaveIds": [
+      "R05-W3",
+      "R05-W7"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_6b06_source.pdf",
+    "sourcePdfDriveFileId": "1mVO-Fp8NqR68eevJ3aJK-MdoiHEYWqhz",
+    "sourcePdfSizeBytes": 518350,
+    "reviewedPages": [
+      1
+    ],
+    "r02EvidencePages": [
+      1
+    ],
+    "semanticAuthority": "R02_REVIEWED_CANDIDATE_PRIMARY_CURRENT_VISUAL_PERCENT_ANGLE_CONVERSION_SECONDARY",
+    "sourceRefAmbiguity": false
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "effectiveRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "contractOnlyRequiredCapabilityIds": [
+      "cap_fraction_number_system",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false,
+    "r05AssignmentMutationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 2,
+    "patternSpecIds": [
+      "ps_g6b_u06_pie_percent_to_central_angle",
+      "ps_g6b_u06_pie_central_angle_to_percent"
+    ],
+    "includedRelations": [
+      "PERCENT_TO_CENTRAL_ANGLE_CONVERSION",
+      "CENTRAL_ANGLE_TO_PERCENT_CONVERSION",
+      "VERIFY_PERCENT_ANGLE_EQUIVALENCE",
+      "FULL_CIRCLE_100_PERCENT_360_DEGREE_CLOSURE"
+    ],
+    "questionMode": "numeric",
+    "rendererRepresentation": "text_application",
+    "pieChartGraphicRequired": false,
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModels": [
+      "INTEGER_DEGREES",
+      "INTEGER_PERCENT"
+    ],
+    "humanVisualReviewRequired": false
+  },
+  "semanticContract": {
+    "semanticCore": "BIDIRECTIONAL_PERCENT_AND_CENTRAL_ANGLE_CONVERSION_WITH_FULL_CIRCLE_360_DEGREES",
+    "wholePercent": 100,
+    "wholeAngleDegrees": 360,
+    "percentToAngleRule": "ANGLE_DEG = PERCENT_RATE * 360",
+    "angleToPercentRule": "PERCENT_RATE = ANGLE_DEG / 360",
+    "bidirectionalConversionRequired": true,
+    "equivalenceBackCheckRequired": true
+  },
+  "ownershipGuard": {
+    "q014PartWholeTeachingReowned": false,
+    "q016ComparePieChartsTeachingReowned": false,
+    "q021QuantityFromRateTeachingReowned": false,
+    "pieChartConstructionUsed": false,
+    "genericSectorGeometryTeachingUsed": false,
+    "applicationContextUsed": false,
+    "sameUnitMixedUsed": false,
+    "crossUnitMixedUsed": false,
+    "q019OrLaterTouched": false,
+    "frozenQueueTouched": false,
+    "r02Touched": false,
+    "r03Touched": false,
+    "r04Touched": false,
+    "r05Touched": false
+  },
+  "productChain": {
+    "selectorProjection": "site/modules/curriculum/registry/g6b-u06-pie-chart-percent-angle-conversion-selector-projection-p08f18.js",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p08f18-extension.js",
+    "runtime": "site/modules/curriculum/batch-a/g6b-u06-pie-chart-percent-angle-conversion-runtime-p08f18.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f18.js",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f18-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p08f18.js",
+    "renderer": "site/modules/renderer/html-renderer.js",
+    "currentSelectorPointer": "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+    "currentBindingPointer": "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+    "currentGeneratorBridge": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+    "currentWorksheetBridge": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN",
+    "globalBrowserReplay": "FORBIDDEN",
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS"
+    ],
+    "humanVisualAcceptanceRequired": false
+  }
+}
