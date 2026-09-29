@@ -112,6 +112,9 @@ test("Q019 renderer keeps highlighted sector, whole-circle reference, angle and 
   assert.match(rh,/sector-area-diagram__whole-circle/);
   assert.match(rh,/sector-area-diagram__angle-marker/);
   assert.match(rh,/半徑 18 公分/);
+  assert.match(rh,/viewBox="0 0 240 190"/);
+  assert.match(rh,/sector-area-diagram__measure-label/);
+  assert.match(rh,/sector-area-diagram__formula-label/);
   assert.match(rh,/30°/);
   assert.match(rh,/>A<\/text>/);
   assert.match(rh,/>B<\/text>/);
