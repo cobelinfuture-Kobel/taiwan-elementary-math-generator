@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q018_PREFLIGHT_BOUNDED_VALIDATION",
+  "unitId": "R05-W8-Q018",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q018-g6b-u06-pie-chart-percent-angle-conversion-source-authority-preflight.test.js",
+          "tests/curriculum/p08f-w8-q017-final-learner-visual-d0-closeout.test.js",
+          "tests/curriculum/p08e-w8-direct-product-vertical-slice-queue.test.js",
+          "tests/curriculum/r05-delivery-wave-rebase.test.js",
+          "tests/curriculum/p06f-w6-q014-g6b-u06-pie-chart-part-whole-source-authority-preflight.test.js",
+          "tests/curriculum/p06f-w6-q016-g6b-u06-compare-pie-charts-source-authority-preflight.test.js",
+          "tests/curriculum/p07f-w7-q021-g6b-u06-pie-chart-quantity-from-rate-source-authority-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/read-p08f-w8-q018-g6b-u06-pie-chart-percent-angle-conversion-source-authority-preflight.mjs",
+        "runtime": "NODE_ONLY"
+      }
+    ]
+  }
+}
