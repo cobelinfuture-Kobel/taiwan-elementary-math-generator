@@ -1,0 +1,259 @@
+{
+  "schemaName": "P08FW8Q020G6AU07CompositeCircleAreaSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q020_G6AU07_CompositeCircleArea_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_W8_Q020_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q020_G6AU07_COMPOSITE_CIRCLE_AREA_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "14c4fe709809759475bbe579fc8c3fab310cfbfb",
+  "predecessorAuthority": {
+    "q019TaskId": "P08F_W8DirectProductVerticalSlice019Implementation",
+    "q019Status": "PASS_E6_D0_COMPLETE",
+    "q019ImplementationPr": 1151,
+    "q019ImplementationMergeSha": "6ec13e0712d35731fca72b310e46a261fa0193ab",
+    "q019CloseoutPr": 1153,
+    "q019CloseoutMergeSha": "2aed69f9a10ee542d80204fc2f9f4366e1643fd2",
+    "q019PagesE2ERunId": 36585335800,
+    "q019ExactDeployedHeadSha": "6ec13e0712d35731fca72b310e46a261fa0193ab",
+    "q019HumanVisualReviewRequired": true,
+    "q019HumanVisualReviewStatus": "PASS_OPERATOR_APPROVED",
+    "q019DurableReadbackPath": "docs/ci/latest-p08f-w8-q019-pages-e2e.json",
+    "q019UnmergedVisualRepairPr": 1152,
+    "currentMainCompatibilityReadback": {
+      "currentMainShaAtPreflight": "14c4fe709809759475bbe579fc8c3fab310cfbfb",
+      "comparedFromQ019CloseoutMergeSha": "2aed69f9a10ee542d80204fc2f9f4366e1643fd2",
+      "commitsAhead": 1,
+      "changedPaths": [
+        "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json"
+      ],
+      "onlyDocsCiReadbackChanged": true,
+      "q020AuthorityOrQ019ProductRuntimePathsChanged": false,
+      "compatibilityDecision": "SAFE_TO_PREFLIGHT_Q020_FROM_CURRENT_MAIN"
+    }
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p08e/w8-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p08e-w8-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "597a6fa497c8ac7738247847ef321d0c753e79800f5c38097b7a7a160be2f484",
+    "queuePosition": 20,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q020_r12_g6a_u07_6a07_profile_geometry_formula_c1",
+    "implementationTaskId": "P08F_W8DirectProductVerticalSlice020Implementation",
+    "previousSliceId": "p08e_q019_r11_g6a_u07_6a07_profile_geometry_formula_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W8",
+    "primarySourceNodeId": "g6a_u07_6a07",
+    "supportingSourceNodeIds": [
+      "g6a_u07_6a07"
+    ],
+    "intraWavePrerequisiteRank": 12,
+    "primaryRuntimeProfileId": "profile_geometry_formula",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6a_u07_composite_circle_area"
+    ],
+    "blockingCapabilityIds": [
+      "cap_geometry_diagram_representation",
+      "cap_geometry_domain_validator",
+      "cap_geometry_formula_evaluation",
+      "cap_geometry_property_reasoning"
+    ],
+    "blockingCapabilityWaveIds": [
+      "R05-W5"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "authorityPath": "data/curriculum/full-product/p08e/w8-source-authority-index.json",
+    "r02ChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "sourceNodeId": "g6a_u07_6a07",
+    "sourceCode": "6a07",
+    "sourceTitle": "圓面積和扇形面積",
+    "sourcePdfTitle": "meow911_6a07_source.pdf",
+    "sourcePdfDriveFileId": "1mPMMJVgnBrbghylTKnlWL3nnjX9MPIYQ",
+    "sourcePdfSizeBytes": 523526,
+    "sourcePdfSha256": "e4290341b2ddc3c3dd4a675272b2c77932748548fe89edef88e3dc799fa81648",
+    "pageCount": 2,
+    "reviewedPages": [
+      1,
+      2
+    ],
+    "reusableVerifiedVisualAuthority": [
+      "data/curriculum/full-product/p08f/q019-g6a-u07-sector-area-source-authority-preflight.json",
+      "data/curriculum/full-product/p07f/q014-g6a-u07-circle-area-formula-source-authority-preflight.json",
+      "data/curriculum/full-product/p07f/q017-g6a-u07-annulus-area-source-authority-preflight.json"
+    ],
+    "currentVisualReadbackAuthority": {
+      "reusedFromPreflightPath": "data/curriculum/full-product/p08f/q019-g6a-u07-sector-area-source-authority-preflight.json",
+      "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI",
+      "immutableSourceIdentityMatchRequired": true,
+      "driveFileIdMatch": true,
+      "sizeMatch": true,
+      "sha256Match": true,
+      "ocrUsedAsAuthority": false,
+      "directCompositeCircleAreaWitnessPresent": true,
+      "directCompositeCircleAreaWitnessPage": 1,
+      "directCompositeCircleAreaWitnessFamilies": [
+        "QUARTER_CIRCLE_AND_SEMICIRCLE_COMPOSITE_AREA",
+        "CIRCULAR_SEGMENT_AREA",
+        "SQUARE_CIRCLE_COMPOSITE_AREA",
+        "INSCRIBED_RECTANGLE_IN_CIRCLE_AREA",
+        "CONCENTRIC_CIRCLE_COMPOSITE_AREA"
+      ],
+      "directSupportClassification": "DIRECT_LITERAL_COMPOSITE_CIRCLE_AREA_VISUAL_EVIDENCE",
+      "targetSemanticAuthorityTherefore": "R02_REVIEWED_CANDIDATE_PRIMARY_CURRENT_VISUAL_COMPOSITE_AREA_WITNESS_SECONDARY"
+    },
+    "sourceIdentityArtifactLock": {
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "manualEvidenceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "knowledgePointId": "kp_g6a_u07_composite_circle_area",
+    "canonicalNameZh": "複合圓形面積",
+    "capabilityStatement": "學生能分割或扣除求含半圓、扇形的複合面積。",
+    "reasoningInvariant": "各部分不可重疊漏算，弧形部分按對應圓比例計算。",
+    "category": "geometry",
+    "evidencePages": [
+      1,
+      2
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "expectedPrimaryRuntimeProfileId": "profile_geometry_formula",
+    "expectedClassificationRuleId": "rule_geometry_formula",
+    "exactR03PrerequisitesBoundByFocusedCI": true,
+    "exactR04MappingBoundByFocusedCI": true,
+    "exactR05AssignmentBoundByFocusedCI": true,
+    "runtimeProfileReclassificationAllowed": false,
+    "deliveryEnvelope": {
+      "expectedFinalDeliveryWaveId": "R05-W8",
+      "expectedIntraWavePrerequisiteRank": 12,
+      "expectedContractOnlyCapabilityWaveIds": [
+        "R05-W5"
+      ]
+    }
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "COMPOSITE_CIRCLE_AREA_BY_PARTITION_AND_SUBTRACTION",
+    "canonicalReasoningInvariant": "複合圓形面積須先辨認互不重疊的圓、半圓、扇形或扣除區域，再以已知圓面積與扇形面積關係組合；不得重複或漏算。",
+    "implementationSemanticLock": {
+      "decompositionIntoNonOverlappingRegionsRequired": true,
+      "subtractionOfExcludedRegionAllowed": true,
+      "semicircleAndSectorComponentsAllowed": true,
+      "circleAreaFormulaMayBeConsumedFromPriorOwner": true,
+      "sectorAreaMayBeConsumedFromQ019": true,
+      "annulusAreaMayBeConsumedWhenRepresentationMatches": true,
+      "q011CircleAreaDerivationTeachingReownershipAllowed": false,
+      "q014CircleAreaFormulaTeachingReownershipAllowed": false,
+      "q017AnnulusAreaTeachingReownershipAllowed": false,
+      "q019SectorAreaTeachingReownershipAllowed": false,
+      "arcLengthOrPerimeterTeachingAllowed": false,
+      "applicationContextAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "ownershipBoundary": {
+    "priorSameSourceImplementedKnowledgePointIds": [
+      "kp_g6a_u07_circle_area_derivation",
+      "kp_g6a_u07_circle_area_formula",
+      "kp_g6a_u07_annulus_area",
+      "kp_g6a_u07_sector_area"
+    ],
+    "priorSameSourceOwnerTasks": [
+      "P07F_W7DirectProductVerticalSlice011Implementation",
+      "P07F_W7DirectProductVerticalSlice014Implementation",
+      "P07F_W7DirectProductVerticalSlice017Implementation",
+      "P08F_W8DirectProductVerticalSlice019Implementation"
+    ],
+    "currentQ020KnowledgePointIds": [
+      "kp_g6a_u07_composite_circle_area"
+    ],
+    "futureSameSourceW8KnowledgePointIds": [],
+    "priorOwnersMayBeConsumedAsPrerequisiteButNotReowned": true,
+    "q020CompletesRemainingFrozenW8G6AU07KnowledgePoints": true
+  },
+  "q020ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6a_u07_composite_circle_area"
+    ],
+    "includedRelations": [
+      "DECOMPOSE_COMPOSITE_CIRCLE_REGION",
+      "COMBINE_NON_OVERLAPPING_CIRCLE_SEMICIRCLE_SECTOR_AREAS",
+      "SUBTRACT_EXCLUDED_CIRCLE_OR_SECTOR_REGION",
+      "VERIFY_NO_OVERLAP_OR_OMISSION"
+    ],
+    "excludedRelations": [
+      "Q011_CIRCLE_AREA_DERIVATION_TEACHING_REOWNERSHIP",
+      "Q014_CIRCLE_AREA_FORMULA_TEACHING_REOWNERSHIP",
+      "Q017_ANNULUS_AREA_TEACHING_REOWNERSHIP",
+      "Q019_SECTOR_AREA_TEACHING_REOWNERSHIP",
+      "ARC_LENGTH_OR_PERIMETER_TEACHING",
+      "APPLICATION_CONTEXT",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_PREREQUISITE_GRAPH_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_ASSIGNMENT_MUTATION",
+      "Q021_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q021OrLaterTouched": false,
+    "frozenQueueTouched": false,
+    "humanLearnerVisualAcceptanceExpectedAtD0": true
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "r02ReviewedSourceAuthorityMustBeReused": true,
+    "immutablePriorVisualReadbackMayBeReused": true,
+    "r05FrozenQueueRuntimeParityMustPass": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ019D0Verified": true,
+    "sourceAuthoritySufficientForQ020ImplementationPlanning": true,
+    "directCompositeCircleAreaVisualWitnessBound": true,
+    "r02ReviewedCandidateBound": true,
+    "runtimeProfileAlignmentLockedWithoutReclassification": true,
+    "semanticProfileLockBound": true,
+    "priorSameSourceOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "separateImplementationApprovalRequired": true,
+    "exactRuntimeMappingBoundByFocusedCI": true,
+    "exactR05AssignmentEnvelopeBoundByFocusedCI": true,
+    "nextTask": "P08F_W8DirectProductVerticalSlice020Implementation"
+  }
+}
