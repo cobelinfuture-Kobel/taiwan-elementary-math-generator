@@ -69,8 +69,15 @@ async function run(){
     const q=[...document.querySelectorAll(".worksheet-cell--question")],a=[...document.querySelectorAll(".worksheet-cell--answer-key")],questionPages=[...document.querySelectorAll(".worksheet-page--questions")],answerPages=[...document.querySelectorAll(".worksheet-page--answer-key")],allPages=[...document.querySelectorAll(".worksheet-page")],prompts=q.map(n=>n.querySelector(".worksheet-cell__prompt")?.textContent??""),text=document.body?.innerText??"";
     const pageMetrics=allPages.map((n,index)=>{const rect=n.getBoundingClientRect(),cells=[...n.querySelectorAll(".worksheet-cell")],clippedCells=cells.filter(cell=>{const x=cell.getBoundingClientRect();return x.top<rect.top-1||x.left<rect.left-1||x.bottom>rect.bottom+1||x.right>rect.right+1;}).length;return{index:index+1,type:n.classList.contains("worksheet-page--questions")?"questions":n.classList.contains("worksheet-page--answer-key")?"answerKey":"other",overflowY:n.scrollHeight-n.clientHeight,overflowX:n.scrollWidth-n.clientWidth,clippedCells,columns:Number(n.querySelector(".worksheet-page__grid")?.style?.getPropertyValue("--worksheet-columns")||0)};});
     const reps=[...document.querySelectorAll('[data-representation="sector-area-diagram-p08f19"]')],svgs=[...document.querySelectorAll(".worksheet-sector-area-diagram-p08f19")],sizes=svgs.map(svg=>{const x=svg.getBoundingClientRect();return{width:x.width,height:x.height};});
+    const overlaps=(a,b,pad=1)=>!(a.right+pad<=b.left||b.right+pad<=a.left||a.bottom+pad<=b.top||b.bottom+pad<=a.top);
     const visuals=reps.map(rep=>{
       const svg=rep.querySelector("svg"),labels=[...svg.querySelectorAll("text")].map(n=>(n.textContent??"").trim());
+      const collisionNodes=[...svg.querySelectorAll(".sector-area-diagram__measure-label,.sector-area-diagram__angle-label,.sector-area-diagram__center-label,.sector-area-diagram__endpoint-label,.sector-area-diagram__formula-label")];
+      const collisionPairs=[];
+      for(let i=0;i<collisionNodes.length;i++)for(let j=i+1;j<collisionNodes.length;j++){
+        const a=collisionNodes[i].getBoundingClientRect(),b=collisionNodes[j].getBoundingClientRect();
+        if(overlaps(a,b))collisionPairs.push([(collisionNodes[i].textContent??"").trim(),(collisionNodes[j].textContent??"").trim()]);
+      }
       return{
         contract:rep.dataset.visualContractVersion??"",
         mode:rep.dataset.measurementMode??"",
@@ -82,11 +89,13 @@ async function run(){
         radiusMeasures:svg.querySelectorAll(".sector-area-diagram__radius").length,
         diameterMeasures:svg.querySelectorAll(".sector-area-diagram__diameter").length,
         labels,
+        labelOverlapCount:collisionPairs.length,
+        collisionPairs,
         hasABO:["A","B","O"].every(t=>labels.includes(t)),
         hasFormula:labels.some(t=>t.includes("扇形面積＝圓面積×圓心角÷360"))
       };
     });
-    const visualContractViolations=visuals.filter(v=>v.contract!=="P08F19_R1"||!["RADIUS","DIAMETER"].includes(v.mode)||!(v.centralAngle>0&&v.centralAngle<=360)||v.wholeCircles!==1||v.fills!==1||v.boundaries!==1||v.angleMarkers!==1||!v.hasABO||!v.hasFormula||(v.mode==="RADIUS"?(v.radiusMeasures!==1||v.diameterMeasures!==0):(v.diameterMeasures!==1||v.radiusMeasures!==0))).length;
+    const visualContractViolations=visuals.filter(v=>v.contract!=="P08F19_R1"||!["RADIUS","DIAMETER"].includes(v.mode)||!(v.centralAngle>0&&v.centralAngle<=360)||v.wholeCircles!==1||v.fills!==1||v.boundaries!==1||v.angleMarkers!==1||v.labelOverlapCount!==0||!v.hasABO||!v.hasFormula||(v.mode==="RADIUS"?(v.radiusMeasures!==1||v.diameterMeasures!==0):(v.diameterMeasures!==1||v.radiusMeasures!==0))).length;
     return{
       questions:q.length,answers:a.length,representations:reps.length,questionPages:questionPages.length,answerPages:answerPages.length,allPages:allPages.length,
       patternCounts:[prompts.filter(x=>x.includes("半徑是")).length,prompts.filter(x=>x.includes("直徑是")).length],
