@@ -1,0 +1,49 @@
+name: P08F W8 Q017 Post-Merge Pages E2E
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/modules/curriculum/registry/g6a-u06-composite-arc-perimeter-selector-projection-p08f17.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p08f17-extension.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p08f17.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
+      - "site/modules/curriculum/batch-a/g6a-u06-composite-arc-perimeter-runtime-p08f17.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f17.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f17-extension.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
+      - "site/modules/renderer/composite-arc-perimeter-diagram-p08f17.js"
+      - "site/modules/renderer/html-renderer.js"
+      - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
+      - "tools/curriculum/run-p08f-w8-slice017-classic-ui-acceptance.mjs"
+      - "tools/curriculum/run-p08f-w8-q017-live-pages-e2e.mjs"
+      - "data/curriculum/full-product/p08f/q017-g6a-u06-composite-arc-perimeter-implementation.json"
+      - ".github/workflows/p08f-w8-q017-live-pages-e2e.yml"
+permissions:
+  contents: read
+jobs:
+  live-pages-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - run: node tools/curriculum/run-p08f-w8-q017-live-pages-e2e.mjs
+        env:
+          P08F17_DEPLOYMENT_RETRIES: "30"
+          P08F17_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p08f-w8-q017-pages-e2e
+          path: tmp/p08f-w8-q017-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30
