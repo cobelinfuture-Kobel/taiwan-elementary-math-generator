@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q020",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6a_u07_composite_circle_area"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q020.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "productImplementation": true,
+    "selectorVisibilityChanged": true,
+    "currentBrowserRoutingChanged": true,
+    "sharedRendererChanged": true
+  },
+  "scopeGuards": {
+    "q020Only": true,
+    "q021OrLaterMutation": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "q011OwnershipMutation": false,
+    "q014OwnershipMutation": false,
+    "q017OwnershipMutation": false,
+    "q019OwnershipMutation": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "applicationContextAdmission": false,
+    "humanVisualReviewRequired": true,
+    "historicalCompatibilityTestOnlyMutation": true,
+    "priorProductMutation": false
+  },
+  "classificationNote": "Q020 implements only G6A-U07 composite circle area under frozen profile_geometry_formula. It promotes the final G6A-U07 pending row, adds dedicated composite-area diagrams for non-overlapping sum and subtraction, preserves Q011/Q014/Q017/Q019 ownership, and keeps mixed/application modes closed."
+}
