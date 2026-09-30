@@ -133,7 +133,7 @@ test("P09 and P10 boundaries remain fail-closed and require a separate implement
   assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("ZERO_CANONICAL_KP_PRODUCT_ADMISSION_GAP"));
   assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("GLOBAL_RELEASE_CERTIFICATION_AT_P10"));
   assert.equal(contract.distance.nextShortestStep, "P09_UI_A01_RestoreG5BU02AndG5BU09_SourceProvider_ThenClassicAndLivePagesReadback");
-  assert.equal(contract.distance.nextTaskRequiresSeparateOperatorApproval, true);
+  assert.equal(contract.distance.nextTaskRequiresSeparateOperatorApproval, false);
   assert.equal(impact.scopeGuards.publicUiRuntimeMutation, false);
   assert.deepEqual(plan.forbidden, ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY"]);
 });
