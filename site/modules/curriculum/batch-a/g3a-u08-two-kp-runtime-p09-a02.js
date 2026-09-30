@@ -17,7 +17,9 @@ function hashSeed(value){let h=2166136261;for(const c of String(value??"p09-a02"
 function coprimeStep(size){for(const n of [131,127,113,109,103,101,97,89,83,79,73,71,67,61])if(gcd(n,size)===1)return n;return 1;}
 function pick(fixtures,index,seed,channel){const offset=hashSeed(seed+":"+channel)%fixtures.length;return fixtures[(offset+index*coprimeStep(fixtures.length))%fixtures.length];}
 function allocate(specIds,count){const base=Math.floor(count/specIds.length),rem=count%specIds.length;return specIds.map((patternSpecId,i)=>({patternSpecId,questionCount:base+(i<rem?1:0)})).filter(x=>x.questionCount>0);}
-const wholeFixtures=Object.freeze(Array.from({length:19},(_,i)=>i+2).flatMap(denominator=>Array.from({length:7},(_,surface)=>Object.freeze({denominator,surface}))));
+const WHOLE_DENOMINATORS=Object.freeze(Array.from({length:19},(_,i)=>i+2));
+const wholeFixturesForSpec=specId=>Object.freeze(WHOLE_DENOMINATORS.flatMap(denominator=>Array.from({length:4},(_,surface)=>Object.freeze({denominator,surface}))));
+
 function fractionPairs(){
   const fractions=[];
   for(let d=2;d<=12;d+=1)for(let n=1;n<d;n+=1)fractions.push({n,d});
@@ -34,21 +36,26 @@ function metadata(kp,groupId,specId){return Object.freeze({
   applicationClassification:"APPLICATION_NOT_APPLICABLE",productAdmissionTask:"P09_UI_A02_G3AU08_WholeAsFraction_And_UnlikeDenominatorComparisonLimit_TwoKPProductAdmission",
   generatorAdapterId:"P09_A02_G3A_U08_TWO_KP_GENERATOR",validatorAdapterId:"P09_A02_G3A_U08_TWO_KP_VALIDATOR"
 });}
-function wholePrompt(f){
+function wholePrompt(f,specId){
   const d=f.denominator;
+  if(specId===WHOLE_RECOGNIZE){
+    switch(f.surface){
+      case 0:return {prompt:`${d}/${d} = □，□ 應填多少？`,answer:"1",role:"WHOLE_VALUE"};
+      case 1:return {prompt:`分數 ${d}/${d} 代表幾個完整的整體？`,answer:"1",role:"WHOLE_VALUE"};
+      case 2:return {prompt:`${d}/${d} 的值是多少？`,answer:"1",role:"WHOLE_VALUE"};
+      default:return {prompt:`把 ${d}/${d} 寫成整數，答案是多少？`,answer:"1",role:"WHOLE_VALUE"};
+    }
+  }
   switch(f.surface){
     case 0:return {prompt:`1 = □/${d}，□ 應填多少？`,answer:String(d),role:"MATCHING_NUMERATOR"};
     case 1:return {prompt:`把 1 寫成分母為 ${d} 的分數：1 = □/${d}。分子是多少？`,answer:String(d),role:"MATCHING_NUMERATOR"};
     case 2:return {prompt:`分母是 ${d}，要寫成一個完整的 1，分子應是多少？`,answer:String(d),role:"MATCHING_NUMERATOR"};
-    case 3:return {prompt:`${d}/${d} = □，□ 應填多少？`,answer:"1",role:"WHOLE_VALUE"};
-    case 4:return {prompt:`分數 ${d}/${d} 代表幾個完整的整體？`,answer:"1",role:"WHOLE_VALUE"};
-    case 5:return {prompt:`請補成等於 1 的分數：□/${d} = 1。□ 是多少？`,answer:String(d),role:"MATCHING_NUMERATOR"};
     default:return {prompt:`請補成等於 1 的分數：${d}/□ = 1。□ 是多少？`,answer:String(d),role:"MATCHING_DENOMINATOR"};
   }
 }
 function buildWhole(specId,ordinal,seed){
-  const fixture=pick(wholeFixtures,ordinal,seed,specId);
-  const surface=wholePrompt(fixture);
+  const fixture=pick(wholeFixturesForSpec(specId),ordinal,seed,specId);
+  const surface=wholePrompt(fixture,specId);
   const groupId="pg_g3a_u08_whole_as_fraction_numeric";
   const question=Object.freeze({
     id:`${specId}-${ordinal+1}`,sourceId:SRC,knowledgePointId:WHOLE,patternSpecId:specId,patternGroupId:groupId,
