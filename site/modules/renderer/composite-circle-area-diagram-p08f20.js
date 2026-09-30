@@ -13,8 +13,8 @@ function valid(m){
 function line(x1,y1,x2,y2,cls="",dash=""){
   return '<line'+(cls?' class="'+cls+'"':"")+' x1="'+f(x1)+'" y1="'+f(y1)+'" x2="'+f(x2)+'" y2="'+f(y2)+'" stroke="currentColor" stroke-width="2"'+(dash?' stroke-dasharray="'+dash+'"':"")+' stroke-linecap="round" />';
 }
-function text(x,y,t,size=11,anchor="middle",weight="400",cls=""){
-  return '<text'+(cls?' class="'+cls+'"':"")+' x="'+f(x)+'" y="'+f(y)+'" text-anchor="'+anchor+'" font-size="'+size+'" font-weight="'+weight+'" fill="currentColor">'+esc(t)+'</text>';
+function text(x,y,t,size=11,anchor="middle",weight="400",cls="",attrs=""){
+  return '<text'+(cls?' class="'+cls+'"':"")+(attrs?' '+attrs:"")+' x="'+f(x)+'" y="'+f(y)+'" text-anchor="'+anchor+'" font-size="'+size+'" font-weight="'+weight+'" fill="currentColor">'+esc(t)+'</text>';
 }
 function arcPath(cx,cy,r,start,end){
   const a=point(cx,cy,r,start),b=point(cx,cy,r,end),delta=((end-start)%360+360)%360,large=delta>180?1:0;
@@ -24,6 +24,8 @@ function renderSemiSector(m){
   const cx=130,cy=84,r=48,start=-90,mid=90,end=90+m.sectorAngleDeg;
   const semi=arcPath(cx,cy,r,start,mid),sector=arcPath(cx,cy,r,mid,end);
   const sectorEnd=point(cx,cy,r,end),radiusEnd=point(cx,cy,r,0);
+  const sectorAnchor=point(cx,cy,r*0.58,90+m.sectorAngleDeg/2);
+  const semiLabel={x:160,y:54},sectorLabel={x:70,y:126},sectorLeaderStart={x:96,y:117};
   return [
     text(cx,16,"陰影＝甲＋乙",12,"middle","700","composite-circle-area__title"),
     '<circle class="composite-circle-area__whole-circle" cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="currentColor" stroke-width="2" />',
@@ -32,8 +34,9 @@ function renderSemiSector(m){
     line(cx,cy,sectorEnd.x,sectorEnd.y,"composite-circle-area__partition","5 3"),
     line(cx,cy,radiusEnd.x,radiusEnd.y,"composite-circle-area__radius","4 3"),
     text(cx+r/2,cy-7,"半徑 "+m.radiusValue+" 公分",10),
-    text(82,68,"甲：半圓",10,"middle","700","composite-circle-area__component-label"),
-    text(178,116,"乙："+m.sectorAngleDeg+"° 扇形",10,"middle","700","composite-circle-area__component-label"),
+    text(semiLabel.x,semiLabel.y,"甲：半圓",10,"middle","700","composite-circle-area__component-label composite-circle-area__component-label--semicircle",'data-component-role="semicircle"'),
+    line(sectorLeaderStart.x,sectorLeaderStart.y,sectorAnchor.x,sectorAnchor.y,"composite-circle-area__sector-label-leader","3 2"),
+    text(sectorLabel.x,sectorLabel.y,"乙："+m.sectorAngleDeg+"° 扇形",10,"middle","700","composite-circle-area__component-label composite-circle-area__component-label--sector",'data-component-role="sector"'),
     text(cx,176,"陰影面積＝半圓面積＋扇形面積",10,"middle","400","composite-circle-area__formula-label")
   ].join("");
 }
