@@ -1,33 +1,96 @@
 {
   "schemaVersion": "1.0.0",
   "taskId": "P09_UI_SameUnitMixed21DefectPreflight",
-  "status": "PREFLIGHT_DIAGNOSIS_LOCKED_AFTER_FIRST_CI_READBACK",
+  "status": "PREFLIGHT_PASS_CI_SYNCED_AND_MERGED",
   "operatorReportDate": "2026-09-30",
   "scope": {
     "reportedDefectCount": 21,
     "defect": "CURRENT_PUBLIC_UI_SAME_UNIT_MIXED_NOT_AVAILABLE",
     "targetUnits": [
-      {"unitCode":"G3B-U10","sourceId":"g3b_u10_3b10"},
-      {"unitCode":"G4A-U03","sourceId":"g4a_u03_4a03"},
-      {"unitCode":"G4A-U05","sourceId":"g4a_u05_4a05"},
-      {"unitCode":"G4A-U07","sourceId":"g4a_u07_4a07"},
-      {"unitCode":"G4B-U05","sourceId":"g4b_u05_4b05"},
-      {"unitCode":"G5A-U05","sourceId":"g5a_u05_5a05a"},
-      {"unitCode":"G5A-U05A1","sourceId":"g5a_u05_5a05a1"},
-      {"unitCode":"G5A-U07","sourceId":"g5a_u07_5a07"},
-      {"unitCode":"G5A-U10A","sourceId":"g5a_u10_5a10a"},
-      {"unitCode":"G5B-U08","sourceId":"g5b_u08_5b08"},
-      {"unitCode":"G5B-U11","sourceId":"g5b_u11_5b11"},
-      {"unitCode":"G6A-U03","sourceId":"g6a_u03_6a03"},
-      {"unitCode":"G6A-U05","sourceId":"g6a_u05_6a05"},
-      {"unitCode":"G6A-U06","sourceId":"g6a_u06_6a06"},
-      {"unitCode":"G6A-U07","sourceId":"g6a_u07_6a07"},
-      {"unitCode":"G6A-U08","sourceId":"g6a_u08_6a08"},
-      {"unitCode":"G6A-U09","sourceId":"g6a_u09_6a09"},
-      {"unitCode":"G6B-U03","sourceId":"g6b_u03_6b03"},
-      {"unitCode":"G6B-U04","sourceId":"g6b_u04_6b04"},
-      {"unitCode":"G6B-U05","sourceId":"g6b_u05_6b05"},
-      {"unitCode":"G6B-U06","sourceId":"g6b_u06_6b06"}
+      {
+        "unitCode": "G3B-U10",
+        "sourceId": "g3b_u10_3b10"
+      },
+      {
+        "unitCode": "G4A-U03",
+        "sourceId": "g4a_u03_4a03"
+      },
+      {
+        "unitCode": "G4A-U05",
+        "sourceId": "g4a_u05_4a05"
+      },
+      {
+        "unitCode": "G4A-U07",
+        "sourceId": "g4a_u07_4a07"
+      },
+      {
+        "unitCode": "G4B-U05",
+        "sourceId": "g4b_u05_4b05"
+      },
+      {
+        "unitCode": "G5A-U05",
+        "sourceId": "g5a_u05_5a05a"
+      },
+      {
+        "unitCode": "G5A-U05A1",
+        "sourceId": "g5a_u05_5a05a1"
+      },
+      {
+        "unitCode": "G5A-U07",
+        "sourceId": "g5a_u07_5a07"
+      },
+      {
+        "unitCode": "G5A-U10A",
+        "sourceId": "g5a_u10_5a10a"
+      },
+      {
+        "unitCode": "G5B-U08",
+        "sourceId": "g5b_u08_5b08"
+      },
+      {
+        "unitCode": "G5B-U11",
+        "sourceId": "g5b_u11_5b11"
+      },
+      {
+        "unitCode": "G6A-U03",
+        "sourceId": "g6a_u03_6a03"
+      },
+      {
+        "unitCode": "G6A-U05",
+        "sourceId": "g6a_u05_6a05"
+      },
+      {
+        "unitCode": "G6A-U06",
+        "sourceId": "g6a_u06_6a06"
+      },
+      {
+        "unitCode": "G6A-U07",
+        "sourceId": "g6a_u07_6a07"
+      },
+      {
+        "unitCode": "G6A-U08",
+        "sourceId": "g6a_u08_6a08"
+      },
+      {
+        "unitCode": "G6A-U09",
+        "sourceId": "g6a_u09_6a09"
+      },
+      {
+        "unitCode": "G6B-U03",
+        "sourceId": "g6b_u03_6b03"
+      },
+      {
+        "unitCode": "G6B-U04",
+        "sourceId": "g6b_u04_6b04"
+      },
+      {
+        "unitCode": "G6B-U05",
+        "sourceId": "g6b_u05_6b05"
+      },
+      {
+        "unitCode": "G6B-U06",
+        "sourceId": "g6b_u06_6b06"
+      }
     ],
     "controlUnit": {
       "unitCode": "G6A-U02",
@@ -87,9 +150,26 @@
     "goalDistanceAfter": "D2_21_GAPS_REPRODUCED_AND_SYSTEMIC_BINDING_ROOT_CAUSE_CLASSIFIED",
     "distanceReduced": "Reproduced all 21 reported mixed-mode gaps, discovered the 17/21 sourceUnit blocker and two silent single-KP fallbacks, and selected a shared repair shape instead of 21 independent patches.",
     "remainingBlockers": [
-      "FOCUSED_PREFLIGHT_CI_MUST_PASS_WITH_CORRECTED_DIAGNOSTIC_ASSERTIONS",
       "PLANNING_TO_IMPLEMENTATION_POLICY_BOUNDARY"
     ],
     "nextShortestStep": "P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation"
+  },
+  "finalCiReadback": {
+    "workflowRunId": 36724845799,
+    "prGateRunNumber": 1167,
+    "classifyValidationImpact": "PASS",
+    "focusedProductValidation": "PASS",
+    "aggregate": "PASS",
+    "fullRepositoryRegression": "SKIPPED_BY_POLICY",
+    "pagesE6": "NOT_REQUIRED_PLANNING_ONLY",
+    "mergedPr": 1175,
+    "mergeSha": "f31f2948fbc494bbf348c3c0d14a2d3030ecb8f4"
+  },
+  "closeout": {
+    "lastCompletedStatus": "P09_UI_SAME_UNIT_MIXED_21_PREFLIGHT_PASS_CI_SYNCED_AND_MERGED",
+    "stopReason": "PLANNING_TO_IMPLEMENTATION_POLICY_BOUNDARY",
+    "blockerType": "OPERATOR_SCOPE_BOUNDARY",
+    "requiredOperatorAction": "Approve P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation",
+    "nextResumeTask": "P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation"
   }
 }

@@ -33,10 +33,24 @@
   },
   "classificationNote": "Planning-only exact reproduction of 21 operator-reported same-unit mixed public UI gaps. The test uses current browser selector/capability binding and a known-good G6A-U02 control to distinguish a shared UI failure from missing per-unit mixed admission.",
   "currentKnowledgePointId": "kp_g6a_u02_fraction_divided_by_integer",
-  "currentKnowledgePointIds": ["kp_g6a_u02_fraction_divided_by_integer"],
-  "unitExpectedKnowledgePointIds": ["kp_g6a_u02_fraction_divided_by_integer"],
+  "currentKnowledgePointIds": [
+    "kp_g6a_u02_fraction_divided_by_integer"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6a_u02_fraction_divided_by_integer"
+  ],
   "unitKnowledgePointGateStatus": {
     "kp_g6a_u02_fraction_divided_by_integer": "FOCUSED_PASS"
   },
-  "validationPlanPath": "data/project/validation-plans/P09_UI_SAME_UNIT_MIXED_21_DEFECT_PREFLIGHT.validation.json"
+  "validationPlanPath": "data/project/validation-plans/P09_UI_SAME_UNIT_MIXED_21_DEFECT_PREFLIGHT.validation.json",
+  "statusOnlyCloseout": {
+    "enabled": true,
+    "predecessorMergeSha": "f31f2948fbc494bbf348c3c0d14a2d3030ecb8f4",
+    "predecessorPrGateRunId": 36724845799,
+    "runtimeMutation": false,
+    "selectorMutation": false,
+    "generatorMutation": false,
+    "validatorMutation": false,
+    "rendererMutation": false
+  }
 }
