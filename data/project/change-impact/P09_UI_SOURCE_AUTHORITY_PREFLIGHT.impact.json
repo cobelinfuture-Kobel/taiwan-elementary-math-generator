@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P09_UI_SOURCE_AUTHORITY_PREFLIGHT",
+  "currentScope": "KP_LEAF",
+  "expectedDerivedGate": "KP_FOCUSED",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false,
+    "productImplementation": false,
+    "selectorVisibilityChanged": false,
+    "currentBrowserRoutingChanged": false,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "planningOnly": true,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "patternSpecMutation": false,
+    "generatorMutation": false,
+    "validatorMutation": false,
+    "rendererMutation": false,
+    "publicUiRuntimeMutation": false,
+    "p10CloseoutMutation": false
+  },
+  "classificationNote": "Planning-only P09 source-authority/public-UI inventory closeout anchored to the final accepted W8 leaf for validation-state compatibility. No KP semantics or product runtime are changed.",
+  "currentKnowledgePointId": "kp_speed_unit_conversion",
+  "currentKnowledgePointIds": [
+    "kp_speed_unit_conversion"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_speed_unit_conversion"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_speed_unit_conversion": "FOCUSED_PASS"
+  },
+  "validationPlanPath": "data/project/validation-plans/P09_UI_SOURCE_AUTHORITY_PREFLIGHT.validation.json"
+}
