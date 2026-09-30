@@ -79,7 +79,7 @@ test("Q021 aggregate worksheet HTML is answer-key and print ready without forbid
   for(const x of ["P07F21","kp_g6b_u06_","ps_g6b_u06_","圓心角","畫出圓形圖","比較兩個圓形圖"])assert.equal(visible.includes(x),false,x);
 });
 
-test("Q021 mixed mode stays fail-closed while only the later Q018 owner becomes routable",()=>{
+test("Q021 mixed mode stays fail-closed while later Q018 and W8 Q021 successor owners are routable",()=>{
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[PREDECESSORS[0],KP],questionMode:"numeric",questionCount:8});
   assert.equal(mixed.ok,false);
   const promoted="kp_g6b_u06_pie_chart_percent_angle_conversion";
@@ -88,8 +88,10 @@ test("Q021 mixed mode stays fail-closed while only the later Q018 owner becomes 
   assert.ok(PROTECTED.includes(construction));
   const q018=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[promoted],questionMode:"numeric",questionCount:4,generationSeed:"q018-successor"});
   assert.equal(q018.ok,true,q018.errors?.join(","));
-  const future=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[construction],questionMode:"numeric",questionCount:4,generationSeed:"future-guard"});
-  assert.equal(future.ok,false);
+  const successor=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:[construction],questionMode:"numeric",questionCount:4,generationSeed:"q021-w8-successor"});
+  assert.equal(successor.ok,true,successor.errors?.join(","));
+  assert.equal(successor.questionMode,"diagram");
+  assert.ok(successor.questions.every(q=>q.knowledgePointId===construction));
 });
 
 test("Q021 current pointers and bounded validation are successor-safe",()=>{
@@ -97,9 +99,9 @@ test("Q021 current pointers and bounded validation are successor-safe",()=>{
   const b=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const g=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const w=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(s,/batch-a-selector-p08f18-extension/);assert.match(b,/public-ui-capability-binding-p08f18/);
-  assert.match(g,/requestsP08F18/);for(const id of ["22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(g,new RegExp("requestsP07F"+id));
-  assert.match(w,/buildP08F18Worksheet/);for(const id of ["22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(w,new RegExp("buildP07F"+id+"Worksheet"));
+  assert.match(s,/batch-a-selector-p08f21-extension/);assert.match(b,/public-ui-capability-binding-p08f21/);
+  assert.match(g,/requestsP08F21/);assert.match(g,/requestsP08F18/);for(const id of ["22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(g,new RegExp("requestsP07F"+id));
+  assert.match(w,/buildP08F21Worksheet/);assert.match(w,/buildP08F18Worksheet/);for(const id of ["22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(w,new RegExp("buildP07F"+id+"Worksheet"));
   assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");assert.deepEqual(plan.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);
   assert.equal(JSON.stringify(plan).includes("FULL_REPOSITORY"),false);
 });
