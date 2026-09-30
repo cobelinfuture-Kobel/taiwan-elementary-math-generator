@@ -28,7 +28,10 @@ const TARGETS = Object.freeze([
 ].map(Object.freeze));
 
 const PORT = Number(process.env.P09_MIXED21_SITE_PORT || "4391");
-const BASE = `http://127.0.0.1:${PORT}/index.html`;
+const REMOTE = process.env.P09_MIXED21_SITE_URL || null;
+const BASE = REMOTE || `http://127.0.0.1:${PORT}/index.html`;
+const BASE_ORIGIN = new URL(BASE).origin;
+const CACHE_TOKEN = process.env.P09_MIXED21_LIVE_CACHE_TOKEN || String(Date.now());
 const OUT = path.resolve("tmp/p09-ui-mixed21-classic-ui-acceptance");
 mkdirSync(OUT, { recursive: true });
 
@@ -38,12 +41,14 @@ let browser = null;
 let serverOut = "";
 let serverErr = "";
 
-server = spawn(process.execPath, ["tools/site/serve-site.js"], {
-  env: { ...process.env, SITE_PORT: String(PORT), SITE_HOST: "127.0.0.1" },
-  stdio: ["ignore", "pipe", "pipe"],
-});
-server.stdout.on("data", (chunk) => { serverOut += chunk; });
-server.stderr.on("data", (chunk) => { serverErr += chunk; });
+if (!REMOTE) {
+  server = spawn(process.execPath, ["tools/site/serve-site.js"], {
+    env: { ...process.env, SITE_PORT: String(PORT), SITE_HOST: "127.0.0.1" },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  server.stdout.on("data", (chunk) => { serverOut += chunk; });
+  server.stderr.on("data", (chunk) => { serverErr += chunk; });
+}
 
 async function ready() {
   let last;
@@ -151,6 +156,26 @@ try {
   await ready();
   browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1100 }, deviceScaleFactor: 1 });
+  if (REMOTE) {
+    await page.route("**/*", async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      if (request.method() === "GET"
+        && url.origin === BASE_ORIGIN
+        && (url.pathname.endsWith(".js")
+          || url.pathname.endsWith(".css")
+          || url.pathname.includes("/modules/")
+          || url.pathname.includes("/assets/"))) {
+        url.searchParams.set("p09-mixed21", CACHE_TOKEN);
+        await route.continue({
+          url: url.href,
+          headers: { ...request.headers(), "cache-control": "no-cache", pragma: "no-cache" },
+        });
+        return;
+      }
+      await route.continue();
+    });
+  }
   page.on("console", (message) => { if (message.type() === "error") diagnostics.console.push(message.text()); });
   page.on("pageerror", (error) => diagnostics.page.push(String(error?.stack || error)));
   page.on("requestfailed", (request) => diagnostics.request.push({ url: request.url(), failure: request.failure()?.errorText || "unknown" }));
@@ -202,6 +227,7 @@ try {
   writeFileSync(path.join(OUT, "failure.json"), JSON.stringify({
     schemaName: "P09UISameUnitMixed21ClassicUIAcceptanceFailureV1",
     status: "FAIL",
+    baseUrl: BASE,
     error: String(error?.stack || error),
     browser: diagnostics,
     server: { stdout: serverOut, stderr: serverErr },
