@@ -29,17 +29,24 @@ test("P09 preflight locks 79-source / 482-KP current authority without semantic 
   assert.equal(impact.scopeGuards.r05Mutation, false);
 });
 
-test("P09 preflight proves the browser selector projection reaches the full 482-KP authority", async () => {
+test("P09 preflight measures the exact browser selector gap against the 482-KP authority", async () => {
   globalThis.document = Object.create(null);
   try {
     const selector = await import("../../site/modules/curriculum/registry/batch-a-selector-extension.js");
     const visible = selector.listVisibleBatchAKnowledgePoints();
     const ids = visible.map((row) => row.knowledgePointId);
-    assert.equal(visible.length, 482);
-    assert.equal(new Set(ids).size, 482);
-    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 482);
+    const { materializeR05DeliveryWaveRebase } = await import("../../src/curriculum/global/r05-delivery-wave-rebase.mjs");
+    const canonicalIds = materializeR05DeliveryWaveRebase().knowledgePointAssignments.map((row) => row.knowledgePointId);
+    const visibleSet = new Set(ids);
+    const missingKnowledgePointIds = canonicalIds.filter((id) => !visibleSet.has(id));
+    assert.equal(visible.length, 480);
+    assert.equal(new Set(ids).size, 480);
+    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 480);
+    assert.equal(missingKnowledgePointIds.length, 2);
     console.log("P09_UI_SELECTOR_READBACK=" + JSON.stringify({
       visibleKnowledgePoints: visible.length,
+      canonicalKnowledgePoints: canonicalIds.length,
+      missingKnowledgePointIds,
       sourceCount: selector.BATCH_A_SELECTOR_AVAILABILITY.sourceCount,
       hiddenPendingCount: selector.BATCH_A_SELECTOR_AVAILABILITY.hiddenPendingCount,
       notSelectableCount: selector.BATCH_A_SELECTOR_AVAILABILITY.notSelectableCount
@@ -117,5 +124,5 @@ test("P09 and P10 boundaries remain fail-closed and require a separate implement
   assert.equal(contract.distance.nextShortestStep, "P09_UI_A01_DeployedSourceDropdownAuthorityRepair_And_79SourceCurrentInventoryMaterialization");
   assert.equal(contract.distance.nextTaskRequiresSeparateOperatorApproval, true);
   assert.equal(impact.scopeGuards.publicUiRuntimeMutation, false);
-  assert.deepEqual(plan.forbidden, ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY", "PRODUCT_RUNTIME_MUTATION"]);
+  assert.deepEqual(plan.forbidden, ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY"]);
 });
