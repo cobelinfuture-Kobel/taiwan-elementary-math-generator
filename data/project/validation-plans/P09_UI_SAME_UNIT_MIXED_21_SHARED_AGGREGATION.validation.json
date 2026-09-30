@@ -10,7 +10,6 @@
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/p09-ui-same-unit-mixed21-shared-unit-aggregation.test.js",
-          "tests/curriculum/p09-ui-same-unit-mixed-21-defect-preflight.test.js",
           "tests/curriculum/p09-ui-a03b-public-curriculum-unit-completeness.test.js"
         ]
       },
@@ -25,5 +24,6 @@
   "forbidden": [
     "FULL_NODE_REGRESSION",
     "GLOBAL_BROWSER_REPLAY"
-  ]
+  ],
+  "governanceNote": "The predecessor defect-preflight test intentionally asserts the old broken runtime and is therefore excluded after implementation; predecessor evidence remains frozen in its merged JSON/PR history."
 }
