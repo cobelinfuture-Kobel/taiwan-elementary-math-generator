@@ -12,10 +12,7 @@
           "tests/curriculum/p08f-w8-q022-g6a-u08-speed-unit-conversion-source-authority-preflight.test.js",
           "tests/curriculum/p08f-w8-q021-final-learner-visual-d0-closeout.test.js",
           "tests/curriculum/p08e-w8-direct-product-vertical-slice-queue.test.js",
-          "tests/curriculum/r05-delivery-wave-rebase.test.js",
-          "tests/curriculum/p07f-w7-slice023-g6a-u08-speed-distance-time-relation.test.js",
-          "tests/curriculum/p07f-w7-slice025-g6a-u08-average-relative-speed.test.js",
-          "tests/curriculum/p07f-w7-slice026-g6a-u08-effective-speed-current-wind.test.js"
+          "tests/curriculum/r05-delivery-wave-rebase.test.js"
         ]
       },
       {
