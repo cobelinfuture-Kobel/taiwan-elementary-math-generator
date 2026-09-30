@@ -34,6 +34,15 @@ function pushPaths(file){
   return out;
 }
 
+function triggerBlock(file){
+  const text=fs.readFileSync(file,"utf8");
+  const start=text.search(/^on:\s*$/m);
+  assert.notEqual(start,-1,file+" missing on block");
+  const tail=text.slice(start);
+  const end=tail.search(/^permissions:\s*$/m);
+  return end===-1?tail:tail.slice(0,end);
+}
+
 function allSliceWorkflowFiles(){
   return fs.readdirSync(".github/workflows")
     .filter(name=>/^p0[567]f-w[567]-q\d{3}-live-pages-e2e\.yml$/.test(name))
@@ -41,25 +50,37 @@ function allSliceWorkflowFiles(){
     .sort();
 }
 
-test("GCI-PM01 policy is tied to Q010 D0 evidence and exact observed fanout",()=>{
-  assert.equal(policy.schemaVersion,"1.0.0");
+test("GCI-PM01 preserves Q010 baseline evidence and records the P09 observed-45 supersession",()=>{
+  assert.equal(policy.schemaVersion,"1.1.0");
   assert.equal(policy.programId,"GLOBAL_GITHUB_CI_HANDSHAKE_STANDARD_V1");
   assert.equal(policy.taskId,"GCI-PM01_HistoricalPostMergeE2EFanoutBoundedCutover");
   assert.equal(policy.authority.q010MergeSha,"61dbbb11c77c5da0c2c905b1dcf059310ddcf507");
-  assert.equal(policy.authority.q010D0Status,"PASS_E6_D0_COMPLETE");
-  assert.equal(policy.authority.q010D0WorkflowRunId,35744406174);
   assert.equal(policy.baselineObservedFanout.totalPushWorkflowRuns,41);
-  assert.equal(policy.baselineObservedFanout.slicePostMergeE2EWorkflowRuns,38);
-  assert.equal(policy.baselineObservedFanout.historicalSliceWorkflowRuns,37);
   assert.equal(policy.historicalCutoverWorkflows.length,53);
-  assert.equal(new Set(policy.historicalCutoverWorkflows).size,53);
+  assert.equal(policy.p09Observed45Cutover.observedTotalPushWorkflowRuns,49);
+  assert.equal(policy.p09Observed45Cutover.observedHistoricalAutoTriggerRuns,45);
+  assert.equal(policy.p09Observed45Cutover.dispatchOnlyWorkflows.length,45);
+  assert.equal(new Set(policy.p09Observed45Cutover.dispatchOnlyWorkflows).size,45);
+  assert.equal(policy.p09Observed45Cutover.scopeMode,"OBSERVED_ONLY_NO_282_WORKFLOW_SCAN");
 });
 
-test("historical cutover workflows no longer watch volatile shared paths or their own workflow file",()=>{
+test("the exact 45 P09-observed historical workflows are dispatch-only",()=>{
+  for(const file of policy.p09Observed45Cutover.dispatchOnlyWorkflows){
+    assert.equal(fs.existsSync(file),true,file);
+    const block=triggerBlock(file);
+    assert.match(block,/workflow_dispatch\s*:/,file);
+    assert.doesNotMatch(block,/^\s*push\s*:/m,file);
+    assert.deepEqual(pushPaths(file),[],file+" must have zero automatic push paths");
+  }
+});
+
+test("older GCI historical workflows outside the observed 45 remain bounded away from volatile shared paths",()=>{
+  const dispatchOnly=new Set(policy.p09Observed45Cutover.dispatchOnlyWorkflows);
   for(const file of policy.historicalCutoverWorkflows){
     assert.equal(fs.existsSync(file),true,file);
+    if(dispatchOnly.has(file)) continue;
     const paths=pushPaths(file);
-    assert.ok(paths.length>0,file+" must retain owned push paths");
+    assert.ok(paths.length>0,file+" must retain its prior owned push paths unless explicitly in observed-45 cutover");
     for(const shared of policy.volatileSharedTriggerPaths){
       assert.equal(paths.includes(shared),false,file+" still watches volatile shared path "+shared);
     }
@@ -67,34 +88,34 @@ test("historical cutover workflows no longer watch volatile shared paths or thei
   }
 });
 
-test("exactly one W5/W6/W7 slice E2E owns each volatile shared trigger path",()=>{
+test("frozen W5/W6/W7 slice E2E workflows no longer own volatile shared trigger paths",()=>{
   const files=allSliceWorkflowFiles();
   for(const shared of policy.volatileSharedTriggerPaths){
     const owners=files.filter(file=>pushPaths(file).includes(shared));
-    assert.deepEqual(owners,[policy.activeCurrentSliceWorkflow],shared+" owners="+owners.join(","));
+    assert.deepEqual(owners,[],shared+" owners="+owners.join(","));
   }
 });
 
-test("Q026 is the single current shared-path owner and Q025 is demoted to owned paths only",()=>{
-  const current=policy.activeCurrentSliceWorkflow;
-  assert.equal(fs.existsSync(current),true);
-  const paths=pushPaths(current);
-  for(const shared of policy.volatileSharedTriggerPaths)assert.ok(paths.includes(shared),shared);
-  assert.ok(paths.includes(current),"current workflow remains self-observing while it is current");
-  const text=fs.readFileSync(current,"utf8");
-  assert.match(text,/name: P07F W7 Q026 Post-Merge Pages E2E/);
-  assert.match(text,/node tools\/curriculum\/run-p07f-w7-q026-live-pages-e2e\.mjs/);
-  assert.ok(policy.historicalCutoverWorkflows.includes(".github/workflows/p07f-w7-q025-live-pages-e2e.yml"));
+test("Q026 is frozen historical and current/global automation is retained outside frozen slice ownership",()=>{
+  const q026=policy.legacyActiveCurrentSliceWorkflow;
+  assert.equal(q026,".github/workflows/p07f-w7-q026-live-pages-e2e.yml");
+  const block=triggerBlock(q026);
+  assert.match(block,/workflow_dispatch\s*:/);
+  assert.doesNotMatch(block,/^\s*push\s*:/m);
+  assert.equal(policy.activeCurrentSliceWorkflow,null);
   assert.equal(policy.successorRule.finalFrozenW7Slice,true);
-  assert.match(text,/Persist durable Pages E2E readback/);
+  assert.equal(policy.successorRule.supersededAtTaskId,"P09_CI_Observed45HistoricalAutoTriggerCutover");
+  for(const file of policy.p09Observed45Cutover.retainedCurrentGlobalAutomaticWorkflows){
+    assert.equal(fs.existsSync(file),true,file);
+    assert.match(triggerBlock(file),/^\s*push\s*:/m,file);
+  }
 });
 
 test("cutover does not touch product runtime or curriculum authority",()=>{
   assert.equal(policy.invariants.productRuntimeChanged,false);
   assert.equal(policy.invariants.curriculumAuthorityChanged,false);
   assert.equal(policy.invariants.historicalWorkflowBodyAndE2ERunnerSemanticsChanged,false);
-  assert.equal(policy.invariants.q010CurrentWorkflowSemanticsChanged,false);
-  assert.equal(policy.target.historicalSliceWorkflowRunsOnSharedPointerOnlyPush,0);
-  assert.equal(policy.target.currentSliceWorkflowRunsOnSharedPointerOnlyPush,1);
-  assert.equal(policy.target.sliceE2EFanoutReductionFromObservedQ010Merge,37);
+  assert.equal(policy.target.p09Observed45HistoricalWorkflowRunsOnMainPush,0);
+  assert.equal(policy.target.currentSliceWorkflowRunsOnSharedPointerOnlyPush,0);
+  assert.equal(policy.target.expectedGovernanceOnlyMergeFanoutUpperBound,6);
 });
