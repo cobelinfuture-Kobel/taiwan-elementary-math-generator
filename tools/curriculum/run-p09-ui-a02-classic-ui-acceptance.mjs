@@ -42,7 +42,6 @@ async function selectKp(page,kp){
     const s=[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId);
     return s.length===1&&s[0]===id;
   },kp,{timeout:30000});
-  await page.waitForFunction(()=>Boolean(document.querySelector('#batch-a-selection-mode-select option[value="mixedKnowledgePointsSameUnit"]')?.disabled),null,{timeout:30000});
 }
 async function generate(page,target){
   await page.fill("#batch-a-question-count-input",String(COUNT));await page.dispatchEvent("#batch-a-question-count-input","change");
