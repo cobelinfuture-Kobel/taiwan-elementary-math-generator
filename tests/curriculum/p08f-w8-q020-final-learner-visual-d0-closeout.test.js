@@ -1,0 +1,20 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"));
+const c=read("data/curriculum/full-product/p08f/q020-final-learner-visual-d0-closeout.json");
+test("W8 Q020 final D0 closeout is operator-approved and evidence-only",()=>{
+  assert.equal(c.status,"Q020_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED");
+  assert.equal(c.evidence.pagesE2ERunId,36650931339);
+  assert.equal(c.evidence.visualRepairPr,1156);
+  assert.equal(c.evidence.technicalE6Status,"PASS");
+  assert.equal(c.evidence.visualContractViolations,0);
+  assert.equal(c.operatorAcceptance.status,"PASS");
+  assert.equal(c.operatorAcceptance.d0Granted,true);
+  assert.equal(c.operatorAcceptance.semicirclePlusSectorAcceptedAfterRepair,true);
+  assert.equal(c.scope.productRuntimeChanged,false);
+  assert.equal(c.scope.q021OrLaterProductChanged,false);
+  assert.equal(c.distance.goalDistanceAfter,"D0");
+  assert.deepEqual(c.distance.remainingQ020Blockers,[]);
+  assert.equal(c.distance.nextShortestStep,"P08F_W8_Q021_SourceAuthorityPreflight");
+});
