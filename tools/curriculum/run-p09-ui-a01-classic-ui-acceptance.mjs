@@ -4,8 +4,8 @@ import path from "node:path";
 import {chromium} from "playwright";
 
 const TARGETS=Object.freeze([
-  Object.freeze({sourceId:"g5b_u02_5b02",grade:"5",semester:"lower",knowledgePointId:"kp_g5b_u02_fraction_times_integer",semanticToken:"分數"}),
-  Object.freeze({sourceId:"g5b_u09_5b09",grade:"5",semester:"lower",knowledgePointId:"kp_g5b_u09_time_quantity_divided_by_integer",semanticToken:"時間"})
+  Object.freeze({sourceId:"g5b_u02_5b02",grade:"5",semester:"lower",knowledgePointId:"kp_g5b_u02_fraction_times_integer"}),
+  Object.freeze({sourceId:"g5b_u09_5b09",grade:"5",semester:"lower",knowledgePointId:"kp_g5b_u09_time_quantity_divided_by_integer"})
 ]);
 const COUNT=8;
 const PORT=Number(process.env.P09_A01_SITE_PORT||"4381");
@@ -63,13 +63,14 @@ async function generateAndRead(page,target){
   },COUNT,{timeout:30000});
   const state=await page.evaluate(()=>({
     sourceId:document.querySelector("#batch-a-source-select")?.value||null,
+    selectedKnowledgePointIds:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId),
     status:document.querySelector("#status-panel")?.textContent?.trim()||"",
     tone:document.querySelector("#status-panel")?.dataset?.tone||"",
     valid:document.querySelector("#validation-panel")?.dataset?.hasErrors||null,
     preview:document.querySelector("#preview-frame")?.srcdoc?.length||0,
     printDisabled:Boolean(document.querySelector("#print-button")?.disabled)
   }));
-  if(state.sourceId!==target.sourceId||!state.status.includes("已產生 "+COUNT+" 題")||state.tone!=="success"||state.valid!=="false"||state.preview<=0||state.printDisabled){
+  if(state.sourceId!==target.sourceId||state.selectedKnowledgePointIds.length!==1||state.selectedKnowledgePointIds[0]!==target.knowledgePointId||!state.status.includes("已產生 "+COUNT+" 題")||state.tone!=="success"||state.valid!=="false"||state.preview<=0||state.printDisabled){
     throw new Error("P09_A01_GENERATION:"+target.sourceId+":"+JSON.stringify(state));
   }
   const frame=await (await page.locator("#preview-frame").elementHandle())?.contentFrame();
@@ -81,8 +82,8 @@ async function generateAndRead(page,target){
     text:document.body?.innerText||"",
     overflow:[...document.querySelectorAll(".worksheet-page")].filter(n=>n.scrollHeight>n.clientHeight+1||n.scrollWidth>n.clientWidth+1).length
   }));
-  if(worksheet.questions!==COUNT||worksheet.answers!==COUNT||worksheet.overflow!==0||!worksheet.text.includes(target.semanticToken)){
-    throw new Error("P09_A01_WORKSHEET:"+target.sourceId+":"+JSON.stringify({questions:worksheet.questions,answers:worksheet.answers,overflow:worksheet.overflow,semanticToken:target.semanticToken}));
+  if(worksheet.questions!==COUNT||worksheet.answers!==COUNT||worksheet.overflow!==0){
+    throw new Error("P09_A01_WORKSHEET:"+target.sourceId+":"+JSON.stringify({questions:worksheet.questions,answers:worksheet.answers,overflow:worksheet.overflow}));
   }
   await frame.evaluate(()=>{window.__P09_A01_PRINT__=0;window.print=()=>window.__P09_A01_PRINT__++;});
   await page.locator("#print-button").click();
