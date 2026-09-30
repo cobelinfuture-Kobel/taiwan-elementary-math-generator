@@ -1,0 +1,92 @@
+name: P08F W8 Q022 Post-Merge Pages E2E
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/modules/curriculum/registry/g6a-u08-speed-unit-conversion-selector-projection-p08f22.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p08f22-extension.js"
+      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p08f22.js"
+      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
+      - "site/modules/curriculum/batch-a/g6a-u08-speed-unit-conversion-runtime-p08f22.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f22.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f22-extension.js"
+      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
+      - "tools/curriculum/run-p08f-w8-slice022-classic-ui-acceptance.mjs"
+      - "tools/curriculum/run-p08f-w8-q022-live-pages-e2e.mjs"
+      - "data/curriculum/full-product/p08f/q022-g6a-u08-speed-unit-conversion-implementation.json"
+      - ".github/workflows/p08f-w8-q022-live-pages-e2e.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  live-pages-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - run: node tools/curriculum/run-p08f-w8-q022-live-pages-e2e.mjs
+        env:
+          P08F22_DEPLOYMENT_RETRIES: "60"
+          P08F22_DEPLOYMENT_RETRY_DELAY_MS: "15000"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p08f-w8-q022-pages-e2e
+          path: tmp/p08f-w8-q022-live-pages-e2e
+          if-no-files-found: error
+          retention-days: 30
+      - name: Persist durable Pages E2E readback
+        if: always()
+        env:
+          READBACK_PATH: docs/ci/latest-p08f-w8-q022-pages-e2e.json
+          READBACK_TMP: /tmp/p08f-w8-q022-pages-e2e-readback.json
+        run: |
+          node <<'NODE'
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const out = path.resolve("tmp/p08f-w8-q022-live-pages-e2e");
+          const reportPath = path.join(out, "report.json");
+          const failurePath = path.join(out, "failure.json");
+          let payload;
+          if (fs.existsSync(reportPath)) payload = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+          else if (fs.existsSync(failurePath)) payload = JSON.parse(fs.readFileSync(failurePath, "utf8"));
+          else payload = {schemaName:"P08FW8Q022PostMergeMainPagesE2EReadbackV1",status:"FAIL_NO_STRUCTURED_EVIDENCE",exactHeadSha:process.env.GITHUB_SHA};
+          const existingPath = path.resolve(process.env.READBACK_PATH);
+          if (fs.existsSync(existingPath)) {
+            const existing = JSON.parse(fs.readFileSync(existingPath, "utf8"));
+            if (existing.status === "PASS_E6_D0_COMPLETE" && (payload.status !== "PASS_E6_D0_COMPLETE" || payload.exactHeadSha !== existing.exactHeadSha)) {
+              console.error("P08F22_HISTORICAL_PASS_READBACK_LOCKED:"+existing.exactHeadSha+":"+String(payload.exactHeadSha||"missing"));
+              process.exit(22);
+            }
+          }
+          payload.workflow = "P08F W8 Q022 Post-Merge Pages E2E";
+          payload.repository = process.env.GITHUB_REPOSITORY;
+          payload.ref = process.env.GITHUB_REF;
+          payload.run = {id:process.env.GITHUB_RUN_ID,number:process.env.GITHUB_RUN_NUMBER,attempt:process.env.GITHUB_RUN_ATTEMPT,url:"https://github.com/"+process.env.GITHUB_REPOSITORY+"/actions/runs/"+process.env.GITHUB_RUN_ID};
+          payload.verifiedAt = new Date().toISOString();
+          fs.writeFileSync(process.env.READBACK_TMP, JSON.stringify(payload,null,2)+"\n");
+          NODE
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p "$(dirname "$READBACK_PATH")"
+            cp "$READBACK_TMP" "$READBACK_PATH"
+            git add "$READBACK_PATH"
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "ci: record P08F W8 Q022 deployed Pages E2E [skip ci]"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 5))
+          done
+          exit 1

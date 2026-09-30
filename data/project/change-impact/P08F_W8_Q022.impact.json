@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q022",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_speed_unit_conversion"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q022.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "productImplementation": true,
+    "selectorVisibilityChanged": true,
+    "currentBrowserRoutingChanged": true,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "q022Only": true,
+    "postW8Mutation": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "priorSpeedOwnershipMutation": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "applicationContextAdmission": false,
+    "humanVisualReviewRequired": false,
+    "historicalCompatibilityTestOnlyMutation": true
+  },
+  "classificationNote": "Final W8 leaf product cutover for G6A-U08 speed-unit conversion. Uses bounded shared runtime and existing numeric renderer.",
+  "compatibilityRepair": {
+    "reason": "Final W8 Q022 legitimately promotes the speed-unit-conversion successor and advances the browser current pointer from historical W8 P08F01 to P08F22.",
+    "productLogicChangedByRepair": false,
+    "historicalTestsUpdated": [
+      "tests/curriculum/p07f-w7-slice026-g6a-u08-effective-speed-current-wind.test.js"
+    ],
+    "invariants": [
+      "Q026 historical effective-speed route remains reachable.",
+      "same-unit mixed mode remains fail-closed.",
+      "Q022 speed-unit-conversion is now expected to route successfully.",
+      "current selector and public binding pointers now target P08F22."
+    ],
+    "prGateFailureRunId": 36678396275,
+    "failedAssertions": [
+      "Q026 unit-conversion future guard expected false after Q022 admission",
+      "Q026 historical current pointer expected P08F01 after approved P08F22 cutover"
+    ]
+  }
+}
