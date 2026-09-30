@@ -120,8 +120,12 @@ test("A09 generated division witnesses preserve quotient remainder and verificat
       assert.ok(question.remainder > 0);
       assert.equal(question.checkValue, question.dividend);
       assert.equal(question.answerText, `${question.divisor} × ${question.quotient} + ${question.remainder} = ${question.dividend}`);
-    } else {
+    } else if (question.kind === "g4aU04LongDivision") {
       assert.equal(question.answerText, `商 ${question.quotient}，餘 ${question.remainder}`);
+    } else {
+      assert.equal(question.kind, "g4aU04LongDivisionStepUnderstanding");
+      assert.ok(question.questionGroupId);
+      assert.ok(question.reasoningTrace?.length >= 3);
     }
   }
 });
