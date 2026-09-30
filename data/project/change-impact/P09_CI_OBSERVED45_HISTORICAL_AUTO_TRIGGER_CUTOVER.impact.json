@@ -15,7 +15,7 @@
   },
   "expectedDerivedGate": "KP_FOCUSED",
   "validationPlanPath": "data/project/validation-plans/P09_CI_OBSERVED45_HISTORICAL_AUTO_TRIGGER_CUTOVER.validation.json",
-  "classificationNote": "CI-governance-only cutover of exactly the 45 historical workflows observed in merge ac05f678 fanout. No product runtime, source authority, KP identity, PatternSpec, generator, validator, selector, renderer, worksheet semantics, or P10 claim changes.",
+  "classificationNote": "CI-governance-only YAML repair for the exact 45 historical workflows already cut over by P09_CI_Observed45HistoricalAutoTriggerCutover. Restores permissions-child indentation without restoring push triggers or changing product runtime, source authority, KP identity, selector, generator, validator, renderer, worksheet semantics, or P10 claims.",
   "changeImpact": {
     "sharedExecutableChange": false,
     "publicAuthorityCutover": false,
@@ -23,5 +23,11 @@
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
     "currentAuthorityChanged": false
+  },
+  "repairScope": {
+    "yamlPermissionsIndentationOnly": true,
+    "targetWorkflowCount": 45,
+    "pushTriggerRestored": false,
+    "productRuntimeChanged": false
   }
 }
