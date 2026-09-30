@@ -180,6 +180,7 @@ function generateIntegrated(options, plan) {
     const mode = preferredQuestionMode(entry.knowledgePointId);
     const ownerOptions = {
       ...options,
+      plan: undefined,
       sourceId: ownerSourceId,
       selectionMode: "singleKnowledgePoint",
       selectedKnowledgePointIds: [entry.knowledgePointId],
@@ -216,7 +217,20 @@ function generateIntegrated(options, plan) {
       }));
       continue;
     }
-    questions.push(...generation.questions.map((question) => projectAliasQuestion(question, alias)));
+    questions.push(...generation.questions.map((question) => {
+      const normalizedQuestion = Object.freeze({
+        ...question,
+        knowledgePointId: question.knowledgePointId ?? entry.knowledgePointId,
+        metadata: Object.freeze({
+          ...(question.metadata ?? {}),
+          knowledgePointId: question.metadata?.knowledgePointId ?? entry.knowledgePointId,
+          canonicalSkillIds: question.metadata?.canonicalSkillIds?.length
+            ? question.metadata.canonicalSkillIds
+            : Object.freeze([entry.knowledgePointId]),
+        }),
+      });
+      return projectAliasQuestion(normalizedQuestion, alias);
+    }));
   }
   if (questions.length !== plan.questionCount) errors.push(issue("P09_A03B_OUTPUT_COUNT_MISMATCH", "questions"));
   const promptKeys = questions.map((question) => String(question.blankedDisplayText ?? question.promptText ?? question.prompt ?? "").trim());
