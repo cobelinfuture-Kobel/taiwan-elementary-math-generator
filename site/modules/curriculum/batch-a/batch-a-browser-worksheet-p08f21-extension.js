@@ -19,7 +19,7 @@ function models(qs,l){return qs.map((q,i)=>Object.freeze({
     representation:"pie_chart_construction_data_p08f21",maxSafeColumns:2,maxSafeRowsPerPage:2})
 }));}
 function answers(qs,m){return qs.map((q,i)=>Object.freeze({
-  questionId:q.id,questionNumber:i+1,patternId:q.patternSpecId,promptText:q.blankedDisplayText,answerText:q.answerText,
+  questionId:q.id,questionNumber:i+1,patternId:q.patternSpecId,promptText:q.blankedDisplayText,answerText:"答案見完成圖",
   tableData:q.tableData,chartData:q.answerChartData,metadataSnapshot:m[i].metadataSnapshot,
   layoutHints:Object.freeze({avoidPageBreakInside:true,questionMode:"diagram",representation:"pie_chart_construction_data_p08f21",maxSafeColumns:2,maxSafeRowsPerPage:2})
 }));}
