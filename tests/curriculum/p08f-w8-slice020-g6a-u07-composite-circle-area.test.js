@@ -131,6 +131,9 @@ test("W8 Q020 renderer exposes two explicit composite visual contracts",()=>{
   assert.match(ha,/data-visual-contract-version="P08F20_R1"/);
   assert.match(ha,/composite-circle-area__semicircle/);
   assert.match(ha,/composite-circle-area__sector/);
+  assert.match(ha,/data-component-role="semicircle" x="160\.00" y="54\.00"/);
+  assert.match(ha,/data-component-role="sector" x="70\.00" y="126\.00"/);
+  assert.match(ha,/composite-circle-area__sector-label-leader/);
   assert.match(ha,/陰影面積＝半圓面積＋扇形面積/);
   assert.match(hb,/composite-circle-area__difference-fill/);
   assert.match(hb,/composite-circle-area__square/);
