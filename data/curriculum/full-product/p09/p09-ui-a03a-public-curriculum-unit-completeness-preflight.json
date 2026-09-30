@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "P09_UI_A03A_PublicCurriculumUnitCompletenessCorrectionPreflight",
+  "status": "PREFLIGHT_LOCKED_PUBLIC_UNIT_COMPLETENESS_MODEL_CORRECTED",
+  "baseline": {
+    "mainSha": "f8995186235bae89717aeb9a013483224575cae0",
+    "p09A02Status": "PASS_P09_UI_A02_TWO_KP_E6_D0_COMPLETE",
+    "canonicalSourceNodeCount": 79,
+    "canonicalKnowledgePointCount": 482,
+    "currentPublicSourceUnitCount": 76,
+    "currentPublicSelectableKnowledgePointRouteCount": 482
+  },
+  "diagnosis": {
+    "p09PriorCompletenessModel": {
+      "priorRule": "79 canonical source nodes collapse to 76 public product units",
+      "defect": "SEMANTIC_KP_IDENTITY_DEDUPLICATION_WAS_INCORRECTLY_USED_AS_CURRICULUM_SOURCE_UNIT_COLLAPSE",
+      "correctedRule": "Curriculum source-unit identity and canonical KnowledgePoint semantic identity are separate dimensions. Shared canonical KP identities may appear under multiple curriculum source-unit routes without creating duplicate canonical KPs."
+    },
+    "g3aU08": {
+      "sourceNodeId": "g3a_u08_3a08",
+      "unitCode": "3A-U08",
+      "canonicalKnowledgePointCount": 7,
+      "currentSelectorVisibleCount": 7,
+      "defect": "A02 admitted the final two KPs only as singleKnowledgePoint routes; sourceUnit and same-unit current coordinator still cover the earlier five-KP product surface.",
+      "affectedKnowledgePointIds": [
+        "kp_g3a_u08_whole_as_fraction",
+        "kp_g3a_u08_unlike_denominator_comparison_limit"
+      ],
+      "rootCauseFiles": [
+        "data/curriculum/full-product/p09/p09-ui-a02-g3a-u08-two-kp-product-admission.json",
+        "site/modules/curriculum/batch-a/batch-a-browser-generator-p09-a02.js",
+        "site/modules/curriculum/public/public-ui-capability-binding-p09-a02.js",
+        "site/modules/curriculum/batch-a/g3a-u08-current-coordinator-p04f24.js"
+      ],
+      "requiredCorrection": "Integrate all seven admitted KPs into the G3A-U08 sourceUnit route and current same-unit product coordinator while preserving cross-unit mixed as disabled."
+    },
+    "g4bU03": {
+      "sourceNodeId": "g4b_u03_4b03",
+      "unitCode": "4B-U03",
+      "title": "假分數與帶分數",
+      "canonicalKnowledgePointIds": [
+        "kp_fraction_true_improper_mixed_classification",
+        "kp_fraction_improper_mixed_integer_conversion",
+        "kp_fraction_improper_mixed_compare_order",
+        "kp_fraction_improper_mixed_number_line",
+        "kp_fraction_same_denominator_mixed_add_sub",
+        "kp_fraction_times_integer_quantity"
+      ],
+      "semanticOwnerSourceId": "g4a_u06_4a06",
+      "r02Policy": "CANONICAL_KP_ALIAS_SET_SHARED_SEMANTIC_IDENTITY",
+      "defect": "The prior P09 projection removed the 4B-U03 curriculum unit from the public UI because its six KPs share canonical semantic identities with 4A-U06.",
+      "requiredCorrection": "Restore 4B-U03 as a distinct public curriculum source-unit route while reusing the six canonical KP identities and existing runtime ownership. Do not create new KP identities."
+    },
+    "g6bU02": {
+      "sourceNodeId": "g6b_u02_6b02",
+      "unitCode": "6B-U02",
+      "title": "認識速率",
+      "evidencePath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+      "canonicalKnowledgePointIds": [
+        "kp_speed_distance_time_relation",
+        "kp_speed_unit_conversion",
+        "kp_average_speed_total_distance_time",
+        "kp_relative_speed_meeting_chasing",
+        "kp_effective_speed_current_wind"
+      ],
+      "semanticOwnerSourceId": "g6a_u08_6a08",
+      "r02Policy": "MERGE_SOURCE_REFS_KEEP_ONE_SEMANTIC_IDENTITY",
+      "defect": "The prior P09 projection treated shared semantic identity with 6A-U08 as permission to remove the distinct 6B-U02 curriculum unit from the public UI.",
+      "requiredCorrection": "Restore 6B-U02 as a distinct public curriculum source-unit route while reusing the five canonical speed KPs and existing runtime ownership. Do not create new KP identities."
+    },
+    "g5bU10": {
+      "currentSourceNodeId": "g5b_u10_5b10a",
+      "currentUnitCode": "5B-U10A",
+      "currentTitle": "生活中的大單位",
+      "evidencePath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+      "sourcePdfTitle": "meow911_5b10a_source.pdf",
+      "reviewedPageCount": 1,
+      "canonicalKnowledgePointCount": 5,
+      "fullG5BU10SourceNodePresent": false,
+      "g5bU10BSourceNodePresent": false,
+      "status": "SOURCE_SCOPE_PARENT_OR_SPLIT_IDENTITY_UNRESOLVED",
+      "rule": "Do not rename 5B-U10A to 5B-U10 and do not claim full Unit 10 coverage without source evidence for the parent/full unit or any missing split."
+    }
+  },
+  "correctedCompletenessModel": {
+    "canonicalSourceNodeCount": 79,
+    "legitimateCompositeCollapse": {
+      "canonicalSourceNodeIds": [
+        "g5a_u02_5a02a",
+        "g5a_u02_5a02a1"
+      ],
+      "publicSourceUnitId": "g5a_u02_5a02",
+      "mappingType": "EXPLICIT_COMPOSITE_GOLDEN_BASELINE"
+    },
+    "semanticCoSourcesMustRemainDistinctPublicUnits": [
+      {
+        "sourceNodeId": "g4b_u03_4b03",
+        "sharedSemanticOwnerSourceId": "g4a_u06_4a06",
+        "sharedCanonicalKnowledgePointCount": 6
+      },
+      {
+        "sourceNodeId": "g6b_u02_6b02",
+        "sharedSemanticOwnerSourceId": "g6a_u08_6a08",
+        "sharedCanonicalKnowledgePointCount": 5
+      }
+    ],
+    "expectedPublicCurriculumUnitCountAfterCorrection": 78,
+    "canonicalUniqueKnowledgePointCount": 482,
+    "expectedPublicSourceKnowledgePointRouteProjectionCountAfterCorrection": 493,
+    "routeProjectionCountFormula": "482 canonical source-KP projections + 6 G4B-U03 co-source routes + 5 G6B-U02 co-source routes = 493",
+    "rule": "Public route projection count may exceed canonical unique KP count because one canonical semantic KP can be legitimately taught from more than one curriculum source unit."
+  },
+  "implementationScope": {
+    "required": [
+      "Restore G4B-U03 and G6B-U02 to public source-unit inventory.",
+      "Project their shared canonical KPs under the correct source-unit routes without creating new canonical KP IDs.",
+      "Add source-semantic-owner routing so single-KP and sourceUnit generation reuse the existing G4A-U06 / G6A-U08 runtimes while preserving requested curriculum source identity in learner-facing metadata.",
+      "Integrate the two P09 A02 G3A-U08 KPs into whole-unit/current same-unit generation so the seven-KP unit is not partially closed.",
+      "Update current query-state authority to the P09 selector surface so deep-link/current state does not stop at P08F22.",
+      "Add focused Classic UI acceptance for source dropdown, KP visibility, generation, answer, preview and print for G3A-U08, G4B-U03 and G6B-U02."
+    ],
+    "forbidden": [
+      "No new canonical KnowledgePoint IDs.",
+      "No R02/R03/R04/R05 semantic-authority rewrite.",
+      "No cross-unit mixed admission.",
+      "No rename of G5B-U10A to G5B-U10 without source evidence.",
+      "No invented G5B-U10B source.",
+      "No P10 closeout claim until corrected public curriculum-unit completeness passes."
+    ]
+  },
+  "doneContract": {
+    "publicCurriculumUnitCount": 78,
+    "canonicalUniqueKnowledgePointCount": 482,
+    "publicSourceKnowledgePointRouteProjectionCount": 493,
+    "g3aU08SourceUnitKnowledgePointCoverage": "7_OF_7",
+    "g4bU03PublicUnitReachable": true,
+    "g4bU03CanonicalKnowledgePointRouteCount": 6,
+    "g6bU02PublicUnitReachable": true,
+    "g6bU02CanonicalKnowledgePointRouteCount": 5,
+    "requiredLiveSurfaces": [
+      "source dropdown",
+      "singleKnowledgePoint",
+      "sourceUnit",
+      "worksheet",
+      "answer key",
+      "HTML preview",
+      "browser print"
+    ],
+    "g5bU10Status": "BLOCKED_PENDING_SOURCE_IDENTITY_EVIDENCE"
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_P09_A02_482_UNIQUE_KP_ADMITTED_BUT_PUBLIC_CURRICULUM_UNIT_COMPLETENESS_MODEL_INCORRECT",
+    "goalDistanceAfter": "D2_CORRECTED_PUBLIC_UNIT_COMPLETENESS_CONTRACT_LOCKED_IMPLEMENTATION_PENDING",
+    "distanceReduced": "Converted four user-observed website gaps into exact source-backed route defects and separated semantic KP de-duplication from curriculum unit visibility.",
+    "remainingBlockers": [
+      "G3A_U08_SOURCE_UNIT_7_OF_7_NOT_YET_MATERIALIZED",
+      "G4B_U03_PUBLIC_ROUTE_NOT_YET_MATERIALIZED",
+      "G6B_U02_PUBLIC_ROUTE_NOT_YET_MATERIALIZED",
+      "G5B_U10_PARENT_OR_SPLIT_SOURCE_IDENTITY_EVIDENCE_MISSING"
+    ],
+    "nextShortestStep": "P09_UI_A03B_PublicCurriculumUnitCompletenessImplementation"
+  }
+}

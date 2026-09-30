@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P09_UI_A03A_FOCUSED_VALIDATION",
+  "unitId": "P09-UI-A03A-PREFLIGHT",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-a03a-public-curriculum-unit-completeness-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-a03a-public-curriculum-unit-completeness-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-a03a-public-curriculum-unit-completeness-preflight.test.js",
+          "tests/curriculum/p09-ui-a02-g3a-u08-two-kp-product-admission.test.js",
+          "tests/curriculum/p09-ui-source-authority-preflight.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P09_UI_A03A",
+  "currentScope": "KP_LEAF",
+  "expectedDerivedGate": "KP_FOCUSED",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false,
+    "productImplementation": false,
+    "selectorVisibilityChanged": false,
+    "currentBrowserRoutingChanged": false,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "planningOnly": true,
+    "sourceInventoryMutation": false,
+    "selectorMutation": false,
+    "generatorMutation": false,
+    "validatorMutation": false,
+    "rendererMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "newCanonicalKnowledgePointIdentity": false,
+    "g5bU10IdentityInference": false,
+    "p10CloseoutMutation": false
+  },
+  "classificationNote": "Planning-only correction of P09 public curriculum-unit completeness criteria. It records that semantic KP de-duplication cannot collapse distinct curriculum source-unit routes, and locks G3A-U08/G4B-U03/G6B-U02/G5B-U10A corrective boundaries without changing runtime.",
+  "currentKnowledgePointId": "kp_g3a_u08_whole_as_fraction",
+  "currentKnowledgePointIds": [
+    "kp_g3a_u08_whole_as_fraction"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3a_u08_whole_as_fraction"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3a_u08_whole_as_fraction": "FOCUSED_PASS"
+  },
+  "validationPlanPath": "data/project/validation-plans/P09_UI_A03A.validation.json"
+}
