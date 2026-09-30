@@ -63,9 +63,10 @@ test("W8 Q021 reads exact R04 ratio-percent mapping without reclassification",()
   assert.equal(mapping.mappingId,"r04map_g6b_u06_construct_pie_chart");
   assert.equal(mapping.primaryRuntimeProfileId,"profile_ratio_percent");
   assert.equal(mapping.classificationRuleId,"rule_ratio_percent");
-  assert.ok(Array.isArray(mapping.appliedModifierIds));
-  assert.ok(Array.isArray(mapping.requiredRuntimeCapabilityIds));
-  assert.ok(mapping.requiredRuntimeCapabilityIds.length>0);
+  assert.deepEqual(mapping.appliedModifierIds,[]);
+  assert.deepEqual(mapping.requiredRuntimeCapabilityIds,p.runtimeCapabilityAuthority.requiredRuntimeCapabilityIds);
+  assert.deepEqual(mapping.optionalRuntimeCapabilityIds,[]);
+  assert.deepEqual(mapping.forbiddenRuntimeCapabilityIds,[]);
   assert.equal(p.runtimeCapabilityAuthority.exactR04MappingBoundByFocusedCI,true);
 });
 
@@ -75,6 +76,12 @@ test("W8 Q021 reads exact R05 assignment and frozen rank twelve envelope",()=>{
   assert.equal(row.intraWavePrerequisiteRank,12);
   assert.equal(row.primaryRuntimeProfileId,"profile_ratio_percent");
   assert.ok(row.sourceNodeIds.includes(SRC));
+  assert.equal(row.baseDeliveryWaveId,"R05-W7");
+  assert.equal(row.prerequisiteWaveLowerBound,8);
+  assert.equal(row.waveEscalatedByPrerequisite,true);
+  assert.deepEqual(row.effectiveRequiredRuntimeCapabilityIds,p.runtimeCapabilityAuthority.effectiveRequiredRuntimeCapabilityIds);
+  assert.deepEqual(new Set(row.contractOnlyRequiredCapabilityIds),new Set(p.runtimeCapabilityAuthority.contractOnlyRequiredCapabilityIds));
+  assert.deepEqual(row.contractOnlyCapabilityWaveIds,["R05-W3","R05-W7"]);
   assert.equal(p.runtimeCapabilityAuthority.exactR05AssignmentBoundByFocusedCI,true);
 });
 
