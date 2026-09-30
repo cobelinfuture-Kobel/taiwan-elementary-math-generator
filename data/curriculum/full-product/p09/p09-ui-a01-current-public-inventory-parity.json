@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "taskId": "P09_UI_A01_CurrentPublicInventoryParityRepair_76To79Sources_480To482KPs_AndDeployedSourceDropdownRecovery",
-  "status": "SOURCE_PROVIDER_REPAIR_MATERIALIZED_AWAITING_CLASSIC_AND_LIVE_E2E",
+  "status": "A01_SOURCE_PROVIDER_E6_COMPLETE_SUPERSEDED_BY_A02_KP_ADMISSION",
   "operatorApproval": "APPROVED_BY_NEXT_RESUME_TASK",
   "baselineMainSha": "8676d6c964f929471c849597e29230944b88cda5",
   "preflight": {
@@ -56,7 +56,7 @@
   "distance": {
     "before": "D1_P09_UI_BOUNDARY_LOCKED_PUBLIC_INVENTORY_GAPS_EXACTLY_MEASURED",
     "afterTarget": "D1_P09_A01_SOURCE_PROVIDER_RECOVERED_TWO_KP_PRODUCT_ADMISSION_BLOCKER_REMAINS",
-    "nextShortestStep": "CLASSIC_UI_G5B_U02_G5B_U09_GENERATE_PREVIEW_PRINT_THEN_POSTMERGE_LIVE_PAGES"
+    "nextShortestStep": "P09_UI_A02_PR_GATE_MERGE_AND_DEPLOYED_E6"
   },
   "sourceProjection": {
     "canonicalSourceNodeCount": 79,
@@ -96,5 +96,16 @@
     ],
     "forcedSelectorExposureAllowed": false,
     "separateProductAdmissionRequired": true
+  },
+  "deployedEvidence": {
+    "path": "docs/ci/latest-p09-ui-a01-pages-e2e.json",
+    "status": "PASS_P09_UI_A01_SOURCE_PROVIDER_E6_COMPLETE",
+    "exactHeadSha": "53eb6e9c156dc3608af413160f5837c4b115b780"
+  },
+  "postA02": {
+    "canonicalKnowledgePointCount": 482,
+    "currentProductAdmittedSelectableCount": 482,
+    "canonicalProductAdmissionGap": 0,
+    "productAdmissionTask": "P09_UI_A02_G3AU08_WholeAsFraction_And_UnlikeDenominatorComparisonLimit_TwoKPProductAdmission"
   }
 }

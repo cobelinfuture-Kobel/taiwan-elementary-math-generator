@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P09_UI_A02_BOUNDED_VALIDATION",
+  "unitId": "P09-UI-A02-G3A-U08",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-a02-g3a-u08-two-kp-product-admission.test.js",
+          "tests/curriculum/p09-ui-a01-current-public-inventory-parity.test.js",
+          "tests/curriculum/p09-ui-source-authority-preflight.test.js",
+          "tests/curriculum/r05-delivery-wave-rebase.test.js",
+          "tests/curriculum/g3a-u08-current-capacity-renderer-ordering.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p09-ui-a02-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}

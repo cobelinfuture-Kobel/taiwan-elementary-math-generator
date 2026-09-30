@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "taskId": "P09_UI_SourceAuthorityPreflight_CurrentPublicUIInventory_FullProduct482KPIntegrationBoundary_And_P10CloseoutPrerequisiteLock",
-  "status": "PREFLIGHT_CORRECTED_BY_A01_SOURCE_BACKED_DIAGNOSTIC",
+  "status": "PREFLIGHT_LOCKED_A01_SOURCE_RECOVERY_COMPLETE_A02_TWO_KP_ADMISSION_MATERIALIZED",
   "operatorApproval": "APPROVED_2026_09_30",
   "baseline": {
     "mainSha": "1b116c29ecdf90eccae72ca9d27b0132a5c14068",
@@ -23,9 +23,9 @@
     "browserMain": "site/assets/browser/main.js",
     "sourceUnitProvider": "site/modules/curriculum/batch-a/source-units.js",
     "selectorEntry": "site/modules/curriculum/registry/batch-a-selector-extension.js",
-    "browserSelectorDelegate": "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js -> batch-a-selector-p08f22-extension.js",
+    "browserSelectorDelegate": "batch-a-selector-p09-a02-extension.js -> batch-a-selector-p08f22-extension.js",
     "publicBindingEntry": "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-    "browserBindingDelegate": "public-ui-capability-binding-p08f22.js",
+    "browserBindingDelegate": "public-ui-capability-binding-p09-a02.js -> public-ui-capability-binding-p08f22.js",
     "worksheetConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
     "generatorCompatibilityChain": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
     "worksheetCompatibilityChain": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
@@ -55,12 +55,9 @@
       "preview": true,
       "print": true
     },
-    "browserSelectorObservedVisibleKnowledgePointCount": 480,
+    "browserSelectorObservedVisibleKnowledgePointCount": 482,
     "browserSelectorObservedSourceCount": 76,
-    "browserSelectorMissingKnowledgePointIds": [
-      "kp_g3a_u08_whole_as_fraction",
-      "kp_g3a_u08_unlike_denominator_comparison_limit"
-    ],
+    "browserSelectorMissingKnowledgePointIds": [],
     "expectedPublicProductSourceUnitCount": 76,
     "browserSourceUnitProviderObservedCountBeforeA01": 74,
     "browserSourceUnitProviderMissingProductSourceIds": [
@@ -92,11 +89,11 @@
       ]
     },
     "canonicalKnowledgePointCount": 482,
-    "currentProductAdmittedSelectableKnowledgePointCount": 480,
-    "canonicalCandidateOnlyNotAdmittedCount": 2,
-    "browserSelectorProductParityStatus": "480_OF_480_CURRENT_PRODUCT_ADMITTED",
-    "canonicalProductAdmissionGapStatus": "2_OF_482_CANONICAL_KPS_PLANNED_NOT_ADMITTED",
-    "missingKnowledgePointAdmissionState": "CANDIDATE_ONLY_AND_R05_PLANNED_NOT_ADMITTED"
+    "currentProductAdmittedSelectableKnowledgePointCount": 482,
+    "canonicalCandidateOnlyNotAdmittedCount": 0,
+    "browserSelectorProductParityStatus": "482_OF_482_P09_PRODUCT_ADMITTED_SELECTABLE",
+    "canonicalProductAdmissionGapStatus": "ZERO_CANONICAL_KP_PRODUCT_ADMISSION_GAP_AFTER_P09_A02",
+    "missingKnowledgePointAdmissionState": "RESOLVED_BY_P09_A02_BOUNDED_SINGLE_KP_PRODUCT_ADMISSION"
   },
   "deployedUiEvidence": {
     "deploymentSha": "b90352bd9a61b78677634d49c59ad427081f98d3",
@@ -110,10 +107,12 @@
       "docs/ci/latest-s76r2-deployed-pages-smoke.json"
     ],
     "observedFailureClass": "PUBLIC_SOURCE_DROPDOWN_OR_DEPLOYED_CONTROL_MATERIALIZATION_FAILURE",
-    "interpretation": "W8 product slices are closed, but the Classic source-unit provider was missing two already-admitted public product units (G5B-U02 and G5B-U09). Separately, two canonical G3A-U08 KPs are candidate-only / R05 PLANNED_NOT_ADMITTED and must not be exposed by an inventory-only repair."
+    "interpretation": "W8 product slices are closed, but the Classic source-unit provider was missing two already-admitted public product units (G5B-U02 and G5B-U09). Separately, two canonical G3A-U08 KPs are candidate-only / R05 PLANNED_NOT_ADMITTED and must not be exposed by an inventory-only repair.",
+    "a01RecoveryStatus": "PASS_P09_UI_A01_SOURCE_PROVIDER_E6_COMPLETE",
+    "a01ReadbackPath": "docs/ci/latest-p09-ui-a01-pages-e2e.json"
   },
   "p09ScopeLock": {
-    "goal": "Make the current admitted product authority reliably consumable from the public UI, account for all 79 canonical source nodes through the 76-unit public projection, and fail closed on the two canonical KPs that are not yet product-admitted.",
+    "goal": "Make the 79-node / 76-public-unit / 482-KP product authority reliably consumable from the public UI while preserving bounded admission semantics and deferring global authority-consumer cleanup to later P09 milestones.",
     "required": [
       "Restore g5b_u02_5b02 and g5b_u09_5b09 to the browser source-unit provider so it matches the 76-source selector projection.",
       "Account for all 79 canonical source nodes through the source-backed 76-public-unit projection rather than creating duplicate dropdown units for composite or semantic co-sources.",
@@ -138,7 +137,7 @@
   },
   "p09DoneContract": {
     "sourceInventoryParity": "76_OF_76_PUBLIC_PRODUCT_UNITS_WITH_79_OF_79_CANONICAL_SOURCE_NODES_ACCOUNTED",
-    "knowledgePointSelectorParity": "480_OF_480_CURRENT_PRODUCT_ADMITTED",
+    "knowledgePointSelectorParity": "482_OF_482_P09_PRODUCT_ADMITTED",
     "deployedRequiredSourceOptionFailures": 0,
     "validSingleKnowledgePointRoutesReachExistingRuntime": true,
     "worksheetOutput": true,
@@ -148,8 +147,9 @@
     "legacyCompatibilityRole": "READ_ONLY",
     "crossUnitMixedRequired": false,
     "canonicalKnowledgePointCount": 482,
-    "canonicalProductAdmissionGap": 2,
-    "full482SelectorParityRequiresSeparateProductAdmission": true
+    "canonicalProductAdmissionGap": 0,
+    "full482SelectorParityRequiresSeparateProductAdmission": false,
+    "a02TwoKpAdmission": "MATERIALIZED_AWAITING_E6"
   },
   "p10CloseoutPrerequisiteLock": {
     "prerequisites": [
@@ -170,16 +170,14 @@
   },
   "distance": {
     "goalDistanceBefore": "D1_W8_PRODUCT_KP_DELIVERY_COMPLETE_UI_FULL_PRODUCT_BOUNDARY_NOT_LOCKED",
-    "goalDistanceAfter": "D1_P09_UI_BOUNDARY_LOCKED_DEPLOYED_UI_BLOCKER_IDENTIFIED",
+    "goalDistanceAfter": "D1_P09_A02_482_OF_482_PRODUCT_ADMISSION_MATERIALIZED_AWAITING_DEPLOYED_E6",
     "distanceReduced": "Locked the exact UI integration boundary and converted the unknown post-W8 successor into a bounded P09 UI program with explicit P10 prerequisites.",
     "remainingBlockers": [
-      "PUBLIC_SOURCE_PROVIDER_GAP_2_OF_76_BEFORE_A01",
-      "CANONICAL_KP_PRODUCT_ADMISSION_GAP_2_G3A_U08",
-      "DEPLOYED_PUBLIC_SOURCE_DROPDOWN_RECOVERY_NOT_YET_VERIFIED",
+      "P09_A02_DEPLOYED_E6_NOT_YET_VERIFIED",
       "R07_AUTHORITATIVE_CONSUMER_EXPLICIT_COVERAGE_ONLY_15_UNITS",
       "HISTORICAL_POINTER_CHAIN_STILL_PART_OF_CURRENT_BROWSER_ROUTING"
     ],
-    "nextShortestStep": "P09_UI_A01_RestoreG5BU02AndG5BU09_SourceProvider_ThenClassicAndLivePagesReadback",
+    "nextShortestStep": "P09_UI_A02_PR_GATE_MERGE_AND_DEPLOYED_E6_THEN_A03_CURRENT_AUTHORITY_ADAPTER_PREFLIGHT",
     "nextTaskRequiresSeparateOperatorApproval": false
   }
 }

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "P09_UI_A02_G3AU08_WholeAsFraction_And_UnlikeDenominatorComparisonLimit_TwoKPProductAdmission",
+  "status": "TWO_KP_PRODUCT_ADMISSION_MATERIALIZED_AWAITING_CI",
+  "sourceAuthority": {
+    "sourceNodeId": "g3a_u08_3a08",
+    "authorityPath": "data/curriculum/knowledge/units/g3a_u08_3a08.knowledge-operation.json",
+    "reviewMethod": "FULL_PAGE_VISUAL_READBACK",
+    "sourceEvidenceSha256": "bd36711350928994abe921a4a3b801dd3333566a83ff1586c74c1ad7990c2708",
+    "semanticAuthorityMutation": false
+  },
+  "knowledgePoints": [
+    {
+      "knowledgePointId": "kp_g3a_u08_whole_as_fraction",
+      "canonicalNameZh": "整體等於分母分之分母",
+      "sourceScope": "辨認一個完整整體可寫成 d/d。",
+      "evidencePages": [1],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "formalMapping": {
+        "semanticRelation": "WHOLE_AS_EQUAL_NUMERATOR_DENOMINATOR_FRACTION",
+        "knownRoles": ["WHOLE_VALUE_ONE", "DENOMINATOR"],
+        "targetRoles": ["MATCHING_NUMERATOR", "WHOLE_VALUE"],
+        "invariant": "A fraction equals one when numerator equals denominator and denominator is positive."
+      },
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3a_u08_whole_as_fraction_complete_numeric",
+          "questionMode": "numeric",
+          "answerModel": "exact_integer",
+          "surface": "Complete a fraction equal to one by matching numerator and denominator."
+        },
+        {
+          "patternSpecId": "ps_g3a_u08_whole_as_fraction_recognize_numeric",
+          "questionMode": "numeric",
+          "answerModel": "exact_integer_one",
+          "surface": "Recognize d/d as one."
+        }
+      ]
+    },
+    {
+      "knowledgePointId": "kp_g3a_u08_unlike_denominator_comparison_limit",
+      "canonicalNameZh": "異分母比較限制",
+      "sourceScope": "辨識異分母時不可只比較分子。",
+      "evidencePages": [2],
+      "applicationClassification": "APPLICATION_NOT_APPLICABLE",
+      "formalMapping": {
+        "semanticRelation": "UNLIKE_DENOMINATOR_NUMERATOR_ONLY_METHOD_INVALID",
+        "knownRoles": ["FRACTION_A", "FRACTION_B", "PROPOSED_NUMERATOR_ONLY_METHOD"],
+        "targetRoles": ["METHOD_VALIDITY"],
+        "invariant": "When denominators differ, numerator-only comparison is not a generally valid comparison rule."
+      },
+      "patternSpecs": [
+        {
+          "patternSpecId": "ps_g3a_u08_unlike_denominator_method_check_numeric",
+          "questionMode": "numeric",
+          "answerModel": "method_invalid",
+          "surface": "Judge whether numerator-only comparison may be used directly."
+        },
+        {
+          "patternSpecId": "ps_g3a_u08_unlike_denominator_reason_check_numeric",
+          "questionMode": "numeric",
+          "answerModel": "method_invalid_with_reason",
+          "surface": "Identify the reason numerator-only comparison is insufficient for unlike denominators."
+        }
+      ]
+    }
+  ],
+  "productAdmission": {
+    "priorR05State": "PLANNED_NOT_ADMITTED",
+    "p09AdmissionTarget": "PUBLIC_SINGLE_KP_PRODUCT_ADMITTED",
+    "singleKnowledgePointRequired": true,
+    "sourceUnitAutoMixRequired": false,
+    "sameUnitMixedRequired": false,
+    "crossUnitMixedRequired": false,
+    "questionMode": "numeric",
+    "questionCount": {"min": 1, "default": 20, "max": 120},
+    "requiredNodes": [
+      "FormalMapping",
+      "PatternSpec",
+      "Generator",
+      "Validator",
+      "PublicSelector",
+      "Worksheet",
+      "AnswerKey",
+      "HTMLPreview",
+      "BrowserPrint"
+    ]
+  },
+  "forbidden": [
+    "NO_R02_R03_R04_R05_AUTHORITY_MUTATION",
+    "NO_APPLICATION_CONTEXT",
+    "NO_ACTUAL_UNLIKE_DENOMINATOR_COMPARISON_ALGORITHM_TEACHING",
+    "NO_SAME_UNIT_MIXED_ADMISSION",
+    "NO_CROSS_UNIT_MIXED_ADMISSION",
+    "NO_EXISTING_G3A_U08_OWNER_REWRITE"
+  ]
+}
