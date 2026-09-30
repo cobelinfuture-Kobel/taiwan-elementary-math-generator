@@ -51,7 +51,24 @@
     ],
     "exactBlockingCapabilitiesBoundByFocusedCI": true,
     "targetEvidenceLevel": "E6_D0_COMPLETE",
-    "finalFrozenW8Slice": true
+    "finalFrozenW8Slice": true,
+    "supportingSourceNodeIds": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ],
+    "blockingCapabilityIds": [
+      "cap_fraction_number_system",
+      "cap_mixed_unit_normalization",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_speed_rate_reasoning",
+      "cap_unit_conversion"
+    ],
+    "blockingCapabilityWaveIds": [
+      "R05-W3",
+      "R05-W4",
+      "R05-W7"
+    ]
   },
   "sourceAuthority": {
     "primary": {
@@ -142,7 +159,90 @@
     "exactR04MappingBoundByFocusedCI": true,
     "exactR05AssignmentBoundByFocusedCI": true,
     "runtimeProfileReclassificationAllowed": false,
-    "finalW8AssignmentExpected": true
+    "finalW8AssignmentExpected": true,
+    "executableReadbackRunId": 36671984602,
+    "executableReadbackJobId": 109748813940,
+    "directR03Prerequisites": [
+      {
+        "edgeId": "kpe_r03_0658",
+        "fromKnowledgePointId": "kp_g4a_u10_length_km_m_conversion",
+        "dependencyStrength": "required",
+        "dependencyRole": "domain_extension_foundation"
+      },
+      {
+        "edgeId": "kpe_r03_0659",
+        "fromKnowledgePointId": "kp_g4b_u09_time_second_minute_hour_conversion",
+        "dependencyStrength": "required",
+        "dependencyRole": "domain_extension_foundation"
+      },
+      {
+        "edgeId": "kpe_r03_0660",
+        "fromKnowledgePointId": "kp_speed_distance_time_relation",
+        "dependencyStrength": "required",
+        "dependencyRole": "domain_extension_foundation"
+      }
+    ],
+    "mappingId": "r04map_speed_unit_conversion",
+    "appliedModifierIds": [
+      "mod_unit_conversion",
+      "mod_quantity_relation_semantics"
+    ],
+    "requiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_speed_rate_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_quantity_dimension_unit_identity",
+      "cap_text_application_representation",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization",
+      "cap_quantity_semantic_role_binding"
+    ],
+    "optionalRuntimeCapabilityIds": [
+      "cap_global_context_binding"
+    ],
+    "forbiddenRuntimeCapabilityIds": [],
+    "effectiveRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_speed_rate_reasoning",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_quantity_dimension_unit_identity",
+      "cap_text_application_representation",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization",
+      "cap_quantity_semantic_role_binding"
+    ],
+    "baseDeliveryWaveId": "R05-W8",
+    "finalDeliveryWaveId": "R05-W8",
+    "prerequisiteWaveLowerBound": 7,
+    "waveEscalatedByPrerequisite": false,
+    "intraWavePrerequisiteRank": 14,
+    "contractOnlyRequiredCapabilityIds": [
+      "cap_speed_rate_reasoning",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization"
+    ],
+    "contractOnlyCapabilityWaveIds": [
+      "R05-W3",
+      "R05-W4",
+      "R05-W7"
+    ],
+    "sourceNodeIds": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ]
   },
   "ownershipBoundary": {
     "predecessorSameSourceImplementedKnowledgePointIds": [
@@ -223,7 +323,7 @@
     "manualSourceChoiceRequired": false,
     "manualEvidenceChoiceRequired": false,
     "newSupplementaryEvidenceRequired": false,
-    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
     "sourceAuthoritySufficientForQ022ImplementationPlanning": true,
     "separateImplementationApprovalRequired": true,
     "exactRuntimeMappingBoundByFocusedCI": true,
