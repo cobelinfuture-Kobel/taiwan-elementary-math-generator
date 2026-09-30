@@ -67,7 +67,7 @@ test("A09 authority contains seven unique KP operation models and bindings", asy
   assert.equal(registry.review.status, "PASS");
   assert.equal(registry.knowledgePoints.length, 7);
   assert.equal(registry.knowledgePoints.flatMap((row) => row.operationModels).length, 7);
-  assert.equal(registry.existingQuestionBindings.length, 7);
+  assert.equal(registry.existingQuestionBindings.length, 10);
   assert.deepEqual(new Set(registry.knowledgePoints.map((row) => row.knowledgePointId)), KP);
   assert.deepEqual(new Set(registry.existingQuestionBindings.map((row) => row.questionId)), PS);
   assert.equal(new Set(registry.existingQuestionBindings.map((row) => row.operationModelId)).size, 7);
@@ -75,10 +75,10 @@ test("A09 authority contains seven unique KP operation models and bindings", asy
   assert.equal(registry.coverage.application, "ABSENT");
 });
 
-test("A09 descriptor resolves seven KP PatternGroups and PatternSpecs", () => {
+test("A09 descriptor resolves seven KP PatternGroups and ten current PatternSpecs", () => {
   const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
   assert.ok(descriptor);
-  assert.deepEqual(descriptor.expectedCounts, { knowledgePoints: 7, patternGroups: 7, patternSpecs: 7 });
+  assert.deepEqual(descriptor.expectedCounts, { knowledgePoints: 7, patternGroups: 7, patternSpecs: 10 });
   assert.deepEqual(new Set(descriptor.knowledgePointIds), KP);
   assert.deepEqual(new Set(descriptor.patternGroupIds), PG);
   assert.deepEqual(new Set(descriptor.patternSpecIds), PS);
