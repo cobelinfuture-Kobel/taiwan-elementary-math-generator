@@ -1,14 +1,14 @@
 {
   "schemaName": "P08FW8Q019PostMergeMainPagesE2EFailureV1",
   "status": "FAIL",
-  "exactHeadSha": "c7418867f176cbbbf6d8a65e47757951a8356ce7",
+  "exactHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
-  "error": "Error: P08F19_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nError: P08F19_SELECTOR:{\"sourceId\":\"g6a_u07_6a07\",\"summary\":\"本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：478\",\"visibleIds\":[\"kp_g6a_u07_circle_area_derivation\",\"kp_g6a_u07_circle_area_formula\",\"kp_g6a_u07_annulus_area\",\"kp_g6a_u07_sector_area\",\"kp_g6a_u07_composite_circle_area\"],\"futurePresent\":true,\"sameUnitDisabled\":true,\"prior\":[\"kp_g6a_u07_circle_area_derivation\",\"kp_g6a_u07_circle_area_formula\",\"kp_g6a_u07_annulus_area\"],\"kp\":\"kp_g6a_u07_sector_area\"}\n    at run (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:50:177)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:116:77\n\nNode.js v22.23.2\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-q019-live-pages-e2e.mjs:69:21)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
+  "error": "Error: P08F19_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\nError: P08F19_SELECTOR:{\"sourceId\":\"g6a_u07_6a07\",\"summary\":\"本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：479\",\"visibleIds\":[\"kp_g6a_u07_circle_area_derivation\",\"kp_g6a_u07_circle_area_formula\",\"kp_g6a_u07_annulus_area\",\"kp_g6a_u07_sector_area\",\"kp_g6a_u07_composite_circle_area\"],\"futurePresent\":true,\"sameUnitDisabled\":true,\"prior\":[\"kp_g6a_u07_circle_area_derivation\",\"kp_g6a_u07_circle_area_formula\",\"kp_g6a_u07_annulus_area\"],\"kp\":\"kp_g6a_u07_sector_area\"}\n    at run (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:50:177)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:116:77\n\nNode.js v22.23.2\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-q019-live-pages-e2e.mjs:69:21)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
   "childFailure": {
     "schemaName": "P08FW8Q019ClassicUIAcceptanceFailureV1",
     "status": "FAIL",
-    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?p08f19-e6=c7418867f176cbbbf6d8a65e47757951a8356ce7-1790726718539",
-    "error": "Error: P08F19_SELECTOR:{\"sourceId\":\"g6a_u07_6a07\",\"summary\":\"本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：478\",\"visibleIds\":[\"kp_g6a_u07_circle_area_derivation\",\"kp_g6a_u07_circle_area_formula\",\"kp_g6a_u07_annulus_area\",\"kp_g6a_u07_sector_area\",\"kp_g6a_u07_composite_circle_area\"],\"futurePresent\":true,\"sameUnitDisabled\":true,\"prior\":[\"kp_g6a_u07_circle_area_derivation\",\"kp_g6a_u07_circle_area_formula\",\"kp_g6a_u07_annulus_area\"],\"kp\":\"kp_g6a_u07_sector_area\"}\n    at run (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:50:177)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:116:77",
+    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?p08f19-e6=0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7-1790742525810",
+    "error": "Error: P08F19_SELECTOR:{\"sourceId\":\"g6a_u07_6a07\",\"summary\":\"本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：479\",\"visibleIds\":[\"kp_g6a_u07_circle_area_derivation\",\"kp_g6a_u07_circle_area_formula\",\"kp_g6a_u07_annulus_area\",\"kp_g6a_u07_sector_area\",\"kp_g6a_u07_composite_circle_area\"],\"futurePresent\":true,\"sameUnitDisabled\":true,\"prior\":[\"kp_g6a_u07_circle_area_derivation\",\"kp_g6a_u07_circle_area_formula\",\"kp_g6a_u07_annulus_area\"],\"kp\":\"kp_g6a_u07_sector_area\"}\n    at run (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:50:177)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:116:77",
     "browser": {
       "console": [],
       "page": [],
@@ -24,10 +24,10 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36647626545",
-    "number": "2",
+    "id": "36667807432",
+    "number": "3",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36647626545"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36667807432"
   },
-  "verifiedAt": "2026-09-30T00:05:33.033Z"
+  "verifiedAt": "2026-09-30T04:29:01.580Z"
 }
