@@ -1,20 +1,30 @@
 {
   "schemaVersion": "1.0.0",
   "taskId": "P09_UI_A01_CurrentPublicInventoryParityRepair_76To79Sources_480To482KPs_AndDeployedSourceDropdownRecovery",
-  "status": "IMPLEMENTATION_IN_PROGRESS_DIAGNOSTIC",
+  "status": "SOURCE_PROVIDER_REPAIR_MATERIALIZED_AWAITING_CLASSIC_AND_LIVE_E2E",
   "operatorApproval": "APPROVED_BY_NEXT_RESUME_TASK",
   "baselineMainSha": "8676d6c964f929471c849597e29230944b88cda5",
   "preflight": {
     "prNumber": 1167,
     "mergeSha": "600526cdbbf411e10bdaad631b647724aef4fef0",
     "canonicalSourceNodeCount": 79,
-    "browserObservedSourceCount": 76,
+    "browserObservedSourceCount": 74,
     "canonicalKnowledgePointCount": 482,
     "browserObservedKnowledgePointCount": 480,
     "missingKnowledgePointIds": [
       "kp_g3a_u08_whole_as_fraction",
       "kp_g3a_u08_unlike_denominator_comparison_limit"
-    ]
+    ],
+    "browserSelectorSourceCount": 76,
+    "expectedPublicProductSourceUnitCount": 76,
+    "canonicalSourceNodeProjectionCount": 79,
+    "missingPublicProductSourceIds": [
+      "g5b_u02_5b02",
+      "g5b_u09_5b09"
+    ],
+    "currentProductAdmittedKnowledgePointCount": 480,
+    "canonicalProductAdmissionGap": 2,
+    "missingKnowledgePointAdmissionState": "CANDIDATE_ONLY_R05_PLANNED_NOT_ADMITTED"
   },
   "scope": {
     "repairPublicSourceInventory": true,
@@ -34,11 +44,57 @@
     "canonicalKnowledgePointsAccountedFor": 482,
     "browserSelectableKnowledgePointsMustMatchAdmittedProductAuthority": true,
     "deployedRequiredSourceOptionsReachable": true,
-    "classicUiGeneratePreviewPrint": true
+    "classicUiGeneratePreviewPrint": true,
+    "browserPublicUnitProjectionExpected": 76,
+    "browserSourceProviderExpected": 76,
+    "browserSourceProviderMustEqualSelectorProjection": true,
+    "currentProductAdmittedKnowledgePointsExpected": 480,
+    "publicSelectorExpected": 480,
+    "full482SelectorParityRequiredInA01": false,
+    "full482ProductAdmissionRemainsBlocker": true
   },
   "distance": {
     "before": "D1_P09_UI_BOUNDARY_LOCKED_PUBLIC_INVENTORY_GAPS_EXACTLY_MEASURED",
-    "afterTarget": "D0_P09_A01_PUBLIC_INVENTORY_AND_DROPDOWN_RECOVERED",
-    "nextShortestStep": "DIAGNOSE_EXACT_SOURCE_ALIAS_AND_KP_PRODUCT_ADMISSION_GAPS"
+    "afterTarget": "D1_P09_A01_SOURCE_PROVIDER_RECOVERED_TWO_KP_PRODUCT_ADMISSION_BLOCKER_REMAINS",
+    "nextShortestStep": "CLASSIC_UI_G5B_U02_G5B_U09_GENERATE_PREVIEW_PRINT_THEN_POSTMERGE_LIVE_PAGES"
+  },
+  "sourceProjection": {
+    "canonicalSourceNodeCount": 79,
+    "expectedPublicProductSourceUnitCount": 76,
+    "collapseCount": 3,
+    "compositeMapping": {
+      "publicSourceId": "g5a_u02_5a02",
+      "canonicalSourceNodeIds": [
+        "g5a_u02_5a02a",
+        "g5a_u02_5a02a1"
+      ]
+    },
+    "semanticCoSourceMappings": [
+      {
+        "canonicalSourceNodeId": "g4b_u03_4b03",
+        "publicOwnerSourceId": "g4a_u06_4a06"
+      },
+      {
+        "canonicalSourceNodeId": "g6b_u02_6b02",
+        "publicOwnerSourceId": "g6a_u08_6a08"
+      }
+    ],
+    "browserProviderBefore": 74,
+    "browserProviderAfterTarget": 76,
+    "repairedSourceIds": [
+      "g5b_u02_5b02",
+      "g5b_u09_5b09"
+    ]
+  },
+  "knowledgePointBoundary": {
+    "canonicalCount": 482,
+    "currentProductAdmittedSelectableCount": 480,
+    "candidateOnlyPlannedNotAdmittedCount": 2,
+    "blockedKnowledgePointIds": [
+      "kp_g3a_u08_whole_as_fraction",
+      "kp_g3a_u08_unlike_denominator_comparison_limit"
+    ],
+    "forcedSelectorExposureAllowed": false,
+    "separateProductAdmissionRequired": true
   }
 }
