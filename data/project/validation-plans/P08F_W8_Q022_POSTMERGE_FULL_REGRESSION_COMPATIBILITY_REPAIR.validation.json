@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P08F_W8_Q022_POSTMERGE_COMPATIBILITY_REPAIR_KP_FOCUSED_VALIDATION",
+  "unitId": "g6a_u08_6a08",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p07f-w7-slice011-g6a-u07-circle-area-derivation.test.js",
+          "tests/curriculum/p07f-w7-slice014-g6a-u07-circle-area-formula.test.js",
+          "tests/curriculum/p07f-w7-slice017-g6a-u07-annulus-area.test.js",
+          "tests/curriculum/p07f-w7-slice021-g6b-u06-pie-chart-quantity-from-rate.test.js",
+          "tests/curriculum/p08f-w8-slice020-g6a-u07-composite-circle-area.test.js",
+          "tests/curriculum/p08f-w8-slice022-g6a-u08-speed-unit-conversion.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-p08f-w8-slice022-classic-ui-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p08f-w8-q022-g6a-u08-speed-unit-conversion-source-authority-preflight.test.js",
+          "tests/curriculum/p08e-w8-direct-product-vertical-slice-queue.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ],
+  "focusedBaselineException": {
+    "path": "tests/curriculum/p07f-w7-slice025-g6a-u08-average-relative-speed.test.js",
+    "reason": "The file contains a separate pre-existing baseline failure in its historical P08F01 current-pointer assertion. The Q022 repair changes only the unit-conversion successor assertion; that exact edit is locked by the repair contract test instead of executing the unrelated baseline-failing subtest in PR Gate.",
+    "baselineFailureTitle": "Q025 historical W7 route remains reachable after the approved W8 current-pointer advance",
+    "baselineDebtRepairAllowed": false
+  }
+}

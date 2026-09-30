@@ -90,15 +90,15 @@ for(const kp of KPS)test("Q025 aggregate worksheet materializes "+kp+" with answ
   for(const x of ["P07F25","kp_average_speed_","kp_relative_speed_","ps_g6a_u08_","順流","逆流","風速","換算成"])assert.equal(visible.includes(x),false,x);
 });
 
-test("Q025 preserves predecessor routes while Q026 successor becomes legal and unit-conversion remains closed",()=>{
+test("Q025 preserves predecessor routes while Q026 and Q022 approved successors remain legal",()=>{
   const old=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_speed_distance_time_relation"],questionMode:"numeric",questionCount:6,generationSeed:"q023-history"});
   assert.equal(old.ok,true,old.errors.join(","));assert.equal(old.questions.length,6);
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[AVG_KP,REL_KP],questionMode:"numeric",questionCount:8});
   assert.equal(mixed.ok,false);
   const successor=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_effective_speed_current_wind"],questionMode:"numeric",questionCount:4,generationSeed:"q026-successor"});
   assert.equal(successor.ok,true,successor.errors.join(","));assert.equal(successor.questions.length,4);
-  const unitConversion=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_speed_unit_conversion"],questionMode:"numeric",questionCount:4,generationSeed:"future-guard"});
-  assert.equal(unitConversion.ok,false);
+  const unitConversion=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_speed_unit_conversion"],questionMode:"numeric",questionCount:4,generationSeed:"q022-approved-successor"});
+  assert.equal(unitConversion.ok,true,unitConversion.errors.join(","));assert.equal(unitConversion.questions.length,4);assert.equal(unitConversion.questions.every(q=>q.knowledgePointId==="kp_speed_unit_conversion"),true);
 });
 
 test("Q025 historical W7 route remains reachable after the approved W8 current-pointer advance",()=>{

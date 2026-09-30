@@ -1,0 +1,99 @@
+{
+  "schemaName": "P08FW8Q022PostMergeFailureSetCompatibilityRepairV1",
+  "schemaVersion": 1,
+  "taskId": "P08F_W8_Q022_POSTMERGE_FULL_REGRESSION_COMPATIBILITY_REPAIR",
+  "status": "MATERIALIZED_AWAITING_FOCUSED_CI",
+  "basis": {
+    "q022ImplementationPr": 1163,
+    "q022ImplementationMergeSha": "e0075bedfa6d41046c09166d44c9f9c9a6db0a88",
+    "baselineNodeRunId": 36672192238,
+    "baselineNodeJobId": 109749382906,
+    "baselineNodeTests": 6608,
+    "baselineNodePass": 6441,
+    "baselineNodeFail": 167,
+    "q022NodeRunId": 36678795831,
+    "q022NodeJobId": 109769509311,
+    "q022NodeTests": 6621,
+    "q022NodePass": 6449,
+    "q022NodeFail": 172,
+    "baselineMathRunId": 36672190162,
+    "baselineMathJobId": 109749445975,
+    "baselineMathTests": 6608,
+    "baselineMathPass": 6440,
+    "baselineMathFail": 168,
+    "q022MathRunId": 36678795756,
+    "q022MathJobId": 109769509022,
+    "q022MathTests": 6621,
+    "q022MathPass": 6448,
+    "q022MathFail": 173
+  },
+  "exactFailureSetAttribution": {
+    "node": {
+      "sharedFailures": 166,
+      "addedFailures": 6,
+      "removedFailures": 1,
+      "addedFailureTitles": [
+        "W7 Q011 current browser pointers advance to P07F11 while Q010 through Q001 and W6 Q020 stay reachable",
+        "Q014 current pointers and bounded validation",
+        "Q017 current pointers and bounded validation",
+        "Q021 current pointers and bounded validation are successor-safe",
+        "Q025 preserves predecessor routes while Q026 successor becomes legal and unit-conversion remains closed",
+        "W8 Q020 current pointer files and impact policy stay bounded"
+      ],
+      "removedFailureTitles": [
+        "Q026 historical W7 route remains reachable after the approved W8 current-pointer advance"
+      ]
+    },
+    "mathCi": {
+      "sharedFailures": 167,
+      "addedFailures": 6,
+      "removedFailures": 1,
+      "addedFailureTitles": [
+        "W7 Q011 current browser pointers advance to P07F11 while Q010 through Q001 and W6 Q020 stay reachable",
+        "Q014 current pointers and bounded validation",
+        "Q017 current pointers and bounded validation",
+        "Q021 current pointers and bounded validation are successor-safe",
+        "Q025 preserves predecessor routes while Q026 successor becomes legal and unit-conversion remains closed",
+        "W8 Q020 current pointer files and impact policy stay bounded"
+      ],
+      "removedFailureTitles": [
+        "Q026 historical W7 route remains reachable after the approved W8 current-pointer advance"
+      ]
+    },
+    "disposition": "SIX_STALE_SUCCESSOR_EXPECTATIONS_ONLY",
+    "q022ProductSemanticRegressionDetected": false
+  },
+  "repair": {
+    "mutationClass": "HISTORICAL_COMPATIBILITY_TEST_ONLY",
+    "modifiedTests": [
+      "tests/curriculum/p07f-w7-slice011-g6a-u07-circle-area-derivation.test.js",
+      "tests/curriculum/p07f-w7-slice014-g6a-u07-circle-area-formula.test.js",
+      "tests/curriculum/p07f-w7-slice017-g6a-u07-annulus-area.test.js",
+      "tests/curriculum/p07f-w7-slice021-g6b-u06-pie-chart-quantity-from-rate.test.js",
+      "tests/curriculum/p07f-w7-slice025-g6a-u08-average-relative-speed.test.js",
+      "tests/curriculum/p08f-w8-slice020-g6a-u07-composite-circle-area.test.js"
+    ],
+    "currentPointerExpected": "P08F22",
+    "unitConversionExpected": "APPROVED_SUCCESSOR_ROUTE_TRUE",
+    "productRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "q022SemanticContractChanged": false,
+    "frozenQueueChanged": false
+  },
+  "antiScopeCreep": {
+    "repairBaselineFailures": false,
+    "modifyQ022Product": false,
+    "modifyR02": false,
+    "modifyR03": false,
+    "modifyR04": false,
+    "modifyR05": false,
+    "enableMixedMode": false,
+    "openPostW8Implementation": false
+  },
+  "nextAfterMerge": "P08F_W8_Q022_POSTMERGE_PARITY_RERUN_AND_W8_FINAL_CLOSEOUT"
+}
