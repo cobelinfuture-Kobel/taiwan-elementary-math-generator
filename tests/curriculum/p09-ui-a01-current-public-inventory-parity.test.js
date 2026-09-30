@@ -17,7 +17,14 @@ test("P09 A01 diagnostic enumerates canonical source-node versus browser public-
     const extra=browser.filter(id=>!canonicalSet.has(id));
     console.log("P09_A01_SOURCE_DIFF="+JSON.stringify({canonicalCount:canonical.length,browserCount:browser.length,missing,extra}));
     assert.equal(canonical.length,79);
-    assert.equal(browser.length,76);
+    assert.equal(browser.length,74);
+    const selector=await import("../../site/modules/curriculum/registry/batch-a-selector-extension.js");
+    const selectorSourceIds=Object.keys(selector.BATCH_A_SELECTOR_AVAILABILITY.bySourceId??{}).sort();
+    const selectorSet=new Set(selectorSourceIds);
+    const selectorMissing=canonical.filter(id=>!selectorSet.has(id));
+    const selectorExtra=selectorSourceIds.filter(id=>!canonicalSet.has(id));
+    console.log("P09_A01_SELECTOR_SOURCE_DIFF="+JSON.stringify({canonicalCount:canonical.length,selectorSourceCount:selectorSourceIds.length,missing:selectorMissing,extra:selectorExtra}));
+    assert.equal(selectorSourceIds.length,76);
   }finally{delete globalThis.document;}
 });
 
@@ -29,7 +36,8 @@ test("P09 A01 diagnostic enumerates missing canonical KP product-admission evide
     const r05=materializeR05DeliveryWaveRebase();
     const visible=selector.listVisibleBatchAKnowledgePoints();
     const visibleSet=new Set(visible.map(row=>row.knowledgePointId));
-    const missing=r05.knowledgePoints.filter(row=>!visibleSet.has(row.knowledgePointId)).map(row=>({
+    const canonicalKnowledgePoints=r05.prerequisiteGraph.knowledgePoints;
+    const missing=canonicalKnowledgePoints.filter(row=>!visibleSet.has(row.knowledgePointId)).map(row=>({
       knowledgePointId:row.knowledgePointId,
       canonicalNameZh:row.canonicalNameZh,
       sourceNodeIds:(row.sourceRefs??[]).map(ref=>typeof ref==="string"?ref:ref.sourceNodeId),
@@ -39,7 +47,7 @@ test("P09 A01 diagnostic enumerates missing canonical KP product-admission evide
       ...row,
       delivery:r05.getAssignment(row.knowledgePointId)
     }));
-    console.log("P09_A01_KP_DIFF="+JSON.stringify({canonicalCount:r05.knowledgePoints.length,visibleCount:visible.length,missing:assignments}));
+    console.log("P09_A01_KP_DIFF="+JSON.stringify({canonicalCount:canonicalKnowledgePoints.length,visibleCount:visible.length,missing:assignments}));
     assert.deepEqual(missing.map(row=>row.knowledgePointId),[
       "kp_g3a_u08_unlike_denominator_comparison_limit",
       "kp_g3a_u08_whole_as_fraction"
