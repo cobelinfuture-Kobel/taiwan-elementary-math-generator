@@ -3,10 +3,10 @@
   "taskId": "P08F_W8DirectProductVerticalSlice020Implementation",
   "status": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
   "d0Granted": false,
-  "exactHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
+  "exactHeadSha": "e0075bedfa6d41046c09166d44c9f9c9a6db0a88",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
-    "attempt": 31,
+    "attempt": 34,
     "assets": [
       {
         "publicPath": "modules/curriculum/registry/g6a-u07-composite-circle-area-selector-projection-p08f20.js",
@@ -20,8 +20,8 @@
       },
       {
         "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
-        "expectedSha256": "177cf4183587e74962e3cfebf88d8fab175323e660edc7bd4510e1f6652d9feb",
-        "liveSha256": "177cf4183587e74962e3cfebf88d8fab175323e660edc7bd4510e1f6652d9feb"
+        "expectedSha256": "f2aadb6aae8dcad03bbe807b7a31ddfbd8b96220b1a3e1a12381339d77239636",
+        "liveSha256": "f2aadb6aae8dcad03bbe807b7a31ddfbd8b96220b1a3e1a12381339d77239636"
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p08f20.js",
@@ -30,8 +30,8 @@
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-        "expectedSha256": "525b253113e8e388ce1000a4a5a76061baa89932749eff16829f6a56de4a6219",
-        "liveSha256": "525b253113e8e388ce1000a4a5a76061baa89932749eff16829f6a56de4a6219"
+        "expectedSha256": "dff0da10c17d770db0c799c25b513f25e1ece8dbc7e6b0898eb8157858510132",
+        "liveSha256": "dff0da10c17d770db0c799c25b513f25e1ece8dbc7e6b0898eb8157858510132"
       },
       {
         "publicPath": "modules/curriculum/batch-a/g6a-u07-composite-circle-area-runtime-p08f20.js",
@@ -45,8 +45,8 @@
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
-        "expectedSha256": "271021e770fc528d6cb3fb3ac5db674fc63be33d18be31b115aea0e06f7eb291",
-        "liveSha256": "271021e770fc528d6cb3fb3ac5db674fc63be33d18be31b115aea0e06f7eb291"
+        "expectedSha256": "2de43e026eed9288900f72f0b8979c66371e8f820ff2ef6ecd7b87b5c61a460e",
+        "liveSha256": "2de43e026eed9288900f72f0b8979c66371e8f820ff2ef6ecd7b87b5c61a460e"
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p08f20-extension.js",
@@ -55,8 +55,8 @@
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
-        "expectedSha256": "04c3a8aea046eff50465bfe7c6bc1e7827971cdbc13a4a7d6c13d5a2aa6c52d6",
-        "liveSha256": "04c3a8aea046eff50465bfe7c6bc1e7827971cdbc13a4a7d6c13d5a2aa6c52d6"
+        "expectedSha256": "bb3df7859192f5dc7a7cdc0ed225dbd7557f070887092e6c244d331497a16d0c",
+        "liveSha256": "bb3df7859192f5dc7a7cdc0ed225dbd7557f070887092e6c244d331497a16d0c"
       },
       {
         "publicPath": "modules/renderer/composite-circle-area-diagram-p08f20.js",
@@ -90,7 +90,7 @@
       "kpId": "kp_g6a_u07_composite_circle_area",
       "selector": {
         "sourceId": "g6a_u07_6a07",
-        "summary": "本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：479",
+        "summary": "本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：480",
         "visibleIds": [
           "kp_g6a_u07_circle_area_derivation",
           "kp_g6a_u07_circle_area_formula",
@@ -126,7 +126,7 @@
           8
         ],
         "overflow": 0,
-        "minDiagramWidth": 852,
+        "minDiagramWidth": 311.9375,
         "minDiagramHeight": 150,
         "nonEmptyAnswers": 16,
         "visualContractViolations": 0,
@@ -207,10 +207,10 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36667806988",
-    "number": "3",
+    "id": "36678795848",
+    "number": "4",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36667806988"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36678795848"
   },
-  "verifiedAt": "2026-09-30T04:28:51.889Z"
+  "verifiedAt": "2026-09-30T06:41:59.091Z"
 }
