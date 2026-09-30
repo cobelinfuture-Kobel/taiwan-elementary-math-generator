@@ -1,0 +1,222 @@
+{
+  "schemaName": "P08FW8Q021PostMergeMainPagesE2EV1",
+  "taskId": "P08F_W8DirectProductVerticalSlice021Implementation",
+  "status": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+  "d0Granted": false,
+  "exactHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
+  "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+  "deployment": {
+    "attempt": 20,
+    "assets": [
+      {
+        "publicPath": "modules/curriculum/registry/g6b-u06-construct-pie-chart-selector-projection-p08f21.js",
+        "expectedSha256": "af7e42586ec02b817b55196463cd1639d847f8654ee82d29936c71813398d0ff",
+        "liveSha256": "af7e42586ec02b817b55196463cd1639d847f8654ee82d29936c71813398d0ff"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p08f21-extension.js",
+        "expectedSha256": "31fa31bdc6e8e8a4ae2b536de062857894bd5060e48ee2426d7a2b4f06d458e8",
+        "liveSha256": "31fa31bdc6e8e8a4ae2b536de062857894bd5060e48ee2426d7a2b4f06d458e8"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+        "expectedSha256": "177cf4183587e74962e3cfebf88d8fab175323e660edc7bd4510e1f6652d9feb",
+        "liveSha256": "177cf4183587e74962e3cfebf88d8fab175323e660edc7bd4510e1f6652d9feb"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p08f21.js",
+        "expectedSha256": "b3d2f90fdc340f33a65c001d76d5ab20f1c789372c0d86c08f92b6f73fd9120c",
+        "liveSha256": "b3d2f90fdc340f33a65c001d76d5ab20f1c789372c0d86c08f92b6f73fd9120c"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+        "expectedSha256": "525b253113e8e388ce1000a4a5a76061baa89932749eff16829f6a56de4a6219",
+        "liveSha256": "525b253113e8e388ce1000a4a5a76061baa89932749eff16829f6a56de4a6219"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/g6b-u06-construct-pie-chart-runtime-p08f21.js",
+        "expectedSha256": "319a2b0e506ac2be27c1813aa770a8931f668edd85d75ee3adb13d79b522581e",
+        "liveSha256": "319a2b0e506ac2be27c1813aa770a8931f668edd85d75ee3adb13d79b522581e"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p08f21.js",
+        "expectedSha256": "3e2d746c765074a6b4967d4ccf31d5a39672212ca42eeaadd45ba1c63db1f392",
+        "liveSha256": "3e2d746c765074a6b4967d4ccf31d5a39672212ca42eeaadd45ba1c63db1f392"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+        "expectedSha256": "271021e770fc528d6cb3fb3ac5db674fc63be33d18be31b115aea0e06f7eb291",
+        "liveSha256": "271021e770fc528d6cb3fb3ac5db674fc63be33d18be31b115aea0e06f7eb291"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p08f21-extension.js",
+        "expectedSha256": "ea8861d5c7e13577212bdee09998756cf56bf45c81f67221b41e376852b29631",
+        "liveSha256": "ea8861d5c7e13577212bdee09998756cf56bf45c81f67221b41e376852b29631"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+        "expectedSha256": "04c3a8aea046eff50465bfe7c6bc1e7827971cdbc13a4a7d6c13d5a2aa6c52d6",
+        "liveSha256": "04c3a8aea046eff50465bfe7c6bc1e7827971cdbc13a4a7d6c13d5a2aa6c52d6"
+      },
+      {
+        "publicPath": "modules/renderer/pie-chart-construction-data-p08f21.js",
+        "expectedSha256": "66f3918f07af1c8541db0972169310ad06f2380f5e77d3497d2184b8bdc2ca54",
+        "liveSha256": "66f3918f07af1c8541db0972169310ad06f2380f5e77d3497d2184b8bdc2ca54"
+      },
+      {
+        "publicPath": "modules/renderer/one-way-statistics-table.js",
+        "expectedSha256": "f3da0913e10e936e1782e26d8fb5a7302ff7a668d2bb04e444765ffdcd3fbbdf",
+        "liveSha256": "f3da0913e10e936e1782e26d8fb5a7302ff7a668d2bb04e444765ffdcd3fbbdf"
+      },
+      {
+        "publicPath": "modules/renderer/html-renderer.js",
+        "expectedSha256": "79821e16b66398140ebcd5c53845164406de16063088505498fa7dcc858ac0d3",
+        "liveSha256": "79821e16b66398140ebcd5c53845164406de16063088505498fa7dcc858ac0d3"
+      },
+      {
+        "publicPath": "assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
+        "expectedSha256": "e06506cdc40539b90e2e8ac819ad8c4dddca1c2ad285995eb1ffab00cc8b0225",
+        "liveSha256": "e06506cdc40539b90e2e8ac819ad8c4dddca1c2ad285995eb1ffab00cc8b0225"
+      }
+    ]
+  },
+  "classicUiAcceptance": {
+    "schemaName": "P08FW8Q021ClassicUIAcceptanceV1",
+    "taskId": "P08F_W8DirectProductVerticalSlice021Implementation",
+    "status": "PASS_P08F_W8_Q021_TECHNICAL_VISUAL_PRECHECK",
+    "learnerVisualAcceptanceStatus": "PENDING_OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW",
+    "d0Granted": false,
+    "sourceId": "g6b_u06_6b06",
+    "knowledgePointIds": [
+      "kp_g6b_u06_construct_pie_chart"
+    ],
+    "questionCount": 12,
+    "target": {
+      "kpId": "kp_g6b_u06_construct_pie_chart",
+      "selector": {
+        "sourceId": "g6b_u06_6b06",
+        "visibleIds": [
+          "kp_g6b_u06_pie_chart_part_whole",
+          "kp_g6b_u06_compare_pie_charts",
+          "kp_g6b_u06_pie_chart_quantity_from_rate",
+          "kp_g6b_u06_pie_chart_percent_angle_conversion",
+          "kp_g6b_u06_construct_pie_chart"
+        ],
+        "sameUnitDisabled": true,
+        "prior": [
+          "kp_g6b_u06_pie_chart_part_whole",
+          "kp_g6b_u06_compare_pie_charts",
+          "kp_g6b_u06_pie_chart_quantity_from_rate",
+          "kp_g6b_u06_pie_chart_percent_angle_conversion"
+        ],
+        "kp": "kp_g6b_u06_construct_pie_chart"
+      },
+      "state": {
+        "status": "已產生 12 題，可預覽與列印。",
+        "tone": "success",
+        "valid": "false",
+        "preview": 91999,
+        "printDisabled": false
+      },
+      "worksheet": {
+        "questions": 12,
+        "answers": 12,
+        "representations": 24,
+        "questionRepresentations": 12,
+        "answerRepresentations": 12,
+        "tables": 24,
+        "questionPages": 3,
+        "answerPages": 3,
+        "allPages": 6,
+        "patternCounts": [
+          6,
+          6
+        ],
+        "overflow": 0,
+        "minDiagramWidth": 311.9375,
+        "minDiagramHeight": 177.625,
+        "nonEmptyAnswers": 12,
+        "visualContractViolations": 0,
+        "visualContractVersion": "P08F21_R1"
+      },
+      "printCount": 1,
+      "humanReviewArtifacts": {
+        "pdf": "q021-construct-pie-chart-human-review.pdf",
+        "png": "q021-construct-pie-chart-human-review.png",
+        "worksheet": "q021-construct-pie-chart-worksheet.png",
+        "ui": "q021-construct-pie-chart-ui.png",
+        "pdfBytes": 243398,
+        "pngBytes": 683575,
+        "status": "PENDING_OPERATOR_REVIEW"
+      }
+    },
+    "humanReview": {
+      "required": true,
+      "status": "PENDING_OPERATOR",
+      "artifacts": [
+        {
+          "pdf": "q021-construct-pie-chart-human-review.pdf",
+          "png": "q021-construct-pie-chart-human-review.png",
+          "worksheet": "q021-construct-pie-chart-worksheet.png",
+          "ui": "q021-construct-pie-chart-ui.png",
+          "pdfBytes": 243398,
+          "pngBytes": 683575,
+          "status": "PENDING_OPERATOR_REVIEW"
+        }
+      ]
+    },
+    "browser": {
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "requestFailureCount": 0,
+      "assetHttpFailureCount": 0
+    },
+    "semanticInvariants": {
+      "constructPieChartOwned": true,
+      "sourceTableToPieConstruction": true,
+      "blankConstructionCanvas": true,
+      "answerChartComplete": true,
+      "fullCircle100Percent360Degrees": true,
+      "priorOwnersPreserved": true,
+      "sameUnitMixedModeFailClosed": true,
+      "twoColumnTwoRowPrintLayout": true,
+      "printSafePagination": true,
+      "noInternalIds": true,
+      "visualContractVersion": "P08F21_R1"
+    },
+    "forbiddenScope": {
+      "partWholeReownership": false,
+      "comparePieChartsReownership": false,
+      "quantityFromRateReownership": false,
+      "percentAngleReownership": false,
+      "genericSectorGeometry": false,
+      "application": false,
+      "sameUnitMixed": false,
+      "crossUnitMixed": false,
+      "q022OrLater": false,
+      "fullRepositoryRegression": false,
+      "globalBrowserReplay": false
+    }
+  },
+  "humanVisualReviewRequired": true,
+  "learnerVisualAcceptanceStatus": "PENDING_OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW",
+  "semanticInvariants": {
+    "constructPieChartOwned": true,
+    "sourceTableToPieConstruction": true,
+    "blankConstructionCanvas": true,
+    "answerChartComplete": true,
+    "fullCircle100Percent360Degrees": true,
+    "priorOwnersPreserved": true,
+    "sameUnitMixedModeFailClosed": true
+  },
+  "workflow": "P08F W8 Q021 Post-Merge Pages E2E",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "run": {
+    "id": "36667807557",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36667807557"
+  },
+  "verifiedAt": "2026-09-30T04:28:54.304Z"
+}
