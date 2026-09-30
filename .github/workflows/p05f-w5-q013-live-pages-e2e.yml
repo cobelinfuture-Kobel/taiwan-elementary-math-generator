@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
-contents: read
+  contents: read
 
 concurrency:
   group: p05f-w5-q013-postmerge-pages-e2e-${{ github.ref }}
