@@ -1,0 +1,43 @@
+{
+  "schemaName": "P08FW8Q020FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "taskId": "P08F_W8_Q020_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q020_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "queuePosition": 20,
+    "sliceId": "p08e_q020_r12_g6a_u07_6a07_profile_geometry_formula_c1",
+    "sourceId": "g6a_u07_6a07",
+    "knowledgePointId": "kp_g6a_u07_composite_circle_area",
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "productRuntimeChanged": false,
+    "frozenQueueChanged": false,
+    "q021OrLaterProductChanged": false
+  },
+  "evidence": {
+    "preflightPr": 1154,
+    "implementationPr": 1155,
+    "visualRepairPr": 1156,
+    "visualRepairMergeSha": "7448f87990a72196082eac22d51882706fede394",
+    "pagesE2ERunId": 36650931339,
+    "pagesE2EArtifactId": 11070242814,
+    "technicalE6Status": "PASS",
+    "visualContractViolations": 0,
+    "overflowPageCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "status": "PASS",
+    "acceptedLocalDate": "2026-09-30",
+    "actualPrintLayoutAccepted": true,
+    "semicirclePlusSectorAcceptedAfterRepair": true,
+    "squareMinusCircleAcceptedUnchanged": true,
+    "d0Granted": true
+  },
+  "distance": {
+    "goalDistanceBefore": "D1",
+    "goalDistanceAfter": "D0",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ020Blockers": [],
+    "nextShortestStep": "P08F_W8_Q021_SourceAuthorityPreflight"
+  }
+}
