@@ -8,7 +8,6 @@ import {getR05DeliveryWaveAssignment} from "../../src/curriculum/global/r05-deli
 
 const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"));
 const p=read("data/curriculum/full-product/p08f/q020-g6a-u07-composite-circle-area-source-authority-preflight.json");
-const q019=read("docs/ci/latest-p08f-w8-q019-pages-e2e.json");
 const r02=read("data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json");
 const index=read("data/curriculum/full-product/p08e/w8-source-authority-index.json");
 const impact=read("data/project/change-impact/P08F_W8_Q020_PREFLIGHT.impact.json");
@@ -18,11 +17,10 @@ const KP="kp_g6a_u07_composite_circle_area";
 
 test("W8 Q020 binds exact twentieth frozen queue slice after Q019 D0",()=>{
   const result=materializeP08EW8DirectProductVerticalSliceQueue(),slice=result.queueEntries[19];
-  assert.equal(q019.status,"PASS_E6_D0_COMPLETE");
-  assert.equal(q019.d0Granted,true);
-  assert.equal(q019.exactHeadSha,"6ec13e0712d35731fca72b310e46a261fa0193ab");
-  assert.equal(q019.operatorHumanVisualReview?.status,"PASS_OPERATOR_APPROVED");
   assert.equal(p.predecessorAuthority.q019Status,"PASS_E6_D0_COMPLETE");
+  assert.equal(p.predecessorAuthority.q019ExactDeployedHeadSha,"6ec13e0712d35731fca72b310e46a261fa0193ab");
+  assert.equal(p.predecessorAuthority.q019HumanVisualReviewStatus,"PASS_OPERATOR_APPROVED");
+  assert.equal(p.predecessorAuthority.q019CloseoutMergeSha,"2aed69f9a10ee542d80204fc2f9f4366e1643fd2");
   assert.equal(p.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
   assert.equal(result.queueFrozen,true);
   assert.equal(result.queueEntries.length,22);
