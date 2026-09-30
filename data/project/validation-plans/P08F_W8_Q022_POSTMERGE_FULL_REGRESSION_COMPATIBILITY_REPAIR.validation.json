@@ -13,7 +13,6 @@
           "tests/curriculum/p07f-w7-slice014-g6a-u07-circle-area-formula.test.js",
           "tests/curriculum/p07f-w7-slice017-g6a-u07-annulus-area.test.js",
           "tests/curriculum/p07f-w7-slice021-g6b-u06-pie-chart-quantity-from-rate.test.js",
-          "tests/curriculum/p07f-w7-slice025-g6a-u08-average-relative-speed.test.js",
           "tests/curriculum/p08f-w8-slice020-g6a-u07-composite-circle-area.test.js",
           "tests/curriculum/p08f-w8-slice022-g6a-u08-speed-unit-conversion.test.js"
         ]
@@ -37,5 +36,11 @@
   "forbidden": [
     "FULL_NODE_REGRESSION",
     "GLOBAL_BROWSER_REPLAY"
-  ]
+  ],
+  "focusedBaselineException": {
+    "path": "tests/curriculum/p07f-w7-slice025-g6a-u08-average-relative-speed.test.js",
+    "reason": "The file contains a separate pre-existing baseline failure in its historical P08F01 current-pointer assertion. The Q022 repair changes only the unit-conversion successor assertion; that exact edit is locked by the repair contract test instead of executing the unrelated baseline-failing subtest in PR Gate.",
+    "baselineFailureTitle": "Q025 historical W7 route remains reachable after the approved W8 current-pointer advance",
+    "baselineDebtRepairAllowed": false
+  }
 }

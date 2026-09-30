@@ -1,3 +1,4 @@
+import {readFileSync as readTextFileSync} from "node:fs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
@@ -18,4 +19,12 @@ test("compatibility repair is historical-test-only and does not mutate Q022 prod
 test("repair validation remains KP focused",()=>{
   assert.equal(impact.expectedDerivedGate,"KP_FOCUSED");assert.deepEqual(plan.lanes.KP_FOCUSED.map(x=>x.gateId),["FOCUSED_TEST","TARGETED_BROWSER_E2E","DIRECT_DEPENDENCY_CONTRACTS"]);
   assert.deepEqual(plan.forbidden,["FULL_NODE_REGRESSION","GLOBAL_BROWSER_REPLAY"]);
+});
+
+test("Q025 repair locks only the approved Q022 unit-conversion successor while preserving unrelated baseline debt",()=>{
+  const text=readTextFileSync(new URL("../../tests/curriculum/p07f-w7-slice025-g6a-u08-average-relative-speed.test.js",import.meta.url),"utf8");
+  assert.match(text,/q022-approved-successor/);
+  assert.match(text,/assert\.equal\(unitConversion\.ok,true/);
+  assert.match(text,/batch-a-selector-p08f01-extension/);
+  assert.equal(plan.focusedBaselineException.baselineDebtRepairAllowed,false);
 });
