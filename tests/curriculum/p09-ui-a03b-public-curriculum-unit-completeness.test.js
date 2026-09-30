@@ -64,15 +64,20 @@ test("P09 A03B authority locks 78 curriculum units, 482 unique KPs and 493 sourc
   assert.equal(authority.corrections.g5bU10.additionalSplitInvented, false);
 });
 
-test("current public source inventory restores G4B-U03 and G6B-U02 without inventing G5B-U10", () => {
-  const units = listBatchASourceUnits({ includeCurrentFullProductPublic: true });
-  const ids = units.map((row) => row.sourceId);
-  assert.equal(new Set(ids).size, 78);
-  assert.ok(ids.includes(G4B));
-  assert.ok(ids.includes(G6B));
-  assert.ok(ids.includes("g5b_u10_5b10a"));
-  assert.equal(ids.includes("g5b_u10_5b10"), false);
-  assert.equal(ids.includes("g5b_u10b_5b10b"), false);
+test("current browser public source inventory restores G4B-U03 and G6B-U02 without inventing G5B-U10", () => {
+  globalThis.document = Object.create(null);
+  try {
+    const units = listBatchASourceUnits();
+    const ids = units.map((row) => row.sourceId);
+    assert.equal(new Set(ids).size, 78);
+    assert.ok(ids.includes(G4B));
+    assert.ok(ids.includes(G6B));
+    assert.ok(ids.includes("g5b_u10_5b10a"));
+    assert.equal(ids.includes("g5b_u10_5b10"), false);
+    assert.equal(ids.includes("g5b_u10b_5b10b"), false);
+  } finally {
+    delete globalThis.document;
+  }
 });
 
 test("selector projects 493 curriculum routes over 482 canonical KP identities", () => {
