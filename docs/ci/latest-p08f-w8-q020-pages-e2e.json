@@ -3,10 +3,10 @@
   "taskId": "P08F_W8DirectProductVerticalSlice020Implementation",
   "status": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
   "d0Granted": false,
-  "exactHeadSha": "c7418867f176cbbbf6d8a65e47757951a8356ce7",
+  "exactHeadSha": "7448f87990a72196082eac22d51882706fede394",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
-    "attempt": 42,
+    "attempt": 3,
     "assets": [
       {
         "publicPath": "modules/curriculum/registry/g6a-u07-composite-circle-area-selector-projection-p08f20.js",
@@ -60,8 +60,8 @@
       },
       {
         "publicPath": "modules/renderer/composite-circle-area-diagram-p08f20.js",
-        "expectedSha256": "cd9f1001800d93b7f4b74c553e0e8b94545c0a7fe312d899b42fdae84fead05d",
-        "liveSha256": "cd9f1001800d93b7f4b74c553e0e8b94545c0a7fe312d899b42fdae84fead05d"
+        "expectedSha256": "acecf0a557280f3d537d6a54199a310c7046572f52d3b787ee00be221db9bfc0",
+        "liveSha256": "acecf0a557280f3d537d6a54199a310c7046572f52d3b787ee00be221db9bfc0"
       },
       {
         "publicPath": "modules/renderer/html-renderer.js",
@@ -111,7 +111,7 @@
         "status": "已產生 16 題，可預覽與列印。",
         "tone": "success",
         "valid": "false",
-        "preview": 81211,
+        "preview": 86825,
         "printDisabled": false
       },
       "worksheet": {
@@ -138,8 +138,8 @@
         "png": "q020-composite-circle-area-human-review.png",
         "worksheet": "q020-composite-circle-area-worksheet.png",
         "ui": "q020-composite-circle-area-ui.png",
-        "pdfBytes": 217772,
-        "pngBytes": 765954,
+        "pdfBytes": 242701,
+        "pngBytes": 768507,
         "status": "PENDING_OPERATOR_REVIEW"
       }
     },
@@ -152,8 +152,8 @@
           "png": "q020-composite-circle-area-human-review.png",
           "worksheet": "q020-composite-circle-area-worksheet.png",
           "ui": "q020-composite-circle-area-ui.png",
-          "pdfBytes": 217772,
-          "pngBytes": 765954,
+          "pdfBytes": 242701,
+          "pngBytes": 768507,
           "status": "PENDING_OPERATOR_REVIEW"
         }
       ]
@@ -169,6 +169,8 @@
       "decompositionIntoNonOverlappingRegions": true,
       "noOverlapOrOmission": true,
       "semicirclePlusSectorVisual": true,
+      "semicircleLabelPlacedOnSemicircleRegion": true,
+      "sectorLabelPlacedOnSectorSideWithLeader": true,
       "squareMinusCircleVisual": true,
       "visualContractVersion": "P08F20_R1",
       "priorOwnersPreserved": true,
@@ -205,10 +207,10 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36647626630",
-    "number": "1",
+    "id": "36650931339",
+    "number": "2",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36647626630"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36650931339"
   },
-  "verifiedAt": "2026-09-30T00:05:25.444Z"
+  "verifiedAt": "2026-09-30T00:35:09.048Z"
 }
