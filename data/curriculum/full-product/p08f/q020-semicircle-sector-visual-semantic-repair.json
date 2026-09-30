@@ -1,0 +1,63 @@
+{
+  "schemaName": "P08FW8Q020SemicircleSectorVisualSemanticRepairV1",
+  "schemaVersion": 1,
+  "taskId": "P08F_W8_Q020_SemicircleSectorVisualSemanticRepair",
+  "parentTaskId": "P08F_W8DirectProductVerticalSlice020Implementation",
+  "status": "REPAIR_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "operatorReviewEvidence": {
+    "priorTechnicalE6RunId": 36647626630,
+    "priorMergeSha": "c7418867f176cbbbf6d8a65e47757951a8356ce7",
+    "humanReviewResult": "FAIL_VISUAL_SEMANTIC_POSITIONING",
+    "operatorFinding": "甲與乙的位置沒有在正確位置",
+    "acceptedUnchangedFamily": "SQUARE_MINUS_CIRCLE",
+    "acceptedSquareCircleNumericExample": "正方形邊長49公分、圓半徑23公分之數值關係可接受，只要圓置中即可"
+  },
+  "defect": {
+    "family": "SEMICIRCLE_PLUS_SECTOR",
+    "semanticDefinition": {
+      "componentA": "FIXED_180_DEGREE_SEMICIRCLE",
+      "componentB": "VARIABLE_CENTRAL_ANGLE_SECTOR"
+    },
+    "priorRendererMismatch": {
+      "semicircleGeometryRegion": "RIGHT_HALF",
+      "priorComponentALabelPosition": "LEFT_UPPER",
+      "sectorGeometryRegion": "LOWER_LEFT_FROM_90_DEGREES_TO_90_PLUS_THETA",
+      "priorComponentBLabelPosition": "RIGHT_LOWER"
+    }
+  },
+  "repairContract": {
+    "componentALabel": "甲：半圓",
+    "componentALabelRegion": "RIGHT_SEMICIRCLE",
+    "componentALabelAnchor": {
+      "x": 160,
+      "y": 54
+    },
+    "componentBLabelPrefix": "乙：",
+    "componentBLabelRegion": "LOWER_LEFT_SECTOR_SIDE",
+    "componentBLabelAnchor": {
+      "x": 70,
+      "y": 126
+    },
+    "componentBLeaderRequired": true,
+    "sectorLeaderTarget": "ANGLE_BISECTOR_INSIDE_SECTOR",
+    "geometryShapeChanged": false,
+    "formulaChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "squareMinusCircleChanged": false
+  },
+  "validation": {
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "focusedNodeContract": true,
+    "classicUiLabelGeometryContract": true,
+    "fullRepositoryRegression": false,
+    "globalBrowserReplay": false,
+    "postMergeExactPagesE6Required": true,
+    "operatorHumanVisualReviewRerunRequired": true
+  },
+  "goalDistance": {
+    "before": "D1_Q020_TECHNICAL_E6_HUMAN_VISUAL_REVIEW_FAILED",
+    "after": "D1_Q020_VISUAL_REPAIR_MATERIALIZED_AWAITING_FOCUSED_CI_PAGES_E6_AND_OPERATOR_REVIEW",
+    "reduced": "0_UNTIL_OPERATOR_VISUAL_ACCEPTANCE"
+  }
+}
