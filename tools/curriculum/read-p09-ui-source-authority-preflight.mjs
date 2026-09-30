@@ -5,11 +5,15 @@ const { R07_PUBLIC_PRODUCT_UNIT_IDS } = await import("../../site/modules/curricu
 const r05 = materializeR05DeliveryWaveRebase();
 const visible = selector.listVisibleBatchAKnowledgePoints();
 const sourceIds = new Set(r05.knowledgePointAssignments.flatMap((row) => row.sourceNodeIds));
+const canonicalIds = r05.knowledgePointAssignments.map((row) => row.knowledgePointId);
+const visibleSet = new Set(visible.map((row) => row.knowledgePointId));
+const missingKnowledgePointIds = canonicalIds.filter((id) => !visibleSet.has(id));
 const readback = {
-  status: visible.length === 482 && sourceIds.size === 79 ? "PASS_PREFLIGHT_AUTHORITY_PARITY" : "FAIL_PREFLIGHT_AUTHORITY_PARITY",
+  status: visible.length === 480 && sourceIds.size === 79 && missingKnowledgePointIds.length === 2 ? "PASS_PREFLIGHT_EXACT_GAP_MEASURED" : "FAIL_PREFLIGHT_INVENTORY_UNEXPECTED",
   canonicalSourceNodes: sourceIds.size,
   canonicalKnowledgePoints: r05.knowledgePointAssignments.length,
   browserVisibleKnowledgePoints: visible.length,
+  missingKnowledgePointIds,
   browserAvailabilityVisibleCount: selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount,
   browserAvailabilitySourceCount: selector.BATCH_A_SELECTOR_AVAILABILITY.sourceCount,
   browserAvailabilityHiddenPendingCount: selector.BATCH_A_SELECTOR_AVAILABILITY.hiddenPendingCount,
