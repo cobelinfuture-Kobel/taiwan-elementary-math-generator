@@ -2,7 +2,7 @@
   "schemaName": "P09UIA03BPostMergeMainPagesE2EV1",
   "taskId": "P09_UI_A03B_PublicCurriculumUnitCompletenessImplementation",
   "status": "PASS_P09_UI_A03B_PUBLIC_CURRICULUM_COMPLETENESS_E6_D0",
-  "exactHeadSha": "ac05f678228037d6aaa3639dea235b8010951efd",
+  "exactHeadSha": "e50645cf06ca8c5731ccb2e8ebfd5a25ccdd6318",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
     "attempt": 1,
@@ -14,8 +14,8 @@
       },
       {
         "publicPath": "modules/curriculum/registry/batch-a-selector-extension.js",
-        "expectedSha256": "7c3c4937ce1e71f48e2f44ff6ae84375b3dbc661d41353881f48f8f4e20572a9",
-        "liveSha256": "7c3c4937ce1e71f48e2f44ff6ae84375b3dbc661d41353881f48f8f4e20572a9"
+        "expectedSha256": "21ac7cd92976250e2b4a726b27d77e0d30d884e3b2147af7c5125f16698187f9",
+        "liveSha256": "21ac7cd92976250e2b4a726b27d77e0d30d884e3b2147af7c5125f16698187f9"
       },
       {
         "publicPath": "modules/curriculum/registry/batch-a-selector-p09-a03b-extension.js",
@@ -39,8 +39,8 @@
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-        "expectedSha256": "1537bb7cbb05b6d88f2c2a398cf715c245e74375efcfcdee4da04f33ab01dbbe",
-        "liveSha256": "1537bb7cbb05b6d88f2c2a398cf715c245e74375efcfcdee4da04f33ab01dbbe"
+        "expectedSha256": "d9b783a7b2cdecf8197987b65bcca3aae6e56287e622b1dc52ce7b8fabd7be41",
+        "liveSha256": "d9b783a7b2cdecf8197987b65bcca3aae6e56287e622b1dc52ce7b8fabd7be41"
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p09-a03b.js",
@@ -295,10 +295,10 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36713760524",
-    "number": "1",
-    "attempt": "2",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36713760524"
+    "id": "36729950840",
+    "number": "2",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36729950840"
   },
-  "verifiedAt": "2026-09-30T13:28:24.350Z"
+  "verifiedAt": "2026-09-30T14:35:19.128Z"
 }
