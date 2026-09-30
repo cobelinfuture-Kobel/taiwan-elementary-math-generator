@@ -103,13 +103,13 @@ test("P09 A02 unlike-denominator limit teaches method invalidity without teachin
   }
 });
 
-test("P09 A02 current browser selector reaches 482/482 and G3A-U08 reaches 7/7",async()=>{
+test("P09 A02 remains present in the current browser selector after A03B source-route projection",async()=>{
   globalThis.document=Object.create(null);
   try{
     const selector=await import("../../site/modules/curriculum/registry/batch-a-selector-extension.js");
     const all=selector.listVisibleBatchAKnowledgePoints();
     const ids=all.map(x=>x.knowledgePointId);
-    assert.equal(all.length,482);
+    assert.equal(all.length,493);
     assert.equal(new Set(ids).size,482);
     for(const kp of TARGETS)assert.ok(ids.includes(kp),kp);
     const row=selector.listBatchAKnowledgePointAvailabilityBySource(SRC);
