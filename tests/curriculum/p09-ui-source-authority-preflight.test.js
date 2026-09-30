@@ -43,6 +43,15 @@ test("P09 preflight measures the exact browser selector gap against the 482-KP a
     assert.equal(new Set(ids).size, 480);
     assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 480);
     assert.equal(missingKnowledgePointIds.length, 2);
+    assert.deepEqual(missingKnowledgePointIds, [
+      "kp_g3a_u08_whole_as_fraction",
+      "kp_g3a_u08_unlike_denominator_comparison_limit"
+    ]);
+    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.sourceCount, 76);
+    const contract = readJson(CONTRACT_PATH);
+    assert.equal(contract.currentPublicUiInventory.browserSelectorObservedSourceCount, 76);
+    assert.equal(contract.currentPublicUiInventory.browserSelectorCanonicalSourceParityGap, 3);
+    assert.deepEqual(contract.currentPublicUiInventory.browserSelectorMissingKnowledgePointIds, missingKnowledgePointIds);
     console.log("P09_UI_SELECTOR_READBACK=" + JSON.stringify({
       visibleKnowledgePoints: visible.length,
       canonicalKnowledgePoints: canonicalIds.length,
@@ -121,7 +130,7 @@ test("P09 and P10 boundaries remain fail-closed and require a separate implement
   assert.equal(contract.p09DoneContract.crossUnitMixedRequired, false);
   assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("P09_UI_D0_COMPLETE"));
   assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("GLOBAL_RELEASE_CERTIFICATION_AT_P10"));
-  assert.equal(contract.distance.nextShortestStep, "P09_UI_A01_DeployedSourceDropdownAuthorityRepair_And_79SourceCurrentInventoryMaterialization");
+  assert.equal(contract.distance.nextShortestStep, "P09_UI_A01_CurrentPublicInventoryParityRepair_76To79Sources_480To482KPs_AndDeployedSourceDropdownRecovery");
   assert.equal(contract.distance.nextTaskRequiresSeparateOperatorApproval, true);
   assert.equal(impact.scopeGuards.publicUiRuntimeMutation, false);
   assert.deepEqual(plan.forbidden, ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY"]);
