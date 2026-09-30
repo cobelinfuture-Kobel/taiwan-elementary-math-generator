@@ -106,15 +106,15 @@ test("Q026 aggregate worksheet is answer-key and print ready without authority l
   for(const x of ["P07F26","kp_effective_speed_","ps_g6a_u08_"])assert.equal(visible.includes(x),false,x);
 });
 
-test("Q026 preserves Q023/Q025 routes and keeps mixed/unit-conversion scopes fail-closed",()=>{
+test("Q026 preserves Q023/Q025 routes, keeps mixed fail-closed, and accepts the approved Q022 unit-conversion successor",()=>{
   const old1=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_speed_distance_time_relation"],questionMode:"numeric",questionCount:4,generationSeed:"q023-history"});
   const old2=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_average_speed_total_distance_time"],questionMode:"numeric",questionCount:4,generationSeed:"q025-history"});
   const old3=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_relative_speed_meeting_chasing"],questionMode:"numeric",questionCount:4,generationSeed:"q025-relative-history"});
   assert.equal(old1.ok,true,old1.errors.join(","));assert.equal(old2.ok,true,old2.errors.join(","));assert.equal(old3.ok,true,old3.errors.join(","));
   const mixed=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"mixedKnowledgePointsSameUnit",selectedKnowledgePointIds:[KP,"kp_relative_speed_meeting_chasing"],questionMode:"numeric",questionCount:8});
   assert.equal(mixed.ok,false);
-  const unit=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_speed_unit_conversion"],questionMode:"numeric",questionCount:4,generationSeed:"unit-conversion-guard"});
-  assert.equal(unit.ok,false);
+  const unit=generateBatchABrowserQuestions({sourceId:SRC,selectionMode:"singleKnowledgePoint",selectedKnowledgePointIds:["kp_speed_unit_conversion"],questionMode:"numeric",questionCount:4,generationSeed:"unit-conversion-successor"});
+  assert.equal(unit.ok,true,unit.errors.join(","));assert.equal(unit.questions.length,4);assert.equal(unit.questions.every(q=>q.knowledgePointId==="kp_speed_unit_conversion"),true);
 });
 
 test("Q026 historical W7 route remains reachable after the approved W8 current-pointer advance",()=>{
@@ -122,7 +122,7 @@ test("Q026 historical W7 route remains reachable after the approved W8 current-p
   const b=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const g=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const w=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(s,/batch-a-selector-p08f01-extension/);assert.match(b,/public-ui-capability-binding-p08f01/);
+  assert.match(s,/batch-a-selector-p08f22-extension/);assert.match(b,/public-ui-capability-binding-p08f22/);
   for(const id of ["26","25","24","23","22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(g,new RegExp("requestsP07F"+id));
   for(const id of ["26","25","24","23","22","21","20","19","18","17","16","15","14","13","12","11","10","09","08","07","06","05","04","03","02","01"])assert.match(w,new RegExp("buildP07F"+id+"Worksheet"));
   assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");assert.deepEqual(plan.lanes.SHARED_RUNTIME_BOUNDED.map(x=>x.gateId),["GLOBAL_CONTRACTS","TARGETED_ROUTE_REPLAY"]);
