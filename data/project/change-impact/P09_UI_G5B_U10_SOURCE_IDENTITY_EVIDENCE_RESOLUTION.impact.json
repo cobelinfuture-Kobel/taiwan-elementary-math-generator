@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P09_UI_G5B_U10_SOURCE_IDENTITY_EVIDENCE_RESOLUTION",
+  "currentScope": "KP_LEAF",
+  "expectedDerivedGate": "KP_FOCUSED",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false,
+    "productImplementation": false,
+    "selectorVisibilityChanged": false,
+    "currentBrowserRoutingChanged": false,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "planningOnly": true,
+    "sourceIdentityEvidenceResolutionOnly": true,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "patternSpecMutation": false,
+    "generatorMutation": false,
+    "validatorMutation": false,
+    "rendererMutation": false,
+    "publicUiRuntimeMutation": false,
+    "newCanonicalSourceNodeIdentity": false,
+    "newCanonicalKnowledgePointIdentity": false,
+    "historicalPreflightRewrite": false
+  },
+  "classificationNote": "Planning/evidence-only resolution of G5B-U10 curriculum identity. Current source, schedule and publisher evidence establish that the existing g5b_u10_5b10a source asset represents current 康軒 5B-U10 生活中的大單位; the source asset suffix a is preserved without treating it as a curriculum subunit.",
+  "currentKnowledgePointId": "kp_g5b_u10a_large_area_unit_identity",
+  "currentKnowledgePointIds": [
+    "kp_g5b_u10a_large_area_unit_identity"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g5b_u10a_large_area_unit_identity"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g5b_u10a_large_area_unit_identity": "FOCUSED_PASS"
+  },
+  "validationPlanPath": "data/project/validation-plans/P09_UI_G5B_U10_SOURCE_IDENTITY_EVIDENCE_RESOLUTION.validation.json"
+}

@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "P09_UI_G5B_U10_SourceIdentityEvidenceResolution",
+  "status": "SOURCE_IDENTITY_RESOLVED_PUBLIC_CURRICULUM_ROUTE_G5B_U10",
+  "baseline": {
+    "mainSha": "d1af03a88e4486effa2e7330d992130aa244eb86",
+    "predecessorTask": "P09_UI_A03B_PublicCurriculumUnitCompletenessImplementation",
+    "predecessorStatus": "PASS_P09_UI_A03B_PUBLIC_CURRICULUM_COMPLETENESS_E6_D0",
+    "predecessorExactProductSha": "ac05f678228037d6aaa3639dea235b8010951efd"
+  },
+  "problem": {
+    "canonicalSourceNodeId": "g5b_u10_5b10a",
+    "historicalUnitCode": "5B-U10A",
+    "historicalTitle": "生活中的大單位",
+    "priorStatus": "SOURCE_SCOPE_PARENT_OR_SPLIT_IDENTITY_UNRESOLVED",
+    "priorBlocker": "G5B_U10_PARENT_OR_SPLIT_SOURCE_IDENTITY_EVIDENCE_MISSING"
+  },
+  "evidence": {
+    "repositoryReviewedAuthority": {
+      "path": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-05.json",
+      "sourceNodeId": "g5b_u10_5b10a",
+      "sourcePdfTitle": "meow911_5b10a_source.pdf",
+      "sourceTitle": "生活中的大單位",
+      "reviewedPageCount": 1,
+      "canonicalKnowledgePointCount": 5
+    },
+    "driveSourceMetadata": {
+      "fileId": "1Edjv6m2SkPhpuQTPaXmr5py77vyAZmXa",
+      "title": "source_metadata.md",
+      "sourceId": "g5b_u10_5b10a",
+      "sourceCode": "5b10a",
+      "grade": 5,
+      "semester": "g5b",
+      "unit": "u10",
+      "sourceSubunit": "a",
+      "sourceTitle": "生活中的大單位",
+      "sourceUrl": "https://meow911.com/5b10a/"
+    },
+    "drivePdf": {
+      "fileId": "1pCtllVtZRsUAO4WFCqJlgMOMk_QNA5X8",
+      "title": "meow911_5b10a_source.pdf",
+      "parsedHeading": "生活中的大單位《康軒 5 下第 10 課》"
+    },
+    "currentMeowSourcePage": {
+      "url": "https://meow911.com/5b10a/",
+      "retrievedDate": "2026-09-30",
+      "heading": "生活中的大單位《康軒5下第10課》《翰林5下第5課》《南一5下第7課》",
+      "topicFamilies": [
+        "公里和公尺",
+        "公噸和公斤",
+        "公畝、公頃和平方公里",
+        "時間、體積、容積、容量的測量單位"
+      ]
+    },
+    "currentMeowGrade5Schedule": {
+      "url": "https://meow911.com/list05/",
+      "retrievedDate": "2026-09-30",
+      "kangHsuanGrade5LowerUnit10": "生活中的大單位",
+      "kangHsuanGrade5LowerChartPlacement": "第5課十進位結構之後的折線圖項目",
+      "interpretation": "Current course schedule treats 生活中的大單位 as 康軒5下第10課 and places 折線圖 under the earlier 康軒5下第5課 area."
+    },
+    "currentMeow5b10bPage": {
+      "url": "https://meow911.com/5b10b/",
+      "retrievedDate": "2026-09-30",
+      "pageExists": true,
+      "currentHeading": "長條圖與折線圖《康軒5下第5課》《翰林5上第1課》《南一5下第10課》",
+      "staleImageAltObserved": "5b10b 《康軒5下第10課》折線圖",
+      "conflictResolution": "Use current page heading plus current grade-5 schedule and current publisher page as authority; the stale image alt does not create a current 康軒5下第10課 split."
+    },
+    "currentPublisherEvidence": {
+      "publisher": "康軒",
+      "url": "https://digitalmaster.knsh.com.tw/all/video/e/math_page.html?l1=5%E4%B8%8B&l2=%E7%AC%AC10%E5%96%AE%E5%85%83%E3%80%80%E7%94%9F%E6%B4%BB%E4%B8%AD%E7%9A%84%E5%A4%A7%E5%96%AE%E4%BD%8D",
+      "retrievedDate": "2026-09-30",
+      "unitHeading": "5下 第10單元 生活中的大單位"
+    }
+  },
+  "resolution": {
+    "curriculumUnitIdentity": {
+      "grade": 5,
+      "semester": "lower",
+      "unitNumber": 10,
+      "unitCode": "5B-U10",
+      "title": "生活中的大單位",
+      "status": "SOURCE_BACKED_RESOLVED"
+    },
+    "sourceAssetIdentity": {
+      "canonicalSourceNodeId": "g5b_u10_5b10a",
+      "sourceAssetCode": "5b10a",
+      "preserveSourceNodeId": true,
+      "preserveSourceAssetCode": true,
+      "sourceAssetSuffixAIsNotCurriculumUnitSuffix": true
+    },
+    "fiveB10B": {
+      "publicPageExists": true,
+      "currentKangHsuanMapping": "5B-U05",
+      "belongsToCurrentG5BU10": false,
+      "createG5BU10BSourceNode": false
+    },
+    "knowledgePointIdentity": {
+      "preserveExistingKnowledgePointIds": true,
+      "renameExistingKnowledgePointIds": false,
+      "existingKnowledgePointPrefix": "kp_g5b_u10a_"
+    },
+    "publicUiNormalization": {
+      "recommendedSourceId": "g5b_u10_5b10a",
+      "recommendedUnitCode": "5B-U10",
+      "recommendedTitle": "生活中的大單位",
+      "newCanonicalSourceNodeRequired": false,
+      "routeAliasRequired": false,
+      "metadataNormalizationOnly": true
+    }
+  },
+  "scopeBoundary": {
+    "planningAndEvidenceOnly": true,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "patternSpecMutation": false,
+    "generatorMutation": false,
+    "validatorMutation": false,
+    "rendererMutation": false,
+    "publicUiRuntimeMutation": false,
+    "newCanonicalKnowledgePointIdentity": false,
+    "newCanonicalSourceNodeIdentity": false,
+    "historicalPreflightRewrite": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_G5B_U10_SOURCE_IDENTITY_BLOCKED",
+    "goalDistanceAfter": "D2_G5B_U10_SOURCE_IDENTITY_RESOLVED_IMPLEMENTATION_NOT_STARTED",
+    "distanceReduced": "Resolved the curriculum-unit identity of g5b_u10_5b10a as current 康軒 5B-U10 while preserving source and KP lineage.",
+    "remainingBlockers": [
+      "G5B_U10_PUBLIC_UI_UNITCODE_METADATA_NOT_NORMALIZED"
+    ],
+    "nextShortestStep": "P09_UI_G5B_U10_PublicUnitCodeNormalizationImplementation"
+  }
+}
