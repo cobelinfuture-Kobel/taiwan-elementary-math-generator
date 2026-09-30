@@ -1,0 +1,240 @@
+{
+  "schemaName": "P08FW8Q021G6BU06ConstructPieChartSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q021_G6BU06_ConstructPieChart_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_W8_Q021_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q021_G6BU06_CONSTRUCT_PIE_CHART_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "62580cd274c2e83cd5c74401fa27c77599a3b555",
+  "predecessorAuthority": {
+    "q020FinalCloseoutPath": "data/curriculum/full-product/p08f/q020-final-learner-visual-d0-closeout.json",
+    "q020FinalCloseoutStatus": "Q020_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "q020FinalCloseoutMergeSha": "62580cd274c2e83cd5c74401fa27c77599a3b555",
+    "q020D0Granted": true,
+    "currentMainCompatibilityReadback": {
+      "currentMainShaAtPreflight": "62580cd274c2e83cd5c74401fa27c77599a3b555",
+      "comparedFromQ020CloseoutMergeSha": "62580cd274c2e83cd5c74401fa27c77599a3b555",
+      "commitsAhead": 0,
+      "changedPaths": [],
+      "onlyDocsCiReadbackChanged": true,
+      "q021AuthorityOrQ020ProductRuntimePathsChanged": false,
+      "compatibilityDecision": "SAFE_TO_PREFLIGHT_Q021_FROM_CURRENT_MAIN"
+    }
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p08e/w8-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p08e-w8-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "597a6fa497c8ac7738247847ef321d0c753e79800f5c38097b7a7a160be2f484",
+    "queuePosition": 21,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q021_r12_g6b_u06_6b06_profile_ratio_percent_c1",
+    "implementationTaskId": "P08F_W8DirectProductVerticalSlice021Implementation",
+    "previousSliceId": "p08e_q020_r12_g6a_u07_6a07_profile_geometry_formula_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W8",
+    "primarySourceNodeId": "g6b_u06_6b06",
+    "supportingSourceNodeIds": [
+      "g6b_u06_6b06"
+    ],
+    "intraWavePrerequisiteRank": 12,
+    "primaryRuntimeProfileId": "profile_ratio_percent",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_g6b_u06_construct_pie_chart"
+    ],
+    "exactBlockingCapabilitiesBoundByFocusedCI": true,
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "authorityPath": "data/curriculum/full-product/p08e/w8-source-authority-index.json",
+    "r02ChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-08.json",
+    "sourceNodeId": "g6b_u06_6b06",
+    "sourceCode": "6b06",
+    "sourceTitle": "圓形圖",
+    "sourcePdfTitle": "meow911_6b06_source.pdf",
+    "originalFileName": "題型總覽-6b06-圓形圖.pdf",
+    "sourcePdfDriveFileId": "1mVO-Fp8NqR68eevJ3aJK-MdoiHEYWqhz",
+    "sourcePdfSizeBytes": 518350,
+    "sourcePdfSha256": null,
+    "checksumStatus": "NOT_EXPOSED_BY_DRIVE_CONNECTOR",
+    "pageCount": 1,
+    "reviewedPages": [
+      1
+    ],
+    "reusableVerifiedVisualAuthority": [
+      "data/curriculum/full-product/p06f/q014-g6b-u06-pie-chart-part-whole-source-authority-preflight.json",
+      "data/curriculum/full-product/p06f/q016-g6b-u06-compare-pie-charts-source-authority-preflight.json",
+      "data/curriculum/full-product/p07f/q021-g6b-u06-pie-chart-quantity-from-rate-source-authority-preflight.json",
+      "data/curriculum/full-product/p08f/q018-g6b-u06-pie-chart-percent-angle-conversion-source-authority-preflight.json"
+    ],
+    "currentVisualReadbackAuthority": {
+      "reusedFromPreflightPath": "data/curriculum/full-product/p08f/q018-g6b-u06-pie-chart-percent-angle-conversion-source-authority-preflight.json",
+      "reviewMethod": "CURRENT_FULL_PAGE_VISUAL_READBACK_200_DPI_PLUS_R02_REVIEWED_AUTHORITY_REUSE",
+      "ocrUsedAsAuthority": false,
+      "driveFileIdMatch": true,
+      "sizeMatch": true,
+      "titleMatch": true,
+      "pageCountMatch": true,
+      "page1VisibleFamilies": [
+        "PIE_CHART_PART_WHOLE",
+        "PERCENT_TO_CENTRAL_ANGLE_AND_CENTRAL_ANGLE_TO_PERCENT",
+        "TOTAL_AND_SECTOR_RATE_TO_PART_QUANTITY",
+        "PIE_CHART_CONSTRUCTION",
+        "CROSS_PIE_CHART_COMPARISON"
+      ],
+      "pieChartConstructionVisiblyPresent": true,
+      "targetSemanticAuthorityTherefore": "R02_REVIEWED_CANDIDATE_PRIMARY_CURRENT_VISUAL_PIE_CHART_CONSTRUCTION_SECONDARY"
+    },
+    "sourceIdentityArtifactLock": {
+      "sourceRefAmbiguity": false,
+      "manualSourceChoiceRequired": false,
+      "manualEvidenceChoiceRequired": false,
+      "silentRewriteAllowed": false
+    }
+  },
+  "r02ReviewedCandidateAuthority": {
+    "knowledgePointId": "kp_g6b_u06_construct_pie_chart",
+    "canonicalNameZh": "繪製圓形圖",
+    "capabilityStatement": "學生能由分類資料計算比例與角度並畫圖。",
+    "reasoningInvariant": "各扇形角度按資料比率分配且總和360度。",
+    "category": "data",
+    "evidencePages": [
+      1
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "runtimeCapabilityAuthority": {
+    "profilePath": "data/curriculum/global/runtime/r04/runtime-capability-profiles.json",
+    "capabilityPath": "data/curriculum/global/runtime/r04/shared-runtime-capabilities.json",
+    "mappingPolicyPath": "data/curriculum/global/runtime/r04/runtime-capability-mapping-policy.json",
+    "r03RuntimePath": "src/curriculum/global/r03-global-kp-prerequisite-graph.mjs",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "expectedPrimaryRuntimeProfileId": "profile_ratio_percent",
+    "expectedClassificationRuleId": "rule_ratio_percent",
+    "exactR03PrerequisitesBoundByFocusedCI": true,
+    "exactR04MappingBoundByFocusedCI": true,
+    "exactR05AssignmentBoundByFocusedCI": true,
+    "runtimeProfileReclassificationAllowed": false,
+    "deliveryEnvelope": {
+      "expectedFinalDeliveryWaveId": "R05-W8",
+      "intraWavePrerequisiteRank": 12
+    }
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "CONSTRUCT_PIE_CHART_FROM_CLASSIFIED_DATA_BY_PERCENT_AND_CENTRAL_ANGLE_ALLOCATION",
+    "implementationSemanticLock": {
+      "classifiedDataToProportionIsCore": true,
+      "percentShareCalculationIsCore": true,
+      "percentToCentralAngleMayConsumeQ018": true,
+      "sectorAllocationByCentralAngleIsCore": true,
+      "chartConstructionIsCore": true,
+      "fullCircleEquals100Percent": true,
+      "fullCircleEquals360Degrees": true,
+      "allSectorPercentSharesMustSumTo100": true,
+      "allSectorAnglesMustSumTo360": true,
+      "q014PartWholeTeachingReownershipAllowed": false,
+      "q016ComparePieChartsTeachingReownershipAllowed": false,
+      "q021QuantityFromRateTeachingReownershipAllowed": false,
+      "q018PercentAngleTeachingReownershipAllowed": false,
+      "genericSectorGeometryTeachingReownershipAllowed": false,
+      "applicationContextAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "ownershipBoundary": {
+    "priorSameSourceImplementedKnowledgePointIds": [
+      "kp_g6b_u06_pie_chart_part_whole",
+      "kp_g6b_u06_compare_pie_charts",
+      "kp_g6b_u06_pie_chart_quantity_from_rate",
+      "kp_g6b_u06_pie_chart_percent_angle_conversion"
+    ],
+    "priorSameSourceOwnerTasks": [
+      "P06F_W6DirectProductVerticalSlice014Implementation",
+      "P06F_W6DirectProductVerticalSlice016Implementation",
+      "P07F_W7DirectProductVerticalSlice021Implementation",
+      "P08F_W8DirectProductVerticalSlice018Implementation"
+    ],
+    "currentQ021KnowledgePointIds": [
+      "kp_g6b_u06_construct_pie_chart"
+    ],
+    "futureSameSourceW8KnowledgePointIds": [],
+    "priorOwnersMayBeConsumedAsPrerequisiteButNotReowned": true,
+    "q021CompletesRemainingFrozenW8G6BU06KnowledgePoints": true
+  },
+  "q021ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_g6b_u06_construct_pie_chart"
+    ],
+    "includedRelations": [
+      "CLASSIFIED_DATA_TO_PERCENT_SHARE",
+      "PERCENT_SHARE_TO_CENTRAL_ANGLE",
+      "ALLOCATE_PIE_SECTORS_BY_ANGLE",
+      "CONSTRUCT_PIE_CHART",
+      "VERIFY_100_PERCENT_360_DEGREE_CLOSURE"
+    ],
+    "excludedRelations": [
+      "Q014_PIE_CHART_PART_WHOLE_TEACHING_REOWNERSHIP",
+      "Q016_COMPARE_PIE_CHARTS_TEACHING_REOWNERSHIP",
+      "Q021_W7_QUANTITY_FROM_RATE_TEACHING_REOWNERSHIP",
+      "Q018_PERCENT_ANGLE_TEACHING_REOWNERSHIP",
+      "GENERIC_SECTOR_GEOMETRY_TEACHING",
+      "APPLICATION_CONTEXT",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_PREREQUISITE_GRAPH_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_ASSIGNMENT_MUTATION",
+      "Q022_OR_LATER_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q022OrLaterTouched": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false,
+    "r02ReviewedSourceAuthorityMustBeReused": true,
+    "immutablePriorVisualReadbackMayBeReused": true,
+    "r05FrozenQueueRuntimeParityMustPass": true
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ020D0Verified": true,
+    "sourceAuthoritySufficientForQ021ImplementationPlanning": true,
+    "r02ReviewedCandidateBound": true,
+    "runtimeProfileAlignmentLockedWithoutReclassification": true,
+    "semanticProfileLockBound": true,
+    "priorSameSourceOwnershipProtected": true,
+    "noFutureSameSourceW8TargetRemaining": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "sourceRefAmbiguity": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": true,
+    "separateImplementationApprovalRequired": true,
+    "exactRuntimeMappingBoundByFocusedCI": true,
+    "exactR05AssignmentEnvelopeBoundByFocusedCI": true,
+    "nextTask": "P08F_W8DirectProductVerticalSlice021Implementation"
+  }
+}
