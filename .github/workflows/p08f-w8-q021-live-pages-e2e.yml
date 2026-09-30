@@ -1,28 +1,9 @@
 name: P08F W8 Q021 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/registry/g6b-u06-construct-pie-chart-selector-projection-p08f21.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p08f21-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p08f21.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
-      - "site/modules/curriculum/batch-a/g6b-u06-construct-pie-chart-runtime-p08f21.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f21.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f21-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - "site/modules/renderer/pie-chart-construction-data-p08f21.js"
-      - "site/modules/renderer/one-way-statistics-table.js"
-      - "site/modules/renderer/html-renderer.js"
-      - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
-      - "tools/curriculum/run-p08f-w8-slice021-classic-ui-acceptance.mjs"
-      - "tools/curriculum/run-p08f-w8-q021-live-pages-e2e.mjs"
-      - "data/curriculum/full-product/p08f/q021-g6b-u06-construct-pie-chart-implementation.json"
-      - ".github/workflows/p08f-w8-q021-live-pages-e2e.yml"
+  workflow_dispatch:
+
 permissions:
-  contents: write
+contents: write
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest

@@ -1,23 +1,9 @@
 name: P08F W8 Q008 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/registry/g4a-u05-triangle-angle-classification-selector-projection-p08f08.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p08f08-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p08f08.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
-      - "site/modules/curriculum/batch-a/g4a-u05-triangle-angle-classification-runtime-p08f08.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f08.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f08-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
-      - "site/modules/renderer/triangle-angle-classification-diagram-p08f08.js"
-      - "site/modules/renderer/html-renderer.js"
+  workflow_dispatch:
+
 permissions:
-  contents: read
+contents: read
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest

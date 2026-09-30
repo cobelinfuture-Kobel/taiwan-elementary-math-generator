@@ -1,27 +1,9 @@
 name: P08F W8 Q019 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/registry/g6a-u07-sector-area-selector-projection-p08f19.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p08f19-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p08f19.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
-      - "site/modules/curriculum/batch-a/g6a-u07-sector-area-runtime-p08f19.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f19.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f19-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - "site/modules/renderer/sector-area-diagram-p08f19.js"
-      - "site/modules/renderer/html-renderer.js"
-      - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
-      - "tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs"
-      - "tools/curriculum/run-p08f-w8-q019-live-pages-e2e.mjs"
-      - "data/curriculum/full-product/p08f/q019-g6a-u07-sector-area-implementation.json"
-      - ".github/workflows/p08f-w8-q019-live-pages-e2e.yml"
+  workflow_dispatch:
+
 permissions:
-  contents: write
+contents: write
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest

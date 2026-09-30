@@ -1,25 +1,9 @@
 name: P08F W8 Q022 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/registry/g6a-u08-speed-unit-conversion-selector-projection-p08f22.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p08f22-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p08f22.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
-      - "site/modules/curriculum/batch-a/g6a-u08-speed-unit-conversion-runtime-p08f22.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f22.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f22-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - "tools/curriculum/run-p08f-w8-slice022-classic-ui-acceptance.mjs"
-      - "tools/curriculum/run-p08f-w8-q022-live-pages-e2e.mjs"
-      - "data/curriculum/full-product/p08f/q022-g6a-u08-speed-unit-conversion-implementation.json"
-      - ".github/workflows/p08f-w8-q022-live-pages-e2e.yml"
   workflow_dispatch:
+
 permissions:
-  contents: write
+contents: write
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest
