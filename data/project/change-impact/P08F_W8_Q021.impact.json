@@ -37,6 +37,16 @@
     "sameUnitMixedAdmission": false,
     "crossUnitMixedAdmission": false,
     "applicationContextAdmission": false,
-    "humanVisualReviewRequired": true
+    "humanVisualReviewRequired": true,
+    "historicalCompatibilityTestOnlyMutation": true
+  },
+  "compatibilityRepair": {
+    "reason": "Q021 public cutover legitimately advances current-pointer visibility from Q018 to the final G6B-U06 construction owner.",
+    "productLogicChangedByRepair": false,
+    "historicalTestsUpdated": [
+      "tests/curriculum/p07f-w7-slice021-g6b-u06-pie-chart-quantity-from-rate.test.js",
+      "tests/curriculum/p08f-w8-slice018-g6b-u06-pie-chart-percent-angle-conversion.test.js"
+    ],
+    "invariant": "Older slice-local modules keep their original frozen semantics; only current-pointer successor expectations advance to P08F21."
   }
 }
