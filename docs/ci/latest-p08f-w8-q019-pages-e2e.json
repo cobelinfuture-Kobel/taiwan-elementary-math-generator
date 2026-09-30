@@ -1,45 +1,18 @@
 {
   "schemaName": "P08FW8Q019PostMergeMainPagesE2EFailureV1",
   "status": "FAIL",
-  "exactHeadSha": "bf1823096437febeab9e8f1bd30b7107b5b7c69b",
+  "exactHeadSha": "ac05f678228037d6aaa3639dea235b8010951efd",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
-  "error": "Error: P08F19_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\npage.waitForFunction: Timeout 120000ms exceeded.\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:34:14)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:116:77 {\n  name: 'TimeoutError'\n}\n\nNode.js v22.23.2\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-q019-live-pages-e2e.mjs:69:21)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
-  "childFailure": {
-    "schemaName": "P08FW8Q019ClassicUIAcceptanceFailureV1",
-    "status": "FAIL",
-    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?p08f19-e6=bf1823096437febeab9e8f1bd30b7107b5b7c69b-1790766767459",
-    "error": "page.waitForFunction: Timeout 120000ms exceeded.\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:34:14)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-slice019-classic-ui-acceptance.mjs:116:77",
-    "browser": {
-      "console": [
-        "Failed to load resource: the server responded with a status of 503 ()"
-      ],
-      "page": [],
-      "request": [
-        {
-          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/source-pattern-full-product-p03f24-extension.js",
-          "failure": "net::ERR_ABORTED"
-        }
-      ],
-      "http": [
-        {
-          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/source-pattern-full-product-p03f24-extension.js",
-          "status": 503
-        }
-      ]
-    },
-    "server": {
-      "stdout": "",
-      "stderr": ""
-    }
-  },
+  "error": "Error: P08F19_EXACT_DEPLOYMENT_NOT_OBSERVED:SHA_MISMATCH:modules/curriculum/public/public-ui-capability-binding-p04f33.js:1537bb7cbb05b6d88f2c2a398cf715c245e74375efcfcdee4da04f33ab01dbbe:0a86008a9070f9258335f0fca5b513b62db10327ff4e5bb2f906b1037a6d7635\n    at observe (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-q019-live-pages-e2e.mjs:53:9)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p08f-w8-q019-live-pages-e2e.mjs:81:20",
+  "childFailure": null,
   "workflow": "P08F W8 Q019 Post-Merge Pages E2E",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36705930555",
-    "number": "5",
+    "id": "36713760339",
+    "number": "6",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36705930555"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36713760339"
   },
-  "verifiedAt": "2026-09-30T11:15:00.004Z"
+  "verifiedAt": "2026-09-30T12:35:22.336Z"
 }
