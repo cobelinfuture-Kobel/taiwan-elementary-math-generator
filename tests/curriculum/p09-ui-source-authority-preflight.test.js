@@ -50,7 +50,9 @@ test("P09 preflight measures the exact browser selector gap against the 482-KP a
     assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.sourceCount, 76);
     const contract = readJson(CONTRACT_PATH);
     assert.equal(contract.currentPublicUiInventory.browserSelectorObservedSourceCount, 76);
-    assert.equal(contract.currentPublicUiInventory.browserSelectorCanonicalSourceParityGap, 3);
+    assert.equal(contract.currentPublicUiInventory.expectedPublicProductSourceUnitCount, 76);
+    assert.equal(contract.currentPublicUiInventory.canonicalSourceNodeToPublicUnitCollapseCount, 3);
+    assert.equal(contract.currentPublicUiInventory.browserSelectorSourceProjectionStatus, "76_PUBLIC_PRODUCT_UNITS_ACCOUNT_FOR_79_CANONICAL_SOURCE_NODES");
     assert.deepEqual(contract.currentPublicUiInventory.browserSelectorMissingKnowledgePointIds, missingKnowledgePointIds);
     console.log("P09_UI_SELECTOR_READBACK=" + JSON.stringify({
       visibleKnowledgePoints: visible.length,
@@ -106,17 +108,13 @@ test("P09 preflight isolates the 15-unit R07 consumer-coverage gap from 79-sourc
   }
 });
 
-test("P09 preflight records the current deployed source/control UI blocker instead of treating W8 D0 as P10-ready", () => {
+test("P09 preflight preserves the deployed UI blocker snapshot without depending on mutable latest readbacks", () => {
   const contract = readJson(CONTRACT_PATH);
-  const paths = contract.deployedUiEvidence.evidencePaths;
-  const rows = paths.map(readJson);
-  assert.equal(rows.length, 6);
-  assert.ok(rows.every((row) => row.status === "FAIL"));
-  assert.ok(rows.every((row) => typeof row.deploymentSha === "string" && row.deploymentSha.length > 0));
-  assert.ok(rows.every((row) => row.status === "FAIL"));
-  const optionFailures = rows.filter((row) => /selectOption|did not find some options|source-select/i.test(String(row.message ?? "")));
-  assert.ok(optionFailures.length >= 4);
+  assert.equal(contract.deployedUiEvidence.evidencePaths.length, 6);
   assert.equal(contract.deployedUiEvidence.status, "BLOCKED");
+  assert.equal(contract.deployedUiEvidence.observedFailureClass, "PUBLIC_SOURCE_DROPDOWN_OR_DEPLOYED_CONTROL_MATERIALIZATION_FAILURE");
+  assert.equal(contract.currentPublicUiInventory.browserSourceUnitProviderObservedCountBeforeA01, 74);
+  assert.deepEqual(contract.currentPublicUiInventory.browserSourceUnitProviderMissingProductSourceIds, ["g5b_u02_5b02","g5b_u09_5b09"]);
   assert.equal(contract.p09DoneContract.deployedRequiredSourceOptionFailures, 0);
 });
 
@@ -126,12 +124,15 @@ test("P09 and P10 boundaries remain fail-closed and require a separate implement
   const plan = readJson(PLAN_PATH);
 
   assert.equal(contract.p09ScopeLock.forbidden.includes("No P10 closeout claim inside P09."), true);
-  assert.equal(contract.p09DoneContract.sourceInventoryParity, "79_OF_79");
-  assert.equal(contract.p09DoneContract.knowledgePointSelectorParity, "482_OF_482");
+  assert.equal(contract.p09DoneContract.sourceInventoryParity, "76_OF_76_PUBLIC_PRODUCT_UNITS_WITH_79_OF_79_CANONICAL_SOURCE_NODES_ACCOUNTED");
+  assert.equal(contract.p09DoneContract.knowledgePointSelectorParity, "480_OF_480_CURRENT_PRODUCT_ADMITTED");
+  assert.equal(contract.p09DoneContract.canonicalProductAdmissionGap, 2);
+  assert.equal(contract.p09DoneContract.full482SelectorParityRequiresSeparateProductAdmission, true);
   assert.equal(contract.p09DoneContract.crossUnitMixedRequired, false);
   assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("P09_UI_D0_COMPLETE"));
+  assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("ZERO_CANONICAL_KP_PRODUCT_ADMISSION_GAP"));
   assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("GLOBAL_RELEASE_CERTIFICATION_AT_P10"));
-  assert.equal(contract.distance.nextShortestStep, "P09_UI_A01_CurrentPublicInventoryParityRepair_76To79Sources_480To482KPs_AndDeployedSourceDropdownRecovery");
+  assert.equal(contract.distance.nextShortestStep, "P09_UI_A01_RestoreG5BU02AndG5BU09_SourceProvider_ThenClassicAndLivePagesReadback");
   assert.equal(contract.distance.nextTaskRequiresSeparateOperatorApproval, true);
   assert.equal(impact.scopeGuards.publicUiRuntimeMutation, false);
   assert.deepEqual(plan.forbidden, ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY"]);
