@@ -57,7 +57,14 @@
     },
     "browserSelectorObservedVisibleKnowledgePointCount": 480,
     "browserSelectorCanonicalParityGap": 2,
-    "browserSelectorCanonicalParityStatus": "480_OF_482_CURRENTLY_VISIBLE"
+    "browserSelectorCanonicalParityStatus": "480_OF_482_CURRENTLY_VISIBLE",
+    "browserSelectorObservedSourceCount": 76,
+    "browserSelectorCanonicalSourceParityGap": 3,
+    "browserSelectorCanonicalSourceParityStatus": "76_OF_79_CURRENTLY_INDEXED",
+    "browserSelectorMissingKnowledgePointIds": [
+      "kp_g3a_u08_whole_as_fraction",
+      "kp_g3a_u08_unlike_denominator_comparison_limit"
+    ]
   },
   "deployedUiEvidence": {
     "deploymentSha": "b90352bd9a61b78677634d49c59ad427081f98d3",
@@ -77,6 +84,8 @@
     "goal": "Make the existing 79-source / 482-KP product authority reliably consumable from the public UI without reimplementing the mathematics.",
     "required": [
       "Repair deployed source-unit dropdown authority/materialization first.",
+      "Close the measured public-inventory parity gaps: browser selector sources 76/79 and visible KnowledgePoints 480/482.",
+      "Restore the two missing canonical KnowledgePoint identities to the current public selector: kp_g3a_u08_whole_as_fraction and kp_g3a_u08_unlike_denominator_comparison_limit.",
       "Expose all 79 canonical source nodes through one current public source inventory.",
       "Expose all 482 canonical KnowledgePoints through one current public selector projection.",
       "Preserve existing PatternGroup/PatternSpec ownership and route selected KPs into existing generator/validator/worksheet/answer/print runtimes.",
@@ -129,11 +138,12 @@
     "distanceReduced": "Locked the exact UI integration boundary and converted the unknown post-W8 successor into a bounded P09 UI program with explicit P10 prerequisites.",
     "remainingBlockers": [
       "DEPLOYED_PUBLIC_SOURCE_DROPDOWN_MATERIALIZATION_FAILURE",
+      "BROWSER_SELECTOR_SOURCE_PARITY_GAP_3_OF_79",
       "BROWSER_SELECTOR_CANONICAL_PARITY_GAP_2_KPS",
       "R07_AUTHORITATIVE_CONSUMER_EXPLICIT_COVERAGE_ONLY_15_UNITS",
       "HISTORICAL_POINTER_CHAIN_STILL_PART_OF_CURRENT_BROWSER_ROUTING"
     ],
-    "nextShortestStep": "P09_UI_A01_DeployedSourceDropdownAuthorityRepair_And_79SourceCurrentInventoryMaterialization",
+    "nextShortestStep": "P09_UI_A01_CurrentPublicInventoryParityRepair_76To79Sources_480To482KPs_AndDeployedSourceDropdownRecovery",
     "nextTaskRequiresSeparateOperatorApproval": true
   }
 }
