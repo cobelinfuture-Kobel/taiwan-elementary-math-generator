@@ -76,11 +76,15 @@ async function run(){
       sizes=svgs.map(svg=>{const x=svg.getBoundingClientRect();return{width:x.width,height:x.height};});
     const visuals=reps.map(rep=>{
       const svg=rep.querySelector("svg"),labels=[...svg.querySelectorAll("text")].map(n=>(n.textContent??"").trim()),mode=rep.dataset.compositionMode??"";
+      const semiLabel=svg.querySelector('[data-component-role="semicircle"]'),sectorLabel=svg.querySelector('[data-component-role="sector"]');
+      const coord=n=>n?{x:Number(n.getAttribute("x")),y:Number(n.getAttribute("y")),text:(n.textContent??"").trim()}:null;
       return{contract:rep.dataset.visualContractVersion??"",mode,
         wholeCircles:svg.querySelectorAll(".composite-circle-area__whole-circle").length,
         semicircles:svg.querySelectorAll(".composite-circle-area__semicircle").length,
         sectors:svg.querySelectorAll(".composite-circle-area__sector").length,
         partitions:svg.querySelectorAll(".composite-circle-area__partition").length,
+        sectorLabelLeaders:svg.querySelectorAll(".composite-circle-area__sector-label-leader").length,
+        semicircleLabel:coord(semiLabel),sectorLabel:coord(sectorLabel),
         squares:svg.querySelectorAll(".composite-circle-area__square").length,
         circles:svg.querySelectorAll(".composite-circle-area__circle").length,
         differenceFills:svg.querySelectorAll(".composite-circle-area__difference-fill").length,
@@ -89,7 +93,10 @@ async function run(){
         formulas:svg.querySelectorAll(".composite-circle-area__formula-label").length,labels};
     });
     const visualContractViolations=visuals.filter(v=>v.contract!=="P08F20_R1"||v.formulas!==1||v.radii!==1||
-      (v.mode==="SEMICIRCLE_PLUS_SECTOR"?(v.wholeCircles!==1||v.semicircles!==1||v.sectors!==1||v.partitions!==1||v.squares!==0||v.differenceFills!==0):
+      (v.mode==="SEMICIRCLE_PLUS_SECTOR"?(v.wholeCircles!==1||v.semicircles!==1||v.sectors!==1||v.partitions!==1||v.sectorLabelLeaders!==1||
+        v.squares!==0||v.differenceFills!==0||!v.semicircleLabel||!v.sectorLabel||
+        v.semicircleLabel.text!=="甲：半圓"||!v.sectorLabel.text.startsWith("乙：")||
+        !(v.semicircleLabel.x>130&&v.semicircleLabel.y<84)||!(v.sectorLabel.x<100&&v.sectorLabel.y>84)):
        v.mode==="SQUARE_MINUS_CIRCLE"?(v.squares!==1||v.circles!==1||v.differenceFills!==1||v.squareSides!==1||v.semicircles!==0||v.sectors!==0):true)).length;
     return{questions:q.length,answers:a.length,representations:reps.length,questionPages:questionPages.length,answerPages:answerPages.length,allPages:allPages.length,
       patternCounts:[prompts.filter(x=>x.includes("半圓甲")).length,prompts.filter(x=>x.includes("正方形邊長")).length],
@@ -131,7 +138,8 @@ try{
     sourceId:SOURCE,knowledgePointIds:[KP],questionCount:COUNT,target,humanReview:{required:true,status:"PENDING_OPERATOR",artifacts:[target.humanReviewArtifacts]},
     browser:{consoleErrorCount:0,pageErrorCount:0,requestFailureCount:0,assetHttpFailureCount:0},
     semanticInvariants:{compositeCircleAreaOwned:true,decompositionIntoNonOverlappingRegions:true,noOverlapOrOmission:true,
-      semicirclePlusSectorVisual:true,squareMinusCircleVisual:true,visualContractVersion:"P08F20_R1",priorOwnersPreserved:true,
+      semicirclePlusSectorVisual:true,semicircleLabelPlacedOnSemicircleRegion:true,sectorLabelPlacedOnSectorSideWithLeader:true,
+      squareMinusCircleVisual:true,visualContractVersion:"P08F20_R1",priorOwnersPreserved:true,
       sameUnitMixedModeFailClosed:true,twoColumnTwoRowPrintLayout:true,printSafePagination:true,noInternalIds:true},
     forbiddenScope:{circleAreaDerivationReownership:false,circleAreaFormulaReownership:false,annulusAreaReownership:false,sectorAreaReownership:false,
       arcLengthOrPerimeter:false,application:false,sameUnitMixed:false,crossUnitMixed:false,q021OrLater:false,fullRepositoryRegression:false,globalBrowserReplay:false}};
