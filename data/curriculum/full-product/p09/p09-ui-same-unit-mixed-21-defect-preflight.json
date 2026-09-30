@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "P09_UI_SameUnitMixed21DefectPreflight",
+  "status": "PREFLIGHT_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "operatorReportDate": "2026-09-30",
+  "scope": {
+    "reportedDefectCount": 21,
+    "defect": "CURRENT_PUBLIC_UI_SAME_UNIT_MIXED_NOT_AVAILABLE",
+    "targetUnits": [
+      {"unitCode":"G3B-U10","sourceId":"g3b_u10_3b10"},
+      {"unitCode":"G4A-U03","sourceId":"g4a_u03_4a03"},
+      {"unitCode":"G4A-U05","sourceId":"g4a_u05_4a05"},
+      {"unitCode":"G4A-U07","sourceId":"g4a_u07_4a07"},
+      {"unitCode":"G4B-U05","sourceId":"g4b_u05_4b05"},
+      {"unitCode":"G5A-U05","sourceId":"g5a_u05_5a05a"},
+      {"unitCode":"G5A-U05A1","sourceId":"g5a_u05_5a05a1"},
+      {"unitCode":"G5A-U07","sourceId":"g5a_u07_5a07"},
+      {"unitCode":"G5A-U10A","sourceId":"g5a_u10_5a10a"},
+      {"unitCode":"G5B-U08","sourceId":"g5b_u08_5b08"},
+      {"unitCode":"G5B-U11","sourceId":"g5b_u11_5b11"},
+      {"unitCode":"G6A-U03","sourceId":"g6a_u03_6a03"},
+      {"unitCode":"G6A-U05","sourceId":"g6a_u05_6a05"},
+      {"unitCode":"G6A-U06","sourceId":"g6a_u06_6a06"},
+      {"unitCode":"G6A-U07","sourceId":"g6a_u07_6a07"},
+      {"unitCode":"G6A-U08","sourceId":"g6a_u08_6a08"},
+      {"unitCode":"G6A-U09","sourceId":"g6a_u09_6a09"},
+      {"unitCode":"G6B-U03","sourceId":"g6b_u03_6b03"},
+      {"unitCode":"G6B-U04","sourceId":"g6b_u04_6b04"},
+      {"unitCode":"G6B-U05","sourceId":"g6b_u05_6b05"},
+      {"unitCode":"G6B-U06","sourceId":"g6b_u06_6b06"}
+    ],
+    "controlUnit": {
+      "unitCode": "G6A-U02",
+      "sourceId": "g6a_u02_6a02",
+      "expectedSameUnitMixedAdmission": true
+    }
+  },
+  "hypothesis": {
+    "primary": "The shared UI mode exists and works for admitted units, but these 21 later W5-W8 source-unit product surfaces remain frozen with per-unit sameUnitMixedAdmission disabled or without a unit-level mixed coordinator.",
+    "notAssumed": [
+      "Do not assume one CSS/select-control defect.",
+      "Do not assume all 21 can be repaired by toggling a boolean.",
+      "Do not enable mixed until generator/validator/worksheet routing for selected KP subsets is proven."
+    ]
+  },
+  "frozenBoundaries": {
+    "g5bU10RenameWork": "CANCELLED_BY_OPERATOR_NO_CHANGE_REQUIRED",
+    "crossUnitMixed": "OUT_OF_SCOPE",
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "knowledgePointIdentityMutation": false,
+    "patternSpecSemanticRedesign": false,
+    "generatorMathSemanticRewrite": false
+  },
+  "doneContract": {
+    "all21CurrentSourceIdsExist": true,
+    "all21HaveAtLeastTwoVisibleKnowledgePoints": true,
+    "all21CurrentSameUnitMixedDefectsReproduced": true,
+    "knownGoodControlStillSupportsSameUnitMixed": true,
+    "rootCauseClassified": true,
+    "repairShapeSelected": "PENDING_CI_READBACK"
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_PUBLIC_UI_21_REPORTED_SAME_UNIT_MIXED_GAPS_UNCLASSIFIED",
+    "goalDistanceAfter": "D2_21_GAPS_BOUNDED_PREFLIGHT_UNDER_CI",
+    "distanceReduced": "Converted the reported 21-unit symptom list into an exact source-id and current-capability verification set.",
+    "remainingBlockers": [
+      "FOCUSED_DIAGNOSTIC_CI_READBACK",
+      "EXACT_COMMON_VS_UNIT_SPECIFIC_REPAIR_BOUNDARY"
+    ],
+    "nextShortestStep": "P09_UI_SameUnitMixed21DefectPreflight_FocusedCIReadback"
+  }
+}
