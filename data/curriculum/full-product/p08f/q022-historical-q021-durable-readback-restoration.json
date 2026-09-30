@@ -1,0 +1,72 @@
+{
+  "schemaName": "P08FW8Q022HistoricalQ021DurableReadbackRestorationV1",
+  "schemaVersion": 1,
+  "taskId": "P08F_W8_Q022_HISTORICAL_Q021_DURABLE_READBACK_RESTORATION",
+  "status": "RESTORATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "q021FinalAuthority": {
+    "finalCloseoutCommitSha": "07f08b5107154d1eae8163650ee2dd9a7387acf8",
+    "acceptedReadbackCommitSha": "54750b3af2ceac9b2fa033e4e1d77614f60b9010",
+    "exactAcceptedHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
+    "status": "PASS_E6_D0_COMPLETE",
+    "operatorHumanVisualReview": "PASS_OPERATOR_APPROVED",
+    "postMergeRegressionParity": "PASS_NO_NEW_FAILURES_BASELINE_ONLY"
+  },
+  "overwriteIncident": {
+    "q022ImplementationMergeSha": "e0075bedfa6d41046c09166d44c9f9c9a6db0a88",
+    "q021HistoricalWorkflowRunId": 36678795811,
+    "overwriteCommitSha": "f1539fd3eedf3e79b01adb2381a48cbbedccc64b",
+    "overwrittenStatus": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
+    "rootCause": "HISTORICAL_Q021_WORKFLOW_RETRIGGERED_BY_SHARED_SUCCESSOR_POINTER_CHANGE_AND_DURABLE_WRITER_WAS_NOT_HISTORICAL_PASS_LOCKED"
+  },
+  "regressionAttributionAfterFirstCompatibilityRepair": {
+    "node": {
+      "baselineRunId": 36672192238,
+      "baselineJobId": 109749382906,
+      "afterRepairRunId": 36683879428,
+      "afterRepairJobId": 109785185850,
+      "baselineFailureCount": 167,
+      "afterRepairFailureCount": 167,
+      "addedFailureTitles": [
+        "W8 Q021 final D0 closeout binds exact E6, operator acceptance, and zero-new-failure regression parity"
+      ],
+      "removedFailureTitles": [
+        "Q026 historical W7 route remains reachable after the approved W8 current-pointer advance"
+      ]
+    },
+    "mathCi": {
+      "baselineRunId": 36672190162,
+      "baselineJobId": 109749445975,
+      "afterRepairRunId": 36683878262,
+      "afterRepairJobId": 109785181511,
+      "baselineFailureCount": 168,
+      "afterRepairFailureCount": 168,
+      "addedFailureTitles": [
+        "W8 Q021 final D0 closeout binds exact E6, operator acceptance, and zero-new-failure regression parity"
+      ],
+      "removedFailureTitles": [
+        "Q026 historical W7 route remains reachable after the approved W8 current-pointer advance"
+      ]
+    },
+    "q022ProductSemanticRegressionDetected": false,
+    "remainingNewFailureClass": "HISTORICAL_DURABLE_READBACK_OVERWRITE_ONLY"
+  },
+  "repair": {
+    "restoreAcceptedQ021DurableReadback": true,
+    "modifyQ021Runtime": false,
+    "modifyQ022Runtime": false,
+    "modifySourceAuthority": false,
+    "modifySelector": false,
+    "modifyGenerator": false,
+    "modifyValidator": false,
+    "modifyRenderer": false,
+    "modifyWorksheet": false,
+    "modifyFrozenQueue": false
+  },
+  "antiScopeCreep": {
+    "repairOtherBaselineFailures": false,
+    "changeHistoricalOperatorDecision": false,
+    "rerunGlobalBrowserReplay": false,
+    "openPostW8Implementation": false
+  },
+  "nextAfterMerge": "P08F_W8_Q022_FINAL_PARITY_RERUN_THEN_W8_FINAL_CLOSEOUT"
+}

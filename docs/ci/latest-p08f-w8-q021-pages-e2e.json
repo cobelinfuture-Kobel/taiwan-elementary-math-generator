@@ -1,12 +1,12 @@
 {
   "schemaName": "P08FW8Q021PostMergeMainPagesE2EV1",
   "taskId": "P08F_W8DirectProductVerticalSlice021Implementation",
-  "status": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
-  "d0Granted": false,
-  "exactHeadSha": "e0075bedfa6d41046c09166d44c9f9c9a6db0a88",
+  "status": "PASS_E6_D0_COMPLETE",
+  "d0Granted": true,
+  "exactHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
-    "attempt": 34,
+    "attempt": 20,
     "assets": [
       {
         "publicPath": "modules/curriculum/registry/g6b-u06-construct-pie-chart-selector-projection-p08f21.js",
@@ -20,8 +20,8 @@
       },
       {
         "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
-        "expectedSha256": "f2aadb6aae8dcad03bbe807b7a31ddfbd8b96220b1a3e1a12381339d77239636",
-        "liveSha256": "f2aadb6aae8dcad03bbe807b7a31ddfbd8b96220b1a3e1a12381339d77239636"
+        "expectedSha256": "177cf4183587e74962e3cfebf88d8fab175323e660edc7bd4510e1f6652d9feb",
+        "liveSha256": "177cf4183587e74962e3cfebf88d8fab175323e660edc7bd4510e1f6652d9feb"
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p08f21.js",
@@ -30,8 +30,8 @@
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-        "expectedSha256": "dff0da10c17d770db0c799c25b513f25e1ece8dbc7e6b0898eb8157858510132",
-        "liveSha256": "dff0da10c17d770db0c799c25b513f25e1ece8dbc7e6b0898eb8157858510132"
+        "expectedSha256": "525b253113e8e388ce1000a4a5a76061baa89932749eff16829f6a56de4a6219",
+        "liveSha256": "525b253113e8e388ce1000a4a5a76061baa89932749eff16829f6a56de4a6219"
       },
       {
         "publicPath": "modules/curriculum/batch-a/g6b-u06-construct-pie-chart-runtime-p08f21.js",
@@ -45,8 +45,8 @@
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
-        "expectedSha256": "2de43e026eed9288900f72f0b8979c66371e8f820ff2ef6ecd7b87b5c61a460e",
-        "liveSha256": "2de43e026eed9288900f72f0b8979c66371e8f820ff2ef6ecd7b87b5c61a460e"
+        "expectedSha256": "271021e770fc528d6cb3fb3ac5db674fc63be33d18be31b115aea0e06f7eb291",
+        "liveSha256": "271021e770fc528d6cb3fb3ac5db674fc63be33d18be31b115aea0e06f7eb291"
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p08f21-extension.js",
@@ -55,8 +55,8 @@
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
-        "expectedSha256": "bb3df7859192f5dc7a7cdc0ed225dbd7557f070887092e6c244d331497a16d0c",
-        "liveSha256": "bb3df7859192f5dc7a7cdc0ed225dbd7557f070887092e6c244d331497a16d0c"
+        "expectedSha256": "04c3a8aea046eff50465bfe7c6bc1e7827971cdbc13a4a7d6c13d5a2aa6c52d6",
+        "liveSha256": "04c3a8aea046eff50465bfe7c6bc1e7827971cdbc13a4a7d6c13d5a2aa6c52d6"
       },
       {
         "publicPath": "modules/renderer/pie-chart-construction-data-p08f21.js",
@@ -84,8 +84,8 @@
     "schemaName": "P08FW8Q021ClassicUIAcceptanceV1",
     "taskId": "P08F_W8DirectProductVerticalSlice021Implementation",
     "status": "PASS_P08F_W8_Q021_TECHNICAL_VISUAL_PRECHECK",
-    "learnerVisualAcceptanceStatus": "PENDING_OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW",
-    "d0Granted": false,
+    "learnerVisualAcceptanceStatus": "PASS_OPERATOR_APPROVED",
+    "d0Granted": true,
     "sourceId": "g6b_u06_6b06",
     "knowledgePointIds": [
       "kp_g6b_u06_construct_pie_chart"
@@ -147,12 +147,12 @@
         "ui": "q021-construct-pie-chart-ui.png",
         "pdfBytes": 243398,
         "pngBytes": 683575,
-        "status": "PENDING_OPERATOR_REVIEW"
+        "status": "PASS_OPERATOR_REVIEW"
       }
     },
     "humanReview": {
       "required": true,
-      "status": "PENDING_OPERATOR",
+      "status": "PASS_OPERATOR",
       "artifacts": [
         {
           "pdf": "q021-construct-pie-chart-human-review.pdf",
@@ -161,7 +161,7 @@
           "ui": "q021-construct-pie-chart-ui.png",
           "pdfBytes": 243398,
           "pngBytes": 683575,
-          "status": "PENDING_OPERATOR_REVIEW"
+          "status": "PASS_OPERATOR_REVIEW"
         }
       ]
     },
@@ -199,7 +199,7 @@
     }
   },
   "humanVisualReviewRequired": true,
-  "learnerVisualAcceptanceStatus": "PENDING_OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW",
+  "learnerVisualAcceptanceStatus": "PASS_OPERATOR_APPROVED",
   "semanticInvariants": {
     "constructPieChartOwned": true,
     "sourceTableToPieConstruction": true,
@@ -213,10 +213,59 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36678795811",
-    "number": "2",
+    "id": "36667807557",
+    "number": "1",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36678795811"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36667807557"
   },
-  "verifiedAt": "2026-09-30T06:42:03.574Z"
+  "verifiedAt": "2026-09-30T04:28:54.304Z",
+  "operatorHumanVisualReview": {
+    "required": true,
+    "status": "PASS_OPERATOR_APPROVED",
+    "decision": "GRAPHICS_OK",
+    "operatorStatement": "圖形OK",
+    "acceptedDeployedHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
+    "acceptedArtifactId": 11077247349,
+    "acceptedArtifactDigest": "sha256:c79254cb3ab60e54f4bdc8101be3d7470ffa3bb0ae1a702e274fdc12a02f4720",
+    "acceptedAtLocalDate": "2026-09-30"
+  },
+  "postMergeFullRegressionParity": {
+    "implementationRunId": 36667807435,
+    "implementationRunConclusion": "failure",
+    "implementationFailureCount": 171,
+    "preflightBaselineRunId": 36666421593,
+    "preflightBaselineFailureCount": 168,
+    "compatibilityRepairPrNumber": 1160,
+    "compatibilityRepairMergeSha": "24b2be879b27f903c6c860c09c3e9e1545a43fa3",
+    "parityRerunId": 36669444562,
+    "parityRerunConclusion": "failure",
+    "parityFailureCount": 167,
+    "sharedWithPreflightBaselineCount": 167,
+    "newFailuresVsPreflightBaseline": [],
+    "removedBaselineFailures": [
+      "Q021 current pointers and bounded validation are successor-safe"
+    ],
+    "status": "PASS_NO_NEW_FAILURES_BASELINE_ONLY"
+  },
+  "finalCloseout": {
+    "status": "PASS_E6_D0_COMPLETE",
+    "exactDeployedHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
+    "technicalE6Passed": true,
+    "operatorHumanVisualReviewPassed": true,
+    "postMergeRegressionParityPassed": true,
+    "d0Granted": true,
+    "nextTask": "P08F_W8_Q022_SourceAuthorityPreflight"
+  },
+  "historicalReadbackRestoration": {
+    "taskId": "P08F_W8_Q022_HISTORICAL_Q021_DURABLE_READBACK_RESTORATION",
+    "reason": "Q022 shared current-pointer cutover legitimately retriggered the historical Q021 Pages E2E workflow, whose durable writer overwrote the already operator-accepted Q021 D0 readback with a fresh technical-precheck state.",
+    "overwrittenByCommitSha": "f1539fd3eedf3e79b01adb2381a48cbbedccc64b",
+    "overwrittenByRunId": 36678795811,
+    "triggeringQ022ImplementationMergeSha": "e0075bedfa6d41046c09166d44c9f9c9a6db0a88",
+    "restorationClass": "HISTORICAL_EVIDENCE_ONLY",
+    "q021ProductRuntimeChanged": false,
+    "q022ProductRuntimeChanged": false,
+    "operatorAcceptanceReused": true,
+    "exactAcceptedQ021HeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7"
+  }
 }
