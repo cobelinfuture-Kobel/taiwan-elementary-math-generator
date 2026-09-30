@@ -54,7 +54,10 @@
       "printLayout": true,
       "preview": true,
       "print": true
-    }
+    },
+    "browserSelectorObservedVisibleKnowledgePointCount": 480,
+    "browserSelectorCanonicalParityGap": 2,
+    "browserSelectorCanonicalParityStatus": "480_OF_482_CURRENTLY_VISIBLE"
   },
   "deployedUiEvidence": {
     "deploymentSha": "b90352bd9a61b78677634d49c59ad427081f98d3",
@@ -126,6 +129,7 @@
     "distanceReduced": "Locked the exact UI integration boundary and converted the unknown post-W8 successor into a bounded P09 UI program with explicit P10 prerequisites.",
     "remainingBlockers": [
       "DEPLOYED_PUBLIC_SOURCE_DROPDOWN_MATERIALIZATION_FAILURE",
+      "BROWSER_SELECTOR_CANONICAL_PARITY_GAP_2_KPS",
       "R07_AUTHORITATIVE_CONSUMER_EXPLICIT_COVERAGE_ONLY_15_UNITS",
       "HISTORICAL_POINTER_CHAIN_STILL_PART_OF_CURRENT_BROWSER_ROUTING"
     ],
