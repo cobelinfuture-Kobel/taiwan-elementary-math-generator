@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "P09_UI_A03B_PublicCurriculumUnitCompletenessImplementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_PR_GATE",
+  "sourceAuthority": {
+    "preflight": "data/curriculum/full-product/p09/p09-ui-a03a-public-curriculum-unit-completeness-preflight.json",
+    "canonicalSourceNodeCount": 79,
+    "publicCurriculumUnitCount": 78,
+    "canonicalUniqueKnowledgePointCount": 482,
+    "publicSourceKnowledgePointRouteProjectionCount": 493
+  },
+  "corrections": {
+    "g3aU08": {
+      "sourceId": "g3a_u08_3a08",
+      "priorWholeUnitCoverage": "5_OF_7",
+      "targetWholeUnitCoverage": "7_OF_7",
+      "targetSameUnitCoverage": "7_OF_7",
+      "preserveSingleKpA02Routes": true
+    },
+    "g4bU03": {
+      "sourceId": "g4b_u03_4b03",
+      "semanticOwnerSourceId": "g4a_u06_4a06",
+      "restoreDistinctPublicCurriculumUnit": true,
+      "canonicalKnowledgePointRouteCount": 6,
+      "createNewCanonicalKnowledgePointIds": false
+    },
+    "g6bU02": {
+      "sourceId": "g6b_u02_6b02",
+      "semanticOwnerSourceId": "g6a_u08_6a08",
+      "restoreDistinctPublicCurriculumUnit": true,
+      "canonicalKnowledgePointRouteCount": 5,
+      "createNewCanonicalKnowledgePointIds": false
+    },
+    "g5bU10": {
+      "provenSourceId": "g5b_u10_5b10a",
+      "provenUnitCode": "5B-U10A",
+      "fullUnitIdentityClaimed": false,
+      "additionalSplitInvented": false,
+      "status": "BLOCKED_PENDING_SOURCE_IDENTITY_EVIDENCE"
+    }
+  },
+  "routePolicy": {
+    "sourceUnitRequired": [
+      "g3a_u08_3a08",
+      "g4b_u03_4b03",
+      "g6b_u02_6b02"
+    ],
+    "singleKnowledgePointRequired": [
+      "g3a_u08_3a08",
+      "g4b_u03_4b03",
+      "g6b_u02_6b02"
+    ],
+    "g3aU08SameUnitMixedRequired": true,
+    "aliasUnitSameUnitMixedRequired": false,
+    "crossUnitMixedRequired": false,
+    "sourceRouteAliasesPreserveRequestedCurriculumSourceId": true,
+    "semanticOwnerRuntimeReuse": true
+  },
+  "forbidden": [
+    "NO_NEW_CANONICAL_KP_IDS",
+    "NO_R02_R03_R04_R05_SEMANTIC_AUTHORITY_MUTATION",
+    "NO_CROSS_UNIT_MIXED_ADMISSION",
+    "NO_G5B_U10_RENAME_WITHOUT_SOURCE_EVIDENCE",
+    "NO_G5B_U10B_INVENTION"
+  ],
+  "doneContract": {
+    "publicCurriculumUnitCount": 78,
+    "canonicalUniqueKnowledgePointCount": 482,
+    "publicSourceKnowledgePointRouteProjectionCount": 493,
+    "g3aU08SourceUnitCoverage": "7_OF_7",
+    "g4bU03PublicSourceUnitReachable": true,
+    "g6bU02PublicSourceUnitReachable": true,
+    "worksheetAnswerPreviewPrintRequired": true,
+    "livePagesE6Required": true
+  }
+}
