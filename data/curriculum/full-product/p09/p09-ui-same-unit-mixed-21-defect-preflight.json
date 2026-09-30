@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "P09_UI_SameUnitMixed21DefectPreflight",
+  "status": "PREFLIGHT_DIAGNOSIS_LOCKED_AFTER_FIRST_CI_READBACK",
+  "operatorReportDate": "2026-09-30",
+  "scope": {
+    "reportedDefectCount": 21,
+    "defect": "CURRENT_PUBLIC_UI_SAME_UNIT_MIXED_NOT_AVAILABLE",
+    "targetUnits": [
+      {"unitCode":"G3B-U10","sourceId":"g3b_u10_3b10"},
+      {"unitCode":"G4A-U03","sourceId":"g4a_u03_4a03"},
+      {"unitCode":"G4A-U05","sourceId":"g4a_u05_4a05"},
+      {"unitCode":"G4A-U07","sourceId":"g4a_u07_4a07"},
+      {"unitCode":"G4B-U05","sourceId":"g4b_u05_4b05"},
+      {"unitCode":"G5A-U05","sourceId":"g5a_u05_5a05a"},
+      {"unitCode":"G5A-U05A1","sourceId":"g5a_u05_5a05a1"},
+      {"unitCode":"G5A-U07","sourceId":"g5a_u07_5a07"},
+      {"unitCode":"G5A-U10A","sourceId":"g5a_u10_5a10a"},
+      {"unitCode":"G5B-U08","sourceId":"g5b_u08_5b08"},
+      {"unitCode":"G5B-U11","sourceId":"g5b_u11_5b11"},
+      {"unitCode":"G6A-U03","sourceId":"g6a_u03_6a03"},
+      {"unitCode":"G6A-U05","sourceId":"g6a_u05_6a05"},
+      {"unitCode":"G6A-U06","sourceId":"g6a_u06_6a06"},
+      {"unitCode":"G6A-U07","sourceId":"g6a_u07_6a07"},
+      {"unitCode":"G6A-U08","sourceId":"g6a_u08_6a08"},
+      {"unitCode":"G6A-U09","sourceId":"g6a_u09_6a09"},
+      {"unitCode":"G6B-U03","sourceId":"g6b_u03_6b03"},
+      {"unitCode":"G6B-U04","sourceId":"g6b_u04_6b04"},
+      {"unitCode":"G6B-U05","sourceId":"g6b_u05_6b05"},
+      {"unitCode":"G6B-U06","sourceId":"g6b_u06_6b06"}
+    ],
+    "controlUnit": {
+      "unitCode": "G6A-U02",
+      "sourceId": "g6a_u02_6a02",
+      "expectedSameUnitMixedAdmission": true
+    }
+  },
+  "firstCiReadback": {
+    "workflowRunId": 36724563109,
+    "reportedTargetsWithFiveVisibleKnowledgePoints": 21,
+    "sameUnitMixedDefectReproducedCount": 21,
+    "sourceUnitBlockedCount": 17,
+    "sourceUnitUsableButSameUnitMixedMissingCount": 4,
+    "sourceUnitUsableUnits": [
+      "G4A-U05",
+      "G5A-U05A1",
+      "G5A-U07",
+      "G5A-U10A"
+    ],
+    "mixedRequestSilentSingleKpFallbackUnits": [
+      "G5A-U07",
+      "G5A-U10A"
+    ],
+    "interpretation": "The operator-reported mixed-mode defect is real in all 21 units. It also exposes a broader current capability-binding defect: 17/21 sourceUnit bindings are blocked, and two of the four remaining units silently degrade a mixed request to one selected KP."
+  },
+  "rootCause": {
+    "class": "CURRENT_CAPABILITY_BINDING_CHAIN_LACKS_UNIT_LEVEL_AGGREGATION_FOR_LATE_W5_W8_SLICES",
+    "evidence": [
+      "Known-good G6A-U02 exposes and executes mixedKnowledgePointsSameUnit, proving the shared mode/control infrastructure exists.",
+      "Later leaf bindings commonly exclude sourceUnit, mixedKnowledgePointsSameUnit, and mixedKnowledgePointsCrossUnit from their target predicates.",
+      "Later leaf bindings commonly publish same-unit mixed as disabled because each slice was closed as single-KP product admission.",
+      "For many affected sources there is no successor unit-level coordinator that recomposes the independently admitted KPs into sourceUnit or selected same-unit mixed operation."
+    ],
+    "repairImplication": "Do not patch 21 dropdown booleans. Build one current-authority unit aggregation layer that reuses existing KP runtimes, then prove per-unit generator/validator/worksheet compatibility."
+  },
+  "frozenBoundaries": {
+    "g5bU10RenameWork": "CANCELLED_BY_OPERATOR_NO_CHANGE_REQUIRED",
+    "crossUnitMixed": "OUT_OF_SCOPE",
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "knowledgePointIdentityMutation": false,
+    "patternSpecSemanticRedesign": false,
+    "generatorMathSemanticRewrite": false
+  },
+  "doneContract": {
+    "all21CurrentSourceIdsExist": true,
+    "all21HaveAtLeastTwoVisibleKnowledgePoints": true,
+    "all21CurrentSameUnitMixedDefectsReproduced": true,
+    "knownGoodControlStillSupportsSameUnitMixed": true,
+    "rootCauseClassified": true,
+    "repairShapeSelected": "ONE_CURRENT_UNIT_AGGREGATION_LAYER_WITH_BOUNDED_PER_UNIT_COMPATIBILITY_PROOFS"
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_PUBLIC_UI_21_REPORTED_SAME_UNIT_MIXED_GAPS_UNCLASSIFIED",
+    "goalDistanceAfter": "D2_21_GAPS_REPRODUCED_AND_SYSTEMIC_BINDING_ROOT_CAUSE_CLASSIFIED",
+    "distanceReduced": "Reproduced all 21 reported mixed-mode gaps, discovered the 17/21 sourceUnit blocker and two silent single-KP fallbacks, and selected a shared repair shape instead of 21 independent patches.",
+    "remainingBlockers": [
+      "FOCUSED_PREFLIGHT_CI_MUST_PASS_WITH_CORRECTED_DIAGNOSTIC_ASSERTIONS",
+      "PLANNING_TO_IMPLEMENTATION_POLICY_BOUNDARY"
+    ],
+    "nextShortestStep": "P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation"
+  }
+}
