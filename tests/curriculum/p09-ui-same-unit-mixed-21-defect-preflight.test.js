@@ -30,7 +30,6 @@ function inspect(target){
   const sourceOption=sameUnitOption(sourceUnit);
   const mixedOption=sameUnitOption(mixed);
   const mixedWorks=Boolean(
-    sourceOption?.enabled===true &&
     mixed &&
     mixed.blocked===false &&
     mixedOption?.enabled===true &&
@@ -51,23 +50,36 @@ function inspect(target){
   };
 }
 
-test("reproduce and classify the exact 21 reported same-unit mixed gaps",()=>{
+test("historical preflight evidence remains frozen while current same-unit mixed is repaired",()=>{
+  assert.equal(preflight.firstCiReadback.reportedTargetsWithFiveVisibleKnowledgePoints,21);
+  assert.equal(preflight.firstCiReadback.sameUnitMixedDefectReproducedCount,21);
+  assert.equal(preflight.firstCiReadback.sourceUnitBlockedCount,17);
+  assert.equal(preflight.firstCiReadback.sourceUnitUsableButSameUnitMixedMissingCount,4);
+  assert.deepEqual(preflight.firstCiReadback.sourceUnitUsableUnits,["G4A-U05","G5A-U05A1","G5A-U07","G5A-U10A"]);
+  assert.deepEqual(preflight.firstCiReadback.mixedRequestSilentSingleKpFallbackUnits,["G5A-U07","G5A-U10A"]);
+
   const matrix=preflight.scope.targetUnits.map(inspect);
-  console.log("P09_UI_SAME_UNIT_MIXED_21_MATRIX="+JSON.stringify(matrix));
+  console.log("P09_UI_SAME_UNIT_MIXED_21_CURRENT_MATRIX="+JSON.stringify(matrix));
   assert.equal(matrix.length,21);
+
   for(const row of matrix){
     assert.equal(row.visibleKnowledgePointCount,5,row.unitCode+" current public selector should expose five KPs");
-    assert.equal(row.defectReproduced,true,row.unitCode+" reported same-unit mixed gap was not reproduced");
+    assert.equal(row.mixedBindingPresent,true,row.unitCode+" current mixed binding must exist");
+    assert.equal(row.mixedBindingBlocked,false,row.unitCode+" current mixed binding must not be blocked");
+    assert.equal(row.mixedBindingSameUnitOptionEnabled,true,row.unitCode+" current mixed mode must be advertised");
+    assert.equal(row.mixedSelectedKnowledgePointCount,2,row.unitCode+" current mixed request must preserve two KPs");
+    assert.equal(row.defectReproduced,false,row.unitCode+" historical mixed-mode defect must now be repaired");
   }
+
   const sourceBlocked=matrix.filter(row=>row.sourceUnitBlocked===true);
   const sourceUsable=matrix.filter(row=>row.sourceUnitBlocked===false);
   const silentSingle=matrix.filter(row=>row.mixedBindingBlocked===false && row.mixedSelectedKnowledgePointCount<2);
   assert.equal(sourceBlocked.length,17);
   assert.deepEqual(sourceUsable.map(row=>row.unitCode),["G4A-U05","G5A-U05A1","G5A-U07","G5A-U10A"]);
-  assert.deepEqual(silentSingle.map(row=>row.unitCode),["G5A-U07","G5A-U10A"]);
+  assert.deepEqual(silentSingle,[]);
 });
 
-test("known-good G6A-U02 proves the shared same-unit mixed infrastructure works",()=>{
+test("known-good G6A-U02 proves the shared same-unit mixed infrastructure still works",()=>{
   const control=inspect(preflight.scope.controlUnit);
   console.log("P09_UI_SAME_UNIT_MIXED_CONTROL="+JSON.stringify(control));
   assert.equal(control.visibleKnowledgePointCount,5);
