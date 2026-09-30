@@ -1,5 +1,5 @@
-export * from "./batch-a-selector-p04f33-extension.js";
-import * as base from "./batch-a-selector-p04f33-extension.js";
+export * from "./batch-a-selector-p08f22-extension.js";
+import * as base from "./batch-a-selector-p08f22-extension.js";
 import {G3A_U08_P09_A02_SOURCE_ID as SRC,G3A_U08_P09_A02_TARGET_KP_IDS as TARGETS,getG3AU08P09A02SelectorRow,listG3AU08P09A02PatternGroups,listG3AU08P09A02SelectorRows,resolveG3AU08P09A02PatternSpecIds,auditG3AU08P09A02SelectorProjection} from "./g3a-u08-two-kp-selector-projection-p09-a02.js";
 const clone=v=>v==null?v:JSON.parse(JSON.stringify(v)),b=base.BATCH_A_SELECTOR_AVAILABILITY,p=b.bySourceId?.[SRC]??null;
 if(!p)throw new Error("P09_A02_EXPECTED_G3A_U08_SOURCE_ROW");
