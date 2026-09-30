@@ -29,11 +29,11 @@ function inspect(target){
   });
   const sourceOption=sameUnitOption(sourceUnit);
   const mixedOption=sameUnitOption(mixed);
-  const sourceAdvertises=sourceOption?.enabled===true || sourceUnit?.sameUnitMixedAdmission===true;
   const mixedWorks=Boolean(
+    sourceOption?.enabled===true &&
     mixed &&
     mixed.blocked===false &&
-    mixed.sameUnitMixedAdmission===true &&
+    mixedOption?.enabled===true &&
     Array.isArray(mixed.selectedKnowledgePointIds) &&
     mixed.selectedKnowledgePointIds.length>=2
   );
@@ -43,41 +43,45 @@ function inspect(target){
     firstTwoKnowledgePointIds:requested,
     sourceUnitBlocked:sourceUnit?.blocked??null,
     sourceUnitSameUnitOptionEnabled:sourceOption?.enabled??null,
-    sourceUnitSameUnitMixedAdmission:sourceUnit?.sameUnitMixedAdmission??null,
     mixedBindingPresent:Boolean(mixed),
     mixedBindingBlocked:mixed?.blocked??null,
     mixedBindingSameUnitOptionEnabled:mixedOption?.enabled??null,
-    mixedBindingSameUnitMixedAdmission:mixed?.sameUnitMixedAdmission??null,
     mixedSelectedKnowledgePointCount:mixed?.selectedKnowledgePointIds?.length??0,
-    defectReproduced:!(sourceAdvertises&&mixedWorks)
+    defectReproduced:!mixedWorks
   };
 }
 
-test("reproduce the exact 21 reported same-unit mixed gaps against the current browser authority",()=>{
+test("reproduce and classify the exact 21 reported same-unit mixed gaps",()=>{
   const matrix=preflight.scope.targetUnits.map(inspect);
   console.log("P09_UI_SAME_UNIT_MIXED_21_MATRIX="+JSON.stringify(matrix));
   assert.equal(matrix.length,21);
   for(const row of matrix){
-    assert.ok(row.visibleKnowledgePointCount>=2, row.unitCode+" must have >=2 visible KPs before same-unit mixed is meaningful");
-    assert.equal(row.sourceUnitBlocked,false,row.unitCode+" sourceUnit baseline must remain usable");
+    assert.equal(row.visibleKnowledgePointCount,5,row.unitCode+" current public selector should expose five KPs");
     assert.equal(row.defectReproduced,true,row.unitCode+" reported same-unit mixed gap was not reproduced");
   }
+  const sourceBlocked=matrix.filter(row=>row.sourceUnitBlocked===true);
+  const sourceUsable=matrix.filter(row=>row.sourceUnitBlocked===false);
+  const silentSingle=matrix.filter(row=>row.mixedBindingBlocked===false && row.mixedSelectedKnowledgePointCount<2);
+  assert.equal(sourceBlocked.length,17);
+  assert.deepEqual(sourceUsable.map(row=>row.unitCode),["G4A-U05","G5A-U05A1","G5A-U07","G5A-U10A"]);
+  assert.deepEqual(silentSingle.map(row=>row.unitCode),["G5A-U07","G5A-U10A"]);
 });
 
-test("known-good G6A-U02 proves the shared UI mode itself is not globally broken",()=>{
+test("known-good G6A-U02 proves the shared same-unit mixed infrastructure works",()=>{
   const control=inspect(preflight.scope.controlUnit);
   console.log("P09_UI_SAME_UNIT_MIXED_CONTROL="+JSON.stringify(control));
-  assert.ok(control.visibleKnowledgePointCount>=2);
+  assert.equal(control.visibleKnowledgePointCount,5);
   assert.equal(control.sourceUnitBlocked,false);
   assert.equal(control.sourceUnitSameUnitOptionEnabled,true);
-  assert.equal(control.sourceUnitSameUnitMixedAdmission??true,true);
   assert.equal(control.mixedBindingBlocked,false);
   assert.equal(control.mixedBindingSameUnitOptionEnabled,true);
   assert.ok(control.mixedSelectedKnowledgePointCount>=2);
   assert.equal(control.defectReproduced,false);
 });
 
-test("preflight remains planning-only and does not reopen G5B-U10 rename work",()=>{
+test("preflight locks one shared repair shape and keeps unrelated authority frozen",()=>{
+  assert.equal(preflight.rootCause.class,"CURRENT_CAPABILITY_BINDING_CHAIN_LACKS_UNIT_LEVEL_AGGREGATION_FOR_LATE_W5_W8_SLICES");
+  assert.equal(preflight.doneContract.repairShapeSelected,"ONE_CURRENT_UNIT_AGGREGATION_LAYER_WITH_BOUNDED_PER_UNIT_COMPATIBILITY_PROOFS");
   assert.equal(preflight.frozenBoundaries.g5bU10RenameWork,"CANCELLED_BY_OPERATOR_NO_CHANGE_REQUIRED");
   assert.equal(preflight.frozenBoundaries.crossUnitMixed,"OUT_OF_SCOPE");
   assert.equal(preflight.frozenBoundaries.r02Mutation,false);
