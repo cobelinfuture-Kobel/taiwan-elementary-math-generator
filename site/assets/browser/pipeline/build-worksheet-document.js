@@ -15,6 +15,10 @@ import { listW1FullProductPublicApplicationGroupsForKnowledgePoint } from "../..
 import { buildFifteenUnitPublicPblWorksheetResult } from "../../../modules/curriculum/public/fifteen-unit-public-pbl-worksheet.js";
 import { applyR07AuthoritativeConsumerCutover } from "../../../modules/curriculum/global/r07-authoritative-consumer-cutover.js";
 import { getBatchAWorksheetPlan, storeWorksheetResult } from "../state/config-state.js";
+import {
+  buildP09Mixed21Worksheet,
+  requestsP09Mixed21Aggregation,
+} from "../../../modules/curriculum/batch-a/same-unit-mixed21-aggregation.js";
 
 function groupLooksApplication(group) {
   const corpus = JSON.stringify({ mode: group?.mode, publicQuestionMode: group?.publicQuestionMode, representationTag: group?.representationTag, representationTags: group?.representationTags, displayName: group?.displayName }).toLowerCase();
@@ -63,6 +67,9 @@ function attachAuthoritativeCutover(result, cutover) {
 
 export function buildWorksheetDocumentFromPlan(publicPlan) {
   const requestedPlan = resolveCloseoutApplicationPlan(publicPlan);
+  if (requestsP09Mixed21Aggregation(requestedPlan)) {
+    return buildP09Mixed21Worksheet(requestedPlan, buildWorksheetDocumentFromPlan);
+  }
   const cutover = applyR07AuthoritativeConsumerCutover(requestedPlan);
   if (cutover.blocked) return blockedAuthoritativeCutoverResult(cutover, requestedPlan);
   const plan = cutover.plan ?? requestedPlan;
