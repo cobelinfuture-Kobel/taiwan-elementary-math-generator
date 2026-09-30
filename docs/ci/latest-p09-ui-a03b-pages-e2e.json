@@ -1,0 +1,18 @@
+{
+  "schemaName": "P09UIA03BPostMergeMainPagesE2EFailureV1",
+  "status": "FAIL",
+  "exactHeadSha": "ac05f678228037d6aaa3639dea235b8010951efd",
+  "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+  "error": "Error: P09_A03B_EXACT_DEPLOYMENT_NOT_OBSERVED:SHA_MISMATCH:modules/curriculum/batch-a/source-units.js:df90cbc7fa14e032283d39919d30a12d641cf795baf76ff1dabfda9f64c30d8c:71fe8bfc5880adab78d569ae85a91e6cc237dfebcd37623a4f3c5930b31c867d\n    at observeExactDeployment (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a03b-live-pages-e2e.mjs:54:9)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a03b-live-pages-e2e.mjs:101:22",
+  "childFailure": null,
+  "workflow": "P09 UI A03B Post-Merge Pages E2E",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "run": {
+    "id": "36713760524",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36713760524"
+  },
+  "verifiedAt": "2026-09-30T12:35:08.988Z"
+}
