@@ -23,7 +23,7 @@
     "browserMain": "site/assets/browser/main.js",
     "sourceUnitProvider": "site/modules/curriculum/batch-a/source-units.js",
     "selectorEntry": "site/modules/curriculum/registry/batch-a-selector-extension.js",
-    "browserSelectorDelegate": "batch-a-selector-p09-a02-extension.js -> batch-a-selector-p04f33-extension.js -> batch-a-selector-p08f22-extension.js",
+    "browserSelectorDelegate": "batch-a-selector-p09-a02-extension.js -> batch-a-selector-p08f22-extension.js",
     "publicBindingEntry": "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
     "browserBindingDelegate": "public-ui-capability-binding-p09-a02.js -> public-ui-capability-binding-p08f22.js",
     "worksheetConsumer": "site/assets/browser/pipeline/build-worksheet-document.js",
@@ -180,4 +180,4 @@
     "nextShortestStep": "P09_UI_A02_PR_GATE_MERGE_AND_DEPLOYED_E6_THEN_A03_CURRENT_AUTHORITY_ADAPTER_PREFLIGHT",
     "nextTaskRequiresSeparateOperatorApproval": false
   }
-}\n
+}
