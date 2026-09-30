@@ -35,6 +35,18 @@ export const P09_A03B_SOURCE_ROUTE_SELECTOR_ROWS = Object.freeze(
 );
 
 const baseAvailability = base.BATCH_A_SELECTOR_AVAILABILITY;
+const g3aU08Rows = base.listVisibleBatchAKnowledgePoints().filter((row) => row.sourceId === "g3a_u08_3a08");
+const g3aU08Availability = Object.freeze({
+  ...(baseAvailability.bySourceId?.["g3a_u08_3a08"] ?? {}),
+  sourceId: "g3a_u08_3a08",
+  visibleCount: g3aU08Rows.length,
+  hiddenPendingCount: 0,
+  notSelectableCount: 0,
+  visibleKnowledgePointIds: Object.freeze(g3aU08Rows.map((row) => row.knowledgePointId)),
+  hiddenPendingKnowledgePointIds: Object.freeze([]),
+  notSelectableKnowledgePointIds: Object.freeze([]),
+  publicSelectorStatus: "p09_a03b_g3a_u08_7_of_7_current",
+});
 const aliasAvailabilityEntries = Object.fromEntries(P09_A03B_SOURCE_ROUTE_ALIASES.map((alias) => [
   alias.sourceId,
   Object.freeze({
@@ -60,6 +72,7 @@ export const BATCH_A_SELECTOR_AVAILABILITY = Object.freeze({
   publicCurriculumUnitCount: 78,
   bySourceId: Object.freeze({
     ...baseAvailability.bySourceId,
+    ["g3a_u08_3a08"]: g3aU08Availability,
     ...aliasAvailabilityEntries,
   }),
 });
@@ -107,7 +120,8 @@ export function auditP09A03BPublicSelectorComposition() {
     }
   }
   const g3a = listBatchAKnowledgePointAvailabilityBySource("g3a_u08_3a08");
-  if (g3a.visibleCount !== 7 || g3a.hiddenPendingCount !== 0 || g3a.notSelectableCount !== 0) {
+  const g3aRows = rows.filter((row) => row.sourceId === "g3a_u08_3a08");
+  if (g3a.visibleCount !== 7 || g3aRows.length !== 7 || g3a.hiddenPendingCount !== 0 || g3a.notSelectableCount !== 0) {
     errors.push("P09_A03B_G3A_U08_7_OF_7_VISIBILITY_INVALID");
   }
   return Object.freeze({
