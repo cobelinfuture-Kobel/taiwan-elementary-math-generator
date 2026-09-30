@@ -45,8 +45,28 @@
     "productLogicChangedByRepair": false,
     "historicalTestsUpdated": [
       "tests/curriculum/p07f-w7-slice021-g6b-u06-pie-chart-quantity-from-rate.test.js",
-      "tests/curriculum/p08f-w8-slice018-g6b-u06-pie-chart-percent-angle-conversion.test.js"
+      "tests/curriculum/p08f-w8-slice018-g6b-u06-pie-chart-percent-angle-conversion.test.js",
+      "tests/curriculum/p07f-w7-slice011-g6a-u07-circle-area-derivation.test.js",
+      "tests/curriculum/p07f-w7-slice014-g6a-u07-circle-area-formula.test.js",
+      "tests/curriculum/p07f-w7-slice017-g6a-u07-annulus-area.test.js",
+      "tests/curriculum/p08f-w8-slice020-g6a-u07-composite-circle-area.test.js"
     ],
-    "invariant": "Older slice-local modules keep their original frozen semantics; only current-pointer successor expectations advance to P08F21."
+    "invariant": "Older slice-local modules keep their original frozen semantics; only current-pointer successor expectations advance to P08F21.",
+    "postMergeFullRegressionAttribution": {
+      "baselineRunId": 36666421593,
+      "currentRunId": 36667807435,
+      "baselineFailureCount": 168,
+      "currentFailureCount": 171,
+      "sharedFailureCount": 167,
+      "newHistoricalCurrentPointerFailures": [
+        "Q014 current pointers and bounded validation",
+        "Q017 current pointers and bounded validation",
+        "W7 Q011 current browser pointers advance to P07F11 while Q010 through Q001 and W6 Q020 stay reachable",
+        "W8 Q020 current pointer files and impact policy stay bounded"
+      ],
+      "removedBaselineFailure": "Q021 current pointers and bounded validation are successor-safe",
+      "attribution": "Q021_CURRENT_POINTER_SUCCESSOR_COMPATIBILITY_ONLY",
+      "productRuntimeChangeRequired": false
+    }
   }
 }
