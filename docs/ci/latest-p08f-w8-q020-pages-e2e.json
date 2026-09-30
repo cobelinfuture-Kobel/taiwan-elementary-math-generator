@@ -3,10 +3,10 @@
   "taskId": "P08F_W8DirectProductVerticalSlice020Implementation",
   "status": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
   "d0Granted": false,
-  "exactHeadSha": "e0075bedfa6d41046c09166d44c9f9c9a6db0a88",
+  "exactHeadSha": "bf1823096437febeab9e8f1bd30b7107b5b7c69b",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
-    "attempt": 34,
+    "attempt": 45,
     "assets": [
       {
         "publicPath": "modules/curriculum/registry/g6a-u07-composite-circle-area-selector-projection-p08f20.js",
@@ -30,8 +30,8 @@
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-        "expectedSha256": "dff0da10c17d770db0c799c25b513f25e1ece8dbc7e6b0898eb8157858510132",
-        "liveSha256": "dff0da10c17d770db0c799c25b513f25e1ece8dbc7e6b0898eb8157858510132"
+        "expectedSha256": "0a86008a9070f9258335f0fca5b513b62db10327ff4e5bb2f906b1037a6d7635",
+        "liveSha256": "0a86008a9070f9258335f0fca5b513b62db10327ff4e5bb2f906b1037a6d7635"
       },
       {
         "publicPath": "modules/curriculum/batch-a/g6a-u07-composite-circle-area-runtime-p08f20.js",
@@ -70,8 +70,8 @@
       },
       {
         "publicPath": "assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
-        "expectedSha256": "e06506cdc40539b90e2e8ac819ad8c4dddca1c2ad285995eb1ffab00cc8b0225",
-        "liveSha256": "e06506cdc40539b90e2e8ac819ad8c4dddca1c2ad285995eb1ffab00cc8b0225"
+        "expectedSha256": "d5ce12209d20c19080ac77ac974a3765991229a3b0f5820049c4671cabf95ea6",
+        "liveSha256": "d5ce12209d20c19080ac77ac974a3765991229a3b0f5820049c4671cabf95ea6"
       }
     ]
   },
@@ -90,7 +90,7 @@
       "kpId": "kp_g6a_u07_composite_circle_area",
       "selector": {
         "sourceId": "g6a_u07_6a07",
-        "summary": "本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：480",
+        "summary": "本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：482",
         "visibleIds": [
           "kp_g6a_u07_circle_area_derivation",
           "kp_g6a_u07_circle_area_formula",
@@ -126,7 +126,7 @@
           8
         ],
         "overflow": 0,
-        "minDiagramWidth": 311.9375,
+        "minDiagramWidth": 852,
         "minDiagramHeight": 150,
         "nonEmptyAnswers": 16,
         "visualContractViolations": 0,
@@ -207,10 +207,10 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36678795848",
-    "number": "4",
+    "id": "36705930536",
+    "number": "5",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36678795848"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36705930536"
   },
-  "verifiedAt": "2026-09-30T06:41:59.091Z"
+  "verifiedAt": "2026-09-30T11:13:13.888Z"
 }
