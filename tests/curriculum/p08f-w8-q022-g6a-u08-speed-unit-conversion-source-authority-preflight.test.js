@@ -52,13 +52,30 @@ test("W8 Q022 reads exact R03/R04/R05 executable authority without reclassificat
   const prerequisites=getR03DirectPrerequisites(KP);
   const mapping=getR04KnowledgePointCapabilityMapping(KP);assert.ok(mapping);
   const row=getR05DeliveryWaveAssignment(KP);assert.ok(row);
-  assert.ok(Array.isArray(prerequisites));
+  assert.deepEqual(prerequisites.map(x=>x.fromKnowledgePointId),[
+    "kp_g4a_u10_length_km_m_conversion",
+    "kp_g4b_u09_time_second_minute_hour_conversion",
+    "kp_speed_distance_time_relation"
+  ]);
+  assert.equal(mapping.mappingId,"r04map_speed_unit_conversion");
   assert.equal(mapping.primaryRuntimeProfileId,"profile_speed_rate");
   assert.equal(mapping.classificationRuleId,"rule_speed_rate");
+  assert.deepEqual(mapping.appliedModifierIds,["mod_unit_conversion","mod_quantity_relation_semantics"]);
+  assert.deepEqual(mapping.requiredRuntimeCapabilityIds,p.runtimeCapabilityAuthority.requiredRuntimeCapabilityIds);
+  assert.deepEqual(mapping.optionalRuntimeCapabilityIds,["cap_global_context_binding"]);
+  assert.deepEqual(mapping.forbiddenRuntimeCapabilityIds,[]);
+  assert.equal(row.baseDeliveryWaveId,"R05-W8");
   assert.equal(row.deliveryWaveId,"R05-W8");
+  assert.equal(row.prerequisiteWaveLowerBound,7);
+  assert.equal(row.waveEscalatedByPrerequisite,false);
   assert.equal(row.intraWavePrerequisiteRank,14);
   assert.equal(row.primaryRuntimeProfileId,"profile_speed_rate");
-  assert.ok(row.sourceNodeIds.includes(SRC));
+  assert.deepEqual(row.effectiveRequiredRuntimeCapabilityIds,p.runtimeCapabilityAuthority.effectiveRequiredRuntimeCapabilityIds);
+  assert.deepEqual(row.contractOnlyRequiredCapabilityIds,p.runtimeCapabilityAuthority.contractOnlyRequiredCapabilityIds);
+  assert.deepEqual(row.contractOnlyCapabilityWaveIds,["R05-W3","R05-W4","R05-W7"]);
+  assert.deepEqual(row.sourceNodeIds,["g6a_u08_6a08","g6b_u02_6b02"]);
+  assert.deepEqual(materializeP08EW8DirectProductVerticalSliceQueue().queueEntries[21].blockingCapabilityIds,p.queueAuthority.blockingCapabilityIds);
+  assert.deepEqual(materializeP08EW8DirectProductVerticalSliceQueue().queueEntries[21].blockingCapabilityWaveIds,p.queueAuthority.blockingCapabilityWaveIds);
   assert.equal(p.runtimeCapabilityAuthority.runtimeProfileReclassificationAllowed,false);
 });
 
