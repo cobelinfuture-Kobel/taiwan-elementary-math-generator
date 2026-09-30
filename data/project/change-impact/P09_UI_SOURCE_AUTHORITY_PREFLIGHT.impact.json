@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P09_UI_SOURCE_AUTHORITY_PREFLIGHT",
+  "currentScope": "GOVERNANCE_AND_INVENTORY_PREFLIGHT",
+  "expectedDerivedGate": "KP_FOCUSED",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED_READ_ONLY",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false,
+    "productImplementation": false,
+    "selectorVisibilityChanged": false,
+    "currentBrowserRoutingChanged": false,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "planningOnly": true,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "patternSpecMutation": false,
+    "generatorMutation": false,
+    "validatorMutation": false,
+    "rendererMutation": false,
+    "publicUiRuntimeMutation": false,
+    "p10CloseoutMutation": false
+  },
+  "classificationNote": "Read-only P09 source authority/public UI inventory and scope lock. The task records current deployed UI failures but does not repair them."
+}
