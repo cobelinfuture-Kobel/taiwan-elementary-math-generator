@@ -29,7 +29,7 @@ test("P09 preflight locks 79-source / 482-KP current authority without semantic 
   assert.equal(impact.scopeGuards.r05Mutation, false);
 });
 
-test("P09 preflight measures the exact browser selector gap against the 482-KP authority", async () => {
+test("P09 preflight readback reaches 482/482 after A02 materialization", async () => {
   globalThis.document = Object.create(null);
   try {
     const selector = await import("../../site/modules/curriculum/registry/batch-a-selector-extension.js");
@@ -39,9 +39,9 @@ test("P09 preflight measures the exact browser selector gap against the 482-KP a
     const canonicalIds = materializeR05DeliveryWaveRebase().knowledgePointAssignments.map((row) => row.knowledgePointId);
     const visibleSet = new Set(ids);
     const missingKnowledgePointIds = canonicalIds.filter((id) => !visibleSet.has(id));
-    assert.equal(visible.length, 480);
-    assert.equal(new Set(ids).size, 480);
-    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 480);
+    assert.equal(visible.length, 482);
+    assert.equal(new Set(ids).size, 482);
+    assert.equal(selector.BATCH_A_SELECTOR_AVAILABILITY.visibleCount, 482);
     assert.equal(missingKnowledgePointIds.length, 2);
     assert.deepEqual(missingKnowledgePointIds, [
       "kp_g3a_u08_whole_as_fraction",
@@ -87,9 +87,9 @@ test("P09 current public UI surface and pointer inventory are explicit", () => {
     "preview-frame"
   ]) assert.match(index, new RegExp(id));
   assert.match(index, /mixedKnowledgePointsCrossUnit" disabled/);
-  assert.match(selectorEntry, /batch-a-selector-p04f33-extension/);
+  assert.match(selectorEntry, /batch-a-selector-p09-a02-extension/);
   assert.match(selectorPointer, /batch-a-selector-p08f22-extension/);
-  assert.match(bindingPointer, /public-ui-capability-binding-p08f22/);
+  assert.match(bindingPointer, /public-ui-capability-binding-p09-a02/);
   assert.match(worksheet, /applyR07AuthoritativeConsumerCutover/);
   assert.equal(contract.currentPublicUiInventory.controls.crossUnitMixedDefault, "DISABLED");
 });
@@ -125,14 +125,14 @@ test("P09 and P10 boundaries remain fail-closed and require a separate implement
 
   assert.equal(contract.p09ScopeLock.forbidden.includes("No P10 closeout claim inside P09."), true);
   assert.equal(contract.p09DoneContract.sourceInventoryParity, "76_OF_76_PUBLIC_PRODUCT_UNITS_WITH_79_OF_79_CANONICAL_SOURCE_NODES_ACCOUNTED");
-  assert.equal(contract.p09DoneContract.knowledgePointSelectorParity, "480_OF_480_CURRENT_PRODUCT_ADMITTED");
-  assert.equal(contract.p09DoneContract.canonicalProductAdmissionGap, 2);
-  assert.equal(contract.p09DoneContract.full482SelectorParityRequiresSeparateProductAdmission, true);
+  assert.equal(contract.p09DoneContract.knowledgePointSelectorParity, "482_OF_482_P09_PRODUCT_ADMITTED");
+  assert.equal(contract.p09DoneContract.canonicalProductAdmissionGap, 0);
+  assert.equal(contract.p09DoneContract.full482SelectorParityRequiresSeparateProductAdmission, false);
   assert.equal(contract.p09DoneContract.crossUnitMixedRequired, false);
   assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("P09_UI_D0_COMPLETE"));
   assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("ZERO_CANONICAL_KP_PRODUCT_ADMISSION_GAP"));
   assert.ok(contract.p10CloseoutPrerequisiteLock.prerequisites.includes("GLOBAL_RELEASE_CERTIFICATION_AT_P10"));
-  assert.equal(contract.distance.nextShortestStep, "P09_UI_A01_RestoreG5BU02AndG5BU09_SourceProvider_ThenClassicAndLivePagesReadback");
+  assert.equal(contract.distance.nextShortestStep, "P09_UI_A02_PR_GATE_MERGE_AND_DEPLOYED_E6_THEN_A03_CURRENT_AUTHORITY_ADAPTER_PREFLIGHT");
   assert.equal(contract.distance.nextTaskRequiresSeparateOperatorApproval, false);
   assert.equal(impact.scopeGuards.publicUiRuntimeMutation, false);
   assert.deepEqual(plan.forbidden, ["FULL_NODE_REGRESSION", "GLOBAL_BROWSER_REPLAY"]);
