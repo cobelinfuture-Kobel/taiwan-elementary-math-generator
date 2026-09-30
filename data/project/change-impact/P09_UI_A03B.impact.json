@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P09_UI_A03B",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g3a_u08_whole_as_fraction",
+    "kp_g3a_u08_unlike_denominator_comparison_limit"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P09_UI_A03B.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "productImplementation": true,
+    "selectorVisibilityChanged": true,
+    "currentBrowserRoutingChanged": true,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "correctedCurriculumUnitRoutesOnly": true,
+    "g3aU08SourceUnitIntegration": true,
+    "g4bU03RouteRestore": true,
+    "g6bU02RouteRestore": true,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "newCanonicalKnowledgePointIdentity": false,
+    "crossUnitMixedAdmission": false,
+    "g5bU10IdentityInference": false,
+    "p10Closeout": false
+  },
+  "classificationNote": "P09 A03B corrects a bounded current-public-UI completeness defect across exactly G3A-U08, G4B-U03 and G6B-U02. It restores curriculum source routes while reusing existing canonical semantic KPs and runtimes."
+}

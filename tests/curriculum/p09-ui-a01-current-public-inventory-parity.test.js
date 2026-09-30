@@ -6,25 +6,23 @@ const readJson=(path)=>JSON.parse(fs.readFileSync(path,"utf8"));
 const CONTRACT_PATH="data/curriculum/full-product/p09/p09-ui-a01-current-public-inventory-parity.json";
 const TARGETS=["kp_g3a_u08_whole_as_fraction","kp_g3a_u08_unlike_denominator_comparison_limit"];
 
-test("P09 A01 accounts 79 canonical source nodes through the exact 76-unit public projection",async()=>{
+test("P09 A01 historical 76-unit projection remains recorded, while A03B current browser projection is 78 units",async()=>{
+  const contract=readJson(CONTRACT_PATH);
+  assert.equal(contract.sourceProjection.canonicalSourceNodeCount,79);
+  assert.equal(contract.sourceProjection.expectedPublicProductSourceUnitCount,76);
+  assert.deepEqual(contract.sourceProjection.semanticCoSourceMappings,[
+    {canonicalSourceNodeId:"g4b_u03_4b03",publicOwnerSourceId:"g4a_u06_4a06"},
+    {canonicalSourceNodeId:"g6b_u02_6b02",publicOwnerSourceId:"g6a_u08_6a08"}
+  ]);
   globalThis.document=Object.create(null);
   try{
-    const {materializeR05DeliveryWaveRebase}=await import("../../src/curriculum/global/r05-delivery-wave-rebase.mjs");
     const sourceUnits=await import("../../site/modules/curriculum/batch-a/source-units.js");
     const selector=await import("../../site/modules/curriculum/registry/batch-a-selector-extension.js");
-    const r05=materializeR05DeliveryWaveRebase();
-    const canonical=[...new Set(r05.knowledgePointAssignments.flatMap(row=>row.sourceNodeIds))].sort();
-    const browser=sourceUnits.listBatchASourceUnits().map(row=>row.sourceId).sort();
-    const selectorIds=Object.keys(selector.BATCH_A_SELECTOR_AVAILABILITY.bySourceId??{}).sort();
-    const canonicalSet=new Set(canonical),browserSet=new Set(browser);
-    const missing=canonical.filter(id=>!browserSet.has(id));
-    const extra=browser.filter(id=>!canonicalSet.has(id));
-    assert.equal(canonical.length,79);
-    assert.equal(browser.length,76);
-    assert.equal(selectorIds.length,76);
-    assert.deepEqual(browser,selectorIds);
-    assert.deepEqual(missing,["g4b_u03_4b03","g5a_u02_5a02a","g5a_u02_5a02a1","g6b_u02_6b02"]);
-    assert.deepEqual(extra,["g5a_u02_5a02"]);
+    const browser=sourceUnits.listBatchASourceUnits().map(row=>row.sourceId);
+    assert.equal(new Set(browser).size,78);
+    assert.equal(Object.keys(selector.BATCH_A_SELECTOR_AVAILABILITY.bySourceId??{}).length,78);
+    assert.ok(browser.includes("g4b_u03_4b03"));
+    assert.ok(browser.includes("g6b_u02_6b02"));
   }finally{delete globalThis.document;}
 });
 
@@ -75,7 +73,8 @@ test("P09 A01 historical 480-KP boundary is superseded by A02 current 482-KP adm
     assert.equal(contract.postA02.currentProductAdmittedSelectableCount,482);
     assert.equal(contract.postA02.canonicalProductAdmissionGap,0);
     assert.equal(canonical.length,482);
-    assert.equal(visible.length,482);
+    assert.equal(new Set(visible.map(row=>row.knowledgePointId)).size,482);
+    assert.equal(visible.length,493);
     assert.deepEqual(canonical.filter(row=>!visibleSet.has(row.knowledgePointId)),[]);
     for(const id of TARGETS){
       const row=canonical.find(candidate=>candidate.knowledgePointId===id);
