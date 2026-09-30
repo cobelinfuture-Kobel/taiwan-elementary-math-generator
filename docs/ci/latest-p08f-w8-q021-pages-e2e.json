@@ -1,8 +1,8 @@
 {
   "schemaName": "P08FW8Q021PostMergeMainPagesE2EV1",
   "taskId": "P08F_W8DirectProductVerticalSlice021Implementation",
-  "status": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
-  "d0Granted": false,
+  "status": "PASS_E6_D0_COMPLETE",
+  "d0Granted": true,
   "exactHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
@@ -84,8 +84,8 @@
     "schemaName": "P08FW8Q021ClassicUIAcceptanceV1",
     "taskId": "P08F_W8DirectProductVerticalSlice021Implementation",
     "status": "PASS_P08F_W8_Q021_TECHNICAL_VISUAL_PRECHECK",
-    "learnerVisualAcceptanceStatus": "PENDING_OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW",
-    "d0Granted": false,
+    "learnerVisualAcceptanceStatus": "PASS_OPERATOR_APPROVED",
+    "d0Granted": true,
     "sourceId": "g6b_u06_6b06",
     "knowledgePointIds": [
       "kp_g6b_u06_construct_pie_chart"
@@ -147,12 +147,12 @@
         "ui": "q021-construct-pie-chart-ui.png",
         "pdfBytes": 243398,
         "pngBytes": 683575,
-        "status": "PENDING_OPERATOR_REVIEW"
+        "status": "PASS_OPERATOR_REVIEW"
       }
     },
     "humanReview": {
       "required": true,
-      "status": "PENDING_OPERATOR",
+      "status": "PASS_OPERATOR",
       "artifacts": [
         {
           "pdf": "q021-construct-pie-chart-human-review.pdf",
@@ -161,7 +161,7 @@
           "ui": "q021-construct-pie-chart-ui.png",
           "pdfBytes": 243398,
           "pngBytes": 683575,
-          "status": "PENDING_OPERATOR_REVIEW"
+          "status": "PASS_OPERATOR_REVIEW"
         }
       ]
     },
@@ -199,7 +199,7 @@
     }
   },
   "humanVisualReviewRequired": true,
-  "learnerVisualAcceptanceStatus": "PENDING_OPERATOR_ACTUAL_PRINT_HUMAN_REVIEW",
+  "learnerVisualAcceptanceStatus": "PASS_OPERATOR_APPROVED",
   "semanticInvariants": {
     "constructPieChartOwned": true,
     "sourceTableToPieConstruction": true,
@@ -218,5 +218,42 @@
     "attempt": "1",
     "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36667807557"
   },
-  "verifiedAt": "2026-09-30T04:28:54.304Z"
+  "verifiedAt": "2026-09-30T04:28:54.304Z",
+  "operatorHumanVisualReview": {
+    "required": true,
+    "status": "PASS_OPERATOR_APPROVED",
+    "decision": "GRAPHICS_OK",
+    "operatorStatement": "圖形OK",
+    "acceptedDeployedHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
+    "acceptedArtifactId": 11077247349,
+    "acceptedArtifactDigest": "sha256:c79254cb3ab60e54f4bdc8101be3d7470ffa3bb0ae1a702e274fdc12a02f4720",
+    "acceptedAtLocalDate": "2026-09-30"
+  },
+  "postMergeFullRegressionParity": {
+    "implementationRunId": 36667807435,
+    "implementationRunConclusion": "failure",
+    "implementationFailureCount": 171,
+    "preflightBaselineRunId": 36666421593,
+    "preflightBaselineFailureCount": 168,
+    "compatibilityRepairPrNumber": 1160,
+    "compatibilityRepairMergeSha": "24b2be879b27f903c6c860c09c3e9e1545a43fa3",
+    "parityRerunId": 36669444562,
+    "parityRerunConclusion": "failure",
+    "parityFailureCount": 167,
+    "sharedWithPreflightBaselineCount": 167,
+    "newFailuresVsPreflightBaseline": [],
+    "removedBaselineFailures": [
+      "Q021 current pointers and bounded validation are successor-safe"
+    ],
+    "status": "PASS_NO_NEW_FAILURES_BASELINE_ONLY"
+  },
+  "finalCloseout": {
+    "status": "PASS_E6_D0_COMPLETE",
+    "exactDeployedHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
+    "technicalE6Passed": true,
+    "operatorHumanVisualReviewPassed": true,
+    "postMergeRegressionParityPassed": true,
+    "d0Granted": true,
+    "nextTask": "P08F_W8_Q022_SourceAuthorityPreflight"
+  }
 }
