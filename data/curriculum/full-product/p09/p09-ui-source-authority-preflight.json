@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "taskId": "P09_UI_SourceAuthorityPreflight_CurrentPublicUIInventory_FullProduct482KPIntegrationBoundary_And_P10CloseoutPrerequisiteLock",
-  "status": "PREFLIGHT_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "status": "PREFLIGHT_CORRECTED_BY_A01_SOURCE_BACKED_DIAGNOSTIC",
   "operatorApproval": "APPROVED_2026_09_30",
   "baseline": {
     "mainSha": "1b116c29ecdf90eccae72ca9d27b0132a5c14068",
@@ -56,15 +56,47 @@
       "print": true
     },
     "browserSelectorObservedVisibleKnowledgePointCount": 480,
-    "browserSelectorCanonicalParityGap": 2,
-    "browserSelectorCanonicalParityStatus": "480_OF_482_CURRENTLY_VISIBLE",
     "browserSelectorObservedSourceCount": 76,
-    "browserSelectorCanonicalSourceParityGap": 3,
-    "browserSelectorCanonicalSourceParityStatus": "76_OF_79_CURRENTLY_INDEXED",
     "browserSelectorMissingKnowledgePointIds": [
       "kp_g3a_u08_whole_as_fraction",
       "kp_g3a_u08_unlike_denominator_comparison_limit"
-    ]
+    ],
+    "expectedPublicProductSourceUnitCount": 76,
+    "browserSourceUnitProviderObservedCountBeforeA01": 74,
+    "browserSourceUnitProviderMissingProductSourceIds": [
+      "g5b_u02_5b02",
+      "g5b_u09_5b09"
+    ],
+    "canonicalSourceNodeToPublicUnitCollapseCount": 3,
+    "browserSelectorSourceProjectionStatus": "76_PUBLIC_PRODUCT_UNITS_ACCOUNT_FOR_79_CANONICAL_SOURCE_NODES",
+    "sourceNodeProjectionExceptions": {
+      "compositePublicUnit": {
+        "publicSourceId": "g5a_u02_5a02",
+        "canonicalSourceNodeIds": [
+          "g5a_u02_5a02a",
+          "g5a_u02_5a02a1"
+        ],
+        "reason": "EXPLICIT_COMPOSITE_GOLDEN_BASELINE"
+      },
+      "semanticCoSources": [
+        {
+          "canonicalSourceNodeId": "g4b_u03_4b03",
+          "publicOwnerSourceId": "g4a_u06_4a06",
+          "reason": "R02_CANONICAL_KP_ALIAS_SET_COLLAPSES_TO_EXISTING_PUBLIC_OWNER"
+        },
+        {
+          "canonicalSourceNodeId": "g6b_u02_6b02",
+          "publicOwnerSourceId": "g6a_u08_6a08",
+          "reason": "R02_SHARED_REVIEWED_KP_IDENTITY_SET"
+        }
+      ]
+    },
+    "canonicalKnowledgePointCount": 482,
+    "currentProductAdmittedSelectableKnowledgePointCount": 480,
+    "canonicalCandidateOnlyNotAdmittedCount": 2,
+    "browserSelectorProductParityStatus": "480_OF_480_CURRENT_PRODUCT_ADMITTED",
+    "canonicalProductAdmissionGapStatus": "2_OF_482_CANONICAL_KPS_PLANNED_NOT_ADMITTED",
+    "missingKnowledgePointAdmissionState": "CANDIDATE_ONLY_AND_R05_PLANNED_NOT_ADMITTED"
   },
   "deployedUiEvidence": {
     "deploymentSha": "b90352bd9a61b78677634d49c59ad427081f98d3",
@@ -78,19 +110,18 @@
       "docs/ci/latest-s76r2-deployed-pages-smoke.json"
     ],
     "observedFailureClass": "PUBLIC_SOURCE_DROPDOWN_OR_DEPLOYED_CONTROL_MATERIALIZATION_FAILURE",
-    "interpretation": "The 482-KP product delivery sequence is closed, but the deployed Classic UI is not a safe P10 baseline because multiple current smoke readbacks cannot select required source options and one approved-layout replay is mismatched."
+    "interpretation": "W8 product slices are closed, but the Classic source-unit provider was missing two already-admitted public product units (G5B-U02 and G5B-U09). Separately, two canonical G3A-U08 KPs are candidate-only / R05 PLANNED_NOT_ADMITTED and must not be exposed by an inventory-only repair."
   },
   "p09ScopeLock": {
-    "goal": "Make the existing 79-source / 482-KP product authority reliably consumable from the public UI without reimplementing the mathematics.",
+    "goal": "Make the current admitted product authority reliably consumable from the public UI, account for all 79 canonical source nodes through the 76-unit public projection, and fail closed on the two canonical KPs that are not yet product-admitted.",
     "required": [
-      "Repair deployed source-unit dropdown authority/materialization first.",
-      "Close the measured public-inventory parity gaps: browser selector sources 76/79 and visible KnowledgePoints 480/482.",
-      "Restore the two missing canonical KnowledgePoint identities to the current public selector: kp_g3a_u08_whole_as_fraction and kp_g3a_u08_unlike_denominator_comparison_limit.",
-      "Expose all 79 canonical source nodes through one current public source inventory.",
-      "Expose all 482 canonical KnowledgePoints through one current public selector projection.",
-      "Preserve existing PatternGroup/PatternSpec ownership and route selected KPs into existing generator/validator/worksheet/answer/print runtimes.",
-      "Replace current historical-pointer dependence with a stable current-authority adapter while keeping legacy paths read-only for compatibility.",
-      "Expand authoritative consumer cutover coverage from the current explicit 15 product units to the full current public source universe or an equivalent successor authority.",
+      "Restore g5b_u02_5b02 and g5b_u09_5b09 to the browser source-unit provider so it matches the 76-source selector projection.",
+      "Account for all 79 canonical source nodes through the source-backed 76-public-unit projection rather than creating duplicate dropdown units for composite or semantic co-sources.",
+      "Preserve the 480 currently product-admitted/selectable KnowledgePoints and do not expose the two G3A-U08 candidate-only rows without PatternSpec/runtime/validator/worksheet admission.",
+      "Record kp_g3a_u08_whole_as_fraction and kp_g3a_u08_unlike_denominator_comparison_limit as the remaining 482-KP product-admission blocker.",
+      "Preserve existing PatternGroup/PatternSpec ownership and route selected admitted KPs into existing generator/validator/worksheet/answer/print runtimes.",
+      "Replace historical-pointer dependence with a stable current-authority adapter in later P09 milestones while keeping legacy paths read-only for compatibility.",
+      "Expand authoritative consumer cutover coverage from the current explicit 15 product units in later P09 milestones.",
       "Keep selection-mode admission authority-driven: sourceUnit and singleKnowledgePoint required; same-unit mixed only where already admitted; cross-unit mixed remains disabled unless separately approved."
     ],
     "forbidden": [
@@ -106,8 +137,8 @@
     ]
   },
   "p09DoneContract": {
-    "sourceInventoryParity": "79_OF_79",
-    "knowledgePointSelectorParity": "482_OF_482",
+    "sourceInventoryParity": "76_OF_76_PUBLIC_PRODUCT_UNITS_WITH_79_OF_79_CANONICAL_SOURCE_NODES_ACCOUNTED",
+    "knowledgePointSelectorParity": "480_OF_480_CURRENT_PRODUCT_ADMITTED",
     "deployedRequiredSourceOptionFailures": 0,
     "validSingleKnowledgePointRoutesReachExistingRuntime": true,
     "worksheetOutput": true,
@@ -115,13 +146,18 @@
     "htmlPreview": true,
     "browserPrint": true,
     "legacyCompatibilityRole": "READ_ONLY",
-    "crossUnitMixedRequired": false
+    "crossUnitMixedRequired": false,
+    "canonicalKnowledgePointCount": 482,
+    "canonicalProductAdmissionGap": 2,
+    "full482SelectorParityRequiresSeparateProductAdmission": true
   },
   "p10CloseoutPrerequisiteLock": {
     "prerequisites": [
       "P09_UI_D0_COMPLETE",
-      "79_OF_79_PUBLIC_SOURCE_AUTHORITY_PARITY",
-      "482_OF_482_PUBLIC_KP_AUTHORITY_PARITY",
+      "79_OF_79_CANONICAL_SOURCE_NODES_ACCOUNTED_BY_76_PUBLIC_PRODUCT_UNITS",
+      "76_OF_76_PUBLIC_PRODUCT_SOURCE_UNITS_REACHABLE",
+      "ZERO_CANONICAL_KP_PRODUCT_ADMISSION_GAP",
+      "PUBLIC_SELECTOR_EQUALS_PRODUCT_ADMITTED_KP_SET",
       "ZERO_DEPLOYED_SOURCE_OPTION_MATERIALIZATION_FAILURES",
       "FULL_PUBLIC_AUTHORITY_CONSUMER_COVERAGE",
       "ALL_PUBLIC_SINGLE_KP_ROUTES_RESOLVE_TO_EXISTING_PRODUCT_RUNTIME",
@@ -137,13 +173,13 @@
     "goalDistanceAfter": "D1_P09_UI_BOUNDARY_LOCKED_DEPLOYED_UI_BLOCKER_IDENTIFIED",
     "distanceReduced": "Locked the exact UI integration boundary and converted the unknown post-W8 successor into a bounded P09 UI program with explicit P10 prerequisites.",
     "remainingBlockers": [
-      "DEPLOYED_PUBLIC_SOURCE_DROPDOWN_MATERIALIZATION_FAILURE",
-      "BROWSER_SELECTOR_SOURCE_PARITY_GAP_3_OF_79",
-      "BROWSER_SELECTOR_CANONICAL_PARITY_GAP_2_KPS",
+      "PUBLIC_SOURCE_PROVIDER_GAP_2_OF_76_BEFORE_A01",
+      "CANONICAL_KP_PRODUCT_ADMISSION_GAP_2_G3A_U08",
+      "DEPLOYED_PUBLIC_SOURCE_DROPDOWN_RECOVERY_NOT_YET_VERIFIED",
       "R07_AUTHORITATIVE_CONSUMER_EXPLICIT_COVERAGE_ONLY_15_UNITS",
       "HISTORICAL_POINTER_CHAIN_STILL_PART_OF_CURRENT_BROWSER_ROUTING"
     ],
-    "nextShortestStep": "P09_UI_A01_CurrentPublicInventoryParityRepair_76To79Sources_480To482KPs_AndDeployedSourceDropdownRecovery",
-    "nextTaskRequiresSeparateOperatorApproval": true
+    "nextShortestStep": "P09_UI_A01_RestoreG5BU02AndG5BU09_SourceProvider_ThenClassicAndLivePagesReadback",
+    "nextTaskRequiresSeparateOperatorApproval": false
   }
 }
