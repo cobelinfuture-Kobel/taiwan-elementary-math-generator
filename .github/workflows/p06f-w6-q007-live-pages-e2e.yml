@@ -1,19 +1,9 @@
 name: P06F W6 Q007 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/renderer/html-renderer.js"
-      - "site/modules/renderer/bar-chart-data.js"
-      - "site/modules/curriculum/batch-a/source-units.js"
-      - "site/modules/curriculum/registry/g4b-u05-chart-read-scale-selector-projection-p06f07.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p06f07-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p06f07.js"
-      - "site/modules/curriculum/batch-a/g4b-u05-chart-read-scale-runtime-p06f07.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p06f07.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p06f07-extension.js"
+  workflow_dispatch:
+
 permissions:
-  contents: read
+contents: read
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest

@@ -1,26 +1,10 @@
 name: P05F W5 Q013 Post-Merge Pages E2E
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'data/curriculum/full-product/p05f/q013-g4a-u05-triangle-elements-naming-implementation.json'
-      - 'site/modules/curriculum/registry/g4a-u05-triangle-elements-naming-selector-projection-p05f13.js'
-      - 'site/modules/curriculum/registry/batch-a-selector-p05f13-extension.js'
-      - 'site/modules/curriculum/public/public-ui-capability-binding-p05f13.js'
-      - 'site/modules/curriculum/batch-a/g4a-u05-triangle-elements-naming-runtime-p05f13.js'
-      - 'site/modules/curriculum/batch-a/batch-a-browser-generator-p05f13.js'
-      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f13-extension.js'
-      - 'site/modules/curriculum/batch-a/batch-a-browser-worksheet-r2e-entry.js'
-      - 'site/modules/curriculum/batch-a/source-units.js'
-      - 'site/assets/browser/state/config-state.js'
-      - 'site/modules/renderer/triangle-elements-naming-diagram.js'
-      - 'site/modules/renderer/html-renderer.js'
   workflow_dispatch:
 
 permissions:
-  contents: read
+contents: read
 
 concurrency:
   group: p05f-w5-q013-postmerge-pages-e2e-${{ github.ref }}

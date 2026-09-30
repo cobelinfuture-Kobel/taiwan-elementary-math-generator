@@ -1,17 +1,9 @@
 name: P06F W6 Q005 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/batch-a/source-units.js"
-      - "site/modules/curriculum/registry/g4a-u07-pattern-relation-selector-projection-p06f05.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p06f05-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p06f05.js"
-      - "site/modules/curriculum/batch-a/g4a-u07-pattern-relation-runtime-p06f05.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p06f05.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p06f05-extension.js"
+  workflow_dispatch:
+
 permissions:
-  contents: read
+contents: read
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest
