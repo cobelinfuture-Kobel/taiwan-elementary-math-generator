@@ -38,7 +38,7 @@
     "crossUnitMixedAdmission": false,
     "applicationContextAdmission": false,
     "humanVisualReviewRequired": true,
-    "historicalCompatibilityTestOnlyMutation": false,
+    "historicalCompatibilityTestOnlyMutation": true,
     "priorProductMutation": false
   },
   "classificationNote": "Q020 bounded visual-semantic repair only: move 甲=半圓 to the actual right semicircle region and 乙=θ°扇形 to the sector side with a leader line. The operator accepted SQUARE_MINUS_CIRCLE unchanged. Generator, validator, selector, worksheet semantics, prior owners, mixed/application admission, R02-R05, queue, and Q021+ remain untouched.",
@@ -53,6 +53,7 @@
     "selectorChanged": false,
     "worksheetSemanticsChanged": false,
     "q021OrLaterTouched": false,
-    "humanVisualReviewRerunRequired": true
+    "humanVisualReviewRerunRequired": true,
+    "ciCompatibilityRepair": "Replace mutable docs/ci/latest-p08f-w8-q019-pages-e2e.json assertions with the immutable Q019 D0 snapshot already frozen in Q020 preflight authority."
   }
 }
