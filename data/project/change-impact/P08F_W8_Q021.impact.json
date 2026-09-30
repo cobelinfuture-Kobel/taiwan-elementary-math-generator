@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q021",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g6b_u06_construct_pie_chart"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q021.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "productImplementation": true,
+    "selectorVisibilityChanged": true,
+    "currentBrowserRoutingChanged": true,
+    "sharedRendererChanged": true
+  },
+  "scopeGuards": {
+    "q021Only": true,
+    "q022OrLaterMutation": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "q014OwnershipMutation": false,
+    "q016OwnershipMutation": false,
+    "q021W7OwnershipMutation": false,
+    "q018OwnershipMutation": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "applicationContextAdmission": false,
+    "humanVisualReviewRequired": true
+  }
+}
