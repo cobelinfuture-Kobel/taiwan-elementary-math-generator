@@ -13,24 +13,24 @@
         ]
       },
       {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-source-authority-preflight.test.js"
+        ]
+      },
+      {
         "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
-        "kind": "STATIC_READBACK",
+        "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/r05-delivery-wave-rebase.test.js",
-          "site/index.html",
-          "site/assets/browser/main.js",
-          "site/assets/browser/pipeline/build-worksheet-document.js",
-          "site/modules/curriculum/registry/batch-a-selector-extension.js",
-          "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
-          "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-          "site/modules/curriculum/global/r07-authoritative-consumer-cutover.js"
+          "tests/curriculum/p09-ui-source-authority-preflight.test.js"
         ]
       }
     ]
   },
   "forbidden": [
     "FULL_NODE_REGRESSION",
-    "GLOBAL_BROWSER_REPLAY",
-    "PRODUCT_RUNTIME_MUTATION"
+    "GLOBAL_BROWSER_REPLAY"
   ]
 }
