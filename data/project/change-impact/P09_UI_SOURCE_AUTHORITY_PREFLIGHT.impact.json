@@ -39,5 +39,6 @@
   ],
   "unitKnowledgePointGateStatus": {
     "kp_speed_unit_conversion": "FOCUSED_PASS"
-  }
+  },
+  "validationPlanPath": "data/project/validation-plans/P09_UI_SOURCE_AUTHORITY_PREFLIGHT.validation.json"
 }
