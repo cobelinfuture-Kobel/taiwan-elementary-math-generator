@@ -19,6 +19,6 @@ const readback = {
   browserAvailabilityHiddenPendingCount: selector.BATCH_A_SELECTOR_AVAILABILITY.hiddenPendingCount,
   browserAvailabilityNotSelectableCount: selector.BATCH_A_SELECTOR_AVAILABILITY.notSelectableCount,
   r07ExplicitAuthoritativeConsumerUnits: R07_PUBLIC_PRODUCT_UNIT_IDS.length,
-  nextShortestStep: "P09_UI_A01_DeployedSourceDropdownAuthorityRepair_And_79SourceCurrentInventoryMaterialization"
+  nextShortestStep: "P09_UI_A01_CurrentPublicInventoryParityRepair_76To79Sources_480To482KPs_AndDeployedSourceDropdownRecovery"
 };
 console.log("P09_UI_SOURCE_AUTHORITY_PREFLIGHT_READBACK=" + JSON.stringify(readback));
