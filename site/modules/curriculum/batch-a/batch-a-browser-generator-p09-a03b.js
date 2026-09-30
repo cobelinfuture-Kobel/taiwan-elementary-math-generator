@@ -11,6 +11,10 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
 } from "../registry/batch-a-selector-p09-a03b-extension.js";
+import { generateG3AU08CurrentQuestions } from "./g3a-u08-current-coordinator-p04f24.js";
+import { generateG3AU08P09A02Questions } from "./g3a-u08-two-kp-runtime-p09-a02.js";
+import { G3A_U08_P09_A02_TARGET_KP_IDS } from "../registry/g3a-u08-two-kp-selector-projection-p09-a02.js";
+import { generateG4AU06CurrentQuestions } from "./g4a-u06-current-coordinator.js";
 
 export const P09_A03B_G3A_U08_SOURCE_ID = "g3a_u08_3a08";
 export const P09_A03B_MAX_QUESTION_COUNT = 120;
@@ -174,7 +178,7 @@ function generateIntegrated(options, plan) {
   const errors = [];
   for (const entry of allocations) {
     const mode = preferredQuestionMode(entry.knowledgePointId);
-    const generation = baseGenerate({
+    const ownerOptions = {
       ...options,
       sourceId: ownerSourceId,
       selectionMode: "singleKnowledgePoint",
@@ -187,12 +191,29 @@ function generateIntegrated(options, plan) {
       questionCount: entry.questionCount,
       ordering: "groupedByPattern",
       generationSeed: `${plan.generationSeed}:${entry.knowledgePointId}:${mode}`,
-    });
+    };
+    let generation;
+    if (plan.sourceId === P09_A03B_G3A_U08_SOURCE_ID) {
+      generation = G3A_U08_P09_A02_TARGET_KP_IDS.includes(entry.knowledgePointId)
+        ? generateG3AU08P09A02Questions({
+          ...ownerOptions,
+          sourceId: P09_A03B_G3A_U08_SOURCE_ID,
+          patternSpecIds: patternSpecsFor([entry.knowledgePointId]),
+        })
+        : generateG3AU08CurrentQuestions(ownerOptions);
+    } else if (alias?.semanticOwnerSourceId === "g4a_u06_4a06") {
+      generation = generateG4AU06CurrentQuestions(ownerOptions);
+    } else {
+      generation = baseGenerate(ownerOptions);
+    }
     if (!generation?.ok) {
-      errors.push(...(generation?.errors ?? [issue("P09_A03B_OWNER_GENERATION_FAILED")]).map((error) => ({
-        ...error,
-        path: `${entry.knowledgePointId}.${error.path ?? "generation"}`,
-      })));
+      errors.push(...(generation?.errors ?? [issue("P09_A03B_OWNER_GENERATION_FAILED")]).map((error) => {
+        const normalized = typeof error === "string" ? issue(error, "generation") : error;
+        return {
+          ...normalized,
+          path: `${entry.knowledgePointId}.${normalized.path ?? "generation"}`,
+        };
+      }));
       continue;
     }
     questions.push(...generation.questions.map((question) => projectAliasQuestion(question, alias)));
