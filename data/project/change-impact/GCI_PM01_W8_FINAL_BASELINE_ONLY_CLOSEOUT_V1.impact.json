@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "GCI_PM01_W8_FINAL_BASELINE_ONLY_CLOSEOUT_V1",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_speed_unit_conversion",
+  "currentKnowledgePointIds": [
+    "kp_speed_unit_conversion"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_speed_unit_conversion"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_speed_unit_conversion": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/GCI_PM01_W8_FINAL_BASELINE_ONLY_CLOSEOUT_V1.validation.json",
+  "classificationNote": "Evidence/governance-only W8 final closeout after exact pre-Q022-baseline versus post-restoration failure-title-set attribution proved zero added failures. No product runtime, source authority, PatternSpec, generator, validator, renderer, selector/public binding runtime, worksheet runtime, frozen queue, or post-W8 product mutation.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

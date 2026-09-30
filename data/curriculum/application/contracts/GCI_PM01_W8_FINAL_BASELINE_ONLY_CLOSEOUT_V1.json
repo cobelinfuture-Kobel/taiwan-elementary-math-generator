@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "GCI_PM01_W8_FINAL_BASELINE_ONLY_CLOSEOUT_V1",
+  "status": "W8_D0_BASELINE_ONLY_FINAL_CLOSEOUT_MATERIALIZED_AWAITING_CI",
+  "operatorApproval": "APPROVED_GCI_PM01_W8_FINAL_BASELINE_ONLY_CLOSEOUT",
+  "scope": {
+    "waveId": "W8",
+    "mutationClass": "EVIDENCE_AND_GOVERNANCE_ONLY",
+    "queueSliceCount": 22,
+    "directW8KnowledgePointCount": 24,
+    "productRuntimeChanged": false,
+    "publicBindingChanged": false,
+    "selectorRuntimeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "patternSpecsChanged": false,
+    "frozenQueueChanged": false,
+    "postW8ImplementationStarted": false
+  },
+  "w8FinalAuthority": {
+    "queueDigest": "597a6fa497c8ac7738247847ef321d0c753e79800f5c38097b7a7a160be2f484",
+    "finalSliceId": "p08e_q022_r14_g6a_u08_6a08_profile_speed_rate_c1",
+    "finalSourceId": "g6a_u08_6a08",
+    "finalKnowledgePointId": "kp_speed_unit_conversion",
+    "preflightPr": 1162,
+    "preflightMergeSha": "ca9d19167f5198b5f618b6fd41dda2113d5b39b1",
+    "implementationPr": 1163,
+    "implementationMergeSha": "e0075bedfa6d41046c09166d44c9f9c9a6db0a88",
+    "pagesDeploymentRunId": 36678795849,
+    "pagesDeploymentConclusion": "success",
+    "pagesE2ERunId": 36678795853,
+    "pagesE2EConclusion": "success",
+    "exactDeployedHeadSha": "e0075bedfa6d41046c09166d44c9f9c9a6db0a88",
+    "durableQ022ReadbackCommitSha": "c805cad502007bbf17cd8743473571c6d8d29aa9",
+    "q022D0Status": "PASS_E6_D0_COMPLETE"
+  },
+  "compatibilityAndEvidenceRepair": {
+    "successorCompatibilityRepairPr": 1164,
+    "successorCompatibilityRepairMergeSha": "ae20fe982c95ed9423aa376aa96aa6f6093934e3",
+    "historicalQ021DurableRestorationPr": 1165,
+    "historicalQ021DurableRestorationMergeSha": "2458eec345e9f7bf40f17c6d036847bd3a82c4b9",
+    "q022ProductSemanticRegressionDetected": false,
+    "q021HistoricalD0Restored": true
+  },
+  "postMergeRegressionAttribution": {
+    "comparisonBasis": "PRE_Q022_PREFLIGHT_MERGE_HEAD_VS_POST_RESTORATION_FAILURE_TITLE_SET",
+    "nodeTest": {
+      "baseline": {
+        "workflowRunId": 36672192238,
+        "jobId": 109749382906,
+        "headSha": "ca9d19167f5198b5f618b6fd41dda2113d5b39b1",
+        "tests": 6608,
+        "pass": 6441,
+        "fail": 167
+      },
+      "afterRestoration": {
+        "workflowRunId": 36685173848,
+        "jobId": 109789257232,
+        "headSha": "2458eec345e9f7bf40f17c6d036847bd3a82c4b9",
+        "tests": 6628,
+        "pass": 6462,
+        "fail": 166
+      },
+      "exactSetDelta": {
+        "overlapFailures": 166,
+        "removedFailures": 1,
+        "addedFailures": 0,
+        "removedFailureTitles": [
+          "Q026 historical W7 route remains reachable after the approved W8 current-pointer advance"
+        ],
+        "addedFailureTitles": []
+      }
+    },
+    "mathCiReadback": {
+      "baseline": {
+        "workflowRunId": 36672190162,
+        "jobId": 109749445975,
+        "headSha": "ca9d19167f5198b5f618b6fd41dda2113d5b39b1",
+        "tests": 6608,
+        "pass": 6440,
+        "fail": 168
+      },
+      "afterRestoration": {
+        "workflowRunId": 36685173855,
+        "jobId": 109789258207,
+        "headSha": "2458eec345e9f7bf40f17c6d036847bd3a82c4b9",
+        "tests": 6628,
+        "pass": 6461,
+        "fail": 167
+      },
+      "exactSetDelta": {
+        "overlapFailures": 167,
+        "removedFailures": 1,
+        "addedFailures": 0,
+        "removedFailureTitles": [
+          "Q026 historical W7 route remains reachable after the approved W8 current-pointer advance"
+        ],
+        "addedFailureTitles": []
+      }
+    },
+    "finalRepairCausalNewFailures": 0,
+    "disposition": "BASELINE_ONLY_RELATIVE_TO_PRE_Q022_BASELINE",
+    "remainingNodeFailureCount": 166,
+    "remainingReadbackFailureCount": 167,
+    "remainingFailuresOwnership": "PRE_EXISTING_REPOSITORY_DEBT_OUTSIDE_W8_FINAL_CLOSEOUT_SCOPE"
+  },
+  "currentMainReadbackAtMaterialization": {
+    "mainSha": "4cf8fcfba93d99e9efc782589a09f63dd17519b1",
+    "q021RestorationMergeSha": "2458eec345e9f7bf40f17c6d036847bd3a82c4b9",
+    "commitsAfterRestoration": 5,
+    "siteFilesChangedAfterRestoration": false,
+    "curriculumRuntimeFilesChangedAfterRestoration": false,
+    "onlyCiEvidenceFilesChangedAfterRestoration": true,
+    "changedFilesAfterRestoration": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ]
+  },
+  "antiScopeCreep": {
+    "repairRemainingRepositoryBaselineFailures": false,
+    "rerunFullRepositoryRegressionForCloseout": false,
+    "runGlobalBrowserReplay": false,
+    "modifyW8ProductRuntime": false,
+    "modifyW8SourceAuthority": false,
+    "modifyW8FrozenQueue": false,
+    "modifyPatternSpecs": false,
+    "modifyPublicBinding": false,
+    "modifyGeneratorValidatorRenderer": false,
+    "openPostW8Implementation": false,
+    "inventW9WithoutAuthority": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_W8_22_OF_22_PRODUCT_D0_WAITING_FINAL_FAILURE_SET_ATTRIBUTION",
+    "goalDistanceAfter": "D0_W8_22_OF_22_FINAL_PARITY_BASELINE_ONLY_CLOSED",
+    "distanceReduced": "Final failure-title-set attribution proves zero new failures versus the pre-Q022 baseline after successor compatibility repair and restoration of the previously accepted Q021 durable D0 evidence.",
+    "remainingW8Blockers": [],
+    "scopeExternalDebt": [
+      "166 Node Test Post-Merge failures remain after restoration.",
+      "167 Math CI Readback failures remain after restoration."
+    ],
+    "nextShortestStep": "SOURCE_AUTHORITY_REMAINING_GAP_DISCOVERY",
+    "nextTaskRequiresSeparateOperatorApproval": false
+  }
+}
