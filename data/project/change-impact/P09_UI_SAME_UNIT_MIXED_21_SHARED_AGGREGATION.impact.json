@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P09_UI_SAME_UNIT_MIXED_21_SHARED_AGGREGATION",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P09_UI_SAME_UNIT_MIXED_21_SHARED_AGGREGATION.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "productImplementation": true,
+    "selectorVisibilityChanged": true,
+    "currentBrowserRoutingChanged": true,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "exactReportedSourceCount": 21,
+    "sameUnitMixedAdmissionOnly": true,
+    "sourceUnitBehaviorChange": false,
+    "crossUnitMixedAdmission": false,
+    "reuseExistingLeafRuntimes": true,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "knowledgePointIdentityMutation": false,
+    "patternSpecSemanticRedesign": false,
+    "generatorMathSemanticRewrite": false,
+    "g5bU10RenameMutation": false
+  },
+  "classificationNote": "Repairs exactly the 21 operator-reported current public UI same-unit mixed gaps with one shared aggregation layer. The aggregator preserves current leaf generator/validator/worksheet ownership and does not mutate source/KP semantic authority."
+}

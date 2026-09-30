@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_CI",
+  "predecessor": {
+    "taskId": "P09_UI_SameUnitMixed21DefectPreflight",
+    "mergeSha": "f31f2948fbc494bbf348c3c0d14a2d3030ecb8f4",
+    "closeoutMergeSha": "18abdd2b0b32c386e2631116f9c2f5f03ed2ebbd"
+  },
+  "scope": {
+    "targetSourceCount": 21,
+    "sameUnitMixedOnly": true,
+    "sourceUnitBehaviorChanged": false,
+    "crossUnitMixedEnabled": false,
+    "leafRuntimeOwnershipPreserved": true
+  },
+  "implementation": {
+    "selectorAdmission": "site/modules/curriculum/registry/batch-a-selector-p09-mixed21-extension.js",
+    "capabilityBinding": "site/modules/curriculum/public/public-ui-capability-binding-p09-mixed21.js",
+    "sharedAggregator": "site/modules/curriculum/batch-a/same-unit-mixed21-aggregation.js",
+    "stableWorksheetEntry": "site/assets/browser/pipeline/build-worksheet-document.js",
+    "algorithm": "selected_same_unit_kps -> balanced allocation -> existing single-KP worksheet owners -> merged worksheet/answer/print document"
+  },
+  "acceptance": {
+    "nodeContract": "tests/curriculum/p09-ui-same-unit-mixed21-shared-unit-aggregation.test.js",
+    "classicUiReplay": "tools/curriculum/run-p09-ui-same-unit-mixed21-classic-ui-acceptance.mjs",
+    "expectedPerUnitDefaultMix": {
+      "selectedKnowledgePoints": 5,
+      "questionCount": 10,
+      "questionsPerKnowledgePoint": 2
+    }
+  },
+  "distance": {
+    "goalDistanceBefore": "D2_21_GAPS_REPRODUCED_AND_SYSTEMIC_BINDING_ROOT_CAUSE_CLASSIFIED",
+    "goalDistanceAfter": "D1_SHARED_AGGREGATION_MATERIALIZED_CI_NOT_YET_PROVEN",
+    "distanceReduced": "Materialized one bounded shared same-unit aggregation route for all 21 reported sources while preserving existing leaf runtimes.",
+    "remainingBlockers": [
+      "FOCUSED_COMPATIBILITY_CI",
+      "CLASSIC_UI_21_UNIT_REPLAY",
+      "PR_MERGE",
+      "POST_MERGE_PAGES_E6"
+    ],
+    "nextShortestStep": "P09_UI_SameUnitMixed21_SharedAggregation_PRGateAndFailureIsolation"
+  }
+}
