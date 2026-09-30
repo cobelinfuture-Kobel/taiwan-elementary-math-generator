@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P09_UI_SAME_UNIT_MIXED_21_POSTMERGE_PAGES_E6",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P09_UI_SAME_UNIT_MIXED_21_POSTMERGE_PAGES_E6.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false,
+    "productImplementation": false,
+    "selectorVisibilityChanged": false,
+    "currentBrowserRoutingChanged": false,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "postMergeVerificationOnly": true,
+    "exactTargetSourceCount": 21,
+    "livePagesAssetParityRequired": true,
+    "classicUiRemoteReplayRequired": true,
+    "runtimeSiteMutation": false,
+    "sourceUnitBehaviorChange": false,
+    "crossUnitMixedAdmission": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "knowledgePointIdentityMutation": false,
+    "patternSpecSemanticRedesign": false,
+    "generatorMathSemanticRewrite": false
+  },
+  "classificationNote": "Post-merge verification materialization only. The changed acceptance/Pages verification runners are executable governance harnesses, so sharedExecutableChange is declared for validation classification; no deployed site runtime semantics are changed."
+}
