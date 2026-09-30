@@ -86,19 +86,22 @@ test("A09 descriptor resolves seven KP PatternGroups and ten current PatternSpec
   assert.equal(validateGlobalPublicSourceUnitAdapters().ok, true);
 });
 
-test("A09 descriptor reuses the existing division generator G4A validator extension and S60J renderer", () => {
+test("A09 descriptor reuses G4A-U04 division runtime plus step projection with existing validator and S60J renderer", () => {
   const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
   assert.deepEqual(descriptor.goldenContractDescriptor.perUnitRuntimeLimits, {
     generator: 0, validator: 0, renderer: 0, workflow: 0,
   });
   assert.deepEqual(descriptor.goldenContractDescriptor.runtimeModules, {
-    generator: "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+    generator: [
+      "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
+      "site/modules/curriculum/batch-a/g4a-u04-step-understanding-runtime.js",
+    ],
     validator: "site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js",
     renderer: "site/modules/renderer/html-renderer-s60j-extension.js",
   });
 });
 
-test("A09 shared route generates and validates all seven PatternSpecs", () => {
+test("A09 shared route generates and validates all ten current PatternSpecs", () => {
   const generated = generateBatchABrowserQuestions(adapted());
   assert.equal(generated.ok, true, JSON.stringify(generated.errors));
   assert.equal(generated.questions.length, 35);
