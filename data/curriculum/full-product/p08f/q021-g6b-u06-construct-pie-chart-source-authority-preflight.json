@@ -50,7 +50,16 @@
       "kp_g6b_u06_construct_pie_chart"
     ],
     "exactBlockingCapabilitiesBoundByFocusedCI": true,
-    "targetEvidenceLevel": "E6_D0_COMPLETE"
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "blockingCapabilityIds": [
+      "cap_fraction_number_system",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "blockingCapabilityWaveIds": [
+      "R05-W3",
+      "R05-W7"
+    ]
   },
   "sourceAuthority": {
     "authorityPath": "data/curriculum/full-product/p08e/w8-source-authority-index.json",
@@ -124,9 +133,59 @@
     "exactR05AssignmentBoundByFocusedCI": true,
     "runtimeProfileReclassificationAllowed": false,
     "deliveryEnvelope": {
+      "expectedBaseDeliveryWaveId": "R05-W7",
       "expectedFinalDeliveryWaveId": "R05-W8",
+      "expectedPrerequisiteWaveLowerBound": 8,
+      "waveEscalatedByPrerequisiteExpected": true,
       "intraWavePrerequisiteRank": 12
-    }
+    },
+    "mappingId": "r04map_g6b_u06_construct_pie_chart",
+    "appliedModifierIds": [],
+    "requiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "effectiveRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "contractOnlyRequiredCapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator"
+    ],
+    "contractOnlyCapabilityWaveIds": [
+      "R05-W3",
+      "R05-W7"
+    ],
+    "directR03Prerequisites": [
+      {
+        "edgeId": "kpe_r03_0625",
+        "fromKnowledgePointId": "kp_g6b_u06_pie_chart_percent_angle_conversion",
+        "dependencyStrength": "required",
+        "dependencyRole": "procedural_foundation"
+      },
+      {
+        "edgeId": "kpe_r03_0626",
+        "fromKnowledgePointId": "kp_g6b_u06_pie_chart_quantity_from_rate",
+        "dependencyStrength": "required",
+        "dependencyRole": "procedural_foundation"
+      }
+    ]
   },
   "semanticProfileLock": {
     "present": true,
