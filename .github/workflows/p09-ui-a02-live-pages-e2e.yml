@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 permissions:
-contents: write
+  contents: write
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest
