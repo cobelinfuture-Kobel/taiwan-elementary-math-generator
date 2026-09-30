@@ -1,0 +1,334 @@
+{
+  "schemaName": "P08FW8Q022G6AU08SpeedUnitConversionSourceAuthorityPreflightV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q022_G6AU08_SpeedUnitConversion_SourceAuthorityPreflight",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "goalDistance": {
+    "before": "D3_W8_Q022_SPEED_UNIT_CONVERSION_SOURCE_RUNTIME_SEMANTIC_BOUNDARY_UNMATERIALIZED",
+    "after": "D2_Q022_SPEED_UNIT_CONVERSION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "reduced": "D3_TO_D2"
+  },
+  "baselineMainSha": "96f46257de3f6dfedb514c4b0f71ed996941184a",
+  "predecessorAuthority": {
+    "q021FinalCloseoutPath": "data/curriculum/full-product/p08f/q021-final-learner-visual-d0-closeout.json",
+    "q021FinalCloseoutStatus": "Q021_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "q021FinalCloseoutMergeSha": "07f08b5107154d1eae8163650ee2dd9a7387acf8",
+    "q021D0Granted": true,
+    "currentMainCompatibilityReadback": {
+      "currentMainShaAtPreflight": "96f46257de3f6dfedb514c4b0f71ed996941184a",
+      "comparedFromQ021CloseoutMergeSha": "07f08b5107154d1eae8163650ee2dd9a7387acf8",
+      "commitsAhead": 4,
+      "changedPaths": [
+        "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+        "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+        "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+        "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json"
+      ],
+      "onlyDocsCiReadbackChanged": true,
+      "q022AuthorityOrQ021ProductRuntimePathsChanged": false,
+      "compatibilityDecision": "SAFE_TO_PREFLIGHT_Q022_FROM_CURRENT_MAIN"
+    }
+  },
+  "queueAuthority": {
+    "queuePath": "data/curriculum/full-product/p08e/w8-direct-product-vertical-slice-queue.json",
+    "queueVersion": "p08e-w8-direct-product-vertical-slice-queue-v1",
+    "queueDigest": "597a6fa497c8ac7738247847ef321d0c753e79800f5c38097b7a7a160be2f484",
+    "queuePosition": 22,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q022_r14_g6a_u08_6a08_profile_speed_rate_c1",
+    "implementationTaskId": "P08F_W8DirectProductVerticalSlice022Implementation",
+    "previousSliceId": "p08e_q021_r12_g6b_u06_6b06_profile_ratio_percent_c1",
+    "previousSliceMustBeD0Complete": true,
+    "assignedDeliveryWaveId": "R05-W8",
+    "primarySourceNodeId": "g6a_u08_6a08",
+    "intraWavePrerequisiteRank": 14,
+    "primaryRuntimeProfileId": "profile_speed_rate",
+    "chunkIndex": 1,
+    "knowledgePointCount": 1,
+    "knowledgePointIds": [
+      "kp_speed_unit_conversion"
+    ],
+    "exactBlockingCapabilitiesBoundByFocusedCI": true,
+    "targetEvidenceLevel": "E6_D0_COMPLETE",
+    "finalFrozenW8Slice": true,
+    "supportingSourceNodeIds": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ],
+    "blockingCapabilityIds": [
+      "cap_fraction_number_system",
+      "cap_mixed_unit_normalization",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_speed_rate_reasoning",
+      "cap_unit_conversion"
+    ],
+    "blockingCapabilityWaveIds": [
+      "R05-W3",
+      "R05-W4",
+      "R05-W7"
+    ]
+  },
+  "sourceAuthority": {
+    "primary": {
+      "sourceNodeId": "g6a_u08_6a08",
+      "sourceTitleAuthority": "認識速率",
+      "sourcePdfTitle": "meow911_6a08_source.pdf",
+      "sourcePdfDriveFileId": "1mI0hgM7Nknw01PFUCPf-IwgZTtUi3zP-",
+      "sourcePdfSizeBytes": 666779,
+      "sourceMetadataDriveFileId": "1npWcnOW6aDFZaAhT90CSi24HaLDK1nnF",
+      "verificationNotesDriveFileId": "1dplJeRG01m76SYA-AYRcs74VSle8Bc2J",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "role": "PRIMARY",
+      "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+    },
+    "supporting": {
+      "sourceNodeId": "g6b_u02_6b02",
+      "sourceTitleAuthority": "認識速率",
+      "sourcePdfTitle": "meow911_6b02_source.pdf",
+      "sourcePdfDriveFileId": "1fvyF0xYVTUSRBJPIVTa5nfHb5li6wTi4",
+      "sourcePdfSizeBytes": 666779,
+      "sourceMetadataDriveFileId": "1aoo0Gjn8tmZ4q4WJCuT1LchRzSSalWwZ",
+      "verificationNotesDriveFileId": "1mheVsnPY8oIqnuK5dNYvaKa9quix5XLQ",
+      "reviewedPages": [
+        1,
+        2
+      ],
+      "role": "SUPPORTING_FOR_G6A_U08_SPEED_ROWS",
+      "reviewMethod": "FULL_PAGE_VISUAL_READBACK"
+    },
+    "w8AuthorityIndexPath": "data/curriculum/full-product/p08e/w8-source-authority-index.json",
+    "r02PrimaryChunkPath": "data/curriculum/global/candidates/r02/chunks/reviewed-source-candidates-07.json",
+    "currentSemanticAuthority": "R02_FULL_PAGE_VISUAL_READBACK_PLUS_PRIOR_VERIFIED_SOURCE_IDENTITY",
+    "connectorTextNotUsedAsSemanticAuthority": true,
+    "sourceRefAmbiguity": false,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "newSupplementaryEvidenceRequired": false,
+    "silentRewriteAllowed": false
+  },
+  "r02ReviewedCandidateAuthority": {
+    "knowledgePointId": "kp_speed_unit_conversion",
+    "canonicalNameZh": "速率單位換算",
+    "capabilityStatement": "學生能在公里每時、公尺每分、公尺每秒間換算。",
+    "reasoningInvariant": "距離與時間單位須同時按等值比例換算。",
+    "category": "ratio",
+    "evidencePages": [
+      1,
+      2
+    ],
+    "applicationSuitability": "APPLICATION_COMPATIBLE"
+  },
+  "semanticProfileLock": {
+    "present": true,
+    "targetSemanticCore": "CONVERT_EQUIVALENT_SPEED_UNITS_BY_COUPLED_DISTANCE_TIME_SCALING",
+    "canonicalReasoningInvariant": "速率單位換算必須同時保持距離與時間的等值比例；公里每時、公尺每分、公尺每秒之間的轉換不得只改距離或只改時間。",
+    "implementationSemanticLock": {
+      "kmPerHourToMeterPerMinuteAllowed": true,
+      "meterPerMinuteToKmPerHourAllowed": true,
+      "kmPerHourToMeterPerSecondAllowed": true,
+      "meterPerSecondToKmPerHourAllowed": true,
+      "meterPerMinuteToMeterPerSecondAllowed": true,
+      "meterPerSecondToMeterPerMinuteAllowed": true,
+      "coupledDistanceTimeScalingRequired": true,
+      "equivalentRateInvariantRequired": true,
+      "sourceAndTargetRateUnitsRequired": true,
+      "answerBackConversionRequired": true,
+      "speedDistanceTimeRelationMayBeConsumedAsPrerequisite": true,
+      "speedDistanceTimeRelationTeachingReownershipAllowed": false,
+      "averageSpeedReownershipAllowed": false,
+      "relativeSpeedMeetingChasingReownershipAllowed": false,
+      "effectiveSpeedCurrentWindReownershipAllowed": false,
+      "applicationContextAllowed": false,
+      "sameUnitMixedModeAllowed": false,
+      "crossUnitMixedModeAllowed": false,
+      "frozenQueueMayNotBeSilentlyReclassified": true
+    }
+  },
+  "runtimeCapabilityAuthority": {
+    "r03RuntimePath": "src/curriculum/global/r03-global-kp-prerequisite-graph.mjs",
+    "r04RuntimePath": "src/curriculum/global/r04-shared-runtime-capability-matrix.mjs",
+    "r05RuntimePath": "src/curriculum/global/r05-delivery-wave-rebase.mjs",
+    "expectedPrimaryRuntimeProfileId": "profile_speed_rate",
+    "expectedClassificationRuleId": "rule_speed_rate",
+    "exactR03PrerequisitesBoundByFocusedCI": true,
+    "exactR04MappingBoundByFocusedCI": true,
+    "exactR05AssignmentBoundByFocusedCI": true,
+    "runtimeProfileReclassificationAllowed": false,
+    "finalW8AssignmentExpected": true,
+    "executableReadbackRunId": 36671984602,
+    "executableReadbackJobId": 109748813940,
+    "directR03Prerequisites": [
+      {
+        "edgeId": "kpe_r03_0658",
+        "fromKnowledgePointId": "kp_g4a_u10_length_km_m_conversion",
+        "dependencyStrength": "required",
+        "dependencyRole": "domain_extension_foundation"
+      },
+      {
+        "edgeId": "kpe_r03_0659",
+        "fromKnowledgePointId": "kp_g4b_u09_time_second_minute_hour_conversion",
+        "dependencyStrength": "required",
+        "dependencyRole": "domain_extension_foundation"
+      },
+      {
+        "edgeId": "kpe_r03_0660",
+        "fromKnowledgePointId": "kp_speed_distance_time_relation",
+        "dependencyStrength": "required",
+        "dependencyRole": "domain_extension_foundation"
+      }
+    ],
+    "mappingId": "r04map_speed_unit_conversion",
+    "appliedModifierIds": [
+      "mod_unit_conversion",
+      "mod_quantity_relation_semantics"
+    ],
+    "requiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_speed_rate_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_quantity_dimension_unit_identity",
+      "cap_text_application_representation",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization",
+      "cap_quantity_semantic_role_binding"
+    ],
+    "optionalRuntimeCapabilityIds": [
+      "cap_global_context_binding"
+    ],
+    "forbiddenRuntimeCapabilityIds": [],
+    "effectiveRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_speed_rate_reasoning",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_quantity_dimension_unit_identity",
+      "cap_text_application_representation",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization",
+      "cap_quantity_semantic_role_binding"
+    ],
+    "baseDeliveryWaveId": "R05-W8",
+    "finalDeliveryWaveId": "R05-W8",
+    "prerequisiteWaveLowerBound": 7,
+    "waveEscalatedByPrerequisite": false,
+    "intraWavePrerequisiteRank": 14,
+    "contractOnlyRequiredCapabilityIds": [
+      "cap_speed_rate_reasoning",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization"
+    ],
+    "contractOnlyCapabilityWaveIds": [
+      "R05-W3",
+      "R05-W4",
+      "R05-W7"
+    ],
+    "sourceNodeIds": [
+      "g6a_u08_6a08",
+      "g6b_u02_6b02"
+    ]
+  },
+  "ownershipBoundary": {
+    "predecessorSameSourceImplementedKnowledgePointIds": [
+      "kp_speed_distance_time_relation",
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing",
+      "kp_effective_speed_current_wind"
+    ],
+    "predecessorOwnerTasks": [
+      "P07F_W7DirectProductVerticalSlice023Implementation",
+      "P07F_W7DirectProductVerticalSlice025Implementation",
+      "P07F_W7DirectProductVerticalSlice025Implementation",
+      "P07F_W7DirectProductVerticalSlice026Implementation"
+    ],
+    "currentQ022KnowledgePointIds": [
+      "kp_speed_unit_conversion"
+    ],
+    "futureSameSourceW8KnowledgePointIds": [],
+    "predecessorMayBeConsumedAsPrerequisiteButNotReowned": true,
+    "q022CompletesRemainingFrozenW8G6AU08KnowledgePoints": true,
+    "q022IsFinalFrozenW8Slice": true
+  },
+  "q022ScopeLock": {
+    "includedKnowledgePointIds": [
+      "kp_speed_unit_conversion"
+    ],
+    "includedRelations": [
+      "KM_PER_HOUR_TO_M_PER_MIN",
+      "M_PER_MIN_TO_KM_PER_HOUR",
+      "KM_PER_HOUR_TO_M_PER_SEC",
+      "M_PER_SEC_TO_KM_PER_HOUR",
+      "M_PER_MIN_TO_M_PER_SEC",
+      "M_PER_SEC_TO_M_PER_MIN",
+      "VERIFY_EQUIVALENT_RATE_BY_BACK_CONVERSION"
+    ],
+    "excludedRelations": [
+      "REOWN_SPEED_DISTANCE_TIME_RELATION",
+      "REOWN_AVERAGE_SPEED",
+      "REOWN_RELATIVE_SPEED_MEETING_CHASING",
+      "REOWN_EFFECTIVE_SPEED_CURRENT_WIND",
+      "APPLICATION_CONTEXT",
+      "SAME_UNIT_MIXED_MODE",
+      "CROSS_UNIT_MIXED_MODE",
+      "FROZEN_QUEUE_REORDER",
+      "R02_AUTHORITY_MUTATION",
+      "R03_AUTHORITY_MUTATION",
+      "R04_PROFILE_RECLASSIFICATION",
+      "R05_ASSIGNMENT_MUTATION",
+      "POST_W8_IMPLEMENTATION"
+    ],
+    "implementationAllowedByThisPreflight": false,
+    "publicProductAdmissionAllowedByThisPreflight": false,
+    "q023OrLaterQueueSliceExists": false,
+    "frozenQueueTouched": false
+  },
+  "preflightValidationBoundary": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "allowedLaneGateIds": [
+      "GLOBAL_CONTRACTS",
+      "TARGETED_ROUTE_REPLAY"
+    ],
+    "focusedNodeContractRequired": true,
+    "nodeOnlyReadbackRequired": true,
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "productImplementationAllowed": false,
+    "publicProductAdmissionAllowed": false
+  },
+  "preflightDecision": {
+    "exactFrozenQueueRowResolved": true,
+    "predecessorQ021D0Verified": true,
+    "finalFrozenW8SliceResolved": true,
+    "sourceIdentityBound": true,
+    "r02ReviewedCandidateBound": true,
+    "semanticProfileLockBound": true,
+    "predecessorSpeedOwnershipProtected": true,
+    "manualSourceChoiceRequired": false,
+    "manualEvidenceChoiceRequired": false,
+    "newSupplementaryEvidenceRequired": false,
+    "executableRuntimeReadbackRequiredBeforeMerge": false,
+    "sourceAuthoritySufficientForQ022ImplementationPlanning": true,
+    "separateImplementationApprovalRequired": true,
+    "exactRuntimeMappingBoundByFocusedCI": true,
+    "exactR05AssignmentBoundByFocusedCI": true,
+    "exactPrerequisiteGraphBoundByFocusedCI": true,
+    "nextTask": "P08F_W8DirectProductVerticalSlice022Implementation"
+  }
+}
