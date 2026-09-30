@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P09_UI_G5B_U10_SOURCE_IDENTITY_EVIDENCE_RESOLUTION_FOCUSED_VALIDATION",
+  "unitId": "P09-UI-G5B-U10-SOURCE-IDENTITY-EVIDENCE-RESOLUTION",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-g5b-u10-source-identity-evidence-resolution.test.js"
+        ]
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-g5b-u10-source-identity-evidence-resolution.test.js",
+          "tests/curriculum/p09-ui-a03a-public-curriculum-unit-completeness-preflight.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY",
+    "PAGES_E6"
+  ]
+}
