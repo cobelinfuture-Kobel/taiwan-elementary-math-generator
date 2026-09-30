@@ -48,6 +48,7 @@ import { renderTwoWayStatisticsTable } from "./two-way-statistics-table.js";
 import { renderBarChartData } from "./bar-chart-data.js";
 import { renderLineChartData } from "./line-chart-data.js";
 import { renderPieChartData } from "./pie-chart-data.js";
+import { renderPieChartConstructionDataP08F21 } from "./pie-chart-construction-data-p08f21.js";
 import { renderPieChartComparisonData } from "./pie-chart-comparison-data.js";
 import { renderInlineMathModel } from "./inline-math.js";
 
@@ -116,7 +117,7 @@ export function renderDecimalNumberLine(model) {
   ].join("");
 }
 
-export { renderCompositeCircleAreaDiagramP08F20, renderSectorAreaDiagramP08F19, renderCompositeArcPerimeterDiagramP08F17, renderScaleDrawingSimilarityDiagramP08F16, renderMapScaleDistanceDiagramP08F14, renderSameRadiusSectorComparisonDiagramP08F12, renderCoordinateReflectionDiagramP08F11, renderSectorFractionOfCircleDiagram, renderCongruentTriangleCorrespondenceDiagram, renderTriangleAngleClassificationDiagram, renderUnknownAngleLinearFullVerticalDiagram, renderCombinedSectorAngleDiagram, renderAngleEstimationClassificationDiagram, renderAngleCompositionRotationClockDiagram, renderSolidViewpointRepresentationDiagram, renderProtractorAngleMeasurementDiagram, renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderCylinderVolumeDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
+export { renderPieChartConstructionDataP08F21, renderCompositeCircleAreaDiagramP08F20, renderSectorAreaDiagramP08F19, renderCompositeArcPerimeterDiagramP08F17, renderScaleDrawingSimilarityDiagramP08F16, renderMapScaleDistanceDiagramP08F14, renderSameRadiusSectorComparisonDiagramP08F12, renderCoordinateReflectionDiagramP08F11, renderSectorFractionOfCircleDiagram, renderCongruentTriangleCorrespondenceDiagram, renderTriangleAngleClassificationDiagram, renderUnknownAngleLinearFullVerticalDiagram, renderCombinedSectorAngleDiagram, renderAngleEstimationClassificationDiagram, renderAngleCompositionRotationClockDiagram, renderSolidViewpointRepresentationDiagram, renderProtractorAngleMeasurementDiagram, renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderCylinderVolumeDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
 export function renderNumberLine(model) {
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
@@ -176,6 +177,7 @@ function renderTableData(model) {
   throw createRendererError("table_data_invalid", "Unsupported table data kind: " + (model?.kind ?? "missing"));
 }
 function renderChartData(model) {
+  if (model?.kind === "pie_chart_construction_data_p08f21") return renderPieChartConstructionDataP08F21(model);
   if (model?.kind === "bar_chart_data") return renderBarChartData(model);
   if (model?.kind === "line_chart_data") return renderLineChartData(model);
   if (model?.kind === "pie_chart_data") return renderPieChartData(model);
