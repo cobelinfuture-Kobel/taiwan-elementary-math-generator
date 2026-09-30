@@ -26,8 +26,8 @@ import {
   auditP08F20PublicSelectorComposition,
   getVisibleBatchAKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource
-} from "../../site/modules/curriculum/registry/batch-a-selector-p08f21-extension.js";
-import {resolvePublicUiCapabilityBinding,auditPublicUiCapabilityBinding} from "../../site/modules/curriculum/public/public-ui-capability-binding-p08f21.js";
+} from "../../site/modules/curriculum/registry/batch-a-selector-p08f22-extension.js";
+import {resolvePublicUiCapabilityBinding,auditPublicUiCapabilityBinding} from "../../site/modules/curriculum/public/public-ui-capability-binding-p08f22.js";
 import {buildBatchABrowserPlan,generateBatchABrowserQuestions} from "../../site/modules/curriculum/batch-a/batch-a-browser-generator-p08f20.js";
 import {buildBatchABrowserWorksheetDocument} from "../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f20-extension.js";
 import {renderCompositeCircleAreaDiagramP08F20} from "../../site/modules/renderer/composite-circle-area-diagram-p08f20.js";
@@ -177,7 +177,7 @@ test("W8 Q020 current pointer files and impact policy stay bounded",()=>{
   const bindingPtr=readFileSync(new URL("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",import.meta.url),"utf8");
   const generatorBridge=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",import.meta.url),"utf8");
   const worksheetBridge=readFileSync(new URL("../../site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",import.meta.url),"utf8");
-  assert.match(selectorPtr,/batch-a-selector-p08f21-extension/);assert.match(bindingPtr,/public-ui-capability-binding-p08f21/);
+  assert.match(selectorPtr,/batch-a-selector-p08f22-extension/);assert.match(bindingPtr,/public-ui-capability-binding-p08f22/);
   assert.match(generatorBridge,/requestsP08F20/);assert.match(worksheetBridge,/buildP08F20Worksheet/);
   assert.equal(impact.expectedDerivedGate,"SHARED_RUNTIME_BOUNDED");
   assert.equal(impact.scopeGuards.q021OrLaterMutation,false);
