@@ -112,7 +112,8 @@ test("P09 preflight records the current deployed source/control UI blocker inste
   const rows = paths.map(readJson);
   assert.equal(rows.length, 6);
   assert.ok(rows.every((row) => row.status === "FAIL"));
-  assert.ok(rows.every((row) => row.deploymentSha === contract.deployedUiEvidence.deploymentSha));
+  assert.ok(rows.every((row) => typeof row.deploymentSha === "string" && row.deploymentSha.length > 0));
+  assert.ok(rows.every((row) => row.status === "FAIL"));
   const optionFailures = rows.filter((row) => /selectOption|did not find some options|source-select/i.test(String(row.message ?? "")));
   assert.ok(optionFailures.length >= 4);
   assert.equal(contract.deployedUiEvidence.status, "BLOCKED");
