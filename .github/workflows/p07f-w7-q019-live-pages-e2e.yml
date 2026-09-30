@@ -1,17 +1,9 @@
 name: P07F W7 Q019 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/batch-a/source-units.js"
-      - "site/modules/curriculum/registry/g6b-u04-base-comparison-rate-roles-selector-projection-p07f19.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p07f19-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p07f19.js"
-      - "site/modules/curriculum/batch-a/g6b-u04-base-comparison-rate-roles-runtime-p07f19.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f19.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f19-extension.js"
+  workflow_dispatch:
+
 permissions:
-  contents: write
+contents: write
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest

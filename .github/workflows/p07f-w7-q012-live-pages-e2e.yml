@@ -1,19 +1,9 @@
 name: P07F W7 Q012 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/batch-a/source-units.js"
-      - "site/modules/curriculum/registry/g6a-u09-scale-area-change-selector-projection-p07f12.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p07f12-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p07f12.js"
-      - "site/modules/curriculum/batch-a/g6a-u09-scale-area-change-runtime-p07f12.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p07f12.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p07f12-extension.js"
-      - "site/modules/renderer/scale-area-change-diagram-p07f12.js"
-      - "site/modules/renderer/html-renderer.js"
+  workflow_dispatch:
+
 permissions:
-  contents: write
+contents: write
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest
