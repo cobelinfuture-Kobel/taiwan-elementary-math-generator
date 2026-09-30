@@ -1,0 +1,150 @@
+{
+  "schemaName": "P08FW8Q022PostMergeMainPagesE2EV1",
+  "taskId": "P08F_W8DirectProductVerticalSlice022Implementation",
+  "status": "PASS_E6_D0_COMPLETE",
+  "exactHeadSha": "e0075bedfa6d41046c09166d44c9f9c9a6db0a88",
+  "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
+  "deployment": {
+    "attempt": 34,
+    "assets": [
+      {
+        "publicPath": "modules/curriculum/registry/g6a-u08-speed-unit-conversion-selector-projection-p08f22.js",
+        "expectedSha256": "51cb3f9617bf8ae8081b00414cde6116974faced22cb59b037b4488a3e64b622",
+        "liveSha256": "51cb3f9617bf8ae8081b00414cde6116974faced22cb59b037b4488a3e64b622"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p08f22-extension.js",
+        "expectedSha256": "854d6ad1d08ab1faff9f58a881c1a0c99e233eb6b3bf7f7f5fcc10107ecfbc41",
+        "liveSha256": "854d6ad1d08ab1faff9f58a881c1a0c99e233eb6b3bf7f7f5fcc10107ecfbc41"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+        "expectedSha256": "f2aadb6aae8dcad03bbe807b7a31ddfbd8b96220b1a3e1a12381339d77239636",
+        "liveSha256": "f2aadb6aae8dcad03bbe807b7a31ddfbd8b96220b1a3e1a12381339d77239636"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p08f22.js",
+        "expectedSha256": "fba91aeea103222334557c13425a0db4c671b17e659cba30113efd319502f95a",
+        "liveSha256": "fba91aeea103222334557c13425a0db4c671b17e659cba30113efd319502f95a"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+        "expectedSha256": "dff0da10c17d770db0c799c25b513f25e1ece8dbc7e6b0898eb8157858510132",
+        "liveSha256": "dff0da10c17d770db0c799c25b513f25e1ece8dbc7e6b0898eb8157858510132"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/g6a-u08-speed-unit-conversion-runtime-p08f22.js",
+        "expectedSha256": "08aec4d4aa18e759c574e6a9a7b44b9b271a4764c13c5312d8487e172b0cef00",
+        "liveSha256": "08aec4d4aa18e759c574e6a9a7b44b9b271a4764c13c5312d8487e172b0cef00"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p08f22.js",
+        "expectedSha256": "b0502168f95b9b10e647e06637807e8bc9d2cf3bf934c7810aee4fc5b087e986",
+        "liveSha256": "b0502168f95b9b10e647e06637807e8bc9d2cf3bf934c7810aee4fc5b087e986"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+        "expectedSha256": "2de43e026eed9288900f72f0b8979c66371e8f820ff2ef6ecd7b87b5c61a460e",
+        "liveSha256": "2de43e026eed9288900f72f0b8979c66371e8f820ff2ef6ecd7b87b5c61a460e"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p08f22-extension.js",
+        "expectedSha256": "dbfed03bfbf8ef5e2ed8a338adadc0dd3a1fdc54790417bbe17a7aebdba212fe",
+        "liveSha256": "dbfed03bfbf8ef5e2ed8a338adadc0dd3a1fdc54790417bbe17a7aebdba212fe"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
+        "expectedSha256": "bb3df7859192f5dc7a7cdc0ed225dbd7557f070887092e6c244d331497a16d0c",
+        "liveSha256": "bb3df7859192f5dc7a7cdc0ed225dbd7557f070887092e6c244d331497a16d0c"
+      }
+    ]
+  },
+  "classicUiAcceptance": {
+    "schemaName": "P08FW8Q022ClassicUIAcceptanceV1",
+    "taskId": "P08F_W8DirectProductVerticalSlice022Implementation",
+    "status": "PASS_P08F_W8_Q022_CLASSIC_UI_ACCEPTANCE",
+    "sourceId": "g6a_u08_6a08",
+    "knowledgePointId": "kp_speed_unit_conversion",
+    "questionCount": 12,
+    "target": {
+      "selector": {
+        "sourceId": "g6a_u08_6a08",
+        "visibleIds": [
+          "kp_speed_distance_time_relation",
+          "kp_average_speed_total_distance_time",
+          "kp_relative_speed_meeting_chasing",
+          "kp_effective_speed_current_wind",
+          "kp_speed_unit_conversion"
+        ],
+        "sameUnitDisabled": true,
+        "prior": [
+          "kp_speed_distance_time_relation",
+          "kp_average_speed_total_distance_time",
+          "kp_relative_speed_meeting_chasing",
+          "kp_effective_speed_current_wind"
+        ],
+        "target": "kp_speed_unit_conversion"
+      },
+      "state": {
+        "status": "已產生 12 題，可預覽與列印。",
+        "tone": "success",
+        "valid": "false",
+        "preview": 12322,
+        "printDisabled": false
+      },
+      "worksheet": {
+        "questions": 12,
+        "answers": 12,
+        "overflow": 0
+      },
+      "printCount": 1
+    },
+    "browser": {
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "requestFailureCount": 0,
+      "assetHttpFailureCount": 0
+    },
+    "semanticInvariants": {
+      "speedUnitConversionOwned": true,
+      "coupledDistanceTimeScaling": true,
+      "equivalentRateInvariant": true,
+      "answerBackConversion": true,
+      "priorSpeedOwnersPreserved": true,
+      "sameUnitMixedModeFailClosed": true,
+      "w8FrozenQueueComplete": true
+    },
+    "forbiddenScope": {
+      "speedDistanceTimeRelationReownership": false,
+      "averageSpeedReownership": false,
+      "relativeSpeedReownership": false,
+      "effectiveSpeedReownership": false,
+      "application": false,
+      "sameUnitMixed": false,
+      "crossUnitMixed": false,
+      "postW8": false,
+      "fullRepositoryRegression": false,
+      "globalBrowserReplay": false
+    }
+  },
+  "semanticInvariants": {
+    "speedUnitConversionOwned": true,
+    "coupledDistanceTimeScaling": true,
+    "equivalentRateInvariant": true,
+    "answerBackConversion": true,
+    "priorSpeedOwnersPreserved": true,
+    "sameUnitMixedModeFailClosed": true,
+    "w8FrozenQueueComplete": true,
+    "finalFrozenW8Slice": true
+  },
+  "workflow": "P08F W8 Q022 Post-Merge Pages E2E",
+  "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+  "ref": "refs/heads/main",
+  "run": {
+    "id": "36678795853",
+    "number": "1",
+    "attempt": "1",
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36678795853"
+  },
+  "verifiedAt": "2026-09-30T06:41:57.976Z"
+}
