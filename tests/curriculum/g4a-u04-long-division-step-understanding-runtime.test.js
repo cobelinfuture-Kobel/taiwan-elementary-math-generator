@@ -105,7 +105,7 @@ test("G4A-U04 worksheet and answer key materialize G1-G6 without splitting G5 in
   assert.match(g5Answer.answerText, /\(1\)/);
   assert.match(g5Answer.answerText, /\(2\)/);
 
-  const html = renderWorksheetDocumentToHtml(result.worksheetDocument, { stylesheetHref: "" });
+  const html = renderWorksheetDocumentToHtml(result.worksheetDocument, { stylesheetHref: "", debugDataAttributes: false });
   assert.match(html, /G1|G2|G3|G4|G5|G6|直式|完整算式|正確順序/);
   assert.match(html, /\(1\)/);
   assert.match(html, /\(2\)/);
