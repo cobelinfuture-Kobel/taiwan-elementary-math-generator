@@ -150,7 +150,7 @@ test("Q018 worksheet and current bridge produce print-safe learner-facing output
     const s=await import("../../site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js?p08f18="+Date.now());
     const binding=await import("../../site/modules/curriculum/public/public-ui-capability-binding-p04f33.js?p08f18="+Date.now());
     for(const id of [...PRIOR,KP])assert.equal(s.getVisibleBatchAKnowledgePoint(id)?.sourceId,SRC,id);
-    assert.equal(s.getVisibleBatchAKnowledgePoint(FUTURE[0]),null);
+    assert.equal(s.getVisibleBatchAKnowledgePoint(FUTURE[0])?.sourceId,SRC);
     const pb=binding.resolvePublicUiCapabilityBinding(req());
     assert.equal(pb.percentAngleConversionOwned,true);
     assert.equal(pb.frozenRuntimeProfile,"profile_ratio_percent");
