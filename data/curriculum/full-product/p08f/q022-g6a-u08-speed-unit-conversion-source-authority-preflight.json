@@ -9,17 +9,22 @@
     "after": "D2_Q022_SPEED_UNIT_CONVERSION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
     "reduced": "D3_TO_D2"
   },
-  "baselineMainSha": "07f08b5107154d1eae8163650ee2dd9a7387acf8",
+  "baselineMainSha": "96f46257de3f6dfedb514c4b0f71ed996941184a",
   "predecessorAuthority": {
     "q021FinalCloseoutPath": "data/curriculum/full-product/p08f/q021-final-learner-visual-d0-closeout.json",
     "q021FinalCloseoutStatus": "Q021_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
     "q021FinalCloseoutMergeSha": "07f08b5107154d1eae8163650ee2dd9a7387acf8",
     "q021D0Granted": true,
     "currentMainCompatibilityReadback": {
-      "currentMainShaAtPreflight": "07f08b5107154d1eae8163650ee2dd9a7387acf8",
+      "currentMainShaAtPreflight": "96f46257de3f6dfedb514c4b0f71ed996941184a",
       "comparedFromQ021CloseoutMergeSha": "07f08b5107154d1eae8163650ee2dd9a7387acf8",
-      "commitsAhead": 0,
-      "changedPaths": [],
+      "commitsAhead": 4,
+      "changedPaths": [
+        "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+        "docs/ci/latest-g4b-u04-r2f-deployed-pages-smoke.json",
+        "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+        "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json"
+      ],
       "onlyDocsCiReadbackChanged": true,
       "q022AuthorityOrQ021ProductRuntimePathsChanged": false,
       "compatibilityDecision": "SAFE_TO_PREFLIGHT_Q022_FROM_CURRENT_MAIN"
