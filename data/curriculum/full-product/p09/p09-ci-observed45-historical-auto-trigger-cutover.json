@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "taskId": "P09_CI_Observed45HistoricalAutoTriggerCutover",
-  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_PR_GATE",
+  "status": "YAML_INDENTATION_REPAIRED_AWAITING_PR_GATE",
   "sourceEvidence": {
     "mergeSha": "ac05f678228037d6aaa3639dea235b8010951efd",
     "observedWorkflowRunCount": 49,
@@ -85,5 +85,11 @@
     "retainedAutoTriggerWorkflowCount": 4,
     "expectedMergeFanoutUpperBound": 6
   },
-  "nextShortestStep": "PR_GATE_THEN_MERGE_THEN_OBSERVED_MERGE_FANOUT_READBACK"
+  "nextShortestStep": "PR_GATE_THEN_MERGE_THEN_OBSERVED_MERGE_FANOUT_READBACK",
+  "repair": {
+    "reason": "Initial trigger-only replacement stripped indentation from the first permissions child line, producing invalid workflow YAML on main.",
+    "affectedWorkflowCount": 45,
+    "repair": "Restore two-space indentation under permissions for the exact observed45 target set.",
+    "prevention": "Static contract now asserts permissions child indentation for all 45 workflows."
+  }
 }
