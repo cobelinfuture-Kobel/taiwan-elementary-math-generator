@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "taskId": "P09_UI_SameUnitMixed21DefectPreflight",
-  "status": "PREFLIGHT_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "status": "PREFLIGHT_DIAGNOSIS_LOCKED_AFTER_FIRST_CI_READBACK",
   "operatorReportDate": "2026-09-30",
   "scope": {
     "reportedDefectCount": 21,
@@ -35,13 +35,33 @@
       "expectedSameUnitMixedAdmission": true
     }
   },
-  "hypothesis": {
-    "primary": "The shared UI mode exists and works for admitted units, but these 21 later W5-W8 source-unit product surfaces remain frozen with per-unit sameUnitMixedAdmission disabled or without a unit-level mixed coordinator.",
-    "notAssumed": [
-      "Do not assume one CSS/select-control defect.",
-      "Do not assume all 21 can be repaired by toggling a boolean.",
-      "Do not enable mixed until generator/validator/worksheet routing for selected KP subsets is proven."
-    ]
+  "firstCiReadback": {
+    "workflowRunId": 36724563109,
+    "reportedTargetsWithFiveVisibleKnowledgePoints": 21,
+    "sameUnitMixedDefectReproducedCount": 21,
+    "sourceUnitBlockedCount": 17,
+    "sourceUnitUsableButSameUnitMixedMissingCount": 4,
+    "sourceUnitUsableUnits": [
+      "G4A-U05",
+      "G5A-U05A1",
+      "G5A-U07",
+      "G5A-U10A"
+    ],
+    "mixedRequestSilentSingleKpFallbackUnits": [
+      "G5A-U07",
+      "G5A-U10A"
+    ],
+    "interpretation": "The operator-reported mixed-mode defect is real in all 21 units. It also exposes a broader current capability-binding defect: 17/21 sourceUnit bindings are blocked, and two of the four remaining units silently degrade a mixed request to one selected KP."
+  },
+  "rootCause": {
+    "class": "CURRENT_CAPABILITY_BINDING_CHAIN_LACKS_UNIT_LEVEL_AGGREGATION_FOR_LATE_W5_W8_SLICES",
+    "evidence": [
+      "Known-good G6A-U02 exposes and executes mixedKnowledgePointsSameUnit, proving the shared mode/control infrastructure exists.",
+      "Later leaf bindings commonly exclude sourceUnit, mixedKnowledgePointsSameUnit, and mixedKnowledgePointsCrossUnit from their target predicates.",
+      "Later leaf bindings commonly publish same-unit mixed as disabled because each slice was closed as single-KP product admission.",
+      "For many affected sources there is no successor unit-level coordinator that recomposes the independently admitted KPs into sourceUnit or selected same-unit mixed operation."
+    ],
+    "repairImplication": "Do not patch 21 dropdown booleans. Build one current-authority unit aggregation layer that reuses existing KP runtimes, then prove per-unit generator/validator/worksheet compatibility."
   },
   "frozenBoundaries": {
     "g5bU10RenameWork": "CANCELLED_BY_OPERATOR_NO_CHANGE_REQUIRED",
@@ -60,16 +80,16 @@
     "all21CurrentSameUnitMixedDefectsReproduced": true,
     "knownGoodControlStillSupportsSameUnitMixed": true,
     "rootCauseClassified": true,
-    "repairShapeSelected": "PENDING_CI_READBACK"
+    "repairShapeSelected": "ONE_CURRENT_UNIT_AGGREGATION_LAYER_WITH_BOUNDED_PER_UNIT_COMPATIBILITY_PROOFS"
   },
   "distance": {
     "goalDistanceBefore": "D1_PUBLIC_UI_21_REPORTED_SAME_UNIT_MIXED_GAPS_UNCLASSIFIED",
-    "goalDistanceAfter": "D2_21_GAPS_BOUNDED_PREFLIGHT_UNDER_CI",
-    "distanceReduced": "Converted the reported 21-unit symptom list into an exact source-id and current-capability verification set.",
+    "goalDistanceAfter": "D2_21_GAPS_REPRODUCED_AND_SYSTEMIC_BINDING_ROOT_CAUSE_CLASSIFIED",
+    "distanceReduced": "Reproduced all 21 reported mixed-mode gaps, discovered the 17/21 sourceUnit blocker and two silent single-KP fallbacks, and selected a shared repair shape instead of 21 independent patches.",
     "remainingBlockers": [
-      "FOCUSED_DIAGNOSTIC_CI_READBACK",
-      "EXACT_COMMON_VS_UNIT_SPECIFIC_REPAIR_BOUNDARY"
+      "FOCUSED_PREFLIGHT_CI_MUST_PASS_WITH_CORRECTED_DIAGNOSTIC_ASSERTIONS",
+      "PLANNING_TO_IMPLEMENTATION_POLICY_BOUNDARY"
     ],
-    "nextShortestStep": "P09_UI_SameUnitMixed21DefectPreflight_FocusedCIReadback"
+    "nextShortestStep": "P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation"
   }
 }
