@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P09_CI_OBSERVED45_HISTORICAL_AUTO_TRIGGER_CUTOVER_KP_FOCUSED_VALIDATION",
+  "unitId": "p09_ci_observed45_historical_auto_trigger_cutover",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ci-observed45-historical-auto-trigger-cutover.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ci-observed45-historical-auto-trigger-cutover.test.js"
+        ]
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ci-observed45-historical-auto-trigger-cutover.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}

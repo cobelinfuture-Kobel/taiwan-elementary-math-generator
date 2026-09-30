@@ -1,15 +1,9 @@
 name: P09 UI A01 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/batch-a/source-units.js"
-      - "tools/curriculum/run-p09-ui-a01-classic-ui-acceptance.mjs"
-      - "tools/curriculum/run-p09-ui-a01-live-pages-e2e.mjs"
-      - ".github/workflows/p09-ui-a01-live-pages-e2e.yml"
   workflow_dispatch:
+
 permissions:
-  contents: write
+contents: write
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest

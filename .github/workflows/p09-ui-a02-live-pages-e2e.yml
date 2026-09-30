@@ -1,23 +1,9 @@
 name: P09 UI A02 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/registry/batch-a-selector-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p09-a02-extension.js"
-      - "site/modules/curriculum/registry/g3a-u08-two-kp-selector-projection-p09-a02.js"
-      - "site/modules/curriculum/batch-a/g3a-u08-two-kp-runtime-p09-a02.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p09-a02.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p09-a02-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p09-a02.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
-      - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
-      - "tools/curriculum/run-p09-ui-a02-classic-ui-acceptance.mjs"
-      - "tools/curriculum/run-p09-ui-a02-live-pages-e2e.mjs"
-      - ".github/workflows/p09-ui-a02-live-pages-e2e.yml"
   workflow_dispatch:
+
 permissions:
-  contents: write
+contents: write
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest

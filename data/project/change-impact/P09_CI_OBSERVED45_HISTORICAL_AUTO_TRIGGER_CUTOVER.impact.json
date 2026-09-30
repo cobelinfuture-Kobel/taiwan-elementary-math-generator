@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P09_CI_Observed45HistoricalAutoTriggerCutover",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_speed_unit_conversion",
+  "currentKnowledgePointIds": [
+    "kp_speed_unit_conversion"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_speed_unit_conversion"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_speed_unit_conversion": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P09_CI_OBSERVED45_HISTORICAL_AUTO_TRIGGER_CUTOVER.validation.json",
+  "classificationNote": "CI-governance-only cutover of exactly the 45 historical workflows observed in merge ac05f678 fanout. No product runtime, source authority, KP identity, PatternSpec, generator, validator, selector, renderer, worksheet semantics, or P10 claim changes.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

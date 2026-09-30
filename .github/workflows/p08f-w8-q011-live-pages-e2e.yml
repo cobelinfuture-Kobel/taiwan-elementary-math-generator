@@ -1,26 +1,9 @@
 name: P08F W8 Q011 Post-Merge Pages E2E
 on:
-  push:
-    branches: [main]
-    paths:
-      - "site/modules/curriculum/registry/g5a-u07-coordinate-reflection-selector-projection-p08f11.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p08f11-extension.js"
-      - "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p08f11.js"
-      - "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js"
-      - "site/modules/curriculum/batch-a/g5a-u07-coordinate-reflection-runtime-p08f11.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f11.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f11-extension.js"
-      - "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
-      - "site/assets/browser/pipeline/build-worksheet-document-p01e-closeout.js"
-      - "site/modules/renderer/coordinate-reflection-diagram-p08f11.js"
-      - "site/modules/renderer/html-renderer.js"
-      - ".github/workflows/p08f-w8-q011-live-pages-e2e.yml"
-      - "tools/curriculum/run-p08f-w8-slice011-classic-ui-acceptance.mjs"
-      - "tools/curriculum/run-p08f-w8-q011-live-pages-e2e.mjs"
+  workflow_dispatch:
+
 permissions:
-  contents: read
+contents: read
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest
