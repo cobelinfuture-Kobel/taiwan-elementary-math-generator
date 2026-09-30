@@ -13,6 +13,13 @@
         ]
       },
       {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-g5b-u10-source-identity-evidence-resolution.test.js"
+        ]
+      },
+      {
         "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
