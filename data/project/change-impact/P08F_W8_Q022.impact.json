@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q022",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_speed_unit_conversion"
+  ],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q022.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true,
+    "productImplementation": true,
+    "selectorVisibilityChanged": true,
+    "currentBrowserRoutingChanged": true,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "q022Only": true,
+    "postW8Mutation": false,
+    "w8FrozenQueueMutation": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "priorSpeedOwnershipMutation": false,
+    "sameUnitMixedAdmission": false,
+    "crossUnitMixedAdmission": false,
+    "applicationContextAdmission": false,
+    "humanVisualReviewRequired": false
+  },
+  "classificationNote": "Final W8 leaf product cutover for G6A-U08 speed-unit conversion. Uses bounded shared runtime and existing numeric renderer."
+}

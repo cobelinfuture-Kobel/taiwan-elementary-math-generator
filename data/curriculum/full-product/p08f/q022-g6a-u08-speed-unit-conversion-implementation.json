@@ -1,0 +1,153 @@
+{
+  "schemaName": "P08FW8Q022G6AU08SpeedUnitConversionImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice022Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q022_SPEED_UNIT_CONVERSION_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q022_SPEED_UNIT_CONVERSION_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_AND_LIVE_E6",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "684081b542a4e093f4a1ded09a2138d74185db1f",
+  "preflight": {
+    "prNumber": 1162,
+    "mergeSha": "ca9d19167f5198b5f618b6fd41dda2113d5b39b1",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p08f/q022-g6a-u08-speed-unit-conversion-source-authority-preflight.json"
+  },
+  "predecessorD0": {
+    "q021Status": "Q021_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "q021CloseoutMergeSha": "07f08b5107154d1eae8163650ee2dd9a7387acf8",
+    "q021D0Granted": true
+  },
+  "queueAuthority": {
+    "queuePosition": 22,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q022_r14_g6a_u08_6a08_profile_speed_rate_c1",
+    "sourceId": "g6a_u08_6a08",
+    "supportingSourceIds": [
+      "g6b_u02_6b02"
+    ],
+    "runtimeProfileId": "profile_speed_rate",
+    "rank": 14,
+    "targetKnowledgePointIds": [
+      "kp_speed_unit_conversion"
+    ],
+    "finalFrozenW8Slice": true,
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "prerequisiteContract": {
+    "requiredKnowledgePointIds": [
+      "kp_g4a_u10_length_km_m_conversion",
+      "kp_g4b_u09_time_second_minute_hour_conversion",
+      "kp_speed_distance_time_relation"
+    ],
+    "prerequisiteCapabilitiesMayBeConsumed": true,
+    "priorKnowledgePointOwnershipMayNotBeReowned": true
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_speed_rate_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_quantity_dimension_unit_identity",
+      "cap_text_application_representation",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization",
+      "cap_quantity_semantic_role_binding"
+    ],
+    "contractOnlyRequiredCapabilityIds": [
+      "cap_speed_rate_reasoning",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_unit_conversion",
+      "cap_mixed_unit_normalization"
+    ],
+    "optionalRuntimeCapabilityIds": [
+      "cap_global_context_binding"
+    ],
+    "appliedModifierIds": [
+      "mod_unit_conversion",
+      "mod_quantity_relation_semantics"
+    ],
+    "runtimeProfileReclassificationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 6,
+    "patternSpecIds": [
+      "ps_g6a_u08_kmh_to_mmin",
+      "ps_g6a_u08_mmin_to_kmh",
+      "ps_g6a_u08_kmh_to_mps",
+      "ps_g6a_u08_mps_to_kmh",
+      "ps_g6a_u08_mmin_to_mps",
+      "ps_g6a_u08_mps_to_mmin"
+    ],
+    "questionMode": "numeric",
+    "representation": "speed_unit_conversion",
+    "distinctCapacityPerPatternSpec": 240,
+    "aggregatePatternCapacity": 1440,
+    "maxQuestionCountPerRequest": 240,
+    "deterministicGeneration": true,
+    "answerModel": "POSITIVE_INTEGER",
+    "semanticCore": "CONVERT_EQUIVALENT_SPEED_UNITS_BY_COUPLED_DISTANCE_TIME_SCALING",
+    "unitEquivalences": [
+      "1 公里 = 1000 公尺",
+      "1 小時 = 60 分鐘",
+      "1 分鐘 = 60 秒"
+    ],
+    "coupledDistanceTimeScalingRequired": true,
+    "equivalentRateInvariantRequired": true,
+    "answerBackConversionRequired": true
+  },
+  "sameSourceCandidateState": {
+    "sourceId": "g6a_u08_6a08",
+    "visibleKnowledgePointIdsAfterImplementation": [
+      "kp_speed_distance_time_relation",
+      "kp_average_speed_total_distance_time",
+      "kp_relative_speed_meeting_chasing",
+      "kp_effective_speed_current_wind",
+      "kp_speed_unit_conversion"
+    ],
+    "remainingProtectedKnowledgePointIds": [],
+    "sameSourceCandidateSetComplete": true,
+    "sameUnitMixedStillNotAdmitted": true,
+    "w8FrozenQueueComplete": true
+  },
+  "scopeGuard": {
+    "speedDistanceTimeRelationReowned": false,
+    "averageSpeedReowned": false,
+    "relativeSpeedMeetingChasingReowned": false,
+    "effectiveSpeedCurrentWindReowned": false,
+    "applicationContextTouched": false,
+    "sameUnitMixedTouched": false,
+    "crossUnitMixedTouched": false,
+    "frozenQueueAuthorityTouched": false,
+    "r02AuthorityTouched": false,
+    "r03AuthorityTouched": false,
+    "r04AuthorityTouched": false,
+    "r05AuthorityTouched": false,
+    "postW8ImplementationTouched": false
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "derivedLane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegressionAllowed": false,
+    "globalBrowserReplayAllowed": false,
+    "humanVisualReviewRequired": false,
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "DURABLE_POSTMERGE_READBACK_PASS"
+    ]
+  }
+}
