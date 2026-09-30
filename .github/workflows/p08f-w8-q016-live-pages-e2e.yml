@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 permissions:
-contents: read
+  contents: read
 jobs:
   live-pages-e2e:
     runs-on: ubuntu-latest

@@ -45,3 +45,16 @@ test("cutover preserves workflows rather than deleting historical evidence",()=>
   assert.equal(manifest.changeContract.workflowDispatchPreserved,true);
   assert.equal(manifest.changeContract.mainPushRemovedFromHistoricalTargets,true);
 });
+
+test("workflow permissions blocks remain structurally indented",()=>{
+  for(const path of manifest.scope.historicalWorkflowFiles){
+    const lines=read(path).split(/\r?\n/);
+    const index=lines.findIndex((line)=>line==="permissions:");
+    assert.notEqual(index,-1,path+" missing permissions block");
+    let next=index+1;
+    while(next<lines.length && lines[next].trim()==="") next+=1;
+    assert.ok(next<lines.length,path+" empty permissions block");
+    assert.match(lines[next],/^ {2}\S/,path+" permissions child lost YAML indentation");
+    assert.doesNotMatch(lines[next],/^[A-Za-z0-9_-]+:/,path+" permissions child became invalid top-level key");
+  }
+});
