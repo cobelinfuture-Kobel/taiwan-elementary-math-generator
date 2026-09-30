@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "P09_UI_A01_CurrentPublicInventoryParityRepair_76To79Sources_480To482KPs_AndDeployedSourceDropdownRecovery",
+  "status": "IMPLEMENTATION_IN_PROGRESS_DIAGNOSTIC",
+  "operatorApproval": "APPROVED_BY_NEXT_RESUME_TASK",
+  "baselineMainSha": "8676d6c964f929471c849597e29230944b88cda5",
+  "preflight": {
+    "prNumber": 1167,
+    "mergeSha": "600526cdbbf411e10bdaad631b647724aef4fef0",
+    "canonicalSourceNodeCount": 79,
+    "browserObservedSourceCount": 76,
+    "canonicalKnowledgePointCount": 482,
+    "browserObservedKnowledgePointCount": 480,
+    "missingKnowledgePointIds": [
+      "kp_g3a_u08_whole_as_fraction",
+      "kp_g3a_u08_unlike_denominator_comparison_limit"
+    ]
+  },
+  "scope": {
+    "repairPublicSourceInventory": true,
+    "repairPublicSelectorParity": true,
+    "repairDeployedSourceDropdown": true,
+    "semanticAuthorityMutation": false,
+    "patternSpecRedesign": false,
+    "generatorSemanticRewrite": false,
+    "validatorSemanticRewrite": false,
+    "crossUnitMixedAdmission": false,
+    "p10Closeout": false
+  },
+  "implementationRule": "Do not expose a canonical KP merely to reach a numeric parity target. A KP may become selectable only when an existing product runtime, PatternSpec, validator, worksheet and answer route already exist or are separately productized within approved scope.",
+  "acceptance": {
+    "canonicalSourceNodesAccountedFor": 79,
+    "browserPublicUnitProjectionExplained": true,
+    "canonicalKnowledgePointsAccountedFor": 482,
+    "browserSelectableKnowledgePointsMustMatchAdmittedProductAuthority": true,
+    "deployedRequiredSourceOptionsReachable": true,
+    "classicUiGeneratePreviewPrint": true
+  },
+  "distance": {
+    "before": "D1_P09_UI_BOUNDARY_LOCKED_PUBLIC_INVENTORY_GAPS_EXACTLY_MEASURED",
+    "afterTarget": "D0_P09_A01_PUBLIC_INVENTORY_AND_DROPDOWN_RECOVERED",
+    "nextShortestStep": "DIAGNOSE_EXACT_SOURCE_ALIAS_AND_KP_PRODUCT_ADMISSION_GAPS"
+  }
+}
