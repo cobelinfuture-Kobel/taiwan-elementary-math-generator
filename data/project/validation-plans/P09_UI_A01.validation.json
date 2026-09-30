@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P09_UI_A01_BOUNDED_VALIDATION",
+  "unitId": "P09-UI-A01",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-a01-current-public-inventory-parity.test.js",
+          "tests/curriculum/p09-ui-source-authority-preflight.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-a01-current-public-inventory-parity.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY"
+  ]
+}
