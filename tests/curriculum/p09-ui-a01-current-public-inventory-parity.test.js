@@ -74,7 +74,7 @@ test("P09 A01 restores the two selector-admitted source units to the Classic sou
   }finally{delete globalThis.document;}
 });
 
-test("P09 A01 keeps the public selector equal to the current 480-product-admitted KP set",async()=>{
+test("P09 A01 historical 480-KP boundary is superseded by A02 current 482-KP admission",async()=>{
   globalThis.document=Object.create(null);
   try{
     const {materializeR05DeliveryWaveRebase}=await import("../../src/curriculum/global/r05-delivery-wave-rebase.mjs");
@@ -99,7 +99,7 @@ test("P09 A01 keeps the public selector equal to the current 480-product-admitte
   }finally{delete globalThis.document;}
 });
 
-test("P09 A01 refuses forced exposure of the two G3A-U08 KPs without product artifacts",()=>{
+test("P09 A01 refusal of forced exposure remains historical evidence after A02 productization",()=>{
   const source=readJson("data/curriculum/knowledge/units/g3a_u08_3a08.knowledge-operation.json");
   const contract=readJson(CONTRACT_PATH);
   const blocked=new Set(["kp_g3a_u08_whole_as_fraction","kp_g3a_u08_unlike_denominator_comparison_limit"]);
@@ -109,5 +109,5 @@ test("P09 A01 refuses forced exposure of the two G3A-U08 KPs without product art
   assert.equal(source.productionBoundary.worksheetOutputAllowed,false);
   assert.equal(source.productionBoundary.productionAdmissionAllowed,false);
   assert.equal(contract.knowledgePointBoundary.forcedSelectorExposureAllowed,false);
-  assert.equal(contract.knowledgePointBoundary.separateProductAdmissionRequired,true);
+  assert.equal(contract.knowledgePointBoundary.separateProductAdmissionRequired,true);\n  assert.equal(contract.postA02.currentProductAdmittedSelectableCount,482);
 });
