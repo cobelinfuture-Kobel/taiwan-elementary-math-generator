@@ -3,10 +3,10 @@
   "taskId": "P08F_W8DirectProductVerticalSlice020Implementation",
   "status": "PASS_E6_TECHNICAL_AWAITING_HUMAN_VISUAL_REVIEW",
   "d0Granted": false,
-  "exactHeadSha": "7448f87990a72196082eac22d51882706fede394",
+  "exactHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
-    "attempt": 3,
+    "attempt": 31,
     "assets": [
       {
         "publicPath": "modules/curriculum/registry/g6a-u07-composite-circle-area-selector-projection-p08f20.js",
@@ -20,8 +20,8 @@
       },
       {
         "publicPath": "modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
-        "expectedSha256": "fd58a79b5ea4b695081681f3bd90c6bd617fd39e3df17a65b15d18e24c93a078",
-        "liveSha256": "fd58a79b5ea4b695081681f3bd90c6bd617fd39e3df17a65b15d18e24c93a078"
+        "expectedSha256": "177cf4183587e74962e3cfebf88d8fab175323e660edc7bd4510e1f6652d9feb",
+        "liveSha256": "177cf4183587e74962e3cfebf88d8fab175323e660edc7bd4510e1f6652d9feb"
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p08f20.js",
@@ -30,8 +30,8 @@
       },
       {
         "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-        "expectedSha256": "b6d1244f56c64f4751f9fdd72e8aaceb24a63e8a32b6071ebdc8a6cc590c8648",
-        "liveSha256": "b6d1244f56c64f4751f9fdd72e8aaceb24a63e8a32b6071ebdc8a6cc590c8648"
+        "expectedSha256": "525b253113e8e388ce1000a4a5a76061baa89932749eff16829f6a56de4a6219",
+        "liveSha256": "525b253113e8e388ce1000a4a5a76061baa89932749eff16829f6a56de4a6219"
       },
       {
         "publicPath": "modules/curriculum/batch-a/g6a-u07-composite-circle-area-runtime-p08f20.js",
@@ -45,8 +45,8 @@
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
-        "expectedSha256": "b39bf679faa845b73fc15af98b4ab467f1d45f7d439bab99d24f4c18bbfcfd5b",
-        "liveSha256": "b39bf679faa845b73fc15af98b4ab467f1d45f7d439bab99d24f4c18bbfcfd5b"
+        "expectedSha256": "271021e770fc528d6cb3fb3ac5db674fc63be33d18be31b115aea0e06f7eb291",
+        "liveSha256": "271021e770fc528d6cb3fb3ac5db674fc63be33d18be31b115aea0e06f7eb291"
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p08f20-extension.js",
@@ -55,8 +55,8 @@
       },
       {
         "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js",
-        "expectedSha256": "8cff13a3b6e028a9aa4f80da5fe90c274e9dc6ea70bcedc35421c5323f8085c7",
-        "liveSha256": "8cff13a3b6e028a9aa4f80da5fe90c274e9dc6ea70bcedc35421c5323f8085c7"
+        "expectedSha256": "04c3a8aea046eff50465bfe7c6bc1e7827971cdbc13a4a7d6c13d5a2aa6c52d6",
+        "liveSha256": "04c3a8aea046eff50465bfe7c6bc1e7827971cdbc13a4a7d6c13d5a2aa6c52d6"
       },
       {
         "publicPath": "modules/renderer/composite-circle-area-diagram-p08f20.js",
@@ -65,13 +65,13 @@
       },
       {
         "publicPath": "modules/renderer/html-renderer.js",
-        "expectedSha256": "78dd67de48d251e624966f8dc57b851c2ab364ac5f0411916d9b6aa88266ed48",
-        "liveSha256": "78dd67de48d251e624966f8dc57b851c2ab364ac5f0411916d9b6aa88266ed48"
+        "expectedSha256": "79821e16b66398140ebcd5c53845164406de16063088505498fa7dcc858ac0d3",
+        "liveSha256": "79821e16b66398140ebcd5c53845164406de16063088505498fa7dcc858ac0d3"
       },
       {
         "publicPath": "assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
-        "expectedSha256": "b1e09f9853421ee2f18ade3f2fa553b88965e86475726132e9e6978aebf29c7b",
-        "liveSha256": "b1e09f9853421ee2f18ade3f2fa553b88965e86475726132e9e6978aebf29c7b"
+        "expectedSha256": "e06506cdc40539b90e2e8ac819ad8c4dddca1c2ad285995eb1ffab00cc8b0225",
+        "liveSha256": "e06506cdc40539b90e2e8ac819ad8c4dddca1c2ad285995eb1ffab00cc8b0225"
       }
     ]
   },
@@ -90,7 +90,7 @@
       "kpId": "kp_g6a_u07_composite_circle_area",
       "selector": {
         "sourceId": "g6a_u07_6a07",
-        "summary": "本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：478",
+        "summary": "本單元可選知識點：5｜已建立但尚未開放：0｜目前不可選：0｜全部可選：479",
         "visibleIds": [
           "kp_g6a_u07_circle_area_derivation",
           "kp_g6a_u07_circle_area_formula",
@@ -207,10 +207,10 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36650931339",
-    "number": "2",
+    "id": "36667806988",
+    "number": "3",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36650931339"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36667806988"
   },
-  "verifiedAt": "2026-09-30T00:35:09.048Z"
+  "verifiedAt": "2026-09-30T04:28:51.889Z"
 }
