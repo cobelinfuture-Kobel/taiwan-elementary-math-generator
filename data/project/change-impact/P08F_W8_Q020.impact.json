@@ -16,10 +16,10 @@
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
-    "currentAuthorityChanged": true,
-    "productImplementation": true,
-    "selectorVisibilityChanged": true,
-    "currentBrowserRoutingChanged": true,
+    "currentAuthorityChanged": false,
+    "productImplementation": false,
+    "selectorVisibilityChanged": false,
+    "currentBrowserRoutingChanged": false,
     "sharedRendererChanged": true
   },
   "scopeGuards": {
@@ -38,8 +38,21 @@
     "crossUnitMixedAdmission": false,
     "applicationContextAdmission": false,
     "humanVisualReviewRequired": true,
-    "historicalCompatibilityTestOnlyMutation": true,
+    "historicalCompatibilityTestOnlyMutation": false,
     "priorProductMutation": false
   },
-  "classificationNote": "Q020 implements only G6A-U07 composite circle area under frozen profile_geometry_formula. It promotes the final G6A-U07 pending row, adds dedicated composite-area diagrams for non-overlapping sum and subtraction, preserves Q011/Q014/Q017/Q019 ownership, and keeps mixed/application modes closed."
+  "classificationNote": "Q020 bounded visual-semantic repair only: move 甲=半圓 to the actual right semicircle region and 乙=θ°扇形 to the sector side with a leader line. The operator accepted SQUARE_MINUS_CIRCLE unchanged. Generator, validator, selector, worksheet semantics, prior owners, mixed/application admission, R02-R05, queue, and Q021+ remain untouched.",
+  "visualRepair": {
+    "subtaskId": "P08F_W8_Q020_SemicircleSectorVisualSemanticRepair",
+    "operatorReviewTrigger": "甲與乙的位置沒有在正確位置",
+    "defect": "SEMICIRCLE_AND_SECTOR_COMPONENT_LABELS_MAPPED_TO_WRONG_VISUAL_REGIONS",
+    "squareMinusCircleDisposition": "OPERATOR_ACCEPTED_UNCHANGED",
+    "rendererOnlySemanticRepair": true,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "selectorChanged": false,
+    "worksheetSemanticsChanged": false,
+    "q021OrLaterTouched": false,
+    "humanVisualReviewRerunRequired": true
+  }
 }
