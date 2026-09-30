@@ -36,16 +36,15 @@ import {renderWorksheetDocumentToHtml} from "../../site/modules/renderer/html-re
 const read=p=>JSON.parse(readFileSync(new URL("../../"+p,import.meta.url),"utf8"));
 const impl=read("data/curriculum/full-product/p08f/q020-g6a-u07-composite-circle-area-implementation.json");
 const preflight=read("data/curriculum/full-product/p08f/q020-g6a-u07-composite-circle-area-source-authority-preflight.json");
-const q019=read("docs/ci/latest-p08f-w8-q019-pages-e2e.json");
 const impact=read("data/project/change-impact/P08F_W8_Q020.impact.json");
 const validation=read("data/project/validation-plans/P08F_W8_Q020.validation.json");
 const KP=G6A_U07_P08F20_KP_ID,SRC=G6A_U07_P08F20_SOURCE_ID;
 
 test("W8 Q020 implementation binds twentieth frozen row and Q019 D0 predecessor",()=>{
   const queue=materializeP08EW8DirectProductVerticalSliceQueue(),slice=queue.queueEntries[19];
-  assert.equal(q019.status,"PASS_E6_D0_COMPLETE");
-  assert.equal(q019.d0Granted,true);
-  assert.equal(q019.operatorHumanVisualReview?.status,"PASS_OPERATOR_APPROVED");
+  assert.equal(preflight.predecessorAuthority.q019Status,"PASS_E6_D0_COMPLETE");
+  assert.equal(preflight.predecessorAuthority.q019HumanVisualReviewStatus,"PASS_OPERATOR_APPROVED");
+  assert.equal(preflight.predecessorAuthority.q019CloseoutMergeSha,"2aed69f9a10ee542d80204fc2f9f4366e1643fd2");
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
   assert.equal(impl.status,"IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI");
   assert.equal(slice.queuePosition,20);
