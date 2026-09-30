@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P08F_W8_Q021_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g6b_u06_construct_pie_chart",
+  "currentKnowledgePointIds": [
+    "kp_g6b_u06_construct_pie_chart"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g6b_u06_construct_pie_chart"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g6b_u06_construct_pie_chart": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/P08F_W8_Q021_FINAL_LEARNER_VISUAL_D0_CLOSEOUT.validation.json",
+  "classificationNote": "Evidence/governance-only D0 closeout after exact Q021 E6, explicit operator visual acceptance, and post-merge full-regression parity showing zero new failures versus the preflight baseline.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}

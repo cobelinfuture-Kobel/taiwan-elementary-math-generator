@@ -1,0 +1,118 @@
+{
+  "schemaName": "P08FW8Q021FinalLearnerVisualD0CloseoutV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8_Q021_FINAL_LEARNER_VISUAL_D0_CLOSEOUT",
+  "status": "Q021_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
+  "scope": {
+    "waveId": "W8",
+    "queuePosition": 21,
+    "sliceId": "p08e_q021_r12_g6b_u06_6b06_profile_ratio_percent_c1",
+    "sourceId": "g6b_u06_6b06",
+    "knowledgePointIds": [
+      "kp_g6b_u06_construct_pie_chart"
+    ],
+    "mutationClass": "EVIDENCE_GOVERNANCE_AND_HISTORICAL_COMPATIBILITY_ONLY",
+    "productRuntimeChanged": false,
+    "sourceAuthorityChanged": false,
+    "selectorBehaviorChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "worksheetRuntimeChanged": false,
+    "frozenQueueChanged": false,
+    "q022OrLaterProductChanged": false
+  },
+  "finalProductAuthority": {
+    "preflightPr": 1158,
+    "preflightMergeSha": "798da04d062b223da7e9167ee4caa769914cda09",
+    "implementationPr": 1159,
+    "implementationMergeSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
+    "compatibilityRepairPr": 1160,
+    "compatibilityRepairMergeSha": "24b2be879b27f903c6c860c09c3e9e1545a43fa3",
+    "pagesE2ERunId": 36667807557,
+    "pagesE2EConclusion": "success",
+    "pagesE2EArtifactId": 11077247349,
+    "pagesE2EArtifactDigest": "sha256:c79254cb3ab60e54f4bdc8101be3d7470ffa3bb0ae1a702e274fdc12a02f4720",
+    "exactDeployedHeadSha": "0ef5d3c3e082db2cb1d950f5e271b749a2c62ee7",
+    "durableReadbackCommitSha": "54750b3af2ceac9b2fa033e4e1d77614f60b9010"
+  },
+  "finalLearnerFacingEvidence": {
+    "questionCount": 12,
+    "answerCount": 12,
+    "representationCount": 24,
+    "sourceTableCount": 24,
+    "questionPageCount": 3,
+    "answerPageCount": 3,
+    "allPageCount": 6,
+    "patternCounts": [
+      6,
+      6
+    ],
+    "overflowPageCount": 0,
+    "minimumDiagramWidthObservedPx": 311.9375,
+    "minimumDiagramHeightObservedPx": 177.625,
+    "nonEmptyAnswerCount": 12,
+    "visualContractViolations": 0,
+    "visualContractVersion": "P08F21_R1",
+    "browserConsoleErrorCount": 0,
+    "browserPageErrorCount": 0,
+    "browserRequestFailureCount": 0,
+    "browserAssetHttpFailureCount": 0
+  },
+  "operatorAcceptance": {
+    "required": true,
+    "status": "PASS_OPERATOR_APPROVED",
+    "decisionTextZh": "圖形OK",
+    "acceptedAtLocalDate": "2026-09-30",
+    "learnerFacingAccepted": true,
+    "actualPrintLayoutAccepted": true,
+    "sourceTableAccepted": true,
+    "blankConstructionCanvasAccepted": true,
+    "answerChartAccepted": true,
+    "d0Granted": true
+  },
+  "postMergeFullRegressionParity": {
+    "baselineRunId": 36666421593,
+    "baselineFailureCount": 168,
+    "implementationRunId": 36667807435,
+    "implementationFailureCount": 171,
+    "compatibilityRepairPrNumber": 1160,
+    "compatibilityRepairMergeSha": "24b2be879b27f903c6c860c09c3e9e1545a43fa3",
+    "parityRerunId": 36669444562,
+    "parityRerunConclusion": "failure",
+    "parityFailureCount": 167,
+    "newFailuresVsBaseline": [],
+    "removedBaselineFailures": [
+      "Q021 current pointers and bounded validation are successor-safe"
+    ],
+    "status": "PASS_NO_NEW_FAILURES_BASELINE_ONLY"
+  },
+  "learnerVisualContract": {
+    "constructPieChartOwned": true,
+    "sourceTableToPieConstruction": true,
+    "blankConstructionCanvas": true,
+    "answerChartComplete": true,
+    "fullCircle100Percent360Degrees": true,
+    "priorOwnersPreserved": true,
+    "sameUnitMixedModeFailClosed": true,
+    "twoColumnTwoRowPrintLayout": true,
+    "printSafePagination": true,
+    "noInternalIds": true,
+    "visualContractVersion": "P08F21_R1"
+  },
+  "antiScopeCreep": {
+    "rerunGlobalBrowserReplay": false,
+    "modifyQ021ProductRuntime": false,
+    "modifyQ021SourceAuthority": false,
+    "modifyFrozenQueue": false,
+    "implementQ022": false
+  },
+  "distance": {
+    "goalDistanceBefore": "D1_Q021_TECHNICAL_E6_COMPLETE_OPERATOR_VISUAL_ACCEPTANCE_PENDING",
+    "goalDistanceAfter": "D0_Q021_LEARNER_VISUAL_HUMAN_ACCEPTED",
+    "distanceReduced": "D1_TO_D0",
+    "remainingQ021Blockers": [],
+    "nextShortestStep": "P08F_W8_Q022_SourceAuthorityPreflight"
+  }
+}
