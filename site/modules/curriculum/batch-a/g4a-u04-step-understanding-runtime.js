@@ -138,6 +138,12 @@ function deterministicChoice(trace, salt) {
   return trace[mix32(hashSeed(salt)) % trace.length];
 }
 
+function alternatingResponseMode(sequenceNumber) {
+  const cycle = Math.floor((sequenceNumber - 1) / G4A_U04_STEP_QUESTION_GROUP_IDS.length);
+  return cycle % 2 === 0 ? "multiple_choice" : "fill_in";
+}
+
+
 function makeAlternativeWholeExpressions(selected, correct, lastStep) {
   const expressions = [];
   const push = (text, extra = {}) => {
@@ -218,7 +224,7 @@ function makeG1(definition, selected, trace, sequenceNumber, seed, metadata) {
 }
 
 function makeG2(definition, selected, trace, sequenceNumber, seed, metadata) {
-  const responseMode = sequenceNumber % 2 === 0 ? "fill_in" : "multiple_choice";
+  const responseMode = alternatingResponseMode(sequenceNumber);
   const correctExpression = wholeExpression(selected.dividend, selected.divisor, selected.quotient, selected.remainder);
   const stimulus = `依照下列完整直式步驟：${traceText(trace)}。`;
   if (responseMode === "fill_in") {
@@ -244,7 +250,7 @@ function makeG2(definition, selected, trace, sequenceNumber, seed, metadata) {
 
 function makeG3(definition, selected, trace, sequenceNumber, seed, metadata) {
   const target = deterministicChoice(trace, `${seed}:g3-target:${sequenceNumber}`);
-  const responseMode = sequenceNumber % 2 === 0 ? "fill_in" : "multiple_choice";
+  const responseMode = alternatingResponseMode(sequenceNumber);
   if (responseMode === "fill_in") {
     const promptText = `${target.contextText}，再除以${selected.divisor}。商是____個${target.placeLabel}，餘____個${target.placeLabel}。`;
     const answerText = `${target.quotientDigit}，${target.remainderUnits}`;
@@ -300,7 +306,7 @@ function makeG4(definition, selected, trace, sequenceNumber, seed, metadata) {
     presentedText: step.stepId === target.stepId ? corruption.text : step.description,
   }));
   const targetLabel = labeled.find((row) => row.step.stepId === target.stepId).label;
-  const responseMode = sequenceNumber % 2 === 0 ? "fill_in" : "multiple_choice";
+  const responseMode = alternatingResponseMode(sequenceNumber);
   if (responseMode === "fill_in") {
     const promptText = `下列直式步驟中有一個數字寫錯：「${corruption.text}」。請把錯誤的數字改成____。`;
     const answerText = String(corruption.correctValue);
