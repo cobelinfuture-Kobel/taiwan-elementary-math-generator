@@ -9,17 +9,19 @@
     "after": "D2_Q021_G6BU06_CONSTRUCT_PIE_CHART_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
     "reduced": "D3_TO_D2"
   },
-  "baselineMainSha": "62580cd274c2e83cd5c74401fa27c77599a3b555",
+  "baselineMainSha": "ca553cabbf13f2ac8b35c79318ff69b28c2ba268",
   "predecessorAuthority": {
     "q020FinalCloseoutPath": "data/curriculum/full-product/p08f/q020-final-learner-visual-d0-closeout.json",
     "q020FinalCloseoutStatus": "Q020_PASS_E6_D0_LEARNER_VISUAL_HUMAN_ACCEPTED",
     "q020FinalCloseoutMergeSha": "62580cd274c2e83cd5c74401fa27c77599a3b555",
     "q020D0Granted": true,
     "currentMainCompatibilityReadback": {
-      "currentMainShaAtPreflight": "62580cd274c2e83cd5c74401fa27c77599a3b555",
+      "currentMainShaAtPreflight": "ca553cabbf13f2ac8b35c79318ff69b28c2ba268",
       "comparedFromQ020CloseoutMergeSha": "62580cd274c2e83cd5c74401fa27c77599a3b555",
-      "commitsAhead": 0,
-      "changedPaths": [],
+      "commitsAhead": 1,
+      "changedPaths": [
+        "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json"
+      ],
       "onlyDocsCiReadbackChanged": true,
       "q021AuthorityOrQ020ProductRuntimePathsChanged": false,
       "compatibilityDecision": "SAFE_TO_PREFLIGHT_Q021_FROM_CURRENT_MAIN"
