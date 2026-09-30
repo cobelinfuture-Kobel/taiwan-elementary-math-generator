@@ -1,0 +1,182 @@
+{
+  "schemaName": "P08FW8Q021G6BU06ConstructPieChartImplementationV1",
+  "schemaVersion": 1,
+  "programId": "FULL_PRODUCT_LINE_D0_V1",
+  "taskId": "P08F_W8DirectProductVerticalSlice021Implementation",
+  "status": "IMPLEMENTATION_MATERIALIZED_AWAITING_FOCUSED_CI",
+  "goalDistance": {
+    "before": "D2_Q021_G6BU06_CONSTRUCT_PIE_CHART_SOURCE_RUNTIME_AND_OWNERSHIP_BOUNDARY_LOCKED",
+    "after": "D1_Q021_G6BU06_CONSTRUCT_PIE_CHART_PRODUCT_PATH_MATERIALIZED_AWAITING_MERGE_LIVE_E6_AND_HUMAN_VISUAL_REVIEW",
+    "reduced": "D2_TO_D1"
+  },
+  "baselineMainSha": "b5f6f31cf03dbb1d602071c96dab2f6a7cd0d362",
+  "preflight": {
+    "prNumber": 1158,
+    "mergeSha": "798da04d062b223da7e9167ee4caa769914cda09",
+    "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+    "path": "data/curriculum/full-product/p08f/q021-g6b-u06-construct-pie-chart-source-authority-preflight.json"
+  },
+  "currentMainCompatibilityReadback": {
+    "comparedFromPreflightMergeSha": "798da04d062b223da7e9167ee4caa769914cda09",
+    "currentMainShaAtImplementation": "b5f6f31cf03dbb1d602071c96dab2f6a7cd0d362",
+    "commitsAhead": 5,
+    "changedPaths": [
+      "docs/ci/latest-g4b-u04-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-g4b-u04-r3d-deployed-approved-layouts.json",
+      "docs/ci/latest-g4b-u04-r4-deployed-pages-smoke.json",
+      "docs/ci/latest-g5a-u08-r1-deployed-pages-smoke.json",
+      "docs/ci/latest-s76r2-deployed-pages-smoke.json"
+    ],
+    "onlyDocsCiReadbackChanged": true,
+    "q021AuthorityOrQ020ProductRuntimePathsChanged": false,
+    "compatibilityDecision": "SAFE_TO_IMPLEMENT_Q021_FROM_CURRENT_MAIN"
+  },
+  "queueAuthority": {
+    "queuePosition": 21,
+    "queueSliceCount": 22,
+    "sliceId": "p08e_q021_r12_g6b_u06_6b06_profile_ratio_percent_c1",
+    "previousSliceId": "p08e_q020_r12_g6a_u07_6a07_profile_geometry_formula_c1",
+    "sourceId": "g6b_u06_6b06",
+    "knowledgePointIds": [
+      "kp_g6b_u06_construct_pie_chart"
+    ],
+    "runtimeProfileId": "profile_ratio_percent",
+    "classificationRuleId": "rule_ratio_percent",
+    "appliedModifierIds": [],
+    "blockingCapabilityIds": [
+      "cap_fraction_number_system",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator"
+    ],
+    "blockingCapabilityWaveIds": [
+      "R05-W3",
+      "R05-W7"
+    ],
+    "targetEvidenceLevel": "E6_D0_COMPLETE"
+  },
+  "sourceAuthority": {
+    "sourcePdfTitle": "meow911_6b06_source.pdf",
+    "sourcePdfDriveFileId": "1mVO-Fp8NqR68eevJ3aJK-MdoiHEYWqhz",
+    "sourcePdfSizeBytes": 518350,
+    "reviewedPages": [
+      1
+    ],
+    "r02EvidencePages": [
+      1
+    ],
+    "semanticAuthority": "R02_REVIEWED_CANDIDATE_PRIMARY_CURRENT_VISUAL_PIE_CHART_CONSTRUCTION_SECONDARY",
+    "sourceRefAmbiguity": false
+  },
+  "runtimeContract": {
+    "exactRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "effectiveRequiredRuntimeCapabilityIds": [
+      "cap_pattern_spec_resolution",
+      "cap_deterministic_answer_model",
+      "cap_worksheet_document_assembly",
+      "cap_answer_key_projection",
+      "cap_html_print_renderer",
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator",
+      "cap_text_application_representation"
+    ],
+    "contractOnlyRequiredCapabilityIds": [
+      "cap_ratio_percent_reasoning",
+      "cap_fraction_number_system",
+      "cap_ratio_rate_validator"
+    ],
+    "optionalRuntimeCapabilityIds": [],
+    "appliedModifierIds": [],
+    "runtimeProfileReclassificationAllowed": false,
+    "r05AssignmentMutationAllowed": false
+  },
+  "productContract": {
+    "formalMappingCount": 1,
+    "patternGroupCount": 1,
+    "patternSpecCount": 2,
+    "patternSpecIds": [
+      "ps_g6b_u06_construct_pie_chart_from_counts",
+      "ps_g6b_u06_construct_pie_chart_from_percents"
+    ],
+    "includedRelations": [
+      "CLASSIFIED_DATA_TO_PERCENT_SHARE",
+      "PERCENT_SHARE_TO_CENTRAL_ANGLE",
+      "ALLOCATE_PIE_SECTORS_BY_ANGLE",
+      "CONSTRUCT_PIE_CHART",
+      "VERIFY_100_PERCENT_360_DEGREE_CLOSURE"
+    ],
+    "questionMode": "diagram",
+    "rendererRepresentation": "pie_chart_construction_data_p08f21",
+    "sourceTableRequired": true,
+    "blankConstructionCanvasRequired": true,
+    "answerChartRequired": true,
+    "applicationContextMode": "NOT_ADMITTED",
+    "maxQuestionCount": 240,
+    "deterministicGeneration": true,
+    "answerModel": "COMPLETE_FOUR_SECTOR_PERCENT_ANGLE_PLAN",
+    "humanVisualReviewRequired": true
+  },
+  "semanticContract": {
+    "semanticCore": "CONSTRUCT_PIE_CHART_FROM_CLASSIFIED_DATA_BY_PERCENT_AND_CENTRAL_ANGLE_ALLOCATION",
+    "wholePercent": 100,
+    "wholeAngleDegrees": 360,
+    "classifiedDataToProportionRequired": true,
+    "percentToCentralAngleRequired": true,
+    "sectorAllocationRequired": true,
+    "chartConstructionRequired": true,
+    "noSectorOverlapOrGap": true,
+    "closureBackCheckRequired": true
+  },
+  "ownershipGuard": {
+    "q014PartWholeTeachingReowned": false,
+    "q016ComparePieChartsTeachingReowned": false,
+    "q021W7QuantityFromRateTeachingReowned": false,
+    "q018PercentAngleTeachingReowned": false,
+    "genericSectorGeometryTeachingUsed": false,
+    "applicationContextUsed": false,
+    "sameUnitMixedUsed": false,
+    "crossUnitMixedUsed": false,
+    "q022OrLaterTouched": false,
+    "frozenQueueTouched": false,
+    "r02Touched": false,
+    "r03Touched": false,
+    "r04Touched": false,
+    "r05Touched": false
+  },
+  "productChain": {
+    "selectorProjection": "site/modules/curriculum/registry/g6b-u06-construct-pie-chart-selector-projection-p08f21.js",
+    "publicSelector": "site/modules/curriculum/registry/batch-a-selector-p08f21-extension.js",
+    "runtime": "site/modules/curriculum/batch-a/g6b-u06-construct-pie-chart-runtime-p08f21.js",
+    "generator": "site/modules/curriculum/batch-a/batch-a-browser-generator-p08f21.js",
+    "worksheet": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p08f21-extension.js",
+    "publicBinding": "site/modules/curriculum/public/public-ui-capability-binding-p08f21.js",
+    "renderer": "site/modules/renderer/pie-chart-construction-data-p08f21.js",
+    "currentSelectorPointer": "site/modules/curriculum/registry/batch-a-selector-p04f33-extension.js",
+    "currentBindingPointer": "site/modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+    "currentGeneratorBridge": "site/modules/curriculum/batch-a/batch-a-browser-generator-p05f60.js",
+    "currentWorksheetBridge": "site/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f60-extension.js"
+  },
+  "validation": {
+    "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+    "lane": "SHARED_RUNTIME_BOUNDED",
+    "fullRepositoryRegression": "FORBIDDEN",
+    "globalBrowserReplay": "FORBIDDEN",
+    "d0Requires": [
+      "FOCUSED_PR_GATE_PASS",
+      "PR_MERGED",
+      "EXACT_DEPLOYED_PAGES_ASSET_DIGEST_PARITY",
+      "CLASSIC_UI_ACCEPTANCE_PASS",
+      "OPERATOR_HUMAN_VISUAL_ACCEPTANCE"
+    ],
+    "humanVisualAcceptanceRequired": true
+  }
+}
