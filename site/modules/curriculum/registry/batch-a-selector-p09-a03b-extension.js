@@ -86,9 +86,10 @@ export function listVisibleBatchAKnowledgePoints() {
 
 export function listBatchAKnowledgePointAvailabilityBySource(sourceId) {
   const alias = getP09A03BSourceRouteAlias(sourceId);
-  return clone(alias
-    ? BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId]
-    : base.listBatchAKnowledgePointAvailabilityBySource(sourceId));
+  if (alias || sourceId === "g3a_u08_3a08") {
+    return clone(BATCH_A_SELECTOR_AVAILABILITY.bySourceId[sourceId]);
+  }
+  return clone(base.listBatchAKnowledgePointAvailabilityBySource(sourceId));
 }
 
 export function getVisibleBatchAKnowledgePoint(knowledgePointId) {
