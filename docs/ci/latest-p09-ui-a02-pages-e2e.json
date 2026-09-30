@@ -1,138 +1,54 @@
 {
-  "schemaName": "P09UIA02PostMergeMainPagesE2EV1",
-  "taskId": "P09_UI_A02_G3AU08_WholeAsFraction_And_UnlikeDenominatorComparisonLimit_TwoKPProductAdmission",
-  "status": "PASS_P09_UI_A02_TWO_KP_E6_D0_COMPLETE",
-  "exactHeadSha": "bf1823096437febeab9e8f1bd30b7107b5b7c69b",
+  "schemaName": "P09UIA02PostMergeMainPagesE2EFailureV1",
+  "status": "FAIL",
+  "exactHeadSha": "ac05f678228037d6aaa3639dea235b8010951efd",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
-  "deployment": {
-    "attempt": 4,
-    "assets": [
-      {
-        "publicPath": "modules/curriculum/registry/batch-a-selector-extension.js",
-        "expectedSha256": "c991f94a4f88e2e4b13fb291506f950ded2092061c6a868dfc3a4faa66741b45",
-        "liveSha256": "c991f94a4f88e2e4b13fb291506f950ded2092061c6a868dfc3a4faa66741b45"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/batch-a-selector-p09-a02-extension.js",
-        "expectedSha256": "74a0f6293d8a2b6cc8e5a6751d2247cd06b64933d8970d8cee2b8637569cd420",
-        "liveSha256": "74a0f6293d8a2b6cc8e5a6751d2247cd06b64933d8970d8cee2b8637569cd420"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/g3a-u08-two-kp-selector-projection-p09-a02.js",
-        "expectedSha256": "7035d0aeda43919a079f2a9a3b8efb62750d4f143d5febaa853536323da5e632",
-        "liveSha256": "7035d0aeda43919a079f2a9a3b8efb62750d4f143d5febaa853536323da5e632"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/g3a-u08-two-kp-runtime-p09-a02.js",
-        "expectedSha256": "8a7c98e144254c5b70b89fa876bd9c34920e436abae6f6f62a81e223f478892d",
-        "liveSha256": "8a7c98e144254c5b70b89fa876bd9c34920e436abae6f6f62a81e223f478892d"
-      },
-      {
-        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p09-a02.js",
-        "expectedSha256": "7257d81eba26f24aaeb9f0279d526982f1556598f4dc977c910c641657cc8858",
-        "liveSha256": "7257d81eba26f24aaeb9f0279d526982f1556598f4dc977c910c641657cc8858"
-      },
-      {
-        "publicPath": "assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
-        "expectedSha256": "d5ce12209d20c19080ac77ac974a3765991229a3b0f5820049c4671cabf95ea6",
-        "liveSha256": "d5ce12209d20c19080ac77ac974a3765991229a3b0f5820049c4671cabf95ea6"
-      }
-    ]
-  },
-  "classicUiAcceptance": {
-    "schemaName": "P09UIA02ClassicUIAcceptanceV1",
-    "taskId": "P09_UI_A02_G3AU08_WholeAsFraction_And_UnlikeDenominatorComparisonLimit_TwoKPProductAdmission",
-    "status": "PASS_P09_UI_A02_CLASSIC_UI_ACCEPTANCE",
-    "sourceId": "g3a_u08_3a08",
-    "targetKnowledgePointIds": [
-      "kp_g3a_u08_whole_as_fraction",
-      "kp_g3a_u08_unlike_denominator_comparison_limit"
-    ],
-    "questionCountPerKnowledgePoint": 12,
-    "target": {
-      "visibleKnowledgePointIds": [
-        "kp_g3a_u08_part_whole_fraction",
-        "kp_g3a_u08_unit_fraction_accumulation",
-        "kp_g3a_u08_discrete_set_fraction",
-        "kp_g3a_u08_same_denominator_compare",
-        "kp_g3a_u08_measurement_fraction",
-        "kp_g3a_u08_whole_as_fraction",
-        "kp_g3a_u08_unlike_denominator_comparison_limit"
+  "error": "Error: P09_A02_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\npage.waitForFunction: Timeout 30000ms exceeded.\n    at selectSource (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a02-classic-ui-acceptance.mjs:30:14)\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a02-classic-ui-acceptance.mjs:72:9)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a02-classic-ui-acceptance.mjs:81:77 {\n  name: 'TimeoutError'\n}\n\nNode.js v22.23.2\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a02-live-pages-e2e.mjs:10:899)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
+  "childFailure": {
+    "schemaName": "P09UIA02ClassicUIAcceptanceFailureV1",
+    "status": "FAIL",
+    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?p09-a02-e6=ac05f678228037d6aaa3639dea235b8010951efd-1790772178249",
+    "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at selectSource (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a02-classic-ui-acceptance.mjs:30:14)\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a02-classic-ui-acceptance.mjs:72:9)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a02-classic-ui-acceptance.mjs:81:77",
+    "browser": {
+      "console": [
+        "Failed to load resource: the server responded with a status of 503 ()",
+        "Failed to load resource: the server responded with a status of 503 ()"
       ],
-      "results": [
+      "page": [],
+      "request": [
         {
-          "knowledgePointId": "kp_g3a_u08_whole_as_fraction",
-          "state": {
-            "status": "已產生 12 題，可預覽與列印。",
-            "tone": "success",
-            "valid": "false",
-            "preview": 16292,
-            "printDisabled": false,
-            "sourceId": "g3a_u08_3a08",
-            "selected": [
-              "kp_g3a_u08_whole_as_fraction"
-            ]
-          },
-          "worksheet": {
-            "questions": 12,
-            "answers": 12,
-            "overflow": 0,
-            "fractionCount": 12
-          },
-          "printCount": 1
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-validator-p03f29.js?p09-a02=ac05f678228037d6aaa3639dea235b8010951efd",
+          "failure": "net::ERR_ABORTED"
         },
         {
-          "knowledgePointId": "kp_g3a_u08_unlike_denominator_comparison_limit",
-          "state": {
-            "status": "已產生 12 題，可預覽與列印。",
-            "tone": "success",
-            "valid": "false",
-            "preview": 25591,
-            "printDisabled": false,
-            "sourceId": "g3a_u08_3a08",
-            "selected": [
-              "kp_g3a_u08_unlike_denominator_comparison_limit"
-            ]
-          },
-          "worksheet": {
-            "questions": 12,
-            "answers": 12,
-            "overflow": 0,
-            "fractionCount": 48
-          },
-          "printCount": 1
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g5b-u07-composite-surface-area-hidden-faces-selector-projection-p05f54.js?p09-a02=ac05f678228037d6aaa3639dea235b8010951efd",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "http": [
+        {
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-validator-p03f29.js?p09-a02=ac05f678228037d6aaa3639dea235b8010951efd",
+          "status": 503
+        },
+        {
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/registry/g5b-u07-composite-surface-area-hidden-faces-selector-projection-p05f54.js?p09-a02=ac05f678228037d6aaa3639dea235b8010951efd",
+          "status": 503
         }
       ]
     },
-    "browser": {
-      "consoleErrorCount": 0,
-      "pageErrorCount": 0,
-      "requestFailureCount": 0,
-      "assetHttpFailureCount": 0
-    },
-    "invariants": {
-      "canonicalSelector482": true,
-      "g3aU08Visible7": true,
-      "wholeAsFractionProductAdmitted": true,
-      "unlikeDenominatorMethodLimitProductAdmitted": true,
-      "sameUnitMixedAdmission": false,
-      "crossUnitMixedAdmission": false,
-      "applicationContextAdmission": false
+    "server": {
+      "stdout": "",
+      "stderr": ""
     }
-  },
-  "productParity": {
-    "canonicalKnowledgePointCount": 482,
-    "productAdmittedSelectableKnowledgePointCount": 482,
-    "gap": 0
   },
   "workflow": "P09 UI A02 Post-Merge Pages E2E",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "36705930789",
-    "number": "1",
+    "id": "36713760567",
+    "number": "2",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36705930789"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/36713760567"
   },
-  "verifiedAt": "2026-09-30T11:13:02.658Z"
+  "verifiedAt": "2026-09-30T12:43:38.222Z"
 }
