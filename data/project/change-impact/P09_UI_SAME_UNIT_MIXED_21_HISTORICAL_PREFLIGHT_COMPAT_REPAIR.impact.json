@@ -9,7 +9,7 @@
   "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
   "validationPlanPath": "data/project/validation-plans/P09_UI_SAME_UNIT_MIXED_21_HISTORICAL_PREFLIGHT_COMPAT_REPAIR.validation.json",
   "changeImpact": {
-    "sharedExecutableChange": false,
+    "sharedExecutableChange": true,
     "publicAuthorityCutover": false,
     "legalRouteSemanticsChanged": false,
     "affectedRoutes": "BOUNDED",
@@ -34,5 +34,5 @@
     "patternSpecSemanticRedesign": false,
     "generatorMathSemanticRewrite": false
   },
-  "classificationNote": "Test-only compatibility repair. The historical preflight evidence remains frozen, while the current-runtime assertion is advanced to the already merged repaired state. No executable product or authority surface changes."
+  "classificationNote": "Test-only compatibility repair over shared-runtime assertions. sharedExecutableChange is declared for validation classification because the changed test exercises shared current capability bindings; no deployed product runtime or semantic authority is mutated."
 }
