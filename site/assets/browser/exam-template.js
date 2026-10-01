@@ -11,13 +11,17 @@ import {
   setBatchASelectorSelection,
   setBatchASourceId,
 } from "./state/config-state.js";
-import { buildWorksheetDocumentFromState } from "./pipeline/build-worksheet-document.js";
+import {
+  buildWorksheetDocumentFromPlan,
+  buildWorksheetDocumentFromState,
+} from "./pipeline/build-worksheet-document.js";
 import {
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints,
 } from "../../modules/curriculum/registry/batch-a-selector-extension.js";
 import { resolvePublicUiCapabilityBinding } from "../../modules/curriculum/public/public-ui-capability-binding-p04f33.js";
 import { renderSchoolExamWorksheetToHtml } from "../../modules/renderer/school-exam-template-renderer.js";
+import { buildSchoolExamCrossUnitWorksheet } from "../../modules/exam/school-exam-cross-unit-coordinator.js";
 import {
   SCHOOL_EXAM_COMPOSITION_MODES,
   resolveSchoolExamCompositionMode,
@@ -39,6 +43,10 @@ const sourceHelp = document.getElementById("exam-source-help");
 const sameUnitKpSelector = document.getElementById("exam-same-unit-kp-selector");
 const kpHelp = document.getElementById("exam-kp-help");
 const kpPanel = document.getElementById("exam-kp-panel");
+const crossUnitSelector = document.getElementById("exam-cross-unit-selector");
+const crossUnitHelp = document.getElementById("exam-cross-unit-help");
+const crossUnitSourcePanel = document.getElementById("exam-cross-unit-source-panel");
+const crossUnitKpGroups = document.getElementById("exam-cross-unit-kp-groups");
 const questionCountInput = document.getElementById("exam-question-count");
 const orderingSelect = document.getElementById("exam-ordering");
 const seedInput = document.getElementById("exam-seed");
@@ -48,6 +56,11 @@ const printButton = document.getElementById("exam-print");
 const statusPanel = document.getElementById("exam-status");
 const previewMeta = document.getElementById("exam-preview-meta");
 const previewFrame = document.getElementById("exam-preview");
+
+const crossUnitSelection = {
+  selectedSourceIds: [],
+  selectedKnowledgePointIds: [],
+};
 
 function unitNumber(unitCode = "") {
   const match = String(unitCode).match(/U(\d+)/i);
@@ -76,6 +89,139 @@ function setStatus(message, tone = "") {
 
 function visibleKnowledgePointsForSource(sourceId) {
   return listVisibleBatchAKnowledgePoints().filter((entry) => entry.sourceId === sourceId);
+}
+
+function singleKpPubliclyAdmitted(sourceId, knowledgePointId) {
+  const binding = resolvePublicUiCapabilityBinding({
+    sourceId,
+    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+    selectedKnowledgePointIds: [knowledgePointId],
+  });
+  const option = binding?.availableSelectionModes?.find(
+    (candidate) => candidate.value === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+  );
+  return binding?.blocked === false && option?.enabled !== false;
+}
+
+function crossUnitEligibleRowsForSource(sourceId) {
+  return visibleKnowledgePointsForSource(sourceId).filter(
+    (row) => singleKpPubliclyAdmitted(sourceId, row.knowledgePointId),
+  );
+}
+
+function crossUnitEligibleUnits() {
+  const grade = Number(gradeSelect.value);
+  const semester = semesterSelect.value;
+  return sortedUnits.filter(
+    (unit) => unit.grade === grade
+      && unit.semester === semester
+      && crossUnitEligibleRowsForSource(unit.sourceId).length > 0,
+  );
+}
+
+function normalizeCrossUnitSelection({ reset = false } = {}) {
+  const eligibleUnits = crossUnitEligibleUnits();
+  const eligibleSourceIds = new Set(eligibleUnits.map((unit) => unit.sourceId));
+  const rowById = new Map(
+    eligibleUnits.flatMap((unit) => crossUnitEligibleRowsForSource(unit.sourceId))
+      .map((row) => [row.knowledgePointId, row]),
+  );
+
+  let selectedSourceIds = reset
+    ? []
+    : crossUnitSelection.selectedSourceIds.filter((sourceId) => eligibleSourceIds.has(sourceId));
+  let selectedKnowledgePointIds = reset
+    ? []
+    : crossUnitSelection.selectedKnowledgePointIds.filter((knowledgePointId) => {
+        const row = rowById.get(knowledgePointId);
+        return row && selectedSourceIds.includes(row.sourceId);
+      });
+
+  if (selectedSourceIds.length < 2 && eligibleUnits.length >= 2) {
+    selectedSourceIds = eligibleUnits.slice(0, 2).map((unit) => unit.sourceId);
+    selectedKnowledgePointIds = selectedSourceIds.map(
+      (sourceId) => crossUnitEligibleRowsForSource(sourceId)[0]?.knowledgePointId,
+    ).filter(Boolean);
+  }
+
+  for (const sourceId of selectedSourceIds) {
+    const alreadyRepresented = selectedKnowledgePointIds.some(
+      (knowledgePointId) => rowById.get(knowledgePointId)?.sourceId === sourceId,
+    );
+    if (!alreadyRepresented) {
+      const first = crossUnitEligibleRowsForSource(sourceId)[0]?.knowledgePointId;
+      if (first) selectedKnowledgePointIds.push(first);
+    }
+  }
+
+  crossUnitSelection.selectedSourceIds = [...new Set(selectedSourceIds)];
+  crossUnitSelection.selectedKnowledgePointIds = [...new Set(selectedKnowledgePointIds)];
+  return {
+    eligibleUnits,
+    selectedSourceIds: crossUnitSelection.selectedSourceIds,
+    selectedKnowledgePointIds: crossUnitSelection.selectedKnowledgePointIds,
+  };
+}
+
+function renderCrossUnitSelection() {
+  if (!crossUnitSelector || !crossUnitHelp || !crossUnitSourcePanel || !crossUnitKpGroups) return;
+  const isCross = compositionModeSelect?.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT;
+  crossUnitSelector.hidden = !isCross;
+  crossUnitSourcePanel.replaceChildren();
+  crossUnitKpGroups.replaceChildren();
+  if (!isCross) return;
+
+  const normalized = normalizeCrossUnitSelection();
+  const selectedSourceSet = new Set(normalized.selectedSourceIds);
+  const selectedKpSet = new Set(normalized.selectedKnowledgePointIds);
+
+  for (const unit of normalized.eligibleUnits) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cross-unit-source-option";
+    button.dataset.crossSourceId = unit.sourceId;
+    button.dataset.selected = selectedSourceSet.has(unit.sourceId) ? "true" : "false";
+    button.setAttribute("aria-pressed", selectedSourceSet.has(unit.sourceId) ? "true" : "false");
+    button.textContent = `${selectedSourceSet.has(unit.sourceId) ? "已選｜" : ""}${unit.unitCode}｜${unit.title}`;
+    crossUnitSourcePanel.append(button);
+  }
+
+  for (const sourceId of normalized.selectedSourceIds) {
+    const unit = normalized.eligibleUnits.find((candidate) => candidate.sourceId === sourceId);
+    if (!unit) continue;
+    const group = document.createElement("section");
+    group.className = "cross-unit-kp-group";
+    group.dataset.sourceId = sourceId;
+    const heading = document.createElement("h4");
+    heading.textContent = `${unit.unitCode}｜${unit.title}`;
+    const panel = document.createElement("div");
+    panel.className = "knowledge-point-panel";
+
+    for (const row of crossUnitEligibleRowsForSource(sourceId)) {
+      const selected = selectedKpSet.has(row.knowledgePointId);
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "knowledge-point-option";
+      button.dataset.crossKnowledgePointId = row.knowledgePointId;
+      button.dataset.sourceId = sourceId;
+      button.dataset.selected = selected ? "true" : "false";
+      button.setAttribute("aria-pressed", selected ? "true" : "false");
+      const strong = document.createElement("strong");
+      strong.textContent = `${selected ? "已選｜" : ""}${row.displayName ?? row.knowledgePointId}`;
+      const detail = document.createElement("span");
+      detail.textContent = `${unit.unitCode}｜既有單一 KP runtime`;
+      button.append(strong, detail);
+      panel.append(button);
+    }
+    group.append(heading, panel);
+    crossUnitKpGroups.append(group);
+  }
+
+  crossUnitHelp.textContent = [
+    `目前已選 ${normalized.selectedSourceIds.length} 個單元`,
+    `${normalized.selectedKnowledgePointIds.length} 個知識點`,
+    "限定同年級、同學期；每個已選單元至少保留 1 個知識點。",
+  ].join("｜");
 }
 
 function sameUnitCapability(sourceId, requestedIds = []) {
@@ -141,15 +287,25 @@ function syncCompositionModeAvailability() {
   const m3Option = [...compositionModeSelect.options].find(
     (option) => option.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT,
   );
+  const m4Option = [...compositionModeSelect.options].find(
+    (option) => option.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT,
+  );
   const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
   if (m3Option) m3Option.disabled = !capability.enabled;
+  if (m4Option) m4Option.disabled = crossUnitEligibleUnits().length < 2;
 
   if (compositionModeSelect.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT && !capability.enabled) {
     compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
   }
+  if (
+    compositionModeSelect.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT
+    && crossUnitEligibleUnits().length < 2
+  ) {
+    compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
+  }
 }
 
-function applyCompositionMode({ defaultMixedSelection = false } = {}) {
+function applyCompositionMode({ defaultMixedSelection = false, resetCrossSelection = false } = {}) {
   const resolved = resolveSchoolExamCompositionMode(compositionModeSelect?.value);
   if (!resolved.enabled) {
     setStatus("此考券組成模式尚未啟用。", "error");
@@ -162,15 +318,18 @@ function applyCompositionMode({ defaultMixedSelection = false } = {}) {
       selectedKnowledgePointIds: [],
       selectedPatternGroupIds: [],
     });
+    sourceSelect.disabled = false;
     questionCountInput.min = "1";
     if (compositionHelp) {
       compositionHelp.textContent = "單一單元模式：所有題目都由目前選取單元的既有 Generator / Validator 產生與驗證。";
     }
     renderSameUnitKnowledgePoints();
+    renderCrossUnitSelection();
     return true;
   }
 
   if (resolved.examMode === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT) {
+    sourceSelect.disabled = false;
     const currentIds = selectedSameUnitIds();
     const capability = sameUnitCapability(
       sourceSelect.value,
@@ -199,6 +358,43 @@ function applyCompositionMode({ defaultMixedSelection = false } = {}) {
       compositionHelp.textContent = "同單元混合模式：只混合目前單元內已開放的知識點；各知識點仍由自己的既有 leaf runtime 產生與驗證。";
     }
     renderSameUnitKnowledgePoints();
+    renderCrossUnitSelection();
+    return true;
+  }
+
+  if (resolved.examMode === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT) {
+    const normalized = normalizeCrossUnitSelection({ reset: resetCrossSelection });
+    if (normalized.eligibleUnits.length < 2 || normalized.selectedSourceIds.length < 2) {
+      compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
+      sourceSelect.disabled = false;
+      setBatchASelectorSelection(state, {
+        selectionMode: BATCH_A_SELECTION_MODES.SOURCE_UNIT,
+        selectedKnowledgePointIds: [],
+        selectedPatternGroupIds: [],
+      });
+      setStatus("目前年級與學期沒有至少 2 個可跨單元出題的公開單元。", "error");
+      renderSameUnitKnowledgePoints();
+      renderCrossUnitSelection();
+      return false;
+    }
+
+    // Keep the shared Batch A state on sourceUnit. Cross-unit composition is a
+    // route-local coordinator so the generic resolver remains fail-closed.
+    setBatchASelectorSelection(state, {
+      selectionMode: BATCH_A_SELECTION_MODES.SOURCE_UNIT,
+      selectedKnowledgePointIds: [],
+      selectedPatternGroupIds: [],
+    });
+    sourceSelect.disabled = true;
+    questionCountInput.min = String(normalized.selectedKnowledgePointIds.length);
+    if (Number(questionCountInput.value) < normalized.selectedKnowledgePointIds.length) {
+      questionCountInput.value = String(normalized.selectedKnowledgePointIds.length);
+    }
+    if (compositionHelp) {
+      compositionHelp.textContent = "跨單元模式：限定同年級、同學期；每個知識點回到自己的單元，以既有 single-KP Generator / Validator 產生後再聚合。";
+    }
+    renderSameUnitKnowledgePoints();
+    renderCrossUnitSelection();
     return true;
   }
 
@@ -260,14 +456,19 @@ function updateSourceHelp() {
 
 function examMeta() {
   const unit = selectedUnit();
+  const isCross = compositionModeSelect?.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT;
+  const crossTitles = crossUnitSelection.selectedSourceIds
+    .map((sourceId) => sortedUnits.find((candidate) => candidate.sourceId === sourceId))
+    .filter(Boolean)
+    .map((candidate) => `${candidate.unitCode} ${candidate.title}`);
   return {
     schoolName: schoolNameInput.value.trim() || "○○國民小學",
     academicYear: academicYearInput.value.trim() || "115",
-    semesterLabel: semesterLabel(unit?.semester ?? semesterSelect.value),
-    gradeLabel: unit ? `${unit.grade} 年級` : `${gradeSelect.value} 年級`,
+    semesterLabel: semesterLabel(isCross ? semesterSelect.value : (unit?.semester ?? semesterSelect.value)),
+    gradeLabel: isCross ? `${gradeSelect.value} 年級` : (unit ? `${unit.grade} 年級` : `${gradeSelect.value} 年級`),
     examName: examNameSelect.value,
     subjectLabel: "數學",
-    unitTitle: unit?.title ?? "",
+    unitTitle: isCross ? crossTitles.join("＋") : (unit?.title ?? ""),
     studentFields: ["班級", "座號", "姓名"],
     showScoreBox: true,
   };
@@ -279,22 +480,45 @@ function generateExam() {
     return;
   }
 
+  const isCross = compositionModeSelect?.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT;
   setBatchASourceId(state, sourceSelect.value);
   syncCompositionModeAvailability();
   if (!applyCompositionMode()) {
     printButton.disabled = true;
     return;
   }
-  setBatchAQuestionCount(state, Number(questionCountInput.value));
-  setBatchAOrdering(state, orderingSelect.value);
-  setBatchAGenerationSeed(state, seedInput.value);
-  setBatchAIncludeAnswerKey(state, answerKeyInput.checked);
 
-  // The school-exam projection is intentionally fixed at a safe 2-column,
-  // 5-row source allocation. The renderer itself uses variable-height columns.
-  setBatchAPrintLayout(state, { columns: 2, rowsPerPage: 5 });
+  let result;
+  if (isCross) {
+    result = buildSchoolExamCrossUnitWorksheet({
+      grade: Number(gradeSelect.value),
+      semester: semesterSelect.value,
+      selectedSourceIds: [...crossUnitSelection.selectedSourceIds],
+      selectedKnowledgePointIds: [...crossUnitSelection.selectedKnowledgePointIds],
+      selectedPatternGroupIds: [],
+      questionCount: Number(questionCountInput.value),
+      ordering: orderingSelect.value,
+      includeAnswerKey: answerKeyInput.checked,
+      generationSeed: seedInput.value,
+      printLayout: {
+        paperSize: "A4",
+        columns: 2,
+        rowsPerPage: 5,
+        showAnswerKeyPage: answerKeyInput.checked,
+        showQuestionNumbers: true,
+      },
+    }, buildWorksheetDocumentFromPlan);
+  } else {
+    setBatchAQuestionCount(state, Number(questionCountInput.value));
+    setBatchAOrdering(state, orderingSelect.value);
+    setBatchAGenerationSeed(state, seedInput.value);
+    setBatchAIncludeAnswerKey(state, answerKeyInput.checked);
 
-  const result = buildWorksheetDocumentFromState(state);
+    // The school-exam projection is intentionally fixed at a safe 2-column,
+    // 5-row source allocation. M5 will repair the visible fill/pagination issue.
+    setBatchAPrintLayout(state, { columns: 2, rowsPerPage: 5 });
+    result = buildWorksheetDocumentFromState(state);
+  }
   if (!result?.ok || !result.worksheetDocument) {
     const errors = (result?.errors ?? []).map((error) => error?.message ?? error?.code ?? String(error));
     setStatus(errors.length > 0 ? errors.join("｜") : "考券產生失敗。", "error");
@@ -314,6 +538,7 @@ function generateExam() {
     ?? Number(questionCountInput.value);
   const pageCount = result.worksheetDocument?.questionPages?.length ?? 0;
   previewMeta.textContent = `已產生 ${questionCount} 題｜題目頁 ${pageCount} 頁｜A4 直式雙欄`;
+  const crossUsed = result.worksheetDocument?.metadata?.crossUnitMixedUsed === true;
   const mixedUsed = result.worksheetDocument?.metadata?.sameUnitMixedUsed === true
     || result.worksheetDocument?.batchA?.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT;
   const allocation = result.allocation ?? result.worksheetDocument?.metadata?.allocation ?? [];
@@ -321,9 +546,11 @@ function generateExam() {
     ? `｜配置：${allocation.map((entry) => `${entry.knowledgePointId}=${entry.questionCount}`).join("、")}`
     : "";
   setStatus(
-    mixedUsed
-      ? `同單元混合知識點考券已產生${allocationText}。`
-      : "單一單元考券已產生。題目仍由既有 Generator / Validator 管線負責，僅改用學校考券版面輸出。",
+    crossUsed
+      ? `跨單元混合知識點考券已產生${allocationText}。`
+      : mixedUsed
+        ? `同單元混合知識點考券已產生${allocationText}。`
+        : "單一單元考券已產生。題目仍由既有 Generator / Validator 管線負責，僅改用學校考券版面輸出。",
     "success",
   );
 }
@@ -331,9 +558,17 @@ function generateExam() {
 gradeSelect.addEventListener("change", () => {
   populateSemesters();
   populateSources();
+  normalizeCrossUnitSelection({ reset: true });
+  syncCompositionModeAvailability();
+  applyCompositionMode({ resetCrossSelection: true });
 });
 
-semesterSelect.addEventListener("change", () => populateSources());
+semesterSelect.addEventListener("change", () => {
+  populateSources();
+  normalizeCrossUnitSelection({ reset: true });
+  syncCompositionModeAvailability();
+  applyCompositionMode({ resetCrossSelection: true });
+});
 
 compositionModeSelect?.addEventListener("change", () => {
   syncCompositionModeAvailability();
@@ -341,7 +576,10 @@ compositionModeSelect?.addEventListener("change", () => {
   if (!resolved.enabled) {
     compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
   }
-  applyCompositionMode({ defaultMixedSelection: compositionModeSelect.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT });
+  applyCompositionMode({
+    defaultMixedSelection: compositionModeSelect.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT,
+    resetCrossSelection: compositionModeSelect.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT,
+  });
   printButton.disabled = true;
 });
 
@@ -375,6 +613,69 @@ kpPanel?.addEventListener("click", (event) => {
   renderSameUnitKnowledgePoints();
   printButton.disabled = true;
   setStatus("知識點選擇已更新，請重新產生考券。");
+});
+
+crossUnitSourcePanel?.addEventListener("click", (event) => {
+  const button = event.target.closest?.("[data-cross-source-id]");
+  if (!button || compositionModeSelect?.value !== SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT) return;
+  const sourceId = button.dataset.crossSourceId;
+  const eligibleIds = new Set(crossUnitEligibleUnits().map((unit) => unit.sourceId));
+  if (!eligibleIds.has(sourceId)) return;
+
+  const selectedSources = new Set(crossUnitSelection.selectedSourceIds);
+  if (selectedSources.has(sourceId)) {
+    if (selectedSources.size <= 2) {
+      setStatus("跨單元混合至少需要 2 個單元。", "error");
+      return;
+    }
+    selectedSources.delete(sourceId);
+    const owned = new Set(crossUnitEligibleRowsForSource(sourceId).map((row) => row.knowledgePointId));
+    crossUnitSelection.selectedKnowledgePointIds =
+      crossUnitSelection.selectedKnowledgePointIds.filter((id) => !owned.has(id));
+  } else {
+    selectedSources.add(sourceId);
+    const first = crossUnitEligibleRowsForSource(sourceId)[0]?.knowledgePointId;
+    if (first) crossUnitSelection.selectedKnowledgePointIds.push(first);
+  }
+  crossUnitSelection.selectedSourceIds = [...selectedSources];
+  normalizeCrossUnitSelection();
+  renderCrossUnitSelection();
+  questionCountInput.min = String(crossUnitSelection.selectedKnowledgePointIds.length);
+  if (Number(questionCountInput.value) < crossUnitSelection.selectedKnowledgePointIds.length) {
+    questionCountInput.value = String(crossUnitSelection.selectedKnowledgePointIds.length);
+  }
+  printButton.disabled = true;
+  setStatus("跨單元範圍已更新，請重新產生考券。");
+});
+
+crossUnitKpGroups?.addEventListener("click", (event) => {
+  const button = event.target.closest?.("[data-cross-knowledge-point-id]");
+  if (!button || compositionModeSelect?.value !== SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT) return;
+  const knowledgePointId = button.dataset.crossKnowledgePointId;
+  const sourceId = button.dataset.sourceId;
+  if (!crossUnitSelection.selectedSourceIds.includes(sourceId)) return;
+  const eligibleIds = new Set(crossUnitEligibleRowsForSource(sourceId).map((row) => row.knowledgePointId));
+  if (!eligibleIds.has(knowledgePointId)) return;
+
+  const selected = new Set(crossUnitSelection.selectedKnowledgePointIds);
+  if (selected.has(knowledgePointId)) {
+    const selectedForSource = [...selected].filter((id) => eligibleIds.has(id));
+    if (selectedForSource.length <= 1) {
+      setStatus("每個已選單元至少需要保留 1 個知識點。", "error");
+      return;
+    }
+    selected.delete(knowledgePointId);
+  } else {
+    selected.add(knowledgePointId);
+  }
+  crossUnitSelection.selectedKnowledgePointIds = [...selected];
+  renderCrossUnitSelection();
+  questionCountInput.min = String(crossUnitSelection.selectedKnowledgePointIds.length);
+  if (Number(questionCountInput.value) < crossUnitSelection.selectedKnowledgePointIds.length) {
+    questionCountInput.value = String(crossUnitSelection.selectedKnowledgePointIds.length);
+  }
+  printButton.disabled = true;
+  setStatus("跨單元知識點選擇已更新，請重新產生考券。");
 });
 
 sourceSelect.addEventListener("change", () => {
