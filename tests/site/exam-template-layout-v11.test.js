@@ -142,3 +142,72 @@ test("M6 rich-representation budgeting prevents two tall geometry cells from sha
     }
   }
 });
+
+
+test("M6R1 target questions per page acts as a safe maximum rather than an overflow mandate", () => {
+  const models = Array.from({ length: 40 }, (_, index) => question(index + 1));
+  const answers = models.map((model) => ({
+    questionId: model.questionId,
+    questionNumber: model.questionNumber,
+    promptText: model.blankedDisplayText,
+    answerText: model.answerText,
+  }));
+  const layout = buildSchoolExamLayoutPages({
+    questionDisplayModels: models,
+    answerKeyItems: answers,
+  }, {
+    targetQuestionsPerPage: 10,
+    autoFill: true,
+  });
+
+  assert.equal(layout.targetQuestionsPerPage, 10);
+  assert.equal(layout.autoFill, true);
+  assert.equal(layout.questionPages.length, 4);
+  assert.equal(layout.questionPages.every((page) => page.itemCount <= 10), true);
+  assert.equal(
+    layout.questionPages.flatMap((page) => page.columns.flatMap((column) => column.cells)).length,
+    40,
+  );
+});
+
+test("M6R1 automatic page fill marks sufficiently populated question columns for vertical spreading", () => {
+  const models = Array.from({ length: 20 }, (_, index) => question(index + 1));
+  const answers = models.map((model) => ({
+    questionId: model.questionId,
+    questionNumber: model.questionNumber,
+    promptText: model.blankedDisplayText,
+    answerText: model.answerText,
+  }));
+  const html = renderSchoolExamWorksheetToHtml({
+    questionDisplayModels: models,
+    answerKeyItems: answers,
+  }, {
+    layout: {
+      targetQuestionsPerPage: 10,
+      autoFill: true,
+    },
+  });
+
+  assert.match(html, /data-auto-fill="true"/);
+  assert.match(html, /data-target-items-per-page="10"/);
+  assert.match(html, /school-exam-column--spread/);
+});
+
+test("M6R1 question representation budgets are less conservative than M6 answer safety budgets", () => {
+  const questionGeometry = {
+    cellType: "question",
+    displayModel: question(1, { geometryDiagram: { kind: "synthetic" } }),
+  };
+  const answerGeometry = {
+    cellType: "answerKey",
+    answerKeyItem: {
+      questionId: "a-geometry",
+      questionNumber: 1,
+      promptText: "請看圖回答",
+      answerText: "頂點",
+      geometryDiagram: { kind: "synthetic" },
+    },
+  };
+  assert.ok(estimateSchoolExamQuestionUnits(questionGeometry) < 60);
+  assert.ok(estimateSchoolExamAnswerUnits(answerGeometry) >= 45);
+});

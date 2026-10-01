@@ -108,6 +108,17 @@
               <option value="groupedByPattern">依題型分組</option>
             </select>
           </label>
+          <label class="field">
+            <span>每頁最多題數</span>
+            <select id="exam-page-question-target">
+              <option value="auto" selected>自動</option>
+              <option value="8">8 題</option>
+              <option value="10">10 題</option>
+              <option value="12">12 題</option>
+              <option value="16">16 題</option>
+              <option value="20">20 題</option>
+            </select>
+          </label>
           <label class="field exam-template-control-grid__wide">
             <span>產生種子</span>
             <input id="exam-seed" type="text" value="school-exam-template" spellcheck="false">
@@ -117,6 +128,13 @@
           <input id="exam-answer-key" type="checkbox" checked>
           <span>考券後附答案頁</span>
         </label>
+        <label class="toggle">
+          <input id="exam-page-auto-fill" type="checkbox" checked>
+          <span>自動填滿頁面高度（不拉伸圖形）</span>
+        </label>
+        <p class="help-text">
+          「每頁最多題數」是上限；遇到圖形、表格或長題幹時會自動減少，避免列印裁切。
+        </p>
       </div>
 
       <div class="toolbar">

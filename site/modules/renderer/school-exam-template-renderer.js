@@ -24,6 +24,9 @@ export const SCHOOL_EXAM_LAYOUT_V11 = Object.freeze({
   keepQuestionTogether: true,
   sectionHeadingSpansColumns: true,
   answerLayoutDensity: "dense",
+  defaultQuestionPageTarget: null,
+  autoFillPage: true,
+  spreadMinCellsPerColumn: 3,
 });
 
 function escapeHtml(value) {
@@ -83,14 +86,16 @@ function textLineUnits(text, charsPerLine, unitsPerLine) {
 
 function representationUnits(model, dense = false) {
   if (!model || typeof model !== "object") return 0;
-  if (model.chartData) return dense ? 34 : 48;
-  if (model.tableData) return dense ? 30 : 46;
-  // Actual M6 print QA showed that rich representations need conservative
-  // budgets on both question and answer pages. Answer-key diagrams still
-  // render at substantial height, so "dense" means smaller than the question
-  // projection, not half-height.
-  if (model.geometryDiagram) return dense ? 36 : 48;
-  if (model.numberLine) return dense ? 20 : 32;
+  // M6R1 separates question-page and answer-page budgets. The previous M6
+  // repair made question diagrams as conservative as answer diagrams, which
+  // prevented clipping but left large unused areas on real question pages.
+  // Actual visual QA showed the overflow was on answer pages, so question
+  // budgets return to their measured pre-repair envelope while dense answer
+  // budgets keep the safer M6 values.
+  if (model.chartData) return dense ? 34 : 36;
+  if (model.tableData) return dense ? 30 : 32;
+  if (model.geometryDiagram) return dense ? 36 : 34;
+  if (model.numberLine) return dense ? 20 : 23;
   return 0;
 }
 
@@ -154,7 +159,20 @@ function bestTwoColumnSplit(items, estimate, columnBudget) {
   return best ?? { ok: false };
 }
 
-function packTwoColumnPages(cells, estimate, columnBudget, pageType) {
+function normalizeQuestionPageTarget(value) {
+  if (value === null || value === undefined || value === "" || value === "auto") return null;
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return null;
+  return clamp(Math.floor(numeric), 2, 40);
+}
+
+function packTwoColumnPages(
+  cells,
+  estimate,
+  columnBudget,
+  pageType,
+  { maxItemsPerPage = null, autoFill = false } = {},
+) {
   const pages = [];
   let pending = [];
 
@@ -188,14 +206,20 @@ function packTwoColumnPages(cells, estimate, columnBudget, pageType) {
       ],
       itemCount: pending.length,
       oversizedItem: split.oversized === true,
+      autoFill: autoFill === true,
+      targetItemsPerPage: maxItemsPerPage,
     });
     pending = [];
   };
 
   for (const cell of cells) {
     const candidate = [...pending, cell];
-    const split = bestTwoColumnSplit(candidate, estimate, columnBudget);
-    if (split.ok || pending.length === 0) {
+    const exceedsItemTarget = Number.isInteger(maxItemsPerPage)
+      && candidate.length > maxItemsPerPage;
+    const split = exceedsItemTarget
+      ? { ok: false }
+      : bestTwoColumnSplit(candidate, estimate, columnBudget);
+    if ((!exceedsItemTarget && split.ok) || pending.length === 0) {
       pending = candidate;
       continue;
     }
@@ -206,14 +230,22 @@ function packTwoColumnPages(cells, estimate, columnBudget, pageType) {
   return pages;
 }
 
-export function buildSchoolExamLayoutPages(worksheetDocument) {
+export function buildSchoolExamLayoutPages(worksheetDocument, options = {}) {
   const questionCells = flattenQuestionCells(worksheetDocument);
   const answerCells = flattenAnswerCells(worksheetDocument);
+  const targetQuestionsPerPage = normalizeQuestionPageTarget(
+    options.targetQuestionsPerPage ?? SCHOOL_EXAM_LAYOUT_V11.defaultQuestionPageTarget,
+  );
+  const autoFill = options.autoFill !== false;
   const questionPages = packTwoColumnPages(
     questionCells,
     estimateSchoolExamQuestionUnits,
     SCHOOL_EXAM_LAYOUT_V11.questionColumnBudget,
     "questions",
+    {
+      maxItemsPerPage: targetQuestionsPerPage,
+      autoFill,
+    },
   );
   const answerPages = packTwoColumnPages(
     answerCells,
@@ -223,6 +255,8 @@ export function buildSchoolExamLayoutPages(worksheetDocument) {
   );
   return Object.freeze({
     layoutVersion: SCHOOL_EXAM_LAYOUT_V11.layoutVersion,
+    targetQuestionsPerPage,
+    autoFill,
     questionPages: Object.freeze(questionPages),
     answerPages: Object.freeze(answerPages),
   });
@@ -278,15 +312,25 @@ function header(meta, answerKey) {
   ].join("");
 }
 
-function renderColumn(column, renderCell, kind) {
+function renderColumn(column, renderCell, kind, autoFill = false) {
   const cells = (column?.cells ?? []).map(renderCell).join("");
-  return `<div class="school-exam-column school-exam-column--${kind}" data-column-index="${column?.columnIndex ?? 0}" data-used-units="${column?.usedUnits ?? 0}">${cells}</div>`;
+  const spread = autoFill === true
+    && kind === "questions"
+    && (column?.cells?.length ?? 0) >= SCHOOL_EXAM_LAYOUT_V11.spreadMinCellsPerColumn;
+  const classes = [
+    "school-exam-column",
+    `school-exam-column--${kind}`,
+    spread ? "school-exam-column--spread" : "",
+  ].filter(Boolean).join(" ");
+  return `<div class="${classes}" data-column-index="${column?.columnIndex ?? 0}" data-used-units="${column?.usedUnits ?? 0}">${cells}</div>`;
 }
 
 function renderQuestionPage(document, page, index, meta) {
-  const columns = (page?.columns ?? []).map((column) => renderColumn(column, renderQuestion, "questions")).join("");
+  const columns = (page?.columns ?? []).map(
+    (column) => renderColumn(column, renderQuestion, "questions", page?.autoFill === true),
+  ).join("");
   return [
-    `<section class="worksheet-page school-exam-page school-exam-page--questions" data-page-type="question" data-page-number="${index + 1}" data-layout-version="${escapeHtml(page?.layoutVersion ?? SCHOOL_EXAM_LAYOUT_V11.layoutVersion)}">`,
+    `<section class="worksheet-page school-exam-page school-exam-page--questions" data-page-type="question" data-page-number="${index + 1}" data-layout-version="${escapeHtml(page?.layoutVersion ?? SCHOOL_EXAM_LAYOUT_V11.layoutVersion)}" data-auto-fill="${page?.autoFill === true ? "true" : "false"}" data-target-items-per-page="${page?.targetItemsPerPage ?? "auto"}">`,
     header(meta, false),
     index === 0
       ? '<div class="school-exam-section-heading"><strong>一、請依題意作答</strong><span>請將計算過程或答案寫在題目空白處。</span></div>'
@@ -408,6 +452,12 @@ const STYLE = `
     min-width: 0;
     padding: 0 4mm;
   }
+  .school-exam-column--spread {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   .school-exam-column:first-child {
     padding-left: 0;
   }
@@ -526,7 +576,7 @@ export function renderSchoolExamWorksheetToHtml(worksheetDocument, options = {})
     ...(options.examMeta ?? {}),
   };
 
-  const layout = buildSchoolExamLayoutPages(worksheetDocument);
+  const layout = buildSchoolExamLayoutPages(worksheetDocument, options.layout ?? {});
   const questionPages = layout.questionPages;
   const answerPages = layout.answerPages;
 
