@@ -194,7 +194,7 @@ test("M6R3 renderer uses fixed-gap actual-height question flow", () => {
   assert.match(html, /school-exam-column--question-flow/);
   assert.match(html, /--school-exam-question-gap:5mm/);
   assert.match(html, /school-exam-question-reflow-v1/);
-  assert.match(html, /data-layout-mode="actual-height"/);
+  assert.match(html, /page\.dataset\.layoutMode\s*=\s*"actual-height"/);
   assert.doesNotMatch(html, /school-exam-column--adaptive-gap/);
 });
 
