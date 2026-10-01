@@ -55,6 +55,7 @@ async function generate(page, { mode, count, seed, pageTarget = "auto", autoFill
   const frame = await iframe.contentFrame();
   assert.ok(frame, "M6_PREVIEW_FRAME_MISSING");
   await frame.waitForSelector(".school-exam-page");
+  await frame.waitForFunction(() => document.body.dataset.questionLayoutReady === "true");
   return frame;
 }
 
@@ -80,7 +81,7 @@ async function visualAudit(page, frame, scenarioId) {
       questionCellCount: document.querySelectorAll(".school-exam-page--questions .worksheet-cell").length,
       answerCellCount: document.querySelectorAll(".school-exam-page--answers .worksheet-cell").length,
       bodyTextLength: document.body.innerText.trim().length,
-      adaptiveGapColumnCount: document.querySelectorAll(".school-exam-column--adaptive-gap").length,
+      questionFlowColumnCount: document.querySelectorAll(".school-exam-column--question-flow").length,
     };
   });
 
@@ -90,16 +91,15 @@ async function visualAudit(page, frame, scenarioId) {
   assert.ok(screenAudit.questionCellCount > 0, `${scenarioId}: no question cells`);
   assert.equal(screenAudit.answerCellCount, screenAudit.questionCellCount, `${scenarioId}: answer parity`);
   assert.ok(screenAudit.bodyTextLength > 100, `${scenarioId}: preview looks blank`);
-  const maxQuestionColumnCount = Math.max(
-    0,
-    ...screenAudit.columnStats.flatMap((stat) => stat.counts),
+  assert.equal(
+    await frame.evaluate(() => document.body.dataset.questionLayoutMode),
+    "actual-height",
+    `${scenarioId}: actual-height reflow did not run`,
   );
-  if (maxQuestionColumnCount >= 3) {
-    assert.ok(
-      screenAudit.adaptiveGapColumnCount > 0,
-      `${scenarioId}: auto-fill did not mark any eligible adaptive-gap column`,
-    );
-  }
+  assert.ok(
+    screenAudit.questionFlowColumnCount > 0,
+    `${scenarioId}: no actual-height question-flow columns`,
+  );
 
   for (let i = 0; i < screenAudit.columnStats.length; i += 1) {
     const stat = screenAudit.columnStats[i];
@@ -120,7 +120,7 @@ async function visualAudit(page, frame, scenarioId) {
     let columnOverflow = 0;
     let wrongPrintHeight = 0;
     const overflowDetails = [];
-    const adaptiveGapMetrics = [];
+    const questionFlowMetrics = [];
 
     const details = pages.map((page, pageIndex) => {
       const pageRect = page.getBoundingClientRect();
@@ -130,7 +130,7 @@ async function visualAudit(page, frame, scenarioId) {
         if (column.scrollHeight > column.clientHeight + 2) columnOverflow += 1;
         const columnRect = column.getBoundingClientRect();
         const columnCells = [...column.querySelectorAll(".worksheet-cell")];
-        if (column.classList.contains("school-exam-column--adaptive-gap")) {
+        if (column.classList.contains("school-exam-column--question-flow")) {
           const pxToMm = 25.4 / 96;
           const cellRects = columnCells.map((cell) => cell.getBoundingClientRect());
           const gapsMm = [];
@@ -138,11 +138,11 @@ async function visualAudit(page, frame, scenarioId) {
             gapsMm.push((cellRects[gapIndex + 1].top - cellRects[gapIndex].bottom) * pxToMm);
           }
           const lastRect = cellRects.at(-1);
-          adaptiveGapMetrics.push({
+          questionFlowMetrics.push({
             pageNumber: pageIndex + 1,
             columnIndex: Number(column.dataset.columnIndex ?? 0),
             itemCount: columnCells.length,
-            declaredGapMm: Number(column.dataset.adaptiveGapMm),
+            configuredGapMm: Number(column.dataset.questionGapMm),
             minGapMm: gapsMm.length > 0 ? Math.min(...gapsMm) : null,
             maxGapMm: gapsMm.length > 0 ? Math.max(...gapsMm) : null,
             bottomSafeMm: lastRect ? (columnRect.bottom - lastRect.bottom) * pxToMm : null,
@@ -199,6 +199,9 @@ async function visualAudit(page, frame, scenarioId) {
     const aPages = details.filter((row) => row.type === "answer");
     const questionItems = qPages.reduce((sum, row) => sum + row.columns.reduce((a, b) => a + b, 0), 0);
     const answerItems = aPages.reduce((sum, row) => sum + row.columns.reduce((a, b) => a + b, 0), 0);
+    const questionNumbers = [...document.querySelectorAll(
+      ".school-exam-page--questions .school-exam-column--questions .worksheet-cell",
+    )].map((cell) => Number(cell.dataset.questionNumber));
 
     return {
       outsidePage,
@@ -214,7 +217,8 @@ async function visualAudit(page, frame, scenarioId) {
       averageAnswerItemsPerPage: answerItems / aPages.length,
       details,
       overflowDetails,
-      adaptiveGapMetrics,
+      questionFlowMetrics,
+      questionNumbers,
     };
   });
 
@@ -228,20 +232,23 @@ async function visualAudit(page, frame, scenarioId) {
   assert.equal(printAudit.columnOverflow, 0, `${scenarioId}: clipped column content`);
   assert.equal(printAudit.wrongPrintHeight, 0, `${scenarioId}: print page is not fixed 296mm`);
   assert.equal(printAudit.questionItems, printAudit.answerItems, `${scenarioId}: print answer parity`);
-  for (const metric of printAudit.adaptiveGapMetrics) {
-    assert.ok(
-      metric.minGapMm >= 3.7,
-      `${scenarioId}: adaptive gap below 4mm tolerance: ${JSON.stringify(metric)}`,
-    );
-    assert.ok(
-      metric.maxGapMm <= 10.4,
-      `${scenarioId}: adaptive gap above 10mm tolerance: ${JSON.stringify(metric)}`,
-    );
+  for (const metric of printAudit.questionFlowMetrics) {
+    if (metric.itemCount >= 2) {
+      assert.ok(
+        metric.minGapMm >= 4.7 && metric.maxGapMm <= 5.3,
+        `${scenarioId}: fixed 5mm gap violated: ${JSON.stringify(metric)}`,
+      );
+    }
     assert.ok(
       metric.bottomSafeMm >= 5.5,
       `${scenarioId}: bottom safety below 6mm tolerance: ${JSON.stringify(metric)}`,
     );
   }
+  assert.deepEqual(
+    printAudit.questionNumbers,
+    Array.from({ length: printAudit.questionItems }, (_, index) => index + 1),
+    `${scenarioId}: left-then-right question order changed`,
+  );
   assert.ok(
     printAudit.averageAnswerItemsPerPage >= printAudit.averageQuestionItemsPerPage,
     `${scenarioId}: answer packing is not denser`,
@@ -367,8 +374,12 @@ try {
   });
   const trial120 = await visualAudit(page, frame, "G4A_U01_U05_CROSS_UNIT_120_TRIAL");
   assert.ok(
-    trial120.printAudit.adaptiveGapMetrics.length > 0,
-    "M6R2 120-question trial did not exercise adaptive gap columns",
+    trial120.printAudit.questionFlowMetrics.length > 0,
+    "M6R3 120-question trial did not exercise actual-height flow columns",
+  );
+  assert.ok(
+    trial120.printAudit.questionPageCount < 6,
+    `M6R3 actual-height flow should beat the previous 6-page estimate; got ${trial120.printAudit.questionPageCount}`,
   );
   results.push({
     scenarioId: "G4A_U01_U05_CROSS_UNIT_120_TRIAL",
