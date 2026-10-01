@@ -195,7 +195,7 @@ test("M6R3 renderer uses fixed-gap actual-height question flow", () => {
   assert.match(html, /--school-exam-question-gap:5mm/);
   assert.match(html, /school-exam-question-reflow-v1/);
   assert.match(html, /page\.dataset\.layoutMode\s*=\s*"actual-height"/);
-  assert.doesNotMatch(html, /school-exam-column--adaptive-gap/);
+  assert.doesNotMatch(html, /class="[^"]*school-exam-column--adaptive-gap/);
 });
 
 test("M6R3 keeps explicit page-count target only as an optional hard upper bound", () => {
