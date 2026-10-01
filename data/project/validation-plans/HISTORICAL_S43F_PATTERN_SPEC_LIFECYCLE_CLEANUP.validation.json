@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "HISTORICAL_S43F_PATTERN_SPEC_LIFECYCLE_CLEANUP_BOUNDED_VALIDATION",
+  "unitId": "historical_s43f_pattern_lifecycle_authority",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/governance/gci-public-pattern-reachability-audit.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/governance/gci-public-pattern-reachability-audit.test.js"
+        ]
+      }
+    ]
+  }
+}
