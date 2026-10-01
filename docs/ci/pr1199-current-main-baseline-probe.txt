@@ -1,0 +1,5 @@
+PR1199 current-main full-regression baseline probe.
+Base SHA: f3b3bb808706d22cac6bb94b892efd0de1a55302
+Purpose: CI-only comparison against PR #1199 failure-title set.
+Product/runtime/curriculum semantics changed: NO
+Do not merge this probe PR.
