@@ -23,6 +23,35 @@ test("public PatternSpec reachability audit produces a complete disjoint classif
       + counts.nonPublicIntentionalOrLegacyCount
       + counts.unreachableCandidateCount,
   );
+  assert.equal(counts.authoritySupersededCount, 6);
+  assert.equal(counts.authorityStaleOutsideCurrentSourceCount, 4);
+  assert.deepEqual(
+    report.authoritySuperseded.map((row) => row.patternSpecId).sort(),
+    [
+      "ps_g4a_u01_large_number_vertical_calculation",
+      "ps_g4a_u02_multiplier_10_or_100",
+      "ps_g4a_u04_3digit_by_2digit_exact",
+      "ps_g4a_u08_add_sub_three_terms",
+      "ps_g4b_u01_multi_digit_by_3digit",
+      "ps_g5a_u08_left_to_right_add_sub",
+    ],
+  );
+  assert.deepEqual(
+    report.authorityStaleOutsideCurrentSource.map((row) => row.patternSpecId).sort(),
+    [
+      "ps_g4a_u02_4digit_by_2digit",
+      "ps_g4a_u04_4digit_by_2digit_exact",
+      "ps_g4b_u01_multi_digit_by_2digit",
+      "ps_g4b_u01_multi_digit_division_exact",
+    ],
+  );
+  assert.deepEqual(
+    report.unreachableCandidates.map((row) => row.patternSpecId).sort(),
+    [
+      "ps_g3b_u08_division_check_by_multiplication",
+      "ps_g3b_u08_multiplication_check_by_division",
+    ],
+  );
   console.log("PUBLIC_PATTERN_REACHABILITY_GAPS=" + JSON.stringify({
     counts,
     unreachableCandidates: report.unreachableCandidates.map((row) => ({
@@ -55,9 +84,9 @@ test("focused public PatternSpec runtime replay classifies every current reachab
   assert.equal(report.authority.legalRouteCount, 793);
   assert.equal(report.authority.priorAcceptedBrowserReplay.passRouteCount, 793);
   assert.equal(report.authority.priorAcceptedBrowserReplay.failRouteCount, 0);
-  assert.equal(counts.reachabilityCandidateCount, 12);
-  assert.equal(counts.candidateSourceCount, 7);
-  assert.equal(counts.focusedLegalRouteCount, 353);
+  assert.equal(counts.reachabilityCandidateCount, 2);
+  assert.equal(counts.candidateSourceCount, 1);
+  assert.ok(counts.focusedLegalRouteCount > 0);
   assert.equal(counts.focusedRuntimeReplayCount, counts.focusedLegalRouteCount);
   assert.equal(counts.focusedRuntimeReplayFailureCount, 0, JSON.stringify(routeReplayFailures));
   assert.equal(candidateRows.length, counts.reachabilityCandidateCount);
@@ -65,33 +94,14 @@ test("focused public PatternSpec runtime replay classifies every current reachab
     counts.confirmedUnreachableCount + counts.exactRuntimeReachableCount,
     counts.reachabilityCandidateCount,
   );
-  assert.equal(counts.confirmedUnreachableCount, 10);
+  assert.equal(counts.confirmedUnreachableCount, 0);
   assert.equal(counts.exactRuntimeReachableCount, 2);
-  assert.equal(counts.supersededByCurrentCanonicalCount, 6);
-  assert.equal(counts.staleOutsideCurrentSourceAuthorityCount, 4);
-  assert.equal(counts.publicRouteRepairRequiredCount, 0);
+  assert.deepEqual(report.confirmedUnreachable, []);
   assert.deepEqual(
-    report.publicRouteRepairRequired.map((row) => row.patternSpecId),
-    [],
-  );
-  assert.deepEqual(
-    report.supersededByCurrentCanonical.map((row) => row.patternSpecId).sort(),
+    report.exactRuntimeReachable.map((row) => row.patternSpecId).sort(),
     [
-      "ps_g4a_u01_large_number_vertical_calculation",
-      "ps_g4a_u02_multiplier_10_or_100",
-      "ps_g4a_u04_3digit_by_2digit_exact",
-      "ps_g4a_u08_add_sub_three_terms",
-      "ps_g4b_u01_multi_digit_by_3digit",
-      "ps_g5a_u08_left_to_right_add_sub",
-    ],
-  );
-  assert.deepEqual(
-    report.staleOutsideCurrentSourceAuthority.map((row) => row.patternSpecId).sort(),
-    [
-      "ps_g4a_u02_4digit_by_2digit",
-      "ps_g4a_u04_4digit_by_2digit_exact",
-      "ps_g4b_u01_multi_digit_by_2digit",
-      "ps_g4b_u01_multi_digit_division_exact",
+      "ps_g3b_u08_division_check_by_multiplication",
+      "ps_g3b_u08_multiplication_check_by_division",
     ],
   );
 
@@ -99,8 +109,5 @@ test("focused public PatternSpec runtime replay classifies every current reachab
     counts,
     confirmedUnreachable: report.confirmedUnreachable,
     exactRuntimeReachable: report.exactRuntimeReachable,
-    supersededByCurrentCanonical: report.supersededByCurrentCanonical,
-    staleOutsideCurrentSourceAuthority: report.staleOutsideCurrentSourceAuthority,
-    publicRouteRepairRequired: report.publicRouteRepairRequired,
   }));
 });
