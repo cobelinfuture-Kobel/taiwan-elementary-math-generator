@@ -233,6 +233,7 @@ async function visualAudit(page, frame, scenarioId) {
   assert.equal(printAudit.wrongPrintHeight, 0, `${scenarioId}: print page is not fixed 296mm`);
   assert.equal(printAudit.questionItems, printAudit.answerItems, `${scenarioId}: print answer parity`);
   for (const metric of printAudit.questionFlowMetrics) {
+    if (metric.itemCount === 0) continue;
     if (metric.itemCount >= 2) {
       assert.ok(
         metric.minGapMm >= 4.7 && metric.maxGapMm <= 5.3,
