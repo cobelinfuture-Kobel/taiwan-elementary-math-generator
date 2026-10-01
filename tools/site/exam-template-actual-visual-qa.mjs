@@ -90,8 +90,15 @@ async function visualAudit(page, frame, scenarioId) {
   assert.ok(screenAudit.questionCellCount > 0, `${scenarioId}: no question cells`);
   assert.equal(screenAudit.answerCellCount, screenAudit.questionCellCount, `${scenarioId}: answer parity`);
   assert.ok(screenAudit.bodyTextLength > 100, `${scenarioId}: preview looks blank`);
-  if (screenAudit.questionCellCount >= 8) {
-    assert.ok(screenAudit.spreadColumnCount > 0, `${scenarioId}: auto-fill did not mark any spread column`);
+  const maxQuestionColumnCount = Math.max(
+    0,
+    ...screenAudit.columnStats.flatMap((stat) => stat.counts),
+  );
+  if (maxQuestionColumnCount >= 3) {
+    assert.ok(
+      screenAudit.spreadColumnCount > 0,
+      `${scenarioId}: auto-fill did not mark any eligible spread column`,
+    );
   }
 
   for (let i = 0; i < screenAudit.columnStats.length; i += 1) {
