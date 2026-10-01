@@ -12,6 +12,20 @@ export const SCHOOL_EXAM_TEMPLATE_V1 = Object.freeze({
   copiedSchoolBranding: false,
 });
 
+export const SCHOOL_EXAM_LAYOUT_V11 = Object.freeze({
+  layoutVersion: "school_exam_layout_v1_1",
+  questionColumnBudget: 100,
+  answerColumnBudget: 125,
+  columns: 2,
+  minQuestionUnits: 8,
+  maxQuestionUnits: 92,
+  minAnswerUnits: 6,
+  maxAnswerUnits: 70,
+  keepQuestionTogether: true,
+  sectionHeadingSpansColumns: true,
+  answerLayoutDensity: "dense",
+});
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -19,6 +33,195 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function flattenQuestionCells(document) {
+  if (Array.isArray(document?.questionDisplayModels) && document.questionDisplayModels.length > 0) {
+    return document.questionDisplayModels.map((displayModel, index) => ({
+      pageNumber: null,
+      rowIndex: null,
+      columnIndex: null,
+      cellIndex: index,
+      cellType: "question",
+      questionId: displayModel?.questionId ?? null,
+      questionNumber: displayModel?.questionNumber ?? index + 1,
+      displayModel,
+    }));
+  }
+  return (document?.questionPages ?? []).flatMap((page) =>
+    (page?.cells ?? []).filter((cell) => cell?.cellType === "question" && cell?.displayModel)
+  );
+}
+
+function flattenAnswerCells(document) {
+  if (Array.isArray(document?.answerKeyItems) && document.answerKeyItems.length > 0) {
+    return document.answerKeyItems.map((answerKeyItem, index) => ({
+      pageNumber: null,
+      rowIndex: null,
+      columnIndex: null,
+      cellIndex: index,
+      cellType: "answerKey",
+      questionId: answerKeyItem?.questionId ?? null,
+      questionNumber: answerKeyItem?.questionNumber ?? index + 1,
+      answerKeyItem,
+    }));
+  }
+  return (document?.answerKeyPages ?? []).flatMap((page) =>
+    (page?.cells ?? []).filter((cell) => cell?.cellType === "answerKey" && cell?.answerKeyItem)
+  );
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function textLineUnits(text, charsPerLine, unitsPerLine) {
+  const length = String(text ?? "").trim().length;
+  if (length === 0) return 0;
+  return Math.max(1, Math.ceil(length / charsPerLine)) * unitsPerLine;
+}
+
+function representationUnits(model, dense = false) {
+  if (!model || typeof model !== "object") return 0;
+  if (model.chartData) return dense ? 18 : 36;
+  if (model.tableData) return dense ? 16 : 32;
+  if (model.geometryDiagram) return dense ? 17 : 34;
+  if (model.numberLine) return dense ? 12 : 23;
+  return 0;
+}
+
+export function estimateSchoolExamQuestionUnits(cell) {
+  const model = cell?.displayModel ?? {};
+  const prompt = model.blankedDisplayText ?? model.promptText ?? "";
+  const responsePrompt = model.responsePrompt ?? "";
+  const base = 7;
+  const promptUnits = textLineUnits(prompt, 30, 3);
+  const responseUnits = textLineUnits(responsePrompt, 32, 3);
+  const modeBonus = String(model?.layoutHints?.questionMode ?? "").toLowerCase().includes("application") ? 5 : 0;
+  return clamp(
+    base + promptUnits + responseUnits + representationUnits(model, false) + modeBonus,
+    SCHOOL_EXAM_LAYOUT_V11.minQuestionUnits,
+    SCHOOL_EXAM_LAYOUT_V11.maxQuestionUnits,
+  );
+}
+
+export function estimateSchoolExamAnswerUnits(cell) {
+  const item = cell?.answerKeyItem ?? {};
+  const base = 5;
+  const promptUnits = textLineUnits(item.promptText ?? "", 42, 2);
+  const answerUnits = textLineUnits(item.answerText ?? "", 36, 2);
+  return clamp(
+    base + promptUnits + answerUnits + representationUnits(item, true),
+    SCHOOL_EXAM_LAYOUT_V11.minAnswerUnits,
+    SCHOOL_EXAM_LAYOUT_V11.maxAnswerUnits,
+  );
+}
+
+function sumUnits(items, estimate) {
+  return items.reduce((total, item) => total + estimate(item), 0);
+}
+
+function bestTwoColumnSplit(items, estimate, columnBudget) {
+  if (items.length === 0) return { ok: true, left: [], right: [], leftUnits: 0, rightUnits: 0 };
+  if (items.length === 1) {
+    const units = estimate(items[0]);
+    return {
+      ok: units <= columnBudget,
+      left: [...items],
+      right: [],
+      leftUnits: units,
+      rightUnits: 0,
+      oversized: units > columnBudget,
+    };
+  }
+
+  let best = null;
+  for (let split = 1; split < items.length; split += 1) {
+    const left = items.slice(0, split);
+    const right = items.slice(split);
+    const leftUnits = sumUnits(left, estimate);
+    const rightUnits = sumUnits(right, estimate);
+    if (leftUnits > columnBudget || rightUnits > columnBudget) continue;
+    const score = Math.abs(leftUnits - rightUnits);
+    if (!best || score < best.score) {
+      best = { ok: true, left, right, leftUnits, rightUnits, score };
+    }
+  }
+  return best ?? { ok: false };
+}
+
+function packTwoColumnPages(cells, estimate, columnBudget, pageType) {
+  const pages = [];
+  let pending = [];
+
+  const flush = () => {
+    if (pending.length === 0) return;
+    let split = bestTwoColumnSplit(pending, estimate, columnBudget);
+    if (!split.ok) {
+      // A single genuinely oversized item is still kept intact on one page so
+      // the renderer never splits its prompt from geometry/table/chart content.
+      if (pending.length === 1) {
+        const units = estimate(pending[0]);
+        split = {
+          ok: true,
+          left: [...pending],
+          right: [],
+          leftUnits: units,
+          rightUnits: 0,
+          oversized: true,
+        };
+      } else {
+        throw new Error("SCHOOL_EXAM_LAYOUT_V11_SPLIT_INVARIANT");
+      }
+    }
+    pages.push({
+      pageNumber: pages.length + 1,
+      pageType,
+      layoutVersion: SCHOOL_EXAM_LAYOUT_V11.layoutVersion,
+      columns: [
+        { columnIndex: 0, cells: split.left, usedUnits: split.leftUnits },
+        { columnIndex: 1, cells: split.right, usedUnits: split.rightUnits },
+      ],
+      itemCount: pending.length,
+      oversizedItem: split.oversized === true,
+    });
+    pending = [];
+  };
+
+  for (const cell of cells) {
+    const candidate = [...pending, cell];
+    const split = bestTwoColumnSplit(candidate, estimate, columnBudget);
+    if (split.ok || pending.length === 0) {
+      pending = candidate;
+      continue;
+    }
+    flush();
+    pending = [cell];
+  }
+  flush();
+  return pages;
+}
+
+export function buildSchoolExamLayoutPages(worksheetDocument) {
+  const questionCells = flattenQuestionCells(worksheetDocument);
+  const answerCells = flattenAnswerCells(worksheetDocument);
+  const questionPages = packTwoColumnPages(
+    questionCells,
+    estimateSchoolExamQuestionUnits,
+    SCHOOL_EXAM_LAYOUT_V11.questionColumnBudget,
+    "questions",
+  );
+  const answerPages = packTwoColumnPages(
+    answerCells,
+    estimateSchoolExamAnswerUnits,
+    SCHOOL_EXAM_LAYOUT_V11.answerColumnBudget,
+    "answerKey",
+  );
+  return Object.freeze({
+    layoutVersion: SCHOOL_EXAM_LAYOUT_V11.layoutVersion,
+    questionPages: Object.freeze(questionPages),
+    answerPages: Object.freeze(answerPages),
+  });
 }
 
 function questionCells(page) {
@@ -71,27 +274,32 @@ function header(meta, answerKey) {
   ].join("");
 }
 
+function renderColumn(column, renderCell, kind) {
+  const cells = (column?.cells ?? []).map(renderCell).join("");
+  return `<div class="school-exam-column school-exam-column--${kind}" data-column-index="${column?.columnIndex ?? 0}" data-used-units="${column?.usedUnits ?? 0}">${cells}</div>`;
+}
+
 function renderQuestionPage(document, page, index, meta) {
-  const cells = questionCells(page).map(renderQuestion).join("");
+  const columns = (page?.columns ?? []).map((column) => renderColumn(column, renderQuestion, "questions")).join("");
   return [
-    `<section class="worksheet-page school-exam-page school-exam-page--questions" data-page-type="question" data-page-number="${index + 1}">`,
+    `<section class="worksheet-page school-exam-page school-exam-page--questions" data-page-type="question" data-page-number="${index + 1}" data-layout-version="${escapeHtml(page?.layoutVersion ?? SCHOOL_EXAM_LAYOUT_V11.layoutVersion)}">`,
     header(meta, false),
     index === 0
       ? '<div class="school-exam-section-heading"><strong>一、請依題意作答</strong><span>請將計算過程或答案寫在題目空白處。</span></div>'
       : '<div class="school-exam-section-heading school-exam-section-heading--continuation"><strong>一、請依題意作答（續）</strong></div>',
-    `<div class="school-exam-columns">${cells}</div>`,
+    `<div class="school-exam-columns" data-column-count="2">${columns}</div>`,
     `<footer class="school-exam-footer"><span>${escapeHtml(meta.schoolName)}・${escapeHtml(meta.subjectLabel)}</span><span>第 ${index + 1} 頁</span></footer>`,
     "</section>",
   ].join("");
 }
 
 function renderAnswerPage(document, page, index, meta) {
-  const cells = answerCells(page).map(renderAnswer).join("");
+  const columns = (page?.columns ?? []).map((column) => renderColumn(column, renderAnswer, "answers")).join("");
   return [
-    `<section class="worksheet-page school-exam-page school-exam-page--answers" data-page-type="answer" data-page-number="${index + 1}">`,
+    `<section class="worksheet-page school-exam-page school-exam-page--answers" data-page-type="answer" data-page-number="${index + 1}" data-layout-version="${escapeHtml(page?.layoutVersion ?? SCHOOL_EXAM_LAYOUT_V11.layoutVersion)}">`,
     header(meta, true),
     '<div class="school-exam-section-heading"><strong>答案</strong><span>依題號對照。</span></div>',
-    `<div class="school-exam-columns school-exam-columns--answers">${cells}</div>`,
+    `<div class="school-exam-columns school-exam-columns--answers" data-column-count="2">${columns}</div>`,
     `<footer class="school-exam-footer"><span>答案卷</span><span>第 ${index + 1} 頁</span></footer>`,
     "</section>",
   ].join("");
@@ -186,12 +394,22 @@ const STYLE = `
   .school-exam-columns {
     flex: 1;
     min-height: 0;
-    column-count: 2;
-    column-gap: 10mm;
-    column-rule: 1px solid #333;
-    column-fill: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
     padding-top: 2px;
     overflow: hidden;
+  }
+  .school-exam-column {
+    min-width: 0;
+    padding: 0 4mm;
+  }
+  .school-exam-column:first-child {
+    padding-left: 0;
+  }
+  .school-exam-column:last-child {
+    padding-right: 0;
+    border-left: 1px solid #333;
   }
   .school-exam-columns .worksheet-cell {
     display: block;
@@ -201,7 +419,7 @@ const STYLE = `
     padding: 5px 3px 7px;
     margin: 0 0 6px;
     background: transparent;
-    break-inside: avoid-column;
+    break-inside: avoid;
     page-break-inside: avoid;
     font-size: 11px;
     line-height: 1.45;
@@ -262,7 +480,9 @@ const STYLE = `
   @media screen and (max-width: 760px) {
     .school-exam-renderer .worksheet-document { padding: 8px; }
     .school-exam-page { width: 100%; min-height: auto; padding: 12px; }
-    .school-exam-columns { column-count: 1; column-rule: 0; }
+    .school-exam-columns { grid-template-columns: 1fr; }
+    .school-exam-column:last-child { border-left: 0; padding-left: 0; }
+    .school-exam-column:empty { display: none; }
     .school-exam-student-line { grid-template-columns: 1fr 1fr; }
   }
   @media print {
@@ -302,12 +522,9 @@ export function renderSchoolExamWorksheetToHtml(worksheetDocument, options = {})
     ...(options.examMeta ?? {}),
   };
 
-  const questionPages = Array.isArray(worksheetDocument.questionPages)
-    ? worksheetDocument.questionPages
-    : [];
-  const answerPages = Array.isArray(worksheetDocument.answerKeyPages)
-    ? worksheetDocument.answerKeyPages
-    : [];
+  const layout = buildSchoolExamLayoutPages(worksheetDocument);
+  const questionPages = layout.questionPages;
+  const answerPages = layout.answerPages;
 
   const questionHtml = questionPages.map((page, index) =>
     renderQuestionPage(worksheetDocument, page, index, meta)

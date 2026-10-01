@@ -22,7 +22,9 @@ import {
   listVisibleBatchAKnowledgePoints as listP09VisibleKnowledgePoints,
 } from "../../site/modules/curriculum/registry/batch-a-selector-p09-mixed21-extension.js";
 import {
+  SCHOOL_EXAM_LAYOUT_V11,
   SCHOOL_EXAM_TEMPLATE_V1,
+  buildSchoolExamLayoutPages,
   renderSchoolExamWorksheetToHtml,
 } from "../../site/modules/renderer/school-exam-template-renderer.js";
 import {
@@ -235,4 +237,128 @@ test("M3 UI owns the >=2 rule and the shared aggregator never degrades a one-KP 
   assert.equal(result.worksheetDocument.metadata.selectedKnowledgePointIds.length, 5);
   assert.equal(result.worksheetDocument.metadata.sameUnitMixedUsed, true);
   assert.equal(result.worksheetDocument.metadata.crossUnitMixedUsed, false);
+});
+
+
+test("M5 School Exam Layout V1.1 exposes explicit two-column pagination instead of CSS multicol flow", () => {
+  const rendererSource = readText("site/modules/renderer/school-exam-template-renderer.js");
+  const controller = readText("site/assets/browser/exam-template.js");
+
+  assert.equal(SCHOOL_EXAM_LAYOUT_V11.columns, 2);
+  assert.equal(SCHOOL_EXAM_LAYOUT_V11.keepQuestionTogether, true);
+  assert.equal(SCHOOL_EXAM_LAYOUT_V11.sectionHeadingSpansColumns, true);
+  assert.equal(SCHOOL_EXAM_LAYOUT_V11.answerLayoutDensity, "dense");
+  assert.doesNotMatch(rendererSource, /column-count:\s*2/);
+  assert.match(rendererSource, /grid-template-columns:\s*repeat\(2/);
+  assert.match(rendererSource, /school-exam-column/);
+  assert.match(controller, /buildSchoolExamLayoutPages/);
+  assert.match(controller, /Layout V1\.1/);
+});
+
+test("M5 short-question layout fills both columns and reduces the old fixed 10-cell pagination", () => {
+  const models = Array.from({ length: 60 }, (_, index) => ({
+    questionId: `short-${index + 1}`,
+    questionNumber: index + 1,
+    questionNumberText: `${index + 1}.`,
+    blankedDisplayText: `${index + 11} + ${index + 7} = ______`,
+    answerText: String(index + 18),
+    layoutHints: { avoidPageBreakInside: true, questionMode: "numeric" },
+  }));
+  const answers = models.map((model) => ({
+    questionId: model.questionId,
+    questionNumber: model.questionNumber,
+    promptText: model.blankedDisplayText,
+    answerText: model.answerText,
+  }));
+  const layout = buildSchoolExamLayoutPages({
+    questionDisplayModels: models,
+    answerKeyItems: answers,
+  });
+
+  assert.ok(layout.questionPages.length < 6, `expected fewer than 6 pages, got ${layout.questionPages.length}`);
+  assert.equal(layout.questionPages.flatMap((page) => page.columns.flatMap((column) => column.cells)).length, 60);
+  for (const page of layout.questionPages.slice(0, -1)) {
+    assert.ok(page.columns[0].cells.length > 0);
+    assert.ok(page.columns[1].cells.length > 0);
+  }
+  const first = layout.questionPages[0];
+  assert.ok(Math.abs(first.columns[0].usedUnits - first.columns[1].usedUnits) <= 20);
+});
+
+test("M5 variable-height layout keeps long prompts and representations as indivisible question cells", () => {
+  const models = [
+    {
+      questionId: "q1",
+      questionNumber: 1,
+      questionNumberText: "1.",
+      blankedDisplayText: "12 + 8 = ______",
+      answerText: "20",
+    },
+    {
+      questionId: "q2",
+      questionNumber: 2,
+      questionNumberText: "2.",
+      blankedDisplayText: "小明先讀完一段很長的題意，再根據圖形資料計算剩下的數量。".repeat(5),
+      responsePrompt: "請寫出算式與答案。",
+      geometryDiagram: { kind: "synthetic_geometry_for_layout_estimate" },
+      answerText: "42",
+      layoutHints: { questionMode: "application" },
+    },
+    {
+      questionId: "q3",
+      questionNumber: 3,
+      questionNumberText: "3.",
+      blankedDisplayText: "請依統計表回答問題。",
+      tableData: { kind: "synthetic_table_for_layout_estimate" },
+      answerText: "15",
+    },
+    {
+      questionId: "q4",
+      questionNumber: 4,
+      questionNumberText: "4.",
+      blankedDisplayText: "25 - 9 = ______",
+      answerText: "16",
+    },
+  ];
+  const answers = models.map((model) => ({
+    questionId: model.questionId,
+    questionNumber: model.questionNumber,
+    promptText: model.blankedDisplayText,
+    answerText: model.answerText,
+    geometryDiagram: model.geometryDiagram,
+    tableData: model.tableData,
+  }));
+  const layout = buildSchoolExamLayoutPages({
+    questionDisplayModels: models,
+    answerKeyItems: answers,
+  });
+
+  const ids = layout.questionPages.flatMap((page) =>
+    page.columns.flatMap((column) => column.cells.map((cell) => cell.questionId))
+  );
+  assert.deepEqual(ids, ["q1", "q2", "q3", "q4"]);
+  assert.equal(new Set(ids).size, 4);
+  assert.equal(layout.questionPages.every((page) => page.columns.length === 2), true);
+});
+
+test("M5 answer pages use denser packing than question pages for the same short-item count", () => {
+  const models = Array.from({ length: 40 }, (_, index) => ({
+    questionId: `dense-${index + 1}`,
+    questionNumber: index + 1,
+    questionNumberText: `${index + 1}.`,
+    blankedDisplayText: `${index + 3} × 4 = ______`,
+    answerText: String((index + 3) * 4),
+  }));
+  const answers = models.map((model) => ({
+    questionId: model.questionId,
+    questionNumber: model.questionNumber,
+    promptText: model.blankedDisplayText,
+    answerText: model.answerText,
+  }));
+  const layout = buildSchoolExamLayoutPages({
+    questionDisplayModels: models,
+    answerKeyItems: answers,
+  });
+  assert.ok(layout.answerPages.length <= layout.questionPages.length);
+  assert.equal(layout.answerPages.flatMap((page) => page.columns.flatMap((column) => column.cells)).length, 40);
 });
