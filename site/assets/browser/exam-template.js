@@ -556,8 +556,8 @@ function generateExam() {
   const targetLabel = examLayout.targetQuestionsPerPage === null
     ? "每頁題數：自動"
     : `每頁最多：${examLayout.targetQuestionsPerPage} 題`;
-  const fillLabel = examLayout.autoFill ? "自動填滿" : "緊湊排列";
-  previewMeta.textContent = `已產生 ${questionCount} 題｜題目頁 ${pageCount} 頁｜${targetLabel}｜${fillLabel}｜A4 直式雙欄｜Layout V1.1`;
+  const fillLabel = examLayout.autoFill ? "實際高度自動換頁" : "估算分頁";
+  previewMeta.textContent = `已產生 ${questionCount} 題｜題目頁 ${pageCount} 頁（初始估算）｜${targetLabel}｜${fillLabel}｜A4 直式雙欄｜Layout V1.1`;
   const crossUsed = result.worksheetDocument?.metadata?.crossUnitMixedUsed === true;
   const mixedUsed = result.worksheetDocument?.metadata?.sameUnitMixedUsed === true
     || result.worksheetDocument?.batchA?.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT;
@@ -703,6 +703,30 @@ sourceSelect.addEventListener("change", () => {
   syncCompositionModeAvailability();
   applyCompositionMode({ defaultMixedSelection: true });
   printButton.disabled = true;
+});
+previewFrame.addEventListener("load", () => {
+  const syncActualPageCount = () => {
+    const doc = previewFrame.contentDocument;
+    if (!doc) return;
+    if (doc.body?.dataset?.questionLayoutReady !== "true") {
+      setTimeout(syncActualPageCount, 40);
+      return;
+    }
+    const actualPages = doc.querySelectorAll(".school-exam-page--questions").length;
+    const actualQuestions = doc.querySelectorAll(
+      ".school-exam-page--questions .worksheet-cell--question",
+    ).length;
+    const rawTarget = pageQuestionTargetSelect?.value ?? "auto";
+    const targetLabel = rawTarget === "auto"
+      ? "每頁題數：依實際高度"
+      : `每頁最多：${rawTarget} 題`;
+    const modeLabel = doc.body.dataset.questionLayoutMode === "actual-height"
+      ? `固定 5mm 題間距｜實際高度換頁`
+      : "估算分頁";
+    previewMeta.textContent =
+      `已產生 ${actualQuestions} 題｜題目頁 ${actualPages} 頁｜${targetLabel}｜${modeLabel}｜A4 直式雙欄｜Layout V1.1`;
+  };
+  syncActualPageCount();
 });
 pageQuestionTargetSelect?.addEventListener("change", () => {
   printButton.disabled = true;

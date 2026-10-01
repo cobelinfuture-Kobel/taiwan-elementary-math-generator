@@ -3,7 +3,6 @@ import test from "node:test";
 
 import {
   SCHOOL_EXAM_LAYOUT_V11,
-  adaptiveQuestionGapMm,
   buildSchoolExamLayoutPages,
   estimateSchoolExamAnswerUnits,
   estimateSchoolExamQuestionUnits,
@@ -171,8 +170,36 @@ test("M6R1 target questions per page acts as a safe maximum rather than an overf
   );
 });
 
-test("M6R2 automatic page fill uses bounded adaptive gaps instead of full-height space-between", () => {
+test("M6R3 renderer uses fixed-gap actual-height question flow", () => {
   const models = Array.from({ length: 20 }, (_, index) => question(index + 1));
+  const answers = models.map((model) => ({
+    questionId: model.questionId,
+    questionNumber: model.questionNumber,
+    promptText: model.blankedDisplayText,
+    answerText: model.answerText,
+  }));
+  const html = renderSchoolExamWorksheetToHtml({
+    questionDisplayModels: models,
+    answerKeyItems: answers,
+  }, {
+    layout: {
+      targetQuestionsPerPage: null,
+      autoFill: true,
+    },
+  });
+
+  assert.equal(SCHOOL_EXAM_LAYOUT_V11.actualHeightFlow, true);
+  assert.equal(SCHOOL_EXAM_LAYOUT_V11.questionGapMm, 5);
+  assert.equal(SCHOOL_EXAM_LAYOUT_V11.questionBottomSafeMm, 6);
+  assert.match(html, /school-exam-column--question-flow/);
+  assert.match(html, /--school-exam-question-gap:5mm/);
+  assert.match(html, /school-exam-question-reflow-v1/);
+  assert.match(html, /page\.dataset\.layoutMode\s*=\s*"actual-height"/);
+  assert.doesNotMatch(html, /class="[^"]*school-exam-column--adaptive-gap/);
+});
+
+test("M6R3 keeps explicit page-count target only as an optional hard upper bound", () => {
+  const models = Array.from({ length: 40 }, (_, index) => question(index + 1));
   const answers = models.map((model) => ({
     questionId: model.questionId,
     questionNumber: model.questionNumber,
@@ -189,37 +216,11 @@ test("M6R2 automatic page fill uses bounded adaptive gaps instead of full-height
     },
   });
 
-  assert.match(html, /data-auto-fill="true"/);
   assert.match(html, /data-target-items-per-page="10"/);
-  assert.match(html, /school-exam-column--adaptive-gap/);
-  assert.match(html, /data-adaptive-gap-mm="[4-9](?:\.\d)?|10"/);
-  assert.match(
-    html,
-    /\.school-exam-column--adaptive-gap\s*\{[^}]*justify-content:\s*flex-start/s,
-  );
-  assert.doesNotMatch(html, /school-exam-column--spread/);
+  assert.match(html, /rawTarget === "auto" \? null : Number\(rawTarget\)/);
 });
 
-test("M6R2 adaptive gap remains bounded and reserves a bottom safety zone", () => {
-  const smallGap = adaptiveQuestionGapMm({
-    usedUnits: 95,
-    cells: [{}, {}, {}, {}, {}],
-  });
-  const largeGap = adaptiveQuestionGapMm({
-    usedUnits: 20,
-    cells: [{}, {}, {}],
-  });
-  const ineligible = adaptiveQuestionGapMm({
-    usedUnits: 20,
-    cells: [{}, {}],
-  });
 
-  assert.ok(smallGap >= SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinMm);
-  assert.ok(largeGap <= SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMaxMm);
-  assert.ok(largeGap > smallGap);
-  assert.equal(ineligible, null);
-  assert.equal(SCHOOL_EXAM_LAYOUT_V11.questionBottomSafeMm, 6);
-});
 
 test("M6R1 question representation budgets are less conservative than M6 answer safety budgets", () => {
   const questionGeometry = {
