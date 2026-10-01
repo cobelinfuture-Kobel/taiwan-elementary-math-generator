@@ -95,6 +95,8 @@ try {
     { timeout: 30000 },
   );
 
+  const unitCodeFromLabel = (label) => label.match(/5A-U[0-9A-Z]+/)?.[0] ?? null;
+
   const sourceButtons = page.locator(
     "#exam-cross-unit-source-panel [data-cross-source-id]",
   );
@@ -102,7 +104,7 @@ try {
   for (let index = 0; index < sourceButtonCount; index += 1) {
     const button = sourceButtons.nth(index);
     const label = (await button.textContent())?.trim() ?? "";
-    const shouldSelect = DESIRED_UNIT_CODES.some((code) => label.includes(code));
+    const shouldSelect = DESIRED_UNIT_CODES.includes(unitCodeFromLabel(label));
     const isSelected = (await button.getAttribute("aria-pressed")) === "true";
     if (shouldSelect !== isSelected) await button.click();
   }
@@ -115,7 +117,7 @@ try {
   })));
 
   const selectedUnitCodes = selectedUnits
-    .map((row) => DESIRED_UNIT_CODES.find((code) => row.label.includes(code)) ?? null)
+    .map((row) => unitCodeFromLabel(row.label))
     .filter(Boolean)
     .sort();
   assert.deepEqual(selectedUnitCodes, [...DESIRED_UNIT_CODES].sort());
