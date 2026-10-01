@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G06_SCHOOL_EXAM_TEMPLATE_V1_BOUNDED_VALIDATION",
+  "unitId": "g06_school_exam_template_v1",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/site/site-scaffold.test.js",
+          "tests/site/exam-template-route.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/site/exam-template-route.test.js"
+        ]
+      }
+    ]
+  }
+}
