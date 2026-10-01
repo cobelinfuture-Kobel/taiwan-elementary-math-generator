@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "HistoricalS43FPatternSpecLifecycleCleanup",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/HISTORICAL_S43F_PATTERN_SPEC_LIFECYCLE_CLEANUP.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "classificationNote": "Historical curriculum-authority lifecycle cleanup only. sharedExecutableChange=true is the repository's bounded lane-selection shim required for SHARED_RUNTIME_BOUNDED. Actual product runtime, generator, validator, renderer, selector, worksheet, public route, legal-route semantics, and learner-facing behavior are unchanged. Current authority changes only by retiring 6 superseded and 4 stale historical S43F PatternSpecs.",
+  "lifecycleCleanup": {
+    "supersededByCurrentCanonicalCount": 6,
+    "staleOutsideCurrentSourceAuthorityCount": 4,
+    "publicRouteRepairRequiredCount": 0,
+    "runtimeSemanticsChanged": false,
+    "selectorVisibilityRuntimeChanged": false,
+    "generatorSemanticsChanged": false,
+    "validatorSemanticsChanged": false,
+    "rendererSemanticsChanged": false
+  }
+}

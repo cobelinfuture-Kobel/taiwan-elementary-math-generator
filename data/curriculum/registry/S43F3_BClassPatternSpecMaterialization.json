@@ -21,8 +21,21 @@
       "sourceId": "g4a_u02_4a02",
       "title": "三位數乘以二位數",
       "kind": "expression",
-      "operators": [["MULTIPLY"]],
-      "ranges": [[100, 999], [10, 99]],
+      "operators": [
+        [
+          "MULTIPLY"
+        ]
+      ],
+      "ranges": [
+        [
+          100,
+          999
+        ],
+        [
+          10,
+          99
+        ]
+      ],
       "answerMax": 98901,
       "skill": "integer_multiplication",
       "validatorContract": "numeric_integer_answer"
@@ -32,34 +45,140 @@
       "sourceId": "g4a_u04_4a04",
       "title": "三位數除以二位數整除",
       "kind": "expression",
-      "operators": [["DIVIDE"]],
-      "ranges": [[100, 999], [10, 99]],
+      "operators": [
+        [
+          "DIVIDE"
+        ]
+      ],
+      "ranges": [
+        [
+          100,
+          999
+        ],
+        [
+          10,
+          99
+        ]
+      ],
       "answerMax": 999,
       "skill": "integer_division_exact",
-      "division": {"allowDivideByOne": false, "allowZeroDividend": false, "requireExactQuotient": true},
-      "validatorContract": "numeric_integer_answer_exact_division"
+      "division": {
+        "allowDivideByOne": false,
+        "allowZeroDividend": false,
+        "requireExactQuotient": true
+      },
+      "validatorContract": "numeric_integer_answer_exact_division",
+      "lifecycle": {
+        "authorityDisposition": "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+        "lifecycleState": "retired_superseded",
+        "selectorVisibility": "hidden",
+        "productionUse": "forbidden",
+        "canonicalRouting": "disabled",
+        "publicRouteRequirement": "none",
+        "decisionTask": "HistoricalS43FPatternSpecLifecycleCleanup",
+        "successorPatternSpecIds": [
+          "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+          "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
+        ],
+        "sourceAuthorityRef": "batchA_02-題型總覽-4a04-整數的除法.pdf",
+        "rationale": "current canonical split covers both first-place cases and includes remainder_zero, which subsumes the older exact-only family"
+      }
     },
     {
       "patternSpecId": "ps_g4a_u08_add_sub_three_terms",
       "sourceId": "g4a_u08_4a08",
       "title": "三數加減混合",
       "kind": "expression",
-      "operators": [["ADD", "SUBTRACT"], ["ADD", "SUBTRACT"]],
-      "ranges": [[100, 999], [1, 200], [1, 200]],
+      "operators": [
+        [
+          "ADD",
+          "SUBTRACT"
+        ],
+        [
+          "ADD",
+          "SUBTRACT"
+        ]
+      ],
+      "ranges": [
+        [
+          100,
+          999
+        ],
+        [
+          1,
+          200
+        ],
+        [
+          1,
+          200
+        ]
+      ],
       "answerMax": 1399,
       "skill": "integer_add_sub_mixed",
-      "validatorContract": "numeric_integer_answer"
+      "validatorContract": "numeric_integer_answer",
+      "lifecycle": {
+        "authorityDisposition": "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+        "lifecycleState": "retired_superseded",
+        "selectorVisibility": "hidden",
+        "productionUse": "forbidden",
+        "canonicalRouting": "disabled",
+        "publicRouteRequirement": "none",
+        "decisionTask": "HistoricalS43FPatternSpecLifecycleCleanup",
+        "successorPatternSpecIds": [
+          "ps_g4a_u08_add_sub_left_to_right"
+        ],
+        "sourceAuthorityRef": "batchA_02-題型總覽-4a08-整數四則.pdf",
+        "rationale": "current source explicitly teaches mixed addition/subtraction left-to-right and the current canonical PatternSpec owns that family"
+      }
     },
     {
       "patternSpecId": "ps_g5a_u08_left_to_right_add_sub",
       "sourceId": "g5a_u08_5a08",
       "title": "整數加減由左到右",
       "kind": "expression",
-      "operators": [["ADD", "SUBTRACT"], ["ADD", "SUBTRACT"]],
-      "ranges": [[100, 999], [1, 300], [1, 300]],
+      "operators": [
+        [
+          "ADD",
+          "SUBTRACT"
+        ],
+        [
+          "ADD",
+          "SUBTRACT"
+        ]
+      ],
+      "ranges": [
+        [
+          100,
+          999
+        ],
+        [
+          1,
+          300
+        ],
+        [
+          1,
+          300
+        ]
+      ],
       "answerMax": 1599,
       "skill": "integer_add_sub_mixed",
-      "validatorContract": "numeric_integer_answer"
+      "validatorContract": "numeric_integer_answer",
+      "lifecycle": {
+        "authorityDisposition": "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+        "lifecycleState": "retired_superseded",
+        "selectorVisibility": "hidden",
+        "productionUse": "forbidden",
+        "canonicalRouting": "disabled",
+        "publicRouteRequirement": "none",
+        "decisionTask": "HistoricalS43FPatternSpecLifecycleCleanup",
+        "successorPatternSpecIds": [
+          "ps_g4a_u08_add_sub_left_to_right",
+          "ps_g5a_u08_add_sub_signed_regroup",
+          "ps_g5a_u08_consecutive_subtraction"
+        ],
+        "sourceAuthorityRef": "batchA_02-題型總覽-5a08-整數四則.pdf",
+        "rationale": "left-to-right add/sub is already canonically owned at G4A-U08; G5A-U08 source advances to regrouping and consecutive-subtraction transformations"
+      }
     }
   ],
   "summary": {
@@ -68,5 +187,11 @@
     "expressionCount": 4,
     "browserProjectionChanged": false,
     "runtimeCodeChanged": false
+  },
+  "lifecycleCleanup": {
+    "task": "HistoricalS43FPatternSpecLifecycleCleanup",
+    "supersededCount": 3,
+    "staleOutsideCurrentSourceAuthorityCount": 0,
+    "publicRouteRepairRequiredCount": 0
   }
 }
