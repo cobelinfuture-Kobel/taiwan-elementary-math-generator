@@ -6,6 +6,13 @@
   "lanes": {
     "SHARED_RUNTIME_BOUNDED": [
       {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/site/exam-template-layout-v11.test.js"
+        ]
+      },
+      {
         "gateId": "TARGETED_ROUTE_REPLAY",
         "kind": "NODE_RUNNER",
         "runtime": "PLAYWRIGHT_CHROMIUM",
