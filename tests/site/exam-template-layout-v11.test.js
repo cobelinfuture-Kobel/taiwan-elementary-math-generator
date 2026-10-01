@@ -99,7 +99,7 @@ test("M5 renderer marks every page with Layout V1.1 and explicit column containe
 });
 
 
-test("M6 rich-representation budgeting prevents two tall geometry cells from sharing one column", () => {
+test("M6R1 rich-representation budgeting allows denser question pages while retaining answer-page safety", () => {
   const geometryModels = Array.from({ length: 20 }, (_, index) =>
     question(index + 1, {
       blankedDisplayText: `請觀察圖形並回答第 ${index + 1} 題。`,
@@ -124,7 +124,7 @@ test("M6 rich-representation budgeting prevents two tall geometry cells from sha
   for (const page of layout.questionPages) {
     for (const column of page.columns) {
       assert.ok(
-        column.cells.length <= 1,
+        column.cells.length <= 2,
         `rich geometry question column overpacked: ${column.cells.length} cells / ${column.usedUnits} units`,
       );
     }
