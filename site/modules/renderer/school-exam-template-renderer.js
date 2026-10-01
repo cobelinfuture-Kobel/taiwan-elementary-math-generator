@@ -26,9 +26,8 @@ export const SCHOOL_EXAM_LAYOUT_V11 = Object.freeze({
   answerLayoutDensity: "dense",
   defaultQuestionPageTarget: null,
   autoFillPage: true,
-  adaptiveGapMinCellsPerColumn: 3,
-  adaptiveGapMinMm: 4,
-  adaptiveGapMaxMm: 10,
+  actualHeightFlow: true,
+  questionGapMm: 5,
   questionBottomSafeMm: 6,
 });
 
@@ -315,45 +314,18 @@ function header(meta, answerKey) {
   ].join("");
 }
 
-export function adaptiveQuestionGapMm(column) {
-  const count = column?.cells?.length ?? 0;
-  if (count < SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinCellsPerColumn) return null;
-  const usedUnits = clamp(
-    Number(column?.usedUnits) || 0,
-    0,
-    SCHOOL_EXAM_LAYOUT_V11.questionColumnBudget,
-  );
-  const freeRatio = (
-    SCHOOL_EXAM_LAYOUT_V11.questionColumnBudget - usedUnits
-  ) / SCHOOL_EXAM_LAYOUT_V11.questionColumnBudget;
-  const raw = SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinMm
-    + freeRatio * (
-      SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMaxMm
-      - SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinMm
-    );
-  return Math.round(clamp(
-    raw,
-    SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinMm,
-    SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMaxMm,
-  ) * 10) / 10;
-}
-
 function renderColumn(column, renderCell, kind, autoFill = false) {
   const cells = (column?.cells ?? []).map(renderCell).join("");
-  const adaptiveGapMm = autoFill === true && kind === "questions"
-    ? adaptiveQuestionGapMm(column)
-    : null;
-  const adaptive = adaptiveGapMm !== null;
+  const questionFlow = autoFill === true && kind === "questions";
   const classes = [
     "school-exam-column",
     `school-exam-column--${kind}`,
-    adaptive ? "school-exam-column--adaptive-gap" : "",
+    questionFlow ? "school-exam-column--question-flow" : "",
   ].filter(Boolean).join(" ");
-  const style = adaptive
-    ? ` style="--school-exam-question-gap:${adaptiveGapMm}mm"`
+  const style = questionFlow
+    ? ` style="--school-exam-question-gap:${SCHOOL_EXAM_LAYOUT_V11.questionGapMm}mm;--school-exam-question-bottom-safe:${SCHOOL_EXAM_LAYOUT_V11.questionBottomSafeMm}mm"`
     : "";
-  const gapData = adaptive ? adaptiveGapMm : "none";
-  return `<div class="${classes}" data-column-index="${column?.columnIndex ?? 0}" data-used-units="${column?.usedUnits ?? 0}" data-adaptive-gap-mm="${gapData}"${style}>${cells}</div>`;
+  return `<div class="${classes}" data-column-index="${column?.columnIndex ?? 0}" data-used-units="${column?.usedUnits ?? 0}" data-question-gap-mm="${questionFlow ? SCHOOL_EXAM_LAYOUT_V11.questionGapMm : "none"}"${style}>${cells}</div>`;
 }
 
 function renderQuestionPage(document, page, index, meta) {
@@ -483,13 +455,13 @@ const STYLE = `
     min-width: 0;
     padding: 0 4mm;
   }
-  .school-exam-column--adaptive-gap {
+  .school-exam-column--question-flow {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: var(--school-exam-question-gap, 4mm);
-    padding-bottom: 6mm;
+    gap: var(--school-exam-question-gap, 5mm);
+    padding-bottom: var(--school-exam-question-bottom-safe, 6mm);
     box-sizing: border-box;
   }
   .school-exam-column:first-child {
@@ -512,7 +484,7 @@ const STYLE = `
     font-size: 11px;
     line-height: 1.45;
   }
-  .school-exam-column--adaptive-gap .worksheet-cell {
+  .school-exam-column--question-flow .worksheet-cell {
     margin-bottom: 0;
   }
   .school-exam-columns .worksheet-cell__number {
@@ -595,6 +567,136 @@ const STYLE = `
 </style>
 `;
 
+
+const QUESTION_REFLOW_SCRIPT = `
+<script id="school-exam-question-reflow-v1">
+(() => {
+  const GAP_MM = ${SCHOOL_EXAM_LAYOUT_V11.questionGapMm};
+  const BOTTOM_SAFE_MM = ${SCHOOL_EXAM_LAYOUT_V11.questionBottomSafeMm};
+  const TOLERANCE_PX = 1;
+
+  function schedule() {
+    const run = () => requestAnimationFrame(() => requestAnimationFrame(reflow));
+    const images = [...document.images];
+    const imagesReady = Promise.all(images.map((image) => image.complete
+      ? Promise.resolve()
+      : new Promise((resolve) => {
+          image.addEventListener("load", resolve, { once: true });
+          image.addEventListener("error", resolve, { once: true });
+        })));
+    const fontsReady = document.fonts?.ready ?? Promise.resolve();
+    Promise.all([imagesReady, fontsReady]).then(run);
+  }
+
+  function reflow() {
+    const section = document.querySelector(".worksheet-section--questions");
+    if (!section) return;
+
+    const originalPages = [...section.querySelectorAll(".school-exam-page--questions")];
+    if (originalPages.length === 0) return;
+    if (originalPages[0].dataset.autoFill === "false") {
+      document.body.dataset.questionLayoutReady = "true";
+      document.body.dataset.questionLayoutMode = "provisional";
+      return;
+    }
+
+    const cells = originalPages.flatMap((page) =>
+      [...page.querySelectorAll(".school-exam-column--questions .worksheet-cell")]
+    );
+    if (cells.length === 0) return;
+
+    const rawTarget = originalPages[0].dataset.targetItemsPerPage ?? "auto";
+    const maxItemsPerPage = rawTarget === "auto" ? null : Number(rawTarget);
+    const template = originalPages[0].cloneNode(true);
+    originalPages.forEach((page) => page.remove());
+
+    let currentPage = null;
+    let currentColumns = null;
+    let currentColumnIndex = 0;
+    let currentPageItems = 0;
+    let pageNumber = 0;
+
+    function createPage() {
+      pageNumber += 1;
+      const page = template.cloneNode(true);
+      page.dataset.pageNumber = String(pageNumber);
+      page.dataset.layoutMode = "actual-height";
+      page.dataset.questionGapMm = String(GAP_MM);
+      const heading = page.querySelector(".school-exam-section-heading");
+      if (heading) {
+        heading.classList.toggle("school-exam-section-heading--continuation", pageNumber > 1);
+        heading.innerHTML = pageNumber === 1
+          ? "<strong>一、請依題意作答</strong><span>請將計算過程或答案寫在題目空白處。</span>"
+          : "<strong>一、請依題意作答（續）</strong>";
+      }
+      const footerPage = page.querySelector(".school-exam-footer span:last-child");
+      if (footerPage) footerPage.textContent = "第 " + pageNumber + " 頁";
+
+      const columns = [...page.querySelectorAll(".school-exam-column--questions")];
+      columns.forEach((column) => {
+        column.replaceChildren();
+        column.classList.remove("school-exam-column--adaptive-gap");
+        column.classList.add("school-exam-column--question-flow");
+        column.style.setProperty("--school-exam-question-gap", GAP_MM + "mm");
+        column.style.setProperty("--school-exam-question-bottom-safe", BOTTOM_SAFE_MM + "mm");
+        column.dataset.questionGapMm = String(GAP_MM);
+        column.dataset.usedUnits = "actual";
+      });
+
+      section.append(page);
+      currentPage = page;
+      currentColumns = columns;
+      currentColumnIndex = 0;
+      currentPageItems = 0;
+    }
+
+    function fits(column) {
+      return column.scrollHeight <= column.clientHeight + TOLERANCE_PX;
+    }
+
+    function appendIfFits(column, cell) {
+      column.append(cell);
+      if (fits(column)) return true;
+      column.removeChild(cell);
+      return false;
+    }
+
+    createPage();
+
+    for (const cell of cells) {
+      if (Number.isInteger(maxItemsPerPage) && maxItemsPerPage > 0
+          && currentPageItems >= maxItemsPerPage) {
+        createPage();
+      }
+
+      let placed = appendIfFits(currentColumns[currentColumnIndex], cell);
+      if (!placed && currentColumnIndex === 0) {
+        currentColumnIndex = 1;
+        placed = appendIfFits(currentColumns[currentColumnIndex], cell);
+      }
+      if (!placed) {
+        createPage();
+        placed = appendIfFits(currentColumns[0], cell);
+      }
+      if (!placed) {
+        currentColumns[0].append(cell);
+        cell.dataset.oversizedQuestion = "true";
+        currentPage.dataset.oversizedItem = "true";
+      }
+      currentPageItems += 1;
+    }
+
+    document.body.dataset.questionLayoutReady = "true";
+    document.body.dataset.questionLayoutMode = "actual-height";
+    document.body.dataset.questionPageCount = String(pageNumber);
+    document.body.dataset.questionGapMm = String(GAP_MM);
+  }
+
+  schedule();
+})();
+</script>
+`;
+
 export function renderSchoolExamWorksheetToHtml(worksheetDocument, options = {}) {
   if (!worksheetDocument || typeof worksheetDocument !== "object") {
     throw new Error("SCHOOL_EXAM_TEMPLATE_DOCUMENT_REQUIRED");
@@ -644,6 +746,7 @@ export function renderSchoolExamWorksheetToHtml(worksheetDocument, options = {})
       ? `<section class="worksheet-section worksheet-section--answer-key">${answerHtml}</section>`
       : "",
     "</main>",
+    QUESTION_REFLOW_SCRIPT,
     "</body>",
     "</html>",
   ].join("");
