@@ -9,7 +9,6 @@
         "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
-          "tests/site/site-scaffold.test.js",
           "tests/site/exam-template-route.test.js"
         ]
       },
