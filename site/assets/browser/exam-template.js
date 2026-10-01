@@ -20,7 +20,10 @@ import {
   listVisibleBatchAKnowledgePoints,
 } from "../../modules/curriculum/registry/batch-a-selector-extension.js";
 import { resolvePublicUiCapabilityBinding } from "../../modules/curriculum/public/public-ui-capability-binding-p04f33.js";
-import { renderSchoolExamWorksheetToHtml } from "../../modules/renderer/school-exam-template-renderer.js";
+import {
+  buildSchoolExamLayoutPages,
+  renderSchoolExamWorksheetToHtml,
+} from "../../modules/renderer/school-exam-template-renderer.js";
 import { buildSchoolExamCrossUnitWorksheet } from "../../modules/exam/school-exam-cross-unit-coordinator.js";
 import {
   SCHOOL_EXAM_COMPOSITION_MODES,
@@ -536,8 +539,9 @@ function generateExam() {
   const questionCount = result.worksheetDocument?.summary?.questionCount
     ?? result.worksheetDocument?.orderedQuestionIds?.length
     ?? Number(questionCountInput.value);
-  const pageCount = result.worksheetDocument?.questionPages?.length ?? 0;
-  previewMeta.textContent = `已產生 ${questionCount} 題｜題目頁 ${pageCount} 頁｜A4 直式雙欄`;
+  const examLayout = buildSchoolExamLayoutPages(result.worksheetDocument);
+  const pageCount = examLayout.questionPages.length;
+  previewMeta.textContent = `已產生 ${questionCount} 題｜題目頁 ${pageCount} 頁｜A4 直式雙欄｜Layout V1.1`;
   const crossUsed = result.worksheetDocument?.metadata?.crossUnitMixedUsed === true;
   const mixedUsed = result.worksheetDocument?.metadata?.sameUnitMixedUsed === true
     || result.worksheetDocument?.batchA?.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT;
