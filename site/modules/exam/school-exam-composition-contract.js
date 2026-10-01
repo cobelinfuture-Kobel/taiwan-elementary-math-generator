@@ -1,0 +1,31 @@
+export const SCHOOL_EXAM_COMPOSITION_MODES = Object.freeze({
+  SINGLE_UNIT: "SINGLE_UNIT",
+  MIXED_KP_SAME_UNIT: "MIXED_KP_SAME_UNIT",
+  MIXED_KP_CROSS_UNIT: "MIXED_KP_CROSS_UNIT",
+});
+
+const DEFINITIONS = Object.freeze({
+  [SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT]: Object.freeze({
+    examMode: SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT,
+    batchASelectionMode: "sourceUnit",
+    enabled: true,
+    milestone: "M2",
+  }),
+  [SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT]: Object.freeze({
+    examMode: SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT,
+    batchASelectionMode: "mixedKnowledgePointsSameUnit",
+    enabled: false,
+    milestone: "M3",
+  }),
+  [SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT]: Object.freeze({
+    examMode: SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT,
+    batchASelectionMode: "mixedKnowledgePointsCrossUnit",
+    enabled: false,
+    milestone: "M4",
+  }),
+});
+
+export function resolveSchoolExamCompositionMode(value) {
+  const normalized = String(value ?? "").trim();
+  return DEFINITIONS[normalized] ?? DEFINITIONS[SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT];
+}
