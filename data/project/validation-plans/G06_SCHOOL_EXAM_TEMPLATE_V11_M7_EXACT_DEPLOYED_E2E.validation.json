@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G06_SCHOOL_EXAM_TEMPLATE_V11_M7_EXACT_DEPLOYED_E2E",
+  "unitId": "g06_school_exam_template_v11_m7_exact_deployed_e2e",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/site/exam-template-layout-v11.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_RUNNER",
+        "runtime": "PLAYWRIGHT_CHROMIUM",
+        "path": "tools/site/exam-template-m7-deployed-e2e.mjs"
+      }
+    ]
+  }
+}
