@@ -4,11 +4,142 @@
   "task": "S43F18_GammaPatternSpecMaterialization",
   "status": "contract_materialized_not_browser_projected",
   "patternSpecs": [
-    {"knowledgePointId":"kp_g4a_u02_4digit_by_2digit","patternSpecId":"ps_g4a_u02_4digit_by_2digit","sourceId":"g4a_u02_4a02","kind":"expression_multiply","ranges":[[1000,9999],[10,99]],"answerMax":989901},
-    {"knowledgePointId":"kp_g4a_u02_2digit_by_3digit","patternSpecId":"ps_g4a_u02_2digit_by_3digit","sourceId":"g4a_u02_4a02","kind":"expression_multiply","ranges":[[10,99],[100,999]],"answerMax":98901},
-    {"knowledgePointId":"kp_g4a_u02_multiplier_10_or_100","patternSpecId":"ps_g4a_u02_multiplier_10_or_100","sourceId":"g4a_u02_4a02","kind":"expression_multiply","ranges":[[10,999],[10,100]],"answerMax":99900},
-    {"knowledgePointId":"kp_g4b_u01_multiplicand_trailing_zero","patternSpecId":"ps_g4b_u01_multiplicand_trailing_zero","sourceId":"g4b_u01_4b01","kind":"expression_multiply","ranges":[[10,990],[2,9]],"answerMax":8910},
-    {"knowledgePointId":"kp_g4b_u01_multi_digit_by_2digit","patternSpecId":"ps_g4b_u01_multi_digit_by_2digit","sourceId":"g4b_u01_4b01","kind":"expression_multiply","ranges":[[100,9999],[10,99]],"answerMax":989901}
+    {
+      "knowledgePointId": "kp_g4a_u02_4digit_by_2digit",
+      "patternSpecId": "ps_g4a_u02_4digit_by_2digit",
+      "sourceId": "g4a_u02_4a02",
+      "kind": "expression_multiply",
+      "ranges": [
+        [
+          1000,
+          9999
+        ],
+        [
+          10,
+          99
+        ]
+      ],
+      "answerMax": 989901,
+      "lifecycle": {
+        "authorityDisposition": "STALE_OUTSIDE_CURRENT_SOURCE_AUTHORITY",
+        "lifecycleState": "retired_stale_outside_current_source",
+        "selectorVisibility": "hidden",
+        "productionUse": "forbidden",
+        "canonicalRouting": "disabled",
+        "publicRouteRequirement": "none",
+        "decisionTask": "HistoricalS43FPatternSpecLifecycleCleanup",
+        "successorPatternSpecIds": [],
+        "sourceAuthorityRef": "batchA_02-題型總覽-4a02-整數的乘法.pdf",
+        "rationale": "current source covers four-digit by one-digit and up to three-digit by two-digit work, not four-digit by two-digit"
+      }
+    },
+    {
+      "knowledgePointId": "kp_g4a_u02_2digit_by_3digit",
+      "patternSpecId": "ps_g4a_u02_2digit_by_3digit",
+      "sourceId": "g4a_u02_4a02",
+      "kind": "expression_multiply",
+      "ranges": [
+        [
+          10,
+          99
+        ],
+        [
+          100,
+          999
+        ]
+      ],
+      "answerMax": 98901
+    },
+    {
+      "knowledgePointId": "kp_g4a_u02_multiplier_10_or_100",
+      "patternSpecId": "ps_g4a_u02_multiplier_10_or_100",
+      "sourceId": "g4a_u02_4a02",
+      "kind": "expression_multiply",
+      "ranges": [
+        [
+          10,
+          999
+        ],
+        [
+          10,
+          100
+        ]
+      ],
+      "answerMax": 99900,
+      "lifecycle": {
+        "authorityDisposition": "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+        "lifecycleState": "retired_superseded",
+        "selectorVisibility": "hidden",
+        "productionUse": "forbidden",
+        "canonicalRouting": "disabled",
+        "publicRouteRequirement": "none",
+        "decisionTask": "HistoricalS43FPatternSpecLifecycleCleanup",
+        "successorPatternSpecIds": [
+          "ps_g4a_u02_2digit_by_2digit",
+          "ps_g4a_u02_2digit_by_3digit",
+          "ps_g4a_u02_3digit_by_2digit",
+          "ps_g4a_u02_near_hundred_multiplication_strategy"
+        ],
+        "sourceAuthorityRef": "batchA_02-題型總覽-4a02-整數的乘法.pdf",
+        "rationale": "current source-backed 10-multiple and near-100 cases are represented by narrower current multiplication and strategy PatternSpecs"
+      }
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_multiplicand_trailing_zero",
+      "patternSpecId": "ps_g4b_u01_multiplicand_trailing_zero",
+      "sourceId": "g4b_u01_4b01",
+      "kind": "expression_multiply",
+      "ranges": [
+        [
+          10,
+          990
+        ],
+        [
+          2,
+          9
+        ]
+      ],
+      "answerMax": 8910
+    },
+    {
+      "knowledgePointId": "kp_g4b_u01_multi_digit_by_2digit",
+      "patternSpecId": "ps_g4b_u01_multi_digit_by_2digit",
+      "sourceId": "g4b_u01_4b01",
+      "kind": "expression_multiply",
+      "ranges": [
+        [
+          100,
+          9999
+        ],
+        [
+          10,
+          99
+        ]
+      ],
+      "answerMax": 989901,
+      "lifecycle": {
+        "authorityDisposition": "STALE_OUTSIDE_CURRENT_SOURCE_AUTHORITY",
+        "lifecycleState": "retired_stale_outside_current_source",
+        "selectorVisibility": "hidden",
+        "productionUse": "forbidden",
+        "canonicalRouting": "disabled",
+        "publicRouteRequirement": "none",
+        "decisionTask": "HistoricalS43FPatternSpecLifecycleCleanup",
+        "successorPatternSpecIds": [],
+        "sourceAuthorityRef": "batchA_02-題型總覽-4b01-多位數的乘與除.pdf",
+        "rationale": "current G4B-U01 source advances to three-digit multipliers; two-digit multiplier work belongs to the earlier multiplication source"
+      }
+    }
   ],
-  "summary": {"materializedPatternSpecCount":5,"runtimeCodeChanged":false,"browserProjectionChanged":false}
+  "summary": {
+    "materializedPatternSpecCount": 5,
+    "runtimeCodeChanged": false,
+    "browserProjectionChanged": false
+  },
+  "lifecycleCleanup": {
+    "task": "HistoricalS43FPatternSpecLifecycleCleanup",
+    "supersededCount": 1,
+    "staleOutsideCurrentSourceAuthorityCount": 2,
+    "publicRouteRepairRequiredCount": 0
+  }
 }
