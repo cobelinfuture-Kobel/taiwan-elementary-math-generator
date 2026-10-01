@@ -80,7 +80,7 @@ async function visualAudit(page, frame, scenarioId) {
       questionCellCount: document.querySelectorAll(".school-exam-page--questions .worksheet-cell").length,
       answerCellCount: document.querySelectorAll(".school-exam-page--answers .worksheet-cell").length,
       bodyTextLength: document.body.innerText.trim().length,
-      spreadColumnCount: document.querySelectorAll(".school-exam-column--spread").length,
+      adaptiveGapColumnCount: document.querySelectorAll(".school-exam-column--adaptive-gap").length,
     };
   });
 
@@ -96,8 +96,8 @@ async function visualAudit(page, frame, scenarioId) {
   );
   if (maxQuestionColumnCount >= 3) {
     assert.ok(
-      screenAudit.spreadColumnCount > 0,
-      `${scenarioId}: auto-fill did not mark any eligible spread column`,
+      screenAudit.adaptiveGapColumnCount > 0,
+      `${scenarioId}: auto-fill did not mark any eligible adaptive-gap column`,
     );
   }
 
@@ -120,6 +120,7 @@ async function visualAudit(page, frame, scenarioId) {
     let columnOverflow = 0;
     let wrongPrintHeight = 0;
     const overflowDetails = [];
+    const adaptiveGapMetrics = [];
 
     const details = pages.map((page, pageIndex) => {
       const pageRect = page.getBoundingClientRect();
@@ -128,7 +129,26 @@ async function visualAudit(page, frame, scenarioId) {
       for (const column of columns) {
         if (column.scrollHeight > column.clientHeight + 2) columnOverflow += 1;
         const columnRect = column.getBoundingClientRect();
-        for (const cell of column.querySelectorAll(".worksheet-cell")) {
+        const columnCells = [...column.querySelectorAll(".worksheet-cell")];
+        if (column.classList.contains("school-exam-column--adaptive-gap")) {
+          const pxToMm = 25.4 / 96;
+          const cellRects = columnCells.map((cell) => cell.getBoundingClientRect());
+          const gapsMm = [];
+          for (let gapIndex = 0; gapIndex < cellRects.length - 1; gapIndex += 1) {
+            gapsMm.push((cellRects[gapIndex + 1].top - cellRects[gapIndex].bottom) * pxToMm);
+          }
+          const lastRect = cellRects.at(-1);
+          adaptiveGapMetrics.push({
+            pageNumber: pageIndex + 1,
+            columnIndex: Number(column.dataset.columnIndex ?? 0),
+            itemCount: columnCells.length,
+            declaredGapMm: Number(column.dataset.adaptiveGapMm),
+            minGapMm: gapsMm.length > 0 ? Math.min(...gapsMm) : null,
+            maxGapMm: gapsMm.length > 0 ? Math.max(...gapsMm) : null,
+            bottomSafeMm: lastRect ? (columnRect.bottom - lastRect.bottom) * pxToMm : null,
+          });
+        }
+        for (const cell of columnCells) {
           const rect = cell.getBoundingClientRect();
           if (
             rect.left < pageRect.left - tolerance
@@ -194,6 +214,7 @@ async function visualAudit(page, frame, scenarioId) {
       averageAnswerItemsPerPage: answerItems / aPages.length,
       details,
       overflowDetails,
+      adaptiveGapMetrics,
     };
   });
 
@@ -207,6 +228,20 @@ async function visualAudit(page, frame, scenarioId) {
   assert.equal(printAudit.columnOverflow, 0, `${scenarioId}: clipped column content`);
   assert.equal(printAudit.wrongPrintHeight, 0, `${scenarioId}: print page is not fixed 296mm`);
   assert.equal(printAudit.questionItems, printAudit.answerItems, `${scenarioId}: print answer parity`);
+  for (const metric of printAudit.adaptiveGapMetrics) {
+    assert.ok(
+      metric.minGapMm >= 3.7,
+      `${scenarioId}: adaptive gap below 4mm tolerance: ${JSON.stringify(metric)}`,
+    );
+    assert.ok(
+      metric.maxGapMm <= 10.4,
+      `${scenarioId}: adaptive gap above 10mm tolerance: ${JSON.stringify(metric)}`,
+    );
+    assert.ok(
+      metric.bottomSafeMm >= 5.5,
+      `${scenarioId}: bottom safety below 6mm tolerance: ${JSON.stringify(metric)}`,
+    );
+  }
   assert.ok(
     printAudit.averageAnswerItemsPerPage >= printAudit.averageQuestionItemsPerPage,
     `${scenarioId}: answer packing is not denser`,
@@ -306,6 +341,38 @@ try {
   results.push({
     scenarioId: "MIXED_KP_CROSS_UNIT_30",
     ...(await visualAudit(page, frame, "MIXED_KP_CROSS_UNIT_30")),
+  });
+
+  await page.selectOption("#exam-grade", "4");
+  await page.selectOption("#exam-semester", "upper");
+  await page.selectOption("#exam-composition-mode", "MIXED_KP_CROSS_UNIT");
+  for (const unitCode of ["4A-U03", "4A-U04", "4A-U05"]) {
+    const button = page.locator("#exam-cross-unit-source-panel [data-cross-source-id]", { hasText: unitCode });
+    if (await button.count() === 1 && (await button.getAttribute("aria-pressed")) !== "true") {
+      await button.click();
+    }
+  }
+  const unselectedKps = page.locator(
+    '#exam-cross-unit-kp-groups [data-cross-knowledge-point-id][aria-pressed="false"]',
+  );
+  while (await unselectedKps.count() > 0) {
+    await unselectedKps.first().click();
+  }
+  frame = await generate(page, {
+    mode: "MIXED_KP_CROSS_UNIT",
+    count: 120,
+    seed: "g06-m6r2-g4a-u01-u05-120-trial",
+    pageTarget: "auto",
+    autoFill: true,
+  });
+  const trial120 = await visualAudit(page, frame, "G4A_U01_U05_CROSS_UNIT_120_TRIAL");
+  assert.ok(
+    trial120.printAudit.adaptiveGapMetrics.length > 0,
+    "M6R2 120-question trial did not exercise adaptive gap columns",
+  );
+  results.push({
+    scenarioId: "G4A_U01_U05_CROSS_UNIT_120_TRIAL",
+    ...trial120,
   });
 
   console.log("G06_M6_ACTUAL_VISUAL_QA=" + JSON.stringify({
