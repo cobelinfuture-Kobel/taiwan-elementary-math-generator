@@ -652,13 +652,18 @@ const QUESTION_REFLOW_SCRIPT = `
       currentPageItems = 0;
     }
 
-    function fits(column) {
-      return column.scrollHeight <= column.clientHeight + TOLERANCE_PX;
+    function fits(column, cell) {
+      const page = column.closest(".school-exam-page--questions");
+      const footer = page?.querySelector(".school-exam-footer");
+      if (!page || !footer || !cell) return false;
+      const pxPerMm = 96 / 25.4;
+      const usableBottom = footer.getBoundingClientRect().top - BOTTOM_SAFE_MM * pxPerMm;
+      return cell.getBoundingClientRect().bottom <= usableBottom + TOLERANCE_PX;
     }
 
     function appendIfFits(column, cell) {
       column.append(cell);
-      if (fits(column)) return true;
+      if (fits(column, cell)) return true;
       column.removeChild(cell);
       return false;
     }
