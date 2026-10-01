@@ -113,6 +113,7 @@ test("M6 rich-representation budgeting prevents two tall geometry cells from sha
       questionNumber: model.questionNumber,
       promptText: model.blankedDisplayText,
       answerText: model.answerText,
+      geometryDiagram: model.geometryDiagram,
     })),
   });
 
@@ -124,7 +125,19 @@ test("M6 rich-representation budgeting prevents two tall geometry cells from sha
     for (const column of page.columns) {
       assert.ok(
         column.cells.length <= 1,
-        `rich geometry column overpacked: ${column.cells.length} cells / ${column.usedUnits} units`,
+        `rich geometry question column overpacked: ${column.cells.length} cells / ${column.usedUnits} units`,
+      );
+    }
+  }
+  const answerCells = layout.answerPages.flatMap((page) =>
+    page.columns.flatMap((column) => column.cells)
+  );
+  assert.equal(answerCells.length, 20);
+  for (const page of layout.answerPages) {
+    for (const column of page.columns) {
+      assert.ok(
+        column.cells.length <= 2,
+        `rich geometry answer column overpacked: ${column.cells.length} cells / ${column.usedUnits} units`,
       );
     }
   }

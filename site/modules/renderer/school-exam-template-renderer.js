@@ -83,14 +83,14 @@ function textLineUnits(text, charsPerLine, unitsPerLine) {
 
 function representationUnits(model, dense = false) {
   if (!model || typeof model !== "object") return 0;
-  if (model.chartData) return dense ? 18 : 48;
-  if (model.tableData) return dense ? 16 : 46;
-  // Actual M6 print geometry showed that two diagram-bearing cells can exceed
-  // the available A4 column height even when the earlier heuristic admitted
-  // both. Keep rich representations indivisible and budget them
-  // conservatively so the packer starts a new page before browser clipping.
-  if (model.geometryDiagram) return dense ? 17 : 48;
-  if (model.numberLine) return dense ? 12 : 32;
+  if (model.chartData) return dense ? 34 : 48;
+  if (model.tableData) return dense ? 30 : 46;
+  // Actual M6 print QA showed that rich representations need conservative
+  // budgets on both question and answer pages. Answer-key diagrams still
+  // render at substantial height, so "dense" means smaller than the question
+  // projection, not half-height.
+  if (model.geometryDiagram) return dense ? 36 : 48;
+  if (model.numberLine) return dense ? 20 : 32;
   return 0;
 }
 
