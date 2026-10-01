@@ -83,10 +83,14 @@ function textLineUnits(text, charsPerLine, unitsPerLine) {
 
 function representationUnits(model, dense = false) {
   if (!model || typeof model !== "object") return 0;
-  if (model.chartData) return dense ? 18 : 36;
-  if (model.tableData) return dense ? 16 : 32;
-  if (model.geometryDiagram) return dense ? 17 : 34;
-  if (model.numberLine) return dense ? 12 : 23;
+  if (model.chartData) return dense ? 34 : 48;
+  if (model.tableData) return dense ? 30 : 46;
+  // Actual M6 print QA showed that rich representations need conservative
+  // budgets on both question and answer pages. Answer-key diagrams still
+  // render at substantial height, so "dense" means smaller than the question
+  // projection, not half-height.
+  if (model.geometryDiagram) return dense ? 36 : 48;
+  if (model.numberLine) return dense ? 20 : 32;
   return 0;
 }
 
