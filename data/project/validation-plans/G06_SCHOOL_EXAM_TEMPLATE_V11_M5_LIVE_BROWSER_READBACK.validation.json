@@ -12,7 +12,7 @@
         "path": "tools/site/exam-template-deployed-live-smoke.mjs"
       },
       {
-        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
           "tests/site/exam-template-route.test.js"
