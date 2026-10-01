@@ -56,11 +56,11 @@
           <select id="exam-composition-mode" name="examCompositionMode">
             <option value="SINGLE_UNIT" selected>單一單元</option>
             <option value="MIXED_KP_SAME_UNIT">同單元混合知識點</option>
-            <option value="MIXED_KP_CROSS_UNIT" disabled>跨單元混合知識點（M4）</option>
+            <option value="MIXED_KP_CROSS_UNIT">跨單元混合知識點</option>
           </select>
         </label>
         <p class="help-text" id="exam-composition-help">
-          M3 已啟用「單一單元」與「同單元混合知識點」；跨單元混合仍留待 M4。
+          M4 已啟用三種考券組成模式；跨單元模式限定同年級、同學期，且至少選 2 個單元。
         </p>
         <div class="control-grid exam-template-control-grid">
           <label class="field">
@@ -82,6 +82,15 @@
           <h3>知識點</h3>
           <p class="help-text" id="exam-kp-help">同單元混合至少選 2 個知識點。</p>
           <div class="knowledge-point-panel" id="exam-kp-panel" aria-live="polite"></div>
+        </section>
+
+        <section id="exam-cross-unit-selector" aria-label="跨單元知識點選擇" hidden>
+          <h3>跨單元範圍</h3>
+          <p class="help-text" id="exam-cross-unit-help">
+            限定同年級、同學期；至少選 2 個單元，且每個已選單元至少保留 1 個知識點。
+          </p>
+          <div class="cross-unit-source-panel" id="exam-cross-unit-source-panel" aria-live="polite"></div>
+          <div class="cross-unit-kp-groups" id="exam-cross-unit-kp-groups" aria-live="polite"></div>
         </section>
       </div>
 

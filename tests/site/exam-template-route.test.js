@@ -44,7 +44,8 @@ test("school exam template route is linked from the Classic site", () => {
   assert.match(route, /value="SINGLE_UNIT" selected/);
   assert.match(route, /value="MIXED_KP_SAME_UNIT"/);
   assert.doesNotMatch(route, /value="MIXED_KP_SAME_UNIT" disabled/);
-  assert.match(route, /value="MIXED_KP_CROSS_UNIT" disabled/);
+  assert.match(route, /value="MIXED_KP_CROSS_UNIT"/);
+  assert.doesNotMatch(route, /value="MIXED_KP_CROSS_UNIT" disabled/);
   assert.match(route, /id="exam-grade"/);
   assert.match(route, /id="exam-source"/);
   assert.match(route, /id="exam-preview"/);
@@ -92,7 +93,7 @@ test("school exam renderer projects a real generated worksheet without replacing
 });
 
 
-test("M3 enables single-unit and same-unit mixed while cross-unit remains disabled", () => {
+test("M4 enables all three top-level exam composition modes", () => {
   const single = resolveSchoolExamCompositionMode(SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT);
   const sameUnit = resolveSchoolExamCompositionMode(SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT);
   const crossUnit = resolveSchoolExamCompositionMode(SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT);
@@ -106,8 +107,10 @@ test("M3 enables single-unit and same-unit mixed while cross-unit remains disabl
   assert.equal(sameUnit.enabled, true);
   assert.equal(sameUnit.batchASelectionMode, "mixedKnowledgePointsSameUnit");
   assert.equal(sameUnit.milestone, "M3");
-  assert.equal(crossUnit.enabled, false);
+  assert.equal(crossUnit.enabled, true);
+  assert.equal(crossUnit.batchASelectionMode, "mixedKnowledgePointsCrossUnit");
   assert.equal(crossUnit.milestone, "M4");
+  assert.equal(crossUnit.scope, "sameGradeSameSemester");
 });
 
 test("M2 single-unit mode materializes through the existing source-unit worksheet runtime", () => {
@@ -135,7 +138,7 @@ test("M2 single-unit mode materializes through the existing source-unit workshee
 });
 
 
-test("M3 route exposes a same-unit KP selector without enabling cross-unit mode", () => {
+test("M4 route keeps the same-unit selector and exposes a separate cross-unit selector", () => {
   const route = readText("site/exam-template/index.html");
   const controller = readText("site/assets/browser/exam-template.js");
 
@@ -145,7 +148,11 @@ test("M3 route exposes a same-unit KP selector without enabling cross-unit mode"
   assert.match(controller, /setBatchASelectorSelection/);
   assert.match(controller, /MIXED_KNOWLEDGE_POINTS_SAME_UNIT/);
   assert.doesNotMatch(route, /value="MIXED_KP_CROSS_UNIT" selected/);
-  assert.match(route, /value="MIXED_KP_CROSS_UNIT" disabled/);
+  assert.match(route, /id="exam-cross-unit-selector"/);
+  assert.match(route, /id="exam-cross-unit-source-panel"/);
+  assert.match(route, /id="exam-cross-unit-kp-groups"/);
+  assert.match(controller, /buildSchoolExamCrossUnitWorksheet/);
+  assert.match(controller, /normalizeCrossUnitSelection/);
 });
 
 test("M3 same-unit mixed exam materializes through the existing shared aggregator and preserves answer parity", () => {

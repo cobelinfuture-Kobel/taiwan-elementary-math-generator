@@ -20,8 +20,9 @@ const DEFINITIONS = Object.freeze({
   [SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT]: Object.freeze({
     examMode: SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT,
     batchASelectionMode: "mixedKnowledgePointsCrossUnit",
-    enabled: false,
+    enabled: true,
     milestone: "M4",
+    scope: "sameGradeSameSemester",
   }),
 });
 
