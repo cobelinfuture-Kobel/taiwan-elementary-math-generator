@@ -82,6 +82,18 @@ function preferredModes(row, plan) {
   return unique(candidates);
 }
 
+function materializedQuestions(document = {}) {
+  const candidates = [
+    document?.generatedQuestions,
+    document?.questions,
+    document?.questionItems,
+    document?.questionRecords,
+  ];
+  return candidates.find((items) => Array.isArray(items) && items.length > 0)
+    ?? candidates.find(Array.isArray)
+    ?? null;
+}
+
 function buildLeaf(plan, row, questionCount, buildLeafWorksheet) {
   const attempts = [];
   for (const mode of preferredModes(row, plan)) {
@@ -103,10 +115,14 @@ function buildLeaf(plan, row, questionCount, buildLeafWorksheet) {
       schoolExamCrossUnitLeafDispatch: true,
     };
     const result = buildLeafWorksheet(leafPlan);
-    const actualCount = result?.worksheetDocument?.questionCount
-      ?? result?.worksheetDocument?.summary?.questionCount
-      ?? result?.worksheetDocument?.generatedQuestions?.length
-      ?? 0;
+    const actualQuestions = materializedQuestions(result?.worksheetDocument);
+    const actualCount = Array.isArray(actualQuestions)
+      ? actualQuestions.length
+      : (
+        result?.worksheetDocument?.questionCount
+        ?? result?.worksheetDocument?.summary?.questionCount
+        ?? 0
+      );
     attempts.push({
       mode,
       ok: result?.ok === true,
@@ -219,7 +235,7 @@ function materializeRecords(leafs) {
   for (const leaf of leafs) {
     const row = leaf.row;
     const document = leaf.result.worksheetDocument;
-    const questions = document.generatedQuestions ?? document.questions ?? [];
+    const questions = materializedQuestions(document) ?? [];
     const models = document.questionDisplayModels
       ?? questions.map((question, index) => fallbackDisplayModel(question, index, row));
     const answers = document.answerKeyItems
