@@ -4,8 +4,64 @@
   "task": "S43F31_EpsilonPatternSpecMaterialization",
   "status": "contract_materialized_not_browser_projected",
   "patternSpecs": [
-    {"knowledgePointId":"kp_g4a_u01_large_number_vertical_calculation","patternSpecId":"ps_g4a_u01_large_number_vertical_calculation","sourceId":"g4a_u01_4a01","kind":"expression_add_sub_one_step","ranges":[[10000,99999999],[1,999999]],"answerMax":99999999},
-    {"knowledgePointId":"kp_g4a_u01_large_number_add_sub","patternSpecId":"ps_g4a_u01_large_number_add_sub","sourceId":"g4a_u01_4a01","kind":"expression_add_sub_one_step","ranges":[[10000,99999999],[1,999999]],"answerMax":99999999}
+    {
+      "knowledgePointId": "kp_g4a_u01_large_number_vertical_calculation",
+      "patternSpecId": "ps_g4a_u01_large_number_vertical_calculation",
+      "sourceId": "g4a_u01_4a01",
+      "kind": "expression_add_sub_one_step",
+      "ranges": [
+        [
+          10000,
+          99999999
+        ],
+        [
+          1,
+          999999
+        ]
+      ],
+      "answerMax": 99999999,
+      "lifecycle": {
+        "authorityDisposition": "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+        "lifecycleState": "retired_superseded",
+        "selectorVisibility": "hidden",
+        "productionUse": "forbidden",
+        "canonicalRouting": "disabled",
+        "publicRouteRequirement": "none",
+        "decisionTask": "HistoricalS43FPatternSpecLifecycleCleanup",
+        "successorPatternSpecIds": [
+          "ps_g4a_u01_large_number_add_sub"
+        ],
+        "sourceAuthorityRef": "g4a_u01_4a01 current canonical authority",
+        "rationale": "historical S43F31 row duplicates the same one-step large-number add/sub family now owned by ps_g4a_u01_large_number_add_sub"
+      }
+    },
+    {
+      "knowledgePointId": "kp_g4a_u01_large_number_add_sub",
+      "patternSpecId": "ps_g4a_u01_large_number_add_sub",
+      "sourceId": "g4a_u01_4a01",
+      "kind": "expression_add_sub_one_step",
+      "ranges": [
+        [
+          10000,
+          99999999
+        ],
+        [
+          1,
+          999999
+        ]
+      ],
+      "answerMax": 99999999
+    }
   ],
-  "summary": {"materializedPatternSpecCount":2,"runtimeCodeChanged":false,"browserProjectionChanged":false}
+  "summary": {
+    "materializedPatternSpecCount": 2,
+    "runtimeCodeChanged": false,
+    "browserProjectionChanged": false
+  },
+  "lifecycleCleanup": {
+    "task": "HistoricalS43FPatternSpecLifecycleCleanup",
+    "supersededCount": 1,
+    "staleOutsideCurrentSourceAuthorityCount": 0,
+    "publicRouteRepairRequiredCount": 0
+  }
 }
