@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>學校考券模板｜台灣小學數學練習題產生器</title>
+  <link rel="stylesheet" href="../assets/styles/app.css">
+  <link rel="stylesheet" href="../assets/styles/exam-template.css">
+</head>
+<body data-route-kind="exam-template">
+  <main class="app-shell exam-template-shell">
+    <section class="app-shell__hero">
+      <p class="app-shell__eyebrow">School Exam Worksheet Template</p>
+      <h1>學校考券模板</h1>
+      <p class="app-shell__lede">
+        採用台灣國小段考常見的 A4 直式、學校標題、學生欄位與雙欄題目編排。
+        題目仍由現有 Generator / Validator 產生與驗證，本頁只負責「正式考券版面」投影。
+      </p>
+      <nav class="app-shell__version-nav" aria-label="介面版本切換">
+        <a class="version-link" href="../">標準版 Classic</a>
+        <span class="version-chip" aria-current="page">考券模板</span>
+        <a class="version-link" href="../path1/">Path 1 路徑練習</a>
+        <a class="version-link" href="../pixel/">像素風版 Beta</a>
+      </nav>
+    </section>
+
+    <section class="app-shell__controls" aria-label="考券設定">
+      <div class="control-group">
+        <h2>考券抬頭</h2>
+        <label class="field">
+          <span>學校名稱</span>
+          <input id="exam-school-name" type="text" value="○○國民小學" spellcheck="false">
+        </label>
+        <div class="control-grid exam-template-control-grid">
+          <label class="field">
+            <span>學年度</span>
+            <input id="exam-academic-year" type="text" value="115" inputmode="numeric" spellcheck="false">
+          </label>
+          <label class="field">
+            <span>評量名稱</span>
+            <select id="exam-name">
+              <option value="第一次定期評量">第一次定期評量</option>
+              <option value="第二次定期評量">第二次定期評量</option>
+              <option value="期中評量">期中評量</option>
+              <option value="期末評量">期末評量</option>
+              <option value="數學綜合評量">數學綜合評量</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h2>出題範圍</h2>
+        <div class="control-grid exam-template-control-grid">
+          <label class="field">
+            <span>年級</span>
+            <select id="exam-grade"></select>
+          </label>
+          <label class="field">
+            <span>學期</span>
+            <select id="exam-semester"></select>
+          </label>
+          <label class="field exam-template-control-grid__wide">
+            <span>單元</span>
+            <select id="exam-source"></select>
+          </label>
+        </div>
+        <p class="help-text" id="exam-source-help">正在讀取可用單元...</p>
+      </div>
+
+      <div class="control-group">
+        <h2>題目設定</h2>
+        <div class="control-grid exam-template-control-grid">
+          <label class="field">
+            <span>題目數量</span>
+            <input id="exam-question-count" type="number" min="1" max="120" value="30">
+          </label>
+          <label class="field">
+            <span>排列</span>
+            <select id="exam-ordering">
+              <option value="shuffleAcrossPatterns" selected>混合排序</option>
+              <option value="groupedByPattern">依題型分組</option>
+            </select>
+          </label>
+          <label class="field exam-template-control-grid__wide">
+            <span>產生種子</span>
+            <input id="exam-seed" type="text" value="school-exam-template" spellcheck="false">
+          </label>
+        </div>
+        <label class="toggle">
+          <input id="exam-answer-key" type="checkbox" checked>
+          <span>考券後附答案頁</span>
+        </label>
+      </div>
+
+      <div class="toolbar">
+        <button id="exam-generate" class="button button--primary" type="button">產生考券</button>
+        <button id="exam-print" class="button" type="button" disabled>列印考券</button>
+      </div>
+
+      <div class="status-panel" id="exam-status" aria-live="polite">
+        尚未產生考券。
+      </div>
+
+      <p class="help-text">
+        此模板抽取多份 G06 學校考券的共同版面語法，不複製特定學校校徽、印章或掃描污點。
+      </p>
+    </section>
+
+    <section class="app-shell__preview" aria-label="考券預覽">
+      <div class="preview-header">
+        <h2>考券預覽</h2>
+        <p id="exam-preview-meta">A4 直式｜雙欄｜學生資料欄｜答案頁可選</p>
+      </div>
+      <iframe
+        id="exam-preview"
+        class="preview-frame"
+        title="學校考券預覽"
+        loading="eager"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </section>
+  </main>
+  <script type="module" src="../assets/browser/exam-template.js"></script>
+</body>
+</html>
