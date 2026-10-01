@@ -6,7 +6,14 @@
   "lanes": {
     "SHARED_RUNTIME_BOUNDED": [
       {
-        "gateId": "TARGETED_DEPLOYED_ROUTE_REPLAY",
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/site/exam-template-cross-unit.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
         "kind": "NODE_RUNNER",
         "runtime": "PLAYWRIGHT_CHROMIUM",
         "path": "tools/site/exam-template-g06-cross-unit-5a49-live-readback.mjs"
