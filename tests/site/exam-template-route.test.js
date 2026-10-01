@@ -204,7 +204,7 @@ test("M3 same-unit mixed exam materializes through the existing shared aggregato
   assert.match(rendered, /data-page-type="answer"/);
 });
 
-test("M3 rejects an invalid one-KP mixed request at the shared aggregation boundary", () => {
+test("M3 UI owns the >=2 rule and the shared aggregator never degrades a one-KP request into single-KP output", () => {
   const sourceId = "g5a_u07_5a07";
   const rows = listP09VisibleKnowledgePoints().filter((row) => row.sourceId === sourceId);
   const result = buildWorksheetDocumentFromPlan({
@@ -212,7 +212,7 @@ test("M3 rejects an invalid one-KP mixed request at the shared aggregation bound
     selectionMode: "mixedKnowledgePointsSameUnit",
     selectedKnowledgePointIds: [rows[0].knowledgePointId],
     selectedPatternGroupIds: [],
-    questionCount: 4,
+    questionCount: 10,
     ordering: "groupedByPattern",
     includeAnswerKey: true,
     generationSeed: "school-exam-m3-one-kp-invalid",
@@ -220,9 +220,12 @@ test("M3 rejects an invalid one-KP mixed request at the shared aggregation bound
   });
 
   // The shared P09 contract intentionally treats fewer than two requested IDs
-  // as "use the whole visible unit", so the exam UI must enforce the >=2 rule
-  // before dispatch. This assertion locks that UI/runtime boundary explicitly.
-  assert.equal(result?.ok, true);
+  // as "use the whole visible unit"; it does not produce a hidden single-KP
+  // fallback. Therefore the exam UI must enforce the >=2 selection rule before
+  // dispatch, while the runtime remains safely multi-KP if called directly.
+  assert.equal(result?.ok, true, JSON.stringify(result?.errors ?? []));
   assert.equal(result.p09Mixed21Aggregation, true);
   assert.equal(result.worksheetDocument.metadata.selectedKnowledgePointIds.length, 5);
+  assert.equal(result.worksheetDocument.metadata.sameUnitMixedUsed, true);
+  assert.equal(result.worksheetDocument.metadata.crossUnitMixedUsed, false);
 });
