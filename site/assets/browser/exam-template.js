@@ -51,6 +51,8 @@ const crossUnitHelp = document.getElementById("exam-cross-unit-help");
 const crossUnitSourcePanel = document.getElementById("exam-cross-unit-source-panel");
 const crossUnitKpGroups = document.getElementById("exam-cross-unit-kp-groups");
 const questionCountInput = document.getElementById("exam-question-count");
+const pageQuestionTargetSelect = document.getElementById("exam-page-question-target");
+const pageAutoFillInput = document.getElementById("exam-page-auto-fill");
 const orderingSelect = document.getElementById("exam-ordering");
 const seedInput = document.getElementById("exam-seed");
 const answerKeyInput = document.getElementById("exam-answer-key");
@@ -477,6 +479,14 @@ function examMeta() {
   };
 }
 
+function examLayoutOptions() {
+  const rawTarget = pageQuestionTargetSelect?.value ?? "auto";
+  return {
+    targetQuestionsPerPage: rawTarget === "auto" ? null : Number(rawTarget),
+    autoFill: pageAutoFillInput?.checked !== false,
+  };
+}
+
 function generateExam() {
   if (!sourceSelect.value) {
     setStatus("目前沒有可產生的單元。", "error");
@@ -529,9 +539,11 @@ function generateExam() {
     return;
   }
 
+  const layoutOptions = examLayoutOptions();
   const html = renderSchoolExamWorksheetToHtml(result.worksheetDocument, {
     examMeta: examMeta(),
     stylesheetHref: "../assets/styles/print-styles.css",
+    layout: layoutOptions,
   });
   previewFrame.srcdoc = html;
   printButton.disabled = false;
@@ -539,9 +551,13 @@ function generateExam() {
   const questionCount = result.worksheetDocument?.summary?.questionCount
     ?? result.worksheetDocument?.orderedQuestionIds?.length
     ?? Number(questionCountInput.value);
-  const examLayout = buildSchoolExamLayoutPages(result.worksheetDocument);
+  const examLayout = buildSchoolExamLayoutPages(result.worksheetDocument, layoutOptions);
   const pageCount = examLayout.questionPages.length;
-  previewMeta.textContent = `已產生 ${questionCount} 題｜題目頁 ${pageCount} 頁｜A4 直式雙欄｜Layout V1.1`;
+  const targetLabel = examLayout.targetQuestionsPerPage === null
+    ? "每頁題數：自動"
+    : `每頁最多：${examLayout.targetQuestionsPerPage} 題`;
+  const fillLabel = examLayout.autoFill ? "自動填滿" : "緊湊排列";
+  previewMeta.textContent = `已產生 ${questionCount} 題｜題目頁 ${pageCount} 頁｜${targetLabel}｜${fillLabel}｜A4 直式雙欄｜Layout V1.1`;
   const crossUsed = result.worksheetDocument?.metadata?.crossUnitMixedUsed === true;
   const mixedUsed = result.worksheetDocument?.metadata?.sameUnitMixedUsed === true
     || result.worksheetDocument?.batchA?.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT;
@@ -687,6 +703,14 @@ sourceSelect.addEventListener("change", () => {
   syncCompositionModeAvailability();
   applyCompositionMode({ defaultMixedSelection: true });
   printButton.disabled = true;
+});
+pageQuestionTargetSelect?.addEventListener("change", () => {
+  printButton.disabled = true;
+  setStatus("每頁題數設定已更新，請重新產生考券。");
+});
+pageAutoFillInput?.addEventListener("change", () => {
+  printButton.disabled = true;
+  setStatus("頁面填滿設定已更新，請重新產生考券。");
 });
 generateButton.addEventListener("click", generateExam);
 printButton.addEventListener("click", () => {

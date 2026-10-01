@@ -40,9 +40,11 @@ async function selectUnit(page, { grade, semester, sourceId }) {
   await page.selectOption("#exam-source", sourceId);
 }
 
-async function generate(page, { mode, count, seed }) {
+async function generate(page, { mode, count, seed, pageTarget = "auto", autoFill = true }) {
   await page.selectOption("#exam-composition-mode", mode);
   await page.fill("#exam-question-count", String(count));
+  await page.selectOption("#exam-page-question-target", String(pageTarget));
+  await page.locator("#exam-page-auto-fill").setChecked(autoFill);
   await page.fill("#exam-seed", seed);
   await page.click("#exam-generate");
   await page.waitForFunction(() =>
@@ -78,6 +80,7 @@ async function visualAudit(page, frame, scenarioId) {
       questionCellCount: document.querySelectorAll(".school-exam-page--questions .worksheet-cell").length,
       answerCellCount: document.querySelectorAll(".school-exam-page--answers .worksheet-cell").length,
       bodyTextLength: document.body.innerText.trim().length,
+      spreadColumnCount: document.querySelectorAll(".school-exam-column--spread").length,
     };
   });
 
@@ -87,6 +90,16 @@ async function visualAudit(page, frame, scenarioId) {
   assert.ok(screenAudit.questionCellCount > 0, `${scenarioId}: no question cells`);
   assert.equal(screenAudit.answerCellCount, screenAudit.questionCellCount, `${scenarioId}: answer parity`);
   assert.ok(screenAudit.bodyTextLength > 100, `${scenarioId}: preview looks blank`);
+  const maxQuestionColumnCount = Math.max(
+    0,
+    ...screenAudit.columnStats.flatMap((stat) => stat.counts),
+  );
+  if (maxQuestionColumnCount >= 3) {
+    assert.ok(
+      screenAudit.spreadColumnCount > 0,
+      `${scenarioId}: auto-fill did not mark any eligible spread column`,
+    );
+  }
 
   for (let i = 0; i < screenAudit.columnStats.length; i += 1) {
     const stat = screenAudit.columnStats[i];
@@ -232,6 +245,12 @@ try {
   await page.goto(`http://127.0.0.1:${port}/exam-template/`, { waitUntil: "networkidle" });
   await waitForSelectors(page);
 
+  const targetOptions = await page.locator("#exam-page-question-target option").evaluateAll(
+    (options) => options.map((option) => option.value),
+  );
+  assert.deepEqual(targetOptions, ["auto", "8", "10", "12", "16", "20"]);
+  assert.equal(await page.locator("#exam-page-auto-fill").isChecked(), true);
+
   const results = [];
 
   await selectUnit(page, { grade: 3, semester: "upper", sourceId: "g3a_u02_3a02" });
@@ -239,6 +258,8 @@ try {
     mode: "SINGLE_UNIT",
     count: 60,
     seed: "g06-m6-single-arithmetic",
+    pageTarget: "20",
+    autoFill: true,
   });
   results.push({
     scenarioId: "SINGLE_UNIT_ARITHMETIC_60",
@@ -251,9 +272,14 @@ try {
     count: 20,
     seed: "g06-m6-single-geometry",
   });
+  const geometryAudit = await visualAudit(page, frame, "SINGLE_UNIT_GEOMETRY_20");
+  assert.ok(
+    geometryAudit.printAudit.questionPageCount < 10,
+    `M6R1 geometry repack should reduce the prior 10-page question layout, got ${geometryAudit.printAudit.questionPageCount}`,
+  );
   results.push({
     scenarioId: "SINGLE_UNIT_GEOMETRY_20",
-    ...(await visualAudit(page, frame, "SINGLE_UNIT_GEOMETRY_20")),
+    ...geometryAudit,
   });
 
   await selectUnit(page, { grade: 3, semester: "upper", sourceId: "g3a_u02_3a02" });
