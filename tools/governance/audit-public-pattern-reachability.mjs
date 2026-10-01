@@ -96,11 +96,31 @@ async function loadClassicPublicSurface() {
   }
 
   delete globalThis.document;
+  const publicUnitBySourceId = new Map(publicUnits.map((row) => [row.sourceId, row]));
+  const byGrade = {};
+  for (const grade of [3, 4, 5, 6]) {
+    const sourceIds = new Set(
+      publicUnits.filter((row) => Number(row.grade) === grade).map((row) => row.sourceId),
+    );
+    const gradeKps = visibleKps.filter((row) => sourceIds.has(row.sourceId));
+    const gradeGroups = visibleGroups.filter((row) => sourceIds.has(row.sourceId));
+    const gradePatternIds = new Set(gradeGroups.flatMap((row) => row.patternSpecIds ?? []));
+    byGrade[grade] = {
+      publicSourceCount: sourceIds.size,
+      visibleKnowledgePointCount: gradeKps.length,
+      visiblePatternGroupCount: gradeGroups.length,
+      visiblePatternSpecCount: gradePatternIds.size,
+      visiblePatternSpecIds: [...gradePatternIds].sort(),
+    };
+  }
+
   return {
     publicSourceIds: new Set(publicUnits.map((row) => row.sourceId)),
+    publicUnitBySourceId,
     visibleKnowledgePointIds: new Set(visibleKps.map((row) => row.knowledgePointId)),
     visibleGroups,
     exactPatternIds,
+    byGrade,
   };
 }
 
@@ -245,6 +265,7 @@ async function auditPublicPatternReachability() {
     classicPublicSourceCount: classic.publicSourceIds.size,
     classicVisibleKnowledgePointCount: classic.visibleKnowledgePointIds.size,
     classicVisiblePatternGroupCount: classic.visibleGroups.length,
+    classicByGrade: classic.byGrade,
   };
 
   return {
