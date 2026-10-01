@@ -300,7 +300,7 @@ try {
     mode: "SINGLE_UNIT",
     count: 60,
     seed: "g06-m6-single-arithmetic",
-    pageTarget: "20",
+    pageTarget: "auto",
     autoFill: true,
   });
   results.push({
