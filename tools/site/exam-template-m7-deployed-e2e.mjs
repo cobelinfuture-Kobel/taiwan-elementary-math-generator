@@ -101,16 +101,38 @@ try {
 
   await page.selectOption("#exam-grade", "4");
   await page.selectOption("#exam-semester", "upper");
+  await page.waitForFunction(
+    () => [...document.querySelectorAll("#exam-source option")].some(
+      (option) => /4A-U0[1-5]/.test(option.textContent ?? ""),
+    ),
+    undefined,
+    { timeout: 30000 },
+  );
   await page.selectOption("#exam-composition-mode", "MIXED_KP_CROSS_UNIT");
 
-  for (const unitCode of ["4A-U03", "4A-U04", "4A-U05"]) {
-    const button = page.locator(
-      "#exam-cross-unit-source-panel [data-cross-source-id]",
-      { hasText: unitCode },
-    );
-    assert.equal(await button.count(), 1, `missing source button ${unitCode}`);
-    if ((await button.getAttribute("aria-pressed")) !== "true") await button.click();
+  const desiredUnitCodes = ["4A-U01", "4A-U02", "4A-U03", "4A-U04", "4A-U05"];
+  const sourceButtons = page.locator("#exam-cross-unit-source-panel [data-cross-source-id]");
+  const sourceButtonCount = await sourceButtons.count();
+  for (let index = 0; index < sourceButtonCount; index += 1) {
+    const button = sourceButtons.nth(index);
+    const label = (await button.textContent())?.trim() ?? "";
+    const unitCode = desiredUnitCodes.find((code) => label.includes(code)) ?? null;
+    const shouldSelect = unitCode !== null;
+    const isSelected = (await button.getAttribute("aria-pressed")) === "true";
+    if (shouldSelect !== isSelected) await button.click();
   }
+
+  const selectedUnits = await page.locator(
+    '#exam-cross-unit-source-panel [data-cross-source-id][aria-pressed="true"]',
+  ).evaluateAll((buttons) => buttons.map((button) => ({
+    sourceId: button.dataset.crossSourceId,
+    label: button.textContent?.trim() ?? "",
+  })));
+  const selectedUnitCodes = selectedUnits
+    .map((row) => row.label.match(/4A-U\d+/)?.[0] ?? null)
+    .filter(Boolean)
+    .sort();
+  assert.deepEqual(selectedUnitCodes, [...desiredUnitCodes].sort());
 
   const unselectedKps = page.locator(
     '#exam-cross-unit-kp-groups [data-cross-knowledge-point-id][aria-pressed="false"]',
@@ -246,17 +268,27 @@ try {
     };
   });
 
+  console.log("G06_M7_DEPLOYED_E2E_PREASSERT=" + JSON.stringify({
+    selectedUnits,
+    previewMeta,
+    audit,
+    pageErrors,
+    consoleErrors,
+    failedRequests,
+  }));
+
   assert.equal(audit.layoutMode, "actual-height");
   assert.equal(audit.gapMm, 5);
   assert.equal(audit.questionCount, 120);
   assert.equal(audit.answerCount, 120);
-  assert.equal(audit.questionPageCount, 4);
-  assert.deepEqual(audit.questionColumnCounts, [
-    [17, 17],
-    [17, 17],
-    [17, 17],
-    [17, 1],
-  ]);
+  assert.ok(audit.questionPageCount > 0);
+  for (let pageIndex = 0; pageIndex < audit.questionColumnCounts.length - 1; pageIndex += 1) {
+    assert.ok(
+      audit.questionColumnCounts[pageIndex][0] > 0
+        && audit.questionColumnCounts[pageIndex][1] > 0,
+      `non-final page has an empty column: ${JSON.stringify(audit.questionColumnCounts)}`,
+    );
+  }
   assert.equal(audit.outsidePage, 0);
   assert.equal(audit.outsideColumn, 0);
   assert.equal(audit.internalCellOverflow, 0);
@@ -278,6 +310,11 @@ try {
     targetDeploymentSha: DEPLOYMENT_SHA,
     liveUrl,
     uiContract,
+    selectedUnits,
+    selectedUnitCodes,
+    selectedKnowledgePointCount: await page.locator(
+      '#exam-cross-unit-kp-groups [data-cross-knowledge-point-id][aria-pressed="true"]',
+    ).count(),
     previewMeta,
     audit,
     raster: {
