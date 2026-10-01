@@ -492,9 +492,6 @@ const STYLE = `
     padding-bottom: 6mm;
     box-sizing: border-box;
   }
-  .school-exam-column--adaptive-gap .worksheet-cell {
-    margin-bottom: 0;
-  }
   .school-exam-column:first-child {
     padding-left: 0;
   }
@@ -514,6 +511,9 @@ const STYLE = `
     page-break-inside: avoid;
     font-size: 11px;
     line-height: 1.45;
+  }
+  .school-exam-column--adaptive-gap .worksheet-cell {
+    margin-bottom: 0;
   }
   .school-exam-columns .worksheet-cell__number {
     display: inline;
