@@ -396,6 +396,104 @@ async function auditPublicPatternReachability() {
 }
 
 
+const CONFIRMED_GAP_DISPOSITIONS = Object.freeze({
+  ps_g4a_u01_large_number_vertical_calculation: Object.freeze({
+    disposition: "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+    sourceId: "g4a_u01_4a01",
+    successorPatternSpecIds: Object.freeze(["ps_g4a_u01_large_number_add_sub"]),
+    sourceAuthorityRef: "g4a_u01_4a01 current canonical authority",
+    rationale: "historical S43F31 row duplicates the same one-step large-number add/sub family now owned by ps_g4a_u01_large_number_add_sub",
+  }),
+  ps_g4a_u02_4digit_by_2digit: Object.freeze({
+    disposition: "STALE_OUTSIDE_CURRENT_SOURCE_AUTHORITY",
+    sourceId: "g4a_u02_4a02",
+    successorPatternSpecIds: Object.freeze([]),
+    sourceAuthorityRef: "batchA_02-題型總覽-4a02-整數的乘法.pdf",
+    rationale: "current source covers four-digit by one-digit and up to three-digit by two-digit work, not four-digit by two-digit",
+  }),
+  ps_g4a_u02_multiplier_10_or_100: Object.freeze({
+    disposition: "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+    sourceId: "g4a_u02_4a02",
+    successorPatternSpecIds: Object.freeze([
+      "ps_g4a_u02_2digit_by_2digit",
+      "ps_g4a_u02_2digit_by_3digit",
+      "ps_g4a_u02_3digit_by_2digit",
+      "ps_g4a_u02_near_hundred_multiplication_strategy",
+    ]),
+    sourceAuthorityRef: "batchA_02-題型總覽-4a02-整數的乘法.pdf",
+    rationale: "current source-backed 10-multiple and near-100 cases are represented by narrower current multiplication and strategy PatternSpecs",
+  }),
+  ps_g4a_u04_3digit_by_2digit_exact: Object.freeze({
+    disposition: "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+    sourceId: "g4a_u04_4a04",
+    successorPatternSpecIds: Object.freeze([
+      "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
+      "ps_g4a_u04_3digit_by_2digit_tens_insufficient",
+    ]),
+    sourceAuthorityRef: "batchA_02-題型總覽-4a04-整數的除法.pdf",
+    rationale: "current canonical split covers both first-place cases and includes remainder_zero, which subsumes the older exact-only family",
+  }),
+  ps_g4a_u04_4digit_by_2digit_exact: Object.freeze({
+    disposition: "STALE_OUTSIDE_CURRENT_SOURCE_AUTHORITY",
+    sourceId: "g4a_u04_4a04",
+    successorPatternSpecIds: Object.freeze([]),
+    sourceAuthorityRef: "batchA_02-題型總覽-4a04-整數的除法.pdf",
+    rationale: "current source authority covers four-digit by one-digit and three-digit by two-digit division, not four-digit by two-digit",
+  }),
+  ps_g4a_u08_add_sub_three_terms: Object.freeze({
+    disposition: "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+    sourceId: "g4a_u08_4a08",
+    successorPatternSpecIds: Object.freeze(["ps_g4a_u08_add_sub_left_to_right"]),
+    sourceAuthorityRef: "batchA_02-題型總覽-4a08-整數四則.pdf",
+    rationale: "current source explicitly teaches mixed addition/subtraction left-to-right and the current canonical PatternSpec owns that family",
+  }),
+  ps_g4b_u01_multi_digit_by_2digit: Object.freeze({
+    disposition: "STALE_OUTSIDE_CURRENT_SOURCE_AUTHORITY",
+    sourceId: "g4b_u01_4b01",
+    successorPatternSpecIds: Object.freeze([]),
+    sourceAuthorityRef: "batchA_02-題型總覽-4b01-多位數的乘與除.pdf",
+    rationale: "current G4B-U01 source advances to three-digit multipliers; two-digit multiplier work belongs to the earlier multiplication source",
+  }),
+  ps_g4b_u01_multi_digit_by_3digit: Object.freeze({
+    disposition: "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+    sourceId: "g4b_u01_4b01",
+    successorPatternSpecIds: Object.freeze([
+      "ps_g4b_u01_3digit_by_3digit",
+      "ps_g4b_u01_4digit_by_3digit",
+    ]),
+    sourceAuthorityRef: "batchA_02-題型總覽-4b01-多位數的乘與除.pdf",
+    rationale: "the historical broad family is replaced by the source-backed current three-by-three and four-by-three canonical families",
+  }),
+  ps_g4b_u01_multi_digit_division_exact: Object.freeze({
+    disposition: "STALE_OUTSIDE_CURRENT_SOURCE_AUTHORITY",
+    sourceId: "g4b_u01_4b01",
+    successorPatternSpecIds: Object.freeze([]),
+    sourceAuthorityRef: "batchA_02-題型總覽-4b01-多位數的乘與除.pdf",
+    rationale: "the historical row uses a two-digit divisor range while current G4B-U01 authority advances to three-digit divisors",
+  }),
+  ps_g5a_u08_left_to_right_add_sub: Object.freeze({
+    disposition: "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN",
+    sourceId: "g5a_u08_5a08",
+    successorPatternSpecIds: Object.freeze([
+      "ps_g4a_u08_add_sub_left_to_right",
+      "ps_g5a_u08_add_sub_signed_regroup",
+      "ps_g5a_u08_consecutive_subtraction",
+    ]),
+    sourceAuthorityRef: "batchA_02-題型總覽-5a08-整數四則.pdf",
+    rationale: "left-to-right add/sub is already canonically owned at G4A-U08; G5A-U08 source advances to regrouping and consecutive-subtraction transformations",
+  }),
+});
+
+function dispositionForConfirmedGap(patternSpecId) {
+  return CONFIRMED_GAP_DISPOSITIONS[patternSpecId] ?? Object.freeze({
+    disposition: "PUBLIC_ROUTE_REPAIR_REQUIRED",
+    sourceId: null,
+    successorPatternSpecIds: Object.freeze([]),
+    sourceAuthorityRef: null,
+    rationale: "confirmed current source-backed PatternSpec has no accepted successor or intentional retirement evidence",
+  });
+}
+
 const uniqueSortedRuntime = (values = []) => [...new Set(values.filter(Boolean).map(String))].sort();
 
 function runtimeRouteOptions(route) {
@@ -480,6 +578,16 @@ async function auditPublicPatternRuntimeReplay() {
     row.classification === "CONFIRMED_NO_CURRENT_PUBLIC_EXACT_ROUTE_OR_RUNTIME_WITNESS");
   const reachable = candidateRows.filter((row) =>
     row.classification === "CURRENT_PUBLIC_EXACT_RUNTIME_REACHABLE");
+  const confirmedGapDispositions = confirmedUnreachable.map((row) => ({
+    ...row,
+    ...dispositionForConfirmedGap(row.patternSpecId),
+  }));
+  const superseded = confirmedGapDispositions.filter((row) =>
+    row.disposition === "SUPERSEDED_BY_CURRENT_CANONICAL_PATTERN");
+  const staleOutsideCurrentSource = confirmedGapDispositions.filter((row) =>
+    row.disposition === "STALE_OUTSIDE_CURRENT_SOURCE_AUTHORITY");
+  const routeRepairRequired = confirmedGapDispositions.filter((row) =>
+    row.disposition === "PUBLIC_ROUTE_REPAIR_REQUIRED");
 
   return {
     schemaName: "PublicPatternRuntimeReplayAuditV1",
@@ -502,9 +610,16 @@ async function auditPublicPatternRuntimeReplay() {
       focusedRuntimeReplayFailureCount: routeReplayFailures.length,
       confirmedUnreachableCount: confirmedUnreachable.length,
       exactRuntimeReachableCount: reachable.length,
+      supersededByCurrentCanonicalCount: superseded.length,
+      staleOutsideCurrentSourceAuthorityCount: staleOutsideCurrentSource.length,
+      publicRouteRepairRequiredCount: routeRepairRequired.length,
     },
     candidateRows,
     confirmedUnreachable,
+    confirmedGapDispositions,
+    supersededByCurrentCanonical: superseded,
+    staleOutsideCurrentSourceAuthority: staleOutsideCurrentSource,
+    publicRouteRepairRequired: routeRepairRequired,
     exactRuntimeReachable: reachable,
     routeReplayFailures,
     routeReplay,
