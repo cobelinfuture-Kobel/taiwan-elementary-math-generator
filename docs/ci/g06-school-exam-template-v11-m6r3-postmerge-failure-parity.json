@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "G06_SCHOOL_EXAM_TEMPLATE_V11_M6R3_PostMergeFailureSetParityAttribution",
+  "baseline": {
+    "sha": "8a5e7ea0e42744c43a993dbbd14e34febd284353",
+    "nodePostMergeRunId": 36821909949,
+    "nodePostMerge": {
+      "pass": 6548,
+      "fail": 191
+    },
+    "mathCiReadbackRunId": 36821909935,
+    "mathCiReadback": {
+      "pass": 6547,
+      "fail": 192
+    }
+  },
+  "candidate": {
+    "sha": "e4adda63f212c28838b6a2ef6c0c0b879800f196",
+    "nodePostMergeRunId": 36826725783,
+    "nodePostMerge": {
+      "pass": 6548,
+      "fail": 191
+    },
+    "mathCiReadbackRunId": 36826725852,
+    "mathCiReadback": {
+      "pass": 6547,
+      "fail": 192
+    }
+  },
+  "failureSetComparison": {
+    "nodePostMergeAdded": 0,
+    "nodePostMergeRemoved": 0,
+    "mathCiReadbackAdded": 0,
+    "mathCiReadbackRemoved": 0,
+    "exactTitleSetParity": true
+  },
+  "attribution": "BASELINE_ONLY_NO_NEW_M6R3_FAILURES",
+  "status": "PASS"
+}
