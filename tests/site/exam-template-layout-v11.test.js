@@ -193,7 +193,11 @@ test("M6R2 automatic page fill uses bounded adaptive gaps instead of full-height
   assert.match(html, /data-target-items-per-page="10"/);
   assert.match(html, /school-exam-column--adaptive-gap/);
   assert.match(html, /data-adaptive-gap-mm="[4-9](?:\.\d)?|10"/);
-  assert.doesNotMatch(html, /justify-content:\s*space-between/);
+  assert.match(
+    html,
+    /\.school-exam-column--adaptive-gap\s*\{[^}]*justify-content:\s*flex-start/s,
+  );
+  assert.doesNotMatch(html, /school-exam-column--spread/);
 });
 
 test("M6R2 adaptive gap remains bounded and reserves a bottom safety zone", () => {
