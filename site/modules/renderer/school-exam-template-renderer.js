@@ -372,7 +372,9 @@ const STYLE = `
   }
   .school-exam-page {
     width: min(100%, 820px);
-    min-height: 297mm;
+    height: 296mm;
+    min-height: 296mm;
+    max-height: 296mm;
     margin: 0 auto;
     padding: 10mm 11mm 9mm;
     background: #fff;
@@ -542,7 +544,7 @@ const STYLE = `
   }
   @media screen and (max-width: 760px) {
     .school-exam-renderer .worksheet-document { padding: 8px; }
-    .school-exam-page { width: 100%; min-height: auto; padding: 12px; }
+    .school-exam-page { width: 100%; height: auto; min-height: auto; max-height: none; padding: 12px; }
     .school-exam-columns { grid-template-columns: 1fr; }
     .school-exam-column:last-child { border-left: 0; padding-left: 0; }
     .school-exam-column:empty { display: none; }
