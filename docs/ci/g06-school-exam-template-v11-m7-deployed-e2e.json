@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "G06_SCHOOL_EXAM_TEMPLATE_V11_M7_ExactDeployedPagesE2E",
+  "status": "PASS",
+  "targetDeploymentSha": "e4adda63f212c28838b6a2ef6c0c0b879800f196",
+  "pr": 1195,
+  "prGateRunId": 36833437950,
+  "focusedJobId": 110275163495,
+  "liveRoute": "/exam-template/",
+  "selection": {
+    "grade": 4,
+    "semester": "upper",
+    "unitCodes": ["4A-U01", "4A-U02", "4A-U03", "4A-U04", "4A-U05"],
+    "selectedKnowledgePointCount": 44,
+    "questionCount": 120,
+    "pageQuestionTarget": "auto",
+    "actualHeightFlow": true
+  },
+  "layoutEvidence": {
+    "layoutMode": "actual-height",
+    "configuredQuestionGapMm": 5,
+    "observedQuestionGapMm": {
+      "min": 4.99814453125,
+      "max": 4.99814453125
+    },
+    "minimumObservedNonEmptyColumnBottomSafetyMm": 5.998600260416667,
+    "questionPageCount": 8,
+    "answerPageCount": 9,
+    "questionColumnCounts": [
+      [8, 12],
+      [11, 10],
+      [11, 8],
+      [3, 8],
+      [7, 8],
+      [10, 7],
+      [8, 7],
+      [2, 0]
+    ],
+    "questionCount": 120,
+    "answerCount": 120,
+    "sequentialQuestionNumbers": true,
+    "outsidePage": 0,
+    "outsideColumn": 0,
+    "internalCellOverflow": 0,
+    "columnOverflow": 0,
+    "wrongPrintHeight": 0
+  },
+  "runtimeEvidence": {
+    "deployedRendererHasActualHeightFlow": true,
+    "deployedRendererHasReflowMarker": true,
+    "uiTargetOptions": ["auto", "8", "10", "12", "16", "20"],
+    "uiActualHeightFlowDefaultChecked": true,
+    "previewMeta": "已產生 120 題｜題目頁 8 頁｜每頁題數：依實際高度｜固定 5mm 題間距｜實際高度換頁｜A4 直式雙欄｜Layout V1.1",
+    "pageErrors": [],
+    "consoleErrors": [],
+    "failedRequests": []
+  },
+  "rasterEvidence": {
+    "firstQuestionBytes": 112312,
+    "firstQuestionSha256": "9901dcf5d9920ec289e64955f613cf8279e63b354c24fbd36dab6892db5ab45a",
+    "lastQuestionBytes": 46551,
+    "lastQuestionSha256": "6b11720b1f3c4bb58818fb7aca61d3c34d229d334383c3fdf17525b8e8b04ef7"
+  },
+  "closeout": {
+    "failureSetAttribution": "BASELINE_ONLY_NO_NEW_M6R3_FAILURES",
+    "m7ExactDeployedE2E": "PASS"
+  }
+}
