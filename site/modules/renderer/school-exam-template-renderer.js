@@ -26,7 +26,10 @@ export const SCHOOL_EXAM_LAYOUT_V11 = Object.freeze({
   answerLayoutDensity: "dense",
   defaultQuestionPageTarget: null,
   autoFillPage: true,
-  spreadMinCellsPerColumn: 3,
+  adaptiveGapMinCellsPerColumn: 3,
+  adaptiveGapMinMm: 4,
+  adaptiveGapMaxMm: 10,
+  questionBottomSafeMm: 6,
 });
 
 function escapeHtml(value) {
@@ -312,17 +315,45 @@ function header(meta, answerKey) {
   ].join("");
 }
 
+export function adaptiveQuestionGapMm(column) {
+  const count = column?.cells?.length ?? 0;
+  if (count < SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinCellsPerColumn) return null;
+  const usedUnits = clamp(
+    Number(column?.usedUnits) || 0,
+    0,
+    SCHOOL_EXAM_LAYOUT_V11.questionColumnBudget,
+  );
+  const freeRatio = (
+    SCHOOL_EXAM_LAYOUT_V11.questionColumnBudget - usedUnits
+  ) / SCHOOL_EXAM_LAYOUT_V11.questionColumnBudget;
+  const raw = SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinMm
+    + freeRatio * (
+      SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMaxMm
+      - SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinMm
+    );
+  return Math.round(clamp(
+    raw,
+    SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinMm,
+    SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMaxMm,
+  ) * 10) / 10;
+}
+
 function renderColumn(column, renderCell, kind, autoFill = false) {
   const cells = (column?.cells ?? []).map(renderCell).join("");
-  const spread = autoFill === true
-    && kind === "questions"
-    && (column?.cells?.length ?? 0) >= SCHOOL_EXAM_LAYOUT_V11.spreadMinCellsPerColumn;
+  const adaptiveGapMm = autoFill === true && kind === "questions"
+    ? adaptiveQuestionGapMm(column)
+    : null;
+  const adaptive = adaptiveGapMm !== null;
   const classes = [
     "school-exam-column",
     `school-exam-column--${kind}`,
-    spread ? "school-exam-column--spread" : "",
+    adaptive ? "school-exam-column--adaptive-gap" : "",
   ].filter(Boolean).join(" ");
-  return `<div class="${classes}" data-column-index="${column?.columnIndex ?? 0}" data-used-units="${column?.usedUnits ?? 0}">${cells}</div>`;
+  const style = adaptive
+    ? ` style="--school-exam-question-gap:${adaptiveGapMm}mm"`
+    : "";
+  const gapData = adaptive ? adaptiveGapMm : "none";
+  return `<div class="${classes}" data-column-index="${column?.columnIndex ?? 0}" data-used-units="${column?.usedUnits ?? 0}" data-adaptive-gap-mm="${gapData}"${style}>${cells}</div>`;
 }
 
 function renderQuestionPage(document, page, index, meta) {
@@ -452,11 +483,14 @@ const STYLE = `
     min-width: 0;
     padding: 0 4mm;
   }
-  .school-exam-column--spread {
+  .school-exam-column--adaptive-gap {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: var(--school-exam-question-gap, 4mm);
+    padding-bottom: 6mm;
+    box-sizing: border-box;
   }
   .school-exam-column:first-child {
     padding-left: 0;
@@ -477,6 +511,9 @@ const STYLE = `
     page-break-inside: avoid;
     font-size: 11px;
     line-height: 1.45;
+  }
+  .school-exam-column--adaptive-gap .worksheet-cell {
+    margin-bottom: 0;
   }
   .school-exam-columns .worksheet-cell__number {
     display: inline;

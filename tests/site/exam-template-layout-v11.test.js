@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   SCHOOL_EXAM_LAYOUT_V11,
+  adaptiveQuestionGapMm,
   buildSchoolExamLayoutPages,
   estimateSchoolExamAnswerUnits,
   estimateSchoolExamQuestionUnits,
@@ -170,7 +171,7 @@ test("M6R1 target questions per page acts as a safe maximum rather than an overf
   );
 });
 
-test("M6R1 automatic page fill marks sufficiently populated question columns for vertical spreading", () => {
+test("M6R2 automatic page fill uses bounded adaptive gaps instead of full-height space-between", () => {
   const models = Array.from({ length: 20 }, (_, index) => question(index + 1));
   const answers = models.map((model) => ({
     questionId: model.questionId,
@@ -190,7 +191,34 @@ test("M6R1 automatic page fill marks sufficiently populated question columns for
 
   assert.match(html, /data-auto-fill="true"/);
   assert.match(html, /data-target-items-per-page="10"/);
-  assert.match(html, /school-exam-column--spread/);
+  assert.match(html, /school-exam-column--adaptive-gap/);
+  assert.match(html, /data-adaptive-gap-mm="[4-9](?:\.\d)?|10"/);
+  assert.match(
+    html,
+    /\.school-exam-column--adaptive-gap\s*\{[^}]*justify-content:\s*flex-start/s,
+  );
+  assert.doesNotMatch(html, /school-exam-column--spread/);
+});
+
+test("M6R2 adaptive gap remains bounded and reserves a bottom safety zone", () => {
+  const smallGap = adaptiveQuestionGapMm({
+    usedUnits: 95,
+    cells: [{}, {}, {}, {}, {}],
+  });
+  const largeGap = adaptiveQuestionGapMm({
+    usedUnits: 20,
+    cells: [{}, {}, {}],
+  });
+  const ineligible = adaptiveQuestionGapMm({
+    usedUnits: 20,
+    cells: [{}, {}],
+  });
+
+  assert.ok(smallGap >= SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMinMm);
+  assert.ok(largeGap <= SCHOOL_EXAM_LAYOUT_V11.adaptiveGapMaxMm);
+  assert.ok(largeGap > smallGap);
+  assert.equal(ineligible, null);
+  assert.equal(SCHOOL_EXAM_LAYOUT_V11.questionBottomSafeMm, 6);
 });
 
 test("M6R1 question representation budgets are less conservative than M6 answer safety budgets", () => {
