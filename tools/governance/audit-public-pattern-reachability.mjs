@@ -33,10 +33,14 @@ function addAuthority(map, patternSpecId, data) {
     unitCodes: new Set(),
     knowledgePointIds: new Set(),
     origins: [],
+    authorityKinds: new Set(),
+    explicitNonPublicReasons: new Set(),
   };
   if (data.sourceId) existing.sourceIds.add(data.sourceId);
   if (data.unitCode) existing.unitCodes.add(data.unitCode);
   if (data.knowledgePointId) existing.knowledgePointIds.add(data.knowledgePointId);
+  if (data.authorityKind) existing.authorityKinds.add(data.authorityKind);
+  if (data.explicitNonPublicReason) existing.explicitNonPublicReasons.add(data.explicitNonPublicReason);
   existing.origins.push(data.origin);
   map.set(patternSpecId, existing);
 }
@@ -48,6 +52,8 @@ function plainAuthority(row) {
     unitCodes: [...row.unitCodes].sort(),
     knowledgePointIds: [...row.knowledgePointIds].sort(),
     origins: [...new Set(row.origins)].sort(),
+    authorityKinds: [...row.authorityKinds].sort(),
+    explicitNonPublicReasons: [...row.explicitNonPublicReasons].sort(),
   };
 }
 
@@ -57,6 +63,97 @@ function acceptedPromotion(json) {
   return productionUse.includes("allowed")
     || activation.includes("accepted")
     || activation.includes("production_promotion");
+}
+
+function explicitNonPublicReasons(spec, inherited = {}) {
+  const lifecycle = spec?.lifecycle ?? {};
+  const reasons = [];
+  const selectorVisibility = String(lifecycle.selectorVisibility ?? inherited.selectorVisibility ?? "").toLowerCase();
+  const productionUse = String(lifecycle.productionUse ?? inherited.productionUse ?? "").toLowerCase();
+  const generatorStatus = String(lifecycle.generatorStatus ?? inherited.generatorStatus ?? "").toLowerCase();
+  const validatorStatus = String(lifecycle.validatorStatus ?? inherited.validatorStatus ?? "").toLowerCase();
+  const rendererStatus = String(lifecycle.rendererStatus ?? inherited.rendererStatus ?? "").toLowerCase();
+  const canonicalRouting = String(lifecycle.canonicalRouting ?? inherited.canonicalRouting ?? "").toLowerCase();
+
+  if (selectorVisibility === "hidden") reasons.push("SELECTOR_VISIBILITY_HIDDEN");
+  if (productionUse.includes("forbidden")) reasons.push("PRODUCTION_USE_FORBIDDEN");
+  if (generatorStatus.includes("not_implemented")) reasons.push("GENERATOR_NOT_IMPLEMENTED");
+  if (validatorStatus.includes("contract_only")) reasons.push("VALIDATOR_CONTRACT_ONLY");
+  if (rendererStatus.includes("not_connected")) reasons.push("RENDERER_NOT_CONNECTED");
+  if (canonicalRouting.includes("disabled")) reasons.push("CANONICAL_ROUTING_DISABLED");
+  return reasons;
+}
+
+function addPatternDefinition(authority, spec, context = {}) {
+  if (!spec || typeof spec.patternSpecId !== "string") return;
+  const reasons = explicitNonPublicReasons(spec, context);
+  addAuthority(authority, spec.patternSpecId, {
+    sourceId: spec.sourceId ?? context.sourceId ?? null,
+    unitCode: spec.unitCode ?? context.unitCode ?? null,
+    knowledgePointId: spec.knowledgePointId ?? null,
+    origin: context.origin,
+    authorityKind: context.authorityKind ?? "MATERIALIZED_PATTERN_SPEC",
+    explicitNonPublicReason: reasons.join("+") || context.explicitNonPublicReason || null,
+  });
+}
+
+async function loadAdditionalMaterializedPatternAuthorities(authority) {
+  const before = authority.size;
+
+  const batchAPath = path.join(ROOT, "data/curriculum/registry/pattern_specs.batch_a.json");
+  try {
+    const batchA = await readJson(batchAPath);
+    for (const source of batchA.sourceUnits ?? []) {
+      for (const bucket of ["ready", "partial"]) {
+        for (const row of source[bucket] ?? []) {
+          const spec = typeof row === "string" ? { patternSpecId: row } : row;
+          addPatternDefinition(authority, spec, {
+            sourceId: source.sourceId,
+            origin: `registry:${path.relative(ROOT, batchAPath)}:${bucket}`,
+            authorityKind: "LEGACY_BATCH_A_MATERIALIZED_PATTERN_SPEC",
+            productionUse: batchA.productionUse,
+            explicitNonPublicReason: String(batchA.productionUse ?? "").toLowerCase().includes("forbidden")
+              ? "LEGACY_BATCH_A_REGISTRY_PRODUCTION_FORBIDDEN"
+              : null,
+          });
+        }
+      }
+    }
+  } catch {
+    // Registry may not exist in older snapshots.
+  }
+
+  const registryDir = path.join(ROOT, "data/curriculum/registry");
+  for (const file of (await listFilesRecursive(registryDir))
+    .filter((entry) => /S43F.*PatternSpecMaterialization\.json$/.test(path.basename(entry)))) {
+    const json = await readJson(file);
+    for (const spec of json.patternSpecs ?? []) {
+      addPatternDefinition(authority, spec, {
+        origin: `registry:${path.relative(ROOT, file)}`,
+        authorityKind: "S43F_MATERIALIZED_PATTERN_SPEC",
+      });
+    }
+  }
+
+  const appPatternDir = path.join(ROOT, "data/curriculum/application/pattern-specs");
+  try {
+    for (const file of (await listFilesRecursive(appPatternDir)).filter((entry) => entry.endsWith(".json"))) {
+      const json = await readJson(file);
+      for (const kp of json.knowledgePoints ?? []) {
+        for (const spec of kp.patternSpecs ?? []) {
+          addPatternDefinition(authority, spec, {
+            sourceId: json.sourceNodeId ?? null,
+            origin: `application-pattern-registry:${path.relative(ROOT, file)}`,
+            authorityKind: "APPLICATION_MATERIALIZED_PATTERN_SPEC",
+          });
+        }
+      }
+    }
+  } catch {
+    // Application pattern registry may not exist in older snapshots.
+  }
+
+  return authority.size - before;
 }
 
 async function loadClassicPublicSurface() {
@@ -151,6 +248,7 @@ async function auditPublicPatternReachability() {
         unitCode: json.unitCode,
         knowledgePointId: binding.knowledgePointId,
         origin: `knowledge-binding:${path.relative(ROOT, file)}`,
+        authorityKind: "VALIDATED_EXISTING_BINDING",
       });
       addEvidence(bindingEvidence, binding.questionId, {
         type: "VALIDATED_EXISTING_BINDING",
@@ -182,11 +280,14 @@ async function auditPublicPatternReachability() {
         unitCode: spec.unitCode ?? json.unitCode ?? null,
         knowledgePointId: spec.knowledgePointId ?? null,
         origin: `pattern-registry:${path.relative(ROOT, file)}`,
+        authorityKind: "CANONICAL_PATTERN_REGISTRY",
       });
       const blockId = path1FileToBlock.get(path.basename(file));
       if (blockId) path1Patterns.set(spec.patternSpecId, blockId);
     }
   }
+
+  const additionalMaterializedDefinitionIdCount = await loadAdditionalMaterializedPatternAuthorities(authority);
 
   const promotionDir = path.join(ROOT, "data/curriculum/registry/promotions");
   const promotionFiles = (await listFilesRecursive(promotionDir)).filter((file) => file.endsWith(".json"));
@@ -248,11 +349,14 @@ async function auditPublicPatternReachability() {
       || item.type === "PATH1_PUBLIC_ROUTE"
     );
     const sourceBindingOnly = !exact && evidence.some((item) => item.type === "CLASSIC_PUBLIC_SOURCE_BINDING");
+    const explicitNonPublic = !exact && plain.explicitNonPublicReasons.length > 0;
     const status = exact
       ? "PUBLIC_EXACT"
       : sourceBindingOnly
         ? "PUBLIC_SOURCE_BINDING_ONLY"
-        : "UNREACHABLE_CANDIDATE";
+        : explicitNonPublic
+          ? "NONPUBLIC_INTENTIONAL_OR_LEGACY"
+          : "UNREACHABLE_CANDIDATE";
     return { ...plain, status, publicEvidence: evidence };
   }).sort((a, b) => a.patternSpecId.localeCompare(b.patternSpecId));
 
@@ -260,7 +364,10 @@ async function auditPublicPatternReachability() {
     authorityPatternSpecCount: rows.length,
     publicExactCount: rows.filter((row) => row.status === "PUBLIC_EXACT").length,
     publicSourceBindingOnlyCount: rows.filter((row) => row.status === "PUBLIC_SOURCE_BINDING_ONLY").length,
+    nonPublicIntentionalOrLegacyCount: rows.filter((row) => row.status === "NONPUBLIC_INTENTIONAL_OR_LEGACY").length,
     unreachableCandidateCount: rows.filter((row) => row.status === "UNREACHABLE_CANDIDATE").length,
+    nonPublicExactReachabilityCount: rows.filter((row) => row.status !== "PUBLIC_EXACT").length,
+    additionalMaterializedDefinitionIdCount,
     completedUnitCount: completedUnits.length,
     classicPublicSourceCount: classic.publicSourceIds.size,
     classicVisibleKnowledgePointCount: classic.visibleKnowledgePointIds.size,
@@ -270,17 +377,19 @@ async function auditPublicPatternReachability() {
 
   return {
     schemaName: "PublicPatternReachabilityAuditV1",
-    schemaVersion: 1,
-    scope: "grades_3_to_6_current_completed_knowledge_units_plus_authoritative_pattern_registries",
+    schemaVersion: 2,
+    scope: "grades_3_to_6_completed_bindings_plus_canonical_legacy_s43f_and_application_materialized_pattern_registries",
     rule: {
       publicExact: "visible Classic PatternGroup/resolver, accepted production promotion, or explicit Path1 public cutover",
       publicSourceBindingOnly: "validated existingQuestionBinding under a public Classic source unit but no exact public PatternGroup/Path1/promotion evidence",
-      unreachableCandidate: "no current public-route evidence found; requires focused runtime/browser confirmation before declaring truly unreachable",
+      nonPublicIntentionalOrLegacy: "no exact public route and a materialized registry explicitly records hidden/forbidden/not-implemented runtime state",
+      unreachableCandidate: "materialized PatternSpec has no exact public-route evidence and no explicit non-public lifecycle reason; requires focused runtime/browser confirmation",
     },
     counts,
     completedUnits,
     rows,
     publicSourceBindingOnly: rows.filter((row) => row.status === "PUBLIC_SOURCE_BINDING_ONLY"),
+    nonPublicIntentionalOrLegacy: rows.filter((row) => row.status === "NONPUBLIC_INTENTIONAL_OR_LEGACY"),
     unreachableCandidates: rows.filter((row) => row.status === "UNREACHABLE_CANDIDATE"),
   };
 }
