@@ -1,15 +1,21 @@
 import { listBatchASourceUnits } from "../../modules/curriculum/batch-a/source-units.js";
 import {
+  BATCH_A_SELECTION_MODES,
   createConfigState,
   setBatchAIncludeAnswerKey,
   setBatchAGenerationSeed,
   setBatchAOrdering,
   setBatchAPrintLayout,
   setBatchAQuestionCount,
+  setBatchASelectionMode,
   setBatchASourceId,
 } from "./state/config-state.js";
 import { buildWorksheetDocumentFromState } from "./pipeline/build-worksheet-document.js";
 import { renderSchoolExamWorksheetToHtml } from "../../modules/renderer/school-exam-template-renderer.js";
+import {
+  SCHOOL_EXAM_COMPOSITION_MODES,
+  resolveSchoolExamCompositionMode,
+} from "../../modules/exam/school-exam-composition-contract.js";
 
 const state = createConfigState();
 const sourceUnits = [...listBatchASourceUnits()];
@@ -18,6 +24,8 @@ const semesterOrder = { upper: 0, lower: 1 };
 const schoolNameInput = document.getElementById("exam-school-name");
 const academicYearInput = document.getElementById("exam-academic-year");
 const examNameSelect = document.getElementById("exam-name");
+const compositionModeSelect = document.getElementById("exam-composition-mode");
+const compositionHelp = document.getElementById("exam-composition-help");
 const gradeSelect = document.getElementById("exam-grade");
 const semesterSelect = document.getElementById("exam-semester");
 const sourceSelect = document.getElementById("exam-source");
@@ -55,6 +63,20 @@ function selectedUnit() {
 function setStatus(message, tone = "") {
   statusPanel.textContent = message;
   statusPanel.dataset.tone = tone;
+}
+
+function applyCompositionMode() {
+  const resolved = resolveSchoolExamCompositionMode(compositionModeSelect?.value);
+  if (!resolved.enabled) {
+    setStatus("此考券組成模式尚未啟用，請使用「單一單元」。", "error");
+    return false;
+  }
+
+  setBatchASelectionMode(state, resolved.batchASelectionMode);
+  if (compositionHelp) {
+    compositionHelp.textContent = "單一單元模式：所有題目都由目前選取單元的既有 Generator / Validator 產生與驗證。";
+  }
+  return true;
 }
 
 function populateGrades() {
@@ -130,6 +152,10 @@ function generateExam() {
   }
 
   setBatchASourceId(state, sourceSelect.value);
+  if (!applyCompositionMode()) {
+    printButton.disabled = true;
+    return;
+  }
   setBatchAQuestionCount(state, Number(questionCountInput.value));
   setBatchAOrdering(state, orderingSelect.value);
   setBatchAGenerationSeed(state, seedInput.value);
@@ -159,7 +185,7 @@ function generateExam() {
     ?? Number(questionCountInput.value);
   const pageCount = result.worksheetDocument?.questionPages?.length ?? 0;
   previewMeta.textContent = `已產生 ${questionCount} 題｜題目頁 ${pageCount} 頁｜A4 直式雙欄`;
-  setStatus("考券已產生。題目仍由既有 Generator / Validator 管線負責，僅改用學校考券版面輸出。", "success");
+  setStatus("單一單元考券已產生。題目仍由既有 Generator / Validator 管線負責，僅改用學校考券版面輸出。", "success");
 }
 
 gradeSelect.addEventListener("change", () => {
@@ -169,6 +195,13 @@ gradeSelect.addEventListener("change", () => {
 
 semesterSelect.addEventListener("change", () => populateSources());
 
+compositionModeSelect?.addEventListener("change", () => {
+  const resolved = resolveSchoolExamCompositionMode(compositionModeSelect.value);
+  if (!resolved.enabled) {
+    compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
+  }
+  applyCompositionMode();
+});
 sourceSelect.addEventListener("change", updateSourceHelp);
 generateButton.addEventListener("click", generateExam);
 printButton.addEventListener("click", () => {
@@ -182,4 +215,6 @@ populateGrades();
 const initialUnit = sortedUnits.find((row) => row.sourceId === state.batchA.sourceId) ?? sortedUnits[0];
 populateSemesters(initialUnit?.semester);
 populateSources(initialUnit?.sourceId);
+compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
+applyCompositionMode();
 generateExam();

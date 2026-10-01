@@ -51,6 +51,17 @@
 
       <div class="control-group">
         <h2>出題範圍</h2>
+        <label class="field">
+          <span>考券組成模式</span>
+          <select id="exam-composition-mode" name="examCompositionMode">
+            <option value="SINGLE_UNIT" selected>單一單元</option>
+            <option value="MIXED_KP_SAME_UNIT" disabled>同單元混合知識點（M3）</option>
+            <option value="MIXED_KP_CROSS_UNIT" disabled>跨單元混合知識點（M4）</option>
+          </select>
+        </label>
+        <p class="help-text" id="exam-composition-help">
+          M2 目前啟用「單一單元」；同單元混合與跨單元混合會在後續里程碑分別啟用。
+        </p>
         <div class="control-grid exam-template-control-grid">
           <label class="field">
             <span>年級</span>
