@@ -14,7 +14,7 @@ const DEFINITIONS = Object.freeze({
   [SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT]: Object.freeze({
     examMode: SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT,
     batchASelectionMode: "mixedKnowledgePointsSameUnit",
-    enabled: false,
+    enabled: true,
     milestone: "M3",
   }),
   [SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT]: Object.freeze({
