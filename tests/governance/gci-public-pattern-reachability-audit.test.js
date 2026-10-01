@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { auditPublicPatternReachability } from "../../tools/governance/audit-public-pattern-reachability.mjs";
+import { auditPublicPatternReachability, auditPublicPatternRuntimeReplay } from "../../tools/governance/audit-public-pattern-reachability.mjs";
 
 test("public PatternSpec reachability audit produces a complete disjoint classification", async () => {
   const report = await auditPublicPatternReachability();
@@ -43,4 +43,34 @@ test("public PatternSpec reachability audit produces a complete disjoint classif
     })),
   }));
   console.log("PUBLIC_PATTERN_REACHABILITY_AUDIT=" + JSON.stringify(report));
+});
+
+
+test("focused public PatternSpec runtime replay classifies every current reachability candidate", async () => {
+  const report = await auditPublicPatternRuntimeReplay();
+  const { counts, candidateRows, routeReplayFailures } = report;
+
+  assert.equal(report.schemaName, "PublicPatternRuntimeReplayAuditV1");
+  assert.equal(report.authority.capacityStatus, "PASS");
+  assert.equal(report.authority.legalRouteCount, 793);
+  assert.equal(report.authority.priorAcceptedBrowserReplay.passRouteCount, 793);
+  assert.equal(report.authority.priorAcceptedBrowserReplay.failRouteCount, 0);
+  assert.equal(counts.reachabilityCandidateCount, 12);
+  assert.equal(counts.candidateSourceCount, 7);
+  assert.equal(counts.focusedLegalRouteCount, 353);
+  assert.equal(counts.focusedRuntimeReplayCount, counts.focusedLegalRouteCount);
+  assert.equal(counts.focusedRuntimeReplayFailureCount, 0, JSON.stringify(routeReplayFailures));
+  assert.equal(candidateRows.length, counts.reachabilityCandidateCount);
+  assert.equal(
+    counts.confirmedUnreachableCount + counts.exactRuntimeReachableCount,
+    counts.reachabilityCandidateCount,
+  );
+  assert.equal(counts.confirmedUnreachableCount, 10);
+  assert.equal(counts.exactRuntimeReachableCount, 2);
+
+  console.log("PUBLIC_PATTERN_RUNTIME_REPLAY_SUMMARY=" + JSON.stringify({
+    counts,
+    confirmedUnreachable: report.confirmedUnreachable,
+    exactRuntimeReachable: report.exactRuntimeReachable,
+  }));
 });
