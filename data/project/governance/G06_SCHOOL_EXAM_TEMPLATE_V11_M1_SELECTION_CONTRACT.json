@@ -1,0 +1,223 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "G06_SCHOOL_EXAM_TEMPLATE_V11_M1_SelectionContractPreflight",
+  "status": "PASS_CONTRACT_LOCKED_PLANNING_ONLY",
+  "authority": {
+    "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
+    "mainSha": "b68b4285cb730794bb645baa3df27a02bc580a12",
+    "inspectedPaths": [
+      "site/assets/browser/state/config-state-core.js",
+      "site/assets/browser/state/query-state-p04f9.js",
+      "site/assets/browser/main.js",
+      "site/modules/curriculum/batch-a/visible-pattern-group-resolver-core.js",
+      "site/modules/curriculum/batch-a/visible-pattern-group-resolver.js",
+      "site/modules/curriculum/batch-a/same-unit-mixed21-aggregation.js",
+      "site/modules/curriculum/public/public-ui-capability-binding-p09-mixed21.js",
+      "site/assets/browser/pipeline/build-worksheet-document.js",
+      "site/exam-template/index.html",
+      "site/assets/browser/exam-template.js"
+    ]
+  },
+  "frozenBoundary": {
+    "planningOnly": true,
+    "layoutChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "rendererChanged": false,
+    "selectorRuntimeChanged": false,
+    "worksheetRuntimeChanged": false,
+    "knowledgePointAuthorityChanged": false,
+    "patternSpecAuthorityChanged": false
+  },
+  "observedCurrentRuntime": {
+    "selectionModes": {
+      "sourceUnit": "sourceUnit",
+      "singleKnowledgePoint": "singleKnowledgePoint",
+      "mixedKnowledgePointsSameUnit": "mixedKnowledgePointsSameUnit",
+      "mixedKnowledgePointsCrossUnit": "mixedKnowledgePointsCrossUnit"
+    },
+    "classicUi": {
+      "crossUnitOptionPresent": true,
+      "crossUnitOptionEnabled": false,
+      "sameUnitEnablementRule": "visibleCount >= 2 AND sameUnitMixedAllowed !== false"
+    },
+    "queryState": {
+      "supportsCrossUnitSelectionModeToken": true,
+      "crossUnitKnowledgePointIdsAreNotSourceScopedDuringParse": true,
+      "serializesSelectionMode": true,
+      "serializesKnowledgePointIdsAsRepeatedKpParams": true,
+      "serializesPatternGroupIdsAsRepeatedPgParams": true
+    },
+    "resolver": {
+      "sameUnitSupported": true,
+      "crossUnitTokenRecognized": true,
+      "crossUnitRuntimeStatus": "FAIL_CLOSED",
+      "crossUnitErrorCode": "kp_resolver_cross_unit_not_supported_yet"
+    },
+    "worksheetRouting": {
+      "stateEntry": "buildWorksheetDocumentFromState",
+      "planEntry": "buildWorksheetDocumentFromPlan",
+      "sameUnitAggregator": "buildP09Mixed21Worksheet",
+      "sameUnitAggregatorContract": {
+        "leafDispatchSelectionMode": "singleKnowledgePoint",
+        "allocation": "balanced_by_selected_knowledge_point",
+        "leafRuntimeOwnersPreserved": true,
+        "semanticAuthorityMutated": false,
+        "crossUnitMixedUsed": false
+      }
+    },
+    "examTemplate": {
+      "currentTopLevelCompositionMode": "sourceUnit_only",
+      "currentSelectorSettersImported": false,
+      "currentCrossUnitSupport": false
+    }
+  },
+  "exactExamCompositionContract": {
+    "topLevelModes": [
+      {
+        "examMode": "SINGLE_UNIT",
+        "learnerLabel": "單一單元",
+        "runtimeSelectionMode": "sourceUnit",
+        "requiredSelectedSourceCount": 1,
+        "selectedKnowledgePointRule": "NONE_REQUIRED",
+        "currentRuntimeReady": true,
+        "implementationMilestone": "M2"
+      },
+      {
+        "examMode": "MIXED_KP_SAME_UNIT",
+        "learnerLabel": "同單元混合知識點",
+        "runtimeSelectionMode": "mixedKnowledgePointsSameUnit",
+        "requiredSelectedSourceCount": 1,
+        "selectedKnowledgePointMinimum": 2,
+        "sourceOwnershipRule": "ALL_SELECTED_KP_SOURCE_IDS_MUST_EQUAL_SELECTED_SOURCE_ID",
+        "admissionRule": "current public capability must advertise same-unit mixed as enabled and the selected KPs must be visible",
+        "currentRuntimeReady": "READY_WHERE_CURRENT_PUBLIC_CAPABILITY_ADMITS_IT",
+        "implementationMilestone": "M3"
+      },
+      {
+        "examMode": "MIXED_KP_CROSS_UNIT",
+        "learnerLabel": "跨單元混合知識點",
+        "runtimeSelectionMode": "mixedKnowledgePointsCrossUnit",
+        "requiredSelectedSourceMinimum": 2,
+        "selectedKnowledgePointMinimum": 2,
+        "v11Boundary": {
+          "sameGrade": true,
+          "sameSemester": true,
+          "crossGrade": false,
+          "crossSemester": false
+        },
+        "selectedKnowledgePointRule": "SELECTED_KPS_MUST_SPAN_AT_LEAST_TWO_SELECTED_SOURCE_IDS",
+        "currentRuntimeReady": false,
+        "currentBlocker": "generic resolver fails closed with kp_resolver_cross_unit_not_supported_yet",
+        "implementationMilestone": "M4"
+      }
+    ],
+    "singleKnowledgePointMode": {
+      "topLevelExamMode": false,
+      "role": "INTERNAL_LEAF_DISPATCH_AND_EXISTING_SPECIALIZED_PRACTICE_CAPABILITY",
+      "note": "V1.1 top-level exam modes remain exactly SINGLE_UNIT, MIXED_KP_SAME_UNIT, MIXED_KP_CROSS_UNIT."
+    },
+    "examRouteViewState": {
+      "fields": [
+        "examCompositionMode",
+        "grade",
+        "semester",
+        "activeSourceId",
+        "selectedSourceIds",
+        "selectedKnowledgePointIds",
+        "selectedPatternGroupIds",
+        "questionCount",
+        "ordering",
+        "generationSeed",
+        "includeAnswerKey"
+      ],
+      "activeSourceIdSemantics": "UI_FOCUS_ONLY_IN_CROSS_UNIT_MODE; MUST_NOT_BE_USED_AS_CROSS_UNIT_SEMANTIC_OWNER",
+      "selectedSourceIdsSemantics": "SEMANTIC_UNIT_SET_FOR_EXAM_COMPOSITION",
+      "coreBatchAStateMutationRequiredForM1": false
+    }
+  },
+  "crossUnitFutureAdapterContract": {
+    "name": "SchoolExamCrossUnitCompositionCoordinator",
+    "milestone": "M4",
+    "newGeneratorAllowed": false,
+    "newValidatorAllowed": false,
+    "leafDispatch": {
+      "selectionMode": "singleKnowledgePoint",
+      "sourceId": "OWNING_SOURCE_ID_OF_EACH_KP",
+      "selectedKnowledgePointIds": "ONE_KP_PER_LEAF",
+      "selectedPatternGroupIds": "ONLY_GROUPS_LINKED_TO_THAT_KP",
+      "failClosedOnLeafError": true
+    },
+    "eligibility": {
+      "visibleKnowledgePointOnly": true,
+      "publicLeafRuntimeRequired": true,
+      "sameGradeRequired": true,
+      "sameSemesterRequired": true,
+      "unresolvedOrHiddenKnowledgePointRejected": true
+    },
+    "allocation": {
+      "defaultStrategy": "balanced_by_selected_knowledge_point",
+      "minimumTotalQuestionCount": "selectedKnowledgePointCount",
+      "deterministicRemainderRule": "stable selected KP order",
+      "customPerKpAllocation": "DEFERRED_UNTIL_EXPLICIT_UI_REQUIREMENT"
+    },
+    "ordering": {
+      "groupedByPattern": "preserve deterministic aggregate grouping",
+      "shuffleAcrossPatterns": "shuffle aggregate records deterministically from root generationSeed"
+    },
+    "lineageRequiredPerQuestion": [
+      "sourceId",
+      "knowledgePointId",
+      "patternGroupId_when_available",
+      "patternSpecId",
+      "leafQuestionId_or_originalQuestionId"
+    ],
+    "aggregateDocument": {
+      "worksheetKind": "batchAWorksheet",
+      "mustPreserveExactAnswerParity": true,
+      "mustPreserveLeafValidatorAuthority": true,
+      "mustHaveGloballyUniqueQuestionIds": true,
+      "mustNotInventCompositeKnowledgePoint": true,
+      "crossUnitMixedUsed": true
+    }
+  },
+  "failClosedRules": [
+    "SINGLE_UNIT must not silently degrade to a hidden or unresolved source.",
+    "MIXED_KP_SAME_UNIT must reject KP sets spanning multiple sourceIds.",
+    "MIXED_KP_CROSS_UNIT must reject same-source-only selections.",
+    "MIXED_KP_CROSS_UNIT must reject any cross-grade or cross-semester selection in V1.1.",
+    "Hidden, unresolved, non-public, or non-generatable KPs must not be silently replaced.",
+    "Cross-unit aggregation must not fabricate a composite KP or rewrite leaf generator semantics.",
+    "Any leaf generation or validation failure fails the aggregate exam."
+  ],
+  "implementationOrder": [
+    "M2_SINGLE_UNIT_RUNTIME",
+    "M3_MIXED_KP_SAME_UNIT_RUNTIME",
+    "M4_MIXED_KP_CROSS_UNIT_RUNTIME",
+    "M5_LAYOUT_V11",
+    "M6_ACTUAL_VISUAL_QA",
+    "M7_PAGES_E2E_CLOSEOUT"
+  ],
+  "acceptance": {
+    "sourceEvidenceRead": true,
+    "threeTopLevelModesLocked": true,
+    "currentSameUnitPathIdentified": true,
+    "currentCrossUnitBlockerIdentified": true,
+    "noRuntimeMutation": true,
+    "nextImplementationCanProceedWithoutRedesign": true
+  },
+  "goalDistance": {
+    "before": "D1",
+    "after": "D1",
+    "distanceReduced": "Planning ambiguity removed; no runtime distance claimed.",
+    "remainingBlockers": [
+      "M2 single-unit exam-template runtime wiring",
+      "M3 same-unit mixed exam-template runtime wiring",
+      "M4 cross-unit composition coordinator",
+      "M5 two-column/pagination layout repair",
+      "M6 actual visual QA",
+      "M7 live Pages verification"
+    ],
+    "nextShortestStep": "G06_SCHOOL_EXAM_TEMPLATE_V11_M2_SingleUnitRuntime"
+  }
+}
