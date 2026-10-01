@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { generateBatchABrowserQuestions } from "../../site/modules/curriculum/batch-a/batch-a-browser-question-router.js";
 
 const ROOT = process.cwd();
 
@@ -394,7 +395,123 @@ async function auditPublicPatternReachability() {
   };
 }
 
-export { auditPublicPatternReachability };
+
+const uniqueSortedRuntime = (values = []) => [...new Set(values.filter(Boolean).map(String))].sort();
+
+function runtimeRouteOptions(route) {
+  const verifiedMax = Number(route.verifiedMaxQuestionCount ?? 20);
+  const questionCount = Math.max(
+    1,
+    Math.min(20, Number.isFinite(verifiedMax) && verifiedMax > 0 ? verifiedMax : 20),
+  );
+  return {
+    sourceId: route.sourceId,
+    selectionMode: route.selectionMode,
+    selectedKnowledgePointIds: [...(route.selectedKnowledgePointIds ?? [])],
+    selectedPatternGroupIds: [...(route.publicPatternGroupIds ?? [])],
+    questionMode: route.questionType,
+    depthMode: route.depthMode ?? null,
+    contextMode: route.contextMode ?? null,
+    questionCount,
+    ordering: "groupedByPattern",
+    includeAnswerKey: true,
+    generationSeed: `public-pattern-runtime-replay:${route.routeId}`,
+  };
+}
+
+function replayPublicRuntimeRoute(route) {
+  const options = runtimeRouteOptions(route);
+  const result = generateBatchABrowserQuestions(options);
+  return {
+    routeId: route.routeId,
+    sourceId: route.sourceId,
+    selectionMode: route.selectionMode,
+    selectedKnowledgePointIds: [...(route.selectedKnowledgePointIds ?? [])],
+    publicPatternGroupIds: [...(route.publicPatternGroupIds ?? [])],
+    questionType: route.questionType,
+    depthMode: route.depthMode ?? null,
+    contextMode: route.contextMode ?? null,
+    requestedQuestionCount: options.questionCount,
+    capacityStatus: route.capacityStatus,
+    compatiblePatternSpecIds: uniqueSortedRuntime(route.compatiblePatternSpecIds ?? []),
+    ok: result.ok === true,
+    generatedQuestionCount: result.questions?.length ?? 0,
+    observedPatternSpecIds: uniqueSortedRuntime((result.questions ?? []).map((row) => row.patternSpecId)),
+    errorCodes: uniqueSortedRuntime((result.errors ?? []).map((row) => row.code ?? row.message ?? String(row))),
+  };
+}
+
+async function auditPublicPatternRuntimeReplay() {
+  const [reachability, capacity, acceptedR09] = await Promise.all([
+    auditPublicPatternReachability(),
+    readJson(path.join(ROOT, "data/curriculum/public-generation/generator_capacity_contract.json")),
+    readJson(path.join(ROOT, "data/curriculum/public-generation/PGC-R09-A02.real-artifact-hash-manifest.json")),
+  ]);
+
+  const candidates = reachability.unreachableCandidates ?? [];
+  const candidateSourceIds = new Set(candidates.flatMap((row) => row.sourceIds ?? []));
+  const legalRoutes = (capacity.routes ?? []).filter((route) => route.legalRoute === true);
+  const focusedRoutes = legalRoutes
+    .filter((route) => candidateSourceIds.has(route.sourceId))
+    .sort((a, b) => a.routeId.localeCompare(b.routeId));
+  const routeReplay = focusedRoutes.map(replayPublicRuntimeRoute);
+  const routeReplayFailures = routeReplay.filter((row) => !row.ok);
+
+  const candidateRows = candidates.map((candidate) => {
+    const authorityRoutes = focusedRoutes.filter((route) =>
+      (route.compatiblePatternSpecIds ?? []).includes(candidate.patternSpecId));
+    const runtimeRoutes = routeReplay.filter((route) =>
+      route.observedPatternSpecIds.includes(candidate.patternSpecId));
+    const exactReachable = authorityRoutes.length > 0 || runtimeRoutes.length > 0;
+    return {
+      patternSpecId: candidate.patternSpecId,
+      sourceIds: [...candidate.sourceIds],
+      knowledgePointIds: [...candidate.knowledgePointIds],
+      origins: [...candidate.origins],
+      capacityCompatibleRouteIds: authorityRoutes.map((row) => row.routeId),
+      runtimeObservedRouteIds: runtimeRoutes.map((row) => row.routeId),
+      classification: exactReachable
+        ? "CURRENT_PUBLIC_EXACT_RUNTIME_REACHABLE"
+        : "CONFIRMED_NO_CURRENT_PUBLIC_EXACT_ROUTE_OR_RUNTIME_WITNESS",
+    };
+  });
+
+  const confirmedUnreachable = candidateRows.filter((row) =>
+    row.classification === "CONFIRMED_NO_CURRENT_PUBLIC_EXACT_ROUTE_OR_RUNTIME_WITNESS");
+  const reachable = candidateRows.filter((row) =>
+    row.classification === "CURRENT_PUBLIC_EXACT_RUNTIME_REACHABLE");
+
+  return {
+    schemaName: "PublicPatternRuntimeReplayAuditV1",
+    schemaVersion: 1,
+    authority: {
+      reachabilitySchemaVersion: reachability.schemaVersion,
+      capacityStatus: capacity.status,
+      legalRouteCount: legalRoutes.length,
+      priorAcceptedBrowserReplay: {
+        artifactStatus: acceptedR09.status,
+        passRouteCount: acceptedR09.terminalExecution?.passRouteCount ?? null,
+        failRouteCount: acceptedR09.terminalExecution?.failRouteCount ?? null,
+      },
+    },
+    counts: {
+      reachabilityCandidateCount: candidates.length,
+      candidateSourceCount: candidateSourceIds.size,
+      focusedLegalRouteCount: focusedRoutes.length,
+      focusedRuntimeReplayCount: routeReplay.length,
+      focusedRuntimeReplayFailureCount: routeReplayFailures.length,
+      confirmedUnreachableCount: confirmedUnreachable.length,
+      exactRuntimeReachableCount: reachable.length,
+    },
+    candidateRows,
+    confirmedUnreachable,
+    exactRuntimeReachable: reachable,
+    routeReplayFailures,
+    routeReplay,
+  };
+}
+
+export { auditPublicPatternReachability, auditPublicPatternRuntimeReplay };
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const report = await auditPublicPatternReachability();
