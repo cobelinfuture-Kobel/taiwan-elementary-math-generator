@@ -106,8 +106,9 @@ async function visualAudit(page, frame, scenarioId) {
     let internalCellOverflow = 0;
     let columnOverflow = 0;
     let wrongPrintHeight = 0;
+    const overflowDetails = [];
 
-    const details = pages.map((page) => {
+    const details = pages.map((page, pageIndex) => {
       const pageRect = page.getBoundingClientRect();
       if (Math.abs(pageRect.height - (296 * 96 / 25.4)) > 6) wrongPrintHeight += 1;
       const columns = [...page.querySelectorAll(".school-exam-column")];
@@ -121,7 +122,27 @@ async function visualAudit(page, frame, scenarioId) {
             || rect.right > pageRect.right + tolerance
             || rect.top < pageRect.top - tolerance
             || rect.bottom > pageRect.bottom + tolerance
-          ) outsidePage += 1;
+          ) {
+            outsidePage += 1;
+            overflowDetails.push({
+              pageNumber: pageIndex + 1,
+              pageType: page.dataset.pageType,
+              questionId: cell.dataset.questionId ?? null,
+              rect: {
+                left: rect.left,
+                right: rect.right,
+                top: rect.top,
+                bottom: rect.bottom,
+              },
+              pageRect: {
+                left: pageRect.left,
+                right: pageRect.right,
+                top: pageRect.top,
+                bottom: pageRect.bottom,
+              },
+              text: cell.textContent?.replace(/\s+/g, " ").trim().slice(0, 120) ?? "",
+            });
+          }
           if (
             rect.left < columnRect.left - tolerance
             || rect.right > columnRect.right + tolerance
@@ -159,10 +180,15 @@ async function visualAudit(page, frame, scenarioId) {
       averageQuestionItemsPerPage: questionItems / qPages.length,
       averageAnswerItemsPerPage: answerItems / aPages.length,
       details,
+      overflowDetails,
     };
   });
 
-  assert.equal(printAudit.outsidePage, 0, `${scenarioId}: cells outside A4 page`);
+  assert.equal(
+    printAudit.outsidePage,
+    0,
+    `${scenarioId}: cells outside A4 page: ${JSON.stringify(printAudit.overflowDetails)}`,
+  );
   assert.equal(printAudit.outsideColumn, 0, `${scenarioId}: cells outside assigned column`);
   assert.equal(printAudit.internalCellOverflow, 0, `${scenarioId}: clipped cell content`);
   assert.equal(printAudit.columnOverflow, 0, `${scenarioId}: clipped column content`);

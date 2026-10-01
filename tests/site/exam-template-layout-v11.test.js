@@ -97,3 +97,35 @@ test("M5 renderer marks every page with Layout V1.1 and explicit column containe
   assert.match(html, /school-exam-column--answers/);
   assert.doesNotMatch(html, /column-count:\s*2/);
 });
+
+
+test("M6 rich-representation budgeting prevents two tall geometry cells from sharing one column", () => {
+  const geometryModels = Array.from({ length: 20 }, (_, index) =>
+    question(index + 1, {
+      blankedDisplayText: `請觀察圖形並回答第 ${index + 1} 題。`,
+      geometryDiagram: { kind: "synthetic_geometry_for_m6_budget" },
+    })
+  );
+  const layout = buildSchoolExamLayoutPages({
+    questionDisplayModels: geometryModels,
+    answerKeyItems: geometryModels.map((model) => ({
+      questionId: model.questionId,
+      questionNumber: model.questionNumber,
+      promptText: model.blankedDisplayText,
+      answerText: model.answerText,
+    })),
+  });
+
+  const cells = layout.questionPages.flatMap((page) =>
+    page.columns.flatMap((column) => column.cells)
+  );
+  assert.equal(cells.length, 20);
+  for (const page of layout.questionPages) {
+    for (const column of page.columns) {
+      assert.ok(
+        column.cells.length <= 1,
+        `rich geometry column overpacked: ${column.cells.length} cells / ${column.usedUnits} units`,
+      );
+    }
+  }
+});
