@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G3A-U01 Rank01 Six-item Rendered Pilot</title>
+<style>
+:root{font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;color:#111827;background:#f3f4f6}
+*{box-sizing:border-box}
+body{margin:0;padding:24px}
+main{max-width:900px;margin:0 auto}
+h1{font-size:26px;margin:0 0 8px}
+.meta{color:#4b5563;line-height:1.65;margin:0 0 20px}
+.pilot-card{position:relative;background:#fff;border:1px solid #d1d5db;border-radius:12px;padding:20px 22px;margin:0 0 18px;break-inside:avoid}
+.pilot-tag{display:inline-block;font-size:12px;font-weight:700;background:#e5e7eb;border-radius:999px;padding:4px 9px;margin-bottom:10px}
+.question-no{font-weight:800;font-size:20px;float:left;margin-right:8px}
+.prompt{font-size:18px;line-height:1.65;margin:0 0 12px}
+.worksheet-cell__representation{clear:both}
+.worksheet-one-way-statistics-table{font-size:16px!important}
+.worksheet-one-way-statistics-table th,.worksheet-one-way-statistics-table td{padding:8px 12px!important}
+.answer{margin-top:12px;border-top:1px dashed #d1d5db;padding-top:10px}
+.answer summary{cursor:pointer;font-weight:700}
+.answer p{margin:.5rem 0 0}
+.review-box{background:#fffbeb;border:1px solid #f59e0b;border-radius:10px;padding:16px 18px;line-height:1.7}
+.review-box ul{margin:.5rem 0 0;padding-left:1.4rem}
+@media print{
+  body{padding:10mm;background:#fff}
+  .pilot-card{border-radius:0}
+  .answer[open] summary{display:none}
+}
+</style>
+</head>
+<body>
+<main>
+<h1>G3A-U01｜Rank 1 一維資料表比較｜6 題視覺試產</h1>
+<p class="meta">PatternSpec：<strong>ps_g3a_u01_visual_one_way_table_compare</strong><br>Renderer：<strong>one-way-statistics-table.js</strong>（native binding）。本頁只供 Human Visual Review；不是 production generator / selector admission 證據。</p>
+
+<section class="pilot-card">
+  <div class="pilot-tag">Pilot 01｜MINIMUM_CATEGORY｜3 rows</div>
+  <div class="question-no">1.</div>
+  <p class="prompt">根據表格，參觀人數最少的是哪一天？</p>
+  <div class="worksheet-cell__representation worksheet-cell__representation--table" data-representation="one-way-statistics-table"><table class="worksheet-one-way-statistics-table" aria-label="三天參觀人數" style="border-collapse:collapse;width:100%;max-width:320px;margin:.35rem auto;font-size:.9em;"><thead><tr><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">日期</th><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">參觀人數</th></tr></thead><tbody><tr data-table-row="1"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">第一天</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">9080</td></tr><tr data-table-row="2"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">第二天</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">9800</td></tr><tr data-table-row="3"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">第三天</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">9008</td></tr></tbody></table></div>
+  <details class="answer"><summary>查看答案</summary><p>第三天（9008）</p></details>
+</section>
+
+<section class="pilot-card">
+  <div class="pilot-tag">Pilot 02｜MAXIMUM_CATEGORY｜4 rows</div>
+  <div class="question-no">2.</div>
+  <p class="prompt">根據表格，學生人數最多的是哪一所學校？</p>
+  <div class="worksheet-cell__representation worksheet-cell__representation--table" data-representation="one-way-statistics-table"><table class="worksheet-one-way-statistics-table" aria-label="四所學校學生人數" style="border-collapse:collapse;width:100%;max-width:320px;margin:.35rem auto;font-size:.9em;"><thead><tr><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">學校</th><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">學生人數</th></tr></thead><tbody><tr data-table-row="1"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">興生國小</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">4053</td></tr><tr data-table-row="2"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">和平國小</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">3286</td></tr><tr data-table-row="3"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">育才國小</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">3741</td></tr><tr data-table-row="4"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">開心國小</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">2053</td></tr></tbody></table></div>
+  <details class="answer"><summary>查看答案</summary><p>興生國小（4053）</p></details>
+</section>
+
+<section class="pilot-card">
+  <div class="pilot-tag">Pilot 03｜COMPARE_TWO_ROWS｜4 rows</div>
+  <div class="question-no">3.</div>
+  <p class="prompt">根據表格，東館和西館相比，哪一館的藏書冊數比較多？</p>
+  <div class="worksheet-cell__representation worksheet-cell__representation--table" data-representation="one-way-statistics-table"><table class="worksheet-one-way-statistics-table" aria-label="四館藏書冊數" style="border-collapse:collapse;width:100%;max-width:320px;margin:.35rem auto;font-size:.9em;"><thead><tr><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">館別</th><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">藏書冊數</th></tr></thead><tbody><tr data-table-row="1"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">東館</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">6482</td></tr><tr data-table-row="2"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">西館</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">6195</td></tr><tr data-table-row="3"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">南館</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">7324</td></tr><tr data-table-row="4"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">北館</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">5871</td></tr></tbody></table></div>
+  <details class="answer"><summary>查看答案</summary><p>東館（6482，&gt;）</p></details>
+</section>
+
+<section class="pilot-card">
+  <div class="pilot-tag">Pilot 04｜UNIQUE_THRESHOLD_MATCH｜4 rows</div>
+  <div class="question-no">4.</div>
+  <p class="prompt">根據表格，哪一個場次的參觀人數超過 5200 人？</p>
+  <div class="worksheet-cell__representation worksheet-cell__representation--table" data-representation="one-way-statistics-table"><table class="worksheet-one-way-statistics-table" aria-label="四個場次參觀人數" style="border-collapse:collapse;width:100%;max-width:320px;margin:.35rem auto;font-size:.9em;"><thead><tr><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">場次</th><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">參觀人數</th></tr></thead><tbody><tr data-table-row="1"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">上午第一場</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">4875</td></tr><tr data-table-row="2"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">上午第二場</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">5108</td></tr><tr data-table-row="3"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">下午第一場</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">5362</td></tr><tr data-table-row="4"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">下午第二場</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">4980</td></tr></tbody></table></div>
+  <details class="answer"><summary>查看答案</summary><p>下午第一場（5362）</p></details>
+</section>
+
+<section class="pilot-card">
+  <div class="pilot-tag">Pilot 05｜MAXIMUM_CATEGORY｜6 rows</div>
+  <div class="question-no">5.</div>
+  <p class="prompt">根據表格，借閱冊數最多的是哪一個月份？</p>
+  <div class="worksheet-cell__representation worksheet-cell__representation--table" data-representation="one-way-statistics-table"><table class="worksheet-one-way-statistics-table" aria-label="六個月份借閱冊數" style="border-collapse:collapse;width:100%;max-width:320px;margin:.35rem auto;font-size:.9em;"><thead><tr><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">月份</th><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">借閱冊數</th></tr></thead><tbody><tr data-table-row="1"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">一月</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">4218</td></tr><tr data-table-row="2"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">二月</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">4675</td></tr><tr data-table-row="3"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">三月</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">5184</td></tr><tr data-table-row="4"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">四月</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">4936</td></tr><tr data-table-row="5"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">五月</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">5521</td></tr><tr data-table-row="6"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">六月</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">5068</td></tr></tbody></table></div>
+  <details class="answer"><summary>查看答案</summary><p>五月（5521）</p></details>
+</section>
+
+<section class="pilot-card">
+  <div class="pilot-tag">Pilot 06｜MINIMUM_CATEGORY｜8 rows</div>
+  <div class="question-no">6.</div>
+  <p class="prompt">根據表格，回收瓶數最少的是哪一個班級？</p>
+  <div class="worksheet-cell__representation worksheet-cell__representation--table" data-representation="one-way-statistics-table"><table class="worksheet-one-way-statistics-table" aria-label="八個班級回收瓶數" style="border-collapse:collapse;width:100%;max-width:320px;margin:.35rem auto;font-size:.9em;"><thead><tr><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">班級</th><th scope="col" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">回收瓶數</th></tr></thead><tbody><tr data-table-row="1"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">三年一班</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">3284</td></tr><tr data-table-row="2"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">三年二班</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">3018</td></tr><tr data-table-row="3"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">三年三班</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">3562</td></tr><tr data-table-row="4"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">三年四班</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">2875</td></tr><tr data-table-row="5"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">三年五班</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">3396</td></tr><tr data-table-row="6"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">三年六班</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">3147</td></tr><tr data-table-row="7"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">三年七班</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">2956</td></tr><tr data-table-row="8"><th scope="row" style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;font-weight:600;">三年八班</th><td style="border:1px solid currentColor;padding:.2rem .35rem;text-align:center;">3721</td></tr></tbody></table></div>
+  <details class="answer"><summary>查看答案</summary><p>三年四班（2875）</p></details>
+</section>
+<aside class="review-box"><strong>Human Visual Review</strong><ul><li>題幹是否一眼看懂</li><li>表格欄名是否清楚</li><li>3/4/6/8列密度是否可接受</li><li>數字是否容易比較</li><li>答案呈現是否清楚</li><li>是否像可給三年級學生直接作答的題目</li></ul></aside>
+</main>
+</body>
+</html>
