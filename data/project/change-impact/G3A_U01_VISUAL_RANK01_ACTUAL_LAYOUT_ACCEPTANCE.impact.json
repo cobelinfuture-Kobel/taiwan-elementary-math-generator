@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK01_ACTUAL_LAYOUT_ACCEPTANCE",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK01_ACTUAL_LAYOUT_ACCEPTANCE.validation.json",
+  "classificationNote": "Rank01 actual A4 worksheet/answer/print layout acceptance. No renderer size or mathematics change; only bounded metadata and layout-regression contract.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "layoutAcceptanceOnly": true,
+  "rendererCodeChanged": false,
+  "tableSizeChanged": false,
+  "rank02OrLaterTouched": false
+}

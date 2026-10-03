@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "hidden_runtime_rendered_acceptance_pass",
+  "status": "hidden_runtime_actual_layout_acceptance_pass",
   "authority": {
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
     "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
@@ -285,9 +285,9 @@
     "selectorVisible": false,
     "productionUse": "forbidden",
     "renderedWorksheetAcceptance": "PASS_FOCUSED_CI",
-    "layoutTuningStatus": "PENDING_ACTUAL_WORKSHEET_ANSWER_PRINT_VISUAL_REVIEW"
+    "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED"
   },
-  "nextStep": "Generate actual worksheet/answer/print layout preview from the hidden runtime, inspect real page density, then tune table/card sizing without changing Rank01 mathematics.",
+  "nextStep": "Proceed to hidden selector/admission planning for Rank01 only, or continue Rank02 PatternSpec work. Do not enlarge Rank01 table sizing unless the A4 2x3 pagination contract is also changed and re-reviewed.",
   "runtimeAcceptance": {
     "prNumber": 1215,
     "mergeSha": "38114a0184bdc6402e4f2d75377230ee5df496a6",
@@ -297,6 +297,49 @@
     "blockingValidator": "PASS",
     "worksheetAnswerHtmlRendering": "PASS",
     "rendererCodeChanged": false,
+    "selectorVisible": false,
+    "productionUse": "forbidden"
+  },
+  "layoutAcceptance": {
+    "reviewType": "ACTUAL_A4_WORKSHEET_ANSWER_PRINT_VISUAL_REVIEW",
+    "reviewDecision": "PASS_NO_SIZE_CHANGE_REQUIRED",
+    "reviewedLayout": {
+      "paperSize": "A4",
+      "columns": 2,
+      "rowsPerPage": 3,
+      "questionCellsPerPage": 6,
+      "answerCellsPerPage": 6,
+      "sourceRenderer": "site/modules/renderer/one-way-statistics-table.js"
+    },
+    "reviewedDensity": {
+      "tableRowCounts": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "questionPage": "PASS_NO_OVERFLOW",
+      "answerPage": "PASS_NO_OVERFLOW",
+      "eightRowWorstCase": "PASS_AT_CURRENT_RENDERER_SIZE"
+    },
+    "currentRendererSize": {
+      "tableFontSize": "0.9em",
+      "cellPadding": ".2rem .35rem",
+      "maxWidth": "320px"
+    },
+    "rejectedLargerTrial": {
+      "tableFontSize": "16px",
+      "cellPadding": "8px 12px",
+      "result": "FAIL_EIGHT_ROW_BOTTOM_OVERFLOW",
+      "disposition": "DO_NOT_APPLY"
+    },
+    "tuningAction": "NO_RENDERER_SIZE_CHANGE",
+    "reasoning": "Current native renderer size is the largest safe baseline among reviewed layouts that preserves complete 8-row question and answer cells in A4 2x3 pagination. Larger pilot sizing overflows the page bottom.",
+    "mathematicsChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
     "selectorVisible": false,
     "productionUse": "forbidden"
   }
