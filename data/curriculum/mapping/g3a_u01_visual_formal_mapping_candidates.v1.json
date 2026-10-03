@@ -1,0 +1,953 @@
+{
+  "schemaName": "G3AU01VisualFormalMappingCandidateRegistryV1",
+  "schemaVersion": 1,
+  "taskId": "G3A_U01_BVisual18_FormalMappingCandidatePass_ThenPatternSpecPriorityOrdering",
+  "unitId": "g3a_u01_3a01",
+  "unitTitle": "10000以內的數",
+  "status": "candidate_only_no_runtime_admission",
+  "authority": {
+    "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+    "visualFamilyRegistryMergeSha": "e9ee01ffb404a36283daafa3035eb28230110de4",
+    "knowledgeAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "curriculumSource": "題型總覽-3a01-10000以內的數.pdf"
+  },
+  "scopeBoundary": {
+    "visualFamilyCount": 18,
+    "sourceQuestionCount": 228,
+    "newKnowledgePointsMinted": false,
+    "patternSpecsMaterialized": false,
+    "generatorImplemented": false,
+    "validatorImplemented": false,
+    "rendererImplemented": false,
+    "selectorChanged": false,
+    "productionUse": "forbidden"
+  },
+  "formalMappingPassSummary": {
+    "existingKpMappedFamilies": 13,
+    "candidateKpDependencyFamilies": 4,
+    "patternSpecSplitRequiredFamilies": 1,
+    "unresolvedFamilies": 0
+  },
+  "knowledgePointCandidates": [
+    {
+      "knowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+      "nameZh": "整數數線刻度、讀值與定位",
+      "status": "candidate_only_not_minted",
+      "sourceBacked": true,
+      "supportingVisualFamilies": [
+        "vf_g3a_u01_integer_number_line_read_value",
+        "vf_g3a_u01_integer_number_line_mark_value",
+        "vf_g3a_u01_integer_number_line_complete_scale"
+      ],
+      "scope": "理解等距整數數線的起點、刻度間隔與位置；由位置讀值、把指定值定位到刻度、補出缺少的刻度值。",
+      "operationContracts": [
+        "tickValue(index) = start + index * step",
+        "targetIndex = (target - start) / step when target lies on a legal tick"
+      ],
+      "validatorInvariants": [
+        "step is a positive integer",
+        "all visible and hidden ticks follow one uniform step",
+        "read answer equals target tick value",
+        "marked target lies on the unique legal tick",
+        "completed scale preserves every visible label"
+      ],
+      "blocker": "requires separate KP-candidate acceptance before runtime PatternSpec admission"
+    },
+    {
+      "knowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_movement",
+      "nameZh": "整數數線左右位移",
+      "status": "candidate_only_not_minted",
+      "sourceBacked": true,
+      "supportingVisualFamilies": [
+        "vf_g3a_u01_integer_number_line_movement"
+      ],
+      "scope": "在等距整數數線上，從已知位置依指定方向移動固定格數，求終點或位移格數。",
+      "operationContracts": [
+        "end = start + signedDirection * moveCount * step",
+        "moveCount = abs(end - start) / step"
+      ],
+      "validatorInvariants": [
+        "direction is exactly left or right",
+        "moveCount is a nonnegative integer",
+        "step is a positive integer",
+        "computed endpoint remains on represented scale",
+        "endpoint and movement segment agree"
+      ],
+      "blocker": "requires separate KP-candidate acceptance before runtime PatternSpec admission"
+    }
+  ],
+  "mappings": [
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_one_way_table_compare",
+      "visualFamilyId": "vf_g3a_u01_one_way_table_compare",
+      "visualFamilyNameZh": "一維資料表四位數比較",
+      "questionCount": 11,
+      "representationFamily": "one_way_data_table",
+      "taskCore": "COMPARE_EXTREMA_THRESHOLD_FROM_TABLE",
+      "primaryKnowledgePointId": "kp_g3a_u01_4digit_compare",
+      "secondaryKnowledgePointIds": [
+        "kp_g3a_u01_range_reasoning"
+      ],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_one_way_table_compare",
+      "mode": "representation_reasoning",
+      "answerModel": "tableExtremaOrComparisonAnswer",
+      "operationContract": "read all required category/value pairs from the rendered one-way table and return the category/value satisfying the stated four-digit comparison, extrema, or threshold condition",
+      "validatorGuards": [
+        "table_values_complete",
+        "comparison_uses_rendered_values",
+        "extrema_unique_when_single_answer_prompt",
+        "answer_category_exists_in_table"
+      ],
+      "rendererReconciliation": {
+        "classification": "NATIVE",
+        "existingRendererPath": "site/modules/renderer/one-way-statistics-table.js"
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 1,
+        "wave": "P0_NATIVE_SHORTEST_PATH",
+        "reason": "existing KP and native renderer; shortest route to a complete visual PatternSpec"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_32ddd11dd4cb_p1_I-3",
+        "exam_pdf_3aefc1effbdc_p3_VII-1a",
+        "exam_pdf_3aefc1effbdc_p3_VII-1b"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_integer_number_line_read_value",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_read_value",
+      "visualFamilyNameZh": "整數數線讀值",
+      "questionCount": 50,
+      "representationFamily": "integer_number_line",
+      "taskCore": "READ_MARKER_VALUE",
+      "primaryKnowledgePointId": "kpc_g3a_u01_integer_number_line_scale_location",
+      "secondaryKnowledgePointIds": [],
+      "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_read_value",
+      "mode": "representation",
+      "answerModel": "integerAnswer",
+      "operationContract": "derive a marked integer value from a uniform number-line scale",
+      "validatorGuards": [
+        "uniform_integer_step",
+        "marker_on_legal_tick",
+        "visible_anchor_labels_consistent",
+        "answer_equals_tick_value"
+      ],
+      "rendererReconciliation": {
+        "classification": "EXTEND",
+        "existingRendererPath": "site/modules/renderer/fraction-number-line.js"
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 2,
+        "wave": "P1_SHARED_NUMBER_LINE_EXTENSION",
+        "reason": "50 questions and shared renderer extension unlocks the largest single visual family"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_0fcbf6f20c4b_p3_V-15",
+        "exam_pdf_12597864f38a_p1_II-6a",
+        "exam_pdf_12597864f38a_p1_II-6b"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_integer_number_line_mark_value",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_mark_value",
+      "visualFamilyNameZh": "整數數線定位／標記",
+      "questionCount": 20,
+      "representationFamily": "integer_number_line",
+      "taskCore": "MARK_GIVEN_VALUE",
+      "primaryKnowledgePointId": "kpc_g3a_u01_integer_number_line_scale_location",
+      "secondaryKnowledgePointIds": [],
+      "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_mark_value",
+      "mode": "representation",
+      "answerModel": "numberLinePointAnswer",
+      "operationContract": "place the given integer on the unique legal tick of a uniform number-line scale",
+      "validatorGuards": [
+        "uniform_integer_step",
+        "target_within_scale",
+        "target_maps_to_unique_tick",
+        "answer_overlay_matches_target_tick"
+      ],
+      "rendererReconciliation": {
+        "classification": "EXTEND",
+        "existingRendererPath": "site/modules/renderer/fraction-number-line.js"
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 3,
+        "wave": "P1_SHARED_NUMBER_LINE_EXTENSION",
+        "reason": "shares the same extension contract as number-line reading"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_1d999151554f_p1_N-1a",
+        "exam_pdf_1d999151554f_p1_N-1b",
+        "exam_pdf_1d999151554f_p1_N-2a"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_integer_number_line_complete_scale",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_complete_scale",
+      "visualFamilyNameZh": "整數數線補刻度／填數",
+      "questionCount": 7,
+      "representationFamily": "integer_number_line",
+      "taskCore": "COMPLETE_MISSING_TICK_VALUES",
+      "primaryKnowledgePointId": "kpc_g3a_u01_integer_number_line_scale_location",
+      "secondaryKnowledgePointIds": [],
+      "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_complete_scale",
+      "mode": "representation_reasoning",
+      "answerModel": "integerListAnswer",
+      "operationContract": "reconstruct missing tick labels from visible anchors on a uniform integer scale",
+      "validatorGuards": [
+        "uniform_integer_step",
+        "visible_labels_preserved",
+        "all_missing_tick_values_correct",
+        "completed_labels_strictly_ordered"
+      ],
+      "rendererReconciliation": {
+        "classification": "EXTEND",
+        "existingRendererPath": "site/modules/renderer/fraction-number-line.js"
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 4,
+        "wave": "P1_SHARED_NUMBER_LINE_EXTENSION",
+        "reason": "same renderer extension; closes scale-completion coverage"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_10552640d198_p1_III-1",
+        "exam_pdf_9d80c7672910_p1_III-1",
+        "exam_pdf_9d80c7672910_p1_III-2"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_money_read_total",
+      "visualFamilyId": "vf_g3a_u01_money_read_total",
+      "visualFamilyNameZh": "鈔票硬幣讀圖算總額",
+      "questionCount": 30,
+      "representationFamily": "money_notes_coins",
+      "taskCore": "READ_DENOMINATION_COUNTS_AND_TOTAL",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "secondaryKnowledgePointIds": [
+        "kp_g3a_u01_place_value_unit_conversion"
+      ],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_read_total",
+      "mode": "representation",
+      "answerModel": "moneyAmountAnswer",
+      "operationContract": "sum rendered denomination counts to one exact money amount while preserving denomination identity",
+      "validatorGuards": [
+        "denominations_allowlisted",
+        "counts_nonnegative_integers",
+        "sum_equals_answer",
+        "rendered_counts_match_model"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 5,
+        "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+        "reason": "30 questions; reusable money renderer also unlocks several later families"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_30bcfa82c8e1_p2_VI-1c",
+        "exam_pdf_767ae9f793b7_p5_X-2",
+        "exam_pdf_0503dc396a75_p1_I-1a"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_money_build_amount",
+      "visualFamilyId": "vf_g3a_u01_money_build_amount",
+      "visualFamilyNameZh": "用鈔票硬幣表示指定金額",
+      "questionCount": 41,
+      "representationFamily": "money_notes_coins",
+      "taskCore": "BUILD_EXACT_AMOUNT",
+      "primaryKnowledgePointId": "kp_g3a_u01_digit_place_value_decomposition",
+      "secondaryKnowledgePointIds": [
+        "kp_g3a_u01_place_value_unit_conversion"
+      ],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_build_amount",
+      "mode": "representation",
+      "answerModel": "denominationCountMapAnswer",
+      "operationContract": "decompose a target amount into the explicitly allowed denomination slots and render the required counts",
+      "validatorGuards": [
+        "target_amount_positive",
+        "denomination_set_explicit",
+        "representation_unique_under_prompt_contract",
+        "rendered_total_equals_target"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 6,
+        "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+        "reason": "41 questions; high coverage but answer uniqueness must be explicit when non-decimal denominations appear"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_0ac0f7b22057_p2_VI-1",
+        "exam_pdf_1d999151554f_p1_MONEY-1",
+        "exam_pdf_1d999151554f_p1_MONEY-2"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_base10_block_read",
+      "visualFamilyId": "vf_g3a_u01_base10_block_read",
+      "visualFamilyNameZh": "十進位積木讀值／計數",
+      "questionCount": 18,
+      "representationFamily": "base10_blocks",
+      "taskCore": "READ_BASE10_BLOCK_VALUE",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "secondaryKnowledgePointIds": [],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_base10_block_read",
+      "mode": "representation",
+      "answerModel": "integerAnswer",
+      "operationContract": "compose the integer represented by thousand-cubes, hundred-flats, ten-rods, and unit-cubes",
+      "validatorGuards": [
+        "block_types_allowlisted",
+        "block_counts_nonnegative_integers",
+        "weighted_sum_equals_answer",
+        "answer_within_unit_scope"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 7,
+        "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+        "reason": "18 questions and a clean deterministic base-ten representation"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_30bcfa82c8e1_p1_V-1",
+        "exam_pdf_34fa32051182_p1_MC-1",
+        "exam_pdf_3dba86522ac7_p1_I-1"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_place_value_board",
+      "visualFamilyId": "vf_g3a_u01_place_value_board",
+      "visualFamilyNameZh": "千百十個位值表／定位板",
+      "questionCount": 11,
+      "representationFamily": "place_value_board",
+      "taskCore": "FILL_READ_OR_INFER_PLACE_VALUE_BOARD",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "secondaryKnowledgePointIds": [
+        "kp_g3a_u01_digit_place_value_decomposition"
+      ],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_place_value_board",
+      "mode": "representation",
+      "answerModel": "structuredPlaceValueAnswer",
+      "operationContract": "read, fill, or infer 千/百/十/個 cells so the board and represented integer are mathematically equivalent",
+      "validatorGuards": [
+        "fixed_place_columns",
+        "cell_values_integer",
+        "board_weighted_sum_equals_number",
+        "visible_cells_preserved"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 8,
+        "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+        "reason": "11 questions; one board schema supports both composition and decomposition variants"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_440e42d011b0_p2_VIII-1",
+        "exam_pdf_440e42d011b0_p2_VIII-2",
+        "exam_pdf_5da0a41369e6_p1_II-1"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_place_value_unit_tiles_build",
+      "visualFamilyId": "vf_g3a_u01_place_value_unit_tiles_build",
+      "visualFamilyNameZh": "1000／100／10／1位值單位圖示表示",
+      "questionCount": 8,
+      "representationFamily": "place_value_unit_tiles",
+      "taskCore": "BUILD_PLACE_VALUE_UNIT_TILES",
+      "primaryKnowledgePointId": "kp_g3a_u01_digit_place_value_decomposition",
+      "secondaryKnowledgePointIds": [],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_place_value_unit_tiles_build",
+      "mode": "representation",
+      "answerModel": "placeValueUnitCountMapAnswer",
+      "operationContract": "decompose a target integer into 1000/100/10/1 unit-tile counts",
+      "validatorGuards": [
+        "target_within_scope",
+        "unit_tiles_allowlisted",
+        "counts_match_decimal_places",
+        "weighted_sum_equals_target"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 9,
+        "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+        "reason": "8 questions; deterministic direct inverse of existing place-value composition"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_0a5cba0de8f0_p1_I-3",
+        "exam_pdf_0cfbb568c612_p1_II-1",
+        "exam_pdf_2a5e3e98f3c0_p2_V-1"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_money_to_place_value_board",
+      "visualFamilyId": "vf_g3a_u01_money_to_place_value_board",
+      "visualFamilyNameZh": "鈔票硬幣讀值後填位值表",
+      "questionCount": 7,
+      "representationFamily": "money_plus_place_value_board",
+      "taskCore": "READ_MONEY_THEN_MAP_PLACE_VALUE",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "secondaryKnowledgePointIds": [
+        "kp_g3a_u01_digit_place_value_decomposition"
+      ],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_to_place_value_board",
+      "mode": "representation_composite",
+      "answerModel": "structuredPlaceValueAnswer",
+      "operationContract": "read denomination counts, compute total, then map the resulting integer to 千/百/十/個 cells",
+      "validatorGuards": [
+        "money_sum_correct",
+        "board_weighted_sum_equals_money_total",
+        "fixed_place_columns",
+        "same_value_preserved_across_representations"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER_COMPOSITE",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 10,
+        "wave": "P3_COMPOSITE_AND_SECONDARY",
+        "reason": "requires composition of two renderer primitives, not a separate drawing engine"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_b3edc840fd0e_p2_III-1a",
+        "exam_pdf_b3edc840fd0e_p2_III-1b",
+        "exam_pdf_02abfb88fc24_p2_IV-3"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_money_match_equivalent",
+      "visualFamilyId": "vf_g3a_u01_money_match_equivalent",
+      "visualFamilyNameZh": "鈔票硬幣配對等值金額",
+      "questionCount": 6,
+      "representationFamily": "money_notes_coins",
+      "taskCore": "MATCH_EQUIVALENT_AMOUNT",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "secondaryKnowledgePointIds": [
+        "kp_g3a_u01_4digit_compare"
+      ],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_match_equivalent",
+      "mode": "representation_reasoning",
+      "answerModel": "matchingMapAnswer",
+      "operationContract": "compute each rendered money set and match exactly equal totals",
+      "validatorGuards": [
+        "each_money_set_total_correct",
+        "each_target_total_correct",
+        "matching_bijection_when_prompt_requires_one_to_one",
+        "equal_amounts_match_only_equal_amounts"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 11,
+        "wave": "P3_COMPOSITE_AND_SECONDARY",
+        "reason": "reuses money renderer after core money read/build support exists"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_34fa32051182_p2_MATCH-1",
+        "exam_pdf_d82f9aaa6e9f_p2_V-1",
+        "exam_pdf_3e141c57c342_p1_IV-2"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_integer_number_line_movement",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_movement",
+      "visualFamilyNameZh": "整數數線位移",
+      "questionCount": 5,
+      "representationFamily": "integer_number_line",
+      "taskCore": "MOVE_LEFT_RIGHT_ON_NUMBER_LINE",
+      "primaryKnowledgePointId": "kpc_g3a_u01_integer_number_line_movement",
+      "secondaryKnowledgePointIds": [],
+      "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_movement",
+      "mode": "representation_reasoning",
+      "answerModel": "integerOrMoveCountAnswer",
+      "operationContract": "apply a directed integer movement on a uniform number-line scale and return endpoint or movement count",
+      "validatorGuards": [
+        "uniform_integer_step",
+        "direction_valid",
+        "move_count_integer",
+        "endpoint_matches_signed_movement"
+      ],
+      "rendererReconciliation": {
+        "classification": "EXTEND",
+        "existingRendererPath": "site/modules/renderer/fraction-number-line.js"
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 12,
+        "wave": "P3_COMPOSITE_AND_SECONDARY",
+        "reason": "shares number-line renderer but needs its own source-backed movement KP candidate"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_09b1958eca9d_p1_IV-1",
+        "exam_pdf_5da0a41369e6_p2_V-5",
+        "exam_pdf_4ddeb965dcd3_p1_I-16a"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_base10_to_place_value_board",
+      "visualFamilyId": "vf_g3a_u01_base10_to_place_value_board",
+      "visualFamilyNameZh": "十進位積木讀值後填位值表",
+      "questionCount": 3,
+      "representationFamily": "base10_blocks_plus_place_value_board",
+      "taskCore": "READ_BLOCKS_THEN_MAP_PLACE_VALUE",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "secondaryKnowledgePointIds": [
+        "kp_g3a_u01_digit_place_value_decomposition"
+      ],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_base10_to_place_value_board",
+      "mode": "representation_composite",
+      "answerModel": "structuredPlaceValueAnswer",
+      "operationContract": "read base-ten blocks and map the same value to a fixed place-value board",
+      "validatorGuards": [
+        "block_weighted_sum_correct",
+        "board_weighted_sum_equals_block_total",
+        "same_value_preserved_across_representations"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER_COMPOSITE",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 13,
+        "wave": "P3_COMPOSITE_AND_SECONDARY",
+        "reason": "composite becomes cheap once base10 and board renderers exist"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_02abfb88fc24_p2_IV-5",
+        "exam_pdf_2ba88ba9a5cf_p1_F-2",
+        "exam_pdf_f203159dff6c_p2_VII-2"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_money_exchange",
+      "visualFamilyId": "vf_g3a_u01_money_exchange",
+      "visualFamilyNameZh": "鈔票硬幣十進位兌換",
+      "questionCount": 2,
+      "representationFamily": "money_notes_coins",
+      "taskCore": "EXCHANGE_DENOMINATIONS",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_unit_conversion",
+      "secondaryKnowledgePointIds": [],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_exchange",
+      "mode": "representation",
+      "answerModel": "quotientRemainderWithUnitsAnswer",
+      "operationContract": "exchange rendered lower-denomination units into higher-denomination units using exact source-backed denomination ratios",
+      "validatorGuards": [
+        "denomination_ratio_valid",
+        "source_count_nonnegative",
+        "quotient_remainder_correct",
+        "value_preserved_after_exchange"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 14,
+        "wave": "P3_COMPOSITE_AND_SECONDARY",
+        "reason": "exact existing KP contract; low frequency, depends on money renderer"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_4ddeb965dcd3_p1_I-3",
+        "exam_pdf_6edae36e4271_p1_II-1"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_money_compare",
+      "visualFamilyId": "vf_g3a_u01_money_compare",
+      "visualFamilyNameZh": "比較兩組鈔票硬幣金額",
+      "questionCount": 1,
+      "representationFamily": "money_notes_coins",
+      "taskCore": "COMPARE_VISUAL_AMOUNTS",
+      "primaryKnowledgePointId": "kp_g3a_u01_4digit_compare",
+      "secondaryKnowledgePointIds": [
+        "kp_g3a_u01_place_value_composition"
+      ],
+      "mappingStatus": "READY_EXISTING_KP",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_compare",
+      "mode": "representation_reasoning",
+      "answerModel": "comparisonOrOwnerAnswer",
+      "operationContract": "compute two rendered money totals and compare them exactly",
+      "validatorGuards": [
+        "both_totals_correct",
+        "comparison_symbol_correct",
+        "owner_label_matches_larger_or_equal_total"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 15,
+        "wave": "P3_COMPOSITE_AND_SECONDARY",
+        "reason": "semantically simple but only one source question"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_0a5cba0de8f0_p1_I-1c"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_money_complete_amount",
+      "visualFamilyId": "vf_g3a_u01_money_complete_amount",
+      "visualFamilyNameZh": "補足鈔票硬幣到指定金額",
+      "questionCount": 3,
+      "representationFamily": "money_notes_coins",
+      "taskCore": "COMPLETE_TO_TARGET_AMOUNT",
+      "primaryKnowledgePointId": "kp_g3a_u01_digit_place_value_decomposition",
+      "secondaryKnowledgePointIds": [
+        "kp_g3a_u01_place_value_unit_conversion"
+      ],
+      "mappingStatus": "READY_WITH_UNIQUENESS_GUARD",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_complete_amount",
+      "mode": "representation_reasoning",
+      "answerModel": "denominationCountMapAnswer",
+      "operationContract": "complete a partially rendered denomination set so its total equals the target amount under an explicit unique-answer denomination/slot policy",
+      "validatorGuards": [
+        "visible_money_preserved",
+        "residual_amount_nonnegative",
+        "added_total_equals_residual",
+        "final_total_equals_target",
+        "answer_unique_under_explicit_slot_policy"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 16,
+        "wave": "P4_REVIEW_HEAVY",
+        "reason": "only safe after uniqueness policy is locked; multiple money decompositions must not be silently accepted"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_49dbfb086cd5_p2_DRAW-3",
+        "exam_pdf_34fa32051182_p2_DRAW-3",
+        "exam_pdf_0605590e9f7a_p1_D-2"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_integer_number_line_relation_or_compute",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_relation_or_compute",
+      "visualFamilyNameZh": "整數數線配對／順序／讀值後運算",
+      "questionCount": 3,
+      "representationFamily": "integer_number_line",
+      "taskCore": "NUMBER_LINE_RELATION_OR_READ_THEN_COMPUTE",
+      "primaryKnowledgePointId": null,
+      "secondaryKnowledgePointIds": [
+        "kpc_g3a_u01_integer_number_line_scale_location",
+        "kp_g3a_u01_4digit_compare"
+      ],
+      "mappingStatus": "PATTERNSPEC_SPLIT_REQUIRED",
+      "patternSpecCandidateId": null,
+      "mode": "mixed",
+      "answerModel": "mixed",
+      "operationContract": "family currently mixes position matching, left/right ordering, and read-then-compute; no single PatternSpec contract is allowed",
+      "validatorGuards": [
+        "must_split_before_patternspec",
+        "no_mixed_answer_model",
+        "no_cross_operation_generator"
+      ],
+      "rendererReconciliation": {
+        "classification": "EXTEND",
+        "existingRendererPath": "site/modules/renderer/fraction-number-line.js"
+      },
+      "generativeReconstructionEligibility": "YES",
+      "priority": {
+        "rank": 17,
+        "wave": "P4_REVIEW_HEAVY",
+        "reason": "three questions but three learner operations; split is required before implementation"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_3dba86522ac7_p1_I-10",
+        "exam_pdf_748c876ec715_p2_VIII-1",
+        "exam_pdf_767ae9f793b7_p3_VI-1"
+      ]
+    },
+    {
+      "formalMappingCandidateId": "fmc_g3a_u01_receipt_range_reasoning",
+      "visualFamilyId": "vf_g3a_u01_receipt_range_reasoning",
+      "visualFamilyNameZh": "發票／收據遮蔽數字範圍推理",
+      "questionCount": 2,
+      "representationFamily": "receipt_card",
+      "taskCore": "INFER_RANGE_FROM_PARTIALLY_VISIBLE_RECEIPT",
+      "primaryKnowledgePointId": "kp_g3a_u01_range_reasoning",
+      "secondaryKnowledgePointIds": [],
+      "mappingStatus": "READY_LIMITED_SOURCE",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_receipt_range_reasoning",
+      "mode": "reasoning_application",
+      "answerModel": "minMaxMoneyAmountAnswer",
+      "operationContract": "infer the minimum and maximum admissible spending amount from the visible receipt constraints and explicitly stated payment information",
+      "validatorGuards": [
+        "source_constraints_fully_visible",
+        "minimum_is_feasible",
+        "maximum_is_feasible",
+        "no_outside_value_satisfies_constraints",
+        "answer_interval_unique"
+      ],
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER_CANDIDATE",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "LIMITED",
+      "priority": {
+        "rank": 18,
+        "wave": "P4_REVIEW_HEAVY",
+        "reason": "only two subquestions from one source and generative eligibility is LIMITED"
+      },
+      "evidenceQuestionIds": [
+        "exam_pdf_3dba86522ac7_p2_II-14a",
+        "exam_pdf_3dba86522ac7_p2_II-14b"
+      ]
+    }
+  ],
+  "patternSpecPriorityOrdering": [
+    {
+      "rank": 1,
+      "wave": "P0_NATIVE_SHORTEST_PATH",
+      "visualFamilyId": "vf_g3a_u01_one_way_table_compare",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_one_way_table_compare",
+      "questionCount": 11,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_4digit_compare",
+      "rendererClassification": "NATIVE",
+      "blocker": null
+    },
+    {
+      "rank": 2,
+      "wave": "P1_SHARED_NUMBER_LINE_EXTENSION",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_read_value",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_read_value",
+      "questionCount": 50,
+      "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+      "primaryKnowledgePointId": "kpc_g3a_u01_integer_number_line_scale_location",
+      "rendererClassification": "EXTEND",
+      "blocker": "accept source-backed number-line KP candidate before runtime admission"
+    },
+    {
+      "rank": 3,
+      "wave": "P1_SHARED_NUMBER_LINE_EXTENSION",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_mark_value",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_mark_value",
+      "questionCount": 20,
+      "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+      "primaryKnowledgePointId": "kpc_g3a_u01_integer_number_line_scale_location",
+      "rendererClassification": "EXTEND",
+      "blocker": "accept source-backed number-line KP candidate before runtime admission"
+    },
+    {
+      "rank": 4,
+      "wave": "P1_SHARED_NUMBER_LINE_EXTENSION",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_complete_scale",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_complete_scale",
+      "questionCount": 7,
+      "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+      "primaryKnowledgePointId": "kpc_g3a_u01_integer_number_line_scale_location",
+      "rendererClassification": "EXTEND",
+      "blocker": "accept source-backed number-line KP candidate before runtime admission"
+    },
+    {
+      "rank": 5,
+      "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+      "visualFamilyId": "vf_g3a_u01_money_read_total",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_read_total",
+      "questionCount": 30,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "rendererClassification": "NEW_RENDERER",
+      "blocker": null
+    },
+    {
+      "rank": 6,
+      "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+      "visualFamilyId": "vf_g3a_u01_money_build_amount",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_build_amount",
+      "questionCount": 41,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_digit_place_value_decomposition",
+      "rendererClassification": "NEW_RENDERER",
+      "blocker": null
+    },
+    {
+      "rank": 7,
+      "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+      "visualFamilyId": "vf_g3a_u01_base10_block_read",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_base10_block_read",
+      "questionCount": 18,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "rendererClassification": "NEW_RENDERER",
+      "blocker": null
+    },
+    {
+      "rank": 8,
+      "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+      "visualFamilyId": "vf_g3a_u01_place_value_board",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_place_value_board",
+      "questionCount": 11,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "rendererClassification": "NEW_RENDERER",
+      "blocker": null
+    },
+    {
+      "rank": 9,
+      "wave": "P2_HIGH_COVERAGE_NEW_REPRESENTATIONS",
+      "visualFamilyId": "vf_g3a_u01_place_value_unit_tiles_build",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_place_value_unit_tiles_build",
+      "questionCount": 8,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_digit_place_value_decomposition",
+      "rendererClassification": "NEW_RENDERER",
+      "blocker": null
+    },
+    {
+      "rank": 10,
+      "wave": "P3_COMPOSITE_AND_SECONDARY",
+      "visualFamilyId": "vf_g3a_u01_money_to_place_value_board",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_to_place_value_board",
+      "questionCount": 7,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "rendererClassification": "NEW_RENDERER_COMPOSITE",
+      "blocker": null
+    },
+    {
+      "rank": 11,
+      "wave": "P3_COMPOSITE_AND_SECONDARY",
+      "visualFamilyId": "vf_g3a_u01_money_match_equivalent",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_match_equivalent",
+      "questionCount": 6,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "rendererClassification": "NEW_RENDERER",
+      "blocker": null
+    },
+    {
+      "rank": 12,
+      "wave": "P3_COMPOSITE_AND_SECONDARY",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_movement",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_movement",
+      "questionCount": 5,
+      "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+      "primaryKnowledgePointId": "kpc_g3a_u01_integer_number_line_movement",
+      "rendererClassification": "EXTEND",
+      "blocker": "accept source-backed number-line KP candidate before runtime admission"
+    },
+    {
+      "rank": 13,
+      "wave": "P3_COMPOSITE_AND_SECONDARY",
+      "visualFamilyId": "vf_g3a_u01_base10_to_place_value_board",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_base10_to_place_value_board",
+      "questionCount": 3,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_composition",
+      "rendererClassification": "NEW_RENDERER_COMPOSITE",
+      "blocker": null
+    },
+    {
+      "rank": 14,
+      "wave": "P3_COMPOSITE_AND_SECONDARY",
+      "visualFamilyId": "vf_g3a_u01_money_exchange",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_exchange",
+      "questionCount": 2,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_place_value_unit_conversion",
+      "rendererClassification": "NEW_RENDERER",
+      "blocker": null
+    },
+    {
+      "rank": 15,
+      "wave": "P3_COMPOSITE_AND_SECONDARY",
+      "visualFamilyId": "vf_g3a_u01_money_compare",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_compare",
+      "questionCount": 1,
+      "mappingStatus": "READY_EXISTING_KP",
+      "primaryKnowledgePointId": "kp_g3a_u01_4digit_compare",
+      "rendererClassification": "NEW_RENDERER",
+      "blocker": null
+    },
+    {
+      "rank": 16,
+      "wave": "P4_REVIEW_HEAVY",
+      "visualFamilyId": "vf_g3a_u01_money_complete_amount",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_money_complete_amount",
+      "questionCount": 3,
+      "mappingStatus": "READY_WITH_UNIQUENESS_GUARD",
+      "primaryKnowledgePointId": "kp_g3a_u01_digit_place_value_decomposition",
+      "rendererClassification": "NEW_RENDERER",
+      "blocker": "lock unique-answer denomination/slot policy"
+    },
+    {
+      "rank": 17,
+      "wave": "P4_REVIEW_HEAVY",
+      "visualFamilyId": "vf_g3a_u01_integer_number_line_relation_or_compute",
+      "patternSpecCandidateId": null,
+      "questionCount": 3,
+      "mappingStatus": "PATTERNSPEC_SPLIT_REQUIRED",
+      "primaryKnowledgePointId": null,
+      "rendererClassification": "EXTEND",
+      "blocker": "split mixed learner operations before PatternSpec design"
+    },
+    {
+      "rank": 18,
+      "wave": "P4_REVIEW_HEAVY",
+      "visualFamilyId": "vf_g3a_u01_receipt_range_reasoning",
+      "patternSpecCandidateId": "psc_g3a_u01_visual_receipt_range_reasoning",
+      "questionCount": 2,
+      "mappingStatus": "READY_LIMITED_SOURCE",
+      "primaryKnowledgePointId": "kp_g3a_u01_range_reasoning",
+      "rendererClassification": "NEW_RENDERER_CANDIDATE",
+      "blocker": "keep source-bounded until additional evidence or human acceptance"
+    }
+  ],
+  "acceptance": {
+    "all18VisualFamiliesRepresented": true,
+    "all228QuestionsAccounted": true,
+    "noRuntimeChange": true,
+    "noNewKPMinted": true,
+    "priorityRanksUnique": true
+  },
+  "nextStep": "Resolve the two source-backed number-line KP candidates and split vf_g3a_u01_integer_number_line_relation_or_compute before PatternSpec contract materialization; then start with priority rank 1."
+}
