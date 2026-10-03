@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G3A_U01_VISUAL_RANK01_GENERATOR_VALIDATOR_RENDERED_ACCEPTANCE_BOUNDED",
+  "unitId": "g3a_u01_3a01",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g3a-u01-visual-rank01-runtime-acceptance.test.js",
+          "tests/curriculum/g3a-u01-visual-rank01-one-way-table-contract.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g3a-u01-visual-rank01-six-item-rendered-pilot.test.js",
+          "tests/curriculum/batch-a/g3a-u01-number-structure-worksheet.test.js"
+        ]
+      }
+    ]
+  }
+}
