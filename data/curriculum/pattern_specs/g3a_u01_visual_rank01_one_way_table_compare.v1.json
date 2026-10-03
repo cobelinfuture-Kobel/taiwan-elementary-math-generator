@@ -1,0 +1,289 @@
+{
+  "schemaName": "G3AU01VisualPatternSpecRank01Contract",
+  "schemaVersion": 1,
+  "taskId": "G3A_U01_VisualPatternSpec_Rank01_OneWayTableCompare_ContractMaterialization",
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "unitTitle": "10000以內的數",
+  "status": "materialized_hidden_contract_not_routed",
+  "authority": {
+    "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+    "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
+    "priorityResolutionPath": "data/curriculum/mapping/g3a_u01_number_line_candidate_resolution.v1.json",
+    "curriculumSource": "題型總覽-3a01-10000以內的數.pdf",
+    "sourceQuestionDatabase": "g03_question_database.xlsx"
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g3a_u01_visual_one_way_table_compare",
+    "sourceMappingCandidateId": "fmc_g3a_u01_one_way_table_compare",
+    "visualFamilyId": "vf_g3a_u01_one_way_table_compare",
+    "patternGroupId": "pg_g3a_u01_visual_one_way_table_compare",
+    "patternSpecId": "ps_g3a_u01_visual_one_way_table_compare",
+    "primaryKnowledgePointId": "kp_g3a_u01_4digit_compare",
+    "secondaryKnowledgePointIds": [
+      "kp_g3a_u01_range_reasoning"
+    ],
+    "mode": "representation_reasoning",
+    "operationContract": "read all required category/value pairs from a one-way table and answer a closed comparison, extrema, or unique-threshold question using only the rendered four-digit values",
+    "guards": [
+      "table_has_2_to_8_rows",
+      "category_labels_are_unique",
+      "all_compared_values_are_integers_1000_to_9999",
+      "rendered_values_equal_semantic_model_values",
+      "single_answer_prompt_has_unique_answer",
+      "comparison_or_extrema_result_matches_values"
+    ],
+    "status": "materialized_hidden_not_routed"
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g3a_u01_visual_one_way_table_compare",
+    "knowledgePointId": "kp_g3a_u01_4digit_compare",
+    "displayNameZh": "一維資料表四位數比較",
+    "visualFamilyId": "vf_g3a_u01_one_way_table_compare",
+    "patternSpecIds": [
+      "ps_g3a_u01_visual_one_way_table_compare"
+    ],
+    "sourceQuestionCount": 11,
+    "lifecycle": "hidden"
+  },
+  "patternSpec": {
+    "patternSpecId": "ps_g3a_u01_visual_one_way_table_compare",
+    "sourcePatternSpecCandidateId": "psc_g3a_u01_visual_one_way_table_compare",
+    "sourceId": "g3a_u01_3a01",
+    "unitCode": "3A-U01",
+    "unitTitle": "10000以內的數",
+    "kind": "g3aU01VisualRepresentation",
+    "questionKind": "visual_reading",
+    "supportStatus": "plannedOnly",
+    "patternGroupId": "pg_g3a_u01_visual_one_way_table_compare",
+    "knowledgePointId": "kp_g3a_u01_4digit_compare",
+    "secondaryKnowledgePointIds": [
+      "kp_g3a_u01_range_reasoning"
+    ],
+    "visualFamilyId": "vf_g3a_u01_one_way_table_compare",
+    "representationFamily": "one_way_data_table",
+    "semanticSignature": "read_one_way_table_then_compare_four_digit_values",
+    "taskCore": "COMPARE_EXTREMA_THRESHOLD_FROM_TABLE",
+    "allowedPromptVariants": [
+      "MAXIMUM_CATEGORY",
+      "MINIMUM_CATEGORY",
+      "COMPARE_TWO_ROWS",
+      "UNIQUE_THRESHOLD_MATCH"
+    ],
+    "promptSkeletonsZh": {
+      "MAXIMUM_CATEGORY": "根據表格，{measureLabel}最多的是哪一個{categoryLabel}？",
+      "MINIMUM_CATEGORY": "根據表格，{measureLabel}最少的是哪一個{categoryLabel}？",
+      "COMPARE_TWO_ROWS": "根據表格，{categoryA}和{categoryB}相比，哪一個的{measureLabel}{comparisonPhrase}？",
+      "UNIQUE_THRESHOLD_MATCH": "根據表格，哪一個{categoryLabel}的{measureLabel}{thresholdPhrase}{thresholdValue}？"
+    },
+    "constraints": {
+      "table": {
+        "minRows": 2,
+        "maxRows": 8,
+        "uniqueCategoryLabels": true,
+        "exactlyTwoColumns": true
+      },
+      "values": {
+        "integerOnly": true,
+        "min": 1000,
+        "max": 9999,
+        "fourDigitOnly": true
+      },
+      "answerUniqueness": {
+        "maximumAndMinimumPromptsRequireUniqueExtremum": true,
+        "thresholdPromptRequiresExactlyOneMatch": true,
+        "compareTwoRowsRequiresDistinctComparedValues": true
+      },
+      "generation": {
+        "freeFormAIGeneration": false,
+        "sourceBackedSemanticFamilyOnly": true,
+        "duplicateCategoryForbidden": true
+      }
+    },
+    "answerModel": {
+      "shape": "table_extrema_or_comparison_answer",
+      "fields": [
+        "promptVariant",
+        "selectedCategory",
+        "selectedValue",
+        "comparisonSymbol",
+        "comparedCategories"
+      ],
+      "nullableByVariant": {
+        "selectedCategory": [
+          "COMPARE_TWO_ROWS"
+        ],
+        "selectedValue": [
+          "COMPARE_TWO_ROWS"
+        ],
+        "comparisonSymbol": [
+          "MAXIMUM_CATEGORY",
+          "MINIMUM_CATEGORY",
+          "UNIQUE_THRESHOLD_MATCH"
+        ],
+        "comparedCategories": [
+          "MAXIMUM_CATEGORY",
+          "MINIMUM_CATEGORY",
+          "UNIQUE_THRESHOLD_MATCH"
+        ]
+      }
+    },
+    "validatorHooks": [
+      "validate_g3a_u01_one_way_table_model",
+      "validate_g3a_u01_one_way_table_answer"
+    ],
+    "validatorContractRef": "vc_g3a_u01_visual_one_way_table_compare",
+    "rendererBindingRef": "rb_g3a_u01_visual_one_way_table_compare",
+    "sourceMetadata": {
+      "sourceEvidenceType": "historical_exam_visual_family",
+      "sourceQuestionCount": 11,
+      "sourceQuestionIds": [
+        "exam_pdf_32ddd11dd4cb_p1_I-3",
+        "exam_pdf_3aefc1effbdc_p3_VII-1a",
+        "exam_pdf_3aefc1effbdc_p3_VII-1b",
+        "exam_pdf_7bef9a235faf_p1_F-11a",
+        "exam_pdf_7bef9a235faf_p1_F-11b",
+        "exam_pdf_7bef9a235faf_p1_F-11c",
+        "exam_pdf_7bef9a235faf_p1_F-11d",
+        "exam_pdf_c969b3cd8818_p2_VIII-1a",
+        "exam_pdf_c969b3cd8818_p2_VIII-1b",
+        "exam_pdf_ce23643f7bcc_p3_VI-1a",
+        "exam_pdf_ce23643f7bcc_p3_VI-1b"
+      ]
+    },
+    "provenance": {
+      "visualFamilyRegistryMergeSha": "e9ee01ffb404a36283daafa3035eb28230110de4",
+      "formalMappingCandidateMergeSha": "81638d8731ef757cf340ac54eafef21d0bfd2735"
+    },
+    "generatorStatus": "contract_only_not_implemented",
+    "validatorStatus": "contract_only_not_runtime",
+    "runtimeProjectionStatus": "materialized_not_routed",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  "rendererBinding": {
+    "rendererBindingId": "rb_g3a_u01_visual_one_way_table_compare",
+    "classification": "NATIVE",
+    "rendererPath": "site/modules/renderer/one-way-statistics-table.js",
+    "modelContract": {
+      "kind": "one_way_statistics_table",
+      "headersLength": 2,
+      "rowsMin": 2,
+      "rowsMax": 8,
+      "rowFields": [
+        "displayCategory",
+        "displayValue"
+      ],
+      "semanticCore": "TABLE_DATA_COMPARISON",
+      "chartRepresentationRendered": false
+    },
+    "noRendererCodeChangeRequired": true
+  },
+  "validatorContract": {
+    "validatorContractId": "vc_g3a_u01_visual_one_way_table_compare",
+    "status": "contract_only_not_runtime",
+    "inputModelChecks": [
+      "renderer_model_kind_is_one_way_statistics_table",
+      "headers_have_exactly_two_cells",
+      "row_count_between_2_and_8",
+      "category_labels_unique",
+      "all_values_are_four_digit_integers",
+      "semantic_core_is_TABLE_DATA_COMPARISON",
+      "chart_representation_rendered_is_false"
+    ],
+    "answerChecks": {
+      "MAXIMUM_CATEGORY": [
+        "selected_category_exists",
+        "selected_value_equals_category_value",
+        "selected_value_is_strict_unique_maximum"
+      ],
+      "MINIMUM_CATEGORY": [
+        "selected_category_exists",
+        "selected_value_equals_category_value",
+        "selected_value_is_strict_unique_minimum"
+      ],
+      "COMPARE_TWO_ROWS": [
+        "both_compared_categories_exist",
+        "compared_values_are_distinct",
+        "comparison_symbol_matches_numeric_order"
+      ],
+      "UNIQUE_THRESHOLD_MATCH": [
+        "threshold_relation_is_closed",
+        "exactly_one_row_satisfies_threshold_relation",
+        "selected_category_is_that_unique_row"
+      ]
+    },
+    "forbidden": [
+      "multiple_correct_rows_for_single_answer_prompt",
+      "values_outside_1000_to_9999",
+      "missing_category_or_value",
+      "free_form_answer_without_closed_variant"
+    ]
+  },
+  "sourceCalibrationFixtures": [
+    {
+      "fixtureId": "g3a_u01_rank01_minimum_three_days",
+      "sourceQuestionId": "exam_pdf_32ddd11dd4cb_p1_I-3",
+      "promptVariant": "MINIMUM_CATEGORY",
+      "model": {
+        "kind": "one_way_statistics_table",
+        "headers": [
+          "日期",
+          "參觀人數"
+        ],
+        "rows": [
+          {
+            "displayCategory": "第一天",
+            "displayValue": 9080
+          },
+          {
+            "displayCategory": "第二天",
+            "displayValue": 9800
+          },
+          {
+            "displayCategory": "第三天",
+            "displayValue": 9008
+          }
+        ],
+        "semanticCore": "TABLE_DATA_COMPARISON",
+        "chartRepresentationRendered": false,
+        "ariaLabel": "三天參觀人數"
+      },
+      "expectedAnswer": {
+        "selectedCategory": "第三天",
+        "selectedValue": 9008
+      }
+    }
+  ],
+  "sourceCoverage": {
+    "sourceQuestionCount": 11,
+    "sourceQuestionIds": [
+      "exam_pdf_32ddd11dd4cb_p1_I-3",
+      "exam_pdf_3aefc1effbdc_p3_VII-1a",
+      "exam_pdf_3aefc1effbdc_p3_VII-1b",
+      "exam_pdf_7bef9a235faf_p1_F-11a",
+      "exam_pdf_7bef9a235faf_p1_F-11b",
+      "exam_pdf_7bef9a235faf_p1_F-11c",
+      "exam_pdf_7bef9a235faf_p1_F-11d",
+      "exam_pdf_c969b3cd8818_p2_VIII-1a",
+      "exam_pdf_c969b3cd8818_p2_VIII-1b",
+      "exam_pdf_ce23643f7bcc_p3_VI-1a",
+      "exam_pdf_ce23643f7bcc_p3_VI-1b"
+    ],
+    "allFamilyQuestionsRetained": true
+  },
+  "lifecycle": {
+    "formalMappingMaterialized": true,
+    "patternGroupMaterialized": true,
+    "patternSpecMaterialized": true,
+    "answerModelMaterialized": true,
+    "validatorContractMaterialized": true,
+    "nativeRendererBindingMaterialized": true,
+    "generatorImplemented": false,
+    "validatorRuntimeImplemented": false,
+    "rendererCodeChanged": false,
+    "selectorVisible": false,
+    "productionUse": "forbidden"
+  },
+  "nextStep": "Implement the hidden deterministic generator and blocking validator for ps_g3a_u01_visual_one_way_table_compare, then run rendered worksheet/answer acceptance before any selector admission."
+}
