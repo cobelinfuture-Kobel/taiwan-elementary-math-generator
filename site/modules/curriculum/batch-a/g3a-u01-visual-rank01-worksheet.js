@@ -27,7 +27,7 @@ function displayModels(questions,l){
     answerText:q.answerText,questionNumberText:l.showQuestionNumbers?String(i+1)+".":null,
     tableData:q.tableData,
     metadataSnapshot:Object.freeze({...q.metadata,questionSignature:q.questionSignature,promptVariant:q.promptVariant}),
-    layoutHints:Object.freeze({estimatedTextLength:q.blankedDisplayText.length,hasGrouping:false,avoidPageBreakInside:true,representation:"one-way-statistics-table",rowCount:q.tableData.rows.length,layoutTuningStatus:"pending_actual_page_review"})
+    layoutHints:Object.freeze({estimatedTextLength:q.blankedDisplayText.length,hasGrouping:false,avoidPageBreakInside:true,representation:"one-way-statistics-table",rowCount:q.tableData.rows.length,layoutTuningStatus:"accepted_actual_a4_2x3_no_size_change"})
   }));
 }
 
@@ -35,7 +35,7 @@ function answerItems(questions,models){
   return questions.map((q,i)=>Object.freeze({
     questionId:q.id,questionNumber:i+1,patternId:q.patternSpecId,promptText:q.blankedDisplayText,
     answerText:q.answerText,tableData:q.tableData,metadataSnapshot:models[i].metadataSnapshot,
-    layoutHints:Object.freeze({avoidPageBreakInside:true,representation:"one-way-statistics-table",rowCount:q.tableData.rows.length,layoutTuningStatus:"pending_actual_page_review"})
+    layoutHints:Object.freeze({avoidPageBreakInside:true,representation:"one-way-statistics-table",rowCount:q.tableData.rows.length,layoutTuningStatus:"accepted_actual_a4_2x3_no_size_change"})
   }));
 }
 
@@ -64,8 +64,8 @@ export function buildG3AU01VisualRank01WorksheetDocument(options={}){
       patternGroupId:G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,patternSpecId:G3A_U01_VISUAL_RANK01_PATTERN_SPEC_ID,
       sourceSemanticCore:"TABLE_DATA_COMPARISON",nativeRendererPath:"site/modules/renderer/one-way-statistics-table.js",
       chartRepresentationRendered:false,hiddenRuntime:true,selectorVisible:false,productionUse:"forbidden",
-      layoutTuningStatus:"pending_actual_page_review",
-      layoutTuningBoundary:"adjust table/card sizing only after actual worksheet-answer-print page inspection"
+      layoutTuningStatus:"accepted_actual_a4_2x3_no_size_change",
+      layoutTuningBoundary:"A4 2x3 accepted at native table size; any future size increase requires renewed actual-page overflow review"
     }),
     summary:Object.freeze({questionCount:generation.questions.length,questionPageCount:questionPages.length,answerKeyPageCount:answerKeyPages.length,tableQuestionCount:generation.questions.length,chartQuestionCount:0})
   });
