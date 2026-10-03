@@ -25,8 +25,8 @@ test("Rank01 materializes one hidden PatternSpec from the approved FormalMapping
   assert.equal(contract.patternSpec.knowledgePointId, "kp_g3a_u01_4digit_compare");
   assert.equal(contract.patternSpec.selectorStatus, "hidden");
   assert.equal(contract.patternSpec.productionUse, "forbidden");
-  assert.equal(contract.lifecycle.generatorImplemented, false);
-  assert.equal(contract.lifecycle.validatorRuntimeImplemented, false);
+  assert.equal(contract.lifecycle.generatorImplemented, true);
+  assert.equal(contract.lifecycle.validatorRuntimeImplemented, true);
 });
 
 test("Rank01 PatternSpec passes the repository core PatternSpec schema helper", () => {
@@ -68,18 +68,18 @@ test("Rank01 source calibration answer satisfies the materialized minimum contra
   assert.equal(min.displayValue, 9008);
 });
 
-test("Rank01 lifecycle stops before runtime implementation and selector admission", () => {
-  assert.deepEqual(contract.lifecycle, {
-    formalMappingMaterialized:true,
-    patternGroupMaterialized:true,
-    patternSpecMaterialized:true,
-    answerModelMaterialized:true,
-    validatorContractMaterialized:true,
-    nativeRendererBindingMaterialized:true,
-    generatorImplemented:false,
-    validatorRuntimeImplemented:false,
-    rendererCodeChanged:false,
-    selectorVisible:false,
-    productionUse:"forbidden"
-  });
+test("Rank01 lifecycle advances to hidden runtime while selector and production remain blocked", () => {
+  assert.equal(contract.lifecycle.formalMappingMaterialized, true);
+  assert.equal(contract.lifecycle.patternGroupMaterialized, true);
+  assert.equal(contract.lifecycle.patternSpecMaterialized, true);
+  assert.equal(contract.lifecycle.answerModelMaterialized, true);
+  assert.equal(contract.lifecycle.validatorContractMaterialized, true);
+  assert.equal(contract.lifecycle.nativeRendererBindingMaterialized, true);
+  assert.equal(contract.lifecycle.generatorImplemented, true);
+  assert.equal(contract.lifecycle.validatorRuntimeImplemented, true);
+  assert.equal(contract.lifecycle.rendererCodeChanged, false);
+  assert.equal(contract.lifecycle.selectorVisible, false);
+  assert.equal(contract.lifecycle.productionUse, "forbidden");
+  assert.equal(contract.lifecycle.renderedWorksheetAcceptance, "implemented_pending_ci");
+  assert.equal(contract.lifecycle.layoutTuningStatus, "pending_actual_worksheet_answer_print_review");
 });
