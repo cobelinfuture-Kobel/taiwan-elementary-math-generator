@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "P09_UI_SAME_UNIT_MIXED_21_HISTORICAL_PREFLIGHT_COMPAT_REPAIR_BOUNDED_VALIDATION",
+  "unitId": "P09-UI-SAME-UNIT-MIXED-21-HISTORICAL-PREFLIGHT-COMPAT-REPAIR",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p09-ui-same-unit-mixed-21-defect-preflight.test.js",
+          "tests/curriculum/p09-ui-same-unit-mixed21-shared-unit-aggregation.test.js"
+        ]
+      }
+    ]
+  },
+  "forbidden": [
+    "FULL_NODE_REGRESSION",
+    "GLOBAL_BROWSER_REPLAY",
+    "PAGES_E6"
+  ]
+}

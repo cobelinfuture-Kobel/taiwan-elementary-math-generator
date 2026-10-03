@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "P09_UI_SAME_UNIT_MIXED_21_HISTORICAL_PREFLIGHT_COMPAT_REPAIR",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [],
+  "unitExpectedKnowledgePointIds": [],
+  "unitKnowledgePointGateStatus": {},
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/P09_UI_SAME_UNIT_MIXED_21_HISTORICAL_PREFLIGHT_COMPAT_REPAIR.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false,
+    "productImplementation": false,
+    "selectorVisibilityChanged": false,
+    "currentBrowserRoutingChanged": false,
+    "sharedRendererChanged": false
+  },
+  "scopeGuards": {
+    "testOnlyCompatibilityRepair": true,
+    "historicalEvidencePreserved": true,
+    "runtimeSiteMutation": false,
+    "sourceUnitBehaviorChange": false,
+    "crossUnitMixedAdmission": false,
+    "r02Mutation": false,
+    "r03Mutation": false,
+    "r04Mutation": false,
+    "r05Mutation": false,
+    "knowledgePointIdentityMutation": false,
+    "patternSpecSemanticRedesign": false,
+    "generatorMathSemanticRewrite": false
+  },
+  "classificationNote": "Test-only compatibility repair over shared-runtime assertions. sharedExecutableChange is declared for validation classification because the changed test exercises shared current capability bindings; no deployed product runtime or semantic authority is mutated."
+}
