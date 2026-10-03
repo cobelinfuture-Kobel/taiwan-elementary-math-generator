@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G3A_U01_VISUAL_RANK01_SIX_ITEM_RENDERED_PILOT_BOUNDED_VALIDATION",
+  "unitId": "g3a_u01_3a01",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g3a-u01-visual-rank01-six-item-rendered-pilot.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g3a-u01-visual-rank01-one-way-table-contract.test.js"
+        ]
+      }
+    ]
+  }
+}
