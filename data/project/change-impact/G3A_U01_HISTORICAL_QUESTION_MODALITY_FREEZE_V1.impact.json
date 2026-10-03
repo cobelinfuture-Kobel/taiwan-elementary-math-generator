@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_HISTORICAL_QUESTION_MODALITY_FREEZE_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_HISTORICAL_QUESTION_MODALITY_FREEZE_V1.validation.json",
+  "classificationNote": "G3A-U01-only historical exam A/B/C modality data freeze. No runtime, public authority, route, generator, validator, renderer, selector, or UI change. SHARED_RUNTIME_BOUNDED is reused only because current validation policy has no planning/data-inventory-only curriculum scope.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "planningDataOnlyClassification": {
+    "planningDataOnly": true,
+    "runtimeFilesChanged": false,
+    "publicAuthorityChanged": false,
+    "legalRouteSetChanged": false,
+    "currentKnowledgeAuthorityChanged": false,
+    "newKnowledgePointMinted": false,
+    "laterUnitsTouched": false,
+    "note": "sharedExecutableChange=true is a classifier compatibility flag only; no shared executable file is changed."
+  }
+}
