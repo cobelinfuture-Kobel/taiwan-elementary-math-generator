@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "materialized_hidden_contract_not_routed",
+  "status": "hidden_runtime_implemented_rendered_acceptance_pending_ci",
   "authority": {
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
     "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
@@ -155,9 +155,9 @@
       "visualFamilyRegistryMergeSha": "e9ee01ffb404a36283daafa3035eb28230110de4",
       "formalMappingCandidateMergeSha": "81638d8731ef757cf340ac54eafef21d0bfd2735"
     },
-    "generatorStatus": "contract_only_not_implemented",
-    "validatorStatus": "contract_only_not_runtime",
-    "runtimeProjectionStatus": "materialized_not_routed",
+    "generatorStatus": "hidden_deterministic_runtime_implemented",
+    "validatorStatus": "blocking_runtime_implemented",
+    "runtimeProjectionStatus": "hidden_runtime_implemented_not_routed",
     "selectorStatus": "hidden",
     "productionUse": "forbidden"
   },
@@ -181,7 +181,7 @@
   },
   "validatorContract": {
     "validatorContractId": "vc_g3a_u01_visual_one_way_table_compare",
-    "status": "contract_only_not_runtime",
+    "status": "blocking_runtime_implemented",
     "inputModelChecks": [
       "renderer_model_kind_is_one_way_statistics_table",
       "headers_have_exactly_two_cells",
@@ -279,11 +279,13 @@
     "answerModelMaterialized": true,
     "validatorContractMaterialized": true,
     "nativeRendererBindingMaterialized": true,
-    "generatorImplemented": false,
-    "validatorRuntimeImplemented": false,
+    "generatorImplemented": true,
+    "validatorRuntimeImplemented": true,
     "rendererCodeChanged": false,
     "selectorVisible": false,
-    "productionUse": "forbidden"
+    "productionUse": "forbidden",
+    "renderedWorksheetAcceptance": "implemented_pending_ci",
+    "layoutTuningStatus": "pending_actual_worksheet_answer_print_review"
   },
-  "nextStep": "Implement the hidden deterministic generator and blocking validator for ps_g3a_u01_visual_one_way_table_compare, then run rendered worksheet/answer acceptance before any selector admission."
+  "nextStep": "Run focused CI for hidden deterministic generator, blocking validator and shared HTML worksheet/answer rendering; after acceptance inspect actual page layout and tune sizing before selector admission."
 }
