@@ -998,3 +998,164 @@
         "exam_pdf_767ae9f793b7_p3_VI-1"
       ]
     },
+    {
+      "visualFamilyId": "vf_g3a_u01_money_complete_amount",
+      "nameZh": "補足鈔票硬幣到指定金額",
+      "count": 3,
+      "candidateKnowledgePointIds": [
+        "kp_g3a_u01_place_value_composition"
+      ],
+      "representationFamily": "money_notes_coins",
+      "taskCore": "COMPLETE_TO_TARGET_AMOUNT",
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "questionTypeHistogram": {
+        "金錢位值圖示": 1,
+        "金額補足": 2
+      },
+      "sourceEvidenceSamples": [
+        {
+          "questionId": "exam_pdf_49dbfb086cd5_p2_DRAW-3",
+          "questionText": "椅子售價3851元，圖示已有2張1000元、1張500元和5個10元，還要補畫多少錢？",
+          "answer": "再補1張1000元、3張100元和1個1元，共1301元。",
+          "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_翰林_三上_數學_期中評量卷_大華國小.pdf",
+          "page": 2
+        },
+        {
+          "questionId": "exam_pdf_34fa32051182_p2_DRAW-3",
+          "questionText": "椅子3851元，圖示已有2張1000元、1張500元和5個10元，還需補多少？",
+          "answer": "補1張1000元、3張100元和1個1元，共1301元。",
+          "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_翰林_三上_數學_期中評量卷_忠孝國小.pdf",
+          "page": 2
+        },
+        {
+          "questionId": "exam_pdf_0605590e9f7a_p1_D-2",
+          "questionText": "用1000、100、10、1元圖示，補足到1276元；圖中已有1張100元、5個10元和5個1元。",
+          "answer": "再補1張1000元、1張100元、2個10元和1個1元，共1121元。",
+          "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_康軒_三上_數學_期中評量卷_明義國小.pdf",
+          "page": 1
+        }
+      ],
+      "questionIds": [
+        "exam_pdf_0605590e9f7a_p1_D-2",
+        "exam_pdf_34fa32051182_p2_DRAW-3",
+        "exam_pdf_49dbfb086cd5_p2_DRAW-3"
+      ]
+    },
+    {
+      "visualFamilyId": "vf_g3a_u01_money_exchange",
+      "nameZh": "鈔票硬幣十進位兌換",
+      "count": 2,
+      "candidateKnowledgePointIds": [
+        "kp_g3a_u01_place_value_composition"
+      ],
+      "representationFamily": "money_notes_coins",
+      "taskCore": "EXCHANGE_DENOMINATIONS",
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "questionTypeHistogram": {
+        "money_exchange": 1,
+        "金額換算": 1
+      },
+      "sourceEvidenceSamples": [
+        {
+          "questionId": "exam_pdf_4ddeb965dcd3_p1_I-3",
+          "questionText": "50張100元鈔票可換成幾張1000元鈔票？",
+          "answer": "5張",
+          "sourcePath": "G03/semester_1/midterm/數學_111 上學期_三年級_臺中市_市立文心國小_第一次段考(期中考)_翰林_試卷.pdf",
+          "page": 1
+        },
+        {
+          "questionId": "exam_pdf_6edae36e4271_p1_II-1",
+          "questionText": "弟弟存了70個圖示硬幣，可以換成幾張鈔票？",
+          "answer": "暫判7張百元鈔（②）；幣值需複核",
+          "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_翰林_三上_數學_期中評量卷_永安國小.pdf",
+          "page": 1
+        }
+      ],
+      "questionIds": [
+        "exam_pdf_4ddeb965dcd3_p1_I-3",
+        "exam_pdf_6edae36e4271_p1_II-1"
+      ]
+    },
+    {
+      "visualFamilyId": "vf_g3a_u01_receipt_range_reasoning",
+      "nameZh": "發票／收據遮蔽數字範圍推理",
+      "count": 2,
+      "candidateKnowledgePointIds": [
+        "kp_g3a_u01_range_reasoning"
+      ],
+      "representationFamily": "receipt_card",
+      "taskCore": "INFER_RANGE_FROM_PARTIALLY_VISIBLE_RECEIPT",
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER_CANDIDATE",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "LIMITED",
+      "questionTypeHistogram": {
+        "金額範圍推理": 2
+      },
+      "sourceEvidenceSamples": [
+        {
+          "questionId": "exam_pdf_3dba86522ac7_p2_II-14a",
+          "questionText": "依發票題圖及只記得付3張500元鈔票的條件，消費金額最少是多少？",
+          "answer": "題圖收據資訊需複核，暫不判定",
+          "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/114_翰林_三上_數學_期中評量卷_東光國小.pdf",
+          "page": 2
+        },
+        {
+          "questionId": "exam_pdf_3dba86522ac7_p2_II-14b",
+          "questionText": "依發票題圖及只記得付3張500元鈔票的條件，消費金額最多是多少？",
+          "answer": "題圖收據資訊需複核，暫不判定",
+          "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/114_翰林_三上_數學_期中評量卷_東光國小.pdf",
+          "page": 2
+        }
+      ],
+      "questionIds": [
+        "exam_pdf_3dba86522ac7_p2_II-14a",
+        "exam_pdf_3dba86522ac7_p2_II-14b"
+      ]
+    },
+    {
+      "visualFamilyId": "vf_g3a_u01_money_compare",
+      "nameZh": "比較兩組鈔票硬幣金額",
+      "count": 1,
+      "candidateKnowledgePointIds": [
+        "kp_g3a_u01_4digit_compare"
+      ],
+      "representationFamily": "money_notes_coins",
+      "taskCore": "COMPARE_VISUAL_AMOUNTS",
+      "rendererReconciliation": {
+        "classification": "NEW_RENDERER",
+        "existingRendererPath": null
+      },
+      "generativeReconstructionEligibility": "YES",
+      "questionTypeHistogram": {
+        "money_amount_comparison": 1
+      },
+      "sourceEvidenceSamples": [
+        {
+          "questionId": "exam_pdf_0a5cba0de8f0_p1_I-1c",
+          "questionText": "比較小英和小娟，誰的錢比較多？",
+          "answer": "小英",
+          "sourcePath": "G03/semester_1/midterm/數學_111 上學期_三年級_彰化縣_縣立路上國小_第一次段考(期中考)_南一_試卷.pdf",
+          "page": 1
+        }
+      ],
+      "questionIds": [
+        "exam_pdf_0a5cba0de8f0_p1_I-1c"
+      ]
+    }
+  ],
+  "nextStep": "FormalMapping candidate pass per visual family; implementation of renderer/generator remains outside this milestone.",
+  "setDigests": {
+    "questionFamilyMapSha256": "52c9aeca11f08b5245802462a9a56b9107d29d1dbc3ab4a29c8e18605ba51111",
+    "bVisualQuestionIdsSha256": "3d657bb2937930e08393a35b45c19c262213fbb21a8772436a4a3e25f81d6993"
+  }
+}
