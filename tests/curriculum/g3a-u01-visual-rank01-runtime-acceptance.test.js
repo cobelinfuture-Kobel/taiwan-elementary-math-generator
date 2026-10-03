@@ -111,7 +111,7 @@ test("Rank01 shared worksheet renderer emits question and answer tables with act
   assert.equal(doc.answerKeyPages.length,2);
   assert.equal(doc.answerKeyItems.length,12);
   assert.equal(doc.metadata.nativeRendererPath,"site/modules/renderer/one-way-statistics-table.js");
-  assert.equal(doc.metadata.layoutTuningStatus,"pending_actual_page_review");
+  assert.equal(doc.metadata.layoutTuningStatus,"accepted_actual_a4_2x3_no_size_change");
   const html=renderWorksheetDocumentToHtml(doc,{stylesheetHref:""});
   assert.equal((html.match(/class="worksheet-one-way-statistics-table"/g)??[]).length,24);
   assert.equal((html.match(/data-representation="one-way-statistics-table"/g)??[]).length,24);
@@ -121,7 +121,7 @@ test("Rank01 shared worksheet renderer emits question and answer tables with act
   assert.doesNotMatch(html,/\{[a-zA-Z][^}]*\}/);
 });
 
-test("Rank01 actual-layout sizing remains explicitly deferred until worksheet/answer/print visual inspection", () => {
+test("Rank01 actual-layout sizing is accepted at A4 2x3 without renderer size change", () => {
   const result=buildG3AU01VisualRank01WorksheetDocument({
     questionCount:6,
     generationSeed:"layout-boundary",
@@ -131,8 +131,8 @@ test("Rank01 actual-layout sizing remains explicitly deferred until worksheet/an
   const doc=result.worksheetDocument;
   assert.equal(doc.printOptions.columns,2);
   assert.equal(doc.printOptions.rowsPerPage,3);
-  assert.equal(doc.metadata.layoutTuningStatus,"pending_actual_page_review");
-  assert.match(doc.metadata.layoutTuningBoundary,/actual worksheet-answer-print page inspection/);
+  assert.equal(doc.metadata.layoutTuningStatus,"accepted_actual_a4_2x3_no_size_change");
+  assert.match(doc.metadata.layoutTuningBoundary,/renewed actual-page overflow review/);
   assert.equal(doc.metadata.selectorVisible,false);
   assert.equal(doc.metadata.productionUse,"forbidden");
 });
