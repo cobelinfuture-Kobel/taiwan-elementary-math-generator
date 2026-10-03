@@ -1,0 +1,294 @@
+{
+  "schemaName": "G3AU01VisualRank01SixItemRenderedPilot",
+  "schemaVersion": 1,
+  "taskId": "G3A_U01_VisualPatternSpec_Rank01_OneWayTableCompare_SixItemRenderedPilot_HumanVisualReview",
+  "sourceId": "g3a_u01_3a01",
+  "patternSpecId": "ps_g3a_u01_visual_one_way_table_compare",
+  "rendererPath": "site/modules/renderer/one-way-statistics-table.js",
+  "artifactClass": "native_renderer_fixed_seed_visual_pilot_not_production_generator_evidence",
+  "humanReview": {
+    "ready": true,
+    "reviewScope": "visual_layout_and_prompt_table_answer_presentation_only",
+    "automaticApprovalForbidden": true,
+    "decision": null,
+    "checklist": [
+      "題幹是否一眼看懂",
+      "表格欄名是否清楚",
+      "3/4/6/8列密度是否可接受",
+      "數字是否容易比較",
+      "答案呈現是否清楚",
+      "是否像可給三年級學生直接作答的題目"
+    ]
+  },
+  "lifecycle": {
+    "productionGeneratorUsed": false,
+    "productionValidatorRuntimeUsed": false,
+    "nativeRendererUsed": true,
+    "selectorVisible": false,
+    "productionUse": "forbidden",
+    "mergeBeforeHumanApproval": false
+  },
+  "counts": {
+    "pilotItemCount": 6,
+    "promptVariantCount": 4
+  },
+  "items": [
+    {
+      "pilotId": "G3A-U01-R01-P01",
+      "promptVariant": "MINIMUM_CATEGORY",
+      "promptText": "根據表格，參觀人數最少的是哪一天？",
+      "model": {
+        "kind": "one_way_statistics_table",
+        "headers": [
+          "日期",
+          "參觀人數"
+        ],
+        "rows": [
+          {
+            "displayCategory": "第一天",
+            "displayValue": 9080
+          },
+          {
+            "displayCategory": "第二天",
+            "displayValue": 9800
+          },
+          {
+            "displayCategory": "第三天",
+            "displayValue": 9008
+          }
+        ],
+        "semanticCore": "TABLE_DATA_COMPARISON",
+        "chartRepresentationRendered": false,
+        "ariaLabel": "三天參觀人數"
+      },
+      "expectedAnswer": {
+        "selectedCategory": "第三天",
+        "selectedValue": 9008
+      },
+      "purpose": "source-calibration / 3-row minimum"
+    },
+    {
+      "pilotId": "G3A-U01-R01-P02",
+      "promptVariant": "MAXIMUM_CATEGORY",
+      "promptText": "根據表格，學生人數最多的是哪一所學校？",
+      "model": {
+        "kind": "one_way_statistics_table",
+        "headers": [
+          "學校",
+          "學生人數"
+        ],
+        "rows": [
+          {
+            "displayCategory": "興生國小",
+            "displayValue": 4053
+          },
+          {
+            "displayCategory": "和平國小",
+            "displayValue": 3286
+          },
+          {
+            "displayCategory": "育才國小",
+            "displayValue": 3741
+          },
+          {
+            "displayCategory": "開心國小",
+            "displayValue": 2053
+          }
+        ],
+        "semanticCore": "TABLE_DATA_COMPARISON",
+        "chartRepresentationRendered": false,
+        "ariaLabel": "四所學校學生人數"
+      },
+      "expectedAnswer": {
+        "selectedCategory": "興生國小",
+        "selectedValue": 4053
+      },
+      "purpose": "4-row maximum"
+    },
+    {
+      "pilotId": "G3A-U01-R01-P03",
+      "promptVariant": "COMPARE_TWO_ROWS",
+      "promptText": "根據表格，東館和西館相比，哪一館的藏書冊數比較多？",
+      "model": {
+        "kind": "one_way_statistics_table",
+        "headers": [
+          "館別",
+          "藏書冊數"
+        ],
+        "rows": [
+          {
+            "displayCategory": "東館",
+            "displayValue": 6482
+          },
+          {
+            "displayCategory": "西館",
+            "displayValue": 6195
+          },
+          {
+            "displayCategory": "南館",
+            "displayValue": 7324
+          },
+          {
+            "displayCategory": "北館",
+            "displayValue": 5871
+          }
+        ],
+        "semanticCore": "TABLE_DATA_COMPARISON",
+        "chartRepresentationRendered": false,
+        "ariaLabel": "四館藏書冊數"
+      },
+      "expectedAnswer": {
+        "selectedCategory": "東館",
+        "selectedValue": 6482,
+        "comparisonSymbol": ">",
+        "comparedCategories": [
+          "東館",
+          "西館"
+        ]
+      },
+      "purpose": "4-row two-row comparison"
+    },
+    {
+      "pilotId": "G3A-U01-R01-P04",
+      "promptVariant": "UNIQUE_THRESHOLD_MATCH",
+      "promptText": "根據表格，哪一個場次的參觀人數超過 5200 人？",
+      "model": {
+        "kind": "one_way_statistics_table",
+        "headers": [
+          "場次",
+          "參觀人數"
+        ],
+        "rows": [
+          {
+            "displayCategory": "上午第一場",
+            "displayValue": 4875
+          },
+          {
+            "displayCategory": "上午第二場",
+            "displayValue": 5108
+          },
+          {
+            "displayCategory": "下午第一場",
+            "displayValue": 5362
+          },
+          {
+            "displayCategory": "下午第二場",
+            "displayValue": 4980
+          }
+        ],
+        "semanticCore": "TABLE_DATA_COMPARISON",
+        "chartRepresentationRendered": false,
+        "ariaLabel": "四個場次參觀人數"
+      },
+      "threshold": {
+        "relation": ">",
+        "value": 5200
+      },
+      "expectedAnswer": {
+        "selectedCategory": "下午第一場",
+        "selectedValue": 5362
+      },
+      "purpose": "4-row unique threshold"
+    },
+    {
+      "pilotId": "G3A-U01-R01-P05",
+      "promptVariant": "MAXIMUM_CATEGORY",
+      "promptText": "根據表格，借閱冊數最多的是哪一個月份？",
+      "model": {
+        "kind": "one_way_statistics_table",
+        "headers": [
+          "月份",
+          "借閱冊數"
+        ],
+        "rows": [
+          {
+            "displayCategory": "一月",
+            "displayValue": 4218
+          },
+          {
+            "displayCategory": "二月",
+            "displayValue": 4675
+          },
+          {
+            "displayCategory": "三月",
+            "displayValue": 5184
+          },
+          {
+            "displayCategory": "四月",
+            "displayValue": 4936
+          },
+          {
+            "displayCategory": "五月",
+            "displayValue": 5521
+          },
+          {
+            "displayCategory": "六月",
+            "displayValue": 5068
+          }
+        ],
+        "semanticCore": "TABLE_DATA_COMPARISON",
+        "chartRepresentationRendered": false,
+        "ariaLabel": "六個月份借閱冊數"
+      },
+      "expectedAnswer": {
+        "selectedCategory": "五月",
+        "selectedValue": 5521
+      },
+      "purpose": "6-row density / maximum"
+    },
+    {
+      "pilotId": "G3A-U01-R01-P06",
+      "promptVariant": "MINIMUM_CATEGORY",
+      "promptText": "根據表格，回收瓶數最少的是哪一個班級？",
+      "model": {
+        "kind": "one_way_statistics_table",
+        "headers": [
+          "班級",
+          "回收瓶數"
+        ],
+        "rows": [
+          {
+            "displayCategory": "三年一班",
+            "displayValue": 3284
+          },
+          {
+            "displayCategory": "三年二班",
+            "displayValue": 3018
+          },
+          {
+            "displayCategory": "三年三班",
+            "displayValue": 3562
+          },
+          {
+            "displayCategory": "三年四班",
+            "displayValue": 2875
+          },
+          {
+            "displayCategory": "三年五班",
+            "displayValue": 3396
+          },
+          {
+            "displayCategory": "三年六班",
+            "displayValue": 3147
+          },
+          {
+            "displayCategory": "三年七班",
+            "displayValue": 2956
+          },
+          {
+            "displayCategory": "三年八班",
+            "displayValue": 3721
+          }
+        ],
+        "semanticCore": "TABLE_DATA_COMPARISON",
+        "chartRepresentationRendered": false,
+        "ariaLabel": "八個班級回收瓶數"
+      },
+      "expectedAnswer": {
+        "selectedCategory": "三年四班",
+        "selectedValue": 2875
+      },
+      "purpose": "8-row maximum-density / minimum"
+    }
+  ]
+}
