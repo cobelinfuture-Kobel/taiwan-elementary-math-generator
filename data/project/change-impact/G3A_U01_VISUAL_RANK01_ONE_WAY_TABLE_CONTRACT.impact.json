@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK01_ONE_WAY_TABLE_CONTRACT",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK01_ONE_WAY_TABLE_CONTRACT.validation.json",
+  "classificationNote": "G3A-U01 Rank01 hidden PatternSpec/FormalMapping/validator-contract materialization using an existing native renderer. No executable runtime, renderer code, selector, or UI change.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "planningDataOnlyClassification": {
+    "planningDataOnly": false,
+    "contractMaterializationOnly": true,
+    "runtimeFilesChanged": false,
+    "publicAuthorityChanged": false,
+    "legalRouteSetChanged": false,
+    "currentKnowledgeAuthorityChanged": false,
+    "newKnowledgePointMinted": false,
+    "laterUnitsTouched": false
+  }
+}
