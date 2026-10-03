@@ -1,0 +1,73 @@
+import {paginateAnswerKeyItems,paginateQuestionDisplayModels} from "../../core/worksheet-pagination.js";
+import {
+  generateG3AU01VisualRank01Questions,
+  G3A_U01_VISUAL_RANK01_KP_ID,
+  G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK01_PATTERN_SPEC_ID,
+  G3A_U01_VISUAL_RANK01_SOURCE_ID,
+  validateG3AU01VisualRank01Question
+} from "./g3a-u01-visual-rank01-runtime.js";
+
+function layout(options={}){
+  const p=options.printLayout??{};
+  return Object.freeze({
+    paperSize:p.paperSize??"A4",
+    columns:Number.isInteger(p.columns)?Math.min(Math.max(p.columns,1),2):2,
+    rowsPerPage:Number.isInteger(p.rowsPerPage)?Math.min(Math.max(p.rowsPerPage,1),4):3,
+    showQuestionNumbers:p.showQuestionNumbers!==false,
+    showAnswerKeyPage:options.includeAnswerKey!==false&&p.showAnswerKeyPage!==false
+  });
+}
+
+function displayModels(questions,l){
+  return questions.map((q,i)=>Object.freeze({
+    questionId:q.id,questionNumber:i+1,patternId:q.patternSpecId,
+    knowledgePointId:q.knowledgePointId,patternGroupId:q.patternGroupId,
+    promptText:q.blankedDisplayText,displayText:q.displayText,blankedDisplayText:q.blankedDisplayText,
+    answerText:q.answerText,questionNumberText:l.showQuestionNumbers?String(i+1)+".":null,
+    tableData:q.tableData,
+    metadataSnapshot:Object.freeze({...q.metadata,questionSignature:q.questionSignature,promptVariant:q.promptVariant}),
+    layoutHints:Object.freeze({estimatedTextLength:q.blankedDisplayText.length,hasGrouping:false,avoidPageBreakInside:true,representation:"one-way-statistics-table",rowCount:q.tableData.rows.length,layoutTuningStatus:"pending_actual_page_review"})
+  }));
+}
+
+function answerItems(questions,models){
+  return questions.map((q,i)=>Object.freeze({
+    questionId:q.id,questionNumber:i+1,patternId:q.patternSpecId,promptText:q.blankedDisplayText,
+    answerText:q.answerText,tableData:q.tableData,metadataSnapshot:models[i].metadataSnapshot,
+    layoutHints:Object.freeze({avoidPageBreakInside:true,representation:"one-way-statistics-table",rowCount:q.tableData.rows.length,layoutTuningStatus:"pending_actual_page_review"})
+  }));
+}
+
+export function buildG3AU01VisualRank01WorksheetDocument(options={}){
+  const generation=generateG3AU01VisualRank01Questions(options);
+  if(!generation.ok) return Object.freeze({ok:false,errors:generation.errors,warnings:generation.warnings,worksheetDocument:null,generation});
+  const validationErrors=generation.questions.flatMap(q=>validateG3AU01VisualRank01Question(q).errors);
+  if(validationErrors.length) return Object.freeze({ok:false,errors:Object.freeze(validationErrors),warnings:Object.freeze([]),worksheetDocument:null,generation});
+  const l=layout(options),models=displayModels(generation.questions,l),answers=l.showAnswerKeyPage?answerItems(generation.questions,models):[];
+  const questionPages=paginateQuestionDisplayModels(models,l);
+  const answerKeyPages=l.showAnswerKeyPage?paginateAnswerKeyItems(answers,l):[];
+  const worksheetDocument=Object.freeze({
+    worksheetKind:"batch_a",
+    worksheetId:"g3a-u01-rank01-"+(options.generationSeed??"hidden"),
+    title:"10000以內的數｜一維資料表四位數比較",
+    generatedQuestions:generation.questions,questions:generation.questions,
+    questionDisplayModels:Object.freeze(models),answerKeyItems:Object.freeze(answers),
+    questionPages:Object.freeze(questionPages),answerKeyPages:Object.freeze(answerKeyPages),
+    questionCount:generation.questions.length,
+    printOptions:Object.freeze({...l,showAnswerKey:l.showAnswerKeyPage,answerKeyPlacement:l.showAnswerKeyPage?"afterQuestions":"none"}),
+    publicControls:Object.freeze({sourceId:G3A_U01_VISUAL_RANK01_SOURCE_ID,selectorVisible:false}),
+    configSnapshot:Object.freeze({questionMode:"visual_reading",printLayout:l}),
+    batchA:Object.freeze({sourceId:G3A_U01_VISUAL_RANK01_SOURCE_ID,selectionMode:"hiddenPatternSpec"}),
+    metadata:Object.freeze({
+      sourceId:G3A_U01_VISUAL_RANK01_SOURCE_ID,knowledgePointId:G3A_U01_VISUAL_RANK01_KP_ID,
+      patternGroupId:G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,patternSpecId:G3A_U01_VISUAL_RANK01_PATTERN_SPEC_ID,
+      sourceSemanticCore:"TABLE_DATA_COMPARISON",nativeRendererPath:"site/modules/renderer/one-way-statistics-table.js",
+      chartRepresentationRendered:false,hiddenRuntime:true,selectorVisible:false,productionUse:"forbidden",
+      layoutTuningStatus:"pending_actual_page_review",
+      layoutTuningBoundary:"adjust table/card sizing only after actual worksheet-answer-print page inspection"
+    }),
+    summary:Object.freeze({questionCount:generation.questions.length,questionPageCount:questionPages.length,answerKeyPageCount:answerKeyPages.length,tableQuestionCount:generation.questions.length,chartQuestionCount:0})
+  });
+  return Object.freeze({ok:true,errors:Object.freeze([]),warnings:Object.freeze([]),worksheetDocument,generation});
+}
