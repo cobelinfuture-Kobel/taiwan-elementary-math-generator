@@ -1,0 +1,246 @@
+{
+  "schemaName": "G3UnitQuestionModalityInventory",
+  "schemaVersion": 1,
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "title": "10000以內的數",
+  "scopePolicy": {
+    "unitOnly": true,
+    "allowedClasses": [
+      "A_TEXT",
+      "B_VISUAL",
+      "C_UNKNOWN"
+    ],
+    "definitions": {
+      "A_TEXT": "純文字即可完整表達、生成與驗證；不需要圖形才能安全作答。",
+      "B_VISUAL": "題目作答或原始題型結構需要圖形、表格、數線、錢幣圖或其他視覺 representation。",
+      "C_UNKNOWN": "目前無法可靠判成 A_TEXT 或 B_VISUAL；保留等待人工討論，不得自行升級。"
+    },
+    "knowledgePointAndModalityAreIndependent": true
+  },
+  "authority": {
+    "knowledgeOperationPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "curriculumSourceFile": "題型總覽-3a01-10000以內的數.pdf",
+    "curriculumSourcePages": [
+      1,
+      2,
+      3
+    ]
+  },
+  "A_TEXT": {
+    "status": "BASELINE_FROM_CURRENT_RUNTIME",
+    "items": [
+      {
+        "patternSpecId": "ps_g3a_u01_4digit_compare",
+        "knowledgePointId": "kp_g3a_u01_4digit_compare"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_4digit_number_to_chinese_basic",
+        "knowledgePointId": "kp_g3a_u01_number_to_chinese"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_4digit_number_to_chinese_with_zero",
+        "knowledgePointId": "kp_g3a_u01_number_to_chinese"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_chinese_to_4digit_number_basic",
+        "knowledgePointId": "kp_g3a_u01_chinese_to_number"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_chinese_to_4digit_number_with_zero",
+        "knowledgePointId": "kp_g3a_u01_chinese_to_number"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_4digit_place_value_full_decomposition",
+        "knowledgePointId": "kp_g3a_u01_digit_place_value_decomposition"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_4digit_digit_value_identification",
+        "knowledgePointId": "kp_g3a_u01_digit_place_value_decomposition"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_4digit_same_digit_different_place",
+        "knowledgePointId": "kp_g3a_u01_digit_place_value_decomposition"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_place_value_standard_composition",
+        "knowledgePointId": "kp_g3a_u01_place_value_composition"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_place_value_nonstandard_composition",
+        "knowledgePointId": "kp_g3a_u01_place_value_composition"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_place_value_partial_composition",
+        "knowledgePointId": "kp_g3a_u01_place_value_composition"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_tens_to_hundreds_conversion",
+        "knowledgePointId": "kp_g3a_u01_place_value_unit_conversion"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_hundreds_to_thousands_conversion",
+        "knowledgePointId": "kp_g3a_u01_place_value_unit_conversion"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_money_place_value_exchange",
+        "knowledgePointId": "kp_g3a_u01_place_value_unit_conversion"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_digit_arrangement_max_4digit",
+        "knowledgePointId": "kp_g3a_u01_digit_arrangement_max_min"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_digit_arrangement_min_4digit_no_leading_zero",
+        "knowledgePointId": "kp_g3a_u01_digit_arrangement_max_min"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_digit_arrangement_max_min_pair",
+        "knowledgePointId": "kp_g3a_u01_digit_arrangement_max_min"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_4digit_range_compare_reasoning",
+        "knowledgePointId": "kp_g3a_u01_range_reasoning"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_4digit_serial_number_range",
+        "knowledgePointId": "kp_g3a_u01_range_reasoning"
+      },
+      {
+        "patternSpecId": "ps_g3a_u01_4digit_price_range_reasoning",
+        "knowledgePointId": "kp_g3a_u01_range_reasoning"
+      }
+    ]
+  },
+  "B_VISUAL": {
+    "status": "SOURCE_BACKED_CANDIDATES_NOT_YET_RUNTIME_ADMITTED",
+    "families": [
+      {
+        "visualFamilyId": "vf_g3a_u01_place_value_table",
+        "nameZh": "位值表／位值格圖形題",
+        "candidateKnowledgePointIds": [
+          "kp_g3a_u01_number_to_chinese",
+          "kp_g3a_u01_chinese_to_number",
+          "kp_g3a_u01_digit_place_value_decomposition"
+        ],
+        "sourceEvidence": [
+          {
+            "page": 1,
+            "observed": "10進位表"
+          },
+          {
+            "page": 1,
+            "observed": "數字寫成中文：千百十個位表＋箭頭"
+          },
+          {
+            "page": 1,
+            "observed": "中文寫成數字：中文字詞對應千百十個位表"
+          },
+          {
+            "page": 1,
+            "observed": "填填看：位值表內數字代表的位值"
+          },
+          {
+            "page": 1,
+            "observed": "未知百位數的四位數最大／最小判讀"
+          }
+        ],
+        "admissionStatus": "NEEDS_VISUAL_PATTERNSPEC"
+      },
+      {
+        "visualFamilyId": "vf_g3a_u01_money_notes_coins",
+        "nameZh": "紙鈔／硬幣金額圖形題",
+        "candidateKnowledgePointIds": [
+          "kp_g3a_u01_place_value_unit_conversion"
+        ],
+        "sourceEvidence": [
+          {
+            "page": 1,
+            "observed": "多少錢：100/500/1000/2000元紙鈔與硬幣數量"
+          },
+          {
+            "page": 3,
+            "observed": "四位數錢幣與價格：商品價格搭配紙鈔／硬幣"
+          }
+        ],
+        "admissionStatus": "NEEDS_KP_RECONCILIATION_AND_VISUAL_PATTERNSPEC"
+      },
+      {
+        "visualFamilyId": "vf_g3a_u01_base10_blocks",
+        "nameZh": "千百十個積木／十進位積木組數題",
+        "candidateKnowledgePointIds": [
+          "kp_g3a_u01_place_value_composition"
+        ],
+        "sourceEvidence": [
+          {
+            "page": 2,
+            "observed": "四位數位值組合：千方塊、百方片、十長條與個位小方塊"
+          }
+        ],
+        "admissionStatus": "NEEDS_VISUAL_PATTERNSPEC"
+      },
+      {
+        "visualFamilyId": "vf_g3a_u01_integer_number_line_reading",
+        "nameZh": "整數數線讀值／定位題",
+        "candidateKnowledgePointIds": [],
+        "sourceEvidence": [
+          {
+            "page": 2,
+            "observed": "如何畫數線：刻度、座標與方向"
+          },
+          {
+            "page": 3,
+            "observed": "整數數線：依刻度位置讀值"
+          }
+        ],
+        "admissionStatus": "NEEDS_KP_RECONCILIATION"
+      },
+      {
+        "visualFamilyId": "vf_g3a_u01_integer_number_line_movement",
+        "nameZh": "整數數線位移加減題",
+        "candidateKnowledgePointIds": [],
+        "sourceEvidence": [
+          {
+            "page": 2,
+            "observed": "數線上的加法：從座標向右移動固定格數"
+          },
+          {
+            "page": 2,
+            "observed": "數線上的減法：從座標向左移動固定格數"
+          },
+          {
+            "page": 3,
+            "observed": "整數數線：向左／向右移動若干格求停留數值"
+          }
+        ],
+        "admissionStatus": "NEEDS_KP_RECONCILIATION"
+      },
+      {
+        "visualFamilyId": "vf_g3a_u01_place_value_step_diagram",
+        "nameZh": "位值增減步進圖",
+        "candidateKnowledgePointIds": [],
+        "sourceEvidence": [
+          {
+            "page": 1,
+            "observed": "向右累加 +1、+10、+100、+1000"
+          },
+          {
+            "page": 1,
+            "observed": "向左累減 -1、-10、-100、-1000"
+          }
+        ],
+        "admissionStatus": "NEEDS_KP_RECONCILIATION"
+      }
+    ]
+  },
+  "C_UNKNOWN": {
+    "status": "EMPTY_UNTIL_ENCOUNTERED",
+    "items": []
+  },
+  "closeout": {
+    "currentRuntimeATextCount": 20,
+    "sourceBackedBVisualFamilyCount": 6,
+    "cUnknownCount": 0,
+    "nextStep": "G3A_U01 historical exam question mining; classify each newly found item as A_TEXT, B_VISUAL, or C_UNKNOWN without touching later units."
+  }
+}
