@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_PR1207_ABC_MODALITY_BASELINE_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_PR1207_ABC_MODALITY_BASELINE_V1.validation.json",
+  "classificationNote": "G3A-U01-only representation inventory and focused contract test. This change does not modify executable runtime, public authority, legal routes, generator, validator, renderer, selector, or UI. The active validation policy has no planning/data-inventory-only curriculum scope, so SHARED_RUNTIME_BOUNDED is reused solely as the existing bounded lane that forbids full repository regression and global replay.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "planningDataOnlyClassification": {
+    "planningDataOnly": true,
+    "runtimeFilesChanged": false,
+    "publicAuthorityChanged": false,
+    "legalRouteSetChanged": false,
+    "currentKnowledgeAuthorityChanged": false,
+    "newKnowledgePointMinted": false,
+    "laterUnitsTouched": false,
+    "note": "sharedExecutableChange=true is a classifier compatibility flag only. No shared executable file is changed by PR #1207."
+  }
+}
