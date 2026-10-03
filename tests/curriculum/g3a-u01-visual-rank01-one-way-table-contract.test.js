@@ -80,6 +80,6 @@ test("Rank01 lifecycle advances to hidden runtime while selector and production 
   assert.equal(contract.lifecycle.rendererCodeChanged, false);
   assert.equal(contract.lifecycle.selectorVisible, false);
   assert.equal(contract.lifecycle.productionUse, "forbidden");
-  assert.equal(contract.lifecycle.renderedWorksheetAcceptance, "implemented_pending_ci");
-  assert.equal(contract.lifecycle.layoutTuningStatus, "pending_actual_worksheet_answer_print_review");
+  assert.equal(contract.lifecycle.renderedWorksheetAcceptance, "PASS_FOCUSED_CI");
+  assert.equal(contract.lifecycle.layoutTuningStatus, "PENDING_ACTUAL_WORKSHEET_ANSWER_PRINT_VISUAL_REVIEW");
 });
