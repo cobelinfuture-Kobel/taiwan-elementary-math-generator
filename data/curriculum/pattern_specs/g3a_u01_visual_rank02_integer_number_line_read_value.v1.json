@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "hidden_runtime_layout_acceptance_pending_ci",
+  "status": "public_cutover_implemented_pending_focused_ci",
   "authority": {
     "curriculumSource": "題型總覽-3a01-10000以內的數.pdf",
     "curriculumSourcePages": [
@@ -77,7 +77,7 @@
       "ps_g3a_u01_visual_integer_number_line_read_value"
     ],
     "sourceQuestionCount": 50,
-    "lifecycle": "hidden_runtime"
+    "lifecycle": "visible_public_review"
   },
   "patternSpec": {
     "patternSpecId": "ps_g3a_u01_visual_integer_number_line_read_value",
@@ -213,8 +213,8 @@
     "generatorStatus": "hidden_deterministic_runtime_implemented",
     "validatorStatus": "blocking_runtime_implemented",
     "rendererStatus": "integer_number_line_extension_implemented",
-    "selectorStatus": "hidden",
-    "productionUse": "forbidden"
+    "selectorStatus": "visible_public_review",
+    "productionUse": "public_review"
   },
   "rendererBinding": {
     "rendererBindingId": "rb_g3a_u01_visual_integer_number_line_read_value",
@@ -492,11 +492,13 @@
     "generatorImplemented": true,
     "validatorRuntimeImplemented": true,
     "rendererCodeChanged": true,
-    "selectorVisible": false,
-    "productionUse": "forbidden",
+    "selectorVisible": true,
+    "productionUse": "public_review",
     "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
     "renderedWorksheetAcceptance": "PASS_FOCUSED_CI",
-    "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED_PENDING_CI"
+    "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED_PENDING_CI",
+    "publicCutover": "IMPLEMENTED_PENDING_FOCUSED_CI",
+    "threeModeE2E": "PENDING_FOCUSED_CI"
   },
   "antiScopeBoundary": {
     "allowed": [
@@ -515,7 +517,7 @@
       "modify unrelated renderer behavior"
     ]
   },
-  "nextStep": "Run bounded Rank02 layout acceptance CI; if PASS, merge and proceed to bounded public selector cutover following the Rank01 flow.",
+  "nextStep": "Run bounded Rank02 public three-mode gate across Classic and Exam single/same-unit/cross-unit. If PASS, merge, verify deployed Pages, then complete operator website visual acceptance and D0 closeout.",
   "runtimeAdmission": {
     "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
     "sourceCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
@@ -565,5 +567,30 @@
     "selectorVisible": false,
     "productionUse": "forbidden",
     "reasoning": "The 60-item browser-measured A4 2x3 cohort exercises every 7-to-12-tick density band across question and answer pages; the existing 420x90 SVG geometry fits without page or cell overflow."
+  },
+  "publicAdmission": {
+    "taskId": "G3A_U01_VisualRank02_PublicSelectorCutover_ThreeModeLinkage",
+    "route": "singleKnowledgePoint + mixedKnowledgePointsSameUnit + mixedKnowledgePointsCrossUnit",
+    "sourceId": "g3a_u01_3a01",
+    "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_read_value",
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_read_value",
+    "sourceUnitChanged": false,
+    "sameUnitMixedChanged": true,
+    "crossUnitMixedChanged": true,
+    "rank03PlusVisible": false,
+    "canonicalKnowledgePointUsed": true,
+    "operatorLayoutReviewRequired": true,
+    "operatorReviewScope": "website Classic and Exam layout after public cutover",
+    "selectorHierarchy": "canonical_kp_same_level",
+    "mixedLeafRuntimePolicy": "REUSE_EXISTING_SINGLE_KP_RANK02_RUNTIME",
+    "examTemplateCompositionModes": [
+      "SINGLE_KP_UI_ALIAS_TO_EXISTING_SINGLE_KNOWLEDGE_POINT",
+      "MIXED_KP_SAME_UNIT",
+      "MIXED_KP_CROSS_UNIT"
+    ],
+    "focusedGate": "PENDING",
+    "pagesDeploy": "PENDING",
+    "publicReviewStatus": "PENDING_FOCUSED_CI_AND_DEPLOYED_RECHECK"
   }
 }
