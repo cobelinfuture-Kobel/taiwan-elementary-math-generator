@@ -1,0 +1,405 @@
+{
+  "schemaName": "G3AU01VisualPatternSpecRank03Contract",
+  "schemaVersion": 1,
+  "taskId": "G3A_U01_VisualRank03_FormalMappingAndPatternSpecContract_Then_MarkValueValidatorAndRendererExtensionContract",
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "unitTitle": "10000以內的數",
+  "status": "contract_materialized_runtime_forbidden",
+  "authority": {
+    "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank03_source_authority_preflight.v1.json",
+    "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+    "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
+    "knowledgeAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "rank02ContractPath": "data/curriculum/pattern_specs/g3a_u01_visual_rank02_integer_number_line_read_value.v1.json",
+    "curriculumSource": "題型總覽-3a01-10000以內的數.pdf",
+    "curriculumSourcePage": 3,
+    "curriculumEvidenceRole": "SHARED_NUMBER_LINE_SEMANTICS_ONLY",
+    "directTaskAuthority": "historical_exam_visual_family",
+    "authorityReadbackMainSha": "47dbd089b2c551d9e800f6dc991ad0657b10c281"
+  },
+  "sourceAuthorityPreflight": {
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_mark_value",
+    "familyNameZh": "整數數線定位／標記",
+    "sourceQuestionCount": 20,
+    "taskCore": "MARK_GIVEN_VALUE",
+    "representationFamily": "integer_number_line",
+    "generativeReconstructionEligibility": "YES",
+    "priorityRank": 3,
+    "priorityWave": "P1_SHARED_NUMBER_LINE_EXTENSION",
+    "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "canonicalKnowledgePointNameZh": "整數數線刻度、讀值與定位",
+    "reuseExistingCanonicalKnowledgePoint": true,
+    "newKnowledgePointRequired": false,
+    "decision": "PASS_FOR_CONTRACT_MATERIALIZATION_ONLY",
+    "runtimeAdmission": "FORBIDDEN_UNTIL_MARK_VALUE_RUNTIME_IMPLEMENTATION_APPROVED"
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g3a_u01_visual_integer_number_line_mark_value",
+    "sourceMappingCandidateId": "fmc_g3a_u01_integer_number_line_mark_value",
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_mark_value",
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_mark_value",
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_mark_value",
+    "primaryKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "historicalPrimaryKnowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "secondaryKnowledgePointIds": [],
+    "mode": "representation",
+    "operationContract": "place the given integer on the unique legal tick of a uniform number-line scale",
+    "operationModel": "targetIndex = (targetValue - startValue) / step",
+    "guards": [
+      "uniform_integer_step",
+      "target_within_scale",
+      "target_maps_to_unique_tick",
+      "answer_overlay_matches_target_tick"
+    ],
+    "mappingStatus": "MATERIALIZED_CONTRACT_REUSING_CANONICAL_NUMBER_LINE_KP",
+    "runtimeAdmission": false
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_mark_value",
+    "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "displayNameZh": "整數數線定位／標記",
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_mark_value",
+    "patternSpecIds": [
+      "ps_g3a_u01_visual_integer_number_line_mark_value"
+    ],
+    "sourceQuestionCount": 20,
+    "lifecycle": "hidden_contract_only"
+  },
+  "patternSpec": {
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_mark_value",
+    "sourcePatternSpecCandidateId": "psc_g3a_u01_visual_number_line_mark_value",
+    "sourceId": "g3a_u01_3a01",
+    "unitCode": "3A-U01",
+    "unitTitle": "10000以內的數",
+    "kind": "g3aU01VisualRepresentation",
+    "questionKind": "visual_marking",
+    "supportStatus": "plannedOnly",
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_mark_value",
+    "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "secondaryKnowledgePointIds": [],
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_mark_value",
+    "representationFamily": "integer_number_line",
+    "semanticSignature": "mark_given_integer_on_uniform_number_line",
+    "taskCore": "MARK_GIVEN_VALUE",
+    "allowedPromptVariants": [
+      "MARK_GIVEN_VALUE"
+    ],
+    "promptSkeletonsZh": {
+      "MARK_GIVEN_VALUE": "在數線上標出{targetValue}。"
+    },
+    "constraints": {
+      "numberLine": {
+        "startValueInteger": true,
+        "stepPositiveInteger": true,
+        "uniformStep": true,
+        "minTickCount": 5,
+        "maxTickCount": 25,
+        "increasingLeftToRight": true,
+        "axisArrowAtRight": true,
+        "visibleAnchorLabelsMin": 2,
+        "visibleAnchorsMustDetermineUniqueStep": true
+      },
+      "target": {
+        "integerOnly": true,
+        "withinDisplayedScale": true,
+        "mustMapToLegalTick": true,
+        "uniqueLegalTickRequired": true,
+        "targetValueHiddenAsMarkerInQuestion": true,
+        "targetMarkerVisibleOnlyInAnswerRepresentation": true
+      },
+      "values": {
+        "integerOnly": true,
+        "min": 0,
+        "max": 10000,
+        "allTickValuesWithinUnitRange": true
+      },
+      "generation": {
+        "freeFormAIGeneration": false,
+        "sourceBackedSemanticFamilyOnly": true,
+        "answerMustBeUniquelyDeterminedFromVisibleScale": true,
+        "rank04ToRank05OperationsForbidden": true,
+        "movementTaskForbidden": true
+      }
+    },
+    "questionModel": {
+      "shape": "integer_number_line_mark_value_question",
+      "fields": [
+        "startValue",
+        "step",
+        "tickCount",
+        "visibleAnchors",
+        "targetValue"
+      ],
+      "representationRequirement": "render scale and targetValue prompt without answer marker"
+    },
+    "answerModel": {
+      "shape": "integer_number_line_mark_value_answer",
+      "fields": [
+        "targetValue",
+        "targetTickIndex",
+        "answerMarkerId"
+      ],
+      "answerType": "number_line_point",
+      "equation": "targetTickIndex = (targetValue - startValue) / step",
+      "representationRequirement": "render the same scale with answer marker overlay at targetTickIndex"
+    },
+    "validatorHooks": [
+      "validate_g3a_u01_integer_number_line_mark_model",
+      "validate_g3a_u01_integer_number_line_mark_answer"
+    ],
+    "validatorContractRef": "vc_g3a_u01_visual_integer_number_line_mark_value",
+    "rendererBindingRef": "rb_g3a_u01_visual_integer_number_line_mark_value",
+    "sourceMetadata": {
+      "sourceEvidenceType": "historical_exam_visual_family_plus_curriculum_shared_number_line_semantics",
+      "curriculumSourcePage": 3,
+      "directTaskAuthority": "historical_exam_visual_family",
+      "sourceQuestionCount": 20,
+      "sourceQuestionIds": [
+        "exam_pdf_1d999151554f_p1_N-1a",
+        "exam_pdf_1d999151554f_p1_N-1b",
+        "exam_pdf_1d999151554f_p1_N-2a",
+        "exam_pdf_1d999151554f_p1_N-2b",
+        "exam_pdf_4048706451ff_p1_III-3a",
+        "exam_pdf_4048706451ff_p1_III-3b",
+        "exam_pdf_4048706451ff_p1_III-3c",
+        "exam_pdf_5da0a41369e6_p2_V-4",
+        "exam_pdf_65fc1653aa1e_p1_II-5",
+        "exam_pdf_6de92f1a982a_p1_I-1a",
+        "exam_pdf_6de92f1a982a_p1_I-1b",
+        "exam_pdf_6de92f1a982a_p1_I-2a",
+        "exam_pdf_6de92f1a982a_p1_I-2b",
+        "exam_pdf_87134a03f524_p2_V-3",
+        "exam_pdf_9a9a98cc104f_p1_I-2a",
+        "exam_pdf_9a9a98cc104f_p1_I-2b",
+        "exam_pdf_9a9a98cc104f_p1_I-2c",
+        "exam_pdf_9f8e58e09705_p1_II-1",
+        "exam_pdf_c2ca624c8cec_p2_VII-4",
+        "exam_pdf_e672d8c7e010_p1_III-2"
+      ]
+    },
+    "provenance": {
+      "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank03_source_authority_preflight.v1.json",
+      "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+      "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
+      "knowledgeAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+      "rank02ContractPath": "data/curriculum/pattern_specs/g3a_u01_visual_rank02_integer_number_line_read_value.v1.json",
+      "authorityReadbackMainSha": "47dbd089b2c551d9e800f6dc991ad0657b10c281"
+    },
+    "generatorStatus": "not_implemented",
+    "validatorStatus": "contract_only_not_implemented",
+    "rendererStatus": "extension_contract_only_not_implemented",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  "validatorContract": {
+    "validatorContractId": "vc_g3a_u01_visual_integer_number_line_mark_value",
+    "status": "contract_only_not_runtime_implemented",
+    "inputModelChecks": [
+      "start_value_is_integer",
+      "step_is_positive_integer",
+      "tick_count_within_5_to_25",
+      "all_ticks_follow_one_uniform_step",
+      "visible_anchor_labels_match_tick_values",
+      "visible_anchors_determine_a_unique_step",
+      "target_value_is_integer",
+      "target_value_is_inside_displayed_scale",
+      "target_value_minus_start_is_divisible_by_step",
+      "derived_target_index_is_one_legal_tick",
+      "all_tick_values_are_between_0_and_10000"
+    ],
+    "questionRepresentationChecks": [
+      "question_number_line_contains_no_answer_marker",
+      "prompt_contains_target_value",
+      "visible_scale_remains_sufficient_to_locate_target_uniquely"
+    ],
+    "answerRepresentationChecks": [
+      "answer_overlay_contains_exactly_one_answer_marker",
+      "answer_marker_tick_index_equals_derived_target_index",
+      "answer_overlay_uses_same_scale_as_question_representation"
+    ],
+    "forbidden": [
+      "nonuniform_tick_spacing_or_value_step",
+      "fractional_step",
+      "target_outside_scale",
+      "target_between_legal_ticks",
+      "question_leaks_answer_marker",
+      "multiple_answer_markers",
+      "answer_marker_on_wrong_tick",
+      "rank04_scale_completion_task",
+      "rank05_matching_task",
+      "movement_segments"
+    ]
+  },
+  "rendererExtensionContract": {
+    "rendererBindingId": "rb_g3a_u01_visual_integer_number_line_mark_value",
+    "classification": "EXTEND_EXISTING_INTEGER_NUMBER_LINE_RUNTIME",
+    "existingRendererPath": "site/modules/renderer/fraction-number-line.js",
+    "existingModelKind": "integer_number_line",
+    "rank02CapabilitiesReused": [
+      "uniform integer ticks",
+      "sparse visible anchors",
+      "left-to-right increasing scale",
+      "0..10000 bounded values",
+      "source-style marker rendering"
+    ],
+    "rank03RequiredModelExtension": {
+      "questionTargetMarkerOptionalOrAbsent": true,
+      "answerOverlayMarkerRequired": true,
+      "questionAndAnswerScaleIdentityRequired": true,
+      "targetValueStoredSeparatelyFromRenderedMarker": true
+    },
+    "requiredRenderingBehavior": {
+      "question": "render integer number line with visible anchors and no answer marker",
+      "answer": "render identical integer number line with exactly one marker overlay at derived targetTickIndex"
+    },
+    "noNewRendererFamily": true,
+    "rendererCodeChangeRequired": true,
+    "rendererCodeChanged": false
+  },
+  "sourceSemanticFixtures": [
+    {
+      "fixtureId": "g3a_u01_rank03_exam_mark_23",
+      "sourceQuestionId": "exam_pdf_1d999151554f_p1_N-1a",
+      "prompt": "在數線上標出23。",
+      "expectedSemanticAnswer": "定位於20與25之間的23。",
+      "provenanceClass": "SOURCE_GROUNDED"
+    },
+    {
+      "fixtureId": "g3a_u01_rank03_exam_mark_39",
+      "sourceQuestionId": "exam_pdf_1d999151554f_p1_N-1b",
+      "prompt": "在數線上標出39。",
+      "expectedSemanticAnswer": "定位於35與40之間的39。",
+      "provenanceClass": "SOURCE_GROUNDED"
+    },
+    {
+      "fixtureId": "g3a_u01_rank03_exam_mark_796",
+      "sourceQuestionId": "exam_pdf_1d999151554f_p1_N-2a",
+      "prompt": "在數線上標出796。",
+      "expectedSemanticAnswer": "定位於790與800之間的796。",
+      "provenanceClass": "SOURCE_GROUNDED"
+    }
+  ],
+  "controlledContractExamples": [
+    {
+      "exampleId": "rank03_controlled_step5",
+      "provenanceClass": "CONTROLLED_CONTRACT_EXAMPLE_NOT_SOURCE_FACT",
+      "model": {
+        "startValue": 0,
+        "step": 5,
+        "tickCount": 11,
+        "targetValue": 20
+      },
+      "expected": {
+        "targetTickIndex": 4
+      }
+    },
+    {
+      "exampleId": "rank03_controlled_step2",
+      "provenanceClass": "CONTROLLED_CONTRACT_EXAMPLE_NOT_SOURCE_FACT",
+      "model": {
+        "startValue": 0,
+        "step": 2,
+        "tickCount": 11,
+        "targetValue": 6
+      },
+      "expected": {
+        "targetTickIndex": 3
+      }
+    },
+    {
+      "exampleId": "rank03_controlled_step100",
+      "provenanceClass": "CONTROLLED_CONTRACT_EXAMPLE_NOT_SOURCE_FACT",
+      "model": {
+        "startValue": 0,
+        "step": 100,
+        "tickCount": 10,
+        "targetValue": 100
+      },
+      "expected": {
+        "targetTickIndex": 1
+      }
+    }
+  ],
+  "sourceCoverage": {
+    "sourceQuestionCount": 20,
+    "sourceQuestionIds": [
+      "exam_pdf_1d999151554f_p1_N-1a",
+      "exam_pdf_1d999151554f_p1_N-1b",
+      "exam_pdf_1d999151554f_p1_N-2a",
+      "exam_pdf_1d999151554f_p1_N-2b",
+      "exam_pdf_4048706451ff_p1_III-3a",
+      "exam_pdf_4048706451ff_p1_III-3b",
+      "exam_pdf_4048706451ff_p1_III-3c",
+      "exam_pdf_5da0a41369e6_p2_V-4",
+      "exam_pdf_65fc1653aa1e_p1_II-5",
+      "exam_pdf_6de92f1a982a_p1_I-1a",
+      "exam_pdf_6de92f1a982a_p1_I-1b",
+      "exam_pdf_6de92f1a982a_p1_I-2a",
+      "exam_pdf_6de92f1a982a_p1_I-2b",
+      "exam_pdf_87134a03f524_p2_V-3",
+      "exam_pdf_9a9a98cc104f_p1_I-2a",
+      "exam_pdf_9a9a98cc104f_p1_I-2b",
+      "exam_pdf_9a9a98cc104f_p1_I-2c",
+      "exam_pdf_9f8e58e09705_p1_II-1",
+      "exam_pdf_c2ca624c8cec_p2_VII-4",
+      "exam_pdf_e672d8c7e010_p1_III-2"
+    ],
+    "allFamilyQuestionsRetained": true,
+    "sourceEvidenceSamples": [
+      {
+        "questionId": "exam_pdf_1d999151554f_p1_N-1a",
+        "questionText": "在數線上標出23。",
+        "answer": "定位於20與25之間的23。",
+        "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_翰林_三上_數學_期中評量卷_大墩國小.pdf",
+        "page": 1
+      },
+      {
+        "questionId": "exam_pdf_1d999151554f_p1_N-1b",
+        "questionText": "在數線上標出39。",
+        "answer": "定位於35與40之間的39。",
+        "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_翰林_三上_數學_期中評量卷_大墩國小.pdf",
+        "page": 1
+      },
+      {
+        "questionId": "exam_pdf_1d999151554f_p1_N-2a",
+        "questionText": "在數線上標出796。",
+        "answer": "定位於790與800之間的796。",
+        "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_翰林_三上_數學_期中評量卷_大墩國小.pdf",
+        "page": 1
+      }
+    ]
+  },
+  "lifecycle": {
+    "sourceAuthorityPreflight": "PASS",
+    "canonicalKnowledgePointReuseResolved": true,
+    "formalMappingMaterialized": true,
+    "patternGroupMaterialized": true,
+    "patternSpecMaterialized": true,
+    "validatorContractMaterialized": true,
+    "rendererExtensionContractMaterialized": true,
+    "newKnowledgePointMinted": false,
+    "generatorImplemented": false,
+    "validatorRuntimeImplemented": false,
+    "rendererCodeChanged": false,
+    "selectorVisible": false,
+    "productionUse": "forbidden"
+  },
+  "antiScopeBoundary": {
+    "allowed": [
+      "Rank03 FormalMapping contract",
+      "Rank03 PatternGroup and PatternSpec contract",
+      "Rank03 mark-value validator contract",
+      "Rank03 question-vs-answer overlay renderer extension contract"
+    ],
+    "forbidden": [
+      "modify number-line renderer code",
+      "implement Rank03 generator",
+      "implement Rank03 runtime validator",
+      "make Rank03 selector visible",
+      "modify Classic or Exam UI",
+      "implement Rank04 or Rank05"
+    ]
+  },
+  "nextStep": "At the implementation boundary, separately approve Rank03 hidden runtime work: extend the existing integer-number-line model to support marker-free question rendering plus answer-overlay rendering, then implement deterministic MARK_GIVEN_VALUE generation and a blocking validator."
+}
