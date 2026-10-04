@@ -395,7 +395,7 @@ try{
     }
   };
   writeFileSync(path.join(OUT,"report.json"),JSON.stringify(report,null,2)+"\n");
-  console.log("G3AU01_RANK03_THREE_MODE_ACCEPTANCE="+JSON.stringify(report));
+  console.log("G3AU01_RANK04_THREE_MODE_ACCEPTANCE="+JSON.stringify(report));
 }catch(error){
   writeFileSync(path.join(OUT,"failure.json"),JSON.stringify({
     schemaName:"G3AU01VisualRank04ThreeModeAcceptanceFailureV1",
