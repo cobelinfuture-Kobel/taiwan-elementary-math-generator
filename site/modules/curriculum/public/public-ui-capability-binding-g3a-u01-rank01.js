@@ -1,7 +1,6 @@
 export * from "./public-ui-capability-binding-p09-mixed21.js";
 import * as base from "./public-ui-capability-binding-p09-mixed21.js";
 import {
-  G3A_U01_VISUAL_RANK01_CANONICAL_KP_ID as CANONICAL_KP,
   G3A_U01_VISUAL_RANK01_KP_ID as KP,
   G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID as GROUP_ID,
   G3A_U01_VISUAL_RANK01_PATTERN_SPEC_ID as SPEC_ID,
@@ -19,16 +18,12 @@ function target(input={}){
   return ids.length===1&&ids[0]===KP;
 }
 function rankBinding(input={}){
-  const prior=base.resolvePublicUiCapabilityBinding({
-    ...input,
-    selectedKnowledgePointIds:[CANONICAL_KP],
-    selectedPatternGroupIds:[]
-  });
+  const prior=base.resolvePublicUiCapabilityBinding(input);
   const existing=(prior.compatiblePatternGroups??[]).filter(row=>row.patternGroupId!==GROUP_ID);
   const compatible=[...existing,Object.freeze({
     ...GROUP,
     knowledgePointId:KP,
-    knowledgePointDisplayName:GROUP.displayName,
+    knowledgePointDisplayName:prior.compatiblePatternGroups?.[0]?.knowledgePointDisplayName??"四位數比較",
     effectiveQuestionType:"numeric",
     uiQuestionType:"numeric",
     displayLabel:"一維資料表比較題",
@@ -40,8 +35,6 @@ function rankBinding(input={}){
     selectionMode:"singleKnowledgePoint",
     selectedKnowledgePointIds:Object.freeze([KP]),
     selectedKnowledgePointCount:1,
-    canonicalKnowledgePointIds:Object.freeze([CANONICAL_KP]),
-    selectorNodeType:"ranked_practice_target",
     availableQuestionTypeOptions:Object.freeze([Object.freeze({value:"numeric",label:"數字／資料表題",enabled:true})]),
     questionType:"numeric",
     compatiblePatternGroups:Object.freeze(compatible),
