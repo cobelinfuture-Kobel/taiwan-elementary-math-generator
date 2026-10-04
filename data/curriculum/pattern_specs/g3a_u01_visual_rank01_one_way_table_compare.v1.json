@@ -364,7 +364,7 @@
     "focusedGate": "PASS",
     "pagesDeployRunId": 37164809036,
     "pagesDeploy": "PASS",
-    "publicReviewStatus": "READY_FOR_OPERATOR_WEBSITE_LAYOUT_CHECK"
+    "publicReviewStatus": "LAYOUT_REPAIR_PENDING_CI_AND_DEPLOYED_RECHECK"
   },
   "publicLayoutModeReview": {
     "reviewType": "EXACT_DEPLOYED_PAGES_ARTIFACT_LAYOUT_MODE_REVIEW",
