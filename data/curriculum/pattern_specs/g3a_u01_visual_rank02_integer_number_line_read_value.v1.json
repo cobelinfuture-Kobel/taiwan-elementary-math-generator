@@ -1,0 +1,515 @@
+{
+  "schemaName": "G3AU01VisualPatternSpecRank02Contract",
+  "schemaVersion": 1,
+  "taskId": "G3A_U01_VisualRank02_NumberLineReadValue_FormalMappingAndPatternSpecContract",
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "unitTitle": "10000以內的數",
+  "status": "contract_materialized_candidate_kp_dependency_runtime_forbidden",
+  "authority": {
+    "curriculumSource": "題型總覽-3a01-10000以內的數.pdf",
+    "curriculumSourcePages": [
+      2,
+      3
+    ],
+    "curriculumVisualEvidence": [
+      {
+        "page": 2,
+        "observation": "「如何畫數線」示例顯示等距刻度，數字寫在刻度下方，座標數字由左往右增加。"
+      },
+      {
+        "page": 3,
+        "observation": "「題型⑨ 整數數線」要求寫出數線上箭頭所指的數，包含步長5、2、100的可視例型。"
+      }
+    ],
+    "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+    "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
+    "priorityResolutionPath": "data/curriculum/mapping/g3a_u01_number_line_candidate_resolution.v1.json",
+    "knowledgeAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "sourceQuestionDatabase": "g03_question_database.xlsx",
+    "authorityReadbackMainSha": "5ca6b80f30b8d50edfa78b61878e3b79add8c786"
+  },
+  "sourceAuthorityPreflight": {
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_read_value",
+    "familyNameZh": "整數數線讀值",
+    "sourceQuestionCount": 50,
+    "taskCore": "READ_MARKER_VALUE",
+    "representationFamily": "integer_number_line",
+    "generativeReconstructionEligibility": "YES",
+    "priorityRank": 2,
+    "priorityWave": "P1_SHARED_NUMBER_LINE_EXTENSION",
+    "candidateResolutionDisposition": "APPROVED_FOR_PATTERNSPEC_DESIGN_NOT_MINTED",
+    "candidateKnowledgePointId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "candidateKnowledgePointNameZh": "整數數線刻度、讀值與定位",
+    "newKnowledgePointMinted": false,
+    "runtimeAuthorityChanged": false,
+    "decision": "PASS_FOR_CONTRACT_MATERIALIZATION_ONLY",
+    "runtimeAdmission": "FORBIDDEN_UNTIL_KP_MINT_AND_RENDERER_EXTENSION_APPROVED"
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g3a_u01_visual_integer_number_line_read_value",
+    "sourceMappingCandidateId": "fmc_g3a_u01_integer_number_line_read_value",
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_read_value",
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_read_value",
+    "patternSpecId": "psc_g3a_u01_visual_number_line_read_value",
+    "primaryKnowledgePointId": null,
+    "primaryKnowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "secondaryKnowledgePointIds": [],
+    "mode": "representation",
+    "operationContract": "derive a marked integer value from a uniform number-line scale",
+    "operationModel": "tickValue(index) = startValue + index * step",
+    "guards": [
+      "uniform_integer_step",
+      "marker_on_legal_tick",
+      "visible_anchor_labels_consistent",
+      "answer_equals_tick_value"
+    ],
+    "mappingStatus": "MATERIALIZED_DESIGN_CONTRACT_CANDIDATE_KP_DEPENDENCY",
+    "runtimeAdmission": false
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_read_value",
+    "knowledgePointId": null,
+    "knowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "displayNameZh": "整數數線讀值",
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_read_value",
+    "patternSpecIds": [
+      "psc_g3a_u01_visual_number_line_read_value"
+    ],
+    "sourceQuestionCount": 50,
+    "lifecycle": "hidden_contract_only"
+  },
+  "patternSpec": {
+    "patternSpecId": "psc_g3a_u01_visual_number_line_read_value",
+    "sourcePatternSpecCandidateId": "psc_g3a_u01_visual_number_line_read_value",
+    "sourceId": "g3a_u01_3a01",
+    "unitCode": "3A-U01",
+    "unitTitle": "10000以內的數",
+    "kind": "g3aU01VisualRepresentation",
+    "questionKind": "visual_reading",
+    "supportStatus": "plannedOnly",
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_read_value",
+    "knowledgePointId": null,
+    "knowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "secondaryKnowledgePointIds": [],
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_read_value",
+    "representationFamily": "integer_number_line",
+    "semanticSignature": "read_uniform_integer_number_line_marker_value",
+    "taskCore": "READ_MARKER_VALUE",
+    "allowedPromptVariants": [
+      "READ_SYMBOL_MARKER_VALUE",
+      "READ_ORDERED_MARKER_VALUE"
+    ],
+    "promptSkeletonsZh": {
+      "READ_SYMBOL_MARKER_VALUE": "數線上{markerSymbol}所指的數是多少？",
+      "READ_ORDERED_MARKER_VALUE": "數線第{ordinal}個箭頭指的數是多少？"
+    },
+    "constraints": {
+      "numberLine": {
+        "startValueInteger": true,
+        "stepPositiveInteger": true,
+        "uniformStep": true,
+        "minTickCount": 5,
+        "maxTickCount": 25,
+        "increasingLeftToRight": true,
+        "axisArrowAtRight": true,
+        "targetMarkerOnLegalTick": true,
+        "targetMarkerCountPerGeneratedQuestion": 1,
+        "visibleAnchorLabelsMin": 2,
+        "visibleAnchorsMustDetermineUniqueStep": true
+      },
+      "values": {
+        "integerOnly": true,
+        "min": 0,
+        "max": 10000,
+        "allTickValuesWithinUnitRange": true
+      },
+      "generation": {
+        "freeFormAIGeneration": false,
+        "sourceBackedSemanticFamilyOnly": true,
+        "answerMustBeUniquelyDeterminedFromVisibleScale": true,
+        "rank03ToRank05OperationsForbidden": true
+      }
+    },
+    "answerModel": {
+      "shape": "integer_number_line_read_value_answer",
+      "fields": [
+        "targetMarkerId",
+        "targetTickIndex",
+        "answerValue"
+      ],
+      "answerType": "integer",
+      "equation": "answerValue = startValue + targetTickIndex * step"
+    },
+    "validatorHooks": [
+      "validate_g3a_u01_integer_number_line_model",
+      "validate_g3a_u01_integer_number_line_read_answer"
+    ],
+    "validatorContractRef": "vc_g3a_u01_visual_integer_number_line_read_value",
+    "rendererBindingRef": "rb_g3a_u01_visual_integer_number_line_read_value",
+    "sourceMetadata": {
+      "sourceEvidenceType": "curriculum_visual_plus_historical_exam_visual_family",
+      "curriculumSourcePage": 3,
+      "sourceQuestionCount": 50,
+      "sourceQuestionIds": [
+        "exam_pdf_0fcbf6f20c4b_p3_V-15",
+        "exam_pdf_12597864f38a_p1_II-6a",
+        "exam_pdf_12597864f38a_p1_II-6b",
+        "exam_pdf_12597864f38a_p1_II-7a",
+        "exam_pdf_12597864f38a_p1_II-7b",
+        "exam_pdf_1e16624c81c5_p2_III-8a",
+        "exam_pdf_1e16624c81c5_p2_III-8b",
+        "exam_pdf_304d644b8711_p1_III-1a",
+        "exam_pdf_304d644b8711_p1_III-1b",
+        "exam_pdf_30bcfa82c8e1_p1_V-2",
+        "exam_pdf_3aefc1effbdc_p1_II-5",
+        "exam_pdf_3e141c57c342_p2_VII-4a",
+        "exam_pdf_3e141c57c342_p2_VII-4b",
+        "exam_pdf_4ddeb965dcd3_p1_I-13a",
+        "exam_pdf_4ddeb965dcd3_p1_I-13b",
+        "exam_pdf_4e2e913c5d64_p2_VI-1",
+        "exam_pdf_5540d42ef926_p1_II-3",
+        "exam_pdf_61b733fed599_p1_I-2a",
+        "exam_pdf_6625b3dabcc4_p1_I-1",
+        "exam_pdf_68fb1a07fc89_p1_III-1a",
+        "exam_pdf_68fb1a07fc89_p1_III-1b",
+        "exam_pdf_748c876ec715_p1_I-5",
+        "exam_pdf_767ae9f793b7_p3_IV-2",
+        "exam_pdf_81dfbba4705d_p2_V-2a",
+        "exam_pdf_81dfbba4705d_p2_V-2b",
+        "exam_pdf_81dfbba4705d_p2_V-2c",
+        "exam_pdf_81dfbba4705d_p2_V-3a",
+        "exam_pdf_81dfbba4705d_p2_V-3b",
+        "exam_pdf_81dfbba4705d_p2_V-3c",
+        "exam_pdf_8c83cef6ce7b_p1_II-8a",
+        "exam_pdf_8c83cef6ce7b_p1_II-8b",
+        "exam_pdf_9f8e58e09705_p1_I-1-1",
+        "exam_pdf_a270f5e645ff_p1_II-1a",
+        "exam_pdf_a270f5e645ff_p1_II-1b",
+        "exam_pdf_a270f5e645ff_p1_II-1c",
+        "exam_pdf_a5990f76ebd4_p2_VI-12",
+        "exam_pdf_a94353423b92_p1_II-8a",
+        "exam_pdf_a94353423b92_p1_II-8b",
+        "exam_pdf_aa0f03766e28_p1_I-5",
+        "exam_pdf_ab432cbc8d57_p1_I-7",
+        "exam_pdf_b52ef0481ece_p1_I-1",
+        "exam_pdf_c2ca624c8cec_p2_VI-8",
+        "exam_pdf_c3ebb0a687dc_p1_NLINE-1",
+        "exam_pdf_ddbd4efa158b_p1_III-2a",
+        "exam_pdf_ddbd4efa158b_p1_III-2b",
+        "exam_pdf_ddbd4efa158b_p1_III-2c",
+        "exam_pdf_e9f438202239_p1_I-5",
+        "exam_pdf_f1acc1edc9f8_p1_IV-2a",
+        "exam_pdf_f1acc1edc9f8_p1_IV-2b",
+        "exam_pdf_fdd2d6ff035a_p1_II-4"
+      ]
+    },
+    "provenance": {
+      "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+      "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
+      "candidateResolutionPath": "data/curriculum/mapping/g3a_u01_number_line_candidate_resolution.v1.json",
+      "authorityReadbackMainSha": "5ca6b80f30b8d50edfa78b61878e3b79add8c786"
+    },
+    "generatorStatus": "not_implemented",
+    "validatorStatus": "contract_only_not_implemented",
+    "rendererStatus": "extension_required_not_implemented",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden"
+  },
+  "rendererBinding": {
+    "rendererBindingId": "rb_g3a_u01_visual_integer_number_line_read_value",
+    "classification": "EXTEND",
+    "existingRendererPath": "site/modules/renderer/fraction-number-line.js",
+    "plannedModelKind": "integer_number_line",
+    "rank02MinimumExtensionContract": {
+      "uniformIntegerTicks": true,
+      "sparseVisibleTickLabels": true,
+      "markerArrowOrSymbol": true,
+      "exactlyOneTargetMarkerPerGeneratedQuestion": true,
+      "increasingAxis": true
+    },
+    "existingRendererLimitations": [
+      "current model kind is fraction_number_line",
+      "current points are dot markers rather than source-style arrow/symbol targets",
+      "current tick-label behavior does not model sparse learner-visible anchors as a semantic contract"
+    ],
+    "explicitlyDeferredRank03PlusFeatures": [
+      "learner_marks_given_value",
+      "complete_missing_scale_labels",
+      "multi_position_matching",
+      "movement_segments"
+    ],
+    "rendererCodeChangeRequired": true,
+    "rendererCodeChanged": false
+  },
+  "validatorContract": {
+    "validatorContractId": "vc_g3a_u01_visual_integer_number_line_read_value",
+    "status": "contract_only_not_runtime_implemented",
+    "inputModelChecks": [
+      "start_value_is_integer",
+      "step_is_positive_integer",
+      "tick_count_within_5_to_25",
+      "all_ticks_follow_one_uniform_step",
+      "visible_anchor_labels_match_tick_values",
+      "visible_anchors_determine_a_unique_step",
+      "target_marker_is_on_one_legal_tick",
+      "all_tick_values_are_between_0_and_10000"
+    ],
+    "answerChecks": [
+      "answer_value_equals_start_plus_target_index_times_step",
+      "answer_is_integer",
+      "answer_is_uniquely_determined_by_visible_scale"
+    ],
+    "forbidden": [
+      "nonuniform_tick_spacing_or_value_step",
+      "fractional_step",
+      "inconsistent_visible_anchor_label",
+      "marker_between_ticks",
+      "underdetermined_scale",
+      "answer_outside_0_to_10000",
+      "rank03_marking_task",
+      "rank04_scale_completion_task",
+      "rank05_matching_task"
+    ]
+  },
+  "sourceCalibrationFixtures": [
+    {
+      "fixtureId": "g3a_u01_rank02_curriculum_page3_step5_first_arrow",
+      "sourceRef": "題型總覽-3a01-10000以內的數.pdf#page=3",
+      "sourceVisualTask": "題型⑨ 整數數線：寫出數線上箭頭所指的數",
+      "promptVariant": "READ_ORDERED_MARKER_VALUE",
+      "model": {
+        "kind": "integer_number_line",
+        "startValue": 0,
+        "step": 5,
+        "tickCount": 11,
+        "visibleAnchors": [
+          {
+            "tickIndex": 0,
+            "value": 0
+          },
+          {
+            "tickIndex": 1,
+            "value": 5
+          },
+          {
+            "tickIndex": 2,
+            "value": 10
+          },
+          {
+            "tickIndex": 9,
+            "value": 45
+          },
+          {
+            "tickIndex": 10,
+            "value": 50
+          }
+        ],
+        "targetMarker": {
+          "markerId": "first_arrow",
+          "tickIndex": 4
+        }
+      },
+      "expectedAnswer": {
+        "targetMarkerId": "first_arrow",
+        "targetTickIndex": 4,
+        "answerValue": 20
+      }
+    },
+    {
+      "fixtureId": "g3a_u01_rank02_curriculum_page3_step2_first_arrow",
+      "sourceRef": "題型總覽-3a01-10000以內的數.pdf#page=3",
+      "sourceVisualTask": "題型⑨ 整數數線：寫出數線上箭頭所指的數",
+      "promptVariant": "READ_ORDERED_MARKER_VALUE",
+      "model": {
+        "kind": "integer_number_line",
+        "startValue": 0,
+        "step": 2,
+        "tickCount": 11,
+        "visibleAnchors": [
+          {
+            "tickIndex": 0,
+            "value": 0
+          },
+          {
+            "tickIndex": 1,
+            "value": 2
+          },
+          {
+            "tickIndex": 5,
+            "value": 10
+          },
+          {
+            "tickIndex": 10,
+            "value": 20
+          }
+        ],
+        "targetMarker": {
+          "markerId": "first_arrow",
+          "tickIndex": 3
+        }
+      },
+      "expectedAnswer": {
+        "targetMarkerId": "first_arrow",
+        "targetTickIndex": 3,
+        "answerValue": 6
+      }
+    },
+    {
+      "fixtureId": "g3a_u01_rank02_curriculum_page3_step100_first_arrow",
+      "sourceRef": "題型總覽-3a01-10000以內的數.pdf#page=3",
+      "sourceVisualTask": "題型⑨ 整數數線：寫出數線上箭頭所指的數",
+      "promptVariant": "READ_ORDERED_MARKER_VALUE",
+      "model": {
+        "kind": "integer_number_line",
+        "startValue": 0,
+        "step": 100,
+        "tickCount": 10,
+        "visibleAnchors": [
+          {
+            "tickIndex": 0,
+            "value": 0
+          },
+          {
+            "tickIndex": 2,
+            "value": 200
+          },
+          {
+            "tickIndex": 3,
+            "value": 300
+          },
+          {
+            "tickIndex": 8,
+            "value": 800
+          },
+          {
+            "tickIndex": 9,
+            "value": 900
+          }
+        ],
+        "targetMarker": {
+          "markerId": "first_arrow",
+          "tickIndex": 1
+        }
+      },
+      "expectedAnswer": {
+        "targetMarkerId": "first_arrow",
+        "targetTickIndex": 1,
+        "answerValue": 100
+      }
+    }
+  ],
+  "sourceCoverage": {
+    "sourceQuestionCount": 50,
+    "sourceQuestionIds": [
+      "exam_pdf_0fcbf6f20c4b_p3_V-15",
+      "exam_pdf_12597864f38a_p1_II-6a",
+      "exam_pdf_12597864f38a_p1_II-6b",
+      "exam_pdf_12597864f38a_p1_II-7a",
+      "exam_pdf_12597864f38a_p1_II-7b",
+      "exam_pdf_1e16624c81c5_p2_III-8a",
+      "exam_pdf_1e16624c81c5_p2_III-8b",
+      "exam_pdf_304d644b8711_p1_III-1a",
+      "exam_pdf_304d644b8711_p1_III-1b",
+      "exam_pdf_30bcfa82c8e1_p1_V-2",
+      "exam_pdf_3aefc1effbdc_p1_II-5",
+      "exam_pdf_3e141c57c342_p2_VII-4a",
+      "exam_pdf_3e141c57c342_p2_VII-4b",
+      "exam_pdf_4ddeb965dcd3_p1_I-13a",
+      "exam_pdf_4ddeb965dcd3_p1_I-13b",
+      "exam_pdf_4e2e913c5d64_p2_VI-1",
+      "exam_pdf_5540d42ef926_p1_II-3",
+      "exam_pdf_61b733fed599_p1_I-2a",
+      "exam_pdf_6625b3dabcc4_p1_I-1",
+      "exam_pdf_68fb1a07fc89_p1_III-1a",
+      "exam_pdf_68fb1a07fc89_p1_III-1b",
+      "exam_pdf_748c876ec715_p1_I-5",
+      "exam_pdf_767ae9f793b7_p3_IV-2",
+      "exam_pdf_81dfbba4705d_p2_V-2a",
+      "exam_pdf_81dfbba4705d_p2_V-2b",
+      "exam_pdf_81dfbba4705d_p2_V-2c",
+      "exam_pdf_81dfbba4705d_p2_V-3a",
+      "exam_pdf_81dfbba4705d_p2_V-3b",
+      "exam_pdf_81dfbba4705d_p2_V-3c",
+      "exam_pdf_8c83cef6ce7b_p1_II-8a",
+      "exam_pdf_8c83cef6ce7b_p1_II-8b",
+      "exam_pdf_9f8e58e09705_p1_I-1-1",
+      "exam_pdf_a270f5e645ff_p1_II-1a",
+      "exam_pdf_a270f5e645ff_p1_II-1b",
+      "exam_pdf_a270f5e645ff_p1_II-1c",
+      "exam_pdf_a5990f76ebd4_p2_VI-12",
+      "exam_pdf_a94353423b92_p1_II-8a",
+      "exam_pdf_a94353423b92_p1_II-8b",
+      "exam_pdf_aa0f03766e28_p1_I-5",
+      "exam_pdf_ab432cbc8d57_p1_I-7",
+      "exam_pdf_b52ef0481ece_p1_I-1",
+      "exam_pdf_c2ca624c8cec_p2_VI-8",
+      "exam_pdf_c3ebb0a687dc_p1_NLINE-1",
+      "exam_pdf_ddbd4efa158b_p1_III-2a",
+      "exam_pdf_ddbd4efa158b_p1_III-2b",
+      "exam_pdf_ddbd4efa158b_p1_III-2c",
+      "exam_pdf_e9f438202239_p1_I-5",
+      "exam_pdf_f1acc1edc9f8_p1_IV-2a",
+      "exam_pdf_f1acc1edc9f8_p1_IV-2b",
+      "exam_pdf_fdd2d6ff035a_p1_II-4"
+    ],
+    "allFamilyQuestionsRetained": true,
+    "sourceEvidenceSamples": [
+      {
+        "questionId": "exam_pdf_0fcbf6f20c4b_p3_V-15",
+        "questionText": "數線上▲所指的數是多少？",
+        "answer": "1400",
+        "sourcePath": "G03/semester_1/midterm/數學_112 上學期_三年級_彰化縣_縣立廣興國小_第一次段考(期中考)_南一_試卷.pdf",
+        "page": 3
+      },
+      {
+        "questionId": "exam_pdf_12597864f38a_p1_II-6a",
+        "questionText": "數線第一個箭頭指的數是多少？",
+        "answer": "250",
+        "sourcePath": "G03/semester_1/midterm/數學_112 上學期_三年級_臺北市_市立敦化國小_第一次段考(期中考)_南一_試卷.pdf",
+        "page": 1
+      },
+      {
+        "questionId": "exam_pdf_12597864f38a_p1_II-6b",
+        "questionText": "數線第二個箭頭指的數是多少？",
+        "answer": "310",
+        "sourcePath": "G03/semester_1/midterm/數學_112 上學期_三年級_臺北市_市立敦化國小_第一次段考(期中考)_南一_試卷.pdf",
+        "page": 1
+      }
+    ]
+  },
+  "lifecycle": {
+    "sourceAuthorityPreflight": "PASS",
+    "formalMappingMaterialized": true,
+    "patternGroupMaterialized": true,
+    "patternSpecMaterialized": true,
+    "answerModelMaterialized": true,
+    "validatorContractMaterialized": true,
+    "rendererExtensionContractMaterialized": true,
+    "candidateKnowledgePointAcceptedForDesign": true,
+    "newKnowledgePointMinted": false,
+    "generatorImplemented": false,
+    "validatorRuntimeImplemented": false,
+    "rendererCodeChanged": false,
+    "selectorVisible": false,
+    "productionUse": "forbidden"
+  },
+  "antiScopeBoundary": {
+    "allowed": [
+      "Rank02 source authority preflight",
+      "Rank02 FormalMapping contract",
+      "Rank02 PatternGroup and PatternSpec contract",
+      "Rank02 validator contract",
+      "Rank02 minimum renderer-extension contract"
+    ],
+    "forbidden": [
+      "mint a canonical number-line KnowledgePoint",
+      "modify fraction-number-line renderer code",
+      "implement Rank02 generator",
+      "implement Rank02 runtime validator",
+      "make Rank02 selector visible",
+      "implement Rank03, Rank04, or Rank05"
+    ]
+  },
+  "nextStep": "At the implementation boundary, separately approve Rank02 runtime work: decide the canonical KP mint/admission path, then implement only the minimum integer-number-line renderer extension, deterministic generator, and blocking validator required by READ_MARKER_VALUE."
+}
