@@ -4,6 +4,12 @@ import {
   listVisibleBatchAKnowledgePoints,
 } from "../curriculum/registry/batch-a-selector-p09-mixed21-extension.js";
 import {
+  G3A_U01_VISUAL_RANK01_KP_ID,
+  G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP,
+  G3A_U01_VISUAL_RANK01_SOURCE_ID,
+} from "../curriculum/registry/g3a-u01-visual-rank01-selector-projection.js";
+import {
   paginateAnswerKeyItems,
   paginateQuestionDisplayModels,
 } from "../core/worksheet-pagination.js";
@@ -57,8 +63,20 @@ function groupLooksApplication(group = {}) {
   return corpus.includes("application") || corpus.includes("word_problem") || corpus.includes("應用題");
 }
 
-function requestedGroupsForRow(plan, row, mode) {
+function groupsForRow(row) {
   const groups = getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId);
+  if (
+    row.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+    && !groups.some((group) => group.patternGroupId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
+  ) {
+    return [...groups, G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP];
+  }
+  return groups;
+}
+
+function requestedGroupsForRow(plan, row, mode) {
+  const groups = groupsForRow(row);
   const requested = new Set(unique(plan.selectedPatternGroupIds));
   const intersection = groups.filter((group) => requested.has(group.patternGroupId));
   if (intersection.length) return intersection.map((group) => group.patternGroupId);
