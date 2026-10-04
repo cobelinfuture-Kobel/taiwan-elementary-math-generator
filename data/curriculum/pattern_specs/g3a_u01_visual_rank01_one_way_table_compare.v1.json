@@ -290,11 +290,11 @@
     "publicLayoutModesReview": "REPAIR_IMPLEMENTED_PENDING_CI_AND_DEPLOYED_RECHECK",
     "publicSelectorHierarchy": "FLAT_SIBLING_PROJECTION_PENDING_FOCUSED_CI",
     "examTemplateConsumer": "SINGLE_KP_UI_ALIAS_IMPLEMENTED_PENDING_FOCUSED_CI",
-    "rank01SameUnitMixedConsumer": "IMPLEMENTED_PENDING_FOCUSED_CI",
-    "rank01CrossUnitMixedConsumer": "IMPLEMENTED_PENDING_FOCUSED_CI",
-    "threeModeE2E": "PENDING_FOCUSED_CI"
+    "rank01SameUnitMixedConsumer": "PASS_FOCUSED_CI_MERGED_PENDING_PAGES",
+    "rank01CrossUnitMixedConsumer": "PASS_FOCUSED_CI_MERGED_PENDING_PAGES",
+    "threeModeE2E": "PASS_FOCUSED_CI"
   },
-  "nextStep": "Run the bounded Rank01 three-mode gate: verify Classic same-unit plus Exam single/same-unit/cross-unit all expose the same Rank01 sibling target and that mixed coordinators forward pg_g3a_u01_visual_one_way_table_compare only to the canonical G3A U01 compare leaf; if PASS, merge and verify deployed Pages before final operator review.",
+  "nextStep": "Confirm an exact GitHub Pages deployment containing merge 480c5ac75689f6d36396f02cd7e0c355af5476b1 (or a descendant containing it), then perform the final operator visual check that Rank01 is a same-level selector target in Classic same-unit and Exam single/same-unit/cross-unit modes before D0 closeout.",
   "runtimeAcceptance": {
     "prNumber": 1215,
     "mergeSha": "38114a0184bdc6402e4f2d75377230ee5df496a6",
@@ -376,13 +376,27 @@
     "selectorTargetKind": "pattern_group_projection",
     "selectorTargetId": "pg_g3a_u01_visual_one_way_table_compare",
     "mixedSelectorLinkageTask": "G3A_U01_Rank01_SameUnitAndCrossUnitMixedFullLinkage_Then_ThreeModeE2E_PRGate",
-    "mixedSelectorLinkageStatus": "IMPLEMENTED_PENDING_FOCUSED_CI",
+    "mixedSelectorLinkageStatus": "PASS_FOCUSED_CI_MERGED_PENDING_PAGES",
     "examTemplateCompositionModes": [
       "SINGLE_KP_UI_ALIAS_TO_EXISTING_SINGLE_KNOWLEDGE_POINT",
       "MIXED_KP_SAME_UNIT",
       "MIXED_KP_CROSS_UNIT"
     ],
-    "mixedLeafRuntimePolicy": "REUSE_EXISTING_SINGLE_KP_RANK01_RUNTIME"
+    "mixedLeafRuntimePolicy": "REUSE_EXISTING_SINGLE_KP_RANK01_RUNTIME",
+    "mixedSelectorLinkageEvidence": {
+      "prNumber": 1223,
+      "exactHeadSha": "142b2bc9f60e32f07e5c939b7d85bd8b4e469196",
+      "mergeSha": "480c5ac75689f6d36396f02cd7e0c355af5476b1",
+      "prGateRunId": 37172805193,
+      "validationLane": "SHARED_RUNTIME_BOUNDED",
+      "focusedContracts": "PASS",
+      "targetedRouteReplay": "PASS",
+      "classicSameUnit": "PASS",
+      "examSingle": "PASS",
+      "examSameUnit": "PASS",
+      "examCrossUnit": "PASS",
+      "pagesDeploy": "PENDING"
+    }
   },
   "publicLayoutModeReview": {
     "reviewType": "EXACT_DEPLOYED_PAGES_ARTIFACT_LAYOUT_MODE_REVIEW",
