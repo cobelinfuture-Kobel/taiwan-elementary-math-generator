@@ -68,8 +68,8 @@ test("Rank02 PatternSpec contract passes the repository core schema helper", () 
   assert.equal(contract.patternSpec.sourcePatternSpecCandidateId, SPEC_ID);
   assert.equal(contract.patternSpec.knowledgePointId, "kp_g3a_u01_integer_number_line_scale_location");
   assert.equal(contract.patternSpec.knowledgePointCandidateId, KPC_ID);
-  assert.equal(contract.patternSpec.selectorStatus, "hidden");
-  assert.equal(contract.patternSpec.productionUse, "forbidden");
+  assert.equal(contract.patternSpec.selectorStatus, "visible_public_review");
+  assert.equal(contract.patternSpec.productionUse, "public_review");
 
   const result = validatePatternSpec(contract.patternSpec);
   assert.equal(result.validationStatus, "pass");
@@ -120,7 +120,7 @@ test("Rank02 correctly requires an extension of the existing fraction number-lin
   assert.equal(validateFractionNumberLineModel(contract.sourceCalibrationFixtures[0].model), false);
 });
 
-test("Rank02 advances to hidden D1 runtime while staying out of public selector and Rank03+", () => {
+test("Rank02 advances through bounded public cutover while keeping Rank03+ excluded", () => {
   assert.equal(contract.lifecycle.formalMappingMaterialized, true);
   assert.equal(contract.lifecycle.patternSpecMaterialized, true);
   assert.equal(contract.lifecycle.validatorContractMaterialized, true);
@@ -128,8 +128,9 @@ test("Rank02 advances to hidden D1 runtime while staying out of public selector 
   assert.equal(contract.lifecycle.generatorImplemented, true);
   assert.equal(contract.lifecycle.validatorRuntimeImplemented, true);
   assert.equal(contract.lifecycle.rendererCodeChanged, true);
-  assert.equal(contract.lifecycle.selectorVisible, false);
-  assert.equal(contract.lifecycle.productionUse, "forbidden");
+  assert.equal(contract.lifecycle.selectorVisible, true);
+  assert.equal(contract.lifecycle.productionUse, "public_review");
+  assert.equal(contract.lifecycle.publicCutover, "IMPLEMENTED_PENDING_FOCUSED_CI");
   assert.equal(contract.patternSpec.constraints.generation.rank03ToRank05OperationsForbidden, true);
   assert.deepEqual(contract.rendererBinding.explicitlyDeferredRank03PlusFeatures, [
     "learner_marks_given_value",
