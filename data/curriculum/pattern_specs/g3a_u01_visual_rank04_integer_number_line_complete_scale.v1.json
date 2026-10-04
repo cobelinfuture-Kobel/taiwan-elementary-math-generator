@@ -1,0 +1,364 @@
+{
+  "schemaName": "G3AU01VisualPatternSpecRank04Contract",
+  "schemaVersion": 1,
+  "taskId": "G3A_U01_VisualRank04_FormalMappingAndPatternSpecContract_Then_CompleteScaleValidatorAndRendererExtensionContract",
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "unitTitle": "10000以內的數",
+  "status": "contract_materialized_runtime_not_started",
+  "authority": {
+    "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank04_source_authority_preflight.v1.json",
+    "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+    "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
+    "knowledgeAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "rank03ContractPath": "data/curriculum/pattern_specs/g3a_u01_visual_rank03_integer_number_line_mark_value.v1.json",
+    "curriculumSource": "題型總覽-3a01-10000以內的數.pdf",
+    "curriculumSourcePage": 3,
+    "curriculumEvidenceRole": "SHARED_NUMBER_LINE_SEMANTICS_ONLY",
+    "directTaskAuthority": "historical_exam_visual_family"
+  },
+  "sourceAuthorityPreflight": {
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_complete_scale",
+    "familyNameZh": "整數數線補刻度／填數",
+    "sourceQuestionCount": 7,
+    "taskCore": "COMPLETE_MISSING_TICK_VALUES",
+    "representationFamily": "integer_number_line",
+    "generativeReconstructionEligibility": "YES",
+    "priorityRank": 4,
+    "priorityWave": "P1_SHARED_NUMBER_LINE_EXTENSION",
+    "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "canonicalKnowledgePointNameZh": "整數數線刻度、讀值與定位",
+    "reuseExistingCanonicalKnowledgePoint": true,
+    "newKnowledgePointRequired": false,
+    "decision": "PASS_FOR_CONTRACT_MATERIALIZATION_ONLY",
+    "runtimeAdmission": "FORBIDDEN_UNTIL_COMPLETE_SCALE_RUNTIME_IMPLEMENTATION"
+  },
+  "formalMapping": {
+    "formalMappingId": "fm_g3a_u01_visual_integer_number_line_complete_scale",
+    "sourceMappingCandidateId": "fmc_g3a_u01_integer_number_line_complete_scale",
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_complete_scale",
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_complete_scale",
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_complete_scale",
+    "primaryKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "historicalPrimaryKnowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "secondaryKnowledgePointIds": [],
+    "mode": "representation_reasoning",
+    "operationContract": "reconstruct missing tick labels from visible anchors on a uniform integer scale",
+    "operationModel": "missingValue(index) = startValue + index * step",
+    "guards": [
+      "uniform_integer_step",
+      "visible_labels_preserved",
+      "all_missing_tick_values_correct",
+      "completed_labels_strictly_ordered"
+    ],
+    "mappingStatus": "MATERIALIZED_CONTRACT_PENDING_RUNTIME",
+    "runtimeAdmission": false
+  },
+  "patternGroup": {
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_complete_scale",
+    "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "displayNameZh": "整數數線補刻度／填數",
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_complete_scale",
+    "patternSpecIds": [
+      "ps_g3a_u01_visual_integer_number_line_complete_scale"
+    ],
+    "sourceQuestionCount": 7,
+    "lifecycle": "hidden_contract"
+  },
+  "patternSpec": {
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_complete_scale",
+    "sourcePatternSpecCandidateId": "psc_g3a_u01_visual_number_line_complete_scale",
+    "sourceId": "g3a_u01_3a01",
+    "unitCode": "3A-U01",
+    "unitTitle": "10000以內的數",
+    "kind": "g3aU01VisualRepresentation",
+    "questionKind": "visual_reading",
+    "supportStatus": "plannedOnly",
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_complete_scale",
+    "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "secondaryKnowledgePointIds": [],
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_complete_scale",
+    "representationFamily": "integer_number_line",
+    "semanticSignature": "complete_missing_integer_number_line_tick_values",
+    "taskCore": "COMPLETE_MISSING_TICK_VALUES",
+    "allowedPromptVariants": [
+      "COMPLETE_MISSING_TICK_VALUES"
+    ],
+    "promptSkeletonsZh": {
+      "COMPLETE_MISSING_TICK_VALUES": "在數線的空格中填入正確的數。"
+    },
+    "constraints": {
+      "numberLine": {
+        "startValueInteger": true,
+        "stepPositiveInteger": true,
+        "uniformStep": true,
+        "minTickCount": 5,
+        "maxTickCount": 25,
+        "increasingLeftToRight": true,
+        "axisArrowAtRight": true,
+        "visibleAnchorsMin": 2,
+        "visibleAnchorsMustDetermineUniqueStep": true
+      },
+      "completion": {
+        "missingLabelsRequired": true,
+        "minMissingLabelCount": 1,
+        "generatedMissingLabelCountMax": 3,
+        "missingIndicesMustBeLegalTicks": true,
+        "questionMustRetainAtLeastTwoVisibleAnchors": true,
+        "answerMustRestoreEveryMissingLabel": true,
+        "existingVisibleLabelsMustRemainUnchanged": true
+      },
+      "values": {
+        "integerOnly": true,
+        "min": 0,
+        "max": 10000,
+        "allTickValuesWithinUnitRange": true
+      },
+      "generation": {
+        "freeFormAIGeneration": false,
+        "sourceBackedSemanticFamilyOnly": true,
+        "answerMustBeUniquelyDeterminedFromVisibleScale": true,
+        "rank05ToRank06OperationsForbidden": true,
+        "movementTaskForbidden": true
+      }
+    },
+    "questionModel": {
+      "shape": "integer_number_line_complete_scale_question",
+      "fields": [
+        "startValue",
+        "step",
+        "tickCount",
+        "ticks",
+        "visibleAnchors",
+        "missingTickIndices"
+      ],
+      "representationRequirement": "render identical integer-number-line geometry with markerPolicy=forbidden; omit labels at missingTickIndices while retaining sufficient visible anchors"
+    },
+    "answerModel": {
+      "shape": "integer_number_line_complete_scale_answer",
+      "fields": [
+        "missingTickIndices",
+        "missingValues",
+        "completedAnchors"
+      ],
+      "answerType": "integer_list",
+      "equation": "missingValues[i] = startValue + missingTickIndices[i] * step",
+      "representationRequirement": "render identical scale geometry with question anchors preserved and every missing label restored"
+    },
+    "validatorHooks": [
+      "validate_g3a_u01_integer_number_line_complete_scale_model",
+      "validate_g3a_u01_integer_number_line_complete_scale_answer"
+    ],
+    "validatorContractRef": "vc_g3a_u01_visual_integer_number_line_complete_scale",
+    "rendererBindingRef": "rb_g3a_u01_visual_integer_number_line_complete_scale",
+    "sourceMetadata": {
+      "sourceEvidenceType": "historical_exam_visual_family_plus_curriculum_shared_number_line_semantics",
+      "curriculumSourcePage": 3,
+      "directTaskAuthority": "historical_exam_visual_family",
+      "sourceQuestionCount": 7,
+      "sourceQuestionIds": [
+        "exam_pdf_10552640d198_p1_III-1",
+        "exam_pdf_65fc1653aa1e_p1_I-3",
+        "exam_pdf_9d80c7672910_p1_III-1",
+        "exam_pdf_9d80c7672910_p1_III-2",
+        "exam_pdf_a5990f76ebd4_p2_VI-11",
+        "exam_pdf_e672d8c7e010_p1_III-5a",
+        "exam_pdf_e672d8c7e010_p1_III-5b"
+      ]
+    },
+    "provenance": {
+      "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank04_source_authority_preflight.v1.json",
+      "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+      "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
+      "knowledgeAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json"
+    },
+    "generatorStatus": "not_implemented",
+    "validatorStatus": "contract_only",
+    "rendererStatus": "existing_integer_number_line_renderer_reusable_without_code_change",
+    "selectorStatus": "hidden",
+    "productionUse": "forbidden",
+    "questionKindCompatibilityNote": "Repository PatternSpec schema already accepts visual_reading; COMPLETE_MISSING_TICK_VALUES remains the semantic authority via taskCore, semanticSignature, answerModel and validator contract without adding a new shared questionKind enum."
+  },
+  "validatorContract": {
+    "validatorContractId": "vc_g3a_u01_visual_integer_number_line_complete_scale",
+    "status": "contract_materialized",
+    "inputModelChecks": [
+      "start_value_is_integer",
+      "step_is_positive_integer",
+      "tick_count_within_5_to_25",
+      "all_ticks_follow_one_uniform_step",
+      "visible_anchor_labels_match_tick_values",
+      "visible_anchors_determine_a_unique_step",
+      "missing_tick_indices_are_unique_legal_ticks",
+      "question_has_at_least_one_missing_tick_label",
+      "question_retains_at_least_two_visible_anchors",
+      "all_tick_values_are_between_0_and_10000"
+    ],
+    "questionRepresentationChecks": [
+      "question_uses_marker_policy_forbidden",
+      "question_visible_anchors_exclude_every_missing_tick_index",
+      "question_does_not_leak_missing_values_as_labels",
+      "question_scale_remains_uniquely_solvable"
+    ],
+    "answerChecks": [
+      "missing_values_equal_start_plus_index_times_step",
+      "missing_values_follow_missing_tick_index_order",
+      "all_question_visible_labels_are_preserved",
+      "completed_anchor_set_restores_every_missing_tick_index"
+    ],
+    "answerRepresentationChecks": [
+      "answer_uses_same_tick_geometry_as_question",
+      "answer_uses_marker_policy_forbidden",
+      "answer_restores_missing_labels_at_exact_tick_indices",
+      "completed_labels_are_strictly_increasing_left_to_right"
+    ],
+    "forbidden": [
+      "nonuniform_tick_spacing_or_value_step",
+      "fractional_step",
+      "insufficient_visible_anchors",
+      "duplicate_missing_tick_index",
+      "question_leaks_missing_value",
+      "wrong_completed_value",
+      "answer_changes_existing_visible_label",
+      "rank05_money_read_task",
+      "rank06_money_build_task",
+      "movement_segments"
+    ]
+  },
+  "rendererBinding": {
+    "rendererBindingId": "rb_g3a_u01_visual_integer_number_line_complete_scale",
+    "classification": "REUSE_EXISTING_INTEGER_NUMBER_LINE_RUNTIME_WITH_MODEL_PROJECTION",
+    "existingRendererPath": "site/modules/renderer/fraction-number-line.js",
+    "existingModelKind": "integer_number_line",
+    "reusedCapabilities": [
+      "uniform tick geometry",
+      "sparse visibleAnchors rendering",
+      "markerPolicy=forbidden with no targetMarker",
+      "0..10000 integer bounds",
+      "A4-compatible 420x90 number-line SVG"
+    ],
+    "requiredQuestionProjection": "visibleAnchors = all learner-visible anchors excluding missingTickIndices; markerPolicy=forbidden",
+    "requiredAnswerProjection": "visibleAnchors = question visible anchors union restored missing anchors; markerPolicy=forbidden",
+    "newRendererFamilyRequired": false,
+    "rendererCodeChangeRequired": false,
+    "rendererCodeChanged": false
+  },
+  "sourceSemanticFixtures": [
+    {
+      "fixtureId": "g3a_u01_rank04_exam_complete_150",
+      "sourceQuestionId": "exam_pdf_10552640d198_p1_III-1",
+      "prompt": "數線50、100、( )、200、250、300、350、400，填入缺少的數。",
+      "expectedSemanticAnswer": [
+        "150"
+      ],
+      "provenanceClass": "SOURCE_GROUNDED"
+    },
+    {
+      "fixtureId": "g3a_u01_rank04_exam_complete_3964_series",
+      "sourceQuestionId": "exam_pdf_9d80c7672910_p1_III-1",
+      "prompt": "數線3964、（　）、3984、3994、（　）、4014、（　）、4034。",
+      "expectedSemanticAnswer": [
+        "3974",
+        "4004",
+        "4024"
+      ],
+      "provenanceClass": "SOURCE_GROUNDED"
+    },
+    {
+      "fixtureId": "g3a_u01_rank04_exam_complete_5572_series",
+      "sourceQuestionId": "exam_pdf_9d80c7672910_p1_III-2",
+      "prompt": "數線5572、（　）、5772、5872、（　）、（　）、6172、6272。",
+      "expectedSemanticAnswer": [
+        "5672",
+        "5972",
+        "6072"
+      ],
+      "provenanceClass": "SOURCE_GROUNDED"
+    }
+  ],
+  "controlledContractExamples": [
+    {
+      "exampleId": "rank04_controlled_step50_one_missing",
+      "provenanceClass": "CONTROLLED_CONTRACT_EXAMPLE_NOT_SOURCE_FACT",
+      "model": {
+        "startValue": 50,
+        "step": 50,
+        "tickCount": 8,
+        "missingTickIndices": [
+          2
+        ]
+      },
+      "expected": {
+        "missingValues": [
+          150
+        ]
+      }
+    },
+    {
+      "exampleId": "rank04_controlled_step10_three_missing",
+      "provenanceClass": "CONTROLLED_CONTRACT_EXAMPLE_NOT_SOURCE_FACT",
+      "model": {
+        "startValue": 3964,
+        "step": 10,
+        "tickCount": 8,
+        "missingTickIndices": [
+          1,
+          4,
+          6
+        ]
+      },
+      "expected": {
+        "missingValues": [
+          3974,
+          4004,
+          4024
+        ]
+      }
+    }
+  ],
+  "sourceCoverage": {
+    "sourceQuestionCount": 7,
+    "sourceQuestionIds": [
+      "exam_pdf_10552640d198_p1_III-1",
+      "exam_pdf_65fc1653aa1e_p1_I-3",
+      "exam_pdf_9d80c7672910_p1_III-1",
+      "exam_pdf_9d80c7672910_p1_III-2",
+      "exam_pdf_a5990f76ebd4_p2_VI-11",
+      "exam_pdf_e672d8c7e010_p1_III-5a",
+      "exam_pdf_e672d8c7e010_p1_III-5b"
+    ],
+    "allFamilyQuestionsRetained": true
+  },
+  "lifecycle": {
+    "sourceAuthorityPreflight": "PASS",
+    "canonicalKnowledgePointReuseResolved": true,
+    "formalMappingMaterialized": true,
+    "patternGroupMaterialized": true,
+    "patternSpecMaterialized": true,
+    "validatorContractMaterialized": true,
+    "rendererReuseContractMaterialized": true,
+    "newKnowledgePointMinted": false,
+    "generatorImplemented": false,
+    "validatorRuntimeImplemented": false,
+    "rendererCodeChanged": false,
+    "selectorVisible": false,
+    "productionUse": "forbidden"
+  },
+  "antiScopeBoundary": {
+    "allowed": [
+      "Rank04 FormalMapping materialization",
+      "Rank04 hidden PatternGroup and PatternSpec contract",
+      "Rank04 blocking validator contract",
+      "Rank04 existing-renderer reuse contract"
+    ],
+    "forbidden": [
+      "implement Rank04 generator runtime",
+      "implement Rank04 validator runtime",
+      "modify shared number-line renderer code",
+      "make Rank04 selector visible",
+      "modify Classic or Exam UI",
+      "implement Rank05 or Rank06"
+    ]
+  },
+  "nextStep": "G3A_U01_VisualRank04_HiddenCompleteScaleRuntime_Validator_Worksheet_And_ActualLayoutAcceptance"
+}
