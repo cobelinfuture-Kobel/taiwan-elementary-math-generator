@@ -58,23 +58,15 @@ async function run(){
     return selected.length===1&&selected[0]===kp;
   },KP,{timeout:120000});
 
-  await page.waitForFunction(group=>{
-    const node=document.querySelector(`#batch-a-pattern-group-panel [data-pattern-group-id="${group}"]`);
-    return Boolean(node)&&node.hidden===false&&node.disabled===false;
-  },GROUP,{timeout:120000});
-
-  const before=await page.evaluate(group=>({
-    visibleGroups:[...document.querySelectorAll("#batch-a-pattern-group-panel [data-pattern-group-id]")].filter(n=>!n.hidden).map(n=>({id:n.dataset.patternGroupId,selected:n.dataset.selected,text:n.textContent?.trim()})),
-    targetVisible:Boolean(document.querySelector(`#batch-a-pattern-group-panel [data-pattern-group-id="${group}"]:not([hidden])`)),
-  }),GROUP);
-  if(!before.targetVisible)throw new Error(`G3AU01_R01_GROUP_NOT_VISIBLE:${JSON.stringify(before)}`);
-
-  const target=page.locator(`#batch-a-pattern-group-panel [data-pattern-group-id="${GROUP}"]`);
-  if(await target.getAttribute("data-selected")!=="true")await target.click();
-  await page.waitForFunction(group=>{
-    const selected=[...document.querySelectorAll("#batch-a-pattern-group-panel [data-pattern-group-id][data-selected='true']")].map(n=>n.dataset.patternGroupId);
-    return selected.length===1&&selected[0]===group;
-  },GROUP,{timeout:120000});
+  await page.waitForFunction(()=>document.querySelector("#batch-a-pattern-group-selector")?.dataset?.visible==="false",null,{timeout:120000});
+  const before=await page.evaluate(kp=>({
+    targetKnowledgePointVisible:Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`)),
+    patternGroupSelectorVisible:document.querySelector("#batch-a-pattern-group-selector")?.dataset?.visible??null,
+    visiblePatternGroupButtons:[...document.querySelectorAll("#batch-a-pattern-group-panel [data-pattern-group-id]")].filter(n=>!n.hidden).length,
+  }),KP);
+  if(!before.targetKnowledgePointVisible||before.patternGroupSelectorVisible!=="false"||before.visiblePatternGroupButtons!==0){
+    throw new Error(`G3AU01_R01_FLAT_SELECTOR_INVALID:${JSON.stringify(before)}`);
+  }
 
   await page.fill("#columns-input","3");
   await page.dispatchEvent("#columns-input","change");
@@ -109,7 +101,7 @@ async function run(){
     sourceId:document.querySelector("#batch-a-source-select")?.value,
     selectionMode:document.querySelector("#batch-a-selection-mode-select")?.value,
     selectedKps:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-selected='true']")].map(n=>n.dataset.knowledgePointId),
-    selectedGroups:[...document.querySelectorAll("#batch-a-pattern-group-panel [data-selected='true']")].map(n=>n.dataset.patternGroupId),
+    visiblePatternGroups:[...document.querySelectorAll("#batch-a-pattern-group-panel [data-pattern-group-id]")].filter(n=>!n.hidden).map(n=>n.dataset.patternGroupId),
     status:document.querySelector("#status-panel")?.textContent?.trim()??"",
     tone:document.querySelector("#status-panel")?.dataset?.tone??"",
     valid:document.querySelector("#validation-panel")?.dataset?.hasErrors??null,
