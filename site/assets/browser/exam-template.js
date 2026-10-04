@@ -299,7 +299,7 @@ function renderCrossUnitSelection() {
   ].join("｜");
 }
 
-function sameUnitCapability(sourceId, requestedIds = []) {
+function sameUnitCapability(sourceId, requestedIds = [], requestedPatternGroupIds = []) {
   const rows = visibleKnowledgePointsForSource(sourceId);
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
   const fallbackIds = rows.map((row) => row.knowledgePointId);
@@ -309,6 +309,7 @@ function sameUnitCapability(sourceId, requestedIds = []) {
         sourceId,
         selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
         selectedKnowledgePointIds,
+        selectedPatternGroupIds: requestedPatternGroupIds,
       })
     : null;
   const option = binding?.availableSelectionModes?.find(
@@ -397,24 +398,37 @@ function renderSameUnitKnowledgePoints() {
   }
 
   if (!isMixed) return;
-  const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
-  const selected = new Set(selectedSameUnitIds());
-  for (const row of capability.rows) {
+  const selectedKnowledgePointIds = selectedSameUnitIds();
+  const selectedPatternGroupIds = state.batchA.selectedPatternGroupIds ?? [];
+  const capability = sameUnitCapability(
+    sourceSelect.value,
+    selectedKnowledgePointIds,
+    selectedPatternGroupIds,
+  );
+  for (const target of selectorTargetsForSource(sourceSelect.value)) {
+    const selected = selectorTargetSelected(
+      target,
+      sourceSelect.value,
+      selectedKnowledgePointIds,
+      selectedPatternGroupIds,
+    );
     const button = document.createElement("button");
     button.type = "button";
     button.className = "knowledge-point-option";
-    button.dataset.knowledgePointId = row.knowledgePointId;
-    button.dataset.selected = selected.has(row.knowledgePointId) ? "true" : "false";
-    button.setAttribute("aria-pressed", selected.has(row.knowledgePointId) ? "true" : "false");
+    button.dataset.selectorTargetId = target.targetId;
+    button.dataset.knowledgePointId = target.knowledgePointId;
+    button.dataset.rank01Sibling = target.rank01Sibling ? "true" : "false";
+    button.dataset.selected = selected ? "true" : "false";
+    button.setAttribute("aria-pressed", selected ? "true" : "false");
 
     const strong = document.createElement("strong");
-    strong.textContent = `${selected.has(row.knowledgePointId) ? "已選｜" : ""}${row.displayName ?? row.knowledgePointId}`;
+    strong.textContent = `${selected ? "已選｜" : ""}${target.displayName}`;
     const detail = document.createElement("span");
-    detail.textContent = `${row.unitCode ?? selectedUnit()?.unitCode ?? ""}｜已通過出題驗證`;
+    detail.textContent = `${target.unitCode ?? selectedUnit()?.unitCode ?? ""}｜已通過出題驗證`;
     button.append(strong, detail);
     kpPanel.append(button);
   }
-  kpHelp.textContent = `目前已選 ${selected.size} / ${capability.rows.length} 個知識點；至少選 2 個。題量會平均分配，餘數依知識點順序分配。`;
+  kpHelp.textContent = `目前已選 ${selectedKnowledgePointIds.length} 個知識點；Rank 題型與所屬 KP 同層且互斥，至少保留 2 個知識點。`;
 }
 
 function syncCompositionModeAvailability() {
@@ -428,7 +442,11 @@ function syncCompositionModeAvailability() {
   const m4Option = [...compositionModeSelect.options].find(
     (option) => option.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT,
   );
-  const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
+  const capability = sameUnitCapability(
+    sourceSelect.value,
+    selectedSameUnitIds(),
+    state.batchA.selectedPatternGroupIds ?? [],
+  );
   const singleCapability = singleKpCapability(sourceSelect.value, selectedSingleKpTargetId());
   if (singleKpOption) singleKpOption.disabled = !singleCapability.enabled;
   if (m3Option) m3Option.disabled = !capability.enabled;
