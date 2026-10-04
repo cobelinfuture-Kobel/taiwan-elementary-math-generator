@@ -784,6 +784,35 @@ function bindControls() {
       return;
     }
 
+    const rank03Target = event.target.closest?.("[data-rank03-selector-target='true']");
+    if (rank03Target) {
+      if (rank03Target.disabled) return;
+      if (state.batchA.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
+        ensureMixedSelectorTargets();
+        if (mixedSelectorTargetIds.has(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)) {
+          if (mixedSelectorTargetIds.size <= 2) {
+            patternGroupUiWarnings = [{ code: "public_pattern_group_minimum_one" }];
+            renderSelectorWarnings();
+            return;
+          }
+          mixedSelectorTargetIds.delete(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID);
+        } else {
+          mixedSelectorTargetIds.add(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID);
+        }
+        syncMixedSelectorTargetsToState();
+      } else {
+        applySelectorSelection(
+          BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+          [G3A_U01_VISUAL_RANK03_KP_ID],
+          [G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID]
+        );
+      }
+      syncControlsFromState();
+      writeQueryStateFromState(state);
+      markOutputStale();
+      return;
+    }
+
     const item = event.target.closest?.("[data-knowledge-point-id]");
     if (!item || item.disabled) return;
     const knowledgePointId = item.dataset.knowledgePointId;
@@ -804,10 +833,13 @@ function bindControls() {
       }
       syncMixedSelectorTargetsToState();
     } else {
+      const explicitPatternGroups = knowledgePointId === G3A_U01_VISUAL_RANK02_KP_ID
+        ? [G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID]
+        : state.batchA.selectedPatternGroupIds;
       applySelectorSelection(
         BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
         [knowledgePointId],
-        state.batchA.selectedPatternGroupIds
+        explicitPatternGroups
       );
     }
     syncControlsFromState();
