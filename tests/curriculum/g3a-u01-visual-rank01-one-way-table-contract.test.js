@@ -83,8 +83,10 @@ test("Rank01 lifecycle advances to bounded public review while Rank02+ remains o
   assert.equal(contract.lifecycle.renderedWorksheetAcceptance, "PASS_FOCUSED_CI");
   assert.equal(contract.lifecycle.layoutTuningStatus, "PASS_NO_SIZE_CHANGE_REQUIRED");
   assert.equal(contract.lifecycle.publicCutover, "PASS_FOCUSED_CI_AND_PAGES_DEPLOYED");
-  assert.equal(contract.lifecycle.publicLayoutModesReview, "PENDING_OPERATOR_WEBSITE_REVIEW");
-  assert.equal(contract.publicAdmission.publicReviewStatus, "READY_FOR_OPERATOR_WEBSITE_LAYOUT_CHECK");
+  assert.equal(contract.lifecycle.publicLayoutModesReview, "REPAIR_IMPLEMENTED_PENDING_CI_AND_DEPLOYED_RECHECK");
+  assert.equal(contract.publicAdmission.publicReviewStatus, "LAYOUT_REPAIR_PENDING_CI_AND_DEPLOYED_RECHECK");
+  assert.equal(contract.publicLayoutModeReview.status, "IMPLEMENTED_PENDING_FOCUSED_CI_AND_DEPLOYED_RECHECK");
+  assert.deepEqual(contract.publicLayoutModeReview.safeBoundaryModes, ["1x4", "2x3", "3x2"]);
   assert.equal(contract.publicAdmission.focusedGate, "PASS");
   assert.equal(contract.publicAdmission.pagesDeploy, "PASS");
   assert.equal(contract.publicAdmission.rank02PlusVisible, false);
