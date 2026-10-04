@@ -143,17 +143,7 @@ function ensureMixedSelectorTargets({ reset = false } = {}) {
   const sourceId = state.batchA.sourceId;
   const available = new Set(mixedSelectorTargetsForSource(sourceId));
   if (reset || mixedSelectorTargetSourceId !== sourceId || mixedSelectorTargetIds.size === 0) {
-    const selectedKps = selectedVisibleKnowledgePointIds(sourceId);
-    const initialKps = selectedKps.length >= 2
-      ? selectedKps
-      : visibleKnowledgePointsForSource(sourceId).map((row) => row.knowledgePointId);
-    mixedSelectorTargetIds = new Set(initialKps.filter((id) => available.has(id)));
-    if (
-      (state.batchA.selectedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
-      && available.has(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
-    ) {
-      mixedSelectorTargetIds.add(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
-    }
+    mixedSelectorTargetIds = new Set(mixedSelectorTargetsForSource(sourceId));
     mixedSelectorTargetSourceId = sourceId;
   } else {
     mixedSelectorTargetIds = new Set([...mixedSelectorTargetIds].filter((id) => available.has(id)));

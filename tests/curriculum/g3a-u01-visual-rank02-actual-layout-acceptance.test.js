@@ -49,14 +49,15 @@ test("Rank02 60-item acceptance cohort exercises every supported tick-density ba
   assert.equal((html.match(/data-representation="integer-number-line"/g)??[]).length,120);
 });
 
-test("Rank02 layout acceptance leaves mathematics, generator, validator, selector and Rank03+ boundaries unchanged", () => {
+test("Rank02 layout acceptance remains valid after public cutover and keeps math/runtime plus Rank03+ boundaries unchanged", () => {
   assert.equal(contract.layoutAcceptance.mathematicsChanged,false);
   assert.equal(contract.layoutAcceptance.generatorChanged,false);
   assert.equal(contract.layoutAcceptance.validatorChanged,false);
-  assert.equal(contract.layoutAcceptance.selectorVisible,false);
-  assert.equal(contract.layoutAcceptance.productionUse,"forbidden");
-  assert.equal(contract.lifecycle.selectorVisible,false);
-  assert.equal(contract.lifecycle.productionUse,"forbidden");
+  assert.equal(contract.layoutAcceptance.mathematicsChanged,false);
+  assert.equal(contract.layoutAcceptance.generatorChanged,false);
+  assert.equal(contract.layoutAcceptance.validatorChanged,false);
+  assert.equal(contract.lifecycle.selectorVisible,true);
+  assert.equal(contract.lifecycle.productionUse,"public_review");
   assert.deepEqual(contract.rendererBinding.explicitlyDeferredRank03PlusFeatures,[
     "learner_marks_given_value",
     "complete_missing_scale_labels",
