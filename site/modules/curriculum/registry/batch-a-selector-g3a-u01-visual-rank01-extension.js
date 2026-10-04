@@ -18,6 +18,7 @@ const rank01Row=Object.freeze({
   displayName:GROUP.displayName,
   canonicalKnowledgePointId:CANONICAL_KP,
   selectorNodeType:"ranked_practice_target",
+  singleKnowledgePointOnly:true,
   rank:1,
   patternGroupIds:Object.freeze([GROUP_ID]),
   publicSelectorStatus:"visible_public_review"
