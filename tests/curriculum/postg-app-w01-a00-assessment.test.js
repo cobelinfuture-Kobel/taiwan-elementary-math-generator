@@ -28,6 +28,21 @@ test('W01-A00 assesses all 156 KnowledgePoints across the 15 golden units', () =
   assert.equal(result.counts.productionAdmittedRecordCount, 0);
 });
 
+test('W01 stays frozen at its admitted 156-KP cohort when Golden15 registries gain later KPs', () => {
+  assert.equal(materialized.frozenBaseline.status, 'FROZEN_W01_E5_ADMITTED_COHORT');
+  assert.equal(materialized.frozenBaseline.counts.knowledgePointCount, 156);
+  assert.equal(
+    materialized.records.some((row) => row.knowledgePointId === 'kp_g3a_u01_integer_number_line_scale_location'),
+    false
+  );
+  const rank02 = materialized.postBaselineKnowledgePoints.find(
+    (row) => row.knowledgePointId === 'kp_g3a_u01_integer_number_line_scale_location'
+  );
+  assert.ok(rank02);
+  assert.equal(rank02.sourceId, 'g3a_u01_3a01');
+  assert.equal(rank02.disposition, 'POST_W01_BASELINE_NOT_RETROACTIVELY_ADMITTED');
+});
+
 test('every KnowledgePoint has exactly one classification and identity', () => {
   const records = materialized.records;
   const identities = records.map((row) => `${row.sourceId}::${row.knowledgePointId}`);
