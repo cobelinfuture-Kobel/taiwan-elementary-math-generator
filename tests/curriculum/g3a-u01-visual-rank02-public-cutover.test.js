@@ -34,6 +34,13 @@ import { buildSchoolExamCrossUnitWorksheet } from "../../site/modules/exam/schoo
 import { buildWorksheetDocumentFromPlan } from "../../site/assets/browser/pipeline/build-worksheet-document.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
 
+function buildCurrentRank02Leaf(plan){
+  if(requestsG3AU01VisualRank02Public(plan)){
+    return buildG3AU01VisualRank02PublicWorksheet(plan);
+  }
+  return buildWorksheetDocumentFromPlan(plan);
+}
+
 const publicPlan=Object.freeze({
   sourceId:SRC,
   selectionMode:"singleKnowledgePoint",
@@ -176,7 +183,7 @@ test("same-unit all-select includes Rank01 and Rank02 as independently materiali
     },
   };
   assert.equal(requestsP09Mixed21Aggregation(plan),true);
-  const result=buildP09Mixed21Worksheet(plan,buildWorksheetDocumentFromPlan);
+  const result=buildP09Mixed21Worksheet(plan,buildCurrentRank02Leaf);
   assert.equal(result.ok,true,JSON.stringify(result.errors??[]));
   assert.equal(result.worksheetDocument.summary.questionCount,30);
   assert.deepEqual(result.worksheetDocument.metadata.selectedSelectorTargetIds,selectorTargetIds);
@@ -216,7 +223,7 @@ test("cross-unit aggregation can materialize Rank02 beside another same-grade sa
     generationSeed:"g3a-u01-rank02-cross-unit",
     printLayout:{paperSize:"A4",columns:2,rowsPerPage:3,showAnswerKeyPage:true},
   };
-  const result=buildSchoolExamCrossUnitWorksheet(plan,buildWorksheetDocumentFromPlan);
+  const result=buildSchoolExamCrossUnitWorksheet(plan,buildCurrentRank02Leaf);
   assert.equal(result.ok,true,JSON.stringify(result.errors??[]));
   assert.equal(result.worksheetDocument.metadata.crossUnitMixedUsed,true);
   assert.ok(result.leafDispatch.some((leaf)=>leaf.knowledgePointId===KP));
