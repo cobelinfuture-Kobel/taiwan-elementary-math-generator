@@ -34,7 +34,7 @@ test("Rank02 preflight locks the source-backed number-line read family at priori
   assert.equal(contract.sourceAuthorityPreflight.decision, "PASS_FOR_CONTRACT_MATERIALIZATION_ONLY");
 });
 
-test("Rank02 materializes the exact FormalMapping candidate without minting a KnowledgePoint", () => {
+test("Rank02 materializes the exact FormalMapping candidate and promotes the approved candidate only at runtime admission", () => {
   const candidate = mappings.mappings.find((row) => row.visualFamilyId === FAMILY_ID);
   const resolvedCandidate = resolution.knowledgePointCandidateResolution.find(
     (row) => row.knowledgePointCandidateId === KPC_ID
@@ -48,21 +48,25 @@ test("Rank02 materializes the exact FormalMapping candidate without minting a Kn
   assert.equal(resolvedCandidate.runtimeAuthorityChanged, false);
 
   assert.equal(contract.formalMapping.sourceMappingCandidateId, candidate.formalMappingCandidateId);
-  assert.equal(contract.formalMapping.primaryKnowledgePointId, null);
+  assert.equal(contract.formalMapping.primaryKnowledgePointId, "kp_g3a_u01_integer_number_line_scale_location");
   assert.equal(contract.formalMapping.primaryKnowledgePointCandidateId, KPC_ID);
-  assert.equal(contract.formalMapping.runtimeAdmission, false);
+  assert.equal(contract.formalMapping.runtimeAdmission, true);
 
-  assert.equal(
-    kp.knowledgePoints.some((row) => row.knowledgePointId === "kp_g3a_u01_integer_number_line_scale_location"),
-    false
+  const runtimeKp = kp.knowledgePoints.find(
+    (row) => row.knowledgePointId === "kp_g3a_u01_integer_number_line_scale_location"
   );
-  assert.equal(contract.lifecycle.newKnowledgePointMinted, false);
+  assert.ok(runtimeKp);
+  assert.equal(runtimeKp.operationModels[0].modelId, "op_g3a_u01_integer_number_line_scale_location");
+  assert.equal(contract.lifecycle.newKnowledgePointMinted, true);
+  assert.equal(contract.runtimeAdmission.sourceCandidateId, KPC_ID);
+  assert.equal(contract.runtimeAdmission.decision, "MINTED_FROM_APPROVED_SOURCE_BACKED_CANDIDATE");
 });
 
 test("Rank02 PatternSpec contract passes the repository core schema helper", () => {
   assert.equal(contract.schemaName, "G3AU01VisualPatternSpecRank02Contract");
-  assert.equal(contract.patternSpec.patternSpecId, SPEC_ID);
-  assert.equal(contract.patternSpec.knowledgePointId, null);
+  assert.equal(contract.patternSpec.patternSpecId, "ps_g3a_u01_visual_integer_number_line_read_value");
+  assert.equal(contract.patternSpec.sourcePatternSpecCandidateId, SPEC_ID);
+  assert.equal(contract.patternSpec.knowledgePointId, "kp_g3a_u01_integer_number_line_scale_location");
   assert.equal(contract.patternSpec.knowledgePointCandidateId, KPC_ID);
   assert.equal(contract.patternSpec.selectorStatus, "hidden");
   assert.equal(contract.patternSpec.productionUse, "forbidden");
@@ -103,27 +107,27 @@ test("Rank02 curriculum calibration fixtures implement uniform integer scale rea
 });
 
 test("Rank02 correctly requires an extension of the existing fraction number-line renderer", () => {
-  assert.equal(contract.rendererBinding.classification, "EXTEND");
+  assert.equal(contract.rendererBinding.classification, "EXTEND_IMPLEMENTED");
   assert.equal(
     contract.rendererBinding.existingRendererPath,
     "site/modules/renderer/fraction-number-line.js"
   );
   assert.equal(contract.rendererBinding.plannedModelKind, "integer_number_line");
   assert.equal(contract.rendererBinding.rendererCodeChangeRequired, true);
-  assert.equal(contract.rendererBinding.rendererCodeChanged, false);
+  assert.equal(contract.rendererBinding.rendererCodeChanged, true);
 
   // A Rank02 integer model must not be silently treated as the current fraction-number-line model.
   assert.equal(validateFractionNumberLineModel(contract.sourceCalibrationFixtures[0].model), false);
 });
 
-test("Rank02 stops at D2 contract materialization and does not leak into Rank03+", () => {
+test("Rank02 advances to hidden D1 runtime while staying out of public selector and Rank03+", () => {
   assert.equal(contract.lifecycle.formalMappingMaterialized, true);
   assert.equal(contract.lifecycle.patternSpecMaterialized, true);
   assert.equal(contract.lifecycle.validatorContractMaterialized, true);
   assert.equal(contract.lifecycle.rendererExtensionContractMaterialized, true);
-  assert.equal(contract.lifecycle.generatorImplemented, false);
-  assert.equal(contract.lifecycle.validatorRuntimeImplemented, false);
-  assert.equal(contract.lifecycle.rendererCodeChanged, false);
+  assert.equal(contract.lifecycle.generatorImplemented, true);
+  assert.equal(contract.lifecycle.validatorRuntimeImplemented, true);
+  assert.equal(contract.lifecycle.rendererCodeChanged, true);
   assert.equal(contract.lifecycle.selectorVisible, false);
   assert.equal(contract.lifecycle.productionUse, "forbidden");
   assert.equal(contract.patternSpec.constraints.generation.rank03ToRank05OperationsForbidden, true);
