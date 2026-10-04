@@ -27,7 +27,7 @@ test("Rank03 contract materializes the exact source-backed MARK_GIVEN_VALUE fami
   const family=visual.families.find((row)=>row.visualFamilyId===FAMILY);
   assert.ok(family);
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
-  assert.equal(contract.status,"contract_materialized_runtime_forbidden");
+  assert.equal(contract.status,"hidden_runtime_implemented_pending_focused_ci");
   assert.equal(contract.sourceAuthorityPreflight.visualFamilyId,FAMILY);
   assert.equal(contract.sourceAuthorityPreflight.sourceQuestionCount,20);
   assert.equal(contract.sourceAuthorityPreflight.taskCore,"MARK_GIVEN_VALUE");
@@ -59,7 +59,7 @@ test("Rank03 FormalMapping resolves the historical candidate to the existing can
   assert.equal(contract.formalMapping.historicalPrimaryKnowledgePointCandidateId,candidate.primaryKnowledgePointId);
   assert.equal(contract.formalMapping.patternGroupId,GROUP);
   assert.equal(contract.formalMapping.patternSpecId,SPEC);
-  assert.equal(contract.formalMapping.runtimeAdmission,false);
+  assert.equal(contract.formalMapping.runtimeAdmission,true);
   assert.equal(contract.lifecycle.newKnowledgePointMinted,false);
 });
 
@@ -93,10 +93,14 @@ test("Rank03 validator contract enforces a unique legal tick and prevents answer
 test("Rank03 renderer contract reuses Rank02 integer-number-line geometry and adds only question-vs-answer overlay semantics",()=>{
   assert.equal(contract.rendererExtensionContract.existingRendererPath,"site/modules/renderer/fraction-number-line.js");
   assert.equal(contract.rendererExtensionContract.existingModelKind,"integer_number_line");
-  assert.equal(contract.rendererExtensionContract.classification,"EXTEND_EXISTING_INTEGER_NUMBER_LINE_RUNTIME");
+  assert.equal(
+    contract.rendererExtensionContract.classification,
+    "EXTEND_EXISTING_INTEGER_NUMBER_LINE_RUNTIME_IMPLEMENTED"
+  );
   assert.equal(contract.rendererExtensionContract.noNewRendererFamily,true);
   assert.equal(contract.rendererExtensionContract.rendererCodeChangeRequired,true);
-  assert.equal(contract.rendererExtensionContract.rendererCodeChanged,false);
+  assert.equal(contract.rendererExtensionContract.rendererCodeChanged,true);
+  assert.deepEqual(contract.rendererExtensionContract.implementedMarkerPolicies,["forbidden","required"]);
   assert.equal(contract.rendererExtensionContract.rank03RequiredModelExtension.questionTargetMarkerOptionalOrAbsent,true);
   assert.equal(contract.rendererExtensionContract.rank03RequiredModelExtension.answerOverlayMarkerRequired,true);
   assert.equal(contract.rendererExtensionContract.rank03RequiredModelExtension.questionAndAnswerScaleIdentityRequired,true);
@@ -111,14 +115,16 @@ test("Rank03 controlled examples satisfy the mark-value index equation without b
   }
 });
 
-test("Rank03 contract stops before runtime implementation and excludes Rank04+",()=>{
+test("Rank03 contract advances to hidden runtime while excluding public selector and Rank04+",()=>{
   assert.equal(contract.lifecycle.formalMappingMaterialized,true);
   assert.equal(contract.lifecycle.patternSpecMaterialized,true);
   assert.equal(contract.lifecycle.validatorContractMaterialized,true);
   assert.equal(contract.lifecycle.rendererExtensionContractMaterialized,true);
-  assert.equal(contract.lifecycle.generatorImplemented,false);
-  assert.equal(contract.lifecycle.validatorRuntimeImplemented,false);
-  assert.equal(contract.lifecycle.rendererCodeChanged,false);
+  assert.equal(contract.lifecycle.generatorImplemented,true);
+  assert.equal(contract.lifecycle.validatorRuntimeImplemented,true);
+  assert.equal(contract.lifecycle.rendererCodeChanged,true);
+  assert.equal(contract.lifecycle.hiddenWorksheetImplemented,true);
+  assert.equal(contract.lifecycle.hiddenWorksheetAcceptance,"PENDING_FOCUSED_CI");
   assert.equal(contract.lifecycle.selectorVisible,false);
   assert.equal(contract.lifecycle.productionUse,"forbidden");
   assert.equal(contract.patternSpec.constraints.generation.rank04ToRank05OperationsForbidden,true);
