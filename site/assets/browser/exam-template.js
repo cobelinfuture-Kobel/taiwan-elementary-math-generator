@@ -21,6 +21,12 @@ import {
 } from "../../modules/curriculum/registry/batch-a-selector-extension.js";
 import { resolvePublicUiCapabilityBinding } from "../../modules/curriculum/public/public-ui-capability-binding-p04f33.js";
 import {
+  G3A_U01_VISUAL_RANK01_KP_ID,
+  G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP,
+  G3A_U01_VISUAL_RANK01_SOURCE_ID,
+} from "../../modules/curriculum/registry/g3a-u01-visual-rank01-selector-projection.js";
+import {
   buildSchoolExamLayoutPages,
   renderSchoolExamWorksheetToHtml,
 } from "../../modules/renderer/school-exam-template-renderer.js";
@@ -29,6 +35,8 @@ import {
   SCHOOL_EXAM_COMPOSITION_MODES,
   resolveSchoolExamCompositionMode,
 } from "../../modules/exam/school-exam-composition-contract.js";
+
+const EXAM_SINGLE_KP_MODE = "SINGLE_KP";
 
 const state = createConfigState();
 const sourceUnits = [...listBatchASourceUnits()];
@@ -260,14 +268,95 @@ function selectedSameUnitIds() {
   return (state.batchA.selectedKnowledgePointIds ?? []).filter((id) => visibleIds.has(id));
 }
 
+function singleKpTargetsForSource(sourceId) {
+  const targets = [];
+  for (const row of visibleKnowledgePointsForSource(sourceId)) {
+    targets.push({
+      targetId: row.knowledgePointId,
+      knowledgePointId: row.knowledgePointId,
+      selectedPatternGroupIds: [],
+      displayName: row.displayName ?? row.knowledgePointId,
+      unitCode: row.unitCode ?? selectedUnit()?.unitCode ?? "",
+      rank01Sibling: false,
+    });
+    if (sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID) {
+      targets.push({
+        targetId: G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+        knowledgePointId: G3A_U01_VISUAL_RANK01_KP_ID,
+        selectedPatternGroupIds: [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID],
+        displayName: G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName,
+        unitCode: row.unitCode ?? selectedUnit()?.unitCode ?? "",
+        rank01Sibling: true,
+      });
+    }
+  }
+  return targets;
+}
+
+function selectedSingleKpTargetId() {
+  if (state.batchA.selectionMode !== BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT) return null;
+  const selectedKnowledgePointId = (state.batchA.selectedKnowledgePointIds ?? [])[0] ?? null;
+  if (
+    state.batchA.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && selectedKnowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+    && (state.batchA.selectedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
+  ) {
+    return G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID;
+  }
+  return selectedKnowledgePointId;
+}
+
+function singleKpCapability(sourceId, requestedTargetId = null) {
+  const targets = singleKpTargetsForSource(sourceId);
+  const selectedTarget = targets.find((target) => target.targetId === requestedTargetId) ?? targets[0] ?? null;
+  const binding = selectedTarget ? resolvePublicUiCapabilityBinding({
+    sourceId,
+    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+    selectedKnowledgePointIds: [selectedTarget.knowledgePointId],
+    selectedPatternGroupIds: selectedTarget.selectedPatternGroupIds,
+  }) : null;
+  return {
+    targets,
+    selectedTarget,
+    binding,
+    enabled: Boolean(selectedTarget) && binding?.blocked === false,
+  };
+}
+
 function renderSameUnitKnowledgePoints() {
   if (!kpPanel || !sameUnitKpSelector || !kpHelp) return;
+  const isSingle = compositionModeSelect?.value === EXAM_SINGLE_KP_MODE;
   const isMixed = compositionModeSelect?.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT;
-  const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
-  sameUnitKpSelector.hidden = !isMixed;
+  sameUnitKpSelector.hidden = !(isSingle || isMixed);
   kpPanel.replaceChildren();
 
+  if (isSingle) {
+    const capability = singleKpCapability(sourceSelect.value, selectedSingleKpTargetId());
+    const selectedTargetId = capability.selectedTarget?.targetId ?? null;
+    for (const target of capability.targets) {
+      const selected = target.targetId === selectedTargetId;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "knowledge-point-option";
+      button.dataset.selectorTargetId = target.targetId;
+      button.dataset.knowledgePointId = target.knowledgePointId;
+      button.dataset.rank01Sibling = target.rank01Sibling ? "true" : "false";
+      button.dataset.selected = selected ? "true" : "false";
+      button.setAttribute("aria-pressed", selected ? "true" : "false");
+
+      const strong = document.createElement("strong");
+      strong.textContent = `${selected ? "已選｜" : ""}${target.displayName}`;
+      const detail = document.createElement("span");
+      detail.textContent = `${target.unitCode}｜已通過出題驗證`;
+      button.append(strong, detail);
+      kpPanel.append(button);
+    }
+    kpHelp.textContent = `請選 1 個知識點或 Rank 題型；目前共有 ${capability.targets.length} 個同層可選項目。`;
+    return;
+  }
+
   if (!isMixed) return;
+  const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
   const selected = new Set(selectedSameUnitIds());
   for (const row of capability.rows) {
     const button = document.createElement("button");
@@ -289,6 +378,9 @@ function renderSameUnitKnowledgePoints() {
 
 function syncCompositionModeAvailability() {
   if (!compositionModeSelect) return;
+  const singleKpOption = [...compositionModeSelect.options].find(
+    (option) => option.value === EXAM_SINGLE_KP_MODE,
+  );
   const m3Option = [...compositionModeSelect.options].find(
     (option) => option.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT,
   );
@@ -296,9 +388,14 @@ function syncCompositionModeAvailability() {
     (option) => option.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT,
   );
   const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
+  const singleCapability = singleKpCapability(sourceSelect.value, selectedSingleKpTargetId());
+  if (singleKpOption) singleKpOption.disabled = !singleCapability.enabled;
   if (m3Option) m3Option.disabled = !capability.enabled;
   if (m4Option) m4Option.disabled = crossUnitEligibleUnits().length < 2;
 
+  if (compositionModeSelect.value === EXAM_SINGLE_KP_MODE && !singleCapability.enabled) {
+    compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
+  }
   if (compositionModeSelect.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT && !capability.enabled) {
     compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
   }
@@ -311,6 +408,30 @@ function syncCompositionModeAvailability() {
 }
 
 function applyCompositionMode({ defaultMixedSelection = false, resetCrossSelection = false } = {}) {
+  if (compositionModeSelect?.value === EXAM_SINGLE_KP_MODE) {
+    sourceSelect.disabled = false;
+    const capability = singleKpCapability(sourceSelect.value, selectedSingleKpTargetId());
+    if (!capability.enabled || !capability.selectedTarget) {
+      compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
+      setBatchASelectionMode(state, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
+      setStatus("目前單元尚未開放單一知識點考券，已切回「單一單元」。", "error");
+      renderSameUnitKnowledgePoints();
+      return false;
+    }
+    setBatchASelectorSelection(state, {
+      selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+      selectedKnowledgePointIds: [capability.selectedTarget.knowledgePointId],
+      selectedPatternGroupIds: capability.selectedTarget.selectedPatternGroupIds,
+    });
+    questionCountInput.min = "1";
+    if (compositionHelp) {
+      compositionHelp.textContent = "單一知識點模式：一般 KP 與 Rank 題型使用同一層選擇器；底層沿用既有 single-KP Generator / Validator route。";
+    }
+    renderSameUnitKnowledgePoints();
+    renderCrossUnitSelection();
+    return true;
+  }
+
   const resolved = resolveSchoolExamCompositionMode(compositionModeSelect?.value);
   if (!resolved.enabled) {
     setStatus("此考券組成模式尚未啟用。", "error");
@@ -559,6 +680,7 @@ function generateExam() {
   const fillLabel = examLayout.autoFill ? "實際高度自動換頁" : "估算分頁";
   previewMeta.textContent = `已產生 ${questionCount} 題｜題目頁 ${pageCount} 頁（初始估算）｜${targetLabel}｜${fillLabel}｜A4 直式雙欄｜Layout V1.1`;
   const crossUsed = result.worksheetDocument?.metadata?.crossUnitMixedUsed === true;
+  const singleKpUsed = result.worksheetDocument?.batchA?.selectionMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT;
   const mixedUsed = result.worksheetDocument?.metadata?.sameUnitMixedUsed === true
     || result.worksheetDocument?.batchA?.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT;
   const allocation = result.allocation ?? result.worksheetDocument?.metadata?.allocation ?? [];
@@ -570,7 +692,9 @@ function generateExam() {
       ? `跨單元混合知識點考券已產生${allocationText}。`
       : mixedUsed
         ? `同單元混合知識點考券已產生${allocationText}。`
-        : "單一單元考券已產生。題目仍由既有 Generator / Validator 管線負責，僅改用學校考券版面輸出。",
+        : singleKpUsed
+          ? "單一知識點考券已產生。題目沿用既有 single-KP Generator / Validator 管線。"
+          : "單一單元考券已產生。題目仍由既有 Generator / Validator 管線負責，僅改用學校考券版面輸出.",
     "success",
   );
 }
@@ -604,6 +728,26 @@ compositionModeSelect?.addEventListener("change", () => {
 });
 
 kpPanel?.addEventListener("click", (event) => {
+  if (compositionModeSelect?.value === EXAM_SINGLE_KP_MODE) {
+    const button = event.target.closest?.("[data-selector-target-id]");
+    if (!button) return;
+    const capability = singleKpCapability(sourceSelect.value, button.dataset.selectorTargetId);
+    const target = capability.selectedTarget;
+    if (!capability.enabled || !target || target.targetId !== button.dataset.selectorTargetId) {
+      setStatus("此項目目前無法產生考券。", "error");
+      return;
+    }
+    setBatchASelectorSelection(state, {
+      selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+      selectedKnowledgePointIds: [target.knowledgePointId],
+      selectedPatternGroupIds: target.selectedPatternGroupIds,
+    });
+    renderSameUnitKnowledgePoints();
+    printButton.disabled = true;
+    setStatus("單一知識點已更新，請重新產生考券。");
+    return;
+  }
+
   const button = event.target.closest?.("[data-knowledge-point-id]");
   if (!button || compositionModeSelect?.value !== SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT) return;
   const visibleIds = new Set(visibleKnowledgePointsForSource(sourceSelect.value).map((row) => row.knowledgePointId));
