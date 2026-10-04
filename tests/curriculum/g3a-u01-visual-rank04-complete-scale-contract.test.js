@@ -27,7 +27,7 @@ test("Rank04 contract materializes the exact source-backed COMPLETE_MISSING_TICK
   const family=visual.families.find((row)=>row.visualFamilyId===FAMILY);
   assert.ok(family);
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
-  assert.equal(contract.status,"hidden_runtime_accepted_public_cutover_not_started");
+  assert.equal(contract.status,"public_cutover_implemented_pending_three_mode_acceptance");
   assert.equal(contract.sourceAuthorityPreflight.visualFamilyId,FAMILY);
   assert.equal(contract.sourceAuthorityPreflight.sourceQuestionCount,7);
   assert.equal(contract.sourceAuthorityPreflight.taskCore,"COMPLETE_MISSING_TICK_VALUES");
@@ -61,13 +61,13 @@ test("Rank04 FormalMapping resolves to the existing canonical number-line KP aft
   assert.equal(contract.lifecycle.newKnowledgePointMinted,false);
 });
 
-test("Rank04 PatternSpec validates while remaining hidden and runtime-forbidden",()=>{
+test("Rank04 PatternSpec validates after bounded public-review cutover",()=>{
   assert.equal(contract.patternSpec.patternSpecId,SPEC);
   assert.equal(contract.patternSpec.patternGroupId,GROUP);
   assert.equal(contract.patternSpec.knowledgePointId,CANONICAL_KP);
   assert.equal(contract.patternSpec.taskCore,"COMPLETE_MISSING_TICK_VALUES");
-  assert.equal(contract.patternSpec.selectorStatus,"hidden");
-  assert.equal(contract.patternSpec.productionUse,"forbidden");
+  assert.equal(contract.patternSpec.selectorStatus,"visible_public_review");
+  assert.equal(contract.patternSpec.productionUse,"public_review");
   const result=validatePatternSpec(contract.patternSpec);
   assert.equal(result.validationStatus,"pass");
   assert.deepEqual(result.errorCodes,[]);
@@ -105,7 +105,7 @@ test("Rank04 controlled examples satisfy the completion equation and preserve so
   }
 });
 
-test("Rank04 preserves the materialized D2 contract while hidden runtime advances without public/Rank05+ scope",()=>{
+test("Rank04 preserves hidden-runtime evidence while bounded public cutover starts without Rank05+ scope",()=>{
   assert.equal(contract.lifecycle.formalMappingMaterialized,true);
   assert.equal(contract.lifecycle.patternSpecMaterialized,true);
   assert.equal(contract.lifecycle.validatorContractMaterialized,true);
@@ -118,11 +118,15 @@ test("Rank04 preserves the materialized D2 contract while hidden runtime advance
   assert.equal(contract.lifecycle.hiddenRuntimeMerged,true);
   assert.equal(contract.lifecycle.hiddenRuntimeMergeSha,"dd1a793be1c68739a522307341c4a7d1227ce06f");
   assert.equal(contract.lifecycle.rendererCodeChanged,false);
-  assert.equal(contract.lifecycle.selectorVisible,false);
-  assert.equal(contract.lifecycle.productionUse,"forbidden");
-  assert.equal(contract.hiddenRuntime.selectorVisible,false);
-  assert.equal(contract.hiddenRuntime.productionUse,"forbidden");
-  assert.equal(contract.hiddenRuntime.publicCutoverStarted,false);
+  assert.equal(contract.lifecycle.selectorVisible,true);
+  assert.equal(contract.lifecycle.productionUse,"public_review");
+  assert.equal(contract.lifecycle.publicCutover,"PENDING_FOCUSED_CI");
+  assert.equal(contract.lifecycle.threeModeE2E,"PENDING_FOCUSED_CI");
+  assert.equal(contract.hiddenRuntime.selectorVisible,true);
+  assert.equal(contract.hiddenRuntime.productionUse,"public_review");
+  assert.equal(contract.hiddenRuntime.publicCutoverStarted,true);
+  assert.equal(contract.publicCutover.selectorTargetId,"pg_g3a_u01_visual_integer_number_line_complete_scale");
+  assert.equal(contract.publicCutover.expectedSameUnitSelectorTargetCount,12);
   assert.equal(contract.hiddenRuntime.focusedGateRunId,37243469584);
   assert.equal(contract.hiddenRuntime.focusedGateHeadSha,"d47c30fe03788ca9fe482b84cd1efaf1cb2be351");
   assert.deepEqual(contract.hiddenRuntime.focusedNodeTests,{tests:14,pass:14,fail:0});

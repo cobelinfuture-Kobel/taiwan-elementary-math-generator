@@ -2,7 +2,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
   P09_MIXED21_TARGET_SOURCE_IDS,
-} from "../registry/batch-a-selector-g3a-u01-visual-rank03-extension.js";
+} from "../registry/batch-a-selector-g3a-u01-visual-rank04-extension.js";
 import {
   G3A_U01_VISUAL_RANK01_KP_ID,
   G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
@@ -18,6 +18,11 @@ import {
   G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
   G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP,
 } from "../registry/g3a-u01-visual-rank03-selector-projection.js";
+import {
+  G3A_U01_VISUAL_RANK04_KP_ID,
+  G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK04_PUBLIC_PATTERN_GROUP,
+} from "../registry/g3a-u01-visual-rank04-selector-projection.js";
 import { paginateAnswerKeyItems, paginateQuestionDisplayModels } from "../../core/worksheet-pagination.js";
 
 export const P09_MIXED21_AGGREGATION_TASK_ID =
@@ -63,6 +68,18 @@ function selectedRows(plan) {
             selectorTargetId: G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
             forcedPatternGroupIds: [G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID],
             selectorDisplayName: G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP.displayName,
+          });
+        }
+        continue;
+      }
+      if (targetId === G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID) {
+        const baseRow = rowById.get(G3A_U01_VISUAL_RANK04_KP_ID);
+        if (baseRow) {
+          targets.push({
+            ...baseRow,
+            selectorTargetId: G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID,
+            forcedPatternGroupIds: [G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID],
+            selectorDisplayName: G3A_U01_VISUAL_RANK04_PUBLIC_PATTERN_GROUP.displayName,
           });
         }
         continue;
@@ -159,6 +176,7 @@ function preferredModes(row, plan) {
     forced.includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
     || forced.includes(G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID)
     || forced.includes(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)
+    || forced.includes(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID)
   ) {
     return ["numeric"];
   }
