@@ -27,7 +27,7 @@ test("Rank03 contract materializes the exact source-backed MARK_GIVEN_VALUE fami
   const family=visual.families.find((row)=>row.visualFamilyId===FAMILY);
   assert.ok(family);
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
-  assert.equal(contract.status,"hidden_runtime_accepted_public_cutover_not_started");
+  assert.equal(contract.status,"D0_COMPLETE");
   assert.equal(contract.sourceAuthorityPreflight.visualFamilyId,FAMILY);
   assert.equal(contract.sourceAuthorityPreflight.sourceQuestionCount,20);
   assert.equal(contract.sourceAuthorityPreflight.taskCore,"MARK_GIVEN_VALUE");
@@ -63,14 +63,14 @@ test("Rank03 FormalMapping resolves the historical candidate to the existing can
   assert.equal(contract.lifecycle.newKnowledgePointMinted,false);
 });
 
-test("Rank03 PatternSpec contract passes repository schema validation and remains hidden",()=>{
+test("Rank03 PatternSpec contract passes repository schema validation and is public-review visible at D0",()=>{
   assert.equal(contract.patternSpec.patternSpecId,SPEC);
   assert.equal(contract.patternSpec.patternGroupId,GROUP);
   assert.equal(contract.patternSpec.knowledgePointId,CANONICAL_KP);
   assert.equal(contract.patternSpec.taskCore,"MARK_GIVEN_VALUE");
   assert.deepEqual(contract.patternSpec.allowedPromptVariants,["MARK_GIVEN_VALUE"]);
-  assert.equal(contract.patternSpec.selectorStatus,"hidden");
-  assert.equal(contract.patternSpec.productionUse,"forbidden");
+  assert.equal(contract.patternSpec.selectorStatus,"visible_public_review");
+  assert.equal(contract.patternSpec.productionUse,"public_review");
 
   const result=validatePatternSpec(contract.patternSpec);
   assert.equal(result.validationStatus,"pass");
@@ -115,7 +115,7 @@ test("Rank03 controlled examples satisfy the mark-value index equation without b
   }
 });
 
-test("Rank03 contract advances to hidden runtime while excluding public selector and Rank04+",()=>{
+test("Rank03 reaches D0 after public cutover, baseline-parity repair, Pages deployment and operator visual acceptance while excluding Rank04+",()=>{
   assert.equal(contract.lifecycle.formalMappingMaterialized,true);
   assert.equal(contract.lifecycle.patternSpecMaterialized,true);
   assert.equal(contract.lifecycle.validatorContractMaterialized,true);
@@ -134,9 +134,21 @@ test("Rank03 contract advances to hidden runtime while excluding public selector
   assert.equal(contract.hiddenRuntime.hiddenWorksheetAcceptance.questionMarkerCount,0);
   assert.equal(contract.hiddenRuntime.hiddenWorksheetAcceptance.answerMarkerCount,60);
   assert.equal(contract.hiddenRuntime.layoutDecision,"PASS_NO_SIZE_CHANGE_REQUIRED");
-  assert.equal(contract.hiddenRuntime.publicCutoverStarted,false);
-  assert.equal(contract.lifecycle.selectorVisible,false);
-  assert.equal(contract.lifecycle.productionUse,"forbidden");
+  assert.equal(contract.hiddenRuntime.publicCutoverStarted,true);
+  assert.equal(contract.lifecycle.selectorVisible,true);
+  assert.equal(contract.lifecycle.productionUse,"public_review");
+  assert.equal(contract.lifecycle.publicCutover,"PASS_FOCUSED_CI_AND_PAGES_DEPLOYED");
+  assert.equal(contract.lifecycle.threeModeE2E,"PASS_FOCUSED_CI_EXACT_HEAD");
+  assert.equal(contract.lifecycle.deployedReadback,"PASS_EXACT_SHA_LIVE_E2E");
+  assert.equal(contract.lifecycle.postMergeParity,"PASS_BASELINE_220_RANK03_OWNED_DELTA_ZERO");
+  assert.equal(contract.lifecycle.operatorVisualAcceptance,"PASS");
+  assert.equal(contract.lifecycle.d0Closeout,"PASS");
+  assert.equal(contract.publicAdmission.publicCutoverPrNumber,1237);
+  assert.equal(contract.publicAdmission.postMergeRepairPrNumber,1238);
+  assert.equal(contract.publicAdmission.postMergeRegression.postRepairFail,220);
+  assert.equal(contract.publicAdmission.postMergeRegression.rank03OwnedDeltaAfterRepair,0);
+  assert.equal(contract.publicAdmission.operatorVisualAcceptance.status,"PASS");
+  assert.equal(contract.publicAdmission.d0Closeout,"PASS");
   assert.equal(contract.patternSpec.constraints.generation.rank04ToRank05OperationsForbidden,true);
   assert.equal(contract.patternSpec.constraints.generation.movementTaskForbidden,true);
 });
