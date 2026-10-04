@@ -8,6 +8,7 @@ import {
 } from "../../site/modules/curriculum/batch-a/same-unit-mixed21-aggregation.js";
 import { buildSchoolExamCrossUnitWorksheet } from "../../site/modules/exam/school-exam-cross-unit-coordinator.js";
 import {
+  getVisiblePatternGroupsForKnowledgePoint,
   listBatchAKnowledgePointAvailabilityBySource,
   listVisibleBatchAKnowledgePoints,
 } from "../../site/modules/curriculum/registry/batch-a-selector-g3a-u01-visual-rank01-extension.js";
@@ -74,6 +75,13 @@ test("G3A U01 Rank01 is admitted for same-unit and cross-unit selector compositi
   assert.equal(binding.rank01MixedAdmission, true);
   assert.ok(binding.compatiblePatternGroupIds.includes(GROUP));
   assert.ok(binding.selectedCompatiblePatternGroupIds.includes(GROUP));
+
+  const compareGroups = getVisiblePatternGroupsForKnowledgePoint(KP);
+  assert.ok(compareGroups.some((group) => group.patternGroupId === GROUP));
+  assert.ok(
+    compareGroups.some((group) => group.patternGroupId !== GROUP),
+    "canonical 四位數比較 must retain a non-Rank01 production group when Rank01 is shown as a sibling target",
+  );
 });
 
 test("same-unit mixed aggregation forwards Rank01 only to the canonical G3A U01 compare leaf", () => {
