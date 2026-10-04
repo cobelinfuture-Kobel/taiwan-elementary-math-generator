@@ -36,6 +36,12 @@ import {
   G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP,
   G3A_U01_VISUAL_RANK03_SOURCE_ID
 } from "../../modules/curriculum/registry/g3a-u01-visual-rank03-selector-projection.js";
+import {
+  G3A_U01_VISUAL_RANK04_KP_ID,
+  G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK04_PUBLIC_PATTERN_GROUP,
+  G3A_U01_VISUAL_RANK04_SOURCE_ID
+} from "../../modules/curriculum/registry/g3a-u01-visual-rank04-selector-projection.js";
 import { maxSafeG3AU01VisualRank01Rows } from "../../modules/curriculum/batch-a/g3a-u01-visual-rank01-layout.js";
 import { approvedRowsForGlobalPublicColumns } from "../../modules/curriculum/batch-a/global-public-layout-contract.js";
 import {
@@ -150,6 +156,12 @@ function mixedSelectorTargetsForSource(sourceId) {
     ) {
       targets.push(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID);
     }
+    if (
+      sourceId === G3A_U01_VISUAL_RANK04_SOURCE_ID
+      && row.knowledgePointId === G3A_U01_VISUAL_RANK04_KP_ID
+    ) {
+      targets.push(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID);
+    }
   }
   return targets;
 }
@@ -172,13 +184,15 @@ function syncMixedSelectorTargetsToState() {
     [...mixedSelectorTargetIds].map((targetId) => {
       if (targetId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID) return G3A_U01_VISUAL_RANK01_KP_ID;
       if (targetId === G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID) return G3A_U01_VISUAL_RANK03_KP_ID;
+      if (targetId === G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID) return G3A_U01_VISUAL_RANK04_KP_ID;
       return targetId;
     })
   )];
   const boundedRankGroupIds = new Set([
     G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
     G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID,
-    G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID
+    G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
+    G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID
   ]);
   const selectedPatternGroupIds = [
     ...(state.batchA.selectedPatternGroupIds ?? []).filter((id) => !boundedRankGroupIds.has(id)),
@@ -190,6 +204,9 @@ function syncMixedSelectorTargetsToState() {
       : []),
     ...(mixedSelectorTargetIds.has(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)
       ? [G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID]
+      : []),
+    ...(mixedSelectorTargetIds.has(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID)
+      ? [G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID]
       : [])
   ];
   applySelectorSelection(
@@ -368,6 +385,13 @@ function renderKnowledgePointAvailability() {
         selectedIds.has(G3A_U01_VISUAL_RANK03_KP_ID)
         && (state.batchA.selectedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)
       ));
+  const rank04Selected = state.batchA.sourceId === G3A_U01_VISUAL_RANK04_SOURCE_ID
+    && (isSameUnitMixed
+      ? mixedSelectorTargetIds.has(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID)
+      : (
+        selectedIds.has(G3A_U01_VISUAL_RANK04_KP_ID)
+        && (state.batchA.selectedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID)
+      ));
 
   if (knowledgePointAvailabilitySummary) {
     knowledgePointAvailabilitySummary.textContent = [
@@ -389,6 +413,7 @@ function renderKnowledgePointAvailability() {
           selectedIds.has(knowledgePoint.knowledgePointId)
           && !(knowledgePoint.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID && rank01Selected)
           && !(knowledgePoint.knowledgePointId === G3A_U01_VISUAL_RANK03_KP_ID && rank03Selected)
+          && !(knowledgePoint.knowledgePointId === G3A_U01_VISUAL_RANK04_KP_ID && rank04Selected)
         );
       const item = document.createElement("button");
       item.type = "button";
@@ -429,6 +454,21 @@ function renderKnowledgePointAvailability() {
         rankItem.innerHTML = `<strong>${rank03Selected ? "已選｜" : ""}${G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP.displayName}</strong><span>${knowledgePoint.unitCode}｜已通過出題驗證</span>`;
         knowledgePointPanel.append(rankItem);
       }
+
+      if (
+        state.batchA.sourceId === G3A_U01_VISUAL_RANK04_SOURCE_ID
+        && knowledgePoint.knowledgePointId === G3A_U01_VISUAL_RANK04_KP_ID
+      ) {
+        const rankItem = document.createElement("button");
+        rankItem.type = "button";
+        rankItem.className = "knowledge-point-option";
+        rankItem.dataset.rank04SelectorTarget = "true";
+        rankItem.dataset.selected = rank04Selected ? "true" : "false";
+        rankItem.disabled = isSourceUnitMode;
+        rankItem.setAttribute("aria-pressed", rank04Selected ? "true" : "false");
+        rankItem.innerHTML = `<strong>${rank04Selected ? "已選｜" : ""}${G3A_U01_VISUAL_RANK04_PUBLIC_PATTERN_GROUP.displayName}</strong><span>${knowledgePoint.unitCode}｜已通過出題驗證</span>`;
+        knowledgePointPanel.append(rankItem);
+      }
     }
   }
 
@@ -460,7 +500,13 @@ function renderPatternGroupChoices() {
     && state.batchA.selectedKnowledgePointIds[0] === G3A_U01_VISUAL_RANK03_KP_ID
     && (state.batchA.selectedPatternGroupIds ?? []).length === 1
     && state.batchA.selectedPatternGroupIds[0] === G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID;
-  if (rank01Selected || rank03Selected) {
+  const rank04Selected = state.batchA.sourceId === G3A_U01_VISUAL_RANK04_SOURCE_ID
+    && state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT
+    && (state.batchA.selectedKnowledgePointIds ?? []).length === 1
+    && state.batchA.selectedKnowledgePointIds[0] === G3A_U01_VISUAL_RANK04_KP_ID
+    && (state.batchA.selectedPatternGroupIds ?? []).length === 1
+    && state.batchA.selectedPatternGroupIds[0] === G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID;
+  if (rank01Selected || rank03Selected || rank04Selected) {
     patternGroupPanel.replaceChildren();
     patternGroupSection.dataset.visible = "false";
     patternGroupHelp.textContent = "此 Rank 題型已直接選定，不需要第二層題目形式。";
@@ -476,6 +522,7 @@ function renderPatternGroupChoices() {
     if (
       choice.patternGroupId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID
       || choice.patternGroupId === G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID
+      || choice.patternGroupId === G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID
     ) continue;
     if (!choice.hasRepresentationChoice) continue;
     const list = choiceGroups.get(choice.knowledgePointId) ?? [];
@@ -805,6 +852,35 @@ function bindControls() {
           BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
           [G3A_U01_VISUAL_RANK03_KP_ID],
           [G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID]
+        );
+      }
+      syncControlsFromState();
+      writeQueryStateFromState(state);
+      markOutputStale();
+      return;
+    }
+
+    const rank04Target = event.target.closest?.("[data-rank04-selector-target='true']");
+    if (rank04Target) {
+      if (rank04Target.disabled) return;
+      if (state.batchA.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
+        ensureMixedSelectorTargets();
+        if (mixedSelectorTargetIds.has(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID)) {
+          if (mixedSelectorTargetIds.size <= 2) {
+            patternGroupUiWarnings = [{ code: "public_pattern_group_minimum_one" }];
+            renderSelectorWarnings();
+            return;
+          }
+          mixedSelectorTargetIds.delete(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID);
+        } else {
+          mixedSelectorTargetIds.add(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID);
+        }
+        syncMixedSelectorTargetsToState();
+      } else {
+        applySelectorSelection(
+          BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+          [G3A_U01_VISUAL_RANK04_KP_ID],
+          [G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID]
         );
       }
       syncControlsFromState();
