@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK01_PUBLIC_REVIEW_STATE_SYNC",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK01_PUBLIC_REVIEW_STATE_SYNC.validation.json",
+  "classificationNote": "State-only readback after PR1218 focused CI and GitHub Pages deploy pass. No runtime, selector, renderer, mathematics, or route change.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "stateOnly": true
+}
