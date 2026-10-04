@@ -702,6 +702,7 @@ function generateExam() {
 gradeSelect.addEventListener("change", () => {
   populateSemesters();
   populateSources();
+  setBatchASourceId(state, sourceSelect.value);
   normalizeCrossUnitSelection({ reset: true });
   syncCompositionModeAvailability();
   applyCompositionMode({ resetCrossSelection: true });
@@ -709,6 +710,7 @@ gradeSelect.addEventListener("change", () => {
 
 semesterSelect.addEventListener("change", () => {
   populateSources();
+  setBatchASourceId(state, sourceSelect.value);
   normalizeCrossUnitSelection({ reset: true });
   syncCompositionModeAvailability();
   applyCompositionMode({ resetCrossSelection: true });
@@ -843,6 +845,7 @@ crossUnitKpGroups?.addEventListener("click", (event) => {
 });
 
 sourceSelect.addEventListener("change", () => {
+  setBatchASourceId(state, sourceSelect.value);
   updateSourceHelp();
   syncCompositionModeAvailability();
   applyCompositionMode({ defaultMixedSelection: true });
