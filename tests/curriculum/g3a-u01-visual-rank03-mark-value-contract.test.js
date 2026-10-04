@@ -27,7 +27,7 @@ test("Rank03 contract materializes the exact source-backed MARK_GIVEN_VALUE fami
   const family=visual.families.find((row)=>row.visualFamilyId===FAMILY);
   assert.ok(family);
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
-  assert.equal(contract.status,"hidden_runtime_implemented_pending_focused_ci");
+  assert.equal(contract.status,"hidden_runtime_accepted_public_cutover_not_started");
   assert.equal(contract.sourceAuthorityPreflight.visualFamilyId,FAMILY);
   assert.equal(contract.sourceAuthorityPreflight.sourceQuestionCount,20);
   assert.equal(contract.sourceAuthorityPreflight.taskCore,"MARK_GIVEN_VALUE");
@@ -124,7 +124,17 @@ test("Rank03 contract advances to hidden runtime while excluding public selector
   assert.equal(contract.lifecycle.validatorRuntimeImplemented,true);
   assert.equal(contract.lifecycle.rendererCodeChanged,true);
   assert.equal(contract.lifecycle.hiddenWorksheetImplemented,true);
-  assert.equal(contract.lifecycle.hiddenWorksheetAcceptance,"PENDING_FOCUSED_CI");
+  assert.equal(contract.lifecycle.hiddenWorksheetAcceptance,"PASS_FOCUSED_CI");
+  assert.equal(contract.lifecycle.hiddenRuntimeFocusedGate,"PASS");
+  assert.equal(contract.lifecycle.hiddenRuntimeMerged,true);
+  assert.equal(contract.lifecycle.hiddenRuntimeMergeSha,"6a3260fcc6e26ce5a7c01bc03f28b668b64c1f75");
+  assert.equal(contract.hiddenRuntime.hiddenWorksheetAcceptance.status,"PASS");
+  assert.equal(contract.hiddenRuntime.hiddenWorksheetAcceptance.overflowPageCount,0);
+  assert.equal(contract.hiddenRuntime.hiddenWorksheetAcceptance.overflowCellCount,0);
+  assert.equal(contract.hiddenRuntime.hiddenWorksheetAcceptance.questionMarkerCount,0);
+  assert.equal(contract.hiddenRuntime.hiddenWorksheetAcceptance.answerMarkerCount,60);
+  assert.equal(contract.hiddenRuntime.layoutDecision,"PASS_NO_SIZE_CHANGE_REQUIRED");
+  assert.equal(contract.hiddenRuntime.publicCutoverStarted,false);
   assert.equal(contract.lifecycle.selectorVisible,false);
   assert.equal(contract.lifecycle.productionUse,"forbidden");
   assert.equal(contract.patternSpec.constraints.generation.rank04ToRank05OperationsForbidden,true);

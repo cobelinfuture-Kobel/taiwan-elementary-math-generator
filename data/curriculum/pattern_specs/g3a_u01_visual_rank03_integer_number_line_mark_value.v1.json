@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "hidden_runtime_implemented_pending_focused_ci",
+  "status": "hidden_runtime_accepted_public_cutover_not_started",
   "authority": {
     "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank03_source_authority_preflight.v1.json",
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
@@ -395,7 +395,10 @@
     "selectorVisible": false,
     "productionUse": "forbidden",
     "hiddenWorksheetImplemented": true,
-    "hiddenWorksheetAcceptance": "PENDING_FOCUSED_CI"
+    "hiddenWorksheetAcceptance": "PASS_FOCUSED_CI",
+    "hiddenRuntimeFocusedGate": "PASS",
+    "hiddenRuntimeMerged": true,
+    "hiddenRuntimeMergeSha": "6a3260fcc6e26ce5a7c01bc03f28b668b64c1f75"
   },
   "antiScopeBoundary": {
     "allowed": [
@@ -413,7 +416,7 @@
       "change Rank02 task semantics"
     ]
   },
-  "nextStep": "Run bounded hidden-runtime CI. If PASS, merge and then perform actual A4 question/answer overlay layout acceptance before any Rank03 public selector cutover.",
+  "nextStep": "At the next planning-to-implementation boundary, approve bounded Rank03 public selector cutover: single-KP first, then same-unit and cross-unit linkage, followed by deployed Pages/operator visual acceptance.",
   "hiddenRuntime": {
     "runtimePath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank03-runtime.js",
     "worksheetPath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank03-worksheet.js",
@@ -424,6 +427,40 @@
       "MARK_GIVEN_VALUE"
     ],
     "selectorVisible": false,
-    "productionUse": "forbidden"
+    "productionUse": "forbidden",
+    "focusedGateRunId": 37204251705,
+    "focusedGateHeadSha": "55f911ae94dce61ea0cfb4c1024bc719e9444932",
+    "focusedNodeTests": {
+      "tests": 20,
+      "pass": 20,
+      "fail": 0
+    },
+    "hiddenWorksheetAcceptance": {
+      "status": "PASS",
+      "paperSize": "A4",
+      "columns": 2,
+      "rowsPerPage": 3,
+      "questionPageCount": 10,
+      "answerPageCount": 10,
+      "renderedPageCount": 20,
+      "renderedCellCount": 120,
+      "tickCounts": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "overflowPageCount": 0,
+      "overflowCellCount": 0,
+      "questionMarkerCount": 0,
+      "answerMarkerCount": 60,
+      "questionForbiddenPolicyCount": 60,
+      "answerRequiredPolicyCount": 60,
+      "twelveTickCasePresent": true
+    },
+    "layoutDecision": "PASS_NO_SIZE_CHANGE_REQUIRED",
+    "publicCutoverStarted": false
   }
 }
