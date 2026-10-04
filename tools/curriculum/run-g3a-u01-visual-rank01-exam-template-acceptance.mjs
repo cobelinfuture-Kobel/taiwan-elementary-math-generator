@@ -88,10 +88,12 @@ async function run(){
   await frame.waitForSelector("body",{timeout:120000});
   const exam=await frame.evaluate(count=>({
     tableCount:document.querySelectorAll('[data-representation="one-way-statistics-table"]').length,
-    text:document.body?.innerText??"",
+    questionTableCount:document.querySelectorAll('.school-exam-page--questions [data-representation="one-way-statistics-table"]').length,
+    answerTableCount:document.querySelectorAll('.school-exam-page--answers [data-representation="one-way-statistics-table"]').length,
+    promptCount:[...document.querySelectorAll(".school-exam-page--questions")].reduce((total,page)=>total+(page.innerText.match(/根據表格/g)??[]).length,0),
     count
   }),COUNT);
-  if(exam.tableCount<COUNT||!exam.text.includes("一維資料表四位數比較"))throw new Error(`G3AU01_R01_EXAM_RENDER:${JSON.stringify(exam)}`);
+  if(exam.tableCount!==COUNT*2||exam.questionTableCount!==COUNT||exam.answerTableCount!==COUNT||exam.promptCount!==COUNT)throw new Error(`G3AU01_R01_EXAM_RENDER:${JSON.stringify(exam)}`);
 
   await frame.evaluate(()=>{window.__G3AU01_R01_EXAM_PRINT__=0;window.print=()=>window.__G3AU01_R01_EXAM_PRINT__++;});
   await page.locator("#exam-print").click();
