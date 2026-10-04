@@ -26,6 +26,10 @@ import {
 } from "../../site/modules/curriculum/batch-a/g3a-u01-visual-rank01-public-route.js";
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
 import {
+  SCHOOL_EXAM_COMPOSITION_MODES,
+  resolveSchoolExamCompositionMode,
+} from "../../site/modules/exam/school-exam-composition-contract.js";
+import {
   normalizePublicPatternGroupSelection,
 } from "../../site/assets/browser/state/public-pattern-group-selection.js";
 
@@ -95,6 +99,24 @@ test("Rank01 sibling target has one automatic pattern and therefore no second-le
   assert.equal(normalized.choices[0].patternGroupId,G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
   assert.equal(normalized.choices[0].hasRepresentationChoice,false);
   assert.deepEqual([...normalized.selectedPatternGroupIds],[G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]);
+});
+
+
+test("Rank01 uses the same single-KP selector level in the school exam template", () => {
+  const mode=resolveSchoolExamCompositionMode(SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_KP);
+  assert.equal(mode.enabled,true);
+  assert.equal(mode.batchASelectionMode,"singleKnowledgePoint");
+  const binding=resolvePublicUiCapabilityBinding({
+    sourceId:G3A_U01_VISUAL_RANK01_SOURCE_ID,
+    selectionMode:mode.batchASelectionMode,
+    selectedKnowledgePointIds:[G3A_U01_VISUAL_RANK01_KP_ID],
+    selectedPatternGroupIds:[],
+  });
+  assert.equal(binding.blocked,false);
+  assert.deepEqual([...binding.selectedKnowledgePointIds],[G3A_U01_VISUAL_RANK01_KP_ID]);
+  assert.equal(binding.selectorNodeType,"ranked_practice_target");
+  assert.equal(binding.compatiblePatternGroupIds.length,1);
+  assert.equal(binding.compatiblePatternGroupIds[0],G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
 });
 
 test("Rank01 public route does not intercept source-unit, same-unit mixed, or unrelated group requests", () => {
