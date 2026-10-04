@@ -115,6 +115,8 @@ test("same-unit mixed aggregation forwards Rank01 only to the canonical G3A U01 
   const otherLeaf = calls.find((call) => call.selectedKnowledgePointIds?.[0] === other.knowledgePointId);
   assert.deepEqual(rankLeaf?.selectedPatternGroupIds, [GROUP]);
   assert.ok(canonicalLeaf);
+  assert.ok(canonicalLeaf.selectedPatternGroupIds.length >= 1);
+  assert.equal(canonicalLeaf.selectedPatternGroupIds.includes(GROUP), false);
   assert.equal(otherLeaf?.selectedPatternGroupIds?.includes(GROUP) ?? false, false);
   assert.deepEqual(result.worksheetDocument.metadata.selectedSelectorTargetIds, [KP, GROUP, other.knowledgePointId]);
 });
@@ -164,6 +166,8 @@ test("cross-unit coordinator forwards Rank01 group to the G3A U01 leaf without c
   const otherLeaf = calls.find((call) => call.sourceId === otherRow.sourceId);
   assert.deepEqual(rankLeaf?.selectedPatternGroupIds, [GROUP]);
   assert.ok(canonicalLeaf);
+  assert.ok(canonicalLeaf.selectedPatternGroupIds.length >= 1);
+  assert.equal(canonicalLeaf.selectedPatternGroupIds.includes(GROUP), false);
   assert.equal(otherLeaf?.selectedPatternGroupIds?.includes(GROUP) ?? false, false);
   assert.equal(result.worksheetDocument.metadata.crossUnitMixedUsed, true);
   assert.deepEqual(result.worksheetDocument.metadata.selectedSelectorTargetIds, plan.selectedSelectorTargetIds);
