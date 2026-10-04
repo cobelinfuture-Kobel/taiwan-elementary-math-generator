@@ -2,11 +2,11 @@
   "schemaName": "P09UISameUnitMixed21PostMergeMainPagesE2EV1",
   "taskId": "P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation",
   "status": "PASS_P09_UI_SAME_UNIT_MIXED21_E6_D0",
-  "exactHeadSha": "252f51aa5f898977cca7e2d0ee6d7ab3e956831d",
+  "exactHeadSha": "480c5ac75689f6d36396f02cd7e0c355af5476b1",
   "productMergeSha": "e50645cf06ca8c5731ccb2e8ebfd5a25ccdd6318",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
   "deployment": {
-    "attempt": 4,
+    "attempt": 3,
     "assets": [
       {
         "publicPath": "modules/curriculum/registry/batch-a-selector-extension.js",
@@ -30,8 +30,8 @@
       },
       {
         "publicPath": "modules/curriculum/batch-a/same-unit-mixed21-aggregation.js",
-        "expectedSha256": "aff7fd962fbec0ea98ec4a80a45a4fd73899297d31746c64082c3b8ed5dc87a2",
-        "liveSha256": "aff7fd962fbec0ea98ec4a80a45a4fd73899297d31746c64082c3b8ed5dc87a2"
+        "expectedSha256": "be3d39f8a3b8c154809fc09558a4e0da31121a060138f542259537db5ae08fa4",
+        "liveSha256": "be3d39f8a3b8c154809fc09558a4e0da31121a060138f542259537db5ae08fa4"
       },
       {
         "publicPath": "assets/browser/pipeline/build-worksheet-document.js",
@@ -476,10 +476,10 @@
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "37164809065",
-    "number": "2",
+    "id": "37172906169",
+    "number": "3",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/37164809065"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/37172906169"
   },
-  "verifiedAt": "2026-10-04T00:25:31.269Z"
+  "verifiedAt": "2026-10-04T03:04:39.123Z"
 }
