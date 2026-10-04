@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK03_DEPLOYED_READBACK_STATE_SYNC",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK03_DEPLOYED_READBACK_STATE_SYNC.validation.json",
+  "classificationNote": "State-only readback after Rank03 public cutover PR1237, exact Pages deployment, live shared-asset parity, PR1238 post-merge stale-preflight repair, and exact full-regression parity attribution. No runtime, selector, renderer, mathematics, generator, validator, route, Rank04+, or source-authority change.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "stateOnly": true,
+  "postMergeRegression": {
+    "preCutoverBaselineFailures": 220,
+    "rank03MergeFailuresBeforeRepair": 221,
+    "rank03OwnedFailureRepaired": 1,
+    "repairedPostMergeFailures": 220,
+    "rank03OwnedRemainingFailures": 0
+  },
+  "mathCIReadback": {
+    "status": "FAIL_BASELINE_ONLY_PLUS_UNRELATED_ENVIRONMENT_SENSITIVE_DELTA",
+    "rank03OwnedRemainingFailures": 0
+  },
+  "operatorVisualAcceptancePending": true
+}
