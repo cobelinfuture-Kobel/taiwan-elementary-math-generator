@@ -233,8 +233,12 @@ function normalizeCrossUnitSelection({ reset = false } = {}) {
   }
 
   const targetMap = new Map(
-    selectedSourceIds.flatMap((sourceId) => selectorTargetsForSource(sourceId))
-      .map((target) => [`${target.unitCode}::${target.targetId}`, { ...target, sourceId }]),
+    selectedSourceIds.flatMap((sourceId) =>
+      selectorTargetsForSource(sourceId).map((target) => [
+        `${target.unitCode}::${target.targetId}`,
+        { ...target, sourceId },
+      ]),
+    ),
   );
   const keyFor = (sourceId, targetId) => `${sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? sourceId}::${targetId}`;
 
