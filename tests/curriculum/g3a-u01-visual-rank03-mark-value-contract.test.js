@@ -27,7 +27,7 @@ test("Rank03 contract materializes the exact source-backed MARK_GIVEN_VALUE fami
   const family=visual.families.find((row)=>row.visualFamilyId===FAMILY);
   assert.ok(family);
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
-  assert.equal(contract.status,"hidden_runtime_accepted_public_cutover_not_started");
+  assert.equal(contract.status,"public_review_ready_operator_visual_acceptance");
   assert.equal(contract.sourceAuthorityPreflight.visualFamilyId,FAMILY);
   assert.equal(contract.sourceAuthorityPreflight.sourceQuestionCount,20);
   assert.equal(contract.sourceAuthorityPreflight.taskCore,"MARK_GIVEN_VALUE");
@@ -63,14 +63,14 @@ test("Rank03 FormalMapping resolves the historical candidate to the existing can
   assert.equal(contract.lifecycle.newKnowledgePointMinted,false);
 });
 
-test("Rank03 PatternSpec contract passes repository schema validation and remains hidden",()=>{
+test("Rank03 PatternSpec contract passes repository schema validation and is visible for public review",()=>{
   assert.equal(contract.patternSpec.patternSpecId,SPEC);
   assert.equal(contract.patternSpec.patternGroupId,GROUP);
   assert.equal(contract.patternSpec.knowledgePointId,CANONICAL_KP);
   assert.equal(contract.patternSpec.taskCore,"MARK_GIVEN_VALUE");
   assert.deepEqual(contract.patternSpec.allowedPromptVariants,["MARK_GIVEN_VALUE"]);
-  assert.equal(contract.patternSpec.selectorStatus,"hidden");
-  assert.equal(contract.patternSpec.productionUse,"forbidden");
+  assert.equal(contract.patternSpec.selectorStatus,"visible_public_review");
+  assert.equal(contract.patternSpec.productionUse,"public_review");
 
   const result=validatePatternSpec(contract.patternSpec);
   assert.equal(result.validationStatus,"pass");
@@ -115,7 +115,7 @@ test("Rank03 controlled examples satisfy the mark-value index equation without b
   }
 });
 
-test("Rank03 contract advances to hidden runtime while excluding public selector and Rank04+",()=>{
+test("Rank03 reaches deployed public review with zero Rank03-owned post-merge regression delta while excluding Rank04+",()=>{
   assert.equal(contract.lifecycle.formalMappingMaterialized,true);
   assert.equal(contract.lifecycle.patternSpecMaterialized,true);
   assert.equal(contract.lifecycle.validatorContractMaterialized,true);
@@ -134,9 +134,26 @@ test("Rank03 contract advances to hidden runtime while excluding public selector
   assert.equal(contract.hiddenRuntime.hiddenWorksheetAcceptance.questionMarkerCount,0);
   assert.equal(contract.hiddenRuntime.hiddenWorksheetAcceptance.answerMarkerCount,60);
   assert.equal(contract.hiddenRuntime.layoutDecision,"PASS_NO_SIZE_CHANGE_REQUIRED");
-  assert.equal(contract.hiddenRuntime.publicCutoverStarted,false);
-  assert.equal(contract.lifecycle.selectorVisible,false);
-  assert.equal(contract.lifecycle.productionUse,"forbidden");
+  assert.equal(contract.hiddenRuntime.publicCutoverStarted,true);
+  assert.equal(contract.lifecycle.selectorVisible,true);
+  assert.equal(contract.lifecycle.productionUse,"public_review");
+  assert.equal(contract.lifecycle.publicCutover,"PASS_FOCUSED_CI_AND_PAGES_DEPLOYED");
+  assert.equal(contract.lifecycle.threeModeE2E,"PASS_FOCUSED_CI_EXACT_HEAD");
+  assert.equal(contract.lifecycle.deployedReadback,"PASS_EXACT_SHA_AND_ASSET_PARITY_OPERATOR_VISUAL_PENDING");
+  assert.equal(contract.lifecycle.postMergeRegressionParity,"PASS_RANK03_OWNED_FAILURES_ZERO_BASELINE_220");
+  assert.equal(contract.publicAdmission.prNumber,1237);
+  assert.equal(contract.publicAdmission.mergeSha,"de8bdf477ea21b5f844d52fbb1553df12b39e603");
+  assert.equal(contract.publicAdmission.focusedGateRunId,37209021100);
+  assert.equal(contract.publicAdmission.threeModeE2EStatus,"PASS_G3A_U01_RANK03_CLASSIC_AND_EXAM_THREE_MODE");
+  assert.equal(contract.publicAdmission.pagesDeployRunId,37209128056);
+  assert.equal(contract.publicAdmission.deployedReadbackRunId,37209128042);
+  assert.equal(contract.publicAdmission.deployedReadbackAttempt,2);
+  assert.equal(contract.publicAdmission.postMergeParityRepair.prNumber,1238);
+  assert.equal(contract.publicAdmission.postMergeParityRepair.fail,220);
+  assert.equal(contract.publicAdmission.postMergeParityRepair.preCutoverBaselineFailCount,220);
+  assert.equal(contract.publicAdmission.postMergeParityRepair.rank03OwnedFailureCount,0);
+  assert.equal(contract.publicAdmission.mathCIReadback.rank03OwnedFailureCount,0);
+  assert.equal(contract.publicAdmission.publicReviewStatus,"OPERATOR_VISUAL_ACCEPTANCE_PENDING");
   assert.equal(contract.patternSpec.constraints.generation.rank04ToRank05OperationsForbidden,true);
   assert.equal(contract.patternSpec.constraints.generation.movementTaskForbidden,true);
 });

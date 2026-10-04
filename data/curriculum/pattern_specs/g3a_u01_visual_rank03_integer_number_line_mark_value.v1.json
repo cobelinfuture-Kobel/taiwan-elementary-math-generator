@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "hidden_runtime_accepted_public_cutover_not_started",
+  "status": "public_review_ready_operator_visual_acceptance",
   "authority": {
     "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank03_source_authority_preflight.v1.json",
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
@@ -64,7 +64,7 @@
       "ps_g3a_u01_visual_integer_number_line_mark_value"
     ],
     "sourceQuestionCount": 20,
-    "lifecycle": "hidden_runtime"
+    "lifecycle": "visible_public_review"
   },
   "patternSpec": {
     "patternSpecId": "ps_g3a_u01_visual_integer_number_line_mark_value",
@@ -189,8 +189,8 @@
     "generatorStatus": "hidden_deterministic_runtime_implemented",
     "validatorStatus": "blocking_runtime_implemented",
     "rendererStatus": "integer_number_line_marker_policy_extension_implemented",
-    "selectorStatus": "hidden",
-    "productionUse": "forbidden",
+    "selectorStatus": "visible_public_review",
+    "productionUse": "public_review",
     "questionKindCompatibilityNote": "Repository validatePatternSpec currently supports visual_reading but not a separate visual_marking enum. MARK_GIVEN_VALUE remains the semantic authority via taskCore, semanticSignature, answerModel and validator contract; this contract does not expand the shared questionKind registry."
   },
   "validatorContract": {
@@ -392,13 +392,18 @@
     "generatorImplemented": true,
     "validatorRuntimeImplemented": true,
     "rendererCodeChanged": true,
-    "selectorVisible": false,
-    "productionUse": "forbidden",
+    "selectorVisible": true,
+    "productionUse": "public_review",
     "hiddenWorksheetImplemented": true,
     "hiddenWorksheetAcceptance": "PASS_FOCUSED_CI",
     "hiddenRuntimeFocusedGate": "PASS",
     "hiddenRuntimeMerged": true,
-    "hiddenRuntimeMergeSha": "6a3260fcc6e26ce5a7c01bc03f28b668b64c1f75"
+    "hiddenRuntimeMergeSha": "6a3260fcc6e26ce5a7c01bc03f28b668b64c1f75",
+    "publicCutover": "PASS_FOCUSED_CI_AND_PAGES_DEPLOYED",
+    "threeModeE2E": "PASS_FOCUSED_CI_EXACT_HEAD",
+    "deployedReadback": "PASS_EXACT_SHA_AND_ASSET_PARITY_OPERATOR_VISUAL_PENDING",
+    "postMergeRegressionParity": "PASS_RANK03_OWNED_FAILURES_ZERO_BASELINE_220",
+    "mathCIReadback": "FAIL_BASELINE_ONLY_PLUS_UNRELATED_NON_RANK03_DELTA"
   },
   "antiScopeBoundary": {
     "allowed": [
@@ -416,7 +421,7 @@
       "change Rank02 task semantics"
     ]
   },
-  "nextStep": "At the next planning-to-implementation boundary, approve bounded Rank03 public selector cutover: single-KP first, then same-unit and cross-unit linkage, followed by deployed Pages/operator visual acceptance.",
+  "nextStep": "Operator verifies the deployed website visually for Classic/Exam Rank03 selector plus marker-free question and marked-answer number-line layout. On approval, mark Rank03 D0; only then continue to the next G3A-U01 visual SourceAuthorityPreflight.",
   "hiddenRuntime": {
     "runtimePath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank03-runtime.js",
     "worksheetPath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank03-worksheet.js",
@@ -426,8 +431,8 @@
     "promptVariants": [
       "MARK_GIVEN_VALUE"
     ],
-    "selectorVisible": false,
-    "productionUse": "forbidden",
+    "selectorVisible": true,
+    "productionUse": "public_review",
     "focusedGateRunId": 37204251705,
     "focusedGateHeadSha": "55f911ae94dce61ea0cfb4c1024bc719e9444932",
     "focusedNodeTests": {
@@ -461,6 +466,101 @@
       "twelveTickCasePresent": true
     },
     "layoutDecision": "PASS_NO_SIZE_CHANGE_REQUIRED",
-    "publicCutoverStarted": false
+    "publicCutoverStarted": true
+  },
+  "publicAdmission": {
+    "taskId": "G3A_U01_VisualRank03_PublicSelectorSiblingCutover_ThreeModeLinkage",
+    "route": "singleKnowledgePoint + mixedKnowledgePointsSameUnit + mixedKnowledgePointsCrossUnit",
+    "sourceId": "g3a_u01_3a01",
+    "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_mark_value",
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_mark_value",
+    "sourceUnitChanged": false,
+    "sameUnitMixedChanged": true,
+    "crossUnitMixedChanged": true,
+    "rank04PlusVisible": false,
+    "canonicalKnowledgePointReused": true,
+    "siblingSelectorTarget": true,
+    "operatorLayoutReviewRequired": true,
+    "operatorReviewScope": "live Classic and Exam Rank03 selector plus marker-free question / marked-answer integer-number-line layout",
+    "selectorHierarchy": "pattern_group_sibling_reusing_canonical_kp",
+    "mixedLeafRuntimePolicy": "EXPLICIT_RANK02_RANK03_PATTERN_GROUP_DISPATCH",
+    "examTemplateCompositionModes": [
+      "SINGLE_KP",
+      "MIXED_KP_SAME_UNIT",
+      "MIXED_KP_CROSS_UNIT"
+    ],
+    "prNumber": 1237,
+    "prHeadSha": "ddab5caff98e7cadbdc50fed96578524fbb6cc25",
+    "mergeSha": "de8bdf477ea21b5f844d52fbb1553df12b39e603",
+    "focusedGateRunId": 37209021100,
+    "focusedGate": "PASS",
+    "threeModeE2EStatus": "PASS_G3A_U01_RANK03_CLASSIC_AND_EXAM_THREE_MODE",
+    "threeModeE2EEvidence": {
+      "classicSingle": "PASS_6_QUESTIONS_6_ANSWERS_QUESTION_MARKERS_0_ANSWER_MARKERS_6_NO_OVERFLOW_PRINT_PASS",
+      "classicSameUnit": "PASS_ALL_11_OF_11_SELECTOR_TARGETS_SELECTED_33_QUESTIONS_RANK03_MATERIALIZED",
+      "examSingle": "PASS_6_QUESTIONS_6_RANK03_NUMBER_LINES_QUESTION_MARKERS_0_ANSWER_MARKERS_6",
+      "examSameUnit": "PASS_ALL_11_OF_11_SELECTOR_TARGETS_SELECTED_33_QUESTIONS_RANK03_MATERIALIZED",
+      "examCrossUnit": "PASS_2_SOURCES_3_TARGETS_12_QUESTIONS_RANK03_MATERIALIZED",
+      "browserErrors": {
+        "console": 0,
+        "page": 0,
+        "request": 0,
+        "assetHttp": 0
+      }
+    },
+    "pagesDeploy": "PASS_EXACT_SHA_CONFIRMED",
+    "pagesDeployRunId": 37209128056,
+    "deployedExactHeadSha": "de8bdf477ea21b5f844d52fbb1553df12b39e603",
+    "deployedReadbackRunId": 37209128042,
+    "deployedReadbackAttempt": 2,
+    "deployedReadbackStatus": "PASS_P09_UI_SAME_UNIT_MIXED21_E6_D0",
+    "deployedReadbackEvidence": "EXACT_HEAD_SHA_PLUS_LIVE_SHARED_ASSET_SHA256_PARITY_AND_CLASSIC_UI_ACCEPTANCE",
+    "deployedAssetParity": {
+      "selectorExtension": "PASS_EXPECTED_SHA256_EQUALS_LIVE_SHA256",
+      "capabilityBinding": "PASS_EXPECTED_SHA256_EQUALS_LIVE_SHA256",
+      "sameUnitAggregator": "PASS_EXPECTED_SHA256_EQUALS_LIVE_SHA256",
+      "worksheetPipeline": "PASS_EXPECTED_SHA256_EQUALS_LIVE_SHA256"
+    },
+    "postMergeParityRepair": {
+      "prNumber": 1238,
+      "mergeSha": "2f9ca01f26efdc3e397cca7b573a6de84d843c86",
+      "focusedGateRunId": 37209750032,
+      "focusedGate": "PASS",
+      "removedRank03OwnedFailure": "Rank02 current KP-only public fallback is explicitly identified as blocking ambiguity before Rank03 cutover",
+      "postMergeRegressionRunId": 37209838421,
+      "tests": 6856,
+      "pass": 6636,
+      "fail": 220,
+      "preCutoverBaselineFailCount": 220,
+      "rank03OwnedFailureCount": 0,
+      "parityStatus": "PASS_EXACT_FAILURE_COUNT_PARITY_NO_RANK03_OWNED_DELTA"
+    },
+    "mathCIReadback": {
+      "runId": 37209838444,
+      "tests": 6856,
+      "pass": 6635,
+      "fail": 221,
+      "rank03OwnedFailureCount": 0,
+      "status": "FAIL_BASELINE_ONLY_PLUS_ONE_UNRELATED_ENVIRONMENT_SENSITIVE_DELTA",
+      "unrelatedDelta": {
+        "testFile": "tests/curriculum/path1-word-problem-p1-12-inverse-equal-groups-implementation-v1.test.js",
+        "testName": "operation and equation direction follow the semantic unknown role",
+        "error": "Object.groupBy is not a function"
+      },
+      "readbackCommitPush": "FAILED_CONCURRENT_MAIN_ADVANCE"
+    },
+    "publicReviewStatus": "OPERATOR_VISUAL_ACCEPTANCE_PENDING",
+    "operatorVisualAcceptanceChecklist": [
+      "Classic: 整數數線定位／標記 sibling selector 可見且可單獨產題",
+      "Classic: Rank02 整數數線讀值與 Rank03 整數數線定位／標記可同時存在",
+      "Classic: 同單元混合預設 11/11 selector targets 可選並可產題",
+      "Exam: 單一知識點可產生 Rank03 標記題",
+      "Exam: 同單元混合 11/11 targets 可選並可產題",
+      "Exam: 跨單元混合可包含 Rank03",
+      "題目頁數線不得顯示答案 marker",
+      "答案頁同一數線只顯示一個正確 marker",
+      "A4 2x3 7-12 tick 版面無裁切、刻度與標籤可讀"
+    ]
   }
 }
