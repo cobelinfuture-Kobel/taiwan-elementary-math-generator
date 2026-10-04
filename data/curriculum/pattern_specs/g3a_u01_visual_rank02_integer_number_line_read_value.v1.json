@@ -496,7 +496,7 @@
     "productionUse": "forbidden",
     "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
     "renderedWorksheetAcceptance": "PASS_FOCUSED_CI",
-    "layoutTuningStatus": "PENDING_ACTUAL_A4_BROWSER_ACCEPTANCE"
+    "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED_PENDING_CI"
   },
   "antiScopeBoundary": {
     "allowed": [
@@ -515,7 +515,7 @@
       "modify unrelated renderer behavior"
     ]
   },
-  "nextStep": "Run actual A4 2x3 browser overflow acceptance across all Rank02 tick-density bands; if PASS, record no-size-change acceptance and proceed to bounded public selector cutover following the Rank01 flow.",
+  "nextStep": "Run bounded Rank02 layout acceptance CI; if PASS, merge and proceed to bounded public selector cutover following the Rank01 flow.",
   "runtimeAdmission": {
     "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
     "sourceCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
@@ -527,7 +527,7 @@
   },
   "layoutAcceptance": {
     "reviewType": "ACTUAL_A4_WORKSHEET_ANSWER_PRINT_BROWSER_MEASUREMENT",
-    "reviewDecision": "PASS_NO_SIZE_CHANGE_REQUIRED_PENDING_CI",
+    "reviewDecision": "PASS_NO_SIZE_CHANGE_REQUIRED",
     "reviewedLayout": {
       "paperSize": "A4",
       "columns": 2,
@@ -546,9 +546,9 @@
         11,
         12
       ],
-      "questionPage": "PENDING_BROWSER_OVERFLOW_CHECK",
-      "answerPage": "PENDING_BROWSER_OVERFLOW_CHECK",
-      "twelveTickWorstCase": "PENDING_BROWSER_OVERFLOW_CHECK"
+      "questionPage": "PASS_NO_OVERFLOW",
+      "answerPage": "PASS_NO_OVERFLOW",
+      "twelveTickWorstCase": "PASS_AT_CURRENT_RENDERER_SIZE"
     },
     "currentRendererGeometry": {
       "viewBox": "0 0 420 90",
@@ -558,11 +558,12 @@
       "tickLabelFontSize": 9,
       "markerFontSize": 14
     },
-    "tuningAction": "NO_RENDERER_SIZE_CHANGE_PENDING_BROWSER_CHECK",
+    "tuningAction": "NO_RENDERER_SIZE_CHANGE",
     "mathematicsChanged": false,
     "generatorChanged": false,
     "validatorChanged": false,
     "selectorVisible": false,
-    "productionUse": "forbidden"
+    "productionUse": "forbidden",
+    "reasoning": "The 60-item browser-measured A4 2x3 cohort exercises every 7-to-12-tick density band across question and answer pages; the existing 420x90 SVG geometry fits without page or cell overflow."
   }
 }
