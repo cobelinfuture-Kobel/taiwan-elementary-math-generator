@@ -1,304 +1,45 @@
 {
-  "schemaName": "P09UIA03BPostMergeMainPagesE2EV1",
-  "taskId": "P09_UI_A03B_PublicCurriculumUnitCompletenessImplementation",
-  "status": "PASS_P09_UI_A03B_PUBLIC_CURRICULUM_COMPLETENESS_E6_D0",
-  "exactHeadSha": "8789d38f3dba4838a46097aa2b5733939ece756f",
+  "schemaName": "P09UIA03BPostMergeMainPagesE2EFailureV1",
+  "status": "FAIL",
+  "exactHeadSha": "de8bdf477ea21b5f844d52fbb1553df12b39e603",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
-  "deployment": {
-    "attempt": 4,
-    "assets": [
-      {
-        "publicPath": "modules/curriculum/batch-a/source-units.js",
-        "expectedSha256": "df90cbc7fa14e032283d39919d30a12d641cf795baf76ff1dabfda9f64c30d8c",
-        "liveSha256": "df90cbc7fa14e032283d39919d30a12d641cf795baf76ff1dabfda9f64c30d8c"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/batch-a-selector-extension.js",
-        "expectedSha256": "2fca0a7476becd4394ba5aaf6644d7d295d83f6eff2cd3fe4f4d429ef9feca95",
-        "liveSha256": "2fca0a7476becd4394ba5aaf6644d7d295d83f6eff2cd3fe4f4d429ef9feca95"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/batch-a-selector-p09-a03b-extension.js",
-        "expectedSha256": "1e771b738546cfa2a2b9cdc31247c298ba71ad6640ad6729e843f0c123b19235",
-        "liveSha256": "1e771b738546cfa2a2b9cdc31247c298ba71ad6640ad6729e843f0c123b19235"
-      },
-      {
-        "publicPath": "modules/curriculum/registry/public-curriculum-source-route-aliases-p09-a03b.js",
-        "expectedSha256": "2b9af3e6d0aaeb99520ace5b8116bf25a33530f46e6d105868d7190946112625",
-        "liveSha256": "2b9af3e6d0aaeb99520ace5b8116bf25a33530f46e6d105868d7190946112625"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-generator-p09-a03b.js",
-        "expectedSha256": "f50cc14c92dbb75d77f2ed1fa252c80c08d6ea6e45f7a374d9092da6b06a589f",
-        "liveSha256": "f50cc14c92dbb75d77f2ed1fa252c80c08d6ea6e45f7a374d9092da6b06a589f"
-      },
-      {
-        "publicPath": "modules/curriculum/batch-a/batch-a-browser-worksheet-p09-a03b-extension.js",
-        "expectedSha256": "eda3c34d6c7a08fc9adb887c21ac1a83475a22c52285db9ae838d83a08be4a67",
-        "liveSha256": "eda3c34d6c7a08fc9adb887c21ac1a83475a22c52285db9ae838d83a08be4a67"
-      },
-      {
-        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
-        "expectedSha256": "cee7171e6fc9441b46a489f644f599094f613b5809cf96f776a42f1fe253165e",
-        "liveSha256": "cee7171e6fc9441b46a489f644f599094f613b5809cf96f776a42f1fe253165e"
-      },
-      {
-        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p09-a03b.js",
-        "expectedSha256": "61836aaa541e79565cf11b2a1cb751b6d1cba0fd90ebf203ee7dde8bfbc39846",
-        "liveSha256": "61836aaa541e79565cf11b2a1cb751b6d1cba0fd90ebf203ee7dde8bfbc39846"
-      },
-      {
-        "publicPath": "assets/browser/state/query-state.js",
-        "expectedSha256": "bb162bf9f891cdc801a38245fc7a44bdee675a212a187ff35ff380d8a283fc11",
-        "liveSha256": "bb162bf9f891cdc801a38245fc7a44bdee675a212a187ff35ff380d8a283fc11"
-      },
-      {
-        "publicPath": "assets/browser/pipeline/build-worksheet-document-p01e-closeout.js",
-        "expectedSha256": "7fc884e988a977af7164cfd03b01f59ddebafb59f4ec67d017f394d00cebfb58",
-        "liveSha256": "7fc884e988a977af7164cfd03b01f59ddebafb59f4ec67d017f394d00cebfb58"
-      }
-    ]
-  },
-  "classicUiAcceptance": {
-    "schemaName": "P09UIA03BClassicUIAcceptanceV1",
-    "taskId": "P09_UI_A03B_PublicCurriculumUnitCompletenessImplementation",
-    "status": "PASS_P09_UI_A03B_CLASSIC_UI_ACCEPTANCE",
-    "invariants": {
-      "publicCurriculumUnitCount": 78,
-      "canonicalUniqueKnowledgePointCount": 482,
-      "publicSourceKnowledgePointRouteProjectionCount": 493,
-      "g3aU08SourceUnitCoverage": "7_OF_7",
-      "g4bU03PublicUnitReachable": true,
-      "g6bU02PublicUnitReachable": true,
-      "g5bU10IdentityNotInvented": true,
-      "crossUnitMixedAdmission": false
-    },
-    "results": [
-      {
-        "sourceId": "g3a_u08_3a08",
-        "expectedKpCount": 7,
-        "sourceState": {
-          "sourceId": "g3a_u08_3a08",
-          "selectionMode": "sourceUnit",
-          "kpIds": [
-            "kp_g3a_u08_part_whole_fraction",
-            "kp_g3a_u08_unit_fraction_accumulation",
-            "kp_g3a_u08_discrete_set_fraction",
-            "kp_g3a_u08_same_denominator_compare",
-            "kp_g3a_u08_measurement_fraction",
-            "kp_g3a_u08_whole_as_fraction",
-            "kp_g3a_u08_unlike_denominator_comparison_limit"
-          ],
-          "sourceOptions": [
-            {
-              "value": "g3a_u01_3a01",
-              "text": "3A-U01 10000以內的數"
-            },
-            {
-              "value": "g3a_u02_3a02",
-              "text": "3A-U02 四位數的加減"
-            },
-            {
-              "value": "g3a_u03_3a03",
-              "text": "3A-U03 乘法"
-            },
-            {
-              "value": "g3a_u04_3a04",
-              "text": "3A-U04 毫米與數線"
-            },
-            {
-              "value": "g3a_u05_3a05",
-              "text": "3A-U05 角與形狀"
-            },
-            {
-              "value": "g3a_u06_3a06",
-              "text": "3A-U06 二位數除以一位數"
-            },
-            {
-              "value": "g3a_u07_3a07",
-              "text": "3A-U07 尋找規律"
-            },
-            {
-              "value": "g3a_u08_3a08",
-              "text": "3A-U08 分數"
-            },
-            {
-              "value": "g3a_u09_3a09",
-              "text": "3A-U09 圓"
-            }
-          ]
-        },
-        "state": {
-          "status": "已產生 14 題，可預覽與列印。",
-          "tone": "success",
-          "validationHasErrors": "false",
-          "previewLength": 23546,
-          "printDisabled": false,
-          "sourceId": "g3a_u08_3a08",
-          "selectionMode": "sourceUnit"
-        },
-        "worksheet": {
-          "questions": 14,
-          "answers": 14,
-          "overflow": 0
-        },
-        "printCount": 1
-      },
-      {
-        "sourceId": "g4b_u03_4b03",
-        "expectedKpCount": 6,
-        "sourceState": {
-          "sourceId": "g4b_u03_4b03",
-          "selectionMode": "sourceUnit",
-          "kpIds": [
-            "kp_fraction_true_improper_mixed_classification",
-            "kp_fraction_improper_mixed_integer_conversion",
-            "kp_fraction_improper_mixed_compare_order",
-            "kp_fraction_improper_mixed_number_line",
-            "kp_fraction_same_denominator_mixed_add_sub",
-            "kp_fraction_times_integer_quantity"
-          ],
-          "sourceOptions": [
-            {
-              "value": "g4b_u01_4b01",
-              "text": "4B-U01 多位數的乘與除"
-            },
-            {
-              "value": "g4b_u02_4b02",
-              "text": "4B-U02 垂直平行與四邊形"
-            },
-            {
-              "value": "g4b_u03_4b03",
-              "text": "4B-U03 假分數與帶分數"
-            },
-            {
-              "value": "g4b_u04_4b04",
-              "text": "4B-U04 概數"
-            },
-            {
-              "value": "g4b_u05_4b05",
-              "text": "4B-U05 統計圖表"
-            },
-            {
-              "value": "g4b_u06_4b06",
-              "text": "4B-U06 小數乘法"
-            },
-            {
-              "value": "g4b_u07_4b07",
-              "text": "4B-U07 周長與面積"
-            },
-            {
-              "value": "g4b_u08_4b08",
-              "text": "4B-U08 等值分數"
-            },
-            {
-              "value": "g4b_u09_4b09",
-              "text": "4B-U09 時間的計算"
-            },
-            {
-              "value": "g4b_u10_4b10",
-              "text": "4B-U10 立方公分與體積"
-            }
-          ]
-        },
-        "state": {
-          "status": "已產生 12 題，可預覽與列印。",
-          "tone": "success",
-          "validationHasErrors": "false",
-          "previewLength": 13019,
-          "printDisabled": false,
-          "sourceId": "g4b_u03_4b03",
-          "selectionMode": "sourceUnit"
-        },
-        "worksheet": {
-          "questions": 12,
-          "answers": 12,
-          "overflow": 0
-        },
-        "printCount": 1
-      },
-      {
-        "sourceId": "g6b_u02_6b02",
-        "expectedKpCount": 5,
-        "sourceState": {
-          "sourceId": "g6b_u02_6b02",
-          "selectionMode": "sourceUnit",
-          "kpIds": [
-            "kp_speed_distance_time_relation",
-            "kp_speed_unit_conversion",
-            "kp_average_speed_total_distance_time",
-            "kp_relative_speed_meeting_chasing",
-            "kp_effective_speed_current_wind"
-          ],
-          "sourceOptions": [
-            {
-              "value": "g6b_u01_6b01",
-              "text": "6B-U01 小數與分數的計算"
-            },
-            {
-              "value": "g6b_u02_6b02",
-              "text": "6B-U02 認識速率"
-            },
-            {
-              "value": "g6b_u03_6b03",
-              "text": "6B-U03 柱體體積與表面積"
-            },
-            {
-              "value": "g6b_u04_6b04",
-              "text": "6B-U04 基準量與比較量"
-            },
-            {
-              "value": "g6b_u05_6b05",
-              "text": "6B-U05 怎樣解題"
-            },
-            {
-              "value": "g6b_u06_6b06",
-              "text": "6B-U06 圓形圖"
-            }
-          ]
-        },
-        "state": {
-          "status": "已產生 10 題，可預覽與列印。",
-          "tone": "success",
-          "validationHasErrors": "false",
-          "previewLength": 10639,
-          "printDisabled": false,
-          "sourceId": "g6b_u02_6b02",
-          "selectionMode": "sourceUnit"
-        },
-        "worksheet": {
-          "questions": 10,
-          "answers": 10,
-          "overflow": 0
-        },
-        "printCount": 1
-      }
-    ],
+  "error": "Error: P09_A03B_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\npage.waitForFunction: Timeout 30000ms exceeded.\n    at selectUnit (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a03b-classic-ui-acceptance.mjs:52:14)\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a03b-classic-ui-acceptance.mjs:229:11)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a03b-classic-ui-acceptance.mjs:245:19 {\n  name: 'TimeoutError'\n}\n\nNode.js v22.23.3\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a03b-live-pages-e2e.mjs:85:23)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
+  "childFailure": {
+    "schemaName": "P09UIA03BClassicUIAcceptanceFailureV1",
+    "status": "FAIL",
+    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?p09-a03b-e6=de8bdf477ea21b5f844d52fbb1553df12b39e603-1791123932687",
+    "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at selectUnit (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a03b-classic-ui-acceptance.mjs:52:14)\n    at run (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a03b-classic-ui-acceptance.mjs:229:11)\n    at async file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-a03b-classic-ui-acceptance.mjs:245:19",
     "browser": {
-      "consoleErrorCount": 0,
-      "pageErrorCount": 0,
-      "requestFailureCount": 0,
-      "assetHttpFailureCount": 0
+      "console": [
+        "Failed to load resource: the server responded with a status of 503 ()"
+      ],
+      "page": [],
+      "request": [
+        {
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g5b-u01-volume-unknown-dimension-runtime-p05f58.js?p09-a03b=de8bdf477ea21b5f844d52fbb1553df12b39e603",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "http": [
+        {
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/g5b-u01-volume-unknown-dimension-runtime-p05f58.js?p09-a03b=de8bdf477ea21b5f844d52fbb1553df12b39e603",
+          "status": 503
+        }
+      ]
+    },
+    "server": {
+      "stdout": "",
+      "stderr": ""
     }
-  },
-  "productParity": {
-    "canonicalSourceNodeCount": 79,
-    "publicCurriculumUnitCount": 78,
-    "canonicalUniqueKnowledgePointCount": 482,
-    "publicSourceKnowledgePointRouteProjectionCount": 493,
-    "g3aU08SourceUnitCoverage": "7_OF_7",
-    "g4bU03PublicUnitReachable": true,
-    "g6bU02PublicUnitReachable": true,
-    "g5bU10IdentityNotInvented": true
   },
   "workflow": "P09 UI A03B Post-Merge Pages E2E",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
   "run": {
-    "id": "37200426235",
-    "number": "4",
+    "id": "37209128075",
+    "number": "5",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/37200426235"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/37209128075"
   },
-  "verifiedAt": "2026-10-04T11:58:16.192Z"
+  "verifiedAt": "2026-10-04T14:26:10.420Z"
 }
