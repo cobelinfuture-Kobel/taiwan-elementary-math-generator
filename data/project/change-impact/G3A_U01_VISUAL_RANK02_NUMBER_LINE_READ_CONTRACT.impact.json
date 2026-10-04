@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK02_NUMBER_LINE_READ_CONTRACT",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK02_NUMBER_LINE_READ_CONTRACT.validation.json",
+  "classificationNote": "G3A-U01 Rank02 hidden FormalMapping/PatternGroup/PatternSpec/validator/renderer-extension contract materialization only. The approved number-line KP remains candidate-only and is not minted. No renderer code, generator, validator runtime, selector, Classic UI, Exam UI, or production route changes.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "planningDataOnlyClassification": {
+    "planningDataOnly": false,
+    "contractMaterializationOnly": true,
+    "runtimeFilesChanged": false,
+    "publicAuthorityChanged": false,
+    "legalRouteSetChanged": false,
+    "currentKnowledgeAuthorityChanged": false,
+    "newKnowledgePointMinted": false,
+    "candidateKnowledgePointReferenced": "kpc_g3a_u01_integer_number_line_scale_location",
+    "rendererExtensionImplemented": false,
+    "generatorImplemented": false,
+    "validatorRuntimeImplemented": false,
+    "selectorVisible": false,
+    "rank03PlusTouched": false,
+    "laterUnitsTouched": false
+  }
+}
