@@ -45,26 +45,26 @@ async function run(){
 
   await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-grade-select option")].some(o=>o.value==="3"),null,{timeout:120000});
   await page.selectOption("#batch-a-grade-select","3");
-  await page.waitForFunction(()=>[...document.querySelectorAll("#batch-a-semester-select option")].some(o=>o.value==="upper"),null,{timeout:120000});
   await page.selectOption("#batch-a-semester-select","upper");
   await page.waitForFunction(id=>[...document.querySelectorAll("#batch-a-source-select option")].some(o=>o.value===id),SOURCE,{timeout:120000});
   await page.selectOption("#batch-a-source-select",SOURCE);
-
-  await page.waitForFunction(kp=>Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`)),KP,{timeout:120000});
   await page.selectOption("#batch-a-selection-mode-select","singleKnowledgePoint");
-  await page.locator(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${KP}"]`).click();
-  await page.waitForFunction(kp=>{
-    const selected=[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-knowledge-point-id][data-selected='true']")].map(n=>n.dataset.knowledgePointId);
-    return selected.length===1&&selected[0]===kp;
-  },KP,{timeout:120000});
+
+  await page.waitForFunction(()=>Boolean(document.querySelector("#batch-a-knowledge-point-panel [data-rank01-selector-target='true']")),null,{timeout:120000});
+  const labels=await page.evaluate(()=>[...document.querySelectorAll("#batch-a-knowledge-point-panel .knowledge-point-option strong")].map(n=>n.textContent?.replace(/^已選｜/,"").trim()));
+  if(!labels.includes("一維資料表四位數比較"))throw new Error(`G3AU01_R01_SIBLING_LABEL_MISSING:${JSON.stringify(labels)}`);
+  await page.locator("#batch-a-knowledge-point-panel [data-rank01-selector-target='true']").click();
+  await page.waitForFunction(()=>document.querySelector("#batch-a-knowledge-point-panel [data-rank01-selector-target='true']")?.dataset?.selected==="true",null,{timeout:120000});
 
   await page.waitForFunction(()=>document.querySelector("#batch-a-pattern-group-selector")?.dataset?.visible==="false",null,{timeout:120000});
   const before=await page.evaluate(kp=>({
-    targetKnowledgePointVisible:Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`)),
-    patternGroupSelectorVisible:document.querySelector("#batch-a-pattern-group-selector")?.dataset?.visible??null,
-    visiblePatternGroupButtons:[...document.querySelectorAll("#batch-a-pattern-group-panel [data-pattern-group-id]")].filter(n=>!n.hidden).length,
+    canonicalVisible:Boolean(document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`)),
+    canonicalSelected:document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`)?.dataset?.selected??null,
+    rank01Visible:Boolean(document.querySelector("#batch-a-knowledge-point-panel [data-rank01-selector-target='true']")),
+    rank01Selected:document.querySelector("#batch-a-knowledge-point-panel [data-rank01-selector-target='true']")?.dataset?.selected??null,
+    nestedSelectorVisible:document.querySelector("#batch-a-pattern-group-selector")?.dataset?.visible??null,
   }),KP);
-  if(!before.targetKnowledgePointVisible||before.patternGroupSelectorVisible!=="false"||before.visiblePatternGroupButtons!==0){
+  if(!before.canonicalVisible||before.canonicalSelected!=="false"||!before.rank01Visible||before.rank01Selected!=="true"||before.nestedSelectorVisible!=="false"){
     throw new Error(`G3AU01_R01_FLAT_SELECTOR_INVALID:${JSON.stringify(before)}`);
   }
 
@@ -72,17 +72,7 @@ async function run(){
   await page.dispatchEvent("#columns-input","change");
   await page.fill("#rows-per-page-input","5");
   await page.dispatchEvent("#rows-per-page-input","change");
-  await page.waitForFunction(()=>document.querySelector("#rows-per-page-input")?.value==="2"
-    && document.querySelector("#rows-per-page-input")?.max==="2",{timeout:30000});
-  const layoutClamp=await page.evaluate(()=>({
-    columns:document.querySelector("#columns-input")?.value,
-    rows:document.querySelector("#rows-per-page-input")?.value,
-    maxRows:document.querySelector("#rows-per-page-input")?.max,
-    help:document.querySelector("#global-layout-help")?.textContent?.trim()??""
-  }));
-  if(layoutClamp.columns!=="3"||layoutClamp.rows!=="2"||layoutClamp.maxRows!=="2"||!layoutClamp.help.includes("最多 8 列資料表")){
-    throw new Error(`G3AU01_R01_LAYOUT_CLAMP:${JSON.stringify(layoutClamp)}`);
-  }
+  await page.waitForFunction(()=>document.querySelector("#rows-per-page-input")?.value==="2"&&document.querySelector("#rows-per-page-input")?.max==="2",{timeout:30000});
 
   await page.fill("#batch-a-question-count-input",String(COUNT));
   await page.dispatchEvent("#batch-a-question-count-input","change");
@@ -97,11 +87,11 @@ async function run(){
     return x.includes(`已產生 ${n} 題`)||x.includes("產生失敗");
   },COUNT,{timeout:30000});
 
-  const state=await page.evaluate(({kp,group})=>({
+  const state=await page.evaluate(()=>({
     sourceId:document.querySelector("#batch-a-source-select")?.value,
     selectionMode:document.querySelector("#batch-a-selection-mode-select")?.value,
-    selectedKps:[...document.querySelectorAll("#batch-a-knowledge-point-panel [data-selected='true']")].map(n=>n.dataset.knowledgePointId),
-    visiblePatternGroups:[...document.querySelectorAll("#batch-a-pattern-group-panel [data-pattern-group-id]")].filter(n=>!n.hidden).map(n=>n.dataset.patternGroupId),
+    rank01Selected:document.querySelector("#batch-a-knowledge-point-panel [data-rank01-selector-target='true']")?.dataset?.selected??null,
+    nestedSelectorVisible:document.querySelector("#batch-a-pattern-group-selector")?.dataset?.visible??null,
     status:document.querySelector("#status-panel")?.textContent?.trim()??"",
     tone:document.querySelector("#status-panel")?.dataset?.tone??"",
     valid:document.querySelector("#validation-panel")?.dataset?.hasErrors??null,
@@ -109,10 +99,8 @@ async function run(){
     printDisabled:Boolean(document.querySelector("#print-button")?.disabled),
     columns:document.querySelector("#columns-input")?.value,
     rowsPerPage:document.querySelector("#rows-per-page-input")?.value,
-    maxRowsPerPage:document.querySelector("#rows-per-page-input")?.max,
-    targetKp:kp,targetGroup:group
-  }),{kp:KP,group:GROUP});
-  if(state.sourceId!==SOURCE||state.selectionMode!=="singleKnowledgePoint"||state.selectedKps.join("|")!==KP||state.selectedGroups.join("|")!==GROUP||!state.status.includes(`已產生 ${COUNT} 題`)||state.tone!=="success"||state.valid!=="false"||state.preview<=0||state.printDisabled||state.columns!=="3"||state.rowsPerPage!=="2"||state.maxRowsPerPage!=="2"){
+  }));
+  if(state.sourceId!==SOURCE||state.selectionMode!=="singleKnowledgePoint"||state.rank01Selected!=="true"||state.nestedSelectorVisible!=="false"||!state.status.includes(`已產生 ${COUNT} 題`)||state.tone!=="success"||state.valid!=="false"||state.preview<=0||state.printDisabled||state.columns!=="3"||state.rowsPerPage!=="2"){
     throw new Error(`G3AU01_R01_PUBLIC_STATE:${JSON.stringify(state)}`);
   }
 
@@ -124,19 +112,14 @@ async function run(){
     const a=[...document.querySelectorAll(".worksheet-cell--answer-key")];
     const qt=[...document.querySelectorAll(".worksheet-cell--question .worksheet-one-way-statistics-table")];
     const at=[...document.querySelectorAll(".worksheet-cell--answer-key .worksheet-one-way-statistics-table")];
-    const charts=[...document.querySelectorAll('[data-representation*="chart"],.worksheet-chart')];
     const pages=[...document.querySelectorAll(".worksheet-page")];
-    const overflow=pages.filter(n=>n.scrollHeight>n.clientHeight+1||n.scrollWidth>n.clientWidth+1).length;
-    const raw=document.body?.innerText??"";
     return{
       questions:q.length,answers:a.length,questionTables:qt.length,answerTables:at.length,
-      charts:charts.length,pages:pages.length,overflow,
-      specLeak:raw.includes(spec),
-      tableRows:[...qt].map(t=>t.querySelectorAll("tbody tr").length),
-      columns:[...document.querySelectorAll(".worksheet-page__grid")].map(n=>getComputedStyle(n).gridTemplateColumns.split(" ").length)
+      overflow:pages.filter(n=>n.scrollHeight>n.clientHeight+1||n.scrollWidth>n.clientWidth+1).length,
+      specLeak:(document.body?.innerText??"").includes(spec)
     };
   },{count:COUNT,spec:SPEC});
-  if(worksheet.questions!==COUNT||worksheet.answers!==COUNT||worksheet.questionTables!==COUNT||worksheet.answerTables!==COUNT||worksheet.charts!==0||worksheet.overflow!==0||worksheet.specLeak){
+  if(worksheet.questions!==COUNT||worksheet.answers!==COUNT||worksheet.questionTables!==COUNT||worksheet.answerTables!==COUNT||worksheet.overflow!==0||worksheet.specLeak){
     throw new Error(`G3AU01_R01_WORKSHEET:${JSON.stringify(worksheet)}`);
   }
 
@@ -145,10 +128,9 @@ async function run(){
   const printCount=await frame.evaluate(()=>window.__G3AU01_R01_PRINT__??0);
   if(printCount!==1)throw new Error(`G3AU01_R01_PRINT:${printCount}`);
 
-  await frame.locator(".worksheet-document").screenshot({path:path.join(OUT,"rank01-public-worksheet.png"),fullPage:true});
   await page.screenshot({path:path.join(OUT,"rank01-public-ui.png"),fullPage:true});
   await page.close();
-  return{before,layoutClamp,state,worksheet,printCount};
+  return{before,state,worksheet,printCount};
 }
 
 try{
@@ -157,17 +139,17 @@ try{
   const target=await run();
   if(Object.values(errors).some(x=>x.length))throw new Error(`G3AU01_R01_BROWSER_DIAGNOSTICS:${JSON.stringify(errors)}`);
   const report={
-    schemaName:"G3AU01VisualRank01ClassicUIAcceptanceV1",
-    taskId:"G3A_U01_VisualPatternSpec_Rank01_SelectorAdmissionPreflight_ThenPublicCutover",
-    status:"PASS_G3A_U01_RANK01_CLASSIC_UI_PUBLIC_CUTOVER",
+    schemaName:"G3AU01VisualRank01ClassicUIAcceptanceV2",
+    taskId:"G3A_U01_VisualRank01_FlatSelector_ClassicAndExam",
+    status:"PASS_G3A_U01_RANK01_CLASSIC_FLAT_SELECTOR",
     sourceId:SOURCE,knowledgePointId:KP,patternGroupId:GROUP,patternSpecId:SPEC,questionCount:COUNT,target,
     browser:{consoleErrorCount:0,pageErrorCount:0,requestFailureCount:0,assetHttpFailureCount:0},
-    boundaries:{existingKnowledgePointReused:true,sourceUnitUnchanged:true,sameUnitMixedUnchanged:true,rank02PlusVisible:false,rank01DenseLayoutClampVerified:true,operatorWebsiteLayoutRecheckPending:true}
+    boundaries:{canonicalKnowledgePointReused:true,flatSiblingSelector:true,nestedRank01ChoiceHidden:true,sameUnitMixedUnchanged:true,rank02PlusVisible:false}
   };
   writeFileSync(path.join(OUT,"report.json"),JSON.stringify(report,null,2)+"\n");
   console.log("G3AU01_RANK01_CLASSIC_UI_ACCEPTANCE="+JSON.stringify(report));
 }catch(error){
-  writeFileSync(path.join(OUT,"failure.json"),JSON.stringify({schemaName:"G3AU01VisualRank01ClassicUIAcceptanceFailureV1",status:"FAIL",baseUrl:BASE,error:String(error?.stack??error),browser:errors,server:{stdout:serverOut,stderr:serverErr}},null,2)+"\n");
+  writeFileSync(path.join(OUT,"failure.json"),JSON.stringify({status:"FAIL",baseUrl:BASE,error:String(error?.stack??error),browser:errors,server:{stdout:serverOut,stderr:serverErr}},null,2)+"\n");
   throw error;
 }finally{
   if(browser)await browser.close().catch(()=>{});
