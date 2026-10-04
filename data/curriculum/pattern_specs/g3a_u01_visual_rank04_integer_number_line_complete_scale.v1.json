@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "contract_materialized_runtime_not_started",
+  "status": "hidden_runtime_implemented_pending_focused_acceptance",
   "authority": {
     "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank04_source_authority_preflight.v1.json",
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
@@ -51,8 +51,8 @@
       "all_missing_tick_values_correct",
       "completed_labels_strictly_ordered"
     ],
-    "mappingStatus": "MATERIALIZED_CONTRACT_PENDING_RUNTIME",
-    "runtimeAdmission": false
+    "mappingStatus": "MATERIALIZED_HIDDEN_RUNTIME",
+    "runtimeAdmission": true
   },
   "patternGroup": {
     "patternGroupId": "pg_g3a_u01_visual_integer_number_line_complete_scale",
@@ -63,7 +63,7 @@
       "ps_g3a_u01_visual_integer_number_line_complete_scale"
     ],
     "sourceQuestionCount": 7,
-    "lifecycle": "hidden_contract"
+    "lifecycle": "hidden_runtime"
   },
   "patternSpec": {
     "patternSpecId": "ps_g3a_u01_visual_integer_number_line_complete_scale",
@@ -172,9 +172,9 @@
       "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
       "knowledgeAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json"
     },
-    "generatorStatus": "not_implemented",
-    "validatorStatus": "contract_only",
-    "rendererStatus": "existing_integer_number_line_renderer_reusable_without_code_change",
+    "generatorStatus": "hidden_deterministic_runtime_implemented",
+    "validatorStatus": "blocking_runtime_implemented",
+    "rendererStatus": "existing_integer_number_line_renderer_reused_without_code_change",
     "selectorStatus": "hidden",
     "productionUse": "forbidden",
     "questionKindCompatibilityNote": "Repository PatternSpec schema already accepts visual_reading; COMPLETE_MISSING_TICK_VALUES remains the semantic authority via taskCore, semanticSignature, answerModel and validator contract without adding a new shared questionKind enum."
@@ -338,27 +338,69 @@
     "validatorContractMaterialized": true,
     "rendererReuseContractMaterialized": true,
     "newKnowledgePointMinted": false,
-    "generatorImplemented": false,
-    "validatorRuntimeImplemented": false,
+    "generatorImplemented": true,
+    "validatorRuntimeImplemented": true,
     "rendererCodeChanged": false,
     "selectorVisible": false,
-    "productionUse": "forbidden"
+    "productionUse": "forbidden",
+    "hiddenWorksheetImplemented": true,
+    "hiddenWorksheetAcceptance": "PENDING_FOCUSED_CI",
+    "hiddenRuntimeFocusedGate": "PENDING",
+    "hiddenRuntimeMerged": false
   },
   "antiScopeBoundary": {
     "allowed": [
-      "Rank04 FormalMapping materialization",
-      "Rank04 hidden PatternGroup and PatternSpec contract",
-      "Rank04 blocking validator contract",
-      "Rank04 existing-renderer reuse contract"
+      "Rank04 deterministic COMPLETE_MISSING_TICK_VALUES generator",
+      "Rank04 blocking validator",
+      "Rank04 hidden worksheet and answer projection",
+      "Rank04 actual A4 browser acceptance using existing integer_number_line renderer"
     ],
     "forbidden": [
-      "implement Rank04 generator runtime",
-      "implement Rank04 validator runtime",
       "modify shared number-line renderer code",
       "make Rank04 selector visible",
       "modify Classic or Exam UI",
+      "implement public Rank04 route",
       "implement Rank05 or Rank06"
     ]
   },
-  "nextStep": "G3A_U01_VisualRank04_HiddenCompleteScaleRuntime_Validator_Worksheet_And_ActualLayoutAcceptance"
+  "nextStep": "After focused hidden-runtime acceptance and merge/state sync, continue to bounded Rank04 public selector cutover: single-KP, same-unit and cross-unit, then Pages/operator visual acceptance.",
+  "hiddenRuntime": {
+    "runtimePath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank04-runtime.js",
+    "worksheetPath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank04-worksheet.js",
+    "rendererPath": "site/modules/renderer/fraction-number-line.js",
+    "maximumQuestionCount": 240,
+    "deterministic": true,
+    "promptVariants": [
+      "COMPLETE_MISSING_TICK_VALUES"
+    ],
+    "selectorVisible": false,
+    "productionUse": "forbidden",
+    "focusedNodeTests": {
+      "targetTests": "tests/curriculum/g3a-u01-visual-rank04-runtime-acceptance.test.js",
+      "expectedVariantCount": 240
+    },
+    "hiddenWorksheetAcceptance": {
+      "status": "PENDING_FOCUSED_CI",
+      "paperSize": "A4",
+      "columns": 2,
+      "rowsPerPage": 3,
+      "tickCounts": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "missingLabelCounts": [
+        1,
+        2,
+        3
+      ],
+      "expectedQuestionMarkerCount": 0,
+      "expectedAnswerMarkerCount": 0
+    },
+    "layoutDecision": "PENDING_ACTUAL_A4_REVIEW",
+    "publicCutoverStarted": false
+  }
 }
