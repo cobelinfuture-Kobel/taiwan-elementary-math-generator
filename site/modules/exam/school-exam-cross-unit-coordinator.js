@@ -10,6 +10,15 @@ import {
   G3A_U01_VISUAL_RANK01_SOURCE_ID,
 } from "../curriculum/registry/g3a-u01-visual-rank01-selector-projection.js";
 import {
+  G3A_U01_VISUAL_RANK02_KP_ID,
+  G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID,
+} from "../curriculum/registry/g3a-u01-visual-rank02-selector-projection.js";
+import {
+  G3A_U01_VISUAL_RANK03_KP_ID,
+  G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP,
+} from "../curriculum/registry/g3a-u01-visual-rank03-selector-projection.js";
+import {
   paginateAnswerKeyItems,
   paginateQuestionDisplayModels,
 } from "../core/worksheet-pagination.js";
@@ -100,7 +109,12 @@ function requestedGroupsForRow(plan, row, mode) {
 }
 
 function preferredModes(row, plan) {
-  if ((row.forcedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)) {
+  const forced = row.forcedPatternGroupIds ?? [];
+  if (
+    forced.includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
+    || forced.includes(G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID)
+    || forced.includes(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)
+  ) {
     return ["numeric"];
   }
   const explicit = String(plan.questionMode ?? "").trim();
@@ -418,14 +432,37 @@ function validatePlan(plan = {}) {
         effectiveSelectorTargetIds.push(selectorKey);
         continue;
       }
+      if (
+        unit.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+        && targetId === G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID
+      ) {
+        const baseRow = rowMap.get(G3A_U01_VISUAL_RANK03_KP_ID);
+        if (!baseRow || baseRow.sourceId !== unit.sourceId) {
+          errors.push(issue("SCHOOL_EXAM_CROSS_UNIT_RANK03_KP_NOT_PUBLIC", { selectorTargetId: selectorKey }));
+          continue;
+        }
+        rows.push({
+          ...baseRow,
+          selectorTargetId: selectorKey,
+          forcedPatternGroupIds: [G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID],
+          selectorDisplayName: G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP.displayName,
+        });
+        effectiveSelectorTargetIds.push(selectorKey);
+        continue;
+      }
       const row = rowMap.get(targetId);
       if (!row || row.sourceId !== unit.sourceId) {
         errors.push(issue("SCHOOL_EXAM_CROSS_UNIT_SELECTOR_TARGET_NOT_PUBLIC", { selectorTargetId: selectorKey }));
         continue;
       }
+      const forcedPatternGroupIds = (
+        unit.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+        && row.knowledgePointId === G3A_U01_VISUAL_RANK02_KP_ID
+      ) ? [G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID] : undefined;
       rows.push({
         ...row,
         selectorTargetId: selectorKey,
+        ...(forcedPatternGroupIds ? { forcedPatternGroupIds } : {}),
         excludedPatternGroupIds: (
           unit.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
           && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
