@@ -7,6 +7,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
 } from "../../site/modules/curriculum/registry/batch-a-selector-g3a-u01-visual-rank01-extension.js";
 import {
+  G3A_U01_VISUAL_RANK01_CANONICAL_KP_ID,
   G3A_U01_VISUAL_RANK01_KP_ID,
   G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
   G3A_U01_VISUAL_RANK01_PATTERN_SPEC_ID,
@@ -26,7 +27,6 @@ import {
 import { renderWorksheetDocumentToHtml } from "../../site/modules/renderer/html-renderer.js";
 import {
   normalizePublicPatternGroupSelection,
-  togglePublicPatternGroupSelection,
 } from "../../site/assets/browser/state/public-pattern-group-selection.js";
 
 const publicPlan = Object.freeze({
@@ -43,19 +43,30 @@ const publicPlan = Object.freeze({
   printLayout:Object.freeze({paperSize:"A4",columns:2,rowsPerPage:3,showQuestionNumbers:true,showAnswerKeyPage:true}),
 });
 
-test("Rank01 selector admission reuses the existing G3A U01 compare KP and adds exactly one public visual group", () => {
+test("Rank01 is a sibling selectable target, not a child of the canonical compare KP", () => {
   const audit=auditG3AU01VisualRank01PublicSelector();
   assert.equal(audit.ok,true,audit.errors.join("\n"));
-  assert.equal(audit.counts.addedKnowledgePoints,0);
+  assert.equal(audit.counts.addedCanonicalKnowledgePoints,0);
+  assert.equal(audit.counts.addedSelectableTargets,1);
   assert.equal(audit.counts.rank01Groups,1);
-  const kp=getVisibleBatchAKnowledgePoint(G3A_U01_VISUAL_RANK01_KP_ID);
-  assert.ok(kp);
-  assert.equal(kp.sourceId,G3A_U01_VISUAL_RANK01_SOURCE_ID);
-  const groups=getVisiblePatternGroupsForKnowledgePoint(G3A_U01_VISUAL_RANK01_KP_ID);
-  const rank=groups.filter(row=>row.patternGroupId===G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
-  assert.equal(rank.length,1);
-  assert.deepEqual(rank[0].patternSpecIds,[G3A_U01_VISUAL_RANK01_PATTERN_SPEC_ID]);
-  assert.equal(rank[0].visibilityStatus,"visible");
+
+  const canonical=getVisibleBatchAKnowledgePoint(G3A_U01_VISUAL_RANK01_CANONICAL_KP_ID);
+  const rankTarget=getVisibleBatchAKnowledgePoint(G3A_U01_VISUAL_RANK01_KP_ID);
+  assert.ok(canonical);
+  assert.ok(rankTarget);
+  assert.equal(rankTarget.sourceId,G3A_U01_VISUAL_RANK01_SOURCE_ID);
+  assert.equal(rankTarget.canonicalKnowledgePointId,G3A_U01_VISUAL_RANK01_CANONICAL_KP_ID);
+  assert.equal(rankTarget.displayName,"一維資料表四位數比較");
+  assert.equal(rankTarget.selectorNodeType,"ranked_practice_target");
+  assert.equal(rankTarget.singleKnowledgePointOnly,true);
+
+  const canonicalGroups=getVisiblePatternGroupsForKnowledgePoint(G3A_U01_VISUAL_RANK01_CANONICAL_KP_ID);
+  assert.equal(canonicalGroups.some(row=>row.patternGroupId===G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID),false);
+
+  const rankGroups=getVisiblePatternGroupsForKnowledgePoint(G3A_U01_VISUAL_RANK01_KP_ID);
+  assert.equal(rankGroups.length,1);
+  assert.equal(rankGroups[0].patternGroupId,G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+  assert.deepEqual(rankGroups[0].patternSpecIds,[G3A_U01_VISUAL_RANK01_PATTERN_SPEC_ID]);
 });
 
 test("Rank01 public capability binding exposes only a bounded single-KP visual admission", () => {
@@ -74,20 +85,16 @@ test("Rank01 public capability binding exposes only a bounded single-KP visual a
   assert.equal(binding.operatorLayoutReviewRequired,true);
 });
 
-test("Rank01 visual pattern selection is exclusive inside the existing compare KP", () => {
+test("Rank01 sibling target has one automatic pattern and therefore no second-level choice", () => {
   const normalized=normalizePublicPatternGroupSelection({
     selectionMode:"singleKnowledgePoint",
     selectedKnowledgePointIds:[G3A_U01_VISUAL_RANK01_KP_ID],
     selectedPatternGroupIds:[],
   });
-  assert.ok(normalized.choices.some(row=>row.patternGroupId===G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID));
-  const toggled=togglePublicPatternGroupSelection({
-    selectionMode:"singleKnowledgePoint",
-    selectedKnowledgePointIds:[G3A_U01_VISUAL_RANK01_KP_ID],
-    selectedPatternGroupIds:normalized.selectedPatternGroupIds,
-    patternGroupId:G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
-  });
-  assert.deepEqual([...toggled.selectedPatternGroupIds],[G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]);
+  assert.equal(normalized.choices.length,1);
+  assert.equal(normalized.choices[0].patternGroupId,G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+  assert.equal(normalized.choices[0].hasRepresentationChoice,false);
+  assert.deepEqual([...normalized.selectedPatternGroupIds],[G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]);
 });
 
 test("Rank01 public route does not intercept source-unit, same-unit mixed, or unrelated group requests", () => {
