@@ -76,14 +76,26 @@ async function run(){
     return selected.length===1&&selected[0]===group;
   },GROUP,{timeout:120000});
 
+  await page.fill("#columns-input","3");
+  await page.dispatchEvent("#columns-input","change");
+  await page.fill("#rows-per-page-input","5");
+  await page.dispatchEvent("#rows-per-page-input","change");
+  await page.waitForFunction(()=>document.querySelector("#rows-per-page-input")?.value==="2"
+    && document.querySelector("#rows-per-page-input")?.max==="2",{timeout:30000});
+  const layoutClamp=await page.evaluate(()=>({
+    columns:document.querySelector("#columns-input")?.value,
+    rows:document.querySelector("#rows-per-page-input")?.value,
+    maxRows:document.querySelector("#rows-per-page-input")?.max,
+    help:document.querySelector("#global-layout-help")?.textContent?.trim()??""
+  }));
+  if(layoutClamp.columns!=="3"||layoutClamp.rows!=="2"||layoutClamp.maxRows!=="2"||!layoutClamp.help.includes("最多 8 列資料表")){
+    throw new Error(`G3AU01_R01_LAYOUT_CLAMP:${JSON.stringify(layoutClamp)}`);
+  }
+
   await page.fill("#batch-a-question-count-input",String(COUNT));
   await page.dispatchEvent("#batch-a-question-count-input","change");
   await page.selectOption("#batch-a-ordering-select","groupedByPattern");
   await page.check("#batch-a-answer-key-input");
-  await page.fill("#columns-input","2");
-  await page.dispatchEvent("#columns-input","change");
-  await page.fill("#rows-per-page-input","3");
-  await page.dispatchEvent("#rows-per-page-input","change");
   await page.fill("#generation-seed-input","g3a-u01-rank01-public-ui");
   await page.dispatchEvent("#generation-seed-input","change");
 
@@ -103,9 +115,12 @@ async function run(){
     valid:document.querySelector("#validation-panel")?.dataset?.hasErrors??null,
     preview:document.querySelector("#preview-frame")?.srcdoc?.length??0,
     printDisabled:Boolean(document.querySelector("#print-button")?.disabled),
+    columns:document.querySelector("#columns-input")?.value,
+    rowsPerPage:document.querySelector("#rows-per-page-input")?.value,
+    maxRowsPerPage:document.querySelector("#rows-per-page-input")?.max,
     targetKp:kp,targetGroup:group
   }),{kp:KP,group:GROUP});
-  if(state.sourceId!==SOURCE||state.selectionMode!=="singleKnowledgePoint"||state.selectedKps.join("|")!==KP||state.selectedGroups.join("|")!==GROUP||!state.status.includes(`已產生 ${COUNT} 題`)||state.tone!=="success"||state.valid!=="false"||state.preview<=0||state.printDisabled){
+  if(state.sourceId!==SOURCE||state.selectionMode!=="singleKnowledgePoint"||state.selectedKps.join("|")!==KP||state.selectedGroups.join("|")!==GROUP||!state.status.includes(`已產生 ${COUNT} 題`)||state.tone!=="success"||state.valid!=="false"||state.preview<=0||state.printDisabled||state.columns!=="3"||state.rowsPerPage!=="2"||state.maxRowsPerPage!=="2"){
     throw new Error(`G3AU01_R01_PUBLIC_STATE:${JSON.stringify(state)}`);
   }
 
@@ -141,7 +156,7 @@ async function run(){
   await frame.locator(".worksheet-document").screenshot({path:path.join(OUT,"rank01-public-worksheet.png"),fullPage:true});
   await page.screenshot({path:path.join(OUT,"rank01-public-ui.png"),fullPage:true});
   await page.close();
-  return{before,state,worksheet,printCount};
+  return{before,layoutClamp,state,worksheet,printCount};
 }
 
 try{
@@ -155,7 +170,7 @@ try{
     status:"PASS_G3A_U01_RANK01_CLASSIC_UI_PUBLIC_CUTOVER",
     sourceId:SOURCE,knowledgePointId:KP,patternGroupId:GROUP,patternSpecId:SPEC,questionCount:COUNT,target,
     browser:{consoleErrorCount:0,pageErrorCount:0,requestFailureCount:0,assetHttpFailureCount:0},
-    boundaries:{existingKnowledgePointReused:true,sourceUnitUnchanged:true,sameUnitMixedUnchanged:true,rank02PlusVisible:false,operatorWebsiteLayoutReviewPending:true}
+    boundaries:{existingKnowledgePointReused:true,sourceUnitUnchanged:true,sameUnitMixedUnchanged:true,rank02PlusVisible:false,rank01DenseLayoutClampVerified:true,operatorWebsiteLayoutRecheckPending:true}
   };
   writeFileSync(path.join(OUT,"report.json"),JSON.stringify(report,null,2)+"\n");
   console.log("G3AU01_RANK01_CLASSIC_UI_ACCEPTANCE="+JSON.stringify(report));
