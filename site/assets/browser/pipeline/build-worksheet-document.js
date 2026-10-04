@@ -19,6 +19,8 @@ import {
   buildP09Mixed21Worksheet,
   requestsP09Mixed21Aggregation,
 } from "../../../modules/curriculum/batch-a/same-unit-mixed21-aggregation.js";
+import { requestsG3AU01VisualRank02Public } from "../../../modules/curriculum/batch-a/g3a-u01-visual-rank02-public-route.js";
+import { requestsG3AU01VisualRank03Public } from "../../../modules/curriculum/batch-a/g3a-u01-visual-rank03-public-route.js";
 
 function groupLooksApplication(group) {
   const corpus = JSON.stringify({ mode: group?.mode, publicQuestionMode: group?.publicQuestionMode, representationTag: group?.representationTag, representationTags: group?.representationTags, displayName: group?.displayName }).toLowerCase();
@@ -69,6 +71,15 @@ export function buildWorksheetDocumentFromPlan(publicPlan) {
   const requestedPlan = resolveCloseoutApplicationPlan(publicPlan);
   if (requestsP09Mixed21Aggregation(requestedPlan)) {
     return buildP09Mixed21Worksheet(requestedPlan, buildWorksheetDocumentFromPlan);
+  }
+  // Rank02/Rank03 share one canonical integer-number-line KP. Their public
+  // leaf identity is the explicit PatternGroup/PatternSpec route, so dispatch
+  // those bounded leaves before generic R07 authority normalization.
+  if (
+    requestsG3AU01VisualRank03Public(requestedPlan)
+    || requestsG3AU01VisualRank02Public(requestedPlan)
+  ) {
+    return buildCoreWorksheetDocumentFromPlan(requestedPlan);
   }
   const cutover = applyR07AuthoritativeConsumerCutover(requestedPlan);
   if (cutover.blocked) return blockedAuthoritativeCutoverResult(cutover, requestedPlan);
