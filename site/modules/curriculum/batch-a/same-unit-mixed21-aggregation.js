@@ -536,6 +536,7 @@ export function buildP09Mixed21Worksheet(plan = {}, buildLeafWorksheet) {
     worksheetDocument,
     allocation: Object.freeze(allocation),
     leafDispatch: Object.freeze(leafs.map((leaf) => Object.freeze({
+      selectorTargetId: leaf.row?.selectorTargetId ?? leaf.leafPlan.selectedKnowledgePointIds[0],
       knowledgePointId: leaf.leafPlan.selectedKnowledgePointIds[0],
       questionCount: leaf.leafPlan.questionCount,
       questionMode: leaf.mode,
