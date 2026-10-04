@@ -29,10 +29,43 @@ function rowsForSource(sourceId) {
 
 function selectedRows(plan) {
   const rows = rowsForSource(plan.sourceId);
+  const requestedTargets = unique(plan.selectedSelectorTargetIds ?? []);
+  if (plan.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID && requestedTargets.length >= 2) {
+    const rowById = new Map(rows.map((row) => [row.knowledgePointId, row]));
+    const targets = [];
+    for (const targetId of requestedTargets) {
+      if (targetId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID) {
+        const baseRow = rowById.get(G3A_U01_VISUAL_RANK01_KP_ID);
+        if (baseRow) {
+          targets.push({
+            ...baseRow,
+            selectorTargetId: G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+            forcedPatternGroupIds: [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID],
+            selectorDisplayName: G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName,
+          });
+        }
+        continue;
+      }
+      const row = rowById.get(targetId);
+      if (!row) continue;
+      targets.push({
+        ...row,
+        selectorTargetId: targetId,
+        excludedPatternGroupIds: targetId === G3A_U01_VISUAL_RANK01_KP_ID
+          ? [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]
+          : [],
+        selectorDisplayName: row.displayName ?? targetId,
+      });
+    }
+    if (targets.length >= 2) return targets;
+  }
+
   const requested = unique(plan.selectedKnowledgePointIds ?? plan.knowledgePointIds ?? []);
-  if (requested.length < 2) return rows;
+  if (requested.length < 2) return rows.map((row) => ({ ...row, selectorTargetId: row.knowledgePointId }));
   const requestedSet = new Set(requested);
-  return rows.filter((row) => requestedSet.has(row.knowledgePointId));
+  return rows
+    .filter((row) => requestedSet.has(row.knowledgePointId))
+    .map((row) => ({ ...row, selectorTargetId: row.knowledgePointId }));
 }
 
 function allocate(rows, questionCount) {
@@ -42,6 +75,7 @@ function allocate(rows, questionCount) {
     const count = base + (remainder > 0 ? 1 : 0);
     if (remainder > 0) remainder -= 1;
     return Object.freeze({
+      selectorTargetId: row.selectorTargetId ?? row.knowledgePointId,
       knowledgePointId: row.knowledgePointId,
       questionCount: count,
     });
@@ -72,7 +106,11 @@ function groupsForRow(row) {
 }
 
 function requestedGroupsForRow(plan, row, mode) {
-  const groups = groupsForRow(row);
+  const groups = groupsForRow(row)
+    .filter((group) => !(row.excludedPatternGroupIds ?? []).includes(group.patternGroupId));
+  if (Array.isArray(row.forcedPatternGroupIds) && row.forcedPatternGroupIds.length > 0) {
+    return [...row.forcedPatternGroupIds];
+  }
   const requested = new Set(unique(plan.selectedPatternGroupIds));
   const intersection = groups.filter((group) => requested.has(group.patternGroupId));
   if (intersection.length) return intersection.map((group) => group.patternGroupId);
@@ -83,6 +121,9 @@ function requestedGroupsForRow(plan, row, mode) {
 }
 
 function preferredModes(row, plan) {
+  if ((row.forcedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)) {
+    return ["numeric"];
+  }
   const explicit = String(plan.questionMode ?? "").trim();
   const rowModes = [
     ...(Array.isArray(row.questionModes) ? row.questionModes : []),
@@ -114,7 +155,7 @@ function buildLeaf(plan, row, questionCount, buildLeafWorksheet) {
       questionMode: mode,
       requestedQuestionType: mode,
       questionCount,
-      generationSeed: `${plan.generationSeed ?? "p09-mixed21"}:${row.knowledgePointId}:${mode}`,
+      generationSeed: `${plan.generationSeed ?? "p09-mixed21"}:${row.selectorTargetId ?? row.knowledgePointId}:${mode}`,
       p09Mixed21LeafDispatch: true,
     };
     const result = buildLeafWorksheet(leafPlan);
@@ -224,6 +265,7 @@ function materializeRecords(leafs) {
     const answers = doc.answerKeyItems ?? questions.map((question, index) => fallbackAnswerItem(question, index, models[index]));
     questions.forEach((question, index) => {
       records.push({
+        selectorTargetId: leaf.row?.selectorTargetId ?? leaf.leafPlan.selectedKnowledgePointIds[0],
         knowledgePointId: leaf.leafPlan.selectedKnowledgePointIds[0],
         mode: leaf.mode,
         question,
@@ -240,7 +282,7 @@ function normalizedRecord(record, index, sourceId) {
     ?? record.question?.id
     ?? record.question?.generatedItemId
     ?? `q-${index + 1}`;
-  const questionId = `p09-mixed21-${sourceId}-${record.knowledgePointId}-${localId}`;
+  const questionId = `p09-mixed21-${sourceId}-${record.selectorTargetId ?? record.knowledgePointId}-${localId}`;
   const question = {
     ...record.question,
     ...(record.question?.id != null ? { id: questionId } : {}),
@@ -249,6 +291,7 @@ function normalizedRecord(record, index, sourceId) {
     metadata: {
       ...(record.question?.metadata ?? {}),
       knowledgePointId: record.question?.metadata?.knowledgePointId ?? record.knowledgePointId,
+      selectorTargetId: record.selectorTargetId ?? record.knowledgePointId,
       sameUnitMixed21Aggregation: true,
     },
   };
@@ -262,6 +305,7 @@ function normalizedRecord(record, index, sourceId) {
       ...(record.model?.metadataSnapshot ?? {}),
       sourceId,
       knowledgePointId: record.model?.knowledgePointId ?? record.knowledgePointId,
+      selectorTargetId: record.selectorTargetId ?? record.knowledgePointId,
       sameUnitMixed21Aggregation: true,
     },
   };
@@ -274,6 +318,7 @@ function normalizedRecord(record, index, sourceId) {
       ...(record.answer?.metadataSnapshot ?? model.metadataSnapshot),
       sourceId,
       knowledgePointId: record.answer?.knowledgePointId ?? record.knowledgePointId,
+      selectorTargetId: record.selectorTargetId ?? record.knowledgePointId,
       sameUnitMixed21Aggregation: true,
     },
   };
@@ -318,7 +363,7 @@ export function buildP09Mixed21Worksheet(plan = {}, buildLeafWorksheet) {
   const leafs = [];
   const errors = [];
   for (const entry of allocation) {
-    const row = rows.find((candidate) => candidate.knowledgePointId === entry.knowledgePointId);
+    const row = rows.find((candidate) => (candidate.selectorTargetId ?? candidate.knowledgePointId) === entry.selectorTargetId);
     const leaf = buildLeaf(plan, row, entry.questionCount, buildLeafWorksheet);
     if (!leaf.ok) {
       errors.push(issue("P09_MIXED21_LEAF_RUNTIME_FAILED", {
@@ -328,7 +373,7 @@ export function buildP09Mixed21Worksheet(plan = {}, buildLeafWorksheet) {
       }));
       continue;
     }
-    leafs.push(leaf);
+    leafs.push({ ...leaf, row });
   }
   if (errors.length || leafs.length !== rows.length) {
     return Object.freeze({
@@ -367,7 +412,8 @@ export function buildP09Mixed21Worksheet(plan = {}, buildLeafWorksheet) {
     ? paginateAnswerKeyItems(answers, layout)
     : [];
   const firstRow = rows[0] ?? {};
-  const selectedKnowledgePointIds = rows.map((row) => row.knowledgePointId);
+  const selectedKnowledgePointIds = [...new Set(rows.map((row) => row.knowledgePointId))];
+  const selectedSelectorTargetIds = rows.map((row) => row.selectorTargetId ?? row.knowledgePointId);
   const warnings = leafs.flatMap((leaf) => leaf.result.warnings ?? []);
   const worksheetDocument = Object.freeze({
     schemaVersion: "worksheet-document-v1",
@@ -381,6 +427,7 @@ export function buildP09Mixed21Worksheet(plan = {}, buildLeafWorksheet) {
       ...plan,
       selectionMode: MIXED,
       selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+      selectedSelectorTargetIds: Object.freeze(selectedSelectorTargetIds),
       printLayout: layout,
     }),
     orderingMode: plan.ordering ?? "groupedByPattern",
@@ -408,6 +455,7 @@ export function buildP09Mixed21Worksheet(plan = {}, buildLeafWorksheet) {
       sourceId: plan.sourceId,
       selectionMode: MIXED,
       selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+      selectedSelectorTargetIds: Object.freeze(selectedSelectorTargetIds),
       sameUnitMixedUsed: true,
       crossUnitMixedUsed: false,
       sharedAggregationUsed: true,
@@ -421,6 +469,7 @@ export function buildP09Mixed21Worksheet(plan = {}, buildLeafWorksheet) {
       questionMode: "mixed",
       selectionMode: MIXED,
       selectedKnowledgePointIds: Object.freeze(selectedKnowledgePointIds),
+      selectedSelectorTargetIds: Object.freeze(selectedSelectorTargetIds),
     }),
     report: Object.freeze({
       ok: true,
