@@ -2,7 +2,7 @@ import { listBatchASourceUnits } from "../curriculum/batch-a/source-units.js";
 import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
-} from "../curriculum/registry/batch-a-selector-p09-mixed21-extension.js";
+} from "../curriculum/registry/batch-a-selector-g3a-u01-visual-rank02-extension.js";
 import {
   G3A_U01_VISUAL_RANK01_KP_ID,
   G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
