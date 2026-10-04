@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "hidden_runtime_implemented_pending_focused_acceptance",
+  "status": "hidden_runtime_accepted_public_cutover_not_started",
   "authority": {
     "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank04_source_authority_preflight.v1.json",
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
@@ -344,9 +344,10 @@
     "selectorVisible": false,
     "productionUse": "forbidden",
     "hiddenWorksheetImplemented": true,
-    "hiddenWorksheetAcceptance": "PENDING_FOCUSED_CI",
-    "hiddenRuntimeFocusedGate": "PENDING",
-    "hiddenRuntimeMerged": false
+    "hiddenWorksheetAcceptance": "PASS_FOCUSED_CI",
+    "hiddenRuntimeFocusedGate": "PASS",
+    "hiddenRuntimeMerged": true,
+    "hiddenRuntimeMergeSha": "dd1a793be1c68739a522307341c4a7d1227ce06f"
   },
   "antiScopeBoundary": {
     "allowed": [
@@ -363,7 +364,7 @@
       "implement Rank05 or Rank06"
     ]
   },
-  "nextStep": "After focused hidden-runtime acceptance and merge/state sync, continue to bounded Rank04 public selector cutover: single-KP, same-unit and cross-unit, then Pages/operator visual acceptance.",
+  "nextStep": "G3A_U01_VisualRank04_PublicSelectorCutoverPreflight_Then_BoundedClassicExamThreeModeCutover",
   "hiddenRuntime": {
     "runtimePath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank04-runtime.js",
     "worksheetPath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank04-worksheet.js",
@@ -376,14 +377,19 @@
     "selectorVisible": false,
     "productionUse": "forbidden",
     "focusedNodeTests": {
-      "targetTests": "tests/curriculum/g3a-u01-visual-rank04-runtime-acceptance.test.js",
-      "expectedVariantCount": 240
+      "tests": 14,
+      "pass": 14,
+      "fail": 0
     },
     "hiddenWorksheetAcceptance": {
-      "status": "PENDING_FOCUSED_CI",
+      "status": "PASS",
       "paperSize": "A4",
       "columns": 2,
       "rowsPerPage": 3,
+      "questionPageCount": 10,
+      "answerPageCount": 10,
+      "renderedPageCount": 20,
+      "renderedCellCount": 120,
       "tickCounts": [
         7,
         8,
@@ -397,10 +403,18 @@
         2,
         3
       ],
-      "expectedQuestionMarkerCount": 0,
-      "expectedAnswerMarkerCount": 0
+      "overflowPageCount": 0,
+      "overflowCellCount": 0,
+      "questionMarkerCount": 0,
+      "answerMarkerCount": 0,
+      "questionForbiddenPolicyCount": 60,
+      "answerForbiddenPolicyCount": 60,
+      "projectionMismatchCount": 0,
+      "twelveTickCasePresent": true
     },
-    "layoutDecision": "PENDING_ACTUAL_A4_REVIEW",
-    "publicCutoverStarted": false
+    "layoutDecision": "PASS_ACTUAL_A4_2X3_NO_OVERFLOW",
+    "publicCutoverStarted": false,
+    "focusedGateRunId": 37243469584,
+    "focusedGateHeadSha": "d47c30fe03788ca9fe482b84cd1efaf1cb2be351"
   }
 }
