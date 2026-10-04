@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK02_PUBLIC_CUTOVER_THREE_MODE",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3a_u01_integer_number_line_scale_location": "RANK02_PUBLIC_CUTOVER_MATERIALIZED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK02_PUBLIC_CUTOVER_THREE_MODE.validation.json",
+  "classificationNote": "Bounded Rank02 public selector cutover. The already admitted canonical integer-number-line KP becomes visible in Classic and Exam single/same-unit/cross-unit routes. Existing hidden generator, validator and renderer are reused. Rank01 remains intact and Rank03+ remain hidden.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "sourceUnitRouteChanged": false,
+    "singleKnowledgePointRouteChanged": true,
+    "sameUnitMixedRouteChanged": true,
+    "crossUnitMixedRouteChanged": true,
+    "newKnowledgePointMinted": false,
+    "canonicalKnowledgePointReused": true,
+    "rank01Changed": false,
+    "rank03OrLaterTouched": false,
+    "rendererCodeChanged": false,
+    "mathematicsChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "operatorWebsiteLayoutReviewPending": true
+  }
+}
