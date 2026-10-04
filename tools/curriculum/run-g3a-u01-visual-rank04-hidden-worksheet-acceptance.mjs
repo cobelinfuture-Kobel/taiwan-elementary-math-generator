@@ -91,7 +91,7 @@ try{
   );
   const projectionMismatchCount=doc.questionDisplayModels.reduce((count,row,index)=>{
     const question=browserByQuestion.get(`question:${row.questionId}`);
-    const answer=browserByQuestion.get(`answer-key:${row.questionId}`);
+    const answer=browserByQuestion.get(`answerKey:${row.questionId}`);
     const missing=row.layoutHints.missingLabelCount;
     const expectedQuestionLabels=row.numberLine.tickCount-missing;
     const expectedAnswerLabels=doc.answerKeyItems[index].numberLine.tickCount;
