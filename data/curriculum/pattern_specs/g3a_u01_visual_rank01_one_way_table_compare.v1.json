@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "public_review_cutover_pending_ci",
+  "status": "public_review_ready_operator_layout_check",
   "authority": {
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
     "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
@@ -157,7 +157,7 @@
     },
     "generatorStatus": "hidden_deterministic_runtime_implemented",
     "validatorStatus": "blocking_runtime_implemented",
-    "runtimeProjectionStatus": "public_rank01_cutover_pending_ci",
+    "runtimeProjectionStatus": "public_rank01_cutover_pass",
     "selectorStatus": "visible_public_review",
     "productionUse": "public_review"
   },
@@ -286,10 +286,10 @@
     "productionUse": "public_review",
     "renderedWorksheetAcceptance": "PASS_FOCUSED_CI",
     "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED",
-    "publicCutover": "PENDING_FOCUSED_CI",
+    "publicCutover": "PASS_FOCUSED_CI_AND_PAGES_DEPLOYED",
     "publicLayoutModesReview": "PENDING_OPERATOR_WEBSITE_REVIEW"
   },
-  "nextStep": "Pass focused public-cutover CI and merge; then operator checks website layout modes. Apply only demonstrated layout repairs before final Rank01 D0 closeout.",
+  "nextStep": "Operator checks the deployed website across available layout modes for Rank01. If a concrete layout defect is found, apply the smallest layout-only repair; if all modes are accepted, close Rank01 at D0.",
   "runtimeAcceptance": {
     "prNumber": 1215,
     "mergeSha": "38114a0184bdc6402e4f2d75377230ee5df496a6",
@@ -358,6 +358,12 @@
     "rank02PlusVisible": false,
     "existingKnowledgePointReused": true,
     "operatorLayoutReviewRequired": true,
-    "operatorReviewScope": "website layout modes after public cutover"
+    "operatorReviewScope": "website layout modes after public cutover",
+    "prNumber": 1218,
+    "mergeSha": "252f51aa5f898977cca7e2d0ee6d7ab3e956831d",
+    "focusedGate": "PASS",
+    "pagesDeployRunId": 37164809036,
+    "pagesDeploy": "PASS",
+    "publicReviewStatus": "READY_FOR_OPERATOR_WEBSITE_LAYOUT_CHECK"
   }
 }
