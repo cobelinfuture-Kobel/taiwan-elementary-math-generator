@@ -27,7 +27,7 @@ test("Rank03 contract materializes the exact source-backed MARK_GIVEN_VALUE fami
   const family=visual.families.find((row)=>row.visualFamilyId===FAMILY);
   assert.ok(family);
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
-  assert.equal(contract.status,"public_review_ready_operator_visual_acceptance");
+  assert.equal(contract.status,"D0_COMPLETE");
   assert.equal(contract.sourceAuthorityPreflight.visualFamilyId,FAMILY);
   assert.equal(contract.sourceAuthorityPreflight.sourceQuestionCount,20);
   assert.equal(contract.sourceAuthorityPreflight.taskCore,"MARK_GIVEN_VALUE");
@@ -115,7 +115,7 @@ test("Rank03 controlled examples satisfy the mark-value index equation without b
   }
 });
 
-test("Rank03 reaches deployed public review with zero Rank03-owned post-merge regression delta while excluding Rank04+",()=>{
+test("Rank03 reaches D0 after deployed readback, parity repair and operator visual acceptance while excluding Rank04+",()=>{
   assert.equal(contract.lifecycle.formalMappingMaterialized,true);
   assert.equal(contract.lifecycle.patternSpecMaterialized,true);
   assert.equal(contract.lifecycle.validatorContractMaterialized,true);
@@ -139,7 +139,7 @@ test("Rank03 reaches deployed public review with zero Rank03-owned post-merge re
   assert.equal(contract.lifecycle.productionUse,"public_review");
   assert.equal(contract.lifecycle.publicCutover,"PASS_FOCUSED_CI_AND_PAGES_DEPLOYED");
   assert.equal(contract.lifecycle.threeModeE2E,"PASS_FOCUSED_CI_EXACT_HEAD");
-  assert.equal(contract.lifecycle.deployedReadback,"PASS_EXACT_SHA_AND_ASSET_PARITY_OPERATOR_VISUAL_PENDING");
+  assert.equal(contract.lifecycle.deployedReadback,"PASS_EXACT_SHA_AND_ASSET_PARITY");
   assert.equal(contract.lifecycle.postMergeRegressionParity,"PASS_RANK03_OWNED_FAILURES_ZERO_BASELINE_220");
   assert.equal(contract.publicAdmission.prNumber,1237);
   assert.equal(contract.publicAdmission.mergeSha,"de8bdf477ea21b5f844d52fbb1553df12b39e603");
@@ -153,7 +153,11 @@ test("Rank03 reaches deployed public review with zero Rank03-owned post-merge re
   assert.equal(contract.publicAdmission.postMergeParityRepair.preCutoverBaselineFailCount,220);
   assert.equal(contract.publicAdmission.postMergeParityRepair.rank03OwnedFailureCount,0);
   assert.equal(contract.publicAdmission.mathCIReadback.rank03OwnedFailureCount,0);
-  assert.equal(contract.publicAdmission.publicReviewStatus,"OPERATOR_VISUAL_ACCEPTANCE_PENDING");
+  assert.equal(contract.lifecycle.operatorVisualAcceptance,"PASS");
+  assert.equal(contract.lifecycle.d0Closeout,"PASS");
+  assert.equal(contract.publicAdmission.publicReviewStatus,"PASS_OPERATOR_VISUAL_ACCEPTANCE");
+  assert.equal(contract.publicAdmission.operatorVisualAcceptance.status,"PASS");
+  assert.equal(contract.publicAdmission.d0Closeout,"PASS");
   assert.equal(contract.patternSpec.constraints.generation.rank04ToRank05OperationsForbidden,true);
   assert.equal(contract.patternSpec.constraints.generation.movementTaskForbidden,true);
 });
