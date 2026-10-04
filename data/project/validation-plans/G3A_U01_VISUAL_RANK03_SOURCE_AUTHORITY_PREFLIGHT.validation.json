@@ -6,14 +6,20 @@
   "lanes": {
     "KP_FOCUSED": [
       {
-        "gateId": "GLOBAL_CONTRACTS",
+        "gateId": "FOCUSED_TEST",
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/g3a-u01-visual-rank03-source-authority-preflight.test.js"
         ]
       },
       {
-        "gateId": "TARGETED_ROUTE_REPLAY",
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-g3a-u01-visual-rank02-layout-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/g3a-u01-visual-pattern-family-registry.test.js",
