@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "hidden_runtime_accepted_public_cutover_not_started",
+  "status": "public_cutover_implemented_pending_three_mode_acceptance",
   "authority": {
     "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank04_source_authority_preflight.v1.json",
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
@@ -63,7 +63,7 @@
       "ps_g3a_u01_visual_integer_number_line_complete_scale"
     ],
     "sourceQuestionCount": 7,
-    "lifecycle": "hidden_runtime"
+    "lifecycle": "visible_public_review"
   },
   "patternSpec": {
     "patternSpecId": "ps_g3a_u01_visual_integer_number_line_complete_scale",
@@ -175,8 +175,8 @@
     "generatorStatus": "hidden_deterministic_runtime_implemented",
     "validatorStatus": "blocking_runtime_implemented",
     "rendererStatus": "existing_integer_number_line_renderer_reused_without_code_change",
-    "selectorStatus": "hidden",
-    "productionUse": "forbidden",
+    "selectorStatus": "visible_public_review",
+    "productionUse": "public_review",
     "questionKindCompatibilityNote": "Repository PatternSpec schema already accepts visual_reading; COMPLETE_MISSING_TICK_VALUES remains the semantic authority via taskCore, semanticSignature, answerModel and validator contract without adding a new shared questionKind enum."
   },
   "validatorContract": {
@@ -341,13 +341,15 @@
     "generatorImplemented": true,
     "validatorRuntimeImplemented": true,
     "rendererCodeChanged": false,
-    "selectorVisible": false,
-    "productionUse": "forbidden",
+    "selectorVisible": true,
+    "productionUse": "public_review",
     "hiddenWorksheetImplemented": true,
     "hiddenWorksheetAcceptance": "PASS_FOCUSED_CI",
     "hiddenRuntimeFocusedGate": "PASS",
     "hiddenRuntimeMerged": true,
-    "hiddenRuntimeMergeSha": "dd1a793be1c68739a522307341c4a7d1227ce06f"
+    "hiddenRuntimeMergeSha": "dd1a793be1c68739a522307341c4a7d1227ce06f",
+    "publicCutover": "PENDING_FOCUSED_CI",
+    "threeModeE2E": "PENDING_FOCUSED_CI"
   },
   "antiScopeBoundary": {
     "allowed": [
@@ -364,7 +366,7 @@
       "implement Rank05 or Rank06"
     ]
   },
-  "nextStep": "G3A_U01_VisualRank04_PublicSelectorCutoverPreflight_Then_BoundedClassicExamThreeModeCutover",
+  "nextStep": "Run Rank04 bounded public cutover focused contracts and Classic/Exam three-mode E2E; if PASS merge, then state sync/deployed Pages/operator acceptance to D0.",
   "hiddenRuntime": {
     "runtimePath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank04-runtime.js",
     "worksheetPath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank04-worksheet.js",
@@ -374,8 +376,8 @@
     "promptVariants": [
       "COMPLETE_MISSING_TICK_VALUES"
     ],
-    "selectorVisible": false,
-    "productionUse": "forbidden",
+    "selectorVisible": true,
+    "productionUse": "public_review",
     "focusedNodeTests": {
       "tests": 14,
       "pass": 14,
@@ -413,8 +415,23 @@
       "twelveTickCasePresent": true
     },
     "layoutDecision": "PASS_ACTUAL_A4_2X3_NO_OVERFLOW",
-    "publicCutoverStarted": false,
+    "publicCutoverStarted": true,
     "focusedGateRunId": 37243469584,
     "focusedGateHeadSha": "d47c30fe03788ca9fe482b84cd1efaf1cb2be351"
+  },
+  "publicCutover": {
+    "selectorTargetId": "pg_g3a_u01_visual_integer_number_line_complete_scale",
+    "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "expectedSameUnitSelectorTargetCount": 12,
+    "supportedModes": [
+      "SINGLE_KP",
+      "MIXED_KP_SAME_UNIT",
+      "MIXED_KP_CROSS_UNIT"
+    ],
+    "publicRoutePath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank04-public-route.js",
+    "selectorProjectionPath": "site/modules/curriculum/registry/g3a-u01-visual-rank04-selector-projection.js",
+    "selectorExtensionPath": "site/modules/curriculum/registry/batch-a-selector-g3a-u01-visual-rank04-extension.js",
+    "capabilityBindingPath": "site/modules/curriculum/public/public-ui-capability-binding-g3a-u01-rank04.js",
+    "publicCutoverStatus": "IMPLEMENTED_PENDING_FOCUSED_CI"
   }
 }
