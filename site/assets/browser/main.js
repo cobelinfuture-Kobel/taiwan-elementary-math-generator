@@ -277,7 +277,9 @@ function renderKnowledgePointAvailability() {
       item.className = "knowledge-point-option";
       item.dataset.knowledgePointId = knowledgePoint.knowledgePointId;
       item.dataset.selected = selected ? "true" : "false";
-      item.disabled = isSourceUnitMode;
+      item.disabled = isSourceUnitMode
+        || (knowledgePoint.singleKnowledgePointOnly === true
+          && state.batchA.selectionMode !== BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT);
       item.setAttribute("aria-pressed", selected ? "true" : "false");
       item.innerHTML = `<strong>${selected ? "已選｜" : ""}${knowledgePoint.displayName}</strong><span>${knowledgePoint.unitCode}｜已通過出題驗證</span>`;
       knowledgePointPanel.append(item);
