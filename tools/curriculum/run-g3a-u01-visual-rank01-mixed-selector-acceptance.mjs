@@ -70,8 +70,10 @@ async function classicSameUnit(page){
     canonicalSelected:document.querySelector(`#batch-a-knowledge-point-panel [data-knowledge-point-id="${kp}"]`)?.dataset?.selected??null,
     rankSelected:document.querySelector("#batch-a-knowledge-point-panel [data-rank01-selector-target='true']")?.dataset?.selected??null,
     rankDisabled:Boolean(document.querySelector("#batch-a-knowledge-point-panel [data-rank01-selector-target='true']")?.disabled),
+    selectedCount:[...document.querySelectorAll("#batch-a-knowledge-point-panel .knowledge-point-option[data-selected='true']")].length,
+    totalCount:[...document.querySelectorAll("#batch-a-knowledge-point-panel .knowledge-point-option")].length,
   }),KP);
-  if(selectorState.mode!=="mixedKnowledgePointsSameUnit"||selectorState.canonicalSelected!=="false"||selectorState.rankSelected!=="true"||selectorState.rankDisabled){
+  if(selectorState.mode!=="mixedKnowledgePointsSameUnit"||selectorState.canonicalSelected!=="true"||selectorState.rankSelected!=="true"||selectorState.rankDisabled||selectorState.selectedCount!==selectorState.totalCount){
     throw new Error(`G3AU01_R01_CLASSIC_MIXED_SELECTOR:${JSON.stringify(selectorState)}`);
   }
 
@@ -169,7 +171,11 @@ async function examSameUnit(page){
     canonical:document.querySelector(`#exam-kp-panel [data-selector-target-id="${kp}"]`)?.dataset?.selected??null,
     rank:document.querySelector(`#exam-kp-panel [data-selector-target-id="${group}"]`)?.dataset?.selected??null,
   }),{kp:KP,group:GROUP});
-  if(selectorState.canonical!=="false"||selectorState.rank!=="true"){
+  const allSelected=await page.evaluate(()=>({
+    selected:[...document.querySelectorAll("#exam-kp-panel [data-selector-target-id][data-selected='true']")].length,
+    total:[...document.querySelectorAll("#exam-kp-panel [data-selector-target-id]")].length,
+  }));
+  if(selectorState.canonical!=="true"||selectorState.rank!=="true"||allSelected.selected!==allSelected.total){
     throw new Error(`G3AU01_R01_EXAM_SAME_SELECTOR:${JSON.stringify(selectorState)}`);
   }
   await page.fill("#exam-question-count","24");
@@ -201,7 +207,7 @@ async function examCrossUnit(page){
     selectedSources:[...document.querySelectorAll("#exam-cross-unit-source-panel [data-cross-source-id][data-selected='true']")].length,
     selectedTargets:[...document.querySelectorAll("#exam-cross-unit-kp-groups [data-cross-selector-target-id][data-selected='true']")].length,
   }),{source:SOURCE,kp:KP,group:GROUP});
-  if(selectorState.sourceSelected!=="true"||selectorState.canonical!=="false"||selectorState.rank!=="true"||selectorState.selectedSources<2||selectorState.selectedTargets<2){
+  if(selectorState.sourceSelected!=="true"||selectorState.canonical!=="true"||selectorState.rank!=="true"||selectorState.selectedSources<2||selectorState.selectedTargets<3){
     throw new Error(`G3AU01_R01_EXAM_CROSS_SELECTOR:${JSON.stringify(selectorState)}`);
   }
 
@@ -255,6 +261,8 @@ try{
     boundaries:{
       canonicalKnowledgePointReused:true,
       rank01SiblingSameLevel:true,
+      canonicalAndRank01CanCoexist:true,
+      allSameUnitTargetsSelectable:true,
       singleKnowledgePointLinked:true,
       sameUnitMixedLinked:true,
       crossUnitMixedLinked:true,
