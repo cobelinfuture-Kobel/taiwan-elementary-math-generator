@@ -1,0 +1,184 @@
+{
+  "schemaName": "G3AU01VisualRank04PublicSelectorCutoverPreflight",
+  "schemaVersion": 1,
+  "taskId": "G3A_U01_VisualRank04_PublicSelectorCutoverPreflight",
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "unitTitle": "10000以內的數",
+  "status": "PASS_PUBLIC_CUTOVER_PREFLIGHT_IMPLEMENTATION_NOT_STARTED",
+  "authorityReadbackMainSha": "f0a2fde9e833e0b6b05daa5a4cdda2daea3ed00d",
+  "rank04": {
+    "patternGroupId": "pg_g3a_u01_visual_integer_number_line_complete_scale",
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_complete_scale",
+    "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "displayNameZh": "整數數線補刻度／填數",
+    "taskCore": "COMPLETE_MISSING_TICK_VALUES",
+    "hiddenRuntimeStatus": "accepted",
+    "hiddenRuntimeMergeSha": "dd1a793be1c68739a522307341c4a7d1227ce06f",
+    "hiddenWorksheetAcceptance": "PASS",
+    "publicCutoverStarted": false
+  },
+  "currentPublicTopology": {
+    "canonicalVisibleKnowledgePointCount": 9,
+    "additionalSiblingSelectorTargetCount": 2,
+    "currentTotalSameUnitSelectorTargetCount": 11,
+    "existingSiblingSelectorTargets": [
+      {
+        "targetId": "pg_g3a_u01_visual_one_way_table_compare",
+        "canonicalKnowledgePointId": "kp_g3a_u01_4digit_compare",
+        "displayNameZh": "一維資料表四位數比較",
+        "role": "RANK01_PATTERN_GROUP_SIBLING"
+      },
+      {
+        "targetId": "pg_g3a_u01_visual_integer_number_line_mark_value",
+        "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+        "displayNameZh": "整數數線定位／標記",
+        "role": "RANK03_PATTERN_GROUP_SIBLING"
+      }
+    ],
+    "currentNumberLineCanonicalTarget": {
+      "targetId": "kp_g3a_u01_integer_number_line_scale_location",
+      "displayNameZh": "整數數線讀值",
+      "defaultPatternGroupId": "pg_g3a_u01_visual_integer_number_line_read_value",
+      "defaultPatternSpecId": "ps_g3a_u01_visual_integer_number_line_read_value",
+      "role": "RANK02_CANONICAL_KP_TARGET"
+    }
+  },
+  "cutoverDecision": {
+    "selectorNodeStrategy": "PATTERN_GROUP_SIBLING_REUSING_EXISTING_CANONICAL_KP",
+    "newKnowledgePointRequired": false,
+    "addCanonicalKnowledgePointRow": false,
+    "newSelectorTargetId": "pg_g3a_u01_visual_integer_number_line_complete_scale",
+    "underlyingKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "displayNameZh": "整數數線補刻度／填數",
+    "expectedSameUnitSelectorTargetCountAfterCutover": 12,
+    "rationale": "Rank04 is a third independently selectable integer-number-line task representation under the same canonical number-line KP. It must be projected as a sibling selector target, not as a duplicate KP row.",
+    "allSelectPolicy": "Rank01 sibling, Rank02 canonical target, Rank03 sibling, Rank04 sibling and all other G3A-U01 canonical targets may be selected simultaneously in same-unit mixed mode."
+  },
+  "routeAmbiguityPreflight": {
+    "currentBehavior": "Rank02 and Rank03 public routes are already explicitly disambiguated by PatternGroup/PatternSpec under the shared canonical number-line KP.",
+    "riskAfterRank04": "If Rank04 is admitted by canonical KP identity alone, COMPLETE_MISSING_TICK_VALUES could collapse into Rank02 READ_MARKER_VALUE or Rank03 MARK_GIVEN_VALUE routing.",
+    "requiredRepair": "Add an explicit Rank04 PatternGroup/PatternSpec route and preserve the existing fail-closed Rank02/Rank03 explicit routing. No public leaf may dispatch by canonical KP identity alone.",
+    "severity": "BLOCKING_BEFORE_PUBLIC_CUTOVER"
+  },
+  "classicUiPreflight": {
+    "currentMechanism": "Current Rank03 extension already projects Rank01 and Rank03 siblings while keeping Rank02 canonical.",
+    "requiredChanges": [
+      "project Rank04 PatternGroup as an additional same-level sibling selector target beside Rank02 canonical and Rank03 sibling",
+      "single-KP mode must allow choosing Rank04 sibling without minting a new KP",
+      "same-unit mixed mode must include Rank02 canonical, Rank03 sibling and Rank04 sibling in all-select",
+      "preserve selectedSelectorTargetIds plus explicit selectedPatternGroupIds so three targets may share one KP"
+    ],
+    "expectedAllSelectCount": 12
+  },
+  "examUiPreflight": {
+    "currentMechanism": "Exam selector-target and cross-unit linkage already preserve Rank03 sibling identity through selectorTargetId plus forced PatternGroup.",
+    "requiredChanges": [
+      "add Rank04 sibling target to Exam selectorTargetsForSource",
+      "preserve Rank02 canonical, Rank03 sibling and Rank04 sibling in same-unit mixed selection",
+      "preserve Rank04 explicit PatternGroup in cross-unit selectedPatternGroupIds",
+      "allow cross-unit plan to carry Rank04 selector target without collapsing it into Rank02 or Rank03"
+    ],
+    "supportedCompositionModesAfterCutover": [
+      "SINGLE_KP",
+      "MIXED_KP_SAME_UNIT",
+      "MIXED_KP_CROSS_UNIT"
+    ]
+  },
+  "aggregationPreflight": {
+    "sameUnit": {
+      "currentMechanism": "same-unit aggregator already supports independent selectorTargetId plus forcedPatternGroupIds leaves that can share one KP.",
+      "requiredRank02CanonicalLeaf": {
+        "selectorTargetId": "kp_g3a_u01_integer_number_line_scale_location",
+        "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+        "forcedPatternGroupIds": [
+          "pg_g3a_u01_visual_integer_number_line_read_value"
+        ]
+      },
+      "requiredRank03Leaf": {
+        "selectorTargetId": "pg_g3a_u01_visual_integer_number_line_mark_value",
+        "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+        "forcedPatternGroupIds": [
+          "pg_g3a_u01_visual_integer_number_line_mark_value"
+        ]
+      },
+      "requiredRank04Leaf": {
+        "selectorTargetId": "pg_g3a_u01_visual_integer_number_line_complete_scale",
+        "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+        "forcedPatternGroupIds": [
+          "pg_g3a_u01_visual_integer_number_line_complete_scale"
+        ]
+      }
+    },
+    "crossUnit": {
+      "requiredBehavior": "cross-unit coordinator must preserve selector-target identity and forced PatternGroup semantics for Rank02 canonical, Rank03 sibling and Rank04 sibling leaves."
+    }
+  },
+  "publicRoutePreflight": {
+    "rank04RouteRequired": true,
+    "routeIdentity": {
+      "sourceId": "g3a_u01_3a01",
+      "selectionMode": "singleKnowledgePoint",
+      "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+      "requiredPatternGroupId": "pg_g3a_u01_visual_integer_number_line_complete_scale",
+      "requiredPatternSpecId": "ps_g3a_u01_visual_integer_number_line_complete_scale"
+    },
+    "runtimeReuse": {
+      "runtimePath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank04-runtime.js",
+      "worksheetPath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank04-worksheet.js",
+      "rendererPath": "site/modules/renderer/fraction-number-line.js",
+      "newGeneratorRequired": false,
+      "newValidatorRequired": false,
+      "newRendererFamilyRequired": false
+    }
+  },
+  "acceptancePlan": {
+    "focusedContracts": [
+      "selector projection exposes Rank04 exactly once as a sibling target",
+      "Rank01, Rank02 and Rank03 public targets remain visible and unchanged",
+      "single-KP Rank04 generates sparse-label questions and fully restored answer scales",
+      "same-unit all-select contains 12 targets and materializes independent Rank02, Rank03 and Rank04 leaves",
+      "cross-unit Exam materializes Rank04 beside another same-grade same-semester unit"
+    ],
+    "browserE2E": [
+      "Classic single Rank04",
+      "Classic same-unit all-select 12/12",
+      "Exam single Rank04",
+      "Exam same-unit all-select 12/12",
+      "Exam cross-unit Rank04"
+    ],
+    "deployedAcceptance": [
+      "exact Pages SHA confirmed",
+      "live asset parity",
+      "operator visual acceptance of sparse question labels and fully restored answer labels"
+    ]
+  },
+  "antiScopeBoundary": {
+    "allowed": [
+      "Rank04 public selector projection design",
+      "Rank02/Rank03/Rank04 shared-KP route disambiguation design",
+      "same-unit and cross-unit selector-target linkage design",
+      "focused acceptance plan"
+    ],
+    "forbidden": [
+      "modify runtime code",
+      "modify renderer code",
+      "modify generator or validator semantics",
+      "make Rank04 selector visible in this preflight milestone",
+      "implement Rank05 or Rank06"
+    ]
+  },
+  "blockersRemoved": [
+    "RANK04_PUBLIC_SELECTOR_NODE_STRATEGY_UNRESOLVED",
+    "RANK04_SHARED_KP_DISAMBIGUATION_STRATEGY_UNRESOLVED",
+    "RANK04_THREE_MODE_LINKAGE_SCOPE_UNRESOLVED"
+  ],
+  "remainingBlockers": [
+    "RANK04_PUBLIC_SELECTOR_PROJECTION_NOT_IMPLEMENTED",
+    "RANK04_PUBLIC_ROUTE_NOT_IMPLEMENTED",
+    "RANK04_SAME_UNIT_MIXED_LINKAGE_NOT_IMPLEMENTED",
+    "RANK04_CROSS_UNIT_LINKAGE_NOT_IMPLEMENTED",
+    "RANK04_THREE_MODE_E2E_NOT_RUN"
+  ],
+  "nextStep": "Implement the already-approved bounded Rank04 public selector cutover: sibling selector target, explicit Rank04 PatternGroup routing, same-unit/cross-unit linkage, and three-mode E2E."
+}
