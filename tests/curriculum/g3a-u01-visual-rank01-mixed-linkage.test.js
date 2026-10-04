@@ -85,6 +85,7 @@ test("same-unit mixed aggregation forwards Rank01 only to the canonical G3A U01 
     selectionMode: "mixedKnowledgePointsSameUnit",
     selectedKnowledgePointIds: [KP, other.knowledgePointId],
     selectedPatternGroupIds: [GROUP],
+    selectedSelectorTargetIds: [KP, GROUP, other.knowledgePointId],
     questionCount: 6,
     ordering: "groupedByPattern",
     includeAnswerKey: true,
@@ -96,12 +97,17 @@ test("same-unit mixed aggregation forwards Rank01 only to the canonical G3A U01 
   const calls = [];
   const result = buildP09Mixed21Worksheet(plan, stubLeafRecorder(calls));
   assert.equal(result.ok, true);
-  assert.equal(calls.length, 2);
+  assert.equal(calls.length, 3);
 
-  const rankLeaf = calls.find((call) => call.selectedKnowledgePointIds?.[0] === KP);
+  const compareLeaves = calls.filter((call) => call.selectedKnowledgePointIds?.[0] === KP);
+  assert.equal(compareLeaves.length, 2);
+  const rankLeaf = compareLeaves.find((call) => call.selectedPatternGroupIds?.includes(GROUP));
+  const canonicalLeaf = compareLeaves.find((call) => !(call.selectedPatternGroupIds?.includes(GROUP) ?? false));
   const otherLeaf = calls.find((call) => call.selectedKnowledgePointIds?.[0] === other.knowledgePointId);
   assert.deepEqual(rankLeaf?.selectedPatternGroupIds, [GROUP]);
+  assert.ok(canonicalLeaf);
   assert.equal(otherLeaf?.selectedPatternGroupIds?.includes(GROUP) ?? false, false);
+  assert.deepEqual(result.worksheetDocument.metadata.selectedSelectorTargetIds, [KP, GROUP, other.knowledgePointId]);
 });
 
 test("cross-unit coordinator forwards Rank01 group to the G3A U01 leaf without contaminating the other unit", () => {
@@ -117,12 +123,19 @@ test("cross-unit coordinator forwards Rank01 group to the G3A U01 leaf without c
   });
   assert.ok(otherRow);
 
+  const otherUnit = unitMap.get(otherRow.sourceId);
+  assert.ok(otherUnit);
   const plan = {
     grade: sourceUnit.grade,
     semester: sourceUnit.semester,
     selectedSourceIds: [SRC, otherRow.sourceId],
     selectedKnowledgePointIds: [KP, otherRow.knowledgePointId],
     selectedPatternGroupIds: [GROUP],
+    selectedSelectorTargetIds: [
+      `${sourceUnit.unitCode}::${KP}`,
+      `${sourceUnit.unitCode}::${GROUP}`,
+      `${otherUnit.unitCode}::${otherRow.knowledgePointId}`,
+    ],
     questionCount: 6,
     ordering: "groupedByPattern",
     includeAnswerKey: true,
@@ -133,11 +146,16 @@ test("cross-unit coordinator forwards Rank01 group to the G3A U01 leaf without c
   const calls = [];
   const result = buildSchoolExamCrossUnitWorksheet(plan, stubLeafRecorder(calls));
   assert.equal(result.ok, true);
-  assert.equal(calls.length, 2);
+  assert.equal(calls.length, 3);
 
-  const rankLeaf = calls.find((call) => call.sourceId === SRC && call.selectedKnowledgePointIds?.[0] === KP);
+  const compareLeaves = calls.filter((call) => call.sourceId === SRC && call.selectedKnowledgePointIds?.[0] === KP);
+  assert.equal(compareLeaves.length, 2);
+  const rankLeaf = compareLeaves.find((call) => call.selectedPatternGroupIds?.includes(GROUP));
+  const canonicalLeaf = compareLeaves.find((call) => !(call.selectedPatternGroupIds?.includes(GROUP) ?? false));
   const otherLeaf = calls.find((call) => call.sourceId === otherRow.sourceId);
   assert.deepEqual(rankLeaf?.selectedPatternGroupIds, [GROUP]);
+  assert.ok(canonicalLeaf);
   assert.equal(otherLeaf?.selectedPatternGroupIds?.includes(GROUP) ?? false, false);
   assert.equal(result.worksheetDocument.metadata.crossUnitMixedUsed, true);
+  assert.deepEqual(result.worksheetDocument.metadata.selectedSelectorTargetIds, plan.selectedSelectorTargetIds);
 });
