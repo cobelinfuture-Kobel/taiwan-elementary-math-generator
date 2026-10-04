@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK03_PUBLIC_CUTOVER_THREE_MODE",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3a_u01_integer_number_line_scale_location": "RANK03_PUBLIC_SIBLING_CUTOVER_MATERIALIZED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK03_PUBLIC_CUTOVER_THREE_MODE.validation.json",
+  "classificationNote": "Bounded Rank03 public sibling-selector cutover. Rank03 reuses the canonical integer-number-line KP and existing hidden generator/validator/renderer, adds an independently selectable PatternGroup sibling, explicitly disambiguates Rank02 vs Rank03 by PatternGroup/PatternSpec, and links Classic/Exam single, same-unit mixed and cross-unit mixed routes.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "sourceUnitRouteChanged": false,
+    "singleKnowledgePointRouteChanged": true,
+    "sameUnitMixedRouteChanged": true,
+    "crossUnitMixedRouteChanged": true,
+    "rank02RouteDisambiguated": true,
+    "newKnowledgePointMinted": false,
+    "canonicalKnowledgePointReused": true,
+    "siblingSelectorTargetAdded": true,
+    "rank01Changed": false,
+    "rank02MathematicsChanged": false,
+    "rank04OrLaterTouched": false,
+    "rendererCodeChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "operatorWebsiteLayoutReviewPending": true
+  }
+}
