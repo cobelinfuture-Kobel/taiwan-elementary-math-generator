@@ -16,15 +16,15 @@ const contract = JSON.parse(fs.readFileSync(CONTRACT_PATH, "utf8"));
 const visual = JSON.parse(fs.readFileSync(VISUAL_PATH, "utf8"));
 const mappings = JSON.parse(fs.readFileSync(MAPPING_PATH, "utf8"));
 
-test("Rank01 materializes one hidden PatternSpec from the approved FormalMapping candidate", () => {
+test("Rank01 materializes the approved PatternSpec and advances it to bounded public review", () => {
   assert.equal(contract.schemaName, "G3AU01VisualPatternSpecRank01Contract");
   assert.equal(contract.formalMapping.formalMappingId, "fm_g3a_u01_visual_one_way_table_compare");
   assert.equal(contract.formalMapping.sourceMappingCandidateId, "fmc_g3a_u01_one_way_table_compare");
   assert.equal(contract.patternSpec.patternSpecId, "ps_g3a_u01_visual_one_way_table_compare");
   assert.equal(contract.patternSpec.sourcePatternSpecCandidateId, "psc_g3a_u01_visual_one_way_table_compare");
   assert.equal(contract.patternSpec.knowledgePointId, "kp_g3a_u01_4digit_compare");
-  assert.equal(contract.patternSpec.selectorStatus, "hidden");
-  assert.equal(contract.patternSpec.productionUse, "forbidden");
+  assert.equal(contract.patternSpec.selectorStatus, "visible_public_review");
+  assert.equal(contract.patternSpec.productionUse, "public_review");
   assert.equal(contract.lifecycle.generatorImplemented, true);
   assert.equal(contract.lifecycle.validatorRuntimeImplemented, true);
 });
@@ -68,7 +68,7 @@ test("Rank01 source calibration answer satisfies the materialized minimum contra
   assert.equal(min.displayValue, 9008);
 });
 
-test("Rank01 lifecycle advances to hidden runtime while selector and production remain blocked", () => {
+test("Rank01 lifecycle advances to bounded public review while Rank02+ remains out of scope", () => {
   assert.equal(contract.lifecycle.formalMappingMaterialized, true);
   assert.equal(contract.lifecycle.patternGroupMaterialized, true);
   assert.equal(contract.lifecycle.patternSpecMaterialized, true);
@@ -78,8 +78,12 @@ test("Rank01 lifecycle advances to hidden runtime while selector and production 
   assert.equal(contract.lifecycle.generatorImplemented, true);
   assert.equal(contract.lifecycle.validatorRuntimeImplemented, true);
   assert.equal(contract.lifecycle.rendererCodeChanged, false);
-  assert.equal(contract.lifecycle.selectorVisible, false);
-  assert.equal(contract.lifecycle.productionUse, "forbidden");
+  assert.equal(contract.lifecycle.selectorVisible, true);
+  assert.equal(contract.lifecycle.productionUse, "public_review");
   assert.equal(contract.lifecycle.renderedWorksheetAcceptance, "PASS_FOCUSED_CI");
-  assert.equal(contract.lifecycle.layoutTuningStatus, "PENDING_ACTUAL_WORKSHEET_ANSWER_PRINT_VISUAL_REVIEW");
+  assert.equal(contract.lifecycle.layoutTuningStatus, "PASS_NO_SIZE_CHANGE_REQUIRED");
+  assert.equal(contract.lifecycle.publicCutover, "PENDING_FOCUSED_CI");
+  assert.equal(contract.lifecycle.publicLayoutModesReview, "PENDING_OPERATOR_WEBSITE_REVIEW");
+  assert.equal(contract.publicAdmission.rank02PlusVisible, false);
+  assert.equal(contract.publicAdmission.sameUnitMixedChanged, false);
 });

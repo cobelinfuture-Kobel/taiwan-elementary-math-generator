@@ -1,3 +1,7 @@
+import {
+  buildG3AU01VisualRank01PublicWorksheet,
+  requestsG3AU01VisualRank01Public,
+} from "../../../modules/curriculum/batch-a/g3a-u01-visual-rank01-public-route.js";
 import { requestsP09A03B } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p09-a03b.js";
 import { buildBatchABrowserWorksheetDocument as buildP09A03BWorksheet } from "../../../modules/curriculum/batch-a/batch-a-browser-worksheet-p09-a03b-extension.js";
 import { requestsP09A02 } from "../../../modules/curriculum/batch-a/batch-a-browser-generator-p09-a02.js";
@@ -301,6 +305,7 @@ function buildCurrentRouterBaseResult(plan, generation) {
 }
 
 export function buildWorksheetDocumentFromPlan(plan = {}) {
+  if (requestsG3AU01VisualRank01Public(plan)) return buildG3AU01VisualRank01PublicWorksheet(plan);
   if (requestsP09A03B(plan)) return buildP09A03BWorksheet(plan);
   if (requestsP09A02(plan)) return buildP09A02Worksheet(plan);
   if (requestsP08F21(plan)) return buildP08F21Worksheet(plan);
