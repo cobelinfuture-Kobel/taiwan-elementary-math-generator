@@ -1,0 +1,156 @@
+{
+  "schemaName": "G3AU01VisualRank04SourceAuthorityPreflight",
+  "schemaVersion": 1,
+  "taskId": "G3A_U01_VisualRank04_SourceAuthorityPreflight",
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "unitTitle": "10000以內的數",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "rank": 4,
+  "visualFamily": {
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_complete_scale",
+    "nameZh": "整數數線補刻度／填數",
+    "questionCount": 7,
+    "representationFamily": "integer_number_line",
+    "taskCore": "COMPLETE_MISSING_TICK_VALUES",
+    "generativeReconstructionEligibility": "YES",
+    "priorityWave": "P1_SHARED_NUMBER_LINE_EXTENSION"
+  },
+  "sourceAuthority": {
+    "curriculumSource": {
+      "file": "題型總覽-3a01-10000以內的數.pdf",
+      "page": 3,
+      "supportLevel": "SHARED_NUMBER_LINE_SEMANTICS_ONLY",
+      "observation": "教材第3頁題型⑨直接呈現等距整數數線、可見刻度與依相鄰刻度關係判定整數值；同頁題型④另有等差數列補數，但不是數線補刻度題。因此教材可支持 uniform integer-number-line 與等差補值共享語意，不應被當成 COMPLETE_MISSING_TICK_VALUES 的直接數線題證據。",
+      "directCompleteScaleEvidence": false
+    },
+    "historicalExamVisualFamily": {
+      "registryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+      "sourceQuestionCount": 7,
+      "directTaskAuthority": true,
+      "questionTypeHistogram": {
+        "number_line_completion": 3,
+        "number_line_scale": 1,
+        "number_pattern_completion": 1,
+        "數線等差填數": 2
+      },
+      "sampleEvidence": [
+        {
+          "questionId": "exam_pdf_10552640d198_p1_III-1",
+          "prompt": "數線50、100、( )、200、250、300、350、400，填入缺少的數。",
+          "expectedSemanticAnswer": "150",
+          "sourcePath": "G03/semester_1/midterm/數學_112 上學期_三年級_臺北市_市立太平國小_第一次段考(期中考)_南一_試卷.pdf",
+          "page": 1
+        },
+        {
+          "questionId": "exam_pdf_9d80c7672910_p1_III-1",
+          "prompt": "數線3964、（　）、3984、3994、（　）、4014、（　）、4034。",
+          "expectedSemanticAnswer": "3974、4004、4024",
+          "sourcePath": "G03/semester_1/midterm/數學_109 上學期_三年級_彰化縣_縣立路上國小_第一次段考(期中考)_南一_試卷.pdf",
+          "page": 1
+        },
+        {
+          "questionId": "exam_pdf_9d80c7672910_p1_III-2",
+          "prompt": "數線5572、（　）、5772、5872、（　）、（　）、6172、6272。",
+          "expectedSemanticAnswer": "5672、5972、6072",
+          "sourcePath": "G03/semester_1/midterm/數學_109 上學期_三年級_彰化縣_縣立路上國小_第一次段考(期中考)_南一_試卷.pdf",
+          "page": 1
+        }
+      ]
+    },
+    "authorityDecision": "PASS",
+    "authorityReason": "Rank04 的直接 COMPLETE_MISSING_TICK_VALUES authority 來自既有 7 題歷屆考卷 visual family；教材第3頁支持等距整數數線與等差補值共享語意，但不是直接的數線缺刻度填值題。"
+  },
+  "knowledgePointResolution": {
+    "historicalCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "currentCanonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "currentCanonicalKnowledgePointNameZh": "整數數線刻度、讀值與定位",
+    "currentAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "reuseExistingCanonicalKnowledgePoint": true,
+    "newKnowledgePointRequired": false,
+    "rationale": "Current canonical KP scope 已明列『讀值、定位、補刻度與位置配對』；Rank04 COMPLETE_MISSING_TICK_VALUES 是同一 uniform integer-number-line scale operation 的缺值重建，不應新增 KP。",
+    "staleVisualCandidateNote": "visual family 仍帶有早期 candidateKnowledgePointIds=[kp_g3a_u01_range_reasoning]；current knowledge authority 與 mapping candidate 的 number-line scale dependency 優先，Rank04 應解析到既有 canonical number-line KP。"
+  },
+  "mappingReadback": {
+    "formalMappingCandidateId": "fmc_g3a_u01_integer_number_line_complete_scale",
+    "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_complete_scale",
+    "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+    "resolvedPrimaryKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "operationContract": "reconstruct missing tick labels from visible anchors on a uniform integer scale",
+    "answerModel": "integerListAnswer",
+    "validatorGuards": [
+      "uniform_integer_step",
+      "visible_labels_preserved",
+      "all_missing_tick_values_correct",
+      "completed_labels_strictly_ordered"
+    ],
+    "preflightDisposition": "READY_FOR_FORMAL_MAPPING_AND_PATTERNSPEC_CONTRACT"
+  },
+  "rank02Rank03ReuseAssessment": {
+    "sharedRendererPath": "site/modules/renderer/fraction-number-line.js",
+    "existingModelKind": "integer_number_line",
+    "existingCapabilities": [
+      "uniform integer ticks",
+      "sparse visible anchors",
+      "left-to-right increasing scale",
+      "0..10000 bounded values",
+      "markerPolicy question/answer separation from Rank03"
+    ],
+    "rank04RequiredExtension": [
+      "question representation must intentionally omit one or more legal tick labels while preserving enough visible anchors to infer one unique step",
+      "answer representation must restore every missing tick value without changing the scale geometry",
+      "validator must derive each missing value by tickValue(index) = startValue + index * step",
+      "visible labels supplied in the question must be preserved exactly in the answer representation",
+      "completed labels must remain strictly increasing left-to-right"
+    ],
+    "rendererClassification": "EXTEND_EXISTING_INTEGER_NUMBER_LINE_RUNTIME",
+    "newRendererFamilyRequired": false
+  },
+  "formalOperationPreflight": {
+    "inputRoles": {
+      "startValue": "數線起點整數值或可由 visible anchors 推得的基準值",
+      "step": "相鄰刻度正整數間隔",
+      "tickCount": "數線合法刻度總數",
+      "visibleAnchors": "題目保留的已知刻度值",
+      "missingTickIndices": "題目刻意隱藏標籤的合法刻度索引"
+    },
+    "targetEquation": "missingValue(index) = startValue + index * step",
+    "legalCompletionConditions": [
+      "all visible anchor labels are consistent with one uniform positive integer step",
+      "the visible anchors determine a unique scale",
+      "every missingTickIndex is a legal tick index",
+      "every reconstructed missing value is an integer within 0..10000",
+      "question and answer use identical tick geometry"
+    ],
+    "answerSemantics": "learner supplies the ordered missing integer tick values; answer key restores those values at their exact tick positions"
+  },
+  "antiScopeBoundary": {
+    "allowed": [
+      "Rank04 source authority preflight",
+      "resolve Rank04 mapping candidate to the already canonical number-line KP",
+      "record Rank02/Rank03 renderer/runtime reuse and exact Rank04 missing-label extension needs",
+      "lock the next FormalMapping/PatternSpec contract scope"
+    ],
+    "forbidden": [
+      "materialize Rank04 FormalMapping",
+      "materialize Rank04 PatternSpec",
+      "modify number-line renderer code",
+      "implement Rank04 generator or validator",
+      "make Rank04 selector visible",
+      "modify Classic or Exam UI",
+      "implement Rank05 or Rank06"
+    ]
+  },
+  "blockersRemoved": [
+    "RANK04_DIRECT_SOURCE_AUTHORITY_UNRESOLVED",
+    "RANK04_KP_REUSE_UNRESOLVED",
+    "RANK04_RENDERER_REUSE_BOUNDARY_UNRESOLVED"
+  ],
+  "remainingBlockers": [
+    "RANK04_FORMAL_MAPPING_NOT_MATERIALIZED",
+    "RANK04_PATTERNSPEC_NOT_MATERIALIZED",
+    "RANK04_VALIDATOR_CONTRACT_NOT_MATERIALIZED",
+    "RANK04_MISSING_LABEL_QUESTION_ANSWER_RENDERING_CONTRACT_NOT_MATERIALIZED"
+  ],
+  "nextStep": "G3A_U01_VisualRank04_FormalMappingAndPatternSpecContract_Then_CompleteScaleValidatorAndRendererExtensionContract"
+}
