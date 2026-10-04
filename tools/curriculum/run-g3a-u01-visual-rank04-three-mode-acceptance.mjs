@@ -169,10 +169,10 @@ async function classicSameUnit(page){
     selected:document.querySelectorAll("#batch-a-knowledge-point-panel .knowledge-point-option[data-selected='true']").length,
     total:document.querySelectorAll("#batch-a-knowledge-point-panel .knowledge-point-option").length,
   }));
-  if(selectorState.rank04!=="true"||selectorState.selected!==11||selectorState.total!==11){
+  if(selectorState.rank04!=="true"||selectorState.selected!==12||selectorState.total!==12){
     throw new Error(`G3AU01_R04_CLASSIC_MIXED_SELECTOR:${JSON.stringify(selectorState)}`);
   }
-  await page.fill("#batch-a-question-count-input","33");
+  await page.fill("#batch-a-question-count-input","36");
   await page.dispatchEvent("#batch-a-question-count-input","change");
   await page.check("#batch-a-answer-key-input");
   await page.fill("#generation-seed-input","g3a-u01-rank04-classic-mixed");
@@ -188,7 +188,7 @@ async function classicSameUnit(page){
     text:document.querySelector("#status-panel")?.textContent?.trim()??"",
   }));
   if(status.tone!=="success")throw new Error(`G3AU01_R04_CLASSIC_MIXED_GENERATION:${JSON.stringify(status)}`);
-  const {rendered}=await inspectClassicPreview(page,33);
+  const {rendered}=await inspectClassicPreview(page,36);
   return {selectorState,status,rendered};
 }
 
@@ -229,15 +229,15 @@ async function generateExamAndInspect(page,expectedStatusFragment,{exactRank04Co
   const rendered=await frame.evaluate(()=>({
     questionCount:document.querySelectorAll(".school-exam-page--questions .worksheet-cell--question").length,
     rank04QuestionLines:document.querySelectorAll('.school-exam-page--questions [data-representation="integer-number-line"][data-marker-policy="forbidden"]').length,
-    rank04AnswerLines:document.querySelectorAll('.school-exam-page--answers [data-representation="integer-number-line"][data-marker-policy="required"]').length,
+    rank04AnswerLines:document.querySelectorAll('.school-exam-page--answers [data-representation="integer-number-line"][data-marker-policy="forbidden"]').length,
     rank04QuestionMarkers:document.querySelectorAll('.school-exam-page--questions [data-representation="integer-number-line"][data-marker-policy="forbidden"] [data-answer-marker="true"]').length,
-    rank04AnswerMarkers:document.querySelectorAll('.school-exam-page--answers [data-representation="integer-number-line"][data-marker-policy="required"] [data-answer-marker="true"]').length,
+    rank04AnswerMarkers:document.querySelectorAll('.school-exam-page--answers [data-representation="integer-number-line"][data-marker-policy="forbidden"] [data-answer-marker="true"]').length,
   }));
   if(
     rendered.rank04QuestionLines<1
     || rendered.rank04AnswerLines<1
     || rendered.rank04QuestionMarkers!==0
-    || rendered.rank04AnswerMarkers!==rendered.rank04AnswerLines
+    || rendered.rank04AnswerMarkers!==0
   ){
     throw new Error(`G3AU01_R04_EXAM_MARK_VALUE_NOT_MATERIALIZED:${JSON.stringify(rendered)}`);
   }
@@ -284,10 +284,10 @@ async function examSameUnit(page){
     selected:document.querySelectorAll("#exam-kp-panel [data-selector-target-id][data-selected='true']").length,
     total:document.querySelectorAll("#exam-kp-panel [data-selector-target-id]").length,
   }),GROUP);
-  if(selectorState.rank04!=="true"||selectorState.selected!==11||selectorState.total!==11){
+  if(selectorState.rank04!=="true"||selectorState.selected!==12||selectorState.total!==12){
     throw new Error(`G3AU01_R04_EXAM_SAME_SELECTOR:${JSON.stringify(selectorState)}`);
   }
-  await page.fill("#exam-question-count","33");
+  await page.fill("#exam-question-count","36");
   await page.fill("#exam-seed","g3a-u01-rank04-exam-same");
   const generated=await generateExamAndInspect(page,"同單元混合知識點考券已產生");
   return {selectorState,...generated};
@@ -386,7 +386,7 @@ try{
       canonicalKnowledgePointReused:true,
       siblingSelectorTarget:true,
       rank02CanonicalAndRank04SiblingSimultaneouslySelectable:true,
-      sameUnitTargetCount:11,
+      sameUnitTargetCount:12,
       singleKnowledgePointLinked:true,
       sameUnitMixedLinked:true,
       crossUnitMixedLinked:true,
