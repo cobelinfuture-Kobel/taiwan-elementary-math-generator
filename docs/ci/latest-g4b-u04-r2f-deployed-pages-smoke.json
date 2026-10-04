@@ -2,20 +2,20 @@
   "schemaVersion": "g4b-u04-r2f-deployed-pages-smoke-v1",
   "task": "G4B_U04_R2F_ProductionStressAndD0Recloseout",
   "status": "FAIL",
-  "deploymentSha": "480c5ac75689f6d36396f02cd7e0c355af5476b1",
+  "deploymentSha": "fb016f823eee7ae7eb6fb565199a86c0478b1812",
   "message": "page.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-source-select')\n    - locator resolved to <select name=\"batchASourceId\" id=\"batch-a-source-select\">…</select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n",
   "details": null,
-  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g4bU04R2F=480c5ac75689f6d36396f02cd7e0c355af5476b1-1791083083530",
+  "pageUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?g4bU04R2F=fb016f823eee7ae7eb6fb565199a86c0478b1812-1791092526526",
   "consoleErrors": [],
   "pageErrors": [],
   "workflow": "G4B-U04 R2F Deployed Pages Smoke",
   "run": {
-    "id": "37172968905",
-    "number": "1017",
+    "id": "37180617271",
+    "number": "1018",
     "attempt": "1",
-    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/37172968905"
+    "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/37180617271"
   },
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
   "ref": "refs/heads/main",
-  "verifiedAt": "2026-10-04T03:05:22.980Z"
+  "verifiedAt": "2026-10-04T05:42:52.026Z"
 }
