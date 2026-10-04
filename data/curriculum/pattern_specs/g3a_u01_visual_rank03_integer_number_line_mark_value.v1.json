@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "hidden_runtime_accepted_public_cutover_not_started",
+  "status": "D0_COMPLETE",
   "authority": {
     "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank03_source_authority_preflight.v1.json",
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
@@ -64,7 +64,7 @@
       "ps_g3a_u01_visual_integer_number_line_mark_value"
     ],
     "sourceQuestionCount": 20,
-    "lifecycle": "hidden_runtime"
+    "lifecycle": "visible_public_review"
   },
   "patternSpec": {
     "patternSpecId": "ps_g3a_u01_visual_integer_number_line_mark_value",
@@ -189,8 +189,8 @@
     "generatorStatus": "hidden_deterministic_runtime_implemented",
     "validatorStatus": "blocking_runtime_implemented",
     "rendererStatus": "integer_number_line_marker_policy_extension_implemented",
-    "selectorStatus": "hidden",
-    "productionUse": "forbidden",
+    "selectorStatus": "visible_public_review",
+    "productionUse": "public_review",
     "questionKindCompatibilityNote": "Repository validatePatternSpec currently supports visual_reading but not a separate visual_marking enum. MARK_GIVEN_VALUE remains the semantic authority via taskCore, semanticSignature, answerModel and validator contract; this contract does not expand the shared questionKind registry."
   },
   "validatorContract": {
@@ -392,13 +392,19 @@
     "generatorImplemented": true,
     "validatorRuntimeImplemented": true,
     "rendererCodeChanged": true,
-    "selectorVisible": false,
-    "productionUse": "forbidden",
+    "selectorVisible": true,
+    "productionUse": "public_review",
     "hiddenWorksheetImplemented": true,
     "hiddenWorksheetAcceptance": "PASS_FOCUSED_CI",
     "hiddenRuntimeFocusedGate": "PASS",
     "hiddenRuntimeMerged": true,
-    "hiddenRuntimeMergeSha": "6a3260fcc6e26ce5a7c01bc03f28b668b64c1f75"
+    "hiddenRuntimeMergeSha": "6a3260fcc6e26ce5a7c01bc03f28b668b64c1f75",
+    "publicCutover": "PASS_FOCUSED_CI_AND_PAGES_DEPLOYED",
+    "threeModeE2E": "PASS_FOCUSED_CI_EXACT_HEAD",
+    "deployedReadback": "PASS_EXACT_SHA_LIVE_E2E",
+    "postMergeParity": "PASS_BASELINE_220_RANK03_OWNED_DELTA_ZERO",
+    "operatorVisualAcceptance": "PASS",
+    "d0Closeout": "PASS"
   },
   "antiScopeBoundary": {
     "allowed": [
@@ -416,7 +422,7 @@
       "change Rank02 task semantics"
     ]
   },
-  "nextStep": "At the next planning-to-implementation boundary, approve bounded Rank03 public selector cutover: single-KP first, then same-unit and cross-unit linkage, followed by deployed Pages/operator visual acceptance.",
+  "nextStep": "Rank03 is D0 complete. Continue to G3A-U01 visual Rank04 SourceAuthorityPreflight for vf_g3a_u01_integer_number_line_complete_scale; do not implement Rank04 runtime until source/mapping/renderer contract is locked.",
   "hiddenRuntime": {
     "runtimePath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank03-runtime.js",
     "worksheetPath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank03-worksheet.js",
@@ -426,8 +432,8 @@
     "promptVariants": [
       "MARK_GIVEN_VALUE"
     ],
-    "selectorVisible": false,
-    "productionUse": "forbidden",
+    "selectorVisible": true,
+    "productionUse": "public_review",
     "focusedGateRunId": 37204251705,
     "focusedGateHeadSha": "55f911ae94dce61ea0cfb4c1024bc719e9444932",
     "focusedNodeTests": {
@@ -461,6 +467,58 @@
       "twelveTickCasePresent": true
     },
     "layoutDecision": "PASS_NO_SIZE_CHANGE_REQUIRED",
-    "publicCutoverStarted": false
+    "publicCutoverStarted": true
+  },
+  "publicAdmission": {
+    "status": "PASS_D0_COMPLETE",
+    "selectorVisible": true,
+    "productionUse": "public_review",
+    "publicCutoverPrNumber": 1237,
+    "publicCutoverHeadSha": "ddab5caff98e7cadbdc50fed96578524fbb6cc25",
+    "publicCutoverMergeSha": "de8bdf477ea21b5f844d52fbb1553df12b39e603",
+    "publicCutoverFocusedGateRunId": 37209021100,
+    "postMergeRepairPrNumber": 1238,
+    "postMergeRepairMergeSha": "2f9ca01f26efdc3e397cca7b573a6de84d843c86",
+    "postMergeRepairGateRunId": 37209750032,
+    "deployedPagesRunId": 37209128056,
+    "deployedPagesStatus": "PASS",
+    "liveSameUnitE2ERunId": 37209128042,
+    "liveSameUnitE2EAttempt": 2,
+    "liveSameUnitE2EStatus": "PASS",
+    "postMergeRegression": {
+      "baselineFailCount": 220,
+      "publicCutoverFailCount": 221,
+      "rank03OwnedFailureCountBeforeRepair": 1,
+      "repairedRank03OwnedFailureCount": 1,
+      "postRepairTests": 6856,
+      "postRepairPass": 6636,
+      "postRepairFail": 220,
+      "rank03OwnedDeltaAfterRepair": 0,
+      "postRepairRunId": 37209838421,
+      "disposition": "PASS_BASELINE_PARITY"
+    },
+    "mathCiReadback": {
+      "runId": 37209838444,
+      "status": "FAIL_UNRELATED_ENVIRONMENT_TEST_AND_READBACK_PUSH_RACE",
+      "rank03Disposition": "NOT_BLOCKING_RANK03_D0",
+      "evidence": [
+        "post-repair full regression returned exactly to 220 baseline failures",
+        "Math CI readback observed one unrelated Path1 P1-12 Object.groupBy environment failure",
+        "Rank03-owned failure-set delta after repair is zero"
+      ]
+    },
+    "operatorVisualAcceptance": {
+      "status": "PASS",
+      "approvedBy": "operator",
+      "approvalScope": "Rank03 live integer-number-line MARK_GIVEN_VALUE question/answer visual layout",
+      "acceptanceBasis": [
+        "operator explicitly approved Rank03 visual output",
+        "focused Classic/Exam three-mode E2E passed",
+        "GitHub Pages deployment passed",
+        "live same-unit E2E passed after deployment timing retry",
+        "question marker count remains zero and answer overlay marker is present"
+      ]
+    },
+    "d0Closeout": "PASS"
   }
 }
