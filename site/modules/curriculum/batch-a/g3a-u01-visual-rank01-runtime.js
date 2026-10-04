@@ -82,7 +82,7 @@ function signature(payload){
   return [payload.p.variant,payload.answerModel.promptVariant,...payload.tableData.rows.flatMap(r=>[r.category,r.value]),payload.threshold?.relation??"n",payload.threshold?.value??"n"].join("|");
 }
 
-export function buildG3AU01VisualRank01Question({variant=0,promptVariant="MAXIMUM_CATEGORY"}={}){
+export function buildG3AU01VisualRank01Question({variant=0,promptVariant="MAXIMUM_CATEGORY",publicAdmission=false}={}){
   const x=makePayload(variant,promptVariant),a=x.answerModel;
   const answerText=a.selectedCategory+"（"+a.selectedValue+"）";
   return Object.freeze({
@@ -108,7 +108,7 @@ export function buildG3AU01VisualRank01Question({variant=0,promptVariant="MAXIMU
       difficultyTags:Object.freeze(["visual_reading","rank01"]),
       curriculumNodeIds:Object.freeze([G3A_U01_VISUAL_RANK01_SOURCE_ID]),
       representation:"one-way-statistics-table",sourceSemanticCore:"TABLE_DATA_COMPARISON",
-      chartRepresentationRendered:false,hiddenRuntime:true,selectorVisible:false,productionUse:"forbidden"
+      chartRepresentationRendered:false,hiddenRuntime:!publicAdmission,selectorVisible:publicAdmission,productionUse:publicAdmission?"public_review":"forbidden"
     })
   });
 }
@@ -157,9 +157,11 @@ export function validateG3AU01VisualRank01Question(q){
   if(!expected||q?.answerModel?.selectedCategory!==expected.selectedCategory||q?.answerModel?.selectedValue!==expected.selectedValue) errors.push("G3A_U01_RANK01_ANSWER_INVALID");
   if(expected?.comparisonSymbol!==undefined&&q?.answerModel?.comparisonSymbol!==expected.comparisonSymbol) errors.push("G3A_U01_RANK01_COMPARISON_INVALID");
   if(q?.answerText!==(String(q?.answerModel?.selectedCategory)+"（"+String(q?.answerModel?.selectedValue)+"）")) errors.push("G3A_U01_RANK01_ANSWER_TEXT_INVALID");
-  if(q?.metadata?.representation!=="one-way-statistics-table"||q?.metadata?.sourceSemanticCore!=="TABLE_DATA_COMPARISON"||q?.metadata?.chartRepresentationRendered!==false||q?.metadata?.hiddenRuntime!==true||q?.metadata?.selectorVisible!==false||q?.metadata?.productionUse!=="forbidden") errors.push("G3A_U01_RANK01_SCOPE_INVALID");
+  const publicAdmission=q?.metadata?.selectorVisible===true;
+  const scopeValid=q?.metadata?.representation==="one-way-statistics-table"&&q?.metadata?.sourceSemanticCore==="TABLE_DATA_COMPARISON"&&q?.metadata?.chartRepresentationRendered===false&&(publicAdmission?(q?.metadata?.hiddenRuntime===false&&q?.metadata?.productionUse==="public_review"):(q?.metadata?.hiddenRuntime===true&&q?.metadata?.selectorVisible===false&&q?.metadata?.productionUse==="forbidden"));
+  if(!scopeValid) errors.push("G3A_U01_RANK01_SCOPE_INVALID");
   if(Number.isInteger(q?.variant)&&G3A_U01_VISUAL_RANK01_PROMPT_VARIANTS.includes(q?.promptVariant)){
-    const rebuilt=buildG3AU01VisualRank01Question({variant:q.variant,promptVariant:q.promptVariant});
+    const rebuilt=buildG3AU01VisualRank01Question({variant:q.variant,promptVariant:q.promptVariant,publicAdmission});
     if(q.questionSignature!==rebuilt.questionSignature||q.promptText!==rebuilt.promptText||JSON.stringify(q.tableData)!==JSON.stringify(rebuilt.tableData)||JSON.stringify(q.answerModel)!==JSON.stringify(rebuilt.answerModel)) errors.push("G3A_U01_RANK01_DETERMINISTIC_CONTRACT_INVALID");
   }
   return Object.freeze({ok:errors.length===0,errors:Object.freeze([...new Set(errors)])});
@@ -175,13 +177,14 @@ export function validateG3AU01VisualRank01Answer(q,answer){
 }
 
 export function generateG3AU01VisualRank01Questions(options={}){
+  const publicAdmission=options.publicAdmission===true;
   const count=Number.isInteger(options.questionCount)?options.questionCount:20;
   if(count<1||count>G3A_U01_VISUAL_RANK01_MAX_QUESTION_COUNT) return Object.freeze({ok:false,questions:Object.freeze([]),errors:Object.freeze(["G3A_U01_RANK01_QUESTION_COUNT_INVALID"]),warnings:Object.freeze([])});
   const requested=Array.isArray(options.promptVariants)?options.promptVariants.filter(x=>G3A_U01_VISUAL_RANK01_PROMPT_VARIANTS.includes(x)):[];
   const variants=requested.length?requested:G3A_U01_VISUAL_RANK01_PROMPT_VARIANTS;
   const start=hash(options.generationSeed??"g3a-u01-visual-rank01")%G3A_U01_VISUAL_RANK01_MAX_QUESTION_COUNT;
   const questions=[];
-  for(let i=0;i<count;i++) questions.push(buildG3AU01VisualRank01Question({variant:(start+i)%G3A_U01_VISUAL_RANK01_MAX_QUESTION_COUNT,promptVariant:variants[i%variants.length]}));
+  for(let i=0;i<count;i++) questions.push(buildG3AU01VisualRank01Question({variant:(start+i)%G3A_U01_VISUAL_RANK01_MAX_QUESTION_COUNT,promptVariant:variants[i%variants.length],publicAdmission}));
   const errors=questions.flatMap(q=>validateG3AU01VisualRank01Question(q).errors);
-  return Object.freeze({ok:errors.length===0,questions:Object.freeze(questions),errors:Object.freeze(errors),warnings:Object.freeze([]),lifecycle:Object.freeze({hiddenRuntime:true,selectorVisible:false,productionUse:"forbidden"})});
+  return Object.freeze({ok:errors.length===0,questions:Object.freeze(questions),errors:Object.freeze(errors),warnings:Object.freeze([]),lifecycle:Object.freeze(publicAdmission?{hiddenRuntime:false,selectorVisible:true,productionUse:"public_review"}:{hiddenRuntime:true,selectorVisible:false,productionUse:"forbidden"})});
 }
