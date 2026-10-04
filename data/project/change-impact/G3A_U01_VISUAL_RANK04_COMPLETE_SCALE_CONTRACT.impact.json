@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK04_COMPLETE_SCALE_CONTRACT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3a_u01_integer_number_line_scale_location": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK04_COMPLETE_SCALE_CONTRACT.validation.json",
+  "classificationNote": "Rank04 contract materialization only: FormalMapping, hidden PatternGroup/PatternSpec, blocking-validator contract, and model-projection reuse contract for the existing integer-number-line renderer. No executable runtime, renderer code, selector, public route, current authority, Rank05 or Rank06 change.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "contractMaterializationOnly": true,
+  "runtimeFilesChanged": false,
+  "selectorVisible": false,
+  "rank05OrLaterTouched": false
+}
