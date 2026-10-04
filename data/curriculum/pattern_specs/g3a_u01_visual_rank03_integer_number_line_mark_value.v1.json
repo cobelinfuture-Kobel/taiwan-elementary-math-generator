@@ -73,7 +73,7 @@
     "unitCode": "3A-U01",
     "unitTitle": "10000以內的數",
     "kind": "g3aU01VisualRepresentation",
-    "questionKind": "visual_marking",
+    "questionKind": "visual_reading",
     "supportStatus": "plannedOnly",
     "patternGroupId": "pg_g3a_u01_visual_integer_number_line_mark_value",
     "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
@@ -190,7 +190,8 @@
     "validatorStatus": "contract_only_not_implemented",
     "rendererStatus": "extension_contract_only_not_implemented",
     "selectorStatus": "hidden",
-    "productionUse": "forbidden"
+    "productionUse": "forbidden",
+    "questionKindCompatibilityNote": "Repository validatePatternSpec currently supports visual_reading but not a separate visual_marking enum. MARK_GIVEN_VALUE remains the semantic authority via taskCore, semanticSignature, answerModel and validator contract; this contract does not expand the shared questionKind registry."
   },
   "validatorContract": {
     "validatorContractId": "vc_g3a_u01_visual_integer_number_line_mark_value",
