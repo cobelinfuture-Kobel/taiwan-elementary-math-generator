@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "contract_materialized_runtime_forbidden",
+  "status": "hidden_runtime_implemented_pending_focused_ci",
   "authority": {
     "sourceAuthorityPreflightPath": "data/curriculum/mapping/g3a_u01_visual_rank03_source_authority_preflight.v1.json",
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
@@ -52,8 +52,8 @@
       "target_maps_to_unique_tick",
       "answer_overlay_matches_target_tick"
     ],
-    "mappingStatus": "MATERIALIZED_CONTRACT_REUSING_CANONICAL_NUMBER_LINE_KP",
-    "runtimeAdmission": false
+    "mappingStatus": "MATERIALIZED_HIDDEN_RUNTIME_REUSING_CANONICAL_NUMBER_LINE_KP",
+    "runtimeAdmission": true
   },
   "patternGroup": {
     "patternGroupId": "pg_g3a_u01_visual_integer_number_line_mark_value",
@@ -64,7 +64,7 @@
       "ps_g3a_u01_visual_integer_number_line_mark_value"
     ],
     "sourceQuestionCount": 20,
-    "lifecycle": "hidden_contract_only"
+    "lifecycle": "hidden_runtime"
   },
   "patternSpec": {
     "patternSpecId": "ps_g3a_u01_visual_integer_number_line_mark_value",
@@ -186,16 +186,16 @@
       "rank02ContractPath": "data/curriculum/pattern_specs/g3a_u01_visual_rank02_integer_number_line_read_value.v1.json",
       "authorityReadbackMainSha": "47dbd089b2c551d9e800f6dc991ad0657b10c281"
     },
-    "generatorStatus": "not_implemented",
-    "validatorStatus": "contract_only_not_implemented",
-    "rendererStatus": "extension_contract_only_not_implemented",
+    "generatorStatus": "hidden_deterministic_runtime_implemented",
+    "validatorStatus": "blocking_runtime_implemented",
+    "rendererStatus": "integer_number_line_marker_policy_extension_implemented",
     "selectorStatus": "hidden",
     "productionUse": "forbidden",
     "questionKindCompatibilityNote": "Repository validatePatternSpec currently supports visual_reading but not a separate visual_marking enum. MARK_GIVEN_VALUE remains the semantic authority via taskCore, semanticSignature, answerModel and validator contract; this contract does not expand the shared questionKind registry."
   },
   "validatorContract": {
     "validatorContractId": "vc_g3a_u01_visual_integer_number_line_mark_value",
-    "status": "contract_only_not_runtime_implemented",
+    "status": "blocking_runtime_implemented",
     "inputModelChecks": [
       "start_value_is_integer",
       "step_is_positive_integer",
@@ -234,7 +234,7 @@
   },
   "rendererExtensionContract": {
     "rendererBindingId": "rb_g3a_u01_visual_integer_number_line_mark_value",
-    "classification": "EXTEND_EXISTING_INTEGER_NUMBER_LINE_RUNTIME",
+    "classification": "EXTEND_EXISTING_INTEGER_NUMBER_LINE_RUNTIME_IMPLEMENTED",
     "existingRendererPath": "site/modules/renderer/fraction-number-line.js",
     "existingModelKind": "integer_number_line",
     "rank02CapabilitiesReused": [
@@ -256,7 +256,16 @@
     },
     "noNewRendererFamily": true,
     "rendererCodeChangeRequired": true,
-    "rendererCodeChanged": false
+    "rendererCodeChanged": true,
+    "implementedMarkerPolicies": [
+      "forbidden",
+      "required"
+    ],
+    "runtimeBehavior": {
+      "question": "integer_number_line markerPolicy=forbidden; no targetMarker rendered",
+      "answer": "integer_number_line markerPolicy=required; exactly one targetMarker rendered",
+      "questionAnswerScaleIdentity": "validated before worksheet materialization"
+    }
   },
   "sourceSemanticFixtures": [
     {
@@ -380,27 +389,41 @@
     "validatorContractMaterialized": true,
     "rendererExtensionContractMaterialized": true,
     "newKnowledgePointMinted": false,
-    "generatorImplemented": false,
-    "validatorRuntimeImplemented": false,
-    "rendererCodeChanged": false,
+    "generatorImplemented": true,
+    "validatorRuntimeImplemented": true,
+    "rendererCodeChanged": true,
     "selectorVisible": false,
-    "productionUse": "forbidden"
+    "productionUse": "forbidden",
+    "hiddenWorksheetImplemented": true,
+    "hiddenWorksheetAcceptance": "PENDING_FOCUSED_CI"
   },
   "antiScopeBoundary": {
     "allowed": [
-      "Rank03 FormalMapping contract",
-      "Rank03 PatternGroup and PatternSpec contract",
-      "Rank03 mark-value validator contract",
-      "Rank03 question-vs-answer overlay renderer extension contract"
+      "Rank03 minimum marker-free question renderer extension",
+      "Rank03 answer-overlay renderer extension",
+      "Rank03 deterministic MARK_GIVEN_VALUE generator",
+      "Rank03 blocking validator",
+      "Rank03 hidden worksheet and answer acceptance"
     ],
     "forbidden": [
-      "modify number-line renderer code",
-      "implement Rank03 generator",
-      "implement Rank03 runtime validator",
       "make Rank03 selector visible",
       "modify Classic or Exam UI",
-      "implement Rank04 or Rank05"
+      "implement public Rank03 route",
+      "implement Rank04 or Rank05",
+      "change Rank02 task semantics"
     ]
   },
-  "nextStep": "At the implementation boundary, separately approve Rank03 hidden runtime work: extend the existing integer-number-line model to support marker-free question rendering plus answer-overlay rendering, then implement deterministic MARK_GIVEN_VALUE generation and a blocking validator."
+  "nextStep": "Run bounded hidden-runtime CI. If PASS, merge and then perform actual A4 question/answer overlay layout acceptance before any Rank03 public selector cutover.",
+  "hiddenRuntime": {
+    "runtimePath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank03-runtime.js",
+    "worksheetPath": "site/modules/curriculum/batch-a/g3a-u01-visual-rank03-worksheet.js",
+    "rendererPath": "site/modules/renderer/fraction-number-line.js",
+    "maximumQuestionCount": 240,
+    "deterministic": true,
+    "promptVariants": [
+      "MARK_GIVEN_VALUE"
+    ],
+    "selectorVisible": false,
+    "productionUse": "forbidden"
+  }
 }

@@ -63,9 +63,17 @@ export function validateIntegerNumberLineModel(model) {
   if (!Number.isInteger(model.tickCount) || model.tickCount < 5 || model.tickCount > 25) return false;
   if (!Array.isArray(model.ticks) || model.ticks.length !== model.tickCount) return false;
   if (!Array.isArray(model.visibleAnchors) || model.visibleAnchors.length < 2) return false;
-  if (!model.targetMarker || !Number.isInteger(model.targetMarker.tickIndex)) return false;
-  if (model.targetMarker.tickIndex < 0 || model.targetMarker.tickIndex >= model.tickCount) return false;
-  if (typeof model.targetMarker.markerId !== "string" || model.targetMarker.markerId.length === 0) return false;
+
+  const markerPolicy = model.markerPolicy ?? "required";
+  if (!["required", "forbidden"].includes(markerPolicy)) return false;
+  if (markerPolicy === "required") {
+    if (!model.targetMarker || !Number.isInteger(model.targetMarker.tickIndex)) return false;
+    if (model.targetMarker.tickIndex < 0 || model.targetMarker.tickIndex >= model.tickCount) return false;
+    if (typeof model.targetMarker.markerId !== "string" || model.targetMarker.markerId.length === 0) return false;
+  } else if (model.targetMarker !== undefined && model.targetMarker !== null) {
+    return false;
+  }
+
   const expectedValue = (index) => model.startValue + index * model.step;
   if (model.ticks.some((tick, index) =>
     !tick || tick.index !== index || tick.value !== expectedValue(index) || typeof tick.label !== "string"
@@ -89,7 +97,6 @@ export function renderIntegerNumberLine(model) {
   const axisY = 58;
   const xForIndex = (index) => left + ((right - left) * index) / (model.tickCount - 1);
   const anchorByIndex = new Map(model.visibleAnchors.map((anchor) => [anchor.tickIndex, anchor]));
-  const targetIndex = model.targetMarker.tickIndex;
   const ticks = model.ticks.map((tick, index) => {
     const x = xForIndex(index).toFixed(2);
     const anchor = anchorByIndex.get(index);
@@ -98,15 +105,20 @@ export function renderIntegerNumberLine(model) {
       anchor ? `<text x="${x}" y="80" text-anchor="middle" font-size="9">${escapeHtml(String(anchor.value))}</text>` : "",
     ].join("");
   }).join("");
-  const targetX = xForIndex(targetIndex).toFixed(2);
-  const markerSymbol = escapeHtml(model.targetMarker.symbol ?? "▼");
+  const markerMarkup = model.targetMarker
+    ? (() => {
+        const targetX = xForIndex(model.targetMarker.tickIndex).toFixed(2);
+        const markerSymbol = escapeHtml(model.targetMarker.symbol ?? "▼");
+        return `<text x="${targetX}" y="38" text-anchor="middle" font-size="14" font-weight="700" data-answer-marker="true">${markerSymbol}</text>`;
+      })()
+    : "";
   return [
-    '<div class="worksheet-cell__representation worksheet-cell__representation--number-line" data-representation="integer-number-line">',
+    `<div class="worksheet-cell__representation worksheet-cell__representation--number-line" data-representation="integer-number-line" data-marker-policy="${escapeHtml(model.markerPolicy ?? "required")}">`,
     `<svg class="worksheet-number-line" viewBox="0 0 ${width} 90" role="img" aria-label="${escapeHtml(model.ariaLabel ?? "整數數線")}" preserveAspectRatio="xMidYMid meet">`,
     `<line x1="${left}" y1="${axisY}" x2="${right}" y2="${axisY}" stroke="currentColor" stroke-width="2" />`,
     `<path d="M ${right} ${axisY} l -8 -4 l 0 8 z" fill="currentColor" />`,
     ticks,
-    `<text x="${targetX}" y="38" text-anchor="middle" font-size="14" font-weight="700">${markerSymbol}</text>`,
+    markerMarkup,
     "</svg>",
     "</div>",
   ].join("");
