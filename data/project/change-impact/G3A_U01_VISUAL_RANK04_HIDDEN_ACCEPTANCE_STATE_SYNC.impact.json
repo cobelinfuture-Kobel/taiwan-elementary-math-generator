@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK04_HIDDEN_ACCEPTANCE_STATE_SYNC",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK04_HIDDEN_ACCEPTANCE_STATE_SYNC.validation.json",
+  "classificationNote": "State-only synchronization after PR1245 focused CI, hidden A4 Playwright acceptance, and merge. Records exact Rank04 acceptance evidence and leaves public cutover unstarted. No runtime, renderer, generator, validator, selector, UI, route, mathematics, or Rank05+ change.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "stateOnly": true,
+  "runtimeFilesChanged": false,
+  "selectorVisible": false,
+  "publicCutoverStarted": false,
+  "rank05OrLaterTouched": false
+}
