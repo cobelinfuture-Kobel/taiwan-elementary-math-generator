@@ -116,7 +116,11 @@ test("Rank02 public capability exposes single-KP and same-unit mixed admission a
 
 test("Rank02 public route resolves from canonical KP identity and renders question plus answer number lines", () => {
   assert.equal(requestsG3AU01VisualRank02Public(publicPlan),true);
-  assert.equal(requestsG3AU01VisualRank02Public({...publicPlan,selectedPatternGroupIds:[],patternSpecIds:[]}),true);
+  assert.equal(
+    requestsG3AU01VisualRank02Public({...publicPlan,selectedPatternGroupIds:[],patternSpecIds:[]}),
+    false,
+    "Rank02 must not resolve from KP identity alone after Rank03 shares the canonical number-line KP"
+  );
   assert.equal(requestsG3AU01VisualRank02Public({...publicPlan,selectionMode:"sourceUnit"}),false);
   assert.equal(requestsG3AU01VisualRank02Public({...publicPlan,selectedPatternGroupIds:["pg_unrelated"],patternSpecIds:[]}),false);
 
