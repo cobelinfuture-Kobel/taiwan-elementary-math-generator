@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "public_cutover_implemented_pending_focused_ci",
+  "status": "public_review_ready_operator_visual_acceptance",
   "authority": {
     "curriculumSource": "題型總覽-3a01-10000以內的數.pdf",
     "curriculumSourcePages": [
@@ -496,9 +496,10 @@
     "productionUse": "public_review",
     "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
     "renderedWorksheetAcceptance": "PASS_FOCUSED_CI",
-    "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED_PENDING_CI",
-    "publicCutover": "IMPLEMENTED_PENDING_FOCUSED_CI",
-    "threeModeE2E": "PENDING_FOCUSED_CI"
+    "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED",
+    "publicCutover": "PASS_FOCUSED_CI_AND_PAGES_DEPLOYED",
+    "threeModeE2E": "PASS_FOCUSED_CI_EXACT_HEAD",
+    "deployedReadback": "PASS_EXACT_SHA_AND_ASSET_PARITY_OPERATOR_VISUAL_PENDING"
   },
   "antiScopeBoundary": {
     "allowed": [
@@ -517,7 +518,7 @@
       "modify unrelated renderer behavior"
     ]
   },
-  "nextStep": "Run bounded Rank02 public three-mode gate across Classic and Exam single/same-unit/cross-unit. If PASS, merge, verify deployed Pages, then complete operator website visual acceptance and D0 closeout.",
+  "nextStep": "Operator verifies the deployed website visually for Classic/Exam Rank02 selector and number-line rendering. On approval, mark Rank02 D0 and immediately start Rank03 SourceAuthorityPreflight.",
   "runtimeAdmission": {
     "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
     "sourceCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
@@ -589,8 +590,44 @@
       "MIXED_KP_SAME_UNIT",
       "MIXED_KP_CROSS_UNIT"
     ],
-    "focusedGate": "PENDING",
-    "pagesDeploy": "PENDING",
-    "publicReviewStatus": "PENDING_FOCUSED_CI_AND_DEPLOYED_RECHECK"
+    "focusedGate": "PASS",
+    "pagesDeploy": "PASS_EXACT_SHA_CONFIRMED",
+    "publicReviewStatus": "OPERATOR_VISUAL_ACCEPTANCE_PENDING",
+    "prNumber": 1229,
+    "prHeadSha": "a77888784c86560a66f557fab024103a3152a05c",
+    "mergeSha": "8789d38f3dba4838a46097aa2b5733939ece756f",
+    "focusedGateRunId": 37200318853,
+    "threeModeE2EStatus": "PASS_G3A_U01_RANK02_CLASSIC_AND_EXAM_THREE_MODE",
+    "threeModeE2EEvidence": {
+      "classicSingle": "PASS_6_QUESTIONS_6_ANSWERS_6_NUMBER_LINES_NO_OVERFLOW_PRINT_PASS",
+      "classicSameUnit": "PASS_ALL_10_OF_10_SELECTOR_TARGETS_SELECTED_30_QUESTIONS_RANK02_MATERIALIZED",
+      "examSingle": "PASS_6_QUESTIONS_6_RANK02_NUMBER_LINES",
+      "examSameUnit": "PASS_ALL_10_OF_10_SELECTOR_TARGETS_SELECTED_30_QUESTIONS_RANK02_MATERIALIZED",
+      "examCrossUnit": "PASS_2_SOURCES_3_TARGETS_12_QUESTIONS_RANK02_MATERIALIZED",
+      "browserErrors": {
+        "console": 0,
+        "page": 0,
+        "request": 0,
+        "assetHttp": 0
+      }
+    },
+    "deployedExactHeadSha": "8789d38f3dba4838a46097aa2b5733939ece756f",
+    "deployedReadbackRunId": 37200426254,
+    "deployedReadbackEvidence": "P09_UI_SAME_UNIT_MIXED21_E6_D0_EXACT_HEAD_PLUS_LIVE_ASSET_HASH_PARITY",
+    "deployedAssetParity": {
+      "selectorExtension": "PASS_EXPECTED_SHA256_EQUALS_LIVE_SHA256",
+      "capabilityBinding": "PASS_EXPECTED_SHA256_EQUALS_LIVE_SHA256",
+      "sameUnitAggregator": "PASS_EXPECTED_SHA256_EQUALS_LIVE_SHA256",
+      "worksheetPipeline": "PASS_EXPECTED_SHA256_EQUALS_LIVE_SHA256"
+    },
+    "operatorVisualAcceptanceChecklist": [
+      "Classic: 整數數線讀值 selector 可見且可單獨產題",
+      "Classic: 同單元混合預設所有 10 個 KP/Rank target 已選",
+      "Exam: 單一知識點可產生 Rank02 數線題",
+      "Exam: 同單元混合所有 10 個 target 可選並可產題",
+      "Exam: 跨單元混合可包含 Rank02",
+      "數線 7-12 tick 無裁切、箭頭/刻度/標籤可讀",
+      "答案頁數線與答案正常"
+    ]
   }
 }

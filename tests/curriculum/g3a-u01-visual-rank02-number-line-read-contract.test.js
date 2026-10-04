@@ -130,7 +130,18 @@ test("Rank02 advances through bounded public cutover while keeping Rank03+ exclu
   assert.equal(contract.lifecycle.rendererCodeChanged, true);
   assert.equal(contract.lifecycle.selectorVisible, true);
   assert.equal(contract.lifecycle.productionUse, "public_review");
-  assert.equal(contract.lifecycle.publicCutover, "IMPLEMENTED_PENDING_FOCUSED_CI");
+  assert.equal(contract.lifecycle.publicCutover, "PASS_FOCUSED_CI_AND_PAGES_DEPLOYED");
+  assert.equal(contract.lifecycle.threeModeE2E, "PASS_FOCUSED_CI_EXACT_HEAD");
+  assert.equal(
+    contract.lifecycle.deployedReadback,
+    "PASS_EXACT_SHA_AND_ASSET_PARITY_OPERATOR_VISUAL_PENDING"
+  );
+  assert.equal(contract.publicAdmission.prNumber, 1229);
+  assert.equal(contract.publicAdmission.mergeSha, "8789d38f3dba4838a46097aa2b5733939ece756f");
+  assert.equal(contract.publicAdmission.focusedGate, "PASS");
+  assert.equal(contract.publicAdmission.focusedGateRunId, 37200318853);
+  assert.equal(contract.publicAdmission.deployedReadbackRunId, 37200426254);
+  assert.equal(contract.publicAdmission.publicReviewStatus, "OPERATOR_VISUAL_ACCEPTANCE_PENDING");
   assert.equal(contract.patternSpec.constraints.generation.rank03ToRank05OperationsForbidden, true);
   assert.deepEqual(contract.rendererBinding.explicitlyDeferredRank03PlusFeatures, [
     "learner_marks_given_value",
