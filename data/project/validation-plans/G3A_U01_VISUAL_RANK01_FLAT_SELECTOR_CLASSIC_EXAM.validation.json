@@ -6,7 +6,7 @@
   "lanes": {
     "SHARED_RUNTIME_BOUNDED": [
       {
-        "gateId": "FOCUSED_CONTRACTS",
+        "gateId": "GLOBAL_CONTRACTS",
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/g3a-u01-visual-rank01-public-cutover.test.js",
@@ -15,15 +15,9 @@
         ]
       },
       {
-        "gateId": "TARGETED_CLASSIC_REPLAY",
+        "gateId": "TARGETED_ROUTE_REPLAY",
         "kind": "NODE_RUNNER",
-        "path": "tools/curriculum/run-g3a-u01-visual-rank01-classic-ui-acceptance.mjs",
-        "runtime": "PLAYWRIGHT_CHROMIUM"
-      },
-      {
-        "gateId": "TARGETED_EXAM_TEMPLATE_REPLAY",
-        "kind": "NODE_RUNNER",
-        "path": "tools/curriculum/run-g3a-u01-visual-rank01-exam-template-acceptance.mjs",
+        "path": "tools/curriculum/run-g3a-u01-visual-rank01-flat-selector-acceptance.mjs",
         "runtime": "PLAYWRIGHT_CHROMIUM"
       }
     ]
