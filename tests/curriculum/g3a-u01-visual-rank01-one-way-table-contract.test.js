@@ -90,5 +90,9 @@ test("Rank01 lifecycle advances to bounded public review while Rank02+ remains o
   assert.equal(contract.publicAdmission.focusedGate, "PASS");
   assert.equal(contract.publicAdmission.pagesDeploy, "PASS");
   assert.equal(contract.publicAdmission.rank02PlusVisible, false);
-  assert.equal(contract.publicAdmission.sameUnitMixedChanged, false);
+  assert.equal(contract.publicAdmission.sameUnitMixedChanged, true);
+  assert.equal(contract.publicAdmission.crossUnitMixedChanged, true);
+  assert.equal(contract.publicAdmission.mixedSelectorLinkageStatus, "IMPLEMENTED_PENDING_FOCUSED_CI");
+  assert.equal(contract.lifecycle.rank01SameUnitMixedConsumer, "IMPLEMENTED_PENDING_FOCUSED_CI");
+  assert.equal(contract.lifecycle.rank01CrossUnitMixedConsumer, "IMPLEMENTED_PENDING_FOCUSED_CI");
 });

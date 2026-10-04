@@ -73,6 +73,7 @@ const previewFrame = document.getElementById("exam-preview");
 const crossUnitSelection = {
   selectedSourceIds: [],
   selectedKnowledgePointIds: [],
+  selectedPatternGroupIds: [],
 };
 
 function unitNumber(unitCode = "") {
@@ -122,6 +123,51 @@ function crossUnitEligibleRowsForSource(sourceId) {
   );
 }
 
+function selectorTargetsForSource(sourceId) {
+  const targets = [];
+  for (const row of crossUnitEligibleRowsForSource(sourceId)) {
+    targets.push({
+      targetId: row.knowledgePointId,
+      knowledgePointId: row.knowledgePointId,
+      selectedPatternGroupIds: [],
+      displayName: row.displayName ?? row.knowledgePointId,
+      unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
+      rank01Sibling: false,
+    });
+    if (
+      sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+      && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+    ) {
+      targets.push({
+        targetId: G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+        knowledgePointId: G3A_U01_VISUAL_RANK01_KP_ID,
+        selectedPatternGroupIds: [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID],
+        displayName: G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName,
+        unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
+        rank01Sibling: true,
+      });
+    }
+  }
+  return targets;
+}
+
+function rank01SelectedFor(sourceId, selectedKnowledgePointIds, selectedPatternGroupIds) {
+  return sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && selectedKnowledgePointIds.includes(G3A_U01_VISUAL_RANK01_KP_ID)
+    && selectedPatternGroupIds.includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+}
+
+function selectorTargetSelected(target, sourceId, selectedKnowledgePointIds, selectedPatternGroupIds) {
+  if (target.rank01Sibling) {
+    return rank01SelectedFor(sourceId, selectedKnowledgePointIds, selectedPatternGroupIds);
+  }
+  if (target.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID && sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID) {
+    return selectedKnowledgePointIds.includes(target.knowledgePointId)
+      && !rank01SelectedFor(sourceId, selectedKnowledgePointIds, selectedPatternGroupIds);
+  }
+  return selectedKnowledgePointIds.includes(target.knowledgePointId);
+}
+
 function crossUnitEligibleUnits() {
   const grade = Number(gradeSelect.value);
   const semester = semesterSelect.value;
@@ -149,6 +195,13 @@ function normalizeCrossUnitSelection({ reset = false } = {}) {
         const row = rowById.get(knowledgePointId);
         return row && selectedSourceIds.includes(row.sourceId);
       });
+  let selectedPatternGroupIds = reset
+    ? []
+    : crossUnitSelection.selectedPatternGroupIds.filter((patternGroupId) => (
+        patternGroupId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID
+        && selectedSourceIds.includes(G3A_U01_VISUAL_RANK01_SOURCE_ID)
+        && selectedKnowledgePointIds.includes(G3A_U01_VISUAL_RANK01_KP_ID)
+      ));
 
   if (selectedSourceIds.length < 2 && eligibleUnits.length >= 2) {
     selectedSourceIds = eligibleUnits.slice(0, 2).map((unit) => unit.sourceId);
@@ -169,10 +222,12 @@ function normalizeCrossUnitSelection({ reset = false } = {}) {
 
   crossUnitSelection.selectedSourceIds = [...new Set(selectedSourceIds)];
   crossUnitSelection.selectedKnowledgePointIds = [...new Set(selectedKnowledgePointIds)];
+  crossUnitSelection.selectedPatternGroupIds = [...new Set(selectedPatternGroupIds)];
   return {
     eligibleUnits,
     selectedSourceIds: crossUnitSelection.selectedSourceIds,
     selectedKnowledgePointIds: crossUnitSelection.selectedKnowledgePointIds,
+    selectedPatternGroupIds: crossUnitSelection.selectedPatternGroupIds,
   };
 }
 
@@ -210,17 +265,24 @@ function renderCrossUnitSelection() {
     const panel = document.createElement("div");
     panel.className = "knowledge-point-panel";
 
-    for (const row of crossUnitEligibleRowsForSource(sourceId)) {
-      const selected = selectedKpSet.has(row.knowledgePointId);
+    for (const target of selectorTargetsForSource(sourceId)) {
+      const selected = selectorTargetSelected(
+        target,
+        sourceId,
+        normalized.selectedKnowledgePointIds,
+        normalized.selectedPatternGroupIds,
+      );
       const button = document.createElement("button");
       button.type = "button";
       button.className = "knowledge-point-option";
-      button.dataset.crossKnowledgePointId = row.knowledgePointId;
+      button.dataset.crossSelectorTargetId = target.targetId;
+      button.dataset.crossKnowledgePointId = target.knowledgePointId;
       button.dataset.sourceId = sourceId;
+      button.dataset.rank01Sibling = target.rank01Sibling ? "true" : "false";
       button.dataset.selected = selected ? "true" : "false";
       button.setAttribute("aria-pressed", selected ? "true" : "false");
       const strong = document.createElement("strong");
-      strong.textContent = `${selected ? "已選｜" : ""}${row.displayName ?? row.knowledgePointId}`;
+      strong.textContent = `${selected ? "已選｜" : ""}${target.displayName}`;
       const detail = document.createElement("span");
       detail.textContent = `${unit.unitCode}｜既有單一 KP runtime`;
       button.append(strong, detail);
@@ -237,7 +299,7 @@ function renderCrossUnitSelection() {
   ].join("｜");
 }
 
-function sameUnitCapability(sourceId, requestedIds = []) {
+function sameUnitCapability(sourceId, requestedIds = [], requestedPatternGroupIds = []) {
   const rows = visibleKnowledgePointsForSource(sourceId);
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
   const fallbackIds = rows.map((row) => row.knowledgePointId);
@@ -247,6 +309,7 @@ function sameUnitCapability(sourceId, requestedIds = []) {
         sourceId,
         selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
         selectedKnowledgePointIds,
+        selectedPatternGroupIds: requestedPatternGroupIds,
       })
     : null;
   const option = binding?.availableSelectionModes?.find(
@@ -269,28 +332,7 @@ function selectedSameUnitIds() {
 }
 
 function singleKpTargetsForSource(sourceId) {
-  const targets = [];
-  for (const row of visibleKnowledgePointsForSource(sourceId)) {
-    targets.push({
-      targetId: row.knowledgePointId,
-      knowledgePointId: row.knowledgePointId,
-      selectedPatternGroupIds: [],
-      displayName: row.displayName ?? row.knowledgePointId,
-      unitCode: row.unitCode ?? selectedUnit()?.unitCode ?? "",
-      rank01Sibling: false,
-    });
-    if (sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID) {
-      targets.push({
-        targetId: G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
-        knowledgePointId: G3A_U01_VISUAL_RANK01_KP_ID,
-        selectedPatternGroupIds: [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID],
-        displayName: G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName,
-        unitCode: row.unitCode ?? selectedUnit()?.unitCode ?? "",
-        rank01Sibling: true,
-      });
-    }
-  }
-  return targets;
+  return selectorTargetsForSource(sourceId);
 }
 
 function selectedSingleKpTargetId() {
@@ -356,24 +398,37 @@ function renderSameUnitKnowledgePoints() {
   }
 
   if (!isMixed) return;
-  const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
-  const selected = new Set(selectedSameUnitIds());
-  for (const row of capability.rows) {
+  const selectedKnowledgePointIds = selectedSameUnitIds();
+  const selectedPatternGroupIds = state.batchA.selectedPatternGroupIds ?? [];
+  const capability = sameUnitCapability(
+    sourceSelect.value,
+    selectedKnowledgePointIds,
+    selectedPatternGroupIds,
+  );
+  for (const target of selectorTargetsForSource(sourceSelect.value)) {
+    const selected = selectorTargetSelected(
+      target,
+      sourceSelect.value,
+      selectedKnowledgePointIds,
+      selectedPatternGroupIds,
+    );
     const button = document.createElement("button");
     button.type = "button";
     button.className = "knowledge-point-option";
-    button.dataset.knowledgePointId = row.knowledgePointId;
-    button.dataset.selected = selected.has(row.knowledgePointId) ? "true" : "false";
-    button.setAttribute("aria-pressed", selected.has(row.knowledgePointId) ? "true" : "false");
+    button.dataset.selectorTargetId = target.targetId;
+    button.dataset.knowledgePointId = target.knowledgePointId;
+    button.dataset.rank01Sibling = target.rank01Sibling ? "true" : "false";
+    button.dataset.selected = selected ? "true" : "false";
+    button.setAttribute("aria-pressed", selected ? "true" : "false");
 
     const strong = document.createElement("strong");
-    strong.textContent = `${selected.has(row.knowledgePointId) ? "已選｜" : ""}${row.displayName ?? row.knowledgePointId}`;
+    strong.textContent = `${selected ? "已選｜" : ""}${target.displayName}`;
     const detail = document.createElement("span");
-    detail.textContent = `${row.unitCode ?? selectedUnit()?.unitCode ?? ""}｜已通過出題驗證`;
+    detail.textContent = `${target.unitCode ?? selectedUnit()?.unitCode ?? ""}｜已通過出題驗證`;
     button.append(strong, detail);
     kpPanel.append(button);
   }
-  kpHelp.textContent = `目前已選 ${selected.size} / ${capability.rows.length} 個知識點；至少選 2 個。題量會平均分配，餘數依知識點順序分配。`;
+  kpHelp.textContent = `目前已選 ${selectedKnowledgePointIds.length} 個知識點；Rank 題型與所屬 KP 同層且互斥，至少保留 2 個知識點。`;
 }
 
 function syncCompositionModeAvailability() {
@@ -387,7 +442,11 @@ function syncCompositionModeAvailability() {
   const m4Option = [...compositionModeSelect.options].find(
     (option) => option.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT,
   );
-  const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
+  const capability = sameUnitCapability(
+    sourceSelect.value,
+    selectedSameUnitIds(),
+    state.batchA.selectedPatternGroupIds ?? [],
+  );
   const singleCapability = singleKpCapability(sourceSelect.value, selectedSingleKpTargetId());
   if (singleKpOption) singleKpOption.disabled = !singleCapability.enabled;
   if (m3Option) m3Option.disabled = !capability.enabled;
@@ -460,6 +519,7 @@ function applyCompositionMode({ defaultMixedSelection = false, resetCrossSelecti
     const capability = sameUnitCapability(
       sourceSelect.value,
       defaultMixedSelection || currentIds.length < 2 ? [] : currentIds,
+      defaultMixedSelection ? [] : (state.batchA.selectedPatternGroupIds ?? []),
     );
     if (!capability.enabled) {
       compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
@@ -471,10 +531,14 @@ function applyCompositionMode({ defaultMixedSelection = false, resetCrossSelecti
     const selectedIds = currentIds.length >= 2 && !defaultMixedSelection
       ? currentIds
       : capability.selectedKnowledgePointIds;
+    const preserveRank01 = !defaultMixedSelection
+      && sourceSelect.value === G3A_U01_VISUAL_RANK01_SOURCE_ID
+      && selectedIds.includes(G3A_U01_VISUAL_RANK01_KP_ID)
+      && (state.batchA.selectedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
     setBatchASelectorSelection(state, {
       selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
       selectedKnowledgePointIds: selectedIds,
-      selectedPatternGroupIds: [],
+      selectedPatternGroupIds: preserveRank01 ? [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID] : [],
     });
     questionCountInput.min = String(selectedIds.length);
     if (Number(questionCountInput.value) < selectedIds.length) {
@@ -629,7 +693,7 @@ function generateExam() {
       semester: semesterSelect.value,
       selectedSourceIds: [...crossUnitSelection.selectedSourceIds],
       selectedKnowledgePointIds: [...crossUnitSelection.selectedKnowledgePointIds],
-      selectedPatternGroupIds: [],
+      selectedPatternGroupIds: [...crossUnitSelection.selectedPatternGroupIds],
       questionCount: Number(questionCountInput.value),
       ordering: orderingSelect.value,
       includeAnswerKey: answerKeyInput.checked,
@@ -750,27 +814,58 @@ kpPanel?.addEventListener("click", (event) => {
     return;
   }
 
-  const button = event.target.closest?.("[data-knowledge-point-id]");
+  const button = event.target.closest?.("[data-selector-target-id]");
   if (!button || compositionModeSelect?.value !== SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT) return;
-  const visibleIds = new Set(visibleKnowledgePointsForSource(sourceSelect.value).map((row) => row.knowledgePointId));
-  const knowledgePointId = button.dataset.knowledgePointId;
-  if (!visibleIds.has(knowledgePointId)) return;
+  const target = selectorTargetsForSource(sourceSelect.value)
+    .find((candidate) => candidate.targetId === button.dataset.selectorTargetId);
+  if (!target) return;
 
   const selected = new Set(selectedSameUnitIds());
-  if (selected.has(knowledgePointId)) {
+  let selectedPatternGroupIds = [...(state.batchA.selectedPatternGroupIds ?? [])];
+  const rankSelected = rank01SelectedFor(
+    sourceSelect.value,
+    [...selected],
+    selectedPatternGroupIds,
+  );
+
+  if (target.rank01Sibling) {
+    if (rankSelected) {
+      if (selected.size <= 2) {
+        setStatus("同單元混合至少需要 2 個知識點。", "error");
+        return;
+      }
+      selected.delete(target.knowledgePointId);
+      selectedPatternGroupIds = selectedPatternGroupIds
+        .filter((id) => id !== G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+    } else {
+      selected.add(target.knowledgePointId);
+      selectedPatternGroupIds = [
+        ...selectedPatternGroupIds.filter((id) => id !== G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID),
+        G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+      ];
+    }
+  } else if (
+    target.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+    && sourceSelect.value === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && rankSelected
+  ) {
+    selected.add(target.knowledgePointId);
+    selectedPatternGroupIds = selectedPatternGroupIds
+      .filter((id) => id !== G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+  } else if (selected.has(target.knowledgePointId)) {
     if (selected.size <= 2) {
       setStatus("同單元混合至少需要 2 個知識點。", "error");
       return;
     }
-    selected.delete(knowledgePointId);
+    selected.delete(target.knowledgePointId);
   } else {
-    selected.add(knowledgePointId);
+    selected.add(target.knowledgePointId);
   }
 
   setBatchASelectorSelection(state, {
     selectionMode: BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
     selectedKnowledgePointIds: [...selected],
-    selectedPatternGroupIds: [],
+    selectedPatternGroupIds,
   });
   questionCountInput.min = String(selected.size);
   if (Number(questionCountInput.value) < selected.size) {
@@ -778,7 +873,7 @@ kpPanel?.addEventListener("click", (event) => {
   }
   renderSameUnitKnowledgePoints();
   printButton.disabled = true;
-  setStatus("知識點選擇已更新，請重新產生考券。");
+  setStatus("知識點／Rank 題型選擇已更新，請重新產生考券。");
 });
 
 crossUnitSourcePanel?.addEventListener("click", (event) => {
@@ -798,6 +893,12 @@ crossUnitSourcePanel?.addEventListener("click", (event) => {
     const owned = new Set(crossUnitEligibleRowsForSource(sourceId).map((row) => row.knowledgePointId));
     crossUnitSelection.selectedKnowledgePointIds =
       crossUnitSelection.selectedKnowledgePointIds.filter((id) => !owned.has(id));
+    if (sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID) {
+      crossUnitSelection.selectedPatternGroupIds =
+        crossUnitSelection.selectedPatternGroupIds.filter(
+          (id) => id !== G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+        );
+    }
   } else {
     selectedSources.add(sourceId);
     const first = crossUnitEligibleRowsForSource(sourceId)[0]?.knowledgePointId;
@@ -815,33 +916,68 @@ crossUnitSourcePanel?.addEventListener("click", (event) => {
 });
 
 crossUnitKpGroups?.addEventListener("click", (event) => {
-  const button = event.target.closest?.("[data-cross-knowledge-point-id]");
+  const button = event.target.closest?.("[data-cross-selector-target-id]");
   if (!button || compositionModeSelect?.value !== SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT) return;
-  const knowledgePointId = button.dataset.crossKnowledgePointId;
   const sourceId = button.dataset.sourceId;
   if (!crossUnitSelection.selectedSourceIds.includes(sourceId)) return;
+
+  const target = selectorTargetsForSource(sourceId)
+    .find((candidate) => candidate.targetId === button.dataset.crossSelectorTargetId);
+  if (!target) return;
+
   const eligibleIds = new Set(crossUnitEligibleRowsForSource(sourceId).map((row) => row.knowledgePointId));
-  if (!eligibleIds.has(knowledgePointId)) return;
+  if (!eligibleIds.has(target.knowledgePointId)) return;
 
   const selected = new Set(crossUnitSelection.selectedKnowledgePointIds);
-  if (selected.has(knowledgePointId)) {
+  let selectedPatternGroupIds = [...crossUnitSelection.selectedPatternGroupIds];
+  const rankSelected = rank01SelectedFor(sourceId, [...selected], selectedPatternGroupIds);
+
+  if (target.rank01Sibling) {
+    if (rankSelected) {
+      const selectedForSource = [...selected].filter((id) => eligibleIds.has(id));
+      if (selectedForSource.length <= 1) {
+        setStatus("每個已選單元至少需要保留 1 個知識點。", "error");
+        return;
+      }
+      selected.delete(target.knowledgePointId);
+      selectedPatternGroupIds = selectedPatternGroupIds
+        .filter((id) => id !== G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+    } else {
+      selected.add(target.knowledgePointId);
+      selectedPatternGroupIds = [
+        ...selectedPatternGroupIds.filter((id) => id !== G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID),
+        G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+      ];
+    }
+  } else if (
+    sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && target.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+    && rankSelected
+  ) {
+    selected.add(target.knowledgePointId);
+    selectedPatternGroupIds = selectedPatternGroupIds
+      .filter((id) => id !== G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+  } else if (selected.has(target.knowledgePointId)) {
     const selectedForSource = [...selected].filter((id) => eligibleIds.has(id));
     if (selectedForSource.length <= 1) {
       setStatus("每個已選單元至少需要保留 1 個知識點。", "error");
       return;
     }
-    selected.delete(knowledgePointId);
+    selected.delete(target.knowledgePointId);
   } else {
-    selected.add(knowledgePointId);
+    selected.add(target.knowledgePointId);
   }
+
   crossUnitSelection.selectedKnowledgePointIds = [...selected];
+  crossUnitSelection.selectedPatternGroupIds = [...new Set(selectedPatternGroupIds)];
+  normalizeCrossUnitSelection();
   renderCrossUnitSelection();
   questionCountInput.min = String(crossUnitSelection.selectedKnowledgePointIds.length);
   if (Number(questionCountInput.value) < crossUnitSelection.selectedKnowledgePointIds.length) {
     questionCountInput.value = String(crossUnitSelection.selectedKnowledgePointIds.length);
   }
   printButton.disabled = true;
-  setStatus("跨單元知識點選擇已更新，請重新產生考券。");
+  setStatus("跨單元知識點／Rank 題型選擇已更新，請重新產生考券。");
 });
 
 sourceSelect.addEventListener("change", () => {

@@ -11,9 +11,25 @@ const clone=v=>v==null?v:JSON.parse(JSON.stringify(v));
 const baseRow=base.getVisibleBatchAKnowledgePoint(KP);
 if(!baseRow||baseRow.sourceId!==SRC) throw new Error("G3A_U01_RANK01_EXISTING_KP_PREFLIGHT_FAILED");
 
-export const BATCH_A_SELECTOR_AVAILABILITY=base.BATCH_A_SELECTOR_AVAILABILITY;
+const baseAvailability=base.listBatchAKnowledgePointAvailabilityBySource(SRC);
+const rankMixedAvailability=Object.freeze({
+  ...clone(baseAvailability??{}),
+  sourceId:SRC,
+  sameUnitMixedAllowed:true,
+  sameUnitMixedAdmission:"G3A_U01_RANK01_MIXED_SELECTOR_LINKAGE",
+  crossUnitMixedAllowed:true,
+  crossUnitMixedAdmission:"G3A_U01_RANK01_MIXED_SELECTOR_LINKAGE",
+  publicSelectorStatus:`${baseAvailability?.publicSelectorStatus??"visible"}+g3a_u01_rank01_mixed`
+});
+export const BATCH_A_SELECTOR_AVAILABILITY=Object.freeze({
+  ...base.BATCH_A_SELECTOR_AVAILABILITY,
+  bySourceId:Object.freeze({
+    ...(base.BATCH_A_SELECTOR_AVAILABILITY?.bySourceId??{}),
+    [SRC]:rankMixedAvailability
+  })
+});
 export function listVisibleBatchAKnowledgePoints(){return base.listVisibleBatchAKnowledgePoints();}
-export function listBatchAKnowledgePointAvailabilityBySource(sourceId){return base.listBatchAKnowledgePointAvailabilityBySource(sourceId);}
+export function listBatchAKnowledgePointAvailabilityBySource(sourceId){return sourceId===SRC?clone(rankMixedAvailability):base.listBatchAKnowledgePointAvailabilityBySource(sourceId);}
 export function getVisibleBatchAKnowledgePoint(id){return base.getVisibleBatchAKnowledgePoint(id);}
 export function getVisiblePatternGroupsForKnowledgePoint(id){
   const existing=base.getVisiblePatternGroupsForKnowledgePoint(id);

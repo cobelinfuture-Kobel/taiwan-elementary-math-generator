@@ -22,8 +22,8 @@ export const G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP = Object.freeze({
   visibilityStatus:"visible",
   selectorStatus:"visible_public_review",
   holdReason:null,
-  sameUnitMixedAllowed:false,
-  crossUnitMixedAllowed:false,
+  sameUnitMixedAllowed:true,
+  crossUnitMixedAllowed:true,
   sourceQuestionCount:11,
   deterministicVariantCount:240,
   publicLayoutReviewStatus:"OPERATOR_MULTI_MODE_REVIEW_PENDING",
@@ -37,9 +37,10 @@ export const G3A_U01_VISUAL_RANK01_PUBLIC_SELECTOR_PROJECTION = Object.freeze({
   addedKnowledgePointCount:0,
   addedPatternGroupCount:1,
   addedPatternSpecCount:1,
-  admissionMode:"singleKnowledgePoint_only",
+  admissionMode:"singleKnowledgePoint_and_mixed_selector_projection",
   sourceUnitChanged:false,
-  sameUnitMixedChanged:false,
+  sameUnitMixedChanged:true,
+  crossUnitMixedChanged:true,
   rank02PlusVisible:false,
   operatorLayoutReviewRequired:true
 });

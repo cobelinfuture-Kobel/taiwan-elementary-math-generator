@@ -141,6 +141,20 @@ function normalizeCurrentPatternGroups() {
   );
 }
 
+function patternGroupsExcludingKnowledgePoint(knowledgePointId, selectedKnowledgePointIds, selectedPatternGroupIds) {
+  const normalized = normalizePublicPatternGroupSelection({
+    selectionMode: state.batchA.selectionMode,
+    selectedKnowledgePointIds,
+    selectedPatternGroupIds
+  });
+  const owned = new Set(
+    normalized.choices
+      .filter((choice) => choice.knowledgePointId === knowledgePointId)
+      .map((choice) => choice.patternGroupId)
+  );
+  return (selectedPatternGroupIds ?? []).filter((patternGroupId) => !owned.has(patternGroupId));
+}
+
 function updateSourceHelp() {
   const unit = sourceUnits.find((entry) => entry.sourceId === state.batchA.sourceId);
   if (!sourceHelp || !unit) return;
@@ -258,11 +272,8 @@ function renderKnowledgePointAvailability() {
   const selectedIds = new Set(state.batchA.selectedKnowledgePointIds ?? []);
   const isSourceUnitMode = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT;
   const rank01Selected = state.batchA.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
-    && state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT
-    && selectedIds.size === 1
     && selectedIds.has(G3A_U01_VISUAL_RANK01_KP_ID)
-    && (state.batchA.selectedPatternGroupIds ?? []).length === 1
-    && state.batchA.selectedPatternGroupIds[0] === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID;
+    && (state.batchA.selectedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
 
   if (knowledgePointAvailabilitySummary) {
     knowledgePointAvailabilitySummary.textContent = [
@@ -299,7 +310,7 @@ function renderKnowledgePointAvailability() {
         rankItem.className = "knowledge-point-option";
         rankItem.dataset.rank01SelectorTarget = "true";
         rankItem.dataset.selected = rank01Selected ? "true" : "false";
-        rankItem.disabled = state.batchA.selectionMode !== BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT;
+        rankItem.disabled = isSourceUnitMode;
         rankItem.setAttribute("aria-pressed", rank01Selected ? "true" : "false");
         rankItem.innerHTML = `<strong>${rank01Selected ? "已選｜" : ""}${G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName}</strong><span>${knowledgePoint.unitCode}｜已通過出題驗證</span>`;
         knowledgePointPanel.append(rankItem);
@@ -418,11 +429,9 @@ function isG3AU01VisualRank01LayoutActive() {
   const selectedKps = state.batchA.selectedKnowledgePointIds ?? [];
   const selectedGroups = state.batchA.selectedPatternGroupIds ?? [];
   return state.batchA.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
-    && state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT
-    && selectedKps.length === 1
-    && selectedKps[0] === G3A_U01_VISUAL_RANK01_KP_ID
-    && selectedGroups.length === 1
-    && selectedGroups[0] === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID;
+    && state.batchA.selectionMode !== BATCH_A_SELECTION_MODES.SOURCE_UNIT
+    && selectedKps.includes(G3A_U01_VISUAL_RANK01_KP_ID)
+    && selectedGroups.includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
 }
 
 function syncPublicLayoutControls() {
@@ -609,11 +618,43 @@ function bindControls() {
     const rank01Target = event.target.closest?.("[data-rank01-selector-target='true']");
     if (rank01Target) {
       if (rank01Target.disabled) return;
-      applySelectorSelection(
-        BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-        [G3A_U01_VISUAL_RANK01_KP_ID],
-        [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]
-      );
+      if (state.batchA.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
+        const current = new Set(selectedVisibleKnowledgePointIds(state.batchA.sourceId));
+        const wasRankSelected = current.has(G3A_U01_VISUAL_RANK01_KP_ID)
+          && (state.batchA.selectedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+        const candidateIds = [...new Set([...current, G3A_U01_VISUAL_RANK01_KP_ID])];
+        const otherGroups = patternGroupsExcludingKnowledgePoint(
+          G3A_U01_VISUAL_RANK01_KP_ID,
+          candidateIds,
+          state.batchA.selectedPatternGroupIds ?? []
+        );
+        if (wasRankSelected) {
+          if (current.size <= 2) {
+            patternGroupUiWarnings = [{ code: "public_pattern_group_minimum_one" }];
+            renderSelectorWarnings();
+            return;
+          }
+          current.delete(G3A_U01_VISUAL_RANK01_KP_ID);
+          applySelectorSelection(
+            BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
+            [...current],
+            otherGroups
+          );
+        } else {
+          current.add(G3A_U01_VISUAL_RANK01_KP_ID);
+          applySelectorSelection(
+            BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
+            [...current],
+            [...otherGroups, G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]
+          );
+        }
+      } else {
+        applySelectorSelection(
+          BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+          [G3A_U01_VISUAL_RANK01_KP_ID],
+          [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]
+        );
+      }
       syncControlsFromState();
       writeQueryStateFromState(state);
       markOutputStale();
@@ -628,21 +669,37 @@ function bindControls() {
 
     if (state.batchA.selectionMode === BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT) {
       const current = new Set(selectedVisibleKnowledgePointIds(state.batchA.sourceId));
-      if (current.has(knowledgePointId)) {
-        if (current.size <= 2) {
-          patternGroupUiWarnings = [{ code: "public_pattern_group_minimum_one" }];
-          renderSelectorWarnings();
-          return;
-        }
-        current.delete(knowledgePointId);
+      const switchingRankToCanonical = knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+        && current.has(knowledgePointId)
+        && (state.batchA.selectedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+      if (switchingRankToCanonical) {
+        const otherGroups = patternGroupsExcludingKnowledgePoint(
+          knowledgePointId,
+          [...current],
+          state.batchA.selectedPatternGroupIds ?? []
+        );
+        applySelectorSelection(
+          BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
+          [...current],
+          otherGroups
+        );
       } else {
-        current.add(knowledgePointId);
+        if (current.has(knowledgePointId)) {
+          if (current.size <= 2) {
+            patternGroupUiWarnings = [{ code: "public_pattern_group_minimum_one" }];
+            renderSelectorWarnings();
+            return;
+          }
+          current.delete(knowledgePointId);
+        } else {
+          current.add(knowledgePointId);
+        }
+        applySelectorSelection(
+          BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
+          [...current],
+          state.batchA.selectedPatternGroupIds
+        );
       }
-      applySelectorSelection(
-        BATCH_A_SELECTION_MODES.MIXED_KNOWLEDGE_POINTS_SAME_UNIT,
-        [...current],
-        state.batchA.selectedPatternGroupIds
-      );
     } else {
       applySelectorSelection(
         BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,

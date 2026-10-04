@@ -3,12 +3,18 @@ import {
   listVisibleBatchAKnowledgePoints,
   P09_MIXED21_TARGET_SOURCE_IDS,
 } from "../registry/batch-a-selector-p09-mixed21-extension.js";
+import {
+  G3A_U01_VISUAL_RANK01_KP_ID,
+  G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP,
+  G3A_U01_VISUAL_RANK01_SOURCE_ID,
+} from "../registry/g3a-u01-visual-rank01-selector-projection.js";
 import { paginateAnswerKeyItems, paginateQuestionDisplayModels } from "../../core/worksheet-pagination.js";
 
 export const P09_MIXED21_AGGREGATION_TASK_ID =
   "P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation";
 
-const TARGETS = new Set(P09_MIXED21_TARGET_SOURCE_IDS);
+const TARGETS = new Set([...P09_MIXED21_TARGET_SOURCE_IDS, G3A_U01_VISUAL_RANK01_SOURCE_ID]);
 const MIXED = "mixedKnowledgePointsSameUnit";
 const unique = (values = []) => [...new Set((Array.isArray(values) ? values : []).filter(Boolean))];
 const clone = (value) => value == null ? value : JSON.parse(JSON.stringify(value));
@@ -53,8 +59,20 @@ function groupLooksApplication(group = {}) {
   return corpus.includes("application") || corpus.includes("word_problem") || corpus.includes("應用題");
 }
 
-function requestedGroupsForRow(plan, row, mode) {
+function groupsForRow(row) {
   const groups = getVisiblePatternGroupsForKnowledgePoint(row.knowledgePointId);
+  if (
+    row.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+    && !groups.some((group) => group.patternGroupId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
+  ) {
+    return [...groups, G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP];
+  }
+  return groups;
+}
+
+function requestedGroupsForRow(plan, row, mode) {
+  const groups = groupsForRow(row);
   const requested = new Set(unique(plan.selectedPatternGroupIds));
   const intersection = groups.filter((group) => requested.has(group.patternGroupId));
   if (intersection.length) return intersection.map((group) => group.patternGroupId);
