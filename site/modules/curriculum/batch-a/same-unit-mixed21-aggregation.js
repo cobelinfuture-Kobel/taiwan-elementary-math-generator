@@ -9,6 +9,15 @@ import {
   G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP,
   G3A_U01_VISUAL_RANK01_SOURCE_ID,
 } from "../registry/g3a-u01-visual-rank01-selector-projection.js";
+import {
+  G3A_U01_VISUAL_RANK02_KP_ID,
+  G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID,
+} from "../registry/g3a-u01-visual-rank02-selector-projection.js";
+import {
+  G3A_U01_VISUAL_RANK03_KP_ID,
+  G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP,
+} from "../registry/g3a-u01-visual-rank03-selector-projection.js";
 import { paginateAnswerKeyItems, paginateQuestionDisplayModels } from "../../core/worksheet-pagination.js";
 
 export const P09_MIXED21_AGGREGATION_TASK_ID =
@@ -46,11 +55,27 @@ function selectedRows(plan) {
         }
         continue;
       }
+      if (targetId === G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID) {
+        const baseRow = rowById.get(G3A_U01_VISUAL_RANK03_KP_ID);
+        if (baseRow) {
+          targets.push({
+            ...baseRow,
+            selectorTargetId: G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
+            forcedPatternGroupIds: [G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID],
+            selectorDisplayName: G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP.displayName,
+          });
+        }
+        continue;
+      }
       const row = rowById.get(targetId);
       if (!row) continue;
+      const forcedPatternGroupIds = targetId === G3A_U01_VISUAL_RANK02_KP_ID
+        ? [G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID]
+        : undefined;
       targets.push({
         ...row,
         selectorTargetId: targetId,
+        ...(forcedPatternGroupIds ? { forcedPatternGroupIds } : {}),
         excludedPatternGroupIds: targetId === G3A_U01_VISUAL_RANK01_KP_ID
           ? [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]
           : [],
@@ -129,7 +154,12 @@ function requestedGroupsForRow(plan, row, mode) {
 }
 
 function preferredModes(row, plan) {
-  if ((row.forcedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)) {
+  const forced = row.forcedPatternGroupIds ?? [];
+  if (
+    forced.includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
+    || forced.includes(G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID)
+    || forced.includes(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)
+  ) {
     return ["numeric"];
   }
   const explicit = String(plan.questionMode ?? "").trim();
