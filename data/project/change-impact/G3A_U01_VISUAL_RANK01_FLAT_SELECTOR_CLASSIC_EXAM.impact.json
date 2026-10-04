@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
-  "taskId": "G3A_U01_VISUAL_RANK01_FLAT_SELECTOR_CLASSIC_EXAM",
+  "taskId": "G3A_U01_RANK01_SAME_AND_CROSS_UNIT_MIXED_LINKAGE",
   "currentScope": "SHARED_RUNTIME",
   "currentKnowledgePointIds": [
     "kp_g3a_u01_4digit_compare"
@@ -15,12 +15,12 @@
   "unitKnowledgePointGateStatus": {
     "kp_g3a_u01_4digit_compare": "FOCUSED_PASS"
   },
-  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "expectedDerivedGate": "GLOBAL_CERTIFICATION",
   "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK01_FLAT_SELECTOR_CLASSIC_EXAM.validation.json",
   "changeImpact": {
     "sharedExecutableChange": true,
     "publicAuthorityCutover": true,
-    "legalRouteSemanticsChanged": false,
+    "legalRouteSemanticsChanged": true,
     "affectedRoutes": "BOUNDED",
     "globalReleaseCheckpoint": false,
     "currentAuthorityChanged": true
@@ -31,8 +31,8 @@
     "selectorHierarchyChanged": "nested_pattern_group_to_flat_sibling",
     "classicConsumerChanged": true,
     "examTemplateConsumerChanged": true,
-    "sameUnitMixedRouteChanged": false,
-    "crossUnitMixedRouteChanged": false,
+    "sameUnitMixedRouteChanged": true,
+    "crossUnitMixedRouteChanged": true,
     "rank02OrLaterTouched": false,
     "rendererCodeChanged": false,
     "mathematicsChanged": false,
@@ -41,6 +41,8 @@
     "selectorTargetKind": "pattern_group_ui_projection",
     "existingSingleKnowledgePointRouteReused": true,
     "examCompositionContractChanged": false,
-    "legalRouteSemanticsChanged": false
+    "legalRouteSemanticsChanged": true,
+    "selectorTargetCoexistence": "canonical_kp_and_rank01_can_both_be_selected",
+    "mixedAllocationTargetModel": "selector_target_level"
   }
 }
