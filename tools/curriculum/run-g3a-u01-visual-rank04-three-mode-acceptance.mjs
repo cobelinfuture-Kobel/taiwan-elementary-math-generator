@@ -239,7 +239,7 @@ async function generateExamAndInspect(page,expectedStatusFragment,{exactRank04Co
     || rendered.rank04QuestionMarkers!==0
     || rendered.rank04AnswerMarkers!==0
   ){
-    throw new Error(`G3AU01_R04_EXAM_MARK_VALUE_NOT_MATERIALIZED:${JSON.stringify(rendered)}`);
+    throw new Error(`G3AU01_R04_EXAM_COMPLETE_SCALE_NOT_MATERIALIZED:${JSON.stringify(rendered)}`);
   }
   if(exactRank04Count!==null&&(
     rendered.rank04QuestionLines!==exactRank04Count
@@ -375,7 +375,7 @@ try{
   const report={
     schemaName:"G3AU01VisualRank04ThreeModeAcceptanceV1",
     taskId:"G3A_U01_VisualRank04_PublicSelectorSiblingCutover_ThreeModeLinkage",
-    status:"PASS_G3A_U01_RANK03_CLASSIC_AND_EXAM_THREE_MODE",
+    status:"PASS_G3A_U01_RANK04_CLASSIC_AND_EXAM_THREE_MODE",
     sourceId:SOURCE,
     knowledgePointId:KP,
     patternGroupId:GROUP,
@@ -391,7 +391,7 @@ try{
       sameUnitMixedLinked:true,
       crossUnitMixedLinked:true,
       questionAnswerLeakPrevented:true,
-      rank04PlusVisible:false
+      rank05PlusVisible:false
     }
   };
   writeFileSync(path.join(OUT,"report.json"),JSON.stringify(report,null,2)+"\n");
