@@ -61,13 +61,13 @@ test("Rank04 FormalMapping resolves to the existing canonical number-line KP aft
   assert.equal(contract.lifecycle.newKnowledgePointMinted,false);
 });
 
-test("Rank04 PatternSpec validates while remaining hidden and runtime-forbidden",()=>{
+test("Rank04 PatternSpec validates after bounded public-review cutover",()=>{
   assert.equal(contract.patternSpec.patternSpecId,SPEC);
   assert.equal(contract.patternSpec.patternGroupId,GROUP);
   assert.equal(contract.patternSpec.knowledgePointId,CANONICAL_KP);
   assert.equal(contract.patternSpec.taskCore,"COMPLETE_MISSING_TICK_VALUES");
-  assert.equal(contract.patternSpec.selectorStatus,"hidden");
-  assert.equal(contract.patternSpec.productionUse,"forbidden");
+  assert.equal(contract.patternSpec.selectorStatus,"visible_public_review");
+  assert.equal(contract.patternSpec.productionUse,"public_review");
   const result=validatePatternSpec(contract.patternSpec);
   assert.equal(result.validationStatus,"pass");
   assert.deepEqual(result.errorCodes,[]);
