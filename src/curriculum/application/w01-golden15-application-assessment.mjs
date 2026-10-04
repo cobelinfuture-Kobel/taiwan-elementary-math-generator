@@ -10,6 +10,7 @@ import { queryAtomicTaskEpisodes } from '../context/global-context-ontology-reso
 const POLICY_PATH = 'data/curriculum/application/assessment/w01-golden15-application-capability-policy.json';
 const ASSESSMENT_INDEX_PATH = 'data/curriculum/application/assessment/w01-golden15-application-assessment-index.json';
 const EXISTING_ADMISSION_REGISTRY_PATH = 'data/curriculum/application/registry/application-admission-registry.json';
+const FROZEN_BASELINE_PATH = 'data/curriculum/application/assessment/w01-golden15-frozen-kp-baseline.json';
 
 const unique = (values) => new Set(values).size === values.length;
 const issue = (code, pathValue, details = {}) => ({ code, path: pathValue, ...details });
@@ -157,7 +158,13 @@ export function materializeW01Golden15ApplicationAssessment({ root = process.cwd
   const policy = readJson(root, POLICY_PATH);
   const assessmentIndex = readJson(root, ASSESSMENT_INDEX_PATH);
   const existingAdmissionRegistry = readJson(root, EXISTING_ADMISSION_REGISTRY_PATH);
+  const frozenBaseline = readJson(root, FROZEN_BASELINE_PATH);
+  const frozenIdentitySet = new Set(
+    Object.entries(frozenBaseline.knowledgePointIdsBySource ?? {})
+      .flatMap(([sourceId, ids]) => (ids ?? []).map((knowledgePointId) => `${sourceId}::${knowledgePointId}`))
+  );
   const records = [];
+  const postBaselineKnowledgePoints = [];
   const mappingByGoldenId = new Map(
     masterController.unitRegistry.goldenBaselineUnits.map((mapping) => [mapping.goldenUnitId, mapping])
   );
@@ -166,6 +173,16 @@ export function materializeW01Golden15ApplicationAssessment({ root = process.cwd
     const registry = golden.registry;
     const mapping = mappingByGoldenId.get(golden.mapping.goldenUnitId);
     for (const knowledgePoint of registry.knowledgePoints ?? []) {
+      const identity = `${registry.sourceId}::${knowledgePoint.knowledgePointId}`;
+      if (!frozenIdentitySet.has(identity)) {
+        postBaselineKnowledgePoints.push({
+          sourceId: registry.sourceId,
+          knowledgePointId: knowledgePoint.knowledgePointId,
+          knowledgePointName: knowledgePoint.knowledgePointName,
+          disposition: 'POST_W01_BASELINE_NOT_RETROACTIVELY_ADMITTED'
+        });
+        continue;
+      }
       const bindings = kpBindings(registry, knowledgePoint.knowledgePointId);
       const classificationResult = classifyKnowledgePoint({ knowledgePoint, bindings, policy });
       const operationFamilyCandidates = classificationResult.classification === 'APPLICATION_NOT_APPLICABLE'
@@ -223,6 +240,8 @@ export function materializeW01Golden15ApplicationAssessment({ root = process.cwd
     policy,
     assessmentIndex,
     existingAdmissionRegistry,
+    frozenBaseline,
+    postBaselineKnowledgePoints,
     records
   };
 }
@@ -235,11 +254,29 @@ export function validateW01Golden15ApplicationAssessment(materialized) {
   }
   const records = materialized.records;
   const recordKeys = records.map((row) => `${row.sourceId}::${row.knowledgePointId}`);
+  const frozenKeys = Object.entries(materialized.frozenBaseline?.knowledgePointIdsBySource ?? {})
+    .flatMap(([sourceId, ids]) => (ids ?? []).map((knowledgePointId) => `${sourceId}::${knowledgePointId}`));
+  const frozenKeySet = new Set(frozenKeys);
   const operationModelOwnerCount = records.reduce((total, row) => total + row.canonicalOperationModelIds.length, 0);
   if (materialized.masterController.goldenRegistries.length !== 15) {
     issues.push(issue('POSTG_APP_W01_GOLDEN_UNIT_COUNT_INVALID', 'goldenRegistries', { actual: materialized.masterController.goldenRegistries.length }));
   }
+  if (frozenKeys.length !== 156 || frozenKeySet.size !== 156) {
+    issues.push(issue('POSTG_APP_W01_FROZEN_BASELINE_IDENTITY_INVALID', 'frozenBaseline', {
+      expected: 156,
+      actual: frozenKeys.length,
+      unique: frozenKeySet.size
+    }));
+  }
   if (records.length !== 156) issues.push(issue('POSTG_APP_W01_KP_COUNT_INVALID', 'records', { expected: 156, actual: records.length }));
+  const missingFrozenKeys = frozenKeys.filter((key) => !recordKeys.includes(key));
+  const unexpectedRecordKeys = recordKeys.filter((key) => !frozenKeySet.has(key));
+  if (missingFrozenKeys.length || unexpectedRecordKeys.length) {
+    issues.push(issue('POSTG_APP_W01_FROZEN_BASELINE_MEMBERSHIP_INVALID', 'records', {
+      missingFrozenKeys,
+      unexpectedRecordKeys
+    }));
+  }
   if (operationModelOwnerCount !== 156) {
     issues.push(issue('POSTG_APP_W01_OPERATION_MODEL_OWNER_COUNT_INVALID', 'records', { expected: 156, actual: operationModelOwnerCount }));
   }
@@ -320,7 +357,8 @@ export function validateW01Golden15ApplicationAssessment(materialized) {
       designBacklogCount: records.filter((row) => row.backlogAdmissionDecision === 'ADMITTED_TO_W01_DESIGN_BACKLOG').length,
       excludedCount: records.filter((row) => row.backlogAdmissionDecision === 'EXCLUDED_FROM_APPLICATION_AUTHORING').length,
       unclassifiedCount: records.filter((row) => !validClassifications.has(row.classification)).length,
-      productionAdmittedRecordCount: records.filter((row) => row.productionAdmissionAllowed === true).length
+      productionAdmittedRecordCount: records.filter((row) => row.productionAdmissionAllowed === true).length,
+      postBaselineKnowledgePointCount: materialized.postBaselineKnowledgePoints?.length ?? 0
     },
     classificationCounts,
     modeCounts,
