@@ -194,9 +194,10 @@ function normalizeSameUnitMixedSelection({ reset = false } = {}) {
   const available = selectorTargetsForSource(sourceId);
   const availableIds = new Set(available.map((target) => target.targetId));
   if (reset || sameUnitMixedSelection.sourceId !== sourceId || sameUnitMixedSelection.selectedSelectorTargetIds.length < 2) {
-    const initialIds = visibleKnowledgePointsForSource(sourceId).map((row) => row.knowledgePointId);
     sameUnitMixedSelection.sourceId = sourceId;
-    sameUnitMixedSelection.selectedSelectorTargetIds = initialIds.filter((id) => availableIds.has(id));
+    sameUnitMixedSelection.selectedSelectorTargetIds = available
+      .map((target) => target.targetId)
+      .filter((id) => availableIds.has(id));
   } else {
     sameUnitMixedSelection.selectedSelectorTargetIds =
       sameUnitMixedSelection.selectedSelectorTargetIds.filter((id) => availableIds.has(id));
