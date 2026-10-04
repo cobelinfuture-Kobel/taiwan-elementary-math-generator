@@ -762,6 +762,18 @@ function generateExam() {
       result = buildWorksheetDocumentFromState(state);
     }
   }
+  globalThis.__EXAM_TEMPLATE_LAST_GENERATION_DIAGNOSTIC__ = {
+    compositionMode: compositionModeSelect?.value ?? null,
+    sourceId: sourceSelect.value,
+    selectedKnowledgePointIds: [...(state.batchA.selectedKnowledgePointIds ?? [])],
+    selectedPatternGroupIds: [...(state.batchA.selectedPatternGroupIds ?? [])],
+    sameUnitSelectedSelectorTargetIds: [...sameUnitMixedSelection.selectedSelectorTargetIds],
+    crossUnitSelectedSelectorTargetIds: [...crossUnitSelection.selectedSelectorTargetIds],
+    ok: result?.ok === true,
+    errors: result?.errors ?? [],
+    allocation: result?.allocation ?? [],
+    leafDispatch: result?.leafDispatch ?? [],
+  };
   if (!result?.ok || !result.worksheetDocument) {
     const errors = (result?.errors ?? []).map((error) => error?.message ?? error?.code ?? String(error));
     setStatus(errors.length > 0 ? errors.join("｜") : "考券產生失敗。", "error");
