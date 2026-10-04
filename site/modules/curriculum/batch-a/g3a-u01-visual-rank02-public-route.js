@@ -13,7 +13,10 @@ export function requestsG3AU01VisualRank02Public(plan={}){
   const groups=[...new Set((plan.selectedPatternGroupIds??[]).filter(Boolean))];
   if(groups.length)return groups.length===1&&groups[0]===GROUP_ID;
   const specs=[...new Set((plan.patternSpecIds??[]).filter(Boolean))];
-  return specs.length===1&&specs[0]===SPEC_ID;
+  if(specs.length)return specs.length===1&&specs[0]===SPEC_ID;
+  // Rank02 owns a canonical KP with exactly one public PatternGroup, so the
+  // single-KP leaf may safely resolve the public route from the KP identity alone.
+  return true;
 }
 
 export function buildG3AU01VisualRank02PublicWorksheet(plan={}){
