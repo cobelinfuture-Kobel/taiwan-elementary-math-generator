@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G3A_U01_VISUAL_RANK04_HIDDEN_RUNTIME_FOCUSED",
+  "unitId": "g3a_u01_3a01",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g3a-u01-visual-rank04-complete-scale-contract.test.js",
+          "tests/curriculum/g3a-u01-visual-rank04-runtime-acceptance.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "path": "tools/curriculum/run-g3a-u01-visual-rank04-hidden-worksheet-acceptance.mjs",
+        "runtime": "PLAYWRIGHT_CHROMIUM"
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g3a-u01-visual-rank03-runtime-acceptance.test.js",
+          "tests/curriculum/g3a-u01-visual-rank03-mark-value-contract.test.js"
+        ]
+      }
+    ]
+  }
+}

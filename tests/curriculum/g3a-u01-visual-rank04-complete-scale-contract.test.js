@@ -27,7 +27,7 @@ test("Rank04 contract materializes the exact source-backed COMPLETE_MISSING_TICK
   const family=visual.families.find((row)=>row.visualFamilyId===FAMILY);
   assert.ok(family);
   assert.equal(preflight.status,"PASS_SOURCE_AUTHORITY_PREFLIGHT");
-  assert.equal(contract.status,"contract_materialized_runtime_not_started");
+  assert.equal(contract.status,"hidden_runtime_implemented_pending_focused_acceptance");
   assert.equal(contract.sourceAuthorityPreflight.visualFamilyId,FAMILY);
   assert.equal(contract.sourceAuthorityPreflight.sourceQuestionCount,7);
   assert.equal(contract.sourceAuthorityPreflight.taskCore,"COMPLETE_MISSING_TICK_VALUES");
@@ -105,15 +105,22 @@ test("Rank04 controlled examples satisfy the completion equation and preserve so
   }
 });
 
-test("Rank04 contract advances to D2 and excludes runtime/public/Rank05+ work",()=>{
+test("Rank04 preserves the materialized D2 contract while hidden runtime advances without public/Rank05+ scope",()=>{
   assert.equal(contract.lifecycle.formalMappingMaterialized,true);
   assert.equal(contract.lifecycle.patternSpecMaterialized,true);
   assert.equal(contract.lifecycle.validatorContractMaterialized,true);
   assert.equal(contract.lifecycle.rendererReuseContractMaterialized,true);
-  assert.equal(contract.lifecycle.generatorImplemented,false);
-  assert.equal(contract.lifecycle.validatorRuntimeImplemented,false);
+  assert.equal(contract.lifecycle.generatorImplemented,true);
+  assert.equal(contract.lifecycle.validatorRuntimeImplemented,true);
+  assert.equal(contract.lifecycle.hiddenWorksheetImplemented,true);
+  assert.equal(contract.lifecycle.hiddenWorksheetAcceptance,"PENDING_FOCUSED_CI");
+  assert.equal(contract.lifecycle.hiddenRuntimeFocusedGate,"PENDING");
+  assert.equal(contract.lifecycle.hiddenRuntimeMerged,false);
   assert.equal(contract.lifecycle.rendererCodeChanged,false);
   assert.equal(contract.lifecycle.selectorVisible,false);
   assert.equal(contract.lifecycle.productionUse,"forbidden");
+  assert.equal(contract.hiddenRuntime.selectorVisible,false);
+  assert.equal(contract.hiddenRuntime.productionUse,"forbidden");
+  assert.equal(contract.hiddenRuntime.publicCutoverStarted,false);
   assert.equal(contract.patternSpec.constraints.generation.rank05ToRank06OperationsForbidden,true);
 });
