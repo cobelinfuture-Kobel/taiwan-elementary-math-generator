@@ -10,9 +10,9 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
 } from "../../../modules/curriculum/registry/batch-a-selector-p04f33-extension.js";
 import {
-  getVisibleBatchAKnowledgePoint as getRank02VisibleKnowledgePoint,
-  getVisiblePatternGroupsForKnowledgePoint as getRank02VisiblePatternGroups,
-} from "../../../modules/curriculum/registry/batch-a-selector-g3a-u01-visual-rank02-extension.js";
+  getVisibleBatchAKnowledgePoint as getRank03VisibleKnowledgePoint,
+  getVisiblePatternGroupsForKnowledgePoint as getRank03VisiblePatternGroups,
+} from "../../../modules/curriculum/registry/batch-a-selector-g3a-u01-visual-rank03-extension.js";
 import { listW01PublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w01-public-application-groups.js";
 import { listFifteenUnitPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/fifteen-unit-public-application-groups.js";
 import { listW1FullProductPublicApplicationGroupsForKnowledgePoint } from "../../../modules/curriculum/registry/w1-full-product-public-application-groups.js";
@@ -33,14 +33,14 @@ function clone(value){ return JSON.parse(JSON.stringify(value)); }
 
 function visibleKnowledgePoint(knowledgePointId){
   if(knowledgePointId===G3A_U01_RANK02_KP){
-    return getRank02VisibleKnowledgePoint(knowledgePointId);
+    return getRank03VisibleKnowledgePoint(knowledgePointId);
   }
   return getVisibleBatchAKnowledgePoint(knowledgePointId);
 }
 
 function baseGroupsForKnowledgePoint(knowledgePointId){
   if(knowledgePointId===G3A_U01_RANK02_KP){
-    return getRank02VisiblePatternGroups(knowledgePointId);
+    return getRank03VisiblePatternGroups(knowledgePointId);
   }
   return getVisiblePatternGroupsForKnowledgePoint(knowledgePointId);
 }
