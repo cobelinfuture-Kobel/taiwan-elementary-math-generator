@@ -67,7 +67,7 @@ test("Rank03 preflight preserves the existing 10-target topology and plans 11 ta
   assert.equal(currentTargets.includes(RANK03_GROUP),false);
 });
 
-test("Rank02 current KP-only public fallback is explicitly identified as blocking ambiguity before Rank03 cutover",()=>{
+test("Rank02 preflight records the former KP-only ambiguity while current post-cutover routing requires explicit PatternGroup or PatternSpec",()=>{
   const kpOnlyPlan={
     sourceId:SRC,
     selectionMode:"singleKnowledgePoint",
@@ -75,11 +75,17 @@ test("Rank02 current KP-only public fallback is explicitly identified as blockin
     selectedPatternGroupIds:[],
     patternSpecIds:[],
   };
-  assert.equal(requestsG3AU01VisualRank02Public(kpOnlyPlan),true);
+  // Historical preflight authority stays frozen: before Rank03 cutover, KP-only
+  // routing was the blocking ambiguity that required repair.
   assert.equal(preflight.routeAmbiguityPreflight.severity,"BLOCKING_BEFORE_PUBLIC_CUTOVER");
+  assert.match(preflight.routeAmbiguityPreflight.currentRank02Behavior,/accepts the canonical number-line KP/);
   assert.match(preflight.routeAmbiguityPreflight.requiredRepair,/Rank02 PatternGroup\/PatternSpec/);
   assert.equal(preflight.publicRoutePreflight.routeIdentity.requiredPatternGroupId,RANK03_GROUP);
   assert.equal(preflight.publicRoutePreflight.routeIdentity.requiredPatternSpecId,RANK03_SPEC);
+
+  // Current runtime is intentionally post-cutover: KP identity alone must no
+  // longer select Rank02 now that Rank03 shares the same canonical KP.
+  assert.equal(requestsG3AU01VisualRank02Public(kpOnlyPlan),false);
 });
 
 test("Rank03 same-unit plan requires independent forced leaves for Rank02 and Rank03 under the same KP",()=>{
