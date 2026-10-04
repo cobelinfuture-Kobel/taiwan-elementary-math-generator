@@ -468,13 +468,10 @@ function readSelectorControlsIntoState() {
   if (requestedMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT) {
     const knowledgePointId = chooseSingleKnowledgePointId(state.batchA.sourceId);
     if (knowledgePointId) {
-      const selectedPatternGroupIds = knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
-        ? (state.batchA.selectedPatternGroupIds ?? []).filter((id) => id !== G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
-        : state.batchA.selectedPatternGroupIds;
       applySelectorSelection(
         BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
         [knowledgePointId],
-        selectedPatternGroupIds
+        state.batchA.selectedPatternGroupIds
       );
       return;
     }
