@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "hidden_runtime_actual_layout_acceptance_pass",
+  "status": "public_review_cutover_pending_ci",
   "authority": {
     "visualFamilyRegistryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
     "formalMappingCandidatePath": "data/curriculum/mapping/g3a_u01_visual_formal_mapping_candidates.v1.json",
@@ -33,7 +33,7 @@
       "single_answer_prompt_has_unique_answer",
       "comparison_or_extrema_result_matches_values"
     ],
-    "status": "materialized_hidden_not_routed"
+    "status": "materialized_public_rank01_route"
   },
   "patternGroup": {
     "patternGroupId": "pg_g3a_u01_visual_one_way_table_compare",
@@ -44,7 +44,7 @@
       "ps_g3a_u01_visual_one_way_table_compare"
     ],
     "sourceQuestionCount": 11,
-    "lifecycle": "hidden"
+    "lifecycle": "public_review"
   },
   "patternSpec": {
     "patternSpecId": "ps_g3a_u01_visual_one_way_table_compare",
@@ -157,9 +157,9 @@
     },
     "generatorStatus": "hidden_deterministic_runtime_implemented",
     "validatorStatus": "blocking_runtime_implemented",
-    "runtimeProjectionStatus": "hidden_runtime_implemented_not_routed",
-    "selectorStatus": "hidden",
-    "productionUse": "forbidden"
+    "runtimeProjectionStatus": "public_rank01_cutover_pending_ci",
+    "selectorStatus": "visible_public_review",
+    "productionUse": "public_review"
   },
   "rendererBinding": {
     "rendererBindingId": "rb_g3a_u01_visual_one_way_table_compare",
@@ -282,12 +282,14 @@
     "generatorImplemented": true,
     "validatorRuntimeImplemented": true,
     "rendererCodeChanged": false,
-    "selectorVisible": false,
-    "productionUse": "forbidden",
+    "selectorVisible": true,
+    "productionUse": "public_review",
     "renderedWorksheetAcceptance": "PASS_FOCUSED_CI",
-    "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED"
+    "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED",
+    "publicCutover": "PENDING_FOCUSED_CI",
+    "publicLayoutModesReview": "PENDING_OPERATOR_WEBSITE_REVIEW"
   },
-  "nextStep": "Proceed to hidden selector/admission planning for Rank01 only, or continue Rank02 PatternSpec work. Do not enlarge Rank01 table sizing unless the A4 2x3 pagination contract is also changed and re-reviewed.",
+  "nextStep": "Pass focused public-cutover CI and merge; then operator checks website layout modes. Apply only demonstrated layout repairs before final Rank01 D0 closeout.",
   "runtimeAcceptance": {
     "prNumber": 1215,
     "mergeSha": "38114a0184bdc6402e4f2d75377230ee5df496a6",
@@ -342,5 +344,20 @@
     "validatorChanged": false,
     "selectorVisible": false,
     "productionUse": "forbidden"
+  },
+  "publicAdmission": {
+    "taskId": "G3A_U01_VisualPatternSpec_Rank01_SelectorAdmissionPreflight_ThenPublicCutover",
+    "route": "singleKnowledgePoint",
+    "sourceId": "g3a_u01_3a01",
+    "knowledgePointId": "kp_g3a_u01_4digit_compare",
+    "patternGroupId": "pg_g3a_u01_visual_one_way_table_compare",
+    "patternSpecId": "ps_g3a_u01_visual_one_way_table_compare",
+    "sourceUnitChanged": false,
+    "sameUnitMixedChanged": false,
+    "crossUnitMixedChanged": false,
+    "rank02PlusVisible": false,
+    "existingKnowledgePointReused": true,
+    "operatorLayoutReviewRequired": true,
+    "operatorReviewScope": "website layout modes after public cutover"
   }
 }
