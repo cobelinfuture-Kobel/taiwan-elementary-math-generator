@@ -110,8 +110,7 @@ function singleKpPubliclyAdmitted(sourceId, knowledgePointId) {
 
 function crossUnitEligibleRowsForSource(sourceId) {
   return visibleKnowledgePointsForSource(sourceId).filter(
-    (row) => row.singleKnowledgePointOnly !== true
-      && singleKpPubliclyAdmitted(sourceId, row.knowledgePointId),
+    (row) => singleKpPubliclyAdmitted(sourceId, row.knowledgePointId),
   );
 }
 
@@ -231,7 +230,7 @@ function renderCrossUnitSelection() {
 }
 
 function sameUnitCapability(sourceId, requestedIds = []) {
-  const rows = visibleKnowledgePointsForSource(sourceId).filter((row) => row.singleKnowledgePointOnly !== true);
+  const rows = visibleKnowledgePointsForSource(sourceId);
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
   const fallbackIds = rows.map((row) => row.knowledgePointId);
   const selectedKnowledgePointIds = requestedIds.length >= 2 ? requestedIds : fallbackIds;
@@ -261,36 +260,14 @@ function selectedSameUnitIds() {
   return (state.batchA.selectedKnowledgePointIds ?? []).filter((id) => visibleIds.has(id));
 }
 
-function singleKpCapability(sourceId, requestedId = null) {
-  const rows = visibleKnowledgePointsForSource(sourceId);
-  const selectedId = rows.some((row) => row.knowledgePointId === requestedId)
-    ? requestedId
-    : (rows[0]?.knowledgePointId ?? null);
-  const binding = selectedId ? resolvePublicUiCapabilityBinding({
-    sourceId,
-    selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-    selectedKnowledgePointIds: [selectedId],
-    selectedPatternGroupIds: [],
-  }) : null;
-  return {
-    rows,
-    selectedId,
-    binding,
-    enabled: Boolean(selectedId) && binding?.blocked === false,
-  };
-}
-
 function renderSameUnitKnowledgePoints() {
   if (!kpPanel || !sameUnitKpSelector || !kpHelp) return;
-  const isSingle = compositionModeSelect?.value === SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_KP;
   const isMixed = compositionModeSelect?.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT;
-  const capability = isSingle
-    ? singleKpCapability(sourceSelect.value, selectedSameUnitIds()[0] ?? null)
-    : sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
-  sameUnitKpSelector.hidden = !(isSingle || isMixed);
+  const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
+  sameUnitKpSelector.hidden = !isMixed;
   kpPanel.replaceChildren();
 
-  if (!(isSingle || isMixed)) return;
+  if (!isMixed) return;
   const selected = new Set(selectedSameUnitIds());
   for (const row of capability.rows) {
     const button = document.createElement("button");
@@ -307,16 +284,11 @@ function renderSameUnitKnowledgePoints() {
     button.append(strong, detail);
     kpPanel.append(button);
   }
-  kpHelp.textContent = isSingle
-    ? `請選 1 個知識點；目前共有 ${capability.rows.length} 個可選項目。`
-    : `目前已選 ${selected.size} / ${capability.rows.length} 個知識點；至少選 2 個。題量會平均分配，餘數依知識點順序分配。`;
+  kpHelp.textContent = `目前已選 ${selected.size} / ${capability.rows.length} 個知識點；至少選 2 個。題量會平均分配，餘數依知識點順序分配。`;
 }
 
 function syncCompositionModeAvailability() {
   if (!compositionModeSelect) return;
-  const singleKpOption = [...compositionModeSelect.options].find(
-    (option) => option.value === SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_KP,
-  );
   const m3Option = [...compositionModeSelect.options].find(
     (option) => option.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT,
   );
@@ -324,14 +296,9 @@ function syncCompositionModeAvailability() {
     (option) => option.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_CROSS_UNIT,
   );
   const capability = sameUnitCapability(sourceSelect.value, selectedSameUnitIds());
-  const singleCapability = singleKpCapability(sourceSelect.value, selectedSameUnitIds()[0] ?? null);
-  if (singleKpOption) singleKpOption.disabled = !singleCapability.enabled;
   if (m3Option) m3Option.disabled = !capability.enabled;
   if (m4Option) m4Option.disabled = crossUnitEligibleUnits().length < 2;
 
-  if (compositionModeSelect.value === SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_KP && !singleCapability.enabled) {
-    compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
-  }
   if (compositionModeSelect.value === SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT && !capability.enabled) {
     compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
   }
@@ -360,32 +327,6 @@ function applyCompositionMode({ defaultMixedSelection = false, resetCrossSelecti
     questionCountInput.min = "1";
     if (compositionHelp) {
       compositionHelp.textContent = "單一單元模式：所有題目都由目前選取單元的既有 Generator / Validator 產生與驗證。";
-    }
-    renderSameUnitKnowledgePoints();
-    renderCrossUnitSelection();
-    return true;
-  }
-
-  if (resolved.examMode === SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_KP) {
-    sourceSelect.disabled = false;
-    const capability = singleKpCapability(sourceSelect.value, selectedSameUnitIds()[0] ?? null);
-    if (!capability.enabled) {
-      compositionModeSelect.value = SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_UNIT;
-      setBatchASelectionMode(state, BATCH_A_SELECTION_MODES.SOURCE_UNIT);
-      setStatus("目前單元尚未開放單一知識點考券，已切回「單一單元」。", "error");
-      renderSameUnitKnowledgePoints();
-      return false;
-    }
-    const selectedId = capability.selectedId;
-    const selectedGroupId = capability.binding?.compatiblePatternGroupIds?.[0] ?? null;
-    setBatchASelectorSelection(state, {
-      selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-      selectedKnowledgePointIds: [selectedId],
-      selectedPatternGroupIds: selectedGroupId ? [selectedGroupId] : [],
-    });
-    questionCountInput.min = "1";
-    if (compositionHelp) {
-      compositionHelp.textContent = "單一知識點模式：知識點與 Rank 題型以同一層級呈現；題目沿用既有 Generator / Validator。";
     }
     renderSameUnitKnowledgePoints();
     renderCrossUnitSelection();
@@ -664,29 +605,10 @@ compositionModeSelect?.addEventListener("change", () => {
 
 kpPanel?.addEventListener("click", (event) => {
   const button = event.target.closest?.("[data-knowledge-point-id]");
-  const mode = compositionModeSelect?.value;
-  if (!button || ![SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_KP, SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT].includes(mode)) return;
+  if (!button || compositionModeSelect?.value !== SCHOOL_EXAM_COMPOSITION_MODES.MIXED_KP_SAME_UNIT) return;
   const visibleIds = new Set(visibleKnowledgePointsForSource(sourceSelect.value).map((row) => row.knowledgePointId));
   const knowledgePointId = button.dataset.knowledgePointId;
   if (!visibleIds.has(knowledgePointId)) return;
-
-  if (mode === SCHOOL_EXAM_COMPOSITION_MODES.SINGLE_KP) {
-    const capability = singleKpCapability(sourceSelect.value, knowledgePointId);
-    if (!capability.enabled || capability.selectedId !== knowledgePointId) {
-      setStatus("此知識點目前無法產生考券。", "error");
-      return;
-    }
-    const selectedGroupId = capability.binding?.compatiblePatternGroupIds?.[0] ?? null;
-    setBatchASelectorSelection(state, {
-      selectionMode: BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
-      selectedKnowledgePointIds: [knowledgePointId],
-      selectedPatternGroupIds: selectedGroupId ? [selectedGroupId] : [],
-    });
-    renderSameUnitKnowledgePoints();
-    printButton.disabled = true;
-    setStatus("單一知識點已更新，請重新產生考券。");
-    return;
-  }
 
   const selected = new Set(selectedSameUnitIds());
   if (selected.has(knowledgePointId)) {
