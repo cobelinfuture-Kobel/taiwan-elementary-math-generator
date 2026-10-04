@@ -114,6 +114,14 @@ function requestedGroupsForRow(plan, row, mode) {
   const requested = new Set(unique(plan.selectedPatternGroupIds));
   const intersection = groups.filter((group) => requested.has(group.patternGroupId));
   if (intersection.length) return intersection.map((group) => group.patternGroupId);
+  if (
+    row.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+    && (row.excludedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
+    && mode === "numeric"
+  ) {
+    return groups.filter((group) => !groupLooksApplication(group)).map((group) => group.patternGroupId);
+  }
   if (mode === "application") {
     return groups.filter(groupLooksApplication).map((group) => group.patternGroupId);
   }
