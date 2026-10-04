@@ -73,6 +73,7 @@ const previewFrame = document.getElementById("exam-preview");
 const crossUnitSelection = {
   selectedSourceIds: [],
   selectedKnowledgePointIds: [],
+  selectedPatternGroupIds: [],
 };
 
 function unitNumber(unitCode = "") {
@@ -120,6 +121,51 @@ function crossUnitEligibleRowsForSource(sourceId) {
   return visibleKnowledgePointsForSource(sourceId).filter(
     (row) => singleKpPubliclyAdmitted(sourceId, row.knowledgePointId),
   );
+}
+
+function selectorTargetsForSource(sourceId) {
+  const targets = [];
+  for (const row of crossUnitEligibleRowsForSource(sourceId)) {
+    targets.push({
+      targetId: row.knowledgePointId,
+      knowledgePointId: row.knowledgePointId,
+      selectedPatternGroupIds: [],
+      displayName: row.displayName ?? row.knowledgePointId,
+      unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
+      rank01Sibling: false,
+    });
+    if (
+      sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+      && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+    ) {
+      targets.push({
+        targetId: G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+        knowledgePointId: G3A_U01_VISUAL_RANK01_KP_ID,
+        selectedPatternGroupIds: [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID],
+        displayName: G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName,
+        unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
+        rank01Sibling: true,
+      });
+    }
+  }
+  return targets;
+}
+
+function rank01SelectedFor(sourceId, selectedKnowledgePointIds, selectedPatternGroupIds) {
+  return sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && selectedKnowledgePointIds.includes(G3A_U01_VISUAL_RANK01_KP_ID)
+    && selectedPatternGroupIds.includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
+}
+
+function selectorTargetSelected(target, sourceId, selectedKnowledgePointIds, selectedPatternGroupIds) {
+  if (target.rank01Sibling) {
+    return rank01SelectedFor(sourceId, selectedKnowledgePointIds, selectedPatternGroupIds);
+  }
+  if (target.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID && sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID) {
+    return selectedKnowledgePointIds.includes(target.knowledgePointId)
+      && !rank01SelectedFor(sourceId, selectedKnowledgePointIds, selectedPatternGroupIds);
+  }
+  return selectedKnowledgePointIds.includes(target.knowledgePointId);
 }
 
 function crossUnitEligibleUnits() {
