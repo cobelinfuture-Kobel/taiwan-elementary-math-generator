@@ -965,7 +965,6 @@ crossUnitKpGroups?.addEventListener("click", (event) => {
   printButton.disabled = true;
   setStatus("跨單元知識點／Rank 題型選擇已更新，請重新產生考券。");
 });
-});
 
 sourceSelect.addEventListener("change", () => {
   setBatchASourceId(state, sourceSelect.value);
