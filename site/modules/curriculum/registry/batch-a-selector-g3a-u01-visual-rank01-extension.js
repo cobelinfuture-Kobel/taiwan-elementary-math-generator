@@ -1,5 +1,6 @@
 export * from "./batch-a-selector-p09-mixed21-extension.js";
 import * as base from "./batch-a-selector-p09-mixed21-extension.js";
+import * as historical from "./batch-a-selector-p01e-extension.js";
 import {
   G3A_U01_VISUAL_RANK01_KP_ID as KP,
   G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID as GROUP_ID,
@@ -34,7 +35,10 @@ export function getVisibleBatchAKnowledgePoint(id){return base.getVisibleBatchAK
 export function getVisiblePatternGroupsForKnowledgePoint(id){
   const existing=base.getVisiblePatternGroupsForKnowledgePoint(id);
   if(id!==KP)return existing;
-  return clone([...existing.filter(row=>row.patternGroupId!==GROUP_ID),GROUP]);
+  const canonicalCompatibilityGroups=historical.getVisiblePatternGroupsForKnowledgePoint(id)
+    .filter(row=>row.patternGroupId!==GROUP_ID);
+  const merged=[...existing.filter(row=>row.patternGroupId!==GROUP_ID),...canonicalCompatibilityGroups,GROUP];
+  return clone([...new Map(merged.filter(row=>row?.patternGroupId).map(row=>[row.patternGroupId,row])).values()]);
 }
 export function resolveVisiblePatternSpecIdsForKnowledgePoint(id,mode=null){
   if(id!==KP)return base.resolveVisiblePatternSpecIdsForKnowledgePoint(id,mode);
@@ -49,6 +53,7 @@ export function auditG3AU01VisualRank01PublicSelector(){
   const rank=groups.filter(row=>row.patternGroupId===GROUP_ID);
   if(!target||target.sourceId!==SRC)errors.push("G3A_U01_RANK01_EXISTING_KP_MISSING");
   if(rank.length!==1)errors.push("G3A_U01_RANK01_GROUP_CARDINALITY_INVALID");
+  if(groups.filter(row=>row.patternGroupId!==GROUP_ID).length===0)errors.push("G3A_U01_CANONICAL_COMPARE_GROUP_COMPATIBILITY_MISSING");
   if(rank[0]?.patternSpecIds?.join("|")!=="ps_g3a_u01_visual_one_way_table_compare")errors.push("G3A_U01_RANK01_PATTERN_SPEC_INVALID");
   if(rows.some(row=>String(row.knowledgePointId).includes("visual_rank02")))errors.push("G3A_U01_RANK02_PLUS_LEAKED");
   return Object.freeze({ok:errors.length===0,errors:Object.freeze(errors),counts:Object.freeze({sourceVisibleKnowledgePoints:rows.length,addedKnowledgePoints:0,rank01Groups:rank.length})});
