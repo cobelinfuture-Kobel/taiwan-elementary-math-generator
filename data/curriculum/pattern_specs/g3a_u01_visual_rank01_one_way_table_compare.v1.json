@@ -288,10 +288,10 @@
     "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED",
     "publicCutover": "PASS_FOCUSED_CI_AND_PAGES_DEPLOYED",
     "publicLayoutModesReview": "REPAIR_IMPLEMENTED_PENDING_CI_AND_DEPLOYED_RECHECK",
-    "publicSelectorHierarchy": "FLAT_SIBLING_PENDING_FOCUSED_CI",
-    "examTemplateConsumer": "SINGLE_KP_IMPLEMENTED_PENDING_FOCUSED_CI"
+    "publicSelectorHierarchy": "FLAT_SIBLING_PROJECTION_PENDING_FOCUSED_CI",
+    "examTemplateConsumer": "SINGLE_KP_UI_ALIAS_IMPLEMENTED_PENDING_FOCUSED_CI"
   },
-  "nextStep": "Run bounded focused CI for the flat sibling selector on Classic and Exam Template; if both targeted browser acceptances pass, merge, deploy Pages, and perform the final operator visual review without re-nesting Rank01 under the canonical compare KP.",
+  "nextStep": "Run bounded focused CI for the flat sibling projection on Classic and Exam Template; both consumers must reuse the existing singleKnowledgePoint route with kp_g3a_u01_4digit_compare + the Rank01 pattern group, without creating a new canonical KP or a new legal routing semantic.",
   "runtimeAcceptance": {
     "prNumber": 1215,
     "mergeSha": "38114a0184bdc6402e4f2d75377230ee5df496a6",
@@ -351,7 +351,7 @@
     "taskId": "G3A_U01_VisualPatternSpec_Rank01_SelectorAdmissionPreflight_ThenPublicCutover",
     "route": "singleKnowledgePoint",
     "sourceId": "g3a_u01_3a01",
-    "knowledgePointId": "kp_g3a_u01_one_way_table_compare",
+    "knowledgePointId": "kp_g3a_u01_4digit_compare",
     "patternGroupId": "pg_g3a_u01_visual_one_way_table_compare",
     "patternSpecId": "ps_g3a_u01_visual_one_way_table_compare",
     "sourceUnitChanged": false,
@@ -367,10 +367,11 @@
     "pagesDeployRunId": 37164809036,
     "pagesDeploy": "PASS",
     "publicReviewStatus": "LAYOUT_REPAIR_PENDING_CI_AND_DEPLOYED_RECHECK",
-    "canonicalKnowledgePointId": "kp_g3a_u01_4digit_compare",
-    "selectorHierarchy": "flat_sibling",
-    "examTemplateCompositionMode": "SINGLE_KP",
-    "examTemplateConsumerStatus": "IMPLEMENTED_PENDING_FOCUSED_CI"
+    "selectorHierarchy": "flat_sibling_projection",
+    "examTemplateCompositionMode": "SINGLE_KP_UI_ALIAS_TO_EXISTING_SINGLE_KNOWLEDGE_POINT",
+    "examTemplateConsumerStatus": "IMPLEMENTED_PENDING_FOCUSED_CI",
+    "selectorTargetKind": "pattern_group_projection",
+    "selectorTargetId": "pg_g3a_u01_visual_one_way_table_compare"
   },
   "publicLayoutModeReview": {
     "reviewType": "EXACT_DEPLOYED_PAGES_ARTIFACT_LAYOUT_MODE_REVIEW",
