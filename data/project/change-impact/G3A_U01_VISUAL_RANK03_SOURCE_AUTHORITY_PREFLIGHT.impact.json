@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK03_SOURCE_AUTHORITY_PREFLIGHT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK03_SOURCE_AUTHORITY_PREFLIGHT.validation.json",
+  "classificationNote": "Planning/source-authority preflight for visual Rank03 MARK_GIVEN_VALUE only. Records exact source-family authority, resolves the historical candidate to the existing canonical number-line KP, and locks the Rank02 renderer reuse boundary. No FormalMapping/PatternSpec materialization, runtime, renderer, selector, or route change.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "NONE",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "planningOnly": true,
+  "sourceAuthorityAdvanced": true,
+  "rank03RuntimeImplemented": false,
+  "rank04OrLaterTouched": false
+}
