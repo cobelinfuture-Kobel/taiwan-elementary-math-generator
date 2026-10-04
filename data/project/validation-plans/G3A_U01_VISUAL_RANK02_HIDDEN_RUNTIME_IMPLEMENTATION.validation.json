@@ -18,7 +18,8 @@
         "kind": "NODE_TEST",
         "paths": [
           "tests/curriculum/g3a-u01-number-line-candidate-resolution.test.js",
-          "tests/curriculum/g3a-u01-visual-rank01-runtime-acceptance.test.js"
+          "tests/curriculum/g3a-u01-visual-rank01-runtime-acceptance.test.js",
+          "tests/curriculum/postg-app-w01-a00-assessment.test.js"
         ]
       }
     ]
