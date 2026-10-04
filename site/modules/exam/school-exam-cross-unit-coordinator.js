@@ -2,7 +2,7 @@ import { listBatchASourceUnits } from "../curriculum/batch-a/source-units.js";
 import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
-} from "../curriculum/registry/batch-a-selector-g3a-u01-visual-rank03-extension.js";
+} from "../curriculum/registry/batch-a-selector-g3a-u01-visual-rank04-extension.js";
 import {
   G3A_U01_VISUAL_RANK01_KP_ID,
   G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
@@ -18,6 +18,11 @@ import {
   G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
   G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP,
 } from "../curriculum/registry/g3a-u01-visual-rank03-selector-projection.js";
+import {
+  G3A_U01_VISUAL_RANK04_KP_ID,
+  G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK04_PUBLIC_PATTERN_GROUP,
+} from "../curriculum/registry/g3a-u01-visual-rank04-selector-projection.js";
 import {
   paginateAnswerKeyItems,
   paginateQuestionDisplayModels,
@@ -114,6 +119,7 @@ function preferredModes(row, plan) {
     forced.includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
     || forced.includes(G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID)
     || forced.includes(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)
+    || forced.includes(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID)
   ) {
     return ["numeric"];
   }
@@ -446,6 +452,24 @@ function validatePlan(plan = {}) {
           selectorTargetId: selectorKey,
           forcedPatternGroupIds: [G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID],
           selectorDisplayName: G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP.displayName,
+        });
+        effectiveSelectorTargetIds.push(selectorKey);
+        continue;
+      }
+      if (
+        unit.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+        && targetId === G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID
+      ) {
+        const baseRow = rowMap.get(G3A_U01_VISUAL_RANK04_KP_ID);
+        if (!baseRow || baseRow.sourceId !== unit.sourceId) {
+          errors.push(issue("SCHOOL_EXAM_CROSS_UNIT_RANK04_KP_NOT_PUBLIC", { selectorTargetId: selectorKey }));
+          continue;
+        }
+        rows.push({
+          ...baseRow,
+          selectorTargetId: selectorKey,
+          forcedPatternGroupIds: [G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID],
+          selectorDisplayName: G3A_U01_VISUAL_RANK04_PUBLIC_PATTERN_GROUP.displayName,
         });
         effectiveSelectorTargetIds.push(selectorKey);
         continue;
