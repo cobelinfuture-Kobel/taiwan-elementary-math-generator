@@ -128,8 +128,7 @@ async function generateExamAndInspect(page,expectedStatusFragment){
     text:document.querySelector("#exam-status")?.textContent?.trim()??"",
   }));
   if(status.tone!=="success"||!status.text.includes(expectedStatusFragment)){
-    const diagnostic=await page.evaluate(()=>globalThis.__EXAM_TEMPLATE_LAST_GENERATION_DIAGNOSTIC__??null);
-    throw new Error(`G3AU01_R01_EXAM_GENERATION:${JSON.stringify({status,diagnostic})}`);
+    throw new Error(`G3AU01_R01_EXAM_GENERATION:${JSON.stringify(status)}`);
   }
   const frame=await (await page.locator("#exam-preview").elementHandle())?.contentFrame();
   if(!frame)throw new Error("G3AU01_R01_EXAM_PREVIEW_MISSING");
