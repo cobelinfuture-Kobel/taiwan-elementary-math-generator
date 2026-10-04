@@ -1,0 +1,153 @@
+{
+  "schemaName": "G3AU01VisualRank03SourceAuthorityPreflight",
+  "schemaVersion": 1,
+  "taskId": "G3A_U01_VisualRank03_SourceAuthorityPreflight",
+  "sourceId": "g3a_u01_3a01",
+  "unitCode": "3A-U01",
+  "unitTitle": "10000以內的數",
+  "status": "PASS_SOURCE_AUTHORITY_PREFLIGHT",
+  "rank": 3,
+  "visualFamily": {
+    "visualFamilyId": "vf_g3a_u01_integer_number_line_mark_value",
+    "nameZh": "整數數線定位／標記",
+    "questionCount": 20,
+    "representationFamily": "integer_number_line",
+    "taskCore": "MARK_GIVEN_VALUE",
+    "generativeReconstructionEligibility": "YES",
+    "priorityWave": "P1_SHARED_NUMBER_LINE_EXTENSION"
+  },
+  "sourceAuthority": {
+    "curriculumSource": {
+      "file": "題型總覽-3a01-10000以內的數.pdf",
+      "page": 3,
+      "supportLevel": "SHARED_NUMBER_LINE_SEMANTICS_ONLY",
+      "observation": "教材第3頁題型⑨提供等距整數數線、可見刻度與由刻度關係判定整數值的共享語意；該頁直接題型是讀值，不是『給定數值後在數線上標記』。",
+      "directMarkGivenValueEvidence": false
+    },
+    "historicalExamVisualFamily": {
+      "registryPath": "data/curriculum/representation/units/g3a_u01_3a01.visual-pattern-families.v1.json",
+      "sourceQuestionCount": 20,
+      "directTaskAuthority": true,
+      "questionTypeHistogram": {
+        "number_line_marking": 4,
+        "number_line_placement": 4,
+        "數線定位": 9,
+        "數線標記": 3
+      },
+      "sampleEvidence": [
+        {
+          "questionId": "exam_pdf_1d999151554f_p1_N-1a",
+          "prompt": "在數線上標出23。",
+          "expectedSemanticAnswer": "定位於20與25之間的23。",
+          "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_翰林_三上_數學_期中評量卷_大墩國小.pdf",
+          "page": 1
+        },
+        {
+          "questionId": "exam_pdf_1d999151554f_p1_N-1b",
+          "prompt": "在數線上標出39。",
+          "expectedSemanticAnswer": "定位於35與40之間的39。",
+          "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_翰林_三上_數學_期中評量卷_大墩國小.pdf",
+          "page": 1
+        },
+        {
+          "questionId": "exam_pdf_1d999151554f_p1_N-2a",
+          "prompt": "在數線上標出796。",
+          "expectedSemanticAnswer": "定位於790與800之間的796。",
+          "sourcePath": "G03/semester_1/midterm/三上數學考券_期中_OK/113_翰林_三上_數學_期中評量卷_大墩國小.pdf",
+          "page": 1
+        }
+      ]
+    },
+    "authorityDecision": "PASS",
+    "authorityReason": "Rank03 的直接 task authority 來自既有 20 題歷屆考卷 visual family；教材頁3只提供共享 integer-number-line scale semantics，不能被誤寫成 MARK_GIVEN_VALUE 的直接教材證據。"
+  },
+  "knowledgePointResolution": {
+    "historicalCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "currentCanonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "currentCanonicalKnowledgePointNameZh": "整數數線刻度、讀值與定位",
+    "currentAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "reuseExistingCanonicalKnowledgePoint": true,
+    "newKnowledgePointRequired": false,
+    "rationale": "Rank02 已把原 source-backed candidate 正式升格為 canonical KP；Rank03 MARK_GIVEN_VALUE 屬於同一等距整數數線定位操作，不應新增第二個 KP。",
+    "staleCandidateRegistryNote": "g3a_u01_number_line_candidate_resolution.v1.json 仍保存 pre-Rank02 的 APPROVED_FOR_PATTERNSPEC_DESIGN_NOT_MINTED 歷史 disposition；current canonical knowledge authority 與 Rank02 D0 lifecycle 優先。"
+  },
+  "mappingReadback": {
+    "formalMappingCandidateId": "fmc_g3a_u01_integer_number_line_mark_value",
+    "patternSpecCandidateId": "psc_g3a_u01_visual_number_line_mark_value",
+    "mappingStatus": "CANDIDATE_KP_DEPENDENCY",
+    "resolvedPrimaryKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "operationContract": "place the given integer on the unique legal tick of a uniform number-line scale",
+    "answerModel": "numberLinePointAnswer",
+    "validatorGuards": [
+      "uniform_integer_step",
+      "target_within_scale",
+      "target_maps_to_unique_tick",
+      "answer_overlay_matches_target_tick"
+    ],
+    "preflightDisposition": "READY_FOR_FORMAL_MAPPING_AND_PATTERNSPEC_CONTRACT"
+  },
+  "rank02ReuseAssessment": {
+    "sharedRendererPath": "site/modules/renderer/fraction-number-line.js",
+    "existingRank02ModelKind": "integer_number_line",
+    "existingCapabilities": [
+      "uniform integer ticks",
+      "sparse visible anchors",
+      "left-to-right increasing scale",
+      "source-style marker rendering",
+      "0..10000 bounded values"
+    ],
+    "rank03RequiredExtension": [
+      "question representation must omit the answer marker while retaining a solvable scale",
+      "answer representation must overlay the target marker on the unique legal tick",
+      "validator must derive targetIndex = (targetValue - startValue) / step and require an integer legal tick",
+      "worksheet must preserve distinct question-model and answer-model number-line representations"
+    ],
+    "rendererClassification": "EXTEND_EXISTING_INTEGER_NUMBER_LINE_RUNTIME",
+    "newRendererFamilyRequired": false
+  },
+  "formalOperationPreflight": {
+    "inputRoles": {
+      "startValue": "數線起點整數值",
+      "step": "相鄰刻度正整數間隔",
+      "targetValue": "題目指定要標記的整數",
+      "tickCount": "可用刻度數"
+    },
+    "targetEquation": "targetIndex = (targetValue - startValue) / step",
+    "legalTargetConditions": [
+      "targetValue is an integer",
+      "targetValue is within the displayed scale",
+      "(targetValue - startValue) is divisible by step",
+      "targetIndex is a unique legal tick index"
+    ],
+    "answerSemantics": "learner places/marks the target integer at targetIndex; answer key displays the marker overlay on that tick"
+  },
+  "antiScopeBoundary": {
+    "allowed": [
+      "Rank03 source authority preflight",
+      "resolve Rank03 mapping candidate to the already canonical number-line KP",
+      "record Rank02 renderer/runtime reuse and exact Rank03 extension needs",
+      "lock the next FormalMapping/PatternSpec contract scope"
+    ],
+    "forbidden": [
+      "materialize Rank03 FormalMapping",
+      "materialize Rank03 PatternSpec",
+      "modify number-line renderer code",
+      "implement Rank03 generator or validator",
+      "make Rank03 selector visible",
+      "modify Classic or Exam UI",
+      "implement Rank04 or Rank05"
+    ]
+  },
+  "blockersRemoved": [
+    "RANK03_DIRECT_SOURCE_AUTHORITY_UNRESOLVED",
+    "RANK03_KP_REUSE_UNRESOLVED",
+    "RANK03_RENDERER_REUSE_BOUNDARY_UNRESOLVED"
+  ],
+  "remainingBlockers": [
+    "RANK03_FORMAL_MAPPING_NOT_MATERIALIZED",
+    "RANK03_PATTERNSPEC_NOT_MATERIALIZED",
+    "RANK03_VALIDATOR_CONTRACT_NOT_MATERIALIZED",
+    "RANK03_QUESTION_VS_ANSWER_OVERLAY_RENDERING_CONTRACT_NOT_MATERIALIZED"
+  ],
+  "nextStep": "G3A_U01_VisualRank03_FormalMappingAndPatternSpecContract_Then_MarkValueValidatorAndRendererExtensionContract"
+}
