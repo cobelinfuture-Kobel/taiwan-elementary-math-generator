@@ -7,16 +7,25 @@ import {
   G3A_U01_VISUAL_RANK01_SOURCE_ID,
   validateG3AU01VisualRank01Question
 } from "./g3a-u01-visual-rank01-runtime.js";
+import {normalizeG3AU01VisualRank01PublicLayout} from "./g3a-u01-visual-rank01-layout.js";
 
 function layout(options={}){
   const p=options.printLayout??{};
   const publicAdmission=options.publicAdmission===true;
-  const maxColumns=publicAdmission?3:2;
-  const maxRowsPerPage=publicAdmission?7:4;
+  if(publicAdmission){
+    const safe=normalizeG3AU01VisualRank01PublicLayout(p);
+    return Object.freeze({
+      paperSize:safe.paperSize,
+      columns:safe.columns,
+      rowsPerPage:safe.rowsPerPage,
+      showQuestionNumbers:p.showQuestionNumbers!==false,
+      showAnswerKeyPage:options.includeAnswerKey!==false&&p.showAnswerKeyPage!==false
+    });
+  }
   return Object.freeze({
     paperSize:p.paperSize??"A4",
-    columns:Number.isInteger(p.columns)?Math.min(Math.max(p.columns,1),maxColumns):2,
-    rowsPerPage:Number.isInteger(p.rowsPerPage)?Math.min(Math.max(p.rowsPerPage,1),maxRowsPerPage):3,
+    columns:Number.isInteger(p.columns)?Math.min(Math.max(p.columns,1),2):2,
+    rowsPerPage:Number.isInteger(p.rowsPerPage)?Math.min(Math.max(p.rowsPerPage,1),4):3,
     showQuestionNumbers:p.showQuestionNumbers!==false,
     showAnswerKeyPage:options.includeAnswerKey!==false&&p.showAnswerKeyPage!==false
   });
@@ -36,7 +45,7 @@ function displayModels(questions,l,publicAdmission=false){
       avoidPageBreakInside:true,
       representation:"one-way-statistics-table",
       rowCount:q.tableData.rows.length,
-      layoutTuningStatus:publicAdmission?"public_layout_modes_operator_review_pending":"accepted_actual_a4_2x3_no_size_change"
+      layoutTuningStatus:publicAdmission?"public_layout_safe_cap_enforced_operator_recheck_pending":"accepted_actual_a4_2x3_no_size_change"
     })
   }));
 }
@@ -49,7 +58,7 @@ function answerItems(questions,models,publicAdmission=false){
       avoidPageBreakInside:true,
       representation:"one-way-statistics-table",
       rowCount:q.tableData.rows.length,
-      layoutTuningStatus:publicAdmission?"public_layout_modes_operator_review_pending":"accepted_actual_a4_2x3_no_size_change"
+      layoutTuningStatus:publicAdmission?"public_layout_safe_cap_enforced_operator_recheck_pending":"accepted_actual_a4_2x3_no_size_change"
     })
   }));
 }
@@ -60,7 +69,15 @@ export function buildG3AU01VisualRank01WorksheetDocument(options={}){
   if(!generation.ok) return Object.freeze({ok:false,errors:generation.errors,warnings:generation.warnings,worksheetDocument:null,generation});
   const validationErrors=generation.questions.flatMap(q=>validateG3AU01VisualRank01Question(q).errors);
   if(validationErrors.length) return Object.freeze({ok:false,errors:Object.freeze(validationErrors),warnings:Object.freeze([]),worksheetDocument:null,generation});
+  const layoutReview=publicAdmission?normalizeG3AU01VisualRank01PublicLayout(options.printLayout??{}):null;
   const l=layout({...options,publicAdmission});
+  const layoutWarnings=layoutReview?.adjusted
+    ? [Object.freeze({
+        code:"G3A_U01_RANK01_LAYOUT_SAFETY_ADJUSTED",
+        severity:"warning",
+        message:`一維資料表題型已將每頁版面調整為 ${l.columns} 欄 × ${l.rowsPerPage} 列，以避免 8 列資料表超出 A4 列印範圍。`
+      })]
+    : [];
   const models=displayModels(generation.questions,l,publicAdmission);
   const answers=l.showAnswerKeyPage?answerItems(generation.questions,models,publicAdmission):[];
   const questionPages=paginateQuestionDisplayModels(models,l);
@@ -82,12 +99,14 @@ export function buildG3AU01VisualRank01WorksheetDocument(options={}){
       patternGroupId:G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,patternSpecId:G3A_U01_VISUAL_RANK01_PATTERN_SPEC_ID,
       sourceSemanticCore:"TABLE_DATA_COMPARISON",nativeRendererPath:"site/modules/renderer/one-way-statistics-table.js",
       chartRepresentationRendered:false,hiddenRuntime:!publicAdmission,selectorVisible:publicAdmission,productionUse:publicAdmission?"public_review":"forbidden",
-      layoutTuningStatus:publicAdmission?"PUBLIC_LAYOUT_MODES_OPERATOR_REVIEW_PENDING":"accepted_actual_a4_2x3_no_size_change",
+      layoutTuningStatus:publicAdmission?"PUBLIC_LAYOUT_SAFE_CAP_ENFORCED_OPERATOR_RECHECK_PENDING":"accepted_actual_a4_2x3_no_size_change",
       layoutTuningBoundary:publicAdmission
-        ?"operator will review website 1/2/3-column modes; repair only demonstrated overflow or density defects"
-        :"A4 2x3 accepted at native table size; any future size increase requires renewed actual-page overflow review"
+        ?"Rank01 uses source-backed 3-to-8-row tables; safe public caps are 1 column <= 4 rows, 2 columns <= 3 rows, 3 columns <= 2 rows until deployed recheck completes"
+        :"A4 2x3 accepted at native table size; any future size increase requires renewed actual-page overflow review",
+      requestedPrintLayout:publicAdmission?layoutReview?.requested:null,
+      publicLayoutSafetyAdjusted:publicAdmission?Boolean(layoutReview?.adjusted):false
     }),
     summary:Object.freeze({questionCount:generation.questions.length,questionPageCount:questionPages.length,answerKeyPageCount:answerKeyPages.length,tableQuestionCount:generation.questions.length,chartQuestionCount:0})
   });
-  return Object.freeze({ok:true,errors:Object.freeze([]),warnings:Object.freeze([]),worksheetDocument,generation});
+  return Object.freeze({ok:true,errors:Object.freeze([]),warnings:Object.freeze(layoutWarnings),worksheetDocument,generation});
 }

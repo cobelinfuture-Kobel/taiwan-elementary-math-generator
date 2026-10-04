@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK01_LAYOUT_SAFETY_REPAIR",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g3a_u01_4digit_compare"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3a_u01_4digit_compare"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3a_u01_4digit_compare": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK01_PUBLIC_CUTOVER.validation.json",
+  "classificationNote": "Rank01-only A4 layout safety repair after exact deployed artifact review. Shared browser control code is touched behind an exact Rank01 guard, while the affected public route remains bounded to G3A-U01 singleKnowledgePoint + the Rank01 table-comparison pattern group.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "scopeGuards": {
+    "sourceUnitRouteChanged": false,
+    "sameUnitMixedRouteChanged": false,
+    "crossUnitMixedRouteChanged": false,
+    "newKnowledgePointMinted": false,
+    "rank02OrLaterTouched": false,
+    "globalLayoutContractChanged": false,
+    "rendererCodeChanged": false,
+    "mathematicsChanged": false,
+    "generatorSemanticsChanged": false,
+    "validatorSemanticsChanged": false,
+    "rank01LayoutSafetyOnly": true
+  }
+}

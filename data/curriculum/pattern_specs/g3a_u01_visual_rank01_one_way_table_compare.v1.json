@@ -287,9 +287,9 @@
     "renderedWorksheetAcceptance": "PASS_FOCUSED_CI",
     "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED",
     "publicCutover": "PASS_FOCUSED_CI_AND_PAGES_DEPLOYED",
-    "publicLayoutModesReview": "PENDING_OPERATOR_WEBSITE_REVIEW"
+    "publicLayoutModesReview": "REPAIR_IMPLEMENTED_PENDING_CI_AND_DEPLOYED_RECHECK"
   },
-  "nextStep": "Operator checks the deployed website across available layout modes for Rank01. If a concrete layout defect is found, apply the smallest layout-only repair; if all modes are accepted, close Rank01 at D0.",
+  "nextStep": "Run the bounded Rank01 focused gate, merge the layout-safety repair, deploy Pages, then re-materialize the exact deployed artifact and visually recheck the safe 1x4 / 2x3 / 3x2 boundaries before Rank01 D0 closeout.",
   "runtimeAcceptance": {
     "prNumber": 1215,
     "mergeSha": "38114a0184bdc6402e4f2d75377230ee5df496a6",
@@ -364,6 +364,54 @@
     "focusedGate": "PASS",
     "pagesDeployRunId": 37164809036,
     "pagesDeploy": "PASS",
-    "publicReviewStatus": "READY_FOR_OPERATOR_WEBSITE_LAYOUT_CHECK"
+    "publicReviewStatus": "LAYOUT_REPAIR_PENDING_CI_AND_DEPLOYED_RECHECK"
+  },
+  "publicLayoutModeReview": {
+    "reviewType": "EXACT_DEPLOYED_PAGES_ARTIFACT_LAYOUT_MODE_REVIEW",
+    "reviewedPagesDeployRunId": 37164809036,
+    "reviewedPagesArtifactId": 11288842413,
+    "reviewedHeadSha": "252f51aa5f898977cca7e2d0ee6d7ab3e956831d",
+    "sourceRenderer": "site/modules/renderer/one-way-statistics-table.js",
+    "evidenceMethod": "read-only materialization of the exact deployed Pages artifact, deterministic Rank01 generation with 8-row worst cases, A4 print rendering and visual inspection",
+    "observedDefect": "global dense layout modes can clip or split Rank01 one-way tables at the bottom of the A4 question page",
+    "safeRowsByColumns": {
+      "1": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "2": [
+        1,
+        2,
+        3
+      ],
+      "3": [
+        1,
+        2
+      ]
+    },
+    "safeBoundaryModes": [
+      "1x4",
+      "2x3",
+      "3x2"
+    ],
+    "unsafeDenseModes": [
+      "1x5",
+      "1x6",
+      "1x7",
+      "2x4",
+      "2x5",
+      "2x6",
+      "3x3",
+      "3x4",
+      "3x5"
+    ],
+    "repairStrategy": "Rank01-only layout cap; global 18-layout contract and other units remain unchanged",
+    "rendererCodeChanged": false,
+    "mathematicsChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "status": "IMPLEMENTED_PENDING_FOCUSED_CI_AND_DEPLOYED_RECHECK"
   }
 }

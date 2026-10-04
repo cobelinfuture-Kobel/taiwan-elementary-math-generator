@@ -20,6 +20,13 @@ import {
 } from "../../modules/curriculum/registry/batch-a-selector-extension.js";
 import { G5A_U08_SOURCE_ID } from "../../modules/curriculum/registry/g5a-u08-promotion.js";
 import {
+  G3A_U01_VISUAL_RANK01_KP_ID,
+  G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK01_SOURCE_ID
+} from "../../modules/curriculum/registry/g3a-u01-visual-rank01-selector-projection.js";
+import { maxSafeG3AU01VisualRank01Rows } from "../../modules/curriculum/batch-a/g3a-u01-visual-rank01-layout.js";
+import { approvedRowsForGlobalPublicColumns } from "../../modules/curriculum/batch-a/global-public-layout-contract.js";
+import {
   normalizePublicPatternGroupSelection,
   togglePublicPatternGroupSelection
 } from "./state/public-pattern-group-selection.js";
@@ -73,6 +80,7 @@ const answerKeyInput = document.getElementById("batch-a-answer-key-input");
 const generationSeedInput = document.getElementById("generation-seed-input");
 const columnsInput = document.getElementById("columns-input");
 const rowsPerPageInput = document.getElementById("rows-per-page-input");
+const globalLayoutHelp = document.getElementById("global-layout-help");
 const regenerateButton = document.getElementById("regenerate-button");
 const printButton = document.getElementById("print-button");
 const statusPanel = document.getElementById("status-panel");
@@ -367,6 +375,41 @@ function syncKnowledgePointSelectorFromState() {
   syncG5AU08Controls();
 }
 
+function isG3AU01VisualRank01LayoutActive() {
+  const selectedKps = state.batchA.selectedKnowledgePointIds ?? [];
+  const selectedGroups = state.batchA.selectedPatternGroupIds ?? [];
+  return state.batchA.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT
+    && selectedKps.length === 1
+    && selectedKps[0] === G3A_U01_VISUAL_RANK01_KP_ID
+    && selectedGroups.length === 1
+    && selectedGroups[0] === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID;
+}
+
+function syncPublicLayoutControls() {
+  if (!columnsInput || !rowsPerPageInput) return;
+  const columns = Number(columnsInput.value ?? state.batchA.columns);
+  const globalRows = approvedRowsForGlobalPublicColumns(columns);
+  const globalMaximum = globalRows.length ? Math.max(...globalRows) : 5;
+  const rank01Active = isG3AU01VisualRank01LayoutActive();
+  const maximum = rank01Active
+    ? (maxSafeG3AU01VisualRank01Rows(columns) ?? globalMaximum)
+    : globalMaximum;
+  const currentRows = Number(rowsPerPageInput.value ?? state.batchA.rowsPerPage);
+  const rowsPerPage = Math.min(Math.max(Number.isInteger(currentRows) ? currentRows : 1, 1), maximum);
+  rowsPerPageInput.min = "1";
+  rowsPerPageInput.max = String(maximum);
+  rowsPerPageInput.value = String(rowsPerPage);
+  if (state.batchA.columns !== columns || state.batchA.rowsPerPage !== rowsPerPage) {
+    setBatchAPrintLayout(state, { columns, rowsPerPage });
+  }
+  if (globalLayoutHelp) {
+    globalLayoutHelp.textContent = rank01Active
+      ? `此題型含最多 8 列資料表；目前 ${columns} 欄每頁可選 1～${maximum} 列，以避免 A4 列印裁切。`
+      : `目前 ${columns} 欄可選每頁 1～${maximum} 列；答案頁使用獨立安全版面。`;
+  }
+}
+
 function syncControlsFromState() {
   if (sourceSelect) sourceSelect.value = state.batchA.sourceId;
   if (questionCountInput) questionCountInput.value = String(state.batchA.questionCount);
@@ -377,6 +420,7 @@ function syncControlsFromState() {
   if (rowsPerPageInput) rowsPerPageInput.value = String(state.batchA.rowsPerPage);
   updateSourceHelp();
   syncKnowledgePointSelectorFromState();
+  syncPublicLayoutControls();
 }
 
 function readSelectorControlsIntoState() {

@@ -53,6 +53,55 @@ test("Rank01 default worksheet preserves accepted A4 2x3 pagination and exercise
   assert.equal((html.match(/data-representation="one-way-statistics-table"/g)??[]).length,12);
 });
 
+test("Rank01 public layout safety caps dense global modes before pagination", () => {
+  const cases = [
+    { requested:[1,7], expected:[1,4], questionCount:4 },
+    { requested:[2,6], expected:[2,3], questionCount:6 },
+    { requested:[3,5], expected:[3,2], questionCount:6 },
+  ];
+  for (const entry of cases) {
+    const result=buildG3AU01VisualRank01WorksheetDocument({
+      publicAdmission:true,
+      selectionMode:"singleKnowledgePoint",
+      questionCount:entry.questionCount,
+      generationSeed:"g3a-u01-rank01-layout-review",
+      includeAnswerKey:true,
+      printLayout:{
+        paperSize:"A4",
+        columns:entry.requested[0],
+        rowsPerPage:entry.requested[1],
+        showQuestionNumbers:true,
+        showAnswerKeyPage:true
+      }
+    });
+    assert.equal(result.ok,true,result.errors.join("\n"));
+    assert.equal(result.worksheetDocument.printOptions.columns,entry.expected[0]);
+    assert.equal(result.worksheetDocument.printOptions.rowsPerPage,entry.expected[1]);
+    assert.equal(result.worksheetDocument.questionPages.length,1);
+    assert.equal(result.worksheetDocument.answerKeyPages.length,1);
+    assert.ok(result.worksheetDocument.questionDisplayModels.some(row=>row.tableData.rows.length===8));
+    assert.equal(result.warnings.length,1);
+    assert.equal(result.warnings[0].code,"G3A_U01_RANK01_LAYOUT_SAFETY_ADJUSTED");
+  }
+});
+
+test("Rank01 public safe-boundary modes remain unchanged", () => {
+  for (const [columns,rowsPerPage] of [[1,4],[2,3],[3,2]]) {
+    const result=buildG3AU01VisualRank01WorksheetDocument({
+      publicAdmission:true,
+      questionCount:columns*rowsPerPage,
+      generationSeed:"g3a-u01-rank01-layout-review",
+      includeAnswerKey:false,
+      printLayout:{paperSize:"A4",columns,rowsPerPage}
+    });
+    assert.equal(result.ok,true,result.errors.join("\n"));
+    assert.equal(result.worksheetDocument.printOptions.columns,columns);
+    assert.equal(result.worksheetDocument.printOptions.rowsPerPage,rowsPerPage);
+    assert.equal(result.warnings.length,0);
+    assert.equal(result.worksheetDocument.questionPages.length,1);
+  }
+});
+
 test("Rank01 layout acceptance changes no mathematics, generator, validator, selector, or production status", () => {
   assert.equal(contract.layoutAcceptance.mathematicsChanged,false);
   assert.equal(contract.layoutAcceptance.generatorChanged,false);
