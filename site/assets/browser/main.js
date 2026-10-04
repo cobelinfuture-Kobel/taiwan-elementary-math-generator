@@ -22,6 +22,7 @@ import { G5A_U08_SOURCE_ID } from "../../modules/curriculum/registry/g5a-u08-pro
 import {
   G3A_U01_VISUAL_RANK01_KP_ID,
   G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP,
   G3A_U01_VISUAL_RANK01_SOURCE_ID
 } from "../../modules/curriculum/registry/g3a-u01-visual-rank01-selector-projection.js";
 import { maxSafeG3AU01VisualRank01Rows } from "../../modules/curriculum/batch-a/g3a-u01-visual-rank01-layout.js";
@@ -256,6 +257,12 @@ function renderKnowledgePointAvailability() {
   const visibleKnowledgePoints = visibleKnowledgePointsForSource(state.batchA.sourceId);
   const selectedIds = new Set(state.batchA.selectedKnowledgePointIds ?? []);
   const isSourceUnitMode = state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SOURCE_UNIT;
+  const rank01Selected = state.batchA.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT
+    && selectedIds.size === 1
+    && selectedIds.has(G3A_U01_VISUAL_RANK01_KP_ID)
+    && (state.batchA.selectedPatternGroupIds ?? []).length === 1
+    && state.batchA.selectedPatternGroupIds[0] === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID;
 
   if (knowledgePointAvailabilitySummary) {
     knowledgePointAvailabilitySummary.textContent = [
@@ -271,7 +278,8 @@ function renderKnowledgePointAvailability() {
     knowledgePointPanel.dataset.visibleCount = String(visibleKnowledgePoints.length);
     knowledgePointPanel.dataset.selectionMode = state.batchA.selectionMode;
     for (const knowledgePoint of visibleKnowledgePoints) {
-      const selected = selectedIds.has(knowledgePoint.knowledgePointId);
+      const selected = selectedIds.has(knowledgePoint.knowledgePointId)
+        && !(knowledgePoint.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID && rank01Selected);
       const item = document.createElement("button");
       item.type = "button";
       item.className = "knowledge-point-option";
@@ -281,6 +289,21 @@ function renderKnowledgePointAvailability() {
       item.setAttribute("aria-pressed", selected ? "true" : "false");
       item.innerHTML = `<strong>${selected ? "已選｜" : ""}${knowledgePoint.displayName}</strong><span>${knowledgePoint.unitCode}｜已通過出題驗證</span>`;
       knowledgePointPanel.append(item);
+
+      if (
+        state.batchA.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+        && knowledgePoint.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+      ) {
+        const rankItem = document.createElement("button");
+        rankItem.type = "button";
+        rankItem.className = "knowledge-point-option";
+        rankItem.dataset.rank01SelectorTarget = "true";
+        rankItem.dataset.selected = rank01Selected ? "true" : "false";
+        rankItem.disabled = state.batchA.selectionMode !== BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT;
+        rankItem.setAttribute("aria-pressed", rank01Selected ? "true" : "false");
+        rankItem.innerHTML = `<strong>${rank01Selected ? "已選｜" : ""}${G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName}</strong><span>${knowledgePoint.unitCode}｜已通過出題驗證</span>`;
+        knowledgePointPanel.append(rankItem);
+      }
     }
   }
 
@@ -298,6 +321,18 @@ function renderKnowledgePointAvailability() {
 
 function renderPatternGroupChoices() {
   if (!patternGroupSection || !patternGroupPanel || !patternGroupHelp) return;
+  const rank01Selected = state.batchA.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT
+    && (state.batchA.selectedKnowledgePointIds ?? []).length === 1
+    && state.batchA.selectedKnowledgePointIds[0] === G3A_U01_VISUAL_RANK01_KP_ID
+    && (state.batchA.selectedPatternGroupIds ?? []).length === 1
+    && state.batchA.selectedPatternGroupIds[0] === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID;
+  if (rank01Selected) {
+    patternGroupPanel.replaceChildren();
+    patternGroupSection.dataset.visible = "false";
+    patternGroupHelp.textContent = "此 Rank 題型已直接選定，不需要第二層題目形式。";
+    return;
+  }
   const normalized = normalizePublicPatternGroupSelection({
     selectionMode: state.batchA.selectionMode,
     selectedKnowledgePointIds: state.batchA.selectedKnowledgePointIds,
@@ -305,10 +340,14 @@ function renderPatternGroupChoices() {
   });
   const choiceGroups = new Map();
   for (const choice of normalized.choices) {
+    if (choice.patternGroupId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID) continue;
     if (!choice.hasRepresentationChoice) continue;
     const list = choiceGroups.get(choice.knowledgePointId) ?? [];
     list.push(choice);
     choiceGroups.set(choice.knowledgePointId, list);
+  }
+  for (const [knowledgePointId, choices] of [...choiceGroups.entries()]) {
+    if (choices.length < 2) choiceGroups.delete(knowledgePointId);
   }
 
   patternGroupPanel.replaceChildren();
@@ -567,6 +606,20 @@ function bindControls() {
   }
 
   knowledgePointPanel?.addEventListener("click", (event) => {
+    const rank01Target = event.target.closest?.("[data-rank01-selector-target='true']");
+    if (rank01Target) {
+      if (rank01Target.disabled) return;
+      applySelectorSelection(
+        BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT,
+        [G3A_U01_VISUAL_RANK01_KP_ID],
+        [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]
+      );
+      syncControlsFromState();
+      writeQueryStateFromState(state);
+      markOutputStale();
+      return;
+    }
+
     const item = event.target.closest?.("[data-knowledge-point-id]");
     if (!item || item.disabled) return;
     const knowledgePointId = item.dataset.knowledgePointId;

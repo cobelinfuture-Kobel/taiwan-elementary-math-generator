@@ -287,9 +287,11 @@
     "renderedWorksheetAcceptance": "PASS_FOCUSED_CI",
     "layoutTuningStatus": "PASS_NO_SIZE_CHANGE_REQUIRED",
     "publicCutover": "PASS_FOCUSED_CI_AND_PAGES_DEPLOYED",
-    "publicLayoutModesReview": "REPAIR_IMPLEMENTED_PENDING_CI_AND_DEPLOYED_RECHECK"
+    "publicLayoutModesReview": "REPAIR_IMPLEMENTED_PENDING_CI_AND_DEPLOYED_RECHECK",
+    "publicSelectorHierarchy": "FLAT_SIBLING_PROJECTION_PENDING_FOCUSED_CI",
+    "examTemplateConsumer": "SINGLE_KP_UI_ALIAS_IMPLEMENTED_PENDING_FOCUSED_CI"
   },
-  "nextStep": "Run the bounded Rank01 focused gate, merge the layout-safety repair, deploy Pages, then re-materialize the exact deployed artifact and visually recheck the safe 1x4 / 2x3 / 3x2 boundaries before Rank01 D0 closeout.",
+  "nextStep": "Run bounded focused CI for the flat sibling projection on Classic and Exam Template; both consumers must reuse the existing singleKnowledgePoint route with kp_g3a_u01_4digit_compare + the Rank01 pattern group, without creating a new canonical KP or a new legal routing semantic.",
   "runtimeAcceptance": {
     "prNumber": 1215,
     "mergeSha": "38114a0184bdc6402e4f2d75377230ee5df496a6",
@@ -364,7 +366,12 @@
     "focusedGate": "PASS",
     "pagesDeployRunId": 37164809036,
     "pagesDeploy": "PASS",
-    "publicReviewStatus": "LAYOUT_REPAIR_PENDING_CI_AND_DEPLOYED_RECHECK"
+    "publicReviewStatus": "LAYOUT_REPAIR_PENDING_CI_AND_DEPLOYED_RECHECK",
+    "selectorHierarchy": "flat_sibling_projection",
+    "examTemplateCompositionMode": "SINGLE_KP_UI_ALIAS_TO_EXISTING_SINGLE_KNOWLEDGE_POINT",
+    "examTemplateConsumerStatus": "IMPLEMENTED_PENDING_FOCUSED_CI",
+    "selectorTargetKind": "pattern_group_projection",
+    "selectorTargetId": "pg_g3a_u01_visual_one_way_table_compare"
   },
   "publicLayoutModeReview": {
     "reviewType": "EXACT_DEPLOYED_PAGES_ARTIFACT_LAYOUT_MODE_REVIEW",

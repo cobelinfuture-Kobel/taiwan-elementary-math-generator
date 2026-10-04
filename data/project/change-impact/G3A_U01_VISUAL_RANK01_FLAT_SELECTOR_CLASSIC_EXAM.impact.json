@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK01_FLAT_SELECTOR_CLASSIC_EXAM",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g3a_u01_4digit_compare"
+  ],
+  "selectorTargetIds": [
+    "pg_g3a_u01_visual_one_way_table_compare"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3a_u01_4digit_compare"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3a_u01_4digit_compare": "FOCUSED_PASS"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK01_FLAT_SELECTOR_CLASSIC_EXAM.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": true,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "scopeGuards": {
+    "canonicalKnowledgePointAdded": false,
+    "selectorTargetAdded": true,
+    "selectorHierarchyChanged": "nested_pattern_group_to_flat_sibling",
+    "classicConsumerChanged": true,
+    "examTemplateConsumerChanged": true,
+    "sameUnitMixedRouteChanged": false,
+    "crossUnitMixedRouteChanged": false,
+    "rank02OrLaterTouched": false,
+    "rendererCodeChanged": false,
+    "mathematicsChanged": false,
+    "generatorChanged": false,
+    "validatorChanged": false,
+    "selectorTargetKind": "pattern_group_ui_projection",
+    "existingSingleKnowledgePointRouteReused": true,
+    "examCompositionContractChanged": false,
+    "legalRouteSemanticsChanged": false
+  }
+}
