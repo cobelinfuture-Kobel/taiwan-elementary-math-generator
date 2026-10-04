@@ -39,7 +39,7 @@ import { renderSymmetryAxisCountDiagram } from "./symmetry-axis-count-diagram.js
 import { renderPrismPyramidElementsDiagram } from "./prism-pyramid-elements-diagram.js";
 import { renderSolidNetCorrespondenceDiagram } from "./solid-net-correspondence-diagram.js";
 import { renderCubeCuboidNetDiagram } from "./cube-cuboid-net-diagram.js";
-import { renderFractionNumberLine } from "./fraction-number-line.js";
+import { renderFractionNumberLine, renderIntegerNumberLine } from "./fraction-number-line.js";
 import { renderMeasurementRuler } from "./measurement-ruler.js";
 import { renderMeasurementScale } from "./measurement-scale.js";
 import { renderTabularPatternTable } from "./tabular-pattern-table.js";
@@ -119,6 +119,7 @@ export function renderDecimalNumberLine(model) {
 
 export { renderPieChartConstructionDataP08F21, renderCompositeCircleAreaDiagramP08F20, renderSectorAreaDiagramP08F19, renderCompositeArcPerimeterDiagramP08F17, renderScaleDrawingSimilarityDiagramP08F16, renderMapScaleDistanceDiagramP08F14, renderSameRadiusSectorComparisonDiagramP08F12, renderCoordinateReflectionDiagramP08F11, renderSectorFractionOfCircleDiagram, renderCongruentTriangleCorrespondenceDiagram, renderTriangleAngleClassificationDiagram, renderUnknownAngleLinearFullVerticalDiagram, renderCombinedSectorAngleDiagram, renderAngleEstimationClassificationDiagram, renderAngleCompositionRotationClockDiagram, renderSolidViewpointRepresentationDiagram, renderProtractorAngleMeasurementDiagram, renderAnglePartsDiagram, renderCirclePartsDiagram, renderAnnulusAreaDiagram, renderCylinderVolumeDiagram, renderSquareCentimeterUnitDiagram, renderParallelLinesRecognitionDiagram, renderPerpendicularLinesRecognitionDiagram, renderCubicCentimeterUnitDiagram, renderLineSymmetryRecognitionDiagram, renderSolidShapeClassificationDiagram, renderCubeCuboidElementsDiagram, renderLargeAreaUnitScaleDiagram, renderRightAngleRecognitionDiagram, renderAnglePropertiesDiagram, renderCircleGeometryPropertyDiagram, renderCircleAreaDerivationDiagram, renderScaleAreaChangeDiagram, renderAreaGridCountingDiagram, renderRectangleSquareAreaFormulaDiagram, renderTriangleElementsNamingDiagram, renderSectorElementsDiagram, renderSymmetryAxisCountDiagram, renderPrismPyramidElementsDiagram, renderSolidNetCorrespondenceDiagram, renderCubeCuboidNetDiagram, renderFractionNumberLine, renderMeasurementRuler, renderMeasurementScale, renderTabularPatternTable, renderOneWayStatisticsTable, renderTwoWayStatisticsTable, renderBarChartData, renderLineChartData };
 export function renderNumberLine(model) {
+  if (model?.kind === "integer_number_line") return renderIntegerNumberLine(model);
   if (model?.kind === "fraction_number_line") return renderFractionNumberLine(model);
   if (model?.kind === "measurement_ruler") return renderMeasurementRuler(model);
   if (model?.kind === "measurement_scale") return renderMeasurementScale(model);
