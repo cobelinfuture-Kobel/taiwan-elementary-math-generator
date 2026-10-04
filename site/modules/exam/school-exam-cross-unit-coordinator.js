@@ -45,6 +45,7 @@ function allocate(rows, questionCount) {
     const count = base + (remainder > 0 ? 1 : 0);
     if (remainder > 0) remainder -= 1;
     return Object.freeze({
+      selectorTargetId: row.selectorTargetId ?? row.knowledgePointId,
       sourceId: row.sourceId,
       knowledgePointId: row.knowledgePointId,
       questionCount: count,
@@ -76,7 +77,11 @@ function groupsForRow(row) {
 }
 
 function requestedGroupsForRow(plan, row, mode) {
-  const groups = groupsForRow(row);
+  const groups = groupsForRow(row)
+    .filter((group) => !(row.excludedPatternGroupIds ?? []).includes(group.patternGroupId));
+  if (Array.isArray(row.forcedPatternGroupIds) && row.forcedPatternGroupIds.length > 0) {
+    return [...row.forcedPatternGroupIds];
+  }
   const requested = new Set(unique(plan.selectedPatternGroupIds));
   const intersection = groups.filter((group) => requested.has(group.patternGroupId));
   if (intersection.length) return intersection.map((group) => group.patternGroupId);
@@ -87,6 +92,9 @@ function requestedGroupsForRow(plan, row, mode) {
 }
 
 function preferredModes(row, plan) {
+  if ((row.forcedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)) {
+    return ["numeric"];
+  }
   const explicit = String(plan.questionMode ?? "").trim();
   const rowModes = [
     ...(Array.isArray(row.questionModes) ? row.questionModes : []),
@@ -128,7 +136,7 @@ function buildLeaf(plan, row, questionCount, buildLeafWorksheet) {
       questionCount,
       ordering: "groupedByPattern",
       includeAnswerKey: plan.includeAnswerKey !== false,
-      generationSeed: `${plan.generationSeed ?? "school-exam-cross-unit"}:${row.sourceId}:${row.knowledgePointId}:${mode}`,
+      generationSeed: `${plan.generationSeed ?? "school-exam-cross-unit"}:${row.sourceId}:${row.selectorTargetId ?? row.knowledgePointId}:${mode}`,
       printLayout: plan.printLayout,
       schoolExamCrossUnitLeafDispatch: true,
     };
@@ -266,7 +274,7 @@ function materializeRecords(leafs) {
     questions.forEach((question, index) => {
       const model = models[index] ?? fallbackDisplayModel(question, index, row);
       const answer = answers[index] ?? fallbackAnswerItem(question, index, model, row);
-      records.push({ row, mode: leaf.mode, question, model, answer });
+      records.push({ row, selectorTargetId: row.selectorTargetId ?? row.knowledgePointId, mode: leaf.mode, question, model, answer });
     });
   }
   return records;
@@ -278,7 +286,7 @@ function normalizedRecord(record, index) {
     ?? record.question?.id
     ?? record.question?.generatedItemId
     ?? `q-${index + 1}`;
-  const questionId = `school-exam-cross-${row.sourceId}-${row.knowledgePointId}-${localId}`;
+  const questionId = `school-exam-cross-${row.sourceId}-${record.selectorTargetId ?? row.knowledgePointId}-${localId}`;
   const originalQuestionId = String(localId);
 
   const question = {
@@ -292,6 +300,7 @@ function normalizedRecord(record, index) {
       sourceId: row.sourceId,
       knowledgePointId: row.knowledgePointId,
       originalQuestionId,
+      selectorTargetId: record.selectorTargetId ?? row.knowledgePointId,
       schoolExamCrossUnitAggregation: true,
     },
   };
@@ -307,6 +316,7 @@ function normalizedRecord(record, index) {
       sourceId: row.sourceId,
       knowledgePointId: row.knowledgePointId,
       originalQuestionId,
+      selectorTargetId: record.selectorTargetId ?? row.knowledgePointId,
       schoolExamCrossUnitAggregation: true,
     },
   };
@@ -321,6 +331,7 @@ function normalizedRecord(record, index) {
       sourceId: row.sourceId,
       knowledgePointId: row.knowledgePointId,
       originalQuestionId,
+      selectorTargetId: record.selectorTargetId ?? row.knowledgePointId,
       schoolExamCrossUnitAggregation: true,
     },
   };
@@ -330,11 +341,9 @@ function normalizedRecord(record, index) {
 function validatePlan(plan = {}) {
   const selectedSourceIds = unique(plan.selectedSourceIds);
   const selectedKnowledgePointIds = unique(plan.selectedKnowledgePointIds);
+  const selectedSelectorTargetIds = unique(plan.selectedSelectorTargetIds);
   if (selectedSourceIds.length < 2) {
     return { ok: false, errors: [issue("SCHOOL_EXAM_CROSS_UNIT_REQUIRES_TWO_SOURCES")] };
-  }
-  if (selectedKnowledgePointIds.length < 2) {
-    return { ok: false, errors: [issue("SCHOOL_EXAM_CROSS_UNIT_REQUIRES_TWO_KPS")] };
   }
 
   const units = sourceMap();
@@ -364,13 +373,77 @@ function validatePlan(plan = {}) {
   }
 
   const rowMap = visibleRowMap();
-  const rows = selectedKnowledgePointIds.map((knowledgePointId) => rowMap.get(knowledgePointId));
-  const missingKps = selectedKnowledgePointIds.filter((knowledgePointId, index) => !rows[index]);
-  if (missingKps.length) {
-    return {
-      ok: false,
-      errors: [issue("SCHOOL_EXAM_CROSS_UNIT_KP_NOT_PUBLIC", { knowledgePointIds: missingKps })],
-    };
+  let rows = [];
+  let effectiveSelectorTargetIds = [];
+
+  if (selectedSelectorTargetIds.length >= 2) {
+    const unitByCode = new Map(selectedUnits.map((unit) => [unit.unitCode, unit]));
+    const errors = [];
+    for (const selectorKey of selectedSelectorTargetIds) {
+      const split = String(selectorKey).indexOf("::");
+      if (split <= 0) {
+        errors.push(issue("SCHOOL_EXAM_CROSS_UNIT_SELECTOR_TARGET_INVALID", { selectorTargetId: selectorKey }));
+        continue;
+      }
+      const unitCode = selectorKey.slice(0, split);
+      const targetId = selectorKey.slice(split + 2);
+      const unit = unitByCode.get(unitCode);
+      if (!unit) {
+        errors.push(issue("SCHOOL_EXAM_CROSS_UNIT_SELECTOR_TARGET_UNIT_NOT_SELECTED", { selectorTargetId: selectorKey }));
+        continue;
+      }
+      if (
+        unit.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+        && targetId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID
+      ) {
+        const baseRow = rowMap.get(G3A_U01_VISUAL_RANK01_KP_ID);
+        if (!baseRow || baseRow.sourceId !== unit.sourceId) {
+          errors.push(issue("SCHOOL_EXAM_CROSS_UNIT_RANK01_KP_NOT_PUBLIC", { selectorTargetId: selectorKey }));
+          continue;
+        }
+        rows.push({
+          ...baseRow,
+          selectorTargetId: selectorKey,
+          forcedPatternGroupIds: [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID],
+          selectorDisplayName: G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName,
+        });
+        effectiveSelectorTargetIds.push(selectorKey);
+        continue;
+      }
+      const row = rowMap.get(targetId);
+      if (!row || row.sourceId !== unit.sourceId) {
+        errors.push(issue("SCHOOL_EXAM_CROSS_UNIT_SELECTOR_TARGET_NOT_PUBLIC", { selectorTargetId: selectorKey }));
+        continue;
+      }
+      rows.push({
+        ...row,
+        selectorTargetId: selectorKey,
+        excludedPatternGroupIds: (
+          unit.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+          && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
+        ) ? [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID] : [],
+        selectorDisplayName: row.displayName ?? targetId,
+      });
+      effectiveSelectorTargetIds.push(selectorKey);
+    }
+    if (errors.length) return { ok: false, errors };
+  } else {
+    if (selectedKnowledgePointIds.length < 2) {
+      return { ok: false, errors: [issue("SCHOOL_EXAM_CROSS_UNIT_REQUIRES_TWO_KPS")] };
+    }
+    rows = selectedKnowledgePointIds.map((knowledgePointId) => rowMap.get(knowledgePointId));
+    const missingKps = selectedKnowledgePointIds.filter((knowledgePointId, index) => !rows[index]);
+    if (missingKps.length) {
+      return {
+        ok: false,
+        errors: [issue("SCHOOL_EXAM_CROSS_UNIT_KP_NOT_PUBLIC", { knowledgePointIds: missingKps })],
+      };
+    }
+    rows = rows.map((row) => ({
+      ...row,
+      selectorTargetId: `${selectedUnits.find((unit) => unit.sourceId === row.sourceId)?.unitCode ?? row.sourceId}::${row.knowledgePointId}`,
+    }));
+    effectiveSelectorTargetIds = rows.map((row) => row.selectorTargetId);
   }
 
   const selectedSourceSet = new Set(selectedSourceIds);
@@ -391,12 +464,12 @@ function validatePlan(plan = {}) {
       errors: [issue("SCHOOL_EXAM_CROSS_UNIT_KP_SPAN_REQUIRES_TWO_SOURCES")],
     };
   }
-  const sourcesWithoutKp = selectedSourceIds.filter((sourceId) => !representedSourceIds.includes(sourceId));
-  if (sourcesWithoutKp.length) {
+  const sourcesWithoutTarget = selectedSourceIds.filter((sourceId) => !representedSourceIds.includes(sourceId));
+  if (sourcesWithoutTarget.length) {
     return {
       ok: false,
       errors: [issue("SCHOOL_EXAM_CROSS_UNIT_SOURCE_WITHOUT_SELECTED_KP", {
-        sourceIds: sourcesWithoutKp,
+        sourceIds: sourcesWithoutTarget,
       })],
     };
   }
@@ -418,7 +491,8 @@ function validatePlan(plan = {}) {
     grade,
     semester,
     selectedSourceIds,
-    selectedKnowledgePointIds,
+    selectedKnowledgePointIds: [...new Set(rows.map((row) => row.knowledgePointId))],
+    selectedSelectorTargetIds: effectiveSelectorTargetIds,
     selectedUnits,
     rows,
     questionCount,
@@ -450,7 +524,7 @@ export function buildSchoolExamCrossUnitWorksheet(plan = {}, buildLeafWorksheet)
   const errors = [];
   for (const entry of allocation) {
     const row = validation.rows.find(
-      (candidate) => candidate.knowledgePointId === entry.knowledgePointId,
+      (candidate) => (candidate.selectorTargetId ?? candidate.knowledgePointId) === entry.selectorTargetId,
     );
     const leaf = buildLeaf(plan, row, entry.questionCount, buildLeafWorksheet);
     if (!leaf.ok) {
@@ -516,6 +590,7 @@ export function buildSchoolExamCrossUnitWorksheet(plan = {}, buildLeafWorksheet)
       selectionMode: CROSS,
       selectedSourceIds: Object.freeze(validation.selectedSourceIds),
       selectedKnowledgePointIds: Object.freeze(validation.selectedKnowledgePointIds),
+      selectedSelectorTargetIds: Object.freeze(validation.selectedSelectorTargetIds),
       printLayout: layout,
     }),
     orderingMode: plan.ordering ?? "groupedByPattern",
@@ -548,6 +623,7 @@ export function buildSchoolExamCrossUnitWorksheet(plan = {}, buildLeafWorksheet)
       selectionMode: CROSS,
       selectedSourceIds: Object.freeze(validation.selectedSourceIds),
       selectedKnowledgePointIds: Object.freeze(validation.selectedKnowledgePointIds),
+      selectedSelectorTargetIds: Object.freeze(validation.selectedSelectorTargetIds),
       sameUnitMixedUsed: false,
       crossUnitMixedUsed: true,
       sharedAggregationUsed: true,
@@ -562,6 +638,7 @@ export function buildSchoolExamCrossUnitWorksheet(plan = {}, buildLeafWorksheet)
       questionMode: "mixed",
       selectionMode: CROSS,
       selectedKnowledgePointIds: Object.freeze(validation.selectedKnowledgePointIds),
+      selectedSelectorTargetIds: Object.freeze(validation.selectedSelectorTargetIds),
     }),
     report: Object.freeze({
       ok: true,
@@ -594,6 +671,7 @@ export function buildSchoolExamCrossUnitWorksheet(plan = {}, buildLeafWorksheet)
     leafDispatch: Object.freeze(leafs.map((leaf) => Object.freeze({
       sourceId: leaf.row.sourceId,
       knowledgePointId: leaf.row.knowledgePointId,
+      selectorTargetId: leaf.row.selectorTargetId ?? leaf.row.knowledgePointId,
       questionCount: leaf.leafPlan.questionCount,
       questionMode: leaf.mode,
       attemptCount: leaf.attempts.length,
