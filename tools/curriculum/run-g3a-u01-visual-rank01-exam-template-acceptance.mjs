@@ -4,7 +4,8 @@ import path from "node:path";
 import {chromium} from "playwright";
 
 const SOURCE="g3a_u01_3a01";
-const KP="kp_g3a_u01_one_way_table_compare";
+const KP="kp_g3a_u01_4digit_compare";
+const GROUP="pg_g3a_u01_visual_one_way_table_compare";
 const COUNT=6;
 const PORT=Number(process.env.G3AU01_R01_EXAM_PORT??"4382");
 const REMOTE=process.env.G3AU01_R01_SITE_URL??null;
@@ -43,27 +44,26 @@ async function run(){
 
   await page.waitForFunction(()=>[...document.querySelectorAll("#exam-grade option")].some(o=>o.value==="3"),null,{timeout:120000});
   await page.selectOption("#exam-grade","3");
-  await page.waitForFunction(()=>[...document.querySelectorAll("#exam-semester option")].some(o=>o.value==="upper"),null,{timeout:120000});
   await page.selectOption("#exam-semester","upper");
   await page.waitForFunction(id=>[...document.querySelectorAll("#exam-source option")].some(o=>o.value===id),SOURCE,{timeout:120000});
   await page.selectOption("#exam-source",SOURCE);
 
   await page.selectOption("#exam-composition-mode","SINGLE_KP");
   await page.dispatchEvent("#exam-composition-mode","change");
-  await page.waitForFunction(kp=>Boolean(document.querySelector(`#exam-kp-panel [data-knowledge-point-id="${kp}"]`)),KP,{timeout:120000});
+  await page.waitForFunction(group=>Boolean(document.querySelector(`#exam-kp-panel [data-selector-target-id="${group}"]`)),GROUP,{timeout:120000});
 
-  const sibling=await page.evaluate(kp=>({
-    visible:!document.querySelector("#exam-same-unit-kp-selector")?.hidden,
-    target:Boolean(document.querySelector(`#exam-kp-panel [data-knowledge-point-id="${kp}"]`)),
-    labels:[...document.querySelectorAll("#exam-kp-panel [data-knowledge-point-id] strong")].map(n=>n.textContent?.replace(/^已選｜/,"").trim())
-  }),KP);
-  if(!sibling.visible||!sibling.target||!sibling.labels.includes("一維資料表四位數比較"))throw new Error(`G3AU01_R01_EXAM_FLAT_SELECTOR:${JSON.stringify(sibling)}`);
+  const sibling=await page.evaluate(({kp,group})=>({
+    selectorVisible:!document.querySelector("#exam-same-unit-kp-selector")?.hidden,
+    canonicalVisible:Boolean(document.querySelector(`#exam-kp-panel [data-selector-target-id="${kp}"]`)),
+    rank01Visible:Boolean(document.querySelector(`#exam-kp-panel [data-selector-target-id="${group}"]`)),
+    labels:[...document.querySelectorAll("#exam-kp-panel .knowledge-point-option strong")].map(n=>n.textContent?.replace(/^已選｜/,"").trim())
+  }),{kp:KP,group:GROUP});
+  if(!sibling.selectorVisible||!sibling.canonicalVisible||!sibling.rank01Visible||!sibling.labels.includes("一維資料表四位數比較")){
+    throw new Error(`G3AU01_R01_EXAM_FLAT_SELECTOR:${JSON.stringify(sibling)}`);
+  }
 
-  await page.locator(`#exam-kp-panel [data-knowledge-point-id="${KP}"]`).click();
-  await page.waitForFunction(kp=>{
-    const selected=[...document.querySelectorAll("#exam-kp-panel [data-selected='true']")].map(n=>n.dataset.knowledgePointId);
-    return selected.length===1&&selected[0]===kp;
-  },KP,{timeout:120000});
+  await page.locator(`#exam-kp-panel [data-selector-target-id="${GROUP}"]`).click();
+  await page.waitForFunction(group=>document.querySelector(`#exam-kp-panel [data-selector-target-id="${group}"]`)?.dataset?.selected==="true",GROUP,{timeout:120000});
 
   await page.fill("#exam-question-count",String(COUNT));
   await page.dispatchEvent("#exam-question-count","change");
@@ -71,27 +71,27 @@ async function run(){
   await page.locator("#exam-generate").click();
   await page.waitForFunction(()=>document.querySelector("#exam-status")?.dataset?.tone==="success",null,{timeout:30000});
 
-  const state=await page.evaluate(kp=>({
+  const state=await page.evaluate(({kp,group})=>({
     mode:document.querySelector("#exam-composition-mode")?.value,
     sourceId:document.querySelector("#exam-source")?.value,
-    selected:[...document.querySelectorAll("#exam-kp-panel [data-selected='true']")].map(n=>n.dataset.knowledgePointId),
+    canonicalSelected:document.querySelector(`#exam-kp-panel [data-selector-target-id="${kp}"]`)?.dataset?.selected??null,
+    rank01Selected:document.querySelector(`#exam-kp-panel [data-selector-target-id="${group}"]`)?.dataset?.selected??null,
     status:document.querySelector("#exam-status")?.textContent?.trim()??"",
-    printDisabled:Boolean(document.querySelector("#exam-print")?.disabled),
-    target:kp
-  }),KP);
-  if(state.mode!=="SINGLE_KP"||state.sourceId!==SOURCE||state.selected.join("|")!==KP||state.printDisabled)throw new Error(`G3AU01_R01_EXAM_STATE:${JSON.stringify(state)}`);
+    printDisabled:Boolean(document.querySelector("#exam-print")?.disabled)
+  }),{kp:KP,group:GROUP});
+  if(state.mode!=="SINGLE_KP"||state.sourceId!==SOURCE||state.canonicalSelected!=="false"||state.rank01Selected!=="true"||state.printDisabled||!state.status.includes("單一知識點考券已產生")){
+    throw new Error(`G3AU01_R01_EXAM_STATE:${JSON.stringify(state)}`);
+  }
 
   const frame=await (await page.locator("#exam-preview").elementHandle())?.contentFrame();
   if(!frame)throw new Error("G3AU01_R01_EXAM_PREVIEW_FRAME_MISSING");
   await frame.waitForSelector("body",{timeout:120000});
   const exam=await frame.evaluate(count=>({
     tableCount:document.querySelectorAll('[data-representation="one-way-statistics-table"]').length,
-    questionCells:document.querySelectorAll(".worksheet-cell--question,.school-exam-question").length,
-    answerCells:document.querySelectorAll(".worksheet-cell--answer-key,.school-exam-answer").length,
     text:document.body?.innerText??"",
     count
   }),COUNT);
-  if(exam.tableCount<COUNT||!exam.text.includes("一維資料表"))throw new Error(`G3AU01_R01_EXAM_RENDER:${JSON.stringify(exam)}`);
+  if(exam.tableCount<COUNT||!exam.text.includes("一維資料表四位數比較"))throw new Error(`G3AU01_R01_EXAM_RENDER:${JSON.stringify(exam)}`);
 
   await frame.evaluate(()=>{window.__G3AU01_R01_EXAM_PRINT__=0;window.print=()=>window.__G3AU01_R01_EXAM_PRINT__++;});
   await page.locator("#exam-print").click();
@@ -99,6 +99,7 @@ async function run(){
   if(printCount!==1)throw new Error(`G3AU01_R01_EXAM_PRINT:${printCount}`);
 
   await page.screenshot({path:path.join(OUT,"rank01-exam-template-ui.png"),fullPage:true});
+  await page.close();
   return{sibling,state,exam,printCount};
 }
 
@@ -108,17 +109,17 @@ try{
   const target=await run();
   if(Object.values(errors).some(x=>x.length))throw new Error(`G3AU01_R01_EXAM_BROWSER_DIAGNOSTICS:${JSON.stringify(errors)}`);
   const report={
-    schemaName:"G3AU01VisualRank01ExamTemplateAcceptanceV1",
+    schemaName:"G3AU01VisualRank01ExamTemplateAcceptanceV2",
     taskId:"G3A_U01_VisualRank01_FlatSelector_ClassicAndExam",
     status:"PASS_G3A_U01_RANK01_EXAM_TEMPLATE_FLAT_SELECTOR",
-    sourceId:SOURCE,knowledgePointId:KP,questionCount:COUNT,target,
+    sourceId:SOURCE,knowledgePointId:KP,patternGroupId:GROUP,questionCount:COUNT,target,
     browser:{consoleErrorCount:0,pageErrorCount:0,requestFailureCount:0,assetHttpFailureCount:0},
-    boundaries:{flatSiblingSelector:true,canonicalKnowledgePointUnchanged:true,singleKpExamMode:true,sameUnitMixedUnchanged:true,crossUnitMixedUnchanged:true}
+    boundaries:{canonicalKnowledgePointReused:true,flatSiblingSelector:true,existingSingleKpRouteReused:true,sameUnitMixedUnchanged:true,crossUnitMixedUnchanged:true}
   };
   writeFileSync(path.join(OUT,"report.json"),JSON.stringify(report,null,2)+"\n");
   console.log("G3AU01_RANK01_EXAM_TEMPLATE_ACCEPTANCE="+JSON.stringify(report));
 }catch(error){
-  writeFileSync(path.join(OUT,"failure.json"),JSON.stringify({schemaName:"G3AU01VisualRank01ExamTemplateAcceptanceFailureV1",status:"FAIL",baseUrl:BASE,error:String(error?.stack??error),browser:errors,server:{stdout:serverOut,stderr:serverErr}},null,2)+"\n");
+  writeFileSync(path.join(OUT,"failure.json"),JSON.stringify({status:"FAIL",baseUrl:BASE,error:String(error?.stack??error),browser:errors,server:{stdout:serverOut,stderr:serverErr}},null,2)+"\n");
   throw error;
 }finally{
   if(browser)await browser.close().catch(()=>{});
