@@ -38,6 +38,12 @@ import {
   G3A_U01_VISUAL_RANK03_SOURCE_ID,
 } from "../../modules/curriculum/registry/g3a-u01-visual-rank03-selector-projection.js";
 import {
+  G3A_U01_VISUAL_RANK04_KP_ID,
+  G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK04_PUBLIC_PATTERN_GROUP,
+  G3A_U01_VISUAL_RANK04_SOURCE_ID,
+} from "../../modules/curriculum/registry/g3a-u01-visual-rank04-selector-projection.js";
+import {
   buildSchoolExamLayoutPages,
   renderSchoolExamWorksheetToHtml,
 } from "../../modules/renderer/school-exam-template-renderer.js";
@@ -153,6 +159,7 @@ function selectorTargetsForSource(sourceId) {
       unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
       rank01Sibling: false,
       rank03Sibling: false,
+      rank04Sibling: false,
     });
     if (
       sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
@@ -166,6 +173,7 @@ function selectorTargetsForSource(sourceId) {
         unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
         rank01Sibling: true,
         rank03Sibling: false,
+        rank04Sibling: false,
       });
     }
     if (
@@ -180,6 +188,21 @@ function selectorTargetsForSource(sourceId) {
         unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
         rank01Sibling: false,
         rank03Sibling: true,
+      });
+    }
+    if (
+      sourceId === G3A_U01_VISUAL_RANK04_SOURCE_ID
+      && row.knowledgePointId === G3A_U01_VISUAL_RANK04_KP_ID
+    ) {
+      targets.push({
+        targetId: G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID,
+        knowledgePointId: G3A_U01_VISUAL_RANK04_KP_ID,
+        selectedPatternGroupIds: [G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID],
+        displayName: G3A_U01_VISUAL_RANK04_PUBLIC_PATTERN_GROUP.displayName,
+        unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
+        rank01Sibling: false,
+        rank03Sibling: false,
+        rank04Sibling: true,
       });
     }
   }
@@ -427,6 +450,11 @@ function selectedSingleKpTargetId() {
     && selectedKnowledgePointId === G3A_U01_VISUAL_RANK03_KP_ID
     && groups.includes(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)
   ) return G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID;
+  if (
+    state.batchA.sourceId === G3A_U01_VISUAL_RANK04_SOURCE_ID
+    && selectedKnowledgePointId === G3A_U01_VISUAL_RANK04_KP_ID
+    && groups.includes(G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID)
+  ) return G3A_U01_VISUAL_RANK04_PATTERN_GROUP_ID;
   return selectedKnowledgePointId;
 }
 
