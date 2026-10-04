@@ -1,7 +1,7 @@
 export * from "./batch-a-selector-p01e-extension.js";
 
 import * as historical from "./batch-a-selector-p01e-extension.js";
-import * as current from "./batch-a-selector-g3a-u01-visual-rank02-extension.js";
+import * as current from "./batch-a-selector-g3a-u01-visual-rank03-extension.js";
 
 // Earlier inventory milestones run in Node and retain the exact P01E selector snapshot.
 // The actual Classic browser consumes the bounded P04F33 successor without mutating those histories.
