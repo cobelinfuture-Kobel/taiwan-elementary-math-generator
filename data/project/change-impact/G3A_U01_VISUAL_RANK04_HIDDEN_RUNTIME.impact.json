@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK04_HIDDEN_RUNTIME",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3a_u01_integer_number_line_scale_location": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK04_HIDDEN_RUNTIME.validation.json",
+  "classificationNote": "Rank04 leaf runtime materialization only. Adds deterministic COMPLETE_MISSING_TICK_VALUES generator, blocking validator, hidden worksheet projection and targeted browser acceptance. Reuses existing integer_number_line renderer without shared renderer modification. No selector/public route/current authority/Rank05+ change.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "runtimeFilesChanged": true,
+  "sharedRendererChanged": false,
+  "selectorVisible": false,
+  "rank05OrLaterTouched": false
+}
