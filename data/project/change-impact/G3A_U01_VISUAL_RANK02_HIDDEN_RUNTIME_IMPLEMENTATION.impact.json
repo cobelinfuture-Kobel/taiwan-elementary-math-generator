@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK02_HIDDEN_RUNTIME_IMPLEMENTATION",
+  "currentScope": "SHARED_RUNTIME",
+  "currentKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3a_u01_integer_number_line_scale_location": "PENDING_FOCUSED"
+  },
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK02_HIDDEN_RUNTIME_IMPLEMENTATION.validation.json",
+  "classificationNote": "Rank02 promotes the previously approved source-backed number-line KP candidate into the G3A-U01 knowledge authority and implements only the hidden READ_MARKER_VALUE runtime. The shared fraction-number-line renderer is minimally extended with a new integer_number_line model while preserving existing fraction behavior. No selector, Classic UI, Exam UI, or public route is changed.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": true
+  },
+  "runtimeBoundary": {
+    "sourceId": "g3a_u01_3a01",
+    "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "sourceKnowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_read_value",
+    "hiddenRuntimeImplemented": true,
+    "blockingValidatorImplemented": true,
+    "rendererExtensionImplemented": true,
+    "sharedRendererPath": "site/modules/renderer/fraction-number-line.js",
+    "sharedHtmlRendererDispatchChanged": true,
+    "selectorVisible": false,
+    "productionUse": "forbidden",
+    "rank03OrLaterTouched": false,
+    "laterUnitsTouched": false
+  }
+}
