@@ -28,6 +28,16 @@ import {
   G3A_U01_VISUAL_RANK01_SOURCE_ID,
 } from "../../modules/curriculum/registry/g3a-u01-visual-rank01-selector-projection.js";
 import {
+  G3A_U01_VISUAL_RANK02_KP_ID,
+  G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID,
+} from "../../modules/curriculum/registry/g3a-u01-visual-rank02-selector-projection.js";
+import {
+  G3A_U01_VISUAL_RANK03_KP_ID,
+  G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP,
+  G3A_U01_VISUAL_RANK03_SOURCE_ID,
+} from "../../modules/curriculum/registry/g3a-u01-visual-rank03-selector-projection.js";
+import {
   buildSchoolExamLayoutPages,
   renderSchoolExamWorksheetToHtml,
 } from "../../modules/renderer/school-exam-template-renderer.js";
@@ -133,13 +143,16 @@ function crossUnitEligibleRowsForSource(sourceId) {
 function selectorTargetsForSource(sourceId) {
   const targets = [];
   for (const row of crossUnitEligibleRowsForSource(sourceId)) {
+    const isRank02Canonical = sourceId === G3A_U01_VISUAL_RANK03_SOURCE_ID
+      && row.knowledgePointId === G3A_U01_VISUAL_RANK02_KP_ID;
     targets.push({
       targetId: row.knowledgePointId,
       knowledgePointId: row.knowledgePointId,
-      selectedPatternGroupIds: [],
+      selectedPatternGroupIds: isRank02Canonical ? [G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID] : [],
       displayName: row.displayName ?? row.knowledgePointId,
       unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
       rank01Sibling: false,
+      rank03Sibling: false,
     });
     if (
       sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
@@ -152,6 +165,21 @@ function selectorTargetsForSource(sourceId) {
         displayName: G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName,
         unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
         rank01Sibling: true,
+        rank03Sibling: false,
+      });
+    }
+    if (
+      sourceId === G3A_U01_VISUAL_RANK03_SOURCE_ID
+      && row.knowledgePointId === G3A_U01_VISUAL_RANK03_KP_ID
+    ) {
+      targets.push({
+        targetId: G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
+        knowledgePointId: G3A_U01_VISUAL_RANK03_KP_ID,
+        selectedPatternGroupIds: [G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID],
+        displayName: G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP.displayName,
+        unitCode: row.unitCode ?? sortedUnits.find((unit) => unit.sourceId === sourceId)?.unitCode ?? "",
+        rank01Sibling: false,
+        rank03Sibling: true,
       });
     }
   }
@@ -168,14 +196,16 @@ function selectorTargetSelected(target, sourceId, selectedKnowledgePointIds, sel
   if (Array.isArray(selectedSelectorTargetIds)) {
     return selectedSelectorTargetIds.includes(target.targetId);
   }
-  if (target.rank01Sibling) {
-    return rank01SelectedFor(sourceId, selectedKnowledgePointIds, selectedPatternGroupIds);
+  const selectedKps = new Set(selectedKnowledgePointIds ?? []);
+  const selectedGroups = new Set(selectedPatternGroupIds ?? []);
+  if (!selectedKps.has(target.knowledgePointId)) return false;
+  if ((target.selectedPatternGroupIds ?? []).length > 0) {
+    return target.selectedPatternGroupIds.every((patternGroupId) => selectedGroups.has(patternGroupId));
   }
   if (target.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID && sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID) {
-    return selectedKnowledgePointIds.includes(target.knowledgePointId)
-      && !rank01SelectedFor(sourceId, selectedKnowledgePointIds, selectedPatternGroupIds);
+    return !rank01SelectedFor(sourceId, selectedKnowledgePointIds, selectedPatternGroupIds);
   }
-  return selectedKnowledgePointIds.includes(target.knowledgePointId);
+  return true;
 }
 
 function targetIdsToKnowledgePointIds(sourceId, targetIds) {
@@ -183,10 +213,11 @@ function targetIdsToKnowledgePointIds(sourceId, targetIds) {
   return [...new Set((targetIds ?? []).map((targetId) => targets.get(targetId)?.knowledgePointId).filter(Boolean))];
 }
 
-function rankPatternIdsForTargetIds(targetIds) {
-  return (targetIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
-    ? [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]
-    : [];
+function patternGroupIdsForTargetIds(sourceId, targetIds) {
+  const targetMap = new Map(selectorTargetsForSource(sourceId).map((target) => [target.targetId, target]));
+  return [...new Set(
+    (targetIds ?? []).flatMap((targetId) => targetMap.get(targetId)?.selectedPatternGroupIds ?? [])
+  )];
 }
 
 function normalizeSameUnitMixedSelection({ reset = false } = {}) {
@@ -207,7 +238,7 @@ function normalizeSameUnitMixedSelection({ reset = false } = {}) {
     targets: available,
     selectedSelectorTargetIds: [...sameUnitMixedSelection.selectedSelectorTargetIds],
     selectedKnowledgePointIds: targetIdsToKnowledgePointIds(sourceId, sameUnitMixedSelection.selectedSelectorTargetIds),
-    selectedPatternGroupIds: rankPatternIdsForTargetIds(sameUnitMixedSelection.selectedSelectorTargetIds),
+    selectedPatternGroupIds: patternGroupIdsForTargetIds(sourceId, sameUnitMixedSelection.selectedSelectorTargetIds),
   };
 }
 
@@ -265,10 +296,9 @@ function normalizeCrossUnitSelection({ reset = false } = {}) {
 
   const selectedTargets = selectedSelectorTargetIds.map((key) => targetMap.get(key)).filter(Boolean);
   const selectedKnowledgePointIds = [...new Set(selectedTargets.map((target) => target.knowledgePointId))];
-  const selectedPatternGroupIds = selectedTargets.some((target) => (
-    target.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
-    && target.targetId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID
-  )) ? [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID] : [];
+  const selectedPatternGroupIds = [...new Set(
+    selectedTargets.flatMap((target) => target.selectedPatternGroupIds ?? [])
+  )];
 
   crossUnitSelection.selectedSourceIds = [...new Set(selectedSourceIds)];
   crossUnitSelection.selectedSelectorTargetIds = [...new Set(selectedSelectorTargetIds)];
@@ -386,13 +416,17 @@ function singleKpTargetsForSource(sourceId) {
 function selectedSingleKpTargetId() {
   if (state.batchA.selectionMode !== BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT) return null;
   const selectedKnowledgePointId = (state.batchA.selectedKnowledgePointIds ?? [])[0] ?? null;
+  const groups = state.batchA.selectedPatternGroupIds ?? [];
   if (
     state.batchA.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
     && selectedKnowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID
-    && (state.batchA.selectedPatternGroupIds ?? []).includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
-  ) {
-    return G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID;
-  }
+    && groups.includes(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
+  ) return G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID;
+  if (
+    state.batchA.sourceId === G3A_U01_VISUAL_RANK03_SOURCE_ID
+    && selectedKnowledgePointId === G3A_U01_VISUAL_RANK03_KP_ID
+    && groups.includes(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)
+  ) return G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID;
   return selectedKnowledgePointId;
 }
 
