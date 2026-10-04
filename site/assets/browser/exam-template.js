@@ -110,7 +110,8 @@ function singleKpPubliclyAdmitted(sourceId, knowledgePointId) {
 
 function crossUnitEligibleRowsForSource(sourceId) {
   return visibleKnowledgePointsForSource(sourceId).filter(
-    (row) => singleKpPubliclyAdmitted(sourceId, row.knowledgePointId),
+    (row) => row.singleKnowledgePointOnly !== true
+      && singleKpPubliclyAdmitted(sourceId, row.knowledgePointId),
   );
 }
 
@@ -230,7 +231,7 @@ function renderCrossUnitSelection() {
 }
 
 function sameUnitCapability(sourceId, requestedIds = []) {
-  const rows = visibleKnowledgePointsForSource(sourceId);
+  const rows = visibleKnowledgePointsForSource(sourceId).filter((row) => row.singleKnowledgePointOnly !== true);
   const availability = listBatchAKnowledgePointAvailabilityBySource(sourceId);
   const fallbackIds = rows.map((row) => row.knowledgePointId);
   const selectedKnowledgePointIds = requestedIds.length >= 2 ? requestedIds : fallbackIds;
