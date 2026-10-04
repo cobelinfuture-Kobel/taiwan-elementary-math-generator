@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G3A_U01_VISUAL_RANK03_PUBLIC_SELECTOR_CUTOVER_PREFLIGHT",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g3a_u01_integer_number_line_scale_location"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g3a_u01_integer_number_line_scale_location": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/G3A_U01_VISUAL_RANK03_PUBLIC_SELECTOR_CUTOVER_PREFLIGHT.validation.json",
+  "classificationNote": "Planning-only Rank03 public selector cutover preflight. It resolves the sibling selector topology, Rank02/Rank03 shared-KP route disambiguation requirement, same-unit/cross-unit forced-leaf strategy, and three-mode acceptance scope. No runtime, selector, UI, route, renderer, generator, validator, or Rank04+ change.",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "planningOnly": true,
+  "runtimeFilesChanged": false,
+  "selectorVisible": false,
+  "publicCutoverStarted": false,
+  "rank04OrLaterTouched": false
+}
