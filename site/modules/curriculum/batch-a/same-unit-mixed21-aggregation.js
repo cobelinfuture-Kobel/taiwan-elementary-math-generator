@@ -2,7 +2,7 @@ import {
   getVisiblePatternGroupsForKnowledgePoint,
   listVisibleBatchAKnowledgePoints,
   P09_MIXED21_TARGET_SOURCE_IDS,
-} from "../registry/batch-a-selector-g3a-u01-visual-rank02-extension.js";
+} from "../registry/batch-a-selector-g3a-u01-visual-rank03-extension.js";
 import {
   G3A_U01_VISUAL_RANK01_KP_ID,
   G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
