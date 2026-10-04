@@ -13,14 +13,17 @@
     "knowledgePointCount": 156,
     "operationModelOwnerCount": 156,
     "contextAuthority": "data/curriculum/context/registry/global-context-authority-index.json",
-    "policy": "data/curriculum/application/assessment/w01-golden15-application-capability-policy.json"
+    "policy": "data/curriculum/application/assessment/w01-golden15-application-capability-policy.json",
+    "frozenKnowledgePointBaseline": "data/curriculum/application/assessment/w01-golden15-frozen-kp-baseline.json",
+    "baselineMembershipPolicy": "FROZEN_E5_ADMITTED_COHORT_EXCLUDES_LATER_KP_ADDITIONS"
   },
   "materializedAuthority": {
     "resolver": "src/curriculum/application/w01-golden15-application-assessment.mjs",
     "validationCli": "tools/curriculum/validate-postg-app-w01-a00-assessment.mjs",
     "test": "tests/curriculum/postg-app-w01-a00-assessment.test.js",
     "recordIdentity": "sourceId + knowledgePointId",
-    "recordCount": 156
+    "recordCount": 156,
+    "baselineMembershipSource": "frozenKnowledgePointBaseline"
   },
   "classificationSet": [
     "APPLICATION_REQUIRED",

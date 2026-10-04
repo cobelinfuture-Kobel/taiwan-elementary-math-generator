@@ -5,7 +5,7 @@
   "sourceId": "g3a_u01_3a01",
   "unitCode": "3A-U01",
   "unitTitle": "10000以內的數",
-  "status": "contract_materialized_candidate_kp_dependency_runtime_forbidden",
+  "status": "hidden_runtime_implemented_pending_focused_ci",
   "authority": {
     "curriculumSource": "題型總覽-3a01-10000以內的數.pdf",
     "curriculumSourcePages": [
@@ -51,8 +51,8 @@
     "sourceMappingCandidateId": "fmc_g3a_u01_integer_number_line_read_value",
     "visualFamilyId": "vf_g3a_u01_integer_number_line_read_value",
     "patternGroupId": "pg_g3a_u01_visual_integer_number_line_read_value",
-    "patternSpecId": "psc_g3a_u01_visual_number_line_read_value",
-    "primaryKnowledgePointId": null,
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_read_value",
+    "primaryKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
     "primaryKnowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
     "secondaryKnowledgePointIds": [],
     "mode": "representation",
@@ -64,23 +64,23 @@
       "visible_anchor_labels_consistent",
       "answer_equals_tick_value"
     ],
-    "mappingStatus": "MATERIALIZED_DESIGN_CONTRACT_CANDIDATE_KP_DEPENDENCY",
-    "runtimeAdmission": false
+    "mappingStatus": "MATERIALIZED_RUNTIME_ADMITTED",
+    "runtimeAdmission": true
   },
   "patternGroup": {
     "patternGroupId": "pg_g3a_u01_visual_integer_number_line_read_value",
-    "knowledgePointId": null,
+    "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
     "knowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
     "displayNameZh": "整數數線讀值",
     "visualFamilyId": "vf_g3a_u01_integer_number_line_read_value",
     "patternSpecIds": [
-      "psc_g3a_u01_visual_number_line_read_value"
+      "ps_g3a_u01_visual_integer_number_line_read_value"
     ],
     "sourceQuestionCount": 50,
-    "lifecycle": "hidden_contract_only"
+    "lifecycle": "hidden_runtime"
   },
   "patternSpec": {
-    "patternSpecId": "psc_g3a_u01_visual_number_line_read_value",
+    "patternSpecId": "ps_g3a_u01_visual_integer_number_line_read_value",
     "sourcePatternSpecCandidateId": "psc_g3a_u01_visual_number_line_read_value",
     "sourceId": "g3a_u01_3a01",
     "unitCode": "3A-U01",
@@ -89,7 +89,7 @@
     "questionKind": "visual_reading",
     "supportStatus": "plannedOnly",
     "patternGroupId": "pg_g3a_u01_visual_integer_number_line_read_value",
-    "knowledgePointId": null,
+    "knowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
     "knowledgePointCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
     "secondaryKnowledgePointIds": [],
     "visualFamilyId": "vf_g3a_u01_integer_number_line_read_value",
@@ -210,15 +210,15 @@
       "candidateResolutionPath": "data/curriculum/mapping/g3a_u01_number_line_candidate_resolution.v1.json",
       "authorityReadbackMainSha": "5ca6b80f30b8d50edfa78b61878e3b79add8c786"
     },
-    "generatorStatus": "not_implemented",
-    "validatorStatus": "contract_only_not_implemented",
-    "rendererStatus": "extension_required_not_implemented",
+    "generatorStatus": "hidden_deterministic_runtime_implemented",
+    "validatorStatus": "blocking_runtime_implemented",
+    "rendererStatus": "integer_number_line_extension_implemented",
     "selectorStatus": "hidden",
     "productionUse": "forbidden"
   },
   "rendererBinding": {
     "rendererBindingId": "rb_g3a_u01_visual_integer_number_line_read_value",
-    "classification": "EXTEND",
+    "classification": "EXTEND_IMPLEMENTED",
     "existingRendererPath": "site/modules/renderer/fraction-number-line.js",
     "plannedModelKind": "integer_number_line",
     "rank02MinimumExtensionContract": {
@@ -240,11 +240,12 @@
       "movement_segments"
     ],
     "rendererCodeChangeRequired": true,
-    "rendererCodeChanged": false
+    "rendererCodeChanged": true,
+    "rendererPath": "site/modules/renderer/fraction-number-line.js"
   },
   "validatorContract": {
     "validatorContractId": "vc_g3a_u01_visual_integer_number_line_read_value",
-    "status": "contract_only_not_runtime_implemented",
+    "status": "blocking_runtime_implemented",
     "inputModelChecks": [
       "start_value_is_integer",
       "step_is_positive_integer",
@@ -487,29 +488,40 @@
     "validatorContractMaterialized": true,
     "rendererExtensionContractMaterialized": true,
     "candidateKnowledgePointAcceptedForDesign": true,
-    "newKnowledgePointMinted": false,
-    "generatorImplemented": false,
-    "validatorRuntimeImplemented": false,
-    "rendererCodeChanged": false,
+    "newKnowledgePointMinted": true,
+    "generatorImplemented": true,
+    "validatorRuntimeImplemented": true,
+    "rendererCodeChanged": true,
     "selectorVisible": false,
-    "productionUse": "forbidden"
+    "productionUse": "forbidden",
+    "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "renderedWorksheetAcceptance": "PENDING_FOCUSED_CI"
   },
   "antiScopeBoundary": {
     "allowed": [
-      "Rank02 source authority preflight",
-      "Rank02 FormalMapping contract",
-      "Rank02 PatternGroup and PatternSpec contract",
-      "Rank02 validator contract",
-      "Rank02 minimum renderer-extension contract"
+      "Rank02 canonical KP runtime admission",
+      "Rank02 minimum integer-number-line renderer extension",
+      "Rank02 deterministic generator",
+      "Rank02 blocking validator",
+      "Rank02 worksheet and answer rendering",
+      "Rank02 focused hidden-runtime acceptance"
     ],
     "forbidden": [
-      "mint a canonical number-line KnowledgePoint",
-      "modify fraction-number-line renderer code",
-      "implement Rank02 generator",
-      "implement Rank02 runtime validator",
       "make Rank02 selector visible",
-      "implement Rank03, Rank04, or Rank05"
+      "change Classic or Exam UI",
+      "implement Rank03, Rank04, or Rank05",
+      "implement number-line movement",
+      "modify unrelated renderer behavior"
     ]
   },
-  "nextStep": "At the implementation boundary, separately approve Rank02 runtime work: decide the canonical KP mint/admission path, then implement only the minimum integer-number-line renderer extension, deterministic generator, and blocking validator required by READ_MARKER_VALUE."
+  "nextStep": "Run bounded focused CI for the hidden Rank02 runtime; if PASS, merge, then perform actual A4 worksheet/answer layout acceptance before any public selector cutover.",
+  "runtimeAdmission": {
+    "canonicalKnowledgePointId": "kp_g3a_u01_integer_number_line_scale_location",
+    "sourceCandidateId": "kpc_g3a_u01_integer_number_line_scale_location",
+    "decision": "MINTED_FROM_APPROVED_SOURCE_BACKED_CANDIDATE",
+    "knowledgeAuthorityPath": "data/curriculum/knowledge/units/g3a_u01_3a01.knowledge-operation.json",
+    "selectorVisible": false,
+    "productionUse": "forbidden",
+    "rank03PlusAdmitted": false
+  }
 }
