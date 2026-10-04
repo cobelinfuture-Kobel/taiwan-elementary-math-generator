@@ -321,6 +321,18 @@ function renderKnowledgePointAvailability() {
 
 function renderPatternGroupChoices() {
   if (!patternGroupSection || !patternGroupPanel || !patternGroupHelp) return;
+  const rank01Selected = state.batchA.sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID
+    && state.batchA.selectionMode === BATCH_A_SELECTION_MODES.SINGLE_KNOWLEDGE_POINT
+    && (state.batchA.selectedKnowledgePointIds ?? []).length === 1
+    && state.batchA.selectedKnowledgePointIds[0] === G3A_U01_VISUAL_RANK01_KP_ID
+    && (state.batchA.selectedPatternGroupIds ?? []).length === 1
+    && state.batchA.selectedPatternGroupIds[0] === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID;
+  if (rank01Selected) {
+    patternGroupPanel.replaceChildren();
+    patternGroupSection.dataset.visible = "false";
+    patternGroupHelp.textContent = "此 Rank 題型已直接選定，不需要第二層題目形式。";
+    return;
+  }
   const normalized = normalizePublicPatternGroupSelection({
     selectionMode: state.batchA.selectionMode,
     selectedKnowledgePointIds: state.batchA.selectedKnowledgePointIds,
