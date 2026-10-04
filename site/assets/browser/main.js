@@ -26,6 +26,16 @@ import {
   G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP,
   G3A_U01_VISUAL_RANK01_SOURCE_ID
 } from "../../modules/curriculum/registry/g3a-u01-visual-rank01-selector-projection.js";
+import {
+  G3A_U01_VISUAL_RANK02_KP_ID,
+  G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID
+} from "../../modules/curriculum/registry/g3a-u01-visual-rank02-selector-projection.js";
+import {
+  G3A_U01_VISUAL_RANK03_KP_ID,
+  G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID,
+  G3A_U01_VISUAL_RANK03_PUBLIC_PATTERN_GROUP,
+  G3A_U01_VISUAL_RANK03_SOURCE_ID
+} from "../../modules/curriculum/registry/g3a-u01-visual-rank03-selector-projection.js";
 import { maxSafeG3AU01VisualRank01Rows } from "../../modules/curriculum/batch-a/g3a-u01-visual-rank01-layout.js";
 import { approvedRowsForGlobalPublicColumns } from "../../modules/curriculum/batch-a/global-public-layout-contract.js";
 import {
@@ -134,6 +144,12 @@ function mixedSelectorTargetsForSource(sourceId) {
     ) {
       targets.push(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID);
     }
+    if (
+      sourceId === G3A_U01_VISUAL_RANK03_SOURCE_ID
+      && row.knowledgePointId === G3A_U01_VISUAL_RANK03_KP_ID
+    ) {
+      targets.push(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID);
+    }
   }
   return targets;
 }
@@ -153,18 +169,27 @@ function ensureMixedSelectorTargets({ reset = false } = {}) {
 function syncMixedSelectorTargetsToState() {
   ensureMixedSelectorTargets();
   const selectedKnowledgePointIds = [...new Set(
-    [...mixedSelectorTargetIds].map((targetId) => (
-      targetId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID
-        ? G3A_U01_VISUAL_RANK01_KP_ID
-        : targetId
-    ))
+    [...mixedSelectorTargetIds].map((targetId) => {
+      if (targetId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID) return G3A_U01_VISUAL_RANK01_KP_ID;
+      if (targetId === G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID) return G3A_U01_VISUAL_RANK03_KP_ID;
+      return targetId;
+    })
   )];
+  const boundedRankGroupIds = new Set([
+    G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
+    G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID,
+    G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID
+  ]);
   const selectedPatternGroupIds = [
-    ...(state.batchA.selectedPatternGroupIds ?? []).filter(
-      (id) => id !== G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID
-    ),
+    ...(state.batchA.selectedPatternGroupIds ?? []).filter((id) => !boundedRankGroupIds.has(id)),
     ...(mixedSelectorTargetIds.has(G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID)
       ? [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID]
+      : []),
+    ...(mixedSelectorTargetIds.has(G3A_U01_VISUAL_RANK02_KP_ID)
+      ? [G3A_U01_VISUAL_RANK02_PATTERN_GROUP_ID]
+      : []),
+    ...(mixedSelectorTargetIds.has(G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID)
+      ? [G3A_U01_VISUAL_RANK03_PATTERN_GROUP_ID]
       : [])
   ];
   applySelectorSelection(
