@@ -195,6 +195,13 @@ function normalizeCrossUnitSelection({ reset = false } = {}) {
         const row = rowById.get(knowledgePointId);
         return row && selectedSourceIds.includes(row.sourceId);
       });
+  let selectedPatternGroupIds = reset
+    ? []
+    : crossUnitSelection.selectedPatternGroupIds.filter((patternGroupId) => (
+        patternGroupId === G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID
+        && selectedSourceIds.includes(G3A_U01_VISUAL_RANK01_SOURCE_ID)
+        && selectedKnowledgePointIds.includes(G3A_U01_VISUAL_RANK01_KP_ID)
+      ));
 
   if (selectedSourceIds.length < 2 && eligibleUnits.length >= 2) {
     selectedSourceIds = eligibleUnits.slice(0, 2).map((unit) => unit.sourceId);
@@ -215,10 +222,12 @@ function normalizeCrossUnitSelection({ reset = false } = {}) {
 
   crossUnitSelection.selectedSourceIds = [...new Set(selectedSourceIds)];
   crossUnitSelection.selectedKnowledgePointIds = [...new Set(selectedKnowledgePointIds)];
+  crossUnitSelection.selectedPatternGroupIds = [...new Set(selectedPatternGroupIds)];
   return {
     eligibleUnits,
     selectedSourceIds: crossUnitSelection.selectedSourceIds,
     selectedKnowledgePointIds: crossUnitSelection.selectedKnowledgePointIds,
+    selectedPatternGroupIds: crossUnitSelection.selectedPatternGroupIds,
   };
 }
 
@@ -256,17 +265,24 @@ function renderCrossUnitSelection() {
     const panel = document.createElement("div");
     panel.className = "knowledge-point-panel";
 
-    for (const row of crossUnitEligibleRowsForSource(sourceId)) {
-      const selected = selectedKpSet.has(row.knowledgePointId);
+    for (const target of selectorTargetsForSource(sourceId)) {
+      const selected = selectorTargetSelected(
+        target,
+        sourceId,
+        normalized.selectedKnowledgePointIds,
+        normalized.selectedPatternGroupIds,
+      );
       const button = document.createElement("button");
       button.type = "button";
       button.className = "knowledge-point-option";
-      button.dataset.crossKnowledgePointId = row.knowledgePointId;
+      button.dataset.crossSelectorTargetId = target.targetId;
+      button.dataset.crossKnowledgePointId = target.knowledgePointId;
       button.dataset.sourceId = sourceId;
+      button.dataset.rank01Sibling = target.rank01Sibling ? "true" : "false";
       button.dataset.selected = selected ? "true" : "false";
       button.setAttribute("aria-pressed", selected ? "true" : "false");
       const strong = document.createElement("strong");
-      strong.textContent = `${selected ? "已選｜" : ""}${row.displayName ?? row.knowledgePointId}`;
+      strong.textContent = `${selected ? "已選｜" : ""}${target.displayName}`;
       const detail = document.createElement("span");
       detail.textContent = `${unit.unitCode}｜既有單一 KP runtime`;
       button.append(strong, detail);
@@ -315,28 +331,7 @@ function selectedSameUnitIds() {
 }
 
 function singleKpTargetsForSource(sourceId) {
-  const targets = [];
-  for (const row of visibleKnowledgePointsForSource(sourceId)) {
-    targets.push({
-      targetId: row.knowledgePointId,
-      knowledgePointId: row.knowledgePointId,
-      selectedPatternGroupIds: [],
-      displayName: row.displayName ?? row.knowledgePointId,
-      unitCode: row.unitCode ?? selectedUnit()?.unitCode ?? "",
-      rank01Sibling: false,
-    });
-    if (sourceId === G3A_U01_VISUAL_RANK01_SOURCE_ID && row.knowledgePointId === G3A_U01_VISUAL_RANK01_KP_ID) {
-      targets.push({
-        targetId: G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID,
-        knowledgePointId: G3A_U01_VISUAL_RANK01_KP_ID,
-        selectedPatternGroupIds: [G3A_U01_VISUAL_RANK01_PATTERN_GROUP_ID],
-        displayName: G3A_U01_VISUAL_RANK01_PUBLIC_PATTERN_GROUP.displayName,
-        unitCode: row.unitCode ?? selectedUnit()?.unitCode ?? "",
-        rank01Sibling: true,
-      });
-    }
-  }
-  return targets;
+  return selectorTargetsForSource(sourceId);
 }
 
 function selectedSingleKpTargetId() {
