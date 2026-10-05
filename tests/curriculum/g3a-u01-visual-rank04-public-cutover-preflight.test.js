@@ -38,13 +38,13 @@ const rank04=JSON.parse(fs.readFileSync(RANK04_PATH,"utf8"));
 const RANK04_GROUP="pg_g3a_u01_visual_integer_number_line_complete_scale";
 const RANK04_SPEC="ps_g3a_u01_visual_integer_number_line_complete_scale";
 
-test("Rank04 public cutover preflight starts from accepted hidden runtime and does not expose it early",()=>{
+test("Rank04 frozen preflight remains historical while current contract records completed public cutover",()=>{
   assert.equal(preflight.status,"PASS_PUBLIC_CUTOVER_PREFLIGHT_IMPLEMENTATION_NOT_STARTED");
-  assert.equal(rank04.status,"hidden_runtime_accepted_public_cutover_not_started");
+  assert.equal(rank04.status,"public_cutover_implemented_pending_three_mode_acceptance");
   assert.equal(rank04.lifecycle.hiddenWorksheetAcceptance,"PASS_FOCUSED_CI");
-  assert.equal(rank04.hiddenRuntime.publicCutoverStarted,false);
-  assert.equal(rank04.patternSpec.selectorStatus,"hidden");
-  assert.equal(rank04.patternSpec.productionUse,"forbidden");
+  assert.equal(rank04.hiddenRuntime.publicCutoverStarted,true);
+  assert.equal(rank04.patternSpec.selectorStatus,"visible_public_review");
+  assert.equal(rank04.patternSpec.productionUse,"public_review");
 
   const groups=getVisiblePatternGroupsForKnowledgePoint(KP);
   assert.equal(groups.some((group)=>group.patternGroupId===RANK02_GROUP),true);
