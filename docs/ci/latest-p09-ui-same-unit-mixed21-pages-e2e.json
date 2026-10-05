@@ -8,7 +8,7 @@
   "childFailure": {
     "schemaName": "P09UISameUnitMixed21ClassicUIAcceptanceFailureV1",
     "status": "FAIL",
-    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?p09-mixed21-e6=0aa44d412ebd7f0fd23788420d3ac0cf08c20466-1791158260585",
+    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?p09-mixed21-e6=0aa44d412ebd7f0fd23788420d3ac0cf08c20466-1791158371770",
     "error": "page.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-grade-select')\n    - locator resolved to <select id=\"batch-a-grade-select\"></select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n\n    at selectUnit (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-same-unit-mixed21-classic-ui-acceptance.mjs:70:14)\n    at /home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-same-unit-mixed21-classic-ui-acceptance.mjs:193:11",
     "browser": {
       "console": [
@@ -17,13 +17,13 @@
       "page": [],
       "request": [
         {
-          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f5-extension.js?p09-mixed21=0aa44d412ebd7f0fd23788420d3ac0cf08c20466",
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/congruent-triangle-correspondence-diagram-p08f09.js?p09-mixed21=0aa44d412ebd7f0fd23788420d3ac0cf08c20466",
           "failure": "net::ERR_ABORTED"
         }
       ],
       "http": [
         {
-          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/curriculum/batch-a/batch-a-browser-worksheet-p05f5-extension.js?p09-mixed21=0aa44d412ebd7f0fd23788420d3ac0cf08c20466",
+          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/congruent-triangle-correspondence-diagram-p08f09.js?p09-mixed21=0aa44d412ebd7f0fd23788420d3ac0cf08c20466",
           "status": 503
         }
       ]
@@ -39,8 +39,8 @@
   "run": {
     "id": "37245545719",
     "number": "7",
-    "attempt": "1",
+    "attempt": "2",
     "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/37245545719"
   },
-  "verifiedAt": "2026-10-04T23:58:26.790Z"
+  "verifiedAt": "2026-10-05T00:00:23.610Z"
 }
