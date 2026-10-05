@@ -1,37 +1,476 @@
 {
-  "schemaName": "P09UISameUnitMixed21PostMergeMainPagesE2EFailureV1",
-  "status": "FAIL",
+  "schemaName": "P09UISameUnitMixed21PostMergeMainPagesE2EV1",
+  "taskId": "P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation",
+  "status": "PASS_P09_UI_SAME_UNIT_MIXED21_E6_D0",
   "exactHeadSha": "0aa44d412ebd7f0fd23788420d3ac0cf08c20466",
   "productMergeSha": "e50645cf06ca8c5731ccb2e8ebfd5a25ccdd6318",
   "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/",
-  "error": "Error: P09_MIXED21_LIVE_ACCEPTANCE_EXIT_1\nnode:internal/modules/run_main:123\n    triggerUncaughtException(\n    ^\n\npage.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-grade-select')\n    - locator resolved to <select id=\"batch-a-grade-select\"></select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n\n    at selectUnit (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-same-unit-mixed21-classic-ui-acceptance.mjs:70:14)\n    at /home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-same-unit-mixed21-classic-ui-acceptance.mjs:193:11 {\n  name: 'TimeoutError'\n}\n\nNode.js v22.23.3\n\n\n    at ChildProcess.<anonymous> (file:///home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-same-unit-mixed21-live-pages-e2e.mjs:84:23)\n    at ChildProcess.emit (node:events:519:28)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)",
-  "childFailure": {
-    "schemaName": "P09UISameUnitMixed21ClassicUIAcceptanceFailureV1",
-    "status": "FAIL",
-    "baseUrl": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/index.html?p09-mixed21-e6=0aa44d412ebd7f0fd23788420d3ac0cf08c20466-1791158371770",
-    "error": "page.selectOption: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#batch-a-grade-select')\n    - locator resolved to <select id=\"batch-a-grade-select\"></select>\n  - attempting select option action\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n    - waiting 20ms\n    2 × waiting for element to be visible and enabled\n      - did not find some options\n    - retrying select option action\n      - waiting 100ms\n    60 × waiting for element to be visible and enabled\n       - did not find some options\n     - retrying select option action\n       - waiting 500ms\n\n    at selectUnit (/home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-same-unit-mixed21-classic-ui-acceptance.mjs:70:14)\n    at /home/runner/work/taiwan-elementary-math-generator/taiwan-elementary-math-generator/tools/curriculum/run-p09-ui-same-unit-mixed21-classic-ui-acceptance.mjs:193:11",
-    "browser": {
-      "console": [
-        "Failed to load resource: the server responded with a status of 503 ()"
-      ],
-      "page": [],
-      "request": [
-        {
-          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/congruent-triangle-correspondence-diagram-p08f09.js?p09-mixed21=0aa44d412ebd7f0fd23788420d3ac0cf08c20466",
-          "failure": "net::ERR_ABORTED"
-        }
-      ],
-      "http": [
-        {
-          "url": "https://cobelinfuture-kobel.github.io/taiwan-elementary-math-generator/modules/renderer/congruent-triangle-correspondence-diagram-p08f09.js?p09-mixed21=0aa44d412ebd7f0fd23788420d3ac0cf08c20466",
-          "status": 503
-        }
-      ]
+  "deployment": {
+    "attempt": 1,
+    "assets": [
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-extension.js",
+        "expectedSha256": "dbd75aa217588080d3878f0469b9a022a87feb2178cd0b6c225f6d37f568097f",
+        "liveSha256": "dbd75aa217588080d3878f0469b9a022a87feb2178cd0b6c225f6d37f568097f"
+      },
+      {
+        "publicPath": "modules/curriculum/registry/batch-a-selector-p09-mixed21-extension.js",
+        "expectedSha256": "77d10a207a5a77edeeec6dd304a820fa951e788c36b457fb4364bfb22f06f4ad",
+        "liveSha256": "77d10a207a5a77edeeec6dd304a820fa951e788c36b457fb4364bfb22f06f4ad"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p04f33.js",
+        "expectedSha256": "771d97108895827d7cb03e26317a6b979fb21d60dd44d4f1e69de3f058e98369",
+        "liveSha256": "771d97108895827d7cb03e26317a6b979fb21d60dd44d4f1e69de3f058e98369"
+      },
+      {
+        "publicPath": "modules/curriculum/public/public-ui-capability-binding-p09-mixed21.js",
+        "expectedSha256": "b417fdec08d99edeb27dfb56c3072630351554e354ba52242ed87b5b53fb4ac7",
+        "liveSha256": "b417fdec08d99edeb27dfb56c3072630351554e354ba52242ed87b5b53fb4ac7"
+      },
+      {
+        "publicPath": "modules/curriculum/batch-a/same-unit-mixed21-aggregation.js",
+        "expectedSha256": "c976438fbe7f0d7b12975c0c83764845ccfed5b7cec5040549055ae94f496f92",
+        "liveSha256": "c976438fbe7f0d7b12975c0c83764845ccfed5b7cec5040549055ae94f496f92"
+      },
+      {
+        "publicPath": "assets/browser/pipeline/build-worksheet-document.js",
+        "expectedSha256": "2a1a4fee3d36e27883c1ff4a6fc55bf7d7d4b090e791fb618b842f53b371675d",
+        "liveSha256": "2a1a4fee3d36e27883c1ff4a6fc55bf7d7d4b090e791fb618b842f53b371675d"
+      }
+    ]
+  },
+  "classicUiAcceptance": {
+    "schemaName": "P09UISameUnitMixed21ClassicUIAcceptanceV1",
+    "taskId": "P09_UI_SameUnitMixed21_SharedUnitAggregationImplementation",
+    "status": "PASS_P09_UI_SAME_UNIT_MIXED21_CLASSIC_UI_ACCEPTANCE",
+    "targetCount": 21,
+    "results": [
+      {
+        "sourceId": "g3b_u10_3b10",
+        "unitCode": "G3B-U10",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 42858,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g4a_u03_4a03",
+        "unitCode": "G4A-U03",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 178653,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g4a_u05_4a05",
+        "unitCode": "G4A-U05",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 55690,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g4a_u07_4a07",
+        "unitCode": "G4A-U07",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 17122,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g4b_u05_4b05",
+        "unitCode": "G4B-U05",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 77561,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g5a_u05_5a05a",
+        "unitCode": "G5A-U05",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 32735,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g5a_u05_5a05a1",
+        "unitCode": "G5A-U05A1",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 44532,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g5a_u07_5a07",
+        "unitCode": "G5A-U07",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 57801,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g5a_u10_5a10a",
+        "unitCode": "G5A-U10A",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 41005,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g5b_u08_5b08",
+        "unitCode": "G5B-U08",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 11380,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g5b_u11_5b11",
+        "unitCode": "G5B-U11",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 92633,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6a_u03_6a03",
+        "unitCode": "G6A-U03",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 12013,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6a_u05_6a05",
+        "unitCode": "G6A-U05",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 11043,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6a_u06_6a06",
+        "unitCode": "G6A-U06",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 36641,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6a_u07_6a07",
+        "unitCode": "G6A-U07",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 55856,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6a_u08_6a08",
+        "unitCode": "G6A-U08",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 11507,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6a_u09_6a09",
+        "unitCode": "G6A-U09",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 55341,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6b_u03_6b03",
+        "unitCode": "G6B-U03",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 132244,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6b_u04_6b04",
+        "unitCode": "G6B-U04",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 11566,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6b_u05_6b05",
+        "unitCode": "G6B-U05",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 11485,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      },
+      {
+        "sourceId": "g6b_u06_6b06",
+        "unitCode": "G6B-U06",
+        "state": {
+          "status": "已產生 10 題，可預覽與列印。",
+          "tone": "success",
+          "validationHasErrors": "false",
+          "selectionMode": "mixedKnowledgePointsSameUnit",
+          "selectedKpCount": 5,
+          "previewLength": 49722,
+          "printDisabled": false
+        },
+        "worksheet": {
+          "questions": 10,
+          "answers": 10,
+          "overflow": 0
+        },
+        "printCount": 1
+      }
+    ],
+    "invariants": {
+      "exactTargetCount": 21,
+      "selectedKnowledgePointCountPerUnit": 5,
+      "generatedQuestionCountPerUnit": 10,
+      "answerCountPerUnit": 10,
+      "sameUnitMixedOnly": true,
+      "crossUnitMixedAdmission": false,
+      "r02R05Mutation": false
     },
-    "server": {
-      "stdout": "",
-      "stderr": ""
+    "browser": {
+      "consoleErrorCount": 0,
+      "pageErrorCount": 0,
+      "requestFailureCount": 0,
+      "assetHttpFailureCount": 0
     }
+  },
+  "productParity": {
+    "targetUnitCount": 21,
+    "selectedKnowledgePointCountPerDefaultUnit": 5,
+    "generatedQuestionCountPerUnit": 10,
+    "answerCountPerUnit": 10,
+    "sameUnitMixedAdmission": true,
+    "crossUnitMixedAdmission": false,
+    "leafRuntimeOwnersPreserved": true,
+    "semanticAuthorityMutated": false
   },
   "workflow": "P09 UI Same-Unit Mixed21 Post-Merge Pages E2E",
   "repository": "cobelinfuture-Kobel/taiwan-elementary-math-generator",
@@ -39,8 +478,8 @@
   "run": {
     "id": "37245545719",
     "number": "7",
-    "attempt": "2",
+    "attempt": "3",
     "url": "https://github.com/cobelinfuture-Kobel/taiwan-elementary-math-generator/actions/runs/37245545719"
   },
-  "verifiedAt": "2026-10-05T00:00:23.610Z"
+  "verifiedAt": "2026-10-05T00:04:01.967Z"
 }
