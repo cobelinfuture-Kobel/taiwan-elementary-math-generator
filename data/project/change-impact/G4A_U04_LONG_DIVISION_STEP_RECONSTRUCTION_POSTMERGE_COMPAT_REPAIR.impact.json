@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G4A_U04_LongDivisionStepReconstruction_PostMergeCompatibilityRepair",
+  "currentScope": "KP_LEAF",
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/G4A_U04_LONG_DIVISION_STEP_RECONSTRUCTION_POSTMERGE_COMPAT_REPAIR.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  },
+  "currentKnowledgePointId": "kp_g4a_u04_4digit_by_1digit_thousands_sufficient",
+  "unitExpectedKnowledgePointIds": [
+    "kp_g4a_u04_4digit_by_1digit_thousands_sufficient",
+    "kp_g4a_u04_4digit_by_1digit_thousands_insufficient",
+    "kp_g4a_u04_4digit_by_1digit_thousands_exact"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "kp_g4a_u04_4digit_by_1digit_thousands_sufficient": "FOCUSED_PASS",
+    "kp_g4a_u04_4digit_by_1digit_thousands_insufficient": "FOCUSED_PASS",
+    "kp_g4a_u04_4digit_by_1digit_thousands_exact": "FOCUSED_PASS"
+  }
+}

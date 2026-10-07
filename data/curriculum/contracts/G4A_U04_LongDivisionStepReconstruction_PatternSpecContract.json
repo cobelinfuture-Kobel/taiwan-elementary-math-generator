@@ -1,0 +1,157 @@
+{
+  "schemaName": "LongDivisionStepReconstructionPatternSpecContract",
+  "schemaVersion": 1,
+  "status": "OPERATOR_APPROVED_DESIGN_CONTRACT_NOT_RUNTIME",
+  "sourceId": "g4a_u04_4a04",
+  "unitCode": "4A-U04",
+  "unitTitle": "整數的除法",
+  "patternFamilyId": "pf_g4a_u04_long_division_step_reconstruction",
+  "canonicalKnowledgePointPolicy": {
+    "createNewKnowledgePoint": false,
+    "bindsExistingKnowledgePoints": [
+      "kp_g4a_u04_4digit_by_1digit_thousands_sufficient",
+      "kp_g4a_u04_4digit_by_1digit_thousands_insufficient",
+      "kp_g4a_u04_4digit_by_1digit_thousands_exact"
+    ]
+  },
+  "coreWitness": {
+    "witnessType": "long_division_reasoning_trace",
+    "requiredFields": [
+      "dividend",
+      "divisor",
+      "quotient",
+      "remainder",
+      "placeValueSteps"
+    ],
+    "invariants": [
+      "dividend = divisor * quotient + remainder",
+      "0 <= remainder < divisor",
+      "every place-value step must be mathematically consistent with the same dividend/divisor pair",
+      "the full trace must determine one unique whole division expression"
+    ]
+  },
+  "approvedQuestionGroups": [
+    {
+      "id": "G1_STEP_SEQUENCE_ORDERING",
+      "projectionType": "atomic",
+      "promptModel": "scrambled_step_sequence",
+      "answerModel": "ordered_step_ids",
+      "validator": [
+        "all required steps present exactly once",
+        "accepted order matches canonical reasoning trace"
+      ]
+    },
+    {
+      "id": "G2_WHOLE_EXPRESSION_RECONSTRUCTION",
+      "projectionType": "atomic",
+      "promptModel": "step_trace_to_whole_expression",
+      "responseModes": [
+        "multiple_choice",
+        "fill_in"
+      ],
+      "answerModel": "whole_division_expression",
+      "distractorRequirements": [
+        "include at least one mathematically true intermediate-step distractor when valid",
+        "reject any option that is locally true but does not explain the entire trace"
+      ]
+    },
+    {
+      "id": "G3_INTERMEDIATE_STEP_IDENTIFICATION",
+      "projectionType": "atomic",
+      "promptModel": "identify_role_of_intermediate_step",
+      "responseModes": [
+        "multiple_choice",
+        "fill_in"
+      ],
+      "answerModel": "step_role_or_place_value",
+      "examples": [
+        "辨認 38 ÷ 4 = 9 ... 2 是最後個位步驟，不是完整算式",
+        "填答 3個十和8個一合成38個一"
+      ]
+    },
+    {
+      "id": "G4_ERROR_DIAGNOSIS",
+      "projectionType": "atomic",
+      "promptModel": "one_corrupted_step_in_trace",
+      "responseModes": [
+        "multiple_choice",
+        "fill_in"
+      ],
+      "answerModel": "error_location_and_or_correction",
+      "errorFamilies": [
+        "PLACE_VALUE_RECOMBINATION_ERROR",
+        "QUOTIENT_PLACE_ERROR",
+        "REMAINDER_CARRYDOWN_ERROR",
+        "INTERMEDIATE_STEP_AS_WHOLE_EXPRESSION"
+      ]
+    },
+    {
+      "id": "G5_COMPOSITE_2SUB",
+      "projectionType": "composite",
+      "sharedStimulus": "single_long_division_trace",
+      "subitems": [
+        {
+          "order": 1,
+          "uses": "G1_STEP_SEQUENCE_ORDERING"
+        },
+        {
+          "order": 2,
+          "uses": "G2_WHOLE_EXPRESSION_RECONSTRUCTION"
+        }
+      ],
+      "scoringPolicy": "independent_subitem_scoring",
+      "answerDependency": "forbidden",
+      "maxSubitems": 2
+    },
+    {
+      "id": "G6_FILL_IN_RECONSTRUCTION",
+      "projectionType": "atomic_or_subitem_variant",
+      "promptModel": "trace_with_controlled_blanks",
+      "answerModel": "structured_fill_in",
+      "allowedBlankTargets": [
+        "place_value_conversion",
+        "intermediate_quotient",
+        "intermediate_remainder",
+        "whole_expression_dividend",
+        "whole_expression_divisor",
+        "whole_expression_quotient",
+        "whole_expression_remainder"
+      ],
+      "guardrails": [
+        "fill-in must remain trace-based",
+        "fill-in must not silently become generic direct division practice"
+      ]
+    }
+  ],
+  "distractorAndMisconceptionPolicy": {
+    "misconceptionFamilies": [
+      "INTERMEDIATE_STEP_AS_WHOLE_EXPRESSION",
+      "ARITHMETICALLY_TRUE_BUT_PROCESS_MISMATCH",
+      "PLACE_VALUE_RECOMBINATION_ERROR",
+      "QUOTIENT_PLACE_ERROR",
+      "REMAINDER_CARRYDOWN_ERROR"
+    ],
+    "uniquenessRule": "exactly_one_accepted_answer_or_answer_tuple_per_subitem"
+  },
+  "rendererContract": {
+    "atomicQuestions": "existing_single_question_card_compatible_if_text_fits",
+    "compositeQuestions": "shared_stimulus_plus_numbered_subitems",
+    "preferredSubitemLabels": [
+      "(1)",
+      "(2)"
+    ],
+    "pageSplitPolicy": "avoid_split_between_shared_stimulus_and_subitems"
+  },
+  "runtimeGate": {
+    "generatorImplementation": "forbidden_in_this_contract_task",
+    "validatorImplementation": "forbidden_in_this_contract_task",
+    "selectorExposure": "forbidden",
+    "productionUse": "forbidden"
+  },
+  "humanReview": {
+    "status": "APPROVED",
+    "approvedScope": "G1-G6 including fill-in variants",
+    "note": "Any future new question group beyond G1-G6 requires another operator review before PatternSpec/runtime materialization."
+  },
+  "nextShortestStep": "Implement generator/validator support only after separate implementation approval."
+}

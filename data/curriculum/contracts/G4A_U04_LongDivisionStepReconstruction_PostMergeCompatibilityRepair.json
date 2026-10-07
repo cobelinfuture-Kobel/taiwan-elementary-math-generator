@@ -1,0 +1,59 @@
+{
+  "schemaName": "G4AU04LongDivisionStepReconstructionPostMergeCompatibilityRepair",
+  "schemaVersion": 1,
+  "taskId": "G4A_U04_LongDivisionStepReconstruction_A13FrozenPatternSpecCountMinimalCompatibilityRepair_Then_PostMergeFailureSetParityAttribution_And_D0Closeout",
+  "status": "REPAIR_MATERIALIZED_AWAITING_PR_GATE",
+  "sourceId": "g4a_u04_4a04",
+  "productMergeSha": "ae06b69dbf85bd51188dd53f0598dca73f79aa9d",
+  "baselineRegression": {
+    "workflowRunId": 36731985382,
+    "headSha": "91076490277e0c19f77474de5caf57dfdb7f8a28",
+    "tests": 6710,
+    "pass": 6519,
+    "fail": 191
+  },
+  "productPostMergeRegression": {
+    "workflowRunId": 36737004129,
+    "headSha": "ae06b69dbf85bd51188dd53f0598dca73f79aa9d",
+    "tests": 6715,
+    "pass": 6521,
+    "fail": 194
+  },
+  "failureSetAttribution": {
+    "baselineFailureCount": 191,
+    "postMergeFailureCount": 194,
+    "addedFailureCount": 3,
+    "removedFailureCount": 0,
+    "addedFailures": [
+      "GCTX-P07 accepted audit snapshot remains exact",
+      "GCTX-P08 covers all and only the 98 P07 eligible PatternSpecs",
+      "A13 validates all fifteen authoritative unit registries and the exact 156/156/273 fleet totals"
+    ],
+    "classification": "ALL_THREE_ARE_FROZEN_HISTORICAL_SNAPSHOT_COMPATIBILITY_DRIFT",
+    "runtimeMathFailureCount": 0,
+    "g4aFocusedAcceptanceFailureCount": 0
+  },
+  "repairPolicy": {
+    "rewriteHistoricalA13CloseoutTotals": false,
+    "rewriteHistoricalGctxAcceptedSnapshot": false,
+    "frozenA13ExistingQuestionBindingTotal": 273,
+    "currentExistingQuestionBindingTotalAfterAdditiveG4AU04Patterns": 276,
+    "frozenGctxPatternSpecTotal": 273,
+    "currentGctxSelectorReachablePatternSpecTotal": 276,
+    "frozenGctxEligiblePatternSpecCount": 98,
+    "currentGctxEligiblePatternSpecCount": 98,
+    "additivePatternSpecs": [
+      "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
+      "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
+      "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding"
+    ],
+    "additiveGctxDecision": "not_applicable_non_semantic",
+    "principle": "Historical closeout/audit snapshots remain immutable; current additive PatternSpecs are admitted only through explicit bounded compatibility assertions."
+  },
+  "expectedAfterRepair": {
+    "attributableNewFailureCount": 0,
+    "expectedFailureSetRelation": "POST_REPAIR_FAILURE_SET_EQUALS_PRE_PRODUCT_BASELINE_SET",
+    "expectedHistoricalBaselineFailureCount": 191
+  },
+  "nextShortestStep": "Run focused compatibility gates, merge on exact-head PASS, then compare post-merge full-regression failure names to baseline run 36731985382."
+}

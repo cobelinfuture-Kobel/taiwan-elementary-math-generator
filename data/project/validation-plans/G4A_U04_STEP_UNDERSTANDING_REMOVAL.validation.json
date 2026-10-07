@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G4A_U04_STEP_UNDERSTANDING_REMOVAL_BOUNDED_VALIDATION",
+  "unitId": "g4a_u04_4a04",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/batch-a/g4a-u04-division.test.js",
+          "tests/curriculum/postg-mig-a09-g4a-u04-conformance.test.js",
+          "tests/curriculum/gctx-p07-existing-patternspec-semantic-eligibility-audit.test.js",
+          "tests/curriculum/gctx-p08-binding-admission-normalization.test.js",
+          "tests/curriculum/postg-mig-a13-program-closeout.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/batch-a/g4a-u04-division.test.js",
+          "tests/curriculum/postg-mig-a09-g4a-u04-conformance.test.js"
+        ]
+      }
+    ]
+  }
+}

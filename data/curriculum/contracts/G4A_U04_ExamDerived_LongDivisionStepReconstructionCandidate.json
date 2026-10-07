@@ -1,0 +1,146 @@
+{
+  "schemaName": "ExamDerivedPatternCandidate",
+  "schemaVersion": 1,
+  "candidateId": "cand_g4a_u04_long_division_step_reconstruction",
+  "status": "APPROVED_PATTERN_CANDIDATE_NOT_RUNTIME",
+  "sourceId": "g4a_u04_4a04",
+  "unitCode": "4A-U04",
+  "unitTitle": "整數的除法",
+  "classificationPath": [
+    "G4A-U04",
+    "直式除法步驟理解",
+    "由分解步驟反推完整算式"
+  ],
+  "authorityEffect": {
+    "canonicalKnowledgePointChange": false,
+    "currentKnowledgeRegistryStatePreserved": "VALIDATED_COMPLETE",
+    "note": "This approval adds an exam-derived Pattern family candidate only. It does not replace or split the current seven canonical G4A-U04 KnowledgePoints."
+  },
+  "patternFamily": {
+    "patternFamilyId": "pf_g4a_u04_long_division_step_reconstruction",
+    "patternSpecCandidateId": "ps_cand_g4a_u04_reconstruct_full_expression_from_steps",
+    "questionKindCandidate": "long_division_step_reconstruction",
+    "capabilityStatement": "Given ordered or reorderable place-value division steps, reconstruct the unique complete division expression that generated those steps.",
+    "representation": "textual_place_value_steps_to_full_expression",
+    "answerModelCandidate": "selected_full_division_expression",
+    "validatorRequirements": [
+      "reconstructed dividend and divisor must match every provided place-value step",
+      "quotient and remainder must satisfy dividend = divisor * quotient + remainder",
+      "0 <= remainder < divisor",
+      "the accepted option must be the unique whole expression compatible with all steps",
+      "arithmetically true distractors that do not match the full step sequence must be rejected"
+    ],
+    "misconceptionFamilies": [
+      "INTERMEDIATE_STEP_AS_WHOLE_EXPRESSION",
+      "ARITHMETICALLY_TRUE_BUT_PROCESS_MISMATCH",
+      "PLACE_VALUE_RECOMBINATION_ERROR",
+      "REMAINDER_CARRYDOWN_ERROR"
+    ]
+  },
+  "knowledgePointBinding": {
+    "bindingMode": "pattern_family_spans_existing_kps",
+    "appliesToKnowledgePointIds": [
+      "kp_g4a_u04_4digit_by_1digit_thousands_sufficient",
+      "kp_g4a_u04_4digit_by_1digit_thousands_insufficient",
+      "kp_g4a_u04_4digit_by_1digit_thousands_exact"
+    ],
+    "approvedExamExemplarPrimaryKnowledgePointId": "kp_g4a_u04_4digit_by_1digit_thousands_sufficient",
+    "bindingRationale": "The exemplar 6078 ÷ 4 starts at the thousands place because 6 >= 4 and 6 is not exactly divisible by 4. The new assessment form changes the representation and reasoning demand, not the underlying first-place division classification."
+  },
+  "approvedExamExemplar": {
+    "dividend": 6078,
+    "divisor": 4,
+    "quotient": 1519,
+    "remainder": 2,
+    "stepSequence": [
+      "6個千 ÷ 4 得到1個千，剩下2個千",
+      "2個千換成20個百，20個百 ÷ 4 得到5個百",
+      "7個十 ÷ 4 得到1個十，剩下3個十",
+      "3個十和8個一合成38個一，38個一 ÷ 4 得到9個一，剩下2個一"
+    ],
+    "correctWholeExpression": "6078 ÷ 4 = 1519 ... 2",
+    "criticalDistractor": "38 ÷ 4 = 9 ... 2",
+    "criticalDistractorReason": "It is a mathematically correct intermediate step but not the complete division expression represented by all steps."
+  },
+  "sourceEvidence": {
+    "evidenceType": "operator_provided_exam_image",
+    "operatorApproval": true,
+    "approvalText": "G4A-U04 → 直式除法步驟理解 → 由分解步驟反推完整算式",
+    "textbookAuthorityCompatibility": "compatible_with_existing_g4a_u04_4digit_by_1digit_long_division_scope",
+    "sourceArchiveMetadataStatus": "not_provided",
+    "sourceBackedPromotion": "forbidden_until_exact_exam_provenance_is_materialized"
+  },
+  "runtime": {
+    "productionUse": "forbidden",
+    "selectorExposure": "forbidden",
+    "generatorImplementation": "not_started",
+    "validatorImplementation": "not_started",
+    "rendererChange": "not_required_for_candidate_freeze"
+  },
+  "nextShortestStep": "Materialize the operator-approved bounded PatternSpec contract for G1-G6 without runtime implementation.",
+  "questionGroupReview": {
+    "status": "OPERATOR_APPROVED",
+    "operatorDecision": "KEEP_ALL_PROPOSED_GROUPS_AND_ADD_FILL_IN",
+    "approvedQuestionGroups": [
+      {
+        "questionGroupId": "G1_STEP_SEQUENCE_ORDERING",
+        "responseMode": "ordering",
+        "role": "atomic",
+        "description": "將分解後的直式除法步驟排列成正確順序。"
+      },
+      {
+        "questionGroupId": "G2_WHOLE_EXPRESSION_RECONSTRUCTION",
+        "responseMode": "multiple_choice_or_fill_in",
+        "role": "atomic",
+        "description": "由全部步驟反推完整除法算式。"
+      },
+      {
+        "questionGroupId": "G3_INTERMEDIATE_STEP_IDENTIFICATION",
+        "responseMode": "multiple_choice_or_fill_in",
+        "role": "atomic",
+        "description": "辨認局部算式在完整直式中的位值與步驟角色。"
+      },
+      {
+        "questionGroupId": "G4_ERROR_DIAGNOSIS",
+        "responseMode": "multiple_choice_or_fill_in",
+        "role": "atomic",
+        "description": "找出換位、商位、餘數或局部重組中的錯誤。"
+      },
+      {
+        "questionGroupId": "G5_COMPOSITE_2SUB",
+        "responseMode": "composite_two_subitems",
+        "role": "composite",
+        "description": "共享同一 stimulus；小題1為步驟排序，小題2為完整算式反推；兩小題獨立可判分。"
+      },
+      {
+        "questionGroupId": "G6_FILL_IN_RECONSTRUCTION",
+        "responseMode": "fill_in",
+        "role": "atomic_or_subitem_variant",
+        "description": "以填答方式補出位值換算、局部商餘或完整算式中的缺項；必須保持同一 division trace 語意。"
+      }
+    ],
+    "compositePolicy": {
+      "maxSubitemsInFirstVersion": 2,
+      "sharedStimulusAllowed": true,
+      "answerDependencyBetweenSubitems": "forbidden",
+      "errorPropagationBetweenSubitems": "forbidden",
+      "paginationRequirement": "keep_composite_together_when_practical"
+    },
+    "fillInPolicy": {
+      "allowed": true,
+      "allowedTargets": [
+        "place_value_conversion",
+        "intermediate_quotient",
+        "intermediate_remainder",
+        "whole_expression_dividend",
+        "whole_expression_divisor",
+        "whole_expression_quotient",
+        "whole_expression_remainder"
+      ],
+      "forbiddenDrift": [
+        "do_not_reduce_to_plain_direct_division_without_step_stimulus",
+        "do_not_create_new_canonical_knowledge_point_for_response_format_only"
+      ]
+    }
+  }
+}
