@@ -24,6 +24,8 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, "utf8"));
 }
 
+const POST_CLOSEOUT_ADDITIVE_BINDINGS = Object.freeze({});
+
 function clone(value) {
   return structuredClone(value);
 }
@@ -84,11 +86,12 @@ test("A13 closes the exact fourteen-task program with fifteen complete Golden un
   assert.equal(claim.d0Closeout.mode, "program_controller_closeout");
 });
 
-test("A13 validates all fifteen authoritative unit registries and the exact 156/156/273 fleet totals", async () => {
+test("A13 preserves the frozen 156/156/273 closeout baseline after retiring G4A-U04 step-understanding bindings", async () => {
   const master = await readJson(MASTER_PATH);
   let knowledgePointCount = 0;
   let operationModelCount = 0;
-  let existingQuestionBindingCount = 0;
+  let frozenExistingQuestionBindingCount = 0;
+  let currentExistingQuestionBindingCount = 0;
 
   for (const row of master.rows) {
     const unit = await readJson(new URL(row.unitJsonPath, ROOT));
@@ -104,7 +107,20 @@ test("A13 validates all fifteen authoritative unit registries and the exact 156/
     assert.equal(new Set(operationModelIds).size, operationModelIds.length, row.sourceId);
     assert.equal(unit.knowledgePoints.length, row.knowledgePointCount, row.sourceId);
     assert.equal(operationModels.length, row.operationModelCount, row.sourceId);
-    assert.equal(unit.existingQuestionBindings.length, row.existingQuestionBindingCount, row.sourceId);
+
+    const additiveBindingIds = POST_CLOSEOUT_ADDITIVE_BINDINGS[row.sourceId] ?? [];
+    assert.equal(
+      unit.existingQuestionBindings.length,
+      row.existingQuestionBindingCount + additiveBindingIds.length,
+      row.sourceId,
+    );
+    for (const bindingId of additiveBindingIds) {
+      assert.equal(
+        unit.existingQuestionBindings.some((binding) => binding.questionId === bindingId),
+        true,
+        bindingId,
+      );
+    }
 
     const knowledgePointIdSet = new Set(knowledgePointIds);
     const operationModelIdSet = new Set(operationModelIds);
@@ -115,13 +131,15 @@ test("A13 validates all fifteen authoritative unit registries and the exact 156/
 
     knowledgePointCount += unit.knowledgePoints.length;
     operationModelCount += operationModels.length;
-    existingQuestionBindingCount += unit.existingQuestionBindings.length;
+    frozenExistingQuestionBindingCount += row.existingQuestionBindingCount;
+    currentExistingQuestionBindingCount += unit.existingQuestionBindings.length;
   }
 
   assert.equal(master.rows.length, 15);
   assert.equal(knowledgePointCount, 156);
   assert.equal(operationModelCount, 156);
-  assert.equal(existingQuestionBindingCount, 273);
+  assert.equal(frozenExistingQuestionBindingCount, 273);
+  assert.equal(currentExistingQuestionBindingCount, 273);
   assert.equal(master.rows.reduce((sum, row) => sum + row.unmappedKnowledgePointCount, 0), 0);
   assert.equal(master.rows.reduce((sum, row) => sum + row.unmappedExistingQuestionCount, 0), 0);
   assert.equal(master.rows.reduce((sum, row) => sum + row.conflictingOperationModelCount, 0), 0);
