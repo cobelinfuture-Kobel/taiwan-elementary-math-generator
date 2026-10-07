@@ -13,12 +13,6 @@ function sorted(values) {
   return [...values].sort();
 }
 
-const G4A_U04_ADDITIVE_NON_SEMANTIC_PATTERN_SPEC_IDS = Object.freeze([
-  "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
-  "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
-  "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding",
-]);
-
 test("GCTX-P07 scope remains audit-only and consumes the canonical public selector", () => {
   assert.equal(contract.task, "GCTX-P07_ExistingPatternSpecSemanticEligibilityAudit");
   assert.equal(contract.status, "accepted_pending_merge");
@@ -87,12 +81,11 @@ test("GCTX-P07 preserves the five known unit context authorities without promoti
   }
 });
 
-test("GCTX-P07 preserves its accepted snapshot while bounded G4A-U04 additions remain non-semantic", () => {
+test("GCTX-P07 accepted audit snapshot remains exact", () => {
   const expected = contract.acceptedAuditSummary;
-  const additiveCount = G4A_U04_ADDITIVE_NON_SEMANTIC_PATTERN_SPEC_IDS.length;
   assert.equal(audit.summary.sourceCount, expected.sourceCount);
   assert.equal(audit.summary.knowledgePointCount, expected.knowledgePointCount);
-  assert.equal(audit.summary.patternSpecCount, expected.patternSpecCount + additiveCount);
+  assert.equal(audit.summary.patternSpecCount, expected.patternSpecCount);
   assert.equal(audit.summary.eligiblePatternSpecCount, expected.eligiblePatternSpecCount);
   assert.equal(
     audit.summary.decisionCounts.eligible_existing_authority,
@@ -104,21 +97,13 @@ test("GCTX-P07 preserves its accepted snapshot while bounded G4A-U04 additions r
   );
   assert.equal(
     audit.summary.decisionCounts.not_applicable_non_semantic,
-    expected.notApplicableNonSemanticCount + additiveCount,
+    expected.notApplicableNonSemanticCount,
   );
   assert.equal(audit.summary.errorCount, expected.errorCount);
 
   for (const [sourceId, sourceExpected] of Object.entries(contract.acceptedBySource)) {
-    const sourceAdditiveCount = sourceId === "g4a_u04_4a04" ? additiveCount : 0;
-    assert.equal(audit.bySource[sourceId].patternSpecCount, sourceExpected.patternSpecCount + sourceAdditiveCount);
+    assert.equal(audit.bySource[sourceId].patternSpecCount, sourceExpected.patternSpecCount);
     assert.equal(audit.bySource[sourceId].eligiblePatternSpecCount, sourceExpected.eligiblePatternSpecCount);
-  }
-
-  for (const patternSpecId of G4A_U04_ADDITIVE_NON_SEMANTIC_PATTERN_SPEC_IDS) {
-    const row = audit.entries.find((entry) => entry.sourceId === "g4a_u04_4a04" && entry.patternSpecId === patternSpecId);
-    assert.ok(row, patternSpecId);
-    assert.equal(row.decision, "not_applicable_non_semantic", patternSpecId);
-    assert.deepEqual(row.semanticSignals, [], patternSpecId);
   }
 });
 

@@ -2,48 +2,17 @@ import {
   getBatchABrowserPatternDefinition as baseGetDefinition,
   getBatchAPatternSpecIdsForSource as baseGetPatternIds
 } from "./source-pattern-g4a-u02-extension.js";
-import { G4A_U04_STEP_QUESTION_GROUP_IDS } from "./g4a-u04-step-understanding-runtime.js";
 
 export const G4A_U04_SOURCE_ID = "g4a_u04_4a04";
-export const G4A_U04_STEP_UNDERSTANDING_PATTERN_SPEC_IDS = Object.freeze([
-  "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
-  "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
-  "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding"
-]);
-
 export const G4A_U04_PATTERN_SPEC_IDS = Object.freeze([
   "ps_g4a_u04_4digit_by_1digit_thousands_sufficient",
-  "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
   "ps_g4a_u04_4digit_by_1digit_thousands_insufficient",
-  "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
   "ps_g4a_u04_4digit_by_1digit_thousands_exact",
-  "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding",
   "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
   "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
   "ps_g4a_u04_3digit_by_2digit_tens_insufficient",
   "ps_g4a_u04_division_check_with_remainder"
 ]);
-
-function stepUnderstandingDefinition({ patternSpecId, title, primaryKnowledgePointId, quotientStartPlace, firstPlaceCase }) {
-  return Object.freeze({
-    patternSpecId,
-    sourceId: G4A_U04_SOURCE_ID,
-    title,
-    kind: "g4aU04LongDivisionStepUnderstanding",
-    primaryKnowledgePointId,
-    dividendDigits: 4,
-    divisorDigits: 1,
-    quotientStartPlace,
-    firstPlaceCase,
-    divisorSet: null,
-    coverageCases: Object.freeze(["remainder_nonzero", "quotient_zero_in_middle", "step_reasoning_trace"]),
-    questionGroupIds: G4A_U04_STEP_QUESTION_GROUP_IDS,
-    answerModel: Object.freeze({ shape: "long_division_step_understanding", fields: Object.freeze(["questionGroupId", "responseMode", "answerText"]) }),
-    canonicalSkillIds: Object.freeze(["integer_division_remainder", "long_division_place_value_reasoning"]),
-    skillTags: Object.freeze(["integer_division", "division_with_remainder", "long_division_steps", firstPlaceCase]),
-    difficultyTags: Object.freeze(["batch_a_browser_bridge", "g4a_u04_step_understanding"])
-  });
-}
 
 function divisionDefinition({ patternSpecId, title, kind = "g4aU04LongDivision", dividendDigits, divisorDigits, quotientStartPlace, firstPlaceCase, divisorSet = null, coverageCases = [] }) {
   return Object.freeze({
@@ -91,27 +60,6 @@ const definitions = Object.freeze({
     quotientStartPlace: "thousands",
     firstPlaceCase: "thousands_exact",
     coverageCases: ["next_digit_zero", "remainder_zero", "remainder_nonzero", "quotient_zero_in_middle"]
-  }),
-  ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding: stepUnderstandingDefinition({
-    patternSpecId: "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
-    title: "4位數除以1位數：直式步驟理解（千位夠除）",
-    primaryKnowledgePointId: "kp_g4a_u04_4digit_by_1digit_thousands_sufficient",
-    quotientStartPlace: "thousands",
-    firstPlaceCase: "thousands_sufficient"
-  }),
-  ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding: stepUnderstandingDefinition({
-    patternSpecId: "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
-    title: "4位數除以1位數：直式步驟理解（千位不夠除）",
-    primaryKnowledgePointId: "kp_g4a_u04_4digit_by_1digit_thousands_insufficient",
-    quotientStartPlace: "hundreds",
-    firstPlaceCase: "thousands_insufficient"
-  }),
-  ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding: stepUnderstandingDefinition({
-    patternSpecId: "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding",
-    title: "4位數除以1位數：直式步驟理解（千位整除）",
-    primaryKnowledgePointId: "kp_g4a_u04_4digit_by_1digit_thousands_exact",
-    quotientStartPlace: "thousands",
-    firstPlaceCase: "thousands_exact"
   }),
   ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor: divisionDefinition({
     patternSpecId: "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor",

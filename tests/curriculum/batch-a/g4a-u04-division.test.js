@@ -33,11 +33,8 @@ const KP_IDS = Object.freeze([
 ]);
 const SPEC_IDS = Object.freeze([
   "ps_g4a_u04_4digit_by_1digit_thousands_sufficient",
-  "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
   "ps_g4a_u04_4digit_by_1digit_thousands_insufficient",
-  "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
   "ps_g4a_u04_4digit_by_1digit_thousands_exact",
-  "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding",
   "ps_g4a_u04_2digit_by_2digit_ten_multiple_divisor",
   "ps_g4a_u04_3digit_by_2digit_tens_sufficient",
   "ps_g4a_u04_3digit_by_2digit_tens_insufficient",
@@ -127,7 +124,7 @@ test("G4A-U04 exposes seven division KnowledgePoints", () => {
   assert.deepEqual(visibleIds, KP_IDS);
 });
 
-test("G4A-U04 source-unit generation produces ten PatternSpecs", () => {
+test("G4A-U04 source-unit generation produces seven PatternSpecs", () => {
   const result = generateBatchABrowserQuestions({ sourceId: SOURCE_ID, questionCount: 35, ordering: "groupedByPattern", generationSeed: "s54c" });
   assert.equal(result.ok, true, JSON.stringify(result.errors));
   assert.equal(result.questions.length, 35);

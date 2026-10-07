@@ -24,13 +24,7 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, "utf8"));
 }
 
-const POST_CLOSEOUT_ADDITIVE_BINDINGS = Object.freeze({
-  g4a_u04_4a04: Object.freeze([
-    "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
-    "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
-    "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding",
-  ]),
-});
+const POST_CLOSEOUT_ADDITIVE_BINDINGS = Object.freeze({});
 
 function clone(value) {
   return structuredClone(value);
@@ -92,7 +86,7 @@ test("A13 closes the exact fourteen-task program with fifteen complete Golden un
   assert.equal(claim.d0Closeout.mode, "program_controller_closeout");
 });
 
-test("A13 preserves the frozen 156/156/273 closeout baseline while bounded post-closeout bindings remain additive", async () => {
+test("A13 preserves the frozen 156/156/273 closeout baseline after retiring G4A-U04 step-understanding bindings", async () => {
   const master = await readJson(MASTER_PATH);
   let knowledgePointCount = 0;
   let operationModelCount = 0;
@@ -145,7 +139,7 @@ test("A13 preserves the frozen 156/156/273 closeout baseline while bounded post-
   assert.equal(knowledgePointCount, 156);
   assert.equal(operationModelCount, 156);
   assert.equal(frozenExistingQuestionBindingCount, 273);
-  assert.equal(currentExistingQuestionBindingCount, 276);
+  assert.equal(currentExistingQuestionBindingCount, 273);
   assert.equal(master.rows.reduce((sum, row) => sum + row.unmappedKnowledgePointCount, 0), 0);
   assert.equal(master.rows.reduce((sum, row) => sum + row.unmappedExistingQuestionCount, 0), 0);
   assert.equal(master.rows.reduce((sum, row) => sum + row.conflictingOperationModelCount, 0), 0);

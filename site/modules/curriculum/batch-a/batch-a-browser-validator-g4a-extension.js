@@ -1,9 +1,4 @@
 import * as base from "./batch-a-browser-validator.js";
-import {
-  G4A_U04_STEP_FILL_IN_TARGETS,
-  G4A_U04_STEP_QUESTION_GROUP_IDS,
-  buildG4AU04LongDivisionTrace,
-} from "./g4a-u04-step-understanding-runtime.js";
 
 const ARRANGEMENT_SPEC_ID = "ps_g4a_u01_digit_arrangement_max_min";
 const G4A_U02_NUMERIC_SPEC_IDS = new Set([
@@ -26,11 +21,6 @@ const G4A_U04_LONG_DIVISION_SPEC_IDS = new Set([
   "ps_g4a_u04_3digit_by_2digit_tens_insufficient"
 ]);
 const G4A_U04_CHECK_SPEC_ID = "ps_g4a_u04_division_check_with_remainder";
-const G4A_U04_STEP_UNDERSTANDING_SPEC_IDS = new Set([
-  "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
-  "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
-  "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding",
-]);
 
 function issue(code, path, message = code, severity = "error") {
   return { code, severity, path, message };
@@ -235,102 +225,6 @@ function validateG4AU04Division(question = {}) {
   return { ok: errors.length === 0, errors, warnings: [] };
 }
 
-function expectedWholeExpression(question) {
-  return question.remainder > 0
-    ? `${question.dividend} ÷ ${question.divisor} = ${question.quotient}…${question.remainder}`
-    : `${question.dividend} ÷ ${question.divisor} = ${question.quotient}`;
-}
-
-function validateG4AU04StepUnderstanding(question = {}) {
-  const isStep = G4A_U04_STEP_UNDERSTANDING_SPEC_IDS.has(question.patternSpecId)
-    || G4A_U04_STEP_UNDERSTANDING_SPEC_IDS.has(question.metadata?.patternId);
-  if (!isStep) return null;
-  const errors = [];
-  if (question.metadata?.sourceId !== "g4a_u04_4a04") errors.push(issue("batch_a_question_source_mismatch", "metadata.sourceId"));
-  if (question.kind !== "g4aU04LongDivisionStepUnderstanding") errors.push(issue("batch_a_g4a_u04_step_kind_invalid", "kind"));
-  if (![question.dividend, question.divisor, question.quotient, question.remainder].every(Number.isSafeInteger)) {
-    errors.push(issue("batch_a_g4a_u04_operand_invalid", "operands"));
-    return { ok: false, errors, warnings: [] };
-  }
-  if (question.divisor <= 0 || question.quotient !== Math.floor(question.dividend / question.divisor) || question.remainder !== question.dividend % question.divisor) {
-    errors.push(issue("batch_a_g4a_u04_step_math_invalid", "operands"));
-  }
-  if (question.remainder < 0 || question.remainder >= question.divisor) errors.push(issue("batch_a_g4a_u04_remainder_range_invalid", "remainder"));
-  if (question.divisor * question.quotient + question.remainder !== question.dividend) errors.push(issue("batch_a_g4a_u04_check_equation_invalid", "dividend"));
-  if (!firstPlaceRuleMatches(question)) errors.push(issue("batch_a_g4a_u04_first_place_rule_invalid", "firstPlaceCase"));
-  if (!G4A_U04_STEP_QUESTION_GROUP_IDS.includes(question.questionGroupId)) errors.push(issue("batch_a_g4a_u04_step_group_invalid", "questionGroupId"));
-  if (typeof question.promptText !== "string" || question.promptText.length < 10) errors.push(issue("batch_a_g4a_u04_step_prompt_invalid", "promptText"));
-  if (typeof question.answerText !== "string" || question.answerText.length === 0) errors.push(issue("batch_a_answer_incorrect", "answerText"));
-
-  let expectedTrace = null;
-  try {
-    expectedTrace = buildG4AU04LongDivisionTrace(question);
-  } catch {
-    errors.push(issue("batch_a_g4a_u04_step_trace_invalid", "reasoningTrace"));
-  }
-  if (expectedTrace && JSON.stringify(question.reasoningTrace) !== JSON.stringify(expectedTrace)) {
-    errors.push(issue("batch_a_g4a_u04_step_trace_mismatch", "reasoningTrace"));
-  }
-
-  if (question.questionGroupId === "G1_STEP_SEQUENCE_ORDERING") {
-    if (question.responseMode !== "ordering") errors.push(issue("batch_a_g4a_u04_step_response_mode_invalid", "responseMode"));
-    if (!Array.isArray(question.scrambledSteps) || question.scrambledSteps.length !== expectedTrace?.length) errors.push(issue("batch_a_g4a_u04_step_scramble_invalid", "scrambledSteps"));
-    if (!Array.isArray(question.orderedLabels) || question.orderedLabels.length !== expectedTrace?.length) errors.push(issue("batch_a_g4a_u04_step_order_answer_invalid", "orderedLabels"));
-    if (Array.isArray(question.orderedLabels) && question.answerText !== question.orderedLabels.join(" → ")) errors.push(issue("batch_a_answer_incorrect", "answerText"));
-  }
-
-  if (question.questionGroupId === "G2_WHOLE_EXPRESSION_RECONSTRUCTION") {
-    const expression = expectedWholeExpression(question);
-    if (question.wholeExpression !== expression) errors.push(issue("batch_a_g4a_u04_whole_expression_invalid", "wholeExpression"));
-    if (question.responseMode === "multiple_choice") {
-      if (!Array.isArray(question.options) || question.options.length !== 4) errors.push(issue("batch_a_g4a_u04_step_options_invalid", "options"));
-      else {
-        const correct = question.options.filter((option) => option.isCorrect === true);
-        if (correct.length !== 1 || correct[0].text !== expression || correct[0].label !== question.correctOptionLabel) errors.push(issue("batch_a_g4a_u04_step_unique_answer_invalid", "options"));
-        if (!question.options.some((option) => option.isIntermediateStep === true && option.isCorrect === false)) errors.push(issue("batch_a_g4a_u04_intermediate_distractor_missing", "options"));
-      }
-    } else if (question.responseMode === "fill_in") {
-      if (JSON.stringify(question.fillInAnswers) !== JSON.stringify([question.dividend, question.divisor, question.quotient, question.remainder])) errors.push(issue("batch_a_g4a_u04_fill_in_answer_invalid", "fillInAnswers"));
-    } else errors.push(issue("batch_a_g4a_u04_step_response_mode_invalid", "responseMode"));
-  }
-
-  if (question.questionGroupId === "G3_INTERMEDIATE_STEP_IDENTIFICATION") {
-    const target = expectedTrace?.find((step) => step.stepId === question.targetStepId);
-    if (!target || target.placeKey !== question.targetPlaceKey) errors.push(issue("batch_a_g4a_u04_intermediate_target_invalid", "targetStepId"));
-    if (question.responseMode === "multiple_choice") {
-      if (!Array.isArray(question.options) || question.options.filter((option) => option.isCorrect === true).length !== 1) errors.push(issue("batch_a_g4a_u04_step_options_invalid", "options"));
-    } else if (question.responseMode === "fill_in") {
-      if (!target || JSON.stringify(question.fillInAnswers) !== JSON.stringify([target.quotientDigit, target.remainderUnits])) errors.push(issue("batch_a_g4a_u04_fill_in_answer_invalid", "fillInAnswers"));
-    } else errors.push(issue("batch_a_g4a_u04_step_response_mode_invalid", "responseMode"));
-  }
-
-  if (question.questionGroupId === "G4_ERROR_DIAGNOSIS") {
-    const diagnosis = question.errorDiagnosis;
-    const target = expectedTrace?.find((step) => step.stepId === diagnosis?.targetStepId);
-    if (!target || !diagnosis || diagnosis.presentedValue === diagnosis.correctValue) errors.push(issue("batch_a_g4a_u04_error_diagnosis_invalid", "errorDiagnosis"));
-    if (!["PLACE_VALUE_RECOMBINATION_ERROR", "QUOTIENT_PLACE_ERROR", "REMAINDER_CARRYDOWN_ERROR", "INTERMEDIATE_STEP_AS_WHOLE_EXPRESSION"].includes(diagnosis?.errorFamily)) errors.push(issue("batch_a_g4a_u04_error_family_invalid", "errorDiagnosis.errorFamily"));
-    if (question.responseMode === "fill_in" && JSON.stringify(question.fillInAnswers) !== JSON.stringify([diagnosis?.correctValue])) errors.push(issue("batch_a_g4a_u04_fill_in_answer_invalid", "fillInAnswers"));
-    if (!["fill_in", "multiple_choice"].includes(question.responseMode)) errors.push(issue("batch_a_g4a_u04_step_response_mode_invalid", "responseMode"));
-  }
-
-  if (question.questionGroupId === "G5_COMPOSITE_2SUB") {
-    if (question.responseMode !== "composite_two_subitems") errors.push(issue("batch_a_g4a_u04_step_response_mode_invalid", "responseMode"));
-    if (!Array.isArray(question.subitems) || question.subitems.length !== 2) errors.push(issue("batch_a_g4a_u04_composite_subitems_invalid", "subitems"));
-    else {
-      if (question.subitems[0]?.kind !== "step_order" || question.subitems[1]?.kind !== "whole_expression") errors.push(issue("batch_a_g4a_u04_composite_subitems_invalid", "subitems"));
-    }
-    if (question.independentSubitemScoring !== true) errors.push(issue("batch_a_g4a_u04_composite_dependency_invalid", "independentSubitemScoring"));
-  }
-
-  if (question.questionGroupId === "G6_FILL_IN_RECONSTRUCTION") {
-    if (question.responseMode !== "fill_in") errors.push(issue("batch_a_g4a_u04_step_response_mode_invalid", "responseMode"));
-    if (!G4A_U04_STEP_FILL_IN_TARGETS.includes(question.fillInTarget)) errors.push(issue("batch_a_g4a_u04_fill_in_target_invalid", "fillInTarget"));
-    if (!Array.isArray(question.fillInAnswers) || question.fillInAnswers.length === 0 || question.fillInAnswers.some((value) => !Number.isSafeInteger(value))) errors.push(issue("batch_a_g4a_u04_fill_in_answer_invalid", "fillInAnswers"));
-  }
-
-  return { ok: errors.length === 0, errors, warnings: [] };
-}
-
 export function validateBatchABrowserPlan(plan = {}) {
   return base.validateBatchABrowserPlan(plan);
 }
@@ -346,8 +240,6 @@ export function validateBatchABrowserQuestion(question = {}) {
   if (nearHundred) return nearHundred;
   const g4aU04Division = validateG4AU04Division(question);
   if (g4aU04Division) return g4aU04Division;
-  const g4aU04StepUnderstanding = validateG4AU04StepUnderstanding(question);
-  if (g4aU04StepUnderstanding) return g4aU04StepUnderstanding;
   return base.validateBatchABrowserQuestion(question);
 }
 
@@ -359,5 +251,5 @@ export function validateBatchABrowserQuestions(questions = []) {
     errors.push(...result.errors.map((error) => ({ ...error, path: `questions[${index}].${error.path}` })));
     warnings.push(...result.warnings);
   }
-  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "g4a-u04-division-step-understanding-v2", validatedAt: null };
+  return { ok: errors.length === 0, errors, warnings, infos: [], validatorVersion: "s54c-g4a-u04-division-v1", validatedAt: null };
 }
