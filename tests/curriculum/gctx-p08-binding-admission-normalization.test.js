@@ -13,12 +13,6 @@ const manifest = buildGctxP08BindingAdmissionManifest();
 
 const sorted = (values) => [...values].sort();
 
-const G4A_U04_ADDITIVE_NON_SEMANTIC_PATTERN_SPEC_IDS = Object.freeze([
-  "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
-  "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
-  "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding",
-]);
-
 test("GCTX-P08 scope remains admission and normalization only", () => {
   assert.equal(contract.task, "GCTX-P08_ApprovedSemanticBindingBackfillAndLegacyAuthorityNormalization");
   assert.equal(contract.scope.runtimeBehaviorChanged, false);
@@ -48,7 +42,7 @@ test("GCTX-P08 materializes an empty fail-closed approved binding registry", () 
   assert.equal(manifest.approvedRegistry.productionSelectionAllowed, false);
 });
 
-test("GCTX-P08 still covers exactly the 98 eligible P07 PatternSpecs and excludes bounded G4A-U04 additions", () => {
+test("GCTX-P08 covers all and only the 98 P07 eligible PatternSpecs", () => {
   assert.deepEqual(manifest.errors, []);
   assert.equal(manifest.status, "accepted_for_p09_exact_extraction");
   assert.equal(manifest.summary.readyForP09ExactExtraction, true);
@@ -56,10 +50,7 @@ test("GCTX-P08 still covers exactly the 98 eligible P07 PatternSpecs and exclude
   assert.equal(manifest.summary.legacyAuthorityNormalizationCount, 81);
   assert.equal(manifest.summary.newBindingBackfillCount, 17);
   assert.equal(manifest.summary.sourceCount, 6);
-  assert.equal(
-    manifest.summary.excludedNotApplicablePatternSpecCount,
-    175 + G4A_U04_ADDITIVE_NON_SEMANTIC_PATTERN_SPEC_IDS.length,
-  );
+  assert.equal(manifest.summary.excludedNotApplicablePatternSpecCount, 175);
   assert.equal(manifest.summary.errorCount, 0);
 
   const candidateKeys = manifest.candidates.map((row) => row.candidateKey);
@@ -67,9 +58,6 @@ test("GCTX-P08 still covers exactly the 98 eligible P07 PatternSpecs and exclude
   assert.equal(new Set(candidateKeys).size, candidateKeys.length);
   assert.equal(new Set(bindingIds).size, bindingIds.length);
   assert.ok(manifest.candidates.every((row) => row.p07Decision !== "not_applicable_non_semantic"));
-  for (const patternSpecId of G4A_U04_ADDITIVE_NON_SEMANTIC_PATTERN_SPEC_IDS) {
-    assert.equal(manifest.candidates.some((row) => row.patternSpecId === patternSpecId), false, patternSpecId);
-  }
 });
 
 test("GCTX-P08 locks exact source counts and admission classes", () => {

@@ -8,7 +8,6 @@ import {
   G4A_U04_SOURCE_ID,
   getBatchABrowserPatternDefinition
 } from "./source-pattern-g4a-u04-extension.js";
-import { makeG4AU04StepUnderstandingQuestion } from "./g4a-u04-step-understanding-runtime.js";
 
 const candidateCache = new Map();
 
@@ -199,10 +198,6 @@ function generateQuestion(patternSpecId, sequenceNumber, seed) {
   const definition = getBatchABrowserPatternDefinition(patternSpecId);
   if (!definition) return null;
   if (definition.kind === "g4aU04LongDivision") return makeLongDivisionQuestion(definition, sequenceNumber, seed);
-  if (definition.kind === "g4aU04LongDivisionStepUnderstanding") {
-    const selected = selectCandidate(definition, sequenceNumber, seed);
-    return makeG4AU04StepUnderstandingQuestion(definition, selected, sequenceNumber, seed, metadata(definition));
-  }
   if (definition.kind === "g4aU04DivisionCheckWithRemainder") return makeDivisionCheckQuestion(definition, sequenceNumber, seed);
   return null;
 }

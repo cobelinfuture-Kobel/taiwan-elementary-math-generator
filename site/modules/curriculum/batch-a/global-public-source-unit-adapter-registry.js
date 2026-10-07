@@ -204,12 +204,9 @@ export const G4AU02_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescripto
 export const G4AU04_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescriptor({
   sourceId: G4A_U04_POSTG_SOURCE_ID,
   knowledgeRegistryPath: "data/curriculum/knowledge/units/g4a_u04_4a04.knowledge-operation.json",
-  counts: { knowledgePoints: 7, patternGroups: 7, patternSpecs: 10 },
-  authorityFileCount: 8,
-  generator: [
-    "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
-    "site/modules/curriculum/batch-a/g4a-u04-step-understanding-runtime.js",
-  ],
+  counts: { knowledgePoints: 7, patternGroups: 7, patternSpecs: 7 },
+  authorityFileCount: 7,
+  generator: "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
   validator: "site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js",
 });
 export const G4AU08_POSTG_GOLDEN_RUNTIME_DESCRIPTOR = postGoldenRuntimeDescriptor({

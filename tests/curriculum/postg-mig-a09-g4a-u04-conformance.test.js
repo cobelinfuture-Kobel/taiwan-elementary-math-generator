@@ -67,7 +67,7 @@ test("A09 authority contains seven unique KP operation models and bindings", asy
   assert.equal(registry.review.status, "PASS");
   assert.equal(registry.knowledgePoints.length, 7);
   assert.equal(registry.knowledgePoints.flatMap((row) => row.operationModels).length, 7);
-  assert.equal(registry.existingQuestionBindings.length, 10);
+  assert.equal(registry.existingQuestionBindings.length, 7);
   assert.deepEqual(new Set(registry.knowledgePoints.map((row) => row.knowledgePointId)), KP);
   assert.deepEqual(new Set(registry.existingQuestionBindings.map((row) => row.questionId)), PS);
   assert.equal(new Set(registry.existingQuestionBindings.map((row) => row.operationModelId)).size, 7);
@@ -75,10 +75,10 @@ test("A09 authority contains seven unique KP operation models and bindings", asy
   assert.equal(registry.coverage.application, "ABSENT");
 });
 
-test("A09 descriptor resolves seven KP PatternGroups and ten current PatternSpecs", () => {
+test("A09 descriptor resolves seven KP PatternGroups and PatternSpecs", () => {
   const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
   assert.ok(descriptor);
-  assert.deepEqual(descriptor.expectedCounts, { knowledgePoints: 7, patternGroups: 7, patternSpecs: 10 });
+  assert.deepEqual(descriptor.expectedCounts, { knowledgePoints: 7, patternGroups: 7, patternSpecs: 7 });
   assert.deepEqual(new Set(descriptor.knowledgePointIds), KP);
   assert.deepEqual(new Set(descriptor.patternGroupIds), PG);
   assert.deepEqual(new Set(descriptor.patternSpecIds), PS);
@@ -86,22 +86,19 @@ test("A09 descriptor resolves seven KP PatternGroups and ten current PatternSpec
   assert.equal(validateGlobalPublicSourceUnitAdapters().ok, true);
 });
 
-test("A09 descriptor reuses G4A-U04 division runtime plus step projection with existing validator and S60J renderer", () => {
+test("A09 descriptor reuses the existing division generator G4A validator extension and S60J renderer", () => {
   const descriptor = resolvePostGoldenSourceUnitAdapterDescriptor(SOURCE_ID);
   assert.deepEqual(descriptor.goldenContractDescriptor.perUnitRuntimeLimits, {
     generator: 0, validator: 0, renderer: 0, workflow: 0,
   });
   assert.deepEqual(descriptor.goldenContractDescriptor.runtimeModules, {
-    generator: [
-      "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
-      "site/modules/curriculum/batch-a/g4a-u04-step-understanding-runtime.js",
-    ],
+    generator: "site/modules/curriculum/batch-a/g4a-u04-division-generator.js",
     validator: "site/modules/curriculum/batch-a/batch-a-browser-validator-g4a-extension.js",
     renderer: "site/modules/renderer/html-renderer-s60j-extension.js",
   });
 });
 
-test("A09 shared route generates and validates all ten current PatternSpecs", () => {
+test("A09 shared route generates and validates all seven PatternSpecs", () => {
   const generated = generateBatchABrowserQuestions(adapted());
   assert.equal(generated.ok, true, JSON.stringify(generated.errors));
   assert.equal(generated.questions.length, 35);
@@ -120,12 +117,8 @@ test("A09 generated division witnesses preserve quotient remainder and verificat
       assert.ok(question.remainder > 0);
       assert.equal(question.checkValue, question.dividend);
       assert.equal(question.answerText, `${question.divisor} × ${question.quotient} + ${question.remainder} = ${question.dividend}`);
-    } else if (question.kind === "g4aU04LongDivision") {
-      assert.equal(question.answerText, `商 ${question.quotient}，餘 ${question.remainder}`);
     } else {
-      assert.equal(question.kind, "g4aU04LongDivisionStepUnderstanding");
-      assert.ok(question.questionGroupId);
-      assert.ok(question.reasoningTrace?.length >= 3);
+      assert.equal(question.answerText, `商 ${question.quotient}，餘 ${question.remainder}`);
     }
   }
 });

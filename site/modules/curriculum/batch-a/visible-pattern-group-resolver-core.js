@@ -85,7 +85,6 @@ const G3B_U08_SOURCE_ID = "g3b_u08_3b08";
 const VALID_SELECTION_MODES = Object.freeze(Object.values(BATCH_A_RESOLVER_SELECTION_MODES));
 const MULTISPEC_ALLOCATION_SOURCE_IDS = Object.freeze(new Set([
   "g3a_u01_3a01",
-  "g4a_u04_4a04",
   G3B_U04_SOURCE_ID,
   G3B_U08_SOURCE_ID,
   "g4a_u08_4a08"

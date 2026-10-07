@@ -24,14 +24,6 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, "utf8"));
 }
 
-const POST_CLOSEOUT_ADDITIVE_BINDINGS = Object.freeze({
-  g4a_u04_4a04: Object.freeze([
-    "ps_g4a_u04_4digit_by_1digit_thousands_sufficient_step_understanding",
-    "ps_g4a_u04_4digit_by_1digit_thousands_insufficient_step_understanding",
-    "ps_g4a_u04_4digit_by_1digit_thousands_exact_step_understanding",
-  ]),
-});
-
 function clone(value) {
   return structuredClone(value);
 }
@@ -92,12 +84,11 @@ test("A13 closes the exact fourteen-task program with fifteen complete Golden un
   assert.equal(claim.d0Closeout.mode, "program_controller_closeout");
 });
 
-test("A13 preserves the frozen 156/156/273 closeout baseline while bounded post-closeout bindings remain additive", async () => {
+test("A13 validates all fifteen authoritative unit registries and the exact 156/156/273 fleet totals", async () => {
   const master = await readJson(MASTER_PATH);
   let knowledgePointCount = 0;
   let operationModelCount = 0;
-  let frozenExistingQuestionBindingCount = 0;
-  let currentExistingQuestionBindingCount = 0;
+  let existingQuestionBindingCount = 0;
 
   for (const row of master.rows) {
     const unit = await readJson(new URL(row.unitJsonPath, ROOT));
@@ -113,20 +104,7 @@ test("A13 preserves the frozen 156/156/273 closeout baseline while bounded post-
     assert.equal(new Set(operationModelIds).size, operationModelIds.length, row.sourceId);
     assert.equal(unit.knowledgePoints.length, row.knowledgePointCount, row.sourceId);
     assert.equal(operationModels.length, row.operationModelCount, row.sourceId);
-
-    const additiveBindingIds = POST_CLOSEOUT_ADDITIVE_BINDINGS[row.sourceId] ?? [];
-    assert.equal(
-      unit.existingQuestionBindings.length,
-      row.existingQuestionBindingCount + additiveBindingIds.length,
-      row.sourceId,
-    );
-    for (const bindingId of additiveBindingIds) {
-      assert.equal(
-        unit.existingQuestionBindings.some((binding) => binding.questionId === bindingId),
-        true,
-        bindingId,
-      );
-    }
+    assert.equal(unit.existingQuestionBindings.length, row.existingQuestionBindingCount, row.sourceId);
 
     const knowledgePointIdSet = new Set(knowledgePointIds);
     const operationModelIdSet = new Set(operationModelIds);
@@ -137,15 +115,13 @@ test("A13 preserves the frozen 156/156/273 closeout baseline while bounded post-
 
     knowledgePointCount += unit.knowledgePoints.length;
     operationModelCount += operationModels.length;
-    frozenExistingQuestionBindingCount += row.existingQuestionBindingCount;
-    currentExistingQuestionBindingCount += unit.existingQuestionBindings.length;
+    existingQuestionBindingCount += unit.existingQuestionBindings.length;
   }
 
   assert.equal(master.rows.length, 15);
   assert.equal(knowledgePointCount, 156);
   assert.equal(operationModelCount, 156);
-  assert.equal(frozenExistingQuestionBindingCount, 273);
-  assert.equal(currentExistingQuestionBindingCount, 276);
+  assert.equal(existingQuestionBindingCount, 273);
   assert.equal(master.rows.reduce((sum, row) => sum + row.unmappedKnowledgePointCount, 0), 0);
   assert.equal(master.rows.reduce((sum, row) => sum + row.unmappedExistingQuestionCount, 0), 0);
   assert.equal(master.rows.reduce((sum, row) => sum + row.conflictingOperationModelCount, 0), 0);
