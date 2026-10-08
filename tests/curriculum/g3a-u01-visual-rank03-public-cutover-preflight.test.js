@@ -33,14 +33,22 @@ const rank03=JSON.parse(fs.readFileSync(RANK03_PATH,"utf8"));
 const RANK03_GROUP="pg_g3a_u01_visual_integer_number_line_mark_value";
 const RANK03_SPEC="ps_g3a_u01_visual_integer_number_line_mark_value";
 
-test("Rank03 public cutover preflight starts from accepted hidden runtime and does not expose it early",()=>{
+test("Rank03 preflight freezes the accepted hidden-runtime starting point while current contract may advance after cutover",()=>{
+  // The preflight JSON is historical authority for the state at the planning boundary.
   assert.equal(preflight.status,"PASS_PUBLIC_CUTOVER_PREFLIGHT_IMPLEMENTATION_NOT_STARTED");
-  assert.equal(rank03.status,"hidden_runtime_accepted_public_cutover_not_started");
-  assert.equal(rank03.lifecycle.hiddenWorksheetAcceptance,"PASS_FOCUSED_CI");
-  assert.equal(rank03.hiddenRuntime.publicCutoverStarted,false);
-  assert.equal(rank03.patternSpec.selectorStatus,"hidden");
-  assert.equal(rank03.patternSpec.productionUse,"forbidden");
+  assert.equal(preflight.rank03.hiddenRuntimeStatus,"accepted");
+  assert.equal(preflight.rank03.hiddenWorksheetAcceptance,"PASS");
+  assert.equal(preflight.rank03.publicCutoverStarted,false);
 
+  // Current contract is intentionally post-cutover and deployed for public review.
+  assert.equal(rank03.status,"public_review_ready_operator_visual_acceptance");
+  assert.equal(rank03.lifecycle.hiddenWorksheetAcceptance,"PASS_FOCUSED_CI");
+  assert.equal(rank03.hiddenRuntime.publicCutoverStarted,true);
+  assert.equal(rank03.patternSpec.selectorStatus,"visible_public_review");
+  assert.equal(rank03.patternSpec.productionUse,"public_review");
+
+  // This preflight fixture deliberately uses the frozen Rank02-era selector extension
+  // to prove the planning-time topology rather than current public visibility.
   const numberLineGroups=getVisiblePatternGroupsForKnowledgePoint(KP);
   assert.equal(numberLineGroups.some((group)=>group.patternGroupId===RANK02_GROUP),true);
   assert.equal(numberLineGroups.some((group)=>group.patternGroupId===RANK03_GROUP),false);
