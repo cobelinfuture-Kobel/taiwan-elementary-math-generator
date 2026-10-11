@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "MATH_THINKING_M2_TRANSFER_EQUALIZATION_AND_PREREQUISITE",
+  "currentScope": "KP_LEAF",
+  "currentKnowledgePointId": "mt_kp_transfer_equalize_two_groups",
+  "unitExpectedKnowledgePointIds": [
+    "mt_kp_transfer_equalize_two_groups"
+  ],
+  "unitKnowledgePointGateStatus": {
+    "mt_kp_transfer_equalize_two_groups": "PENDING"
+  },
+  "expectedDerivedGate": "KP_FOCUSED",
+  "validationPlanPath": "data/project/validation-plans/MATH_THINKING_M2_TRANSFER.validation.json",
+  "changeImpact": {
+    "sharedExecutableChange": false,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
