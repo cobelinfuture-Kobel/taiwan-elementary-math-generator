@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "MATH_THINKING_M2_DEPLOYED_E6_KP_FOCUSED",
+  "unitId": "math_thinking_transfer_equalization",
+  "lanes": {
+    "KP_FOCUSED": [
+      {
+        "gateId": "FOCUSED_TEST",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/math-thinking/transfer-equalize.test.js",
+          "tests/math-thinking/learning-path.test.js"
+        ]
+      },
+      {
+        "gateId": "DIRECT_DEPENDENCY_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/math-thinking/sum-difference.test.js",
+          "tests/site/math-thinking-route.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_BROWSER_E2E",
+        "kind": "NODE_RUNNER",
+        "runtime": "PLAYWRIGHT_CHROMIUM",
+        "path": "tools/site/math-thinking-m2-deployed-e6.mjs"
+      }
+    ]
+  }
+}
