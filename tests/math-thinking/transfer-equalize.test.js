@@ -35,7 +35,7 @@ test('diagram uses one common bar and two exactly equal transfer-width segments'
  const common=(350*10/14).toFixed(3),half=((350-350*10/14)/2).toFixed(3);
  assert.match(diagram,new RegExp('data-common-width="'+common+'"'));
  assert.match(diagram,new RegExp('data-half-difference-width="'+half+'"'));
- assert.equal(diagram.split('width="'+half+'"').length-1,2);
+ assert.equal((diagram.match(new RegExp('<rect[^>]*width="'+half+'"','g'))??[]).length,2);
  assert.match(diagram,/相差 4 個/);
  const blank=renderTransferSvg(q,{guided:false});
  assert.match(blank,/相差：_____/);
