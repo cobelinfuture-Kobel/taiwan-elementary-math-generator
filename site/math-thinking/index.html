@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>數學思維｜和差問題工程原型</title>
+  <link rel="stylesheet" href="../assets/styles/app.css">
+  <link rel="stylesheet" href="./math-thinking.css">
+</head>
+<body data-route-kind="math-thinking-pilot">
+  <main class="mt-shell">
+    <header class="mt-hero">
+      <p class="app-shell__eyebrow">MathThinking — Independent pilot</p>
+      <h1>數學思維</h1>
+      <p>獨立數學思維原型：第一個工程示範是「和差問題」。此頁的工程順序不代表學生必須先學此題型，也不代表已納入臺灣課本單元。</p>
+      <nav class="app-shell__version-nav" aria-label="介面切換">
+        <a class="version-link" href="../">標準版 Classic</a>
+        <a class="version-link" href="../exam-template/">考券模板</a>
+        <span class="version-chip" aria-current="page">數學思維</span>
+        <a class="version-link" href="../path1/">Path 1 路徑練習</a>
+      </nav>
+    </header>
+    <section class="mt-controls" aria-label="數學思維原型設定">
+      <h2>和差問題｜原創題型試產</h2>
+      <p class="mt-note">學習先備：數量比較、平均分配、兩步驟運算與線段圖。尚未建立學生前測與自動解鎖。</p>
+      <form id="mt-form">
+        <label>數值難度
+          <select name="level" id="mt-level">
+            <option value="basic">基礎整數</option>
+            <option value="extended">較大整數</option>
+          </select>
+        </label>
+        <label>題目數量
+          <input name="count" id="mt-count" type="number" min="1" max="30" value="6" required>
+        </label>
+        <label>重現種子
+          <input name="seed" id="mt-seed" type="text" value="math-thinking-pilot">
+        </label>
+        <label>線段圖
+          <select name="diagram" id="mt-diagram">
+            <option value="guided">標示總量和差量</option>
+            <option value="unlabeled">讓學生補線段圖標示</option>
+            <option value="none">不提供線段圖</option>
+          </select>
+        </label>
+        <label class="mt-inline"><input id="mt-answers" type="checkbox" checked> 列印附答案卷</label>
+        <div class="mt-actions">
+          <button class="button button--primary" type="submit">產生原創題目</button>
+          <button class="button" id="mt-print" type="button" disabled>列印題目卷</button>
+        </div>
+      </form>
+      <p id="mt-status" role="status" aria-live="polite">尚未產生題目。</p>
+    </section>
+    <section class="mt-preview" aria-label="題目卷與答案卷預覽">
+      <div id="mt-output"></div>
+    </section>
+  </main>
+  <script type="module" src="./math-thinking.js"></script>
+</body>
+</html>

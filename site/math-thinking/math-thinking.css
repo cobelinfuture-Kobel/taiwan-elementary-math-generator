@@ -1,0 +1,36 @@
+*{box-sizing:border-box}
+.mt-shell{max-width:1100px;margin:0 auto;padding:24px;display:grid;grid-template-columns:minmax(260px,320px) minmax(0,1fr);gap:20px}
+.mt-hero{grid-column:1/-1;border:1px solid var(--line);padding:24px;background:white}
+.mt-controls,.mt-preview{background:white;border:1px solid var(--line);padding:20px}
+.mt-hero p{line-height:1.65;max-width:80ch}
+.mt-controls form{display:grid;gap:15px}
+.mt-controls form>label{display:grid;gap:5px;font-weight:600}
+.mt-controls input:not([type=checkbox]),.mt-controls select{width:100%;min-height:38px;padding:6px;border:1px solid #8d9eac;border-radius:5px}
+.mt-controls .mt-inline{display:flex;align-items:center;gap:8px}
+.mt-actions{display:flex;gap:7px;flex-wrap:wrap}
+.mt-note{line-height:1.6;background:#f4f7fa;padding:10px;border-left:3px solid #8aa5bf}
+#mt-status{font-size:.87rem;line-height:1.5}
+.mt-question-sheet,.mt-answer-sheet{background:white;padding:14px}
+.mt-question-sheet>p{padding-bottom:10px;border-bottom:1px solid #ddd}
+.mt-question{break-inside:avoid;page-break-inside:avoid;border-bottom:1px dotted #9baab7;margin:0 0 22px;padding:0 0 14px}
+.mt-question h3,.mt-answer-item h3{font-size:1rem;margin:12px 0 7px}
+.mt-question p{line-height:1.7}
+.mt-question svg{display:block;width:100%;max-height:160px;margin:0 auto}
+.mt-work{color:#687f91}
+.mt-answer-sheet{border-top:3px solid #7291a8}
+.mt-answer-item{break-inside:avoid;padding:5px 0;border-bottom:1px solid #ddd}
+.mt-answer-item p{line-height:1.55;margin:5px 0}
+@media(max-width:760px){.mt-shell{grid-template-columns:1fr;padding:12px}.mt-hero{padding:15px}}
+@media print{
+ @page{size:A4 portrait;margin:13mm}
+ body{margin:0;background:white;color:#111;font-family:'Noto Sans TC',sans-serif}
+ .mt-shell{max-width:none;margin:0;padding:0;display:block}
+ .mt-hero,.mt-controls{display:none!important}
+ .mt-preview{padding:0;border:0;background:white}
+ .mt-question-sheet,.mt-answer-sheet{padding:0}
+ .mt-question,.mt-answer-item{break-inside:avoid;page-break-inside:avoid}
+ .mt-answer-sheet{break-before:page;page-break-before:always;border:0}
+ .mt-question svg{height:auto;max-height:41mm}
+ .mt-question{padding-bottom:2mm;margin-bottom:4mm}
+ .mt-question p{margin:4px 0}
+ }
