@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>數學思維｜和差問題工程原型</title>
+  <title>數學思維｜移多補少與和差問題</title>
   <link rel="stylesheet" href="../assets/styles/app.css">
   <link rel="stylesheet" href="./math-thinking.css">
 </head>
@@ -12,7 +12,7 @@
     <header class="mt-hero">
       <p class="app-shell__eyebrow">MathThinking — Independent pilot</p>
       <h1>數學思維</h1>
-      <p>獨立數學思維原型：第一個工程示範是「和差問題」。此頁的工程順序不代表學生必須先學此題型，也不代表已納入臺灣課本單元。</p>
+      <p>獨立數學思維題庫：先由「數量比較 → 移多補少 → 和差問題」建立數量關係。工程先完成和差原型，不代表學生必須先學和差，也不代表已納入臺灣課本單元。</p>
       <nav class="app-shell__version-nav" aria-label="介面切換">
         <a class="version-link" href="../">標準版 Classic</a>
         <a class="version-link" href="../exam-template/">考券模板</a>
@@ -21,9 +21,16 @@
       </nav>
     </header>
     <section class="mt-controls" aria-label="數學思維原型設定">
-      <h2>和差問題｜原創題型試產</h2>
-      <p class="mt-note">學習先備：數量比較、平均分配、兩步驟運算與線段圖。尚未建立學生前測與自動解鎖。</p>
+      <h2>原創數學思維題型</h2>
+      <p class="mt-note">建議依序學習：S00 數量比較 → S01 移多補少 → S02 和差。開放自由練習，但尚未完成學生能力前測、精熟認證或自動解鎖。</p>
+      <ol id="mt-path-list" class="mt-path-list" aria-label="建議學習順序"></ol>
       <form id="mt-form">
+        <label>學習主題
+          <select name="topic" id="mt-topic">
+            <option value="mt_topic_sum_difference" selected>和差問題（既有原型）</option>
+            <option value="mt_topic_transfer_equalization">移多補少（建議先修）</option>
+          </select>
+        </label>
         <label>數值難度
           <select name="level" id="mt-level">
             <option value="basic">基礎整數</option>
@@ -38,7 +45,7 @@
         </label>
         <label>線段圖
           <select name="diagram" id="mt-diagram">
-            <option value="guided">標示總量和差量</option>
+            <option value="guided">標示已知數量關係</option>
             <option value="unlabeled">讓學生補線段圖標示</option>
             <option value="none">不提供線段圖</option>
           </select>
