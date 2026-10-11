@@ -20,7 +20,7 @@
 .mt-answer-sheet{border-top:3px solid #7291a8}
 .mt-answer-item{break-inside:avoid;padding:5px 0;border-bottom:1px solid #ddd}
 .mt-answer-item p{line-height:1.55;margin:5px 0}
-@media(max-width:760px){.mt-shell{grid-template-columns:1fr;padding:12px}.mt-hero{padding:15px}}
+@media(max-width:760px){.mt-shell{grid-template-columns:minmax(0,1fr);padding:12px}.mt-hero{padding:15px}}
 @media print{
  @page{size:A4 portrait;margin:13mm}
  body{margin:0;background:white;color:#111;font-family:'Noto Sans TC',sans-serif}
@@ -34,3 +34,7 @@
  .mt-question{padding-bottom:2mm;margin-bottom:4mm}
  .mt-question p{margin:4px 0}
  }
+
+.mt-hero,.mt-controls,.mt-preview,.mt-question-sheet,.mt-answer-sheet,.mt-question{min-width:0}
+.mt-preview{overflow-wrap:anywhere}
+.mt-question svg{max-width:100%;height:auto}
