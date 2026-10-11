@@ -1,0 +1,91 @@
+{
+  "schemaName": "MathThinkingM0ArchitectureContract",
+  "schemaVersion": "1.0.0",
+  "programId": "MATH_THINKING_STANDALONE_V1",
+  "authority": {
+    "curriculumAuthority": "existing Taiwan curriculum and current canonical KnowledgePoints",
+    "supplementaryAuthority": "厲老師數學思維課講義及配套練習（僅供數學結構抽取）",
+    "gradeLabels": "source-grade labels are not Taiwan curriculum grade authority",
+    "sourceRights": "UNVERIFIED_NO_SOURCE_REPRODUCTION"
+  },
+  "boundaries": {
+    "independentTopicAndLearningRegistry": true,
+    "engineeringOrderIndependentOfLearningOrder": true,
+    "noExistingKPMutation": true,
+    "noSharedGeneratorOrValidatorMutation": true,
+    "noAutomaticCurriculumAdmission": true,
+    "deterministicMathematicalValidation": true,
+    "originalScenariosOnly": true,
+    "parametricSvgOnly": true,
+    "publicSourceReproductionAllowed": false
+  },
+  "initialPilot": {
+    "topicId": "mt_topic_sum_difference",
+    "knowledgePointId": "mt_kp_sum_difference_two_groups",
+    "engineeringPriority": 1,
+    "learningOrder": "PREREQUISITE_CONTROLLED_NOT_FIRST_BY_DEFAULT",
+    "learningPrerequisites": [
+      "mt_cap_compare_two_quantities",
+      "mt_cap_equal_parts_division",
+      "mt_cap_two_step_add_sub_div"
+    ],
+    "reasoningInvariant": "two positive integer quantities with known sum S and positive difference D, S>D, (S-D) even; small=(S-D)/2 and large=small+D",
+    "sourceRelation": "curriculum extension candidate; not an admitted Taiwanese source KP"
+  },
+  "learnerSequence": {
+    "model": "prerequisite_graph",
+    "defaultPreview": [
+      "compare_and_bar_model",
+      "transfer_equalize",
+      "sum_difference",
+      "sum_ratio",
+      "difference_ratio",
+      "equal_substitution",
+      "age_difference"
+    ],
+    "masteryRules": "learning availability must be based on prerequisite evidence; prototype availability does not imply readiness",
+    "unlockState": "PILOT_ONLY_NO_AUTOMATIC_UNLOCK"
+  },
+  "curriculumBridge": {
+    "status": "CANDIDATE_ONLY",
+    "targetUnits": [
+      "g3b_u04_3b04",
+      "g4a_u08_4a08"
+    ],
+    "requires": [
+      "source-evidence",
+      "curriculum-fit",
+      "prerequisites",
+      "independent-answer-validation",
+      "renderer-qa",
+      "rights-review",
+      "operator-approval"
+    ],
+    "admissionState": "NOT_ADMITTED",
+    "noSourceOrKPCutover": true
+  },
+  "ownership": {
+    "originalTopicPath": "data/math-thinking/",
+    "originalRuntimePath": "site/math-thinking/",
+    "existingCanonicalCurriculumPath": "data/curriculum/",
+    "existingSharedRuntimeModified": false
+  },
+  "validationPolicy": {
+    "perPilot": "FOCUSED_NODE_AND_NEW_ROUTE",
+    "perUnit": "ONE_INTEGRATION_WAVE",
+    "globalReplay": "ONLY_WHEN_SHARED_ROUTE_SEMANTICS_CHANGE",
+    "baselineExistingRoutesMustRemainUnchanged": true
+  },
+  "sourceEvidence": [
+    {
+      "sourceTitle": "厲老師四年級數學思維講義.pdf",
+      "driveId": "1WfE-POEKk-7kjMv7uytdwkq0jy9hf4kR",
+      "role": "SUPPLEMENTARY_STRUCTURE_ONLY"
+    },
+    {
+      "sourceTitle": "厲老師四年級數學思維配套練習題.pdf",
+      "driveId": "1ewWwnh4GayBL9dC-GPLZAJaDJ7egsHKU",
+      "role": "SUPPLEMENTARY_PATTERN_CANDIDATE_ONLY"
+    }
+  ]
+}
