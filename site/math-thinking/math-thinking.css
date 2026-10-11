@@ -38,3 +38,9 @@
 .mt-hero,.mt-controls,.mt-preview,.mt-question-sheet,.mt-answer-sheet,.mt-question{min-width:0}
 .mt-preview{overflow-wrap:anywhere}
 .mt-question svg{max-width:100%;height:auto}
+
+.mt-path-list{margin:0;padding:12px 12px 12px 31px;border:1px solid var(--line);border-radius:6px;background:#f8fafc}
+.mt-path-list li{padding:7px 4px;line-height:1.5}
+.mt-path-list li[aria-current=step]{font-weight:700;background:#e7eef4;border-radius:4px}
+.mt-path-list li span{display:block;font-size:.82rem;color:#556677}
+@media print{.mt-path-list{display:none!important}}
