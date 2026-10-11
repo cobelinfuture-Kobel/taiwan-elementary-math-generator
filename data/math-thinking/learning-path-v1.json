@@ -1,0 +1,68 @@
+{
+  "schemaName": "MathThinkingLearningPathV1",
+  "schemaVersion": "1.0.0",
+  "milestone": "M2_TRANSFER_EQUALIZATION",
+  "developmentOrderIsNotLearningOrder": true,
+  "nodes": [
+    {
+      "step": "S00",
+      "nodeId": "mt_cap_quantity_bar_foundation",
+      "kind": "READINESS_ONLY",
+      "label": "數量比較與線段圖先備",
+      "requires": [
+        "mt_cap_compare_two_quantities",
+        "mt_cap_equal_parts_division",
+        "mt_cap_two_step_add_sub_div"
+      ],
+      "practiceAvailable": false,
+      "masteryEvidence": "NOT_IMPLEMENTED"
+    },
+    {
+      "step": "S01",
+      "nodeId": "mt_topic_transfer_equalization",
+      "kind": "PRACTICE_TOPIC",
+      "label": "移多補少",
+      "requires": [
+        "mt_cap_compare_two_quantities",
+        "mt_cap_equal_parts_division",
+        "mt_cap_two_step_add_sub_div"
+      ],
+      "knowledgePointId": "mt_kp_transfer_equalize_two_groups",
+      "practiceAvailable": true,
+      "masteryEvidence": "NOT_IMPLEMENTED"
+    },
+    {
+      "step": "S02",
+      "nodeId": "mt_topic_sum_difference",
+      "kind": "PRACTICE_TOPIC",
+      "label": "和差問題",
+      "requires": [
+        "mt_topic_transfer_equalization",
+        "mt_cap_compare_two_quantities",
+        "mt_cap_equal_parts_division",
+        "mt_cap_two_step_add_sub_div"
+      ],
+      "knowledgePointId": "mt_kp_sum_difference_two_groups",
+      "practiceAvailable": true,
+      "masteryEvidence": "NOT_IMPLEMENTED"
+    }
+  ],
+  "navigationMode": "FREE_PRACTICE_WITH_PREREQUISITE_GUIDANCE",
+  "autoUnlockEnabled": false,
+  "certifiedMastery": false,
+  "bridge": {
+    "admissionState": "NOT_ADMITTED",
+    "candidateUnitIds": [
+      "g3b_u04_3b04",
+      "g4a_u08_4a08"
+    ]
+  },
+  "evidence": {
+    "sourceRoles": [
+      "user-provided transfer illustration: mathematical relation only",
+      "g3b_u04_3b04: two-step arithmetic prerequisites",
+      "g4a_u08_4a08: supplemental integer operations candidate"
+    ],
+    "rights": "NO_SOURCE_REPRODUCTION"
+  }
+}
