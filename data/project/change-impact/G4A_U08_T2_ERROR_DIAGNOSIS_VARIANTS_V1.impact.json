@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "taskId": "G4A_U08_T2_ERROR_DIAGNOSIS_VARIANTS_V1",
+  "currentScope": "SHARED_RUNTIME",
+  "expectedDerivedGate": "SHARED_RUNTIME_BOUNDED",
+  "validationPlanPath": "data/project/validation-plans/G4A_U08_T2_ERROR_DIAGNOSIS_VARIANTS_V1.validation.json",
+  "classificationNote": "G4A-U08-only public numeric problem text projection on three existing canonical integer arithmetic groups. No other source unit or legal route, selector, answer model, PatternSpec registry, shared renderer, public authority or print contract changes; targeted output remains arithmetic-numeric and fail-closed on witness mismatch.",
+  "changeImpact": {
+    "sharedExecutableChange": true,
+    "publicAuthorityCutover": false,
+    "legalRouteSemanticsChanged": false,
+    "affectedRoutes": "BOUNDED",
+    "globalReleaseCheckpoint": false,
+    "currentAuthorityChanged": false
+  }
+}
