@@ -84,4 +84,4 @@ STOP_REASON = NEXT_STEP_OUTSIDE_APPROVED_SCOPE
 REQUIRED_OPERATOR_ACTION = Approve specific T1 implementation scope after matrix review
 ```
 
-Distance classification is specific to the **eight-track supplement branch**, not a rollback of the existing D0 canonical worksheet route: `D3 candidate inventory -> D2 evidence-backed planning contracts`; public runtime remains unchanged. 
+Distance classification applies only to this **eight-track supplement branch** and does not downgrade the existing D0 worksheet route: `GOAL_DISTANCE_BEFORE = D3`, `GOAL_DISTANCE_AFTER = D3`, `DISTANCE_REDUCED = 0 distance-scale levels` (15-KP evidence-backed gap inventory and blockers are now explicit; no FormalMapping/PatternSpec/Validator contract was materialized). Public runtime remains unchanged. 
