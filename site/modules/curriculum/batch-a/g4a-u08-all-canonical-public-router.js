@@ -8,6 +8,10 @@ import {
   validateG4AU08NumericCanonicalBrowserItem,
 } from "./g4a-u08-numeric-canonical-browser-validator.js";
 import { generateG4AU08ApplicationQuestions } from "./g4a-u08-application-generator.js";
+import {
+  projectG4AU08ErrorDiagnosis,
+  validateG4AU08ErrorDiagnosisProjection,
+} from "./g4a-u08-error-diagnosis-variants.js";
 import { generateG4AU08AppCostOverlayHidden } from "./g4a-u08-app-cost-overlay-hidden.js";
 import { validateG4AU08AppCostOverlayBrowserItem } from "./g4a-u08-app-cost-overlay-browser-validator.js";
 import { G4A_U08_PHASE2B_PROMOTED_PATTERN_GROUP_IDS } from "../registry/g4a-u08-phase2b-promotion.js";
@@ -135,7 +139,10 @@ function publicLifecycle(question, entry, sequenceNumber) {
   };
 }
 
-function publicNumericQuestion(item, entry, sequenceNumber) {
+function publicNumericQuestion(item, entry, sequenceNumber, ordinal) {
+  const projection = projectG4AU08ErrorDiagnosis(item, ordinal);
+  const diagnosticValidation = validateG4AU08ErrorDiagnosisProjection(item, projection);
+  if (!diagnosticValidation.valid) throw new Error(diagnosticValidation.errors.join(","));
   return publicLifecycle({
     sourceId: item.sourceId,
     unitCode: item.unitCode,
@@ -143,9 +150,10 @@ function publicNumericQuestion(item, entry, sequenceNumber) {
     legacyPatternSpecId: item.legacyPatternSpecId,
     mode: "numeric",
     kind: "g4aU08CanonicalNumericExpression",
-    promptText: item.prompt,
-    displayText: `${item.expression} = ${item.answerModel.value}`,
-    blankedDisplayText: `${item.expression} = ______`,
+    promptText: projection?.prompt ?? item.prompt,
+    displayText: projection ? `${projection.prompt.replace("______", "")} 答案：${item.answerModel.value}` : `${item.expression} = ${item.answerModel.value}`,
+    blankedDisplayText: projection?.prompt ?? `${item.expression} = ______`,
+    ...(projection ? { reasoningVariant: projection.reasoningVariant, diagnosticWitness: clone(projection.diagnosticWitness) } : {}),
     answerText: String(item.answerModel.value),
     finalAnswer: item.answerModel.value,
     answerModelShape: "numericAnswer",
@@ -215,7 +223,7 @@ export function generateG4AU08AllCanonicalPublicQuestions(plan = {}) {
         const validation = validateG4AU08NumericCanonicalBrowserItem(item);
         if (!validation.valid) { errors.push(issue("G4A_U08_S76Q_NUMERIC_VALIDATION_FAILED", "validation", "Numeric blocking validator rejected item.", { validationErrors: validation.errors })); continue; }
         sequenceNumber += 1;
-        questions.push(publicNumericQuestion(item, entry, sequenceNumber));
+        questions.push(publicNumericQuestion(item, entry, sequenceNumber, index));
       }
     } else if (entry.runtimeKind === "app_cost_overlay") {
       for (let index = 0; index < entry.questionCount; index += 1) {
@@ -250,6 +258,16 @@ export function validateG4AU08AllCanonicalPublicQuestion(question) {
   if (question.sourceId !== SOURCE_ID) errors.push(issue("G4A_U08_S76Q_QUESTION_SOURCE_INVALID", "sourceId", "題目來源錯誤。"));
   if (!isS76QPublicG4AU08PatternGroupId(question.resolvedPatternGroupId ?? question.patternGroupId)) errors.push(issue("G4A_U08_S76Q_QUESTION_GROUP_INVALID", "patternGroupId", "PatternGroup 未公開。"));
   if (!Number.isInteger(question.finalAnswer)) errors.push(issue("G4A_U08_S76Q_QUESTION_ANSWER_INVALID", "finalAnswer", "答案必須是整數。"));
+  if (question.reasoningVariant === "error_diagnosis") {
+    const witness = question.diagnosticWitness;
+    if (!witness || witness.correctAnswer !== question.finalAnswer ||
+        !Number.isInteger(witness.incorrectAnswer) ||
+        witness.incorrectAnswer === question.finalAnswer ||
+        !question.promptText?.includes(witness.incorrectExpression) ||
+        !question.promptText?.includes(witness.originalExpression)) {
+      errors.push(issue("G4A_U08_T2_DIAGNOSTIC_WITNESS_INVALID", "diagnosticWitness", "錯誤步驟與正確答案必須能相互驗證。"));
+    }
+  }
   const s76qLifecycle = question.selectorStatus === "visible" && question.canonicalRouting === "enabled" && question.worksheetReachability === "enabled" && question.productionUse === "preview_only_pending_s76r";
   const preservedS76JLifecycle = PHASE2B_GROUP_SET.has(question.resolvedPatternGroupId ?? question.patternGroupId) && question.selectorStatus === "visible" && question.canonicalRouting === "enabled" && question.productionUse === "preview_only_pending_s76k";
   if (!s76qLifecycle && !preservedS76JLifecycle) errors.push(issue("G4A_U08_S76Q_QUESTION_LIFECYCLE_INVALID", "lifecycle", "S76Q 或 preserved S76J lifecycle 不一致。"));
