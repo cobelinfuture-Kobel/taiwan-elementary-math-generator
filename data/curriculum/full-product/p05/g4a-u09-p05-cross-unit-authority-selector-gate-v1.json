@@ -1,0 +1,147 @@
+{
+  "schemaName": "G4AU09P05CrossUnitAuthoritySelectorGateV1",
+  "schemaVersion": 1,
+  "taskId": "G4A_U09_P05_CrossUnitAuthoritySelectorOnlyImplementation",
+  "milestone": "AUTHORITY_SELECTOR_ONLY",
+  "date": "2026-10-15",
+  "decision": {
+    "operatorApproved": true,
+    "gates": [
+      "A1",
+      "A2",
+      "A3",
+      "A4"
+    ],
+    "scope": "P05_ONLY_COMPOSITE_CROSS_UNIT",
+    "noNewKnowledgePoint": true,
+    "doNotGloballyUnhide": true,
+    "productionUse": "FORBIDDEN_UNTIL_GENERATOR_VALIDATOR_RENDERER_CI"
+  },
+  "designAuthority": {
+    "artifact": "G4A_U09_P05_10Pattern_50Examples_HumanReviewed_v1_2.json",
+    "sha256": "db1361f193bb2e1b8a6ff2f355c81ac48d0f5573aff58cfafefe21092c1368a1",
+    "patternCount": 10,
+    "reviewedExamples": 50,
+    "sourceStatus": "STRUCTURE_REFERENCE_ONLY_NO_AUTO_ADMISSION"
+  },
+  "sourceAuthority": [
+    {
+      "dimensionId": "LENGTH",
+      "kpId": "kp_g4a_u09_decimal_length_conversion",
+      "ownerUnit": "G4A_U09",
+      "sourceNodeId": "g4a_u09_4a09",
+      "witnessPages": [
+        2
+      ],
+      "sourcePath": "data/curriculum/knowledge/units/g4a_u09_4a09.knowledge-operation.json",
+      "operationPath": "data/curriculum/application/operations/w02/g4a_u09_4a09.canonical-operation.json",
+      "visibilityBefore": "HIDDEN_PENDING",
+      "visibilityAfter": "HIDDEN_PENDING_GLOBAL",
+      "applicationClassification": "APPLICATION_REQUIRED",
+      "factor": 100,
+      "majorUnit": "公尺",
+      "minorUnit": "公分",
+      "minorDivisibility": 1
+    },
+    {
+      "dimensionId": "MASS",
+      "kpId": "kp_mass_kg_g_conversion",
+      "ownerUnit": "G3B_U06",
+      "sourceNodeId": "g3b_u06_3b06",
+      "witnessPages": [
+        1
+      ],
+      "sourcePath": "data/curriculum/full-product/p04f/slice009-g3b-u06-mass-kg-g-conversion-authority.json",
+      "visibilityBefore": "VISIBLE_IN_G3B",
+      "visibilityAfter": "UNCHANGED_G3B_OWNER",
+      "factor": 1000,
+      "majorUnit": "公斤",
+      "minorUnit": "公克",
+      "minorDivisibility": 10
+    },
+    {
+      "dimensionId": "CAPACITY",
+      "kpId": "kp_capacity_l_ml_conversion",
+      "ownerUnit": "G3B_U02",
+      "sourceNodeId": "g3b_u02_3b02",
+      "witnessPages": [
+        1
+      ],
+      "sourcePath": "data/curriculum/full-product/p04f/slice007-g3b-u02-capacity-scale-conversion-authority.json",
+      "visibilityBefore": "VISIBLE_IN_G3B",
+      "visibilityAfter": "UNCHANGED_G3B_OWNER",
+      "factor": 1000,
+      "majorUnit": "公升",
+      "minorUnit": "毫升",
+      "minorDivisibility": 10
+    }
+  ],
+  "composition": {
+    "sourceId": "g4a_u09_4a09",
+    "patternIds": [
+      "P05-01",
+      "P05-02",
+      "P05-03",
+      "P05-04",
+      "P05-05",
+      "P05-06",
+      "P05-07",
+      "P05-08",
+      "P05-09",
+      "P05-10"
+    ],
+    "comparisonPatternIds": [
+      "P05-06",
+      "P05-07",
+      "P05-08",
+      "P05-10"
+    ],
+    "comparisonKnowledgePointId": "kp_g4a_u09_decimal_compare",
+    "comparisonMode": "NUMERIC_ONLY_UNLESS_APPLICATION_AUTHORITY_SEPARATELY_GRANTED",
+    "applicationPatternIds": [
+      "P05-10"
+    ],
+    "lifeContextRouting": "PENDING_CONTEXT_AUTHORITY_NOT_PUBLIC",
+    "crossUnitBinding": "REFERENCE_PREREQUISITE_OWNER_ONLY"
+  },
+  "numberGuard": {
+    "canonicalArithmetic": "INTEGER_MINOR_UNITS",
+    "maxMajorDecimalPlaces": 2,
+    "minorUnitsMustBeNonnegative": true,
+    "minorUnitsShouldNotExceedByDimension": {
+      "LENGTH": 2599,
+      "MASS": 25990,
+      "CAPACITY": 25990
+    },
+    "forbiddenValues": [
+      {
+        "dimensionId": "MASS",
+        "minorInteger": 385
+      },
+      {
+        "dimensionId": "CAPACITY",
+        "minorInteger": 125
+      }
+    ],
+    "rejectIfMinorNotMultipleOfDimensionMinorDivisibility": true,
+    "rejectMixedDimensions": true
+  },
+  "admissionState": {
+    "authorityContractMaterialized": true,
+    "selectorProjectionStaged": true,
+    "globalSelectorVisible": false,
+    "currentCoordinatorModified": false,
+    "generatorImplemented": false,
+    "validatorRuntimeImplemented": false,
+    "worksheetRendered": false,
+    "publicProductionAdmitted": false
+  },
+  "regressionGuards": [
+    "Existing G4A_U09 public-KP list unchanged",
+    "Existing G4A_U09 hidden-KP list unchanged",
+    "G3 source owner modules unchanged",
+    "P01/P02/P03/P04/P06 untouched",
+    "No question generation until separate approval and contracts",
+    "Answer space remains blank at future renderer stage"
+  ]
+}
