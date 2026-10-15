@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "policyId": "UNIT_INCREMENTAL_VALIDATION_V1",
+  "planId": "G4A_U09_P05_CROSS_UNIT_AUTHORITY_SELECTOR_FOCUSED",
+  "unitId": "g4a_u09_4a09",
+  "lanes": {
+    "SHARED_RUNTIME_BOUNDED": [
+      {
+        "gateId": "GLOBAL_CONTRACTS",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/p03f-slice026-g4a-u09-rank8-decimal.test.js",
+          "tests/curriculum/p04f-slice007-g3b-u02-capacity-scale-conversion.test.js",
+          "tests/curriculum/p04f-slice009-g3b-u06-mass-kg-g-conversion.test.js"
+        ]
+      },
+      {
+        "gateId": "TARGETED_ROUTE_REPLAY",
+        "kind": "NODE_TEST",
+        "paths": [
+          "tests/curriculum/g4a-u09-p05-cross-unit-authority-selector.test.js"
+        ]
+      }
+    ]
+  }
+}
